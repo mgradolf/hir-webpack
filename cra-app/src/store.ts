@@ -1,5 +1,12 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-import { profileReducer } from './profile'
+import {
+  createStore as createEnhancedStore,
+  combineReducers,
+  applyMiddleware,
+  compose,
+  Store,
+  AnyAction
+} from 'redux'
+import { profileReducer, ProfileState } from './profile'
 import thunk from 'redux-thunk'
 
 type WindowWithReduxDevTools = typeof window & {
@@ -10,6 +17,12 @@ const reducers = combineReducers({
   profile: profileReducer
 })
 
+type AppState = {
+  profile: ProfileState
+}
+
+export type AppStore = Store<AppState, AnyAction>
+
 const storeEnhancers: any = compose(
   applyMiddleware(thunk),
   // redux dev tools
@@ -18,4 +31,7 @@ const storeEnhancers: any = compose(
     ? (window as WindowWithReduxDevTools).__REDUX_DEVTOOLS_EXTENSION__()
     : (f: unknown) => f
 )
-export const store = createStore(reducers, storeEnhancers)
+export function createStore(): { store: AppStore } {
+  const store = createEnhancedStore(reducers, storeEnhancers)
+  return { store }
+}

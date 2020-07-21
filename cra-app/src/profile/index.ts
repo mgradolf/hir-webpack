@@ -7,7 +7,7 @@ interface UserDetails {
   scope: string[]
 }
 
-type ProfileState = {
+export type ProfileState = {
   authenticated: boolean
   userDetails: UserDetails | null
 }
