@@ -1,0 +1,42 @@
+{
+  "name": "@packages/api-proxy",
+  "version": "1.0.0",
+  "main": "lib",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn clean:dist && tsc",
+    "clean:dist": "rimraf lib",
+    "clean:node_modules": "rimraf node_modules",
+    "lint:ts": "eslint --fix --max-warnings 0 './src/**/*.{ts,tsx}'",
+    "lint": "yarn lint-staged --verbose"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": false,
+    "useTabs": false,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "semi": false,
+    "jsxBracketSameLine": false
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,scss}": [
+      "prettier --write",
+      "yarn lint:ts"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.7"
+  }
+}

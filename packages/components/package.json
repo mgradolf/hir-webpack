@@ -1,0 +1,82 @@
+{
+  "name": "@packages/components",
+  "version": "1.0.0",
+  "private": true,
+  "main": "lib",
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build:react": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build": "yarn clean:dist && tsc",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
+    "clean:dist": "rimraf lib",
+    "clean:node_modules": "rimraf node_modules",
+    "lint:ts": "eslint --fix --max-warnings 0 './src/**/*.{ts,tsx}'",
+    "lint:sass": "stylelint './src/sass/**/*.scss'",
+    "lint": "yarn lint-staged --verbose"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": false,
+    "useTabs": false,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "semi": false,
+    "jsxBracketSameLine": false
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,scss}": [
+      "prettier --write",
+      "yarn lint:sass",
+      "yarn lint:ts"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "react-styleguidist": "^11.0.8",
+    "rimraf": "^3.0.2",
+    "stylelint": "^13.6.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-sass-guidelines": "^7.0.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-webpack-plugin": "^2.1.0",
+    "typescript": "^3.9.7"
+  }
+}
