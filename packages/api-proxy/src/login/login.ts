@@ -1,7 +1,7 @@
-import callApi from 'src/call_api'
 import { AxiosRequestConfig } from 'axios'
-import { convertToFormData } from 'src/utils'
-import { setTokens } from 'src/token_manage'
+import callApi from '~/utils/call_api'
+import { setTokens } from '~/utils/token_manage'
+import { convertToFormData } from '~/utils/convert_to_form_data'
 
 export async function login(
   UserName: string,
