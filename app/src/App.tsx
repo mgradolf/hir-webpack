@@ -4,9 +4,9 @@ import style2 from '~/sass/nested/div.module.scss'
 import sum from '~/utils/sum'
 import { Provider } from 'react-redux'
 import ActionButton from '@packages/components/lib/Buttons/ActionButton'
-import { AppStore } from './store'
-import { getCountries } from '@packages/api-proxy/src/test/getCountries'
-import { addOrRemoveOfferingToCatalog } from '@packages/api-proxy/lib/service/offering_service/add_remove_offering_to_catalog'
+import { AppStore } from '~/store'
+import { getCountries } from '@packages/api-proxy/lib/test/getCountries'
+// import { addOrRemoveOfferingToCatalog } from "@packages/api-proxy/lib/service/offering_service/add_remove_offering_to_catalog"
 
 interface AppProps {
   store: AppStore
@@ -23,10 +23,14 @@ function AppContent() {
   const loading = useRef(true)
 
   useEffect(() => {
-    getCountries().then((response: any) => {
+    const fetchData = async () => {
+      const [response, error] = await getCountries()
+      console.log(response, JSON.stringify(error))
+
       loading.current = false
       setdata(response)
-    })
+    }
+    fetchData()
   }, [])
 
   let content

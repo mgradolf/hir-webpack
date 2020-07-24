@@ -34,7 +34,6 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
-    "import/no-relative-parent-imports": 2,
     "import/named": 0,
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-non-null-assertion": "off",

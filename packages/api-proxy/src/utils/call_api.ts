@@ -1,33 +1,16 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-// import { getToken } from "./token_manage"
-// import { getNewAccessToken } from "./get_refresh_token"
+import { config } from './api_config_model'
+import { getToken } from './token_manage'
 
 const handle = (promise: Promise<any>): Promise<any> => {
   return promise
-    .then((data: AxiosResponse<any>) => [data, undefined])
-    .catch((error: AxiosError) => Promise.resolve([undefined, error]))
+    .then((response: AxiosResponse<any>) => [<any>response.data, undefined])
+    .catch((error: AxiosError) => Promise.resolve([undefined, <any>error]))
 }
 
-export default async function callApi(
-  requestConfig: AxiosRequestConfig
-): Promise<AxiosResponse> {
+export default async function callApi(params: config): Promise<[any, any]> {
+  const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>params
   requestConfig.baseURL = process.env.REACT_APP_API_ROOT
-  if (!requestConfig.headers) {
-    requestConfig.headers = {}
-  }
-  // requestConfig.headers["Authorization"] = `Bearer ${getToken()}`
-
-  const [firstResponse, firstError] = await handle(axios.request(requestConfig))
-
-  // if (firstError.code === 401) {
-  //   const newToken = getNewAccessToken()
-  //   requestConfig.headers["Authorization"] = `Bearer ${newToken}`
-  //   const [secondResponse, secondError] = await handle(axios.request(requestConfig))
-  //   if (secondError) return secondError
-  //   return secondResponse
-  // } else if (firstError) {
-  //   return firstError
-  // }
-
-  return firstResponse
+  const [response, error] = await handle(axios.request(requestConfig))
+  return [response, error]
 }

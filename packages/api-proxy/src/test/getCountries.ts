@@ -1,13 +1,12 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
-import callApi from '~/utils/call_api'
+import { config } from '../utils/api_config_model'
+import callApi from '../utils/call_api'
 
-export async function getCountries(): Promise<string> {
-  const requestConfig: AxiosRequestConfig = {
-    baseURL: process.env.REACT_APP_API_ROOT,
-    method: 'GET'
+export function getCountries(): Promise<[any, any]> {
+  const requestConfig: config = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   }
-  console.log(requestConfig)
-
-  const response: AxiosResponse = await callApi(requestConfig)
-  return response.data
+  return callApi(requestConfig)
 }
