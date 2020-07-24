@@ -5,8 +5,8 @@ import sum from '~/utils/sum'
 import { Provider } from 'react-redux'
 import ActionButton from '@packages/components/lib/Buttons/ActionButton'
 import { AppStore } from '~/store'
-import { getCountries } from '@packages/api-proxy/lib/test/getCountries'
-// import { addOrRemoveOfferingToCatalog } from "@packages/api-proxy/lib/service/offering_service/add_remove_offering_to_catalog"
+import { getCountries } from '@packages/api/lib/test/getCountries'
+// import { addOrRemoveOfferingToCatalog } from "@packages/api/lib/service/offering_service/add_remove_offering_to_catalog"
 
 interface AppProps {
   store: AppStore
