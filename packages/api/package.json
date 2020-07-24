@@ -1,5 +1,5 @@
 {
-  "name": "@packages/api-proxy",
+  "name": "@packages/api",
   "version": "1.0.0",
   "main": "lib",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "lint": "yarn lint-staged --verbose"
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 120,
     "singleQuote": false,
     "useTabs": false,
     "tabWidth": 2,
