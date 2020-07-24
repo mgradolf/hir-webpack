@@ -30,7 +30,7 @@
         "semi": false
       }
     ],
-    "no-console": "warn",
+    "no-console": 0,
     "no-return-assign": "off",
     "no-unreachable": 2,
     "import/no-extraneous-dependencies": "off",

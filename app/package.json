@@ -1,5 +1,5 @@
 {
-  "name": "cra-app",
+  "name": "app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -32,7 +32,7 @@
     "lint": "yarn lint-staged --verbose"
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 120,
     "singleQuote": false,
     "useTabs": false,
     "tabWidth": 2,
