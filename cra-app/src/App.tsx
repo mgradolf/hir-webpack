@@ -4,8 +4,12 @@ import styles from '~/sass/App.module.scss'
 import style2 from '~/sass/nested/div.module.scss'
 import sum from '~/utils/sum'
 import { Provider } from 'react-redux'
-import { store } from './store'
 import ActionButton from '@packages/components/lib/Buttons/ActionButton'
+import { AppStore } from './store'
+
+interface AppProps {
+  store: AppStore
+}
 
 function AppContent() {
   const [data, setdata] = useState({ name: null, country: null, ip: null })
@@ -40,10 +44,10 @@ function AppContent() {
   return content
 }
 
-export function App(): JSX.Element {
+export function App(props: AppProps): JSX.Element {
   return (
     <div className={styles.AppBody}>
-      <Provider store={store}>
+      <Provider store={props.store}>
         <AppContent />
       </Provider>
     </div>
