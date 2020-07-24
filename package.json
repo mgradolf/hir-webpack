@@ -1,0 +1,25 @@
+{
+	"private": true,
+	"workspaces": [
+		"packages/*",
+		"app"
+	],
+	"devDependencies": {
+		"husky": "^4.2.5",
+		"rimraf": "^3.0.2"
+	},
+	"scripts": {
+		"i": "yarn install --pure-lockfile",
+		"clean:dist": "yarn workspaces run clean:dist",
+		"clean:node_modules": "yarn workspaces run clean:node_modules",
+		"build": "yarn workspaces run build",
+		"lint": "yarn workspaces run lint"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "yarn lint",
+			"pre-push": "yarn lint"
+		}
+	},
+	"name": "typescript-webpack"
+}
