@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@packages/api-proxy": "^1.0.0",
+    "@packages/api": "~1.0.0",
     "@packages/components": "^1.0.0",
     "@sentry/react": "^5.20.0",
     "@types/jest": "^24.0.0",
