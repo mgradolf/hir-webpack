@@ -1,4 +1,4 @@
-export interface config {
+export interface ApiConfig {
   url?: string
   method?: string
   headers?: any
