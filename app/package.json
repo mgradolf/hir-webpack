@@ -45,7 +45,7 @@
       "yarn lint:ts"
     ],
     "src/**/*.scss": [
-      "prettier --write",
+      "prettier --config package.json --write",
       "yarn lint:sass"
     ]
   },

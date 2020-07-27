@@ -21,18 +21,21 @@ function AppContent() {
 
   const [data, setdata] = useState({ name: null, country: null, ip: null })
   const loading = useRef(true)
-
   useEffect(() => {
-    const fetchData = async () => {
-      const [response, error] = await getCountries()
-      console.log(response, JSON.stringify(error))
-
-      loading.current = false
-      setdata(response)
-    }
-    fetchData()
+    callApi()
   }, [])
+  const callApi = async function () {
+    const [response, error] = await getCountries()
+    // console.log(JSON.stringify(error))
+    console.log(error)
+    // console.log(error.response)
+    loading.current = false
+    setdata(response)
+  }
 
+  const print = () => {
+    console.log('jellp porld')
+  }
   let content
 
   if (loading.current) {
@@ -47,10 +50,16 @@ function AppContent() {
           {' this is some '}1 + 2 ={'>'} {sum(1, 2)}
         </div>
         <ActionButton title="hellow" />
+        <button onClick={callApi}>Call api</button>
       </div>
     )
   } else {
-    content = <div>Something went wrong</div>
+    content = (
+      <div>
+        Something went wrong
+        <button onClick={callApi}>Call api</button>
+      </div>
+    )
   }
   return content
 }
