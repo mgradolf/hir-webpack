@@ -7,7 +7,7 @@ import {
   updateOfferingFinancial,
   searchOfferingFinancial
 } from '@packages/api/lib/proxy/Service/OfferingService'
-import callApi from '~/api-wrappers/call_api'
+import callApi from '~/api-wrappers/callApi'
 /* -------------------------------------------------------------------------- */
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */

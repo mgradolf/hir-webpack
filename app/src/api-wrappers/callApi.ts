@@ -1,4 +1,11 @@
 import { ErrorType } from '@packages/api/lib/utils/api_interfaces'
+import { store } from '~/store'
+import { showGLobalApiError } from '~/store/global_error/action'
+
+function redirect(errResponse: any) {
+  store.dispatch(showGLobalApiError(errResponse.error))
+  // TODO: redirect via store
+}
 
 export default async function (
   apiMethod: (a?: any) => Promise<[any, any]>,
@@ -33,6 +40,10 @@ export default async function (
     default:
       errResponse.type = ErrorType.CUSTOM
       break
+  }
+
+  if (errResponse.type === ErrorType.GLOBAL) {
+    redirect(errResponse)
   }
 
   return [response, errResponse]

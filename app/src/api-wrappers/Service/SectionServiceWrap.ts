@@ -2,7 +2,7 @@ import {
   findAffiliatedOrgsForSeatGroup,
   saveAffiliatedOrg
 } from '@packages/api/lib/proxy/Service/SectionService'
-import callApi from '~/api-wrappers/call_api'
+import callApi from '~/api-wrappers/callApi'
 /* -------------------------------------------------------------------------- */
 /*                        affiliated orgs for seatgroup                       */
 /* -------------------------------------------------------------------------- */
