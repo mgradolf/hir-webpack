@@ -7,7 +7,7 @@ import {
   updateOfferingFinancial,
   searchOfferingFinancial
 } from '@packages/api/lib/proxy/Service/OfferingService'
-
+import callApi from '~/api-wrappers/call_api'
 /* -------------------------------------------------------------------------- */
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */
@@ -38,16 +38,16 @@ interface IOffering {
 }
 
 export function createOfferingWrap(Params: IOffering): Promise<[any, any]> {
-  return createOffering(Params)
+  return callApi(createOffering, Params)
 }
 
 export function updateOfferingWrap(Params: IOffering): Promise<[any, any]> {
-  return updateOffering(Params)
+  return callApi(updateOffering, Params)
 }
 
 export function searchOfferingWrap(OfferingCode: string): Promise<[any, any]> {
   const Params: any = { OfferingCode }
-  return searchOffering(Params)
+  return callApi(searchOffering, Params)
 }
 
 export function addOrRemoveOfferingToCatalogWrap(
@@ -55,7 +55,7 @@ export function addOrRemoveOfferingToCatalogWrap(
   CatalogIDs: Array<number>
 ): Promise<[any, any]> {
   const Params: any = { OfferingID, CatalogIDs }
-  return addOrRemoveOfferingToCatalog(Params)
+  return callApi(addOrRemoveOfferingToCatalog, Params)
 }
 
 /* -------------------------------------------------------------------------- */
@@ -80,18 +80,18 @@ interface IOfferingFinancial {
 export function createOfferingFinancialWrap(
   Params: IOfferingFinancial
 ): Promise<[any, any]> {
-  return createOfferingFinancial(Params)
+  return callApi(createOfferingFinancial, Params)
 }
 
 export function updateOfferingFinancialWrap(
   Params: IOfferingFinancial
 ): Promise<[any, any]> {
-  return updateOfferingFinancial(Params)
+  return callApi(updateOfferingFinancial, Params)
 }
 
 export function searchOfferingFinancialWrap(
   OfferingID: number
 ): Promise<[any, any]> {
   const Params: any = { OfferingID }
-  return searchOfferingFinancial(Params)
+  return callApi(searchOfferingFinancial, Params)
 }

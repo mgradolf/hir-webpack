@@ -2,7 +2,7 @@ import {
   findAffiliatedOrgsForSeatGroup,
   saveAffiliatedOrg
 } from '@packages/api/lib/proxy/Service/SectionService'
-
+import callApi from '~/api-wrappers/call_api'
 /* -------------------------------------------------------------------------- */
 /*                        affiliated orgs for seatgroup                       */
 /* -------------------------------------------------------------------------- */
@@ -10,12 +10,12 @@ import {
 export function findAffiliatedOrgsForSeatGroupWrap(
   SeatGroupID: number
 ): Promise<[any, any]> {
-  return findAffiliatedOrgsForSeatGroup({ SeatGroupID })
+  return callApi(findAffiliatedOrgsForSeatGroup, { SeatGroupID })
 }
 
 export function saveAffiliatedOrgWrap(
   SeatGroupID: number,
   AffiliateAccountIDs: number
 ): Promise<[any, any]> {
-  return saveAffiliatedOrg({ SeatGroupID, AffiliateAccountIDs })
+  return callApi(saveAffiliatedOrg, { SeatGroupID, AffiliateAccountIDs })
 }

@@ -1,4 +1,4 @@
-import { ApiConfig } from '../utils/api_config_model'
+import { ApiConfig } from '../utils/api_interfaces'
 import callApi from '../utils/call_api'
 
 export function getCountries(): Promise<[any, any]> {

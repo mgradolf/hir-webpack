@@ -1,4 +1,4 @@
-import { ApiConfig } from '../../utils/api_config_model'
+import { ApiConfig } from '../../utils/api_interfaces'
 import { getToken } from '../../utils/token_manage'
 import callApi from '../../utils/call_api'
 

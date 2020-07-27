@@ -39,10 +39,11 @@
     "jsxBracketSameLine": false
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,scss}": [
-      "prettier --config package.json --write",
-      "yarn lint:sass",
+    "src/**/*.{ts,tsx}": [
       "yarn lint:ts"
+    ],
+    "src/**/*.scss": [
+      "yarn lint:sass"
     ]
   },
   "eslintConfig": {

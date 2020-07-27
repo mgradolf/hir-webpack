@@ -1,21 +1,22 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import { ApiConfig } from './api_config_model'
+import { ApiConfig, ErrorSchema } from './api_interfaces'
 // import { getToken } from "./token_manage"
 
-interface ErrorSchema {
-  status: number | undefined
-  error: any
-  data: any
-}
 const handleError = (error: AxiosError): ErrorSchema => {
   let errResponse: ErrorSchema = {
     status: undefined,
-    error: undefined,
+    error: 'Unknown',
     data: undefined
   }
   console.log(error)
   if (error.isAxiosError && error && error.response) {
-    if (error.response.data && typeof error.response.data !== 'string') {
+    if (
+      error.response.data &&
+      typeof error.response.data !== 'string' &&
+      error.response.data['code'] &&
+      error.response.data['error'] &&
+      error.response.data['data']
+    ) {
       errResponse = {
         status: error.response.data['code'],
         error: error.response.data['error'],

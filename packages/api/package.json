@@ -20,8 +20,7 @@
     "jsxBracketSameLine": false
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,scss}": [
-      "prettier --config package.json --write",
+    "src/**/*.ts": [
       "yarn lint:ts"
     ]
   },

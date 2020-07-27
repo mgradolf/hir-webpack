@@ -1,41 +1,29 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { Provider } from 'react-redux'
+import ActionButton from '@packages/components/lib/Buttons/ActionButton'
 import styles from '~/sass/App.module.scss'
 import style2 from '~/sass/nested/div.module.scss'
 import sum from '~/utils/sum'
-import { Provider } from 'react-redux'
-import ActionButton from '@packages/components/lib/Buttons/ActionButton'
 import { AppStore } from '~/store'
-import { getCountries } from '@packages/api/lib/test/getCountries'
-// import { addOrRemoveOfferingToCatalog } from "@packages/api/lib/service/offering_service/add_remove_offering_to_catalog"
+import { getCountriesWrap } from '~/api-wrappers/test/getCountries'
 
 interface AppProps {
   store: AppStore
 }
 
 function AppContent() {
-  // try {
-  //   addOrRemoveOfferingToCatalog(2, [3, 4])
-  // } catch (error) {
-  //   console.log(error)
-  // }
-
   const [data, setdata] = useState({ name: null, country: null, ip: null })
   const loading = useRef(true)
   useEffect(() => {
     callApi()
   }, [])
   const callApi = async function () {
-    const [response, error] = await getCountries()
-    // console.log(JSON.stringify(error))
+    const [response, error] = await getCountriesWrap()
     console.log(error)
-    // console.log(error.response)
     loading.current = false
     setdata(response)
   }
 
-  const print = () => {
-    console.log('jellp porld')
-  }
   let content
 
   if (loading.current) {

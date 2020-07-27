@@ -41,11 +41,9 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "prettier --write",
       "yarn lint:ts"
     ],
     "src/**/*.scss": [
-      "prettier --config package.json --write",
       "yarn lint:sass"
     ]
   },
