@@ -1,13 +1,12 @@
-import { AxiosRequestConfig } from 'axios'
-import callApi from '../utils/call_api'
-import { setTokens } from '../utils/token_manage'
-import { config } from '../utils/api_config_model'
+import callApi from '../utils/CallApi'
+import { setTokens } from '../utils/TokenStore'
+import { ApiConfig } from '../utils/Interfaces'
 
 export async function login(
   UserName: string,
   UserPassword: string
 ): Promise<any> {
-  const requestConfig: config = {
+  const requestConfig: ApiConfig = {
     url: 'api/login',
     method: 'POST',
     headers: {
@@ -16,7 +15,7 @@ export async function login(
     params: { UserName, UserPassword }
   }
 
-  const [response, error] = await callApi(requestConfig)
+  const [response, error] = await callApi(requestConfig, undefined, undefined)
   setTokens(response.data['access_token'])
   return response
 }

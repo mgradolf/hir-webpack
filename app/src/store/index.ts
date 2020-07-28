@@ -6,7 +6,11 @@ import {
   Store,
   AnyAction
 } from 'redux'
-import { profileReducer, ProfileState } from './profile'
+import { profileReducer, ProfileState } from '~/store/profile/reducer'
+import {
+  globalApiErrorReducer,
+  IGlobalApiErrorState
+} from '~/store/global_error/reducer'
 import thunk from 'redux-thunk'
 
 type WindowWithReduxDevTools = typeof window & {
@@ -14,11 +18,13 @@ type WindowWithReduxDevTools = typeof window & {
 }
 
 const reducers = combineReducers({
-  profile: profileReducer
+  profile: profileReducer,
+  globalApiError: globalApiErrorReducer
 })
 
-type AppState = {
+export type AppState = {
   profile: ProfileState
+  globalApiError: IGlobalApiErrorState
 }
 
 export type AppStore = Store<AppState, AnyAction>
@@ -31,7 +37,7 @@ const storeEnhancers: any = compose(
     ? (window as WindowWithReduxDevTools).__REDUX_DEVTOOLS_EXTENSION__()
     : (f: unknown) => f
 )
-export function createStore(): { store: AppStore } {
-  const store = createEnhancedStore(reducers, storeEnhancers)
-  return { store }
-}
+// export function createStore(): { store: AppStore } {
+export const store = createEnhancedStore(reducers, storeEnhancers)
+//   return { store }
+// }

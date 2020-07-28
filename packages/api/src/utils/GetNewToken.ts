@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { getRefreshToken } from './token_manage'
+import { getRefreshToken } from './TokenStore'
 
 export async function getNewAccessToken(): Promise<string> {
   const requestConfig: AxiosRequestConfig = {

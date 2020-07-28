@@ -1,11 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { App } from './App'
 import * as Sentry from '@sentry/react'
-import { createStore } from '~/store'
+import { App } from '~/App'
 import * as serviceWorker from '~/serviceWorker'
-
-const { store } = createStore()
+import { store } from '~/store'
+import registeGlobalhttpErrorHandlerr from '~/api-wrappers/RegisteGlobalhttpErrorHandlerr'
 
 if (process.env.REACT_APP_SENTRY_RELEASE && process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
@@ -13,6 +12,8 @@ if (process.env.REACT_APP_SENTRY_RELEASE && process.env.REACT_APP_SENTRY_DSN) {
     dsn: process.env.REACT_APP_SENTRY_DSN
   })
 }
+
+registeGlobalhttpErrorHandlerr()
 
 const root = document.getElementById('root')
 render(<App store={store} />, root)
