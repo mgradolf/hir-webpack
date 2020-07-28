@@ -1,7 +1,6 @@
-import { AxiosRequestConfig } from 'axios'
-import callApi from '../utils/call_api'
-import { setTokens } from '../utils/token_manage'
-import { ApiConfig } from '../utils/api_interfaces'
+import callApi from '../utils/CallApi'
+import { setTokens } from '../utils/TokenStore'
+import { ApiConfig } from '../utils/Interfaces'
 
 export async function login(
   UserName: string,

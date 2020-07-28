@@ -1,6 +1,6 @@
-import { ApiConfig } from '../../utils/api_interfaces'
-import { getToken } from '../../utils/token_manage'
-import callApi from '../../utils/call_api'
+import { ApiConfig } from '../../utils/Interfaces'
+import { getToken } from '../../utils/TokenStore'
+import callApi from '../../utils/CallApi'
 
 const commonConfigs: ApiConfig = {
   url: 'api/hirServlet',

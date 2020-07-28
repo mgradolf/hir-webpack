@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import { ApiConfig, ErrorSchema } from './api_interfaces'
+import { ApiConfig, ErrorSchema, ErrorType } from './Interfaces'
+import eventBus from './GlobalHttpErrorEventBus'
 // import { getToken } from "./token_manage"
 
 const handleError = (error: AxiosError): ErrorSchema => {
@@ -8,7 +9,6 @@ const handleError = (error: AxiosError): ErrorSchema => {
     error: 'Unknown',
     data: undefined
   }
-  console.log(error)
   if (error.isAxiosError && error && error.response) {
     if (
       error.response.data &&
@@ -30,7 +30,7 @@ const handleError = (error: AxiosError): ErrorSchema => {
       }
     }
   }
-  return errResponse
+  return tagErrors(errResponse)
 }
 
 const handle = (promise: Promise<any>): Promise<any> => {
@@ -41,6 +41,38 @@ const handle = (promise: Promise<any>): Promise<any> => {
     )
 }
 
+const tagErrors = (errResponse: ErrorSchema) => {
+  switch (errResponse.status) {
+    case 401:
+      errResponse.type = ErrorType.GLOBAL
+      errResponse.error = 'Unauthorized'
+      break
+    case 403:
+      errResponse.type = ErrorType.GLOBAL
+      errResponse.error = 'Forbidden'
+      break
+    case 500:
+      errResponse.type = ErrorType.GLOBAL
+      errResponse.error = 'Internal Server Error'
+      break
+    case 502:
+      errResponse.type = ErrorType.GLOBAL
+      errResponse.error = 'Bad Gateway'
+      break
+    case 503:
+      errResponse.type = ErrorType.GLOBAL
+      errResponse.error = 'Service Unavailable'
+      break
+    case 504:
+      errResponse.type = ErrorType.GLOBAL
+      errResponse.error = 'Gateway Timeout'
+      break
+    default:
+      errResponse.type = ErrorType.CUSTOM
+      break
+  }
+  return errResponse
+}
 export default async function callApi(
   apiConfig: ApiConfig,
   Service: undefined | string,
@@ -57,5 +89,10 @@ export default async function callApi(
   }
   requestConfig.baseURL = process.env.REACT_APP_API_ROOT
   const [response, error] = await handle(axios.request(requestConfig))
+
+  if (error.type === ErrorType.GLOBAL) {
+    eventBus.publish(error)
+    return [undefined, undefined]
+  }
   return [response, error]
 }

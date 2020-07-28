@@ -7,7 +7,6 @@ import {
   updateOfferingFinancial,
   searchOfferingFinancial
 } from '@packages/api/lib/proxy/Service/OfferingService'
-import callApi from '~/api-wrappers/callApi'
 /* -------------------------------------------------------------------------- */
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */
@@ -38,16 +37,16 @@ interface IOffering {
 }
 
 export function createOfferingWrap(Params: IOffering): Promise<[any, any]> {
-  return callApi(createOffering, Params)
+  return createOffering(Params)
 }
 
 export function updateOfferingWrap(Params: IOffering): Promise<[any, any]> {
-  return callApi(updateOffering, Params)
+  return updateOffering(Params)
 }
 
 export function searchOfferingWrap(OfferingCode: string): Promise<[any, any]> {
   const Params: any = { OfferingCode }
-  return callApi(searchOffering, Params)
+  return searchOffering(Params)
 }
 
 export function addOrRemoveOfferingToCatalogWrap(
@@ -55,7 +54,7 @@ export function addOrRemoveOfferingToCatalogWrap(
   CatalogIDs: Array<number>
 ): Promise<[any, any]> {
   const Params: any = { OfferingID, CatalogIDs }
-  return callApi(addOrRemoveOfferingToCatalog, Params)
+  return addOrRemoveOfferingToCatalog(Params)
 }
 
 /* -------------------------------------------------------------------------- */
@@ -80,18 +79,18 @@ interface IOfferingFinancial {
 export function createOfferingFinancialWrap(
   Params: IOfferingFinancial
 ): Promise<[any, any]> {
-  return callApi(createOfferingFinancial, Params)
+  return createOfferingFinancial(Params)
 }
 
 export function updateOfferingFinancialWrap(
   Params: IOfferingFinancial
 ): Promise<[any, any]> {
-  return callApi(updateOfferingFinancial, Params)
+  return updateOfferingFinancial(Params)
 }
 
 export function searchOfferingFinancialWrap(
   OfferingID: number
 ): Promise<[any, any]> {
   const Params: any = { OfferingID }
-  return callApi(searchOfferingFinancial, Params)
+  return searchOfferingFinancial(Params)
 }
