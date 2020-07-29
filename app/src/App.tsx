@@ -8,6 +8,7 @@ import Home from '~/pages/Home'
 import Profile from '~/pages/Profile'
 import About from '~/pages/About'
 import ApiErrorAlert from './component/ApiErrorAlert'
+import Login from '~/pages/Login'
 
 interface AppProps {
   store: AppStore
@@ -30,6 +31,7 @@ export function App(props: AppProps): JSX.Element {
             <Route path="/about">
               <About></About>
             </Route>
+            <Route exact path="/login" component={Login} />
           </Switch>
         </div>
       </Provider>
