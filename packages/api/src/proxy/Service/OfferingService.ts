@@ -1,40 +1,27 @@
-import { ApiConfig } from '../../utils/Interfaces'
-import { getToken } from '../../utils/TokenStore'
-import callApi from '../../utils/CallApi'
-
-const commonConfigs: ApiConfig = {
-  url: 'api/hirServlet',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${getToken()}`
-  },
-  data: {
-    Module: 'hir',
-    Service: 'OfferingService'
-  }
-}
+import callServiceApi from '../../utils/CallServiceApi'
+const Module = 'hir'
+const Service = 'OfferingService'
 
 /* -------------------------------------------------------------------------- */
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */
 
 export const createOffering = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'createOffering', Params)
+  callServiceApi(Service, 'createOffering', Params, Module)
 export const updateOffering = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateOffering', Params)
+  callServiceApi(Service, 'updateOffering', Params, Module)
 export const searchOffering = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'searchOffering', Params)
+  callServiceApi(Service, 'searchOffering', Params, Module)
 export const addOrRemoveOfferingToCatalog = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'addOrRemoveOfferingToCatalog', Params)
+  callServiceApi(Service, 'addOrRemoveOfferingToCatalog', Params, Module)
 
 /* -------------------------------------------------------------------------- */
 /*                         offering financial section                         */
 /* -------------------------------------------------------------------------- */
 
 export const createOfferingFinancial = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'createOfferingFinancial', Params)
+  callServiceApi(Service, 'createOfferingFinancial', Params, Module)
 export const updateOfferingFinancial = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateOfferingFinancial', Params)
+  callServiceApi(Service, 'updateOfferingFinancial', Params, Module)
 export const searchOfferingFinancial = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'searchOfferingFinancial', Params)
+  callServiceApi(Service, 'searchOfferingFinancial', Params, Module)

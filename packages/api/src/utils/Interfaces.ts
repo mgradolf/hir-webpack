@@ -1,4 +1,5 @@
 export interface ApiConfig {
+  baseURL?: undefined | string
   url?: string
   method?: string
   headers?: any

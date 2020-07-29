@@ -1,9 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { ApiConfig, ErrorSchema, ErrorType } from './Interfaces'
 import eventBus from './GlobalHttpErrorEventBus'
-// import { getToken } from "./token_manage"
 
 const handleError = (error: AxiosError): ErrorSchema => {
+  console.log('handle error ', error)
+
   let errResponse: ErrorSchema = {
     status: undefined,
     error: 'Unknown',
@@ -73,22 +74,13 @@ const tagErrors = (errResponse: ErrorSchema) => {
   }
   return errResponse
 }
-export default async function callApi(
-  apiConfig: ApiConfig,
-  Service: undefined | string,
-  Params: undefined | any
-): Promise<[any, any]> {
-  const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>apiConfig
 
-  if (requestConfig.data || Service || Params) {
-    requestConfig.data = {
-      ...requestConfig.data,
-      Service,
-      Params
-    }
-  }
-  requestConfig.baseURL = process.env.REACT_APP_API_ROOT
+export default async function callApi(config: ApiConfig): Promise<[any, any]> {
+  const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>config
   const [response, error] = await handle(axios.request(requestConfig))
+  console.log('typeof requestConfig ', typeof requestConfig)
+  console.log('requestConfig', requestConfig)
+  console.log('response ', response)
 
   if (error.type === ErrorType.GLOBAL) {
     eventBus.publish(error)

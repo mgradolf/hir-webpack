@@ -15,8 +15,6 @@ function ApiErrorAlert(props: any) {
 }
 
 const mapStateToProps = (state: AppState) => {
-  console.log(state)
-
   return { errorMessage: state.globalApiError.errorMessage }
 }
 

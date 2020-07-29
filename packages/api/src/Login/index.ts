@@ -7,6 +7,7 @@ export async function login(
   UserPassword: string
 ): Promise<any> {
   const requestConfig: ApiConfig = {
+    baseURL: process.env.REACT_APP_API_ROOT,
     url: 'api/login',
     method: 'POST',
     headers: {
@@ -15,7 +16,7 @@ export async function login(
     params: { UserName, UserPassword }
   }
 
-  const [response, error] = await callApi(requestConfig, undefined, undefined)
+  const [response, error] = await callApi(requestConfig)
   setTokens(response.data['access_token'])
-  return response
+  return [response, error]
 }

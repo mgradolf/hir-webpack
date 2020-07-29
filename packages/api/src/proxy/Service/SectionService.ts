@@ -1,39 +1,28 @@
-import { ApiConfig } from '../../utils/Interfaces'
-import { getToken } from '../../utils/TokenStore'
-import callApi from '../../utils/CallApi'
+import callServiceApi from '../../utils/CallServiceApi'
 
-const commonConfigs: ApiConfig = {
-  url: 'api/hirServlet',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${getToken()}`
-  },
-  data: {
-    Service: 'OfferingService'
-  }
-}
+const Module = 'hir'
+const Service = 'OfferingService'
 
 /* -------------------------------------------------------------------------- */
 /*                        affiliated orgs for seatgroup                       */
 /* -------------------------------------------------------------------------- */
 export const findAffiliatedOrgsForSeatGroup = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'findAffiliatedOrgsForSeatGroup', Params)
+  callServiceApi(Service, 'findAffiliatedOrgsForSeatGroup', Params, Module)
 export const getPaymentGatewayAccount = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'getPaymentGatewayAccount', Params)
+  callServiceApi(Service, 'getPaymentGatewayAccount', Params, Module)
 export const getSeatGroupsBySection = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'getSeatGroupsBySection', Params)
+  callServiceApi(Service, 'getSeatGroupsBySection', Params, Module)
 export const getCoordinator = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'getCoordinator', Params)
+  callServiceApi(Service, 'getCoordinator', Params, Module)
 export const updateSectionDetails = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateSectionDetails', Params)
+  callServiceApi(Service, 'updateSectionDetails', Params, Module)
 export const saveAffiliatedOrg = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'saveAffiliatedOrg', Params)
+  callServiceApi(Service, 'saveAffiliatedOrg', Params, Module)
 export const updateSectionNotification = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateSectionNotification', Params)
+  callServiceApi(Service, 'updateSectionNotification', Params, Module)
 export const SectionNoticeID = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'SectionNoticeID', Params)
+  callServiceApi(Service, 'SectionNoticeID', Params, Module)
 export const findSectionNoticeRecipients = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'findSectionNoticeRecipients', Params)
+  callServiceApi(Service, 'findSectionNoticeRecipients', Params, Module)
 export const updateSectionFinancialMaps = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateSectionFinancialMaps', Params)
+  callServiceApi(Service, 'updateSectionFinancialMaps', Params, Module)

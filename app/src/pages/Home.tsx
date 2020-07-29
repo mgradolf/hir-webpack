@@ -14,6 +14,7 @@ enum LoadingState {
 export default function Home() {
   const [data, setdata] = useState({ name: null, country: null, ip: null })
   const [loading, setLoading] = useState(LoadingState.PENDING)
+
   const navigateToProfile = async function () {
     setLoading(LoadingState.INPROGRESS)
     const [response, error] = await getCountriesWrap()
