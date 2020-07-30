@@ -1,40 +1,40 @@
 import React from 'react'
-import { Router, Route, Switch } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
+import { Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { AppStore } from '~/store/index'
-import styles from '~/sass/App.module.scss'
 import Home from '~/pages/Home'
 import Profile from '~/pages/Profile'
 import About from '~/pages/About'
 import ApiErrorAlert from './component/ApiErrorAlert'
 import Login from '~/pages/Login'
+import { Admin } from '~/pages/Admin'
+import { History } from 'history'
+import { ConnectedRouter } from 'connected-react-router'
 
 interface AppProps {
   store: AppStore
+  history: History
 }
 
 export function App(props: AppProps): JSX.Element {
-  const history = createBrowserHistory()
   return (
-    <Router history={history}>
-      <Provider store={props.store}>
-        <ApiErrorAlert></ApiErrorAlert>
-        <div className={styles.AppBody}>
-          <Switch>
-            <Route exact path="/">
-              <Home></Home>
-            </Route>
-            <Route path="/profile">
-              <Profile></Profile>
-            </Route>
-            <Route path="/about">
-              <About></About>
-            </Route>
-            <Route exact path="/login" component={Login} />
-          </Switch>
-        </div>
-      </Provider>
-    </Router>
+    <Provider store={props.store}>
+      <ConnectedRouter history={props.history}>
+        {/* <ApiErrorAlert /> */}
+        <Switch>
+          <Route exact path="/">
+            <Home></Home>
+          </Route>
+          <Route path="/profile">
+            <Profile></Profile>
+          </Route>
+          <Route path="/about">
+            <About></About>
+          </Route>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/admin" component={Admin} />
+        </Switch>
+      </ConnectedRouter>
+    </Provider>
   )
 }
