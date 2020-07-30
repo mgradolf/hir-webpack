@@ -21,10 +21,12 @@ export const authenticationReducer = (
       return { ...state, loggingIn: true }
     case actions.AUTHENTICATION_SUCCESS:
       const { token } = action.payload
-      return { ...state, loggingIn: false, token }
+      return { ...state, loggingIn: false, token, loginError: null }
     case actions.AUTHENTICATION_FAIL:
       const { error } = action.payload
-      return { ...state, loggingIn: false, loginError: error.error }
+      return { ...state, loggingIn: false, loginError: error }
+    case actions.DISMISS_AUTH_ERROR:
+      return { ...state, loginError: null }
     default:
       return { ...state, ...initialState }
   }
