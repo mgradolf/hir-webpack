@@ -18,7 +18,7 @@ export const authenticationReducer = (
 ): IAuthenticationState => {
   switch (action.type) {
     case actions.AUTHENTICATION_PROGRESS:
-      return { ...state, loggingIn: true }
+      return { ...state, loginError: null, loggingIn: true }
     case actions.AUTHENTICATION_SUCCESS:
       const { token } = action.payload
       return { ...state, loggingIn: false, token, loginError: null }

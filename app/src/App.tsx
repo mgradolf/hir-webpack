@@ -5,8 +5,7 @@ import { AppStore } from '~/store/index'
 import Home from '~/pages/Home'
 import Profile from '~/pages/Profile'
 import About from '~/pages/About'
-import ApiErrorAlert from './component/ApiErrorAlert'
-import Login from '~/pages/Login'
+import Login from '~/pages/Login/Login'
 import { Admin } from '~/pages/Admin'
 import { History } from 'history'
 import { ConnectedRouter } from 'connected-react-router'
@@ -20,7 +19,6 @@ export function App(props: AppProps): JSX.Element {
   return (
     <Provider store={props.store}>
       <ConnectedRouter history={props.history}>
-        {/* <ApiErrorAlert /> */}
         <Switch>
           <Route exact path="/">
             <Home></Home>
