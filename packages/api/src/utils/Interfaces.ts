@@ -8,8 +8,8 @@ export interface ApiConfig {
 }
 
 export enum ErrorType {
-  'GLOBAL',
-  'CUSTOM'
+  "GLOBAL",
+  "CUSTOM"
 }
 
 export interface ErrorSchema {
