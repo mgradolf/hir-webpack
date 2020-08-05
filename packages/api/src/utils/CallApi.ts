@@ -10,7 +10,7 @@ export default async function callApi(config: ApiConfig): Promise<[any, any]> {
   console.log("response ", response)
   console.log("error ", error)
 
-  if (error.type === ErrorType.GLOBAL) {
+  if (error && error.type === ErrorType.GLOBAL) {
     eventBus.publish(error)
     return [undefined, undefined]
   }

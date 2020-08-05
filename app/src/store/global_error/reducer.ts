@@ -13,7 +13,7 @@ export interface IGlobalApiErrorState {
 }
 
 export const globalApiErrorReducer = (
-  state = { errorMessage: null },
+  state: IGlobalApiErrorState = { errorMessage: null },
   action: IAction
 ): IGlobalApiErrorState => {
   switch (action.type) {
