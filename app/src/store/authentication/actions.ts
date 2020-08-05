@@ -42,7 +42,7 @@ export function authenticate(username: string, password: string) {
       const [result] = await loginWrapper(username, password)
 
       if (result !== undefined) {
-        dispatch(authenticationSuccess(result.access_token))
+        dispatch(authenticationSuccess(result.token))
         dispatch(push('/admin'))
       }
     } catch ([_, error]) {

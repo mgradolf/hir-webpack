@@ -17,6 +17,6 @@ export async function login(
   }
 
   const [response, error] = await callApi(requestConfig)
-  setTokens(response.data['access_token'])
+  setTokens(response.data.data['token'])
   return [response, error]
 }
