@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getCountriesWrap } from '~/api-wrappers/test/getCountries'
+import { createOfferingWrap } from '~/api-wrappers/Service/OfferingServiceWrap'
 import style2 from '~/sass/nested/div.module.scss'
 import sum from '~/utils/sum'
 
@@ -17,7 +17,31 @@ export default function Home() {
 
   const navigateToProfile = async function () {
     setLoading(LoadingState.INPROGRESS)
-    const [response, error] = await getCountriesWrap()
+    const [response, error] = await createOfferingWrap({
+      OfferingCode: true,
+      Name: null,
+      Description: null,
+      OrganizationID: null,
+      IsQuickAdmit: false,
+      OfferingStatusCodeID: 0,
+      OfferingStatusReleaseID: 1,
+      OfferingTypeID: 1000,
+      DefaultSectionTypeID: null,
+      RecurrenceRule: null,
+      StartTermID: null,
+      EndTermID: null,
+      CreationDate: 'Wed Jun 17 00:00:00 BDT 2020',
+      TerminationDate: 'Wed Jun 17 00:00:00 BDT 2022',
+      URL: null,
+      HasApprovalProcess: true,
+      CourseID: null,
+      EffectiveCreationDate: null,
+      EffectiveTerminationDate: null,
+      SubmitInquiryToUserID: null,
+      OfferingUsageType: 1,
+      PaymentGatewayAccountID: null
+    })
+
     if (response) {
       setLoading(LoadingState.SUCCESS)
       setdata(response)
