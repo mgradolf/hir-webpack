@@ -1,20 +1,21 @@
-import {
-  findAffiliatedOrgsForSeatGroup,
-  saveAffiliatedOrg
+import SeactionService, {
+  config
 } from '@packages/api/lib/proxy/Service/SectionService'
-/* -------------------------------------------------------------------------- */
-/*                        affiliated orgs for seatgroup                       */
-/* -------------------------------------------------------------------------- */
 
 export function findAffiliatedOrgsForSeatGroupWrap(
   SeatGroupID: number
 ): Promise<[any, any]> {
-  return findAffiliatedOrgsForSeatGroup({ SeatGroupID })
+  return SeactionService[config.Actions.findAffiliatedOrgsForSeatGroup]({
+    SeatGroupID
+  })
 }
 
 export function saveAffiliatedOrgWrap(
   SeatGroupID: number,
   AffiliateAccountIDs: number
 ): Promise<[any, any]> {
-  return saveAffiliatedOrg({ SeatGroupID, AffiliateAccountIDs })
+  return SeactionService[config.Actions.saveAffiliatedOrg]({
+    SeatGroupID,
+    AffiliateAccountIDs
+  })
 }

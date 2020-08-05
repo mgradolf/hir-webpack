@@ -1,11 +1,5 @@
-import {
-  addOrRemoveOfferingToCatalog,
-  createOffering,
-  updateOffering,
-  searchOffering,
-  createOfferingFinancial,
-  updateOfferingFinancial,
-  searchOfferingFinancial
+import OfferingService, {
+  config
 } from '@packages/api/lib/proxy/Service/OfferingService'
 /* -------------------------------------------------------------------------- */
 /*                              offering section                              */
@@ -14,24 +8,27 @@ import {
 export function createOfferingWrap(Params: {
   [key: string]: any
 }): Promise<[any, any]> {
-  return createOffering(Params)
+  return OfferingService[config.Actions.createOffering](Params)
 }
 
 export function updateOfferingWrap(Params: {
   [key: string]: any
 }): Promise<[any, any]> {
-  return updateOffering(Params)
+  return OfferingService[config.Actions.updateOffering](Params)
 }
 
 export function searchOfferingWrap(OfferingCode: string): Promise<[any, any]> {
-  return searchOffering({ OfferingCode })
+  return OfferingService[config.Actions.searchOffering]({ OfferingCode })
 }
 
 export function addOrRemoveOfferingToCatalogWrap(
   OfferingID: number,
   CatalogIDs: Array<number>
 ): Promise<[any, any]> {
-  return addOrRemoveOfferingToCatalog({ OfferingID, CatalogIDs })
+  return OfferingService[config.Actions.addOrRemoveOfferingToCatalog]({
+    OfferingID,
+    CatalogIDs
+  })
 }
 
 /* -------------------------------------------------------------------------- */
@@ -40,17 +37,17 @@ export function addOrRemoveOfferingToCatalogWrap(
 export function createOfferingFinancialWrap(Params: {
   [key: string]: any
 }): Promise<[any, any]> {
-  return createOfferingFinancial(Params)
+  return OfferingService[config.Actions.createOfferingFinancial](Params)
 }
 
 export function updateOfferingFinancialWrap(Params: {
   [key: string]: any
 }): Promise<[any, any]> {
-  return updateOfferingFinancial(Params)
+  return OfferingService[config.Actions.updateOfferingFinancial](Params)
 }
 
 export function searchOfferingFinancialWrap(
   OfferingID: number
 ): Promise<[any, any]> {
-  return searchOfferingFinancial({ OfferingID })
+  return OfferingService[config.Actions.searchOfferingFinancial]({ OfferingID })
 }
