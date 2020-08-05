@@ -1,19 +1,14 @@
-import callApi from './CallApi'
-import { getToken } from './TokenStore'
-import { ApiConfig } from './Interfaces'
+import callApi from "./CallApi"
+import { getToken } from "./TokenStore"
+import { ApiConfig } from "./Interfaces"
 
-export default function (
-  Service: string,
-  Action: string,
-  Params: any,
-  Module?: any
-): Promise<[any, any]> {
+export default function (Service: string, Action: string, Params: any, Module?: any): Promise<[any, any]> {
   const config: ApiConfig = {
     baseURL: process.env.REACT_APP_API_ROOT,
-    url: 'api/bizApiServlet',
-    method: 'POST',
+    url: "api/bizApiServlet",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${getToken()}`
     },
     data: {
