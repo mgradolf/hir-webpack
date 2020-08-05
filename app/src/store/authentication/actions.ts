@@ -38,18 +38,15 @@ export function authenticate(username: string, password: string) {
   return async (dispatch: Dispatch<IAuthAction | RouterAction>) => {
     dispatch(authenticationProgress())
 
-    try {
-      const [result] = await loginWrapper(username, password)
+    const [result, error] = await loginWrapper(username, password)
 
-      if (result !== undefined) {
-        dispatch(authenticationSuccess(result.data.data.token))
-        dispatch(push('/admin'))
+    if (result) {
+      dispatch(authenticationSuccess(result.data.token))
+      dispatch(push('/'))
+    } else if (error) {
+      if (error) {
+        dispatch(authenticationFail(error))
       }
-    } catch ([_, error]) {
-      if (error !== undefined) {
-        dispatch(authenticationFail(error.error))
-      }
-    } finally {
     }
   }
 }
