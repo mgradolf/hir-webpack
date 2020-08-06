@@ -34,7 +34,8 @@ export interface IAction {
 export default (config: Iconfig) => {
   const Actions: IAction = {}
   Object.keys(config.Actions).forEach((Action) => {
-    Actions[Action] = (Params: { [key: string]: any }): Promise<[any, any]> => callServiceApi(config.Service, Action, Params, config.Module)
+    Actions[Action] = (Params: { [key: string]: any }): Promise<[any, any]> =>
+      callServiceApi(config.Service, Action, Params, config.Module)
   })
   return Actions
 }

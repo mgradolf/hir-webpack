@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { createOfferingWrap } from '~/api-wrappers/Service/OfferingServiceWrap'
-import style2 from '~/sass/nested/div.module.scss'
-import sum from '~/utils/sum'
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import { createOfferingWrap } from "~/api-wrappers/Service/OfferingServiceWrap"
+import style2 from "~/sass/nested/div.module.scss"
+import sum from "~/utils/sum"
 
 enum LoadingState {
   PENDING,
@@ -30,8 +30,8 @@ export default function Home() {
       RecurrenceRule: null,
       StartTermID: null,
       EndTermID: null,
-      CreationDate: 'Wed Jun 17 00:00:00 BDT 2020',
-      TerminationDate: 'Wed Jun 17 00:00:00 BDT 2022',
+      CreationDate: "Wed Jun 17 00:00:00 BDT 2020",
+      TerminationDate: "Wed Jun 17 00:00:00 BDT 2022",
       URL: null,
       HasApprovalProcess: true,
       CourseID: null,
@@ -67,7 +67,7 @@ export default function Home() {
           <div>Country code {data.country}</div>
           <div>ip {data.ip}</div>
           <div>
-            {' this is some '}1 + 2 ={'>'} {sum(1, 2)}
+            {" this is some "}1 + 2 ={">"} {sum(1, 2)}
           </div>
           <button onClick={navigateToProfile}>Call api</button>
         </div>
@@ -85,9 +85,7 @@ export default function Home() {
     <div>
       <h1>Home</h1>
       {/* <Link to="/profile">Profile</Link> */}
-      {!(loading === LoadingState.INPROGRESS) && (
-        <button onClick={navigateToProfile}>Go to profile page</button>
-      )}
+      {!(loading === LoadingState.INPROGRESS) && <button onClick={navigateToProfile}>Go to profile page</button>}
       {content}
       <br />
       <Link to="/about">About</Link>

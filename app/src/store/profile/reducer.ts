@@ -1,4 +1,4 @@
-import { Action } from 'redux'
+import { Action } from "redux"
 
 interface UserDetails {
   id: string
@@ -17,10 +17,7 @@ const INITIAL_PROFILE_STATE: ProfileState = {
   userDetails: null
 }
 
-export const profileReducer = (
-  state = INITIAL_PROFILE_STATE,
-  action: Action
-): ProfileState => {
+export const profileReducer = (state = INITIAL_PROFILE_STATE, action: Action): ProfileState => {
   switch (action.type) {
     // Profile actions to be added here
     default:

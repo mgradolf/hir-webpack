@@ -1,14 +1,14 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import { AppStore } from '~/store/index'
-import Home from '~/pages/Home'
-import Profile from '~/pages/Profile'
-import About from '~/pages/About'
-import Login from '~/pages/Login/Login'
-import { Admin } from '~/pages/Admin'
-import { History } from 'history'
-import { ConnectedRouter } from 'connected-react-router'
+import React from "react"
+import { Route, Switch } from "react-router-dom"
+import { Provider } from "react-redux"
+import { AppStore } from "~/store/index"
+import Home from "~/pages/HomePage"
+import Profile from "~/pages/ProfilePage"
+import About from "~/pages/AboutPage"
+import Login from "~/pages/Login/LoginPage"
+import { Admin } from "~/pages/AdminPage"
+import { History } from "history"
+import { ConnectedRouter } from "connected-react-router"
 
 interface AppProps {
   store: AppStore

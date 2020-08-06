@@ -1,11 +1,8 @@
-import * as React from 'react'
-import styles from '~/component/Error.module.scss'
+import * as React from "react"
+import styles from "~/component/Error.module.scss"
 
 export function Error(
-  props: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLParagraphElement>,
-    HTMLParagraphElement
-  >
+  props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>
 ) {
   const { children, ...otherProps } = props
   return (

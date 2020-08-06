@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React from "react"
+import { Link } from "react-router-dom"
 // import { getCountriesWrap } from "~/api-wrappers/test/getCountries"
 
 export default function Profile() {
