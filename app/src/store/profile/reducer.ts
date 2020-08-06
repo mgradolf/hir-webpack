@@ -21,7 +21,7 @@ export const profileReducer = (
   state = INITIAL_PROFILE_STATE,
   action: Action
 ): ProfileState => {
-  switch (action) {
+  switch (action.type) {
     // Profile actions to be added here
     default:
       return state

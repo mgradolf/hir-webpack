@@ -1,49 +1,20 @@
-import { config } from '../../utils/api_config_model'
-import { getToken } from '../../utils/token_manage'
-import callApi from '../../utils/call_api'
+import getActions from "../../utils/CallServiceApi"
 
-const commonConfigs: config = {
-  url: 'api/hirServlet',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${getToken()}`
-  },
-  data: {
-    Service: 'OfferingService'
+export const config = {
+  Service: "SectionService",
+  Module: "hir",
+  Actions: {
+    findAffiliatedOrgsForSeatGroup: "findAffiliatedOrgsForSeatGroup",
+    getPaymentGatewayAccount: "getPaymentGatewayAccount",
+    getSeatGroupsBySection: "getSeatGroupsBySection",
+    getCoordinator: "getCoordinator",
+    updateSectionDetails: "updateSectionDetails",
+    saveAffiliatedOrg: "saveAffiliatedOrg",
+    updateSectionNotification: "updateSectionNotification",
+    SectionNoticeID: "SectionNoticeID",
+    findSectionNoticeRecipients: "findSectionNoticeRecipients",
+    updateSectionFinancialMaps: "updateSectionFinancialMaps"
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/*                        affiliated orgs for seatgroup                       */
-/* -------------------------------------------------------------------------- */
-
-export function findAffiliatedOrgsForSeatGroup(
-  SeatGroupID: number
-): Promise<[any, any]> {
-  const requestConfig: config = commonConfigs
-  requestConfig.data = {
-    ...requestConfig.data,
-    Action: findAffiliatedOrgsForSeatGroup.name,
-    Params: {
-      SeatGroupID
-    }
-  }
-  return callApi(requestConfig)
-}
-
-export function saveAffiliatedOrg(
-  SeatGroupID: number,
-  AffiliateAccountIDs: number
-): Promise<[any, any]> {
-  const requestConfig: config = commonConfigs
-  requestConfig.data = {
-    ...requestConfig.data,
-    Action: saveAffiliatedOrg.name,
-    Params: {
-      SeatGroupID,
-      AffiliateAccountIDs
-    }
-  }
-  return callApi(requestConfig)
-}
+export default getActions(config)
