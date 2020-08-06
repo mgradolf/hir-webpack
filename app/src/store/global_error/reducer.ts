@@ -1,7 +1,4 @@
-import {
-  SHOW_GLOBAL_API_ERROR,
-  REMOVE_GLOBAL_API_ERROR
-} from '~/store/action_types'
+import { SHOW_GLOBAL_API_ERROR, REMOVE_GLOBAL_API_ERROR } from "~/store/action_types"
 
 interface IAction {
   type: string

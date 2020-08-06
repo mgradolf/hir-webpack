@@ -15,9 +15,9 @@ export async function login(UserName: string, UserPassword: string): Promise<any
   }
 
   const [response, error] = await callApi(requestConfig)
-  console.log("*****************")
-  console.log(response)
-  console.log("*****************")
-  setTokens(response.data["token"])
+  console.log(response, error)
+  if (response) {
+    setTokens(response.data["token"])
+  }
   return [response, error]
 }

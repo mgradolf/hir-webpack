@@ -2,37 +2,42 @@ import { ErrorSchema, ErrorType } from "../Interfaces"
 import { AxiosError, AxiosResponse } from "axios"
 
 const handleError = (error: AxiosError): ErrorSchema => {
-  console.log("handle error ", error)
+  console.log("handle error ", error.response)
 
   let errResponse: ErrorSchema = {
-    status: undefined,
+    code: undefined,
     error: "Unknown",
-    data: undefined
+    data: undefined,
+    success: false
   }
   if (error.isAxiosError && error && error.response) {
-    if (error.response.data && typeof error.response.data !== "string" && error.response.data["code"] && error.response.data["error"] && error.response.data["data"]) {
+    if (error.response.data && typeof error.response.data !== "string") {
       errResponse = {
-        status: error.response.data["code"],
+        code: error.response.data["code"],
         error: error.response.data["error"],
-        data: error.response.data["data"]
+        data: error.response.data["data"],
+        success: error.response.data["success"]
       }
     } else {
       errResponse = {
-        status: error.response.status,
+        code: error.response.status,
         error: error.response.data,
-        data: null
+        data: null,
+        success: false
       }
     }
   }
+  console.log("handle error ", errResponse)
   errResponse = tagGlobalErrors(errResponse)
   return errResponse
 }
 
 const tagGlobalErrors = (errResponse: ErrorSchema) => {
-  switch (errResponse.status) {
+  switch (errResponse.code) {
     case 401:
       errResponse.type = ErrorType.GLOBAL
-      errResponse.error = "Unauthorized"
+      errResponse.error =
+        errResponse.error && errResponse.error.Description ? errResponse.error.Description : "Unauthorized"
       break
     case 403:
       errResponse.type = ErrorType.GLOBAL
@@ -63,6 +68,9 @@ const tagGlobalErrors = (errResponse: ErrorSchema) => {
 
 export const handleResponse = (promise: Promise<any>): Promise<any> => {
   return promise
-    .then((response: AxiosResponse<any>) => [<any>response.data, undefined])
+    .then((response: AxiosResponse<any>) => {
+      console.log(response)
+      return [<any>response.data, undefined]
+    })
     .catch((error: AxiosError) => Promise.resolve([undefined, <any>handleError(error)]))
 }

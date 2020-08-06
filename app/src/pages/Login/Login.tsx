@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
-import { AppState } from '~/store'
-import { authenticate } from '~/store/authentication/actions'
-import { Form, Input, Button, Layout, Card, PageHeader } from 'antd'
-import { Error } from '~/component/Error'
-import styles from '~/pages/Login/Login.module.scss'
-import { Store } from 'antd/lib/form/interface'
+import * as React from "react"
+import { connect } from "react-redux"
+import { AppState } from "~/store"
+import { authenticate } from "~/store/authentication/actions"
+import { Form, Input, Button, Layout, Card, PageHeader } from "antd"
+import { Error } from "~/component/Error"
+import styles from "~/pages/Login/Login.module.scss"
+import { Store } from "antd/lib/form/interface"
 
 const { Content } = Layout
 
@@ -17,8 +17,8 @@ interface IFormState {
 }
 
 const INITIAL_FORM_VALUES: IFormState = {
-  username: '',
-  password: ''
+  username: "",
+  password: ""
 }
 
 interface IConnectProps {
@@ -42,11 +42,7 @@ function LoginPage(props: ILoginPageProps) {
   return (
     <Layout className={styles.Layout}>
       <Content className={styles.Content}>
-        <img
-          src="./images/logo.png"
-          className={styles.Logo}
-          alt="jenzabar-logo"
-        />
+        <img src="./images/logo.png" className={styles.Logo} alt="jenzabar-logo" />
         <Card className={styles.Card}>
           {Boolean(loginError) && <Error>{loginError}</Error>}
           {Boolean(globalError) && <Error>{globalError}</Error>}
@@ -61,18 +57,14 @@ function LoginPage(props: ILoginPageProps) {
             <Form.Item
               label="Username"
               name="username"
-              rules={[
-                { required: true, message: 'Please input your username!' }
-              ]}
+              rules={[{ required: true, message: "Please input your username!" }]}
             >
               <Input />
             </Form.Item>
             <Form.Item
               label="Password"
               name="password"
-              rules={[
-                { required: true, message: 'Please input your password!' }
-              ]}
+              rules={[{ required: true, message: "Please input your password!" }]}
             >
               <Input.Password />
             </Form.Item>
@@ -83,9 +75,7 @@ function LoginPage(props: ILoginPageProps) {
             </Form.Item>
           </Form>
         </Card>
-        <p
-          className={styles.Footer_note}
-        >{`2011-${new Date().getFullYear()} Jenzabar, Inc.`}</p>
+        <p className={styles.Footer_note}>{`2011-${new Date().getFullYear()} Jenzabar, Inc.`}</p>
       </Content>
     </Layout>
   )
