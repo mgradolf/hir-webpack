@@ -30,6 +30,7 @@ function App(props: AppProps): JSX.Element {
         <Route path="/profile" component={ProfilePage} />
         <Route path="/about" component={AboutPage} />
         <Route exact path="/admin" component={AdminPage} />
+        <Route exact path="/offering" component={AdminPage} />
       </React.Fragment>
     )
   }
