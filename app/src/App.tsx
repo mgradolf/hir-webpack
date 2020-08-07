@@ -1,38 +1,54 @@
 import React from "react"
-import { Route, Switch } from "react-router-dom"
-import { Provider } from "react-redux"
-import { AppStore } from "~/store/index"
-import Home from "~/pages/HomePage"
-import Profile from "~/pages/ProfilePage"
-import About from "~/pages/AboutPage"
-import Login from "~/pages/Login/LoginPage"
-import { Admin } from "~/pages/AdminPage"
+import { Route, Switch, Redirect } from "react-router-dom"
+import { Provider, connect } from "react-redux"
+import { AppStore, AppState } from "~/store/index"
+import HomePage from "~/pages/HomePage"
+import ProfilePage from "~/pages/ProfilePage"
+import AboutPage from "~/pages/AboutPage"
+import LoginPage from "~/pages/Login/LoginPage"
+import AdminPage from "~/pages/AdminPage"
+import LoginModal from "~/component/Login/LoginModal"
 import { History } from "history"
 import { ConnectedRouter } from "connected-react-router"
 
 interface AppProps {
   store: AppStore
   history: History
+  redirectToLogin: boolean
+  loginModalRequired: boolean
 }
 
-export function App(props: AppProps): JSX.Element {
+function App(props: AppProps): JSX.Element {
+  let route: JSX.Element
+  if (props.redirectToLogin) {
+    route = <Redirect to={{ pathname: "/login" }} />
+  } else {
+    route = (
+      <React.Fragment>
+        {props.loginModalRequired && <LoginModal />}
+        <Route exact path="/" component={HomePage} />
+        <Route path="/profile" component={ProfilePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route exact path="/admin" component={AdminPage} />
+      </React.Fragment>
+    )
+  }
   return (
     <Provider store={props.store}>
       <ConnectedRouter history={props.history}>
         <Switch>
-          <Route exact path="/">
-            <Home></Home>
-          </Route>
-          <Route path="/profile">
-            <Profile></Profile>
-          </Route>
-          <Route path="/about">
-            <About></About>
-          </Route>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/login" component={LoginPage} />
+          {route}
         </Switch>
       </ConnectedRouter>
     </Provider>
   )
 }
+
+const mapStateToProps = (state: AppState) => {
+  return {
+    redirectToLogin: state.authentication.redirectToLogin,
+    loginModalRequired: state.authentication.loginModalRequired
+  }
+}
+export default connect(mapStateToProps)(App)

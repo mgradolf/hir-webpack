@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { createOfferingWrap } from "~/api-wrappers/Service/OfferingServiceWrap"
+import { createOfferingWrap } from "~/service/Service/OfferingServiceWrap"
 import style2 from "~/sass/nested/div.module.scss"
 import sum from "~/utils/sum"
+import { logout } from "~/service/Login"
 
 enum LoadingState {
   PENDING,
@@ -87,6 +88,8 @@ export default function Home() {
       {/* <Link to="/profile">Profile</Link> */}
       {!(loading === LoadingState.INPROGRESS) && <button onClick={navigateToProfile}>Go to profile page</button>}
       {content}
+      <br />
+      <button onClick={logout}>Log out</button>
       <br />
       <Link to="/about">About</Link>
     </div>

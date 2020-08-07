@@ -1,5 +1,5 @@
 import { createStore as createEnhancedStore, combineReducers, applyMiddleware, compose, Store, AnyAction } from "redux"
-import { profileReducer, ProfileState } from "~/store/profile/reducer"
+import { authenticationReducer, IAuthentication } from "~/store/Authentication"
 import { globalApiErrorReducer, IGlobalApiErrorState } from "~/store/GlobalError"
 import thunk from "redux-thunk"
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router"
@@ -10,17 +10,17 @@ type WindowWithReduxDevTools = typeof window & {
 }
 
 export type AppState = {
-  profile: ProfileState
+  authentication: IAuthentication
   router: RouterState
   globalApiError: IGlobalApiErrorState
 }
 
 export type AppStore = Store<AppState, AnyAction>
 
-export function createStore(): { store: AppStore; history: History } {
+function createStore(): { store: AppStore; history: History } {
   const history = createBrowserHistory()
   const reducers = combineReducers<AppState>({
-    profile: profileReducer,
+    authentication: authenticationReducer,
     router: connectRouter(history),
     globalApiError: globalApiErrorReducer
   })
@@ -37,3 +37,5 @@ export function createStore(): { store: AppStore; history: History } {
   const store = createEnhancedStore(reducers, storeEnhancers)
   return { store, history }
 }
+
+export const { store, history } = createStore()

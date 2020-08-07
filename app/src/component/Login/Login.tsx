@@ -4,7 +4,7 @@ import { Form, Input, Button, Card } from "antd"
 import { Error } from "~/component/Error"
 import style from "~/component/Login/Login.module.scss"
 import { Store } from "antd/lib/form/interface"
-import { loginWrapper } from "~/api-wrappers/Login"
+import { login } from "~/service/Login"
 
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
@@ -38,10 +38,9 @@ function Login(props: ILoginProps) {
   const onFinish = async (values: Store) => {
     const { username, password } = values as IFormState
     setloading(EnumLoading.INPROGRESS)
-    const [response, error] = await loginWrapper(username, password)
+    const [response, error] = await login(username, password)
     setloading(EnumLoading.PENDING)
     if (response && props.redirect) {
-      console.log(response)
       props.redirect("/")
     } else if (error) {
       console.log(error)
