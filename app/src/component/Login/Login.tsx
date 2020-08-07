@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-// import { redirect } from "~/store/ConnectedRoute"
 import { Form, Input, Button, Card } from "antd"
 import { Error } from "~/component/Error"
 import style from "~/component/Login/Login.module.scss"

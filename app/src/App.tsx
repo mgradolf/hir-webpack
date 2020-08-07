@@ -1,4 +1,5 @@
 import React from "react"
+import { ConnectedRouter } from "connected-react-router"
 import { Route, Switch, Redirect } from "react-router-dom"
 import { Provider, connect } from "react-redux"
 import { AppStore, AppState } from "~/store/index"
@@ -9,8 +10,8 @@ import LoginPage from "~/pages/Login/LoginPage"
 import AdminPage from "~/pages/AdminPage"
 import NotFoundPage from "~/pages/NotFoundPage"
 import LoginModal from "~/component/Login/LoginModal"
+import OfflineAlert from "~/component/Alerts/Offline"
 import { History } from "history"
-import { ConnectedRouter } from "connected-react-router"
 
 interface AppProps {
   store: AppStore
@@ -21,26 +22,25 @@ interface AppProps {
 
 function App(props: AppProps): JSX.Element {
   const route: JSX.Element = props.redirectToLogin ? (
-    <Redirect to={{ pathname: "/login" }} />
+    <Switch>
+      <Route path="/login" component={LoginPage} />
+      <Redirect to={{ pathname: "/login" }} />
+    </Switch>
   ) : (
-    <React.Fragment>
-      {props.loginModalRequired && <LoginModal />}
+    <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/profile" component={ProfilePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
-      <Route path="*" component={NotFoundPage} />
-    </React.Fragment>
+      <Route component={NotFoundPage} />
+    </Switch>
   )
 
   return (
     <Provider store={props.store}>
-      <ConnectedRouter history={props.history}>
-        <Switch>
-          <Route path="/login" component={LoginPage} />
-          {route}
-        </Switch>
-      </ConnectedRouter>
+      <OfflineAlert />
+      {props.loginModalRequired && <LoginModal />}
+      <ConnectedRouter history={props.history}>{route}</ConnectedRouter>
     </Provider>
   )
 }

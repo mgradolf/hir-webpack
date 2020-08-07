@@ -92,6 +92,8 @@ export default function Home() {
       <button onClick={logout}>Log out</button>
       <br />
       <Link to="/about">About</Link>
+      <br />
+      <Link to="/sd32r24frfrgdfgf">Not found</Link>
     </div>
   )
 }
