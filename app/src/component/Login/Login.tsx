@@ -48,10 +48,13 @@ function Login(props: ILoginProps) {
   }
 
   const { globalErrorMessage } = props
-
+  const modalProps = {
+    title: "Login required",
+    description: "Your session has been timed out, please login again"
+  }
   return (
     <Card className={style.Card}>
-      {/* {Boolean(loginError) && <Error>{loginError}</Error>} */}
+      {props.modal && <Card.Meta className={style.Card_Meta} {...modalProps} />}
       {Boolean(globalErrorMessage) && <Error>{globalErrorMessage}</Error>}
       <Form
         layout="vertical"

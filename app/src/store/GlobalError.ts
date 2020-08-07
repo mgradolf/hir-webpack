@@ -27,7 +27,8 @@ export const globalApiErrorReducer = (
     case SHOW_GLOBAL_API_ERROR:
       return { errorMessage: action.payload.message }
     case REMOVE_GLOBAL_API_ERROR:
-    default:
       return { errorMessage: null }
+    default:
+      return state
   }
 }

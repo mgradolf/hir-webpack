@@ -11,7 +11,7 @@ export interface IAuthentication {
   loginModalRequired: boolean
 }
 
-const INITIAL_PROFILE_STATE: IAuthentication = {
+const INITIAL_AUTH_STATE: IAuthentication = {
   redirectToLogin: false,
   loginModalRequired: false
 }
@@ -27,7 +27,7 @@ export const setLoginRequired = (value: boolean): IAction => ({
 })
 
 export const authenticationReducer = (
-  state: IAuthentication = INITIAL_PROFILE_STATE,
+  state: IAuthentication = INITIAL_AUTH_STATE,
   action: IAction
 ): IAuthentication => {
   switch (action.type) {

@@ -1,8 +1,22 @@
 import Login from "~/component/Login/Login"
 import Modal from "~/component/Modal"
-import React from "react"
+import React, { useEffect } from "react"
+import { Dispatch } from "redux"
+import { connect } from "react-redux"
+import { removeGLobalApiError } from "~/store/GlobalError"
 
-const LoginModal = () => {
+interface ILoginModalProps {
+  removeGLobalApiError?: () => void
+}
+
+const LoginModal = (props: ILoginModalProps) => {
+  useEffect(() => {
+    console.log("calling removeGLobalApiError", props.removeGLobalApiError)
+    if (props.removeGLobalApiError) {
+      props.removeGLobalApiError()
+    }
+  }, [props])
+
   return (
     <Modal>
       <Login modal={true} />
@@ -10,4 +24,7 @@ const LoginModal = () => {
   )
 }
 
-export default LoginModal
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return { removeGLobalApiError: () => dispatch(removeGLobalApiError()) }
+}
+export default connect(() => ({}), mapDispatchToProps)(LoginModal)
