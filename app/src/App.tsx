@@ -7,6 +7,7 @@ import ProfilePage from "~/pages/ProfilePage"
 import AboutPage from "~/pages/AboutPage"
 import LoginPage from "~/pages/Login/LoginPage"
 import AdminPage from "~/pages/AdminPage"
+import NotFoundPage from "~/pages/NotFoundPage"
 import LoginModal from "~/component/Login/LoginModal"
 import { History } from "history"
 import { ConnectedRouter } from "connected-react-router"
@@ -19,25 +20,24 @@ interface AppProps {
 }
 
 function App(props: AppProps): JSX.Element {
-  let route: JSX.Element
-  if (props.redirectToLogin) {
-    route = <Redirect to={{ pathname: "/login" }} />
-  } else {
-    route = (
-      <React.Fragment>
-        {props.loginModalRequired && <LoginModal />}
-        <Route exact path="/" component={HomePage} />
-        <Route path="/profile" component={ProfilePage} />
-        <Route path="/about" component={AboutPage} />
-        <Route exact path="/admin" component={AdminPage} />
-      </React.Fragment>
-    )
-  }
+  const route: JSX.Element = props.redirectToLogin ? (
+    <Redirect to={{ pathname: "/login" }} />
+  ) : (
+    <React.Fragment>
+      {props.loginModalRequired && <LoginModal />}
+      <Route exact path="/" component={HomePage} />
+      <Route path="/profile" component={ProfilePage} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/admin" component={AdminPage} />
+      <Route path="*" component={NotFoundPage} />
+    </React.Fragment>
+  )
+
   return (
     <Provider store={props.store}>
       <ConnectedRouter history={props.history}>
         <Switch>
-          <Route exact path="/login" component={LoginPage} />
+          <Route path="/login" component={LoginPage} />
           {route}
         </Switch>
       </ConnectedRouter>
