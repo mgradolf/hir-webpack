@@ -1,12 +1,13 @@
 import React from "react"
-import { ConnectedRouter } from "connected-react-router"
 import { Route, Switch, Redirect } from "react-router-dom"
-import { Provider, connect } from "react-redux"
 import { AppStore, AppState } from "~/store/index"
-import HomePage from "~/pages/HomePage"
+import { Provider, connect } from "react-redux"
+
+import { ConnectedRouter } from "connected-react-router"
+import LoginPage from "~/pages/Login/LoginPage"
+// // import HomePage from "~/pages/HomePage"
 import ProfilePage from "~/pages/ProfilePage"
 import AboutPage from "~/pages/AboutPage"
-import LoginPage from "~/pages/Login/LoginPage"
 import AdminPage from "~/pages/AdminPage"
 import NotFoundPage from "~/pages/NotFoundPage"
 import LoginModal from "~/component/Login/LoginModal"
@@ -30,7 +31,7 @@ function App(props: AppProps): JSX.Element {
     </Switch>
   ) : (
     <Switch>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" component={OfferingPage} />
       <Route path="/profile" component={ProfilePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
@@ -41,8 +42,8 @@ function App(props: AppProps): JSX.Element {
   )
   return (
     <Provider store={props.store}>
-      <OfflineAlert />
       {props.loginModalRequired && <LoginModal />}
+      <OfflineAlert />
       <ConnectedRouter history={props.history}>{route}</ConnectedRouter>
     </Provider>
   )
