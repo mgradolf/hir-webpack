@@ -145,7 +145,7 @@ class OfferingPage extends React.Component<{}, OfferingState> {
 					<a href="/">Requisite Management</a>
 				</Menu.Item>
 				<Menu.Item key="2">
-					<a href="/">Catalogs</a>
+					<a href={`/offering/${record.OfferingID}/catalog`}>Catalogs</a>
 				</Menu.Item>
 				<Menu.Item key="3">
 					<a href="/">Offering Tag</a>
@@ -398,6 +398,7 @@ class OfferingPage extends React.Component<{}, OfferingState> {
 									dataSource={offeringItems}
 									loading={loading}
 									bordered
+									scroll={{ x: 'fit-content' }}
 									expandedRowRender={OfferingPage.expandableRowRender}
 									rowKey="OfferingID"
 									pagination={{ position: ['topLeft'] }}

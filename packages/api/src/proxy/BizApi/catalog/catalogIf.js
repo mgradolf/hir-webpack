@@ -1,5 +1,12 @@
 "use strict";
-var CallBizApi_1 = require("../../../utils/CallBizApi");
-var Module = "hir";
-var Service = "com.jenzabar.jxntm.server.bizapi.catalog.CatalogIF";
-exports.findCatalogs = function (Params) { return CallBizApi_1.default(Service, "findCatalogs", Params, Module); };
+var ApiMethodFactory_1 = require("../../../utils/ApiMethodFactory");
+exports.config = {
+    EndPoint: "api/bizApiServlet",
+    Service: "com.jenzabar.jxntm.server.bizapi.catalog.CatalogIF",
+    Module: "hir",
+    Actions: {
+        findCatalogs: "findCatalogs"
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = ApiMethodFactory_1.default(exports.config);

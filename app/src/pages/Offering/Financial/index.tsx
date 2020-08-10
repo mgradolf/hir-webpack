@@ -149,6 +149,7 @@ class OfferingFinancialPage extends React.Component<{} & RouteComponentProps, Of
 									dataSource={offeringFinancialItems}
 									loading={loading}
 									bordered
+									scroll={{ x: 'fit-content' }}
 									pagination={{ position: ['topLeft'] }}
 								/>
 							</Col>

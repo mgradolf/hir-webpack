@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {connect} from 'react-redux'
 import { RouteComponentProps } from 'react-router';
+import moment from 'moment';
 
-import {Layout, Menu, Breadcrumb, Row, Col, Button} from 'antd';
+import {Layout, Menu, Breadcrumb, Row, Col, Switch, Checkbox} from 'antd';
 import {Table, Typography} from 'antd';
 import {DownOutlined, FilterOutlined, CloseOutlined} from '@ant-design/icons';
 
-import { searchOfferingFinancialWrap } from '~/api-wrappers/Service/OfferingServiceWrap';
+import { findCatalogWrap } from '~/ApiServices/BizApi/catalog/catalogIf';
+import { addOrRemoveOfferingToCatalogWrap } from '~/api-wrappers/Service/OfferingServiceWrap';
 import styles from "~/pages/Offering/Financial/Financial.module.scss";
 
 const {Header, Content, Footer} = Layout;
@@ -17,79 +19,92 @@ type OfferingCatalogState = {
 	offeringID: number
 	loading: boolean
 	offeringCatalogItems: any
+	selectedRowKeys: any
 }
 
 class OfferingCatalogPage extends React.Component<{} & RouteComponentProps, OfferingCatalogState> {
 
 	columns = [
 		{
-			title: 'Description',
-			dataIndex: 'Description'
+			title: 'Catalog Name',
+			dataIndex: 'catalogName'
 		},
 		{
-			title: 'Category',
-			dataIndex: ''
+			title: 'Start Date',
+			dataIndex: 'startDate',
+			render: (text: any)=> text != null ? moment(text).format('YYYY-MM-DD') : ''
 		},
 		{
-			title: 'Basis',
-			dataIndex: ''
+			title: 'End Date',
+			dataIndex: 'endDate',
+			render: (text: any)=> text != null ? moment(text).format('YYYY-MM-DD') : ''
 		},
 		{
-			title: 'Amount',
-			dataIndex: 'ItemUnitAmount'
+			title: 'Current Status',
+			dataIndex: 'currentStatus'
 		},
 		{
-			title: 'Type',
-			dataIndex: ''
-		},
-		{
-			title: 'Optional?',
-			dataIndex: 'IsOptional',
-			render: (value: boolean) => value ? 'Yes' : 'No'
-		},
-		{
-			title: 'Taxable?',
-			dataIndex: 'IsTaxable',
-			render: (value: boolean) => value ? 'Yes' : 'No'
-		},
-		{
-			title: 'Weight',
-			dataIndex: 'Weight'
-		},
-		{
-			title: 'Active',
-			dataIndex: 'IsActive',
-			render: (value: boolean) => value ? 'Yes' : 'No'
-		},
-		{
-			title: 'GL Account',
-			dataIndex: ''
+			title: 'Published',
+			dataIndex: 'isPublished',
+			render: (text: any, record: any)=> <Switch checked={text} onChange={(e) => this.catalogPublished(e, record.catalogID)}/>
 		}
 	];
 
 	state: OfferingCatalogState = {
 		offeringID: (this.props.match.params as any).id,
 		loading: false,
-		offeringCatalogItems: []
+		offeringCatalogItems: [],
+		selectedRowKeys: []
 	};
 
-	async searchOfferingFinancial() {
+	async catalogPublished(event: any, catalogID: any) {
+		let publishedRowData = this.state.selectedRowKeys;
+		if (event) {
+			publishedRowData.push(catalogID);
+		} else {
+			let index = publishedRowData.indexOf(catalogID);
+			publishedRowData.splice(index, 1);
+		}
+
 		this.setState({
 			loading: true
 		});
-
-		const [result, error] = await searchOfferingFinancialWrap(this.state.offeringID);
+		const [result, error] = await addOrRemoveOfferingToCatalogWrap(this.state.offeringID, publishedRowData);
 
 		if (result) {
 			this.setState({
 				loading: false,
-				offeringCatalogItems: result.data
-			})
+			});
+
+			this.searchOfferingCatalog();
+		}
+	};
+
+	async searchOfferingCatalog() {
+		this.setState({
+			loading: true
+		});
+
+		const [result, error] = await findCatalogWrap([{ OfferingID: this.state.offeringID}]);
+
+		if (result) {
+			let publishedRowData = [];
+			for (let i=0; i<result.data.length; i++) {
+				if (result.data[i].isPublished) {
+					publishedRowData.push(result.data[i].catalogID);
+				}
+			}
+
+			this.setState({
+				loading: false,
+				offeringCatalogItems: result.data,
+				selectedRowKeys: publishedRowData
+			});
 		}
 	}
 
 	async componentDidMount() {
-		this.searchOfferingFinancial();
+		this.searchOfferingCatalog();
 	}
 
 	render() {
@@ -123,18 +138,19 @@ class OfferingCatalogPage extends React.Component<{} & RouteComponentProps, Offe
 				</Header>
 				<Content style={{ padding: '0 50px' }}>
 					<Breadcrumb style={{ margin: '16px 0' }}>
-						<Breadcrumb.Item>Home</Breadcrumb.Item>
-						<Breadcrumb.Item>Offering</Breadcrumb.Item>
+						<Breadcrumb.Item>
+							<a href="/">Home</a>
+						</Breadcrumb.Item>
+						<Breadcrumb.Item>
+							<a href="/offering">Offering</a>
+						</Breadcrumb.Item>
 						<Breadcrumb.Item>{offeringID}</Breadcrumb.Item>
-						<Breadcrumb.Item>Financial</Breadcrumb.Item>
+						<Breadcrumb.Item>Catalog</Breadcrumb.Item>
 					</Breadcrumb>
 					<div className="site-layout-content">
 						<Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-							<Col className="gutter-row" xs={24} sm={24} md={12}>
-								<Title level={3}>Manage Offering Financial</Title>
-							</Col>
-							<Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-								<Button type="primary">+ Create Offering Financial</Button>
+							<Col className="gutter-row" xs={24} sm={24} md={24}>
+								<Title level={3}>Manage Offering Catalogs</Title>
 							</Col>
 						</Row>
 
@@ -145,6 +161,7 @@ class OfferingCatalogPage extends React.Component<{} & RouteComponentProps, Offe
 									dataSource={offeringCatalogItems}
 									loading={loading}
 									bordered
+									rowKey="catalogID"
 									pagination={{ position: ['topLeft'] }}
 								/>
 							</Col>
