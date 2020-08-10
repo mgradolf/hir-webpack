@@ -30,19 +30,19 @@
     "lint": "yarn lint-staged --verbose"
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 120,
     "singleQuote": false,
     "useTabs": false,
     "tabWidth": 2,
     "trailingComma": "none",
-    "semi": false,
-    "jsxBracketSameLine": false
+    "semi": false
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,scss}": [
-      "prettier --write",
-      "yarn lint:sass",
+    "src/**/*.{ts,tsx}": [
       "yarn lint:ts"
+    ],
+    "src/**/*.scss": [
+      "yarn lint:sass"
     ]
   },
   "eslintConfig": {

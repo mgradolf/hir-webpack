@@ -1,66 +1,57 @@
-import React, { useEffect, useState, useRef } from 'react'
-import styles from '~/sass/App.module.scss'
-import style2 from '~/sass/nested/div.module.scss'
-import sum from '~/utils/sum'
-import { Provider } from 'react-redux'
-import ActionButton from '@packages/components/lib/Buttons/ActionButton'
-import { AppStore } from '~/store'
-import { getCountries } from '@packages/api/lib/test/getCountries'
-// import { addOrRemoveOfferingToCatalog } from "@packages/api/lib/service/offering_service/add_remove_offering_to_catalog"
+import React from "react"
+import { ConnectedRouter } from "connected-react-router"
+import { Route, Switch, Redirect } from "react-router-dom"
+import { Provider, connect } from "react-redux"
+import { AppStore, AppState } from "~/store/index"
+import HomePage from "~/pages/HomePage"
+import ProfilePage from "~/pages/ProfilePage"
+import AboutPage from "~/pages/AboutPage"
+import LoginPage from "~/pages/Login/LoginPage"
+import AdminPage from "~/pages/AdminPage"
+import NotFoundPage from "~/pages/NotFoundPage"
+import LoginModal from "~/component/Login/LoginModal"
+import OfflineAlert from "~/component/Alerts/Offline"
+import { History } from "history"
+import OfferingPage from '~/pages/Offering/index'
+import OfferingFinancialPage from '~/pages/Offering/Financial/index'
 
 interface AppProps {
   store: AppStore
+  history: History
+  redirectToLogin: boolean
+  loginModalRequired: boolean
 }
 
-function AppContent() {
-  // try {
-  //   addOrRemoveOfferingToCatalog(2, [3, 4])
-  // } catch (error) {
-  //   console.log(error)
-  // }
-
-  const [data, setdata] = useState({ name: null, country: null, ip: null })
-  const loading = useRef(true)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const [response, error] = await getCountries()
-      console.log(response, JSON.stringify(error))
-
-      loading.current = false
-      setdata(response)
-    }
-    fetchData()
-  }, [])
-
-  let content
-
-  if (loading.current) {
-    content = <div>Loading ....</div>
-  } else if (data) {
-    content = (
-      <div>
-        <div className={style2.Name}>You are from {data.name}</div>
-        <div>Country code {data.country}</div>
-        <div>ip {data.ip}</div>
-        <div>
-          {' this is some '}1 + 2 ={'>'} {sum(1, 2)}
-        </div>
-        <ActionButton title="hellow" />
-      </div>
-    )
-  } else {
-    content = <div>Something went wrong</div>
-  }
-  return content
-}
-
-export function App(props: AppProps): JSX.Element {
+function App(props: AppProps): JSX.Element {
+  const route: JSX.Element = props.redirectToLogin ? (
+    <Switch>
+      <Route path="/login" component={LoginPage} />
+      <Redirect to={{ pathname: "/login" }} />
+    </Switch>
+  ) : (
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route path="/profile" component={ProfilePage} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/admin" component={AdminPage} />
+			<Route exact path="/offering" component={OfferingPage} />
+			<Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
+      <Route component={NotFoundPage} />
+    </Switch>
+  )
   return (
-    <div className={styles.AppBody}>
-      <Provider store={props.store}>
-        <AppContent />
-      </Provider>
-    </div>
+    <Provider store={props.store}>
+      <OfflineAlert />
+      {props.loginModalRequired && <LoginModal />}
+      <ConnectedRouter history={props.history}>{route}</ConnectedRouter>
+    </Provider>
   )
 }
+
+const mapStateToProps = (state: AppState) => {
+  return {
+    redirectToLogin: state.authentication.redirectToLogin,
+    loginModalRequired: state.authentication.loginModalRequired
+  }
+}
+export default connect(mapStateToProps)(App)

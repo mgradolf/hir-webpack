@@ -1,11 +1,12 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { App } from './App'
-import * as Sentry from '@sentry/react'
-import { createStore } from '~/store'
-import * as serviceWorker from '~/serviceWorker'
-
-const { store } = createStore()
+import React from "react"
+import { render } from "react-dom"
+import * as Sentry from "@sentry/react"
+import App from "~/App"
+import * as serviceWorker from "~/serviceWorker"
+import { store, history } from "~/store"
+import registeGlobalhttpErrorHandlerr from "~/ApiServices/RegisteGlobalhttpErrorHandlerr"
+import { initializedAuthState } from "~/ApiServices/Login"
+import "antd/dist/antd.css"
 
 if (process.env.REACT_APP_SENTRY_RELEASE && process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
@@ -14,8 +15,11 @@ if (process.env.REACT_APP_SENTRY_RELEASE && process.env.REACT_APP_SENTRY_DSN) {
   })
 }
 
-const root = document.getElementById('root')
-render(<App store={store} />, root)
+registeGlobalhttpErrorHandlerr()
+initializedAuthState()
+
+const root = document.getElementById("root")
+render(<App store={store} history={history} />, root)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -20,8 +20,8 @@ module.exports = {
     "prettier/prettier": [
       "error",
       {
-        printWidth: 80,
-        singleQuote: true,
+        printWidth: 120,
+        singleQuote: false,
         useTabs: false,
         tabWidth: 2,
         trailingComma: "none",
@@ -44,7 +44,8 @@ module.exports = {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/prefer-interface": "off",
     "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/no-object-literal-type-assertion": "off"
+    "@typescript-eslint/no-object-literal-type-assertion": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   globals: {},
   parser: "@typescript-eslint/parser",

@@ -16,12 +16,10 @@
     "useTabs": false,
     "tabWidth": 2,
     "trailingComma": "none",
-    "semi": false,
-    "jsxBracketSameLine": false
+    "semi": false
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,scss}": [
-      "prettier --write",
+    "src/**/*.ts": [
       "yarn lint:ts"
     ]
   },

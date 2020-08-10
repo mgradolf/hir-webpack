@@ -11,21 +11,26 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.9",
+    "@types/react-router-dom": "^5.1.5",
+    "antd": "^4.5.1",
+		"moment": "^2.27.0",
+    "connected-react-router": "^6.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux-thunk": "^2.3.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "HTTPS=true craco start",
     "build": "craco build",
     "test": "craco test  --coverage --watchAll=false",
     "test:watch": "craco test --watch",
     "open:cov": "yarn test --coverage --watchAll=false && opener ./coverage/index.html",
     "eject": "craco eject",
-    "lint:sass": "stylelint './src/sass/**/*.scss'",
+    "lint:sass": "stylelint --fix './src/**/*.scss'",
     "lint:ts": "eslint --fix --max-warnings 0 './src/**/*.{ts,tsx}'",
     "clean:dist": "rimraf dist",
     "clean:node_modules": "rimraf node_modules",
@@ -41,11 +46,9 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "prettier --write",
       "yarn lint:ts"
     ],
     "src/**/*.scss": [
-      "prettier --write",
       "yarn lint:sass"
     ]
   },
