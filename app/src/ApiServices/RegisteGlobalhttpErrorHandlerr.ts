@@ -8,7 +8,7 @@ export default function RegisteGlobalhttpErrorHandlerr() {
   eventBus.subscribe((error: ErrorSchema) => {
     store.dispatch(showGLobalApiError(error.error))
 
-    if (error.code === 401) {
+    if (error.code === 401 && store.getState().router.location.pathname !== "/login") {
       store.dispatch(setLoginRequired(true))
     }
   })

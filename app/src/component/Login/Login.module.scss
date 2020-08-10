@@ -8,4 +8,7 @@
 
 .Card {
   min-width: 300px;
+  &_Meta {
+    margin-bottom: 10px !important;
+  }
 }

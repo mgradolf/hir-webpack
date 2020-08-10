@@ -1,10 +1,9 @@
 import React, { useState } from "react"
-// import { redirect } from "~/store/ConnectedRoute"
 import { Form, Input, Button, Card } from "antd"
 import { Error } from "~/component/Error"
 import style from "~/component/Login/Login.module.scss"
 import { Store } from "antd/lib/form/interface"
-import { login } from "~/service/Login"
+import { login } from "~/ApiServices/Login"
 
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
@@ -48,10 +47,13 @@ function Login(props: ILoginProps) {
   }
 
   const { globalErrorMessage } = props
-
+  const modalProps = {
+    title: "Login required",
+    description: "Your session has been timed out, please login again"
+  }
   return (
     <Card className={style.Card}>
-      {/* {Boolean(loginError) && <Error>{loginError}</Error>} */}
+      {props.modal && <Card.Meta className={style.Card_Meta} {...modalProps} />}
       {Boolean(globalErrorMessage) && <Error>{globalErrorMessage}</Error>}
       <Form
         layout="vertical"

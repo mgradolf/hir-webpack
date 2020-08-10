@@ -1,4 +1,5 @@
 import React from "react"
+import { ConnectedRouter } from "connected-react-router"
 import { Route, Switch, Redirect } from "react-router-dom"
 import { Provider, connect } from "react-redux"
 import { AppStore, AppState } from "~/store/index"
@@ -7,9 +8,10 @@ import ProfilePage from "~/pages/ProfilePage"
 import AboutPage from "~/pages/AboutPage"
 import LoginPage from "~/pages/Login/LoginPage"
 import AdminPage from "~/pages/AdminPage"
+import NotFoundPage from "~/pages/NotFoundPage"
 import LoginModal from "~/component/Login/LoginModal"
+import OfflineAlert from "~/component/Alerts/Offline"
 import { History } from "history"
-import { ConnectedRouter } from "connected-react-router"
 import OfferingPage from '~/pages/Offering/index'
 import OfferingFinancialPage from '~/pages/Offering/Financial/index'
 
@@ -21,30 +23,27 @@ interface AppProps {
 }
 
 function App(props: AppProps): JSX.Element {
-  let route: JSX.Element
-  if (props.redirectToLogin) {
-    route = <Redirect to={{ pathname: "/login" }} />
-  } else {
-    route = (
-      <React.Fragment>
-        {props.loginModalRequired && <LoginModal />}
-        <Route exact path="/" component={OfferingPage} />
-        <Route path="/profile" component={ProfilePage} />
-        <Route path="/about" component={AboutPage} />
-        <Route exact path="/admin" component={AdminPage} />
-        <Route exact path="/offering" component={OfferingPage} />
-        <Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
-      </React.Fragment>
-    )
-  }
+  const route: JSX.Element = props.redirectToLogin ? (
+    <Switch>
+      <Route path="/login" component={LoginPage} />
+      <Redirect to={{ pathname: "/login" }} />
+    </Switch>
+  ) : (
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route path="/profile" component={ProfilePage} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/admin" component={AdminPage} />
+			<Route exact path="/offering" component={OfferingPage} />
+			<Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
+      <Route component={NotFoundPage} />
+    </Switch>
+  )
   return (
     <Provider store={props.store}>
-      <ConnectedRouter history={props.history}>
-        <Switch>
-          <Route exact path="/login" component={LoginPage} />
-          {route}
-        </Switch>
-      </ConnectedRouter>
+      <OfflineAlert />
+      {props.loginModalRequired && <LoginModal />}
+      <ConnectedRouter history={props.history}>{route}</ConnectedRouter>
     </Provider>
   )
 }

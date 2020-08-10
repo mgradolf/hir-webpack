@@ -2,10 +2,16 @@ import callApi from "./CallApi"
 import { getToken } from "./TokenStore"
 import { ApiConfig } from "./Interfaces"
 
-function callServiceApi(Service: string, Action: string, Params: any, Module?: any): Promise<[any, any]> {
+function callServiceApi(
+  endPoint: string,
+  Service: string,
+  Action: string,
+  Params: any,
+  Module?: any
+): Promise<[any, any]> {
   const config: ApiConfig = {
     baseURL: process.env.REACT_APP_API_ROOT,
-    url: "api/hirServlet",
+    url: endPoint,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,21 +27,24 @@ function callServiceApi(Service: string, Action: string, Params: any, Module?: a
   return callApi(config)
 }
 
-interface Iconfig {
+type Dictionary = { [key: string]: any }
+
+export interface Iconfig {
+  EndPoint: string
   Service: string
   Module: string
-  Actions: { [key: string]: string }
+  Actions: Dictionary
 }
 
-export interface IAction {
-  [key: string]: (Params: { [key: string]: any }) => Promise<[any, any]>
+export interface ApiMethod {
+  [key: string]: (Params: Dictionary) => Promise<[any, any]>
 }
 
 export default (config: Iconfig) => {
-  const Actions: IAction = {}
+  const Actions: ApiMethod = {}
   Object.keys(config.Actions).forEach((Action) => {
     Actions[Action] = (Params: { [key: string]: any }): Promise<[any, any]> =>
-      callServiceApi(config.Service, Action, Params, config.Module)
+      callServiceApi(config.EndPoint, config.Service, Action, Params, config.Module)
   })
   return Actions
 }
