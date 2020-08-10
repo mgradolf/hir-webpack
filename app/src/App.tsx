@@ -30,7 +30,7 @@ function App(props: AppProps): JSX.Element {
     </Switch>
   ) : (
     <Switch>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" component={OfferingPage} />
       <Route path="/profile" component={ProfilePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
