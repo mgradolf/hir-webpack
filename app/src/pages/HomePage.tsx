@@ -74,6 +74,7 @@ export default function Home() {
           <div>
             {" this is some "}1 + 2 ={">"} {sum(1, 2)}
           </div>
+          <Link to="/offering"></Link>
           <button onClick={navigateToProfile}>Call api</button>
         </div>
       )
@@ -96,6 +97,8 @@ export default function Home() {
       <button onClick={logout}>Log out</button>
       <br />
       <Link to="/about">About</Link>
+      <br />
+      <Link to="/offering">Offering</Link>
       <br />
       <Link to="/sd32r24frfrgdfgf">Not found</Link>
     </div>

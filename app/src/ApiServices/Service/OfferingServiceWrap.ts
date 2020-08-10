@@ -11,8 +11,8 @@ export function updateOfferingWrap(Params: { [key: string]: any }): Promise<[any
   return OfferingService[config.Actions.updateOffering](Params)
 }
 
-export function searchOfferingWrap(OfferingCode: string): Promise<[any, any]> {
-  return OfferingService[config.Actions.searchOffering]({ OfferingCode })
+export function searchOfferingWrap(Params: { [key: string]: any }): Promise<[any, any]> {
+  return OfferingService[config.Actions.searchOffering](Params)
 }
 
 export function addOrRemoveOfferingToCatalogWrap(OfferingID: number, CatalogIDs: Array<number>): Promise<[any, any]> {

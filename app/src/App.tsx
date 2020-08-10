@@ -12,8 +12,8 @@ import NotFoundPage from "~/pages/NotFoundPage"
 import LoginModal from "~/component/Login/LoginModal"
 import OfflineAlert from "~/component/Alerts/Offline"
 import { History } from "history"
-import OfferingPage from '~/pages/Offering/index'
-import OfferingFinancialPage from '~/pages/Offering/Financial/index'
+import OfferingPage from "~/pages/Offering/index"
+import OfferingFinancialPage from "~/pages/Offering/Financial/index"
 
 interface AppProps {
   store: AppStore
@@ -34,8 +34,8 @@ function App(props: AppProps): JSX.Element {
       <Route path="/profile" component={ProfilePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
-			<Route exact path="/offering" component={OfferingPage} />
-			<Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
+      <Route exact path="/offering" component={OfferingPage} />
+      <Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
       <Route component={NotFoundPage} />
     </Switch>
   )
