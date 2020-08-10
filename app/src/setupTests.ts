@@ -1,5 +1,5 @@
-import { configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { configure } from "enzyme"
+import Adapter from "enzyme-adapter-react-16"
 
 configure({
   adapter: new Adapter()
@@ -13,7 +13,7 @@ const localStorageMock = {
   clear: jest.fn()
 }
 
-Object.defineProperty(window, 'localStorage', {
+Object.defineProperty(window, "localStorage", {
   value: localStorageMock,
   writable: true
 })
@@ -23,5 +23,5 @@ interface CustomEnv extends NodeJS.ProcessEnv {
 }
 
 process.env = {
-  REACT_APP_API_ROOT: 'https://get.geojs.io/v1/ip/country.json'
+  REACT_APP_API_ROOT: "https://get.geojs.io/v1/ip/country.json"
 } as CustomEnv

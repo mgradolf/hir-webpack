@@ -2,25 +2,26 @@ import { ErrorSchema, ErrorType } from "../Interfaces"
 import { AxiosError, AxiosResponse } from "axios"
 
 const handleError = (error: AxiosError): ErrorSchema => {
-  console.log("handle error ", error)
-
   let errResponse: ErrorSchema = {
-    status: undefined,
+    code: undefined,
     error: "Unknown",
-    data: undefined
+    data: undefined,
+    success: false
   }
   if (error.isAxiosError && error && error.response) {
-    if (error.response.data && typeof error.response.data !== "string" && error.response.data["code"] && error.response.data["error"] && error.response.data["data"]) {
+    if (error.response.data && typeof error.response.data !== "string") {
       errResponse = {
-        status: error.response.data["code"],
+        code: error.response.data["code"],
         error: error.response.data["error"],
-        data: error.response.data["data"]
+        data: error.response.data["data"],
+        success: error.response.data["success"]
       }
     } else {
       errResponse = {
-        status: error.response.status,
+        code: error.response.status,
         error: error.response.data,
-        data: null
+        data: null,
+        success: false
       }
     }
   }
@@ -28,31 +29,40 @@ const handleError = (error: AxiosError): ErrorSchema => {
   return errResponse
 }
 
+const retireveErrorText = (errResponse: ErrorSchema, defaultMessage: string): string => {
+  if (errResponse.error && errResponse.error.Description) {
+    return errResponse.error.Description
+  } else if (errResponse.error && typeof errResponse.error === "string") {
+    return errResponse.error
+  }
+  return defaultMessage
+}
+
 const tagGlobalErrors = (errResponse: ErrorSchema) => {
-  switch (errResponse.status) {
+  switch (errResponse.code) {
     case 401:
       errResponse.type = ErrorType.GLOBAL
-      errResponse.error = "Unauthorized"
+      errResponse.error = retireveErrorText(errResponse, "UnAuthorized")
       break
     case 403:
       errResponse.type = ErrorType.GLOBAL
-      errResponse.error = "Forbidden"
+      errResponse.error = retireveErrorText(errResponse, "Forbidden")
       break
     case 500:
       errResponse.type = ErrorType.GLOBAL
-      errResponse.error = "Internal Server Error"
+      errResponse.error = retireveErrorText(errResponse, "Internal Server Error")
       break
     case 502:
       errResponse.type = ErrorType.GLOBAL
-      errResponse.error = "Bad Gateway"
+      errResponse.error = retireveErrorText(errResponse, "Bad Gateway")
       break
     case 503:
       errResponse.type = ErrorType.GLOBAL
-      errResponse.error = "Service Unavailable"
+      errResponse.error = retireveErrorText(errResponse, "Service Unavailable")
       break
     case 504:
       errResponse.type = ErrorType.GLOBAL
-      errResponse.error = "Gateway Timeout"
+      errResponse.error = retireveErrorText(errResponse, "Gateway Timeout")
       break
     default:
       errResponse.type = ErrorType.CUSTOM
@@ -63,6 +73,8 @@ const tagGlobalErrors = (errResponse: ErrorSchema) => {
 
 export const handleResponse = (promise: Promise<any>): Promise<any> => {
   return promise
-    .then((response: AxiosResponse<any>) => [<any>response.data, undefined])
+    .then((response: AxiosResponse<any>) => {
+      return [<any>response.data, undefined]
+    })
     .catch((error: AxiosError) => Promise.resolve([undefined, <any>handleError(error)]))
 }

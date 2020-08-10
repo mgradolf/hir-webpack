@@ -1,6 +1,12 @@
-import callBizApi from "../../../utils/CallBizApi"
+import ApiMethodFactory, { Iconfig } from "../../../utils/ApiMethodFactory"
 
-const Module = "hir"
-const Service = "com.jenzabar.jxntm.server.bizapi.catalog.CatalogIF"
+export const config: Iconfig = {
+  EndPoint: "api/bizApiServlet",
+  Service: "com.jenzabar.jxntm.server.bizapi.catalog.CatalogIF",
+  Module: "hir",
+  Actions: {
+    findCatalogs: "findCatalogs"
+  }
+}
 
-export const findCatalogs = (Params: any): Promise<any> => callBizApi(Service, "findCatalogs", Params, Module)
+export default ApiMethodFactory(config)

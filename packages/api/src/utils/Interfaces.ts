@@ -13,8 +13,9 @@ export enum ErrorType {
 }
 
 export interface ErrorSchema {
-  status: number | undefined
-  type?: ErrorType
-  error: any
+  code: number | undefined
   data: any
+  error: any
+  success: boolean
+  type?: ErrorType
 }
