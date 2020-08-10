@@ -73,7 +73,7 @@ class OfferingCatalogPage extends React.Component<RouteComponentProps, OfferingC
       loading: true
     })
 
-    const [result, error] = await searchOfferingFinancialWrap(this.state.offeringID)
+    const [result] = await searchOfferingFinancialWrap(this.state.offeringID)
 
     if (result) {
       this.setState({

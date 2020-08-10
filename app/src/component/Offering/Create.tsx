@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Modal, Form, Radio, Select, Input, Typography, DatePicker, Divider } from "antd"
+import { Modal, Form, Radio, Select, Input, DatePicker, Divider } from "antd"
 import { Store } from "antd/lib/form/interface"
 import { FormInstance } from "antd/lib/form"
 
@@ -47,17 +47,19 @@ function FormContents({ activePage, values, onChange, formInstance }: IFormConte
             ))}
           </Radio.Group>
         </Form.Item>
-        <Form.Item
-          label="Other offering types"
-          name="otherOfferingType"
-          dependencies={["offeringType"]}
-          rules={[{ required: true, message: "Please select an offering type!" }]}
-        >
-          <Select placeholder="Select an offering type" disabled={values.offeringType !== "OTHER"}>
-            <Option value="OFFERING_TYPE_1">Offering type 1</Option>
-            <Option value="OFFERING_TYPE_2">Offering type 2</Option>
-          </Select>
-        </Form.Item>
+        {values.offeringType === "OTHER" && (
+          <Form.Item
+            label="Other offering types"
+            name="otherOfferingType"
+            dependencies={["offeringType"]}
+            rules={[{ required: true, message: "Please select an offering type!" }]}
+          >
+            <Select placeholder="Select an offering type">
+              <Option value="OFFERING_TYPE_1">Offering type 1</Option>
+              <Option value="OFFERING_TYPE_2">Offering type 2</Option>
+            </Select>
+          </Form.Item>
+        )}
       </Form>
     ),
     () => (
@@ -188,6 +190,7 @@ function FormContents({ activePage, values, onChange, formInstance }: IFormConte
   ]
   return contents[activePage]()
 }
+
 export default function CreateNewOffering(props: ICreateNewOffering) {
   const { visible } = props
   const [values, setValues] = React.useState<Array<{ [key: string]: any }>>([
@@ -196,6 +199,14 @@ export default function CreateNewOffering(props: ICreateNewOffering) {
   ])
   const [activePage, setActivePage] = React.useState(0)
   const [formInstance] = Form.useForm()
+  React.useEffect(() => {
+    if (!props.visible) {
+      setActivePage(0)
+    }
+    // return () => {
+    //   setActivePage(0)
+    // }
+  }, [props.visible])
 
   const handleOk = () => {
     if (activePage < values.length - 1) {
@@ -203,7 +214,6 @@ export default function CreateNewOffering(props: ICreateNewOffering) {
     }
   }
   const handleCancel = () => {
-    console.log("meo mo")
     props.onClose(false)
   }
 
@@ -212,6 +222,7 @@ export default function CreateNewOffering(props: ICreateNewOffering) {
       title="Create offering"
       visible={visible}
       okText="Create"
+      maskClosable={false}
       bodyStyle={{ maxHeight: "60vh", overflow: "auto" }}
       onOk={() => {
         formInstance.validateFields().then(() => handleOk())
