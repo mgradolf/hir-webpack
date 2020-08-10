@@ -10,7 +10,7 @@ export interface IGlobalApiErrorState {
   errorMessage: null | string
 }
 
-export const showGLobalApiError = (message: string): IAction => ({
+export const showGLobalApiError = (message: string | null): IAction => ({
   type: SHOW_GLOBAL_API_ERROR,
   payload: { message }
 })
