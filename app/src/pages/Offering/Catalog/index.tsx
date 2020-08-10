@@ -7,6 +7,7 @@ import {Layout, Menu, Breadcrumb, Row, Col, Switch, Checkbox} from 'antd';
 import {Table, Typography} from 'antd';
 import {DownOutlined, FilterOutlined, CloseOutlined} from '@ant-design/icons';
 
+import { logout } from "~/ApiServices/Login"
 import { findCatalogWrap } from '~/ApiServices/BizApi/catalog/catalogIf';
 import { addOrRemoveOfferingToCatalogWrap } from '~/api-wrappers/Service/OfferingServiceWrap';
 import styles from "~/pages/Offering/Financial/Financial.module.scss";
@@ -132,7 +133,7 @@ class OfferingCatalogPage extends React.Component<{} & RouteComponentProps, Offe
 							<Menu.Item key="7">Reports</Menu.Item>
 						</SubMenu>
 						<Menu.Item key="4" className={styles.floatRight}>
-							<a href="/login">Logout</a>
+							<a href="javascript:void(0)" onClick={logout}>Logout</a>
 						</Menu.Item>
 					</Menu>
 				</Header>

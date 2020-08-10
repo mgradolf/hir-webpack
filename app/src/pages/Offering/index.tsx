@@ -6,6 +6,7 @@ import { Layout, Menu, Breadcrumb, Row, Col, Button, Input, Select } from 'antd'
 import { Table, Space, Dropdown, Typography, Checkbox, DatePicker } from 'antd';
 import { DownOutlined, FilterOutlined, CloseOutlined } from '@ant-design/icons';
 
+import { logout } from "~/ApiServices/Login"
 import { searchOfferingWrap } from '~/api-wrappers/Service/OfferingServiceWrap';
 import styles from "~/pages/Offering/Offering.module.scss";
 import {string} from "prop-types";
@@ -306,7 +307,7 @@ class OfferingPage extends React.Component<{}, OfferingState> {
 							<Menu.Item key="7">Reports</Menu.Item>
 						</SubMenu>
 						<Menu.Item key="4" className={styles.floatRight}>
-							<a href="/login">Logout</a>
+							<a href="javascript:void(0)" onClick={logout}>Logout</a>
 						</Menu.Item>
 					</Menu>
 				</Header>

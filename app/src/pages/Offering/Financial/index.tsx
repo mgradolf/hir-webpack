@@ -6,6 +6,7 @@ import {Layout, Menu, Breadcrumb, Row, Col, Button} from 'antd';
 import {Table, Typography} from 'antd';
 import {DownOutlined, FilterOutlined, CloseOutlined} from '@ant-design/icons';
 
+import { logout } from "~/ApiServices/Login"
 import { searchOfferingFinancialWrap } from '~/api-wrappers/Service/OfferingServiceWrap';
 import styles from "~/pages/Offering/Financial/Financial.module.scss";
 
@@ -117,7 +118,7 @@ class OfferingFinancialPage extends React.Component<{} & RouteComponentProps, Of
 							<Menu.Item key="7">Reports</Menu.Item>
 						</SubMenu>
 						<Menu.Item key="4" className={styles.floatRight}>
-							<a href="/login">Logout</a>
+							<a href="javascript:void(0)" onClick={logout}>Logout</a>
 						</Menu.Item>
 					</Menu>
 				</Header>
