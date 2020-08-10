@@ -10,6 +10,8 @@ import AdminPage from "~/pages/AdminPage"
 import LoginModal from "~/component/Login/LoginModal"
 import { History } from "history"
 import { ConnectedRouter } from "connected-react-router"
+import OfferingPage from '~/pages/Offering/index'
+import OfferingFinancialPage from '~/pages/Offering/Financial/index'
 
 interface AppProps {
   store: AppStore
@@ -26,11 +28,12 @@ function App(props: AppProps): JSX.Element {
     route = (
       <React.Fragment>
         {props.loginModalRequired && <LoginModal />}
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={OfferingPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/about" component={AboutPage} />
         <Route exact path="/admin" component={AdminPage} />
-        <Route exact path="/offering" component={AdminPage} />
+        <Route exact path="/offering" component={OfferingPage} />
+        <Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
       </React.Fragment>
     )
   }

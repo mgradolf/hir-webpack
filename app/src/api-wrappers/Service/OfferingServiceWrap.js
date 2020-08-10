@@ -11,8 +11,8 @@ function updateOfferingWrap(Params) {
     return OfferingService_1.default[OfferingService_1.config.Actions.updateOffering](Params);
 }
 exports.updateOfferingWrap = updateOfferingWrap;
-function searchOfferingWrap(OfferingCode) {
-    return OfferingService_1.default[OfferingService_1.config.Actions.searchOffering]({ OfferingCode: OfferingCode });
+function searchOfferingWrap(Params) {
+    return OfferingService_1.default[OfferingService_1.config.Actions.searchOffering](Params);
 }
 exports.searchOfferingWrap = searchOfferingWrap;
 function addOrRemoveOfferingToCatalogWrap(OfferingID, CatalogIDs) {
