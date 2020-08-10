@@ -145,6 +145,7 @@ class OfferingFinancialPage extends React.Component<RouteComponentProps, Offerin
                   loading={loading}
                   bordered
                   pagination={{ position: ["topLeft"] }}
+                  scroll={{ x: "fit-content" }}
                 />
               </Col>
             </Row>

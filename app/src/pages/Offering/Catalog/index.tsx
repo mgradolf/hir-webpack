@@ -141,6 +141,7 @@ class OfferingCatalogPage extends React.Component<RouteComponentProps, OfferingC
                   loading={loading}
                   bordered
                   pagination={{ position: ["topLeft"] }}
+                  scroll={{ x: "fit-content" }}
                 />
               </Col>
             </Row>

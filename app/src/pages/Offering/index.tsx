@@ -21,7 +21,7 @@ import {
 import { DownOutlined, FilterOutlined, CloseOutlined } from "@ant-design/icons"
 
 import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
-import { RouteComponentProps } from "react-router-dom"
+import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 import { logout } from "~/ApiServices/Login"
 
@@ -151,13 +151,13 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
     return (
       <Menu>
         <Menu.Item key="0">
-          <a href={`/offering/${record.OfferingID}/financial`}>Offering Financial</a>
+          <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
         </Menu.Item>
         <Menu.Item key="1">
           <a href="/">Requisite Management</a>
         </Menu.Item>
         <Menu.Item key="2">
-          <a href="/">Catalogs</a>
+          <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
         </Menu.Item>
         <Menu.Item key="3">
           <a href="/">Offering Tag</a>
