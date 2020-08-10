@@ -17,13 +17,13 @@ export async function login(UserName: string, UserPassword: string): Promise<[an
 
 export function logout(): void {
   removeTokens()
+  store.dispatch(setLoginRequired(false))
   store.dispatch(setRedirectToLogin(true))
-  store.dispatch(setLoginRequired(true))
 }
 
 export function initializedAuthState(): void {
   if (!getToken()) {
-    store.dispatch(setLoginRequired(true))
+    store.dispatch(setLoginRequired(false))
     store.dispatch(setRedirectToLogin(true))
   }
 }

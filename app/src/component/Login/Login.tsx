@@ -3,7 +3,7 @@ import { Form, Input, Button, Card } from "antd"
 import { Error } from "~/component/Error"
 import style from "~/component/Login/Login.module.scss"
 import { Store } from "antd/lib/form/interface"
-import { login } from "~/service/Login"
+import { login } from "~/ApiServices/Login"
 
 import { connect } from "react-redux"
 import { Dispatch } from "redux"

@@ -4,8 +4,8 @@ import * as Sentry from "@sentry/react"
 import App from "~/App"
 import * as serviceWorker from "~/serviceWorker"
 import { store, history } from "~/store"
-import registeGlobalhttpErrorHandlerr from "~/service/RegisteGlobalhttpErrorHandlerr"
-import { initializedAuthState } from "~/service/Login"
+import registeGlobalhttpErrorHandlerr from "~/ApiServices/RegisteGlobalhttpErrorHandlerr"
+import { initializedAuthState } from "~/ApiServices/Login"
 import "antd/dist/antd.css"
 
 if (process.env.REACT_APP_SENTRY_RELEASE && process.env.REACT_APP_SENTRY_DSN) {
