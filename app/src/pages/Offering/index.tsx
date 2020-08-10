@@ -19,7 +19,7 @@ import {
 } from "antd"
 
 import { DownOutlined, FilterOutlined, CloseOutlined } from "@ant-design/icons"
-
+import CreateNewOffering from "~/component/Offering/Create"
 import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
@@ -50,6 +50,7 @@ type OfferingState = {
   showIsQuickAdmitBlock: boolean
   offeringItems: any
   expandedRowKeys: any
+  shouldOpenOfferingCreateForm: boolean
 }
 
 class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
@@ -131,7 +132,8 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
     showTerminationDateBlock: false,
     showIsQuickAdmitBlock: false,
     offeringItems: [],
-    expandedRowKeys: []
+    expandedRowKeys: [],
+    shouldOpenOfferingCreateForm: false
   }
 
   static expandableRowRender(data: any) {
@@ -233,6 +235,10 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
       filterCounter: this.filterCount
     })
     this.searchOffering()
+  }
+
+  handleOfferingCreateForm = (shouldOpen: boolean) => {
+    this.setState({ shouldOpenOfferingCreateForm: shouldOpen })
   }
 
   toggleFilter = () => {
@@ -367,7 +373,13 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
                 >
                   Filters
                 </Button>
-                <Button type="primary">+ Create Offering</Button>
+                <CreateNewOffering
+                  visible={this.state.shouldOpenOfferingCreateForm}
+                  onClose={this.handleOfferingCreateForm}
+                />
+                <Button type="primary" onClick={() => this.handleOfferingCreateForm(true)}>
+                  + Create Offering
+                </Button>
               </Col>
             </Row>
 

@@ -8,6 +8,7 @@ const { Option } = Select
 
 interface ICreateNewOffering {
   visible: boolean
+  onClose: (flag: boolean) => void
 }
 
 interface IFormContentsProps {
@@ -187,7 +188,7 @@ function FormContents({ activePage, values, onChange, formInstance }: IFormConte
   ]
   return contents[activePage]()
 }
-export function CreateNewOffering(props: ICreateNewOffering) {
+export default function CreateNewOffering(props: ICreateNewOffering) {
   const { visible } = props
   const [values, setValues] = React.useState<Array<{ [key: string]: any }>>([
     { offeringType: "DEFAULT" },
@@ -201,7 +202,10 @@ export function CreateNewOffering(props: ICreateNewOffering) {
       setActivePage(activePage + 1)
     }
   }
-  const handleCancel = () => null
+  const handleCancel = () => {
+    console.log("meo mo")
+    props.onClose(false)
+  }
 
   return (
     <Modal
