@@ -8,6 +8,10 @@
     "selector-class-pattern": "[A-Z-a-z-0-9]",
     "function-url-quotes": "never",
     "scss/dollar-variable-pattern" : ".*",
+<<<<<<< HEAD
 		"no-empty-source": null
+=======
+    "max-nesting-depth": 2
+>>>>>>> 95fa07f14cde80d391ca40c2c92a886b9cf6a8f6
   }
 }

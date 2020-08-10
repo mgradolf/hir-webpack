@@ -5,10 +5,11 @@ import eventBus from "./GlobalHttpErrorEventBus"
 
 export default async function callApi(config: ApiConfig): Promise<[any, any]> {
   const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>config
+  requestConfig.withCredentials = true
   const [response, error] = await handleResponse(axios.request(requestConfig))
-  console.log("requestConfig", requestConfig)
-  console.log("response ", response)
-  console.log("error ", error)
+  // console.log("requestConfig", requestConfig)
+  // console.log("response ", response)
+  // console.log("error ", error)
 
   if (error && error.type === ErrorType.GLOBAL) {
     eventBus.publish(error)
