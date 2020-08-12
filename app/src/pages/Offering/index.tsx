@@ -4,7 +4,6 @@ import moment from "moment"
 import {
   Layout,
   Menu,
-  Breadcrumb,
   Row,
   Col,
   Button,
@@ -18,15 +17,14 @@ import {
   DatePicker
 } from "antd"
 
-import { DownOutlined, FilterOutlined, CloseOutlined } from "@ant-design/icons"
-import CreateNewOffering from "~/component/Offering/Create"
+import { DownOutlined, CloseOutlined } from "@ant-design/icons"
+import { Header, Breadcrumb, Toolbar } from "~/component/Offering"
 import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { logout } from "~/ApiServices/Login"
 
-const { Header, Content, Footer } = Layout
-const { SubMenu } = Menu
+const { Content, Footer } = Layout
+
 const { Title } = Typography
 const { RangePicker } = DatePicker
 const { Option } = Select
@@ -320,69 +318,14 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
 
     return (
       <Layout className="layout">
-        <Header>
-          <div>
-            <img className={styles.logo} src="./images/logo.png" alt="JE Home Page" />
-          </div>
-          <Menu theme="dark" mode="horizontal">
-            <SubMenu key="sub1" title="Manage">
-              <Menu.Item key="1">
-                <a href="/">Offering</a>
-              </Menu.Item>
-              <Menu.Item key="2">Person</Menu.Item>
-              <Menu.Item key="3">Course</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" title="Setup">
-              <Menu.Item key="5">Organization</Menu.Item>
-              <Menu.Item key="6">Reference Data</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub3" title="Tools">
-              <Menu.Item key="7">Reports</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="4" className={styles.floatRight}>
-              <span onClick={logout}>Logout</span>
-            </Menu.Item>
-          </Menu>
-        </Header>
+        <Header />
         <Content style={{ padding: "0 50px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>
-              <a href="/">Home</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <a href="/offering">Offering</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Search</Breadcrumb.Item>
-          </Breadcrumb>
+          <Breadcrumb />
           <div className="site-layout-content">
             <Row>
               <Title level={3}>Manage Offerings</Title>
             </Row>
-            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-              <Col className="gutter-row" xs={24} sm={24} md={12}>
-                <span onClick={this.toggleFilter}>
-                  <FilterOutlined />
-                  <span> {this.filterCount === 0 ? "No" : this.filterCount} filters applied</span>
-                </span>
-              </Col>
-              <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-                <Button
-                  type="primary"
-                  className={showFilter ? styles.hidden : styles.marginRight5px}
-                  onClick={this.toggleFilter}
-                >
-                  Filters
-                </Button>
-                <CreateNewOffering
-                  visible={this.state.shouldOpenOfferingCreateForm}
-                  onClose={this.handleOfferingCreateForm}
-                />
-                <Button type="primary" onClick={() => this.handleOfferingCreateForm(true)}>
-                  + Create Offering
-                </Button>
-              </Col>
-            </Row>
-
+            <Toolbar filterCount={this.filterCount} filterColumnVisible={showFilter} toggleFilter={this.toggleFilter} />
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
               <Col
                 className={showFilter ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
