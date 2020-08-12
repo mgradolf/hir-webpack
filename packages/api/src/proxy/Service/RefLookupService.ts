@@ -1,3 +1,5 @@
+import ApiMethodFactory from "../../utils/ApiMethodFactory"
+
 export const config = {
   EndPoint: "api/hirServlet",
   Service: "RefLookupService",
@@ -6,3 +8,4 @@ export const config = {
     getList: "getList"
   }
 }
+export default ApiMethodFactory(config)
