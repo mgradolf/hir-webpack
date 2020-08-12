@@ -1,0 +1,14 @@
+.Header {
+  background: none;
+}
+
+.Text__center {
+  text-align: center;
+}
+
+.Card {
+  min-width: 300px;
+  &_Meta {
+    margin-bottom: 10px !important;
+  }
+}

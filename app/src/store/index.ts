@@ -1,56 +1,35 @@
-import {
-  createStore as createEnhancedStore,
-  combineReducers,
-  applyMiddleware,
-  compose,
-  Store,
-  AnyAction
-} from 'redux'
-import { profileReducer, ProfileState } from '~/store/profile/reducer'
-import {
-  globalApiErrorReducer,
-  IGlobalApiErrorState
-} from '~/store/global_error/reducer'
-import thunk from 'redux-thunk'
-import {
-  IAuthenticationState,
-  authenticationReducer
-} from './authentication/reducer'
-import {
-  RouterState,
-  connectRouter,
-  routerMiddleware
-} from 'connected-react-router'
-import { createBrowserHistory, History } from 'history'
+import { createStore as createEnhancedStore, combineReducers, applyMiddleware, compose, Store, AnyAction } from "redux"
+import { authenticationReducer, IAuthentication } from "~/store/Authentication"
+import { globalApiErrorReducer, IGlobalApiErrorState } from "~/store/GlobalError"
+import thunk from "redux-thunk"
+import { RouterState, connectRouter, routerMiddleware } from "connected-react-router"
+import { createBrowserHistory, History } from "history"
 
 type WindowWithReduxDevTools = typeof window & {
   __REDUX_DEVTOOLS_EXTENSION__: typeof compose
 }
 
 export type AppState = {
-  profile: ProfileState
+  authentication: IAuthentication
   router: RouterState
   globalApiError: IGlobalApiErrorState
-  authentication: IAuthenticationState
 }
 
 export type AppStore = Store<AppState, AnyAction>
 
-export function createStore(): { store: AppStore; history: History } {
+function createStore(): { store: AppStore; history: History } {
   const history = createBrowserHistory()
   const reducers = combineReducers<AppState>({
-    profile: profileReducer,
+    authentication: authenticationReducer,
     router: connectRouter(history),
-    globalApiError: globalApiErrorReducer,
-    authentication: authenticationReducer
+    globalApiError: globalApiErrorReducer
   })
 
   const storeEnhancers: any = compose(
     applyMiddleware(thunk),
     applyMiddleware(routerMiddleware(history)),
     // redux dev tools
-    typeof (window as WindowWithReduxDevTools).__REDUX_DEVTOOLS_EXTENSION__ !==
-      'undefined'
+    typeof (window as WindowWithReduxDevTools).__REDUX_DEVTOOLS_EXTENSION__ !== "undefined"
       ? (window as WindowWithReduxDevTools).__REDUX_DEVTOOLS_EXTENSION__()
       : (f: unknown) => f
   )
@@ -58,3 +37,5 @@ export function createStore(): { store: AppStore; history: History } {
   const store = createEnhancedStore(reducers, storeEnhancers)
   return { store, history }
 }
+
+export const { store, history } = createStore()

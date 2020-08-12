@@ -1,7 +1,7 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { AppState } from '~/store'
-import { removeGLobalApiError } from '~/store/global_error/action'
+import React from "react"
+import { connect } from "react-redux"
+import { AppState } from "~/store"
+import { removeGLobalApiError } from "~/store/GlobalError"
 
 function ApiErrorAlert(props: any) {
   return (

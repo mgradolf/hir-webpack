@@ -1,6 +1,7 @@
-import getActions from "../../utils/CallServiceApi"
+import ApiMethodFactory from "../../utils/ApiMethodFactory"
 
 export const config = {
+  EndPoint: "api/hirServlet",
   Service: "OfferingService",
   Module: "hir",
   Actions: {
@@ -14,4 +15,4 @@ export const config = {
   }
 }
 
-export default getActions(config)
+export default ApiMethodFactory(config)

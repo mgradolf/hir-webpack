@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
-import { getRefreshToken } from "./TokenStore"
+// import { getRefreshToken } from "./TokenStore"
 
 export async function getNewAccessToken(): Promise<string> {
   const requestConfig: AxiosRequestConfig = {
     baseURL: process.env.REACT_APP_API_ROOT,
     data: {
-      RefreshToken: getRefreshToken()
+      // RefreshToken: getRefreshToken()
     }
   }
 

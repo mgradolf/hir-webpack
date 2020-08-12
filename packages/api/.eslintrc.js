@@ -20,13 +20,12 @@ module.exports = {
     "prettier/prettier": [
       "error",
       {
-        printWidth: 170,
+        printWidth: 120,
         singleQuote: false,
         useTabs: false,
         tabWidth: 2,
         trailingComma: "none",
-        semi: false,
-        jsxBracketSameLine: false
+        semi: false
       }
     ],
     "no-console": 0,
