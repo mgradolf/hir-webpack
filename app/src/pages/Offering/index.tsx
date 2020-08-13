@@ -20,7 +20,7 @@ import {
 import { DownOutlined, CloseOutlined } from "@ant-design/icons"
 import { Header, Breadcrumb, Toolbar } from "~/component/Offering"
 import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
-import { RouteComponentProps, Link, Redirect } from "react-router-dom"
+import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 
 const { Content, Footer } = Layout
@@ -41,8 +41,6 @@ type OfferingState = {
   filterCounter: number
   showFilter: boolean
   loading: boolean
-  onRowClick: boolean
-  selectRowOfferingID: number
   showOfferingCodeBlock: boolean
   showOfferingNameBlock: boolean
   showCreationDateBlock: boolean
@@ -126,8 +124,6 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
     filterCounter: 0,
     showFilter: false,
     loading: false,
-    onRowClick: false,
-    selectRowOfferingID: 0,
     showOfferingCodeBlock: false,
     showOfferingNameBlock: false,
     showCreationDateBlock: false,
@@ -187,11 +183,11 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
     }
 
     /*if (this.state.FromCreationDate !== '') {
-			params["FromCreationDate"] = this.state.FromCreationDate;
-		}
-		if (this.state.ToCreationDate !== '') {
-			params["ToCreationDate"] = this.state.ToCreationDate;
-		}*/
+		 params["FromCreationDate"] = this.state.FromCreationDate;
+		 }
+		 if (this.state.ToCreationDate !== '') {
+		 params["ToCreationDate"] = this.state.ToCreationDate;
+		 }*/
 
     const [result] = await searchOfferingWrap(params)
 
@@ -298,8 +294,6 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
       showFilter,
       offeringItems,
       loading,
-      onRowClick,
-      selectRowOfferingID,
       OfferingName,
       OfferingCode,
       FromCreationDate,
@@ -322,128 +316,113 @@ class OfferingPage extends React.Component<RouteComponentProps, OfferingState> {
     const toTerminationDate =
       ToTerminationDate !== "" ? moment(ToTerminationDate, dateFormat) : moment(new Date(), dateFormat)
 
-    if (onRowClick) {
-      return <Redirect to={`/offering/${selectRowOfferingID}`} />
-    } else {
-      return (
-        <Layout className="layout">
-          <Header />
-          <Content style={{ padding: "0 50px" }}>
-            <Breadcrumb />
-            <div className="site-layout-content">
-              <Row>
-                <Title level={3}>Manage Offerings</Title>
-              </Row>
-              <Toolbar
-                filterCount={this.filterCount}
-                filterColumnVisible={showFilter}
-                toggleFilter={this.toggleFilter}
-              />
-              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
-                <Col
-                  className={showFilter ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
-                  xs={24}
-                  sm={24}
-                  md={5}
-                >
-                  <Row>
-                    <Col span={12}>
-                      <Title level={4}>Offering Filter</Title>
-                    </Col>
-                    <Col span={12} className={styles.padding5px}>
-                      <span onClick={this.toggleFilter}>
-                        <CloseOutlined style={{ fontSize: "20px", color: "black", float: "right" }} />
-                      </span>
-                    </Col>
+    return (
+      <Layout className="layout">
+        <Header />
+        <Content style={{ padding: "0 50px" }}>
+          <Breadcrumb />
+          <div className="site-layout-content">
+            <Row>
+              <Title level={3}>Manage Offerings</Title>
+            </Row>
+            <Toolbar filterCount={this.filterCount} filterColumnVisible={showFilter} toggleFilter={this.toggleFilter} />
+            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+              <Col
+                className={showFilter ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
+                xs={24}
+                sm={24}
+                md={5}
+              >
+                <Row>
+                  <Col span={12}>
+                    <Title level={4}>Offering Filter</Title>
+                  </Col>
+                  <Col span={12} className={styles.padding5px}>
+                    <span onClick={this.toggleFilter}>
+                      <CloseOutlined style={{ fontSize: "20px", color: "black", float: "right" }} />
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Checkbox onChange={this.toggleOfferingCodeBLock}>Offering Code</Checkbox>
+                  <Row className={showOfferingCodeBlock ? styles.offeringFilterField : styles.hidden}>
+                    <Input
+                      name="OfferingCode"
+                      defaultValue=""
+                      value={OfferingCode === "*" ? "" : OfferingCode}
+                      onChange={this.handleInputChange}
+                    />
                   </Row>
-                  <Row>
-                    <Checkbox onChange={this.toggleOfferingCodeBLock}>Offering Code</Checkbox>
-                    <Row className={showOfferingCodeBlock ? styles.offeringFilterField : styles.hidden}>
-                      <Input
-                        name="OfferingCode"
-                        defaultValue=""
-                        value={OfferingCode === "*" ? "" : OfferingCode}
-                        onChange={this.handleInputChange}
-                      />
-                    </Row>
+                </Row>
+                <Row>
+                  <Checkbox onChange={this.toggleOfferingNameBLock}>Offering Name</Checkbox>
+                  <Row className={showOfferingNameBlock ? styles.offeringFilterField : styles.hidden}>
+                    <Input
+                      name="OfferingName"
+                      defaultValue=""
+                      value={OfferingName === "*" ? "" : OfferingName}
+                      onChange={this.handleInputChange}
+                    />
                   </Row>
-                  <Row>
-                    <Checkbox onChange={this.toggleOfferingNameBLock}>Offering Name</Checkbox>
-                    <Row className={showOfferingNameBlock ? styles.offeringFilterField : styles.hidden}>
-                      <Input
-                        name="OfferingName"
-                        defaultValue=""
-                        value={OfferingName === "*" ? "" : OfferingName}
-                        onChange={this.handleInputChange}
-                      />
-                    </Row>
+                </Row>
+                <Row>
+                  <Checkbox onChange={this.toggleCreationDateBLock}>Creation Date</Checkbox>
+                  <Row className={showCreationDateBlock ? styles.offeringFilterField : styles.hidden}>
+                    <RangePicker
+                      value={[fromCreationDate, toCreationDate]}
+                      onChange={this.handleCreationDateChange}
+                      format={dateFormat}
+                    />
                   </Row>
-                  <Row>
-                    <Checkbox onChange={this.toggleCreationDateBLock}>Creation Date</Checkbox>
-                    <Row className={showCreationDateBlock ? styles.offeringFilterField : styles.hidden}>
-                      <RangePicker
-                        value={[fromCreationDate, toCreationDate]}
-                        onChange={this.handleCreationDateChange}
-                        format={dateFormat}
-                      />
-                    </Row>
+                </Row>
+                <Row>
+                  <Checkbox onChange={this.toggleTerminationDateBLock}>Termination Date</Checkbox>
+                  <Row className={showTerminationDateBlock ? styles.offeringFilterField : styles.hidden}>
+                    <RangePicker
+                      value={[fromTerminationDate, toTerminationDate]}
+                      onChange={this.handleTerminationDateChange}
+                      format={dateFormat}
+                    />
                   </Row>
-                  <Row>
-                    <Checkbox onChange={this.toggleTerminationDateBLock}>Termination Date</Checkbox>
-                    <Row className={showTerminationDateBlock ? styles.offeringFilterField : styles.hidden}>
-                      <RangePicker
-                        value={[fromTerminationDate, toTerminationDate]}
-                        onChange={this.handleTerminationDateChange}
-                        format={dateFormat}
-                      />
-                    </Row>
+                </Row>
+                <Row>
+                  <Checkbox onChange={this.toggleIsQuickAdmitBLock}>Is QuickAdmit</Checkbox>
+                  <Row className={showIsQuickAdmitBlock ? styles.offeringFilterField : styles.hidden}>
+                    <Select defaultValue="1" style={{ width: 200 }}>
+                      <Option value="1">Yes</Option>
+                      <Option value="2">No</Option>
+                    </Select>
                   </Row>
-                  <Row>
-                    <Checkbox onChange={this.toggleIsQuickAdmitBLock}>Is QuickAdmit</Checkbox>
-                    <Row className={showIsQuickAdmitBlock ? styles.offeringFilterField : styles.hidden}>
-                      <Select defaultValue="1" style={{ width: 200 }}>
-                        <Option value="1">Yes</Option>
-                        <Option value="2">No</Option>
-                      </Select>
-                    </Row>
-                  </Row>
-                  <Row className={styles.floatRight}>
-                    <Button type="primary" className={styles.applyBtn} onClick={this.handleSubmit}>
-                      Apply
-                    </Button>
-                  </Row>
-                </Col>
-                <Col
-                  className={`gutter-row ${styles.offeringDetails}`}
-                  xs={24}
-                  sm={24}
-                  md={{ span: showFilter ? 18 : 24, offset: showFilter ? 1 : 0 }}
-                >
-                  <Table
-                    onRow={(record, rowIndex) => {
-                      return {
-                        onClick: (event) => {
-                          this.setState({ onRowClick: true, selectRowOfferingID: record.OfferingID })
-                        }
-                      }
-                    }}
-                    columns={this.columns}
-                    dataSource={offeringItems}
-                    loading={loading}
-                    bordered
-                    expandedRowRender={OfferingPage.expandableRowRender}
-                    rowKey="OfferingID"
-                    pagination={{ position: ["topLeft"] }}
-                    scroll={{ x: "fit-content" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </Content>
-          <Footer style={{ textAlign: "center" }}>Jenzbar ©2020 Created by Jenzabar Team</Footer>
-        </Layout>
-      )
-    }
+                </Row>
+                <Row className={styles.floatRight}>
+                  <Button type="primary" className={styles.applyBtn} onClick={this.handleSubmit}>
+                    Apply
+                  </Button>
+                </Row>
+              </Col>
+              <Col
+                className={`gutter-row ${styles.offeringDetails}`}
+                xs={24}
+                sm={24}
+                md={{ span: showFilter ? 18 : 24, offset: showFilter ? 1 : 0 }}
+              >
+                <Table
+                  columns={this.columns}
+                  dataSource={offeringItems}
+                  loading={loading}
+                  bordered
+                  expandedRowRender={OfferingPage.expandableRowRender}
+                  rowKey="OfferingID"
+                  pagination={{ position: ["topLeft"] }}
+                  scroll={{ x: "fit-content" }}
+                />
+              </Col>
+            </Row>
+          </div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>Jenzbar ©2020 Created by Jenzabar Team</Footer>
+      </Layout>
+    )
   }
 }
 
