@@ -4,10 +4,11 @@ import moment from "moment"
 import { Layout, Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
 
 import { DownOutlined } from "@ant-design/icons"
-import { Header, Breadcrumb, Toolbar, FilterColumn, IFilterValues } from "~/component/Offering"
+import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offering"
 import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
+import { Header, Breadcrumb } from "~/component/Layout"
 
 const { useState, useEffect } = React
 
@@ -174,7 +175,7 @@ function OfferingPage(props: RouteComponentProps) {
           <Row>
             <Title level={3}>Manage Offerings</Title>
           </Row>
-          <Toolbar filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
+          <SelectedFilters filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
             <FilterColumn
               visible={showFilter}
