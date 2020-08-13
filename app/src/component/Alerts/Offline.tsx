@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Modal from "~/component/Modal"
 import { Card } from "antd"
+import zIndexLevel from "~/utils/zIndex"
 
 export default function Offline() {
   const [IsOffline, setIsOffline] = useState(!navigator.onLine)
@@ -15,6 +16,7 @@ export default function Offline() {
   return (
     <React.Fragment>
       <Modal
+        zIndex={zIndexLevel.offlineModal}
         closable={false}
         showModal={IsOffline}
         children={
