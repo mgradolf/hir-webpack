@@ -4,18 +4,6 @@
   padding: 24px;
 }
 
-.textAlignRight {
-  text-align: right;
-}
-
-.floatRight {
-  float: right;
-}
-
-.hidden {
-  display: none !important;
-}
-
 .show {
   display: block !important;
 }
@@ -24,23 +12,12 @@
   margin-right: 5px;
 }
 
-.padding5px {
-  padding: 8px;
-}
-
 .paddingTop10px {
   padding-top: 10px;
 }
 
 .fontWeightBold {
   font-weight: bold;
-}
-
-.offeringFilter {
-  background: $white;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  padding: 1rem;
 }
 
 .offeringDetails {
@@ -54,13 +31,4 @@
   height: 21px;
   padding: 5px;
   width: 21px;
-}
-
-.offeringFilterField {
-  margin: 5px 25px !important;
-}
-
-.applyBtn {
-  margin-right: 10px;
-  margin-top: 40px;
 }
