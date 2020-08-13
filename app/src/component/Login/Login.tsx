@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Form, Input, Button, Card, Row, Col } from "antd"
+import { Form, Input, Button, Card } from "antd"
 import { Error } from "~/component/Error"
 import style from "~/component/Login/Login.module.scss"
 import { Store } from "antd/lib/form/interface"
@@ -52,44 +52,38 @@ function Login(props: ILoginProps) {
     description: "Your session has been timed out, please login again"
   }
   return (
-    <Row>
-      <Col span={8}></Col>
-      <Col span={8}>
-        <Card className={style.Card}>
-          {props.modal && <Card.Meta className={style.Card_Meta} {...modalProps} />}
-          {Boolean(globalErrorMessage) && <Error>{globalErrorMessage}</Error>}
-          <Form
-            layout="vertical"
-            name="basic"
-            hideRequiredMark
-            className="login-form"
-            initialValues={INITIAL_FORM_VALUES}
-            onFinish={onFinish}
-          >
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[{ required: true, message: "Please input your username!" }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[{ required: true, message: "Please input your password!" }]}
-            >
-              <Input.Password />
-            </Form.Item>
-            <Form.Item className={style.Text__center}>
-              <Button type="primary" htmlType="submit" loading={loading === EnumLoading.INPROGRESS}>
-                Login
-              </Button>
-            </Form.Item>
-          </Form>
-        </Card>
-      </Col>
-      <Col span={8}></Col>
-    </Row>
+    <Card className={style.Card}>
+      {props.modal && <Card.Meta className={style.Card_Meta} {...modalProps} />}
+      {Boolean(globalErrorMessage) && <Error>{globalErrorMessage}</Error>}
+      <Form
+        layout="vertical"
+        name="basic"
+        hideRequiredMark
+        className="login-form"
+        initialValues={INITIAL_FORM_VALUES}
+        onFinish={onFinish}
+      >
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item className={style.Text__center}>
+          <Button type="primary" htmlType="submit" loading={loading === EnumLoading.INPROGRESS}>
+            Login
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
   )
 }
 

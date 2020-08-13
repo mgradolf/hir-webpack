@@ -5,6 +5,7 @@ import { Dispatch } from "redux"
 import { connect } from "react-redux"
 import { removeGLobalApiError } from "~/store/GlobalError"
 import { AppState } from "~/store"
+import zIndexLevel from "~/utils/zIndex"
 
 interface ILoginModalProps {
   removeGLobalApiError?: () => void
@@ -19,7 +20,14 @@ const LoginModal = (props: ILoginModalProps) => {
     }
   }, [props])
 
-  return <Modal closable={false} showModal={!!props.loginModalRequired} children={<Login modal={true} />}></Modal>
+  return (
+    <Modal
+      closable={false}
+      showModal={!!props.loginModalRequired}
+      children={<Login modal={true} />}
+      zIndex={zIndexLevel.loginModal}
+    ></Modal>
+  )
 }
 
 const mapStateToProps = (state: AppState) => {

@@ -9,6 +9,7 @@ interface IOfferingCreateForm2Props {
   initialFormValue: { [key: string]: any }
   onFormSubmission: () => void
   goBackToFirstForm: () => void
+  handleOk: () => void
 }
 
 const layout = {

@@ -1,5 +1,6 @@
 import * as React from "react"
-import { Modal, Form } from "antd"
+import { Form } from "antd"
+import Modal from "~/component/Modal"
 import { getOfferingTypes } from "~/ApiServices/Service/RefLookupServiceWrap"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/component/Offering/CreateForm1"
@@ -8,7 +9,7 @@ import { IFieldNames } from "~/component/Offering/Interfaces"
 
 interface ICreateNewOfferingProps {
   visible: boolean
-  onClose: (flag: boolean) => void
+  onClose: () => void
 }
 
 const fieldNames: IFieldNames = {
@@ -41,6 +42,7 @@ const initialFormValue: { [key: string]: any } = { [fieldNames.OfferingTypeID]: 
 export default function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [offeringTypes, setofferingTypes] = useState([])
   const [formInstance] = Form.useForm()
+  // const [showModal, setShowModal] = useState(true)
   const [firstFormVisible, setFirstFormVisible] = useState(true)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
 
@@ -63,7 +65,8 @@ export default function CreateNewOffering(props: ICreateNewOfferingProps) {
     }
   }
   const handleCancel = () => {
-    props.onClose(false)
+    props.onClose()
+    goBackToOfferingTypeForm()
   }
 
   const onOfferingTypeSelected = () => {
@@ -78,34 +81,34 @@ export default function CreateNewOffering(props: ICreateNewOfferingProps) {
 
   return (
     <Modal
-      title="Create offering"
-      visible={props.visible}
-      okText="Create"
-      maskClosable={false}
-      bodyStyle={{ maxHeight: "60vh", overflow: "auto" }}
-      onOk={handleOk}
-      onCancel={handleCancel}
-    >
-      {firstFormVisible && (
-        <CreateForm1
-          fieldNames={fieldNames}
-          initialFormValue={initialFormValue}
-          formInstance={formInstance}
-          offeringTypes={offeringTypes}
-          onOfferingTypeSelected={onOfferingTypeSelected}
-        />
-      )}
-      {secondFormVisible && (
-        <CreateForm2
-          fieldNames={fieldNames}
-          initialFormValue={initialFormValue}
-          formInstance={formInstance}
-          onFormSubmission={() => {
-            console.log(formInstance)
-          }}
-          goBackToFirstForm={goBackToOfferingTypeForm}
-        />
-      )}
-    </Modal>
+      showModal={props.visible}
+      width="500px"
+      children={
+        <>
+          {firstFormVisible && (
+            <CreateForm1
+              fieldNames={fieldNames}
+              initialFormValue={initialFormValue}
+              formInstance={formInstance}
+              offeringTypes={offeringTypes}
+              handleCancel={handleCancel}
+              handleSelected={handleOk}
+            />
+          )}
+          {secondFormVisible && (
+            <CreateForm2
+              fieldNames={fieldNames}
+              initialFormValue={initialFormValue}
+              formInstance={formInstance}
+              onFormSubmission={() => {
+                console.log(formInstance)
+              }}
+              goBackToFirstForm={goBackToOfferingTypeForm}
+              handleOk={handleOk}
+            />
+          )}
+        </>
+      }
+    />
   )
 }
