@@ -20,7 +20,6 @@ interface AppProps {
   store: AppStore
   history: History
   redirectToLogin: boolean
-  loginModalRequired: boolean
 }
 
 function App(props: AppProps): JSX.Element {
@@ -43,7 +42,7 @@ function App(props: AppProps): JSX.Element {
   )
   return (
     <Provider store={props.store}>
-      {props.loginModalRequired && <LoginModal />}
+      <LoginModal />
       <OfflineAlert />
       <ConnectedRouter history={props.history}>{route}</ConnectedRouter>
     </Provider>
@@ -52,8 +51,7 @@ function App(props: AppProps): JSX.Element {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    redirectToLogin: state.authentication.redirectToLogin,
-    loginModalRequired: state.authentication.loginModalRequired
+    redirectToLogin: state.authentication.redirectToLogin
   }
 }
 export default connect(mapStateToProps)(App)

@@ -1,16 +1,14 @@
 import * as React from "react"
-
 import moment from "moment"
-import { Layout, Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
 
-import { DownOutlined } from "@ant-design/icons"
 import { Header, Breadcrumb, Toolbar, FilterColumn, IFilterValues } from "~/component/Offering"
+import { Layout, Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
+import { DownOutlined } from "@ant-design/icons"
 import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 
 const { useState, useEffect } = React
-
 const { Content, Footer } = Layout
 const { Title } = Typography
 
@@ -209,5 +207,4 @@ function OfferingPage(props: RouteComponentProps) {
     </Layout>
   )
 }
-
 export default OfferingPage

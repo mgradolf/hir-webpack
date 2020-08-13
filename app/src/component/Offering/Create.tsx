@@ -1,27 +1,44 @@
 import * as React from "react"
 import { Modal, Form } from "antd"
-import { Store } from "antd/lib/form/interface"
-import { FormInstance } from "antd/lib/form"
 import { getOfferingTypes } from "~/ApiServices/Service/RefLookupServiceWrap"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/component/Offering/CreateForm1"
 import CreateForm2 from "~/component/Offering/CreateForm2"
+import { IFieldNames } from "~/component/Offering/Interfaces"
 
-interface ICreateNewOffering {
+interface ICreateNewOfferingProps {
   visible: boolean
   onClose: (flag: boolean) => void
 }
 
-interface IFormContentsProps {
-  formInstance: FormInstance
-  activePage: number
-  values: {
-    [key: string]: string | number | boolean | null
-  }
-  onChange: (values: Store) => void
+const fieldNames: IFieldNames = {
+  OfferingTypeID: "OfferingTypeID",
+  OfferingCode: "OfferingCode",
+  Name: "Name",
+  Description: "Description",
+  OrganizationID: "OrganizationID",
+  IsQuickAdmit: "IsQuickAdmit",
+  OfferingStatusCodeID: "OfferingStatusCodeID",
+  OfferingStatusReleaseID: "OfferingStatusReleaseID",
+  DefaultSectionTypeID: "DefaultSectionTypeID",
+  RecurrenceRule: "RecurrenceRule",
+  StartTermID: "StartTermID",
+  EndTermID: "EndTermID",
+  CreationDate: "CreationDate",
+  TerminationDate: "TerminationDate",
+  URL: "URL",
+  HasApprovalProcess: "HasApprovalProcess",
+  CourseID: "CourseID",
+  EffectiveCreationDate: "EffectiveCreationDate",
+  EffectiveTerminationDate: "EffectiveTerminationDate",
+  SubmitInquiryToUserID: "SubmitInquiryToUserID",
+  OfferingUsageType: "OfferingUsageType",
+  PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-export default function CreateNewOffering(props: ICreateNewOffering) {
+const initialFormValue: { [key: string]: any } = { [fieldNames.OfferingTypeID]: 1000 }
+
+export default function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [offeringTypes, setofferingTypes] = useState([])
   const [formInstance] = Form.useForm()
   const [firstFormVisible, setFirstFormVisible] = useState(true)
@@ -30,7 +47,9 @@ export default function CreateNewOffering(props: ICreateNewOffering) {
   useEffect(() => {
     ;(async () => {
       const [response] = await getOfferingTypes()
-      setofferingTypes(response.data)
+      if (response) {
+        setofferingTypes(response.data)
+      }
     })()
   }, [])
 
@@ -69,6 +88,8 @@ export default function CreateNewOffering(props: ICreateNewOffering) {
     >
       {firstFormVisible && (
         <CreateForm1
+          fieldNames={fieldNames}
+          initialFormValue={initialFormValue}
           formInstance={formInstance}
           offeringTypes={offeringTypes}
           onOfferingTypeSelected={onOfferingTypeSelected}
@@ -76,6 +97,8 @@ export default function CreateNewOffering(props: ICreateNewOffering) {
       )}
       {secondFormVisible && (
         <CreateForm2
+          fieldNames={fieldNames}
+          initialFormValue={initialFormValue}
           formInstance={formInstance}
           onFormSubmission={() => {
             console.log(formInstance)

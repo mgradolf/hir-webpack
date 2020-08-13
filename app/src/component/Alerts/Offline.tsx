@@ -14,16 +14,18 @@ export default function Offline() {
   }, [])
   return (
     <React.Fragment>
-      {IsOffline && (
-        <Modal>
+      <Modal
+        closable={false}
+        showModal={IsOffline}
+        children={
           <Card bordered={true}>
             <Card.Meta
               title="No Internet Connection"
               description="You are offline. Please check your internet connection"
             />
           </Card>
-        </Modal>
-      )}
+        }
+      ></Modal>
     </React.Fragment>
   )
 }

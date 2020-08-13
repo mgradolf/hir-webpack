@@ -1,18 +1,17 @@
 import React, { useState } from "react"
 import { Form, Radio, Select } from "antd"
+import { IFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 
-interface IFormContentsProps {
+interface IOfferingCreateForm1Props {
   formInstance: FormInstance
+  fieldNames: IFieldNames
+  initialFormValue: { [key: string]: any }
   offeringTypes: Array<any>
   onOfferingTypeSelected: (flag: boolean) => void
 }
 
-const initialFormValue: { [key: string]: any } = {
-  OfferingTypeID: 1000
-}
-
-export default function CreateForm1(props: IFormContentsProps) {
+export default function CreateForm1(props: IOfferingCreateForm1Props) {
   const [radioValues] = useState([
     { label: "Create default offering type", value: 1000, default: true },
     { label: "Select other offering type", value: "OTHER", default: false }
@@ -20,16 +19,16 @@ export default function CreateForm1(props: IFormContentsProps) {
 
   const [offeringTypesVisible, setOfferingTypesVisible] = useState(false)
   const onChangeOfferingTypes = () => {
-    props.formInstance.getFieldValue("OfferingTypeID") === 1000
+    props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) === 1000
       ? setOfferingTypesVisible(true)
       : setOfferingTypesVisible(false)
   }
 
   return (
-    <Form form={props.formInstance} hideRequiredMark layout="vertical" initialValues={initialFormValue}>
+    <Form form={props.formInstance} hideRequiredMark layout="vertical" initialValues={props.initialFormValue}>
       <Form.Item
         label="Please select an offering type to create"
-        name="OfferingTypeID"
+        name={props.fieldNames.OfferingTypeID}
         rules={[{ required: true, message: "Please input an offering type!" }]}
       >
         <Radio.Group>
@@ -43,7 +42,7 @@ export default function CreateForm1(props: IFormContentsProps) {
       {offeringTypesVisible && (
         <Form.Item
           label="Other offering types"
-          name="OfferingTypeID"
+          name={props.fieldNames.OfferingTypeID}
           rules={[{ required: true, message: "Please select an offering type!" }]}
         >
           <Select placeholder="Select an offering type">

@@ -1,13 +1,33 @@
-import React from "react"
+import React, { useState } from "react"
 import style from "~/component/Modal/modal.module.scss"
 
-export default function (props: React.Props<JSX.Element>) {
+interface IModalProp {
+  closable: boolean
+  showModal: boolean
+  children: JSX.Element
+}
+export default function ({ closable, showModal, children }: IModalProp) {
+  const [visibility, setvisibility] = useState(true)
+  const closeOnClickOutside = () => {
+    if (closable) {
+      setvisibility(false)
+    }
+  }
   return (
-    <div id={style.myModal} className={style.modal}>
-      <div className={style.modal_content}>
-        <span className={style.modal__close}>&times;</span>
-        {props.children}
-      </div>
-    </div>
+    <>
+      {showModal && visibility && (
+        <>
+          <div id={style.myModal} className={style.modal} onClick={closeOnClickOutside}></div>
+          <div className={style.modal_content} onClick={() => console.log("inside")}>
+            {closable && (
+              <span className={style.modal__close} onClick={() => setvisibility(false)}>
+                &times;
+              </span>
+            )}
+            {children}
+          </div>
+        </>
+      )}
+    </>
   )
 }
