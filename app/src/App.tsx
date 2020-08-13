@@ -13,6 +13,7 @@ import NotFoundPage from "~/pages/NotFoundPage"
 import LoginModal from "~/component/Login/LoginModal"
 import OfflineAlert from "~/component/Alerts/Offline"
 import OfferingPage from "~/pages/Offering/index"
+import OfferingDetailsPage from "~/pages/Offering/offeringDetails"
 import OfferingFinancialPage from "~/pages/Offering/Financial"
 import OfferingCatalogPage from "~/pages/Offering/Catalog"
 
@@ -36,6 +37,7 @@ function App(props: AppProps): JSX.Element {
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
       <Route exact path="/offering" component={OfferingPage} />
+      <Route exact path="/offering/:id" component={OfferingDetailsPage} />
       <Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
       <Route exact path="/offering/:id/catalog" component={OfferingCatalogPage} />
       <Route component={NotFoundPage} />
