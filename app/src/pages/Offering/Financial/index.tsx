@@ -81,14 +81,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
       <Header />
 
       <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb
-          items={[
-            { route: "/", label: "Home" },
-            { route: "/offering", label: "Offering" },
-            { label: offeringID },
-            { label: "Financial" }
-          ]}
-        />
+        <Breadcrumb path={props.history.location.pathname} />
 
         <div className="site-layout-content">
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>

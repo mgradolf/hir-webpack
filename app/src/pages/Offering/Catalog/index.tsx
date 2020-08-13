@@ -91,14 +91,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
     <Layout className="layout">
       <Header />
       <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb
-          items={[
-            { route: "/", label: "Home" },
-            { route: "/offering", label: "Offering" },
-            { label: offeringID },
-            { label: "Catalog" }
-          ]}
-        />
+        <Breadcrumb path={props.history.location.pathname} />
         <div className="site-layout-content">
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col className="gutter-row" xs={24} sm={24} md={24}>

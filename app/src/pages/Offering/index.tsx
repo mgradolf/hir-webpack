@@ -168,9 +168,7 @@ function OfferingPage(props: RouteComponentProps) {
     <Layout className="layout">
       <Header />
       <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb
-          items={[{ route: "/", label: "Home" }, { route: "/offering", label: "Offering" }, { label: "Search" }]}
-        />
+        <Breadcrumb path={props.history.location.pathname} />
         <div className="site-layout-content">
           <Row>
             <Title level={3}>Manage Offerings</Title>
