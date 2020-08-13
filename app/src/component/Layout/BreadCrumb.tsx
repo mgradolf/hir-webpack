@@ -20,7 +20,7 @@ export function Breadcrumb(props: IBreadcrumbProps) {
             <Link to={item.route}>{item.label}</Link>
           </AntdBreadcrumb.Item>
         ) : (
-          <AntdBreadcrumb.Item key={i}>Search</AntdBreadcrumb.Item>
+          <AntdBreadcrumb.Item key={i}>{item.label}</AntdBreadcrumb.Item>
         )
       )}
     </AntdBreadcrumb>
