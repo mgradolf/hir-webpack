@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Button } from "antd"
+import { Card, Button, Input } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 import OfferingDetails from "~/component/Offering/CreateEdit/Form2/OfferingDetails"
@@ -36,6 +36,13 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
         initialValues={props.initialFormValue}
         style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
       >
+        <ul>
+          <li>All fields marked with an asterisk (*) are required.</li>
+          <li>Dates should be typed in the format mm/dd/yyyy</li>
+        </ul>
+        <Form.Item style={{ visibility: "hidden" }} name={props.fieldNames.OfferingTypeID}>
+          <Input />
+        </Form.Item>
         <OfferingDetails
           formInstance={props.formInstance}
           fieldNames={props.fieldNames}

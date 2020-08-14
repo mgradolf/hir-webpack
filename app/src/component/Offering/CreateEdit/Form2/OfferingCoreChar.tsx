@@ -61,9 +61,9 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
       <Divider orientation="left">Core characteristics</Divider>
       <Form.Item label="Offering status" name={props.fieldNames.OfferingStatusCodeID} {...layout}>
         <Select>
-          {offeringStatusTypes.map((x) => {
+          {offeringStatusTypes.map((x, index) => {
             return (
-              <Select.Option key={x.StatusID} value={x.StatusID}>
+              <Select.Option key={x.StatusID + index} value={x.StatusID}>
                 {x.Name}
               </Select.Option>
             )
@@ -72,9 +72,9 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
       </Form.Item>
       <Form.Item label="Department" name={props.fieldNames.OrganizationID} {...layout}>
         <Select>
-          {organizations.map((x) => {
+          {organizations.map((x, index) => {
             return (
-              <Select.Option key={x.OrganizationTypeID} value={x.OrganizationTypeID}>
+              <Select.Option key={x.OrganizationTypeID + index} value={x.OrganizationID}>
                 {x.Name}
               </Select.Option>
             )
@@ -83,9 +83,9 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
       </Form.Item>
       <Form.Item label="Inquiry recipient" name={props.fieldNames.SubmitInquiryToUserID} {...layout}>
         <Select>
-          {users.map((x) => {
+          {users.map((x, index) => {
             return (
-              <Select.Option key={x.UserID} value={x.UserID}>
+              <Select.Option key={x.UserID + index} value={x.UserID}>
                 {x.FormattedName}
               </Select.Option>
             )
@@ -94,9 +94,9 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
       </Form.Item>
       <Form.Item label="Gateway" name={props.fieldNames.PaymentGatewayAccountID} {...layout}>
         <Select>
-          {paymentGatewayAccounts.map((x) => {
+          {paymentGatewayAccounts.map((x, index) => {
             return (
-              <Select.Option key={x.ID} value={x.ID}>
+              <Select.Option key={x.ID + index} value={x.ID}>
                 {x.Name}
               </Select.Option>
             )

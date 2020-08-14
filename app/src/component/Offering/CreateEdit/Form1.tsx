@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Form, Radio, Select, Card, Button } from "antd"
+import { Form, Radio, Select, Card, Button, Input } from "antd"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {} from "@ant-design/icons"
@@ -21,17 +21,15 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
   ])
   const [offeringTypesVisible, setOfferingTypesVisible] = useState(false)
   const [isSelected, setIsSelected] = useState(false)
-
   useEffect(() => {
     props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) ? setIsSelected(true) : setIsSelected(false)
   }, [props])
-
   const onChangeOfferingTypes = (e: RadioChangeEvent) => {
     if (e.target.value === 1000) {
       setOfferingTypesVisible(false)
       setIsSelected(true)
       props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: 1000 })
-    } else {
+    } else if (e.target.value === "OTHER") {
       setOfferingTypesVisible(true)
       setIsSelected(false)
       props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: undefined })
@@ -44,7 +42,13 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
       actions={[
         <Button
           onClick={() => {
-            console.log(props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID))
+            console.log(props.formInstance.getFieldsValue())
+          }}
+        >
+          Print
+        </Button>,
+        <Button
+          onClick={() => {
             props.handleCancel()
           }}
         >
@@ -69,6 +73,16 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
             ))}
           </Radio.Group>
         </Form.Item>
+        {!offeringTypesVisible && (
+          <Form.Item
+            style={{ visibility: "hidden", margin: 0, padding: 0, width: "1px", height: "1px" }}
+            label="Other offering types"
+            name={props.fieldNames.OfferingTypeID}
+            rules={[{ required: true, message: "Please select an offering type!" }]}
+          >
+            <Input />
+          </Form.Item>
+        )}
         {offeringTypesVisible && (
           <Form.Item
             label="Other offering types"

@@ -18,10 +18,30 @@ export default function OfferingDetails(props: IOfferingDetails) {
     // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
     <>
       <Divider orientation="left">Offering</Divider>
-      <Form.Item label="Offering code" name={props.fieldNames.OfferingCode} {...layout}>
+      <Form.Item
+        label="Offering code *"
+        name={props.fieldNames.OfferingCode}
+        {...layout}
+        rules={[
+          {
+            required: true,
+            message: "Please input Offering Code"
+          }
+        ]}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="Offering name" name={props.fieldNames.Name} {...layout}>
+      <Form.Item
+        label="Offering name *"
+        name={props.fieldNames.Name}
+        {...layout}
+        rules={[
+          {
+            required: true,
+            message: "Please input Offering Name"
+          }
+        ]}
+      >
         <Input />
       </Form.Item>
       <Form.Item label="Description" name={props.fieldNames.Description} {...layout}>

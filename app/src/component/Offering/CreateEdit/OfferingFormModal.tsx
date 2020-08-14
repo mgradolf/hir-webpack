@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Form } from "antd"
+import { Form, Typography } from "antd"
 import Modal from "~/component/Modal"
 import { getOfferingTypes } from "~/ApiServices/Service/RefLookupServiceWrap"
 import { useEffect, useState } from "react"
@@ -10,6 +10,7 @@ import { AppState } from "~/store"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
+import { createOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
 
 interface ICreateNewOfferingProps {
   createOfferingModal?: boolean
@@ -41,16 +42,14 @@ const fieldNames: IFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-const initialFormValue: { [key: string]: any } = {
-  offeringTypeRadio: 1000,
-  [fieldNames.OfferingTypeID]: 1000
-}
+const initialFormValue: { [key: string]: any } = {}
 
 function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [offeringTypes, setofferingTypes] = useState([])
   const [formInstance] = Form.useForm()
   const [firstFormVisible, setFirstFormVisible] = useState(true)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
+  const [errorMessages, setErrorMessages] = useState<Array<string>>([])
 
   useEffect(() => {
     ;(async () => {
@@ -61,15 +60,23 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
     })()
   }, [])
 
-  const handleOk = () => {
+  const handleOk = async () => {
     if (firstFormVisible && formInstance.getFieldValue("OfferingTypeID")) {
       onOfferingTypeSelected()
     } else if (secondFormVisible) {
       console.log(formInstance.getFieldsValue())
 
-      formInstance.validateFields().then(() => {
+      const validationPassed = await formInstance.validateFields()
+      console.log("validationPassed ", validationPassed)
+      const params = formInstance.getFieldsValue()
+      const [response, error] = await createOfferingWrap(params)
+
+      if (response) {
+        console.log(response)
+        formInstance.resetFields()
         handleCancel()
-      })
+      } else if (error) {
+      }
     }
   }
   const handleCancel = () => {
@@ -95,6 +102,15 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
       width="800px"
       children={
         <>
+          {errorMessages.length && (
+            <ul>
+              <li>
+                {errorMessages.map((item) => {
+                  return <Typography.Text type="danger">{item}</Typography.Text>
+                })}
+              </li>
+            </ul>
+          )}
           {firstFormVisible && (
             <CreateForm1
               fieldNames={fieldNames}
