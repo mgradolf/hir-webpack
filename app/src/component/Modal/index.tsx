@@ -28,7 +28,7 @@ export default function ({
       {showModal && visibility && (
         <>
           <div id={style.myModal} className={style.modal} style={{ zIndex }} onClick={closeOnClickOutside}></div>
-          <div className={style.modal_content} style={{ zIndex: zIndex + 1 }} onClick={() => console.log("inside")}>
+          <div className={style.modal_content} style={{ zIndex: zIndex + 1 }}>
             {closable && (
               <span className={style.modal__close} onClick={() => setvisibility(false)}>
                 &times;

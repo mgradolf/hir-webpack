@@ -14,7 +14,6 @@ interface ILoginModalProps {
 
 const LoginModal = (props: ILoginModalProps) => {
   useEffect(() => {
-    console.log("calling removeGLobalApiError", props.removeGLobalApiError)
     if (props.removeGLobalApiError) {
       props.removeGLobalApiError()
     }

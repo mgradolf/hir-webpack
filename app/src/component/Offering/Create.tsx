@@ -6,10 +6,14 @@ import { useEffect, useState } from "react"
 import CreateForm1 from "~/component/Offering/CreateForm1"
 import CreateForm2 from "~/component/Offering/CreateForm2"
 import { IFieldNames } from "~/component/Offering/Interfaces"
+import { AppState } from "~/store"
+import { connect } from "react-redux"
+import { Dispatch } from "redux"
+import { showCreateOfferingModal } from "~/store/ModalState"
 
 interface ICreateNewOfferingProps {
-  visible: boolean
-  onClose: () => void
+  createOfferingModal?: boolean
+  closeCreateOfferingModal?: () => void
 }
 
 const fieldNames: IFieldNames = {
@@ -37,9 +41,12 @@ const fieldNames: IFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-const initialFormValue: { [key: string]: any } = { [fieldNames.OfferingTypeID]: 1000 }
+const initialFormValue: { [key: string]: any } = {
+  offeringTypeRadio: 1000,
+  [fieldNames.OfferingTypeID]: 1000
+}
 
-export default function CreateNewOffering(props: ICreateNewOfferingProps) {
+function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [offeringTypes, setofferingTypes] = useState([])
   const [formInstance] = Form.useForm()
   // const [showModal, setShowModal] = useState(true)
@@ -65,7 +72,10 @@ export default function CreateNewOffering(props: ICreateNewOfferingProps) {
     }
   }
   const handleCancel = () => {
-    props.onClose()
+    if (props.closeCreateOfferingModal) {
+      console.log("handle cancel")
+      props.closeCreateOfferingModal()
+    }
     goBackToOfferingTypeForm()
   }
 
@@ -81,8 +91,8 @@ export default function CreateNewOffering(props: ICreateNewOfferingProps) {
 
   return (
     <Modal
-      showModal={props.visible}
-      width="500px"
+      showModal={props.createOfferingModal ? props.createOfferingModal : false}
+      width="800px"
       children={
         <>
           {firstFormVisible && (
@@ -112,3 +122,14 @@ export default function CreateNewOffering(props: ICreateNewOfferingProps) {
     />
   )
 }
+
+const mapStateToProps = (state: AppState) => {
+  return {
+    createOfferingModal: state.modalState.createOfferingModal
+  }
+}
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingModal(false)) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewOffering)

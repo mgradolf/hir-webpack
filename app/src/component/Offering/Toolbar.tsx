@@ -1,6 +1,6 @@
 import { Row, Col, Button } from "antd"
 import React from "react"
-import { CreateActionButton } from "~/component/Offering/CreateActionButton"
+import CreateActionButton from "~/component/Offering/CreateActionButton"
 import { FilterOutlined } from "@ant-design/icons"
 import styles from "~/component/Offering/Toolbar.module.scss"
 

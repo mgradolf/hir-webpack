@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Form, Radio, Select, Card, Button } from "antd"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {} from "@ant-design/icons"
+import { RadioChangeEvent } from "antd/lib/radio"
 
 interface IOfferingCreateForm1Props {
   formInstance: FormInstance
@@ -18,25 +19,46 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
     { label: "Default", value: 1000, default: true },
     { label: "Other", value: "OTHER", default: false }
   ])
-
   const [offeringTypesVisible, setOfferingTypesVisible] = useState(false)
-  const onChangeOfferingTypes = () => {
-    props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) === 1000
-      ? setOfferingTypesVisible(true)
-      : setOfferingTypesVisible(false)
+  const [isSelected, setIsSelected] = useState(false)
+
+  useEffect(() => {
+    props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) ? setIsSelected(true) : setIsSelected(false)
+  }, [props])
+
+  const onChangeOfferingTypes = (e: RadioChangeEvent) => {
+    if (e.target.value === 1000) {
+      setOfferingTypesVisible(false)
+      setIsSelected(true)
+      props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: 1000 })
+    } else {
+      setOfferingTypesVisible(true)
+      setIsSelected(false)
+      props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: undefined })
+    }
   }
 
   return (
     <Card
+      title="Create new Offering"
       actions={[
-        <Button onClick={props.handleCancel}>Cancel</Button>,
-        <Button onClick={props.handleSelected}>Select</Button>
+        <Button
+          onClick={() => {
+            console.log(props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID))
+            props.handleCancel()
+          }}
+        >
+          Cancel
+        </Button>,
+        <Button onClick={props.handleSelected} disabled={!isSelected}>
+          Select
+        </Button>
       ]}
     >
       <Form form={props.formInstance} hideRequiredMark layout="horizontal" initialValues={props.initialFormValue}>
         <Form.Item
           label="Select an offering type"
-          name={props.fieldNames.OfferingTypeID}
+          name="offeringTypeRadio"
           rules={[{ required: true, message: "Please input an offering type!" }]}
         >
           <Radio.Group>
@@ -53,7 +75,12 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
             name={props.fieldNames.OfferingTypeID}
             rules={[{ required: true, message: "Please select an offering type!" }]}
           >
-            <Select placeholder="Select an offering type">
+            <Select
+              placeholder="Select an offering type"
+              onSelect={() => {
+                setIsSelected(true)
+              }}
+            >
               {props.offeringTypes.length &&
                 props.offeringTypes.map((offer) => {
                   return (

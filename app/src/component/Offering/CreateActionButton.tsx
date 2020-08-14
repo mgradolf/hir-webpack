@@ -1,15 +1,22 @@
 import React, { useState } from "react"
-import CreateNewOffering from "~/component/Offering/Create"
 import { Button } from "antd"
+import { connect } from "react-redux"
+import { showCreateOfferingModal } from "~/store/ModalState"
+import { Dispatch } from "redux"
 
-export function CreateActionButton() {
-  const [shouldOpenOfferingCreateForm, handleOfferingCreateForm] = useState(false)
+interface ICreateActionButtonProp {
+  openCreateOfferingModal?: () => void
+}
+function CreateActionButton(props: ICreateActionButtonProp) {
   return (
-    <>
-      <CreateNewOffering visible={shouldOpenOfferingCreateForm} onClose={() => handleOfferingCreateForm(false)} />
-      <Button type="primary" onClick={() => handleOfferingCreateForm(true)}>
-        + Create Offering
-      </Button>
-    </>
+    <Button type="primary" onClick={props.openCreateOfferingModal}>
+      + Create Offering
+    </Button>
   )
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return { openCreateOfferingModal: () => dispatch(showCreateOfferingModal(true)) }
+}
+
+export default connect(null, mapDispatchToProps)(CreateActionButton)

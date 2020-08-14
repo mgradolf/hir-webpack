@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, Radio, Select, Input, DatePicker, Divider, Card } from "antd"
+import { Form, Radio, Select, Input, DatePicker, Divider, Card, Button } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 
@@ -18,8 +18,16 @@ const layout = {
 
 export default function CreateForm2(props: IOfferingCreateForm2Props) {
   return (
-    <Card>
-      <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    <Card
+      title="Create Offering"
+      actions={[<Button>Go Back</Button>, <Button>Cancel</Button>, <Button>Submit</Button>]}
+    >
+      <Form
+        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
+        hideRequiredMark
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+      >
         <Divider orientation="left">Offering</Divider>
         <Form.Item label="Offering code" name={props.fieldNames.OfferingCode} {...layout}>
           <Input />
