@@ -53,7 +53,11 @@ function DefineCreationTime(props: IDefineTime) {
           <Form.Item label="Select term" name={props.fieldNames.StartTermID}>
             <Select disabled={disableTerm} placeholder="Choose a term">
               {props.terms.map((term) => {
-                return <Select.Option value={term.TermID}>{term.Name}</Select.Option>
+                return (
+                  <Select.Option key={term.TermID} value={term.TermID}>
+                    {term.Name}
+                  </Select.Option>
+                )
               })}
             </Select>
           </Form.Item>
@@ -124,7 +128,11 @@ function DefineTerminationTime(props: IDefineTime) {
           <Form.Item label="Select term" name="terminationTerm" {...layout}>
             <Select disabled={disableTerm} placeholder="Choose a term">
               {props.terms.map((term) => {
-                return <Select.Option value={term.TermID}>{term.Name}</Select.Option>
+                return (
+                  <Select.Option key={term.TermID + term.Name} value={term.TermID}>
+                    {term.Name}
+                  </Select.Option>
+                )
               })}
             </Select>
           </Form.Item>

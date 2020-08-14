@@ -14,7 +14,7 @@ export function getTerms(): Promise<[any, any]> {
 
 export function getOfferingStatusTypes(): Promise<[any, any]> {
   return RefLookupService[config.Actions.getList]({
-    LookUpName: "OfferingStatusType"
+    LookUpName: "OfferingStatusCode"
   })
 }
 
