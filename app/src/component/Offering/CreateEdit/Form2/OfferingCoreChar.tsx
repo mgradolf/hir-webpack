@@ -26,41 +26,38 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
   const [paymentGatewayAccounts, setPaymentGatewayAccounts] = useState<Array<any>>([])
 
   useEffect(() => {
-    const loadOffering = async () => {
+    ;(async () => {
       const [response] = await getOfferingStatusTypes()
       if (response && response.data) {
-        console.log(response.data)
+        console.log("setOfferingStatusTypes ", response.data)
         setOfferingStatusTypes(response.data)
       }
-    }
-    const loadOrganization = async () => {
+    })()
+    ;(async () => {
       const [response] = await getOrganizations()
       if (response && response.data) {
-        console.log(response.data)
+        console.log("setOrganizations ", response.data)
         setOrganizations(response.data)
       }
-    }
-    const loadPaymentGateways = async () => {
+    })()
+    ;(async () => {
       const [response] = await getPaymentGatewayAccounts()
       if (response && response.data) {
-        console.log(response.data)
+        console.log("setPaymentGatewayAccounts ", response.data)
         setPaymentGatewayAccounts(response.data)
       }
-    }
-    const loadUsers = async () => {
+    })()
+    ;(async () => {
       const [response] = await getAllUsers()
       if (response && response.data) {
-        console.log(response.data)
+        console.log("setUsers ", response.data)
         setUsers(response.data)
       }
-    }
-    loadOffering()
-    loadOrganization()
-    loadPaymentGateways()
-    loadUsers()
+    })()
   }, [])
   return (
-    <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    <>
       <Divider orientation="left">Core characteristics</Divider>
       <Form.Item label="Offering status" name={props.fieldNames.OfferingStatusCodeID} {...layout}>
         <Select>
@@ -73,7 +70,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
           })}
         </Select>
       </Form.Item>
-      <Form.Item label="Department" name="department" {...layout}>
+      <Form.Item label="Department" name={props.fieldNames.OrganizationID} {...layout}>
         <Select>
           {organizations.map((x) => {
             return (
@@ -84,18 +81,18 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
           })}
         </Select>
       </Form.Item>
-      <Form.Item label="Inquiry recipient" name="recipient" {...layout}>
+      <Form.Item label="Inquiry recipient" name={props.fieldNames.SubmitInquiryToUserID} {...layout}>
         <Select>
           {users.map((x) => {
             return (
-              <Select.Option key={x.OrganizationTypeID} value={x.OrganizationTypeID}>
-                {x.Name}
+              <Select.Option key={x.UserID} value={x.UserID}>
+                {x.FormattedName}
               </Select.Option>
             )
           })}
         </Select>
       </Form.Item>
-      <Form.Item label="Gateway" name="gateway" {...layout}>
+      <Form.Item label="Gateway" name={props.fieldNames.PaymentGatewayAccountID} {...layout}>
         <Select>
           {paymentGatewayAccounts.map((x) => {
             return (
@@ -106,6 +103,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
           })}
         </Select>
       </Form.Item>
-    </Form>
+    </>
+    // </Form>
   )
 }

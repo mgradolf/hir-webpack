@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Form, Divider, Select } from "antd"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
+import { getSectionTypes } from "~/ApiServices/Service/RefLookupServiceWrap"
 
 interface IOfferingDefaultSection {
   fieldNames: IFieldNames
@@ -14,14 +15,29 @@ const layout = {
 }
 
 export default function OfferingDefaultSection(props: IOfferingDefaultSection) {
+  const [sectionTypes, setSectionTypes] = useState<Array<any>>([])
+  useEffect(() => {
+    ;(async () => {
+      const [response] = await getSectionTypes()
+      setSectionTypes(response.data)
+    })()
+  }, [])
   return (
-    <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    <>
       <Divider orientation="left">Default Section</Divider>
-      <Form.Item label="Default section type" name="sectionType" {...layout}>
+      <Form.Item label="Default section type" name={props.fieldNames.DefaultSectionTypeID} {...layout}>
         <Select placeholder="Please select a default section type of this offering">
-          <Select.Option value="SECTION_TYPE_1">Section type 1</Select.Option>
+          {sectionTypes.map((x) => {
+            return (
+              <Select.Option key={x.SectionTypeID} value={x.SectionTypeID}>
+                {x.SectionTypeName}
+              </Select.Option>
+            )
+          })}
         </Select>
       </Form.Item>
-    </Form>
+    </>
+    // {/* </Form> */}
   )
 }

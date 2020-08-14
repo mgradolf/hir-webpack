@@ -15,7 +15,8 @@ const layout = {
 
 export default function OfferingDetails(props: IOfferingDetails) {
   return (
-    <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    <>
       <Divider orientation="left">Offering</Divider>
       <Form.Item label="Offering code" name={props.fieldNames.OfferingCode} {...layout}>
         <Input />
@@ -29,6 +30,7 @@ export default function OfferingDetails(props: IOfferingDetails) {
       <Form.Item label="URL" name={props.fieldNames.URL} {...layout}>
         <Input />
       </Form.Item>
-    </Form>
+    </>
+    // </Form>
   )
 }

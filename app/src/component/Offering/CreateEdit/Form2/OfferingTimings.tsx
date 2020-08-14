@@ -37,7 +37,8 @@ function DefineCreationTime(props: IDefineTime) {
     }
   }
   return (
-    <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
+    <>
       <Form.Item>
         <Radio.Group>
           <Radio value={radioValues.byTime} onChange={handleChange}>
@@ -63,7 +64,8 @@ function DefineCreationTime(props: IDefineTime) {
           </Form.Item>
         </Radio.Group>
       </Form.Item>
-    </Form>
+    </>
+    // </Form>
   )
 }
 
@@ -100,45 +102,45 @@ function DefineTerminationTime(props: IDefineTime) {
     }
   }
   return (
-    <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue} layout="horizontal">
-      <Form.Item {...layout}>
-        <Radio.Group>
-          <Radio value={radioValues.byTime} onChange={handleChange}>
-            Define termination time
-          </Radio>
-          <Form.Item name={props.fieldNames.TerminationDate} label="Termination Date" {...layout}>
-            <DatePicker placeholder="YYYY/MM/DD" disabled={disableTime} format="YYYY/MM/DD" />
-          </Form.Item>
-          <Radio value={radioValues.byDuration} onChange={handleChange}>
-            Determined by duration
-          </Radio>
-          <Form.Item name={radioValues.byDuration} {...layout}>
-            <Input.Group compact>
-              <Input placeholder="Year" disabled={disableDuration} />
-              <Input placeholder="Month" disabled={disableDuration} />
-              <Input placeholder="Week" disabled={disableDuration} />
-              <Input placeholder="Day" disabled={disableDuration} />
-              <Input placeholder="Hour" disabled={disableDuration} />
-              <Input placeholder="Min" disabled={disableDuration} />
-            </Input.Group>
-          </Form.Item>
-          <Radio value={radioValues.byTerm} onChange={handleChange}>
-            Determined by term
-          </Radio>
-          <Form.Item label="Select term" name="terminationTerm" {...layout}>
-            <Select disabled={disableTerm} placeholder="Choose a term">
-              {props.terms.map((term) => {
-                return (
-                  <Select.Option key={term.TermID + term.Name} value={term.TermID}>
-                    {term.Name}
-                  </Select.Option>
-                )
-              })}
-            </Select>
-          </Form.Item>
-        </Radio.Group>
-      </Form.Item>
-    </Form>
+    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue} layout="horizontal">
+    <Form.Item {...layout}>
+      <Radio.Group>
+        <Radio value={radioValues.byTime} onChange={handleChange}>
+          Define termination time
+        </Radio>
+        <Form.Item name={props.fieldNames.TerminationDate} label="Termination Date" {...layout}>
+          <DatePicker placeholder="YYYY/MM/DD" disabled={disableTime} format="YYYY/MM/DD" />
+        </Form.Item>
+        <Radio value={radioValues.byDuration} onChange={handleChange}>
+          Determined by duration
+        </Radio>
+        <Form.Item name={radioValues.byDuration} {...layout}>
+          <Input.Group compact>
+            <Input placeholder="Year" disabled={disableDuration} />
+            <Input placeholder="Month" disabled={disableDuration} />
+            <Input placeholder="Week" disabled={disableDuration} />
+            <Input placeholder="Day" disabled={disableDuration} />
+            <Input placeholder="Hour" disabled={disableDuration} />
+            <Input placeholder="Min" disabled={disableDuration} />
+          </Input.Group>
+        </Form.Item>
+        <Radio value={radioValues.byTerm} onChange={handleChange}>
+          Determined by term
+        </Radio>
+        <Form.Item label="Select term" name={props.fieldNames.EndTermID} {...layout}>
+          <Select disabled={disableTerm} placeholder="Choose a term">
+            {props.terms.map((term) => {
+              return (
+                <Select.Option key={term.TermID + term.Name} value={term.TermID}>
+                  {term.Name}
+                </Select.Option>
+              )
+            })}
+          </Select>
+        </Form.Item>
+      </Radio.Group>
+    </Form.Item>
+    // </Form>
   )
 }
 

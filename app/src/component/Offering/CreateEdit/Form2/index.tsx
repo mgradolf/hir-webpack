@@ -1,19 +1,11 @@
 import React from "react"
 import { Card, Button } from "antd"
-import { FormInstance } from "antd/lib/form"
+import Form, { FormInstance } from "antd/lib/form"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 import OfferingDetails from "~/component/Offering/CreateEdit/Form2/OfferingDetails"
 import OfferingTimings from "~/component/Offering/CreateEdit/Form2/OfferingTimings"
 import OfferingCoreChar from "~/component/Offering/CreateEdit/Form2/OfferingCoreChar"
 import OfferingDefaultSection from "~/component/Offering/CreateEdit/Form2/OfferingDefaultSection"
-// import {
-//   getTerms,
-//   getOfferingStatusTypes,
-//   getOrganizations,
-//   getPaymentGatewayAccounts,
-//   getSectionTypes
-// } from "~/ApiServices/Service/RefLookupServiceWrap"
-// import { getAllUsers } from '~/ApiServices/Service/HRUserServiceWrap'
 
 interface IOfferingCreateForm2Props {
   formInstance: FormInstance
@@ -38,7 +30,12 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
         <Button onClick={props.onFormSubmission}>Submit</Button>
       ]}
     >
-      <div style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+      <Form
+        hideRequiredMark
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
+      >
         <OfferingDetails
           formInstance={props.formInstance}
           fieldNames={props.fieldNames}
@@ -59,7 +56,7 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
           fieldNames={props.fieldNames}
           initialFormValue={props.initialFormValue}
         />
-      </div>
+      </Form>
     </Card>
   )
 }
