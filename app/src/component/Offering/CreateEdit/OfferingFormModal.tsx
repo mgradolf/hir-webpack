@@ -3,8 +3,8 @@ import { Form } from "antd"
 import Modal from "~/component/Modal"
 import { getOfferingTypes } from "~/ApiServices/Service/RefLookupServiceWrap"
 import { useEffect, useState } from "react"
-import CreateForm1 from "~/component/Offering/CreateForm1"
-import CreateForm2 from "~/component/Offering/CreateForm2"
+import CreateForm1 from "~/component/Offering/CreateEdit/Form1"
+import CreateForm2 from "~/component/Offering/CreateEdit/Form2"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 import { AppState } from "~/store"
 import { connect } from "react-redux"
@@ -49,7 +49,6 @@ const initialFormValue: { [key: string]: any } = {
 function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [offeringTypes, setofferingTypes] = useState([])
   const [formInstance] = Form.useForm()
-  // const [showModal, setShowModal] = useState(true)
   const [firstFormVisible, setFirstFormVisible] = useState(true)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
 
@@ -66,6 +65,8 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
     if (firstFormVisible && formInstance.getFieldValue("OfferingTypeID")) {
       onOfferingTypeSelected()
     } else if (secondFormVisible) {
+      console.log(formInstance.getFieldsValue())
+
       formInstance.validateFields().then(() => {
         handleCancel()
       })
@@ -73,7 +74,6 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
   }
   const handleCancel = () => {
     if (props.closeCreateOfferingModal) {
-      console.log("handle cancel")
       props.closeCreateOfferingModal()
     }
     goBackToOfferingTypeForm()
@@ -110,11 +110,9 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
               fieldNames={fieldNames}
               initialFormValue={initialFormValue}
               formInstance={formInstance}
-              onFormSubmission={() => {
-                console.log(formInstance)
-              }}
               goBackToFirstForm={goBackToOfferingTypeForm}
-              handleOk={handleOk}
+              handleCancel={handleCancel}
+              onFormSubmission={handleOk}
             />
           )}
         </>

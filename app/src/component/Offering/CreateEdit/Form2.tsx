@@ -9,7 +9,7 @@ interface IOfferingCreateForm2Props {
   initialFormValue: { [key: string]: any }
   onFormSubmission: () => void
   goBackToFirstForm: () => void
-  handleOk: () => void
+  handleCancel: () => void
 }
 
 const layout = {
@@ -20,7 +20,11 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
   return (
     <Card
       title="Create Offering"
-      actions={[<Button>Go Back</Button>, <Button>Cancel</Button>, <Button>Submit</Button>]}
+      actions={[
+        <Button onClick={props.goBackToFirstForm}>Go Back</Button>,
+        <Button onClick={props.handleCancel}>Cancel</Button>,
+        <Button onClick={props.onFormSubmission}>Submit</Button>
+      ]}
     >
       <Form
         style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
