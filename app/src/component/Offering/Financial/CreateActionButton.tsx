@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import { Button } from "antd"
 
 export function CreateActionButton() {
-  const [shouldOpenFinancialCreateForm, handleFinancialCreateForm] = useState<boolean>(false)
+  // TODO: To be implemented
+  // const [shouldOpenFinancialCreateForm, handleFinancialCreateForm] = useState<boolean>(false)
   return (
     <>
       {/* TODO: A modal component with a boolean visibility property should be placed here */}
