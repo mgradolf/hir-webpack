@@ -2,7 +2,7 @@ import React from "react"
 import { Menu, Layout } from "antd"
 import SubMenu from "antd/lib/menu/SubMenu"
 import { logout } from "~/ApiServices/Login"
-import styles from "~/component/Offering/Header.module.scss"
+import styles from "~/component/layout/Header.module.scss"
 
 const { Header: AntdHeader } = Layout
 
@@ -10,7 +10,7 @@ export function Header() {
   return (
     <AntdHeader>
       <div>
-        <img className={styles.logo} src="./images/logo.png" alt="JE Home Page" />
+        <img className={styles.logo} src="/images/logo.png" alt="JE Home Page" />
       </div>
       <Menu theme="dark" mode="horizontal">
         <SubMenu key="sub1" title="Manage">

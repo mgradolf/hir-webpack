@@ -16,6 +16,7 @@ import OfflineAlert from "~/component/Alerts/Offline"
 import OfferingPage from "~/pages/Offering/index"
 import OfferingFinancialPage from "~/pages/Offering/Financial"
 import OfferingCatalogPage from "~/pages/Offering/Catalog"
+import Layout from "~/Layout"
 
 interface AppProps {
   store: AppStore
@@ -46,7 +47,10 @@ function App(props: AppProps): JSX.Element {
       <LoginModal />
       <OfflineAlert />
       <CreateNewOfferingModal />
-      <ConnectedRouter history={props.history}>{route}</ConnectedRouter>
+      <ConnectedRouter history={props.history}>
+        {/* Should be refactored later as condition check gets repeated */}
+        {props.redirectToLogin ? route : <Layout>{route}</Layout>}
+      </ConnectedRouter>
     </Provider>
   )
 }

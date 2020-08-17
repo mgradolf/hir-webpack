@@ -2,7 +2,7 @@ import { Row, Col, Button } from "antd"
 import React from "react"
 import CreateActionButton from "~/component/Offering/CreateEdit/OfferingModalOpenButton"
 import { FilterOutlined } from "@ant-design/icons"
-import styles from "~/component/Offering/Toolbar.module.scss"
+import styles from "~/component/Offering/SelectedFilters.module.scss"
 
 interface IToolbarProps {
   filterCount: number
@@ -10,7 +10,7 @@ interface IToolbarProps {
   toggleFilter: () => void
 }
 
-export function Toolbar(props: IToolbarProps) {
+export function SelectedFilters(props: IToolbarProps) {
   return (
     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
       <Col className="gutter-row" xs={24} sm={24} md={12}>
