@@ -1,5 +1,4 @@
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
-const SHOW_OFFLINE_MODAL = "SHOW_OFFLINE_MODAL"
 const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"
 
 interface IAction {
@@ -9,23 +8,16 @@ interface IAction {
 
 export interface IModalState {
   loginModal: boolean
-  offlineModal: boolean
   createOfferingModal: boolean
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
   loginModal: false,
-  offlineModal: false,
   createOfferingModal: false
 }
 
 export const showLoginModal = (value: boolean): IAction => ({
   type: SHOW_LOGIN_MODAL,
-  payload: value
-})
-
-export const showOfflineModal = (value: boolean): IAction => ({
-  type: SHOW_OFFLINE_MODAL,
   payload: value
 })
 
@@ -38,8 +30,6 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
       return { ...state, loginModal: action.payload }
-    case SHOW_OFFLINE_MODAL:
-      return { ...state, offlineModal: action.payload }
     case SHOW_CREATE_OFFERING_MODAL:
       return { ...state, createOfferingModal: action.payload }
     default:

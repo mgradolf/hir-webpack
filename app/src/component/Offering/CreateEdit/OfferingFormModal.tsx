@@ -6,14 +6,13 @@ import { useEffect, useState } from "react"
 import CreateForm1 from "~/component/Offering/CreateEdit/Form1"
 import CreateForm2 from "~/component/Offering/CreateEdit/Form2"
 import { IFieldNames } from "~/component/Offering/Interfaces"
-import { AppState } from "~/store"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
-import { createOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
+import { createOfferingWrap, searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
 
 interface ICreateNewOfferingProps {
-  createOfferingModal?: boolean
+  offeringId?: number | undefined
   closeCreateOfferingModal?: () => void
 }
 
@@ -42,9 +41,9 @@ const fieldNames: IFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-const initialFormValue: { [key: string]: any } = {}
-
-function CreateNewOffering(props: ICreateNewOfferingProps) {
+function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreateNewOfferingProps) {
+  const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
+  const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [offeringTypes, setofferingTypes] = useState([])
   const [formInstance] = Form.useForm()
   const [firstFormVisible, setFirstFormVisible] = useState(true)
@@ -52,13 +51,25 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [errorMessages, setErrorMessages] = useState<Array<string>>([])
 
   useEffect(() => {
-    ;(async () => {
-      const [response] = await getOfferingTypes()
-      if (response) {
-        setofferingTypes(response.data)
-      }
-    })()
-  }, [])
+    if (offeringId) {
+      setFirstFormVisible(false)
+      setSecondFormVisible(true)
+      ;(async () => {
+        const [response] = await searchOfferingWrap({ OfferingId: offeringId })
+        if (response) {
+          setEditOfferingEntity(response.data[0])
+          setInitialFormValue(response.data[0])
+        }
+      })()
+    } else {
+      ;(async () => {
+        const [response] = await getOfferingTypes()
+        if (response) {
+          setofferingTypes(response.data)
+        }
+      })()
+    }
+  }, [offeringId])
 
   const handleOk = async () => {
     if (firstFormVisible && formInstance.getFieldValue("OfferingTypeID")) {
@@ -80,9 +91,12 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
     }
   }
   const handleCancel = () => {
-    if (props.closeCreateOfferingModal) {
-      props.closeCreateOfferingModal()
+    if (closeCreateOfferingModal) {
+      closeCreateOfferingModal()
     }
+    console.log("initialFormValue ", initialFormValue)
+    console.log("editOfferingEntity ", editOfferingEntity)
+
     goBackToOfferingTypeForm()
   }
 
@@ -98,7 +112,7 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
 
   return (
     <Modal
-      showModal={props.createOfferingModal ? props.createOfferingModal : false}
+      showModal={true}
       width="800px"
       children={
         <>
@@ -137,13 +151,8 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
   )
 }
 
-const mapStateToProps = (state: AppState) => {
-  return {
-    createOfferingModal: state.modalState.createOfferingModal
-  }
-}
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return { closeCreateOfferingModal: () => dispatch(showCreateOfferingModal(false)) }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewOffering)
+export default connect(undefined, mapDispatchToProps)(CreateNewOffering)

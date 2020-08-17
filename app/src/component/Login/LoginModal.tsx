@@ -9,7 +9,6 @@ import zIndexLevel from "~/utils/zIndex"
 
 interface ILoginModalProps {
   removeGLobalApiError?: () => void
-  loginModalRequired?: boolean
 }
 
 const LoginModal = (props: ILoginModalProps) => {
@@ -20,19 +19,10 @@ const LoginModal = (props: ILoginModalProps) => {
   }, [props])
 
   return (
-    <Modal
-      closable={false}
-      showModal={!!props.loginModalRequired}
-      children={<Login modal={true} />}
-      zIndex={zIndexLevel.loginModal}
-    ></Modal>
+    <Modal closable={false} showModal={true} children={<Login modal={true} />} zIndex={zIndexLevel.loginModal}></Modal>
   )
-}
-
-const mapStateToProps = (state: AppState) => {
-  return { loginModalRequired: state.authentication.loginModalRequired }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return { removeGLobalApiError: () => dispatch(removeGLobalApiError()) }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LoginModal)
+export default connect(undefined, mapDispatchToProps)(LoginModal)

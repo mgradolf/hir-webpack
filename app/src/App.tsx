@@ -10,13 +10,11 @@ import ProfilePage from "~/pages/ProfilePage"
 import AboutPage from "~/pages/AboutPage"
 import AdminPage from "~/pages/AdminPage"
 import NotFoundPage from "~/pages/NotFoundPage"
-import LoginModal from "~/component/Login/LoginModal"
-import CreateNewOfferingModal from "~/component/Offering/CreateEdit/OfferingFormModal"
-import OfflineAlert from "~/component/Alerts/Offline"
 import OfferingPage from "~/pages/Offering/index"
 import OfferingFinancialPage from "~/pages/Offering/Financial"
 import OfferingCatalogPage from "~/pages/Offering/Catalog"
 import Layout from "~/Layout"
+import ModalContainer from "~/component/Modal/ModalContainer"
 
 interface AppProps {
   store: AppStore
@@ -44,9 +42,7 @@ function App(props: AppProps): JSX.Element {
   )
   return (
     <Provider store={props.store}>
-      <LoginModal />
-      <OfflineAlert />
-      <CreateNewOfferingModal />
+      <ModalContainer />
       <ConnectedRouter history={props.history}>
         {/* Should be refactored later as condition check gets repeated */}
         {props.redirectToLogin ? route : <Layout>{route}</Layout>}
