@@ -19,7 +19,9 @@ export default function OfferingDefaultSection(props: IOfferingDefaultSection) {
   useEffect(() => {
     ;(async () => {
       const [response] = await getSectionTypes()
-      setSectionTypes(response.data)
+      if (response) {
+        setSectionTypes(response.data)
+      }
     })()
   }, [])
   return (
