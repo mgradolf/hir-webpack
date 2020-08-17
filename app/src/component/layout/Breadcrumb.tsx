@@ -1,25 +1,20 @@
 import React from "react"
 import { Breadcrumb as AntdBreadcrumb } from "antd"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { AppState } from "~/store"
 
-const routeLabelMap = {
-  "/": "Home",
-  offering: "Offering",
-  financial: "Financial",
-  search: "Search",
-  catalog: "Catalog"
+function transformRouteToLabel(route: string): string {
+  return route.replace(/\w/, (str) => str.toUpperCase()).replace(/\W/g, " ")
 }
 
-function isDefinedRoute(route: string): route is keyof typeof routeLabelMap {
-  return routeLabelMap[route as keyof typeof routeLabelMap] !== undefined
-}
 interface IBreadcrumbPath {
   label: string
   path: string
 }
 
 const generateBreadcrumbPath = (path: string): IBreadcrumbPath[] => {
-  const breadcrumbPath = [{ path: "/", label: routeLabelMap["/"] }]
+  const breadcrumbPath = [{ path: "/", label: "Home" }]
   const routesFollowingHome = path.split("/").slice(1)
 
   routesFollowingHome.reduce((path, route) => {
@@ -29,15 +24,16 @@ const generateBreadcrumbPath = (path: string): IBreadcrumbPath[] => {
       path = `${path}/${route}`
     }
 
-    breadcrumbPath.push({ path, label: isDefinedRoute(route) ? routeLabelMap[route] : route })
+    breadcrumbPath.push({ path, label: transformRouteToLabel(route) })
     return path
   }, breadcrumbPath[0].path)
 
   return breadcrumbPath
 }
 
-export function Breadcrumb(props: { path: string }) {
-  const breadcrumbPath = generateBreadcrumbPath(props.path)
+export function Breadcrumb() {
+  const { location } = useSelector((state: AppState) => state.router)
+  const breadcrumbPath = generateBreadcrumbPath(location.pathname)
 
   return (
     <AntdBreadcrumb style={{ margin: "16px 0" }}>
