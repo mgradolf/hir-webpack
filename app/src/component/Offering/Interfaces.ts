@@ -1,4 +1,5 @@
 export interface IFieldNames {
+  OfferingID: string
   OfferingTypeID: string
   OfferingCode: string
   Name: string

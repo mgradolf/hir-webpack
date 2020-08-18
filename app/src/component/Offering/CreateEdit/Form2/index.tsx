@@ -21,6 +21,12 @@ interface IOfferingCreateForm2Props {
 // }
 
 export default function CreateForm2(props: IOfferingCreateForm2Props) {
+  const actions = []
+  if (!props.initialFormValue.Name) {
+    actions.push(<Button onClick={props.goBackToFirstForm}>Go Back</Button>)
+  }
+  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
+  actions.push(<Button onClick={props.onFormSubmission}>Submit</Button>)
   return (
     <Card
       title={
@@ -28,11 +34,7 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
           ? `Edit '${props.initialFormValue.Name}' Offering`
           : "Create new offering"
       }
-      actions={[
-        <Button onClick={props.goBackToFirstForm}>Go Back</Button>,
-        <Button onClick={props.handleCancel}>Cancel</Button>,
-        <Button onClick={props.onFormSubmission}>Submit</Button>
-      ]}
+      actions={actions}
     >
       <Form
         hideRequiredMark
@@ -45,6 +47,9 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
           <li>Dates should be typed in the format mm/dd/yyyy</li>
         </ul>
         <Form.Item style={{ visibility: "hidden" }} name={props.fieldNames.OfferingTypeID}>
+          <Input />
+        </Form.Item>
+        <Form.Item style={{ visibility: "hidden" }} name={props.fieldNames.OfferingID}>
           <Input />
         </Form.Item>
         <OfferingDetails

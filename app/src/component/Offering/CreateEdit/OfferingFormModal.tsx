@@ -18,6 +18,7 @@ interface ICreateNewOfferingProps {
 }
 
 const fieldNames: IFieldNames = {
+  OfferingID: "OfferingID",
   OfferingTypeID: "OfferingTypeID",
   OfferingCode: "OfferingCode",
   Name: "Name",
@@ -48,25 +49,18 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
   const [formInstance] = Form.useForm()
   const [firstFormVisible, setFirstFormVisible] = useState(false)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
+  const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<string>>([])
 
-  useEffect(() => {
-    if (offeringId) {
-      ;(async () => {
-        const response = await getOfferingById(offeringId)
-        if (response && response.success) {
-          setEditOfferingEntity(response.data)
-          setInitialFormValue(response.data)
-
-          setFirstFormVisible(false)
-          setSecondFormVisible(true)
-        }
-      })()
-    } else {
-      setFirstFormVisible(true)
-      setSecondFormVisible(false)
+  const handleCancel = () => {
+    if (closeCreateOfferingModal) {
+      closeCreateOfferingModal()
     }
-  }, [offeringId])
+    console.log("initialFormValue ", initialFormValue)
+    console.log("editOfferingEntity ", editOfferingEntity)
+
+    goBackToOfferingTypeForm()
+  }
 
   const handleOk = async () => {
     if (firstFormVisible && formInstance.getFieldValue("OfferingTypeID")) {
@@ -80,24 +74,41 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
       const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
         ? updateOffering
         : createOffering
+
+      setApiCallInProgress(true)
       const response = await serviceMethoToCall(params)
+      setApiCallInProgress(false)
 
       if (response && response.success) {
-        console.log(response)
         formInstance.resetFields()
         handleCancel()
+      } else {
+        console.log(response)
       }
     }
   }
-  const handleCancel = () => {
-    if (closeCreateOfferingModal) {
-      closeCreateOfferingModal()
-    }
-    console.log("initialFormValue ", initialFormValue)
-    console.log("editOfferingEntity ", editOfferingEntity)
 
-    goBackToOfferingTypeForm()
-  }
+  useEffect(() => {
+    if (offeringId) {
+      ;(async () => {
+        const response = await getOfferingById(offeringId)
+        if (response && response.success) {
+          setEditOfferingEntity(response.data)
+          setInitialFormValue(response.data)
+
+          setFirstFormVisible(false)
+          setSecondFormVisible(true)
+        } else {
+          if (closeCreateOfferingModal) {
+            closeCreateOfferingModal()
+          }
+        }
+      })()
+    } else {
+      setFirstFormVisible(true)
+      setSecondFormVisible(false)
+    }
+  }, [offeringId, closeCreateOfferingModal])
 
   const onOfferingTypeSelected = () => {
     setFirstFormVisible(false)
@@ -114,6 +125,7 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
       showModal={true}
       width="800px"
       loading={!(firstFormVisible || secondFormVisible)}
+      apiCallInProgress={apiCallInProgress}
       children={
         <>
           {errorMessages.length && (

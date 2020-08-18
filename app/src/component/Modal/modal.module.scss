@@ -19,6 +19,20 @@
     right: 0;
   }
 
+  &_api_in_progress {
+    background-color: $lighter;
+    bottom: 0;
+    height: 97%;
+    opacity: 0.3;
+    position: absolute;
+    width: 800px;
+    &__spinner {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+    }
+  }
+
   /* The Close Button */
   &__close {
     color: #aaa;

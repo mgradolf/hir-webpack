@@ -11,6 +11,7 @@ interface IModalProp {
   zIndex?: number
   loading?: boolean
   loadingTip?: string
+  apiCallInProgress?: boolean
 }
 export default function ({
   closable = false,
@@ -19,7 +20,8 @@ export default function ({
   width = "200px",
   zIndex = zIndexLevel.defaultModal,
   loading = false,
-  loadingTip = "Loading..."
+  loadingTip = "Loading...",
+  apiCallInProgress = false
 }: IModalProp) {
   const [visibility, setvisibility] = useState(true)
   const closeOnClickOutside = () => {
@@ -31,7 +33,7 @@ export default function ({
     <>
       {showModal && visibility && (
         <>
-          <div id={style.myModal} className={style.modal} style={{ zIndex }} onClick={closeOnClickOutside}></div>
+          <div className={style.modal} style={{ zIndex }} onClick={closeOnClickOutside}></div>
           <div className={style.modal_content} style={{ zIndex: zIndex + 1 }}>
             {closable && (
               <span className={style.modal__close} onClick={() => setvisibility(false)}>
@@ -41,7 +43,18 @@ export default function ({
             <Row>
               <Col flex="auto"></Col>
               {loading && <ModalLoading {...{ width, loadingTip }} />}
-              {!loading && <Col flex={width}>{children}</Col>}
+              {!loading && (
+                <Col flex={width}>
+                  {children}
+                  {apiCallInProgress && (
+                    <div className={style.modal_api_in_progress}>
+                      <div className={style.modal_api_in_progress__spinner}>
+                        <Spin size="large" />
+                      </div>
+                    </div>
+                  )}
+                </Col>
+              )}
               <Col flex="auto"></Col>
             </Row>
           </div>
@@ -53,7 +66,7 @@ export default function ({
 
 interface IModalLoading {
   width: string
-  loadingTip: string
+  loadingTip?: string
 }
 function ModalLoading(props: IModalLoading) {
   return (
