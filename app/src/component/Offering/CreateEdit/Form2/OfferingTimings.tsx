@@ -148,7 +148,7 @@ export default function OfferingTimings(props: IOfferingTimings) {
   const [terms, setterms] = useState([])
   useEffect(() => {
     const loadTerms = async () => {
-      const [response] = await getTerms()
+      const response = await getTerms()
       if (response) setterms(response.data)
     }
     loadTerms()

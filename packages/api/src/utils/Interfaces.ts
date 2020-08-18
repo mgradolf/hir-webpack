@@ -12,10 +12,11 @@ export enum ErrorType {
   CUSTOM
 }
 
-export interface ErrorSchema {
+export interface IApiResponse {
   code: number | undefined
   data: any
   error: any
   success: boolean
   type?: ErrorType
+  errorMessage?: string
 }

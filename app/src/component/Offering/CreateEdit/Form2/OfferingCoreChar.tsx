@@ -27,28 +27,28 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
 
   useEffect(() => {
     ;(async () => {
-      const [response] = await getOfferingStatusTypes()
+      const response = await getOfferingStatusTypes()
       if (response && response.data) {
         // console.log("setOfferingStatusTypes ", response.data)
         setOfferingStatusTypes(response.data)
       }
     })()
     ;(async () => {
-      const [response] = await getOrganizations()
+      const response = await getOrganizations()
       if (response && response.data) {
         // console.log("setOrganizations ", response.data)
         setOrganizations(response.data)
       }
     })()
     ;(async () => {
-      const [response] = await getPaymentGatewayAccounts()
+      const response = await getPaymentGatewayAccounts()
       if (response && response.data) {
         // console.log("setPaymentGatewayAccounts ", response.data)
         setPaymentGatewayAccounts(response.data)
       }
     })()
     ;(async () => {
-      const [response] = await getAllUsers()
+      const response = await getAllUsers()
       if (response && response.data) {
         // console.log("setUsers ", response.data)
         setUsers(response.data)

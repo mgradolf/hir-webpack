@@ -55,9 +55,9 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
     }
 
     setLoading(true)
-    const [result] = await addOrRemoveOfferingToCatalog(Number(offeringID), publishedRowData)
+    const result = await addOrRemoveOfferingToCatalog(Number(offeringID), publishedRowData)
 
-    if (result) {
+    if (result && result.success) {
       setLoading(false)
       setPendingRowDataSelection(publishedRowData)
     }
@@ -67,9 +67,9 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
     async function searchOfferingCatalog() {
       setLoading(true)
 
-      const [result] = await findCatalogWrap([{ OfferingID: offeringID }])
+      const result = await findCatalogWrap([{ OfferingID: offeringID }])
 
-      if (result) {
+      if (result && result.success) {
         const publishedRowData = []
         for (let i = 0; i < result.data.length; i++) {
           if (result.data[i].isPublished) {

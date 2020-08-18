@@ -143,14 +143,12 @@ function OfferingPage(props: RouteComponentProps) {
         params["ToCreationDate"] = filterData.ToCreationDate;
       }*/
 
-      const [result, error] = await searchOffering(params)
+      const result = await searchOffering(params)
 
-      if (result) {
-        setLoading(false)
+      if (result && result.success) {
         setOfferingItems(result.data)
-      } else if (error) {
-        setLoading(false)
       }
+      setLoading(false)
     })()
   }, [filterData])
 

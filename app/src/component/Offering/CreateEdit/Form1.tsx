@@ -25,8 +25,8 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
   useEffect(() => {
     props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) ? setIsSelected(true) : setIsSelected(false)
     ;(async () => {
-      const [response] = await getOfferingTypes()
-      if (response) {
+      const response = await getOfferingTypes()
+      if (response && response.success) {
         setofferingTypes(response.data)
       }
     })()

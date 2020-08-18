@@ -10,6 +10,7 @@ import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
 import { createOffering, updateOffering } from "~/ApiServices/Service/OfferingService"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface ICreateNewOfferingProps {
   offeringId?: number | undefined
@@ -52,8 +53,8 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
   useEffect(() => {
     if (offeringId) {
       ;(async () => {
-        const [response] = await getOfferingById(offeringId)
-        if (response) {
+        const response = await getOfferingById(offeringId)
+        if (response && response.success) {
           setEditOfferingEntity(response.data)
           setInitialFormValue(response.data)
 
@@ -76,17 +77,15 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
       console.log("validationPassed ", validationPassed)
       const params = formInstance.getFieldsValue()
 
-      const serviceMethoToCall: (params: { [key: string]: any }) => Promise<[any, any]> = offeringId
+      const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
         ? updateOffering
         : createOffering
-      const [response, error] = await serviceMethoToCall(params)
+      const response = await serviceMethoToCall(params)
 
-      if (response) {
+      if (response && response.success) {
         console.log(response)
         formInstance.resetFields()
         handleCancel()
-      } else if (error) {
-        console.log(error)
       }
     }
   }

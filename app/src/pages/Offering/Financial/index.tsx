@@ -64,9 +64,9 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
     ;(async function () {
       setLoading(true)
 
-      const [result] = await searchOfferingFinancial(Number(offeringID))
+      const result = await searchOfferingFinancial(Number(offeringID))
 
-      if (result) {
+      if (result && result.success) {
         setLoading(false)
         setOfferingFinancialItems(result.data)
       }
