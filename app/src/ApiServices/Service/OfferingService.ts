@@ -3,19 +3,19 @@ import OfferingService, { config } from "@packages/api/lib/proxy/Service/Offerin
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */
 
-export function createOfferingWrap(Params: { [key: string]: any }): Promise<[any, any]> {
+export function createOffering(Params: { [key: string]: any }): Promise<[any, any]> {
   return OfferingService[config.Actions.createOffering](Params)
 }
 
-export function updateOfferingWrap(Params: { [key: string]: any }): Promise<[any, any]> {
+export function updateOffering(Params: { [key: string]: any }): Promise<[any, any]> {
   return OfferingService[config.Actions.updateOffering](Params)
 }
 
-export function searchOfferingWrap(Params: { [key: string]: any }): Promise<[any, any]> {
+export function searchOffering(Params: { [key: string]: any }): Promise<[any, any]> {
   return OfferingService[config.Actions.searchOffering](Params)
 }
 
-export function addOrRemoveOfferingToCatalogWrap(OfferingID: number, CatalogIDs: Array<number>): Promise<[any, any]> {
+export function addOrRemoveOfferingToCatalog(OfferingID: number, CatalogIDs: Array<number>): Promise<[any, any]> {
   return OfferingService[config.Actions.addOrRemoveOfferingToCatalog]({
     OfferingID,
     CatalogIDs
@@ -25,14 +25,14 @@ export function addOrRemoveOfferingToCatalogWrap(OfferingID: number, CatalogIDs:
 /* -------------------------------------------------------------------------- */
 /*                         offering financial section                         */
 /* -------------------------------------------------------------------------- */
-export function createOfferingFinancialWrap(Params: { [key: string]: any }): Promise<[any, any]> {
+export function createOfferingFinancial(Params: { [key: string]: any }): Promise<[any, any]> {
   return OfferingService[config.Actions.createOfferingFinancial](Params)
 }
 
-export function updateOfferingFinancialWrap(Params: { [key: string]: any }): Promise<[any, any]> {
+export function updateOfferingFinancial(Params: { [key: string]: any }): Promise<[any, any]> {
   return OfferingService[config.Actions.updateOfferingFinancial](Params)
 }
 
-export function searchOfferingFinancialWrap(OfferingID: number): Promise<[any, any]> {
+export function searchOfferingFinancial(OfferingID: number): Promise<[any, any]> {
   return OfferingService[config.Actions.searchOfferingFinancial]({ OfferingID })
 }

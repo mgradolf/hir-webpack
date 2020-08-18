@@ -3,7 +3,7 @@ import { Form, Radio, DatePicker, Select, Divider, Input } from "antd"
 import { IFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { RadioChangeEvent } from "antd/lib/radio"
-import { getTerms } from "~/ApiServices/Service/RefLookupServiceWrap"
+import { getTerms } from "~/ApiServices/Service/RefLookupService"
 
 interface IOfferingTimings {
   fieldNames: IFieldNames

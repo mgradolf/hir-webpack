@@ -1,7 +1,6 @@
 import * as React from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/component/Modal"
-import { getOfferingTypes } from "~/ApiServices/Service/RefLookupServiceWrap"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/component/Offering/CreateEdit/Form1"
 import CreateForm2 from "~/component/Offering/CreateEdit/Form2"
@@ -9,7 +8,8 @@ import { IFieldNames } from "~/component/Offering/Interfaces"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
-import { createOfferingWrap, searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
+import { createOffering, updateOffering } from "~/ApiServices/Service/OfferingService"
+import { getOfferingById } from "~/ApiServices/Service/EntityService"
 
 interface ICreateNewOfferingProps {
   offeringId?: number | undefined
@@ -44,30 +44,26 @@ const fieldNames: IFieldNames = {
 function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreateNewOfferingProps) {
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
-  const [offeringTypes, setofferingTypes] = useState([])
   const [formInstance] = Form.useForm()
-  const [firstFormVisible, setFirstFormVisible] = useState(true)
+  const [firstFormVisible, setFirstFormVisible] = useState(false)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<string>>([])
 
   useEffect(() => {
     if (offeringId) {
-      setFirstFormVisible(false)
-      setSecondFormVisible(true)
       ;(async () => {
-        const [response] = await searchOfferingWrap({ OfferingId: offeringId })
+        const [response] = await getOfferingById(offeringId)
         if (response) {
-          setEditOfferingEntity(response.data[0])
-          setInitialFormValue(response.data[0])
+          setEditOfferingEntity(response.data)
+          setInitialFormValue(response.data)
+
+          setFirstFormVisible(false)
+          setSecondFormVisible(true)
         }
       })()
     } else {
-      ;(async () => {
-        const [response] = await getOfferingTypes()
-        if (response) {
-          setofferingTypes(response.data)
-        }
-      })()
+      setFirstFormVisible(true)
+      setSecondFormVisible(false)
     }
   }, [offeringId])
 
@@ -76,17 +72,21 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
       onOfferingTypeSelected()
     } else if (secondFormVisible) {
       console.log(formInstance.getFieldsValue())
-
       const validationPassed = await formInstance.validateFields()
       console.log("validationPassed ", validationPassed)
       const params = formInstance.getFieldsValue()
-      const [response, error] = await createOfferingWrap(params)
+
+      const serviceMethoToCall: (params: { [key: string]: any }) => Promise<[any, any]> = offeringId
+        ? updateOffering
+        : createOffering
+      const [response, error] = await serviceMethoToCall(params)
 
       if (response) {
         console.log(response)
         formInstance.resetFields()
         handleCancel()
       } else if (error) {
+        console.log(error)
       }
     }
   }
@@ -114,6 +114,7 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
     <Modal
       showModal={true}
       width="800px"
+      loading={!(firstFormVisible || secondFormVisible)}
       children={
         <>
           {errorMessages.length && (
@@ -130,7 +131,6 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
               fieldNames={fieldNames}
               initialFormValue={initialFormValue}
               formInstance={formInstance}
-              offeringTypes={offeringTypes}
               handleCancel={handleCancel}
               handleSelected={handleOk}
             />

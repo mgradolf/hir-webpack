@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Table, Typography } from "antd"
-import { searchOfferingFinancialWrap } from "~/ApiServices/Service/OfferingServiceWrap"
+import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
 import { CreateActionButton } from "~/component/Offering/Financial"
@@ -61,18 +61,16 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
   const [offeringFinancialItems, setOfferingFinancialItems] = useState<Array<any>>([])
 
   useEffect(() => {
-    async function searchOfferingFinancial() {
+    ;(async function () {
       setLoading(true)
 
-      const [result] = await searchOfferingFinancialWrap(Number(offeringID))
+      const [result] = await searchOfferingFinancial(Number(offeringID))
 
       if (result) {
         setLoading(false)
         setOfferingFinancialItems(result.data)
       }
-    }
-
-    searchOfferingFinancial()
+    })()
   }, [offeringID])
 
   return (

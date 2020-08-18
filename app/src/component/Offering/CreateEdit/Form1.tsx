@@ -4,17 +4,18 @@ import { IFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {} from "@ant-design/icons"
 import { RadioChangeEvent } from "antd/lib/radio"
+import { getOfferingTypes } from "~/ApiServices/Service/RefLookupService"
 
 interface IOfferingCreateForm1Props {
   formInstance: FormInstance
   fieldNames: IFieldNames
   initialFormValue: { [key: string]: any }
-  offeringTypes: Array<any>
   handleCancel: () => void
   handleSelected: () => void
 }
 
 export default function CreateForm1(props: IOfferingCreateForm1Props) {
+  const [offeringTypes, setofferingTypes] = useState<Array<any>>([])
   const [radioValues] = useState([
     { label: "Default", value: 1000, default: true },
     { label: "Other", value: "OTHER", default: false }
@@ -23,6 +24,12 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
   const [isSelected, setIsSelected] = useState(false)
   useEffect(() => {
     props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) ? setIsSelected(true) : setIsSelected(false)
+    ;(async () => {
+      const [response] = await getOfferingTypes()
+      if (response) {
+        setofferingTypes(response.data)
+      }
+    })()
   }, [props])
   const onChangeOfferingTypes = (e: RadioChangeEvent) => {
     if (e.target.value === 1000) {
@@ -95,8 +102,8 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
                 setIsSelected(true)
               }}
             >
-              {props.offeringTypes.length &&
-                props.offeringTypes.map((offer) => {
+              {offeringTypes.length &&
+                offeringTypes.map((offer) => {
                   return (
                     <Select.Option key={offer.OfferingTypeID} value={offer.OfferingTypeID}>
                       {offer.Name}

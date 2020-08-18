@@ -6,8 +6,8 @@ import {
   getOfferingStatusTypes,
   getOrganizations,
   getPaymentGatewayAccounts
-} from "~/ApiServices/Service/RefLookupServiceWrap"
-import { getAllUsers } from "~/ApiServices/Service/HRUserServiceWrap"
+} from "~/ApiServices/Service/RefLookupService"
+import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 
 interface IOfferingCoreChar {
   fieldNames: IFieldNames

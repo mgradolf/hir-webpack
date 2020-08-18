@@ -23,7 +23,11 @@ interface IOfferingCreateForm2Props {
 export default function CreateForm2(props: IOfferingCreateForm2Props) {
   return (
     <Card
-      title="Create Offering"
+      title={
+        props.initialFormValue && props.initialFormValue.Name
+          ? `Edit '${props.initialFormValue.Name}' Offering`
+          : "Create new offering"
+      }
       actions={[
         <Button onClick={props.goBackToFirstForm}>Go Back</Button>,
         <Button onClick={props.handleCancel}>Cancel</Button>,

@@ -4,7 +4,7 @@ import moment from "moment"
 import { Row, Col, Switch, Table, Typography } from "antd"
 
 import { findCatalogWrap } from "~/ApiServices/BizApi/catalog/catalogIf"
-import { addOrRemoveOfferingToCatalogWrap } from "~/ApiServices/Service/OfferingServiceWrap"
+import { addOrRemoveOfferingToCatalog } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
 const { Title } = Typography
@@ -55,7 +55,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
     }
 
     setLoading(true)
-    const [result] = await addOrRemoveOfferingToCatalogWrap(Number(offeringID), publishedRowData)
+    const [result] = await addOrRemoveOfferingToCatalog(Number(offeringID), publishedRowData)
 
     if (result) {
       setLoading(false)

@@ -4,7 +4,7 @@ import { Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
 
 import { DownOutlined } from "@ant-design/icons"
 import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offering"
-import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
+import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 
@@ -128,7 +128,7 @@ function OfferingPage(props: RouteComponentProps) {
   ]
 
   useEffect(() => {
-    async function searchOffering() {
+    ;(async function () {
       setLoading(true)
 
       const params = {
@@ -143,7 +143,7 @@ function OfferingPage(props: RouteComponentProps) {
         params["ToCreationDate"] = filterData.ToCreationDate;
       }*/
 
-      const [result, error] = await searchOfferingWrap(params)
+      const [result, error] = await searchOffering(params)
 
       if (result) {
         setLoading(false)
@@ -151,9 +151,7 @@ function OfferingPage(props: RouteComponentProps) {
       } else if (error) {
         setLoading(false)
       }
-    }
-
-    searchOffering()
+    })()
   }, [filterData])
 
   const toggleFilter = () => {
