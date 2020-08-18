@@ -6,6 +6,7 @@ import { DownOutlined } from "@ant-design/icons"
 import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offering"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
+import OfferingEditLink from "~/component/Offering/CreateEdit/OfferingEditLink"
 import styles from "~/pages/Offering/Offering.module.scss"
 
 const { useState, useEffect } = React
@@ -23,23 +24,26 @@ const INITIAL_FILTER_DATA: IFilterValues = {
 function generateMenu(record: any) {
   return (
     <Menu>
+      <Menu.Item key="-1">
+        <OfferingEditLink OfferingId={record.OfferingID} />
+      </Menu.Item>
       <Menu.Item key="0">
         <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <a href="/">Requisite Management</a>
+        <Link to={"/"}>Requisite Management</Link>
       </Menu.Item>
       <Menu.Item key="2">
         <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <a href="/">Offering Tag</a>
+        <Link to={"/"}>Offering Tag</Link>
       </Menu.Item>
       <Menu.Item key="4">
-        <a href="/">Offering Approval</a>
+        <Link to={"/"}>Offering Approval</Link>
       </Menu.Item>
       <Menu.Item key="5">
-        <a href="/">Qualified Instructors</a>
+        <Link to={"/"}>Qualified Instructors</Link>
       </Menu.Item>
     </Menu>
   )

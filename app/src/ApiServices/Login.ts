@@ -11,7 +11,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 export async function login(UserName: string, UserPassword: string): Promise<IApiResponse> {
   const response = await loginService(UserName, UserPassword)
   if (response && response.success) {
-    store.dispatch(showLoginModal(false))
+    store.dispatch(showLoginModal({ value: false }))
     store.dispatch(setRedirectToLogin(false))
   }
   return response
@@ -19,13 +19,13 @@ export async function login(UserName: string, UserPassword: string): Promise<IAp
 
 export function logout(): void {
   removeTokens()
-  store.dispatch(showLoginModal(false))
+  store.dispatch(showLoginModal({ value: false }))
   store.dispatch(setRedirectToLogin(true))
 }
 
 export function initializedAuthState(): void {
   if (!getToken()) {
-    store.dispatch(showLoginModal(false))
+    store.dispatch(showLoginModal({ value: false }))
     store.dispatch(setRedirectToLogin(true))
   }
 }

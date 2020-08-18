@@ -10,8 +10,10 @@ function ModalContainer(modalState: IModalState) {
   return (
     <>
       <OfflineAlert />
-      {modalState.loginModal && <LoginModal />}
-      {modalState.createOfferingModal && <CreateNewOfferingModal />}
+      {modalState.loginModal.value && <LoginModal />}
+      {modalState.createOfferingModal.value && (
+        <CreateNewOfferingModal offeringId={modalState.createOfferingModal.config.OfferingId} />
+      )}
     </>
   )
 }

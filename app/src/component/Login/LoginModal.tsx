@@ -4,7 +4,6 @@ import React, { useEffect } from "react"
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
 import { removeGLobalApiError } from "~/store/GlobalError"
-import { AppState } from "~/store"
 import zIndexLevel from "~/utils/zIndex"
 
 interface ILoginModalProps {

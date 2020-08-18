@@ -16,7 +16,7 @@ function CreateActionButton(props: ICreateActionButtonProp) {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { openCreateOfferingModal: () => dispatch(showCreateOfferingModal(true)) }
+  return { openCreateOfferingModal: () => dispatch(showCreateOfferingModal({ value: true })) }
 }
 
 export default connect(null, mapDispatchToProps)(CreateActionButton)

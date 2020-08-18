@@ -10,7 +10,7 @@ export default function RegisteGlobalhttpErrorHandlerr() {
       store.dispatch(showGLobalApiError(error.errorMessage))
 
       if (error.code === 401 && store.getState().router.location.pathname !== "/login") {
-        store.dispatch(showLoginModal(true))
+        store.dispatch(showLoginModal({ value: true }))
       }
     } else {
       store.dispatch(showGLobalApiError(null))

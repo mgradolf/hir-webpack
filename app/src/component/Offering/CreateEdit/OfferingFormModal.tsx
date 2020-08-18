@@ -13,7 +13,7 @@ import { getOfferingById } from "~/ApiServices/Service/EntityService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface ICreateNewOfferingProps {
-  offeringId?: number | undefined
+  offeringId?: number
   closeCreateOfferingModal?: () => void
 }
 
@@ -43,7 +43,7 @@ const fieldNames: IFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreateNewOfferingProps) {
+function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewOfferingProps) {
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [formInstance] = Form.useForm()
@@ -163,7 +163,7 @@ function CreateNewOffering({ offeringId = 2, closeCreateOfferingModal }: ICreate
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingModal(false)) }
+  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingModal({ value: false })) }
 }
 
 export default connect(undefined, mapDispatchToProps)(CreateNewOffering)

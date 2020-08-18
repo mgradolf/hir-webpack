@@ -1,29 +1,40 @@
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
 const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"
 
+export type ModalConfig = {
+  value: boolean
+  config?: any
+}
+
 interface IAction {
   type: string
-  payload: boolean
+  payload: ModalConfig
 }
 
 export interface IModalState {
-  loginModal: boolean
-  createOfferingModal: boolean
+  loginModal: ModalConfig
+  createOfferingModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
-  loginModal: false,
-  createOfferingModal: false
+  loginModal: {
+    value: false,
+    config: null
+  },
+  createOfferingModal: {
+    value: false,
+    config: null
+  }
 }
 
-export const showLoginModal = (value: boolean): IAction => ({
+export const showLoginModal = (payload: ModalConfig): IAction => ({
   type: SHOW_LOGIN_MODAL,
-  payload: value
+  payload
 })
 
-export const showCreateOfferingModal = (value: boolean): IAction => ({
+export const showCreateOfferingModal = ({ value, config = {} }: ModalConfig): IAction => ({
   type: SHOW_CREATE_OFFERING_MODAL,
-  payload: value
+  payload: { value, config }
 })
 
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
