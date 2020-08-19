@@ -1,23 +1,24 @@
-import { ErrorSchema, ErrorType } from "../Interfaces"
+import { IApiResponse, ErrorType } from "../Interfaces"
 import { AxiosError, AxiosResponse } from "axios"
 
-const handleError = (error: AxiosError): ErrorSchema => {
-  let errResponse: ErrorSchema = {
+const handleError = (error: AxiosError): IApiResponse => {
+  let response: IApiResponse = {
     code: undefined,
     error: "Unknown",
     data: undefined,
-    success: false
+    success: false,
+    errorMessage: ""
   }
   if (error.isAxiosError && error && error.response) {
     if (error.response.data && typeof error.response.data !== "string") {
-      errResponse = {
+      response = {
         code: error.response.data["code"],
         error: error.response.data["error"],
         data: error.response.data["data"],
         success: error.response.data["success"]
       }
     } else {
-      errResponse = {
+      response = {
         code: error.response.status,
         error: error.response.data,
         data: null,
@@ -25,56 +26,56 @@ const handleError = (error: AxiosError): ErrorSchema => {
       }
     }
   }
-  errResponse = tagGlobalErrors(errResponse)
-  return errResponse
+  response = tagGlobalErrors(response)
+  return response
 }
 
-const retireveErrorText = (errResponse: ErrorSchema, defaultMessage: string): string => {
-  if (errResponse.error && errResponse.error.Description) {
-    return errResponse.error.Description
-  } else if (errResponse.error && typeof errResponse.error === "string") {
-    return errResponse.error
+const retireveErrorText = (response: IApiResponse, defaultMessage: string): string => {
+  if (response.error && response.error.Description) {
+    return response.error.Description
+  } else if (response.error && typeof response.error === "string") {
+    return response.error
   }
   return defaultMessage
 }
 
-const tagGlobalErrors = (errResponse: ErrorSchema) => {
-  switch (errResponse.code) {
+const tagGlobalErrors = (response: IApiResponse) => {
+  switch (response.code) {
     case 401:
-      errResponse.type = ErrorType.GLOBAL
-      errResponse.error = retireveErrorText(errResponse, "UnAuthorized")
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "UnAuthorized")
       break
     case 403:
-      errResponse.type = ErrorType.GLOBAL
-      errResponse.error = retireveErrorText(errResponse, "Forbidden")
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "Forbidden")
       break
     case 500:
-      errResponse.type = ErrorType.GLOBAL
-      errResponse.error = retireveErrorText(errResponse, "Internal Server Error")
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "Internal Server Error")
       break
     case 502:
-      errResponse.type = ErrorType.GLOBAL
-      errResponse.error = retireveErrorText(errResponse, "Bad Gateway")
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "Bad Gateway")
       break
     case 503:
-      errResponse.type = ErrorType.GLOBAL
-      errResponse.error = retireveErrorText(errResponse, "Service Unavailable")
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "Service Unavailable")
       break
     case 504:
-      errResponse.type = ErrorType.GLOBAL
-      errResponse.error = retireveErrorText(errResponse, "Gateway Timeout")
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "Gateway Timeout")
       break
     default:
-      errResponse.type = ErrorType.CUSTOM
+      response.type = ErrorType.CUSTOM
       break
   }
-  return errResponse
+  return response
 }
 
-export const handleResponse = (promise: Promise<any>): Promise<any> => {
+export const handleResponse = (promise: Promise<any>): Promise<IApiResponse> => {
   return promise
     .then((response: AxiosResponse<any>) => {
-      return [<any>response.data, undefined]
+      return <IApiResponse>response.data
     })
-    .catch((error: AxiosError) => Promise.resolve([undefined, <any>handleError(error)]))
+    .catch((error: AxiosError) => Promise.resolve(handleError(error)))
 }

@@ -10,18 +10,17 @@ import ProfilePage from "~/pages/ProfilePage"
 import AboutPage from "~/pages/AboutPage"
 import AdminPage from "~/pages/AdminPage"
 import NotFoundPage from "~/pages/NotFoundPage"
-import LoginModal from "~/component/Login/LoginModal"
-import OfflineAlert from "~/component/Alerts/Offline"
 import OfferingPage from "~/pages/Offering/index"
 import OfferingDetailsPage from "~/pages/Offering/offeringDetails"
 import OfferingFinancialPage from "~/pages/Offering/Financial"
 import OfferingCatalogPage from "~/pages/Offering/Catalog"
+import Layout from "~/Layout"
+import ModalContainer from "~/component/Modal/ModalContainer"
 
 interface AppProps {
   store: AppStore
   history: History
   redirectToLogin: boolean
-  loginModalRequired: boolean
 }
 
 function App(props: AppProps): JSX.Element {
@@ -45,17 +44,18 @@ function App(props: AppProps): JSX.Element {
   )
   return (
     <Provider store={props.store}>
-      {props.loginModalRequired && <LoginModal />}
-      <OfflineAlert />
-      <ConnectedRouter history={props.history}>{route}</ConnectedRouter>
+      <ModalContainer />
+      <ConnectedRouter history={props.history}>
+        {/* Should be refactored later as condition check gets repeated */}
+        {props.redirectToLogin ? route : <Layout>{route}</Layout>}
+      </ConnectedRouter>
     </Provider>
   )
 }
 
 const mapStateToProps = (state: AppState) => {
   return {
-    redirectToLogin: state.authentication.redirectToLogin,
-    loginModalRequired: state.authentication.loginModalRequired
+    redirectToLogin: state.authentication.redirectToLogin
   }
 }
 export default connect(mapStateToProps)(App)

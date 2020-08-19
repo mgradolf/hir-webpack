@@ -37,12 +37,14 @@ function Login(props: ILoginProps) {
   const onFinish = async (values: Store) => {
     const { username, password } = values as IFormState
     setloading(EnumLoading.INPROGRESS)
-    const [response, error] = await login(username, password)
-    setloading(EnumLoading.PENDING)
-    if (response && props.redirect) {
-      props.redirect("/")
-    } else if (error) {
-      console.log(error)
+    const response = await login(username, password)
+    if (props.page) {
+      setloading(EnumLoading.PENDING)
+      if (response && response.success && props.redirect) {
+        props.redirect("/")
+      } else {
+        console.log(response)
+      }
     }
   }
 

@@ -2,10 +2,11 @@ import ApiMethodFactory from "../../utils/ApiMethodFactory"
 
 export const config = {
   EndPoint: "api/hirServlet",
-  Service: "RefLookupService",
+  Service: "EntityService",
   Module: "hir",
   Actions: {
-    getList: "getList"
+    getEntity: "getEntity"
   }
 }
+
 export default ApiMethodFactory(config)

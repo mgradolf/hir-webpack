@@ -4,6 +4,7 @@ import React, { useEffect } from "react"
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
 import { removeGLobalApiError } from "~/store/GlobalError"
+import zIndexLevel from "~/utils/zIndex"
 
 interface ILoginModalProps {
   removeGLobalApiError?: () => void
@@ -11,20 +12,16 @@ interface ILoginModalProps {
 
 const LoginModal = (props: ILoginModalProps) => {
   useEffect(() => {
-    console.log("calling removeGLobalApiError", props.removeGLobalApiError)
     if (props.removeGLobalApiError) {
       props.removeGLobalApiError()
     }
   }, [props])
 
   return (
-    <Modal>
-      <Login modal={true} />
-    </Modal>
+    <Modal closable={false} showModal={true} children={<Login modal={true} />} zIndex={zIndexLevel.loginModal}></Modal>
   )
 }
-
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return { removeGLobalApiError: () => dispatch(removeGLobalApiError()) }
 }
-export default connect(() => ({}), mapDispatchToProps)(LoginModal)
+export default connect(undefined, mapDispatchToProps)(LoginModal)

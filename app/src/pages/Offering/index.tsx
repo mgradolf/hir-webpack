@@ -1,17 +1,15 @@
 import * as React from "react"
-
 import moment from "moment"
-import { Layout, Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
+import { Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
 
 import { DownOutlined } from "@ant-design/icons"
-import { Header, Breadcrumb, Toolbar, FilterColumn, IFilterValues } from "~/component/Offering"
-import { searchOfferingWrap } from "~/ApiServices/Service/OfferingServiceWrap"
+import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offering"
+import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
+import OfferingEditLink from "~/component/Offering/CreateEdit/OfferingEditLink"
 import styles from "~/pages/Offering/Offering.module.scss"
 
 const { useState, useEffect } = React
-
-const { Content, Footer } = Layout
 const { Title } = Typography
 
 const INITIAL_FILTER_DATA: IFilterValues = {
@@ -26,23 +24,26 @@ const INITIAL_FILTER_DATA: IFilterValues = {
 function generateMenu(record: any) {
   return (
     <Menu>
+      <Menu.Item key="-1">
+        <OfferingEditLink OfferingId={record.OfferingID} />
+      </Menu.Item>
       <Menu.Item key="0">
         <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <a href="/">Requisite Management</a>
+        <Link to={"/"}>Requisite Management</Link>
       </Menu.Item>
       <Menu.Item key="2">
         <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <a href="/">Offering Tag</a>
+        <Link to={"/"}>Offering Tag</Link>
       </Menu.Item>
       <Menu.Item key="4">
-        <a href="/">Offering Approval</a>
+        <Link to={"/"}>Offering Approval</Link>
       </Menu.Item>
       <Menu.Item key="5">
-        <a href="/">Qualified Instructors</a>
+        <Link to={"/"}>Qualified Instructors</Link>
       </Menu.Item>
     </Menu>
   )
@@ -131,7 +132,7 @@ function OfferingPage(props: RouteComponentProps) {
   ]
 
   useEffect(() => {
-    async function searchOffering() {
+    ;(async function () {
       setLoading(true)
 
       const params = {
@@ -146,17 +147,13 @@ function OfferingPage(props: RouteComponentProps) {
 			 params["ToCreationDate"] = filterData.ToCreationDate;
 			 }*/
 
-      const [result, error] = await searchOfferingWrap(params)
+      const result = await searchOffering(params)
 
-      if (result) {
-        setLoading(false)
+      if (result && result.success) {
         setOfferingItems(result.data)
-      } else if (error) {
-        setLoading(false)
       }
-    }
-
-    searchOffering()
+      setLoading(false)
+    })()
   }, [filterData])
 
   const toggleFilter = () => {
@@ -164,50 +161,40 @@ function OfferingPage(props: RouteComponentProps) {
   }
 
   return (
-    <Layout className="layout">
-      <Header />
-      <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb
-          items={[{ route: "/", label: "Home" }, { route: "/offering", label: "Offering" }, { label: "Search" }]}
+    <div className="site-layout-content">
+      <Row>
+        <Title level={3}>Manage Offerings</Title>
+      </Row>
+      <SelectedFilters filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+        <FilterColumn
+          visible={showFilter}
+          toggleVisiibility={toggleFilter}
+          data={filterData}
+          onApplyChanges={(newFilterValues, appliedFilterCount) => {
+            updateFilterData({ ...filterData, ...newFilterValues })
+            setFilterCount(appliedFilterCount)
+          }}
         />
-        <div className="site-layout-content">
-          <Row>
-            <Title level={3}>Manage Offerings</Title>
-          </Row>
-          <Toolbar filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
-            <FilterColumn
-              visible={showFilter}
-              toggleVisiibility={toggleFilter}
-              data={filterData}
-              onApplyChanges={(newFilterValues, appliedFilterCount) => {
-                updateFilterData({ ...filterData, ...newFilterValues })
-                setFilterCount(appliedFilterCount)
-              }}
-            />
-            <Col
-              className={`gutter-row ${styles.offeringDetails}`}
-              xs={24}
-              sm={24}
-              md={{ span: showFilter ? 18 : 24, offset: showFilter ? 1 : 0 }}
-            >
-              <Table
-                columns={columns}
-                dataSource={offeringItems}
-                loading={loading}
-                bordered
-                expandedRowRender={expandableRowRender}
-                rowKey="OfferingID"
-                pagination={{ position: ["topLeft"] }}
-                scroll={{ x: "fit-content" }}
-              />
-            </Col>
-          </Row>
-        </div>
-      </Content>
-      <Footer style={{ textAlign: "center" }}>Jenzbar ©2020 Created by Jenzabar Team</Footer>
-    </Layout>
+        <Col
+          className={`gutter-row ${styles.offeringDetails}`}
+          xs={24}
+          sm={24}
+          md={{ span: showFilter ? 18 : 24, offset: showFilter ? 1 : 0 }}
+        >
+          <Table
+            columns={columns}
+            dataSource={offeringItems}
+            loading={loading}
+            bordered
+            expandedRowRender={expandableRowRender}
+            rowKey="OfferingID"
+            pagination={{ position: ["topLeft"] }}
+            scroll={{ x: "fit-content" }}
+          />
+        </Col>
+      </Row>
+    </div>
   )
 }
-
 export default OfferingPage

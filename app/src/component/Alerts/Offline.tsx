@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Modal from "~/component/Modal"
 import { Card } from "antd"
+import zIndexLevel from "~/utils/zIndex"
 
 export default function Offline() {
   const [IsOffline, setIsOffline] = useState(!navigator.onLine)
@@ -14,16 +15,19 @@ export default function Offline() {
   }, [])
   return (
     <React.Fragment>
-      {IsOffline && (
-        <Modal>
+      <Modal
+        zIndex={zIndexLevel.offlineModal}
+        closable={false}
+        showModal={IsOffline}
+        children={
           <Card bordered={true}>
             <Card.Meta
               title="No Internet Connection"
               description="You are offline. Please check your internet connection"
             />
           </Card>
-        </Modal>
-      )}
+        }
+      ></Modal>
     </React.Fragment>
   )
 }

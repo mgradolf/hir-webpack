@@ -1,6 +1,8 @@
 import { createStore as createEnhancedStore, combineReducers, applyMiddleware, compose, Store, AnyAction } from "redux"
 import { authenticationReducer, IAuthentication } from "~/store/Authentication"
 import { globalApiErrorReducer, IGlobalApiErrorState } from "~/store/GlobalError"
+import { modalStateReducer, IModalState } from "~/store/ModalState"
+
 import thunk from "redux-thunk"
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router"
 import { createBrowserHistory, History } from "history"
@@ -13,6 +15,7 @@ export type AppState = {
   authentication: IAuthentication
   router: RouterState
   globalApiError: IGlobalApiErrorState
+  modalState: IModalState
 }
 
 export type AppStore = Store<AppState, AnyAction>
@@ -22,7 +25,8 @@ function createStore(): { store: AppStore; history: History } {
   const reducers = combineReducers<AppState>({
     authentication: authenticationReducer,
     router: connectRouter(history),
-    globalApiError: globalApiErrorReducer
+    globalApiError: globalApiErrorReducer,
+    modalState: modalStateReducer
   })
 
   const storeEnhancers: any = compose(
