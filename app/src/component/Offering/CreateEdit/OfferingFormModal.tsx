@@ -11,6 +11,8 @@ import { showCreateOfferingModal } from "~/store/ModalState"
 import { createOffering, updateOffering } from "~/ApiServices/Service/OfferingService"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import EventBus from "~/utils/EventBus"
+import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
 
 interface ICreateNewOfferingProps {
   offeringId?: number
@@ -81,6 +83,7 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
 
       if (response && response.success) {
         formInstance.resetFields()
+        EventBus.publish(REFRESH_OFFERING_PAGE)
         handleCancel()
       } else {
         console.log(response)

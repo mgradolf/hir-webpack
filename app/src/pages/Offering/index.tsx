@@ -8,6 +8,8 @@ import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import OfferingEditLink from "~/component/Offering/CreateEdit/OfferingEditLink"
 import styles from "~/pages/Offering/Offering.module.scss"
+import EventBus from "~/utils/EventBus"
+import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
 
 const { useState, useEffect } = React
 const { Title } = Typography
@@ -132,7 +134,7 @@ function OfferingPage(props: RouteComponentProps) {
   ]
 
   useEffect(() => {
-    ;(async function () {
+    const loadOfferings = async function () {
       setLoading(true)
 
       const params = {
@@ -140,20 +142,18 @@ function OfferingPage(props: RouteComponentProps) {
         OfferingName: filterData.OfferingName === "" ? "*" : filterData.OfferingName
       }
 
-      /*if (this.state.FromCreationDate !== '') {
-        params["FromCreationDate"] = filterData.FromCreationDate;
-      }
-      if (this.state.ToCreationDate !== '') {
-        params["ToCreationDate"] = filterData.ToCreationDate;
-      }*/
-
       const result = await searchOffering(params)
 
       if (result && result.success) {
         setOfferingItems(result.data)
       }
       setLoading(false)
-    })()
+    }
+    EventBus.subscribe(REFRESH_OFFERING_PAGE, loadOfferings)
+    EventBus.publish(REFRESH_OFFERING_PAGE)
+    return () => {
+      EventBus.unsubscribe(REFRESH_OFFERING_PAGE)
+    }
   }, [filterData])
 
   const toggleFilter = () => {

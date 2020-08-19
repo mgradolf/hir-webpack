@@ -9,6 +9,8 @@ import styles from "~/pages/Offering/Financial/Financial.module.scss"
 import OfferingFinancialModalOpenButton from "~/component/Offering/Financial/OfferingFinancialModalOpenButton"
 import FinancialEditLink from "~/component/Offering/Financial/FinancialEditLink"
 import FinancialRemoveLink from "~/component/Offering/Financial/FinancialRemoveLink"
+import { REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventList"
+import EventBus from "~/utils/EventBus"
 
 const { Title } = Typography
 function generateMenu(record: any) {
@@ -90,7 +92,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
   const [offeringFinancialItems, setOfferingFinancialItems] = useState<Array<any>>([])
 
   useEffect(() => {
-    ;(async function () {
+    const loadOfferingFinancials = async function () {
       setLoading(true)
 
       const result = await searchOfferingFinancial(Number(offeringID))
@@ -104,7 +106,12 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
           })
         )
       }
-    })()
+    }
+    EventBus.subscribe(REFRESH_OFFERING_FINANCIAL_PAGE, loadOfferingFinancials)
+    EventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
+    return () => {
+      EventBus.unsubscribe(REFRESH_OFFERING_FINANCIAL_PAGE)
+    }
   }, [offeringID])
 
   return (

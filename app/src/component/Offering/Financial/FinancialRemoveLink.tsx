@@ -1,10 +1,12 @@
 import React from "react"
 import { Button } from "antd"
-import {} from "~/ApiServices/Service/OfferingService"
+import { removeOfferingFinancialById } from "~/ApiServices/Service/EntityService"
+import EventBus from "~/utils/EventBus"
+import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
 
 interface IFinancialRemoveLinkProp {
   offeringId: number
-  financialId?: number
+  financialId: number
 }
 function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
   return (
@@ -12,7 +14,10 @@ function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
       block
       type="link"
       onClick={async () => {
-        // const response = await removeOfferingFinancial(financialId)
+        const response = await removeOfferingFinancialById(props.financialId)
+        if (response.success) {
+          EventBus.publish(REFRESH_OFFERING_PAGE)
+        }
       }}
     >
       Remove

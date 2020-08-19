@@ -19,3 +19,10 @@ export function getOfferingFinancialById(EntityID: number): Promise<IApiResponse
     EntityID
   })
 }
+
+export function removeOfferingFinancialById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.removeEntity]({
+    EntityType: entities.Financial,
+    EntityID
+  })
+}

@@ -5,7 +5,8 @@ export const config = {
   Service: "EntityService",
   Module: "hir",
   Actions: {
-    getEntity: "getEntity"
+    getEntity: "getEntity",
+    removeEntity: "removeEntity"
   }
 }
 
