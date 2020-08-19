@@ -2,53 +2,24 @@ import * as React from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/component/Modal"
 import { useEffect, useState } from "react"
-import CreateForm1 from "~/component/Offering/CreateEdit/Form1"
-import CreateForm2 from "~/component/Offering/CreateEdit/Form2"
-import { IFieldNames } from "~/component/Offering/Interfaces"
+import FinancialForm from "~/component/Offering/Financial/FinancialForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingFinancialModal } from "~/store/ModalState"
-import { createOffering, updateOffering } from "~/ApiServices/Service/OfferingService"
-import { getOfferingById } from "~/ApiServices/Service/EntityService"
+import { createOfferingFinancial, updateOfferingFinancial } from "~/ApiServices/Service/OfferingService"
+import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface ICreateNewOfferingProps {
-  offeringId?: number
+  offeringFinancialId?: number
   closeCreateOfferingModal?: () => void
 }
 
-const fieldNames: IFieldNames = {
-  OfferingID: "OfferingID",
-  OfferingTypeID: "OfferingTypeID",
-  OfferingCode: "OfferingCode",
-  Name: "Name",
-  Description: "Description",
-  OrganizationID: "OrganizationID",
-  IsQuickAdmit: "IsQuickAdmit",
-  OfferingStatusCodeID: "OfferingStatusCodeID",
-  OfferingStatusReleaseID: "OfferingStatusReleaseID",
-  DefaultSectionTypeID: "DefaultSectionTypeID",
-  RecurrenceRule: "RecurrenceRule",
-  StartTermID: "StartTermID",
-  EndTermID: "EndTermID",
-  CreationDate: "CreationDate",
-  TerminationDate: "TerminationDate",
-  URL: "URL",
-  HasApprovalProcess: "HasApprovalProcess",
-  CourseID: "CourseID",
-  EffectiveCreationDate: "EffectiveCreationDate",
-  EffectiveTerminationDate: "EffectiveTerminationDate",
-  SubmitInquiryToUserID: "SubmitInquiryToUserID",
-  OfferingUsageType: "OfferingUsageType",
-  PaymentGatewayAccountID: "PaymentGatewayAccountID"
-}
-
-function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewOfferingProps) {
+function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal }: ICreateNewOfferingProps) {
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [formInstance] = Form.useForm()
-  const [firstFormVisible, setFirstFormVisible] = useState(false)
-  const [secondFormVisible, setSecondFormVisible] = useState(false)
+  const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<string>>([])
 
@@ -58,73 +29,53 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
     }
     console.log("initialFormValue ", initialFormValue)
     console.log("editOfferingEntity ", editOfferingEntity)
-
-    goBackToOfferingTypeForm()
   }
 
   const handleOk = async () => {
-    if (firstFormVisible && formInstance.getFieldValue("OfferingTypeID")) {
-      onOfferingTypeSelected()
-    } else if (secondFormVisible) {
-      console.log(formInstance.getFieldsValue())
-      const validationPassed = await formInstance.validateFields()
-      console.log("validationPassed ", validationPassed)
-      const params = formInstance.getFieldsValue()
+    console.log(formInstance.getFieldsValue())
+    const validationPassed = await formInstance.validateFields()
+    console.log("validationPassed ", validationPassed)
+    const params = formInstance.getFieldsValue()
 
-      const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
-        ? updateOffering
-        : createOffering
+    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringFinancialId
+      ? updateOfferingFinancial
+      : createOfferingFinancial
 
-      setApiCallInProgress(true)
-      const response = await serviceMethoToCall(params)
-      setApiCallInProgress(false)
+    setApiCallInProgress(true)
+    const response = await serviceMethoToCall(params)
+    setApiCallInProgress(false)
 
-      if (response && response.success) {
-        formInstance.resetFields()
-        handleCancel()
-      } else {
-        console.log(response)
-      }
+    if (response && response.success) {
+      formInstance.resetFields()
+      handleCancel()
+    } else {
+      console.log(response)
     }
   }
 
   useEffect(() => {
-    if (offeringId) {
+    if (offeringFinancialId) {
       ;(async () => {
-        const response = await getOfferingById(offeringId)
+        setofferingFinancialLoading(true)
+        const response = await getOfferingFinancialById(offeringFinancialId)
         if (response && response.success) {
           setEditOfferingEntity(response.data)
           setInitialFormValue(response.data)
-
-          setFirstFormVisible(false)
-          setSecondFormVisible(true)
         } else {
           if (closeCreateOfferingModal) {
             closeCreateOfferingModal()
           }
         }
+        setofferingFinancialLoading(false)
       })()
-    } else {
-      setFirstFormVisible(true)
-      setSecondFormVisible(false)
     }
-  }, [offeringId, closeCreateOfferingModal])
-
-  const onOfferingTypeSelected = () => {
-    setFirstFormVisible(false)
-    setSecondFormVisible(true)
-  }
-
-  const goBackToOfferingTypeForm = () => {
-    setSecondFormVisible(false)
-    setFirstFormVisible(true)
-  }
+  }, [offeringFinancialId, closeCreateOfferingModal])
 
   return (
     <Modal
       showModal={true}
       width="800px"
-      loading={!(firstFormVisible || secondFormVisible)}
+      loading={offeringFinancialLoading}
       apiCallInProgress={apiCallInProgress}
       children={
         <>
@@ -137,25 +88,12 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
               </li>
             </ul>
           )}
-          {firstFormVisible && (
-            <CreateForm1
-              fieldNames={fieldNames}
-              initialFormValue={initialFormValue}
-              formInstance={formInstance}
-              handleCancel={handleCancel}
-              handleSelected={handleOk}
-            />
-          )}
-          {secondFormVisible && (
-            <CreateForm2
-              fieldNames={fieldNames}
-              initialFormValue={initialFormValue}
-              formInstance={formInstance}
-              goBackToFirstForm={goBackToOfferingTypeForm}
-              handleCancel={handleCancel}
-              onFormSubmission={handleOk}
-            />
-          )}
+          <FinancialForm
+            initialFormValue={initialFormValue}
+            formInstance={formInstance}
+            handleCancel={handleCancel}
+            onFormSubmission={handleOk}
+          />
         </>
       }
     />

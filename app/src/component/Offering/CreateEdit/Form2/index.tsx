@@ -1,7 +1,7 @@
 import React from "react"
 import { Card, Button, Input } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import OfferingDetails from "~/component/Offering/CreateEdit/Form2/OfferingDetails"
 import OfferingTimings from "~/component/Offering/CreateEdit/Form2/OfferingTimings"
 import OfferingCoreChar from "~/component/Offering/CreateEdit/Form2/OfferingCoreChar"
@@ -9,7 +9,7 @@ import OfferingDefaultSection from "~/component/Offering/CreateEdit/Form2/Offeri
 
 interface IOfferingCreateForm2Props {
   formInstance: FormInstance
-  fieldNames: IFieldNames
+  fieldNames: IOfferingFieldNames
   initialFormValue: { [key: string]: any }
   onFormSubmission: () => void
   goBackToFirstForm: () => void
@@ -37,7 +37,6 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
       actions={actions}
     >
       <Form
-        hideRequiredMark
         form={props.formInstance}
         initialValues={props.initialFormValue}
         style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}

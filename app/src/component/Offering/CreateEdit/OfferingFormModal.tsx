@@ -4,7 +4,7 @@ import Modal from "~/component/Modal"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/component/Offering/CreateEdit/Form1"
 import CreateForm2 from "~/component/Offering/CreateEdit/Form2"
-import { IFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
@@ -17,7 +17,7 @@ interface ICreateNewOfferingProps {
   closeCreateOfferingModal?: () => void
 }
 
-const fieldNames: IFieldNames = {
+const fieldNames: IOfferingFieldNames = {
   OfferingID: "OfferingID",
   OfferingTypeID: "OfferingTypeID",
   OfferingCode: "OfferingCode",
