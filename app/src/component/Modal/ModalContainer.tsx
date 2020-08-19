@@ -1,8 +1,9 @@
 import React from "react"
 import { AppState } from "~/store"
+import OfflineAlert from "~/component/Alerts/Offline"
 import LoginModal from "~/component/Login/LoginModal"
 import CreateNewOfferingModal from "~/component/Offering/CreateEdit/OfferingFormModal"
-import OfflineAlert from "~/component/Alerts/Offline"
+import OfferingFinancialFormModal from "~/component/Offering/Financial/OfferingFinancialFormModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
 
@@ -13,6 +14,9 @@ function ModalContainer(modalState: IModalState) {
       {modalState.loginModal.value && <LoginModal />}
       {modalState.createOfferingModal.value && (
         <CreateNewOfferingModal offeringId={modalState.createOfferingModal.config.OfferingId} />
+      )}
+      {modalState.createOfferingFinancialModal.value && (
+        <OfferingFinancialFormModal offeringId={modalState.createOfferingFinancialModal.config.Id} />
       )}
     </>
   )

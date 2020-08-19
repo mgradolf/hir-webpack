@@ -5,7 +5,7 @@ import { Row, Col, Table, Typography } from "antd"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
-import { CreateActionButton } from "~/component/Offering/Financial"
+import OfferingFinancialModalOpenButton from "~/component/Offering/Financial/OfferingFinancialModalOpenButton"
 
 const { Title } = Typography
 
@@ -68,7 +68,12 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
 
       if (result && result.success) {
         setLoading(false)
-        setOfferingFinancialItems(result.data)
+        setOfferingFinancialItems(
+          result.data.map((x: any, index: number) => {
+            x.key = index
+            return x
+          })
+        )
       }
     })()
   }, [offeringID])
@@ -80,7 +85,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
           <Title level={3}>Manage Offering Financial</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <CreateActionButton />
+          <OfferingFinancialModalOpenButton />
         </Col>
       </Row>
 
