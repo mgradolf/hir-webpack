@@ -22,7 +22,7 @@ function CreateActionButton(props: ICreateActionButtonProp) {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     openCreateOfferingFinancialModal: (offeringId: number) =>
-      dispatch(showCreateOfferingFinancialModal({ value: true, config: { offeringId } }))
+      dispatch(showCreateOfferingFinancialModal(true, { offeringId }))
   }
 }
 

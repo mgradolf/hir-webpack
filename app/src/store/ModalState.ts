@@ -43,7 +43,14 @@ export const showCreateOfferingModal = ({ value, config = {} }: ModalConfig): IA
   payload: { value, config }
 })
 
-export const showCreateOfferingFinancialModal = ({ value, config = {} }: ModalConfig): IAction => ({
+type ShowCreateOfferingFinancialModalType = {
+  offeringId: number
+  financialId?: number
+}
+export const showCreateOfferingFinancialModal = (
+  value: boolean,
+  config?: ShowCreateOfferingFinancialModalType
+): IAction => ({
   type: SHOW_CREATE_OFFERING_FINANCIAL_MODAL,
   payload: { value, config }
 })

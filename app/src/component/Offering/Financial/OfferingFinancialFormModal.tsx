@@ -55,6 +55,8 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
   }
 
   useEffect(() => {
+    console.log("offeringFinancialId ", offeringFinancialId)
+
     if (offeringFinancialId) {
       ;(async () => {
         setofferingFinancialLoading(true)
@@ -103,7 +105,7 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingFinancialModal({ value: false })) }
+  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingFinancialModal(false)) }
 }
 
 export default connect(undefined, mapDispatchToProps)(CreateNewOffering)

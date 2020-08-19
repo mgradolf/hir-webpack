@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography } from "antd"
+import { Row, Col, Table, Typography, Space, Dropdown, Menu } from "antd"
+import { DownOutlined } from "@ant-design/icons"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
 import OfferingFinancialModalOpenButton from "~/component/Offering/Financial/OfferingFinancialModalOpenButton"
+import FinancialEditLink from "~/component/Offering/Financial/FinancialEditLink"
+import FinancialRemoveLink from "~/component/Offering/Financial/FinancialRemoveLink"
 
 const { Title } = Typography
+function generateMenu(record: any) {
+  console.log("record ", record)
 
+  return (
+    <Menu>
+      <Menu.Item key="-1">
+        <FinancialEditLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
+      </Menu.Item>
+      <Menu.Item key="0">
+        <FinancialRemoveLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
+      </Menu.Item>
+    </Menu>
+  )
+}
 function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
   const columns = [
     {
@@ -53,6 +69,19 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
     {
       title: "GL Account",
       dataIndex: ""
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (record: any) => (
+        <Space size="middle">
+          <Dropdown overlay={generateMenu(record)} trigger={["click"]}>
+            <span className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              Select actions <DownOutlined />
+            </span>
+          </Dropdown>
+        </Space>
+      )
     }
   ]
 
