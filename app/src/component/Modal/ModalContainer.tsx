@@ -16,7 +16,10 @@ function ModalContainer(modalState: IModalState) {
         <CreateNewOfferingModal offeringId={modalState.createOfferingModal.config.OfferingId} />
       )}
       {modalState.createOfferingFinancialModal.value && (
-        <OfferingFinancialFormModal offeringFinancialId={modalState.createOfferingFinancialModal.config.Id} />
+        <OfferingFinancialFormModal
+          offeringFinancialId={modalState.createOfferingFinancialModal.config.offeringFinancialId}
+          offeringID={modalState.createOfferingFinancialModal.config.offeringId}
+        />
       )}
     </>
   )

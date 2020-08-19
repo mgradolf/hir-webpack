@@ -12,10 +12,11 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface ICreateNewOfferingProps {
   offeringFinancialId?: number
+  offeringID: number
   closeCreateOfferingModal?: () => void
 }
 
-function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal }: ICreateNewOfferingProps) {
+function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offeringID }: ICreateNewOfferingProps) {
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [formInstance] = Form.useForm()
@@ -89,6 +90,7 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal }: IC
             </ul>
           )}
           <FinancialForm
+            offeringID={offeringID}
             initialFormValue={initialFormValue}
             formInstance={formInstance}
             handleCancel={handleCancel}

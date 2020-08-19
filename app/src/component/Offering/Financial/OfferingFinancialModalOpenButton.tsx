@@ -5,18 +5,25 @@ import { showCreateOfferingFinancialModal } from "~/store/ModalState"
 import { Dispatch } from "redux"
 
 interface ICreateActionButtonProp {
-  openCreateOfferingFinancialModal?: () => void
+  offeringId: number
+  openCreateOfferingFinancialModal?: (offeringId: number) => void
 }
 function CreateActionButton(props: ICreateActionButtonProp) {
+  const onClick = () => {
+    if (props.openCreateOfferingFinancialModal) props.openCreateOfferingFinancialModal(props.offeringId)
+  }
   return (
-    <Button type="primary" onClick={props.openCreateOfferingFinancialModal}>
+    <Button type="primary" onClick={onClick}>
       + Create Offering Financial
     </Button>
   )
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { openCreateOfferingFinancialModal: () => dispatch(showCreateOfferingFinancialModal({ value: true })) }
+  return {
+    openCreateOfferingFinancialModal: (offeringId: number) =>
+      dispatch(showCreateOfferingFinancialModal({ value: true, config: { offeringId } }))
+  }
 }
 
 export default connect(null, mapDispatchToProps)(CreateActionButton)

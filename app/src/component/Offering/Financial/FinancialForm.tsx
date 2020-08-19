@@ -1,9 +1,17 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Card, Button, Input, Select, Radio } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingFinancialFieldNames } from "~/component/Offering/Interfaces"
+import {
+  getGLAccountTypes,
+  getFinancialCategoryType,
+  getFinancialBasisType,
+  getFinancialType
+} from "~/ApiServices/Service/RefLookupService"
 
 interface IOfferingCreateForm2Props {
+  offeringID: number
+  financialID?: number
   formInstance: FormInstance
   initialFormValue: { [key: string]: any }
   onFormSubmission: () => void
@@ -31,9 +39,54 @@ const layout = {
 }
 export default function FinancialForm(props: IOfferingCreateForm2Props) {
   const actions = []
-  actions.push(<Button onClick={() => console.log(props.formInstance.getFieldsValue())}>Cancel</Button>)
+  actions.push(
+    <Button
+      onClick={() => {
+        console.log(props.formInstance.getFieldsValue())
+        console.log(props)
+        console.log(financialTypeId)
+      }}
+    >
+      Cancel
+    </Button>
+  )
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
   actions.push(<Button onClick={props.onFormSubmission}>Submit</Button>)
+
+  const [financialCategoryTypes, setFinancialCategoryTypes] = useState<Array<any>>([])
+  const [financialBasisTypes, setFinancialBasisTypes] = useState<Array<any>>([])
+  const [glAccountTypes, setGlAccountTypes] = useState<Array<any>>([])
+  const [financialTypeId, setfinancialTypeId] = useState(1)
+
+  useEffect(() => {
+    console.log("calling use effect")
+    props.formInstance.setFieldsValue({ [fieldNames.ApplyToID]: props.offeringID })
+    props.formInstance.setFieldsValue({ [fieldNames.FinancialTypeID]: financialTypeId })
+    ;(async () => {
+      const response = await getFinancialCategoryType()
+      if (response && response.success && response.data) {
+        setFinancialCategoryTypes(response.data)
+      }
+    })()
+    ;(async () => {
+      const response = await getFinancialBasisType()
+      if (response && response.success && response.data) {
+        setFinancialBasisTypes(response.data)
+      }
+    })()
+    ;(async () => {
+      const response = await getGLAccountTypes()
+      if (response && response.success && response.data) {
+        setGlAccountTypes(response.data)
+      }
+    })()
+    ;(async () => {
+      const response = await getFinancialType()
+      if (response && response.success && response.data && Array.isArray(response.data)) {
+        setfinancialTypeId(response.data.find((x) => x.Name === "Offering").ID)
+      }
+    })()
+  }, [props, financialTypeId])
   return (
     <Card
       title={
@@ -48,20 +101,42 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         initialValues={props.initialFormValue}
         style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
       >
+        <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.FinancialID}>
+          <Input value={props.financialID ? props.financialID : undefined} />
+        </Form.Item>
+
+        <Form.Item
+          style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }}
+          name={fieldNames.FinancialTypeID}
+        >
+          <Input value={financialTypeId} />
+        </Form.Item>
+
+        <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.ApplyToID}>
+          <Input value={props.offeringID} />
+        </Form.Item>
+
         <Form.Item label="Category" name={fieldNames.FinancialCategoryTypeID} {...layout}>
           <Select>
-            <Select.Option value="1">Expense</Select.Option>
-            <Select.Option value="12">Income</Select.Option>
-            <Select.Option value="13">Sales</Select.Option>
-            <Select.Option value="14">Shipping</Select.Option>
-            <Select.Option value="15">Unknown</Select.Option>
+            {financialCategoryTypes.map((x) => {
+              return (
+                <Select.Option key={x.ID + x.Name} value={x.ID}>
+                  {x.Name}
+                </Select.Option>
+              )
+            })}
           </Select>
         </Form.Item>
 
         <Form.Item label="Basis" {...layout} name={fieldNames.FinancialBasisTypeID}>
           <Select>
-            <Select.Option value="1">Per enrollment</Select.Option>
-            <Select.Option value="12">Per unit</Select.Option>
+            {financialBasisTypes.map((x) => {
+              return (
+                <Select.Option key={x.ID + x.Name} value={x.ID}>
+                  {x.Name}
+                </Select.Option>
+              )
+            })}
           </Select>
         </Form.Item>
 
@@ -71,13 +146,10 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
 
         <Form.Item label="GL Accounts" {...layout} name={fieldNames.GLAccountID}>
           <Select>
-            <Select.Option value="1">General Account</Select.Option>
-            <Select.Option value="12">Eligible</Select.Option>
+            {glAccountTypes.map((x) => {
+              return <Select.Option key={x.ID + x.Name} value={x.ID}>{`${x.Name} (${x.Description})`}</Select.Option>
+            })}
           </Select>
-        </Form.Item>
-
-        <Form.Item label="GL Description" {...layout}>
-          <Input value="" disabled />
         </Form.Item>
 
         <Form.Item label="Amount" {...layout} name={fieldNames.ItemUnitAmount}>

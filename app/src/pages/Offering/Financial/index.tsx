@@ -85,7 +85,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
           <Title level={3}>Manage Offering Financial</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <OfferingFinancialModalOpenButton />
+          <OfferingFinancialModalOpenButton offeringId={parseInt(offeringID)} />
         </Col>
       </Row>
 
