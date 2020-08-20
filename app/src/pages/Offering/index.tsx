@@ -24,15 +24,12 @@ const INITIAL_FILTER_DATA: IFilterValues = {
 function generateMenu(record: any) {
   return (
     <Menu>
-      <Menu.Item key="-1">
-        <OfferingEditLink OfferingId={record.OfferingID} />
-      </Menu.Item>
       <Menu.Item key="0">
         <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
       </Menu.Item>
-      <Menu.Item key="1">
-        <Link to={"/"}>Requisite Management</Link>
-      </Menu.Item>
+      {/* <Menu.Item key="1">
+				<Link to={"/"}>Requisite Management</Link>
+			</Menu.Item> */}
       <Menu.Item key="2">
         <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
       </Menu.Item>
@@ -42,9 +39,9 @@ function generateMenu(record: any) {
       <Menu.Item key="4">
         <Link to={"/"}>Offering Approval</Link>
       </Menu.Item>
-      <Menu.Item key="5">
-        <Link to={"/"}>Qualified Instructors</Link>
-      </Menu.Item>
+      {/* <Menu.Item key="5">
+				<Link to={"/"}>Qualified Instructors</Link>
+			</Menu.Item> */}
     </Menu>
   )
 }
@@ -121,10 +118,12 @@ function OfferingPage(props: RouteComponentProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
+          <Link to={`/offering/${record.OfferingID}`}>Details</Link>
+          <OfferingEditLink OfferingId={record.OfferingID} PrimaryType={false} />
           <Dropdown overlay={generateMenu(record)} trigger={["click"]}>
-            <span className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              Select actions <DownOutlined />
-            </span>
+            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              Others <DownOutlined />
+            </a>
           </Dropdown>
         </Space>
       )

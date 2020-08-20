@@ -10,7 +10,7 @@ export function Header() {
   return (
     <AntdHeader>
       <div>
-        <img className={styles.logo} src="/images/logo.png" alt="JE Home Page" />
+        <img className={styles.logo} src="../../images/logo.png" alt="JE Home Page" />
       </div>
       <Menu theme="dark" mode="horizontal">
         <SubMenu key="sub1" title="Manage">

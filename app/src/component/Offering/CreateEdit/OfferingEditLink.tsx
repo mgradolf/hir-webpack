@@ -6,13 +6,13 @@ import { Dispatch } from "redux"
 
 interface IOfferingEditLinkProp {
   OfferingId: number
+  PrimaryType: boolean | false
   openCreateOfferingModal: (OfferingId: number) => void
 }
 function OfferingEditLink(props: IOfferingEditLinkProp) {
   return (
     <Button
-      block
-      type="link"
+      type={props.PrimaryType ? "primary" : "link"}
       onClick={() => {
         props.openCreateOfferingModal(props.OfferingId)
       }}
