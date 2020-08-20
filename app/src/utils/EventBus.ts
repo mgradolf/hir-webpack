@@ -1,6 +1,6 @@
 type fn = (param?: any) => void
 
-class EventBus {
+class PageEventBus {
   eventListeners: { [key: string]: fn } = {}
 
   subscribe(listenerName: string, fn: fn) {
@@ -20,6 +20,15 @@ class EventBus {
       this.eventListeners[listenerName](params)
     }
   }
+
+  publishSimilarEvents(listenerNamePattern: RegExp) {
+    const keys = Object.keys(this.eventListeners)
+    keys.forEach((key) => {
+      if (listenerNamePattern.test(key)) {
+        this.eventListeners[key]()
+      }
+    })
+  }
 }
 
-export default new EventBus()
+export default new PageEventBus()
