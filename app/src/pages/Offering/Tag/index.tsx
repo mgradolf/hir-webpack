@@ -207,7 +207,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
         </Form>
       </Card>
       <Row>
-        <Col span={12}>
+        <Col flex={1}>
           <TagsTable
             title="Offering Tags"
             data={offeringTags}
@@ -215,7 +215,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
             select={addRemoveTagToOffering}
           />
         </Col>
-        <Col span={12}>
+        <Col flex={1}>
           <TagsTable
             title="Parent Tags"
             data={parentTags}

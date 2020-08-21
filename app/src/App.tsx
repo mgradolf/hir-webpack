@@ -15,7 +15,7 @@ import OfferingFinancialPage from "~/pages/Offering/Financial"
 import OfferingCatalogPage from "~/pages/Offering/Catalog"
 import OfferingTaggPage from "~/pages/Offering/Tag"
 
-import Layout from "~/Layout"
+import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/component/Modal/ModalContainer"
 
 interface AppProps {
@@ -48,7 +48,7 @@ function App(props: AppProps): JSX.Element {
       <ModalContainer />
       <ConnectedRouter history={props.history}>
         {/* Should be refactored later as condition check gets repeated */}
-        {props.redirectToLogin ? route : <Layout>{route}</Layout>}
+        {props.redirectToLogin ? route : <DefaultLayout>{route}</DefaultLayout>}
       </ConnectedRouter>
     </Provider>
   )
