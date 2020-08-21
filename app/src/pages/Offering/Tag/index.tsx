@@ -8,6 +8,7 @@ import TagsTable from "~/component/Offering/Tag/TagsTable"
 import EventBus from "~/utils/EventBus"
 import { REFRESH_OFFERING_TAG_PAGE } from "~/utils/EventList"
 import { hidden } from "~/utils/style"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface IFieldNames {
   EntityType: string
@@ -105,6 +106,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
           if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
             x.isChecked = true
           }
+          x.type = "Offering"
           return x
         })
       )
@@ -125,10 +127,25 @@ export default function (props: RouteComponentProps<{ id: string }>) {
           x.Name = x.Tag
           x.ID = x.TagID
           x.Description = x.TagDescription
+          x.type = "Parent"
           return x
         })
       )
     }
+  }
+
+  const addRemoveTagToOffering = async (Tag: { [key: string]: any }, add: boolean): Promise<IApiResponse> => {
+    const formValue = formInstance.getFieldsValue()
+    const methodToCall = add ? addTagIntoEntity : removeTagFromEntity
+    const loadingMethod =
+      Tag.type === "Offering" ? setLoadingOfferingTagSearchResults : setLoadingParentTagSearchResults
+    loadingMethod(true)
+    const response = await methodToCall({
+      ...formValue,
+      TagID: Tag.ID
+    })
+    loadingMethod(false)
+    return response
   }
 
   return (
@@ -149,7 +166,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
               mode="multiple"
               style={{ width: "100%" }}
               notFoundContent={loadingTagTypes ? <Spin size="small" /> : null}
-              placeholder="Please select"
+              placeholder="Please select Tag types"
             >
               {tagTypes.map((tag) => {
                 return (
@@ -175,7 +192,11 @@ export default function (props: RouteComponentProps<{ id: string }>) {
           </Row>
           <Row>
             <Col span={24} style={{ textAlign: "right" }}>
-              <Button type="primary" onClick={searchTags}>
+              <Button
+                type="primary"
+                onClick={searchTags}
+                disabled={loadingOfferingTagSearchResults || loadingParentTagSearchResults}
+              >
                 Search
               </Button>
               <Button style={{ margin: "0 8px" }} type="primary" danger onClick={resetForm}>
@@ -187,10 +208,20 @@ export default function (props: RouteComponentProps<{ id: string }>) {
       </Card>
       <Row>
         <Col span={12}>
-          <TagsTable title="Offering Tags" data={offeringTags} loading={loadingOfferingTagSearchResults} />
+          <TagsTable
+            title="Offering Tags"
+            data={offeringTags}
+            loading={loadingOfferingTagSearchResults}
+            select={addRemoveTagToOffering}
+          />
         </Col>
         <Col span={12}>
-          <TagsTable title="Parent Tags" data={parentTags} loading={loadingParentTagSearchResults} />
+          <TagsTable
+            title="Parent Tags"
+            data={parentTags}
+            loading={loadingParentTagSearchResults}
+            select={addRemoveTagToOffering}
+          />
         </Col>
       </Row>
     </>
