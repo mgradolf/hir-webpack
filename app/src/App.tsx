@@ -13,6 +13,8 @@ import NotFoundPage from "~/pages/NotFoundPage"
 import OfferingPage from "~/pages/Offering/index"
 import OfferingFinancialPage from "~/pages/Offering/Financial"
 import OfferingCatalogPage from "~/pages/Offering/Catalog"
+import OfferingTaggPage from "~/pages/Offering/Tag"
+
 import Layout from "~/Layout"
 import ModalContainer from "~/component/Modal/ModalContainer"
 
@@ -37,6 +39,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/offering" component={OfferingPage} />
       <Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
       <Route exact path="/offering/:id/catalog" component={OfferingCatalogPage} />
+      <Route exact path="/offering/:id/tag" component={OfferingTaggPage} />
       <Route component={NotFoundPage} />
     </Switch>
   )

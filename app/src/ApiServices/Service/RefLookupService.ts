@@ -60,3 +60,9 @@ export function getFinancialType(): Promise<IApiResponse> {
     LookUpName: "FinancialType"
   })
 }
+
+export function getTagTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "TagType"
+  })
+}

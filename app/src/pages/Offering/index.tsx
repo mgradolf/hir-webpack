@@ -39,7 +39,7 @@ function generateMenu(record: any) {
         <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to={"/"}>Offering Tag</Link>
+        <Link to={`/offering/${record.OfferingID}/tag`}>Offering Tag</Link>
       </Menu.Item>
       <Menu.Item key="4">
         <Link to={"/"}>Offering Approval</Link>
