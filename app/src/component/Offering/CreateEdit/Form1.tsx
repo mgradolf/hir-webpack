@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Form, Radio, Select, Card, Button, Input } from "antd"
-import { IFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {} from "@ant-design/icons"
 import { RadioChangeEvent } from "antd/lib/radio"
@@ -8,7 +8,7 @@ import { getOfferingTypes } from "~/ApiServices/Service/RefLookupService"
 
 interface IOfferingCreateForm1Props {
   formInstance: FormInstance
-  fieldNames: IFieldNames
+  fieldNames: IOfferingFieldNames
   initialFormValue: { [key: string]: any }
   handleCancel: () => void
   handleSelected: () => void
@@ -106,7 +106,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
                 offeringTypes.map((offer) => {
                   return (
                     <Select.Option key={offer.OfferingTypeID} value={offer.OfferingTypeID}>
-                      {offer.Name}
+                      {offer.OfferingTypeName}
                     </Select.Option>
                   )
                 })}

@@ -36,3 +36,27 @@ export function getSectionTypes(): Promise<IApiResponse> {
     LookUpName: "SectionType"
   })
 }
+
+export function getGLAccountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GLAccount"
+  })
+}
+
+export function getFinancialCategoryType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "FinancialCategoryType"
+  })
+}
+
+export function getFinancialBasisType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "FinancialBasisType"
+  })
+}
+
+export function getFinancialType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "FinancialType"
+  })
+}

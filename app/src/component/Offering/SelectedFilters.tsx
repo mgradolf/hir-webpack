@@ -14,7 +14,7 @@ export function SelectedFilters(props: IToolbarProps) {
   return (
     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
       <Col className="gutter-row" xs={24} sm={24} md={12}>
-        <span onClick={props.toggleFilter}>
+        <span>
           <FilterOutlined />
           <span> {props.filterCount === 0 ? "No" : props.filterCount} filters applied</span>
         </span>

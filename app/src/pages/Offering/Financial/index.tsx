@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography } from "antd"
+import { Row, Col, Table, Typography, Space, Dropdown, Menu } from "antd"
+import { DownOutlined } from "@ant-design/icons"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
-import { CreateActionButton } from "~/component/Offering/Financial"
+import OfferingFinancialModalOpenButton from "~/component/Offering/Financial/OfferingFinancialModalOpenButton"
+import FinancialEditLink from "~/component/Offering/Financial/FinancialEditLink"
+import FinancialRemoveLink from "~/component/Offering/Financial/FinancialRemoveLink"
+import { REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventList"
+import EventBus from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -17,11 +22,11 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
     },
     {
       title: "Category",
-      dataIndex: ""
+      dataIndex: "FinancialCategoryType"
     },
     {
       title: "Basis",
-      dataIndex: ""
+      dataIndex: "FinancialBasisType"
     },
     {
       title: "Amount",
@@ -29,7 +34,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
     },
     {
       title: "Type",
-      dataIndex: ""
+      dataIndex: "FinancialType"
     },
     {
       title: "Optional?",
@@ -52,7 +57,17 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
     },
     {
       title: "GL Account",
-      dataIndex: ""
+      dataIndex: "GLAccount"
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (record: any) => (
+        <Space size="middle">
+          <FinancialEditLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
+          <FinancialRemoveLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
+        </Space>
+      )
     }
   ]
 
@@ -61,16 +76,26 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
   const [offeringFinancialItems, setOfferingFinancialItems] = useState<Array<any>>([])
 
   useEffect(() => {
-    ;(async function () {
+    const loadOfferingFinancials = async function () {
       setLoading(true)
 
       const result = await searchOfferingFinancial(Number(offeringID))
 
       if (result && result.success) {
         setLoading(false)
-        setOfferingFinancialItems(result.data)
+        setOfferingFinancialItems(
+          result.data.map((x: any, index: number) => {
+            x.key = index
+            return x
+          })
+        )
       }
-    })()
+    }
+    EventBus.subscribe(REFRESH_OFFERING_FINANCIAL_PAGE, loadOfferingFinancials)
+    EventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
+    return () => {
+      EventBus.unsubscribe(REFRESH_OFFERING_FINANCIAL_PAGE)
+    }
   }, [offeringID])
 
   return (
@@ -80,7 +105,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
           <Title level={3}>Manage Offering Financial</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <CreateActionButton />
+          <OfferingFinancialModalOpenButton offeringId={parseInt(offeringID)} />
         </Col>
       </Row>
 

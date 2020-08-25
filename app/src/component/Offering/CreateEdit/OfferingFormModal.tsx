@@ -4,20 +4,22 @@ import Modal from "~/component/Modal"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/component/Offering/CreateEdit/Form1"
 import CreateForm2 from "~/component/Offering/CreateEdit/Form2"
-import { IFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
 import { createOffering, updateOffering } from "~/ApiServices/Service/OfferingService"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import EventBus from "~/utils/EventBus"
+import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
 
 interface ICreateNewOfferingProps {
   offeringId?: number
   closeCreateOfferingModal?: () => void
 }
 
-const fieldNames: IFieldNames = {
+const fieldNames: IOfferingFieldNames = {
   OfferingID: "OfferingID",
   OfferingTypeID: "OfferingTypeID",
   OfferingCode: "OfferingCode",
@@ -81,6 +83,7 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
 
       if (response && response.success) {
         formInstance.resetFields()
+        EventBus.publish(REFRESH_OFFERING_PAGE)
         handleCancel()
       } else {
         console.log(response)

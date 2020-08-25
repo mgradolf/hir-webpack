@@ -1,10 +1,10 @@
 import React from "react"
 import { Divider, Form, Input } from "antd"
-import { IFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 
 interface IOfferingDetails {
-  fieldNames: IFieldNames
+  fieldNames: IOfferingFieldNames
   formInstance: FormInstance
   initialFormValue: { [key: string]: any }
 }

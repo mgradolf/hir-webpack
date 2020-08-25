@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Form, Divider, Select } from "antd"
-import { IFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {
   getOfferingStatusTypes,
@@ -10,7 +10,7 @@ import {
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 
 interface IOfferingCoreChar {
-  fieldNames: IFieldNames
+  fieldNames: IOfferingFieldNames
   formInstance: FormInstance
   initialFormValue: { [key: string]: any }
 }

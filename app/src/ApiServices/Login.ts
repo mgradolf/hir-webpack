@@ -4,6 +4,7 @@ import { setRedirectToLogin } from "~/store/Authentication"
 import { showLoginModal } from "~/store/ModalState"
 import { removeTokens, getToken } from "@packages/api/lib/utils/TokenStore"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import eventBus from "~/utils/EventBus"
 
 // type LoginResponse = { data: { token: string } } // TODO: More to define here, as we only know token for now
 // type Response<T> = [T | undefined, unknown | undefined] // TODO: should be exported from somewhere more generic
@@ -13,6 +14,7 @@ export async function login(UserName: string, UserPassword: string): Promise<IAp
   if (response && response.success) {
     store.dispatch(showLoginModal({ value: false }))
     store.dispatch(setRedirectToLogin(false))
+    eventBus.publishSimilarEvents(/REFRESH.*PAGE/i)
   }
   return response
 }

@@ -6,8 +6,8 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/component/Offering/FilterColumn.module.scss"
 
 const { Option } = Select
-const { Title } = Typography
-const { RangePicker } = DatePicker
+const { Title, Text } = Typography
+
 export interface IFilterValues {
   OfferingCode: string
   OfferingName: string
@@ -46,20 +46,13 @@ export function FilterColumn(props: IFilterColumnProps) {
   ].filter(Boolean).length
 
   const fromCreationDate =
-    filterData.FromCreationDate !== ""
-      ? moment(filterData.FromCreationDate, dateFormat)
-      : moment(new Date(), dateFormat)
-  const toCreationDate =
-    filterData.ToCreationDate !== "" ? moment(filterData.ToCreationDate, dateFormat) : moment(new Date(), dateFormat)
+    filterData.FromCreationDate !== "" ? moment(filterData.FromCreationDate, dateFormat) : undefined
+  const toCreationDate = filterData.ToCreationDate !== "" ? moment(filterData.ToCreationDate, dateFormat) : undefined
 
   const fromTerminationDate =
-    filterData.FromTerminationDate !== ""
-      ? moment(filterData.FromTerminationDate, dateFormat)
-      : moment(new Date(), dateFormat)
+    filterData.FromTerminationDate !== "" ? moment(filterData.FromTerminationDate, dateFormat) : undefined
   const toTerminationDate =
-    filterData.ToTerminationDate !== ""
-      ? moment(filterData.ToTerminationDate, dateFormat)
-      : moment(new Date(), dateFormat)
+    filterData.ToTerminationDate !== "" ? moment(filterData.ToTerminationDate, dateFormat) : undefined
 
   const toggleOfferingCodeBLock = (event: CheckboxChangeEvent) => {
     setOfferingCodeBLockVisible(!showOfferingCodeBlock)
@@ -94,8 +87,7 @@ export function FilterColumn(props: IFilterColumnProps) {
     if (dateString !== null) {
       updateFilterData({
         ...filterData,
-        FromCreationDate: dateString[0],
-        ToCreationDate: dateString[1]
+        FromCreationDate: dateString
       })
     }
   }
@@ -104,8 +96,7 @@ export function FilterColumn(props: IFilterColumnProps) {
     if (dateString !== null) {
       updateFilterData({
         ...filterData,
-        FromTerminationDate: dateString[0],
-        ToTerminationDate: dateString[1]
+        FromTerminationDate: dateString
       })
     }
   }
@@ -147,21 +138,19 @@ export function FilterColumn(props: IFilterColumnProps) {
       <Row>
         <Checkbox onChange={toggleCreationDateBLock}>Creation Date</Checkbox>
         <Row className={showCreationDateBlock ? styles.offeringFilterField : styles.hidden}>
-          <RangePicker
-            value={[fromCreationDate, toCreationDate]}
-            onChange={handleCreationDateChange}
-            format={dateFormat}
-          />
+          <Col span={24}>From</Col>
+          <DatePicker value={fromCreationDate} onChange={handleCreationDateChange} format={dateFormat} />
+          <Col span={24}>To</Col>
+          <DatePicker value={toCreationDate} onChange={handleCreationDateChange} format={dateFormat} />
         </Row>
       </Row>
       <Row>
         <Checkbox onChange={toggleTerminationDateBLock}>Termination Date</Checkbox>
         <Row className={showTerminationDateBlock ? styles.offeringFilterField : styles.hidden}>
-          <RangePicker
-            value={[fromTerminationDate, toTerminationDate]}
-            onChange={handleTerminationDateChange}
-            format={dateFormat}
-          />
+          <Col span={24}>From</Col>
+          <DatePicker value={fromTerminationDate} onChange={handleTerminationDateChange} format={dateFormat} />
+          <Col span={24}>To</Col>
+          <DatePicker value={toTerminationDate} onChange={handleTerminationDateChange} format={dateFormat} />
         </Row>
       </Row>
       <Row>

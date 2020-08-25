@@ -8,6 +8,8 @@ import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import OfferingEditLink from "~/component/Offering/CreateEdit/OfferingEditLink"
 import styles from "~/pages/Offering/Offering.module.scss"
+import EventBus from "~/utils/EventBus"
+import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
 
 const { useState, useEffect } = React
 const { Title } = Typography
@@ -27,21 +29,23 @@ function generateMenu(record: any) {
       <Menu.Item key="0">
         <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
       </Menu.Item>
-      {/* <Menu.Item key="1">
-				<Link to={"/"}>Requisite Management</Link>
-			</Menu.Item> */}
+      <Menu.Item key="1">
+        <Link to={"/"}>Requisite Management</Link>
+      </Menu.Item>
       <Menu.Item key="2">
         <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
       </Menu.Item>
       <Menu.Item key="3">
         <Link to={"/"}>Offering Tag</Link>
       </Menu.Item>
-      <Menu.Item key="4">
-        <Link to={"/"}>Offering Approval</Link>
+      {record.HasApprovalProcess && (
+        <Menu.Item key="4">
+          <Link to={`/offering/${record.OfferingID}/approval`}>Offering Approval</Link>
+        </Menu.Item>
+      )}
+      <Menu.Item key="5">
+        <Link to={"/"}>Qualified Instructors</Link>
       </Menu.Item>
-      {/* <Menu.Item key="5">
-				<Link to={"/"}>Qualified Instructors</Link>
-			</Menu.Item> */}
     </Menu>
   )
 }
@@ -72,6 +76,7 @@ function OfferingPage(props: RouteComponentProps) {
       title: "Offering Code",
       dataIndex: "OfferingCode",
       key: "OfferingCode",
+      render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>,
       sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length
     },
     {
@@ -118,8 +123,6 @@ function OfferingPage(props: RouteComponentProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <Link to={`/offering/${record.OfferingID}`}>Details</Link>
-          <OfferingEditLink OfferingId={record.OfferingID} PrimaryType={false} />
           <Dropdown overlay={generateMenu(record)} trigger={["click"]}>
             <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
               Others <DownOutlined />
@@ -131,7 +134,7 @@ function OfferingPage(props: RouteComponentProps) {
   ]
 
   useEffect(() => {
-    ;(async function () {
+    const loadOfferings = async function () {
       setLoading(true)
 
       const params = {
@@ -139,20 +142,18 @@ function OfferingPage(props: RouteComponentProps) {
         OfferingName: filterData.OfferingName === "" ? "*" : filterData.OfferingName
       }
 
-      /*if (this.state.FromCreationDate !== '') {
-			 params["FromCreationDate"] = filterData.FromCreationDate;
-			 }
-			 if (this.state.ToCreationDate !== '') {
-			 params["ToCreationDate"] = filterData.ToCreationDate;
-			 }*/
-
       const result = await searchOffering(params)
 
       if (result && result.success) {
         setOfferingItems(result.data)
       }
       setLoading(false)
-    })()
+    }
+    EventBus.subscribe(REFRESH_OFFERING_PAGE, loadOfferings)
+    EventBus.publish(REFRESH_OFFERING_PAGE)
+    return () => {
+      EventBus.unsubscribe(REFRESH_OFFERING_PAGE)
+    }
   }, [filterData])
 
   const toggleFilter = () => {
