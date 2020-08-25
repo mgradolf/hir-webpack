@@ -33,7 +33,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
       title: "Published",
       dataIndex: "isPublished",
       render: (text: any, record: any) => (
-        <Switch checked={text} onChange={(e) => catalogPublished(e, record.catalogID)} />
+        <Switch checked={!!text} onChange={(e) => catalogPublished(e, record.catalogID)} />
       )
     }
   ]
