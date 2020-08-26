@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Form, Divider, Select } from "antd"
+import { Form, Divider, Select, Switch } from "antd"
 import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {
@@ -111,6 +111,23 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
             )
           })}
         </Select>
+      </Form.Item>
+      <Form.Item label="Quick Admit" name={props.fieldNames.IsQuickAdmit} valuePropName="checked">
+        <Switch
+          defaultChecked={!!props.formInstance.getFieldValue(props.fieldNames.IsQuickAdmit)}
+          onChange={(checked) => {
+            props.formInstance.setFieldsValue({ [props.fieldNames.IsQuickAdmit]: checked })
+          }}
+        />
+      </Form.Item>
+      <Form.Item label="Approval Process" name={props.fieldNames.HasApprovalProcess} valuePropName="checked">
+        <Switch
+          defaultChecked={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
+          disabled={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
+          onChange={(checked) => {
+            props.formInstance.setFieldsValue({ [props.fieldNames.HasApprovalProcess]: checked })
+          }}
+        />
       </Form.Item>
       <Form.Item label="Inquiry recipient" name={props.fieldNames.SubmitInquiryToUserID} {...layout}>
         <Select>
