@@ -59,8 +59,6 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
   }
 
   useEffect(() => {
-    console.log("offeringFinancialId ", offeringFinancialId)
-
     if (offeringFinancialId) {
       ;(async () => {
         setofferingFinancialLoading(true)
