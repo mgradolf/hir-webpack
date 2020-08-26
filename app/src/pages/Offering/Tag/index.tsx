@@ -5,8 +5,7 @@ import { getTags, getParentTags, addTagIntoEntity, removeTagFromEntity } from "~
 import { Form, Card, Select, Input, Switch, Row, Col, Button, Spin } from "antd"
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons"
 import TagsTable from "~/component/Offering/Tag/TagsTable"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_TAG_PAGE } from "~/utils/EventList"
+import { eventBus, REFRESH_OFFERING_TAG_PAGE } from "~/utils/EventBus"
 import { hidden } from "~/utils/style"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
@@ -62,10 +61,10 @@ export default function (props: RouteComponentProps<{ id: string }>) {
   }
 
   useEffect(() => {
-    EventBus.subscribe(REFRESH_OFFERING_TAG_PAGE, loadTagTypes)
-    EventBus.publish(REFRESH_OFFERING_TAG_PAGE)
+    eventBus.subscribe(REFRESH_OFFERING_TAG_PAGE, loadTagTypes)
+    eventBus.publish(REFRESH_OFFERING_TAG_PAGE)
     return () => {
-      EventBus.unsubscribe(REFRESH_OFFERING_TAG_PAGE)
+      eventBus.unsubscribe(REFRESH_OFFERING_TAG_PAGE)
     }
   }, [])
 

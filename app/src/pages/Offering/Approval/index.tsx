@@ -7,8 +7,7 @@ import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Approval/Approval.module.scss"
 
 import OfferingApprovalModalOpenButton from "~/component/Offering/Approval/OfferingApprovalModalOpenButton"
-import { REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventList"
-import EventBus from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -57,10 +56,10 @@ function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
         )
       }
     }
-    EventBus.subscribe(REFRESH_OFFERING_APPROVAL_PAGE, loadOfferingApprovalHistory)
-    EventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
+    eventBus.subscribe(REFRESH_OFFERING_APPROVAL_PAGE, loadOfferingApprovalHistory)
+    eventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
     return () => {
-      EventBus.unsubscribe(REFRESH_OFFERING_APPROVAL_PAGE)
+      eventBus.unsubscribe(REFRESH_OFFERING_APPROVAL_PAGE)
     }
   }, [offeringID])
 

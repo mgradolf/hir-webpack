@@ -8,8 +8,7 @@ import styles from "~/pages/Offering/Financial/Financial.module.scss"
 import OfferingFinancialModalOpenButton from "~/component/Offering/Financial/OfferingFinancialModalOpenButton"
 import FinancialEditLink from "~/component/Offering/Financial/FinancialEditLink"
 import FinancialRemoveLink from "~/component/Offering/Financial/FinancialRemoveLink"
-import { REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventList"
-import EventBus from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -90,10 +89,10 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
         )
       }
     }
-    EventBus.subscribe(REFRESH_OFFERING_FINANCIAL_PAGE, loadOfferingFinancials)
-    EventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
+    eventBus.subscribe(REFRESH_OFFERING_FINANCIAL_PAGE, loadOfferingFinancials)
+    eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
     return () => {
-      EventBus.unsubscribe(REFRESH_OFFERING_FINANCIAL_PAGE)
+      eventBus.unsubscribe(REFRESH_OFFERING_FINANCIAL_PAGE)
     }
   }, [offeringID])
 

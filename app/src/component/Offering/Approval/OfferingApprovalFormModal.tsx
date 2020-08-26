@@ -8,8 +8,7 @@ import { Dispatch } from "redux"
 import { showOfferingApprovalModal } from "~/store/ModalState"
 import { setApprovalStatus } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventList"
+import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
 
 interface IOfferingApprovalProps {
   offeringID: number
@@ -44,7 +43,7 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
     if (response && response.success) {
       formInstance.resetFields()
       console.log("REFRESH_OFFERING_APPROVAL_PAGE")
-      EventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
+      eventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
       handleCancel()
     } else {
       console.log(response)

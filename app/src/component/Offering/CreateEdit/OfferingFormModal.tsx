@@ -10,8 +10,7 @@ import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
-import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
-import EventBus from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface ICreateNewOfferingProps {
@@ -77,7 +76,7 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
 
     if (response && response.success) {
       formInstance.resetFields()
-      EventBus.publish(REFRESH_OFFERING_PAGE)
+      eventBus.publish(REFRESH_OFFERING_PAGE)
       handleCancel()
     } else {
       console.log(response)

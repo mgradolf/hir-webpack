@@ -9,8 +9,7 @@ import { showCreateOfferingFinancialModal } from "~/store/ModalState"
 import { createOfferingFinancial, updateOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventList"
+import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 
 interface ICreateNewOfferingProps {
   offeringFinancialId?: number
@@ -51,7 +50,7 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
     if (response && response.success) {
       formInstance.resetFields()
       console.log("REFRESH_OFFERING_FINANCIAL_PAGE")
-      EventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
+      eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
       handleCancel()
     } else {
       console.log(response)
