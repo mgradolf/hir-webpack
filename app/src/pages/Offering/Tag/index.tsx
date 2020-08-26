@@ -101,14 +101,16 @@ export default function (props: RouteComponentProps<{ id: string }>) {
     setLoadingOfferingTagSearchResults(false)
     if (response.success && Array.isArray(response.data)) {
       setOfferingTags(
-        response.data.map((x) => {
-          x.isChecked = false
-          if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
-            x.isChecked = true
-          }
-          x.type = "Offering"
-          return x
-        })
+        response.data
+          .map((x) => {
+            x.isChecked = false
+            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
+              x.isChecked = true
+            }
+            x.type = "Offering"
+            return x
+          })
+          .sort((x, y) => Number(y.isChecked) - Number(x.isChecked))
       )
     }
   }
@@ -119,17 +121,19 @@ export default function (props: RouteComponentProps<{ id: string }>) {
     setLoadingParentTagSearchResults(false)
     if (response.success && Array.isArray(response.data)) {
       setParentTags(
-        response.data.map((x) => {
-          x.isChecked = false
-          if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
-            x.isChecked = true
-          }
-          x.Name = x.Tag
-          x.ID = x.TagID
-          x.Description = x.TagDescription
-          x.type = "Parent"
-          return x
-        })
+        response.data
+          .map((x) => {
+            x.isChecked = false
+            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
+              x.isChecked = true
+            }
+            x.Name = x.Tag
+            x.ID = x.TagID
+            x.Description = x.TagDescription
+            x.type = "Parent"
+            return x
+          })
+          .sort((x, y) => Number(y.isChecked) - Number(x.isChecked))
       )
     }
   }
@@ -189,9 +193,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
                 <Switch checkedChildren={<CheckOutlined />} unCheckedChildren={<CloseOutlined />} />
               </Form.Item>
             </Col>
-          </Row>
-          <Row>
-            <Col span={24} style={{ textAlign: "right" }}>
+            <Col span="auto" style={{ textAlign: "right" }}>
               <Button
                 type="primary"
                 onClick={searchTags}
@@ -206,8 +208,9 @@ export default function (props: RouteComponentProps<{ id: string }>) {
           </Row>
         </Form>
       </Card>
+
       <Row>
-        <Col span={12}>
+        <Col span={24}>
           <TagsTable
             title="Offering Tags"
             data={offeringTags}
@@ -215,7 +218,8 @@ export default function (props: RouteComponentProps<{ id: string }>) {
             select={addRemoveTagToOffering}
           />
         </Col>
-        <Col span={12}>
+
+        <Col span={24}>
           <TagsTable
             title="Parent Tags"
             data={parentTags}
