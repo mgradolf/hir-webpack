@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Form, Radio, DatePicker, Select, Input, Col, Row } from "antd"
 import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
@@ -30,6 +30,13 @@ export default function DefineTerminationTime(props: IDefineTime) {
   const [disableDuration, setDisableDuration] = useState(true)
   const [disableTerm, setDisableTerm] = useState(true)
 
+  useEffect(() => {
+    let termId = props.formInstance.getFieldValue(props.fieldNames.EndTermID)
+    termId = props.terms.find((x) => x.TermID === termId)
+    if (!termId) {
+      props.formInstance.setFieldsValue({ [props.fieldNames.EndTermID]: undefined })
+    }
+  })
   const enableTime = () => {
     setDisabByTime(false)
     setDisableTerm(true)
@@ -63,7 +70,6 @@ export default function DefineTerminationTime(props: IDefineTime) {
 
   const onDateChange = (value: any, dateString: string) => {
     props.formInstance.setFieldsValue({ [props.fieldNames.TerminationDate]: dateString })
-    console.log(dateString)
   }
   return (
     <Radio.Group style={{ width: "100%" }} defaultValue={defaultRadioValue}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Form, Radio, DatePicker, Select, Input, Col, Row } from "antd"
 import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
@@ -28,18 +28,24 @@ export default function DefineCreationTime(props: IDefineTime) {
 
   const defaultCreationDate = props.formInstance.getFieldValue(props.fieldNames.CreationDate)
 
+  useEffect(() => {
+    let termId = props.formInstance.getFieldValue(props.fieldNames.StartTermID)
+    termId = props.terms.find((x) => x.TermID === termId)
+    if (!termId) {
+      props.formInstance.setFieldsValue({ [props.fieldNames.StartTermID]: undefined })
+    }
+  })
+
   const enableTime = () => {
     setDisableTime(false)
     setDisableTerm(true)
     setDefaultRadioValue(radioValues.byTerm)
-    console.log("time : ", radioValues.byTime, defaultRadioValue, disableTime, disableTerm)
   }
 
   const enableTerm = () => {
     setDisableTerm(false)
     setDisableTime(true)
     setDefaultRadioValue(radioValues.byTime)
-    console.log("term : ", radioValues.byTerm, defaultRadioValue, disableTime, disableTerm)
   }
 
   const handleChange = (e: RadioChangeEvent) => {

@@ -61,11 +61,8 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
   }
 
   const handleOk = async () => {
-    console.log(formInstance.getFieldsValue())
-    const validationPassed = await formInstance.validateFields()
-    console.log("validationPassed ", validationPassed)
+    // const validationPassed = await formInstance.validateFields()
     const params = formInstance.getFieldsValue() as IOfferingFieldNames
-    console.log(params)
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
       ? updateOffering
       : createOffering
@@ -111,31 +108,30 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
     setFirstFormVisible(false)
     setSecondFormVisible(true)
 
-    setInitialFormValue({
-      [fieldNames.OfferingTypeID]: selectedOfferingType.OfferingTypeID,
-      [fieldNames.OfferingCode]: selectedOfferingType.OfferingCode,
-      [fieldNames.Name]: selectedOfferingType.Name,
-      [fieldNames.Description]: selectedOfferingType.Description,
-      [fieldNames.URL]: selectedOfferingType.URL,
-      [fieldNames.CreationDate]: selectedOfferingType.CreationDate,
-      [fieldNames.StartTermID]: selectedOfferingType.CreationDateOfTermTypeID,
-      [fieldNames.TerminationDate]: selectedOfferingType.TerminationDate,
-      [fieldNames.EndTermID]: selectedOfferingType.TerminationDateOfTermTypeID,
-      [fieldNames.RecurrenceRule]: selectedOfferingType.RecurrenceRule,
-      [fieldNames.OrganizationID]: selectedOfferingType.OrganizationID,
-      [fieldNames.IsQuickAdmit]: selectedOfferingType.IsQuickAdmit,
-      [fieldNames.HasApprovalProcess]: selectedOfferingType.HasApprovalProcess,
-      [fieldNames.SubmitInquiryToUserID]: selectedOfferingType.SubmitInquiryToUserID,
-      [fieldNames.OfferingUsageType]: selectedOfferingType.OfferingUsageType,
-      [fieldNames.OfferingStatusCodeID]: selectedOfferingType.OfferingStatusCodeID
-      // [fieldNames.OfferingID]: selectedOfferingType.,
-      // [fieldNames.PaymentGatewayAccountID]: selectedOfferingType.,
-      // [fieldNames.DefaultSectionTypeID]: selectedOfferingType.,
-      // [fieldNames.OfferingStatusReleaseID]: selectedOfferingType.,
-      // [fieldNames.CourseID]: selectedOfferingType.,
-      // [fieldNames.EffectiveCreationDate]: selectedOfferingType.,
-      // [fieldNames.EffectiveTerminationDate]: selectedOfferingType.,
-    })
+    console.log(selectedOfferingType)
+    formInstance.setFieldsValue({ [fieldNames.OfferingTypeID]: selectedOfferingType.OfferingTypeID })
+    formInstance.setFieldsValue({ [fieldNames.OfferingCode]: selectedOfferingType.OfferingCode })
+    formInstance.setFieldsValue({ [fieldNames.Name]: selectedOfferingType.Name })
+    formInstance.setFieldsValue({ [fieldNames.Description]: selectedOfferingType.OfferingTypeDescription })
+    formInstance.setFieldsValue({ [fieldNames.URL]: selectedOfferingType.URL })
+    formInstance.setFieldsValue({ [fieldNames.CreationDate]: selectedOfferingType.CreationDate })
+    formInstance.setFieldsValue({ [fieldNames.StartTermID]: selectedOfferingType.CreationDateOfTermTypeID })
+    formInstance.setFieldsValue({ [fieldNames.TerminationDate]: selectedOfferingType.TerminationDate })
+    formInstance.setFieldsValue({ [fieldNames.EndTermID]: selectedOfferingType.TerminationDateOfTermTypeID })
+    formInstance.setFieldsValue({ [fieldNames.RecurrenceRule]: selectedOfferingType.RecurrenceRule })
+    formInstance.setFieldsValue({ [fieldNames.OrganizationID]: selectedOfferingType.OrganizationID })
+    formInstance.setFieldsValue({ [fieldNames.IsQuickAdmit]: selectedOfferingType.IsQuickAdmit })
+    formInstance.setFieldsValue({ [fieldNames.HasApprovalProcess]: selectedOfferingType.HasApprovalProcess })
+    formInstance.setFieldsValue({ [fieldNames.SubmitInquiryToUserID]: selectedOfferingType.SubmitInquiryToUserID })
+    formInstance.setFieldsValue({ [fieldNames.OfferingUsageType]: selectedOfferingType.OfferingUsageType })
+    formInstance.setFieldsValue({ [fieldNames.OfferingStatusCodeID]: selectedOfferingType.OfferingStatusCodeI })
+    // [fieldNames.OfferingID]: selectedOfferingType.,
+    // [fieldNames.PaymentGatewayAccountID]: selectedOfferingType.,
+    // [fieldNames.DefaultSectionTypeID]: selectedOfferingType.,
+    // [fieldNames.OfferingStatusReleaseID]: selectedOfferingType.,
+    // [fieldNames.CourseID]: selectedOfferingType.,
+    // [fieldNames.EffectiveCreationDate]: selectedOfferingType.,
+    // [fieldNames.EffectiveTerminationDate]: selectedOfferingType.,
   }
 
   const goBackToOfferingTypeForm = () => {

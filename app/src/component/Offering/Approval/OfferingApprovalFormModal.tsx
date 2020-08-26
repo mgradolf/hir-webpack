@@ -29,9 +29,7 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
   }
 
   const handleOk = async () => {
-    console.log(formInstance.getFieldsValue())
-    const validationPassed = await formInstance.validateFields()
-    console.log("validationPassed ", validationPassed)
+    // const validationPassed = await formInstance.validateFields()
     const params = formInstance.getFieldsValue()
 
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = setApprovalStatus
@@ -42,7 +40,6 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
 
     if (response && response.success) {
       formInstance.resetFields()
-      console.log("REFRESH_OFFERING_APPROVAL_PAGE")
       eventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
       handleCancel()
     } else {

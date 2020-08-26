@@ -65,7 +65,6 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
             })
         }
         setOfferingStatusTypes(response.data)
-        console.log(!props.editMode, props.formInstance.getFieldsValue())
       }
     })()
     ;(async () => {

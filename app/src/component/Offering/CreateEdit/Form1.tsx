@@ -41,6 +41,10 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
         )
       }
       setDisableRadios(false)
+
+      if (props.formInstance.getFieldValue("offeringTypeRadio") === "OTHER") {
+        setOfferingTypesVisible(true)
+      }
     })()
     return () => {
       props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: undefined })
