@@ -24,7 +24,7 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
   const [formInstance] = Form.useForm()
   const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [errorMessages, setErrorMessages] = useState<Array<string>>([])
+  const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
     if (closeCreateOfferingModal) {

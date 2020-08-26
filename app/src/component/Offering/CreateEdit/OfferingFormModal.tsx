@@ -8,11 +8,11 @@ import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
-import { createOffering, updateOffering } from "~/ApiServices/Service/OfferingService"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import EventBus from "~/utils/EventBus"
+import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
 import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
+import EventBus from "~/utils/EventBus"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface ICreateNewOfferingProps {
   offeringId?: number
@@ -46,48 +46,41 @@ const fieldNames: IOfferingFieldNames = {
 }
 
 function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewOfferingProps) {
+  const [editMode, setEditMode] = useState(false)
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
-  const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [formInstance] = Form.useForm()
   const [firstFormVisible, setFirstFormVisible] = useState(false)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [errorMessages, setErrorMessages] = useState<Array<string>>([])
+  const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
     if (closeCreateOfferingModal) {
       closeCreateOfferingModal()
     }
-    console.log("initialFormValue ", initialFormValue)
-    console.log("editOfferingEntity ", editOfferingEntity)
-
     goBackToOfferingTypeForm()
   }
 
   const handleOk = async () => {
-    if (firstFormVisible && formInstance.getFieldValue("OfferingTypeID")) {
-      onOfferingTypeSelected()
-    } else if (secondFormVisible) {
-      console.log(formInstance.getFieldsValue())
-      const validationPassed = await formInstance.validateFields()
-      console.log("validationPassed ", validationPassed)
-      const params = formInstance.getFieldsValue()
+    console.log(formInstance.getFieldsValue())
+    const validationPassed = await formInstance.validateFields()
+    console.log("validationPassed ", validationPassed)
+    const params = formInstance.getFieldsValue() as IOfferingFieldNames
+    console.log(params)
+    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
+      ? updateOffering
+      : createOffering
 
-      const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
-        ? updateOffering
-        : createOffering
+    setApiCallInProgress(true)
+    const response = await serviceMethoToCall(params)
+    setApiCallInProgress(false)
 
-      setApiCallInProgress(true)
-      const response = await serviceMethoToCall(params)
-      setApiCallInProgress(false)
-
-      if (response && response.success) {
-        formInstance.resetFields()
-        EventBus.publish(REFRESH_OFFERING_PAGE)
-        handleCancel()
-      } else {
-        console.log(response)
-      }
+    if (response && response.success) {
+      formInstance.resetFields()
+      EventBus.publish(REFRESH_OFFERING_PAGE)
+      handleCancel()
+    } else {
+      console.log(response)
     }
   }
 
@@ -95,9 +88,11 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
     if (offeringId) {
       ;(async () => {
         const response = await getOfferingById(offeringId)
+        setEditMode(true)
         if (response && response.success) {
-          setEditOfferingEntity(response.data)
-          setInitialFormValue(response.data)
+          Object.keys(response.data).forEach((x) => {
+            formInstance.setFieldsValue({ [x]: response.data[x] })
+          })
 
           setFirstFormVisible(false)
           setSecondFormVisible(true)
@@ -111,11 +106,37 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
       setFirstFormVisible(true)
       setSecondFormVisible(false)
     }
-  }, [offeringId, closeCreateOfferingModal])
+  }, [offeringId, closeCreateOfferingModal, formInstance])
 
-  const onOfferingTypeSelected = () => {
+  const onOfferingTypeSelected = (selectedOfferingType: { [key: string]: any }) => {
     setFirstFormVisible(false)
     setSecondFormVisible(true)
+
+    setInitialFormValue({
+      [fieldNames.OfferingTypeID]: selectedOfferingType.OfferingTypeID,
+      [fieldNames.OfferingCode]: selectedOfferingType.OfferingCode,
+      [fieldNames.Name]: selectedOfferingType.Name,
+      [fieldNames.Description]: selectedOfferingType.Description,
+      [fieldNames.URL]: selectedOfferingType.URL,
+      [fieldNames.CreationDate]: selectedOfferingType.CreationDate,
+      [fieldNames.StartTermID]: selectedOfferingType.CreationDateOfTermTypeID,
+      [fieldNames.TerminationDate]: selectedOfferingType.TerminationDate,
+      [fieldNames.EndTermID]: selectedOfferingType.TerminationDateOfTermTypeID,
+      [fieldNames.RecurrenceRule]: selectedOfferingType.RecurrenceRule,
+      [fieldNames.OrganizationID]: selectedOfferingType.OrganizationID,
+      [fieldNames.IsQuickAdmit]: selectedOfferingType.IsQuickAdmit,
+      [fieldNames.HasApprovalProcess]: selectedOfferingType.HasApprovalProcess,
+      [fieldNames.SubmitInquiryToUserID]: selectedOfferingType.SubmitInquiryToUserID,
+      [fieldNames.OfferingUsageType]: selectedOfferingType.OfferingUsageType
+      // [fieldNames.OfferingID]: selectedOfferingType.,
+      // [fieldNames.OfferingStatusCodeID]: selectedOfferingType.,
+      // [fieldNames.PaymentGatewayAccountID]: selectedOfferingType.,
+      // [fieldNames.DefaultSectionTypeID]: selectedOfferingType.,
+      // [fieldNames.OfferingStatusReleaseID]: selectedOfferingType.,
+      // [fieldNames.CourseID]: selectedOfferingType.,
+      // [fieldNames.EffectiveCreationDate]: selectedOfferingType.,
+      // [fieldNames.EffectiveTerminationDate]: selectedOfferingType.,
+    })
   }
 
   const goBackToOfferingTypeForm = () => {
@@ -140,20 +161,22 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
               </li>
             </ul>
           )}
-          {firstFormVisible && (
+          {firstFormVisible && !editMode && (
             <CreateForm1
               fieldNames={fieldNames}
               initialFormValue={initialFormValue}
               formInstance={formInstance}
               handleCancel={handleCancel}
-              handleSelected={handleOk}
+              handleSelected={onOfferingTypeSelected}
             />
           )}
           {secondFormVisible && (
             <CreateForm2
+              editMode={editMode}
               fieldNames={fieldNames}
               initialFormValue={initialFormValue}
               formInstance={formInstance}
+              resetForm={setInitialFormValue}
               goBackToFirstForm={goBackToOfferingTypeForm}
               handleCancel={handleCancel}
               onFormSubmission={handleOk}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
 import { getTags, getParentTags, addTagIntoEntity, removeTagFromEntity } from "~/ApiServices/Service/TagService"

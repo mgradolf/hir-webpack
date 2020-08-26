@@ -12,7 +12,6 @@ import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 interface IOfferingCoreChar {
   fieldNames: IOfferingFieldNames
   formInstance: FormInstance
-  initialFormValue: { [key: string]: any }
 }
 
 const layout = {
@@ -29,34 +28,29 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
     ;(async () => {
       const response = await getOfferingStatusTypes()
       if (response && response.data) {
-        // console.log("setOfferingStatusTypes ", response.data)
         setOfferingStatusTypes(response.data)
       }
     })()
     ;(async () => {
       const response = await getOrganizations()
       if (response && response.data) {
-        // console.log("setOrganizations ", response.data)
         setOrganizations(response.data)
       }
     })()
     ;(async () => {
       const response = await getPaymentGatewayAccounts()
       if (response && response.data) {
-        // console.log("setPaymentGatewayAccounts ", response.data)
         setPaymentGatewayAccounts(response.data)
       }
     })()
     ;(async () => {
       const response = await getAllUsers()
       if (response && response.data) {
-        // console.log("setUsers ", response.data)
         setUsers(response.data)
       }
     })()
   }, [])
   return (
-    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
     <>
       <Divider orientation="left">Core characteristics</Divider>
       <Form.Item label="Offering status" name={props.fieldNames.OfferingStatusCodeID} {...layout}>

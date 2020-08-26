@@ -7,7 +7,6 @@ import { Menu, Row, Col, Button, Dropdown, Typography } from "antd"
 import OfferingEditLink from "~/component/Offering/CreateEdit/OfferingEditLink"
 import { DownOutlined, ReadOutlined } from "@ant-design/icons"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
-import styles from "~/pages/Offering/OfferingDetails.module.scss"
 
 const { Title, Text } = Typography
 
