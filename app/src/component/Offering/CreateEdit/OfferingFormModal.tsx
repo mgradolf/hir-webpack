@@ -12,9 +12,11 @@ import { getOfferingById } from "~/ApiServices/Service/EntityService"
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { redirect } from "~/store/ConnectedRoute"
 
 interface ICreateNewOfferingProps {
   offeringId?: number
+  redirect?: (url: string) => void
   closeCreateOfferingModal?: () => void
 }
 
@@ -44,7 +46,7 @@ const fieldNames: IOfferingFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewOfferingProps) {
+function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: ICreateNewOfferingProps) {
   const [editMode, setEditMode] = useState(false)
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [formInstance] = Form.useForm()
@@ -75,6 +77,9 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
       formInstance.resetFields()
       eventBus.publish(REFRESH_OFFERING_PAGE)
       handleCancel()
+      if (redirect) {
+        redirect(`/offering/${response.data.OfferingID}`)
+      }
     } else {
       console.log(response)
     }
@@ -184,7 +189,10 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingModal({ value: false })) }
+  return {
+    closeCreateOfferingModal: () => dispatch(showCreateOfferingModal({ value: false })),
+    redirect: (url: string) => dispatch(redirect(url))
+  }
 }
 
 export default connect(undefined, mapDispatchToProps)(CreateNewOffering)
