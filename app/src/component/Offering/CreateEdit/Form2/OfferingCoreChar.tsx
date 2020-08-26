@@ -19,21 +19,52 @@ const layout = {
   labelCol: { span: 6 }
 }
 
+const status = {
+  Preliminary: 0,
+  AwaitingApproval: 1,
+  Open: 2,
+  Denied: 3,
+  Closed: 1000
+}
+
 export default function OfferingCoreChar(props: IOfferingCoreChar) {
   const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
   const [organizations, setOrganizations] = useState<Array<any>>([])
   const [users, setUsers] = useState<Array<any>>([])
   const [paymentGatewayAccounts, setPaymentGatewayAccounts] = useState<Array<any>>([])
-  const [disableStatus] = useState(!props.editMode)
+  const [disableStatus, setDisableStatus] = useState(false)
 
   useEffect(() => {
     ;(async () => {
       const response = await getOfferingStatusTypes()
-      if (response && response.data) {
-        setOfferingStatusTypes(response.data)
-        if (!props.editMode && props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) === 1000) {
-          props.formInstance.setFieldsValue({ [props.fieldNames.OfferingStatusCodeID]: 0 })
+      if (response && response.data && Array.isArray(response.data)) {
+        const createMode = !props.editMode
+        const OfferingTypeID = props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID)
+        if (createMode && OfferingTypeID === 1000) {
+          props.formInstance.setFieldsValue({ [props.fieldNames.OfferingStatusCodeID]: status.Preliminary })
         }
+
+        switch (props.formInstance.getFieldValue(props.fieldNames.OfferingStatusCodeID)) {
+          case status.Preliminary:
+          case status.AwaitingApproval:
+          case status.Denied:
+            setDisableStatus(true)
+            break
+          case status.Open:
+          case status.Closed:
+            setDisableStatus(false)
+            response.data = response.data.filter((x) => {
+              switch (x.StatusID) {
+                case status.Preliminary:
+                case status.Open:
+                case status.Closed:
+                  return true
+                default:
+                  return false
+              }
+            })
+        }
+        setOfferingStatusTypes(response.data)
         console.log(!props.editMode, props.formInstance.getFieldsValue())
       }
     })()
