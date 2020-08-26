@@ -57,7 +57,7 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
         </Form.Item>
         <OfferingDetails formInstance={props.formInstance} fieldNames={props.fieldNames} />
         <OfferingTimings formInstance={props.formInstance} fieldNames={props.fieldNames} />
-        <OfferingCoreChar formInstance={props.formInstance} fieldNames={props.fieldNames} />
+        <OfferingCoreChar formInstance={props.formInstance} fieldNames={props.fieldNames} editMode={props.editMode} />
         <OfferingDefaultSection formInstance={props.formInstance} fieldNames={props.fieldNames} />
       </Form>
     </Card>

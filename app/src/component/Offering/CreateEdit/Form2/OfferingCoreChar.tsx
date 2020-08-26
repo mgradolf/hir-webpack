@@ -12,6 +12,7 @@ import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 interface IOfferingCoreChar {
   fieldNames: IOfferingFieldNames
   formInstance: FormInstance
+  editMode: boolean
 }
 
 const layout = {
@@ -23,12 +24,17 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
   const [organizations, setOrganizations] = useState<Array<any>>([])
   const [users, setUsers] = useState<Array<any>>([])
   const [paymentGatewayAccounts, setPaymentGatewayAccounts] = useState<Array<any>>([])
+  const [disableStatus] = useState(!props.editMode)
 
   useEffect(() => {
     ;(async () => {
       const response = await getOfferingStatusTypes()
       if (response && response.data) {
         setOfferingStatusTypes(response.data)
+        if (!props.editMode && props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) === 1000) {
+          props.formInstance.setFieldsValue({ [props.fieldNames.OfferingStatusCodeID]: 0 })
+        }
+        console.log(!props.editMode, props.formInstance.getFieldsValue())
       }
     })()
     ;(async () => {
@@ -49,12 +55,12 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         setUsers(response.data)
       }
     })()
-  }, [])
+  }, [props])
   return (
     <>
       <Divider orientation="left">Core characteristics</Divider>
       <Form.Item label="Offering status" name={props.fieldNames.OfferingStatusCodeID} {...layout}>
-        <Select>
+        <Select disabled={disableStatus}>
           {offeringStatusTypes.map((x, index) => {
             return (
               <Select.Option key={x.StatusID + index} value={x.StatusID}>

@@ -17,24 +17,36 @@ interface IOfferingCreateForm1Props {
 
 export default function CreateForm1(props: IOfferingCreateForm1Props) {
   const [offeringTypes, setofferingTypes] = useState<Array<any>>([])
+  const [disableRadios, setDisableRadios] = useState(false)
   const [radioValues] = useState([
     { label: "Default", value: 1000, default: true },
     { label: "Other", value: "OTHER", default: false }
   ])
   const [offeringTypesVisible, setOfferingTypesVisible] = useState(false)
   const [isSelected, setIsSelected] = useState(false)
+
   useEffect(() => {
     props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) ? setIsSelected(true) : setIsSelected(false)
     ;(async () => {
+      setDisableRadios(true)
       const response = await getOfferingTypes()
-      if (response && response.success) {
-        setofferingTypes(response.data)
+      if (response && response.success && Array.isArray(response.data)) {
+        setofferingTypes(
+          response.data.map((x) => {
+            if (x.OfferingTypeID === 1000) {
+              x.OfferingStatusCodeID = 0
+            }
+            return x
+          })
+        )
       }
+      setDisableRadios(false)
     })()
     return () => {
       props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: undefined })
     }
   }, [props])
+
   const onChangeOfferingTypes = (e: RadioChangeEvent) => {
     if (e.target.value === 1000) {
       setOfferingTypesVisible(false)
@@ -76,7 +88,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
           name="offeringTypeRadio"
           rules={[{ required: true, message: "Please input an offering type!" }]}
         >
-          <Radio.Group>
+          <Radio.Group disabled={disableRadios}>
             {radioValues.map((opt, index) => (
               <Radio value={opt.value} key={index} onChange={onChangeOfferingTypes}>
                 {opt.label}

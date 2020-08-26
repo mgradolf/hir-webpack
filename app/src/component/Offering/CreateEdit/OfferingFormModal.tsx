@@ -127,9 +127,9 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
       [fieldNames.IsQuickAdmit]: selectedOfferingType.IsQuickAdmit,
       [fieldNames.HasApprovalProcess]: selectedOfferingType.HasApprovalProcess,
       [fieldNames.SubmitInquiryToUserID]: selectedOfferingType.SubmitInquiryToUserID,
-      [fieldNames.OfferingUsageType]: selectedOfferingType.OfferingUsageType
+      [fieldNames.OfferingUsageType]: selectedOfferingType.OfferingUsageType,
+      [fieldNames.OfferingStatusCodeID]: selectedOfferingType.OfferingStatusCodeID
       // [fieldNames.OfferingID]: selectedOfferingType.,
-      // [fieldNames.OfferingStatusCodeID]: selectedOfferingType.,
       // [fieldNames.PaymentGatewayAccountID]: selectedOfferingType.,
       // [fieldNames.DefaultSectionTypeID]: selectedOfferingType.,
       // [fieldNames.OfferingStatusReleaseID]: selectedOfferingType.,
