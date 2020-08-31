@@ -15,7 +15,13 @@ export const config = {
     getOfferngApprovalHist: "getOfferngApprovalHist",
     setApprovalStatus: "setApprovalStatus",
     getOfferngApprovalStateList: "getOfferngApprovalStateList",
-    getOfferingApprovalSendToList: "getOfferingApprovalSendToList"
+    getOfferingApprovalSendToList: "getOfferingApprovalSendToList",
+    getRequisiteOfferingGroup: "getRequisiteOfferingGroup",
+    getGroupOfferings: "getGroupOfferings",
+    createRequisiteOfferingGroup: "createRequisiteOfferingGroup",
+    updateRequisiteOfferingGroup: "updateRequisiteOfferingGroup",
+    getQualifiedInstructors: "getQualifiedInstructors",
+    updateInstructors: "updateInstructors"
   }
 }
 

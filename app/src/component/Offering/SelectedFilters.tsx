@@ -1,8 +1,8 @@
 import { Row, Col, Button } from "antd"
 import React from "react"
-import CreateActionButton from "~/Component/Offering/CreateEdit/OfferingModalOpenButton"
+import CreateActionButton from "~/component/Offering/CreateEdit/OfferingModalOpenButton"
 import { FilterOutlined } from "@ant-design/icons"
-import styles from "~/Component/Offering/SelectedFilters.module.scss"
+import styles from "~/component/Offering/SelectedFilters.module.scss"
 
 interface IToolbarProps {
   filterCount: number

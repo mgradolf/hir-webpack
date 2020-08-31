@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Card, Button, Input, Select, Radio, Switch } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IOfferingFinancialFieldNames } from "~/Component/Offering/Interfaces"
+import { IOfferingFinancialFieldNames } from "~/component/Offering/Interfaces"
 import {
   getGLAccountTypes,
   getFinancialCategoryType,

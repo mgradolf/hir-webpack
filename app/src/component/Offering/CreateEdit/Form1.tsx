@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Form, Radio, Select, Card, Button, Input } from "antd"
-import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {} from "@ant-design/icons"
 import { RadioChangeEvent } from "antd/lib/radio"

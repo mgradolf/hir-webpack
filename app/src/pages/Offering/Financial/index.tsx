@@ -5,9 +5,9 @@ import { Row, Col, Table, Typography, Space } from "antd"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
-import OfferingFinancialModalOpenButton from "~/Component/Offering/Financial/OfferingFinancialModalOpenButton"
-import FinancialEditLink from "~/Component/Offering/Financial/FinancialEditLink"
-import FinancialRemoveLink from "~/Component/Offering/Financial/FinancialRemoveLink"
+import OfferingFinancialModalOpenButton from "~/component/Offering/Financial/OfferingFinancialModalOpenButton"
+import FinancialEditLink from "~/component/Offering/Financial/FinancialEditLink"
+import FinancialRemoveLink from "~/component/Offering/Financial/FinancialRemoveLink"
 import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography

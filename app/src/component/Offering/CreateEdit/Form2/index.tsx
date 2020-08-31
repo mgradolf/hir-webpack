@@ -1,11 +1,11 @@
 import React from "react"
 import { Card, Button, Input } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
-import OfferingDetails from "~/Component/Offering/CreateEdit/Form2/OfferingDetails"
-import OfferingTimings from "~/Component/Offering/CreateEdit/Form2/OfferingTimings"
-import OfferingCoreChar from "~/Component/Offering/CreateEdit/Form2/OfferingCoreChar"
-import OfferingDefaultSection from "~/Component/Offering/CreateEdit/Form2/OfferingDefaultSection"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
+import OfferingDetails from "~/component/Offering/CreateEdit/Form2/OfferingDetails"
+import OfferingTimings from "~/component/Offering/CreateEdit/Form2/OfferingTimings"
+import OfferingCoreChar from "~/component/Offering/CreateEdit/Form2/OfferingCoreChar"
+import OfferingDefaultSection from "~/component/Offering/CreateEdit/Form2/OfferingDefaultSection"
 import { hidden } from "~/utils/style"
 
 interface IOfferingCreateForm2Props {

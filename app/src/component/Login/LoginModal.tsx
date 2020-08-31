@@ -1,5 +1,5 @@
-import Login from "~/Component/Login/Login"
-import Modal from "~/Component/Modal"
+import Login from "~/component/Login/Login"
+import Modal from "~/component/Modal"
 import React, { useEffect } from "react"
 import { Dispatch } from "redux"
 import { connect } from "react-redux"

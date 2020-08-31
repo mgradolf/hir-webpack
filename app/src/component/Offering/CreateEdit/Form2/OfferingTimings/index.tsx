@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Divider } from "antd"
-import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { getTerms } from "~/ApiServices/Service/RefLookupService"
-import DefineCreationTime from "~/Component/Offering/CreateEdit/Form2/OfferingTimings/DefineCreationTime"
-import DefineTerminationTime from "~/Component/Offering/CreateEdit/Form2/OfferingTimings/DefineTerminationTime"
+import DefineCreationTime from "~/component/Offering/CreateEdit/Form2/OfferingTimings/DefineCreationTime"
+import DefineTerminationTime from "~/component/Offering/CreateEdit/Form2/OfferingTimings/DefineTerminationTime"
 
 interface IOfferingTimings {
   fieldNames: IOfferingFieldNames
