@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography, Space, Dropdown, Menu } from "antd"
-import { DownOutlined } from "@ant-design/icons"
+import { Row, Col, Table, Typography, Space } from "antd"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
