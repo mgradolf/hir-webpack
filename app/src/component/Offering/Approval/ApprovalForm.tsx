@@ -9,7 +9,6 @@ const { TextArea } = Input
 interface IOfferingApprovalFormProps {
   offeringID: number
   formInstance: FormInstance
-  initialFormValue: { [key: string]: any }
   onFormSubmission: () => void
   handleCancel: () => void
 }
@@ -28,16 +27,6 @@ const layout = {
 
 export default function ApprovalForm(props: IOfferingApprovalFormProps) {
   const actions = []
-  actions.push(
-    <Button
-      onClick={() => {
-        console.log(props.formInstance.getFieldsValue())
-        console.log(props)
-      }}
-    >
-      Cancel
-    </Button>
-  )
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
   actions.push(<Button onClick={props.onFormSubmission}>Submit</Button>)
 
@@ -62,11 +51,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
 
   return (
     <Card title="Offering Approval" actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
         <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.OfferingID}>
           <Input value={props.offeringID ? props.offeringID : undefined} />
         </Form.Item>

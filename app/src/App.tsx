@@ -14,6 +14,7 @@ import OfferingPage from "~/pages/Offering/index"
 import OfferingDetailsPage from "~/pages/Offering/offeringDetails"
 import OfferingFinancialPage from "~/pages/Offering/Financial"
 import OfferingCatalogPage from "~/pages/Offering/Catalog"
+import OfferingRequisitePage from "~/pages/Offering/Requisite"
 import OfferingApprovalPage from "~/pages/Offering/Approval"
 import OfferingTaggPage from "~/pages/Offering/Tag"
 
@@ -43,6 +44,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/offering/:id/financial" component={OfferingFinancialPage} />
       <Route exact path="/offering/:id/catalog" component={OfferingCatalogPage} />
       <Route exact path="/offering/:id/approval" component={OfferingApprovalPage} />
+      <Route exact path="/offering/:id/requisite" component={OfferingRequisitePage} />
       <Route exact path="/offering/:id/tag" component={OfferingTaggPage} />
       <Route component={NotFoundPage} />
     </Switch>
