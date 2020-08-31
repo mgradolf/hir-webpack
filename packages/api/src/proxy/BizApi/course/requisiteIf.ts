@@ -5,7 +5,8 @@ export const config: Iconfig = {
   Service: "com.jenzabar.jxntm.server.bizapi.course.RequisiteIF",
   Module: "hir",
   Actions: {
-    deleteGroup: "deleteGroup"
+    deleteGroup: "deleteGroup",
+    deleteOfferingFromGroup: "deleteOfferingFromGroup"
   }
 }
 

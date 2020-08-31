@@ -8,7 +8,7 @@ import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
 
 import PrerequisiteGroupOfferingModalOpenButton from "~/component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
 import PrerequisiteGroups from "~/component/Offering/Requisite/PrerequisiteGroups"
-import RequisiteRemoveLink from "~/component/Offering/Requisite/RequisiteRemoveLink"
+import RequisiteOfferingRemoveLink from "~/component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventList"
 import EventBus from "~/utils/EventBus"
 
@@ -39,7 +39,7 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <RequisiteRemoveLink offeringId={record.OfferingID} requisiteGroupId={record.RequisiteGroupID} />
+          <RequisiteOfferingRemoveLink offeringId={record.OfferingID} requisiteGroupId={requisiteGroupID} />
         </Space>
       )
     }
@@ -52,10 +52,10 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
   const [policyTypeList, setPolicyTypeList] = useState<Array<any>>([])
   const [offeringRequisiteGroupDetails, setofferingRequisiteGroupDetails] = useState<Array<any>>([])
 
-  const loadOfferingRequisiteGroupDetails = async function () {
+  const loadOfferingRequisiteGroupDetails = async function (requisiteGroupID: number) {
     setLoading(true)
 
-    const result = await getGroupOfferings(Number(requisiteGroupID))
+    const result = await getGroupOfferings(requisiteGroupID)
 
     if (result && result.success) {
       setLoading(false)
@@ -70,15 +70,13 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
 
   useEffect(() => {
     const loadOfferingRequisiteGroup = async function () {
-      setLoading(true)
-
       const result = await getRequisiteOfferingGroup(Number(offeringID))
 
       if (result && result.success && Array.isArray(result.data) && result.data.length > 0) {
-        setLoading(false)
         setRequisiteGroupID(result.data[0].RequisiteOfferingGroupID)
         setHasRequisiteGroup(true)
         setPolicyTypeList(result.data)
+        loadOfferingRequisiteGroupDetails(result.data[0].RequisiteOfferingGroupID)
       }
     }
     EventBus.subscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE, loadOfferingRequisiteGroup)
@@ -90,7 +88,7 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
 
   const handleSelection = (param: any) => {
     setRequisiteGroupID(param.RequisiteGroupID)
-    loadOfferingRequisiteGroupDetails()
+    loadOfferingRequisiteGroupDetails(param.RequisiteGroupID)
   }
 
   return (
