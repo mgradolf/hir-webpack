@@ -55,3 +55,13 @@ export interface IOfferingApprovalFieldNames {
   Remarks: string
   IsNotifyByEmail: string
 }
+
+export interface IOfferingRequisiteGroupFieldNames {
+  OfferingID: string
+  PolicyTypeID: string
+  PolicyValue: string
+  Name: string
+  IsInformational: string
+  CatalogNarrative: string
+  RequisiteOfferingGroupID: string
+}

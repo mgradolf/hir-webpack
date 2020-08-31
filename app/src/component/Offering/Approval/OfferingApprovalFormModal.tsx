@@ -1,8 +1,7 @@
 import * as React from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/component/Modal"
-import { useEffect, useState } from "react"
-import FinancialForm from "~/component/Offering/Financial/FinancialForm"
+import { useState } from "react"
 import ApprovalForm from "~/component/Offering/Approval/ApprovalForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
@@ -18,7 +17,6 @@ interface IOfferingApprovalProps {
 }
 
 function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingApprovalProps) {
-  const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [formInstance] = Form.useForm()
   const [offeringApprovalLoading, setofferingApprovalLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -28,7 +26,6 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
     if (closeOfferingApprovalModal) {
       closeOfferingApprovalModal()
     }
-    console.log("initialFormValue ", initialFormValue)
   }
 
   const handleOk = async () => {
@@ -72,7 +69,6 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
           )}
           <ApprovalForm
             offeringID={offeringID}
-            initialFormValue={initialFormValue}
             formInstance={formInstance}
             handleCancel={handleCancel}
             onFormSubmission={handleOk}

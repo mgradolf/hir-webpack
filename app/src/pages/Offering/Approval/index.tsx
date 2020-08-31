@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react"
 import moment from "moment"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography, Space, Dropdown, Menu } from "antd"
-import { DownOutlined } from "@ant-design/icons"
+import { Row, Col, Table, Typography } from "antd"
 import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Approval/Approval.module.scss"
 
 import OfferingApprovalModalOpenButton from "~/component/Offering/Approval/OfferingApprovalModalOpenButton"
-import FinancialEditLink from "~/component/Offering/Financial/FinancialEditLink"
-import FinancialRemoveLink from "~/component/Offering/Financial/FinancialRemoveLink"
 import { REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventList"
 import EventBus from "~/utils/EventBus"
 

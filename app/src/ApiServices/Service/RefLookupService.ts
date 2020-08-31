@@ -66,3 +66,9 @@ export function getTagTypes(): Promise<IApiResponse> {
     LookUpName: "TagType"
   })
 }
+
+export function getPolicyTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "OfferingGroupPolicyType"
+  })
+}
