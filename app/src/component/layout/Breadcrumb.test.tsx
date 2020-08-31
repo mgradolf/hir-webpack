@@ -2,7 +2,7 @@ import { store, history } from "~/store"
 import { push, ConnectedRouter } from "connected-react-router"
 import React from "react"
 import { ReactWrapper, mount } from "enzyme"
-import { Breadcrumb } from "~/component/layout/Breadcrumb"
+import { Breadcrumb } from "~/Component/layout/Breadcrumb"
 import { Provider } from "react-redux"
 
 const TEST_PATH_NAME = "/sample/route/hello-world"

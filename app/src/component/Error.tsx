@@ -1,5 +1,5 @@
 import * as React from "react"
-import styles from "~/component/Error.module.scss"
+import styles from "~/Component/Error.module.scss"
 
 export function Error(
   props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>

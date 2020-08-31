@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import style from "~/component/Modal/modal.module.scss"
+import style from "~/Component/Modal/modal.module.scss"
 import { Row, Col, Spin, Card } from "antd"
 import zIndexLevel from "~/utils/zIndex"
 

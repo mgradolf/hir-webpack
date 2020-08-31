@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Form, Divider, Select, Switch } from "antd"
-import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import {
   getOfferingStatusTypes,

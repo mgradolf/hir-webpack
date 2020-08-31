@@ -6,7 +6,7 @@ import { Row, Col, Table, Typography } from "antd"
 import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Approval/Approval.module.scss"
 
-import OfferingApprovalModalOpenButton from "~/component/Offering/Approval/OfferingApprovalModalOpenButton"
+import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/OfferingApprovalModalOpenButton"
 import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography

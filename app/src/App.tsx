@@ -18,7 +18,7 @@ import OfferingApprovalPage from "~/pages/Offering/Approval"
 import OfferingTaggPage from "~/pages/Offering/Tag"
 
 import Layout from "~/Layout"
-import ModalContainer from "~/component/Modal/ModalContainer"
+import ModalContainer from "~/Component/Modal/ModalContainer"
 
 interface AppProps {
   store: AppStore

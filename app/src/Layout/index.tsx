@@ -1,6 +1,6 @@
 import React from "react"
 import { Layout as AntdLayout } from "antd"
-import { Header, Breadcrumb } from "~/component/layout"
+import { Header, Breadcrumb } from "~/Component/layout"
 
 const { Footer, Content } = AntdLayout
 

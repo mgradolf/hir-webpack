@@ -3,7 +3,7 @@ import moment from "moment"
 import { Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
 
 import { DownOutlined } from "@ant-design/icons"
-import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offering"
+import { SelectedFilters, FilterColumn, IFilterValues } from "~/Component/Offering"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
