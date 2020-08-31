@@ -19,7 +19,9 @@ export const config = {
     getRequisiteOfferingGroup: "getRequisiteOfferingGroup",
     getGroupOfferings: "getGroupOfferings",
     createRequisiteOfferingGroup: "createRequisiteOfferingGroup",
-    updateRequisiteOfferingGroup: "updateRequisiteOfferingGroup"
+    updateRequisiteOfferingGroup: "updateRequisiteOfferingGroup",
+    getQualifiedInstructors: "getQualifiedInstructors",
+    updateInstructors: "updateInstructors"
   }
 }
 
