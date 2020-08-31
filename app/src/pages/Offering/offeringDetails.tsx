@@ -32,7 +32,7 @@ function generateMenu(record: any) {
         </Menu.Item>
       )}
       <Menu.Item key="5">
-        <Link to={"/"}>Qualified Instructors</Link>
+        <Link to={`/offering/${record.OfferingID}/instructor`}>Qualified Instructors</Link>
       </Menu.Item>
     </Menu>
   )

@@ -72,3 +72,17 @@ export function createRequisiteOfferingGroup(Params: { [key: string]: any }): Pr
 export function updateRequisiteOfferingGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OfferingService[config.Actions.updateRequisiteOfferingGroup](Params)
 }
+
+/* -------------------------------------------------------------------------- */
+/*                         offering qualified instructor section              */
+/* -------------------------------------------------------------------------- */
+export function getQualifiedInstructors(OfferingID: number): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getQualifiedInstructors]({ OfferingID })
+}
+
+export function updateInstructors(OfferingID: number, InstructorIDs: Array<number>): Promise<IApiResponse> {
+  return OfferingService[config.Actions.updateInstructors]({
+    OfferingID,
+    InstructorIDs
+  })
+}
