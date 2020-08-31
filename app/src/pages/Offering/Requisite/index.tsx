@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import moment from "moment"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography, Space, Button } from "antd"
+import { Row, Col, Table, Typography, Space } from "antd"
 import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Row, Col, Button, Typography, Select, Divider } from "antd"
+import { Row, Col, Typography, Select, Divider } from "antd"
 
 import RequisiteGroupEdit from "~/component/Offering/Requisite/RequisiteEditLink"
 import RequisiteRemoveLink from "~/component/Offering/Requisite/RequisiteRemoveLink"

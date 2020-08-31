@@ -1,6 +1,6 @@
 import React from "react"
 import { Button } from "antd"
-import { removeOfferingRequisiteGroupById } from "~/ApiServices/Service/EntityService"
+import { removeOfferingRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import EventBus from "~/utils/EventBus"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventList"
 
@@ -16,7 +16,7 @@ function RequisiteRemoveLink(props: IRequisiteRemoveLinkProp) {
       onClick={async () => {
         if (props.requisiteGroupId !== undefined) {
           console.log("Requsite group id: " + props.requisiteGroupId)
-          const response = await removeOfferingRequisiteGroupById(props.requisiteGroupId)
+          const response = await removeOfferingRequisiteGroup([props.requisiteGroupId])
           if (response.success) {
             EventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
           }

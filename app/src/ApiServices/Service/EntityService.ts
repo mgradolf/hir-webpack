@@ -34,10 +34,3 @@ export function getOfferingRequisiteGroupById(EntityID: number): Promise<IApiRes
     EntityID
   })
 }
-
-export function removeOfferingRequisiteGroupById(EntityID: number): Promise<IApiResponse> {
-  return EntityService[config.Actions.removeEntity]({
-    EntityType: entities.RequisiteOfferingGroup,
-    EntityID
-  })
-}

@@ -18,7 +18,6 @@ interface IOfferingApprovalProps {
 
 function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingApprovalProps) {
   const [formInstance] = Form.useForm()
-  const [offeringApprovalLoading, setofferingApprovalLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<string>>([])
 
@@ -54,7 +53,6 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
     <Modal
       showModal={true}
       width="800px"
-      loading={offeringApprovalLoading}
       apiCallInProgress={apiCallInProgress}
       children={
         <>
