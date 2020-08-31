@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "~/pages/Login/LoginPage.module.scss"
 import { Layout } from "antd"
-import Login from "~/Component/Login/Login"
+import Login from "~/component/Login/Login"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { push } from "connected-react-router"

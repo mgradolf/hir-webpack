@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { Form, Radio, DatePicker, Select, Input, Col, Row } from "antd"
-import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { RadioChangeEvent } from "antd/lib/radio"
-import DefineDurationTime from "~/Component/Offering/CreateEdit/Form2/OfferingTimings/DefineDurationTime"
+import DefineDurationTime from "~/component/Offering/CreateEdit/Form2/OfferingTimings/DefineDurationTime"
 import { hidden } from "~/utils/style"
 import moment from "moment"
 

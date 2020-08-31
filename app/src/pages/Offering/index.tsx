@@ -3,7 +3,7 @@ import moment from "moment"
 import { Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
 
 import { DownOutlined } from "@ant-design/icons"
-import { SelectedFilters, FilterColumn, IFilterValues } from "~/Component/Offering"
+import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offering"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
@@ -28,7 +28,7 @@ function generateMenu(record: any) {
         <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <Link to={"/"}>Requisite Management</Link>
+        <Link to={`/offering/${record.OfferingID}/requisite`}>Requisite Management</Link>
       </Menu.Item>
       <Menu.Item key="2">
         <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
@@ -42,7 +42,7 @@ function generateMenu(record: any) {
         </Menu.Item>
       )}
       <Menu.Item key="5">
-        <Link to={"/"}>Qualified Instructors</Link>
+        <Link to={`/offering/${record.OfferingID}/instructor`}>Qualified Instructors</Link>
       </Menu.Item>
     </Menu>
   )

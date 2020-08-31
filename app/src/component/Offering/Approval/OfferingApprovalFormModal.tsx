@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Form, Typography } from "antd"
-import Modal from "~/Component/Modal"
+import Modal from "~/component/Modal"
 import { useState } from "react"
-import ApprovalForm from "~/Component/Offering/Approval/ApprovalForm"
+import ApprovalForm from "~/component/Offering/Approval/ApprovalForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showOfferingApprovalModal } from "~/store/ModalState"
@@ -16,9 +16,9 @@ interface IOfferingApprovalProps {
 }
 
 function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingApprovalProps) {
-  const [initialFormValue] = useState<{ [key: string]: any }>({})
+  // const [initialFormValue] = useState<{ [key: string]: any }>({})
+  // const [offeringApprovalLoading] = useState(false)
   const [formInstance] = Form.useForm()
-  const [offeringApprovalLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages] = useState<Array<string>>([])
 
@@ -51,7 +51,6 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
     <Modal
       showModal={true}
       width="800px"
-      loading={offeringApprovalLoading}
       apiCallInProgress={apiCallInProgress}
       children={
         <>
@@ -66,7 +65,6 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
           )}
           <ApprovalForm
             offeringID={offeringID}
-            initialFormValue={initialFormValue}
             formInstance={formInstance}
             handleCancel={handleCancel}
             onFormSubmission={handleOk}

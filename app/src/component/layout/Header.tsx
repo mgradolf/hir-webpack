@@ -2,7 +2,7 @@ import React from "react"
 import { Menu, Layout } from "antd"
 import SubMenu from "antd/lib/menu/SubMenu"
 import { logout } from "~/ApiServices/Login"
-import styles from "~/Component/layout/Header.module.scss"
+import styles from "~/component/layout/Header.module.scss"
 
 const { Header: AntdHeader } = Layout
 

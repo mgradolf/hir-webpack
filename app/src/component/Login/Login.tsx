@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Form, Input, Button, Card } from "antd"
-import { Error } from "~/Component/Error"
-import style from "~/Component/Login/Login.module.scss"
+import { Error } from "~/component/Error"
+import style from "~/component/Login/Login.module.scss"
 import { Store } from "antd/lib/form/interface"
 import { login } from "~/ApiServices/Login"
 

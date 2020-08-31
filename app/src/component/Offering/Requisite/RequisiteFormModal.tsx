@@ -1,36 +1,38 @@
 import * as React from "react"
+import { useEffect, useState } from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/component/Modal"
-import { useEffect, useState } from "react"
-import FinancialForm from "~/component/Offering/Financial/FinancialForm"
+import RequisiteGroupForm from "~/component/Offering/Requisite/RequisiteGroupForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showCreateOfferingFinancialModal } from "~/store/ModalState"
-import { createOfferingFinancial, updateOfferingFinancial } from "~/ApiServices/Service/OfferingService"
-import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
+import { showCreateOfferingPrerequisiteGroupModal } from "~/store/ModalState"
+import { createRequisiteOfferingGroup, updateRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
+import { getOfferingRequisiteGroupById } from "~/ApiServices/Service/EntityService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 
-interface ICreateNewOfferingProps {
-  offeringFinancialId?: number
+interface IOfferingRequisiteGroupProps {
   offeringID: number
-  closeCreateOfferingModal?: () => void
+  requisiteGroupID?: number
+  closeOfferingRequisiteGroupModal?: () => void
 }
 
-function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offeringID }: ICreateNewOfferingProps) {
+function OfferingRequisiteGroupFormModal({
+  closeOfferingRequisiteGroupModal,
+  requisiteGroupID,
+  offeringID
+}: IOfferingRequisiteGroupProps) {
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
-  const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [formInstance] = Form.useForm()
-  const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
+  const [offeringARequisiteGroupLoading, setOfferingARequisiteGroupLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
-    if (closeCreateOfferingModal) {
-      closeCreateOfferingModal()
+    if (closeOfferingRequisiteGroupModal) {
+      closeOfferingRequisiteGroupModal()
     }
     console.log("initialFormValue ", initialFormValue)
-    console.log("editOfferingEntity ", editOfferingEntity)
   }
 
   const handleOk = async () => {
@@ -39,9 +41,9 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
     console.log("validationPassed ", validationPassed)
     const params = formInstance.getFieldsValue()
 
-    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringFinancialId
-      ? updateOfferingFinancial
-      : createOfferingFinancial
+    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = requisiteGroupID
+      ? updateRequisiteOfferingGroup
+      : createRequisiteOfferingGroup
 
     setApiCallInProgress(true)
     const response = await serviceMethoToCall(params)
@@ -49,8 +51,7 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
 
     if (response && response.success) {
       formInstance.resetFields()
-      console.log("REFRESH_OFFERING_FINANCIAL_PAGE")
-      eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
+      eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
       handleCancel()
     } else {
       console.log(response)
@@ -58,28 +59,30 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
   }
 
   useEffect(() => {
-    if (offeringFinancialId) {
+    console.log("RequisiteGroupID ", requisiteGroupID)
+
+    if (requisiteGroupID) {
       ;(async () => {
-        setofferingFinancialLoading(true)
-        const response = await getOfferingFinancialById(offeringFinancialId)
+        setOfferingARequisiteGroupLoading(true)
+        const response = await getOfferingRequisiteGroupById(requisiteGroupID)
+
         if (response && response.success) {
-          setEditOfferingEntity(response.data)
           setInitialFormValue(response.data)
         } else {
-          if (closeCreateOfferingModal) {
-            closeCreateOfferingModal()
+          if (closeOfferingRequisiteGroupModal) {
+            closeOfferingRequisiteGroupModal()
           }
         }
-        setofferingFinancialLoading(false)
+        setOfferingARequisiteGroupLoading(false)
       })()
     }
-  }, [offeringFinancialId, closeCreateOfferingModal])
+  }, [requisiteGroupID, closeOfferingRequisiteGroupModal])
 
   return (
     <Modal
       showModal={true}
       width="800px"
-      loading={offeringFinancialLoading}
+      loading={offeringARequisiteGroupLoading}
       apiCallInProgress={apiCallInProgress}
       children={
         <>
@@ -92,10 +95,11 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
               </li>
             </ul>
           )}
-          <FinancialForm
+          <RequisiteGroupForm
+            requisiteGroupID={requisiteGroupID}
             offeringID={offeringID}
-            initialFormValue={initialFormValue}
             formInstance={formInstance}
+            initialFormValue={initialFormValue}
             handleCancel={handleCancel}
             onFormSubmission={handleOk}
           />
@@ -106,7 +110,7 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingFinancialModal(false)) }
+  return { closeOfferingRequisiteGroupModal: () => dispatch(showCreateOfferingPrerequisiteGroupModal(false)) }
 }
 
-export default connect(undefined, mapDispatchToProps)(CreateNewOffering)
+export default connect(undefined, mapDispatchToProps)(OfferingRequisiteGroupFormModal)

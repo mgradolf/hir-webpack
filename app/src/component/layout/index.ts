@@ -1,2 +1,2 @@
-export * from "~/Component/layout/Breadcrumb"
-export * from "~/Component/layout/Header"
+export * from "~/component/layout/Breadcrumb"
+export * from "~/component/layout/Header"

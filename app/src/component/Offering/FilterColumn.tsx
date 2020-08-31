@@ -3,7 +3,7 @@ import { Col, Row, Checkbox, Input, Select, Button, Typography, DatePicker } fro
 import { CloseOutlined } from "@ant-design/icons"
 import moment from "moment"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
-import styles from "~/Component/Offering/FilterColumn.module.scss"
+import styles from "~/component/Offering/FilterColumn.module.scss"
 
 const { Option } = Select
 const { Title } = Typography

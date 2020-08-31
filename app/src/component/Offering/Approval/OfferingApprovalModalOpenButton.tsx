@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import { showOfferingApprovalModal } from "~/store/ModalState"
 import { Dispatch } from "redux"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
-import styles from "~/Component/Offering/Approval/ApprovalModal.module.scss"
+import styles from "~/component/Offering/Approval/ApprovalModal.module.scss"
 
 interface ICreateActionButtonProp {
   offeringId: number
