@@ -31,13 +31,15 @@ export default function ({
   }
 
   useEffect(() => {
-    document.documentElement.style.height = "100vh"
-    document.documentElement.style.overflow = "hidden"
+    if (showModal) {
+      document.documentElement.style.height = "100vh"
+      document.documentElement.style.overflow = "hidden"
+    }
     return () => {
       document.documentElement.style.height = ""
       document.documentElement.style.overflow = ""
     }
-  }, [])
+  }, [showModal, visibility])
   return (
     <>
       {showModal && visibility && (
