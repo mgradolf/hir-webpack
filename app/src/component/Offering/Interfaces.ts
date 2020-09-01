@@ -1,49 +1,68 @@
 export interface IOfferingFieldNames {
-  OfferingID: string
-  OfferingTypeID: string
-  OfferingCode: string
-  Name: string
-  Description: string
-  URL: string
+  OfferingID: any
+  OfferingTypeID: any
+  OfferingCode: any
+  Name: any
+  Description: any
+  URL: any
 
-  CreationDate: string
-  StartTermID: string
+  CreationDate: any
+  StartTermID: any
 
-  TerminationDate: string
-  RecurrenceRule: string
-  EndTermID: string
+  TerminationDate: any
+  EndTermID: any
 
-  OfferingStatusCodeID: string
-  OrganizationID: string
-  IsQuickAdmit: string
+  RecurrenceRule: any
 
-  HasApprovalProcess: string
+  OfferingStatusCodeID: any
+  OrganizationID: any
+  IsQuickAdmit: any
 
-  SubmitInquiryToUserID: string
-  PaymentGatewayAccountID: string
+  HasApprovalProcess: any
 
-  DefaultSectionTypeID: string
+  SubmitInquiryToUserID: any
+  PaymentGatewayAccountID: any
 
-  OfferingStatusReleaseID: string
-  CourseID: string
-  EffectiveCreationDate: string
-  EffectiveTerminationDate: string
-  OfferingUsageType: string
+  DefaultSectionTypeID: any
+
+  OfferingStatusReleaseID: any
+  CourseID: any
+  EffectiveCreationDate: any
+  EffectiveTerminationDate: any
+  OfferingUsageType: any
 }
 
 export interface IOfferingFinancialFieldNames {
-  IsCharge: string
-  FinancialBasisTypeID: string
-  Description: string
-  ItemUnitAmount: string
-  GLAccountID: string
-  IsActive: string
-  FinancialTypeID: string
-  oca: string
-  Weight: string
-  FinancialID: string
-  IsOptional: string
-  FinancialCategoryTypeID: string
-  ApplyToID: string
-  IsTaxable: string
+  IsCharge: any
+  FinancialBasisTypeID: any
+  Description: any
+  ItemUnitAmount: any
+  GLAccountID: any
+  IsActive: any
+  FinancialTypeID: any
+  oca: any
+  Weight: any
+  FinancialID: any
+  IsOptional: any
+  FinancialCategoryTypeID: any
+  ApplyToID: any
+  IsTaxable: any
+}
+
+export interface IOfferingApprovalFieldNames {
+  OfferingID: any
+  StatusID: any
+  UserLogin: any
+  Remarks: any
+  IsNotifyByEmail: any
+}
+
+export interface IOfferingRequisiteGroupFieldNames {
+  OfferingID: string
+  PolicyTypeID: string
+  PolicyValue: string
+  Name: string
+  IsInformational: string
+  CatalogNarrative: string
+  RequisiteOfferingGroupID: string
 }

@@ -1,5 +1,11 @@
-type fn = (param?: any) => void
+export const REFRESH_OFFERING_PAGE = "REFRESH_OFFERING_PAGE"
+export const REFRESH_OFFERING_DETAILS_PAGE = "REFRESH_OFFERING_DETAILS_PAGE"
+export const REFRESH_OFFERING_FINANCIAL_PAGE = "REFRESH_OFFERING_FINANCIAL_PAGE"
+export const REFRESH_OFFERING_APPROVAL_PAGE = "REFRESH_OFFERING_APPROVAL_PAGE"
+export const REFRESH_OFFERING_TAG_PAGE = "REFRESH_OFFERING_TAG_PAGE"
+export const REFRESH_OFFERING_REQUISITE_GROUP_PAGE = "REFRESH_OFFERING_REQUISITE_GROUP_PAGE"
 
+type fn = (param?: any) => void
 class PageEventBus {
   eventListeners: { [key: string]: fn } = {}
 
@@ -31,4 +37,4 @@ class PageEventBus {
   }
 }
 
-export default new PageEventBus()
+export const eventBus = new PageEventBus()

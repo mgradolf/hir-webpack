@@ -5,32 +5,52 @@ import { FormInstance } from "antd/lib/form"
 import {} from "@ant-design/icons"
 import { RadioChangeEvent } from "antd/lib/radio"
 import { getOfferingTypes } from "~/ApiServices/Service/RefLookupService"
+import "~/sass/utils.scss"
 
 interface IOfferingCreateForm1Props {
   formInstance: FormInstance
   fieldNames: IOfferingFieldNames
   initialFormValue: { [key: string]: any }
   handleCancel: () => void
-  handleSelected: () => void
+  handleSelected: (param: { [key: string]: any }) => void
 }
 
 export default function CreateForm1(props: IOfferingCreateForm1Props) {
   const [offeringTypes, setofferingTypes] = useState<Array<any>>([])
+  const [disableRadios, setDisableRadios] = useState(false)
   const [radioValues] = useState([
     { label: "Default", value: 1000, default: true },
     { label: "Other", value: "OTHER", default: false }
   ])
   const [offeringTypesVisible, setOfferingTypesVisible] = useState(false)
   const [isSelected, setIsSelected] = useState(false)
+
   useEffect(() => {
     props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID) ? setIsSelected(true) : setIsSelected(false)
     ;(async () => {
+      setDisableRadios(true)
       const response = await getOfferingTypes()
-      if (response && response.success) {
-        setofferingTypes(response.data)
+      if (response && response.success && Array.isArray(response.data)) {
+        setofferingTypes(
+          response.data.map((x) => {
+            if (x.OfferingTypeID === 1000) {
+              x.OfferingStatusCodeID = 0
+            }
+            return x
+          })
+        )
+      }
+      setDisableRadios(false)
+
+      if (props.formInstance.getFieldValue("offeringTypeRadio") === "OTHER") {
+        setOfferingTypesVisible(true)
       }
     })()
+    return () => {
+      props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: undefined })
+    }
   }, [props])
+
   const onChangeOfferingTypes = (e: RadioChangeEvent) => {
     if (e.target.value === 1000) {
       setOfferingTypesVisible(false)
@@ -43,17 +63,17 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
     }
   }
 
+  const onSelectOtherOfferingType = () => {
+    const selectedOfferingType = offeringTypes.find(
+      (x) => x.OfferingTypeID === props.formInstance.getFieldValue(props.fieldNames.OfferingTypeID)
+    )
+    props.handleSelected(selectedOfferingType)
+  }
+
   return (
     <Card
       title="Create new Offering"
       actions={[
-        <Button
-          onClick={() => {
-            console.log(props.formInstance.getFieldsValue())
-          }}
-        >
-          Print
-        </Button>,
         <Button
           onClick={() => {
             props.handleCancel()
@@ -61,7 +81,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
         >
           Cancel
         </Button>,
-        <Button onClick={props.handleSelected} disabled={!isSelected}>
+        <Button onClick={onSelectOtherOfferingType} disabled={!isSelected}>
           Select
         </Button>
       ]}
@@ -72,7 +92,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
           name="offeringTypeRadio"
           rules={[{ required: true, message: "Please input an offering type!" }]}
         >
-          <Radio.Group>
+          <Radio.Group disabled={disableRadios}>
             {radioValues.map((opt, index) => (
               <Radio value={opt.value} key={index} onChange={onChangeOfferingTypes}>
                 {opt.label}
@@ -82,7 +102,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
         </Form.Item>
         {!offeringTypesVisible && (
           <Form.Item
-            style={{ visibility: "hidden", margin: 0, padding: 0, width: "1px", height: "1px" }}
+            className="hidden"
             label="Other offering types"
             name={props.fieldNames.OfferingTypeID}
             rules={[{ required: true, message: "Please select an offering type!" }]}
@@ -106,7 +126,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
                 offeringTypes.map((offer) => {
                   return (
                     <Select.Option key={offer.OfferingTypeID} value={offer.OfferingTypeID}>
-                      {offer.Name}
+                      {offer.OfferingTypeName}
                     </Select.Option>
                   )
                 })}

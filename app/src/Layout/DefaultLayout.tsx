@@ -1,13 +1,7 @@
 import React, { useState } from "react"
 import { Layout, Menu } from "antd"
 import { Breadcrumb } from "~/component/layout"
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined
-} from "@ant-design/icons"
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 
 // const { Footer, Content } = AntdLayout
 const { Header, Sider, Content, Footer } = Layout

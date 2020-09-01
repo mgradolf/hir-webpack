@@ -1,5 +1,5 @@
 import React from "react"
-import { Switch, Table, Card } from "antd"
+import { Switch, Table } from "antd"
 import { ColumnsType } from "antd/lib/table"
 
 interface ITagsTableProps {
@@ -46,16 +46,15 @@ export default function TagsTable(props: ITagsTableProps) {
     return data.Description ? <div style={{ padding: "5px" }}>{data.Description}</div> : <></>
   }
   return (
-    <Card title={props.title}>
-      <Table
-        columns={columns}
-        dataSource={props.data}
-        rowKey="ID"
-        pagination={{ position: ["topLeft"] }}
-        size="small"
-        loading={props.loading}
-        expandedRowRender={expandableRowRender}
-      />
-    </Card>
+    <Table
+      title={() => props.title}
+      columns={columns}
+      dataSource={props.data}
+      rowKey="ID"
+      pagination={{ position: ["topRight"] }}
+      size="small"
+      loading={props.loading}
+      expandedRowRender={expandableRowRender}
+    />
   )
 }

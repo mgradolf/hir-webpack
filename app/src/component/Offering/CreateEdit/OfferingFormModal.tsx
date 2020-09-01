@@ -8,14 +8,15 @@ import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
-import { createOffering, updateOffering } from "~/ApiServices/Service/OfferingService"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
+import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
+import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
+import { redirect } from "~/store/ConnectedRoute"
 
 interface ICreateNewOfferingProps {
   offeringId?: number
+  redirect?: (url: string) => void
   closeCreateOfferingModal?: () => void
 }
 
@@ -45,49 +46,42 @@ const fieldNames: IOfferingFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewOfferingProps) {
+function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: ICreateNewOfferingProps) {
+  const [editMode, setEditMode] = useState(false)
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
-  const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [formInstance] = Form.useForm()
   const [firstFormVisible, setFirstFormVisible] = useState(false)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [errorMessages, setErrorMessages] = useState<Array<string>>([])
+  const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
     if (closeCreateOfferingModal) {
       closeCreateOfferingModal()
     }
-    console.log("initialFormValue ", initialFormValue)
-    console.log("editOfferingEntity ", editOfferingEntity)
-
     goBackToOfferingTypeForm()
   }
 
   const handleOk = async () => {
-    if (firstFormVisible && formInstance.getFieldValue("OfferingTypeID")) {
-      onOfferingTypeSelected()
-    } else if (secondFormVisible) {
-      console.log(formInstance.getFieldsValue())
-      const validationPassed = await formInstance.validateFields()
-      console.log("validationPassed ", validationPassed)
-      const params = formInstance.getFieldsValue()
+    // const validationPassed = await formInstance.validateFields()
+    const params = formInstance.getFieldsValue() as IOfferingFieldNames
+    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
+      ? updateOffering
+      : createOffering
 
-      const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
-        ? updateOffering
-        : createOffering
+    setApiCallInProgress(true)
+    const response = await serviceMethoToCall(params)
+    setApiCallInProgress(false)
 
-      setApiCallInProgress(true)
-      const response = await serviceMethoToCall(params)
-      setApiCallInProgress(false)
-
-      if (response && response.success) {
-        formInstance.resetFields()
-        EventBus.publish(REFRESH_OFFERING_PAGE)
-        handleCancel()
-      } else {
-        console.log(response)
+    if (response && response.success) {
+      formInstance.resetFields()
+      eventBus.publish(REFRESH_OFFERING_PAGE)
+      handleCancel()
+      if (redirect) {
+        redirect(`/offering/${response.data.OfferingID}`)
       }
+    } else {
+      console.log(response)
     }
   }
 
@@ -95,9 +89,11 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
     if (offeringId) {
       ;(async () => {
         const response = await getOfferingById(offeringId)
+        setEditMode(true)
         if (response && response.success) {
-          setEditOfferingEntity(response.data)
-          setInitialFormValue(response.data)
+          Object.keys(response.data).forEach((x) => {
+            formInstance.setFieldsValue({ [x]: response.data[x] })
+          })
 
           setFirstFormVisible(false)
           setSecondFormVisible(true)
@@ -111,11 +107,36 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
       setFirstFormVisible(true)
       setSecondFormVisible(false)
     }
-  }, [offeringId, closeCreateOfferingModal])
+  }, [offeringId, closeCreateOfferingModal, formInstance])
 
-  const onOfferingTypeSelected = () => {
+  const onOfferingTypeSelected = (selectedOfferingType: { [key: string]: any }) => {
     setFirstFormVisible(false)
     setSecondFormVisible(true)
+
+    console.log(selectedOfferingType)
+    formInstance.setFieldsValue({ [fieldNames.OfferingTypeID]: selectedOfferingType.OfferingTypeID })
+    formInstance.setFieldsValue({ [fieldNames.OfferingCode]: selectedOfferingType.OfferingCode })
+    formInstance.setFieldsValue({ [fieldNames.Name]: selectedOfferingType.Name })
+    formInstance.setFieldsValue({ [fieldNames.Description]: selectedOfferingType.OfferingTypeDescription })
+    formInstance.setFieldsValue({ [fieldNames.URL]: selectedOfferingType.URL })
+    formInstance.setFieldsValue({ [fieldNames.CreationDate]: selectedOfferingType.CreationDate })
+    formInstance.setFieldsValue({ [fieldNames.StartTermID]: selectedOfferingType.CreationDateOfTermTypeID })
+    formInstance.setFieldsValue({ [fieldNames.TerminationDate]: selectedOfferingType.TerminationDate })
+    formInstance.setFieldsValue({ [fieldNames.EndTermID]: selectedOfferingType.TerminationDateOfTermTypeID })
+    formInstance.setFieldsValue({ [fieldNames.RecurrenceRule]: selectedOfferingType.RecurrenceRule })
+    formInstance.setFieldsValue({ [fieldNames.OrganizationID]: selectedOfferingType.OrganizationID })
+    formInstance.setFieldsValue({ [fieldNames.IsQuickAdmit]: selectedOfferingType.IsQuickAdmit })
+    formInstance.setFieldsValue({ [fieldNames.HasApprovalProcess]: selectedOfferingType.HasApprovalProcess })
+    formInstance.setFieldsValue({ [fieldNames.SubmitInquiryToUserID]: selectedOfferingType.SubmitInquiryToUserID })
+    formInstance.setFieldsValue({ [fieldNames.OfferingUsageType]: selectedOfferingType.OfferingUsageType })
+    formInstance.setFieldsValue({ [fieldNames.OfferingStatusCodeID]: selectedOfferingType.OfferingStatusCodeI })
+    // [fieldNames.OfferingID]: selectedOfferingType.,
+    // [fieldNames.PaymentGatewayAccountID]: selectedOfferingType.,
+    // [fieldNames.DefaultSectionTypeID]: selectedOfferingType.,
+    // [fieldNames.OfferingStatusReleaseID]: selectedOfferingType.,
+    // [fieldNames.CourseID]: selectedOfferingType.,
+    // [fieldNames.EffectiveCreationDate]: selectedOfferingType.,
+    // [fieldNames.EffectiveTerminationDate]: selectedOfferingType.,
   }
 
   const goBackToOfferingTypeForm = () => {
@@ -140,20 +161,22 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
               </li>
             </ul>
           )}
-          {firstFormVisible && (
+          {firstFormVisible && !editMode && (
             <CreateForm1
               fieldNames={fieldNames}
               initialFormValue={initialFormValue}
               formInstance={formInstance}
               handleCancel={handleCancel}
-              handleSelected={handleOk}
+              handleSelected={onOfferingTypeSelected}
             />
           )}
           {secondFormVisible && (
             <CreateForm2
+              editMode={editMode}
               fieldNames={fieldNames}
               initialFormValue={initialFormValue}
               formInstance={formInstance}
+              resetForm={setInitialFormValue}
               goBackToFirstForm={goBackToOfferingTypeForm}
               handleCancel={handleCancel}
               onFormSubmission={handleOk}
@@ -166,7 +189,10 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal }: ICreateNewO
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingModal({ value: false })) }
+  return {
+    closeCreateOfferingModal: () => dispatch(showCreateOfferingModal({ value: false })),
+    redirect: (url: string) => dispatch(redirect(url))
+  }
 }
 
 export default connect(undefined, mapDispatchToProps)(CreateNewOffering)

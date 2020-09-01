@@ -7,7 +7,6 @@ import { getSectionTypes } from "~/ApiServices/Service/RefLookupService"
 interface IOfferingDefaultSection {
   fieldNames: IOfferingFieldNames
   formInstance: FormInstance
-  initialFormValue: { [key: string]: any }
 }
 
 const layout = {
@@ -25,7 +24,6 @@ export default function OfferingDefaultSection(props: IOfferingDefaultSection) {
     })()
   }, [])
   return (
-    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
     <>
       <Divider orientation="left">Default Section</Divider>
       <Form.Item label="Default section type" name={props.fieldNames.DefaultSectionTypeID} {...layout}>
@@ -40,6 +38,5 @@ export default function OfferingDefaultSection(props: IOfferingDefaultSection) {
         </Select>
       </Form.Item>
     </>
-    // {/* </Form> */}
   )
 }
