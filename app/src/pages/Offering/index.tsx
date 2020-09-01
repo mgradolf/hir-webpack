@@ -1,6 +1,7 @@
 import * as React from "react"
 import moment from "moment"
-import { Menu, Row, Col, Table, Space, Dropdown, Typography } from "antd"
+import { Menu, Row, Col, Table, Space, Dropdown, Typography, Grid } from "antd"
+import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 
 import { DownOutlined } from "@ant-design/icons"
 import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offering"
@@ -48,15 +49,52 @@ function generateMenu(record: any) {
   )
 }
 
-function expandableRowRender(data: any) {
+function expandableRowRender(data: any, display: boolean) {
   return (
     <div style={{ border: "1px solid", padding: "5px" }}>
       <Row>
-        <Col span="8" className={styles.fontWeightBold}>
-          Description:
-        </Col>
+        <Col span="8">Description:</Col>
         <Col span="16">{data.OfferingDescription}</Col>
       </Row>
+      {display && (
+        <Row>
+          <Col span="8">Creation Date:</Col>
+          <Col span="16">{data.CreationDate}</Col>
+        </Row>
+      )}
+
+      {display && (
+        <Row>
+          <Col span="8">Termination Date:</Col>
+          <Col span="16">{data.TerminationDate}</Col>
+        </Row>
+      )}
+
+      {display && (
+        <Row>
+          <Col span="8">Status:</Col>
+          <Col span="16">{data.StatusCode}</Col>
+        </Row>
+      )}
+
+      {display && (
+        <Row>
+          <Col span="8">Department:</Col>
+          <Col span="16">{data.OrganizationName}</Col>
+        </Row>
+      )}
+      {display && (
+        <Row>
+          <Col span="8">Offering Type:</Col>
+          <Col span="16">{data.OfferingTypeName}</Col>
+        </Row>
+      )}
+      {display && (
+        <Row>
+          <Col span="8">Def Section:</Col>
+          <Col span="16">{data.SectionTypeName}</Col>
+        </Row>
+      )}
     </div>
   )
 }
@@ -68,6 +106,12 @@ function OfferingPage(props: RouteComponentProps) {
   const [offeringItems, setOfferingItems] = useState<Array<any>>([])
 
   const [filterCount, setFilterCount] = useState<number>(0)
+
+  const { useBreakpoint } = Grid
+  const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
+  const breakpoints = ["md", "lg", "xl", "xxl"]
+  const display = breakpoints.filter((x) => screens[x]).length === 0
+  console.log("display ", display)
 
   const columns = [
     {
@@ -87,33 +131,39 @@ function OfferingPage(props: RouteComponentProps) {
       title: "Creation Date",
       dataIndex: "CreationDate",
       key: "CreationDate",
+      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
       render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
     },
     {
       title: "Termination Date",
       dataIndex: "TerminationDate",
       key: "TerminationDate",
+      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
       render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
     },
     {
       title: "Status",
       dataIndex: "StatusCode",
       key: "StatusCode",
+      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
       sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
     },
     {
       title: "Department",
       dataIndex: "OrganizationName",
+      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
       key: "OrganizationName"
     },
     {
       title: "Offering Type",
       dataIndex: "OfferingTypeName",
+      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
       key: "OfferingTypeName"
     },
     {
       title: "Def Section",
       dataIndex: "SectionTypeName",
+      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
       key: "SectionTypeName"
     },
     {
@@ -185,7 +235,9 @@ function OfferingPage(props: RouteComponentProps) {
             dataSource={offeringItems}
             loading={loading}
             bordered
-            expandedRowRender={expandableRowRender}
+            expandedRowRender={(record, index, indent, expanded) => {
+              return expandableRowRender(record, display)
+            }}
             rowKey="OfferingID"
             pagination={{ position: ["topLeft"] }}
             scroll={{ x: "fit-content" }}
