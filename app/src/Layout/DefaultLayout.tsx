@@ -2,6 +2,9 @@ import React, { useState } from "react"
 import { Layout, Menu } from "antd"
 import { Breadcrumb } from "~/component/layout"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
+import styles from "~/Layout/DefaultLayout.module.scss"
+import { Link } from "react-router-dom"
+import { logout } from "~/ApiServices/Login"
 
 // const { Footer, Content } = AntdLayout
 const { Header, Sider, Content, Footer } = Layout
@@ -14,21 +17,12 @@ export default function DefaultLayout(props: ILayoutProps) {
   const [collapsed, setCollapsed] = useState(false)
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div style={{ padding: "10px" }}>
-          {!collapsed && <img src="/images/logo.png" style={{ width: "150px" }} alt="JE Home Page" />}
-          {collapsed && (
-            <img
-              src="/images/logo-single.png"
-              style={{ width: "55px", padding: "10px 0px 0 10px" }}
-              alt="JE Home Page"
-            />
-          )}
-        </div>
+      <Sider breakpoint="sm" collapsedWidth={0} trigger={null} collapsible collapsed={collapsed}>
+        <div className={[styles.expanded, collapsed ? styles.collapsed : null].join(" ")}></div>
         <Menu theme="dark" mode="inline">
           <Menu.SubMenu key="sub1" title="Manage">
             <Menu.Item key="1">
-              <a href="/">Offering</a>
+              <Link to="/offering">Offering</Link>
             </Menu.Item>
             <Menu.Item key="2">Person</Menu.Item>
             <Menu.Item key="3">Course</Menu.Item>
@@ -40,6 +34,9 @@ export default function DefaultLayout(props: ILayoutProps) {
           <Menu.SubMenu key="sub3" title="Tools">
             <Menu.Item key="7">Reports</Menu.Item>
           </Menu.SubMenu>
+          <Menu.Item key="7" onClick={logout}>
+            Logout
+          </Menu.Item>
         </Menu>
       </Sider>
 

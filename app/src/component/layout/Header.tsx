@@ -1,7 +1,6 @@
 import React from "react"
 import { Menu, Layout, Row, Col } from "antd"
 import SubMenu from "antd/lib/menu/SubMenu"
-import { logout } from "~/ApiServices/Login"
 import styles from "~/component/layout/Header.module.scss"
 
 const { Header: AntdHeader } = Layout
@@ -30,9 +29,6 @@ export function Header() {
               <Menu.Item key="7">Reports</Menu.Item>
             </SubMenu>
           </Menu>
-        </Col>
-        <Col xs={2} style={{ color: "white", textAlignLast: "right" }}>
-          <span onClick={logout}>Logout</span>
         </Col>
       </Row>
     </AntdHeader>
