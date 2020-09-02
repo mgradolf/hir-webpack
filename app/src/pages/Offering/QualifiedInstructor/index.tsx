@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router"
 
 import { Row, Col, Table, Typography, Button } from "antd"
 
-import OfferingInstructorModalOpenButton from "~/component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
+import OfferingInstructorModalOpenButton from "~/Component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
 

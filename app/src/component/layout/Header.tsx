@@ -1,7 +1,7 @@
 import React from "react"
 import { Menu, Layout, Row, Col } from "antd"
 import SubMenu from "antd/lib/menu/SubMenu"
-import styles from "~/component/layout/Header.module.scss"
+import styles from "~/Component/Layout/Header.module.scss"
 
 const { Header: AntdHeader } = Layout
 

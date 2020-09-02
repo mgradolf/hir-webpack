@@ -1,2 +1,2 @@
-export * from "~/component/Offering/SelectedFilters"
-export * from "~/component/Offering/FilterColumn"
+export * from "~/Component/Offering/SelectedFilters"
+export * from "~/Component/Offering/FilterColumn"

@@ -20,7 +20,7 @@ import OfferingTaggPage from "~/pages/Offering/Tag"
 import OfferingQualifiedInstructorPage from "~/pages/Offering/QualifiedInstructor"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
-import ModalContainer from "~/component/Modal/ModalContainer"
+import ModalContainer from "~/Component/Modal/ModalContainer"
 
 interface AppProps {
   store: AppStore

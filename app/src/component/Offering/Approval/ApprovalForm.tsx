@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Card, Button, Input, Select, Radio } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IOfferingApprovalFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingApprovalFieldNames } from "~/Component/Offering/Interfaces"
 import { getOfferingApprovalSendToList, getOfferngApprovalStateList } from "~/ApiServices/Service/OfferingService"
 
 const { TextArea } = Input

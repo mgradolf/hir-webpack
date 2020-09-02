@@ -1,6 +1,6 @@
 import React from "react"
 import { Form, Input, Row } from "antd"
-import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { hidden } from "~/utils/style"
 

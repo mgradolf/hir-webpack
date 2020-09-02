@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Modal from "~/component/Modal"
+import Modal from "~/Component/Modal"
 import { Card } from "antd"
 import zIndexLevel from "~/utils/zIndex"
 

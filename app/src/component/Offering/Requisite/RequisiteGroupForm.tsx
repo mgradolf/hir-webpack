@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Card, Button, Input, Select, Radio } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IOfferingRequisiteGroupFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingRequisiteGroupFieldNames } from "~/Component/Offering/Interfaces"
 import { getPolicyTypes } from "~/ApiServices/Service/RefLookupService"
 
 const { TextArea } = Input

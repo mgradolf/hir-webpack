@@ -4,7 +4,7 @@ import moment from "moment"
 import { RouteComponentProps, Link } from "react-router-dom"
 import { Menu, Row, Col, Button, Dropdown, Typography } from "antd"
 
-import OfferingEditLink from "~/component/Offering/CreateEdit/OfferingEditLink"
+import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
 import { DownOutlined, ReadOutlined } from "@ant-design/icons"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 

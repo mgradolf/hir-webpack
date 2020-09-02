@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Form, Radio, DatePicker, Select, Input, Col, Row } from "antd"
-import { IOfferingFieldNames } from "~/component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { RadioChangeEvent } from "antd/lib/radio"
 import { hidden } from "~/utils/style"

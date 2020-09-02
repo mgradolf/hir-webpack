@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Layout, Menu } from "antd"
-import { Breadcrumb } from "~/component/layout"
+import { Breadcrumb } from "~/Component/Layout"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 import styles from "~/Layout/DefaultLayout.module.scss"
 import { Link } from "react-router-dom"
