@@ -19,8 +19,8 @@ import OfferingApprovalPage from "~/pages/Offering/Approval"
 import OfferingTaggPage from "~/pages/Offering/Tag"
 import OfferingQualifiedInstructorPage from "~/pages/Offering/QualifiedInstructor"
 
-import Layout from "~/Layout"
-import ModalContainer from "~/component/Modal/ModalContainer"
+import DefaultLayout from "~/Layout/DefaultLayout"
+import ModalContainer from "~/Component/Modal/ModalContainer"
 
 interface AppProps {
   store: AppStore
@@ -56,7 +56,7 @@ function App(props: AppProps): JSX.Element {
       <ModalContainer />
       <ConnectedRouter history={props.history}>
         {/* Should be refactored later as condition check gets repeated */}
-        {props.redirectToLogin ? route : <Layout>{route}</Layout>}
+        {props.redirectToLogin ? route : <DefaultLayout>{route}</DefaultLayout>}
       </ConnectedRouter>
     </Provider>
   )

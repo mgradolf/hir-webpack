@@ -49,6 +49,10 @@ const tagGlobalErrors = (response: IApiResponse) => {
       response.type = ErrorType.GLOBAL
       response.errorMessage = retireveErrorText(response, "Forbidden")
       break
+    case 404:
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "Resource not found")
+      break
     case 500:
       response.type = ErrorType.GLOBAL
       response.errorMessage = retireveErrorText(response, "Internal Server Error")
@@ -75,7 +79,15 @@ const tagGlobalErrors = (response: IApiResponse) => {
 export const handleResponse = (promise: Promise<any>): Promise<IApiResponse> => {
   return promise
     .then((response: AxiosResponse<any>) => {
-      return <IApiResponse>response.data
+      let result = <IApiResponse>response.data
+      if (
+        result.code === 200 &&
+        ((Array.isArray(result.data) && result.data.length === 0) || result.data === "" || !result.data)
+      ) {
+        result.code = 404
+        result = tagGlobalErrors(result)
+      }
+      return result
     })
     .catch((error: AxiosError) => Promise.resolve(handleError(error)))
 }
