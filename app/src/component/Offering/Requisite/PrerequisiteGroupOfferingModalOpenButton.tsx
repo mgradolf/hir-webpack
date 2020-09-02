@@ -11,9 +11,9 @@ interface ICreateActionButtonProp {
 }
 
 function CreateActionButton(props: ICreateActionButtonProp) {
-  const onClick = () => {
-    if (props.openAddOfferingRequisiteGroupModal) props.openAddOfferingRequisiteGroupModal(props.offeringId)
-  }
+  // const onClick = () => {
+  //   if (props.openAddOfferingRequisiteGroupModal) props.openAddOfferingRequisiteGroupModal(props.offeringId)
+  // }
   return (
     <Row style={{ padding: "10px" }}>
       <Col span={12}>

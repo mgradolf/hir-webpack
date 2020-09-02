@@ -6,7 +6,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/component/Offering/FilterColumn.module.scss"
 
 const { Option } = Select
-const { Title, Text } = Typography
+const { Title } = Typography
 
 export interface IFilterValues {
   OfferingCode: string

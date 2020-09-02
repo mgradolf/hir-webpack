@@ -1,43 +1,77 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Breadcrumb as AntdBreadcrumb } from "antd"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { AppState } from "~/store"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
 
-function transformRouteToLabel(route: string): string {
+function transformRouteToLabel(route: string | number): string | number {
+  if (typeof route === "number") return route
   return route.replace(/\w/, (str) => str.toUpperCase()).replace(/\W/g, " ")
 }
 
 interface IBreadcrumbPath {
-  label: string
+  label: string | number
   path: string
 }
 
-const generateBreadcrumbPath = (path: string): IBreadcrumbPath[] => {
-  const breadcrumbPath = [{ path: "/", label: "Home" }]
-  const routesFollowingHome = path.split("/").slice(1)
+const cache: any = {}
+const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
+  let previousPath: any = {}
+  for (const x of paths) {
+    console.log(x)
+    if (typeof x.label === "number" && !cache[x.path]) {
+      const result: any = await getEntityById(previousPath.label, x.label)
+      if (result.success && result.data && result.data.Name) {
+        x.label = result.data.Name
+        cache[x.path] = x
+      }
+    } else if (cache[x.path]) {
+      x.label = cache[x.path].label
+    }
+    previousPath = x
+  }
+  console.log(paths)
+  return paths
+}
 
+const generateBreadcrumbPath = (path: string): IBreadcrumbPath[] => {
+  const breadcrumbPaths: Array<IBreadcrumbPath> = [{ path: "/", label: "Home" }]
+  if (path === "/") return breadcrumbPaths
+
+  const routesFollowingHome = path.split("/").slice(1)
   routesFollowingHome.reduce((path, route) => {
-    if (path === breadcrumbPath[0].path) {
+    let convertedRoute: string | number = route
+    if (!isNaN(Number(route))) {
+      convertedRoute = Number(route)
+    }
+    if (path === breadcrumbPaths[0].path) {
       path += route
     } else {
       path = `${path}/${route}`
     }
 
-    breadcrumbPath.push({ path, label: transformRouteToLabel(route) })
+    breadcrumbPaths.push({ path, label: transformRouteToLabel(convertedRoute) })
     return path
-  }, breadcrumbPath[0].path)
+  }, breadcrumbPaths[0].path)
 
-  return breadcrumbPath
+  return breadcrumbPaths
 }
 
 export function Breadcrumb() {
   const { location } = useSelector((state: AppState) => state.router)
-  const breadcrumbPath = generateBreadcrumbPath(location.pathname)
+  const [breadcrumbPaths, setBreadcrumbPaths] = useState<Array<IBreadcrumbPath>>([])
+  useEffect(() => {
+    ;(async () => {
+      let tempBreadcrumbPaths = generateBreadcrumbPath(location.pathname)
+      tempBreadcrumbPaths = await transformIdToName(tempBreadcrumbPaths)
+      setBreadcrumbPaths(tempBreadcrumbPaths)
+    })()
+  }, [location.pathname])
 
   return (
     <AntdBreadcrumb style={{ margin: "16px 0" }}>
-      {breadcrumbPath.map((item, i) => (
+      {breadcrumbPaths.map((item, i) => (
         <AntdBreadcrumb.Item key={i}>
           <Link to={item.path}>{item.label}</Link>
         </AntdBreadcrumb.Item>

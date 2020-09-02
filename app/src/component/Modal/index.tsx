@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import style from "~/component/Modal/modal.module.scss"
 import { Row, Col, Spin, Card } from "antd"
 import zIndexLevel from "~/utils/zIndex"
@@ -29,6 +29,17 @@ export default function ({
       setvisibility(false)
     }
   }
+
+  useEffect(() => {
+    if (showModal) {
+      document.documentElement.style.height = "100vh"
+      document.documentElement.style.overflow = "hidden"
+    }
+    return () => {
+      document.documentElement.style.height = ""
+      document.documentElement.style.overflow = ""
+    }
+  }, [showModal, visibility])
   return (
     <>
       {showModal && visibility && (

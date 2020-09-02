@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
 import { getTags, getParentTags, addTagIntoEntity, removeTagFromEntity } from "~/ApiServices/Service/TagService"
 import { Form, Card, Select, Input, Switch, Row, Col, Button, Spin } from "antd"
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons"
 import TagsTable from "~/component/Offering/Tag/TagsTable"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_TAG_PAGE } from "~/utils/EventList"
+import { eventBus, REFRESH_OFFERING_TAG_PAGE } from "~/utils/EventBus"
 import { hidden } from "~/utils/style"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
@@ -62,10 +61,10 @@ export default function (props: RouteComponentProps<{ id: string }>) {
   }
 
   useEffect(() => {
-    EventBus.subscribe(REFRESH_OFFERING_TAG_PAGE, loadTagTypes)
-    EventBus.publish(REFRESH_OFFERING_TAG_PAGE)
+    eventBus.subscribe(REFRESH_OFFERING_TAG_PAGE, loadTagTypes)
+    eventBus.publish(REFRESH_OFFERING_TAG_PAGE)
     return () => {
-      EventBus.unsubscribe(REFRESH_OFFERING_TAG_PAGE)
+      eventBus.unsubscribe(REFRESH_OFFERING_TAG_PAGE)
     }
   }, [])
 
@@ -101,14 +100,16 @@ export default function (props: RouteComponentProps<{ id: string }>) {
     setLoadingOfferingTagSearchResults(false)
     if (response.success && Array.isArray(response.data)) {
       setOfferingTags(
-        response.data.map((x) => {
-          x.isChecked = false
-          if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
-            x.isChecked = true
-          }
-          x.type = "Offering"
-          return x
-        })
+        response.data
+          .map((x) => {
+            x.isChecked = false
+            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
+              x.isChecked = true
+            }
+            x.type = "Offering"
+            return x
+          })
+          .sort((x, y) => Number(y.isChecked) - Number(x.isChecked))
       )
     }
   }
@@ -119,17 +120,19 @@ export default function (props: RouteComponentProps<{ id: string }>) {
     setLoadingParentTagSearchResults(false)
     if (response.success && Array.isArray(response.data)) {
       setParentTags(
-        response.data.map((x) => {
-          x.isChecked = false
-          if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
-            x.isChecked = true
-          }
-          x.Name = x.Tag
-          x.ID = x.TagID
-          x.Description = x.TagDescription
-          x.type = "Parent"
-          return x
-        })
+        response.data
+          .map((x) => {
+            x.isChecked = false
+            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
+              x.isChecked = true
+            }
+            x.Name = x.Tag
+            x.ID = x.TagID
+            x.Description = x.TagDescription
+            x.type = "Parent"
+            return x
+          })
+          .sort((x, y) => Number(y.isChecked) - Number(x.isChecked))
       )
     }
   }
@@ -189,9 +192,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
                 <Switch checkedChildren={<CheckOutlined />} unCheckedChildren={<CloseOutlined />} />
               </Form.Item>
             </Col>
-          </Row>
-          <Row>
-            <Col span={24} style={{ textAlign: "right" }}>
+            <Col span="auto" style={{ textAlign: "right" }}>
               <Button
                 type="primary"
                 onClick={searchTags}
@@ -206,8 +207,9 @@ export default function (props: RouteComponentProps<{ id: string }>) {
           </Row>
         </Form>
       </Card>
+
       <Row>
-        <Col span={12}>
+        <Col span={24}>
           <TagsTable
             title="Offering Tags"
             data={offeringTags}
@@ -215,7 +217,8 @@ export default function (props: RouteComponentProps<{ id: string }>) {
             select={addRemoveTagToOffering}
           />
         </Col>
-        <Col span={12}>
+
+        <Col span={24}>
           <TagsTable
             title="Parent Tags"
             data={parentTags}

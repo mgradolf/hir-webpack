@@ -9,8 +9,7 @@ import { showCreateOfferingPrerequisiteGroupModal } from "~/store/ModalState"
 import { createRequisiteOfferingGroup, updateRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { getOfferingRequisiteGroupById } from "~/ApiServices/Service/EntityService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventList"
+import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 
 interface IOfferingRequisiteGroupProps {
   offeringID: number
@@ -27,7 +26,7 @@ function OfferingRequisiteGroupFormModal({
   const [formInstance] = Form.useForm()
   const [offeringARequisiteGroupLoading, setOfferingARequisiteGroupLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [errorMessages, setErrorMessages] = useState<Array<string>>([])
+  const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
     if (closeOfferingRequisiteGroupModal) {
@@ -52,7 +51,7 @@ function OfferingRequisiteGroupFormModal({
 
     if (response && response.success) {
       formInstance.resetFields()
-      EventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+      eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
       handleCancel()
     } else {
       console.log(response)

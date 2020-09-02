@@ -7,8 +7,7 @@ import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offeri
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
+import { REFRESH_OFFERING_PAGE, eventBus } from "~/utils/EventBus"
 
 const { useState, useEffect } = React
 const { Title } = Typography
@@ -148,10 +147,10 @@ function OfferingPage(props: RouteComponentProps) {
       }
       setLoading(false)
     }
-    EventBus.subscribe(REFRESH_OFFERING_PAGE, loadOfferings)
-    EventBus.publish(REFRESH_OFFERING_PAGE)
+    eventBus.subscribe(REFRESH_OFFERING_PAGE, loadOfferings)
+    eventBus.publish(REFRESH_OFFERING_PAGE)
     return () => {
-      EventBus.unsubscribe(REFRESH_OFFERING_PAGE)
+      eventBus.unsubscribe(REFRESH_OFFERING_PAGE)
     }
   }, [filterData])
 
