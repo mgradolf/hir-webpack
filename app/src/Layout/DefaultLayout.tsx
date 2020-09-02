@@ -1,13 +1,10 @@
 import React, { useState } from "react"
-import { Layout, Menu } from "antd"
-import { Breadcrumb } from "~/Component/Layout"
+import { Layout } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
-import styles from "~/Layout/DefaultLayout.module.scss"
-import { Link } from "react-router-dom"
-import { logout } from "~/ApiServices/Login"
+import Sidebar from "~/Component/Layout/Sidebar"
+import { Breadcrumb } from "~/Component/Layout"
 
-// const { Footer, Content } = AntdLayout
-const { Header, Sider, Content, Footer } = Layout
+const { Header, Content, Footer } = Layout
 
 interface ILayoutProps {
   children: React.ReactNode
@@ -17,29 +14,7 @@ export default function DefaultLayout(props: ILayoutProps) {
   const [collapsed, setCollapsed] = useState(false)
   return (
     <Layout>
-      <Sider breakpoint="sm" collapsedWidth={0} trigger={null} collapsible collapsed={collapsed}>
-        <div className={[styles.expanded, collapsed ? styles.collapsed : null].join(" ")}></div>
-        <Menu theme="dark" mode="inline">
-          <Menu.SubMenu key="sub1" title="Manage">
-            <Menu.Item key="1">
-              <Link to="/offering">Offering</Link>
-            </Menu.Item>
-            <Menu.Item key="2">Person</Menu.Item>
-            <Menu.Item key="3">Course</Menu.Item>
-          </Menu.SubMenu>
-          <Menu.SubMenu key="sub2" title="Setup">
-            <Menu.Item key="5">Organization</Menu.Item>
-            <Menu.Item key="6">Reference Data</Menu.Item>
-          </Menu.SubMenu>
-          <Menu.SubMenu key="sub3" title="Tools">
-            <Menu.Item key="7">Reports</Menu.Item>
-          </Menu.SubMenu>
-          <Menu.Item key="7" onClick={logout}>
-            Logout
-          </Menu.Item>
-        </Menu>
-      </Sider>
-
+      <Sidebar collapsed={collapsed} />
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
           <MenuToggle collapsed={collapsed} setCollapsed={setCollapsed} />
