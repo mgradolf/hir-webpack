@@ -18,7 +18,19 @@ const INITIAL_FILTER_DATA: IFilterValues = {
   ToCreationDate: "",
   FromCreationDate: "",
   ToTerminationDate: "",
-  FromTerminationDate: ""
+  FromTerminationDate: "",
+  IsQuickAdmit: "",
+  StatusID: -1,
+  Coordinator: "",
+  OrganizationID: -1,
+  OfferingTypeID: -1,
+  SectionTypeID: -1,
+  InstructorID: -1,
+  showProgramOffering: "",
+  ComboSearchTagHierarchy: "",
+  ComboSearchTagTypeIDHierarchy: "",
+  ToFinalEnrollmentDate: "",
+  FromFinalEnrollmentDate: ""
 }
 
 function generateMenu(record: any) {
@@ -135,10 +147,36 @@ function OfferingPage(props: RouteComponentProps) {
     const loadOfferings = async function () {
       setLoading(true)
 
-      const params = {
-        OfferingCode: filterData.OfferingCode === "" ? "*" : filterData.OfferingCode,
-        OfferingName: filterData.OfferingName === "" ? "*" : filterData.OfferingName
-      }
+      const params: { [key: string]: any } = {}
+      params["OfferingCode"] = filterData.OfferingCode !== "" ? filterData.OfferingCode : "*"
+      params["OfferingName"] = filterData.OfferingName !== "" ? filterData.OfferingName : undefined
+      params["ToCreationDate"] = filterData.ToCreationDate !== "" ? filterData.ToCreationDate : undefined
+      params["FromCreationDate"] = filterData.FromCreationDate !== "" ? filterData.FromCreationDate : undefined
+      params["ToTerminationDate"] = filterData.ToTerminationDate !== "" ? filterData.ToTerminationDate : undefined
+      params["FromTerminationDate"] = filterData.FromTerminationDate !== "" ? filterData.FromTerminationDate : undefined
+      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? filterData.IsQuickAdmit : undefined
+      params["StatusID"] = filterData.StatusID >= 0 ? filterData.StatusID : undefined
+      params["Coordinator"] = filterData.Coordinator !== "" ? filterData.Coordinator : undefined
+      params["OrganizationID"] = filterData.OrganizationID >= 0 ? filterData.OrganizationID : undefined
+      params["OfferingTypeID"] = filterData.OfferingTypeID >= 0 ? filterData.OfferingTypeID : undefined
+      params["SectionTypeID"] = filterData.SectionTypeID >= 0 ? filterData.SectionTypeID : undefined
+      params["InstructorID"] = filterData.InstructorID >= 0 ? filterData.InstructorID : undefined
+      params["showProgramOffering"] = filterData.showProgramOffering !== "" ? filterData.showProgramOffering : undefined
+      params["ComboSearchTagHierarchy"] =
+        filterData.ComboSearchTagHierarchy !== "" ? filterData.ComboSearchTagHierarchy : undefined
+      params["ComboSearchTagTypeIDHierarchy"] =
+        filterData.ComboSearchTagTypeIDHierarchy !== "" ? filterData.ComboSearchTagTypeIDHierarchy : undefined
+      params["ToFinalEnrollmentDate"] =
+        filterData.ToFinalEnrollmentDate !== "" ? filterData.ToFinalEnrollmentDate : undefined
+      params["FromFinalEnrollmentDate"] =
+        filterData.FromFinalEnrollmentDate !== "" ? filterData.FromFinalEnrollmentDate : undefined
+
+      const objectKeys = Object.keys(params)
+      objectKeys.forEach((key) => {
+        if (!params[key]) {
+          delete params[key]
+        }
+      })
 
       const result = await searchOffering(params)
 
