@@ -6,15 +6,19 @@ import { Alert } from "antd"
 
 function ApiErrorAlert(props: any) {
   return (
-    <Alert
-      closable
-      showIcon
-      message="Error"
-      description={props.errorMessage}
-      type="error"
-      onClose={props.removeGLobalApiError}
-      style={{ position: "absolute", right: 10, top: 10, width: "400px" }}
-    />
+    <>
+      {props.errorMessage && (
+        <Alert
+          closable
+          showIcon
+          message="Error"
+          description={props.errorMessage}
+          type="error"
+          onClose={props.removeGLobalApiError}
+          style={{ position: "absolute", right: 10, top: 10, width: "400px" }}
+        />
+      )}
+    </>
   )
 }
 
