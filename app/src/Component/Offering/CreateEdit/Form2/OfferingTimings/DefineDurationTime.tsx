@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Form, Input, Row } from "antd"
 import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
@@ -16,6 +16,73 @@ interface IDefineTime extends IOfferingTimings {
 interface IDefineDurationTime extends IDefineTime {
   disableDuration: boolean
 }
+
+interface IValues {
+  [key: string]: string
+}
+
+interface IDurationValues extends IValues {
+  byYear: string
+  byMonth: string
+  byWeek: string
+  byDay: string
+  byHour: string
+  byMinute: string
+}
+
+function getDurationFromRule(referenceString: string) {
+  const periodRegex = "P(\\dY)?(\\dM)?(\\dW)?(\\dD)?"
+  const timeRegex = "T(\\dH)?(\\dM)?"
+  const regExp = new RegExp(`^${periodRegex}|${timeRegex}$`, "g")
+
+  const outputObject: Partial<IDurationValues> = {}
+
+  function extractNumber(inputString: string) {
+    return inputString.replace(/\D+/g, "")
+  }
+
+  let match
+  while ((match = regExp.exec(referenceString))) {
+    if (new RegExp(periodRegex).test(match[0])) {
+      for (let i = 1; i < match.length - 1; i++) {
+        if (match[i]) {
+          if (/\dY/.test(match[i])) {
+            outputObject.byYear = extractNumber(match[i])
+          }
+
+          if (/\dM/.test(match[i])) {
+            outputObject.byMonth = extractNumber(match[i])
+          }
+
+          if (/\dW/.test(match[i])) {
+            outputObject.byWeek = extractNumber(match[i])
+          }
+
+          if (/\dD/.test(match[i])) {
+            outputObject.byDay = extractNumber(match[i])
+          }
+        }
+      }
+    }
+
+    if (new RegExp(timeRegex).test(match[0])) {
+      for (let i = 1; i < match.length; i++) {
+        if (match[i]) {
+          if (/\dH/.test(match[i])) {
+            outputObject.byHour = extractNumber(match[i])
+          }
+
+          if (/\dM/.test(match[i])) {
+            outputObject.byMinute = extractNumber(match[i])
+          }
+        }
+      }
+    }
+  }
+
+  return outputObject
+}
+
 export default function DefineDurationTime(props: IDefineDurationTime) {
   const fieldnames = {
     byYear: "byYear",
@@ -25,6 +92,21 @@ export default function DefineDurationTime(props: IDefineDurationTime) {
     byHour: "byHour",
     byMinute: "byMinute"
   }
+
+  useEffect(() => {
+    function setDurationValues() {
+      const rule = props.formInstance.getFieldValue(props.fieldNames.RecurrenceRule)
+      if (rule) {
+        const durationValues = getDurationFromRule(rule)
+        Object.keys(durationValues).forEach((field) => {
+          props.formInstance.setFieldsValue({ [field]: durationValues[field] })
+        })
+      }
+    }
+
+    setDurationValues()
+  }, [props.formInstance, props.fieldNames.RecurrenceRule])
+
   const onChange = () => {
     let byYear = props.formInstance.getFieldValue(fieldnames.byYear)
     byYear = byYear ? byYear + "Y" : ""

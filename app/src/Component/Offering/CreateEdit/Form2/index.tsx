@@ -37,7 +37,9 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
   actions.push(<Button onClick={props.onFormSubmission}>Submit</Button>)
   return (
     <Card
-      title={props.editMode ? `Edit '${props.initialFormValue.Name}' Offering` : "Create new offering"}
+      title={
+        props.editMode ? `Edit '${props.formInstance.getFieldValue("OfferingCode")}' Offering` : "Create new offering"
+      }
       actions={actions}
     >
       <Form
