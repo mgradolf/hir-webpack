@@ -6,7 +6,6 @@ import { FormInstance } from "antd/lib/form"
 interface IOfferingDetails {
   fieldNames: IOfferingFieldNames
   formInstance: FormInstance
-  initialFormValue: { [key: string]: any }
 }
 
 const layout = {
@@ -15,7 +14,6 @@ const layout = {
 
 export default function OfferingDetails(props: IOfferingDetails) {
   return (
-    // <Form hideRequiredMark form={props.formInstance} initialValues={props.initialFormValue}>
     <>
       <Divider orientation="left">Offering</Divider>
       <Form.Item
@@ -51,6 +49,5 @@ export default function OfferingDetails(props: IOfferingDetails) {
         <Input />
       </Form.Item>
     </>
-    // </Form>
   )
 }

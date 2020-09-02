@@ -9,8 +9,7 @@ import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
 import PrerequisiteGroupOfferingModalOpenButton from "~/component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
 import PrerequisiteGroups from "~/component/Offering/Requisite/PrerequisiteGroups"
 import RequisiteOfferingRemoveLink from "~/component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
-import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventList"
-import EventBus from "~/utils/EventBus"
+import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -79,10 +78,10 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
         loadOfferingRequisiteGroupDetails(result.data[0].RequisiteOfferingGroupID)
       }
     }
-    EventBus.subscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE, loadOfferingRequisiteGroup)
-    EventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+    eventBus.subscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE, loadOfferingRequisiteGroup)
+    eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
     return () => {
-      EventBus.unsubscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+      eventBus.unsubscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
     }
   }, [offeringID])
 

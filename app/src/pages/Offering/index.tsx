@@ -7,8 +7,7 @@ import { SelectedFilters, FilterColumn, IFilterValues } from "~/component/Offeri
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_PAGE } from "~/utils/EventList"
+import { REFRESH_OFFERING_PAGE, eventBus } from "~/utils/EventBus"
 
 const { useState, useEffect } = React
 const { Title } = Typography
@@ -19,7 +18,19 @@ const INITIAL_FILTER_DATA: IFilterValues = {
   ToCreationDate: "",
   FromCreationDate: "",
   ToTerminationDate: "",
-  FromTerminationDate: ""
+  FromTerminationDate: "",
+  IsQuickAdmit: "",
+  StatusID: -1,
+  Coordinator: "",
+  OrganizationID: -1,
+  OfferingTypeID: -1,
+  SectionTypeID: -1,
+  InstructorID: -1,
+  showProgramOffering: "",
+  ComboSearchTagHierarchy: "",
+  ComboSearchTagTypeIDHierarchy: "",
+  ToFinalEnrollmentDate: "",
+  FromFinalEnrollmentDate: ""
 }
 
 function generateMenu(record: any) {
@@ -43,7 +54,7 @@ function generateMenu(record: any) {
         </Menu.Item>
       )}
       <Menu.Item key="5">
-        <Link to={"/"}>Qualified Instructors</Link>
+        <Link to={`/offering/${record.OfferingID}/instructor`}>Qualified Instructors</Link>
       </Menu.Item>
     </Menu>
   )
@@ -136,10 +147,36 @@ function OfferingPage(props: RouteComponentProps) {
     const loadOfferings = async function () {
       setLoading(true)
 
-      const params = {
-        OfferingCode: filterData.OfferingCode === "" ? "*" : filterData.OfferingCode,
-        OfferingName: filterData.OfferingName === "" ? "*" : filterData.OfferingName
-      }
+      const params: { [key: string]: any } = {}
+      params["OfferingCode"] = filterData.OfferingCode !== "" ? filterData.OfferingCode : "*"
+      params["OfferingName"] = filterData.OfferingName !== "" ? filterData.OfferingName : undefined
+      params["ToCreationDate"] = filterData.ToCreationDate !== "" ? filterData.ToCreationDate : undefined
+      params["FromCreationDate"] = filterData.FromCreationDate !== "" ? filterData.FromCreationDate : undefined
+      params["ToTerminationDate"] = filterData.ToTerminationDate !== "" ? filterData.ToTerminationDate : undefined
+      params["FromTerminationDate"] = filterData.FromTerminationDate !== "" ? filterData.FromTerminationDate : undefined
+      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? filterData.IsQuickAdmit : undefined
+      params["StatusID"] = filterData.StatusID >= 0 ? filterData.StatusID : undefined
+      params["Coordinator"] = filterData.Coordinator !== "" ? filterData.Coordinator : undefined
+      params["OrganizationID"] = filterData.OrganizationID >= 0 ? filterData.OrganizationID : undefined
+      params["OfferingTypeID"] = filterData.OfferingTypeID >= 0 ? filterData.OfferingTypeID : undefined
+      params["SectionTypeID"] = filterData.SectionTypeID >= 0 ? filterData.SectionTypeID : undefined
+      params["InstructorID"] = filterData.InstructorID >= 0 ? filterData.InstructorID : undefined
+      params["showProgramOffering"] = filterData.showProgramOffering !== "" ? filterData.showProgramOffering : undefined
+      params["ComboSearchTagHierarchy"] =
+        filterData.ComboSearchTagHierarchy !== "" ? filterData.ComboSearchTagHierarchy : undefined
+      params["ComboSearchTagTypeIDHierarchy"] =
+        filterData.ComboSearchTagTypeIDHierarchy !== "" ? filterData.ComboSearchTagTypeIDHierarchy : undefined
+      params["ToFinalEnrollmentDate"] =
+        filterData.ToFinalEnrollmentDate !== "" ? filterData.ToFinalEnrollmentDate : undefined
+      params["FromFinalEnrollmentDate"] =
+        filterData.FromFinalEnrollmentDate !== "" ? filterData.FromFinalEnrollmentDate : undefined
+
+      const objectKeys = Object.keys(params)
+      objectKeys.forEach((key) => {
+        if (!params[key]) {
+          delete params[key]
+        }
+      })
 
       const result = await searchOffering(params)
 
@@ -148,10 +185,10 @@ function OfferingPage(props: RouteComponentProps) {
       }
       setLoading(false)
     }
-    EventBus.subscribe(REFRESH_OFFERING_PAGE, loadOfferings)
-    EventBus.publish(REFRESH_OFFERING_PAGE)
+    eventBus.subscribe(REFRESH_OFFERING_PAGE, loadOfferings)
+    eventBus.publish(REFRESH_OFFERING_PAGE)
     return () => {
-      EventBus.unsubscribe(REFRESH_OFFERING_PAGE)
+      eventBus.unsubscribe(REFRESH_OFFERING_PAGE)
     }
   }, [filterData])
 

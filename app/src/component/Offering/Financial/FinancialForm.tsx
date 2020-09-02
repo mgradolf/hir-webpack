@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Card, Button, Input, Select, Radio } from "antd"
+import { Card, Button, Input, Select, Radio, Switch } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingFinancialFieldNames } from "~/component/Offering/Interfaces"
 import {
@@ -8,6 +8,7 @@ import {
   getFinancialBasisType,
   getFinancialType
 } from "~/ApiServices/Service/RefLookupService"
+import "~/sass/utils.scss"
 
 interface IOfferingCreateForm2Props {
   offeringID: number
@@ -59,7 +60,6 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
   const [financialTypeId, setfinancialTypeId] = useState(1)
 
   useEffect(() => {
-    console.log("calling use effect")
     props.formInstance.setFieldsValue({ [fieldNames.ApplyToID]: props.offeringID })
     props.formInstance.setFieldsValue({ [fieldNames.FinancialTypeID]: financialTypeId })
     ;(async () => {
@@ -90,8 +90,8 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
   return (
     <Card
       title={
-        props.initialFormValue && props.initialFormValue.Name
-          ? `Edit '${props.initialFormValue.Name}' Offering financial`
+        props.initialFormValue && props.initialFormValue.FinancialID
+          ? `Edit Offering financial`
           : "Create new offering financial"
       }
       actions={actions}
@@ -101,18 +101,15 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         initialValues={props.initialFormValue}
         style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
       >
-        <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.FinancialID}>
+        <Form.Item className="hidden" name={fieldNames.FinancialID}>
           <Input value={props.financialID ? props.financialID : undefined} />
         </Form.Item>
 
-        <Form.Item
-          style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }}
-          name={fieldNames.FinancialTypeID}
-        >
+        <Form.Item className="hidden" name={fieldNames.FinancialTypeID}>
           <Input value={financialTypeId} />
         </Form.Item>
 
-        <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.ApplyToID}>
+        <Form.Item className="hidden" name={fieldNames.ApplyToID}>
           <Input value={props.offeringID} />
         </Form.Item>
 
@@ -163,23 +160,26 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item name={fieldNames.IsOptional} label="Item is Optional" {...layout}>
-          <Radio.Group>
+        <Form.Item name={fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
+          <Switch defaultChecked={props.formInstance.getFieldValue(fieldNames.IsOptional)} />
+          {/* <Radio.Group>
             <Radio value={true}>Yes</Radio>
             <Radio value={false}>No</Radio>
-          </Radio.Group>
+          </Radio.Group> */}
         </Form.Item>
-        <Form.Item name={fieldNames.IsTaxable} label="Taxable" {...layout}>
-          <Radio.Group>
+        <Form.Item name={fieldNames.IsTaxable} label="Taxable" {...layout} valuePropName="checked">
+          <Switch defaultChecked={props.formInstance.getFieldValue(fieldNames.IsTaxable)} />
+          {/* <Radio.Group>
             <Radio value={true}>Yes</Radio>
             <Radio value={false}>No</Radio>
-          </Radio.Group>
+          </Radio.Group> */}
         </Form.Item>
-        <Form.Item name={fieldNames.IsActive} label="Active" {...layout}>
-          <Radio.Group>
+        <Form.Item name={fieldNames.IsActive} label="Active" {...layout} valuePropName="checked">
+          <Switch defaultChecked={props.formInstance.getFieldValue(fieldNames.IsActive)} />
+          {/* <Radio.Group>
             <Radio value={true}>Yes</Radio>
             <Radio value={false}>No</Radio>
-          </Radio.Group>
+          </Radio.Group> */}
         </Form.Item>
 
         <Form.Item label="Weight" {...layout} name={fieldNames.Weight}>

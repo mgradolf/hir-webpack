@@ -8,8 +8,7 @@ import { Dispatch } from "redux"
 import { showOfferingApprovalModal } from "~/store/ModalState"
 import { setApprovalStatus } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import EventBus from "~/utils/EventBus"
-import { REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventList"
+import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
 
 interface IOfferingApprovalProps {
   offeringID: number
@@ -17,9 +16,11 @@ interface IOfferingApprovalProps {
 }
 
 function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingApprovalProps) {
+  // const [initialFormValue] = useState<{ [key: string]: any }>({})
+  // const [offeringApprovalLoading] = useState(false)
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [errorMessages, setErrorMessages] = useState<Array<string>>([])
+  const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
     if (closeOfferingApprovalModal) {
@@ -28,9 +29,7 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
   }
 
   const handleOk = async () => {
-    console.log(formInstance.getFieldsValue())
-    const validationPassed = await formInstance.validateFields()
-    console.log("validationPassed ", validationPassed)
+    // const validationPassed = await formInstance.validateFields()
     const params = formInstance.getFieldsValue()
 
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = setApprovalStatus
@@ -41,8 +40,7 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
 
     if (response && response.success) {
       formInstance.resetFields()
-      console.log("REFRESH_OFFERING_APPROVAL_PAGE")
-      EventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
+      eventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
       handleCancel()
     } else {
       console.log(response)

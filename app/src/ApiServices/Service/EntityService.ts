@@ -7,6 +7,13 @@ export const entities = {
   RequisiteOfferingGroup: "RequisiteOfferingGroup"
 }
 
+export function getEntityById(EntityType: string, EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.getEntity]({
+    EntityType,
+    EntityID
+  })
+}
+
 export function getOfferingById(EntityID: number): Promise<IApiResponse> {
   return EntityService[config.Actions.getEntity]({
     EntityType: entities.Offering,
