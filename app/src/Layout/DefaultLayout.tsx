@@ -3,6 +3,7 @@ import { Layout } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 import Sidebar from "~/Component/Layout/Sidebar"
 import { Breadcrumb } from "~/Component/Layout"
+import ApiErrorAlert from "~/Component/ApiErrorAlert"
 
 const { Header, Content, Footer } = Layout
 
@@ -14,6 +15,7 @@ export default function DefaultLayout(props: ILayoutProps) {
   const [collapsed, setCollapsed] = useState(false)
   return (
     <Layout>
+      <ApiErrorAlert />
       <Sidebar collapsed={collapsed} />
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
