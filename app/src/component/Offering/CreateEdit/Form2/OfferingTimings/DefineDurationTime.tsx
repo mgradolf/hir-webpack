@@ -69,7 +69,7 @@ function getDurationFromRule(referenceString: string) {
     if (new RegExp(timeRegex).test(match[0])) {
       for (let i = 1; i < match.length; i++) {
         if (match[i]) {
-          if (/\dM/.test(match[i])) {
+          if (/\dH/.test(match[i])) {
             outputObject.byHour = extractNumber(match[i])
           }
 
