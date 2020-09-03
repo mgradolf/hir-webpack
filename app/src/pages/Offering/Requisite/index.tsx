@@ -6,9 +6,9 @@ import { Row, Col, Table, Typography, Space } from "antd"
 import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
 
-import PrerequisiteGroupOfferingModalOpenButton from "~/component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
-import PrerequisiteGroups from "~/component/Offering/Requisite/PrerequisiteGroups"
-import RequisiteOfferingRemoveLink from "~/component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
+import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
+import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
+import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
 
 const { Title } = Typography
