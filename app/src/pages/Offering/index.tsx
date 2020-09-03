@@ -20,12 +20,12 @@ const INITIAL_FILTER_DATA: IFilterValues = {
   ToTerminationDate: "",
   FromTerminationDate: "",
   IsQuickAdmit: "",
-  StatusID: -1,
+  StatusID: "",
   Coordinator: "",
-  OrganizationID: -1,
-  OfferingTypeID: -1,
-  SectionTypeID: -1,
-  InstructorID: -1,
+  OrganizationID: "",
+  OfferingTypeID: "",
+  SectionTypeID: "",
+  InstructorID: "",
   showProgramOffering: "",
   ComboSearchTagHierarchy: "",
   ComboSearchTagTypeIDHierarchy: "",
@@ -155,12 +155,12 @@ function OfferingPage(props: RouteComponentProps) {
       params["ToTerminationDate"] = filterData.ToTerminationDate !== "" ? filterData.ToTerminationDate : undefined
       params["FromTerminationDate"] = filterData.FromTerminationDate !== "" ? filterData.FromTerminationDate : undefined
       params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? filterData.IsQuickAdmit : undefined
-      params["StatusID"] = filterData.StatusID >= 0 ? filterData.StatusID : undefined
+      params["StatusID"] = filterData.StatusID !== "" ? Number(filterData.StatusID) : undefined
       params["Coordinator"] = filterData.Coordinator !== "" ? filterData.Coordinator : undefined
-      params["OrganizationID"] = filterData.OrganizationID >= 0 ? filterData.OrganizationID : undefined
-      params["OfferingTypeID"] = filterData.OfferingTypeID >= 0 ? filterData.OfferingTypeID : undefined
-      params["SectionTypeID"] = filterData.SectionTypeID >= 0 ? filterData.SectionTypeID : undefined
-      params["InstructorID"] = filterData.InstructorID >= 0 ? filterData.InstructorID : undefined
+      params["OrganizationID"] = filterData.OrganizationID !== "" ? Number(filterData.OrganizationID) : undefined
+      params["OfferingTypeID"] = filterData.OfferingTypeID !== "" ? Number(filterData.OfferingTypeID) : undefined
+      params["SectionTypeID"] = filterData.SectionTypeID !== "" ? Number(filterData.SectionTypeID) : undefined
+      params["InstructorID"] = filterData.InstructorID !== "" ? Number(filterData.InstructorID) : undefined
       params["showProgramOffering"] = filterData.showProgramOffering !== "" ? filterData.showProgramOffering : undefined
       params["ComboSearchTagHierarchy"] =
         filterData.ComboSearchTagHierarchy !== "" ? filterData.ComboSearchTagHierarchy : undefined
@@ -173,7 +173,7 @@ function OfferingPage(props: RouteComponentProps) {
 
       const objectKeys = Object.keys(params)
       objectKeys.forEach((key) => {
-        if (!params[key]) {
+        if (!Boolean(params[key]) && typeof params[key] !== "number") {
           delete params[key]
         }
       })
