@@ -113,7 +113,6 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: I
     setFirstFormVisible(false)
     setSecondFormVisible(true)
 
-    console.log(selectedOfferingType)
     formInstance.setFieldsValue({ [fieldNames.OfferingTypeID]: selectedOfferingType.OfferingTypeID })
     formInstance.setFieldsValue({ [fieldNames.OfferingCode]: selectedOfferingType.OfferingCode })
     formInstance.setFieldsValue({ [fieldNames.Name]: selectedOfferingType.Name })

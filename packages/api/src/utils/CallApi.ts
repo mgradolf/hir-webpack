@@ -9,9 +9,6 @@ export default async function callApi(config: ApiConfig): Promise<IApiResponse> 
   apiErroreEventBus.publish(null)
 
   const response: IApiResponse = await handleResponse(axios.request(requestConfig))
-  // console.log("requestConfig", requestConfig)
-  // console.log("response ", response)
-  // console.log("error ", error)
 
   if (!response.success && response.error !== "" && response.type === ErrorType.GLOBAL) {
     apiErroreEventBus.publish(response)

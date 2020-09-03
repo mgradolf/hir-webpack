@@ -43,7 +43,7 @@ export default function ({
   return (
     <>
       {showModal && visibility && (
-        <>
+        <div aria-modal={true} role={"dialog"}>
           <div className={style.modal} style={{ zIndex }} onClick={closeOnClickOutside}></div>
           <div className={style.modal_content} style={{ zIndex: zIndex + 1 }}>
             {closable && (
@@ -69,7 +69,7 @@ export default function ({
               <Col flex="auto"></Col>
             </Row>
           </div>
-        </>
+        </div>
       )}
     </>
   )

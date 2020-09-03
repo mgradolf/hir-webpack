@@ -25,7 +25,6 @@ function OfferingEditLink(props: IOfferingEditLinkProp) {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     openCreateOfferingModal: (OfferingId: number) => {
-      console.log("dispacthing ", OfferingId)
       return dispatch(showCreateOfferingModal({ value: true, config: { OfferingId } }))
     }
   }

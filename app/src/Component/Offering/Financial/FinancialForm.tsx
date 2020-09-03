@@ -40,17 +40,6 @@ const layout = {
 }
 export default function FinancialForm(props: IOfferingCreateForm2Props) {
   const actions = []
-  actions.push(
-    <Button
-      onClick={() => {
-        console.log(props.formInstance.getFieldsValue())
-        console.log(props)
-        console.log(financialTypeId)
-      }}
-    >
-      Cancel
-    </Button>
-  )
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
   actions.push(<Button onClick={props.onFormSubmission}>Submit</Button>)
 

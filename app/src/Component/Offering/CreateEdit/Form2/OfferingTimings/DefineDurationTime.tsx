@@ -129,7 +129,6 @@ export default function DefineDurationTime(props: IDefineDurationTime) {
     // let recurrenceRule = "P1Y2M3W3DT2H3M"
     let recurrenceRule = "P" + byYear + byMonth + byWeek + byDay
     recurrenceRule += byHour || byMinute ? "T" + byHour + byMinute : ""
-    console.log(recurrenceRule)
     props.formInstance.setFieldsValue({ [props.fieldNames.RecurrenceRule]: recurrenceRule })
   }
 

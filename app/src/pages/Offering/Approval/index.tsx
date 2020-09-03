@@ -63,8 +63,6 @@ function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
     }
   }, [offeringID])
 
-  console.log("OffeirngID: " + offeringID)
-
   return (
     <div className="site-layout-content">
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>

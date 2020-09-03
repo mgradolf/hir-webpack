@@ -123,7 +123,6 @@ function OfferingPage(props: RouteComponentProps) {
   const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
   const breakpoints = ["md", "lg", "xl", "xxl"]
   const display = breakpoints.filter((x) => screens[x]).length === 0
-  console.log("display ", display)
 
   const columns = [
     {
