@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Form, Typography } from "antd"
+import { Form } from "antd"
 import Modal from "~/Component/Modal"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/Component/Offering/CreateEdit/Form1"
@@ -9,9 +9,6 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
-import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
-import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { redirect } from "~/store/ConnectedRoute"
 
 interface ICreateNewOfferingProps {
@@ -46,49 +43,25 @@ const fieldNames: IOfferingFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: ICreateNewOfferingProps) {
+function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [editMode, setEditMode] = useState(false)
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [formInstance] = Form.useForm()
   const [firstFormVisible, setFirstFormVisible] = useState(false)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
-    if (closeCreateOfferingModal) {
-      closeCreateOfferingModal()
+    if (props.closeCreateOfferingModal) {
+      props.closeCreateOfferingModal()
     }
     goBackToOfferingTypeForm()
   }
 
-  const handleOk = async () => {
-    // const validationPassed = await formInstance.validateFields()
-    const params = formInstance.getFieldsValue() as IOfferingFieldNames
-    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = offeringId
-      ? updateOffering
-      : createOffering
-
-    setApiCallInProgress(true)
-    const response = await serviceMethoToCall(params)
-    setApiCallInProgress(false)
-
-    if (response && response.success) {
-      formInstance.resetFields()
-      eventBus.publish(REFRESH_OFFERING_PAGE)
-      handleCancel()
-      if (redirect) {
-        redirect(`/offering/${response.data.OfferingID}`)
-      }
-    } else {
-      console.log(response)
-    }
-  }
-
   useEffect(() => {
-    if (offeringId) {
-      ;(async () => {
-        const response = await getOfferingById(offeringId)
+    ;(async () => {
+      if (props.offeringId) {
+        const response = await getOfferingById(props.offeringId)
         setEditMode(true)
         if (response && response.success) {
           Object.keys(response.data).forEach((x) => {
@@ -98,16 +71,16 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: I
           setFirstFormVisible(false)
           setSecondFormVisible(true)
         } else {
-          if (closeCreateOfferingModal) {
-            closeCreateOfferingModal()
+          if (props.closeCreateOfferingModal) {
+            props.closeCreateOfferingModal()
           }
         }
-      })()
-    } else {
-      setFirstFormVisible(true)
-      setSecondFormVisible(false)
-    }
-  }, [offeringId, closeCreateOfferingModal, formInstance])
+      } else {
+        setFirstFormVisible(true)
+        setSecondFormVisible(false)
+      }
+    })()
+  }, [props, formInstance])
 
   const onOfferingTypeSelected = (selectedOfferingType: { [key: string]: any }) => {
     setFirstFormVisible(false)
@@ -139,6 +112,7 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: I
   }
 
   const goBackToOfferingTypeForm = () => {
+    setInitialFormValue({})
     setSecondFormVisible(false)
     setFirstFormVisible(true)
   }
@@ -151,15 +125,6 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: I
       apiCallInProgress={apiCallInProgress}
       children={
         <>
-          {errorMessages.length && (
-            <ul>
-              <li>
-                {errorMessages.map((item) => {
-                  return <Typography.Text type="danger">{item}</Typography.Text>
-                })}
-              </li>
-            </ul>
-          )}
           {firstFormVisible && !editMode && (
             <CreateForm1
               fieldNames={fieldNames}
@@ -175,10 +140,8 @@ function CreateNewOffering({ offeringId, closeCreateOfferingModal, redirect }: I
               fieldNames={fieldNames}
               initialFormValue={initialFormValue}
               formInstance={formInstance}
-              resetForm={setInitialFormValue}
               goBackToFirstForm={goBackToOfferingTypeForm}
-              handleCancel={handleCancel}
-              onFormSubmission={handleOk}
+              setApiCallInProgress={setApiCallInProgress}
             />
           )}
         </>

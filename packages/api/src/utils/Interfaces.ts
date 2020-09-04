@@ -20,3 +20,8 @@ export interface IApiResponse {
   type?: ErrorType
   errorMessage?: string
 }
+
+export interface IProcessedError {
+  propertyName?: string
+  message: string
+}

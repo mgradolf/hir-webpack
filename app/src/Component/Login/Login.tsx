@@ -38,8 +38,8 @@ function Login(props: ILoginProps) {
     const { username, password } = values as IFormState
     setloading(EnumLoading.INPROGRESS)
     const response = await login(username, password)
+    setloading(EnumLoading.PENDING)
     if (props.page) {
-      setloading(EnumLoading.PENDING)
       if (response && response.success && props.redirect) {
         props.redirect("/")
       } else {

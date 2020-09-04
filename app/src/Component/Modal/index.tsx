@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import style from "~/Component/Modal/modal.module.scss"
 import { Row, Col, Spin, Card } from "antd"
 import zIndexLevel from "~/utils/zIndex"
@@ -7,6 +7,7 @@ import { Options as FocusTrapOptions } from "focus-trap"
 
 interface IModalProp {
   closable?: boolean
+  closeModal?: () => void
   showModal: boolean
   children: JSX.Element
   width?: string
@@ -17,6 +18,7 @@ interface IModalProp {
 }
 export default function ({
   closable = false,
+  closeModal,
   showModal,
   children,
   width = "200px",
@@ -47,7 +49,13 @@ export default function ({
           focusTrapOptions={focusTrapOption}
           children={
             <div id="modalContainer" tabIndex={-1}>
-              <div tabIndex={0} className={style.modal} style={{ zIndex }}></div>
+              <div
+                className={style.modal}
+                style={{ zIndex }}
+                onClick={() => {
+                  if (closable && closeModal) closeModal()
+                }}
+              ></div>
               <Row className={style.modal_content} style={{ zIndex: zIndex + 1 }}>
                 <Col flex="auto"></Col>
                 {loading && <ModalLoading {...{ width, loadingTip }} />}
