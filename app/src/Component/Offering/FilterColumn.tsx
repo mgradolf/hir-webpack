@@ -24,18 +24,27 @@ export interface IFilterValues {
   ToTerminationDate: string
   FromTerminationDate: string
   IsQuickAdmit: string
-  StatusID: number
+  StatusID: string
   Coordinator: string
-  OrganizationID: number
-  OfferingTypeID: number
-  SectionTypeID: number
-  InstructorID: number
+  OrganizationID: string
+  OfferingTypeID: string
+  SectionTypeID: string
+  InstructorID: string
   showProgramOffering: string
   ComboSearchTagHierarchy: string
   ComboSearchTagTypeIDHierarchy: string
   ToFinalEnrollmentDate: string
   FromFinalEnrollmentDate: string
 }
+
+type ISelectName =
+  | "IsQuickAdmit"
+  | "StatusID"
+  | "Coordinator"
+  | "OrganizationID"
+  | "OfferingTypeID"
+  | "SectionTypeID"
+  | "ComboSearchTagTypeIDHierarchy"
 
 const dateFormat = "MM/DD/YYYY"
 
@@ -91,7 +100,7 @@ export function FilterColumn(props: IFilterColumnProps) {
         setTagTypes(response.data)
       }
     })()
-  }, [props])
+  }, [])
 
   const { visible, toggleVisiibility, data } = props
   const [filterData, updateFilterData] = useState<IFilterValues>(data)
@@ -167,12 +176,12 @@ export function FilterColumn(props: IFilterColumnProps) {
 
   const toggleOfferingStatusBLock = (event: CheckboxChangeEvent) => {
     setOfferingStatusBLockVisible(!showOfferingStatusBlock)
-    updateFilterData({ ...filterData, StatusID: event.target.checked ? filterData.StatusID : 0 })
+    updateFilterData({ ...filterData, StatusID: event.target.checked ? filterData.StatusID : "" })
   }
 
   const toggleOfferingTypeBLock = (event: CheckboxChangeEvent) => {
     setOfferingTypeBLockVisible(!showOfferingTypeBlock)
-    updateFilterData({ ...filterData, OfferingTypeID: event.target.checked ? filterData.OfferingTypeID : 0 })
+    updateFilterData({ ...filterData, OfferingTypeID: event.target.checked ? filterData.OfferingTypeID : "" })
   }
 
   const toggleCoordinatorBLock = (event: CheckboxChangeEvent) => {
@@ -182,12 +191,12 @@ export function FilterColumn(props: IFilterColumnProps) {
 
   const toggleDepartmentBLock = (event: CheckboxChangeEvent) => {
     setDepartmentBLockVisible(!showDepartmentBlock)
-    updateFilterData({ ...filterData, OrganizationID: event.target.checked ? filterData.OrganizationID : 0 })
+    updateFilterData({ ...filterData, OrganizationID: event.target.checked ? filterData.OrganizationID : "" })
   }
 
   const toggleSectionTypeBLock = (event: CheckboxChangeEvent) => {
     setSectionTypeBLockVisible(!showSectionTypeBlock)
-    updateFilterData({ ...filterData, SectionTypeID: event.target.checked ? filterData.SectionTypeID : 0 })
+    updateFilterData({ ...filterData, SectionTypeID: event.target.checked ? filterData.SectionTypeID : "" })
   }
 
   const toggleTagBLock = (event: CheckboxChangeEvent) => {
@@ -268,6 +277,14 @@ export function FilterColumn(props: IFilterColumnProps) {
     }
   }
 
+  const onChangeSelect = (selectName: ISelectName) => {
+    return (val: string) =>
+      updateFilterData({
+        ...filterData,
+        [selectName]: val
+      })
+  }
+
   return (
     <Col className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden} xs={24} sm={24} md={5}>
       <Row>
@@ -333,7 +350,12 @@ export function FilterColumn(props: IFilterColumnProps) {
       <Row>
         <Checkbox onChange={toggleIsQuickAdmitBLock}>Is QuickAdmit</Checkbox>
         <Row className={showIsQuickAdmitBlock ? styles.offeringFilterField : styles.hidden}>
-          <Select defaultValue="1" style={{ width: 200 }}>
+          <Select
+            defaultValue="1"
+            style={{ width: 200 }}
+            value={filterData.IsQuickAdmit}
+            onChange={onChangeSelect("IsQuickAdmit")}
+          >
             <Option value="1">Yes</Option>
             <Option value="2">No</Option>
           </Select>
@@ -343,7 +365,7 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Row>
           <Checkbox onChange={toggleOfferingStatusBLock}>Offering Status</Checkbox>
           <Row className={showOfferingStatusBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }}>
+            <Select style={{ width: 200 }} value={filterData.StatusID} onChange={onChangeSelect("StatusID")}>
               {offeringStatusTypes.map((x) => {
                 return (
                   <Select.Option key={x.StatusID} value={x.StatusID}>
@@ -359,7 +381,11 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Row>
           <Checkbox onChange={toggleOfferingTypeBLock}>Offering Type</Checkbox>
           <Row className={showOfferingTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }}>
+            <Select
+              style={{ width: 200 }}
+              value={filterData.OfferingTypeID}
+              onChange={onChangeSelect("OfferingTypeID")}
+            >
               {offeringTypes.map((x) => {
                 return (
                   <Select.Option key={x.OfferingTypeID} value={x.OfferingTypeID}>
@@ -375,7 +401,7 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Row>
           <Checkbox onChange={toggleDepartmentBLock}>Department</Checkbox>
           <Row className={showDepartmentBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }}>
+            <Select style={{ width: 200 }} onChange={onChangeSelect("OrganizationID")}>
               {organizations.map((x) => {
                 return (
                   <Select.Option key={x.OrganizationTypeID} value={x.OrganizationTypeID}>
@@ -391,7 +417,7 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Row>
           <Checkbox onChange={toggleCoordinatorBLock}>Coordinator</Checkbox>
           <Row className={showCoordinatorBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }}>
+            <Select style={{ width: 200 }} value={filterData.Coordinator} onChange={onChangeSelect("Coordinator")}>
               {users.map((x) => {
                 return (
                   <Select.Option key={x.UserID} value={x.UserID}>
@@ -407,7 +433,7 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Row>
           <Checkbox onChange={toggleSectionTypeBLock}>Section Type</Checkbox>
           <Row className={showSectionTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }}>
+            <Select style={{ width: 200 }} value={filterData.SectionTypeID} onChange={onChangeSelect("SectionTypeID")}>
               {sectonTypes.map((x) => {
                 return (
                   <Select.Option key={x.SectionTypeID} value={x.SectionTypeID}>
@@ -423,7 +449,11 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Row>
           <Checkbox onChange={toggleTagBLock}>Tag Type</Checkbox>
           <Row className={showTagTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }}>
+            <Select
+              style={{ width: 200 }}
+              value={filterData.ComboSearchTagTypeIDHierarchy}
+              onChange={onChangeSelect("ComboSearchTagTypeIDHierarchy")}
+            >
               {tagTypes.map((x) => {
                 return (
                   <Select.Option key={x.ID} value={x.ID}>
