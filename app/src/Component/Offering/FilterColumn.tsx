@@ -11,7 +11,7 @@ import {
   getSectionTypes,
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { getAllUsers } from "~/ApiServices/Service/HRUserService"
+import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 
 const { Option } = Select
 const { Title } = Typography
@@ -30,9 +30,11 @@ export interface IFilterValues {
   OfferingTypeID: string
   SectionTypeID: string
   InstructorID: string
-  showProgramOffering: string
-  ComboSearchTagHierarchy: string
-  ComboSearchTagTypeIDHierarchy: string
+  ShowProgramOffering: string
+  TagName: string
+  TagTypeID: string
+  IsSearchTagHierarchy: string
+  OfferingNearCapacity: string
   ToFinalEnrollmentDate: string
   FromFinalEnrollmentDate: string
 }
@@ -44,7 +46,8 @@ type ISelectName =
   | "OrganizationID"
   | "OfferingTypeID"
   | "SectionTypeID"
-  | "ComboSearchTagTypeIDHierarchy"
+  | "TagTypeID"
+  | "IsSearchTagHierarchy"
 
 const dateFormat = "MM/DD/YYYY"
 
@@ -83,7 +86,7 @@ export function FilterColumn(props: IFilterColumnProps) {
       }
     })()
     ;(async () => {
-      const response = await getAllUsers()
+      const response = await getUsersByRole({ Role: "coordinator" })
       if (response && response.data) {
         setUsers(response.data)
       }
@@ -115,8 +118,11 @@ export function FilterColumn(props: IFilterColumnProps) {
   const [showCoordinatorBlock, setCoordinatorBLockVisible] = useState<boolean>(false)
   const [showDepartmentBlock, setDepartmentBLockVisible] = useState<boolean>(false)
   const [showSectionTypeBlock, setSectionTypeBLockVisible] = useState<boolean>(false)
+  const [showTagNameBlock, setTagNameBLockVisible] = useState<boolean>(false)
   const [showTagTypeBlock, setTagTypeBLockVisible] = useState<boolean>(false)
+  const [showIsSearchTagHierarchyBlock, setIsSearchTagHierarchyBLockVisible] = useState<boolean>(false)
   const [showFinalEnrollmentBlock, setFinalEnrollmentBLockVisible] = useState<boolean>(false)
+  const [showOfferingNearCapacityBlock, setOfferingNearCapacityBlockVisible] = useState<boolean>(false)
 
   const filterCount = [
     showOfferingCodeBlock,
@@ -129,8 +135,11 @@ export function FilterColumn(props: IFilterColumnProps) {
     showCoordinatorBlock,
     showDepartmentBlock,
     showSectionTypeBlock,
+    showTagNameBlock,
     showTagTypeBlock,
-    showFinalEnrollmentBlock
+    showIsSearchTagHierarchyBlock,
+    showFinalEnrollmentBlock,
+    showOfferingNearCapacityBlock
   ].filter(Boolean).length
 
   const fromCreationDate =
@@ -199,11 +208,24 @@ export function FilterColumn(props: IFilterColumnProps) {
     updateFilterData({ ...filterData, SectionTypeID: event.target.checked ? filterData.SectionTypeID : "" })
   }
 
+  const toggleTagNameBLock = (event: CheckboxChangeEvent) => {
+    setTagNameBLockVisible(!showTagNameBlock)
+    updateFilterData({ ...filterData, TagName: event.target.checked ? filterData.TagName : "" })
+  }
+
   const toggleTagBLock = (event: CheckboxChangeEvent) => {
     setTagTypeBLockVisible(!showTagTypeBlock)
     updateFilterData({
       ...filterData,
-      ComboSearchTagTypeIDHierarchy: event.target.checked ? filterData.ComboSearchTagTypeIDHierarchy : ""
+      TagTypeID: event.target.checked ? filterData.TagTypeID : ""
+    })
+  }
+
+  const toggleIsSearchTagHierarchyBLock = (event: CheckboxChangeEvent) => {
+    setIsSearchTagHierarchyBLockVisible(!showIsSearchTagHierarchyBlock)
+    updateFilterData({
+      ...filterData,
+      IsSearchTagHierarchy: event.target.checked ? filterData.IsSearchTagHierarchy : ""
     })
   }
 
@@ -216,6 +238,14 @@ export function FilterColumn(props: IFilterColumnProps) {
     updateFilterData({
       ...filterData,
       ToFinalEnrollmentDate: event.target.checked ? filterData.ToFinalEnrollmentDate : ""
+    })
+  }
+
+  const toggleOfferingNearCapacityBLock = (event: CheckboxChangeEvent) => {
+    setOfferingNearCapacityBlockVisible(!showOfferingNearCapacityBlock)
+    updateFilterData({
+      ...filterData,
+      OfferingNearCapacity: event.target.checked ? filterData.OfferingNearCapacity : ""
     })
   }
 
@@ -350,14 +380,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       <Row>
         <Checkbox onChange={toggleIsQuickAdmitBLock}>Is QuickAdmit</Checkbox>
         <Row className={showIsQuickAdmitBlock ? styles.offeringFilterField : styles.hidden}>
-          <Select
-            defaultValue="1"
-            style={{ width: 200 }}
-            value={filterData.IsQuickAdmit}
-            onChange={onChangeSelect("IsQuickAdmit")}
-          >
-            <Option value="1">Yes</Option>
-            <Option value="2">No</Option>
+          <Select style={{ width: 200 }} value={filterData.IsQuickAdmit} onChange={onChangeSelect("IsQuickAdmit")}>
+            <Option value="true">Yes</Option>
+            <Option value="false">No</Option>
           </Select>
         </Row>
       </Row>
@@ -420,8 +445,8 @@ export function FilterColumn(props: IFilterColumnProps) {
             <Select style={{ width: 200 }} value={filterData.Coordinator} onChange={onChangeSelect("Coordinator")}>
               {users.map((x) => {
                 return (
-                  <Select.Option key={x.UserID} value={x.UserID}>
-                    {x.UserLogin}
+                  <Select.Option key={x.UserLogin} value={x.UserLogin}>
+                    {x.FormattedName}
                   </Select.Option>
                 )
               })}
@@ -445,15 +470,24 @@ export function FilterColumn(props: IFilterColumnProps) {
           </Row>
         </Row>
       )}
+      <Row>
+        <Checkbox onChange={toggleIsSearchTagHierarchyBLock}>Is Search Tag Hierarchy</Checkbox>
+        <Row className={showIsSearchTagHierarchyBlock ? styles.offeringFilterField : styles.hidden}>
+          <Select
+            style={{ width: 200 }}
+            value={filterData.IsSearchTagHierarchy}
+            onChange={onChangeSelect("IsSearchTagHierarchy")}
+          >
+            <Option value="true">Yes</Option>
+            <Option value="false">No</Option>
+          </Select>
+        </Row>
+      </Row>
       {tagTypes.length > 0 && (
         <Row>
           <Checkbox onChange={toggleTagBLock}>Tag Type</Checkbox>
           <Row className={showTagTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select
-              style={{ width: 200 }}
-              value={filterData.ComboSearchTagTypeIDHierarchy}
-              onChange={onChangeSelect("ComboSearchTagTypeIDHierarchy")}
-            >
+            <Select style={{ width: 200 }} value={filterData.TagTypeID} onChange={onChangeSelect("TagTypeID")}>
               {tagTypes.map((x) => {
                 return (
                   <Select.Option key={x.ID} value={x.ID}>
@@ -465,6 +499,17 @@ export function FilterColumn(props: IFilterColumnProps) {
           </Row>
         </Row>
       )}
+      <Row>
+        <Checkbox onChange={toggleTagNameBLock}>Tag</Checkbox>
+        <Row className={showTagNameBlock ? styles.offeringFilterField : styles.hidden}>
+          <Input
+            name="TagName"
+            defaultValue=""
+            value={filterData.TagName === "*" ? "" : filterData.TagName}
+            onChange={handleInputChange}
+          />
+        </Row>
+      </Row>
       <Row>
         <Checkbox onChange={toggleFinalEnrollmentBLock}>Final Enrollment Date</Checkbox>
         <Row className={showFinalEnrollmentBlock ? styles.offeringFilterField : styles.hidden}>
@@ -481,6 +526,17 @@ export function FilterColumn(props: IFilterColumnProps) {
             value={toFinalEnrollmentDate}
             onChange={handleToFinalEnrollmentDateChange}
             format={dateFormat}
+          />
+        </Row>
+      </Row>
+      <Row>
+        <Checkbox onChange={toggleOfferingNearCapacityBLock}>Capacity Util</Checkbox>
+        <Row className={showOfferingNearCapacityBlock ? styles.offeringFilterField : styles.hidden}>
+          <Input
+            name="OfferingNearCapacity"
+            defaultValue=""
+            value={filterData.OfferingNearCapacity === "*" ? "" : filterData.OfferingNearCapacity}
+            onChange={handleInputChange}
           />
         </Row>
       </Row>

@@ -1,7 +1,7 @@
 import React from "react"
 import { Row, Col, Typography, Button } from "antd"
 import { connect } from "react-redux"
-import { showCreateOfferingPrerequisiteGroupModal } from "~/store/ModalState"
+import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
 import { Dispatch } from "redux"
 
 interface ICreateActionButtonProp {
@@ -11,9 +11,9 @@ interface ICreateActionButtonProp {
 }
 
 function CreateActionButton(props: ICreateActionButtonProp) {
-  // const onClick = () => {
-  //   if (props.openAddOfferingRequisiteGroupModal) props.openAddOfferingRequisiteGroupModal(props.offeringId)
-  // }
+  const onClick = () => {
+    if (props.openAddOfferingRequisiteGroupModal) props.openAddOfferingRequisiteGroupModal(props.offeringId)
+  }
   return (
     <Row style={{ padding: "10px" }}>
       <Col span={12}>
@@ -21,7 +21,9 @@ function CreateActionButton(props: ICreateActionButtonProp) {
       </Col>
       {props.hasRequisiteGroup && (
         <Col span={12} style={{ textAlign: "right" }}>
-          <Button type="primary">+ Add Offering</Button>
+          <Button type="primary" onClick={onClick}>
+            + Add Offering
+          </Button>
         </Col>
       )}
     </Row>
@@ -31,7 +33,7 @@ function CreateActionButton(props: ICreateActionButtonProp) {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     openAddOfferingRequisiteGroupModal: (offeringId: number) =>
-      dispatch(showCreateOfferingPrerequisiteGroupModal(true, { offeringId }))
+      dispatch(showAddOfferingFromRequisiteGroupModal({ value: true }))
   }
 }
 

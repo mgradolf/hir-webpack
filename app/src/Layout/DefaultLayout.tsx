@@ -21,7 +21,7 @@ export default function DefaultLayout(props: ILayoutProps) {
         <Header className="site-layout-background" style={{ padding: 0 }}>
           <MenuToggle collapsed={collapsed} setCollapsed={setCollapsed} />
         </Header>
-        <Content style={{ padding: "0 10px" }}>
+        <Content style={{ padding: "0 20px" }}>
           <Breadcrumb />
           {props.children}
         </Content>

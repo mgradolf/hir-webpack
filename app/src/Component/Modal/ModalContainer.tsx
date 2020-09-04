@@ -6,6 +6,7 @@ import CreateNewOfferingModal from "~/Component/Offering/CreateEdit/OfferingForm
 import OfferingFinancialFormModal from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApprovalFormModal"
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
+import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
 
@@ -32,6 +33,7 @@ function ModalContainer(modalState: IModalState) {
           requisiteGroupID={modalState.offeringPrerequisiteGroupModal.config.requisiteGroupId}
         />
       )}
+      {modalState.addOfferingFromRequisiteGroupModal.value && <AddOfferingFromRequisiteGroupModal />}
     </>
   )
 }

@@ -27,9 +27,11 @@ const INITIAL_FILTER_DATA: IFilterValues = {
   OfferingTypeID: "",
   SectionTypeID: "",
   InstructorID: "",
-  showProgramOffering: "",
-  ComboSearchTagHierarchy: "",
-  ComboSearchTagTypeIDHierarchy: "",
+  ShowProgramOffering: "",
+  TagName: "",
+  TagTypeID: "",
+  IsSearchTagHierarchy: "",
+  OfferingNearCapacity: "",
   ToFinalEnrollmentDate: "",
   FromFinalEnrollmentDate: ""
 }
@@ -197,6 +199,8 @@ function OfferingPage(props: RouteComponentProps) {
     const loadOfferings = async function () {
       setLoading(true)
 
+      console.log("Filter data: ", filterData)
+
       const params: { [key: string]: any } = {}
       params["OfferingCode"] = filterData.OfferingCode !== "" ? filterData.OfferingCode : "*"
       params["OfferingName"] = filterData.OfferingName !== "" ? filterData.OfferingName : undefined
@@ -204,18 +208,20 @@ function OfferingPage(props: RouteComponentProps) {
       params["FromCreationDate"] = filterData.FromCreationDate !== "" ? filterData.FromCreationDate : undefined
       params["ToTerminationDate"] = filterData.ToTerminationDate !== "" ? filterData.ToTerminationDate : undefined
       params["FromTerminationDate"] = filterData.FromTerminationDate !== "" ? filterData.FromTerminationDate : undefined
-      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? filterData.IsQuickAdmit : undefined
       params["StatusID"] = filterData.StatusID !== "" ? Number(filterData.StatusID) : undefined
       params["Coordinator"] = filterData.Coordinator !== "" ? filterData.Coordinator : undefined
       params["OrganizationID"] = filterData.OrganizationID !== "" ? Number(filterData.OrganizationID) : undefined
       params["OfferingTypeID"] = filterData.OfferingTypeID !== "" ? Number(filterData.OfferingTypeID) : undefined
       params["SectionTypeID"] = filterData.SectionTypeID !== "" ? Number(filterData.SectionTypeID) : undefined
       params["InstructorID"] = filterData.InstructorID !== "" ? Number(filterData.InstructorID) : undefined
-      params["showProgramOffering"] = filterData.showProgramOffering !== "" ? filterData.showProgramOffering : undefined
-      params["ComboSearchTagHierarchy"] =
-        filterData.ComboSearchTagHierarchy !== "" ? filterData.ComboSearchTagHierarchy : undefined
-      params["ComboSearchTagTypeIDHierarchy"] =
-        filterData.ComboSearchTagTypeIDHierarchy !== "" ? filterData.ComboSearchTagTypeIDHierarchy : undefined
+      params["ShowProgramOffering"] = filterData.ShowProgramOffering !== "" ? filterData.ShowProgramOffering : undefined
+      params["OfferingNearCapacity"] =
+        filterData.OfferingNearCapacity !== "" ? filterData.OfferingNearCapacity : undefined
+      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? Boolean(filterData.IsQuickAdmit) : undefined
+      params["IsSearchTagHierarchy"] =
+        filterData.IsSearchTagHierarchy !== "" ? Boolean(filterData.IsSearchTagHierarchy) : undefined
+      params["TagName"] = filterData.TagName !== "" ? filterData.TagName : undefined
+      params["TagTypeID"] = filterData.TagTypeID !== "" ? filterData.TagTypeID : undefined
       params["ToFinalEnrollmentDate"] =
         filterData.ToFinalEnrollmentDate !== "" ? filterData.ToFinalEnrollmentDate : undefined
       params["FromFinalEnrollmentDate"] =
