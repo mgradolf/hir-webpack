@@ -6,7 +6,8 @@ export const config: Iconfig = {
   Module: "hir",
   Actions: {
     deleteGroup: "deleteGroup",
-    deleteOfferingFromGroup: "deleteOfferingFromGroup"
+    deleteOfferingFromGroup: "deleteOfferingFromGroup",
+    addOfferingToGroup: "addOfferingToGroup"
   }
 }
 
