@@ -17,13 +17,13 @@ function generateMenu(record: any) {
         <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <Link to={"/"}>Requisite Management</Link>
+        <Link to={`/offering/${record.OfferingID}/requisite`}>Requisite Management</Link>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Link to={`/offering/${record.OfferingID}/tag`}>Offering Tag</Link>
       </Menu.Item>
       <Menu.Item key="2">
         <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Link to={"/"}>Offering Tag</Link>
       </Menu.Item>
       {record.HasApprovalProcess && (
         <Menu.Item key="4">
@@ -31,7 +31,7 @@ function generateMenu(record: any) {
         </Menu.Item>
       )}
       <Menu.Item key="5">
-        <Link to={"/"}>Qualified Instructors</Link>
+        <Link to={`/offering/${record.OfferingID}/instructor`}>Qualified Instructors</Link>
       </Menu.Item>
     </Menu>
   )

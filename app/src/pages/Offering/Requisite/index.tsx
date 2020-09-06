@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react"
 import moment from "moment"
-
+import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography, Space } from "antd"
+import { Row, Col, Typography, Space } from "antd"
 import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
-import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
-
+import ResponsiveTable from "~/Component/ResponsiveTable"
 import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
 import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
 import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
+import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
 
 const { Title } = Typography
 
@@ -106,7 +105,7 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
             offeringId={parseInt(offeringID)}
             hasRequisiteGroup={hasRequisiteGroup}
           />
-          <Table
+          <ResponsiveTable
             className={styles.paddingTop10px}
             columns={columns}
             dataSource={offeringRequisiteGroupDetails}

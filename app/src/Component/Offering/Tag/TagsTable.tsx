@@ -1,6 +1,7 @@
 import React from "react"
-import { Switch, Table } from "antd"
+import { Switch } from "antd"
 import { ColumnsType } from "antd/lib/table"
+import ResponsiveTable from "~/Component/ResponsiveTable"
 
 interface ITagsTableProps {
   data: Array<any>
@@ -8,8 +9,10 @@ interface ITagsTableProps {
   title: string
   select?: (tag: { [key: string]: any }, add: boolean) => Promise<any>
 }
+
+type RecordType = { [key: string]: string }
 export default function TagsTable(props: ITagsTableProps) {
-  const columns: ColumnsType = [
+  const columns: ColumnsType<RecordType> = [
     {
       title: "Tag type",
       dataIndex: "TagType",
@@ -46,7 +49,7 @@ export default function TagsTable(props: ITagsTableProps) {
     return data.Description ? <div style={{ padding: "5px" }}>{data.Description}</div> : <></>
   }
   return (
-    <Table
+    <ResponsiveTable
       title={() => props.title}
       columns={columns}
       dataSource={props.data}

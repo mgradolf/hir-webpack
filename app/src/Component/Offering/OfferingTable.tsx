@@ -110,14 +110,14 @@ export function OfferingTable(props: IOfferingTableProps) {
         {display && (
           <Row>
             <Col span="8">Creation Date:</Col>
-            <Col span="16">{data.CreationDate}</Col>
+            <Col span="16">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
 
         {display && (
           <Row>
             <Col span="8">Termination Date:</Col>
-            <Col span="16">{data.TerminationDate}</Col>
+            <Col span="16">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
 

@@ -7,20 +7,20 @@ type RecordType = { [key: string]: string }
 
 interface IResponsiveTableProps extends TableProps<RecordType> {
   columns: ColumnsType<RecordType>
-  expandableRowRender: (record: any, display: boolean) => JSX.Element
-  breakpoints: Breakpoint[]
-  responsiveColumnIndices: number[]
+  expandableRowRender?: (record: any, display: boolean) => JSX.Element
+  breakpoints?: Breakpoint[]
+  responsiveColumnIndices?: number[]
 }
 
 export default function ResponsiveTable(props: IResponsiveTableProps) {
   const { breakpoints, columns, responsiveColumnIndices, ...otherTableProps } = props
   const { useBreakpoint } = Grid
   const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
-  const display = breakpoints.filter((x) => screens[x]).length === 0
+  const display = !!(breakpoints && breakpoints.filter((x) => screens[x]).length === 0)
 
   function processResponsiveColumns(): ColumnsType<RecordType> {
     return columns.map((col, index) =>
-      responsiveColumnIndices.includes(index) ? { ...col, responsive: breakpoints } : col
+      responsiveColumnIndices && responsiveColumnIndices.includes(index) ? { ...col, responsive: breakpoints } : col
     )
   }
 
@@ -29,7 +29,7 @@ export default function ResponsiveTable(props: IResponsiveTableProps) {
   return (
     <Table
       columns={responsiveColumns}
-      expandedRowRender={(record) => props.expandableRowRender(record, display)}
+      expandedRowRender={(record) => props.expandableRowRender && props.expandableRowRender(record, display)}
       {...otherTableProps}
     />
   )

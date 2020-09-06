@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography, Space } from "antd"
+import { Row, Col, Typography, Space } from "antd"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
-
+import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingFinancialModalOpenButton from "~/Component/Offering/Financial/OfferingFinancialModalOpenButton"
 import FinancialEditLink from "~/Component/Offering/Financial/FinancialEditLink"
 import FinancialRemoveLink from "~/Component/Offering/Financial/FinancialRemoveLink"
@@ -109,7 +109,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
 
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
         <Col className={`gutter-row ${styles.offeringFinancialDetails}`} xs={24} sm={24} md={24}>
-          <Table
+          <ResponsiveTable
             columns={columns}
             dataSource={offeringFinancialItems}
             loading={loading}
