@@ -93,9 +93,12 @@ export const showCreateOfferingPrerequisiteGroupModal = (
   payload: { value, config }
 })
 
-export const showAddOfferingFromRequisiteGroupModal = (payload: ModalConfig): IAction => ({
+export const showAddOfferingFromRequisiteGroupModal = (
+  value: boolean,
+  config?: ShowOfferingRequisiteGroupModalType
+): IAction => ({
   type: SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL,
-  payload
+  payload: { value, config }
 })
 
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {

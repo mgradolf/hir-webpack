@@ -6,13 +6,15 @@ import { Dispatch } from "redux"
 
 interface ICreateActionButtonProp {
   offeringId: number
+  requisiteGroupId?: number
   hasRequisiteGroup: boolean
-  openAddOfferingRequisiteGroupModal?: (offeringId: number) => void
+  openAddOfferingRequisiteGroupModal?: (offeringId: number, requisiteGroupId?: number) => void
 }
 
 function CreateActionButton(props: ICreateActionButtonProp) {
   const onClick = () => {
-    if (props.openAddOfferingRequisiteGroupModal) props.openAddOfferingRequisiteGroupModal(props.offeringId)
+    if (props.openAddOfferingRequisiteGroupModal)
+      props.openAddOfferingRequisiteGroupModal(props.offeringId, props.requisiteGroupId)
   }
   return (
     <Row style={{ padding: "10px" }}>
@@ -32,8 +34,8 @@ function CreateActionButton(props: ICreateActionButtonProp) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    openAddOfferingRequisiteGroupModal: (offeringId: number) =>
-      dispatch(showAddOfferingFromRequisiteGroupModal({ value: true }))
+    openAddOfferingRequisiteGroupModal: (offeringId: number, requisiteGroupId?: number) =>
+      dispatch(showAddOfferingFromRequisiteGroupModal(true, { offeringId, requisiteGroupId }))
   }
 }
 

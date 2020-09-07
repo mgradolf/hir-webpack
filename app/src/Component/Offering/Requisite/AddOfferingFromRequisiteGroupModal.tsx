@@ -3,7 +3,7 @@ import Modal from "~/Component/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
-import { FilterColumn, IFilterValues } from "../FilterColumn"
+import { FilterColumn, IFilterValues } from "~/Component/Offering/FilterColumnModal"
 import { Row, Table, Col, Grid, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
@@ -14,6 +14,8 @@ import styles from "~/Component/Offering/FilterColumn.module.scss"
 const { useEffect, useState } = React
 
 interface IOfferingRequisiteGroupProps {
+  offeringID: number
+  requisiteGroupID: number
   closeAddOfferingFromRequisiteGroupModal: () => void
 }
 
@@ -45,7 +47,11 @@ enum ModalPages {
   OfferingsList
 }
 
-function AddOfferingFromRequisiteGroupModal({ closeAddOfferingFromRequisiteGroupModal }: IOfferingRequisiteGroupProps) {
+function AddOfferingFromRequisiteGroupModal({
+  offeringID,
+  requisiteGroupID,
+  closeAddOfferingFromRequisiteGroupModal
+}: IOfferingRequisiteGroupProps) {
   const [filterData, updateFilterData] = useState<IFilterValues>(INITIAL_FILTER_DATA)
   const [offeringItems, setOfferingItems] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -56,6 +62,9 @@ function AddOfferingFromRequisiteGroupModal({ closeAddOfferingFromRequisiteGroup
   const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
   const breakpoints = ["md", "lg", "xl", "xxl"]
   const display = breakpoints.filter((x) => screens[x]).length === 0
+
+  console.log("offeirng ID: " + offeringID)
+  console.log("requsitite group ID: " + requisiteGroupID)
 
   useEffect(() => {
     const loadOfferings = async function () {
@@ -244,7 +253,7 @@ function AddOfferingFromRequisiteGroupModal({ closeAddOfferingFromRequisiteGroup
         </Row>
       )) ||
         (modalSelectedPage === ModalPages.OfferingsList && (
-          <Card style={{ maxHeight: "500px", overflow: "scroll" }}>
+          <Card style={{ maxHeight: "1000px", overflow: "scroll" }}>
             <Table
               columns={columns}
               dataSource={offeringItems}
@@ -278,7 +287,7 @@ function AddOfferingFromRequisiteGroupModal({ closeAddOfferingFromRequisiteGroup
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    closeAddOfferingFromRequisiteGroupModal: () => dispatch(showAddOfferingFromRequisiteGroupModal({ value: false }))
+    closeAddOfferingFromRequisiteGroupModal: () => dispatch(showAddOfferingFromRequisiteGroupModal(false))
   }
 }
 

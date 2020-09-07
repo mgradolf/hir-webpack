@@ -33,7 +33,12 @@ function ModalContainer(modalState: IModalState) {
           requisiteGroupID={modalState.offeringPrerequisiteGroupModal.config.requisiteGroupId}
         />
       )}
-      {modalState.addOfferingFromRequisiteGroupModal.value && <AddOfferingFromRequisiteGroupModal />}
+      {modalState.addOfferingFromRequisiteGroupModal.value && (
+        <AddOfferingFromRequisiteGroupModal
+          offeringID={modalState.addOfferingFromRequisiteGroupModal.config.offeringId}
+          requisiteGroupID={modalState.addOfferingFromRequisiteGroupModal.config.requisiteGroupId}
+        />
+      )}
     </>
   )
 }
