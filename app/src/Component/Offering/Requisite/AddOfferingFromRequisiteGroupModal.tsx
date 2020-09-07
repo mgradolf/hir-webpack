@@ -5,11 +5,13 @@ import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
 import { FilterColumn, IFilterValues } from "~/Component/Offering/FilterColumnModal"
 import { Row, Table, Col, Grid, Card, Button } from "antd"
-import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_PAGE, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import moment from "moment"
-import styles from "~/Component/Offering/FilterColumn.module.scss"
+import styles from "~/Component/Offering/Requisite/PrerequisiteGroups.module.scss"
+import Title from "antd/lib/typography/Title"
+import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 
 const { useEffect, useState } = React
 
@@ -56,7 +58,7 @@ function AddOfferingFromRequisiteGroupModal({
   const [offeringItems, setOfferingItems] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
-  const [selectedOfferings, setSelectedOfferings] = useState([])
+  const [selectedOfferings, setSelectedOfferings] = useState<any[]>([])
 
   const { useBreakpoint } = Grid
   const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
@@ -232,10 +234,15 @@ function AddOfferingFromRequisiteGroupModal({
     })
   }
 
-  console.log(selectedOfferings)
+  function handleSelect() {
+    const selectedOfferingIds = selectedOfferings.map((offering) => offering.OfferingID)
+    addOfferingIntoRequisiteGroup([selectedOfferingIds, requisiteGroupID])
+    closeAddOfferingFromRequisiteGroupModal()
+    eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+  }
 
   return (
-    <Modal showModal={true} width="1000px" closable>
+    <Modal showModal={true} width="1000px">
       {(modalSelectedPage === ModalPages.FilterPage && (
         <Row style={{ justifyContent: "center" }}>
           <FilterColumn
@@ -253,7 +260,25 @@ function AddOfferingFromRequisiteGroupModal({
         </Row>
       )) ||
         (modalSelectedPage === ModalPages.OfferingsList && (
-          <Card style={{ maxHeight: "1000px", overflow: "scroll" }}>
+          <Card style={{ maxHeight: "80vh", overflow: "scroll" }}>
+            <Row>
+              <Col span={12}>
+                <Title level={3}>Add offerings</Title>
+              </Col>
+              <Col offset={8} className={styles.Table_config}>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    setModalPage(ModalPages.FilterPage)
+                  }}
+                >
+                  Go back
+                </Button>
+                <Button type="primary" disabled={selectedOfferings.length === 0} onClick={handleSelect}>
+                  Select
+                </Button>
+              </Col>
+            </Row>
             <Table
               columns={columns}
               dataSource={offeringItems}
@@ -264,21 +289,9 @@ function AddOfferingFromRequisiteGroupModal({
                 return expandableRowRender(record, display)
               }}
               rowKey="OfferingID"
-              pagination={{ position: ["topLeft"] }}
+              pagination={{ position: ["bottomLeft"] }}
               scroll={{ x: "fit-content" }}
             />
-            <Row className={styles.floatRight}>
-              <Button
-                type="primary"
-                disabled={selectedOfferings.length === 0}
-                className={styles.applyBtn}
-                onClick={() => {
-                  closeAddOfferingFromRequisiteGroupModal()
-                }}
-              >
-                Select
-              </Button>
-            </Row>
           </Card>
         )) || <></>}
     </Modal>
