@@ -7,7 +7,8 @@ import OfferingDetails from "~/Component/Offering/CreateEdit/Form2/OfferingDetai
 import OfferingTimings from "~/Component/Offering/CreateEdit/Form2/OfferingTimings"
 import OfferingCoreChar from "~/Component/Offering/CreateEdit/Form2/OfferingCoreChar"
 import OfferingDefaultSection from "~/Component/Offering/CreateEdit/Form2/OfferingDefaultSection"
-import { IApiResponse, IProcessedError } from "@packages/api/lib/utils/Interfaces"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
 import { connect } from "react-redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
@@ -28,10 +29,10 @@ interface IOfferingCreateForm2Props {
 
 function CreateForm2(props: IOfferingCreateForm2Props) {
   const actions = []
-  const [errorMessages, setErrorMessages] = useState<Array<IProcessedError>>([])
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   const onFormSubmission = async () => {
-    // const validationPassed = await formInstance.validateFields()
+    await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue() as IOfferingFieldNames
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = props.editMode
       ? updateOffering
@@ -39,7 +40,7 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
 
     setErrorMessages([])
     props.setApiCallInProgress(true)
-    params.RecurrenceRule = 123121243213423
+    params.OfferingCode = "ML110-4"
     const response = await serviceMethoToCall(params)
     console.log(response)
     props.setApiCallInProgress(false)
@@ -51,13 +52,13 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
         props.redirect(`/offering/${response.data.OfferingID}`)
       }
     } else {
-      console.log(response)
+      console.log(response.error.getErrorMessages())
       document.getElementById("errorMessages")?.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "start"
       })
-      setErrorMessages(response.error)
+      setErrorMessages(response.error.getErrorMessages())
     }
   }
   if (!props.editMode) {
@@ -87,11 +88,16 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
         style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
       >
         <ul id="errorMessages">
-          <li>All fields marked with an asterisk (*) are required.</li>
+          <li>
+            All fields marked with an asterisk (<span style={{ color: "red" }}>*</span>) are required.
+          </li>
           <li>Dates should be typed in the format mm/dd/yyyy</li>
         </ul>
         {errorMessages.length > 0 && (
-          <div style={{ backgroundColor: "#ffecec", color: red.primary, padding: "10px 30px", width: "100%" }}>
+          <div
+            role="alert"
+            style={{ backgroundColor: "#ffecec", color: red.primary, padding: "10px 30px", width: "100%" }}
+          >
             <h1>Error</h1>
             <ol>
               {errorMessages.map((error, index) => {

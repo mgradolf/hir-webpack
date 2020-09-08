@@ -29,7 +29,7 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
   }
 
   const handleOk = async () => {
-    // const validationPassed = await formInstance.validateFields()
+    await formInstance.validateFields()
     const params = formInstance.getFieldsValue()
 
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = setApprovalStatus

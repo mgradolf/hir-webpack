@@ -49,13 +49,10 @@ export default function ({
           focusTrapOptions={focusTrapOption}
           children={
             <div id="modalContainer" tabIndex={-1}>
-              <div
-                className={style.modal}
-                style={{ zIndex }}
-                onClick={() => {
+              <div className={style.modal} style={{ zIndex }}></div>
+              {/* {closable && closeModal && <span onClick={() => {
                   if (closable && closeModal) closeModal()
-                }}
-              ></div>
+                }}>X</span>} */}
               <Row className={style.modal_content} style={{ zIndex: zIndex + 1 }}>
                 <Col flex="auto"></Col>
                 {loading && <ModalLoading {...{ width, loadingTip }} />}

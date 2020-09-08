@@ -51,8 +51,10 @@ export default function DefineCreationTime(props: IDefineTime) {
   const handleChange = (e: RadioChangeEvent) => {
     if (e.target.value === radioValues.byTime) {
       enableTime()
+      props.formInstance.setFieldsValue({ [props.fieldNames.StartTermID]: undefined })
     } else if (e.target.value === radioValues.byTerm) {
       enableTerm()
+      props.formInstance.setFieldsValue({ [props.fieldNames.CreationDate]: undefined })
     }
   }
 
@@ -84,7 +86,7 @@ export default function DefineCreationTime(props: IDefineTime) {
             </Col>
             <Col flex="1">
               <Radio style={{ marginBottom: "10px" }} value={radioValues.byTerm}>
-                Determined by term
+                Determined by Start Term
               </Radio>
               <Form.Item label="Select term" name={props.fieldNames.StartTermID}>
                 <Select disabled={disableTerm} placeholder="Choose a term">

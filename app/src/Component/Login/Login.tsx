@@ -70,14 +70,14 @@ function Login(props: ILoginProps) {
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input />
+          <Input aria-label="username" />
         </Form.Item>
         <Form.Item
           label="Password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password />
+          <Input.Password aria-label="password" />
         </Form.Item>
         <Form.Item className={style.Text__center}>
           <Button type="primary" htmlType="submit" loading={loading === EnumLoading.INPROGRESS}>

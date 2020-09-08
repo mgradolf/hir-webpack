@@ -17,7 +17,7 @@ export default function OfferingDetails(props: IOfferingDetails) {
     <>
       <Divider orientation="left">Offering</Divider>
       <Form.Item
-        label="Offering code *"
+        label="Offering code"
         name={props.fieldNames.OfferingCode}
         {...layout}
         rules={[
@@ -30,7 +30,7 @@ export default function OfferingDetails(props: IOfferingDetails) {
         <Input />
       </Form.Item>
       <Form.Item
-        label="Offering name *"
+        label="Offering name"
         name={props.fieldNames.Name}
         {...layout}
         rules={[
