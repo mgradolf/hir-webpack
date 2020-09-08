@@ -12,6 +12,7 @@ import moment from "moment"
 import styles from "~/Component/Offering/Requisite/PrerequisiteGroups.module.scss"
 import Title from "antd/lib/typography/Title"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
+import { useOfferings } from "../offeringUtils"
 
 const { useEffect, useState } = React
 
@@ -55,8 +56,7 @@ function AddOfferingFromRequisiteGroupModal({
   closeAddOfferingFromRequisiteGroupModal
 }: IOfferingRequisiteGroupProps) {
   const [filterData, updateFilterData] = useState<IFilterValues>(INITIAL_FILTER_DATA)
-  const [offeringItems, setOfferingItems] = useState<Array<any>>([])
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, offeringItems] = useOfferings(filterData)
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
   const [selectedOfferings, setSelectedOfferings] = useState<any[]>([])
 
@@ -64,60 +64,6 @@ function AddOfferingFromRequisiteGroupModal({
   const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
   const breakpoints = ["md", "lg", "xl", "xxl"]
   const display = breakpoints.filter((x) => screens[x]).length === 0
-
-  console.log("offeirng ID: " + offeringID)
-  console.log("requsitite group ID: " + requisiteGroupID)
-
-  useEffect(() => {
-    const loadOfferings = async function () {
-      setLoading(true)
-
-      const params: { [key: string]: any } = {}
-      params["OfferingCode"] = filterData.OfferingCode !== "" ? filterData.OfferingCode : "*"
-      params["OfferingName"] = filterData.OfferingName !== "" ? filterData.OfferingName : undefined
-      params["ToCreationDate"] = filterData.ToCreationDate !== "" ? filterData.ToCreationDate : undefined
-      params["FromCreationDate"] = filterData.FromCreationDate !== "" ? filterData.FromCreationDate : undefined
-      params["ToTerminationDate"] = filterData.ToTerminationDate !== "" ? filterData.ToTerminationDate : undefined
-      params["FromTerminationDate"] = filterData.FromTerminationDate !== "" ? filterData.FromTerminationDate : undefined
-      params["StatusID"] = filterData.StatusID !== "" ? Number(filterData.StatusID) : undefined
-      params["Coordinator"] = filterData.Coordinator !== "" ? filterData.Coordinator : undefined
-      params["OrganizationID"] = filterData.OrganizationID !== "" ? Number(filterData.OrganizationID) : undefined
-      params["OfferingTypeID"] = filterData.OfferingTypeID !== "" ? Number(filterData.OfferingTypeID) : undefined
-      params["SectionTypeID"] = filterData.SectionTypeID !== "" ? Number(filterData.SectionTypeID) : undefined
-      params["InstructorID"] = filterData.InstructorID !== "" ? Number(filterData.InstructorID) : undefined
-      params["ShowProgramOffering"] = filterData.ShowProgramOffering !== "" ? filterData.ShowProgramOffering : undefined
-      params["OfferingNearCapacity"] =
-        filterData.OfferingNearCapacity !== "" ? filterData.OfferingNearCapacity : undefined
-      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? Boolean(filterData.IsQuickAdmit) : undefined
-      params["IsSearchTagHierarchy"] =
-        filterData.IsSearchTagHierarchy !== "" ? Boolean(filterData.IsSearchTagHierarchy) : undefined
-      params["TagName"] = filterData.TagName !== "" ? filterData.TagName : undefined
-      params["TagTypeID"] = filterData.TagTypeID !== "" ? filterData.TagTypeID : undefined
-      params["ToFinalEnrollmentDate"] =
-        filterData.ToFinalEnrollmentDate !== "" ? filterData.ToFinalEnrollmentDate : undefined
-      params["FromFinalEnrollmentDate"] =
-        filterData.FromFinalEnrollmentDate !== "" ? filterData.FromFinalEnrollmentDate : undefined
-
-      const objectKeys = Object.keys(params)
-      objectKeys.forEach((key) => {
-        if (!Boolean(params[key]) && typeof params[key] !== "number") {
-          delete params[key]
-        }
-      })
-
-      const result = await searchOffering(params)
-
-      if (result && result.success) {
-        setOfferingItems(result.data)
-      }
-      setLoading(false)
-    }
-    eventBus.subscribe(REFRESH_OFFERING_PAGE, loadOfferings)
-    eventBus.publish(REFRESH_OFFERING_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_OFFERING_PAGE)
-    }
-  }, [filterData])
 
   const columns = [
     {
