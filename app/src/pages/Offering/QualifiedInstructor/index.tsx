@@ -5,6 +5,7 @@ import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingInstructorModalOpenButton from "~/Component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
+import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -74,7 +75,11 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
         setSelectedRowKeys(selectedRowData)
       }
     }
-    loadOfferingInstructors()
+    eventBus.subscribe(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE, loadOfferingInstructors)
+    eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
+    return () => {
+      eventBus.unsubscribe(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
+    }
   }, [offeringID, pendingRowDataSelection])
 
   return (
@@ -84,7 +89,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
           <Title level={3}>Manage Offering Instructors</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <OfferingInstructorModalOpenButton offeringId={parseInt(offeringID)} />
+          <OfferingInstructorModalOpenButton offeringId={parseInt(offeringID)} rowData={selectedRowKeys} />
         </Col>
       </Row>
 

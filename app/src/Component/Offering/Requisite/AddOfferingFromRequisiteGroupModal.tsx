@@ -11,7 +11,7 @@ import moment from "moment"
 import styles from "~/Component/Offering/Requisite/PrerequisiteGroups.module.scss"
 import Title from "antd/lib/typography/Title"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
-import { useOfferings } from "../offeringUtils"
+import { useOfferings } from "~/Component/Offering/offeringUtils"
 
 const { useState } = React
 
