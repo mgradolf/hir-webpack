@@ -43,6 +43,25 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
     }
   ]
 
+  const expandableRowRender = (data: { [key: string]: any }, display: boolean) => {
+    return (
+      <>
+        {display && (
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="8">Creation Date</Col>
+              <Col span="16">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
+            </Row>
+            <Row>
+              <Col span="8">Termination Date</Col>
+              <Col span="16">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
+            </Row>
+          </div>
+        )}
+      </>
+    )
+  }
+
   const offeringID = props.match.params.id
   const [requisiteGroupID, setRequisiteGroupID] = useState<number>()
   const [hasRequisiteGroup, setHasRequisiteGroup] = useState<boolean>(false)
@@ -114,6 +133,9 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
             bordered
             pagination={{ position: ["bottomRight"] }}
             scroll={{ x: "fit-content" }}
+            responsiveColumnIndices={[2, 3]}
+            expandableRowRender={expandableRowRender}
+            breakpoints={["md", "lg", "xl", "xxl"]}
           />
         </Col>
       </Row>

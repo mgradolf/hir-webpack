@@ -2,15 +2,22 @@ import React, { useEffect, useState } from "react"
 import { Card, Button, Input, Select, Radio } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingApprovalFieldNames } from "~/Component/Offering/Interfaces"
-import { getOfferingApprovalSendToList, getOfferngApprovalStateList } from "~/ApiServices/Service/OfferingService"
+import {
+  getOfferingApprovalSendToList,
+  getOfferngApprovalStateList,
+  setApprovalStatus
+} from "~/ApiServices/Service/OfferingService"
+import FormError from "~/Component/FormError"
+import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 const { TextArea } = Input
 
 interface IOfferingApprovalFormProps {
   offeringID: number
   formInstance: FormInstance
-  onFormSubmission: () => void
   handleCancel: () => void
+  setApiCallInProgress: (flag: boolean) => void
 }
 
 const fieldNames: IOfferingApprovalFieldNames = {
@@ -26,12 +33,9 @@ const layout = {
 }
 
 export default function ApprovalForm(props: IOfferingApprovalFormProps) {
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={props.onFormSubmission}>Submit</Button>)
-
   const [approvalStateList, setApprovalStateList] = useState<Array<any>>([])
   const [approvalSendToList, setApprovalSendToList] = useState<Array<any>>([])
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
     props.formInstance.setFieldsValue({ [fieldNames.OfferingID]: props.offeringID })
@@ -49,14 +53,55 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
     })()
   }, [props.formInstance, props.offeringID])
 
+  const onFormSubmission = async () => {
+    await props.formInstance.validateFields()
+    const params = props.formInstance.getFieldsValue()
+    setErrorMessages([])
+    props.setApiCallInProgress(true)
+    const response = await setApprovalStatus(params)
+    props.setApiCallInProgress(false)
+
+    if (response && response.success) {
+      props.formInstance.resetFields()
+      eventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
+      props.handleCancel()
+    } else {
+      setErrorMessages(response.error.getErrorMessages())
+      console.log(response)
+    }
+  }
+  const actions = []
+  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
+  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
+
   return (
     <Card title="Offering Approval" actions={actions}>
       <Form form={props.formInstance} style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+        <FormError
+          errorMessages={errorMessages}
+          genericInstructions={
+            <ul>
+              <li>
+                All fields marked with an asterisk (<span style={{ color: "red" }}>*</span>) are required.
+              </li>
+            </ul>
+          }
+        ></FormError>
         <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.OfferingID}>
           <Input value={props.offeringID ? props.offeringID : undefined} />
         </Form.Item>
 
-        <Form.Item label="Move approval state" name={fieldNames.StatusID} {...layout}>
+        <Form.Item
+          label="Move approval state"
+          name={fieldNames.StatusID}
+          {...layout}
+          rules={[
+            {
+              required: true,
+              message: "Please Select Move approval state"
+            }
+          ]}
+        >
           <Select>
             {approvalStateList.map((x) => {
               return (
@@ -72,7 +117,17 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
           <TextArea rows={4} />
         </Form.Item>
 
-        <Form.Item label="Send To" {...layout} name={fieldNames.UserLogin}>
+        <Form.Item
+          label="Send To"
+          {...layout}
+          name={fieldNames.UserLogin}
+          rules={[
+            {
+              required: true,
+              message: "Please Select Send to"
+            }
+          ]}
+        >
           <Select>
             {approvalSendToList.map((x) => {
               return (
