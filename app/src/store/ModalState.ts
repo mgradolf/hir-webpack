@@ -3,6 +3,7 @@ const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"
 const SHOW_CREATE_OFFERING_FINANCIAL_MODAL = "SHOW_CREATE_OFFERING_FINANCIAL_MODAL"
 const SHOW_OFFERING_APPROVAL_MODAL = "SHOW_OFFERING_APPROVAL_MODAL"
 const SHOW_OFFERING_PREREQUISITE_GROUP_MODAL = "SHOW_OFFERING_PREREQUISITE_GROUP_MODAL"
+const SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL = "SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -20,6 +21,7 @@ export interface IModalState {
   createOfferingFinancialModal: ModalConfig
   offeringApprovalModal: ModalConfig
   offeringPrerequisiteGroupModal: ModalConfig
+  addOfferingFromRequisiteGroupModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -40,6 +42,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   offeringPrerequisiteGroupModal: {
+    value: false,
+    config: null
+  },
+  addOfferingFromRequisiteGroupModal: {
     value: false,
     config: null
   }
@@ -87,6 +93,14 @@ export const showCreateOfferingPrerequisiteGroupModal = (
   payload: { value, config }
 })
 
+export const showAddOfferingFromRequisiteGroupModal = (
+  value: boolean,
+  config?: ShowOfferingRequisiteGroupModalType
+): IAction => ({
+  type: SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL,
+  payload: { value, config }
+})
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -99,6 +113,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, offeringApprovalModal: action.payload }
     case SHOW_OFFERING_PREREQUISITE_GROUP_MODAL:
       return { ...state, offeringPrerequisiteGroupModal: action.payload }
+    case SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL:
+      return { ...state, addOfferingFromRequisiteGroupModal: action.payload }
     default:
       return state
   }

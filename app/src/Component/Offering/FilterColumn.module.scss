@@ -5,6 +5,11 @@
   padding: 1rem;
 }
 
+.modal {
+  overflow-y: auto;
+  max-height: 75vh;
+}
+
 .hidden {
   display: none !important;
 }
@@ -17,6 +22,16 @@
   margin: 5px 25px !important;
 }
 
+.offeringFilterField_modal {
+  @media only screen and (max-width: 1200px) {
+    margin: 5px 25px !important;
+  }
+}
+
+.offeringFilterDateField {
+  margin: 5px 25px !important;
+}
+
 .floatRight {
   float: right;
 }
@@ -24,4 +39,9 @@
 .applyBtn {
   margin-right: 10px;
   margin-top: 40px;
+}
+
+.Filter_row {
+  margin: 4px 0;
+  align-items: center;
 }

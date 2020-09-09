@@ -103,6 +103,7 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
         <Col className={`gutter-row ${styles.offeringRequisiteDetails}`} xs={24} sm={24} md={24}>
           <PrerequisiteGroupOfferingModalOpenButton
             offeringId={parseInt(offeringID)}
+            requisiteGroupId={requisiteGroupID}
             hasRequisiteGroup={hasRequisiteGroup}
           />
           <ResponsiveTable
