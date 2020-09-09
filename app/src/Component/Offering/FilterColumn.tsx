@@ -272,15 +272,14 @@ export function FilterColumn(props: IFilterColumnProps) {
           <Title level={4}>Offering Filter</Title>
         </Col>
         <Col span={12} className={styles.padding5px}>
-          <span onClick={toggleVisiibility}>
-            <CloseOutlined style={{ fontSize: "20px", color: "black", float: "right" }} />
-          </span>
+          <CloseOutlined onClick={toggleVisiibility} style={{ fontSize: "20px", color: "black", float: "right" }} />
         </Col>
       </Row>
       <Row>
         <Checkbox onChange={toggleOfferingCodeBLock}>Offering Code</Checkbox>
         <Row className={showOfferingCodeBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
+            aria-label="OfferingCode"
             name="OfferingCode"
             defaultValue=""
             value={filterData.OfferingCode === "*" ? "" : filterData.OfferingCode}
@@ -292,6 +291,7 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Checkbox onChange={toggleOfferingNameBLock}>Offering Name</Checkbox>
         <Row className={showOfferingNameBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
+            aria-label="OfferingName"
             name="OfferingName"
             defaultValue=""
             value={filterData.OfferingName === "*" ? "" : filterData.OfferingName}
@@ -303,9 +303,21 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Checkbox onChange={toggleCreationDateBLock}>Creation Date</Checkbox>
         <Row className={showCreationDateBlock ? styles.offeringFilterField : styles.hidden}>
           <Col span={24}>From</Col>
-          <DatePicker allowClear value={fromCreationDate} onChange={handleFromCreationDateChange} format={dateFormat} />
+          <DatePicker
+            aria-label="Creation Date From"
+            allowClear
+            value={fromCreationDate}
+            onChange={handleFromCreationDateChange}
+            format={dateFormat}
+          />
           <Col span={24}>To</Col>
-          <DatePicker allowClear value={toCreationDate} onChange={handleToCreationDateChange} format={dateFormat} />
+          <DatePicker
+            aria-label="Creation Date To"
+            allowClear
+            value={toCreationDate}
+            onChange={handleToCreationDateChange}
+            format={dateFormat}
+          />
         </Row>
       </Row>
       <Row>

@@ -59,10 +59,16 @@ export default function DefineTerminationTime(props: IDefineTime) {
   const handleChange = (e: RadioChangeEvent) => {
     if (e.target.value === radioValues.byTime) {
       enableTime()
+      props.formInstance.setFieldsValue({ [props.fieldNames.EndTermID]: undefined })
+      props.formInstance.setFieldsValue({ [props.fieldNames.RecurrenceRule]: undefined })
     } else if (e.target.value === radioValues.byTerm) {
       enableTerm()
+      props.formInstance.setFieldsValue({ [props.fieldNames.TerminationDate]: undefined })
+      props.formInstance.setFieldsValue({ [props.fieldNames.RecurrenceRule]: undefined })
     } else if (e.target.value === radioValues.byDuration) {
       enableDuration()
+      props.formInstance.setFieldsValue({ [props.fieldNames.TerminationDate]: undefined })
+      props.formInstance.setFieldsValue({ [props.fieldNames.EndTermID]: undefined })
     }
   }
 
@@ -93,7 +99,7 @@ export default function DefineTerminationTime(props: IDefineTime) {
         </Col>
         <Col flex="1">
           <Radio style={{ marginBottom: "10px" }} value={radioValues.byTerm} onChange={handleChange}>
-            Determined by term
+            Determined by End Term
           </Radio>
           <Form.Item label="Select term" name={props.fieldNames.EndTermID}>
             <Select disabled={disableTerm} placeholder="Choose a term">

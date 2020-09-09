@@ -1,10 +1,11 @@
 import { IApiResponse, ErrorType } from "../Interfaces"
 import { AxiosError, AxiosResponse } from "axios"
+import ProcessedApiError from "./ProcessedApiError"
 
 const handleError = (error: AxiosError): IApiResponse => {
   let response: IApiResponse = {
     code: undefined,
-    error: "Unknown",
+    error: undefined,
     data: undefined,
     success: false,
     errorMessage: ""
@@ -25,8 +26,11 @@ const handleError = (error: AxiosError): IApiResponse => {
         success: false
       }
     }
+  } else {
+    response.code = 503
   }
   response = tagGlobalErrors(response)
+  response.error = new ProcessedApiError(response.error)
   return response
 }
 
@@ -86,6 +90,7 @@ export const handleResponse = (promise: Promise<any>): Promise<IApiResponse> => 
       ) {
         result.code = 404
         result = tagGlobalErrors(result)
+        result.error = new ProcessedApiError(result.error)
       }
       return result
     })

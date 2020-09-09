@@ -33,6 +33,7 @@ function ApprovalActionButton(props: ICreateActionButtonProp) {
         offeringDetails.map((offering) => {
           return (
             <Button
+              key={offering.OfferingCode + 1}
               type="primary"
               className={offering.StatusCode === "Open" ? styles.hidden : styles.show}
               onClick={onClick}

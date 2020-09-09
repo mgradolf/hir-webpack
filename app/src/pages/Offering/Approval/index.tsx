@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react"
 import moment from "moment"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography } from "antd"
+import { Row, Col, Typography } from "antd"
+import ResponsiveTable from "~/Component/ResponsiveTable"
 import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Approval/Approval.module.scss"
 
@@ -63,8 +64,6 @@ function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
     }
   }, [offeringID])
 
-  console.log("OffeirngID: " + offeringID)
-
   return (
     <div className="site-layout-content">
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -78,7 +77,7 @@ function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
 
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
         <Col className={`gutter-row ${styles.offeringApprovalDetails}`} xs={24} sm={24} md={24}>
-          <Table
+          <ResponsiveTable
             columns={columns}
             dataSource={offeringApprovalHistory}
             loading={loading}

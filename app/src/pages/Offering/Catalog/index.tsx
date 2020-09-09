@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import moment from "moment"
-import { Row, Col, Switch, Table, Typography } from "antd"
-
+import { Row, Col, Switch, Typography } from "antd"
+import ResponsiveTable from "~/Component/ResponsiveTable"
 import { findCatalogWrap } from "~/ApiServices/BizApi/catalog/catalogIf"
 import { addOrRemoveOfferingToCatalog } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
@@ -94,7 +94,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
 
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
         <Col className={`gutter-row ${styles.offeringFinancialDetails}`} xs={24} sm={24} md={24}>
-          <Table
+          <ResponsiveTable
             columns={columns}
             dataSource={offeringCatalogItems}
             loading={loading}

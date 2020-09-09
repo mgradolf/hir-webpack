@@ -19,7 +19,6 @@ const cache: any = {}
 const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
   let previousPath: any = {}
   for (const x of paths) {
-    console.log(x)
     if (typeof x.label === "number" && !cache[x.path]) {
       const result: any = await getEntityById(previousPath.label, x.label)
       if (result.success && result.data && result.data.Name) {
@@ -31,7 +30,6 @@ const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
     }
     previousPath = x
   }
-  console.log(paths)
   return paths
 }
 

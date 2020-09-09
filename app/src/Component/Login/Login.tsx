@@ -38,8 +38,8 @@ function Login(props: ILoginProps) {
     const { username, password } = values as IFormState
     setloading(EnumLoading.INPROGRESS)
     const response = await login(username, password)
+    setloading(EnumLoading.PENDING)
     if (props.page) {
-      setloading(EnumLoading.PENDING)
       if (response && response.success && props.redirect) {
         props.redirect("/")
       } else {
@@ -70,14 +70,14 @@ function Login(props: ILoginProps) {
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input />
+          <Input aria-label="username" />
         </Form.Item>
         <Form.Item
           label="Password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password />
+          <Input.Password aria-label="password" />
         </Form.Item>
         <Form.Item className={style.Text__center}>
           <Button type="primary" htmlType="submit" loading={loading === EnumLoading.INPROGRESS}>
