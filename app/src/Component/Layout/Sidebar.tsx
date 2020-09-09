@@ -12,7 +12,14 @@ interface ISidebar {
 }
 export default function Sidebar(props: ISidebar) {
   return (
-    <Sider breakpoint="sm" collapsedWidth={0} trigger={null} collapsible collapsed={props.collapsed}>
+    <Sider
+      style={{ minHeight: "100vh" }}
+      breakpoint="xs"
+      collapsedWidth={0}
+      trigger={null}
+      collapsible
+      collapsed={props.collapsed}
+    >
       <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
       <Menu theme="dark" mode="inline">
         <Menu.SubMenu key="sub1" title="Manage">
