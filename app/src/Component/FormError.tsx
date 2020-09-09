@@ -1,16 +1,26 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { Typography } from "antd"
 import { red } from "@ant-design/colors"
 
 interface IFormError {
   errorMessages: Array<ISimplifiedApiErrorMessage>
+  genericInstructions?: JSX.Element
 }
 export default function (props: IFormError) {
+  useEffect(() => {
+    document.getElementById("errorMessages")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "start"
+    })
+  }, [props])
   return (
     <>
+      {props.genericInstructions}
       {props.errorMessages.length > 0 && (
         <div
+          id="errorMessages"
           role="alert"
           style={{ backgroundColor: "#ffecec", color: red.primary, padding: "10px 30px", width: "100%" }}
         >

@@ -19,7 +19,6 @@ interface ICreateNewOfferingProps {
 
 function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offeringID }: ICreateNewOfferingProps) {
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
-  // const [editOfferingEntity, setEditOfferingEntity] = useState<any | null>(null)
   const [formInstance] = Form.useForm()
   const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)

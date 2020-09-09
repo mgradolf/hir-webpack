@@ -40,7 +40,6 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
 
     setErrorMessages([])
     props.setApiCallInProgress(true)
-    params.OfferingCode = "ML110-4"
     const response = await serviceMethoToCall(params)
     console.log(response)
     props.setApiCallInProgress(false)
@@ -53,11 +52,6 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
       }
     } else {
       console.log(response.error.getErrorMessages())
-      document.getElementById("errorMessages")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "start"
-      })
       setErrorMessages(response.error.getErrorMessages())
     }
   }
@@ -87,13 +81,17 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
         initialValues={props.initialFormValue}
         style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
       >
-        <ul id="errorMessages">
-          <li>
-            All fields marked with an asterisk (<span style={{ color: "red" }}>*</span>) are required.
-          </li>
-          <li>Dates should be typed in the format mm/dd/yyyy</li>
-        </ul>
-        <FormError errorMessages={errorMessages} />
+        <FormError
+          errorMessages={errorMessages}
+          genericInstructions={
+            <ul>
+              <li>
+                All fields marked with an asterisk (<span style={{ color: "red" }}>*</span>) are required.
+              </li>
+              <li>Dates should be typed in the format mm/dd/yyyy</li>
+            </ul>
+          }
+        />
         <Form.Item className="hidden" name={props.fieldNames.OfferingTypeID}>
           <Input />
         </Form.Item>
