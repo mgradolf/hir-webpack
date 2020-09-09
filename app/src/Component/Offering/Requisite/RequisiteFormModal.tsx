@@ -6,10 +6,7 @@ import RequisiteGroupForm from "~/Component/Offering/Requisite/RequisiteGroupFor
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateOfferingPrerequisiteGroupModal } from "~/store/ModalState"
-import { createRequisiteOfferingGroup, updateRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { getOfferingRequisiteGroupById } from "~/ApiServices/Service/EntityService"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 
 interface IOfferingRequisiteGroupProps {
   offeringID: number
@@ -22,7 +19,7 @@ function OfferingRequisiteGroupFormModal({
   requisiteGroupID,
   offeringID
 }: IOfferingRequisiteGroupProps) {
-  const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
+  const [initialFormValue] = useState<{ [key: string]: any }>({})
   const [formInstance] = Form.useForm()
   const [offeringARequisiteGroupLoading, setOfferingARequisiteGroupLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -34,27 +31,6 @@ function OfferingRequisiteGroupFormModal({
     }
   }
 
-  const handleOk = async () => {
-    await formInstance.validateFields()
-    const params = formInstance.getFieldsValue()
-
-    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = requisiteGroupID
-      ? updateRequisiteOfferingGroup
-      : createRequisiteOfferingGroup
-
-    setApiCallInProgress(true)
-    const response = await serviceMethoToCall(params)
-    setApiCallInProgress(false)
-
-    if (response && response.success) {
-      formInstance.resetFields()
-      eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
-      handleCancel()
-    } else {
-      console.log(response)
-    }
-  }
-
   useEffect(() => {
     if (requisiteGroupID) {
       ;(async () => {
@@ -62,7 +38,7 @@ function OfferingRequisiteGroupFormModal({
         const response = await getOfferingRequisiteGroupById(requisiteGroupID)
 
         if (response && response.success) {
-          setInitialFormValue(response.data)
+          formInstance.setFieldsValue(response.data)
         } else {
           if (closeOfferingRequisiteGroupModal) {
             closeOfferingRequisiteGroupModal()
@@ -71,7 +47,7 @@ function OfferingRequisiteGroupFormModal({
         setOfferingARequisiteGroupLoading(false)
       })()
     }
-  }, [requisiteGroupID, closeOfferingRequisiteGroupModal])
+  }, [requisiteGroupID, closeOfferingRequisiteGroupModal, formInstance])
 
   return (
     <Modal
@@ -96,7 +72,7 @@ function OfferingRequisiteGroupFormModal({
             formInstance={formInstance}
             initialFormValue={initialFormValue}
             handleCancel={handleCancel}
-            onFormSubmission={handleOk}
+            setApiCallInProgress={setApiCallInProgress}
           />
         </>
       }
