@@ -5,8 +5,7 @@ import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
 import { FilterColumn, IFilterValues } from "~/Component/Offering/FilterColumnModal"
 import { Row, Table, Col, Grid, Card, Button } from "antd"
-import { eventBus, REFRESH_OFFERING_PAGE, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
-import { searchOffering } from "~/ApiServices/Service/OfferingService"
+import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import moment from "moment"
 import styles from "~/Component/Offering/Requisite/PrerequisiteGroups.module.scss"
@@ -14,7 +13,7 @@ import Title from "antd/lib/typography/Title"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { useOfferings } from "../offeringUtils"
 
-const { useEffect, useState } = React
+const { useState } = React
 
 interface IOfferingRequisiteGroupProps {
   offeringID: number

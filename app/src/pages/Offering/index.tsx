@@ -2,16 +2,13 @@ import * as React from "react"
 import moment from "moment"
 import { Menu, Row, Col, Table, Space, Dropdown, Typography, Grid } from "antd"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
-
 import { DownOutlined } from "@ant-design/icons"
 import { SelectedFilters, FilterColumn, IFilterValues } from "~/Component/Offering"
-import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { RouteComponentProps, Link } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { REFRESH_OFFERING_PAGE, eventBus } from "~/utils/EventBus"
 import { useOfferings } from "~/Component/Offering/offeringUtils"
 
-const { useState, useEffect } = React
+const { useState } = React
 const { Title } = Typography
 
 const INITIAL_FILTER_DATA: IFilterValues = {
