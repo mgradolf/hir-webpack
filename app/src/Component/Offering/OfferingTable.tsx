@@ -1,9 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
-import { Space, Dropdown, Menu, Row, Col } from "antd"
+import { Space, Dropdown, Row, Col } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import ResponsiveTable from "~/Component/ResponsiveTable"
+import OfferingMenu from "~/Component/Offering/OfferingMenu"
 
 interface IOfferingTableProps {
   dataSource: Array<any>
@@ -11,33 +12,6 @@ interface IOfferingTableProps {
 }
 
 export function OfferingTable(props: IOfferingTableProps) {
-  function generateMenu(record: any) {
-    return (
-      <Menu>
-        <Menu.Item key="0">
-          <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
-        </Menu.Item>
-        <Menu.Item key="1">
-          <Link to={`/offering/${record.OfferingID}/requisite`}>Requisite Management</Link>
-        </Menu.Item>
-        <Menu.Item key="2">
-          <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
-        </Menu.Item>
-        <Menu.Item key="3">
-          <Link to={`/offering/${record.OfferingID}/tag`}>Offering Tag</Link>
-        </Menu.Item>
-        {record.HasApprovalProcess && (
-          <Menu.Item key="4">
-            <Link to={`/offering/${record.OfferingID}/approval`}>Offering Approval</Link>
-          </Menu.Item>
-        )}
-        <Menu.Item key="5">
-          <Link to={`/offering/${record.OfferingID}/instructor`}>Qualified Instructors</Link>
-        </Menu.Item>
-      </Menu>
-    )
-  }
-
   const columns = [
     {
       title: "Offering Code",
@@ -90,7 +64,7 @@ export function OfferingTable(props: IOfferingTableProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <Dropdown overlay={generateMenu(record)} trigger={["click"]}>
+          <Dropdown overlay={<OfferingMenu offering={record} />} trigger={["click"]}>
             <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
               Others <DownOutlined />
             </a>

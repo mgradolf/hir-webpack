@@ -1,41 +1,15 @@
 import React, { useState, useEffect } from "react"
 
 import moment from "moment"
-import { RouteComponentProps, Link } from "react-router-dom"
-import { Menu, Row, Col, Button, Dropdown, Typography } from "antd"
+import { RouteComponentProps } from "react-router-dom"
+import { Row, Col, Button, Dropdown, Typography } from "antd"
 
 import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
 import { DownOutlined, ReadOutlined } from "@ant-design/icons"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
+import OfferingMenu from "~/Component/Offering/OfferingMenu"
 
 const { Title, Text } = Typography
-
-function generateMenu(record: any) {
-  return (
-    <Menu>
-      <Menu.Item key="0">
-        <Link to={`/offering/${record.OfferingID}/financial`}>Offering Financial</Link>
-      </Menu.Item>
-      <Menu.Item key="1">
-        <Link to={`/offering/${record.OfferingID}/requisite`}>Requisite Management</Link>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Link to={`/offering/${record.OfferingID}/tag`}>Offering Tag</Link>
-      </Menu.Item>
-      <Menu.Item key="2">
-        <Link to={`/offering/${record.OfferingID}/catalog`}>Catalogs</Link>
-      </Menu.Item>
-      {record.HasApprovalProcess && (
-        <Menu.Item key="4">
-          <Link to={`/offering/${record.OfferingID}/approval`}>Offering Approval</Link>
-        </Menu.Item>
-      )}
-      <Menu.Item key="5">
-        <Link to={`/offering/${record.OfferingID}/instructor`}>Qualified Instructors</Link>
-      </Menu.Item>
-    </Menu>
-  )
-}
 
 function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
   const offeringID = props.match.params.id
@@ -75,7 +49,7 @@ function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
                 </Text>
               </Row>
               <Row style={{ marginTop: "10px" }}>
-                <Dropdown overlay={generateMenu(offeringDetails)} trigger={["click"]}>
+                <Dropdown overlay={<OfferingMenu offering={offeringDetails} />} trigger={["click"]}>
                   <Button type="primary" onClick={(e) => e.preventDefault()}>
                     Go To <DownOutlined />
                   </Button>

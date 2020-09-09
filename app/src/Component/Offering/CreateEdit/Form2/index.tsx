@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Dispatch } from "redux"
-import { Card, Button, Input, Typography } from "antd"
+import { Card, Button, Input } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import OfferingDetails from "~/Component/Offering/CreateEdit/Form2/OfferingDetails"
@@ -10,11 +10,11 @@ import OfferingDefaultSection from "~/Component/Offering/CreateEdit/Form2/Offeri
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
+import FormError from "~/Component/FormError"
 import { connect } from "react-redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
 import { redirect } from "~/store/ConnectedRoute"
 import "~/sass/global/index.scss"
-import { red } from "@ant-design/colors"
 
 interface IOfferingCreateForm2Props {
   editMode: boolean
@@ -93,23 +93,7 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
           </li>
           <li>Dates should be typed in the format mm/dd/yyyy</li>
         </ul>
-        {errorMessages.length > 0 && (
-          <div
-            role="alert"
-            style={{ backgroundColor: "#ffecec", color: red.primary, padding: "10px 30px", width: "100%" }}
-          >
-            <h1>Error</h1>
-            <ol>
-              {errorMessages.map((error, index) => {
-                return (
-                  <li key={index + 1000}>
-                    <Typography.Text type="danger">{error.message}</Typography.Text>
-                  </li>
-                )
-              })}
-            </ol>
-          </div>
-        )}
+        <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.OfferingTypeID}>
           <Input />
         </Form.Item>
