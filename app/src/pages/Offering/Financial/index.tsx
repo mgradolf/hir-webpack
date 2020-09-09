@@ -69,6 +69,56 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
     }
   ]
 
+  const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
+    return (
+      <>
+        {display && (
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="8">Basis:</Col>
+              <Col span="16">{data.FinancialBasisType}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Amount:</Col>
+              <Col span="16">{data.ItemUnitAmount}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Type:</Col>
+              <Col span="16">{data.FinancialType}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Optional:</Col>
+              <Col span="16">{data.IsOptional ? "Yes" : "No"}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Taxable:</Col>
+              <Col span="16">{data.IsTaxable ? "Yes" : "No"}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Weight:</Col>
+              <Col span="16">{data.Weight}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Active:</Col>
+              <Col span="16">{data.IsActive ? "Yes" : "No"}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">GL Account:</Col>
+              <Col span="16">{data.GLAccount}</Col>
+            </Row>
+          </div>
+        )}
+      </>
+    )
+  }
+
   const offeringID = props.match.params.id
   const [loading, setLoading] = useState<boolean>(false)
   const [offeringFinancialItems, setOfferingFinancialItems] = useState<Array<any>>([])
@@ -113,8 +163,11 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
             columns={columns}
             dataSource={offeringFinancialItems}
             loading={loading}
+            expandableRowRender={expandableRowRender}
             bordered
             pagination={{ position: ["topLeft"] }}
+            breakpoints={["md", "lg", "xl", "xxl"]}
+            responsiveColumnIndices={[2, 3, 4, 5, 6, 7, 8, 9]}
             scroll={{ x: "fit-content" }}
           />
         </Col>

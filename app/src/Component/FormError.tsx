@@ -4,7 +4,7 @@ import { Typography } from "antd"
 import { red } from "@ant-design/colors"
 
 interface IFormError {
-  errorMessages: Array<ISimplifiedApiErrorMessage>
+  errorMessages?: Array<ISimplifiedApiErrorMessage>
   genericInstructions?: JSX.Element
 }
 export default function (props: IFormError) {
@@ -14,11 +14,11 @@ export default function (props: IFormError) {
       block: "start",
       inline: "start"
     })
-  }, [props])
+  }, [props.errorMessages])
   return (
     <>
       {props.genericInstructions}
-      {props.errorMessages.length > 0 && (
+      {Array.isArray(props.errorMessages) && props.errorMessages.length > 0 && (
         <div
           id="errorMessages"
           role="alert"

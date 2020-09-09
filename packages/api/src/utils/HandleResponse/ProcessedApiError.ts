@@ -35,7 +35,6 @@ export default class ProcessedApiError implements IProcessedApiError {
   data: Array<IApiError> | IApiError
   constructor(param: Array<IApiError> | IApiError) {
     this.data = param
-    console.log("error: ", param)
   }
 
   getErrorMessages(): Array<ISimplifiedApiErrorMessage> {
@@ -74,7 +73,7 @@ export default class ProcessedApiError implements IProcessedApiError {
   }
 
   _processInfo(error: IApiError): ISimplifiedApiErrorMessage | undefined {
-    throw new Error("Not Implemented")
+    return error.Description ? { message: error.Description } : undefined
   }
   _processSecurity(error: IApiError): ISimplifiedApiErrorMessage | undefined {
     throw new Error("Not Implemented")
@@ -93,7 +92,7 @@ export default class ProcessedApiError implements IProcessedApiError {
   }
   _processBizrule(error: IApiError): ISimplifiedApiErrorMessage | undefined {
     if (error.Context && error.Context.name && error.Description) {
-      return { propertyName: error.Context.name, message: error.Description }
+      return { propertyName: error.Context.name, message: `${error.Context.name} is ${error.Description}` }
     }
     return undefined
   }
