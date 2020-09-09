@@ -11,8 +11,6 @@ interface IRequisiteOfferingRemoveLinkProp {
 function RequisiteOfferingRemoveLink(props: IRequisiteOfferingRemoveLinkProp) {
   const removeRequisiteGroupOffering = async () => {
     if (props.requisiteGroupId !== undefined) {
-      console.log("offeirng id: " + props.offeringId)
-      console.log("requisite id: " + props.requisiteGroupId)
       const response = await removeOfferingFromRequisiteGroup([[props.offeringId], props.requisiteGroupId])
       if (response.success) {
         eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)

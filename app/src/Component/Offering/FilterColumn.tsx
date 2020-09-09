@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Col, Row, Checkbox, Input, Select, Button, Typography, DatePicker } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import moment from "moment"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/Component/Offering/FilterColumn.module.scss"
-import {
-  getOfferingStatusTypes,
-  getOrganizations,
-  getOfferingTypes,
-  getSectionTypes,
-  getTagTypes
-} from "~/ApiServices/Service/RefLookupService"
-import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
+
+import { useFilterData } from "~/Component/Offering/offeringUtils"
 
 const { Option } = Select
 const { Title } = Typography
@@ -59,51 +53,7 @@ interface IFilterColumnProps {
 }
 
 export function FilterColumn(props: IFilterColumnProps) {
-  const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
-  const [tagTypes, setTagTypes] = useState<Array<any>>([])
-  const [offeringTypes, setOfferingTypes] = useState<Array<any>>([])
-  const [sectonTypes, setSectionTypes] = useState<Array<any>>([])
-  const [organizations, setOrganizations] = useState<Array<any>>([])
-  const [users, setUsers] = useState<Array<any>>([])
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await getOfferingStatusTypes()
-      if (response && response.data && Array.isArray(response.data)) {
-        setOfferingStatusTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getOrganizations()
-      if (response && response.data) {
-        setOrganizations(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getOfferingTypes()
-      if (response && response.data) {
-        setOfferingTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getUsersByRole({ Role: "coordinator" })
-      if (response && response.data) {
-        setUsers(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getSectionTypes()
-      if (response && response.success) {
-        setSectionTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getTagTypes()
-      if (response && response.success) {
-        setTagTypes(response.data)
-      }
-    })()
-  }, [])
+  const [offeringStatusTypes, tagTypes, offeringTypes, sectonTypes, organizations, users] = useFilterData()
 
   const { visible, toggleVisiibility, data } = props
   const [filterData, updateFilterData] = useState<IFilterValues>(data)
@@ -316,21 +266,20 @@ export function FilterColumn(props: IFilterColumnProps) {
   }
 
   return (
-    <Col className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden} xs={24} sm={24} md={5}>
+    <Col className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden} xs={24} sm={24} md={7}>
       <Row>
         <Col span={12}>
           <Title level={4}>Offering Filter</Title>
         </Col>
         <Col span={12} className={styles.padding5px}>
-          <span onClick={toggleVisiibility}>
-            <CloseOutlined style={{ fontSize: "20px", color: "black", float: "right" }} />
-          </span>
+          <CloseOutlined onClick={toggleVisiibility} style={{ fontSize: "20px", color: "black", float: "right" }} />
         </Col>
       </Row>
       <Row>
         <Checkbox onChange={toggleOfferingCodeBLock}>Offering Code</Checkbox>
         <Row className={showOfferingCodeBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
+            aria-label="OfferingCode"
             name="OfferingCode"
             defaultValue=""
             value={filterData.OfferingCode === "*" ? "" : filterData.OfferingCode}
@@ -342,6 +291,7 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Checkbox onChange={toggleOfferingNameBLock}>Offering Name</Checkbox>
         <Row className={showOfferingNameBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
+            aria-label="OfferingName"
             name="OfferingName"
             defaultValue=""
             value={filterData.OfferingName === "*" ? "" : filterData.OfferingName}
@@ -353,9 +303,21 @@ export function FilterColumn(props: IFilterColumnProps) {
         <Checkbox onChange={toggleCreationDateBLock}>Creation Date</Checkbox>
         <Row className={showCreationDateBlock ? styles.offeringFilterField : styles.hidden}>
           <Col span={24}>From</Col>
-          <DatePicker allowClear value={fromCreationDate} onChange={handleFromCreationDateChange} format={dateFormat} />
+          <DatePicker
+            aria-label="Creation Date From"
+            allowClear
+            value={fromCreationDate}
+            onChange={handleFromCreationDateChange}
+            format={dateFormat}
+          />
           <Col span={24}>To</Col>
-          <DatePicker allowClear value={toCreationDate} onChange={handleToCreationDateChange} format={dateFormat} />
+          <DatePicker
+            aria-label="Creation Date To"
+            allowClear
+            value={toCreationDate}
+            onChange={handleToCreationDateChange}
+            format={dateFormat}
+          />
         </Row>
       </Row>
       <Row>

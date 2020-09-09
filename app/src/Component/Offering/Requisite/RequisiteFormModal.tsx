@@ -32,13 +32,10 @@ function OfferingRequisiteGroupFormModal({
     if (closeOfferingRequisiteGroupModal) {
       closeOfferingRequisiteGroupModal()
     }
-    console.log("initialFormValue ", initialFormValue)
   }
 
   const handleOk = async () => {
-    console.log(formInstance.getFieldsValue())
-    const validationPassed = await formInstance.validateFields()
-    console.log("validationPassed ", validationPassed)
+    await formInstance.validateFields()
     const params = formInstance.getFieldsValue()
 
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = requisiteGroupID
@@ -59,8 +56,6 @@ function OfferingRequisiteGroupFormModal({
   }
 
   useEffect(() => {
-    console.log("RequisiteGroupID ", requisiteGroupID)
-
     if (requisiteGroupID) {
       ;(async () => {
         setOfferingARequisiteGroupLoading(true)

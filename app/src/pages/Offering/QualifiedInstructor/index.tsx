@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
-
-import { Row, Col, Table, Typography, Button } from "antd"
-
+import { Row, Col, Typography, Button } from "antd"
+import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingInstructorModalOpenButton from "~/Component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
@@ -91,7 +90,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
 
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
         <Col className={`gutter-row ${styles.offeringInstructorDetails}`} xs={24} sm={24} md={24}>
-          <Table
+          <ResponsiveTable
             columns={columns}
             dataSource={offeringInstructorList}
             loading={loading}

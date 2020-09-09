@@ -111,7 +111,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
           })}
         </Select>
       </Form.Item>
-      <Form.Item label="Quick Admit" name={props.fieldNames.IsQuickAdmit} valuePropName="checked">
+      <Form.Item label="Quick Admit" name={props.fieldNames.IsQuickAdmit} valuePropName="checked" {...layout}>
         <Switch
           defaultChecked={!!props.formInstance.getFieldValue(props.fieldNames.IsQuickAdmit)}
           onChange={(checked) => {
@@ -119,7 +119,12 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
           }}
         />
       </Form.Item>
-      <Form.Item label="Approval Process" name={props.fieldNames.HasApprovalProcess} valuePropName="checked">
+      <Form.Item
+        label="Approval Process"
+        name={props.fieldNames.HasApprovalProcess}
+        valuePropName="checked"
+        {...layout}
+      >
         <Switch
           defaultChecked={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
           disabled={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
