@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Row, Col, Typography } from "antd"
-import { SelectedFilters, FilterColumn, IFilterValues, OfferingTable } from "~/Component/Offering"
+import { SelectedFilters, FilterColumn, OfferingTable } from "~/Component/Offering"
 import { RouteComponentProps } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 import { useOfferings, useOfferingFilterState } from "~/Component/Offering/offeringUtils"

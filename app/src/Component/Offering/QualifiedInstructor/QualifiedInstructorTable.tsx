@@ -1,8 +1,6 @@
 import { ITableWrapperProps } from "../offeringUtils"
-import { Table, Row, Col } from "antd"
+import { Row, Col } from "antd"
 import React from "react"
-import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
-import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import moment from "moment"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 
