@@ -6,18 +6,21 @@ import { DownOutlined } from "@ant-design/icons"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 
-interface IOfferingTableProps {
+export interface ITableWrapperProps {
   dataSource: Array<any>
   loading: boolean
+  isModal?: boolean
+  rowSelection?: any
 }
 
-export function OfferingTable(props: IOfferingTableProps) {
+export function OfferingTable(props: ITableWrapperProps) {
   const columns = [
     {
       title: "Offering Code",
       dataIndex: "OfferingCode",
       key: "OfferingCode",
-      render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>,
+      render: (text: any, record: any) =>
+        props.isModal ? text : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>,
       sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length
     },
     {
@@ -136,7 +139,8 @@ export function OfferingTable(props: IOfferingTableProps) {
       expandableRowRender={expandableRowRender}
       rowKey="OfferingID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: 600 }}
+      scroll={{ y: props.isModal ? 300 : 600 }}
+      rowSelection={props.rowSelection}
     />
   )
 }
