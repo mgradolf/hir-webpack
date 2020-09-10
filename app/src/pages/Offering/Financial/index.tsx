@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography, Space } from "antd"
+import { Row, Col, Typography, Space, Dropdown } from "antd"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
-
-import OfferingFinancialModalOpenButton from "~/component/Offering/Financial/OfferingFinancialModalOpenButton"
-import FinancialEditLink from "~/component/Offering/Financial/FinancialEditLink"
-import FinancialRemoveLink from "~/component/Offering/Financial/FinancialRemoveLink"
+import ResponsiveTable from "~/Component/ResponsiveTable"
+import OfferingFinancialModalOpenButton from "~/Component/Offering/Financial/OfferingFinancialModalOpenButton"
 import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
+import FinancialMenu from "~/Component/Offering/Financial/FinancialMenu"
+import { DownOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
 
@@ -62,12 +62,68 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <FinancialEditLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
-          <FinancialRemoveLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
+          <Dropdown
+            overlay={<FinancialMenu offeringId={record.ApplyToID} financialId={record.FinancialID} />}
+            trigger={["click"]}
+          >
+            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              Others <DownOutlined />
+            </a>
+          </Dropdown>
         </Space>
       )
     }
   ]
+
+  const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
+    return (
+      <>
+        {display && (
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="8">Basis:</Col>
+              <Col span="16">{data.FinancialBasisType}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Amount:</Col>
+              <Col span="16">{data.ItemUnitAmount}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Type:</Col>
+              <Col span="16">{data.FinancialType}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Optional:</Col>
+              <Col span="16">{data.IsOptional ? "Yes" : "No"}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Taxable:</Col>
+              <Col span="16">{data.IsTaxable ? "Yes" : "No"}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Weight:</Col>
+              <Col span="16">{data.Weight}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">Active:</Col>
+              <Col span="16">{data.IsActive ? "Yes" : "No"}</Col>
+            </Row>
+
+            <Row>
+              <Col span="8">GL Account:</Col>
+              <Col span="16">{data.GLAccount}</Col>
+            </Row>
+          </div>
+        )}
+      </>
+    )
+  }
 
   const offeringID = props.match.params.id
   const [loading, setLoading] = useState<boolean>(false)
@@ -107,15 +163,18 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
         </Col>
       </Row>
 
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <Col className={`gutter-row ${styles.offeringFinancialDetails}`} xs={24} sm={24} md={24}>
-          <Table
+          <ResponsiveTable
             columns={columns}
             dataSource={offeringFinancialItems}
             loading={loading}
+            expandableRowRender={expandableRowRender}
             bordered
-            pagination={{ position: ["topLeft"] }}
-            scroll={{ x: "fit-content" }}
+            pagination={{ position: ["topLeft"], pageSize: 20 }}
+            breakpoints={["md", "lg", "xl", "xxl"]}
+            responsiveColumnIndices={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+            scroll={{ y: 600 }}
           />
         </Col>
       </Row>

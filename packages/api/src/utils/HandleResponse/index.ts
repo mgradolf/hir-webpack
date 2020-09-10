@@ -1,10 +1,11 @@
 import { IApiResponse, ErrorType } from "../Interfaces"
 import { AxiosError, AxiosResponse } from "axios"
+import ProcessedApiError from "./ProcessedApiError"
 
 const handleError = (error: AxiosError): IApiResponse => {
   let response: IApiResponse = {
     code: undefined,
-    error: "Unknown",
+    error: undefined,
     data: undefined,
     success: false,
     errorMessage: ""
@@ -25,8 +26,11 @@ const handleError = (error: AxiosError): IApiResponse => {
         success: false
       }
     }
+  } else {
+    response.code = 503
   }
   response = tagGlobalErrors(response)
+  response.error = new ProcessedApiError(response.error)
   return response
 }
 
@@ -48,6 +52,10 @@ const tagGlobalErrors = (response: IApiResponse) => {
     case 403:
       response.type = ErrorType.GLOBAL
       response.errorMessage = retireveErrorText(response, "Forbidden")
+      break
+    case 404:
+      response.type = ErrorType.GLOBAL
+      response.errorMessage = retireveErrorText(response, "Resource not found")
       break
     case 500:
       response.type = ErrorType.GLOBAL
@@ -75,7 +83,16 @@ const tagGlobalErrors = (response: IApiResponse) => {
 export const handleResponse = (promise: Promise<any>): Promise<IApiResponse> => {
   return promise
     .then((response: AxiosResponse<any>) => {
-      return <IApiResponse>response.data
+      let result = <IApiResponse>response.data
+      if (
+        result.code === 200 &&
+        ((Array.isArray(result.data) && result.data.length === 0) || result.data === "" || !result.data)
+      ) {
+        result.code = 404
+        result = tagGlobalErrors(result)
+        result.error = new ProcessedApiError(result.error)
+      }
+      return result
     })
     .catch((error: AxiosError) => Promise.resolve(handleError(error)))
 }

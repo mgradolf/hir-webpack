@@ -6,7 +6,9 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 export function removeOfferingRequisiteGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RequisiteIf[config.Actions.deleteGroup](Params)
 }
-
 export function removeOfferingFromRequisiteGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RequisiteIf[config.Actions.deleteOfferingFromGroup](Params)
+}
+export function addOfferingIntoRequisiteGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RequisiteIf[config.Actions.addOfferingToGroup](Params)
 }

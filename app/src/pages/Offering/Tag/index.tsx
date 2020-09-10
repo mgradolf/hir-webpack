@@ -4,7 +4,7 @@ import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
 import { getTags, getParentTags, addTagIntoEntity, removeTagFromEntity } from "~/ApiServices/Service/TagService"
 import { Form, Card, Select, Input, Switch, Row, Col, Button, Spin } from "antd"
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons"
-import TagsTable from "~/component/Offering/Tag/TagsTable"
+import TagsTable from "~/Component/Offering/Tag/TagsTable"
 import { eventBus, REFRESH_OFFERING_TAG_PAGE } from "~/utils/EventBus"
 import { hidden } from "~/utils/style"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -46,8 +46,8 @@ export default function (props: RouteComponentProps<{ id: string }>) {
   const initialValues: IinitialValues = {
     EntityType: "Offering",
     EntityID: parseInt(props.match.params.id),
-    IsSelected: false,
-    Tag: "",
+    IsSelected: true,
+    Tag: "*",
     TagTypeID: []
   }
 
@@ -60,13 +60,22 @@ export default function (props: RouteComponentProps<{ id: string }>) {
     setLoadingTagTypes(false)
   }
 
+  const searchTags = async () => {
+    clearResult()
+    Promise.all([searchOfferingTags(), searchParentTags()])
+  }
+
   useEffect(() => {
-    eventBus.subscribe(REFRESH_OFFERING_TAG_PAGE, loadTagTypes)
+    eventBus.subscribe(REFRESH_OFFERING_TAG_PAGE, () => {
+      loadTagTypes()
+      searchTags()
+    })
     eventBus.publish(REFRESH_OFFERING_TAG_PAGE)
     return () => {
       eventBus.unsubscribe(REFRESH_OFFERING_TAG_PAGE)
     }
-  }, [])
+    // eslint-disable-next-line
+  }, [props.match.params.id])
 
   const resetForm = () => {
     clearResult()
@@ -76,11 +85,6 @@ export default function (props: RouteComponentProps<{ id: string }>) {
   const clearResult = () => {
     setParentTags([])
     setOfferingTags([])
-  }
-
-  const searchTags = async () => {
-    clearResult()
-    Promise.all([searchOfferingTags(), searchParentTags()])
   }
 
   const convertFormFieldIntoSearchParam = (formFields: { [key: string]: any }): IinitialValues => {

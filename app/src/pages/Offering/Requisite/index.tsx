@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react"
 import moment from "moment"
-
+import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Table, Typography, Space } from "antd"
+import { Row, Col, Typography, Space } from "antd"
 import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
-import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
-
-import PrerequisiteGroupOfferingModalOpenButton from "~/component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
-import PrerequisiteGroups from "~/component/Offering/Requisite/PrerequisiteGroups"
-import RequisiteOfferingRemoveLink from "~/component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
+import ResponsiveTable from "~/Component/ResponsiveTable"
+import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
+import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
+import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
+import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
 
 const { Title } = Typography
 
@@ -43,6 +42,25 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
       )
     }
   ]
+
+  const expandableRowRender = (data: { [key: string]: any }, display: boolean) => {
+    return (
+      <>
+        {display && (
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="8">Creation Date</Col>
+              <Col span="16">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
+            </Row>
+            <Row>
+              <Col span="8">Termination Date</Col>
+              <Col span="16">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
+            </Row>
+          </div>
+        )}
+      </>
+    )
+  }
 
   const offeringID = props.match.params.id
   const [requisiteGroupID, setRequisiteGroupID] = useState<number>()
@@ -104,9 +122,10 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
         <Col className={`gutter-row ${styles.offeringRequisiteDetails}`} xs={24} sm={24} md={24}>
           <PrerequisiteGroupOfferingModalOpenButton
             offeringId={parseInt(offeringID)}
+            requisiteGroupId={requisiteGroupID}
             hasRequisiteGroup={hasRequisiteGroup}
           />
-          <Table
+          <ResponsiveTable
             className={styles.paddingTop10px}
             columns={columns}
             dataSource={offeringRequisiteGroupDetails}
@@ -114,6 +133,9 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
             bordered
             pagination={{ position: ["bottomRight"] }}
             scroll={{ x: "fit-content" }}
+            responsiveColumnIndices={[2, 3]}
+            expandableRowRender={expandableRowRender}
+            breakpoints={["md", "lg", "xl", "xxl"]}
           />
         </Col>
       </Row>
