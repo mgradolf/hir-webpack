@@ -48,21 +48,23 @@ function OfferingPage(props: RouteComponentProps) {
         <Title level={3}>Manage Offerings</Title>
       </Row>
       <SelectedFilters filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <FilterColumn
+          isModalView={false}
           visible={showFilter}
           toggleVisiibility={toggleFilter}
           data={filterData}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             updateFilterData({ ...filterData, ...newFilterValues })
             setFilterCount(appliedFilterCount)
+            setFilterVisiblity(false)
           }}
         />
         <Col
           className={`gutter-row ${styles.offeringDetails}`}
           xs={24}
           sm={24}
-          md={{ span: showFilter ? 16 : 24, offset: showFilter ? 1 : 0 }}
+          md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
         >
           <OfferingTable dataSource={offeringItems} loading={loading} />
         </Col>

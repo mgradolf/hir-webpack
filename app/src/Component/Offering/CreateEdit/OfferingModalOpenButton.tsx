@@ -9,7 +9,7 @@ interface ICreateActionButtonProp {
 }
 function CreateActionButton(props: ICreateActionButtonProp) {
   return (
-    <Button type="primary" onClick={props.openCreateOfferingModal}>
+    <Button type="primary" style={{ float: "right" }} onClick={props.openCreateOfferingModal}>
       + Create Offering
     </Button>
   )

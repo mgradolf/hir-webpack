@@ -5,10 +5,38 @@ import moment from "moment"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/Component/Offering/FilterColumn.module.scss"
 
+import { ColProps } from "antd/lib/col"
 import { useFilterData } from "~/Component/Offering/offeringUtils"
 
 const { Option } = Select
 const { Title } = Typography
+
+const layout = {
+  label: {
+    md: 24,
+    lg: 24,
+    xl: 24,
+    xxl: 24,
+    sm: 24,
+    xs: 24
+  },
+  input: {
+    md: 20,
+    lg: 20,
+    xl: 20,
+    xxl: 20,
+    sm: 20,
+    xs: 20
+  }
+}
+
+function LabelCol(props: ColProps) {
+  return <Col {...layout.label} {...props} />
+}
+
+function InputCol(props: ColProps) {
+  return <Col {...layout.input} {...props} />
+}
 
 export interface IFilterValues {
   OfferingCode: string
@@ -50,6 +78,7 @@ interface IFilterColumnProps {
   toggleVisiibility: () => void
   onApplyChanges: (newValues: IFilterValues, appliedFilterCount: number) => void
   data: IFilterValues
+  isModalView: boolean
 }
 
 export function FilterColumn(props: IFilterColumnProps) {
@@ -266,7 +295,12 @@ export function FilterColumn(props: IFilterColumnProps) {
   }
 
   return (
-    <Col className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden} xs={24} sm={24} md={7}>
+    <Col
+      className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
+      xs={24}
+      sm={24}
+      md={props.isModalView ? 12 : 6}
+    >
       <Row>
         <Col span={12}>
           <Title level={4}>Offering Filter</Title>
@@ -276,8 +310,10 @@ export function FilterColumn(props: IFilterColumnProps) {
         </Col>
       </Row>
       <Row>
-        <Checkbox onChange={toggleOfferingCodeBLock}>Offering Code</Checkbox>
-        <Row className={showOfferingCodeBlock ? styles.offeringFilterField : styles.hidden}>
+        <LabelCol>
+          <Checkbox onChange={toggleOfferingCodeBLock}>Offering Code</Checkbox>
+        </LabelCol>
+        <InputCol className={showOfferingCodeBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
             aria-label="OfferingCode"
             name="OfferingCode"
@@ -285,11 +321,13 @@ export function FilterColumn(props: IFilterColumnProps) {
             value={filterData.OfferingCode === "*" ? "" : filterData.OfferingCode}
             onChange={handleInputChange}
           />
-        </Row>
+        </InputCol>
       </Row>
       <Row>
-        <Checkbox onChange={toggleOfferingNameBLock}>Offering Name</Checkbox>
-        <Row className={showOfferingNameBlock ? styles.offeringFilterField : styles.hidden}>
+        <LabelCol>
+          <Checkbox onChange={toggleOfferingNameBLock}>Offering Name</Checkbox>
+        </LabelCol>
+        <InputCol className={showOfferingNameBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
             aria-label="OfferingName"
             name="OfferingName"
@@ -297,62 +335,72 @@ export function FilterColumn(props: IFilterColumnProps) {
             value={filterData.OfferingName === "*" ? "" : filterData.OfferingName}
             onChange={handleInputChange}
           />
+        </InputCol>
+      </Row>
+      <Row>
+        <LabelCol>
+          <Checkbox onChange={toggleCreationDateBLock}>Creation Date</Checkbox>
+        </LabelCol>
+        <Row className={showCreationDateBlock ? styles.offeringFilterDateField : styles.hidden}>
+          <Col span={11}>
+            From
+            <DatePicker
+              allowClear
+              value={fromCreationDate}
+              onChange={handleFromCreationDateChange}
+              format={dateFormat}
+            />
+          </Col>
+
+          <Col span={11} offset={2}>
+            To
+            <DatePicker allowClear value={toCreationDate} onChange={handleToCreationDateChange} format={dateFormat} />
+          </Col>
         </Row>
       </Row>
       <Row>
-        <Checkbox onChange={toggleCreationDateBLock}>Creation Date</Checkbox>
-        <Row className={showCreationDateBlock ? styles.offeringFilterField : styles.hidden}>
-          <Col span={24}>From</Col>
-          <DatePicker
-            aria-label="Creation Date From"
-            allowClear
-            value={fromCreationDate}
-            onChange={handleFromCreationDateChange}
-            format={dateFormat}
-          />
-          <Col span={24}>To</Col>
-          <DatePicker
-            aria-label="Creation Date To"
-            allowClear
-            value={toCreationDate}
-            onChange={handleToCreationDateChange}
-            format={dateFormat}
-          />
+        <LabelCol>
+          <Checkbox onChange={toggleTerminationDateBLock}>Termination Date</Checkbox>
+        </LabelCol>
+        <Row className={showTerminationDateBlock ? styles.offeringFilterDateField : styles.hidden}>
+          <Col span={11}>
+            From
+            <DatePicker
+              allowClear
+              value={fromTerminationDate}
+              onChange={handleFromTerminationDateChange}
+              format={dateFormat}
+            />
+          </Col>
+          <Col span={11} offset={2}>
+            To
+            <DatePicker
+              allowClear
+              value={toTerminationDate}
+              onChange={handleToTerminationDateChange}
+              format={dateFormat}
+            />
+          </Col>
         </Row>
       </Row>
       <Row>
-        <Checkbox onChange={toggleTerminationDateBLock}>Termination Date</Checkbox>
-        <Row className={showTerminationDateBlock ? styles.offeringFilterField : styles.hidden}>
-          <Col span={24}>From</Col>
-          <DatePicker
-            allowClear
-            value={fromTerminationDate}
-            onChange={handleFromTerminationDateChange}
-            format={dateFormat}
-          />
-          <Col span={24}>To</Col>
-          <DatePicker
-            allowClear
-            value={toTerminationDate}
-            onChange={handleToTerminationDateChange}
-            format={dateFormat}
-          />
-        </Row>
-      </Row>
-      <Row>
-        <Checkbox onChange={toggleIsQuickAdmitBLock}>Is QuickAdmit</Checkbox>
-        <Row className={showIsQuickAdmitBlock ? styles.offeringFilterField : styles.hidden}>
-          <Select style={{ width: 200 }} value={filterData.IsQuickAdmit} onChange={onChangeSelect("IsQuickAdmit")}>
+        <LabelCol>
+          <Checkbox onChange={toggleIsQuickAdmitBLock}>Is QuickAdmit</Checkbox>
+        </LabelCol>
+        <InputCol className={showIsQuickAdmitBlock ? styles.offeringFilterField : styles.hidden}>
+          <Select style={{ width: 250 }} value={filterData.IsQuickAdmit} onChange={onChangeSelect("IsQuickAdmit")}>
             <Option value="true">Yes</Option>
             <Option value="false">No</Option>
           </Select>
-        </Row>
+        </InputCol>
       </Row>
       {offeringStatusTypes.length > 0 && (
         <Row>
-          <Checkbox onChange={toggleOfferingStatusBLock}>Offering Status</Checkbox>
-          <Row className={showOfferingStatusBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }} value={filterData.StatusID} onChange={onChangeSelect("StatusID")}>
+          <LabelCol>
+            <Checkbox onChange={toggleOfferingStatusBLock}>Offering Status</Checkbox>
+          </LabelCol>
+          <InputCol className={showOfferingStatusBlock ? styles.offeringFilterField : styles.hidden}>
+            <Select style={{ width: 250 }} value={filterData.StatusID} onChange={onChangeSelect("StatusID")}>
               {offeringStatusTypes.map((x) => {
                 return (
                   <Select.Option key={x.StatusID} value={x.StatusID}>
@@ -361,15 +409,17 @@ export function FilterColumn(props: IFilterColumnProps) {
                 )
               })}
             </Select>
-          </Row>
+          </InputCol>
         </Row>
       )}
       {offeringTypes.length > 0 && (
         <Row>
-          <Checkbox onChange={toggleOfferingTypeBLock}>Offering Type</Checkbox>
-          <Row className={showOfferingTypeBlock ? styles.offeringFilterField : styles.hidden}>
+          <LabelCol>
+            <Checkbox onChange={toggleOfferingTypeBLock}>Offering Type</Checkbox>
+          </LabelCol>
+          <InputCol className={showOfferingTypeBlock ? styles.offeringFilterField : styles.hidden}>
             <Select
-              style={{ width: 200 }}
+              style={{ width: 250 }}
               value={filterData.OfferingTypeID}
               onChange={onChangeSelect("OfferingTypeID")}
             >
@@ -381,14 +431,16 @@ export function FilterColumn(props: IFilterColumnProps) {
                 )
               })}
             </Select>
-          </Row>
+          </InputCol>
         </Row>
       )}
       {organizations.length > 0 && (
         <Row>
-          <Checkbox onChange={toggleDepartmentBLock}>Department</Checkbox>
-          <Row className={showDepartmentBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }} onChange={onChangeSelect("OrganizationID")}>
+          <LabelCol>
+            <Checkbox onChange={toggleDepartmentBLock}>Department</Checkbox>
+          </LabelCol>
+          <InputCol className={showDepartmentBlock ? styles.offeringFilterField : styles.hidden}>
+            <Select style={{ width: 250 }} onChange={onChangeSelect("OrganizationID")}>
               {organizations.map((x) => {
                 return (
                   <Select.Option key={x.OrganizationTypeID} value={x.OrganizationTypeID}>
@@ -397,14 +449,16 @@ export function FilterColumn(props: IFilterColumnProps) {
                 )
               })}
             </Select>
-          </Row>
+          </InputCol>
         </Row>
       )}
       {users.length > 0 && (
         <Row>
-          <Checkbox onChange={toggleCoordinatorBLock}>Coordinator</Checkbox>
-          <Row className={showCoordinatorBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }} value={filterData.Coordinator} onChange={onChangeSelect("Coordinator")}>
+          <LabelCol>
+            <Checkbox onChange={toggleCoordinatorBLock}>Coordinator</Checkbox>
+          </LabelCol>
+          <InputCol className={showCoordinatorBlock ? styles.offeringFilterField : styles.hidden}>
+            <Select style={{ width: 250 }} value={filterData.Coordinator} onChange={onChangeSelect("Coordinator")}>
               {users.map((x) => {
                 return (
                   <Select.Option key={x.UserLogin} value={x.UserLogin}>
@@ -413,14 +467,16 @@ export function FilterColumn(props: IFilterColumnProps) {
                 )
               })}
             </Select>
-          </Row>
+          </InputCol>
         </Row>
       )}
       {sectonTypes.length > 0 && (
         <Row>
-          <Checkbox onChange={toggleSectionTypeBLock}>Section Type</Checkbox>
-          <Row className={showSectionTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }} value={filterData.SectionTypeID} onChange={onChangeSelect("SectionTypeID")}>
+          <LabelCol>
+            <Checkbox onChange={toggleSectionTypeBLock}>Section Type</Checkbox>
+          </LabelCol>
+          <InputCol className={showSectionTypeBlock ? styles.offeringFilterField : styles.hidden}>
+            <Select style={{ width: 250 }} value={filterData.SectionTypeID} onChange={onChangeSelect("SectionTypeID")}>
               {sectonTypes.map((x) => {
                 return (
                   <Select.Option key={x.SectionTypeID} value={x.SectionTypeID}>
@@ -429,27 +485,31 @@ export function FilterColumn(props: IFilterColumnProps) {
                 )
               })}
             </Select>
-          </Row>
+          </InputCol>
         </Row>
       )}
       <Row>
-        <Checkbox onChange={toggleIsSearchTagHierarchyBLock}>Is Search Tag Hierarchy</Checkbox>
-        <Row className={showIsSearchTagHierarchyBlock ? styles.offeringFilterField : styles.hidden}>
+        <LabelCol>
+          <Checkbox onChange={toggleIsSearchTagHierarchyBLock}>Is Search Tag Hierarchy</Checkbox>
+        </LabelCol>
+        <InputCol className={showIsSearchTagHierarchyBlock ? styles.offeringFilterField : styles.hidden}>
           <Select
-            style={{ width: 200 }}
+            style={{ width: 250 }}
             value={filterData.IsSearchTagHierarchy}
             onChange={onChangeSelect("IsSearchTagHierarchy")}
           >
             <Option value="true">Yes</Option>
             <Option value="false">No</Option>
           </Select>
-        </Row>
+        </InputCol>
       </Row>
       {tagTypes.length > 0 && (
         <Row>
-          <Checkbox onChange={toggleTagBLock}>Tag Type</Checkbox>
-          <Row className={showTagTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 200 }} value={filterData.TagTypeID} onChange={onChangeSelect("TagTypeID")}>
+          <LabelCol>
+            <Checkbox onChange={toggleTagBLock}>Tag Type</Checkbox>
+          </LabelCol>
+          <InputCol className={showTagTypeBlock ? styles.offeringFilterField : styles.hidden}>
+            <Select style={{ width: 250 }} value={filterData.TagTypeID} onChange={onChangeSelect("TagTypeID")}>
               {tagTypes.map((x) => {
                 return (
                   <Select.Option key={x.ID} value={x.ID}>
@@ -458,49 +518,59 @@ export function FilterColumn(props: IFilterColumnProps) {
                 )
               })}
             </Select>
-          </Row>
+          </InputCol>
         </Row>
       )}
       <Row>
-        <Checkbox onChange={toggleTagNameBLock}>Tag</Checkbox>
-        <Row className={showTagNameBlock ? styles.offeringFilterField : styles.hidden}>
+        <LabelCol>
+          <Checkbox onChange={toggleTagNameBLock}>Tag</Checkbox>
+        </LabelCol>
+        <InputCol className={showTagNameBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
             name="TagName"
             defaultValue=""
             value={filterData.TagName === "*" ? "" : filterData.TagName}
             onChange={handleInputChange}
           />
+        </InputCol>
+      </Row>
+      <Row>
+        <LabelCol>
+          <Checkbox onChange={toggleFinalEnrollmentBLock}>Final Enrollment Date</Checkbox>
+        </LabelCol>
+        <Row className={showFinalEnrollmentBlock ? styles.offeringFilterDateField : styles.hidden}>
+          <Col span={11}>
+            From
+            <DatePicker
+              allowClear
+              value={fromFinalEnrollmentDate}
+              onChange={handleFromFinalEnrollmentDateChange}
+              format={dateFormat}
+            />
+          </Col>
+          <Col span={11} offset={2}>
+            To
+            <DatePicker
+              allowClear
+              value={toFinalEnrollmentDate}
+              onChange={handleToFinalEnrollmentDateChange}
+              format={dateFormat}
+            />
+          </Col>
         </Row>
       </Row>
       <Row>
-        <Checkbox onChange={toggleFinalEnrollmentBLock}>Final Enrollment Date</Checkbox>
-        <Row className={showFinalEnrollmentBlock ? styles.offeringFilterField : styles.hidden}>
-          <Col span={24}>From</Col>
-          <DatePicker
-            allowClear
-            value={fromFinalEnrollmentDate}
-            onChange={handleFromFinalEnrollmentDateChange}
-            format={dateFormat}
-          />
-          <Col span={24}>To</Col>
-          <DatePicker
-            allowClear
-            value={toFinalEnrollmentDate}
-            onChange={handleToFinalEnrollmentDateChange}
-            format={dateFormat}
-          />
-        </Row>
-      </Row>
-      <Row>
-        <Checkbox onChange={toggleOfferingNearCapacityBLock}>Capacity Util</Checkbox>
-        <Row className={showOfferingNearCapacityBlock ? styles.offeringFilterField : styles.hidden}>
+        <LabelCol>
+          <Checkbox onChange={toggleOfferingNearCapacityBLock}>Capacity Util</Checkbox>
+        </LabelCol>
+        <InputCol className={showOfferingNearCapacityBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
             name="OfferingNearCapacity"
             defaultValue=""
             value={filterData.OfferingNearCapacity === "*" ? "" : filterData.OfferingNearCapacity}
             onChange={handleInputChange}
           />
-        </Row>
+        </InputCol>
       </Row>
       <Row className={styles.floatRight}>
         <Button

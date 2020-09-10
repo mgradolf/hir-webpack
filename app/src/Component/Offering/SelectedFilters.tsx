@@ -12,14 +12,14 @@ interface IToolbarProps {
 
 export function SelectedFilters(props: IToolbarProps) {
   return (
-    <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+    <Row>
       <Col className="gutter-row" xs={24} sm={24} md={12}>
         <span>
           <FilterOutlined />
           <span> {props.filterCount === 0 ? "No" : props.filterCount} filters applied</span>
         </span>
       </Col>
-      <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
+      <Col className={`gutter-row ${styles.textAlign}`} xs={24} sm={24} md={12}>
         <Button
           type="primary"
           className={props.filterColumnVisible ? styles.hidden : styles.marginRight5px}

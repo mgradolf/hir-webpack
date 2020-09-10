@@ -72,3 +72,9 @@ export function getPolicyTypes(): Promise<IApiResponse> {
     LookUpName: "OfferingGroupPolicyType"
   })
 }
+
+export function getInstructorTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "InstructorType"
+  })
+}
