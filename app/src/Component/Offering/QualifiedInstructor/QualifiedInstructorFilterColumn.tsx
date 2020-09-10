@@ -66,10 +66,10 @@ export function FilterColumn(props: IFilterColumnProps) {
   const { visible, toggleVisiibility, data } = props
   const [filterData, updateFilterData] = useState<IFilterValues>(data)
 
-  const [showLastNameBlock, setLastNameBLockVisible] = useState<boolean>(false)
-  const [showFirstNameBlock, setFirstNameBLockVisible] = useState<boolean>(false)
-  const [showInstructorTypeBlock, setInstructorTypeBLockVisible] = useState<boolean>(false)
-  const [showFacultySerialNumBlock, setFacultySerialNumBLockVisible] = useState<boolean>(false)
+  const [showLastNameBlock, setLastNameBLockVisible] = useState<boolean>(data.LastName !== "")
+  const [showFirstNameBlock, setFirstNameBLockVisible] = useState<boolean>(data.FirstName !== "")
+  const [showInstructorTypeBlock, setInstructorTypeBLockVisible] = useState<boolean>(data.InstructorTypeID !== "")
+  const [showFacultySerialNumBlock, setFacultySerialNumBLockVisible] = useState<boolean>(data.FacultySerialNum !== "")
 
   const filterCount = [showLastNameBlock, showFirstNameBlock, showFirstNameBlock, showFacultySerialNumBlock].filter(
     Boolean
@@ -122,7 +122,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row className={styles.filterRow}>
         <LabelCol>
-          <Checkbox onChange={toggleFacultySerialNumBLock}>Instructor ID</Checkbox>
+          <Checkbox checked={showFacultySerialNumBlock} onChange={toggleFacultySerialNumBLock}>
+            Instructor ID
+          </Checkbox>
         </LabelCol>
         <InputCol className={showFacultySerialNumBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
@@ -135,7 +137,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row className={styles.filterRow}>
         <LabelCol>
-          <Checkbox onChange={toggleLastNameBLock}>Last Name</Checkbox>
+          <Checkbox checked={showLastNameBlock} onChange={toggleLastNameBLock}>
+            Last Name
+          </Checkbox>
         </LabelCol>
         <InputCol className={showLastNameBlock ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
           <Input
@@ -148,7 +152,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row className={styles.filterRow}>
         <LabelCol>
-          <Checkbox onChange={toggleFirstNameBLock}>First Name</Checkbox>
+          <Checkbox checked={showFirstNameBlock} onChange={toggleFirstNameBLock}>
+            First Name
+          </Checkbox>
         </LabelCol>
         <InputCol className={showFirstNameBlock ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
           <Input
@@ -162,7 +168,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       {instructorTypes.length > 0 && (
         <Row className={styles.filterRow}>
           <LabelCol>
-            <Checkbox onChange={toggleInstructorTypeBLock}>Instructor Type</Checkbox>
+            <Checkbox checked={showInstructorTypeBlock} onChange={toggleInstructorTypeBLock}>
+              Instructor Type
+            </Checkbox>
           </LabelCol>
           <InputCol className={showInstructorTypeBlock ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
             <Select

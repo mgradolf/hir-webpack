@@ -8,6 +8,7 @@ interface IToolbarProps {
   filterCount: number
   filterColumnVisible: boolean
   toggleFilter: () => void
+  hideCreateButton?: boolean
 }
 
 export function SelectedFilters(props: IToolbarProps) {
@@ -27,7 +28,7 @@ export function SelectedFilters(props: IToolbarProps) {
         >
           Filters
         </Button>
-        <CreateActionButton />
+        {!props.hideCreateButton && <CreateActionButton />}
       </Col>
     </Row>
   )

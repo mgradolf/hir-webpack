@@ -4,14 +4,12 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
 import { FilterColumn, IFilterValues } from "~/Component/Offering"
-import { Row, Table, Col, Grid, Card, Button } from "antd"
+import { Row, Col, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
-import { Breakpoint } from "antd/lib/_util/responsiveObserve"
-import moment from "moment"
-import styles from "~/Component/Offering/Requisite/PrerequisiteGroups.module.scss"
-import Title from "antd/lib/typography/Title"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
-import { useOfferings } from "~/Component/Offering/offeringUtils"
+import { useOfferings, useOfferingFilterState } from "~/Component/Offering/offeringUtils"
+import { OfferingTable } from "../OfferingTable"
+import { SelectedFilters } from "../SelectedFilters"
 
 const { useState } = React
 
@@ -19,29 +17,6 @@ interface IOfferingRequisiteGroupProps {
   offeringID: number
   requisiteGroupID: number
   closeAddOfferingFromRequisiteGroupModal: () => void
-}
-
-const INITIAL_FILTER_DATA: IFilterValues = {
-  OfferingCode: "",
-  OfferingName: "",
-  ToCreationDate: "",
-  FromCreationDate: "",
-  ToTerminationDate: "",
-  FromTerminationDate: "",
-  IsQuickAdmit: "",
-  StatusID: "",
-  Coordinator: "",
-  OrganizationID: "",
-  OfferingTypeID: "",
-  SectionTypeID: "",
-  InstructorID: "",
-  ShowProgramOffering: "",
-  TagName: "",
-  TagTypeID: "",
-  IsSearchTagHierarchy: "",
-  OfferingNearCapacity: "",
-  ToFinalEnrollmentDate: "",
-  FromFinalEnrollmentDate: ""
 }
 
 enum ModalPages {
@@ -54,120 +29,12 @@ function AddOfferingFromRequisiteGroupModal({
   requisiteGroupID,
   closeAddOfferingFromRequisiteGroupModal
 }: IOfferingRequisiteGroupProps) {
-  const [filterData, updateFilterData] = useState<IFilterValues>(INITIAL_FILTER_DATA)
-  const [loading, offeringItems] = useOfferings(filterData)
+  const { filterData, updateFilterData } = useOfferingFilterState()
+  const [filterCount, updateFilterCount] = useState<number>(0)
+
+  const [loading, offeringItems] = useOfferings(filterData as IFilterValues)
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
   const [selectedOfferings, setSelectedOfferings] = useState<any[]>([])
-
-  const { useBreakpoint } = Grid
-  const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
-  const breakpoints = ["md", "lg", "xl", "xxl"]
-  const display = breakpoints.filter((x) => screens[x]).length === 0
-
-  const columns = [
-    {
-      title: "Offering Code",
-      dataIndex: "OfferingCode",
-      key: "OfferingCode",
-      render: (text: any, record: any) => <span>{text}</span>,
-      sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length
-    },
-    {
-      title: "Offering Name",
-      dataIndex: "OfferingName",
-      key: "OfferingName",
-      sorter: (a: any, b: any) => a.OfferingName.length - b.OfferingName.length
-    },
-    {
-      title: "Creation Date",
-      dataIndex: "CreationDate",
-      key: "CreationDate",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
-    },
-    {
-      title: "Termination Date",
-      dataIndex: "TerminationDate",
-      key: "TerminationDate",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
-    },
-    {
-      title: "Status",
-      dataIndex: "StatusCode",
-      key: "StatusCode",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
-      sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
-    },
-    {
-      title: "Department",
-      dataIndex: "OrganizationName",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
-      key: "OrganizationName"
-    },
-    {
-      title: "Offering Type",
-      dataIndex: "OfferingTypeName",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
-      key: "OfferingTypeName"
-    },
-    {
-      title: "Def Section",
-      dataIndex: "SectionTypeName",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
-      key: "SectionTypeName"
-    }
-  ]
-
-  function expandableRowRender(data: any, display: boolean) {
-    return (
-      <div style={{ border: "1px solid", padding: "5px" }}>
-        <Row>
-          <Col span="8">Description:</Col>
-          <Col span="16">{data.OfferingDescription}</Col>
-        </Row>
-        {display && (
-          <Row>
-            <Col span="8">Creation Date:</Col>
-            <Col span="16">{data.CreationDate}</Col>
-          </Row>
-        )}
-
-        {display && (
-          <Row>
-            <Col span="8">Termination Date:</Col>
-            <Col span="16">{data.TerminationDate}</Col>
-          </Row>
-        )}
-
-        {display && (
-          <Row>
-            <Col span="8">Status:</Col>
-            <Col span="16">{data.StatusCode}</Col>
-          </Row>
-        )}
-
-        {display && (
-          <Row>
-            <Col span="8">Department:</Col>
-            <Col span="16">{data.OrganizationName}</Col>
-          </Row>
-        )}
-        {display && (
-          <Row>
-            <Col span="8">Offering Type:</Col>
-            <Col span="16">{data.OfferingTypeName}</Col>
-          </Row>
-        )}
-        {display && (
-          <Row>
-            <Col span="8">Def Section:</Col>
-            <Col span="16">{data.SectionTypeName}</Col>
-          </Row>
-        )}
-      </div>
-    )
-  }
 
   const rowSelection = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
@@ -189,7 +56,7 @@ function AddOfferingFromRequisiteGroupModal({
   return (
     <Modal showModal={true} width="1000px">
       {(modalSelectedPage === ModalPages.FilterPage && (
-        <Row style={{ justifyContent: "center" }}>
+        <Row justify="center">
           <FilterColumn
             isModalView={true}
             data={filterData}
@@ -198,46 +65,39 @@ function AddOfferingFromRequisiteGroupModal({
               closeAddOfferingFromRequisiteGroupModal()
               setSelectedOfferings([])
             }}
-            onApplyChanges={(newFilterValues) => {
-              updateFilterData({ ...filterData, ...newFilterValues })
+            onApplyChanges={(newFilterValues, newFilterCount) => {
+              updateFilterData({
+                ...filterData,
+                ...newFilterValues
+              })
+
+              updateFilterCount(newFilterCount)
               setModalPage(ModalPages.OfferingsList)
             }}
           />
         </Row>
       )) ||
         (modalSelectedPage === ModalPages.OfferingsList && (
-          <Card style={{ maxHeight: "80vh", overflow: "scroll" }}>
-            <Row>
-              <Col span={12}>
-                <Title level={3}>Add offerings</Title>
-              </Col>
-              <Col offset={8} className={styles.Table_config}>
-                <Button
-                  type="link"
-                  onClick={() => {
-                    setModalPage(ModalPages.FilterPage)
-                  }}
-                >
-                  Go back
-                </Button>
-                <Button type="primary" disabled={selectedOfferings.length === 0} onClick={handleSelect}>
-                  Select
-                </Button>
-              </Col>
-            </Row>
-            <Table
-              columns={columns}
-              dataSource={offeringItems}
-              loading={loading}
-              bordered
-              rowSelection={rowSelection}
-              expandedRowRender={(record, index, indent, expanded) => {
-                return expandableRowRender(record, display)
-              }}
-              rowKey="OfferingID"
-              pagination={{ position: ["bottomLeft"] }}
-              scroll={{ x: "fit-content" }}
+          <Card
+            title="Add offerings"
+            actions={[
+              <Button type="ghost" onClick={closeAddOfferingFromRequisiteGroupModal}>
+                Cancel
+              </Button>,
+              <Button type="primary" disabled={selectedOfferings.length === 0} onClick={handleSelect}>
+                Select
+              </Button>
+            ]}
+          >
+            <SelectedFilters
+              filterCount={filterCount as number}
+              filterColumnVisible={false}
+              toggleFilter={() => setModalPage(ModalPages.FilterPage)}
+              hideCreateButton
             />
+            <Col style={{ height: "65vh" }}>
+              <OfferingTable dataSource={offeringItems} loading={loading} isModal rowSelection={rowSelection} />
+            </Col>
           </Card>
         )) || <></>}
     </Modal>

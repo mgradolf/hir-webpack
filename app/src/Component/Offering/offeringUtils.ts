@@ -8,8 +8,10 @@ import {
 } from "~/ApiServices/Service/RefLookupService"
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { IFilterValues } from "./FilterColumn"
+import { IFilterValues as IInstructorFilterValues } from "~/Component/Offering/QualifiedInstructor/QualifiedInstructorFilterColumn"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
+import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
 
 export function useFilterData() {
   const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
@@ -117,4 +119,85 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
   }, [filterData])
 
   return [loading, offeringItems]
+}
+
+const INITIAL_OFFERING_FILTER_DATA: IFilterValues = {
+  OfferingCode: "",
+  OfferingName: "",
+  ToCreationDate: "",
+  FromCreationDate: "",
+  ToTerminationDate: "",
+  FromTerminationDate: "",
+  IsQuickAdmit: "",
+  StatusID: "",
+  Coordinator: "",
+  OrganizationID: "",
+  OfferingTypeID: "",
+  SectionTypeID: "",
+  InstructorID: "",
+  ShowProgramOffering: "",
+  TagName: "",
+  TagTypeID: "",
+  IsSearchTagHierarchy: "",
+  OfferingNearCapacity: "",
+  ToFinalEnrollmentDate: "",
+  FromFinalEnrollmentDate: ""
+}
+
+export function useOfferingFilterState(state = INITIAL_OFFERING_FILTER_DATA) {
+  const [filterData, updateFilterData] = useState<IFilterValues>(state)
+  return { filterData, updateFilterData }
+}
+
+export interface ITableWrapperProps {
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+}
+
+const INITIAL_INSTRUCTOR_FILTER_DATA: IInstructorFilterValues = {
+  LastName: "",
+  FirstName: "",
+  FacultySerialNum: "",
+  InstructorTypeID: ""
+}
+
+export function useInstructorFilterState(state = INITIAL_INSTRUCTOR_FILTER_DATA) {
+  const [filterData, updateFilterData] = useState<IInstructorFilterValues>(state)
+  return { filterData, updateFilterData }
+}
+
+export function useInstructors(filterData: IInstructorFilterValues): [boolean, any[]] {
+  const [instructorItems, setInstructorItems] = useState<Array<any>>([])
+  const [loading, setLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    const loadInstructors = async function () {
+      setLoading(true)
+
+      const params: { [key: string]: any } = {}
+      params["LastName"] = filterData.LastName !== "" ? filterData.LastName : "*"
+      params["FIrstName"] = filterData.FirstName !== "" ? filterData.FirstName : undefined
+      params["FacultySerialNum"] = filterData.FacultySerialNum !== "" ? filterData.FacultySerialNum : undefined
+      params["InstructorTypeID"] = filterData.InstructorTypeID !== "" ? Number(filterData.InstructorTypeID) : undefined
+
+      const objectKeys = Object.keys(params)
+      objectKeys.forEach((key) => {
+        if (!Boolean(params[key]) && typeof params[key] !== "number") {
+          delete params[key]
+        }
+      })
+
+      const result = await searchFaculties([params])
+
+      if (result && result.success) {
+        setInstructorItems(result.data)
+      }
+      setLoading(false)
+    }
+    loadInstructors()
+  }, [filterData])
+
+  return [loading, instructorItems]
 }

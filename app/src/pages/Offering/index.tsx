@@ -3,36 +3,13 @@ import { Row, Col, Typography } from "antd"
 import { SelectedFilters, FilterColumn, IFilterValues, OfferingTable } from "~/Component/Offering"
 import { RouteComponentProps } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { useOfferings } from "~/Component/Offering/offeringUtils"
+import { useOfferings, useOfferingFilterState } from "~/Component/Offering/offeringUtils"
 
 const { useState } = React
 const { Title } = Typography
 
-const INITIAL_FILTER_DATA: IFilterValues = {
-  OfferingCode: "",
-  OfferingName: "",
-  ToCreationDate: "",
-  FromCreationDate: "",
-  ToTerminationDate: "",
-  FromTerminationDate: "",
-  IsQuickAdmit: "",
-  StatusID: "",
-  Coordinator: "",
-  OrganizationID: "",
-  OfferingTypeID: "",
-  SectionTypeID: "",
-  InstructorID: "",
-  ShowProgramOffering: "",
-  TagName: "",
-  TagTypeID: "",
-  IsSearchTagHierarchy: "",
-  OfferingNearCapacity: "",
-  ToFinalEnrollmentDate: "",
-  FromFinalEnrollmentDate: ""
-}
-
 function OfferingPage(props: RouteComponentProps) {
-  const [filterData, updateFilterData] = useState<IFilterValues>(INITIAL_FILTER_DATA)
+  const { filterData, updateFilterData } = useOfferingFilterState()
   const [showFilter, setFilterVisiblity] = useState<boolean>(false)
   const [filterCount, setFilterCount] = useState<number>(0)
 
