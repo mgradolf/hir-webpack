@@ -81,6 +81,11 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
         {display && (
           <div style={{ border: "1px solid", padding: "5px" }}>
             <Row>
+              <Col span="8">Category:</Col>
+              <Col span="16">{data.FinancialCategoryType}</Col>
+            </Row>
+
+            <Row>
               <Col span="8">Basis:</Col>
               <Col span="16">{data.FinancialBasisType}</Col>
             </Row>

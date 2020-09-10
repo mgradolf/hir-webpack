@@ -49,12 +49,16 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
         {display && (
           <div style={{ border: "1px solid", padding: "5px" }}>
             <Row>
-              <Col span="8">Creation Date</Col>
-              <Col span="16">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
+              <Col span="10">Offering Name</Col>
+              <Col span="14">{data.Name}</Col>
             </Row>
             <Row>
-              <Col span="8">Termination Date</Col>
-              <Col span="16">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
+              <Col span="10">Creation Date</Col>
+              <Col span="14">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Termination Date</Col>
+              <Col span="14">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
             </Row>
           </div>
         )}
@@ -118,7 +122,7 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
 
       <PrerequisiteGroups offeringId={parseInt(offeringID)} policyData={policyTypeList} onSelected={handleSelection} />
 
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.margin0px}>
         <Col className={`gutter-row ${styles.offeringRequisiteDetails}`} xs={24} sm={24} md={24}>
           <PrerequisiteGroupOfferingModalOpenButton
             offeringId={parseInt(offeringID)}
@@ -131,11 +135,11 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
             dataSource={offeringRequisiteGroupDetails}
             loading={loading}
             bordered
-            pagination={{ position: ["bottomRight"] }}
-            scroll={{ x: "fit-content" }}
-            responsiveColumnIndices={[2, 3]}
+            pagination={{ position: ["topLeft"], pageSize: 20 }}
+            responsiveColumnIndices={[1, 2, 3]}
             expandableRowRender={expandableRowRender}
             breakpoints={["md", "lg", "xl", "xxl"]}
+            scroll={{ y: 600 }}
           />
         </Col>
       </Row>
