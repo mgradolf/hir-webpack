@@ -2,12 +2,10 @@ import ApiMethodFactory, { Iconfig } from "../../../utils/ApiMethodFactory"
 
 export const config: Iconfig = {
   EndPoint: "api/bizApiServlet",
-  Service: "com.jenzabar.jxntm.server.bizapi.course.RequisiteIF",
+  Service: "com.jenzabar.jxntm.server.bizapi.faculty.FacultyIF",
   Module: "hir",
   Actions: {
-    deleteGroup: "deleteGroup",
-    deleteOfferingFromGroup: "deleteOfferingFromGroup",
-    addOfferingToGroup: "addOfferingToGroup"
+    searchFaculties: "searchFaculties"
   }
 }
 

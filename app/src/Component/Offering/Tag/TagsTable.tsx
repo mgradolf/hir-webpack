@@ -1,5 +1,5 @@
 import React from "react"
-import { Switch } from "antd"
+import { Switch, Row, Col } from "antd"
 import { ColumnsType } from "antd/lib/table"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 
@@ -45,19 +45,37 @@ export default function TagsTable(props: ITagsTableProps) {
       )
     })
   }
-  function expandableRowRender(data: any) {
-    return data.Description ? <div style={{ padding: "5px" }}>{data.Description}</div> : <></>
+  function expandableRowRender(data: any, display: boolean) {
+    return (
+      <div style={{ border: "1px solid", padding: "5px" }}>
+        {display && (
+          <Row>
+            <Col span="10">Tag Name:</Col>
+            <Col span="14">{data.Name}</Col>
+          </Row>
+        )}
+        <Row>
+          <Col span="10">Description:</Col>
+          <Col span="14">{data.Description}</Col>
+        </Row>
+      </div>
+    )
   }
+
   return (
     <ResponsiveTable
       title={() => props.title}
       columns={columns}
       dataSource={props.data}
       rowKey="ID"
-      pagination={{ position: ["topRight"] }}
+      pagination={{ position: ["topRight"], pageSize: 20 }}
       size="small"
+      bordered
       loading={props.loading}
-      expandedRowRender={expandableRowRender}
+      breakpoints={["md", "lg", "xl", "xxl"]}
+      responsiveColumnIndices={[1]}
+      expandableRowRender={expandableRowRender}
+      scroll={{ y: 400 }}
     />
   )
 }

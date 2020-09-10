@@ -1,8 +1,8 @@
-.offeringFilter {
+.offeringInstructorFilter {
   background: $white;
   border-radius: 4px;
   margin-bottom: 1rem;
-  padding: 1rem !important;
+  padding: 1rem;
 }
 
 .modal {
@@ -18,17 +18,17 @@
   padding: 8px;
 }
 
-.offeringFilterField {
+.offeringInstructorFilterField {
   margin: 5px 25px !important;
 }
 
-.offeringFilterField_modal {
+.offeringInstructorFilterFieldModal {
   @media only screen and (max-width: 1200px) {
     margin: 5px 25px !important;
   }
 }
 
-.offeringFilterDateField {
+.offeringInstructorFilterDateField {
   margin: 5px 25px !important;
 }
 
@@ -41,7 +41,7 @@
   margin-top: 40px;
 }
 
-.Filter_row {
+.filterRow {
   align-items: center;
   margin: 4px 0;
 }

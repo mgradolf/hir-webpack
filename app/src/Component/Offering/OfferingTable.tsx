@@ -45,19 +45,9 @@ export function OfferingTable(props: IOfferingTableProps) {
       sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
     },
     {
-      title: "Department",
-      dataIndex: "OrganizationName",
-      key: "OrganizationName"
-    },
-    {
       title: "Offering Type",
       dataIndex: "OfferingTypeName",
       key: "OfferingTypeName"
-    },
-    {
-      title: "Def Section",
-      dataIndex: "SectionTypeName",
-      key: "SectionTypeName"
     },
     {
       title: "Action",
@@ -78,46 +68,57 @@ export function OfferingTable(props: IOfferingTableProps) {
     return (
       <div style={{ border: "1px solid", padding: "5px" }}>
         <Row>
-          <Col span="8">Description:</Col>
-          <Col span="16">{data.OfferingDescription}</Col>
+          <Col span="10">Description:</Col>
+          <Col span="14">{data.OfferingDescription}</Col>
         </Row>
         {display && (
           <Row>
-            <Col span="8">Creation Date:</Col>
-            <Col span="16">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
+            <Col span="10">Offering Name:</Col>
+            <Col span="14">{data.OfferingName}</Col>
           </Row>
         )}
-
+        <Row>
+          <Col span="10">Department:</Col>
+          <Col span="14">{data.OrganizationName}</Col>
+        </Row>
+        <Row>
+          <Col span="10">Def Section:</Col>
+          <Col span="14">{data.SectionTypeName}</Col>
+        </Row>
         {display && (
           <Row>
-            <Col span="8">Termination Date:</Col>
-            <Col span="16">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
-          </Row>
-        )}
-
-        {display && (
-          <Row>
-            <Col span="8">Status:</Col>
-            <Col span="16">{data.StatusCode}</Col>
-          </Row>
-        )}
-
-        {display && (
-          <Row>
-            <Col span="8">Department:</Col>
-            <Col span="16">{data.OrganizationName}</Col>
+            <Col span="10">Creation Date:</Col>
+            <Col span="14">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
         {display && (
           <Row>
-            <Col span="8">Offering Type:</Col>
-            <Col span="16">{data.OfferingTypeName}</Col>
+            <Col span="10">Termination Date:</Col>
+            <Col span="14">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
         {display && (
           <Row>
-            <Col span="8">Def Section:</Col>
-            <Col span="16">{data.SectionTypeName}</Col>
+            <Col span="10">Status:</Col>
+            <Col span="14">{data.StatusCode}</Col>
+          </Row>
+        )}
+        {display && (
+          <Row>
+            <Col span="10">Department:</Col>
+            <Col span="14">{data.OrganizationName}</Col>
+          </Row>
+        )}
+        {display && (
+          <Row>
+            <Col span="10">Offering Type:</Col>
+            <Col span="14">{data.OfferingTypeName}</Col>
+          </Row>
+        )}
+        {display && (
+          <Row>
+            <Col span="10">Def Section:</Col>
+            <Col span="14">{data.SectionTypeName}</Col>
           </Row>
         )}
       </div>
@@ -131,11 +132,11 @@ export function OfferingTable(props: IOfferingTableProps) {
       loading={props.loading}
       bordered
       breakpoints={["md", "lg", "xl", "xxl"]}
-      responsiveColumnIndices={[2, 3, 4, 5, 6, 7]}
+      responsiveColumnIndices={[1, 2, 3, 4, 5]}
       expandableRowRender={expandableRowRender}
       rowKey="OfferingID"
-      pagination={{ position: ["topLeft"] }}
-      scroll={{ x: "fit-content" }}
+      pagination={{ position: ["topLeft"], pageSize: 20 }}
+      scroll={{ y: 600 }}
     />
   )
 }

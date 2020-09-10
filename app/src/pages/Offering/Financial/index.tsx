@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react"
 
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Typography, Space } from "antd"
+import { Row, Col, Typography, Space, Dropdown } from "antd"
 import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingFinancialModalOpenButton from "~/Component/Offering/Financial/OfferingFinancialModalOpenButton"
-import FinancialEditLink from "~/Component/Offering/Financial/FinancialEditLink"
-import FinancialRemoveLink from "~/Component/Offering/Financial/FinancialRemoveLink"
 import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
+import FinancialMenu from "~/Component/Offering/Financial/FinancialMenu"
+import { DownOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
 
@@ -62,8 +62,14 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <FinancialEditLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
-          <FinancialRemoveLink offeringId={record.ApplyToID} financialId={record.FinancialID} />
+          <Dropdown
+            overlay={<FinancialMenu offeringId={record.ApplyToID} financialId={record.FinancialID} />}
+            trigger={["click"]}
+          >
+            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              Others <DownOutlined />
+            </a>
+          </Dropdown>
         </Space>
       )
     }
@@ -74,6 +80,11 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
       <>
         {display && (
           <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="8">Category:</Col>
+              <Col span="16">{data.FinancialCategoryType}</Col>
+            </Row>
+
             <Row>
               <Col span="8">Basis:</Col>
               <Col span="16">{data.FinancialBasisType}</Col>
@@ -157,7 +168,7 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
         </Col>
       </Row>
 
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <Col className={`gutter-row ${styles.offeringFinancialDetails}`} xs={24} sm={24} md={24}>
           <ResponsiveTable
             columns={columns}
@@ -165,10 +176,10 @@ function OfferingFinancialPage(props: RouteComponentProps<{ id: string }>) {
             loading={loading}
             expandableRowRender={expandableRowRender}
             bordered
-            pagination={{ position: ["topLeft"] }}
+            pagination={{ position: ["topLeft"], pageSize: 20 }}
             breakpoints={["md", "lg", "xl", "xxl"]}
-            responsiveColumnIndices={[2, 3, 4, 5, 6, 7, 8, 9]}
-            scroll={{ x: "fit-content" }}
+            responsiveColumnIndices={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+            scroll={{ y: 600 }}
           />
         </Col>
       </Row>

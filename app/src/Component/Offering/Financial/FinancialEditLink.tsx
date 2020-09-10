@@ -12,8 +12,7 @@ interface IFinancialEditLinkProp {
 function FinancialEditLink(props: IFinancialEditLinkProp) {
   return (
     <Button
-      block
-      type="link"
+      type="text"
       onClick={() => {
         props.openFinancialModal(props.offeringId, props.financialId)
       }}

@@ -45,6 +45,29 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
 
   const offeringID = props.match.params.id
 
+  const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
+    return (
+      <>
+        {display && (
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="10">Start Date:</Col>
+              <Col span="14">{data.startDate}</Col>
+            </Row>
+            <Row>
+              <Col span="10">End Date:</Col>
+              <Col span="14">{data.endDate}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Current Status:</Col>
+              <Col span="14">{data.currentStatus}</Col>
+            </Row>
+          </div>
+        )}
+      </>
+    )
+  }
+
   async function catalogPublished(event: any, catalogID: any) {
     const publishedRowData = selectedRowKeys
     if (event) {
@@ -92,7 +115,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
         </Col>
       </Row>
 
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <Col className={`gutter-row ${styles.offeringFinancialDetails}`} xs={24} sm={24} md={24}>
           <ResponsiveTable
             columns={columns}
@@ -100,7 +123,11 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
             loading={loading}
             bordered
             rowKey="catalogID"
-            pagination={{ position: ["topLeft"] }}
+            pagination={{ position: ["topLeft"], pageSize: 20 }}
+            expandableRowRender={expandableRowRender}
+            breakpoints={["md", "lg", "xl", "xxl"]}
+            responsiveColumnIndices={[1, 2, 3]}
+            scroll={{ y: 600 }}
           />
         </Col>
       </Row>

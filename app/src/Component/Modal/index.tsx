@@ -56,17 +56,18 @@ export default function ({
               <Row className={style.modal_content} style={{ zIndex: zIndex + 1 }}>
                 <Col flex="auto"></Col>
                 {loading && <ModalLoading {...{ width, loadingTip }} />}
-                <Col flex={width}>
-                  {children}
-                  {apiCallInProgress && (
-                    <div className={style.modal_api_in_progress}>
-                      <div className={style.modal_api_in_progress__spinner}>
-                        <Spin size="large" />
+                {!loading && (
+                  <Col flex={width}>
+                    {children}
+                    {apiCallInProgress && (
+                      <div className={style.modal_api_in_progress}>
+                        <div className={style.modal_api_in_progress__spinner}>
+                          <Spin size="large" />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </Col>
-
+                    )}
+                  </Col>
+                )}
                 <Col flex="auto"></Col>
               </Row>
             </div>

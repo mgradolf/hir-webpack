@@ -6,6 +6,8 @@ import CreateNewOfferingModal from "~/Component/Offering/CreateEdit/OfferingForm
 import OfferingFinancialFormModal from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApprovalFormModal"
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
+import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
+import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
 
@@ -30,6 +32,18 @@ function ModalContainer(modalState: IModalState) {
         <OfferingRequisiteGroupFormModal
           offeringID={modalState.offeringPrerequisiteGroupModal.config.offeringId}
           requisiteGroupID={modalState.offeringPrerequisiteGroupModal.config.requisiteGroupId}
+        />
+      )}
+      {modalState.addOfferingFromRequisiteGroupModal.value && (
+        <AddOfferingFromRequisiteGroupModal
+          offeringID={modalState.addOfferingFromRequisiteGroupModal.config.offeringId}
+          requisiteGroupID={modalState.addOfferingFromRequisiteGroupModal.config.requisiteGroupId}
+        />
+      )}
+      {modalState.addInstructorFromInstructorModal.value && (
+        <AddInstructorFromInstructorModal
+          offeringID={modalState.addInstructorFromInstructorModal.config.offeringId}
+          rowData={modalState.addInstructorFromInstructorModal.config.rowData}
         />
       )}
     </>

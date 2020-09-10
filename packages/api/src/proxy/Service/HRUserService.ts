@@ -6,7 +6,8 @@ export const config = {
   Module: "hir",
   Actions: {
     getAllUsers: "getAllUsers",
-    getUserByUserLogin: "getUserByUserLogin"
+    getUserByUserLogin: "getUserByUserLogin",
+    getUsersByRole: "getUsersByRole"
   }
 }
 

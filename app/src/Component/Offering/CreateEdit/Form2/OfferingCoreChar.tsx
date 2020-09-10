@@ -156,6 +156,5 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         </Select>
       </Form.Item>
     </>
-    // </Form>
   )
 }

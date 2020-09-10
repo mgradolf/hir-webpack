@@ -5,6 +5,7 @@ import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingInstructorModalOpenButton from "~/Component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
+import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -44,6 +45,29 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
 
   const offeringID = props.match.params.id
 
+  const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
+    return (
+      <>
+        {display && (
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="8">Email:</Col>
+              <Col span="16">{data.email}</Col>
+            </Row>
+            <Row>
+              <Col span="8">Telephone:</Col>
+              <Col span="16">{data.telephone}</Col>
+            </Row>
+            <Row>
+              <Col span="8">Address:</Col>
+              <Col span="16">{data.address}</Col>
+            </Row>
+          </div>
+        )}
+      </>
+    )
+  }
+
   async function removeInstructor(event: any, instructorID: any) {
     const allRowData = selectedRowKeys
     const index = allRowData.indexOf(instructorID)
@@ -74,7 +98,11 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
         setSelectedRowKeys(selectedRowData)
       }
     }
-    loadOfferingInstructors()
+    eventBus.subscribe(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE, loadOfferingInstructors)
+    eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
+    return () => {
+      eventBus.unsubscribe(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
+    }
   }, [offeringID, pendingRowDataSelection])
 
   return (
@@ -84,11 +112,11 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
           <Title level={3}>Manage Offering Instructors</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <OfferingInstructorModalOpenButton offeringId={parseInt(offeringID)} />
+          <OfferingInstructorModalOpenButton offeringId={parseInt(offeringID)} rowData={selectedRowKeys} />
         </Col>
       </Row>
 
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <Col className={`gutter-row ${styles.offeringInstructorDetails}`} xs={24} sm={24} md={24}>
           <ResponsiveTable
             columns={columns}
@@ -96,7 +124,11 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
             loading={loading}
             bordered
             rowKey="instructorID"
-            pagination={{ position: ["topLeft"] }}
+            pagination={{ position: ["topLeft"], pageSize: 20 }}
+            expandableRowRender={expandableRowRender}
+            breakpoints={["md", "lg", "xl", "xxl"]}
+            responsiveColumnIndices={[1, 2, 3]}
+            scroll={{ y: 600 }}
           />
         </Col>
       </Row>
