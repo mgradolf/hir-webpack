@@ -17,7 +17,7 @@ function CreateActionButton(props: ICreateActionButtonProp) {
       props.openAddOfferingRequisiteGroupModal(props.offeringId, props.requisiteGroupId)
   }
   return (
-    <Row style={{ padding: "10px" }}>
+    <Row style={{ paddingTop: "5px" }}>
       <Col span={12}>
         <Typography.Text style={{ fontWeight: "bold", fontSize: "16px" }}>Group Details</Typography.Text>
       </Col>
