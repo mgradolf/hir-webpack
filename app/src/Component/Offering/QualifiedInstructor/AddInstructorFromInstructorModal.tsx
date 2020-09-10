@@ -166,8 +166,8 @@ function AddInstructorFromInstructorModal({
 
     const uniqueRowData = rowData.filter(onlyUnique)
     updateInstructors(offeringID, uniqueRowData)
-    closeAddInstructorFromInstructorModal()
-    eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
+      .then(() => eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE))
+      .finally(closeAddInstructorFromInstructorModal)
   }
 
   const actions = []

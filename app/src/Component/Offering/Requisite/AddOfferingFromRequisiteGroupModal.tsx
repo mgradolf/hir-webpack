@@ -3,7 +3,7 @@ import Modal from "~/Component/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
-import { FilterColumn, IFilterValues } from "~/Component/Offering/FilterColumnModal"
+import { FilterColumn, IFilterValues } from "~/Component/Offering"
 import { Row, Table, Col, Grid, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
@@ -191,6 +191,7 @@ function AddOfferingFromRequisiteGroupModal({
       {(modalSelectedPage === ModalPages.FilterPage && (
         <Row style={{ justifyContent: "center" }}>
           <FilterColumn
+            isModalView={true}
             data={filterData}
             visible
             toggleVisiibility={() => {

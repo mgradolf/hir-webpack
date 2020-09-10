@@ -10,8 +10,7 @@ interface IFinancialRemoveLinkProp {
 function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
   return (
     <Button
-      block
-      type="link"
+      type="text"
       onClick={async () => {
         const response = await removeOfferingFinancialById(props.financialId)
         if (response.success) {
