@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react"
-import { Layout, Grid } from "antd"
+import React, { useState } from "react"
+import { Layout } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 import Sidebar from "~/Component/Layout/Sidebar"
 import { Breadcrumb } from "~/Component/Layout"
 import ApiErrorAlert from "~/Component/ApiErrorAlert"
+import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 
 const { Header, Content, Footer } = Layout
 
@@ -11,16 +12,11 @@ interface ILayoutProps {
   children: React.ReactNode
 }
 
-const { useBreakpoint } = Grid
-
 export default function DefaultLayout(props: ILayoutProps) {
   const [collapsed, setCollapsed] = useState<boolean>(false)
-  const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
-  useEffect(() => {
-    const display = !!(["md", "lg", "xxl", "xxl"].filter((x) => screens[x]).length === 0)
-    console.log("display ", display)
-    setCollapsed(display)
-  }, [screens])
+  useDeviceViews((deviceViews: IDeviceView) => {
+    setCollapsed(deviceViews.mobile || deviceViews.tab)
+  })
   return (
     <Layout>
       <ApiErrorAlert />

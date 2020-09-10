@@ -4,13 +4,13 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddInstructorFromOfferingModal } from "~/store/ModalState"
 import { FilterColumn, IFilterValues } from "~/Component/Offering/QualifiedInstructor/QualifiedInstructorFilterColumn"
-import { Row, Table, Col, Grid, Card, Button } from "antd"
+import { Row, Col, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 import onlyUnique from "~/utils/util"
 import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
-import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import moment from "moment"
 import { updateInstructors } from "~/ApiServices/Service/OfferingService"
+import ResponsiveTable from "~/Component/ResponsiveTable"
 
 const { useState } = React
 
@@ -43,17 +43,7 @@ function AddInstructorFromInstructorModal({
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
   const [selectedInstructors, setSelectedInstructors] = useState<any[]>([])
 
-  const { useBreakpoint } = Grid
-  const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
-  const breakpoints = ["md", "lg", "xl", "xxl"]
-  const display = breakpoints.filter((x) => screens[x]).length === 0
-
-  console.log("offeirng ID: " + offeringID)
-  console.log("Row data: " + rowData)
-
   const loadInstructors = async function () {
-    setLoading(true)
-
     const params: { [key: string]: any } = {}
     params["LastName"] = filterData.LastName !== "" ? filterData.LastName : "*"
     params["FIrstName"] = filterData.FirstName !== "" ? filterData.FirstName : undefined
@@ -67,12 +57,13 @@ function AddInstructorFromInstructorModal({
       }
     })
 
+    setLoading(true)
     const result = await searchFaculties([params])
+    setLoading(false)
 
     if (result && result.success) {
       setInstructorItems(result.data)
     }
-    setLoading(false)
   }
 
   const columns = [
@@ -91,56 +82,49 @@ function AddInstructorFromInstructorModal({
     },
     {
       title: "Status",
-      dataIndex: "Status",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[]
+      dataIndex: "Status"
     },
     {
       title: "Birthday",
       dataIndex: "Birthday",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[],
       render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
     },
     {
       title: "Gender",
-      dataIndex: "GenderTypeName",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[]
+      dataIndex: "GenderTypeName"
     },
     {
       title: "Ethnicity",
-      dataIndex: "EthnicityTypeName",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[]
+      dataIndex: "EthnicityTypeName"
     },
     {
       title: "Address",
-      dataIndex: "Address",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[]
+      dataIndex: "Address"
     },
     {
       title: "Telephone",
-      dataIndex: "TelephoneNumber",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[]
+      dataIndex: "TelephoneNumber"
     },
     {
       title: "Email",
-      dataIndex: "EmailAddress",
-      responsive: ["md", "lg", "xl", "xxl"] as Breakpoint[]
+      dataIndex: "EmailAddress"
     }
   ]
 
-  function expandableRowRender(data: any, display: boolean) {
+  function expandableRowRender(data: any, mobileView: boolean) {
     return (
       <div style={{ border: "1px solid", padding: "5px" }}>
         <Row>
           <Col span="8">Organization:</Col>
           <Col span="16">{data.OrganizationName}</Col>
         </Row>
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="8">Instructor Type:</Col>
             <Col span="16">{data.InstructorType}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="8">Deceased:</Col>
             <Col span="16">{data.IsDeceased}</Col>
@@ -150,7 +134,7 @@ function AddInstructorFromInstructorModal({
     )
   }
 
-  const rowSelection = {
+  const rowSelection: { [key: string]: any } = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
       setSelectedInstructors(selectedRows)
     },
@@ -210,15 +194,14 @@ function AddInstructorFromInstructorModal({
         (modalSelectedPage === ModalPages.InstructorsList && (
           <Card title={"Add Instructors"} actions={actions}>
             <Row style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
-              <Table
+              <ResponsiveTable
                 columns={columns}
                 dataSource={instructorItems}
                 loading={loading}
                 bordered
                 rowSelection={rowSelection}
-                expandedRowRender={(record, index, indent, expanded) => {
-                  return expandableRowRender(record, display)
-                }}
+                expandableRowRender={expandableRowRender}
+                responsiveColumnIndices={[3, 4, 5, 6, 7, 8, 9]}
                 rowKey="FacultyID"
                 pagination={{ position: ["bottomLeft"] }}
                 scroll={{ x: "fit-content" }}

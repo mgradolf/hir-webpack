@@ -64,14 +64,14 @@ export function OfferingTable(props: IOfferingTableProps) {
     }
   ]
 
-  function expandableRowRender(data: any, display: boolean) {
+  function expandableRowRender(data: any, mobileView: boolean) {
     return (
       <div style={{ border: "1px solid", padding: "5px" }}>
         <Row>
           <Col span="10">Description:</Col>
           <Col span="14">{data.OfferingDescription}</Col>
         </Row>
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Offering Name:</Col>
             <Col span="14">{data.OfferingName}</Col>
@@ -85,37 +85,37 @@ export function OfferingTable(props: IOfferingTableProps) {
           <Col span="10">Def Section:</Col>
           <Col span="14">{data.SectionTypeName}</Col>
         </Row>
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Creation Date:</Col>
             <Col span="14">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Termination Date:</Col>
             <Col span="14">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Status:</Col>
             <Col span="14">{data.StatusCode}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Department:</Col>
             <Col span="14">{data.OrganizationName}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Offering Type:</Col>
             <Col span="14">{data.OfferingTypeName}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Def Section:</Col>
             <Col span="14">{data.SectionTypeName}</Col>

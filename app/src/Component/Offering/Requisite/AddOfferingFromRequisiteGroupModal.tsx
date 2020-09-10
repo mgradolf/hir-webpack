@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
 import { FilterColumn, IFilterValues } from "~/Component/Offering"
-import { Row, Table, Col, Grid, Card, Button } from "antd"
+import { Row, Col, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import moment from "moment"
@@ -12,6 +12,7 @@ import styles from "~/Component/Offering/Requisite/PrerequisiteGroups.module.scs
 import Title from "antd/lib/typography/Title"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { useOfferings } from "~/Component/Offering/offeringUtils"
+import ResponsiveTable from "~/Component/ResponsiveTable"
 
 const { useState } = React
 
@@ -58,11 +59,6 @@ function AddOfferingFromRequisiteGroupModal({
   const [loading, offeringItems] = useOfferings(filterData)
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
   const [selectedOfferings, setSelectedOfferings] = useState<any[]>([])
-
-  const { useBreakpoint } = Grid
-  const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
-  const breakpoints = ["md", "lg", "xl", "xxl"]
-  const display = breakpoints.filter((x) => screens[x]).length === 0
 
   const columns = [
     {
@@ -169,7 +165,7 @@ function AddOfferingFromRequisiteGroupModal({
     )
   }
 
-  const rowSelection = {
+  const rowSelection: { [key: string]: any } = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
       setSelectedOfferings(selectedRows)
     },
@@ -225,15 +221,13 @@ function AddOfferingFromRequisiteGroupModal({
                 </Button>
               </Col>
             </Row>
-            <Table
+            <ResponsiveTable
               columns={columns}
               dataSource={offeringItems}
               loading={loading}
               bordered
               rowSelection={rowSelection}
-              expandedRowRender={(record, index, indent, expanded) => {
-                return expandableRowRender(record, display)
-              }}
+              expandableRowRender={expandableRowRender}
               rowKey="OfferingID"
               pagination={{ position: ["bottomLeft"] }}
               scroll={{ x: "fit-content" }}
