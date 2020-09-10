@@ -6,7 +6,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/Component/Offering/FilterColumn.module.scss"
 
 import { ColProps } from "antd/lib/col"
-import { useFilterData } from "~/Component/Offering/offeringUtils"
+import { useOfferingFilterData } from "~/Hooks/Offering"
 
 const { Option } = Select
 const { Title } = Typography
@@ -82,7 +82,7 @@ interface IFilterColumnProps {
 }
 
 export function FilterColumn(props: IFilterColumnProps) {
-  const [offeringStatusTypes, tagTypes, offeringTypes, sectonTypes, organizations, users] = useFilterData()
+  const [offeringStatusTypes, tagTypes, offeringTypes, sectonTypes, organizations, users] = useOfferingFilterData()
 
   const { visible, toggleVisiibility, data } = props
   const [filterData, updateFilterData] = useState<IFilterValues>(data)

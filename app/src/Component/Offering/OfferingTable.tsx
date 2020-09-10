@@ -5,7 +5,13 @@ import { Space, Dropdown, Row, Col } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
-import { ITableWrapperProps } from "~/Component/Offering/offeringUtils"
+
+export interface ITableWrapperProps {
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+}
 
 export function OfferingTable(props: ITableWrapperProps) {
   const columns = [

@@ -3,7 +3,7 @@ import { Row, Col, Typography } from "antd"
 import { SelectedFilters, FilterColumn, OfferingTable } from "~/Component/Offering"
 import { RouteComponentProps } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { useOfferings, useOfferingFilterState } from "~/Component/Offering/offeringUtils"
+import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
 
 const { useState } = React
 const { Title } = Typography

@@ -11,7 +11,7 @@ import onlyUnique from "~/utils/util"
 import { updateInstructors } from "~/ApiServices/Service/OfferingService"
 import { QualifiedInstructorTable } from "./QualifiedInstructorTable"
 import { SelectedFilters } from "~/Component/Offering"
-import { useInstructorFilterState, useInstructors } from "../offeringUtils"
+import { useInstructorFilterState, useInstructors } from "~/Hooks/Offering/QualifiedInstructors"
 
 const { useState } = React
 

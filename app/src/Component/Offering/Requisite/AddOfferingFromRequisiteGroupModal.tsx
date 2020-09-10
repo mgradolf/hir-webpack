@@ -7,7 +7,7 @@ import { FilterColumn, IFilterValues } from "~/Component/Offering"
 import { Row, Col, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
-import { useOfferings, useOfferingFilterState } from "~/Component/Offering/offeringUtils"
+import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
 import { OfferingTable } from "../OfferingTable"
 import { SelectedFilters } from "../SelectedFilters"
 
