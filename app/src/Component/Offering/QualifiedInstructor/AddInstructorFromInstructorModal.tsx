@@ -89,7 +89,7 @@ function AddInstructorFromInstructorModal({
         </Row>
       )) ||
         (modalSelectedPage === ModalPages.InstructorsList && (
-          <Card title={"Add Instructors"} actions={actions}>
+          <Card title={"Select Instructors"} actions={actions}>
             <SelectedFilters
               filterCount={filterCount}
               filterColumnVisible={false}

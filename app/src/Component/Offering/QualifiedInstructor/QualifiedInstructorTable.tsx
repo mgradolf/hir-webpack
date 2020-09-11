@@ -39,21 +39,6 @@ export function QualifiedInstructorTable(props: ITableWrapperProps) {
       key: "GenderTypeNamer"
     },
     {
-      title: "Ethnicity",
-      dataIndex: "EthnicityTypeName",
-      key: "EthnicityTypeName"
-    },
-    {
-      title: "Address",
-      dataIndex: "Address",
-      key: "Address"
-    },
-    {
-      title: "Telephone",
-      dataIndex: "TelephoneNumber",
-      key: "TelephoneNumber"
-    },
-    {
       title: "Email",
       dataIndex: "EmailAddress",
       key: "EmailAddress"
@@ -63,24 +48,18 @@ export function QualifiedInstructorTable(props: ITableWrapperProps) {
   function expandableRowRender(data: any, display: boolean) {
     return (
       <div style={{ border: "1px solid", padding: "5px" }}>
-        {display && (
-          <Row>
-            <Col span="8">Ethnicity:</Col>
-            <Col span="16">{data.EthnicityTypeName}</Col>
-          </Row>
-        )}
-        {display && (
-          <Row>
-            <Col span="8">Address:</Col>
-            <Col span="16">{data.Address}</Col>
-          </Row>
-        )}
-        {display && (
-          <Row>
-            <Col span="8">Telephone:</Col>
-            <Col span="16">{data.TelephoneNumber}</Col>
-          </Row>
-        )}
+        <Row>
+          <Col span="8">Ethnicity:</Col>
+          <Col span="16">{data.EthnicityTypeName}</Col>
+        </Row>
+        <Row>
+          <Col span="8">Address:</Col>
+          <Col span="16">{data.Address}</Col>
+        </Row>
+        <Row>
+          <Col span="8">Telephone:</Col>
+          <Col span="16">{data.TelephoneNumber}</Col>
+        </Row>
         <Row>
           <Col span="8">Organization:</Col>
           <Col span="16">{data.OrganizationName}</Col>

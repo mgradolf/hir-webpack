@@ -8,8 +8,8 @@ import { Row, Col, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
-import { OfferingTable } from "../OfferingTable"
-import { SelectedFilters } from "../SelectedFilters"
+import { OfferingTable } from "~/Component/Offering/OfferingTable"
+import { SelectedFilters } from "~/Component/Offering/SelectedFilters"
 
 const { useState } = React
 
@@ -79,7 +79,7 @@ function AddOfferingFromRequisiteGroupModal({
       )) ||
         (modalSelectedPage === ModalPages.OfferingsList && (
           <Card
-            title="Add offerings"
+            title="Select offerings"
             actions={[
               <Button type="ghost" onClick={closeAddOfferingFromRequisiteGroupModal}>
                 Cancel
