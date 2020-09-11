@@ -3,7 +3,7 @@ import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import Table, { TableProps, ColumnsType } from "antd/lib/table"
 import { Grid } from "antd"
 
-type RecordType = { [key: string]: string }
+export type RecordType = { [key: string]: string }
 
 interface IResponsiveTableProps extends TableProps<RecordType> {
   columns: ColumnsType<RecordType>
