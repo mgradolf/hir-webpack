@@ -96,7 +96,7 @@ function AddInstructorFromInstructorModal({
               toggleFilter={() => setModalPage(ModalPages.FilterPage)}
               hideCreateButton
             />
-            <Col style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+            <Col style={{ height: "65vh" }}>
               <QualifiedInstructorTable
                 dataSource={instructorItems}
                 loading={loading}

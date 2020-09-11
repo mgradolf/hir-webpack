@@ -85,9 +85,11 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
       params["ShowProgramOffering"] = filterData.ShowProgramOffering !== "" ? filterData.ShowProgramOffering : undefined
       params["OfferingNearCapacity"] =
         filterData.OfferingNearCapacity !== "" ? filterData.OfferingNearCapacity : undefined
-      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? Boolean(filterData.IsQuickAdmit) : undefined
+      // eslint-disable-next-line no-eval
+      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? eval(filterData.IsQuickAdmit) : undefined
       params["IsSearchTagHierarchy"] =
-        filterData.IsSearchTagHierarchy !== "" ? Boolean(filterData.IsSearchTagHierarchy) : undefined
+        // eslint-disable-next-line no-eval
+        filterData.IsSearchTagHierarchy !== "" ? eval(filterData.IsSearchTagHierarchy) : undefined
       params["TagName"] = filterData.TagName !== "" ? filterData.TagName : undefined
       params["TagTypeID"] = filterData.TagTypeID !== "" ? filterData.TagTypeID : undefined
       params["ToFinalEnrollmentDate"] =
@@ -97,7 +99,7 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
 
       const objectKeys = Object.keys(params)
       objectKeys.forEach((key) => {
-        if (!Boolean(params[key]) && typeof params[key] !== "number") {
+        if (params[key] === undefined) {
           delete params[key]
         }
       })

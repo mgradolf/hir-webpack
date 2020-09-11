@@ -3,8 +3,9 @@ import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Dropdown, Row, Col } from "antd"
 import { DownOutlined } from "@ant-design/icons"
-import ResponsiveTable from "~/Component/ResponsiveTable"
+import ResponsiveTable, { RecordType } from "~/Component/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
+import { ColumnsType } from "antd/lib/table"
 
 export interface ITableWrapperProps {
   dataSource: Array<any>
@@ -14,7 +15,7 @@ export interface ITableWrapperProps {
 }
 
 export function OfferingTable(props: ITableWrapperProps) {
-  const columns = [
+  const columns: ColumnsType<RecordType> = [
     {
       title: "Offering Code",
       dataIndex: "OfferingCode",
@@ -51,8 +52,11 @@ export function OfferingTable(props: ITableWrapperProps) {
       title: "Offering Type",
       dataIndex: "OfferingTypeName",
       key: "OfferingTypeName"
-    },
-    {
+    }
+  ]
+
+  if (!props.isModal) {
+    columns.push({
       title: "Action",
       key: "action",
       render: (record: any) => (
@@ -64,8 +68,8 @@ export function OfferingTable(props: ITableWrapperProps) {
           </Dropdown>
         </Space>
       )
-    }
-  ]
+    })
+  }
 
   function expandableRowRender(data: any, display: boolean) {
     return (
@@ -139,7 +143,7 @@ export function OfferingTable(props: ITableWrapperProps) {
       expandableRowRender={expandableRowRender}
       rowKey="OfferingID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? 300 : 600 }}
+      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
       rowSelection={props.rowSelection}
     />
   )

@@ -3,7 +3,11 @@ import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import Table, { TableProps, ColumnsType } from "antd/lib/table"
 import { Grid } from "antd"
 
-type RecordType = { [key: string]: string }
+export type RecordType = { [key: string]: string }
+
+// TODO: Currently we have generic responsive support for
+// only one set of breakpoints, we need support for multiple set of
+// breakpoints
 
 interface IResponsiveTableProps extends TableProps<RecordType> {
   columns: ColumnsType<RecordType>
