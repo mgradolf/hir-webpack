@@ -5,6 +5,10 @@ import { Grid } from "antd"
 
 export type RecordType = { [key: string]: string }
 
+// TODO: Currently we have generic responsive support for
+// only one set of breakpoints, we need support for multiple set of
+// breakpoints
+
 interface IResponsiveTableProps extends TableProps<RecordType> {
   columns: ColumnsType<RecordType>
   expandableRowRender?: (record: any, display: boolean) => JSX.Element

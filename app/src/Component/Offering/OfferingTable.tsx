@@ -143,7 +143,7 @@ export function OfferingTable(props: ITableWrapperProps) {
       expandableRowRender={expandableRowRender}
       rowKey="OfferingID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? 300 : 600 }}
+      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
       rowSelection={props.rowSelection}
     />
   )
