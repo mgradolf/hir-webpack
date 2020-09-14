@@ -66,7 +66,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
       eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
       props.handleCancel()
     } else {
-      setErrorMessages(response.error.getErrorMessages())
+      setErrorMessages(response.error)
       console.log(response)
     }
   }

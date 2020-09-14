@@ -51,8 +51,8 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
         props.redirect(`/offering/${response.data.OfferingID}`)
       }
     } else {
-      console.log(response.error.getErrorMessages())
-      setErrorMessages(response.error.getErrorMessages())
+      console.log(response.error)
+      setErrorMessages(response.error)
     }
   }
   if (!props.editMode) {
