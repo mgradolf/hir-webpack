@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react"
-import { Col, Row, Checkbox, Input, Select, Button, Typography } from "antd"
+import React, { useState } from "react"
+import { Col, Row, Checkbox, Input, Select, Button, Typography, DatePicker } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/Component/Offering/QualifiedInstructor/QualifiedInstructorFilterColumn.module.scss"
-import { getInstructorTypes } from "~/ApiServices/Service/RefLookupService"
 import { ColProps } from "antd/lib/col"
+import { RecordType } from "~/Component/ResponsiveTable"
+import { useQualifiedInstructorFilterData } from "~/Hooks/Offering/QualifiedInstructors"
+import moment from "moment"
+import { searchOffering } from "~/ApiServices/Service/OfferingService"
 
 const { Title } = Typography
+const dateFormat = "MM/DD/YYYY"
 
 const layout = {
   label: {
@@ -35,14 +39,59 @@ function InputCol(props: ColProps) {
   return <Col {...layout.input} {...props} />
 }
 
-export interface IFilterValues {
+export interface IFilterValues extends RecordType {
   LastName: string
   FirstName: string
   FacultySerialNum: string
   InstructorTypeID: string
+  TelephoneNumber: string
+  IsDeceased: string
+  PostalCode: string
+  CountryCodeID: string
+  Birthday: string
+  InstitutionStatusCodeID: string
+  OrganizationID: string
+  TaughtOfferingID: string
+  GenderTypeID: string
+  AvailableForSectionID: string
+  RegionCodeID: string
+  EthnicityTypeID: string
+  GovID: string
+  LastTaughtDate: string
+  CanTeachOfferingID: string
 }
 
-type ISelectName = "InstructorTypeID"
+const initialVisibility = {
+  LastName: false,
+  FirstName: false,
+  FacultySerialNum: false,
+  InstructorTypeID: false,
+  TelephoneNumber: false,
+  IsDeceased: false,
+  PostalCode: false,
+  CountryCodeID: false,
+  Birthday: false,
+  InstitutionStatusCodeID: false,
+  OrganizationID: false,
+  TaughtOfferingID: false,
+  GenderTypeID: false,
+  AvailableForSectionID: false,
+  RegionCodeID: false,
+  EthnicityTypeID: false,
+  GovID: false,
+  LastTaughtDate: false,
+  CanTeachOfferingID: false
+}
+
+type IVisibility = {
+  [key in keyof IFilterValues]: boolean
+}
+
+type ISearchOptions = {
+  CanTeachOfferingID: Array<any>
+  TaughtOfferingID: Array<any>
+  AvailableForSectionID: Array<any>
+}
 
 interface IFilterColumnProps {
   visible: boolean
@@ -52,47 +101,35 @@ interface IFilterColumnProps {
 }
 
 export function FilterColumn(props: IFilterColumnProps) {
-  const [instructorTypes, setInstructorTypes] = useState<Array<any>>([])
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await getInstructorTypes()
-      if (response && response.data && Array.isArray(response.data)) {
-        setInstructorTypes(response.data)
-      }
-    })()
-  }, [])
-
+  const [
+    instructorTypes,
+    genderTypes,
+    regionCodes,
+    ethnicityTypes,
+    organizations,
+    countries,
+    institutionStatuses
+  ] = useQualifiedInstructorFilterData()
   const { visible, toggleVisiibility, data } = props
+  const [searchOptions, updateSearchOptions] = useState<ISearchOptions>({
+    AvailableForSectionID: [],
+    CanTeachOfferingID: [],
+    TaughtOfferingID: []
+  })
+
   const [filterData, updateFilterData] = useState<IFilterValues>(data)
+  const [visibility, updateVisibility] = useState<IVisibility>(
+    Object.keys(data).reduce(
+      (visibilityRecord, key) => ({ ...visibilityRecord, [key]: Boolean(data[key] !== "") }),
+      initialVisibility
+    )
+  )
 
-  const [showLastNameBlock, setLastNameBLockVisible] = useState<boolean>(false)
-  const [showFirstNameBlock, setFirstNameBLockVisible] = useState<boolean>(false)
-  const [showInstructorTypeBlock, setInstructorTypeBLockVisible] = useState<boolean>(false)
-  const [showFacultySerialNumBlock, setFacultySerialNumBLockVisible] = useState<boolean>(false)
+  const filterCount = Object.values(visibility).filter(Boolean).length
 
-  const filterCount = [showLastNameBlock, showFirstNameBlock, showFirstNameBlock, showFacultySerialNumBlock].filter(
-    Boolean
-  ).length
-
-  const toggleLastNameBLock = (event: CheckboxChangeEvent) => {
-    setLastNameBLockVisible(!showLastNameBlock)
-    updateFilterData({ ...filterData, LastName: event.target.checked ? filterData.LastName : "" })
-  }
-
-  const toggleFirstNameBLock = (event: CheckboxChangeEvent) => {
-    setFirstNameBLockVisible(!showFirstNameBlock)
-    updateFilterData({ ...filterData, FirstName: event.target.checked ? filterData.FirstName : "" })
-  }
-
-  const toggleFacultySerialNumBLock = (event: CheckboxChangeEvent) => {
-    setFacultySerialNumBLockVisible(!showFacultySerialNumBlock)
-    updateFilterData({ ...filterData, FacultySerialNum: event.target.checked ? filterData.FacultySerialNum : "" })
-  }
-
-  const toggleInstructorTypeBLock = (event: CheckboxChangeEvent) => {
-    setInstructorTypeBLockVisible(!showInstructorTypeBlock)
-    updateFilterData({ ...filterData, InstructorTypeID: event.target.checked ? filterData.InstructorTypeID : "" })
+  const toggleFilterBlockVisibility = (name: keyof IFilterValues) => (event: CheckboxChangeEvent) => {
+    updateVisibility({ ...visibility, [name]: !visibility[name] })
+    updateFilterData({ ...filterData, [name]: event.target.checked ? filterData[name] : "" })
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,12 +139,29 @@ export function FilterColumn(props: IFilterColumnProps) {
     })
   }
 
-  const onChangeSelect = (selectName: ISelectName) => {
-    return (val: string) =>
+  const onChangeSelect = (selectName: keyof IFilterValues) => (val: string) => {
+    updateFilterData({
+      ...filterData,
+      [selectName]: val
+    })
+  }
+
+  const onChangeDate = (name: keyof IFilterValues) => (dateString: any) => {
+    if (dateString !== null) {
       updateFilterData({
         ...filterData,
-        [selectName]: val
+        [name]: dateString
       })
+    }
+  }
+
+  const handleSearchOffering = (fieldName: keyof ISearchOptions) => async (value: string) => {
+    if (value) {
+      const res = await searchOffering({ OfferingCode: value + "*" })
+      updateSearchOptions({ ...searchOptions, [fieldName]: res.data })
+    } else {
+      updateSearchOptions({ ...searchOptions, [fieldName]: [] })
+    }
   }
 
   return (
@@ -122,9 +176,15 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row className={styles.filterRow}>
         <LabelCol>
-          <Checkbox onChange={toggleFacultySerialNumBLock}>Instructor ID</Checkbox>
+          <Checkbox
+            name=""
+            checked={visibility.FacultySerialNum}
+            onChange={toggleFilterBlockVisibility("FacultySerialNum")}
+          >
+            Instructor ID
+          </Checkbox>
         </LabelCol>
-        <InputCol className={showFacultySerialNumBlock ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={visibility.FacultySerialNum ? styles.offeringFilterField : styles.hidden}>
           <Input
             name="FacultySerialNum"
             defaultValue=""
@@ -135,9 +195,11 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row className={styles.filterRow}>
         <LabelCol>
-          <Checkbox onChange={toggleLastNameBLock}>Last Name</Checkbox>
+          <Checkbox checked={visibility.LastName} onChange={toggleFilterBlockVisibility("LastName")}>
+            Last Name
+          </Checkbox>
         </LabelCol>
-        <InputCol className={showLastNameBlock ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.LastName ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
           <Input
             name="LastName"
             defaultValue=""
@@ -148,9 +210,11 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row className={styles.filterRow}>
         <LabelCol>
-          <Checkbox onChange={toggleFirstNameBLock}>First Name</Checkbox>
+          <Checkbox checked={visibility.FirstName} onChange={toggleFilterBlockVisibility("FirstName")}>
+            First Name
+          </Checkbox>
         </LabelCol>
-        <InputCol className={showFirstNameBlock ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.FirstName ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
           <Input
             name="FirstName"
             defaultValue=""
@@ -162,9 +226,11 @@ export function FilterColumn(props: IFilterColumnProps) {
       {instructorTypes.length > 0 && (
         <Row className={styles.filterRow}>
           <LabelCol>
-            <Checkbox onChange={toggleInstructorTypeBLock}>Instructor Type</Checkbox>
+            <Checkbox checked={visibility.InstructorTypeID} onChange={toggleFilterBlockVisibility("InstructorTypeID")}>
+              Instructor Type
+            </Checkbox>
           </LabelCol>
-          <InputCol className={showInstructorTypeBlock ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <InputCol className={visibility.InstructorTypeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
             <Select
               style={{ width: 200 }}
               value={filterData.InstructorTypeID}
@@ -174,6 +240,288 @@ export function FilterColumn(props: IFilterColumnProps) {
                 return (
                   <Select.Option key={x.ID} value={x.ID}>
                     {x.Name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
+      <Row className={styles.filterRow}>
+        <LabelCol>
+          <Checkbox
+            checked={visibility.CanTeachOfferingID}
+            onChange={toggleFilterBlockVisibility("CanTeachOfferingID")}
+          >
+            Qualified to Teach Offering
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.CanTeachOfferingID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <Select
+            style={{ width: 200 }}
+            showSearch
+            value={filterData.CanTeachOfferingID}
+            placeholder={"ML-110-4"}
+            onChange={onChangeSelect("CanTeachOfferingID")}
+            onSearch={handleSearchOffering("CanTeachOfferingID")}
+            defaultActiveFirstOption={false}
+            notFoundContent={null}
+          >
+            {searchOptions.CanTeachOfferingID.map((o) => (
+              <Select.Option key={o.OfferingCode} value={o.OfferingID}>
+                {o.OfferingCode}
+              </Select.Option>
+            ))}
+          </Select>
+        </InputCol>
+      </Row>
+      <Row className={styles.filterRow}>
+        <LabelCol>
+          <Checkbox checked={visibility.TaughtOfferingID} onChange={toggleFilterBlockVisibility("TaughtOfferingID")}>
+            Taught Offering
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.TaughtOfferingID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <Select
+            style={{ width: 200 }}
+            showSearch
+            value={filterData.TaughtOfferingID}
+            placeholder={"ML-110-4"}
+            onChange={onChangeSelect("TaughtOfferingID")}
+            onSearch={handleSearchOffering("TaughtOfferingID")}
+            defaultActiveFirstOption={false}
+            notFoundContent={null}
+          >
+            {searchOptions.TaughtOfferingID.map((o) => (
+              <Select.Option key={o.OfferingCode} value={o.OfferingID}>
+                {o.OfferingCode}
+              </Select.Option>
+            ))}
+          </Select>
+        </InputCol>
+      </Row>
+      {genderTypes.length > 0 && (
+        <Row className={styles.filterRow}>
+          <LabelCol>
+            <Checkbox checked={visibility.GenderTypeID} onChange={toggleFilterBlockVisibility("GenderTypeID")}>
+              Gender
+            </Checkbox>
+          </LabelCol>
+          <InputCol className={visibility.GenderTypeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+            <Select style={{ width: 200 }} value={filterData.GenderTypeID} onChange={onChangeSelect("GenderTypeID")}>
+              {genderTypes.map((x) => {
+                return (
+                  <Select.Option key={x.ID} value={x.ID}>
+                    {x.Name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
+      {regionCodes.length > 0 && (
+        <Row className={styles.filterRow}>
+          <LabelCol>
+            <Checkbox checked={visibility.RegionCodeID} onChange={toggleFilterBlockVisibility("RegionCodeID")}>
+              Region
+            </Checkbox>
+          </LabelCol>
+          <InputCol className={visibility.RegionCodeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+            <Select style={{ width: 200 }} value={filterData.RegionCodeID} onChange={onChangeSelect("RegionCodeID")}>
+              {regionCodes.map((x) => {
+                return (
+                  <Select.Option key={x.ID} value={x.ID}>
+                    {x.Description}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
+      {ethnicityTypes.length > 0 && (
+        <Row className={styles.filterRow}>
+          <LabelCol>
+            <Checkbox checked={visibility.EthnicityTypeID} onChange={toggleFilterBlockVisibility("EthnicityTypeID")}>
+              Ethnicity
+            </Checkbox>
+          </LabelCol>
+          <InputCol className={visibility.EthnicityTypeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+            <Select
+              style={{ width: 200 }}
+              value={filterData.EthnicityTypeID}
+              onChange={onChangeSelect("EthnicityTypeID")}
+            >
+              {ethnicityTypes.map((x) => {
+                return (
+                  <Select.Option key={x.ID} value={x.ID}>
+                    {x.Name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
+      {organizations.length > 0 && (
+        <Row>
+          <LabelCol>
+            <Checkbox checked={visibility.OrganizationID} onChange={toggleFilterBlockVisibility("OrganizationID")}>
+              Department
+            </Checkbox>
+          </LabelCol>
+          <InputCol className={visibility.OrganizationID ? styles.offeringFilterField : styles.hidden}>
+            <Select style={{ width: 250 }} onChange={onChangeSelect("OrganizationID")}>
+              {organizations.map((x) => {
+                return (
+                  <Select.Option key={x.OrganizationTypeID} value={x.OrganizationTypeID}>
+                    {x.Name}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
+      {countries.length > 0 && (
+        <Row className={styles.filterRow}>
+          <LabelCol>
+            <Checkbox checked={visibility.CountryCodeID} onChange={toggleFilterBlockVisibility("CountryCodeID")}>
+              Country
+            </Checkbox>
+          </LabelCol>
+          <InputCol className={visibility.CountryCodeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+            <Select style={{ width: 200 }} value={filterData.CountryCodeID} onChange={onChangeSelect("CountryCodeID")}>
+              {countries.map((x) => {
+                return (
+                  <Select.Option key={x.ID} value={x.ID}>
+                    {x.Description}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
+      <Row className={styles.filterRow}>
+        <LabelCol>
+          <Checkbox checked={visibility.Birthday} onChange={toggleFilterBlockVisibility("Birthday")}>
+            Birthday
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.Birthday ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <DatePicker
+            allowClear
+            value={filterData.Birthday ? moment(filterData.Birthday) : undefined}
+            onChange={onChangeDate("Birthday")}
+            format={dateFormat}
+          />
+        </InputCol>
+      </Row>
+      <Row className={styles.filterRow}>
+        <LabelCol>
+          <Checkbox
+            name="TelephoneNumber"
+            checked={visibility.TelephoneNumber}
+            onChange={toggleFilterBlockVisibility("TelephoneNumber")}
+          >
+            Telephone Number
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.TelephoneNumber ? styles.offeringFilterField : styles.hidden}>
+          <Input
+            name="TelephoneNumber"
+            defaultValue=""
+            value={filterData.TelephoneNumber === "*" ? "" : filterData.TelephoneNumber}
+            onChange={handleInputChange}
+          />
+        </InputCol>
+      </Row>
+      <Row className={styles.filterRow}>
+        <LabelCol>
+          <Checkbox checked={visibility.LastTaughtDate} onChange={toggleFilterBlockVisibility("LastTaughtDate")}>
+            Last Taught Date
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.LastTaughtDate ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <DatePicker
+            allowClear
+            value={filterData.LastTaughtDate ? moment(filterData.LastTaughtDate) : undefined}
+            onChange={onChangeDate("LastTaughtDate")}
+            format={dateFormat}
+          />
+        </InputCol>
+      </Row>
+      <Row className={styles.filterRow}>
+        <LabelCol>
+          <Checkbox
+            name="PostalCode"
+            checked={visibility.PostalCode}
+            onChange={toggleFilterBlockVisibility("PostalCode")}
+          >
+            Telephone Number
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.PostalCode ? styles.offeringFilterField : styles.hidden}>
+          <Input
+            name="PostalCode"
+            defaultValue=""
+            value={filterData.PostalCode === "*" ? "" : filterData.PostalCode}
+            onChange={handleInputChange}
+          />
+        </InputCol>
+      </Row>
+      <Row className={styles.filterRow}>
+        <LabelCol>
+          <Checkbox name="GovID" checked={visibility.GovID} onChange={toggleFilterBlockVisibility("GovID")}>
+            Gov ID
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.GovID ? styles.offeringFilterField : styles.hidden}>
+          <Input
+            name="GovID"
+            defaultValue=""
+            value={filterData.PostalCode === "*" ? "" : filterData.GovID}
+            onChange={handleInputChange}
+          />
+        </InputCol>
+      </Row>
+      <Row>
+        <LabelCol>
+          <Checkbox checked={visibility.IsDeceased} onChange={toggleFilterBlockVisibility("IsDeceased")}>
+            Is IsDeceased
+          </Checkbox>
+        </LabelCol>
+        <InputCol className={visibility.IsDeceased ? styles.offeringFilterField : styles.hidden}>
+          <Select style={{ width: 250 }} value={filterData.IsDeceased} onChange={onChangeSelect("IsDeceased")}>
+            <Select.Option value="true">Yes</Select.Option>
+            <Select.Option value="false">No</Select.Option>
+          </Select>
+        </InputCol>
+      </Row>
+      {institutionStatuses.length > 0 && (
+        <Row className={styles.filterRow}>
+          <LabelCol>
+            <Checkbox
+              checked={visibility.InstitutionStatusCodeID}
+              onChange={toggleFilterBlockVisibility("InstitutionStatusCodeID")}
+            >
+              Status
+            </Checkbox>
+          </LabelCol>
+          <InputCol
+            className={visibility.InstitutionStatusCodeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}
+          >
+            <Select
+              style={{ width: 200 }}
+              value={filterData.InstitutionStatusCodeID}
+              onChange={onChangeSelect("InstitutionStatusCodeID")}
+            >
+              {institutionStatuses.map((x) => {
+                return (
+                  <Select.Option key={x.ID} value={x.ID}>
+                    {x.Description}
                   </Select.Option>
                 )
               })}
