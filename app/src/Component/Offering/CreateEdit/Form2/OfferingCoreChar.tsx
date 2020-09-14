@@ -90,7 +90,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
     <>
       <Divider orientation="left">Core characteristics</Divider>
       <Form.Item label="Offering status" name={props.fieldNames.OfferingStatusCodeID} {...layout}>
-        <Select disabled={disableStatus}>
+        <Select aria-label="Offering Status Select" disabled={disableStatus}>
           {offeringStatusTypes.map((x, index) => {
             return (
               <Select.Option key={x.StatusID + index} value={x.StatusID}>
@@ -101,7 +101,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         </Select>
       </Form.Item>
       <Form.Item label="Department" name={props.fieldNames.OrganizationID} {...layout}>
-        <Select>
+        <Select aria-label="Department Select">
           {organizations.map((x, index) => {
             return (
               <Select.Option key={x.OrganizationTypeID + index} value={x.OrganizationID}>
@@ -113,6 +113,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
       </Form.Item>
       <Form.Item label="Quick Admit" name={props.fieldNames.IsQuickAdmit} valuePropName="checked" {...layout}>
         <Switch
+          aria-label="Is Quick Admit"
           defaultChecked={!!props.formInstance.getFieldValue(props.fieldNames.IsQuickAdmit)}
           onChange={(checked) => {
             props.formInstance.setFieldsValue({ [props.fieldNames.IsQuickAdmit]: checked })
@@ -126,6 +127,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         {...layout}
       >
         <Switch
+          aria-label="Has Approval Process"
           defaultChecked={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
           disabled={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
           onChange={(checked) => {
@@ -134,7 +136,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         />
       </Form.Item>
       <Form.Item label="Inquiry recipient" name={props.fieldNames.SubmitInquiryToUserID} {...layout}>
-        <Select>
+        <Select aria-label="Inquiry Recipient Select">
           {users.map((x, index) => {
             return (
               <Select.Option key={x.UserID + index} value={x.UserID}>
@@ -145,7 +147,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         </Select>
       </Form.Item>
       <Form.Item label="Gateway" name={props.fieldNames.PaymentGatewayAccountID} {...layout}>
-        <Select>
+        <Select aria-label="Gateway Select">
           {paymentGatewayAccounts.map((x, index) => {
             return (
               <Select.Option key={x.ID + index} value={x.ID}>
