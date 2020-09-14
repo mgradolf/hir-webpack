@@ -93,10 +93,10 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
           }
         />
         <Form.Item className="hidden" name={props.fieldNames.OfferingTypeID}>
-          <Input />
+          <Input aria-label="Offering Type" />
         </Form.Item>
         <Form.Item className="hidden" name={props.fieldNames.OfferingID}>
-          <Input />
+          <Input aria-label="Offering ID" />
         </Form.Item>
         <OfferingDetails formInstance={props.formInstance} fieldNames={props.fieldNames} />
         <OfferingTimings formInstance={props.formInstance} fieldNames={props.fieldNames} />
