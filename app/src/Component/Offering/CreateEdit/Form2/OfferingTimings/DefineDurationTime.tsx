@@ -139,24 +139,24 @@ export default function DefineDurationTime(props: IDefineDurationTime) {
       </Form.Item>
       <Row justify="center">
         <Form.Item name={fieldnames.byYear}>
-          <Input placeholder="Year" disabled={props.disableDuration} onChange={onChange} />
+          <Input aria-label="Year" placeholder="Year" disabled={props.disableDuration} onChange={onChange} />
         </Form.Item>
         <Form.Item name={fieldnames.byMonth}>
-          <Input placeholder="Month" disabled={props.disableDuration} onChange={onChange} />
+          <Input aria-label="Month" placeholder="Month" disabled={props.disableDuration} onChange={onChange} />
         </Form.Item>
         <Form.Item name={fieldnames.byWeek}>
-          <Input placeholder="Week" disabled={props.disableDuration} onChange={onChange} />
+          <Input aria-label="Week" placeholder="Week" disabled={props.disableDuration} onChange={onChange} />
         </Form.Item>
       </Row>
       <Row justify="center">
         <Form.Item name={fieldnames.byDay}>
-          <Input placeholder="Day" disabled={props.disableDuration} onChange={onChange} />
+          <Input aria-label="Day" placeholder="Day" disabled={props.disableDuration} onChange={onChange} />
         </Form.Item>
         <Form.Item name={fieldnames.byHour}>
-          <Input placeholder="Hour" disabled={props.disableDuration} onChange={onChange} />
+          <Input aria-label="Hour" placeholder="Hour" disabled={props.disableDuration} onChange={onChange} />
         </Form.Item>
         <Form.Item name={fieldnames.byMinute}>
-          <Input placeholder="Min" disabled={props.disableDuration} onChange={onChange} />
+          <Input aria-label="Minute" placeholder="Min" disabled={props.disableDuration} onChange={onChange} />
         </Form.Item>
       </Row>
     </>
