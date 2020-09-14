@@ -1,10 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import { Layout } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 import Sidebar from "~/Component/Layout/Sidebar"
 import { Breadcrumb } from "~/Component/Layout"
 import ApiErrorAlert from "~/Component/ApiErrorAlert"
-import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
+import { useSidebarCollapsed } from "~/Hooks/useSidebarCollapsed"
 
 const { Header, Content, Footer } = Layout
 
@@ -13,10 +13,7 @@ interface ILayoutProps {
 }
 
 export default function DefaultLayout(props: ILayoutProps) {
-  const [collapsed, setCollapsed] = useState<boolean>(false)
-  useDeviceViews((deviceViews: IDeviceView) => {
-    setCollapsed(deviceViews.mobile || deviceViews.tab)
-  })
+  const [collapsed, setCollapsed] = useSidebarCollapsed()
   return (
     <Layout>
       <ApiErrorAlert />
