@@ -13,7 +13,7 @@ const { Title, Text } = Typography
 
 function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
   const offeringID = props.match.params.id
-  const [offeringDetails, setOfferingDetails] = useState<{ [key: string]: any }>({})
+  const [offeringDetails, setOfferingDetails] = useState<{ [key: string]: any }>()
 
   useEffect(() => {
     ;(async function () {
@@ -107,9 +107,7 @@ function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
               </Col>
               <Col span={6}>
                 <Text>
-                  {offeringDetails.CreationDate !== null
-                    ? moment(offeringDetails.CreationDate).format("YYYY-MM-DD")
-                    : ""}
+                  {!!offeringDetails.CreationDate ? moment(offeringDetails.CreationDate).format("YYYY-MM-DD") : ""}
                 </Text>
               </Col>
             </Row>
@@ -119,7 +117,7 @@ function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
               </Col>
               <Col span={6}>
                 <Text>
-                  {offeringDetails.TerminationDate !== null
+                  {!!offeringDetails.TerminationDate
                     ? moment(offeringDetails.TerminationDate).format("YYYY-MM-DD")
                     : ""}
                 </Text>
@@ -134,6 +132,20 @@ function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
               </Col>
             </Row>
           </div>
+        </div>
+      )}
+      {!offeringDetails && (
+        <div
+          style={{
+            textAlign: "center",
+            margin: "auto",
+            fontSize: "2em",
+            opacity: 0.5,
+            marginTop: "30vh",
+            width: "50%"
+          }}
+        >
+          Offering with ID {offeringID} not found
         </div>
       )}
     </>
