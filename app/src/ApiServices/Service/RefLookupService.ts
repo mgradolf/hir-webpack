@@ -78,3 +78,33 @@ export function getInstructorTypes(): Promise<IApiResponse> {
     LookUpName: "InstructorType"
   })
 }
+
+export function getCountries(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CountryCode"
+  })
+}
+
+export function getGenderTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GenderType"
+  })
+}
+
+export function getRegionCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RegionCode"
+  })
+}
+
+export function getEthnicityTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "EthnicityType"
+  })
+}
+
+export function getInstitutionStatusTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "InstitutionStatusCode"
+  })
+}
