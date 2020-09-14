@@ -65,10 +65,15 @@ export default function DefineCreationTime(props: IDefineTime) {
   return (
     <>
       <Form.Item name={props.fieldNames.CreationDate} style={hidden}>
-        <Input />
+        <Input aria-label="Creation Date" />
       </Form.Item>
       <Form.Item>
-        <Radio.Group style={{ width: "100%" }} onChange={handleChange} defaultValue={defaultRadioValue}>
+        <Radio.Group
+          aria-label="Define Creation Time"
+          style={{ width: "100%" }}
+          onChange={handleChange}
+          defaultValue={defaultRadioValue}
+        >
           <Row justify="center">
             <Col flex="1">
               <Radio style={{ marginBottom: "10px" }} value={radioValues.byTime}>
@@ -76,6 +81,7 @@ export default function DefineCreationTime(props: IDefineTime) {
               </Radio>
               <Form.Item label="Creation Date">
                 <DatePicker
+                  aria-label="Pick Creation Date"
                   placeholder="YYYY/MM/DD"
                   disabled={disableTime}
                   format={dateFormat}
@@ -89,7 +95,7 @@ export default function DefineCreationTime(props: IDefineTime) {
                 Determined by Start Term
               </Radio>
               <Form.Item label="Select term" name={props.fieldNames.StartTermID}>
-                <Select disabled={disableTerm} placeholder="Choose a term">
+                <Select aria-label="Term Select" disabled={disableTerm} placeholder="Choose a term">
                   {props.terms.map((term) => {
                     return (
                       <Select.Option key={term.TermID} value={term.TermID}>
