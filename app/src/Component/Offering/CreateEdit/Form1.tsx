@@ -92,7 +92,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
           name="offeringTypeRadio"
           rules={[{ required: true, message: "Please input an offering type!" }]}
         >
-          <Radio.Group disabled={disableRadios}>
+          <Radio.Group aria-label="Offering Type" disabled={disableRadios}>
             {radioValues.map((opt, index) => (
               <Radio value={opt.value} key={index} onChange={onChangeOfferingTypes}>
                 {opt.label}
@@ -107,7 +107,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
             name={props.fieldNames.OfferingTypeID}
             rules={[{ required: true, message: "Please select an offering type!" }]}
           >
-            <Input />
+            <Input aria-label="Other Offering Type" />
           </Form.Item>
         )}
         {offeringTypesVisible && (
@@ -118,6 +118,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
           >
             <Select
               placeholder="Select an offering type"
+              aria-label="Offering Type Select"
               onSelect={() => {
                 setIsSelected(true)
               }}
