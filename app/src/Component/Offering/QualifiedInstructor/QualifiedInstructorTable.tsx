@@ -48,6 +48,36 @@ export function QualifiedInstructorTable(props: ITableWrapperProps) {
   function expandableRowRender(data: any, display: boolean) {
     return (
       <div style={{ border: "1px solid", padding: "5px" }}>
+        {display && (
+          <Row>
+            <Col span="8">ID:</Col>
+            <Col span="16">{data.FacultySerialNum}</Col>
+          </Row>
+        )}
+        {display && (
+          <Row>
+            <Col span="8">Status:</Col>
+            <Col span="16">{data.Status}</Col>
+          </Row>
+        )}
+        {display && (
+          <Row>
+            <Col span="8">Birthday:</Col>
+            <Col span="16">{data.Birthday ? moment(data.Birthday).format("YYYY-MM-DD") : ""}</Col>
+          </Row>
+        )}
+        {display && (
+          <Row>
+            <Col span="8">Gender:</Col>
+            <Col span="16">{data.GenderTypeName}</Col>
+          </Row>
+        )}
+        {display && (
+          <Row>
+            <Col span="8">Email:</Col>
+            <Col span="16">{data.EmailAddress}</Col>
+          </Row>
+        )}
         <Row>
           <Col span="8">Ethnicity:</Col>
           <Col span="16">{data.EthnicityTypeName}</Col>
@@ -87,11 +117,11 @@ export function QualifiedInstructorTable(props: ITableWrapperProps) {
       loading={props.loading}
       bordered
       breakpoints={["xxl"]}
-      responsiveColumnIndices={[6, 7, 8]}
+      responsiveColumnIndices={[0, 3, 4, 5, 6]}
       rowSelection={props.rowSelection}
       expandableRowRender={expandableRowRender}
       rowKey="FacultyID"
-      pagination={{ position: ["topLeft"] }}
+      pagination={{ position: ["topLeft"], pageSize: 20 }}
       scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
     />
   )
