@@ -66,7 +66,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
       eventBus.publish(REFRESH_OFFERING_APPROVAL_PAGE)
       props.handleCancel()
     } else {
-      setErrorMessages(response.error.getErrorMessages())
+      setErrorMessages(response.error)
       console.log(response)
     }
   }

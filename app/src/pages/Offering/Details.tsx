@@ -14,7 +14,7 @@ const { Title, Text } = Typography
 
 function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
   const offeringID = props.match.params.id
-  const [offeringDetails, setOfferingDetails] = useState<{ [key: string]: any }>({})
+  const [offeringDetails, setOfferingDetails] = useState<{ [key: string]: any }>()
 
   useEffect(() => {
     ;(async function () {
@@ -106,6 +106,20 @@ function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
               <Text>{offeringDetails.SectionTypeName}</Text>
             </Col>
           </Row>
+        </div>
+      )}
+      {!offeringDetails && (
+        <div
+          style={{
+            textAlign: "center",
+            margin: "auto",
+            fontSize: "2em",
+            opacity: 0.5,
+            marginTop: "30vh",
+            width: "50%"
+          }}
+        >
+          Offering with ID {offeringID} not found
         </div>
       )}
     </>

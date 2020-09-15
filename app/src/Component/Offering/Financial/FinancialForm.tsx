@@ -79,8 +79,8 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
       eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
       props.handleCancel()
     } else {
-      setErrorMessages(response.error.getErrorMessages())
-      console.log(response.error.getErrorMessages())
+      setErrorMessages(response.error)
+      console.log(response.error)
       console.log(errorMessages)
     }
   }

@@ -6,7 +6,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/Component/Offering/FilterColumn.module.scss"
 
 import { ColProps } from "antd/lib/col"
-import { useFilterData } from "~/Component/Offering/offeringUtils"
+import { useOfferingFilterData } from "~/Hooks/Offering"
 
 const { Option } = Select
 const { Title } = Typography
@@ -82,26 +82,36 @@ interface IFilterColumnProps {
 }
 
 export function FilterColumn(props: IFilterColumnProps) {
-  const [offeringStatusTypes, tagTypes, offeringTypes, sectonTypes, organizations, users] = useFilterData()
+  const [offeringStatusTypes, tagTypes, offeringTypes, sectonTypes, organizations, users] = useOfferingFilterData()
 
   const { visible, toggleVisiibility, data } = props
   const [filterData, updateFilterData] = useState<IFilterValues>(data)
 
-  const [showOfferingCodeBlock, setOfferingCodeBLockVisible] = useState<boolean>(false)
-  const [showOfferingNameBlock, setOfferingNameBLockVisible] = useState<boolean>(false)
-  const [showCreationDateBlock, setCreationDateBLockVisible] = useState<boolean>(false)
-  const [showIsQuickAdmitBlock, setIsQuickAdmitBLockVisible] = useState<boolean>(false)
-  const [showTerminationDateBlock, setTerminationDateBLockVisible] = useState<boolean>(false)
-  const [showOfferingStatusBlock, setOfferingStatusBLockVisible] = useState<boolean>(false)
-  const [showOfferingTypeBlock, setOfferingTypeBLockVisible] = useState<boolean>(false)
-  const [showCoordinatorBlock, setCoordinatorBLockVisible] = useState<boolean>(false)
-  const [showDepartmentBlock, setDepartmentBLockVisible] = useState<boolean>(false)
-  const [showSectionTypeBlock, setSectionTypeBLockVisible] = useState<boolean>(false)
-  const [showTagNameBlock, setTagNameBLockVisible] = useState<boolean>(false)
-  const [showTagTypeBlock, setTagTypeBLockVisible] = useState<boolean>(false)
-  const [showIsSearchTagHierarchyBlock, setIsSearchTagHierarchyBLockVisible] = useState<boolean>(false)
-  const [showFinalEnrollmentBlock, setFinalEnrollmentBLockVisible] = useState<boolean>(false)
-  const [showOfferingNearCapacityBlock, setOfferingNearCapacityBlockVisible] = useState<boolean>(false)
+  const [showOfferingCodeBlock, setOfferingCodeBLockVisible] = useState<boolean>(data.OfferingCode !== "")
+  const [showOfferingNameBlock, setOfferingNameBLockVisible] = useState<boolean>(data.OfferingName !== "")
+  const [showCreationDateBlock, setCreationDateBLockVisible] = useState<boolean>(
+    data.ToCreationDate !== "" || data.FromCreationDate !== ""
+  )
+  const [showIsQuickAdmitBlock, setIsQuickAdmitBLockVisible] = useState<boolean>(data.IsQuickAdmit !== "")
+  const [showTerminationDateBlock, setTerminationDateBLockVisible] = useState<boolean>(
+    data.ToTerminationDate !== "" || data.FromTerminationDate !== ""
+  )
+  const [showOfferingStatusBlock, setOfferingStatusBLockVisible] = useState<boolean>(data.StatusID !== "")
+  const [showOfferingTypeBlock, setOfferingTypeBLockVisible] = useState<boolean>(data.OfferingTypeID !== "")
+  const [showCoordinatorBlock, setCoordinatorBLockVisible] = useState<boolean>(data.Coordinator !== "")
+  const [showDepartmentBlock, setDepartmentBLockVisible] = useState<boolean>(data.OrganizationID !== "")
+  const [showSectionTypeBlock, setSectionTypeBLockVisible] = useState<boolean>(data.SectionTypeID !== "")
+  const [showTagNameBlock, setTagNameBLockVisible] = useState<boolean>(data.TagName !== "")
+  const [showTagTypeBlock, setTagTypeBLockVisible] = useState<boolean>(data.TagTypeID !== "")
+  const [showIsSearchTagHierarchyBlock, setIsSearchTagHierarchyBLockVisible] = useState<boolean>(
+    data.IsSearchTagHierarchy !== ""
+  )
+  const [showFinalEnrollmentBlock, setFinalEnrollmentBLockVisible] = useState<boolean>(
+    data.ToFinalEnrollmentDate !== "" || data.FromFinalEnrollmentDate !== ""
+  )
+  const [showOfferingNearCapacityBlock, setOfferingNearCapacityBlockVisible] = useState<boolean>(
+    data.OfferingNearCapacity !== ""
+  )
 
   const filterCount = [
     showOfferingCodeBlock,
@@ -311,7 +321,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleOfferingCodeBLock}>Offering Code</Checkbox>
+          <Checkbox checked={showOfferingCodeBlock} onChange={toggleOfferingCodeBLock}>
+            Offering Code
+          </Checkbox>
         </LabelCol>
         <InputCol className={showOfferingCodeBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
@@ -325,7 +337,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleOfferingNameBLock}>Offering Name</Checkbox>
+          <Checkbox checked={showOfferingNameBlock} onChange={toggleOfferingNameBLock}>
+            Offering Name
+          </Checkbox>
         </LabelCol>
         <InputCol className={showOfferingNameBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
@@ -339,13 +353,16 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleCreationDateBLock}>Creation Date</Checkbox>
+          <Checkbox checked={showCreationDateBlock} onChange={toggleCreationDateBLock}>
+            Creation Date
+          </Checkbox>
         </LabelCol>
         <Row className={showCreationDateBlock ? styles.offeringFilterDateField : styles.hidden}>
           <Col span={11}>
             From
             <DatePicker
               allowClear
+              aria-label="Creation Date From"
               value={fromCreationDate}
               onChange={handleFromCreationDateChange}
               format={dateFormat}
@@ -354,19 +371,28 @@ export function FilterColumn(props: IFilterColumnProps) {
 
           <Col span={11} offset={2}>
             To
-            <DatePicker allowClear value={toCreationDate} onChange={handleToCreationDateChange} format={dateFormat} />
+            <DatePicker
+              aria-label="Creation Date To"
+              allowClear
+              value={toCreationDate}
+              onChange={handleToCreationDateChange}
+              format={dateFormat}
+            />
           </Col>
         </Row>
       </Row>
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleTerminationDateBLock}>Termination Date</Checkbox>
+          <Checkbox checked={showTerminationDateBlock} onChange={toggleTerminationDateBLock}>
+            Termination Date
+          </Checkbox>
         </LabelCol>
         <Row className={showTerminationDateBlock ? styles.offeringFilterDateField : styles.hidden}>
           <Col span={11}>
             From
             <DatePicker
               allowClear
+              aria-label="Termination Date From"
               value={fromTerminationDate}
               onChange={handleFromTerminationDateChange}
               format={dateFormat}
@@ -376,6 +402,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             To
             <DatePicker
               allowClear
+              aria-label="Termination Date To"
               value={toTerminationDate}
               onChange={handleToTerminationDateChange}
               format={dateFormat}
@@ -385,10 +412,17 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleIsQuickAdmitBLock}>Is QuickAdmit</Checkbox>
+          <Checkbox checked={showIsQuickAdmitBlock} onChange={toggleIsQuickAdmitBLock}>
+            Is QuickAdmit
+          </Checkbox>
         </LabelCol>
         <InputCol className={showIsQuickAdmitBlock ? styles.offeringFilterField : styles.hidden}>
-          <Select style={{ width: 250 }} value={filterData.IsQuickAdmit} onChange={onChangeSelect("IsQuickAdmit")}>
+          <Select
+            aria-label="Is Quick Admit"
+            style={{ width: 250 }}
+            value={filterData.IsQuickAdmit}
+            onChange={onChangeSelect("IsQuickAdmit")}
+          >
             <Option value="true">Yes</Option>
             <Option value="false">No</Option>
           </Select>
@@ -397,10 +431,17 @@ export function FilterColumn(props: IFilterColumnProps) {
       {offeringStatusTypes.length > 0 && (
         <Row>
           <LabelCol>
-            <Checkbox onChange={toggleOfferingStatusBLock}>Offering Status</Checkbox>
+            <Checkbox checked={showOfferingStatusBlock} onChange={toggleOfferingStatusBLock}>
+              Offering Status
+            </Checkbox>
           </LabelCol>
           <InputCol className={showOfferingStatusBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 250 }} value={filterData.StatusID} onChange={onChangeSelect("StatusID")}>
+            <Select
+              aria-label="Offering Status Select"
+              style={{ width: 250 }}
+              value={filterData.StatusID}
+              onChange={onChangeSelect("StatusID")}
+            >
               {offeringStatusTypes.map((x) => {
                 return (
                   <Select.Option key={x.StatusID} value={x.StatusID}>
@@ -415,13 +456,16 @@ export function FilterColumn(props: IFilterColumnProps) {
       {offeringTypes.length > 0 && (
         <Row>
           <LabelCol>
-            <Checkbox onChange={toggleOfferingTypeBLock}>Offering Type</Checkbox>
+            <Checkbox checked={showOfferingTypeBlock} onChange={toggleOfferingTypeBLock}>
+              Offering Type
+            </Checkbox>
           </LabelCol>
           <InputCol className={showOfferingTypeBlock ? styles.offeringFilterField : styles.hidden}>
             <Select
               style={{ width: 250 }}
               value={filterData.OfferingTypeID}
               onChange={onChangeSelect("OfferingTypeID")}
+              aria-label="Offering Type Select"
             >
               {offeringTypes.map((x) => {
                 return (
@@ -437,10 +481,12 @@ export function FilterColumn(props: IFilterColumnProps) {
       {organizations.length > 0 && (
         <Row>
           <LabelCol>
-            <Checkbox onChange={toggleDepartmentBLock}>Department</Checkbox>
+            <Checkbox checked={showDepartmentBlock} onChange={toggleDepartmentBLock}>
+              Department
+            </Checkbox>
           </LabelCol>
           <InputCol className={showDepartmentBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 250 }} onChange={onChangeSelect("OrganizationID")}>
+            <Select aria-label="Department Select" style={{ width: 250 }} onChange={onChangeSelect("OrganizationID")}>
               {organizations.map((x) => {
                 return (
                   <Select.Option key={x.OrganizationTypeID} value={x.OrganizationTypeID}>
@@ -455,10 +501,17 @@ export function FilterColumn(props: IFilterColumnProps) {
       {users.length > 0 && (
         <Row>
           <LabelCol>
-            <Checkbox onChange={toggleCoordinatorBLock}>Coordinator</Checkbox>
+            <Checkbox checked={showCoordinatorBlock} onChange={toggleCoordinatorBLock}>
+              Coordinator
+            </Checkbox>
           </LabelCol>
           <InputCol className={showCoordinatorBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 250 }} value={filterData.Coordinator} onChange={onChangeSelect("Coordinator")}>
+            <Select
+              aria-label="Coordinator Select"
+              style={{ width: 250 }}
+              value={filterData.Coordinator}
+              onChange={onChangeSelect("Coordinator")}
+            >
               {users.map((x) => {
                 return (
                   <Select.Option key={x.UserLogin} value={x.UserLogin}>
@@ -473,10 +526,17 @@ export function FilterColumn(props: IFilterColumnProps) {
       {sectonTypes.length > 0 && (
         <Row>
           <LabelCol>
-            <Checkbox onChange={toggleSectionTypeBLock}>Section Type</Checkbox>
+            <Checkbox checked={showSectionTypeBlock} onChange={toggleSectionTypeBLock}>
+              Section Type
+            </Checkbox>
           </LabelCol>
           <InputCol className={showSectionTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 250 }} value={filterData.SectionTypeID} onChange={onChangeSelect("SectionTypeID")}>
+            <Select
+              aria-label="Section Type Select"
+              style={{ width: 250 }}
+              value={filterData.SectionTypeID}
+              onChange={onChangeSelect("SectionTypeID")}
+            >
               {sectonTypes.map((x) => {
                 return (
                   <Select.Option key={x.SectionTypeID} value={x.SectionTypeID}>
@@ -490,7 +550,9 @@ export function FilterColumn(props: IFilterColumnProps) {
       )}
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleIsSearchTagHierarchyBLock}>Is Search Tag Hierarchy</Checkbox>
+          <Checkbox checked={showIsSearchTagHierarchyBlock} onChange={toggleIsSearchTagHierarchyBLock}>
+            Is Search Tag Hierarchy
+          </Checkbox>
         </LabelCol>
         <InputCol className={showIsSearchTagHierarchyBlock ? styles.offeringFilterField : styles.hidden}>
           <Select
@@ -506,10 +568,17 @@ export function FilterColumn(props: IFilterColumnProps) {
       {tagTypes.length > 0 && (
         <Row>
           <LabelCol>
-            <Checkbox onChange={toggleTagBLock}>Tag Type</Checkbox>
+            <Checkbox checked={showTagTypeBlock} onChange={toggleTagBLock}>
+              Tag Type
+            </Checkbox>
           </LabelCol>
           <InputCol className={showTagTypeBlock ? styles.offeringFilterField : styles.hidden}>
-            <Select style={{ width: 250 }} value={filterData.TagTypeID} onChange={onChangeSelect("TagTypeID")}>
+            <Select
+              aria-label="Tag Type Select"
+              style={{ width: 250 }}
+              value={filterData.TagTypeID}
+              onChange={onChangeSelect("TagTypeID")}
+            >
               {tagTypes.map((x) => {
                 return (
                   <Select.Option key={x.ID} value={x.ID}>
@@ -523,10 +592,13 @@ export function FilterColumn(props: IFilterColumnProps) {
       )}
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleTagNameBLock}>Tag</Checkbox>
+          <Checkbox checked={showTagNameBlock} onChange={toggleTagNameBLock}>
+            Tag
+          </Checkbox>
         </LabelCol>
         <InputCol className={showTagNameBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
+            aria-label="Tag name"
             name="TagName"
             defaultValue=""
             value={filterData.TagName === "*" ? "" : filterData.TagName}
@@ -536,13 +608,16 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleFinalEnrollmentBLock}>Final Enrollment Date</Checkbox>
+          <Checkbox checked={showFinalEnrollmentBlock} onChange={toggleFinalEnrollmentBLock}>
+            Final Enrollment Date
+          </Checkbox>
         </LabelCol>
         <Row className={showFinalEnrollmentBlock ? styles.offeringFilterDateField : styles.hidden}>
           <Col span={11}>
             From
             <DatePicker
               allowClear
+              aria-label="Final Enrollment Date From"
               value={fromFinalEnrollmentDate}
               onChange={handleFromFinalEnrollmentDateChange}
               format={dateFormat}
@@ -552,6 +627,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             To
             <DatePicker
               allowClear
+              aria-label="Final Enrollment Date To"
               value={toFinalEnrollmentDate}
               onChange={handleToFinalEnrollmentDateChange}
               format={dateFormat}
@@ -561,10 +637,13 @@ export function FilterColumn(props: IFilterColumnProps) {
       </Row>
       <Row>
         <LabelCol>
-          <Checkbox onChange={toggleOfferingNearCapacityBLock}>Capacity Util</Checkbox>
+          <Checkbox checked={showOfferingNearCapacityBlock} onChange={toggleOfferingNearCapacityBLock}>
+            Capacity Util
+          </Checkbox>
         </LabelCol>
         <InputCol className={showOfferingNearCapacityBlock ? styles.offeringFilterField : styles.hidden}>
           <Input
+            aria-label="Offering Near Capacity"
             name="OfferingNearCapacity"
             defaultValue=""
             value={filterData.OfferingNearCapacity === "*" ? "" : filterData.OfferingNearCapacity}
@@ -575,6 +654,7 @@ export function FilterColumn(props: IFilterColumnProps) {
       <Row className={styles.floatRight}>
         <Button
           type="primary"
+          aria-label="Apply Filter"
           className={styles.applyBtn}
           onClick={() => {
             props.onApplyChanges(filterData, filterCount)

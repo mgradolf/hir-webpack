@@ -1,23 +1,27 @@
-import React from "react"
+import React, { useState } from "react"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import Table, { TableProps, ColumnsType } from "antd/lib/table"
-import { Grid } from "antd"
+import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 
-type RecordType = { [key: string]: string }
+export type RecordType = { [key: string]: string }
+
+// TODO: Currently we have generic responsive support for
+// only one set of breakpoints, we need support for multiple set of
+// breakpoints
 
 interface IResponsiveTableProps extends TableProps<RecordType> {
   columns: ColumnsType<RecordType>
-  expandableRowRender?: (record: any, display: boolean) => JSX.Element
+  expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
   breakpoints?: Breakpoint[]
   responsiveColumnIndices?: number[]
 }
 
 export default function ResponsiveTable(props: IResponsiveTableProps) {
   const { breakpoints, columns, responsiveColumnIndices, ...otherTableProps } = props
-  const { useBreakpoint } = Grid
-  const screens = useBreakpoint() as { [key: string]: boolean } // {xs: false, sm: true, md: false, lg: false, xl: false, …}
-  const display = !!(breakpoints && breakpoints.filter((x) => screens[x]).length === 0)
-
+  const [mobileView, setMobileView] = useState(false)
+  useDeviceViews((deviceViews: IDeviceView) => {
+    setMobileView(deviceViews.mobile)
+  })
   function processResponsiveColumns(): ColumnsType<RecordType> {
     return columns.map((col, index) =>
       responsiveColumnIndices && responsiveColumnIndices.includes(index) ? { ...col, responsive: breakpoints } : col
@@ -29,7 +33,7 @@ export default function ResponsiveTable(props: IResponsiveTableProps) {
   return (
     <Table
       columns={responsiveColumns}
-      expandedRowRender={(record) => props.expandableRowRender && props.expandableRowRender(record, display)}
+      expandedRowRender={(record) => props.expandableRowRender && props.expandableRowRender(record, mobileView)}
       {...otherTableProps}
     />
   )

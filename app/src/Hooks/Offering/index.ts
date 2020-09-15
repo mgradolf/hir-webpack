@@ -7,11 +7,11 @@ import {
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
-import { IFilterValues } from "./FilterColumn"
+import { IFilterValues } from "~/Component/Offering"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
 
-export function useFilterData() {
+export function useOfferingFilterData() {
   const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
   const [tagTypes, setTagTypes] = useState<Array<any>>([])
   const [offeringTypes, setOfferingTypes] = useState<Array<any>>([])
@@ -85,9 +85,11 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
       params["ShowProgramOffering"] = filterData.ShowProgramOffering !== "" ? filterData.ShowProgramOffering : undefined
       params["OfferingNearCapacity"] =
         filterData.OfferingNearCapacity !== "" ? filterData.OfferingNearCapacity : undefined
-      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? Boolean(filterData.IsQuickAdmit) : undefined
+      // eslint-disable-next-line no-eval
+      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? eval(filterData.IsQuickAdmit) : undefined
       params["IsSearchTagHierarchy"] =
-        filterData.IsSearchTagHierarchy !== "" ? Boolean(filterData.IsSearchTagHierarchy) : undefined
+        // eslint-disable-next-line no-eval
+        filterData.IsSearchTagHierarchy !== "" ? eval(filterData.IsSearchTagHierarchy) : undefined
       params["TagName"] = filterData.TagName !== "" ? filterData.TagName : undefined
       params["TagTypeID"] = filterData.TagTypeID !== "" ? filterData.TagTypeID : undefined
       params["ToFinalEnrollmentDate"] =
@@ -97,7 +99,7 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
 
       const objectKeys = Object.keys(params)
       objectKeys.forEach((key) => {
-        if (!Boolean(params[key]) && typeof params[key] !== "number") {
+        if (params[key] === undefined) {
           delete params[key]
         }
       })
@@ -117,4 +119,32 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
   }, [filterData])
 
   return [loading, offeringItems]
+}
+
+const INITIAL_OFFERING_FILTER_DATA: IFilterValues = {
+  OfferingCode: "",
+  OfferingName: "",
+  ToCreationDate: "",
+  FromCreationDate: "",
+  ToTerminationDate: "",
+  FromTerminationDate: "",
+  IsQuickAdmit: "",
+  StatusID: "",
+  Coordinator: "",
+  OrganizationID: "",
+  OfferingTypeID: "",
+  SectionTypeID: "",
+  InstructorID: "",
+  ShowProgramOffering: "",
+  TagName: "",
+  TagTypeID: "",
+  IsSearchTagHierarchy: "",
+  OfferingNearCapacity: "",
+  ToFinalEnrollmentDate: "",
+  FromFinalEnrollmentDate: ""
+}
+
+export function useOfferingFilterState(state = INITIAL_OFFERING_FILTER_DATA) {
+  const [filterData, updateFilterData] = useState<IFilterValues>(state)
+  return { filterData, updateFilterData }
 }

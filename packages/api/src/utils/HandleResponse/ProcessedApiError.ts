@@ -22,53 +22,95 @@ interface IApiError {
 }
 
 export interface ISimplifiedApiErrorMessage {
+  code?: number
+  isGloabal?: boolean
   propertyName?: string
   message: string
 }
 
 export interface IProcessedApiError {
-  data: Array<IApiError> | IApiError
+  error: Array<IApiError> | IApiError
+  httpStatusCode: number
   getErrorMessages: () => Array<ISimplifiedApiErrorMessage>
 }
 
 export default class ProcessedApiError implements IProcessedApiError {
-  data: Array<IApiError> | IApiError
-  constructor(param: Array<IApiError> | IApiError) {
-    this.data = param
+  error: Array<IApiError> | IApiError
+  httpStatusCode: number
+
+  constructor(error: Array<IApiError> | IApiError, httpStatusCode: number) {
+    this.error = error
+    this.httpStatusCode = httpStatusCode
   }
 
   getErrorMessages(): Array<ISimplifiedApiErrorMessage> {
     const errorMessages: Array<ISimplifiedApiErrorMessage> = []
-    if (Array.isArray(this.data)) {
-      this.data.forEach((error) => {
-        const processedError = this._processError(error)
+
+    if (Array.isArray(this.error)) {
+      this.error.forEach((err) => {
+        const processedError = this._processErrorByType(err, this.httpStatusCode)
         if (processedError) errorMessages.push(processedError)
       })
     } else {
-      const processedError = this._processError(this.data)
+      const processedError = this._processErrorByType(this.error, this.httpStatusCode)
       if (processedError) errorMessages.push(processedError)
     }
     return errorMessages
   }
 
-  _processError(error: IApiError): ISimplifiedApiErrorMessage | undefined {
+  _processErrorByType(error: IApiError, httpStatusCode: number): ISimplifiedApiErrorMessage | undefined {
+    let simplifiedError: ISimplifiedApiErrorMessage | undefined
     switch (error.Type) {
       case "INFO":
-        return this._processInfo(error)
+        simplifiedError = this._processInfo(error)
       case "SECURITY":
-        return this._processSecurity(error)
+        simplifiedError = this._processSecurity(error)
       case "AVAILABILITY":
-        return this._processAvailability(error)
+        simplifiedError = this._processAvailability(error)
       case "CONNECTIVITY":
-        return this._processConnectivity(error)
+        simplifiedError = this._processConnectivity(error)
       case "PERSISTENCE":
-        return this._processPersistence(error)
+        simplifiedError = this._processPersistence(error)
       case "SYSTEM":
-        return this._processSystem(error)
+        simplifiedError = this._processSystem(error)
       case "BIZ_RULE":
-        return this._processBizrule(error)
+        simplifiedError = this._processBizrule(error)
       default:
-        return { message: error.Description }
+        simplifiedError = { message: error.Description }
+    }
+    if (!simplifiedError.message || !error.Type) {
+      simplifiedError = this._processErrorByCode(error, httpStatusCode)
+    }
+    return simplifiedError
+  }
+
+  retireveErrorText(error: IApiError, defaultMessage: string): string {
+    if (error && error.Description) {
+      return error.Description
+    } else if (error && typeof error === "string") {
+      return error
+    }
+    return defaultMessage
+  }
+
+  _processErrorByCode(error: IApiError, httpStatusCode: number): ISimplifiedApiErrorMessage | undefined {
+    switch (httpStatusCode) {
+      case 401:
+        return { message: this.retireveErrorText(error, "UnAuthorized"), isGloabal: true, code: 401 }
+      case 403:
+        return { message: this.retireveErrorText(error, "Forbidden"), isGloabal: true }
+      case 404:
+        return { message: this.retireveErrorText(error, "Resource not found"), isGloabal: true }
+      case 500:
+        return { message: this.retireveErrorText(error, "Internal Server Error"), isGloabal: true }
+      case 502:
+        return { message: this.retireveErrorText(error, "Bad Gateway"), isGloabal: true }
+      case 503:
+        return { message: this.retireveErrorText(error, "Service Unavailable"), isGloabal: true }
+      case 504:
+        return { message: this.retireveErrorText(error, "Gateway Timeout"), isGloabal: true }
+      default:
+        return undefined
     }
   }
 

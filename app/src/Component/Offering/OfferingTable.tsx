@@ -3,21 +3,25 @@ import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Dropdown, Row, Col } from "antd"
 import { DownOutlined } from "@ant-design/icons"
-import ResponsiveTable from "~/Component/ResponsiveTable"
+import ResponsiveTable, { RecordType } from "~/Component/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
+import { ColumnsType } from "antd/lib/table"
 
-interface IOfferingTableProps {
+export interface ITableWrapperProps {
   dataSource: Array<any>
   loading: boolean
+  isModal?: boolean
+  rowSelection?: any
 }
 
-export function OfferingTable(props: IOfferingTableProps) {
-  const columns = [
+export function OfferingTable(props: ITableWrapperProps) {
+  const columns: ColumnsType<RecordType> = [
     {
       title: "Offering Code",
       dataIndex: "OfferingCode",
       key: "OfferingCode",
-      render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>,
+      render: (text: any, record: any) =>
+        props.isModal ? text : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>,
       sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length
     },
     {
@@ -48,8 +52,11 @@ export function OfferingTable(props: IOfferingTableProps) {
       title: "Offering Type",
       dataIndex: "OfferingTypeName",
       key: "OfferingTypeName"
-    },
-    {
+    }
+  ]
+
+  if (!props.isModal) {
+    columns.push({
       title: "Action",
       key: "action",
       render: (record: any) => (
@@ -61,17 +68,17 @@ export function OfferingTable(props: IOfferingTableProps) {
           </Dropdown>
         </Space>
       )
-    }
-  ]
+    })
+  }
 
-  function expandableRowRender(data: any, display: boolean) {
+  function expandableRowRender(data: any, mobileView: boolean) {
     return (
       <div style={{ border: "1px solid", padding: "5px" }}>
         <Row>
           <Col span="10">Description:</Col>
           <Col span="14">{data.OfferingDescription}</Col>
         </Row>
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Offering Name:</Col>
             <Col span="14">{data.OfferingName}</Col>
@@ -85,37 +92,37 @@ export function OfferingTable(props: IOfferingTableProps) {
           <Col span="10">Def Section:</Col>
           <Col span="14">{data.SectionTypeName}</Col>
         </Row>
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Creation Date:</Col>
             <Col span="14">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Termination Date:</Col>
             <Col span="14">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Status:</Col>
             <Col span="14">{data.StatusCode}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Department:</Col>
             <Col span="14">{data.OrganizationName}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Offering Type:</Col>
             <Col span="14">{data.OfferingTypeName}</Col>
           </Row>
         )}
-        {display && (
+        {mobileView && (
           <Row>
             <Col span="10">Def Section:</Col>
             <Col span="14">{data.SectionTypeName}</Col>
@@ -136,7 +143,8 @@ export function OfferingTable(props: IOfferingTableProps) {
       expandableRowRender={expandableRowRender}
       rowKey="OfferingID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: 600 }}
+      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
+      rowSelection={props.rowSelection}
     />
   )
 }
