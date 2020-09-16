@@ -4,14 +4,14 @@ import SelectedFilters from "~/Component/Section/SelectedFilters"
 import FilterColumn from "~/Component/Section/FilterColumn"
 import SectionTable from "~/Component/Section/SectionTable"
 import { RouteComponentProps } from "react-router-dom"
-import { useOfferingFilterState } from "~/Hooks/Offering"
-import { useOfferings } from "~/Hooks/Section"
+import { useOfferingFilterState, useOfferings } from "~/Hooks/Section"
+
 import styles from "~/pages/Offering/Offering.module.scss"
 
 const { useState } = React
 const { Title } = Typography
 
-function OfferingPage(props: RouteComponentProps) {
+export default function OfferingPage(props: RouteComponentProps<{ id: string }>) {
   const { filterData, updateFilterData } = useOfferingFilterState()
   const [showFilter, setFilterVisiblity] = useState<boolean>(false)
   const [filterCount, setFilterCount] = useState<number>(0)
@@ -52,4 +52,3 @@ function OfferingPage(props: RouteComponentProps) {
     </div>
   )
 }
-export default OfferingPage

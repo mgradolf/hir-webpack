@@ -27,7 +27,7 @@ export default function Sidebar(props: ISidebar) {
             <Link to="/offering">Offering</Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/sections">Sections</Link>
+            <Link to="/section">Sections</Link>
           </Menu.Item>
           <Menu.Item key="3">Person</Menu.Item>
           <Menu.Item key="4">Course</Menu.Item>
