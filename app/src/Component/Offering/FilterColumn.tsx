@@ -7,6 +7,7 @@ import styles from "~/Component/Offering/FilterColumn.module.scss"
 
 import { ColProps } from "antd/lib/col"
 import { useOfferingFilterData } from "~/Hooks/Offering"
+import { RecordType } from "../ResponsiveTable"
 
 const { Option } = Select
 const { Title } = Typography
@@ -38,7 +39,7 @@ function InputCol(props: ColProps) {
   return <Col {...layout.input} {...props} />
 }
 
-export interface IFilterValues {
+export interface IFilterValues extends RecordType {
   OfferingCode: string
   OfferingName: string
   ToCreationDate: string
