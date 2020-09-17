@@ -1,9 +1,11 @@
 import * as React from "react"
 import { Row, Col, Typography } from "antd"
-import { SelectedFilters, FilterColumn, OfferingTable } from "~/Component/Offering"
+import { SelectedFilters, OfferingTable } from "~/Component/Offering"
 import { RouteComponentProps } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
+import { FilterColumn } from "~/Component/Offering/FilterColumn/FilterColumn2"
+import { offeringMeta } from "~/pages/Offering/meta"
 
 const { useState } = React
 const { Title } = Typography
@@ -27,6 +29,8 @@ function OfferingPage(props: RouteComponentProps) {
       <SelectedFilters filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <FilterColumn
+          meta={offeringMeta}
+          title="Offering Filter"
           isModalView={false}
           visible={showFilter}
           toggleVisiibility={toggleFilter}
