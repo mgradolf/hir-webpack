@@ -86,6 +86,7 @@ export default function DefineTerminationTime(props: IDefineTime) {
           </Radio>
           <Form.Item label="Termination Date">
             <DatePicker
+              aria-label="Pick Termination Date"
               placeholder="YYYY/MM/DD"
               disabled={disableTime}
               format={dateFormat}
@@ -94,7 +95,7 @@ export default function DefineTerminationTime(props: IDefineTime) {
             />
           </Form.Item>
           <Form.Item name={props.fieldNames.TerminationDate} style={hidden}>
-            <Input />
+            <Input aria-label="Termination Date" />
           </Form.Item>
         </Col>
         <Col flex="1">
@@ -102,7 +103,7 @@ export default function DefineTerminationTime(props: IDefineTime) {
             Determined by End Term
           </Radio>
           <Form.Item label="Select term" name={props.fieldNames.EndTermID}>
-            <Select disabled={disableTerm} placeholder="Choose a term">
+            <Select aria-label="Term Select" disabled={disableTerm} placeholder="Choose a term">
               {props.terms.map((term) => {
                 return (
                   <Select.Option key={term.TermID + term.Name} value={term.TermID}>

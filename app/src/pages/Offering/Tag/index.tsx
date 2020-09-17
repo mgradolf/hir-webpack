@@ -161,16 +161,17 @@ export default function (props: RouteComponentProps<{ id: string }>) {
         <Form form={formInstance} initialValues={initialValues}>
           <div style={hidden}>
             <Form.Item label="Tag types" name={fieldNames.EntityType}>
-              <Input />
+              <Input aria-label="Tag Types" />
             </Form.Item>
             <Form.Item label="Tag types" name={fieldNames.EntityID}>
-              <Input />
+              <Input aria-label="Tag ID" />
             </Form.Item>
           </div>
 
           <Form.Item label="Tag types" name={fieldNames.TagTypeID}>
             <Select
               mode="multiple"
+              aria-label="Tag Select"
               style={{ width: "100%" }}
               notFoundContent={loadingTagTypes ? <Spin size="small" /> : null}
               placeholder="Please select Tag types"
@@ -188,12 +189,16 @@ export default function (props: RouteComponentProps<{ id: string }>) {
           <Row gutter={[48, 8]}>
             <Col span="auto">
               <Form.Item label="Search by Tag name" name={fieldNames.Tag}>
-                <Input />
+                <Input aria-label="Search by Tag Name" />
               </Form.Item>
             </Col>
             <Col span="auto">
               <Form.Item label="Selected" name={fieldNames.IsSelected} valuePropName="checked">
-                <Switch checkedChildren={<CheckOutlined />} unCheckedChildren={<CloseOutlined />} />
+                <Switch
+                  aria-label="Is Selected"
+                  checkedChildren={<CheckOutlined />}
+                  unCheckedChildren={<CloseOutlined />}
+                />
               </Form.Item>
             </Col>
             <Col span="auto" style={{ textAlign: "right" }}>

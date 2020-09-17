@@ -88,7 +88,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
           }
         ></FormError>
         <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.OfferingID}>
-          <Input value={props.offeringID ? props.offeringID : undefined} />
+          <Input value={props.offeringID ? props.offeringID : undefined} aria-label="Offering ID" />
         </Form.Item>
 
         <Form.Item
@@ -102,7 +102,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
             }
           ]}
         >
-          <Select>
+          <Select aria-label="Approval State Select">
             {approvalStateList.map((x) => {
               return (
                 <Select.Option key={x.StatusID} value={x.StatusID}>
@@ -114,7 +114,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
         </Form.Item>
 
         <Form.Item label="Remarks" {...layout} name={fieldNames.Remarks}>
-          <TextArea rows={4} />
+          <TextArea rows={4} aria-label="Remarks" />
         </Form.Item>
 
         <Form.Item
@@ -128,7 +128,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
             }
           ]}
         >
-          <Select>
+          <Select aria-label="User Name Select">
             {approvalSendToList.map((x) => {
               return (
                 <Select.Option key={x.UserLogin} value={x.UserLogin}>
@@ -140,7 +140,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
         </Form.Item>
 
         <Form.Item label="Notify By Email" {...layout} name={fieldNames.IsNotifyByEmail}>
-          <Radio.Group>
+          <Radio.Group aria-label="Notify by Email">
             <Radio value={true}>Yes</Radio>
             <Radio value={false}>No</Radio>
           </Radio.Group>
