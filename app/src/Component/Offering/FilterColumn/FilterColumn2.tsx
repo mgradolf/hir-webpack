@@ -59,16 +59,15 @@ export function FilterColumn(props: IFilterColumnProps) {
     }
 
     function loadRemoteData() {
-      props.meta.forEach((field, index) => {
+      props.meta.forEach(async (field, index) => {
         if (typeof field.refLookupService === "function") {
-          field.refLookupService().then((res) => {
-            props.meta[index].options = transformIntoOptions(
-              res.data,
-              field.displayKey as string,
-              field.valueKey as string
-            )
-            updateMetaState(props.meta)
-          })
+          const res = await field.refLookupService()
+          props.meta[index].options = transformIntoOptions(
+            res.data,
+            field.displayKey as string,
+            field.valueKey as string
+          )
+          updateMetaState(props.meta)
         }
       })
     }
