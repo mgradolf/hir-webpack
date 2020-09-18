@@ -84,11 +84,11 @@ const offeringMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     defaultValue: "",
-    fieldName: "OrganizationTypeID",
+    fieldName: "OrganizationID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
-    valueKey: "OrganizationTypeID"
+    valueKey: "OrganizationID"
   },
   {
     label: "Coordinator",

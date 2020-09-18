@@ -3,14 +3,14 @@ import Modal from "~/Component/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddInstructorFromOfferingModal } from "~/store/ModalState"
-import { FilterColumn } from "~/Component/Offering/QualifiedInstructor/QualifiedInstructorFilterColumn"
 import { Row, Col, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 import onlyUnique from "~/utils/util"
-
+import InstructorSearchFilters from "~/Component/SearchFilters"
 import { updateInstructors } from "~/ApiServices/Service/OfferingService"
 import { QualifiedInstructorTable } from "./QualifiedInstructorTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
+import InstructorSearchFiltersMeta from "~/Component/Offering/QualifiedInstructor/QualifiedInstructorSearchFilterMeta"
 import { useInstructorFilterState, useInstructors } from "~/Hooks/Offering/QualifiedInstructors"
 
 const { useState } = React
@@ -73,9 +73,12 @@ function AddInstructorFromInstructorModal({
     <Modal showModal={true} width="1000px">
       {(modalSelectedPage === ModalPages.FilterPage && (
         <Row justify="center">
-          <FilterColumn
+          <InstructorSearchFilters
             data={filterData}
             visible
+            isModalView
+            meta={InstructorSearchFiltersMeta}
+            title="Instructor Filter"
             toggleVisiibility={() => {
               closeAddInstructorFromInstructorModal()
               setSelectedInstructors([])
