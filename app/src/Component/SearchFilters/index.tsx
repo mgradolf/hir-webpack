@@ -49,7 +49,7 @@ export interface IFilterValues extends RecordType {
 
 type Show = { [key in keyof IFilterValues]: boolean }
 
-export function FilterColumn(props: IFilterColumnProps) {
+export default function (props: IFilterColumnProps) {
   const { visible, title, meta, data, toggleVisiibility } = props
   const [filterData, updateFilterData] = useState<RecordType>(data)
   const [metaState, updateMetaState] = useState<typeof meta>(meta)
