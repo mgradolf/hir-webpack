@@ -11,6 +11,7 @@ import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "./commo
 import { DropDownInputType } from "./DropDown"
 import { DatePickerInputType } from "./DatePicker"
 import { DatePickersInputType } from "./DatePickers"
+import { eventBus, REFRESH_FILTER_DATA_OF_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -59,20 +60,21 @@ export function FilterColumn(props: IFilterColumnProps) {
     }
 
     function loadRemoteData() {
-      props.meta.forEach(async (field, index) => {
-        if (typeof field.refLookupService === "function") {
+      const metaList = [...props.meta]
+      metaList.forEach(async (field) => {
+        if (typeof field.refLookupService === "function" && field.inputType === DROPDOWN) {
           const res = await field.refLookupService()
-          props.meta[index].options = transformIntoOptions(
-            res.data,
-            field.displayKey as string,
-            field.valueKey as string
-          )
-          updateMetaState(props.meta)
+          field.options = transformIntoOptions(res.data, field.displayKey as string, field.valueKey as string)
+          updateMetaState(metaList)
         }
       })
     }
 
+    eventBus.subscribe(REFRESH_FILTER_DATA_OF_PAGE, loadRemoteData)
     loadRemoteData()
+    return () => {
+      eventBus.unsubscribe(REFRESH_FILTER_DATA_OF_PAGE)
+    }
   }, [props.meta])
 
   return (
