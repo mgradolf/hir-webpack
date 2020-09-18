@@ -1,12 +1,7 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
-import {
-  getOfferingStatusTypes,
-  getOfferingTypes,
-  getOrganizations,
-  getSectionTypes,
-  getTagTypes
-} from "~/ApiServices/Service/RefLookupService"
+import { getSectionStatusCode, getOrganizations, getTagTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/SearchFilters/common"
+import { findMeetingTypes } from "~/ApiServices/BizApi/schedule/scheduleIf"
 
 const offeringMeta: IFilterField[] = [
   {
@@ -22,6 +17,40 @@ const offeringMeta: IFilterField[] = [
     defaultValue: "",
     fieldName: "OfferingName",
     ariaLabel: "Offering Name"
+  },
+  {
+    label: "Section Number",
+    inputType: TEXT,
+    defaultValue: "*",
+    fieldName: "SectionNumber",
+    ariaLabel: "Section Number"
+  },
+  {
+    label: "Instructor first name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "SectionFacultyFirstName",
+    ariaLabel: "Instructor first name"
+  },
+  {
+    label: "Instructor last name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "SectionFacultyLastName",
+    ariaLabel: "Instructor last name"
+  },
+  {
+    label: "Start Date",
+    inputType: DATE_PICKERS,
+    displayKey: "From",
+    defaultValue: "",
+    fieldName: "FromStartDate",
+    valueKey: "FromStartDate",
+    ariaLabel: "Start Date From",
+    displayKey2: "To",
+    valueKey2: "ToStartDate",
+    fieldName2: "ToStartDate",
+    ariaLabel2: "Start Date To"
   },
   {
     label: "Creation Date",
@@ -61,34 +90,50 @@ const offeringMeta: IFilterField[] = [
     ]
   },
   {
-    label: "Offering Status",
+    label: "Status",
     inputType: DROPDOWN,
     defaultValue: "",
     fieldName: "StatusID",
     ariaLabel: "Offering Status Select",
-    refLookupService: getOfferingStatusTypes,
+    refLookupService: getSectionStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
-  },
-  {
-    label: "Offering Type",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    refLookupService: getOfferingTypes,
-    fieldName: "OfferingTypeID",
-    ariaLabel: "Offering Type",
-    displayKey: "Name",
-    valueKey: "OfferingTypeID"
   },
   {
     label: "Department",
     inputType: DROPDOWN,
     defaultValue: "",
-    fieldName: "OrganizationTypeID",
+    fieldName: "OrganizationID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
-    valueKey: "OrganizationTypeID"
+    valueKey: "OrganizationID"
+  },
+  {
+    label: "Meets On",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "MeetsOn",
+    ariaLabel: "Meets on Weekdays",
+    options: [
+      { label: "Monday", value: "1" },
+      { label: "Tuesday", value: "2" },
+      { label: "Wednesday", value: "3" },
+      { label: "Thursday", value: "4" },
+      { label: "Friday", value: "5" },
+      { label: "Saturday", value: "6" },
+      { label: "Sunday", value: "7" }
+    ]
+  },
+  {
+    label: "Meeting Type",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "MeetingType",
+    ariaLabel: "Meeting Type",
+    refLookupService: findMeetingTypes,
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
     label: "Coordinator",
@@ -101,35 +146,14 @@ const offeringMeta: IFilterField[] = [
     valueKey: "UserLogin"
   },
   {
-    label: "Section Type",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "SectionTypeID",
-    ariaLabel: "Section Type Select",
-    refLookupService: getSectionTypes,
-    displayKey: "SectionTypeName",
-    valueKey: "SectionTypeID"
-  },
-  {
-    label: "Is Search Tag Hierarchy",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "IsSearchTagHierarchy",
-    ariaLabel: "Is Search Tag Hierarchy",
-    options: [
-      { label: "Yes", value: "true" },
-      { label: "No", value: "false" }
-    ]
-  },
-  {
     label: "Tag Type",
     inputType: DROPDOWN,
     defaultValue: "",
     fieldName: "TagTypeID",
     ariaLabel: "Tag Type Select",
     refLookupService: getTagTypes,
-    displayKey: "ID",
-    valueKey: "Name"
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
     label: "Tag",
@@ -137,26 +161,6 @@ const offeringMeta: IFilterField[] = [
     defaultValue: "",
     fieldName: "TagName",
     ariaLabel: "Tag name"
-  },
-  {
-    label: "Final Enrollment Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "FromFinalEnrollmentDate",
-    valueKey: "FromFinalEnrollmentDate",
-    defaultValue: "",
-    ariaLabel: "Final Enrollment Date From",
-    displayKey2: "To",
-    fieldName2: "ToFinalEnrollmentDate",
-    valueKey2: "ToFinalEnrollmentDate",
-    ariaLabel2: "Final Enrollment Date To"
-  },
-  {
-    label: "Capacity Util",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "OfferingNearCapacity",
-    ariaLabel: "Offering Near Capacity"
   }
 ]
 
