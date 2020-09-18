@@ -20,34 +20,11 @@ interface IFilterColumnProps {
   title: string
   toggleVisiibility: () => void
   onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
-  data: IFilterValues
+  data: RecordType
   isModalView: boolean
 }
 
-export interface IFilterValues extends RecordType {
-  OfferingCode: string
-  OfferingName: string
-  ToCreationDate: string
-  FromCreationDate: string
-  ToTerminationDate: string
-  FromTerminationDate: string
-  IsQuickAdmit: string
-  StatusID: string
-  Coordinator: string
-  OrganizationID: string
-  OfferingTypeID: string
-  SectionTypeID: string
-  InstructorID: string
-  ShowProgramOffering: string
-  TagName: string
-  TagTypeID: string
-  IsSearchTagHierarchy: string
-  OfferingNearCapacity: string
-  ToFinalEnrollmentDate: string
-  FromFinalEnrollmentDate: string
-}
-
-type Show = { [key in keyof IFilterValues]: boolean }
+type Show = { [key: string]: boolean }
 
 export default function (props: IFilterColumnProps) {
   const { visible, title, meta, data, toggleVisiibility } = props

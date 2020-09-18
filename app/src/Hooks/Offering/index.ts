@@ -1,7 +1,30 @@
 import { useState, useEffect } from "react"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
-import { IFilterValues } from "~/Component/SearchFilters"
+import { RecordType } from "~/Component/ResponsiveTable"
+
+export interface IFilterValues extends RecordType {
+  OfferingCode: string
+  OfferingName: string
+  ToCreationDate: string
+  FromCreationDate: string
+  ToTerminationDate: string
+  FromTerminationDate: string
+  IsQuickAdmit: string
+  StatusID: string
+  Coordinator: string
+  OrganizationID: string
+  OfferingTypeID: string
+  SectionTypeID: string
+  InstructorID: string
+  ShowProgramOffering: string
+  TagName: string
+  TagTypeID: string
+  IsSearchTagHierarchy: string
+  OfferingNearCapacity: string
+  ToFinalEnrollmentDate: string
+  FromFinalEnrollmentDate: string
+}
 
 export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
   const [offeringItems, setOfferingItems] = useState<Array<any>>([])
