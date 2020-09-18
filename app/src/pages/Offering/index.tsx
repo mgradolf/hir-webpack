@@ -7,7 +7,7 @@ import { RouteComponentProps } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
 import { FilterColumn } from "~/Component/SearchFilters"
-import { offeringMeta } from "~/pages/Offering/meta"
+import OfferingSearchFilterMeta from "~/pages/Offering/OfferingSearchFilterMeta"
 
 const { useState } = React
 const { Title } = Typography
@@ -36,7 +36,7 @@ function OfferingPage(props: RouteComponentProps) {
       />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <FilterColumn
-          meta={offeringMeta}
+          meta={OfferingSearchFilterMeta}
           title="Offering Filter"
           isModalView={false}
           visible={showFilter}

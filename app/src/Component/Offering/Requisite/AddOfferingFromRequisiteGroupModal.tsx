@@ -10,7 +10,7 @@ import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requi
 import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
 import { OfferingTable } from "~/Component/Offering/OfferingTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
-import { offeringMeta } from "~/pages/Offering/meta"
+import OfferingSearchFilterMeta from "~/pages/Offering/OfferingSearchFilterMeta"
 
 const { useState } = React
 
@@ -59,7 +59,7 @@ function AddOfferingFromRequisiteGroupModal({
       {(modalSelectedPage === ModalPages.FilterPage && (
         <Row justify="center">
           <FilterColumn
-            meta={offeringMeta}
+            meta={OfferingSearchFilterMeta}
             isModalView={true}
             data={filterData}
             title={""}
