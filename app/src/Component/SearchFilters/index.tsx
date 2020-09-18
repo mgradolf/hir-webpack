@@ -1,16 +1,15 @@
-import styles from "~/Component/Offering/FilterColumn.module.scss"
+import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
 import { Button, Col, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
-import React, { useState } from "react"
-import { IFilterValues } from ".."
-import { RecordType } from "../../ResponsiveTable"
+import React, { useState, useEffect } from "react"
+import { RecordType } from "~/Component/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
-import { useEffect } from "react"
+
 import { TextInputType } from "./TextInput"
 import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "./common"
-import { DropDownInputType } from "./DropDown"
-import { DatePickerInputType } from "./DatePicker"
-import { DatePickersInputType } from "./DatePickers"
+import { DropDownInputType } from "~/Component/SearchFilters/DropDown"
+import { DatePickerInputType } from "~/Component/SearchFilters/DatePicker"
+import { DatePickersInputType } from "~/Component/SearchFilters/DatePickers"
 
 const { Title } = Typography
 
@@ -22,6 +21,29 @@ interface IFilterColumnProps {
   onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
   data: IFilterValues
   isModalView: boolean
+}
+
+export interface IFilterValues extends RecordType {
+  OfferingCode: string
+  OfferingName: string
+  ToCreationDate: string
+  FromCreationDate: string
+  ToTerminationDate: string
+  FromTerminationDate: string
+  IsQuickAdmit: string
+  StatusID: string
+  Coordinator: string
+  OrganizationID: string
+  OfferingTypeID: string
+  SectionTypeID: string
+  InstructorID: string
+  ShowProgramOffering: string
+  TagName: string
+  TagTypeID: string
+  IsSearchTagHierarchy: string
+  OfferingNearCapacity: string
+  ToFinalEnrollmentDate: string
+  FromFinalEnrollmentDate: string
 }
 
 type Show = { [key in keyof IFilterValues]: boolean }

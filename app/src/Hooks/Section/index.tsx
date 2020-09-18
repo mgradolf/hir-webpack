@@ -7,7 +7,7 @@ import {
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
-import { IFilterValues } from "~/Component/Offering"
+import { IFilterValues } from "~/Component/SearchFilters"
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
 

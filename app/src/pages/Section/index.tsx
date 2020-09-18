@@ -1,7 +1,6 @@
 import * as React from "react"
 import { Row, Col, Typography } from "antd"
-import SelectedFilters from "~/Component/Section/SelectedFilters"
-import FilterColumn from "~/Component/Section/FilterColumn"
+import SectionFilterOpenButton from "~/Component/Section/SectionFilterOpenButton"
 import SectionTable from "~/Component/Section/SectionTable"
 import { RouteComponentProps } from "react-router-dom"
 import { useOfferingFilterState, useOfferings } from "~/Hooks/Section"
@@ -12,9 +11,9 @@ const { useState } = React
 const { Title } = Typography
 
 export default function OfferingPage(props: RouteComponentProps<{ id: string }>) {
-  const { filterData, updateFilterData } = useOfferingFilterState()
+  const { filterData } = useOfferingFilterState()
   const [showFilter, setFilterVisiblity] = useState<boolean>(false)
-  const [filterCount, setFilterCount] = useState<number>(0)
+  const [filterCount] = useState<number>(0)
 
   const [loading, offeringItems] = useOfferings(filterData)
 
@@ -27,9 +26,9 @@ export default function OfferingPage(props: RouteComponentProps<{ id: string }>)
       <Row>
         <Title level={3}>Manage Sections</Title>
       </Row>
-      <SelectedFilters filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
+      <SectionFilterOpenButton filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        <FilterColumn
+        {/* <FilterColumn
           isModalView={false}
           visible={showFilter}
           toggleVisiibility={toggleFilter}
@@ -39,7 +38,7 @@ export default function OfferingPage(props: RouteComponentProps<{ id: string }>)
             setFilterCount(appliedFilterCount)
             setFilterVisiblity(false)
           }}
-        />
+        /> */}
         <Col
           className={`gutter-row ${styles.offeringDetails}`}
           xs={24}

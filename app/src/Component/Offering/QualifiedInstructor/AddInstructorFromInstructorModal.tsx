@@ -10,7 +10,7 @@ import onlyUnique from "~/utils/util"
 
 import { updateInstructors } from "~/ApiServices/Service/OfferingService"
 import { QualifiedInstructorTable } from "./QualifiedInstructorTable"
-import { SelectedFilters } from "~/Component/Offering"
+import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
 import { useInstructorFilterState, useInstructors } from "~/Hooks/Offering/QualifiedInstructors"
 
 const { useState } = React
@@ -90,7 +90,7 @@ function AddInstructorFromInstructorModal({
       )) ||
         (modalSelectedPage === ModalPages.InstructorsList && (
           <Card title={"Select Instructors"} actions={actions}>
-            <SelectedFilters
+            <FilterOpenButton
               filterCount={filterCount}
               filterColumnVisible={false}
               toggleFilter={() => setModalPage(ModalPages.FilterPage)}

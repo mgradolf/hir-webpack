@@ -46,7 +46,9 @@ export default function SectionTable(props: ITableWrapperProps) {
       title: "Offering Code",
       dataIndex: "OfferingCode",
       key: "OfferingCode",
-      sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length
+      sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length,
+      render: (text: any, record: any) =>
+        props.isModal ? text : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
       title: "Instructors",

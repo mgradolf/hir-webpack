@@ -6,7 +6,7 @@ import {
   getSectionTypes,
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Offering/FilterColumn/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/SearchFilters/common"
 
 export const offeringMeta: IFilterField[] = [
   {

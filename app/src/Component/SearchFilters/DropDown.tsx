@@ -1,6 +1,6 @@
 import React from "react"
-import { IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/Offering/FilterColumn/common"
-import styles from "~/Component/Offering/FilterColumn.module.scss"
+import { IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/SearchFilters/common"
+import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, Select } from "antd"
 
 const { Option } = Select

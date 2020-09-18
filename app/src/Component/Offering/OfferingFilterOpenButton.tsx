@@ -1,17 +1,17 @@
 import { Row, Col, Button } from "antd"
 import React from "react"
-import CreateActionButton from "~/Component/Offering/CreateEdit/OfferingModalOpenButton"
 import { FilterOutlined } from "@ant-design/icons"
-import styles from "~/Component/Offering/SelectedFilters.module.scss"
+import styles from "~/Component/Offering/FilterOpenButton.module.scss"
 
 interface IToolbarProps {
   filterCount: number
   filterColumnVisible: boolean
   toggleFilter: () => void
   hideCreateButton?: boolean
+  actionButton?: React.ReactNode
 }
 
-export default function SelectedFilters(props: IToolbarProps) {
+export function FilterOpenButton(props: IToolbarProps) {
   return (
     <Row>
       <Col className="gutter-row" xs={24} sm={24} md={12}>
@@ -28,7 +28,7 @@ export default function SelectedFilters(props: IToolbarProps) {
         >
           Filters
         </Button>
-        {!props.hideCreateButton && <CreateActionButton />}
+        {!!props.actionButton && props.actionButton}
       </Col>
     </Row>
   )
