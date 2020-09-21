@@ -1,18 +1,17 @@
 import * as React from "react"
 import { Row, Col, Typography } from "antd"
-import { OfferingTable } from "~/Component/Offering/OfferingTable"
-import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
-import CreateActionButton from "~/Component/Offering/CreateEdit/OfferingModalOpenButton"
+import SectionFilterOpenButton from "~/Component/Section/SectionFilterOpenButton"
+import SectionTable from "~/Component/Section/SectionTable"
 import { RouteComponentProps } from "react-router-dom"
+import { useOfferingFilterState, useOfferings } from "~/Hooks/Section"
+import SectionSearchFilters from "~/Component/SearchFilters"
+import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
-import OfferingSearchFilters from "~/Component/SearchFilters"
-import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 
 const { useState } = React
 const { Title } = Typography
 
-function OfferingPage(props: RouteComponentProps) {
+export default function OfferingPage(props: RouteComponentProps<{ id: string }>) {
   const { filterData, updateFilterData } = useOfferingFilterState()
   const [showFilter, setFilterVisiblity] = useState<boolean>(false)
   const [filterCount, setFilterCount] = useState<number>(0)
@@ -26,21 +25,16 @@ function OfferingPage(props: RouteComponentProps) {
   return (
     <div className="site-layout-content">
       <Row>
-        <Title level={3}>Manage Offerings</Title>
+        <Title level={3}>Manage Sections</Title>
       </Row>
-      <FilterOpenButton
-        filterCount={filterCount}
-        filterColumnVisible={showFilter}
-        toggleFilter={toggleFilter}
-        actionButton={<CreateActionButton />}
-      />
+      <SectionFilterOpenButton filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        <OfferingSearchFilters
-          meta={OfferingSearchFilterMeta}
-          title="Offering Filter"
+        <SectionSearchFilters
+          title={""}
           isModalView={false}
           visible={showFilter}
           toggleVisiibility={toggleFilter}
+          meta={SectionSearchFilterMeta}
           data={filterData}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             updateFilterData({ ...filterData, ...newFilterValues })
@@ -54,10 +48,9 @@ function OfferingPage(props: RouteComponentProps) {
           sm={24}
           md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
         >
-          <OfferingTable dataSource={offeringItems} loading={loading} />
+          <SectionTable dataSource={offeringItems} loading={loading} />
         </Col>
       </Row>
     </div>
   )
 }
-export default OfferingPage

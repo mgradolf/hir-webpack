@@ -3,13 +3,14 @@ import Modal from "~/Component/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
-import { FilterColumn, IFilterValues } from "~/Component/Offering"
+import SearchFilters from "~/Component/SearchFilters"
 import { Row, Col, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
-import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
+import { useOfferings, useOfferingFilterState, IFilterValues } from "~/Hooks/Offering"
 import { OfferingTable } from "~/Component/Offering/OfferingTable"
-import { SelectedFilters } from "~/Component/Offering/SelectedFilters"
+import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
+import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 
 const { useState } = React
 
@@ -57,9 +58,11 @@ function AddOfferingFromRequisiteGroupModal({
     <Modal showModal={true} width="1000px">
       {(modalSelectedPage === ModalPages.FilterPage && (
         <Row justify="center">
-          <FilterColumn
+          <SearchFilters
+            meta={OfferingSearchFilterMeta}
             isModalView={true}
             data={filterData}
+            title={""}
             visible
             toggleVisiibility={() => {
               closeAddOfferingFromRequisiteGroupModal()
@@ -89,7 +92,7 @@ function AddOfferingFromRequisiteGroupModal({
               </Button>
             ]}
           >
-            <SelectedFilters
+            <FilterOpenButton
               filterCount={filterCount as number}
               filterColumnVisible={false}
               toggleFilter={() => setModalPage(ModalPages.FilterPage)}

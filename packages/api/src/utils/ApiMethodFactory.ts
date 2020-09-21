@@ -43,7 +43,7 @@ export interface ApiMethod {
 export default (config: Iconfig) => {
   const Actions: ApiMethod = {}
   Object.keys(config.Actions).forEach((Action) => {
-    Actions[Action] = (Params: { [key: string]: any }): Promise<IApiResponse> =>
+    Actions[Action] = (Params: { [key: string]: any | Array<any> }): Promise<IApiResponse> =>
       callServiceApi(config.EndPoint, config.Service, Action, Params, config.Module)
   })
   return Actions
