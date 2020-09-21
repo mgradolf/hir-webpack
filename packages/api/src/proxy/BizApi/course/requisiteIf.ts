@@ -1,6 +1,6 @@
-import ApiMethodFactory, { Iconfig } from "../../../utils/ApiMethodFactory"
+import ApiMethodFactory from "../../../utils/ApiMethodFactory"
 
-export const config: Iconfig = {
+export const config = {
   EndPoint: "api/bizApiServlet",
   Service: "com.jenzabar.jxntm.server.bizapi.course.RequisiteIF",
   Module: "hir",
