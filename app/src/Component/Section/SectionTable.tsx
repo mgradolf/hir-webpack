@@ -55,7 +55,10 @@ export default function SectionTable(props: ITableWrapperProps) {
       dataIndex: "Faculty",
       key: "Faculty",
       render: (faculties: Array<any> | null) => {
-        return Array.isArray(faculties) && faculties.map((x: any) => <div>- {x.FacultyDescriptor}</div>)
+        return (
+          Array.isArray(faculties) &&
+          faculties.map((x: any, index: number) => <div key={x.FacultyDescriptor + index}>- {x.FacultyDescriptor}</div>)
+        )
       }
     },
     {

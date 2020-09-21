@@ -161,6 +161,13 @@ const offeringMeta: IFilterField[] = [
     defaultValue: "",
     fieldName: "TagName",
     ariaLabel: "Tag name"
+  },
+  {
+    label: "",
+    defaultValue: "",
+    ariaLabel: "",
+    inputType: "COMBO_DEPENDENT_ROOM",
+    fieldName: "RoomID"
   }
 ]
 
