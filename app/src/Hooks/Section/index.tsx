@@ -28,8 +28,11 @@ interface ISectionFilterValues extends RecordType {
   TagTypeID: string
 }
 
-export function useOfferings(filterData: ISectionFilterValues): [boolean, any[]] {
-  const [offeringItems, setOfferingItems] = useState<Array<any>>([])
+export function useSections(
+  filterData: ISectionFilterValues,
+  offeringID: number | undefined = undefined
+): [boolean, any[]] {
+  const [sectionItems, setSectionItems] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -51,10 +54,10 @@ export function useOfferings(filterData: ISectionFilterValues): [boolean, any[]]
           params[key] = Number(params[key])
         }
       })
-      const result = await searchSection([params])
+      const result = await searchSection([{ ...params, OfferingID: offeringID }])
 
       if (result && result.success) {
-        setOfferingItems(result.data)
+        setSectionItems(result.data)
       }
       setLoading(false)
     }
@@ -63,9 +66,9 @@ export function useOfferings(filterData: ISectionFilterValues): [boolean, any[]]
     return () => {
       eventBus.unsubscribe(REFRESH_SECTION_PAGE)
     }
-  }, [filterData])
+  }, [filterData, offeringID])
 
-  return [loading, offeringItems]
+  return [loading, sectionItems]
 }
 
 const INITIAL_SECTION_FILTER_DATA: ISectionFilterValues = {
@@ -93,7 +96,7 @@ const INITIAL_SECTION_FILTER_DATA: ISectionFilterValues = {
   TagTypeID: ""
 }
 
-export function useOfferingFilterState(state = INITIAL_SECTION_FILTER_DATA) {
+export function useSectionFilterState(state = INITIAL_SECTION_FILTER_DATA) {
   const [filterData, updateFilterData] = useState<ISectionFilterValues>(state)
   return { filterData, updateFilterData }
 }

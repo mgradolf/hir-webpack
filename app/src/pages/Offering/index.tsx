@@ -2,7 +2,7 @@ import * as React from "react"
 import { Row, Col, Typography } from "antd"
 import { OfferingTable } from "~/Component/Offering/OfferingTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
-import CreateActionButton from "~/Component/Offering/CreateEdit/OfferingModalOpenButton"
+import OfferingModalOpenButton from "~/Component/Offering/CreateEdit/OfferingModalOpenButton"
 import { RouteComponentProps } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
 import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
@@ -32,7 +32,7 @@ function OfferingPage(props: RouteComponentProps) {
         filterCount={filterCount}
         filterColumnVisible={showFilter}
         toggleFilter={toggleFilter}
-        actionButton={<CreateActionButton />}
+        actionButton={<OfferingModalOpenButton />}
       />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <OfferingSearchFilters

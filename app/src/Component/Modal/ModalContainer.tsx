@@ -8,6 +8,7 @@ import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApp
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
+import SectionFormModal from "~/Component/Offering/Section/CreateEdit/SectionFormModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
 
@@ -46,6 +47,7 @@ function ModalContainer(modalState: IModalState) {
           rowData={modalState.addInstructorFromInstructorModal.config.rowData}
         />
       )}
+      {modalState.createSectionModal.value && <SectionFormModal />}
     </>
   )
 }

@@ -7,6 +7,8 @@ interface IToolbarProps {
   filterCount: number
   filterColumnVisible: boolean
   toggleFilter: () => void
+  hideCreateButton?: boolean
+  actionButton?: React.ReactNode
 }
 
 export default function FilterOpenButton(props: IToolbarProps) {
@@ -26,6 +28,7 @@ export default function FilterOpenButton(props: IToolbarProps) {
         >
           Filters
         </Button>
+        {!!props.actionButton && props.actionButton}
       </Col>
     </Row>
   )

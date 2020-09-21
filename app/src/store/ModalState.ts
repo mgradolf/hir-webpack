@@ -5,6 +5,7 @@ const SHOW_OFFERING_APPROVAL_MODAL = "SHOW_OFFERING_APPROVAL_MODAL"
 const SHOW_OFFERING_PREREQUISITE_GROUP_MODAL = "SHOW_OFFERING_PREREQUISITE_GROUP_MODAL"
 const SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL = "SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL"
 const SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL = "SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL"
+const SHOW_CREATE_SECTION_MODAL = "SHOW_CREATE_SECTION_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -24,6 +25,7 @@ export interface IModalState {
   offeringPrerequisiteGroupModal: ModalConfig
   addOfferingFromRequisiteGroupModal: ModalConfig
   addInstructorFromInstructorModal: ModalConfig
+  createSectionModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -52,6 +54,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   addInstructorFromInstructorModal: {
+    value: false,
+    config: null
+  },
+  createSectionModal: {
     value: false,
     config: null
   }
@@ -111,11 +117,20 @@ type ShowOfferingQualifiedInstructorModalType = {
   offeringId: number
   rowData: Array<any>
 }
+
 export const showAddInstructorFromOfferingModal = (
   value: boolean,
   config?: ShowOfferingQualifiedInstructorModalType
 ): IAction => ({
   type: SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL,
+  payload: { value, config }
+})
+
+interface IShowCreateSectionModal {
+  OfferingID: number
+}
+export const showCreateSectionModal = (value: boolean, config?: IShowCreateSectionModal): IAction => ({
+  type: SHOW_CREATE_SECTION_MODAL,
   payload: { value, config }
 })
 
@@ -135,6 +150,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, addOfferingFromRequisiteGroupModal: action.payload }
     case SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL:
       return { ...state, addInstructorFromInstructorModal: action.payload }
+    case SHOW_CREATE_SECTION_MODAL:
+      return { ...state, createSectionModal: action.payload }
     default:
       return state
   }
