@@ -7,7 +7,6 @@ import { useOfferingFilterState, useOfferings } from "~/Hooks/Section"
 import SectionSearchFilters from "~/Component/SearchFilters"
 import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { IFilterGenericComponentProps } from "~/Component/SearchFilters/common"
 
 const { useState } = React
 const { Title } = Typography
@@ -42,7 +41,6 @@ export default function OfferingPage(props: RouteComponentProps<{ id: string }>)
             setFilterCount(appliedFilterCount)
             setFilterVisiblity(false)
           }}
-          customFilters={[{ customInputType: "COMBO_DEPENDENT_ROOM", customInputComponent: CustomeFilter }]}
         />
         <Col
           className={`gutter-row ${styles.offeringDetails}`}
@@ -55,8 +53,4 @@ export default function OfferingPage(props: RouteComponentProps<{ id: string }>)
       </Row>
     </div>
   )
-}
-
-function CustomeFilter(props: IFilterGenericComponentProps) {
-  return <div>Hello {props.fieldName}</div>
 }

@@ -22,7 +22,6 @@ interface IFilterColumnProps {
   onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
   data: RecordType
   isModalView: boolean
-  customFilters?: Array<{ customInputType: string; customInputComponent: any }>
 }
 
 type Show = { [key: string]: boolean }
@@ -95,7 +94,7 @@ export default function (props: IFilterColumnProps) {
         </Col>
       </Row>
       {metaState.map((field, i) => {
-        const { inputType, fieldName } = field
+        const { inputType, fieldName, customFilterComponent } = field
         if (inputType === TEXT) {
           return (
             <TextInputType
@@ -149,30 +148,18 @@ export default function (props: IFilterColumnProps) {
           )
         }
 
-        return null
-      })}
-
-      {metaState.map((field, i) => {
-        return (
-          props.customFilters &&
-          props.customFilters.length > 0 &&
-          props.customFilters.map((customFilter) => {
-            const { inputType, fieldName } = field
-            const { customInputType, customInputComponent } = customFilter
-            if (inputType === customInputType) {
-              console.log("inputType === customInputType", inputType, customInputType, customInputComponent)
-              return customInputComponent({
-                ...field,
-                key: i + customInputType,
-                value: filterData[fieldName],
-                show: show[fieldName],
-                toggleCheckboxHandler: toggleShow(fieldName),
-                filterValueChanged: onChangeField
-              })
-            }
-            return null
+        if (customFilterComponent) {
+          return customFilterComponent({
+            ...field,
+            key: i,
+            value: filterData[fieldName],
+            show: show[fieldName],
+            toggleCheckboxHandler: toggleShow(fieldName),
+            filterValueChanged: onChangeField
           })
-        )
+        }
+
+        return null
       })}
 
       <Row className={styles.floatRight}>

@@ -2,6 +2,8 @@ import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations, getTagTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/SearchFilters/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import RoomFilter from "~/Component/Section/SectionSearchFilters/RoomFilter"
+import TagFilter from "~/Component/Section/SectionSearchFilters/TagFilter"
 
 const offeringMeta: IFilterField[] = [
   {
@@ -167,7 +169,16 @@ const offeringMeta: IFilterField[] = [
     defaultValue: "",
     ariaLabel: "",
     inputType: "COMBO_DEPENDENT_ROOM",
-    fieldName: "RoomID"
+    fieldName: "RoomID",
+    customFilterComponent: RoomFilter
+  },
+  {
+    label: "",
+    defaultValue: "",
+    ariaLabel: "",
+    inputType: "ALTERNATE_TAG_TAG_ID_FIELDNAME",
+    fieldName: "",
+    customFilterComponent: TagFilter
   }
 ]
 

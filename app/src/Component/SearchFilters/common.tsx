@@ -29,6 +29,8 @@ export interface IFilterField {
 
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
+
+  customFilterComponent?: any
 }
 
 export interface IFilterGenericComponentProps extends IFilterField {
