@@ -1,8 +1,8 @@
 import React from "react"
-import { Button } from "antd"
 import { connect } from "react-redux"
 import { showCreateOfferingFinancialModal } from "~/store/ModalState"
 import { Dispatch } from "redux"
+import { Button } from "antd"
 
 interface IFinancialEditLinkProp {
   offeringId: number
@@ -12,7 +12,7 @@ interface IFinancialEditLinkProp {
 function FinancialEditLink(props: IFinancialEditLinkProp) {
   return (
     <Button
-      type="text"
+      type="link"
       onClick={() => {
         props.openFinancialModal(props.offeringId, props.financialId)
       }}

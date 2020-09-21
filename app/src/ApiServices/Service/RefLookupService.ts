@@ -108,3 +108,9 @@ export function getInstitutionStatusTypes(): Promise<IApiResponse> {
     LookUpName: "InstitutionStatusCode"
   })
 }
+
+export function getDueDatePolicy(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DueDatePolicy"
+  })
+}
