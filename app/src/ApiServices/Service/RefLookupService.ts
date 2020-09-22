@@ -120,3 +120,9 @@ export function getFiscalPeriodCodes(): Promise<IApiResponse> {
     LookUpName: "FiscalPeriodCode"
   })
 }
+
+export function getDueDatePolicy(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DueDatePolicy"
+  })
+}

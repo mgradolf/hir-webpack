@@ -8,6 +8,8 @@ export const REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE = "REFRESH_OFFERING_QUAL
 export const REFRESH_FILTER_DATA_OF_PAGE = "REFRESH_FILTER_DATA_OF_PAGE"
 export const REFRESH_SECTION_PAGE = "REFRESH_SECTION_PAGE"
 
+export const REFRESH_SECTION_SEATGROUP_PAGE = "REFRESH_SECTION_SEATGROUP_PAGE"
+
 type fn = (param?: any) => void
 class PageEventBus {
   eventListeners: { [key: string]: fn } = {}

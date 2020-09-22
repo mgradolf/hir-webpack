@@ -4,7 +4,7 @@ import moment from "moment"
 import { Space, Dropdown, Row, Col } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import ResponsiveTable, { RecordType } from "~/Component/ResponsiveTable"
-import OfferingMenu from "~/Component/Offering/OfferingMenu"
+import SectionMenu from "~/Component/Section/SectionMenu"
 import { ColumnsType } from "antd/lib/table"
 
 export interface ITableWrapperProps {
@@ -25,18 +25,6 @@ export default function SectionTable(props: ITableWrapperProps) {
       sorter: (a: any, b: any) => a.SectionNumber.length - b.SectionNumber.length
     },
     {
-      title: "Creation Date",
-      dataIndex: "CreationDate",
-      key: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
-    },
-    {
-      title: "Termination Date",
-      dataIndex: "TerminationDate",
-      key: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
-    },
-    {
       title: "Offering Name",
       dataIndex: "OfferingName",
       key: "OfferingName",
@@ -49,6 +37,18 @@ export default function SectionTable(props: ITableWrapperProps) {
       sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length,
       render: (text: any, record: any) =>
         props.isModal ? text : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+    },
+    {
+      title: "Creation Date",
+      dataIndex: "CreationDate",
+      key: "CreationDate",
+      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+    },
+    {
+      title: "Termination Date",
+      dataIndex: "TerminationDate",
+      key: "TerminationDate",
+      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
     },
     {
       title: "Instructors",
@@ -73,11 +73,6 @@ export default function SectionTable(props: ITableWrapperProps) {
       render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
     },
     {
-      title: "Meets On",
-      dataIndex: "MeetsOn",
-      key: "MeetsOn"
-    },
-    {
       title: "Locations",
       dataIndex: "Locations",
       key: "Locations",
@@ -93,7 +88,7 @@ export default function SectionTable(props: ITableWrapperProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <Dropdown overlay={<OfferingMenu offering={record} />} trigger={["click"]}>
+          <Dropdown overlay={<SectionMenu section={record} />} trigger={["click"]}>
             <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
               Others <DownOutlined />
             </a>
@@ -106,6 +101,10 @@ export default function SectionTable(props: ITableWrapperProps) {
   function expandableRowRender(data: any, mobileView: boolean) {
     return (
       <div style={{ border: "1px solid", padding: "5px" }}>
+        <Row>
+          <Col span="10">Meets On:</Col>
+          <Col span="14">{data.MeetsOn}</Col>
+        </Row>
         {mobileView && (
           <Row>
             <Col span="10">Creation Date:</Col>
@@ -171,7 +170,7 @@ export default function SectionTable(props: ITableWrapperProps) {
       loading={props.loading}
       bordered
       breakpoints={["md", "lg", "xl", "xxl"]}
-      responsiveColumnIndices={[1, 2, 3, 5, 6, 7, 8, 9]}
+      responsiveColumnIndices={[1, 2, 3, 5, 6, 7, 8]}
       expandableRowRender={expandableRowRender}
       rowKey="SectionID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}

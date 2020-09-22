@@ -6,6 +6,8 @@ const SHOW_OFFERING_PREREQUISITE_GROUP_MODAL = "SHOW_OFFERING_PREREQUISITE_GROUP
 const SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL = "SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL"
 const SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL = "SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL"
 const SHOW_CREATE_SECTION_MODAL = "SHOW_CREATE_SECTION_MODAL"
+const SHOW_SECTION_SEATGROUP_MODAL = "SHOW_SECTION_SEATGROUP_MODAL"
+const SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL = "SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -26,6 +28,8 @@ export interface IModalState {
   addOfferingFromRequisiteGroupModal: ModalConfig
   addInstructorFromInstructorModal: ModalConfig
   createSectionModal: ModalConfig
+  createSectionSeatGroupModal: ModalConfig
+  addSeatGroupAffiliateOrganization: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -58,6 +62,14 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   createSectionModal: {
+    value: false,
+    config: null
+  },
+  createSectionSeatGroupModal: {
+    value: false,
+    config: null
+  },
+  addSeatGroupAffiliateOrganization: {
     value: false,
     config: null
   }
@@ -130,8 +142,30 @@ interface IShowCreateSectionModal {
   OfferingID?: number
   SectionID?: number
 }
+
 export const showCreateSectionModal = (value: boolean, config?: IShowCreateSectionModal): IAction => ({
   type: SHOW_CREATE_SECTION_MODAL,
+  payload: { value, config }
+})
+
+type ShowSectionCommonModalType = {
+  sectionId: number
+  seatgroupId?: number
+}
+
+export const showCreateSectionSeatGroupModal = (value: boolean, config?: ShowSectionCommonModalType): IAction => ({
+  type: SHOW_SECTION_SEATGROUP_MODAL,
+  payload: { value, config }
+})
+
+type ShowSeatGroupAffiliateModalType = {
+  seatgroupId: number
+}
+export const showSeatGroupAffiliateOrganizationModal = (
+  value: boolean,
+  config?: ShowSeatGroupAffiliateModalType
+): IAction => ({
+  type: SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL,
   payload: { value, config }
 })
 
@@ -153,6 +187,10 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, addInstructorFromInstructorModal: action.payload }
     case SHOW_CREATE_SECTION_MODAL:
       return { ...state, createSectionModal: action.payload }
+    case SHOW_SECTION_SEATGROUP_MODAL:
+      return { ...state, createSectionSeatGroupModal: action.payload }
+    case SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL:
+      return { ...state, addSeatGroupAffiliateOrganization: action.payload }
     default:
       return state
   }
