@@ -22,7 +22,7 @@ function CreateActionButton(props: ICreateActionButtonProp) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    openCreateSectionModal: (OfferingID: number) => dispatch(showCreateSectionModal(true, { OfferingID }))
+    openCreateSectionModal: (OfferingID?: number) => dispatch(showCreateSectionModal(true, { OfferingID }))
   }
 }
 

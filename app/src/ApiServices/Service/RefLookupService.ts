@@ -114,3 +114,9 @@ export function getInstitutionStatusTypes(): Promise<IApiResponse> {
     LookUpName: "InstitutionStatusCode"
   })
 }
+
+export function getFiscalPeriodCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "FiscalPeriodCode"
+  })
+}

@@ -127,7 +127,8 @@ export const showAddInstructorFromOfferingModal = (
 })
 
 interface IShowCreateSectionModal {
-  OfferingID: number
+  OfferingID?: number
+  SectionID?: number
 }
 export const showCreateSectionModal = (value: boolean, config?: IShowCreateSectionModal): IAction => ({
   type: SHOW_CREATE_SECTION_MODAL,

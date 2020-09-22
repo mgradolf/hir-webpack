@@ -13,3 +13,7 @@ export function saveAffiliatedOrg(SeatGroupID: number, AffiliateAccountIDs: numb
     AffiliateAccountIDs
   })
 }
+
+export function updateSection(Params: { [key: string]: any }) {
+  return SeactionService[config.Actions.updateSection](Params)
+}
