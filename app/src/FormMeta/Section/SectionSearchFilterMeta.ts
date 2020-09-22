@@ -154,7 +154,7 @@ const offeringMeta: IFilterField[] = [
   },
   {
     inputType: "COMBO_DEPENDENT_ROOM",
-    fieldName: "",
+    fieldName: "SiteID",
     customFilterComponent: RoomFilter
   }
 ]

@@ -21,11 +21,13 @@ interface ISectionFilterValues extends RecordType {
   MeetingType: string
   SectionStatusCodeID: string
   OrganizationID: string
-  RoomID: string
   ComboSearchTagHierarchy: string
   ComboSearchTagTypeIDHierarchy: string
   TagName: string
   TagTypeID: string
+  SiteID: string
+  BuildingID: string
+  RoomID: string
 }
 
 export function useOfferings(filterData: ISectionFilterValues): [boolean, any[]] {
@@ -86,11 +88,13 @@ const INITIAL_SECTION_FILTER_DATA: ISectionFilterValues = {
   MeetingType: "",
   SectionStatusCodeID: "",
   OrganizationID: "",
-  RoomID: "",
   ComboSearchTagHierarchy: "",
   ComboSearchTagTypeIDHierarchy: "",
   TagName: "",
-  TagTypeID: ""
+  TagTypeID: "",
+  SiteID: "",
+  BuildingID: "",
+  RoomID: ""
 }
 
 export function useOfferingFilterState(state = INITIAL_SECTION_FILTER_DATA) {
