@@ -1,11 +1,11 @@
 import React from "react"
-import { IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/SearchFilters/common"
+import { IFilterFieldObject, IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/SearchFilters/common"
 import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, Select } from "antd"
 
 const { Option } = Select
 
-export function DropDownInputType(props: IFilterGenericComponentProps) {
+export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
   return (
     <Row>

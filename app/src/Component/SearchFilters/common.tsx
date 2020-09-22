@@ -9,9 +9,9 @@ export const DROPDOWN = "DROPDOWN"
 export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 
-type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | string
+type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS
 
-export interface IFilterField {
+export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
   defaultValue: string
@@ -29,17 +29,34 @@ export interface IFilterField {
 
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
-
-  customFilterComponent?: any
 }
 
-export interface IFilterGenericComponentProps extends IFilterField {
-  value: string | number
-  value2?: string | number
-  show: boolean
-  toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
-  filterValueChanged: (key: string, value: any) => void
+export interface IFilterFieldComponent {
+  inputType: string
+  fieldName: string
+  customFilterComponent: any
 }
+
+export type IFilterField = IFilterFieldObject | IFilterFieldComponent
+
+export function isFilterObject(field: IFilterField): field is IFilterFieldObject {
+  return (field as IFilterFieldComponent).customFilterComponent === undefined
+}
+
+export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObject
+  ? IFilterFieldObject & {
+      value: string | number
+      value2?: string | number
+      show: boolean
+      toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
+      filterValueChanged: (key: string, value: any) => void
+    }
+  : IFilterFieldComponent & {
+      show: { [key: string]: boolean }
+      value: { [key: string]: string | number }
+      toggleCheckboxHandler: (fieldName: string) => (event: CheckboxChangeEvent) => void
+      filterValueChanged: (newValues: { [key: string]: string | number }) => void
+    }
 
 const layout = {
   label: {

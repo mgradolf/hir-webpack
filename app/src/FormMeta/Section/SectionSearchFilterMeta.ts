@@ -1,5 +1,5 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
-import { getSectionStatusCode, getOrganizations, getTagTypes } from "~/ApiServices/Service/RefLookupService"
+import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/SearchFilters/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/schedule/scheduleIf"
 import RoomFilter from "~/Component/Section/SectionSearchFilters/RoomFilter"
@@ -148,37 +148,14 @@ const offeringMeta: IFilterField[] = [
     valueKey: "UserLogin"
   },
   {
-    label: "Tag Type",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "TagTypeID",
-    ariaLabel: "Tag Type Select",
-    refLookupService: getTagTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Tag",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "TagName",
-    ariaLabel: "Tag name"
-  },
-  {
-    label: "",
-    defaultValue: "",
-    ariaLabel: "",
-    inputType: "COMBO_DEPENDENT_ROOM",
-    fieldName: "RoomID",
-    customFilterComponent: RoomFilter
-  },
-  {
-    label: "",
-    defaultValue: "",
-    ariaLabel: "",
     inputType: "ALTERNATE_TAG_TAG_ID_FIELDNAME",
-    fieldName: "",
+    fieldName: "IsSearchTagHierarchy",
     customFilterComponent: TagFilter
+  },
+  {
+    inputType: "COMBO_DEPENDENT_ROOM",
+    fieldName: "",
+    customFilterComponent: RoomFilter
   }
 ]
 
