@@ -1,9 +1,9 @@
 import React from "react"
-import { IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/SearchFilters/common"
+import { IFilterFieldObject, IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/SearchFilters/common"
 import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, Input } from "antd"
 
-export function TextInputType(props: IFilterGenericComponentProps) {
+export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
   return (
     <Row>

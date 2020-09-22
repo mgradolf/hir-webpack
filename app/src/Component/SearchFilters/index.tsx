@@ -6,7 +6,7 @@ import { RecordType } from "~/Component/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
 import { TextInputType } from "./TextInput"
-import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "./common"
+import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, isFilterObject, TEXT } from "./common"
 import { DropDownInputType } from "~/Component/SearchFilters/DropDown"
 import { DatePickerInputType } from "~/Component/SearchFilters/DatePicker"
 import { DatePickersInputType } from "~/Component/SearchFilters/DatePickers"
@@ -30,7 +30,7 @@ export default function (props: IFilterColumnProps) {
   const { visible, title, meta, data, toggleVisiibility } = props
   const [filterData, updateFilterData] = useState<RecordType>(data)
   const [metaState, updateMetaState] = useState<typeof meta>(meta)
-  const initialShow = meta.reduce((show, { fieldName }) => ({ ...show, [fieldName as string]: false }), {}) as Show
+  const initialShow = meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
 
   const [show, updateShow] = useState<Show>(
     Object.keys(data).reduce(
@@ -40,7 +40,7 @@ export default function (props: IFilterColumnProps) {
   )
 
   const toggleShow = (name: string) => (event: CheckboxChangeEvent) => {
-    updateShow({ ...show, [name]: !show[name] })
+    updateShow({ ...show, [name]: event.target.checked })
     updateFilterData({ ...filterData, [name]: event.target.checked ? filterData[name] : "" })
     console.log("show ", show)
     console.log("filterData ", filterData)
@@ -50,6 +50,13 @@ export default function (props: IFilterColumnProps) {
     updateFilterData({
       ...filterData,
       [fieldName]: value
+    })
+  }
+
+  const onChangeFieldCopmonent = (values: React.SetStateAction<RecordType>) => {
+    updateFilterData({
+      ...filterData,
+      ...values
     })
   }
 
@@ -63,7 +70,7 @@ export default function (props: IFilterColumnProps) {
     function loadRemoteData() {
       const metaList = [...props.meta]
       metaList.forEach(async (field) => {
-        if (typeof field.refLookupService === "function" && field.inputType === DROPDOWN) {
+        if (isFilterObject(field) && typeof field.refLookupService === "function" && field.inputType === DROPDOWN) {
           const res = await field.refLookupService()
           field.options = transformIntoOptions(res.data, field.displayKey as string, field.valueKey as string)
           updateMetaState(metaList)
@@ -94,68 +101,68 @@ export default function (props: IFilterColumnProps) {
         </Col>
       </Row>
       {metaState.map((field, i) => {
-        const { inputType, fieldName, customFilterComponent } = field
-        if (inputType === TEXT) {
-          return (
-            <TextInputType
-              {...field}
-              key={i}
-              value={filterData[fieldName]}
-              show={show[fieldName]}
-              toggleCheckboxHandler={toggleShow(fieldName)}
-              filterValueChanged={onChangeField}
-            />
-          )
-        }
+        if (isFilterObject(field)) {
+          const { inputType, fieldName } = field
+          if (inputType === TEXT) {
+            return (
+              <TextInputType
+                {...field}
+                key={i}
+                value={filterData[fieldName]}
+                show={show[fieldName]}
+                toggleCheckboxHandler={toggleShow(fieldName)}
+                filterValueChanged={onChangeField}
+              />
+            )
+          }
 
-        if (inputType === DROPDOWN) {
-          return (
-            <DropDownInputType
-              {...field}
-              key={i}
-              value={filterData[fieldName]}
-              show={show[fieldName]}
-              toggleCheckboxHandler={toggleShow(fieldName)}
-              filterValueChanged={onChangeField}
-            />
-          )
-        }
+          if (inputType === DROPDOWN) {
+            return (
+              <DropDownInputType
+                {...field}
+                key={i}
+                value={filterData[fieldName]}
+                show={show[fieldName]}
+                toggleCheckboxHandler={toggleShow(fieldName)}
+                filterValueChanged={onChangeField}
+              />
+            )
+          }
 
-        if (inputType === DATE_PICKER) {
-          return (
-            <DatePickerInputType
-              {...field}
-              key={i}
-              value={filterData[fieldName]}
-              show={show[fieldName]}
-              toggleCheckboxHandler={toggleShow(fieldName)}
-              filterValueChanged={onChangeField}
-            />
-          )
-        }
+          if (inputType === DATE_PICKER) {
+            return (
+              <DatePickerInputType
+                {...field}
+                key={i}
+                value={filterData[fieldName]}
+                show={show[fieldName]}
+                toggleCheckboxHandler={toggleShow(fieldName)}
+                filterValueChanged={onChangeField}
+              />
+            )
+          }
 
-        if (inputType === DATE_PICKERS) {
-          return (
-            <DatePickersInputType
-              {...field}
-              key={i}
-              value={filterData[field.valueKey as string]}
-              value2={filterData[field.valueKey2 as string]}
-              show={show[fieldName]}
-              toggleCheckboxHandler={toggleShow(fieldName)}
-              filterValueChanged={onChangeField}
-            />
-          )
-        }
-
-        if (customFilterComponent) {
-          return customFilterComponent({
+          if (inputType === DATE_PICKERS) {
+            return (
+              <DatePickersInputType
+                {...field}
+                key={i}
+                value={filterData[field.valueKey as string]}
+                value2={filterData[field.valueKey2 as string]}
+                show={show[fieldName]}
+                toggleCheckboxHandler={toggleShow(fieldName)}
+                filterValueChanged={onChangeField}
+              />
+            )
+          }
+        } else if (field.customFilterComponent) {
+          return field.customFilterComponent({
             ...field,
             key: i,
-            value: filterData[fieldName],
-            show: show[fieldName],
-            toggleCheckboxHandler: toggleShow(fieldName),
-            filterValueChanged: onChangeField
+            value: filterData,
+            show,
+            toggleCheckboxHandler: (fieldName: string) => toggleShow(fieldName),
+            filterValueChanged: onChangeFieldCopmonent
           })
         }
 
@@ -168,7 +175,7 @@ export default function (props: IFilterColumnProps) {
           aria-label="Apply Filter"
           className={styles.applyBtn}
           onClick={() => {
-            const filterCount = Object.keys(filterData).filter((x) => x !== "" || !x).length
+            const filterCount = Object.keys(filterData).filter((key) => filterData[key] !== "").length
             props.onApplyChanges(filterData, filterCount)
           }}
         >

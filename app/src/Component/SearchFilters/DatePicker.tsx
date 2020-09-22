@@ -1,12 +1,12 @@
 import React from "react"
-import { IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/SearchFilters/common"
+import { IFilterFieldObject, IFilterGenericComponentProps, InputCol, LabelCol } from "~/Component/SearchFilters/common"
 import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, DatePicker } from "antd"
 import moment from "moment"
 
 const dateFormat = "MM/DD/YYYY"
 
-export function DatePickerInputType(props: IFilterGenericComponentProps) {
+export function DatePickerInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
   return (
     <Row>
