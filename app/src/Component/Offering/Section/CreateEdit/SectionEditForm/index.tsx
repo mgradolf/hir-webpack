@@ -21,7 +21,7 @@ export default function SectionEditForm(props: ISectionEditProps) {
         <Tabs.TabPane tab="Section Details" key="1">
           <SectionDetails {...props} />
         </Tabs.TabPane>
-        <Tabs.TabPane tab="Section Details" key="2">
+        <Tabs.TabPane tab="Section Enrollment Details" key="2">
           <SectionEnrollmentDetails {...props} />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Section Details" key="3">

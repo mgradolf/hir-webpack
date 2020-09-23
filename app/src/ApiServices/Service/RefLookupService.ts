@@ -126,3 +126,21 @@ export function getDueDatePolicy(): Promise<IApiResponse> {
     LookUpName: "DueDatePolicy"
   })
 }
+
+export function getGradeScaleType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GradeScaleType"
+  })
+}
+
+export function getCreditType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CreditType"
+  })
+}
+
+export function getAttendanceUnit(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AttendanceUnit"
+  })
+}

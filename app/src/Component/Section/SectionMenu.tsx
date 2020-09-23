@@ -1,13 +1,25 @@
 import React from "react"
-import { Menu } from "antd"
+import { Button, Menu } from "antd"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { Dispatch } from "redux"
+import { showCreateSectionModal } from "~/store/ModalState"
 
 interface ISectionMenu {
   section: { [key: string]: any }
+  openCreateSectionModal?: (SectionID: number) => void
 }
-export default function SectionMenu(props: ISectionMenu) {
+function SectionMenu(props: ISectionMenu) {
   return (
     <Menu>
+      <Menu.Item>
+        <Button
+          type="link"
+          onClick={() => props.openCreateSectionModal && props.openCreateSectionModal(props.section.SectionID)}
+        >
+          Edit
+        </Button>
+      </Menu.Item>
       <Menu.Item key="0">
         <Link to={`/section/${props.section.SectionID}/seatgroup`}>Seatgroup</Link>
       </Menu.Item>
@@ -20,3 +32,11 @@ export default function SectionMenu(props: ISectionMenu) {
     </Menu>
   )
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    openCreateSectionModal: (SectionID?: number) => dispatch(showCreateSectionModal(true, { SectionID }))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SectionMenu)

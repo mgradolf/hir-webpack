@@ -19,7 +19,7 @@ interface ICreateNewSectionProps {
 
 function SectionModal(props: ICreateNewSectionProps) {
   const [showCreateForm, setShowCreateForm] = useState(!!props.OfferingID && !props.SectionID)
-  const [showEditForm, setShowEditForm] = useState(!!props.SectionID)
+  const [showEditForm, setShowEditForm] = useState(!props.OfferingID && !!props.SectionID)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [SectionID, setSectionID] = useState(props.SectionID)
   const [Section, setSection] = useState({})
