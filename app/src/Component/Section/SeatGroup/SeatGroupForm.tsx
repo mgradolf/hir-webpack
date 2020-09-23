@@ -7,6 +7,8 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/FormError"
+import ProgramFormField from "~/Component/Program/ProgramFormField"
+import { FormInstance } from "antd/lib/form"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
@@ -63,7 +65,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   console.log("secitonid: " + props.sectionId)
-
+  console.log("FORM DATA", (props.formInstance as FormInstance).getFieldsValue())
   return (
     <Card title={props.seatgroupId ? `Edit seat group` : "Create new seat group"} actions={actions}>
       <Form
@@ -106,6 +108,10 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
 
         <Form.Item name={props.fieldNames.IsOptional} label="Waitlist Enabled" {...layout} valuePropName="checked">
           <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
+        </Form.Item>
+
+        <Form.Item name={props.fieldNames.ProgramID} label="Program" {...layout}>
+          <ProgramFormField formInstance={props.formInstance} valueKey="ProgramID" />
         </Form.Item>
       </Form>
     </Card>

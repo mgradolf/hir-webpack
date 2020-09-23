@@ -75,4 +75,5 @@ export interface ISectionSeatGroupFieldNames {
   WaitListEnabled: any
   SeatGroupID: any
   SectionID: any
+  ProgramID: string
 }

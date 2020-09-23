@@ -13,6 +13,7 @@ import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeat
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
+import AddProgramModal from "../Program/AddProgramModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -61,6 +62,7 @@ function ModalContainer(modalState: IModalState) {
           seatgroupId={modalState.addSeatGroupAffiliateOrganization.config.seatgroupId}
         />
       )}
+      {modalState.addProgramModal.value && <AddProgramModal />}
     </>
   )
 }

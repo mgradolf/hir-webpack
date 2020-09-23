@@ -4,7 +4,7 @@ import React from "react"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 import { ITableWrapperProps } from "~/Component/Section/SectionTable"
 
-function ProgramList(props: ITableWrapperProps) {
+function ProgramListTable(props: ITableWrapperProps) {
   const columns = [
     {
       title: "Program Code",
@@ -82,4 +82,4 @@ function ProgramList(props: ITableWrapperProps) {
   )
 }
 
-export default ProgramList
+export default ProgramListTable

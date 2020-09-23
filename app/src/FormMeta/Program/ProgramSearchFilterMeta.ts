@@ -1,9 +1,7 @@
 import { getOrganizations, getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
+import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/SearchFilters/common"
 
-const TEXT = "TEXT" // TODO: Temp. change, to delete later
-const DROPDOWN = "DROPDOWN" // TODO: Temp. change, to delete later
-
-const programMeta = [
+const programMeta: IFilterFieldObject[] = [
   {
     label: "Program Code",
     inputType: TEXT,

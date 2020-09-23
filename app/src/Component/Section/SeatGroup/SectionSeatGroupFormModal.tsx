@@ -22,7 +22,8 @@ const fieldNames: ISectionSeatGroupFieldNames = {
   DueDatePolicyID: "DueDatePolicyID",
   WaitListEnabled: "WaitListEnabled",
   SectionID: "SectionID",
-  SeatGroupID: "SeatGroupID"
+  SeatGroupID: "SeatGroupID",
+  ProgramID: "ProgramID"
 }
 
 function CreateNewSeatGroup({ seatgroupId, closeCreateSeatGroupModal, sectionId }: ICreateNewSeatGroupProps) {
