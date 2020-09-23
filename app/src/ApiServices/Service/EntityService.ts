@@ -5,6 +5,7 @@ export const entities = {
   Offering: "Offering",
   Financial: "Financial",
   RequisiteOfferingGroup: "RequisiteOfferingGroup",
+  Section: "Section",
   SeatGroup: "SeatGroup"
 }
 
@@ -39,6 +40,13 @@ export function removeOfferingFinancialById(EntityID: number): Promise<IApiRespo
 export function getOfferingRequisiteGroupById(EntityID: number): Promise<IApiResponse> {
   return EntityService[config.Actions.getEntity]({
     EntityType: entities.RequisiteOfferingGroup,
+    EntityID
+  })
+}
+
+export function getSectionById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.getEntity]({
+    EntityType: entities.Section,
     EntityID
   })
 }

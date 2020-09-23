@@ -27,7 +27,7 @@ export default function OfferingDefaultSection(props: IOfferingDefaultSection) {
     <>
       <Divider orientation="left">Default Section</Divider>
       <Form.Item label="Default section type" name={props.fieldNames.DefaultSectionTypeID} {...layout}>
-        <Select placeholder="Please select a default section type of this offering">
+        <Select aria-label="Section Type Select" placeholder="Please select a default section type of this offering">
           {sectionTypes.map((x) => {
             return (
               <Select.Option key={x.SectionTypeID} value={x.SectionTypeID}>

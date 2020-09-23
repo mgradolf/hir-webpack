@@ -86,3 +86,7 @@ export function updateInstructors(OfferingID: number, InstructorIDs: Array<numbe
     InstructorIDs
   })
 }
+
+export function createSection(Params: { [key: string]: string }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.createSection](Params)
+}
