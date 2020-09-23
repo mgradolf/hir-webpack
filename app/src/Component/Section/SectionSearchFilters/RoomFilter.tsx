@@ -1,4 +1,4 @@
-import { Col, Row, Checkbox, Select } from "antd"
+import { Col, Row, Checkbox, Select, Typography } from "antd"
 import React, { useState, useEffect } from "react"
 
 import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
@@ -10,6 +10,7 @@ import {
 } from "~/Component/SearchFilters/common"
 import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
 
+const { Text } = Typography
 const { Option } = Select
 export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
   const { show, value, toggleCheckboxHandler, filterValueChanged } = props
@@ -55,11 +56,33 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     }
   }, [props.value.BuildingID])
 
+  useEffect(() => {
+    function resetOptionsOfDependentFields() {
+      setBuildings([])
+      setRooms([])
+    }
+
+    if (!props.show.SiteID) {
+      resetOptionsOfDependentFields()
+    }
+  }, [props.show.SiteID])
+
+  const handleSiteChange = (value: number) => {
+    setBuildings([])
+    setRooms([])
+    filterValueChanged({ SiteID: value, BuildingID: "", RoomID: "" })
+  }
+
+  const handleBuildingChange = (value: number) => {
+    setRooms([])
+    filterValueChanged({ BuildingID: value, RoomID: "" })
+  }
+
   return (
     <Col key={props.key} style={{ paddingLeft: 0 }}>
       <Row>
         <LabelCol>
-          <Checkbox checked={show.SiteID} onChange={toggleCheckboxHandler("SiteID")}>
+          <Checkbox checked={show.SiteID} onChange={toggleCheckboxHandler(["SiteID", "BuildingID", "RoomID"])}>
             Site
           </Checkbox>
         </LabelCol>
@@ -67,12 +90,8 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
           <Select
             aria-label="Site Select"
             style={{ width: 250 }}
-            value={value.SiteID}
-            onChange={(value) => {
-              setBuildings([])
-              setRooms([])
-              filterValueChanged({ SiteID: value, BuildingID: "" })
-            }}
+            value={value.SiteID as number}
+            onChange={handleSiteChange}
           >
             {sites.map(({ Name: label, SiteID: value }, i) => (
               <Option value={value} key={`${value}_${i}`}>
@@ -82,51 +101,48 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
           </Select>
         </InputCol>
       </Row>
-      <Row>
-        <LabelCol>
-          <Checkbox checked={show.BuildingID} onChange={toggleCheckboxHandler("BuildingID")}>
-            Building
-          </Checkbox>
-        </LabelCol>
-        <InputCol className={show.BuildingID ? styles.offeringFilterField : styles.hidden}>
-          <Select
-            aria-label="Building Select"
-            style={{ width: 250 }}
-            value={value.BuildingID}
-            onChange={(value) => {
-              setRooms([])
-              filterValueChanged({ BuildingID: value })
-            }}
-          >
-            {buildings.map(({ Name: label, BuildingID: value }, i) => (
-              <Option value={value} key={`${value}_${i}`}>
-                {label}
-              </Option>
-            ))}
-          </Select>
-        </InputCol>
-      </Row>
-      <Row>
-        <LabelCol>
-          <Checkbox checked={show.RoomID} onChange={toggleCheckboxHandler("RoomID")}>
-            Room
-          </Checkbox>
-        </LabelCol>
-        <InputCol className={show.RoomID ? styles.offeringFilterField : styles.hidden}>
-          <Select
-            aria-label="Room Select"
-            style={{ width: 250 }}
-            value={value.RoomID}
-            onChange={(value) => filterValueChanged({ RoomID: value })}
-          >
-            {rooms.map(({ Name: label, RoomID: value }, i) => (
-              <Option value={value} key={`${value}_${i}`}>
-                {label}
-              </Option>
-            ))}
-          </Select>
-        </InputCol>
-      </Row>
+      {buildings.length > 0 && (
+        <Row>
+          <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <Text>Building</Text>
+          </LabelCol>
+          <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <Select
+              aria-label="Building Select"
+              style={{ width: 250 }}
+              value={value.BuildingID as number}
+              onChange={handleBuildingChange}
+            >
+              {buildings.map(({ Name: label, BuildingID: value }, i) => (
+                <Option value={value} key={`${value}_${i}`}>
+                  {label}
+                </Option>
+              ))}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
+      {rooms.length > 0 && (
+        <Row>
+          <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <Text>Room</Text>
+          </LabelCol>
+          <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <Select
+              aria-label="Room Select"
+              style={{ width: 250 }}
+              value={value.RoomID}
+              onChange={(value) => filterValueChanged({ RoomID: value })}
+            >
+              {rooms.map(({ Name: label, RoomID: value }, i) => (
+                <Option value={value} key={`${value}_${i}`}>
+                  {label}
+                </Option>
+              ))}
+            </Select>
+          </InputCol>
+        </Row>
+      )}
     </Col>
   )
 }

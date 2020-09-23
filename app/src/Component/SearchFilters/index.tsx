@@ -39,9 +39,19 @@ export default function (props: IFilterColumnProps) {
     )
   )
 
-  const toggleShow = (name: string) => (event: CheckboxChangeEvent) => {
-    updateShow({ ...show, [name]: event.target.checked })
-    updateFilterData({ ...filterData, [name]: event.target.checked ? filterData[name] : "" })
+  const toggleShow = (name: string | string[]) => (event: CheckboxChangeEvent) => {
+    if (typeof name === "string") {
+      updateShow({ ...show, [name]: event.target.checked })
+      updateFilterData({ ...filterData, [name]: event.target.checked ? filterData[name] : "" })
+    } else {
+      // group of fields to reset when unchecked
+      const fieldShow = name.reduce((s, f) => ({ ...s, [f]: event.target.checked }), {})
+      const fieldValues = name.reduce((v, f) => ({ ...v, [f]: "" }), {})
+
+      updateShow({ ...show, ...fieldShow })
+      updateFilterData({ ...filterData, ...fieldValues })
+    }
+
     console.log("show ", show)
     console.log("filterData ", filterData)
   }
@@ -161,7 +171,7 @@ export default function (props: IFilterColumnProps) {
             key: i,
             value: filterData,
             show,
-            toggleCheckboxHandler: (fieldName: string) => toggleShow(fieldName),
+            toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
             filterValueChanged: onChangeFieldCopmonent
           })
         }
