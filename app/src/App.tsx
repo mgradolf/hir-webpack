@@ -21,6 +21,7 @@ import OfferingQualifiedInstructorPage from "~/pages/Offering/QualifiedInstructo
 import OfferingSectionPage from "~/pages/Offering/Section"
 import SectionPage from "~/pages/Section"
 import SectionSeatgroupPage from "~/pages/Section/SeatGroup"
+import SectionCatalogPage from "~/Component/Section/Catalog"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/Modal/ModalContainer"
@@ -54,6 +55,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/offering/:id/section" component={OfferingSectionPage} />
       <Route exact path="/section" component={SectionPage} />
       <Route exact path="/section/:id/seatgroup" component={SectionSeatgroupPage} />
+      <Route exact path="/section/:id/catalog" component={SectionCatalogPage} />
+
       <Route component={NotFoundPage} />
     </Switch>
   )

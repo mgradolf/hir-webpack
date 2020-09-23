@@ -12,7 +12,7 @@ interface ISectionMenu {
 function SectionMenu(props: ISectionMenu) {
   return (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key="-1">
         <Button
           type="link"
           onClick={() => props.openCreateSectionModal && props.openCreateSectionModal(props.section.SectionID)}
@@ -28,6 +28,9 @@ function SectionMenu(props: ISectionMenu) {
       </Menu.Item>
       <Menu.Item key="2">
         <Link to={`/section/${props.section.SectionID}/schedule`}>Schedule</Link>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link to={`/section/${props.section.SectionID}/catalog`}>Catalog</Link>
       </Menu.Item>
     </Menu>
   )

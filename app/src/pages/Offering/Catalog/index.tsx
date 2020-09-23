@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router"
 import moment from "moment"
 import { Row, Col, Switch, Typography } from "antd"
 import ResponsiveTable from "~/Component/ResponsiveTable"
-import { findCatalogWrap } from "~/ApiServices/BizApi/catalog/catalogIf"
+import { findCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
 import { addOrRemoveOfferingToCatalog } from "~/ApiServices/Service/OfferingService"
 import styles from "~/pages/Offering/Financial/Financial.module.scss"
 
@@ -90,7 +90,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
     async function searchOfferingCatalog() {
       setLoading(true)
 
-      const result = await findCatalogWrap([{ OfferingID: offeringID }])
+      const result = await findCatalog([{ OfferingID: offeringID }])
 
       if (result && result.success) {
         const publishedRowData = []

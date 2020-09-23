@@ -4,6 +4,10 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */
 
-export function findCatalogWrap(Params: { [key: string]: any }): Promise<IApiResponse> {
+export function findCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
   return CatalogIf[config.Actions.findCatalogs](Params)
+}
+
+export function updateBulkContent(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return CatalogIf[config.Actions.updateBulkContent](Params)
 }
