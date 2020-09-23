@@ -9,6 +9,7 @@ interface ISectionDetailsEnrollmentBillingDate {
 }
 
 const dateFormat = "YYYY-MM-DD HH:mm:ss"
+const layout = { labelCol: { span: 6 } }
 
 export default function SectionDetailsEnrollmentBillingDate(props: ISectionDetailsEnrollmentBillingDate) {
   const defaultEnrollmentDate = props.formInstance.getFieldValue(props.fieldNames.FinalEnrollmentDate)
@@ -28,7 +29,7 @@ export default function SectionDetailsEnrollmentBillingDate(props: ISectionDetai
       <Form.Item name={props.fieldNames.BillingDate} className="hidden">
         <Input />
       </Form.Item>
-      <Form.Item label="Final Enrollment Date">
+      <Form.Item label="Final Enrollment Date" {...layout}>
         <DatePicker
           aria-label="Pick Enrollment Date"
           placeholder="YYYY/MM/DD"
@@ -37,7 +38,7 @@ export default function SectionDetailsEnrollmentBillingDate(props: ISectionDetai
           defaultValue={defaultEnrollmentDate}
         />
       </Form.Item>
-      <Form.Item label="Billing Date">
+      <Form.Item label="Billing Date" {...layout}>
         <DatePicker
           aria-label="Pick Billing Date"
           placeholder="YYYY/MM/DD"

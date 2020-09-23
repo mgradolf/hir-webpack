@@ -69,6 +69,8 @@ const fieldNames: ISectionDetailsFieldNames = {
   RecurrenceRule: "RecurrenceRule"
 }
 
+const layout = { labelCol: { span: 6 } }
+
 export default function SectionDetails(props: ISectionEditProps) {
   const [formInstance] = Form.useForm()
   const actions = []
@@ -139,13 +141,13 @@ export default function SectionDetails(props: ISectionEditProps) {
         <Form.Item name={fieldNames.SectionID} className="hidden">
           <Input />
         </Form.Item>
-        <Form.Item name={fieldNames.SectionNumber} label="Section Number">
+        <Form.Item name={fieldNames.SectionNumber} label="Section Number" {...layout}>
           <Input aria-label="Section Number" />
         </Form.Item>
-        <Form.Item name={fieldNames.Description} label="Description">
+        <Form.Item name={fieldNames.Description} label="Description" {...layout}>
           <TextArea aria-label="Description" />
         </Form.Item>
-        <Form.Item name={fieldNames.SectionStatusCodeID} label="Status">
+        <Form.Item name={fieldNames.SectionStatusCodeID} label="Status" {...layout}>
           <Select aria-label="Status">
             {allSectionStatusCode.map((x, i) => {
               return (
@@ -156,16 +158,16 @@ export default function SectionDetails(props: ISectionEditProps) {
             })}
           </Select>
         </Form.Item>
-        <Form.Item name={fieldNames.URL} label="URL">
+        <Form.Item name={fieldNames.URL} label="URL" {...layout}>
           <Input aria-label="URL" />
         </Form.Item>
         <SectionDetailsCreationTime formInstance={formInstance} fieldNames={fieldNames} />
         <SectionDetailsTerminationTime formInstance={formInstance} fieldNames={fieldNames} />
-        <Form.Item name={fieldNames.IsDistanceLearning} label="Distance learning" valuePropName="checked">
+        <Form.Item name={fieldNames.IsDistanceLearning} label="Distance learning" valuePropName="checked" {...layout}>
           <Switch aria-label="Is Taxable" defaultChecked={formInstance.getFieldValue(fieldNames.IsDistanceLearning)} />
         </Form.Item>
         <SectionDetailsEnrollmentBillingDate formInstance={formInstance} fieldNames={fieldNames} />
-        <Form.Item name={fieldNames.FiscalPeriodCodeID} label="Fiscal Period">
+        <Form.Item name={fieldNames.FiscalPeriodCodeID} label="Fiscal Period" {...layout}>
           <Select aria-label="Fiscal Period">
             {allFiscalPeriod.map((x, i) => {
               return (
@@ -176,7 +178,7 @@ export default function SectionDetails(props: ISectionEditProps) {
             })}
           </Select>
         </Form.Item>
-        <Form.Item name={fieldNames.PaymentGatewayAccountID} label="Selected Gateway">
+        <Form.Item name={fieldNames.PaymentGatewayAccountID} label="Selected Gateway" {...layout}>
           <Select aria-label="Selected Gateway">
             {allGateways.map((x, i) => {
               return (
@@ -187,7 +189,7 @@ export default function SectionDetails(props: ISectionEditProps) {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Other Section types" name={fieldNames.SectionTypeID}>
+        <Form.Item label="Other Section types" name={fieldNames.SectionTypeID} {...layout}>
           <Select placeholder="Select an Section type" aria-label="Section Type Select">
             {allSectionTypes.length &&
               allSectionTypes.map((section, i) => {

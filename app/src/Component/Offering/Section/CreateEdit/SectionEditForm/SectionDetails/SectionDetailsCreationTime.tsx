@@ -19,6 +19,7 @@ interface ISectionDetailsCreationTime {
   fieldNames: ISectionDetailsFieldNames
 }
 const dateFormat = "YYYY-MM-DD HH:mm:ss"
+const layout = { labelCol: { span: 6 } }
 
 export default function SectionDetailsCreationTime(props: ISectionDetailsCreationTime) {
   const [selectedCreationTime, setSelectedCreationTime] = useState()
@@ -55,7 +56,7 @@ export default function SectionDetailsCreationTime(props: ISectionDetailsCreatio
           <Form.Item name={props.fieldNames.CreationDate} className="hidden">
             <Input />
           </Form.Item>
-          <Form.Item label="Creation Date">
+          <Form.Item label="Creation Date" {...layout}>
             <DatePicker
               aria-label="Pick Creation Date"
               placeholder="YYYY/MM/DD"
@@ -67,7 +68,7 @@ export default function SectionDetailsCreationTime(props: ISectionDetailsCreatio
         </>
       )}
       {selectedCreationTime === creationTimeOptionsValue.select && (
-        <Form.Item label="Choose a Term" name={props.fieldNames.StartTermID}>
+        <Form.Item label="Choose a Term" name={props.fieldNames.StartTermID} {...layout}>
           <Select aria-label="Select start term">
             {terms.map((term, i) => (
               <Select.Option key={term.TermID} value={term.TermID}>

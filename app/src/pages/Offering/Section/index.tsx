@@ -29,14 +29,12 @@ export default function OfferingPage(props: RouteComponentProps<{ id: string }>)
       <Row>
         <Title level={3}>Manage Sections</Title>
       </Row>
-      {OfferingID && (
-        <SectionFilterOpenButton
-          filterCount={filterCount}
-          filterColumnVisible={showFilter}
-          toggleFilter={toggleFilter}
-          actionButton={<SectionModalOpenButton OfferingID={OfferingID} />}
-        />
-      )}
+      <SectionFilterOpenButton
+        filterCount={filterCount}
+        filterColumnVisible={showFilter}
+        toggleFilter={toggleFilter}
+        actionButton={OfferingID ? <SectionModalOpenButton OfferingID={OfferingID} /> : undefined}
+      />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <SectionSearchFilters
           title={""}

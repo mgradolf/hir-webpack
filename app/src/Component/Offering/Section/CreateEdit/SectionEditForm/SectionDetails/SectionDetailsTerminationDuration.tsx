@@ -21,6 +21,7 @@ interface IDurationValues extends IValues {
   byHour: string
   byMinute: string
 }
+const layout = { labelCol: { span: 6 } }
 
 function getDurationFromRule(referenceString: string) {
   const periodRegex = "P(\\dY)?(\\dM)?(\\dW)?(\\dD)?"
@@ -130,24 +131,24 @@ export default function DefineDurationTime(props: IDefineDurationTime) {
         <Input />
       </Form.Item>
       <Row justify="center">
-        <Form.Item name={fieldnames.byYear}>
+        <Form.Item name={fieldnames.byYear} {...layout}>
           <Input aria-label="Year" placeholder="Year" onChange={onChange} />
         </Form.Item>
-        <Form.Item name={fieldnames.byMonth}>
+        <Form.Item name={fieldnames.byMonth} {...layout}>
           <Input aria-label="Month" placeholder="Month" onChange={onChange} />
         </Form.Item>
-        <Form.Item name={fieldnames.byWeek}>
+        <Form.Item name={fieldnames.byWeek} {...layout}>
           <Input aria-label="Week" placeholder="Week" onChange={onChange} />
         </Form.Item>
       </Row>
       <Row justify="center">
-        <Form.Item name={fieldnames.byDay}>
+        <Form.Item name={fieldnames.byDay} {...layout}>
           <Input aria-label="Day" placeholder="Day" onChange={onChange} />
         </Form.Item>
-        <Form.Item name={fieldnames.byHour}>
+        <Form.Item name={fieldnames.byHour} {...layout}>
           <Input aria-label="Hour" placeholder="Hour" onChange={onChange} />
         </Form.Item>
-        <Form.Item name={fieldnames.byMinute}>
+        <Form.Item name={fieldnames.byMinute} {...layout}>
           <Input aria-label="Minute" placeholder="Min" onChange={onChange} />
         </Form.Item>
       </Row>

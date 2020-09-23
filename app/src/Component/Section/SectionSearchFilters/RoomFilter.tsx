@@ -68,7 +68,11 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
             aria-label="Site Select"
             style={{ width: 250 }}
             value={value.SiteID}
-            onChange={(value) => filterValueChanged({ SiteID: value })}
+            onChange={(value) => {
+              setBuildings([])
+              setRooms([])
+              filterValueChanged({ SiteID: value, BuildingID: "" })
+            }}
           >
             {sites.map(({ Name: label, SiteID: value }, i) => (
               <Option value={value} key={`${value}_${i}`}>
@@ -89,7 +93,10 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
             aria-label="Building Select"
             style={{ width: 250 }}
             value={value.BuildingID}
-            onChange={(value) => filterValueChanged({ BuildingID: value })}
+            onChange={(value) => {
+              setRooms([])
+              filterValueChanged({ BuildingID: value })
+            }}
           >
             {buildings.map(({ Name: label, BuildingID: value }, i) => (
               <Option value={value} key={`${value}_${i}`}>

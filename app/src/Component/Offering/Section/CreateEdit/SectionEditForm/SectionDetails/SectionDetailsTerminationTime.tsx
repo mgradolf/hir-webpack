@@ -21,7 +21,9 @@ interface ISectionDetailsTerminationTimeProps {
   formInstance: FormInstance
   fieldNames: ISectionDetailsFieldNames
 }
+
 const dateFormat = "YYYY-MM-DD HH:mm:ss"
+const layout = { labelCol: { span: 6 } }
 
 export default function SectionDetailsTerminationTime(props: ISectionDetailsTerminationTimeProps) {
   const [selectedTerminationTime, setSelectedTerminationTime] = useState()
@@ -53,7 +55,7 @@ export default function SectionDetailsTerminationTime(props: ISectionDetailsTerm
   }, [setTerms])
   return (
     <>
-      <Form.Item>
+      <Form.Item {...layout}>
         <Radio.Group
           options={terminationTimeOptions}
           onChange={onRadioChange}
@@ -66,7 +68,7 @@ export default function SectionDetailsTerminationTime(props: ISectionDetailsTerm
           <Form.Item name={props.fieldNames.TerminationDate} className="hidden">
             <Input />
           </Form.Item>
-          <Form.Item label="Termination Date">
+          <Form.Item label="Termination Date" {...layout}>
             <DatePicker
               aria-label="Pick Termination Date"
               placeholder="YYYY/MM/DD"
@@ -83,7 +85,7 @@ export default function SectionDetailsTerminationTime(props: ISectionDetailsTerm
       )}
 
       {selectedTerminationTime === terminationTimeOptionsValue.select && (
-        <Form.Item label="Choose a Term" name={props.fieldNames.EndTermID}>
+        <Form.Item label="Choose a Term" name={props.fieldNames.EndTermID} {...layout}>
           <Select aria-label="Select End term">
             {terms.map((term, i) => (
               <Select.Option key={term.TermID} value={term.TermID}>
