@@ -7,8 +7,10 @@ import { ISectionEnrollmentDetails } from "~/Component/Offering/Section/CreateEd
 interface ICreditType {
   fieldNames: ISectionEnrollmentDetails
   formInstance: FormInstance
+  labelCol: any
+  wrapperCol: any
 }
-const layout = { labelCol: { span: 6, offset: 3 }, wrapperCol: { span: 6, offset: 3 } }
+
 export default function CreditType(props: ICreditType) {
   const [allCreditTypes, setAllCreditTypes] = useState<Array<any>>([])
   useEffect(() => {
@@ -17,7 +19,12 @@ export default function CreditType(props: ICreditType) {
     })
   }, [])
   return (
-    <Form.Item name={props.fieldNames.CreditTypeID} label="Credit Type" {...layout}>
+    <Form.Item
+      name={props.fieldNames.CreditTypeID}
+      label="Credit Type"
+      labelCol={props.labelCol}
+      wrapperCol={props.wrapperCol}
+    >
       <Select>
         {allCreditTypes.map((x) => (
           <Select.Option key={x.ID + x.Name} value={x.ID}>

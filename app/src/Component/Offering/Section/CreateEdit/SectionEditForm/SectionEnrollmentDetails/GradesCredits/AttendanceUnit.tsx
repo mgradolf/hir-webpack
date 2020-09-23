@@ -7,8 +7,10 @@ import { ISectionEnrollmentDetails } from "~/Component/Offering/Section/CreateEd
 interface IAttendanceUnit {
   fieldNames: ISectionEnrollmentDetails
   formInstance: FormInstance
+  labelCol: any
+  wrapperCol: any
 }
-const layout = { labelCol: { span: 12, offset: 1 }, wrapperCol: { span: 6, offset: 1 } }
+
 export default function AttendanceUnit(props: IAttendanceUnit) {
   const [allAttendances, setAllAttendances] = useState<Array<any>>([])
   useEffect(() => {
@@ -17,7 +19,12 @@ export default function AttendanceUnit(props: IAttendanceUnit) {
     })
   }, [])
   return (
-    <Form.Item name={props.fieldNames.AttendanceUnitID} label="Attendance Unit" {...layout}>
+    <Form.Item
+      name={props.fieldNames.AttendanceUnitID}
+      label="Attendance Unit"
+      labelCol={props.labelCol}
+      wrapperCol={props.wrapperCol}
+    >
       <Select>
         {allAttendances.map((x) => (
           <Select.Option key={x.ID + x.Name} value={x.ID}>

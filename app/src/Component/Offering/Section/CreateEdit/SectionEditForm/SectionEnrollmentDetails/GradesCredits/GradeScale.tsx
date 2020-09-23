@@ -7,8 +7,9 @@ import { ISectionEnrollmentDetails } from "~/Component/Offering/Section/CreateEd
 interface IGradeScale {
   fieldNames: ISectionEnrollmentDetails
   formInstance: FormInstance
+  labelCol: any
+  wrapperCol: any
 }
-const layout = { labelCol: { span: 6, offset: 3 }, wrapperCol: { span: 12, offset: 3 } }
 export default function GradeScale(props: IGradeScale) {
   const [allGradeScaleTypes, setAllGradeScaleTypes] = useState<Array<any>>([])
   useEffect(() => {
@@ -17,7 +18,12 @@ export default function GradeScale(props: IGradeScale) {
     })
   }, [])
   return (
-    <Form.Item name={props.fieldNames.GradeScaleTypeID} label="Grade Scale" {...layout}>
+    <Form.Item
+      name={props.fieldNames.GradeScaleTypeID}
+      label="Grade Scale"
+      labelCol={props.labelCol}
+      wrapperCol={props.wrapperCol}
+    >
       <Select>
         {allGradeScaleTypes.map((x) => (
           <Select.Option key={x.ID + x.Name} value={x.ID}>

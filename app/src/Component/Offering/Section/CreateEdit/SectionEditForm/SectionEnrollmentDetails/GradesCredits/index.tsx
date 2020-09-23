@@ -10,38 +10,40 @@ interface IGradesCredits {
   fieldNames: ISectionEnrollmentDetails
   formInstance: FormInstance
 }
-const layout = { labelCol: { span: 12 }, wrapperCol: { span: 12, offset: 1 } }
+
+const layout = { labelCol: { span: 10 }, wrapperCol: { span: 10, offset: 1 } }
+
 export default function GradesCredits(props: IGradesCredits) {
   return (
     <>
       <Row>
         <Col span={12}>
-          <GradeScale {...props} />
+          <GradeScale {...{ ...props, labelCol: layout.labelCol, wrapperCol: layout.wrapperCol }} />
         </Col>
         <Col span={12}>
-          <CreditType {...props} />
+          <CreditType {...{ ...props, labelCol: layout.labelCol, wrapperCol: layout.wrapperCol }} />
         </Col>
       </Row>
 
       <Row>
-        <Col>
+        <Col span={12}>
           <Form.Item name={props.fieldNames.CreditHours} label="Creadit Hours" {...layout}>
             <Input type="number" min="0" />
           </Form.Item>
         </Col>
-        <Col>
+        <Col span={12}>
           <Form.Item name={props.fieldNames.ClockHours} label="Clock Hours" {...layout}>
             <Input type="number" min="0" />
           </Form.Item>
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col span={12}>
           <Form.Item name={props.fieldNames.LoadHours} label="Load Hours" {...layout}>
             <Input type="number" min="0" />
           </Form.Item>
         </Col>
-        <Col>
+        <Col span={12}>
           <Form.Item name={props.fieldNames.CEUHours} label="CEU Hours" {...layout}>
             <Input type="number" min="0" />
           </Form.Item>
@@ -54,7 +56,7 @@ export default function GradesCredits(props: IGradesCredits) {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <AttendanceUnit {...props} />
+          <AttendanceUnit {...{ ...props, labelCol: layout.labelCol, wrapperCol: layout.wrapperCol }} />
         </Col>
       </Row>
     </>
