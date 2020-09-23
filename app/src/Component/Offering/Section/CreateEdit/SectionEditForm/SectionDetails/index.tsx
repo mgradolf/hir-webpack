@@ -125,7 +125,6 @@ export default function SectionDetails(props: ISectionEditProps) {
       if (x.success) setAllSectionTypes(x.data)
     })
     Object.keys(props.Section).forEach((key) => {
-      console.log(key, props.Section[key])
       formInstance.setFieldsValue({
         [key]: props.Section[key]
       })

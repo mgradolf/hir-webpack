@@ -144,3 +144,9 @@ export function getAttendanceUnit(): Promise<IApiResponse> {
     LookUpName: "AttendanceUnit"
   })
 }
+
+export function getRefundPolicyType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RefundPolicyType"
+  })
+}
