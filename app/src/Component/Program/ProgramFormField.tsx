@@ -3,6 +3,7 @@ import { FormInstance } from "antd/lib/form"
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
 import { showAddProgramModal } from "~/store/ModalState"
+import styles from "~/Component/Program/ProgramFormField.module.scss"
 
 const { Text } = Typography
 
@@ -21,17 +22,31 @@ function ProgramFormField(props: IProgramFormFieldProps) {
     [dispatch]
   )
 
+  const value = formInstance.getFieldValue(valueKey)
+  const selectButtonLabel = value ? "Change" : "Select Program"
+
   return (
-    <Row align="middle" style={{ width: "280px" }} justify="space-between">
-      <Text>{formInstance.getFieldValue(valueKey) || `No program selected`}</Text>
+    <Row align="middle">
+      <Text className={styles.Program_field_sub_component}>{value || `No program selected`}</Text>
+      {value && (
+        <Button
+          aria-label="Clear Program"
+          onClick={() => {
+            formInstance.setFieldsValue({ [valueKey]: "" })
+          }}
+          className={styles.Program_field_sub_component}
+        >
+          Clear
+        </Button>
+      )}
       <Button
         type="primary"
-        aria-label="Select Program"
+        aria-label={selectButtonLabel}
         onClick={() => {
           openAddProgramModal(formInstance, valueKey)
         }}
       >
-        Select Program
+        {selectButtonLabel}
       </Button>
     </Row>
   )

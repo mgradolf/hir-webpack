@@ -185,7 +185,9 @@ export default function (props: IFilterColumnProps) {
           aria-label="Apply Filter"
           className={styles.applyBtn}
           onClick={() => {
-            const filterCount = Object.keys(filterData).filter((key) => filterData[key] !== "").length
+            const filterCount = Object.keys(filterData).filter(
+              (key) => filterData[key] !== "" && filterData[key] !== "*"
+            ).length
             props.onApplyChanges(filterData, filterCount)
           }}
         >
