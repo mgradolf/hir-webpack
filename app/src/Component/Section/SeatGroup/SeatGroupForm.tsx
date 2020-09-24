@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Switch } from "antd"
 import { getDueDatePolicy } from "~/ApiServices/Service/RefLookupService"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"

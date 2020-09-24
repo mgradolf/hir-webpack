@@ -14,7 +14,7 @@ import FormError from "~/Component/FormError"
 import { connect } from "react-redux"
 import { showCreateOfferingModal } from "~/store/ModalState"
 import { redirect } from "~/store/ConnectedRoute"
-import "~/sass/global/index.scss"
+import "~/Sass/global/index.scss"
 
 interface IOfferingCreateForm2Props {
   editMode: boolean

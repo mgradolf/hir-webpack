@@ -3,7 +3,7 @@ import { Form, Radio, Select, Card, Button, Input } from "antd"
 import {} from "@ant-design/icons"
 import { RadioChangeEvent } from "antd/lib/radio"
 import { getSectionTypes } from "~/ApiServices/Service/RefLookupService"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 import { createSection } from "~/ApiServices/Service/OfferingService"
 
 interface IOfferingCreateForm1Props {
