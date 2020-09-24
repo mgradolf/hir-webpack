@@ -3,7 +3,7 @@ import { IFilterFieldObject, IFilterGenericComponentProps, InputCol, LabelCol } 
 import styles from "./SearchFilters.module.scss"
 import { Row, Checkbox, Input } from "antd"
 
-export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
+export default function TextInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
   return (
     <Row>

@@ -6,7 +6,7 @@ import moment from "moment"
 
 const dateFormat = "MM/DD/YYYY"
 
-export function DatePickersInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
+export default function DatePickersInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const {
     value,
     value2,

@@ -4,11 +4,11 @@ import { CloseOutlined } from "@ant-design/icons"
 import React, { useState, useEffect } from "react"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
-import { TextInputType } from "./TextInput"
 import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, isFilterObject, TEXT } from "./common"
-import { DropDownInputType } from "./DropDown"
-import { DatePickerInputType } from "./DatePicker"
-import { DatePickersInputType } from "./DatePickers"
+import TextInputType from "./TextInput"
+import DropDownInputType from "./DropDown"
+import DatePickerInputType from "./DatePicker"
+import DatePickersInputType from "./DatePickers"
 // import { eventBus, REFRESH_FILTER_DATA_OF_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
@@ -183,10 +183,10 @@ export default function (props: IFilterColumnProps) {
           type="primary"
           aria-label="Apply Filter"
           className={styles.applyBtn}
-          // onClick={() => {
-          //   const filterCount = Object.keys(filterData).filter((key) => filterData[key] !== "").length
-          //   props.onApplyChanges(filterData, filterCount)
-          // }}
+          onClick={() => {
+            const filterCount = Object.keys(filterData).filter((key) => filterData[key] !== "").length
+            props.onApplyChanges(filterData, filterCount)
+          }}
         >
           Apply
         </Button>

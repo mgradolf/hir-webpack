@@ -5,7 +5,7 @@ import { Row, Checkbox, Select } from "antd"
 
 const { Option } = Select
 
-export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
+export default function DropDownInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
   return (
     <Row>
