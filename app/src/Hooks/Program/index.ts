@@ -4,18 +4,18 @@ import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 interface IProgramFilterValues {
   programCode: string
-  departmentID: number
+  departmentID: number | string
   name: string
-  programStatusCodeID: number
+  programStatusCodeID: number | string
   programOfferingName: string
   programOfferingCode: string
 }
 
 const INITIAL_FILTER_VALUES: IProgramFilterValues = {
   programCode: "*",
-  departmentID: 4,
+  departmentID: "",
   name: "*",
-  programStatusCodeID: 1,
+  programStatusCodeID: "",
   programOfferingName: "*",
   programOfferingCode: "*"
 }

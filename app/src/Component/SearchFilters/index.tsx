@@ -34,7 +34,7 @@ export default function (props: IFilterColumnProps) {
 
   const [show, updateShow] = useState<Show>(
     Object.keys(data).reduce(
-      (visibilityRecord, key) => ({ ...visibilityRecord, [key]: Boolean(data[key] !== "") }),
+      (visibilityRecord, key) => ({ ...visibilityRecord, [key]: Boolean(data[key] !== "" && data[key] !== "*") }),
       initialShow
     )
   )

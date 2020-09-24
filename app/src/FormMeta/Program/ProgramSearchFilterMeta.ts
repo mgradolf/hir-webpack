@@ -5,23 +5,30 @@ const programMeta: IFilterFieldObject[] = [
   {
     label: "Program Code",
     inputType: TEXT,
-    defaultValue: "",
+    defaultValue: "*",
     fieldName: "programCode",
     ariaLabel: "Program Code"
   },
   {
     label: "Program Name",
     inputType: TEXT,
-    defaultValue: "",
+    defaultValue: "*",
     fieldName: "name",
     ariaLabel: "Program Name"
   },
   {
     label: "Program Offering Code",
     inputType: TEXT,
-    defaultValue: "",
+    defaultValue: "*",
     fieldName: "programOfferingCode",
     ariaLabel: "Program Offering Code"
+  },
+  {
+    label: "Program Offering Name",
+    inputType: TEXT,
+    defaultValue: "*",
+    fieldName: "programOfferingName",
+    ariaLabel: "Program Offering Name"
   },
   {
     label: "Status",
@@ -37,11 +44,11 @@ const programMeta: IFilterFieldObject[] = [
     label: "Department",
     inputType: DROPDOWN,
     defaultValue: "",
-    fieldName: "OrganizationTypeID",
+    fieldName: "departmentID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
-    displayKey: "Name",
-    valueKey: "OrganizationTypeID"
+    displayKey: "Description",
+    valueKey: "OrganizationID"
   }
 ]
 
