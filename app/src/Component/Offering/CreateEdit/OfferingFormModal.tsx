@@ -7,9 +7,9 @@ import CreateForm2 from "~/Component/Offering/CreateEdit/Form2"
 import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showCreateOfferingModal } from "~/store/ModalState"
+import { showCreateOfferingModal } from "~/Store/ModalState"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
-import { redirect } from "~/store/ConnectedRoute"
+import { redirect } from "~/Store/ConnectedRoute"
 
 interface ICreateNewOfferingProps {
   offeringId?: number

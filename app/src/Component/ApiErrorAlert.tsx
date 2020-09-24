@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
-import { AppState } from "~/store"
-import { removeGLobalApiError } from "~/store/GlobalError"
+import { AppState } from "~/Store"
+import { removeGLobalApiError } from "~/Store/GlobalError"
 import { Alert } from "antd"
 
 function ApiErrorAlert(props: any) {

@@ -1,6 +1,6 @@
 import React from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
-import { AppStore, AppState } from "~/store/index"
+import { AppStore, AppState } from "~/Store/index"
 import { Provider, connect } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { History } from "history"

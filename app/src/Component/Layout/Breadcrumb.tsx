@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Breadcrumb as AntdBreadcrumb } from "antd"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { AppState } from "~/store"
+import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 function transformRouteToLabel(route: string | number): string | number {

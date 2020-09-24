@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 
 import { Button } from "antd"
 import { connect } from "react-redux"
-import { showOfferingApprovalModal } from "~/store/ModalState"
+import { showOfferingApprovalModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import styles from "~/Component/Offering/Approval/ApprovalModal.module.scss"

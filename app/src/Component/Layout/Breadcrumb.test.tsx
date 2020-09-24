@@ -1,4 +1,4 @@
-import { store, history } from "~/store"
+import { store, history } from "~/Store"
 import { push, ConnectedRouter } from "connected-react-router"
 import React from "react"
 import { ReactWrapper, mount } from "enzyme"

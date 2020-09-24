@@ -1,5 +1,5 @@
 import React from "react"
-import { AppState } from "~/store"
+import { AppState } from "~/Store"
 import OfflineAlert from "~/Component/Alerts/Offline"
 import LoginModal from "~/Component/Login/LoginModal"
 import CreateNewOfferingModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
@@ -11,7 +11,7 @@ import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInst
 import SectionFormModal from "~/Component/Offering/Section/CreateEdit/SectionFormModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
-import { IModalState } from "~/store/ModalState"
+import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 
 function ModalContainer(modalState: IModalState) {

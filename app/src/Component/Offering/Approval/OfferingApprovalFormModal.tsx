@@ -5,7 +5,7 @@ import { useState } from "react"
 import ApprovalForm from "~/Component/Offering/Approval/ApprovalForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showOfferingApprovalModal } from "~/store/ModalState"
+import { showOfferingApprovalModal } from "~/Store/ModalState"
 
 interface IOfferingApprovalProps {
   offeringID: number

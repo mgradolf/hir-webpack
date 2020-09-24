@@ -12,8 +12,8 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
 import FormError from "~/Component/FormError"
 import { connect } from "react-redux"
-import { showCreateOfferingModal } from "~/store/ModalState"
-import { redirect } from "~/store/ConnectedRoute"
+import { showCreateOfferingModal } from "~/Store/ModalState"
+import { redirect } from "~/Store/ConnectedRoute"
 import "~/Sass/global/index.scss"
 
 interface IOfferingCreateForm2Props {

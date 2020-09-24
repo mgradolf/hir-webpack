@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import SeatGroupAffiliateOrganizationForm from "~/Component/Section/SeatGroup/SeatGroupAffiliateOrganizationForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showSeatGroupAffiliateOrganizationModal } from "~/store/ModalState"
+import { showSeatGroupAffiliateOrganizationModal } from "~/Store/ModalState"
 import { findAffiliatedOrgsForSeatGroup, findAvailableAffiliatedOrgs } from "~/ApiServices/Service/SeatGroupService"
 
 interface ISeatGroupAffiliatedOrganizationProps {

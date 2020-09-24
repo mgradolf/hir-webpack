@@ -3,7 +3,7 @@ import Modal from "~/Component/Modal"
 import React, { useEffect } from "react"
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
-import { removeGLobalApiError } from "~/store/GlobalError"
+import { removeGLobalApiError } from "~/Store/GlobalError"
 import zIndexLevel from "~/utils/zIndex"
 
 interface ILoginModalProps {

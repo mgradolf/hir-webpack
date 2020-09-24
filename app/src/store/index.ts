@@ -1,7 +1,7 @@
 import { createStore as createEnhancedStore, combineReducers, applyMiddleware, compose, Store, AnyAction } from "redux"
-import { authenticationReducer, IAuthentication } from "~/store/Authentication"
-import { globalApiErrorReducer, IGlobalApiErrorState } from "~/store/GlobalError"
-import { modalStateReducer, IModalState } from "~/store/ModalState"
+import { authenticationReducer, IAuthentication } from "~/Store/Authentication"
+import { globalApiErrorReducer, IGlobalApiErrorState } from "~/Store/GlobalError"
+import { modalStateReducer, IModalState } from "~/Store/ModalState"
 
 import thunk from "redux-thunk"
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router"

@@ -7,7 +7,7 @@ import { login } from "~/ApiServices/Login"
 
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { AppState } from "~/store"
+import { AppState } from "~/Store"
 import { push } from "connected-react-router"
 
 interface ILoginProps {

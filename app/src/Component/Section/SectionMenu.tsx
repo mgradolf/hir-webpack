@@ -3,7 +3,7 @@ import { Button, Menu } from "antd"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showCreateSectionModal } from "~/store/ModalState"
+import { showCreateSectionModal } from "~/Store/ModalState"
 
 interface ISectionMenu {
   section: { [key: string]: any }

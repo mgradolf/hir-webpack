@@ -5,7 +5,7 @@ import Login from "~/Component/Login/Login"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { push } from "connected-react-router"
-import { AppState } from "~/store"
+import { AppState } from "~/Store"
 import { Redirect } from "react-router-dom"
 
 interface ILoginPageProps {
