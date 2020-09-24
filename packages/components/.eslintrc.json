@@ -1,5 +1,5 @@
-module.exports = {
-  extends: [
+{
+  "extends": [
     "plugin:react-hooks/recommended",
     "plugin:import/typescript",
     "eslint-config-react-app",
@@ -8,29 +8,30 @@ module.exports = {
     "prettier/@typescript-eslint",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/recommended"
   ],
-  plugins: ["react", "@typescript-eslint", "import"],
-  env: {
-    es6: true,
-    browser: true,
-    node: true,
-    jest: true
+  "plugins": ["react", "@typescript-eslint", "import", "jsx-a11y"],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
   },
-  rules: {
+  "rules": {
     "import/namespace": "off",
     "prettier/prettier": [
       "error",
       {
-        printWidth: 120,
-        singleQuote: false,
-        useTabs: false,
-        tabWidth: 2,
-        trailingComma: "none",
-        semi: false
+        "printWidth": 120,
+        "singleQuote": false,
+        "useTabs": false,
+        "tabWidth": 2,
+        "trailingComma": "none",
+        "semi": false
       }
     ],
-    "no-console": "warn",
+    "no-console": 0,
     "no-return-assign": "off",
     "no-unreachable": 2,
     "import/no-extraneous-dependencies": "off",
@@ -40,7 +41,7 @@ module.exports = {
     "import/named": 0,
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
@@ -53,22 +54,23 @@ module.exports = {
     "react/jsx-filename-extension": [
       1,
       {
-        extensions: [".tsx"]
+        "extensions": [".tsx"]
       }
     ],
     "react/boolean-prop-naming": "off",
     "react/sort-comp": "off",
-    "react/sort-prop-types": "off"
+    "react/sort-prop-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
-  settings: {
-    react: {
-      pragma: "React",
-      version: "detect"
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
     }
   },
-  globals: {},
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "tsconfig.json"
+  "globals": {},
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json"
   }
 }

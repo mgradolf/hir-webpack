@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "lib/",
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es6",
     "lib": ["es6", "dom", "es2017"],
     "sourceMap": true,
@@ -11,7 +11,7 @@
     "jsx": "react",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "rootDir": "src/components",
+    "rootDir": "src/Component",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -19,14 +19,12 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
-    // Required for using `react-primitives` types, but
-    // also makes typechecking faster in general.
-    //
-    // The problem actually stems from this project using
-    // `@types/react-native` to fake types for `react-primitives`.
-    // React Native and Webpack both define a global `require`
-    // differently, so there's a conflict.
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
   "include": ["src/**/*.tsx", "src/**/*.ts", "typings", "tslint-rules"],
   "exclude": ["node_modules", "lib"]
