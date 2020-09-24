@@ -3,7 +3,7 @@ import { Form, Radio, DatePicker, Select, Input } from "antd"
 import { RadioChangeEvent } from "antd/lib/radio"
 import { FormInstance } from "antd/lib/form"
 import { ISectionDetailsFieldNames } from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionDetails"
-import SectionDetailsTerminationDuration from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionDetails/SectionDetailsTerminationDuration"
+import SectionDetailsTerminationDuration from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationDuration"
 import { getTerms } from "~/ApiServices/Service/RefLookupService"
 
 const terminationTimeOptionsValue = {
