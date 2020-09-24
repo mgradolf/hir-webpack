@@ -8,7 +8,7 @@ import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requi
 import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
 import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
-import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
+import styles from "~/Pages/Offering/Requisite/Requisite.module.scss"
 
 const { Title } = Typography
 

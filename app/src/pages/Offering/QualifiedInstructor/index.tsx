@@ -4,7 +4,7 @@ import { Row, Col, Typography, Button } from "antd"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 import OfferingInstructorModalOpenButton from "~/Component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
-import styles from "~/pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
+import styles from "~/Pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
 import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography

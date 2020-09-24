@@ -1,5 +1,5 @@
 import React from "react"
-import styles from "~/pages/Login/LoginPage.module.scss"
+import styles from "~/Pages/Login/LoginPage.module.scss"
 import { Layout } from "antd"
 import Login from "~/Component/Login/Login"
 import { connect } from "react-redux"

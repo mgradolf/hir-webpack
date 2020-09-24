@@ -5,7 +5,7 @@ import { Row, Col, Switch, Typography } from "antd"
 import ResponsiveTable from "~/Component/ResponsiveTable"
 import { findCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
 import { addOrRemoveOfferingToCatalog } from "~/ApiServices/Service/OfferingService"
-import styles from "~/pages/Offering/Financial/Financial.module.scss"
+import styles from "~/Pages/Offering/Financial/Financial.module.scss"
 
 const { Title } = Typography
 

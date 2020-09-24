@@ -7,7 +7,7 @@ import { useSectionFilterState, useSections } from "~/Hooks/Section"
 import SectionSearchFilters from "~/Component/SearchFilters"
 import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
 import SectionModalOpenButton from "~/Component/Offering/Section/CreateEdit/SectionModalOpenButton"
-import styles from "~/pages/Offering/Offering.module.scss"
+import styles from "~/Pages/Offering/Offering.module.scss"
 
 const { useState } = React
 const { Title } = Typography
