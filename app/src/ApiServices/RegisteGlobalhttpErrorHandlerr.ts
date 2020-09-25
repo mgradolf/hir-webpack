@@ -6,10 +6,10 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 
 export default function RegisteGlobalhttpErrorHandlerr() {
   apiErroreEventBus.subscribe((errors: Array<ISimplifiedApiErrorMessage> | undefined) => {
-    console.log("RegisteGlobalhttpErrorHandlerr", errors)
+    // console.log("RegisteGlobalhttpErrorHandlerr", errors)
     if (errors && Array.isArray(errors)) {
       errors.forEach((x) => {
-        console.log("RegisteGlobalhttpErrorHandlerr", x)
+        // console.log("RegisteGlobalhttpErrorHandlerr", x)
         if (x.code === 401 && store.getState().router.location.pathname !== "/login") {
           store.dispatch(showLoginModal({ value: true }))
         } else if (x.isGloabal) {

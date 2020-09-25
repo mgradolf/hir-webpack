@@ -27,3 +27,7 @@ export function createMeetings(Params: { [key: string]: any }): Promise<IApiResp
 export function saveMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
   return SectionService[config.Actions.saveMeetings](Params)
 }
+
+export function updateSection(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.updateSection](Params)
+}

@@ -37,6 +37,12 @@ export function getSectionTypes(): Promise<IApiResponse> {
   })
 }
 
+export function getSectionStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SectionStatusCode"
+  })
+}
+
 export function getGLAccountTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "GLAccount"
@@ -109,6 +115,12 @@ export function getInstitutionStatusTypes(): Promise<IApiResponse> {
   })
 }
 
+export function getFiscalPeriodCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "FiscalPeriodCode"
+  })
+}
+
 export function getDueDatePolicy(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "DueDatePolicy"
@@ -124,5 +136,11 @@ export function getMeetingTypes(): Promise<IApiResponse> {
 export function getSites(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "Site"
+  })
+}
+
+export function getProgramStatusCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProgramStatusCode"
   })
 }

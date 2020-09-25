@@ -1,40 +1,62 @@
 import * as React from "react"
 import { Row, Col, Typography } from "antd"
+import SectionFilterOpenButton from "~/Component/Section/SectionFilterOpenButton"
 import SectionTable from "~/Component/Section/SectionTable"
 import { RouteComponentProps } from "react-router-dom"
+import { useSectionFilterState, useSections } from "~/Hooks/Section"
+import SectionSearchFilters from "~/Component/SearchFilters"
+import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
+import SectionModalOpenButton from "~/Component/Offering/Section/CreateEdit/SectionModalOpenButton"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { getOfferingById } from "~/ApiServices/Service/EntityService"
-import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
-import { useEffect } from "react"
 
 const { useState } = React
 const { Title } = Typography
 
-export default function OfferingSections(props: RouteComponentProps<{ id: string }>) {
-  const [sectionItems, setSectionItems] = useState<Array<any>>([])
-  const [loading, setLoading] = useState(false)
+export default function OfferingPage(props: RouteComponentProps<{ id: string }>) {
+  const { filterData, updateFilterData } = useSectionFilterState()
+  const [showFilter, setFilterVisiblity] = useState<boolean>(false)
+  const [filterCount, setFilterCount] = useState<number>(0)
 
-  useEffect(() => {
-    ;(async () => {
-      const offeringID = parseInt(props.match.params.id)
-      setLoading(true)
-      const response: { [key: string]: any } = await getOfferingById(offeringID)
-      if (response.success) {
-        const result = await searchSection([{ OfferingID: response.data.OfferingID }])
-        if (result.success) {
-          setSectionItems(result.data)
-        }
-      }
-      setLoading(false)
-    })()
-  }, [props.match.params.id])
+  const OfferingID = parseInt(props.match.params.id) || undefined
+  const [loading, sectionItems] = useSections(filterData, OfferingID)
+
+  const toggleFilter = () => {
+    setFilterVisiblity(!showFilter)
+  }
+
   return (
     <div className="site-layout-content">
       <Row>
-        <Title level={3}>Sections</Title>
+        <Title level={3}>Manage Sections</Title>
       </Row>
+      {OfferingID && (
+        <SectionFilterOpenButton
+          filterCount={filterCount}
+          filterColumnVisible={showFilter}
+          toggleFilter={toggleFilter}
+          actionButton={<SectionModalOpenButton OfferingID={OfferingID} />}
+        />
+      )}
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        <Col className={`gutter-row ${styles.offeringDetails}`} xs={24} sm={24} md={{ span: 24, offset: 0 }}>
+        <SectionSearchFilters
+          title={""}
+          isModalView={false}
+          visible={showFilter}
+          toggleVisiibility={toggleFilter}
+          meta={SectionSearchFilterMeta}
+          data={filterData}
+          onApplyChanges={(newFilterValues, appliedFilterCount) => {
+            updateFilterData({ ...filterData, ...newFilterValues })
+            setFilterCount(appliedFilterCount)
+            setFilterVisiblity(false)
+          }}
+        />
+        <Col
+          className={`gutter-row ${styles.offeringDetails}`}
+          xs={24}
+          sm={24}
+          md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
+        >
           <SectionTable dataSource={sectionItems} loading={loading} />
         </Col>
       </Row>

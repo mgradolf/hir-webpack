@@ -7,14 +7,24 @@ import { Button } from "antd"
 interface ISeatGroupEditLinkProp {
   sectionId: number
   seatgroupId?: number
-  openSeatGroupModal: (sectionId: number, seatgroupId?: number) => void
+  programId?: number
+  programCode?: string
+  isDefault?: boolean
+  openSeatGroupModal: (
+    sectionId: number,
+    seatgroupId?: number,
+    programId?: number,
+    programCode?: string,
+    isDefault?: boolean
+  ) => void
 }
 function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
+  const { sectionId, seatgroupId, programId, programCode, isDefault } = props
   return (
     <Button
       type="link"
       onClick={() => {
-        props.openSeatGroupModal(props.sectionId, props.seatgroupId)
+        props.openSeatGroupModal(sectionId, seatgroupId, programId, programCode, isDefault)
       }}
     >
       Edit
@@ -24,8 +34,16 @@ function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    openSeatGroupModal: (sectionId: number, seatgroupId?: number) => {
-      return dispatch(showCreateSectionSeatGroupModal(true, { sectionId, seatgroupId }))
+    openSeatGroupModal: (
+      sectionId: number,
+      seatgroupId?: number,
+      programId?: number,
+      programCode?: string,
+      isDefault?: boolean
+    ) => {
+      return dispatch(
+        showCreateSectionSeatGroupModal(true, { sectionId, seatgroupId, programId, programCode, isDefault })
+      )
     }
   }
 }

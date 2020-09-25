@@ -6,6 +6,8 @@ export interface ISectionSeatGroupFieldNames {
   WaitListEnabled: any
   SeatGroupID: any
   SectionID: any
+  ProgramID: "ProgramID"
+  ProgramCode: "ProgramCode"
 }
 
 export interface IScheduleFieldNames {
