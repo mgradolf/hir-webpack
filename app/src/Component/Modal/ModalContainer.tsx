@@ -11,9 +11,11 @@ import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInst
 import SectionFormModal from "~/Component/Offering/Section/CreateEdit/SectionFormModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
+import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
+import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
-import AddProgramModal from "../Program/AddProgramModal"
+import AddProgramModal from "~/Component/Program/AddProgramModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -61,6 +63,15 @@ function ModalContainer(modalState: IModalState) {
         <SeatGroupAffiliatedOrganization
           seatgroupId={modalState.addSeatGroupAffiliateOrganization.config.seatgroupId}
         />
+      )}
+      {modalState.createSectionScheduleModal.value && (
+        <ScheduleFormModal
+          sectionId={modalState.createSectionScheduleModal.config.sectionId}
+          scheduleIds={modalState.createSectionScheduleModal.config.scheduleIds}
+        />
+      )}
+      {modalState.updateSectionScheduleLocationModal.value && (
+        <ScheduleLocationFromModal scheduleIds={modalState.updateSectionScheduleLocationModal.config.scheduleIds} />
       )}
       {modalState.addProgramModal.value && <AddProgramModal />}
     </>

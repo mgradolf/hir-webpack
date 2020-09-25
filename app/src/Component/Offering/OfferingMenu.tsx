@@ -29,7 +29,7 @@ export default function OfferingMenu(props: IOfferingMenu) {
         <Link to={`/offering/${props.offering.OfferingID}/instructor`}>Qualified Instructors</Link>
       </Menu.Item>
       <Menu.Item key="6">
-        <Link to={`/offering/${props.offering.OfferingID}/section`}>Section</Link>
+        <Link to={`/offering/${props.offering.OfferingID}/section`}>Sections</Link>
       </Menu.Item>
     </Menu>
   )

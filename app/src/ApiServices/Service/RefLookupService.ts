@@ -127,6 +127,18 @@ export function getDueDatePolicy(): Promise<IApiResponse> {
   })
 }
 
+export function getMeetingTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MeetingType"
+  })
+}
+
+export function getSites(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "Site"
+  })
+}
+
 export function getProgramStatusCodes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "ProgramStatusCode"

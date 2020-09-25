@@ -7,7 +7,7 @@ import { Dispatch } from "redux"
 import { showCreateSectionSeatGroupModal } from "~/store/ModalState"
 import { getSeatGroupById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
-import { ISectionSeatGroupFieldNames } from "~/Component/Offering/Interfaces"
+import { ISectionSeatGroupFieldNames } from "~/Component/Section/Interfaces"
 import { AppState } from "~/store"
 
 interface ICreateNewSeatGroupProps {
