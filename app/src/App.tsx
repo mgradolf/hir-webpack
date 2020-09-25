@@ -24,7 +24,7 @@ import SectionSeatgroupPage from "~/Pages/Section/SeatGroup"
 import SectionCatalogPage from "~/Component/Section/Catalog"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
-import ModalContainer from "~/Component/Modal/ModalContainer"
+import ModalContainer from "~/Component/ModalContainer"
 
 interface AppProps {
   store: AppStore

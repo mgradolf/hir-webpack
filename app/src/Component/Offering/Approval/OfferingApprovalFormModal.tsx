@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Form, Typography } from "antd"
-import Modal from "~/Component/Modal"
+import Modal from "~/Component/Common/Modal"
 import { useState } from "react"
 import ApprovalForm from "~/Component/Offering/Approval/ApprovalForm"
 import { connect } from "react-redux"

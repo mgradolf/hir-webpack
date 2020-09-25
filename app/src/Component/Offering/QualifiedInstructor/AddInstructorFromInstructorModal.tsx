@@ -1,5 +1,5 @@
 import * as React from "react"
-import Modal from "~/Component/Modal"
+import Modal from "~/Component/Common/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddInstructorFromOfferingModal } from "~/Store/ModalState"

@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Form } from "antd"
-import Modal from "~/Component/Modal"
+import Modal from "~/Component/Common/Modal"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/Component/Offering/CreateEdit/Form1"
 import CreateForm2 from "~/Component/Offering/CreateEdit/Form2"

@@ -1,5 +1,5 @@
 import * as React from "react"
-import Modal from "~/Component/Modal"
+import Modal from "~/Component/Common/Modal"
 import { useEffect, useState } from "react"
 import FinancialForm from "~/Component/Offering/Financial/FinancialForm"
 import { connect } from "react-redux"

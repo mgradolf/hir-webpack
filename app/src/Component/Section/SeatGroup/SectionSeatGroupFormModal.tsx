@@ -1,5 +1,5 @@
 import * as React from "react"
-import Modal from "~/Component/Modal"
+import Modal from "~/Component/Common/Modal"
 import { useEffect, useState } from "react"
 import SeatGroupForm from "~/Component/Section/SeatGroup/SeatGroupForm"
 import { connect } from "react-redux"
