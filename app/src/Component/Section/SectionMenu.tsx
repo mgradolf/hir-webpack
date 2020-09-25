@@ -29,7 +29,7 @@ function SectionMenu(props: ISectionMenu) {
       <Menu.Item key="2">
         <Link to={`/section/${props.section.SectionID}/schedule`}>Schedule</Link>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key="3">
         <Link to={`/section/${props.section.SectionID}/catalog`}>Catalog</Link>
       </Menu.Item>
     </Menu>

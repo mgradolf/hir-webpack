@@ -5,9 +5,9 @@ import {
   getPaymentGatewayAccounts,
   getSectionTypes
 } from "~/ApiServices/Service/RefLookupService"
-import SectionDetailsCreationTime from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsCreationTime"
-import SectionDetailsTerminationTime from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationTime"
-import SectionDetailsEnrollmentBillingDate from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsEnrollmentBillingDate"
+import SectionDetailsCreationTime from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsCreationTime"
+import SectionDetailsTerminationTime from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationTime"
+import SectionDetailsEnrollmentBillingDate from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsEnrollmentBillingDate"
 import { FormInstance } from "antd/lib/form"
 
 interface ISectionEditProps {

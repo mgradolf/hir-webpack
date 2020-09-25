@@ -6,7 +6,7 @@ import { RouteComponentProps } from "react-router-dom"
 import { useSectionFilterState, useSections } from "~/Hooks/Section"
 import SectionSearchFilters from "~/Component/Common/SearchFilters"
 import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
-import SectionModalOpenButton from "~/Component/Offering/Section/CreateEdit/SectionModalOpenButton"
+import SectionModalOpenButton from "~/Component/Section/CreateEdit/SectionModalOpenButton"
 import styles from "~/Pages/Offering/Offering.module.scss"
 
 const { useState } = React

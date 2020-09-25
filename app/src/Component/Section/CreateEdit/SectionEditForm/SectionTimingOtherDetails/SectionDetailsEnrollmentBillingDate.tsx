@@ -1,7 +1,7 @@
 import React from "react"
 import { Form, DatePicker, Input } from "antd"
 import { FormInstance } from "antd/lib/form"
-import { ISectionDetailsFieldNames } from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionDetails"
+import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
 
 interface ISectionDetailsEnrollmentBillingDate {
   formInstance: FormInstance

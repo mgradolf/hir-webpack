@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Form, Radio, DatePicker, Select, Input } from "antd"
 import { RadioChangeEvent } from "antd/lib/radio"
 import { FormInstance } from "antd/lib/form"
-import { ISectionDetailsFieldNames } from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionDetails"
+import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
 import { getTerms } from "~/ApiServices/Service/RefLookupService"
 
 const creationTimeOptionsValue = {

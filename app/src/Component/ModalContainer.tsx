@@ -8,7 +8,7 @@ import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApp
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
-import SectionFormModal from "~/Component/Offering/Section/CreateEdit/SectionFormModal"
+import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import { IModalState } from "~/Store/ModalState"

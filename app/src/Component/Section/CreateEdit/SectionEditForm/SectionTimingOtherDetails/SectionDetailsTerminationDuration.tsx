@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Form, Input, Row } from "antd"
-import { ISectionDetailsFieldNames } from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionDetails"
+import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
 import { FormInstance } from "antd/lib/form"
 import { hidden } from "~/utils/style"
 

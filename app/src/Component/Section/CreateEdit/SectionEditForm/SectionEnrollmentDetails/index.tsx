@@ -1,8 +1,8 @@
 import React from "react"
 import { Form, Row, Col, Input } from "antd"
 import Title from "antd/lib/typography/Title"
-import SectionEnrollmentDetailsDuration from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/SectionEnrollmentDetailsDuration"
-import GradesCredits from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits"
+import SectionEnrollmentDetailsDuration from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/SectionEnrollmentDetailsDuration"
+import GradesCredits from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits"
 import { FormInstance } from "antd/lib/form"
 
 interface ISectionEnrollmentDetailsProps {

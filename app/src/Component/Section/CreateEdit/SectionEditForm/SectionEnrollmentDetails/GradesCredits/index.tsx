@@ -1,10 +1,10 @@
 import { Col, Form, Input, Row } from "antd"
 import { FormInstance } from "antd/lib/form"
 import React from "react"
-import { ISectionEnrollmentDetails } from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
-import GradeScale from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits/GradeScale"
-import CreditType from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits/CreditType"
-import AttendanceUnit from "~/Component/Offering/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits/AttendanceUnit"
+import { ISectionEnrollmentDetails } from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
+import GradeScale from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits/GradeScale"
+import CreditType from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits/CreditType"
+import AttendanceUnit from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/GradesCredits/AttendanceUnit"
 
 interface IGradesCredits {
   fieldNames: ISectionEnrollmentDetails
