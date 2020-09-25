@@ -26,7 +26,9 @@ function AddProgramModal(props: {}) {
   const dispatch = useDispatch()
 
   const closeAddProgramModal = useCallback(() => dispatch(showAddProgramModal(false)), [dispatch])
-  const { formInstance, valueKey } = useSelector((state: AppState) => state.modalState.addProgramModal.config)
+  const { formInstance, valueKey, displayKey } = useSelector(
+    (state: AppState) => state.modalState.addProgramModal.config
+  )
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
 
   const rowSelection = {
@@ -45,7 +47,10 @@ function AddProgramModal(props: {}) {
     <Button
       disabled={selectedProgram === null}
       onClick={() => {
-        formInstance.setFieldsValue({ [valueKey]: selectedProgram.ProgramID })
+        formInstance.setFieldsValue({
+          [valueKey]: selectedProgram.ProgramID,
+          [displayKey]: selectedProgram.ProgramCode
+        })
         closeAddProgramModal()
       }}
     >

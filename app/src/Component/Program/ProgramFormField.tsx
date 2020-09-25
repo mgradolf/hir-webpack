@@ -8,31 +8,34 @@ import styles from "~/Component/Program/ProgramFormField.module.scss"
 const { Text } = Typography
 
 interface IProgramFormFieldProps {
+  displayKey: string
   valueKey: string
   formInstance: FormInstance
 }
 
 function ProgramFormField(props: IProgramFormFieldProps) {
-  const { valueKey, formInstance } = props
+  const { displayKey, valueKey, formInstance } = props
 
   const dispatch = useDispatch()
 
   const openAddProgramModal = useCallback(
-    (formInstance, valueKey) => dispatch(showAddProgramModal(true, { formInstance, valueKey })),
+    (formInstance, valueKey: string, displayKey: string) =>
+      dispatch(showAddProgramModal(true, { formInstance, valueKey, displayKey })),
     [dispatch]
   )
 
   const value = formInstance.getFieldValue(valueKey)
+  const label = formInstance.getFieldValue(displayKey)
   const selectButtonLabel = value ? "Change" : "Select Program"
 
   return (
     <Row align="middle">
-      <Text className={styles.Program_field_sub_component}>{value || `No program selected`}</Text>
+      <Text className={styles.Program_field_sub_component}>{label || `No program selected`}</Text>
       {value && (
         <Button
           aria-label="Clear Program"
           onClick={() => {
-            formInstance.setFieldsValue({ [valueKey]: "" })
+            formInstance.setFieldsValue({ [valueKey]: "", [displayKey]: "" })
           }}
           className={styles.Program_field_sub_component}
         >
@@ -43,7 +46,7 @@ function ProgramFormField(props: IProgramFormFieldProps) {
         type="primary"
         aria-label={selectButtonLabel}
         onClick={() => {
-          openAddProgramModal(formInstance, valueKey)
+          openAddProgramModal(formInstance, valueKey, displayKey)
         }}
       >
         {selectButtonLabel}

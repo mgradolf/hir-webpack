@@ -157,6 +157,9 @@ export const showCreateSectionModal = (value: boolean, config?: IShowCreateSecti
 type ShowSectionCommonModalType = {
   sectionId: number
   seatgroupId?: number
+  programId?: number
+  programCode?: string
+  isDefault?: boolean
 }
 
 export const showCreateSectionSeatGroupModal = (value: boolean, config?: ShowSectionCommonModalType): IAction => ({

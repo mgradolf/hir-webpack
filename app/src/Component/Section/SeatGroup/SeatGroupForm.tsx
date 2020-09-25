@@ -8,11 +8,13 @@ import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/FormError"
 import ProgramFormField from "~/Component/Program/ProgramFormField"
-import { FormInstance } from "antd/lib/form"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
   seatgroupId?: number
+  programId?: number
+  programCode?: string
+  isDefault?: boolean
   initialFormValue: { [key: string]: any }
   handleCancel: () => void
   setApiCallInProgress: (flag: boolean) => void
@@ -28,7 +30,11 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
-    props.formInstance.setFieldsValue({ [props.fieldNames.SectionID]: props.sectionId })
+    props.formInstance.setFieldsValue({
+      [props.fieldNames.SectionID]: props.sectionId,
+      [props.fieldNames.ProgramID]: props.programId,
+      [props.fieldNames.ProgramCode]: props.programCode
+    })
     ;(async () => {
       const response = await getDueDatePolicy()
       if (response && response.success && response.data) {
@@ -65,7 +71,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   console.log("secitonid: " + props.sectionId)
-  console.log("FORM DATA", (props.formInstance as FormInstance).getFieldsValue())
+
   return (
     <Card title={props.seatgroupId ? `Edit seat group` : "Create new seat group"} actions={actions}>
       <Form
@@ -109,10 +115,15 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
         <Form.Item name={props.fieldNames.IsOptional} label="Waitlist Enabled" {...layout} valuePropName="checked">
           <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
         </Form.Item>
-
-        <Form.Item name={props.fieldNames.ProgramID} label="Program" {...layout}>
-          <ProgramFormField formInstance={props.formInstance} valueKey="ProgramID" />
-        </Form.Item>
+        {!props.isDefault && (
+          <Form.Item name={props.fieldNames.ProgramID} label="Program" {...layout}>
+            <ProgramFormField
+              formInstance={props.formInstance}
+              valueKey={props.fieldNames.ProgramID}
+              displayKey={props.fieldNames.ProgramCode}
+            />
+          </Form.Item>
+        )}
       </Form>
     </Card>
   )
