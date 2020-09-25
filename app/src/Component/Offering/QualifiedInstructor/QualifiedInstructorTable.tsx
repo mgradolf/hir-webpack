@@ -1,4 +1,4 @@
-import { ITableWrapperProps } from "~/Component/Offering"
+import { ITableWrapperProps } from "~/Component/Offering/OfferingTable"
 import { Row, Col } from "antd"
 import React from "react"
 import moment from "moment"

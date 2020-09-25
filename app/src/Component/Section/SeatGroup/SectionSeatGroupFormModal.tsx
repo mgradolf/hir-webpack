@@ -8,10 +8,14 @@ import { showCreateSectionSeatGroupModal } from "~/store/ModalState"
 import { getSeatGroupById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
 import { ISectionSeatGroupFieldNames } from "~/Component/Offering/Interfaces"
+import { AppState } from "~/store"
 
 interface ICreateNewSeatGroupProps {
   seatgroupId?: number
   sectionId: number
+  programId?: number
+  programCode?: string
+  isDefault?: boolean
   closeCreateSeatGroupModal?: () => void
 }
 
@@ -22,10 +26,19 @@ const fieldNames: ISectionSeatGroupFieldNames = {
   DueDatePolicyID: "DueDatePolicyID",
   WaitListEnabled: "WaitListEnabled",
   SectionID: "SectionID",
-  SeatGroupID: "SeatGroupID"
+  SeatGroupID: "SeatGroupID",
+  ProgramID: "ProgramID",
+  ProgramCode: "ProgramCode"
 }
 
-function CreateNewSeatGroup({ seatgroupId, closeCreateSeatGroupModal, sectionId }: ICreateNewSeatGroupProps) {
+function CreateNewSeatGroup({
+  seatgroupId,
+  closeCreateSeatGroupModal,
+  sectionId,
+  programId,
+  programCode,
+  isDefault
+}: ICreateNewSeatGroupProps) {
   const [formInstance] = Form.useForm()
   const [sectionSeatGroupLoading, setSectionSeatGroupLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -65,6 +78,9 @@ function CreateNewSeatGroup({ seatgroupId, closeCreateSeatGroupModal, sectionId 
           <SeatGroupForm
             sectionId={sectionId}
             seatgroupId={seatgroupId}
+            programId={programId}
+            programCode={programCode}
+            isDefault={isDefault}
             handleCancel={handleCancel}
             setApiCallInProgress={setApiCallInProgress}
             initialFormValue={initialFormValue}
@@ -81,4 +97,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return { closeCreateSeatGroupModal: () => dispatch(showCreateSectionSeatGroupModal(false)) }
 }
 
-export default connect(undefined, mapDispatchToProps)(CreateNewSeatGroup)
+export default connect((state: AppState) => {
+  const { programId, programCode, isDefault } = state.modalState.createSectionSeatGroupModal.config
+  return { programId, programCode, isDefault }
+}, mapDispatchToProps)(CreateNewSeatGroup)

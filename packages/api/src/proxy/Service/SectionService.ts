@@ -1,6 +1,6 @@
-import ApiMethodFactory, { Iconfig } from "../../utils/ApiMethodFactory"
+import ApiMethodFactory from "../../utils/ApiMethodFactory"
 
-export const config: Iconfig = {
+export const config = {
   EndPoint: "api/hirServlet",
   Service: "SectionService",
   Module: "hir",
@@ -9,7 +9,7 @@ export const config: Iconfig = {
     getPaymentGatewayAccount: "getPaymentGatewayAccount",
     getSeatGroupsBySection: "getSeatGroupsBySection",
     getCoordinator: "getCoordinator",
-    updateSectionDetails: "updateSectionDetails",
+    updateSection: "updateSection",
     saveAffiliatedOrg: "saveAffiliatedOrg",
     updateSectionNotification: "updateSectionNotification",
     SectionNoticeID: "SectionNoticeID",

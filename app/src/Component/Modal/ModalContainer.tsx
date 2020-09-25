@@ -8,10 +8,12 @@ import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApp
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
+import SectionFormModal from "~/Component/Offering/Section/CreateEdit/SectionFormModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
+import AddProgramModal from "../Program/AddProgramModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -48,6 +50,7 @@ function ModalContainer(modalState: IModalState) {
           rowData={modalState.addInstructorFromInstructorModal.config.rowData}
         />
       )}
+      {modalState.createSectionModal.value && <SectionFormModal />}
       {modalState.createSectionSeatGroupModal.value && (
         <SectionSeatGroupFormModal
           sectionId={modalState.createSectionSeatGroupModal.config.sectionId}
@@ -59,6 +62,7 @@ function ModalContainer(modalState: IModalState) {
           seatgroupId={modalState.addSeatGroupAffiliateOrganization.config.seatgroupId}
         />
       )}
+      {modalState.addProgramModal.value && <AddProgramModal />}
     </>
   )
 }
