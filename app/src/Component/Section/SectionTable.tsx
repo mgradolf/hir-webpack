@@ -34,7 +34,9 @@ export default function SectionTable(props: ITableWrapperProps) {
       title: "Offering Code",
       dataIndex: "OfferingCode",
       key: "OfferingCode",
-      sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length
+      sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length,
+      render: (text: any, record: any) =>
+        props.isModal ? text : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
       title: "Creation Date",
@@ -53,7 +55,10 @@ export default function SectionTable(props: ITableWrapperProps) {
       dataIndex: "Faculty",
       key: "Faculty",
       render: (faculties: Array<any> | null) => {
-        return Array.isArray(faculties) && faculties.map((x: any) => <div>- {x.FacultyDescriptor}</div>)
+        return (
+          Array.isArray(faculties) &&
+          faculties.map((x: any, index: number) => <div key={x.FacultyDescriptor + index}>- {x.FacultyDescriptor}</div>)
+        )
       }
     },
     {

@@ -460,7 +460,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             checked={visibility.PostalCode}
             onChange={toggleFilterBlockVisibility("PostalCode")}
           >
-            Telephone Number
+            Postal Code
           </Checkbox>
         </LabelCol>
         <InputCol className={visibility.PostalCode ? styles.offeringFilterField : styles.hidden}>
@@ -490,7 +490,7 @@ export function FilterColumn(props: IFilterColumnProps) {
       <Row>
         <LabelCol>
           <Checkbox checked={visibility.IsDeceased} onChange={toggleFilterBlockVisibility("IsDeceased")}>
-            Is IsDeceased
+            Is Deceased
           </Checkbox>
         </LabelCol>
         <InputCol className={visibility.IsDeceased ? styles.offeringFilterField : styles.hidden}>
