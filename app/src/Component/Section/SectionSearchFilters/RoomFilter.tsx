@@ -7,8 +7,8 @@ import {
   IFilterGenericComponentProps,
   InputCol,
   LabelCol
-} from "~/Component/SearchFilters/common"
-import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
+} from "~/Component/Common/SearchFilters/common"
+import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 
 const { Text } = Typography
 const { Option } = Select

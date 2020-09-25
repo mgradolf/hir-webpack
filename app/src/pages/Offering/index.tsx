@@ -6,7 +6,7 @@ import OfferingModalOpenButton from "~/Component/Offering/CreateEdit/OfferingMod
 import { RouteComponentProps } from "react-router-dom"
 import styles from "~/Pages/Offering/Offering.module.scss"
 import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
-import OfferingSearchFilters from "~/Component/SearchFilters"
+import OfferingSearchFilters from "~/Component/Common/SearchFilters"
 import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 
 const { useState } = React

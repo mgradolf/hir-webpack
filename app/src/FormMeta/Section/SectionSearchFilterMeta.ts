@@ -1,6 +1,6 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/schedule/scheduleIf"
 import RoomFilter from "~/Component/Section/SectionSearchFilters/RoomFilter"
 import TagFilter from "~/Component/Section/SectionSearchFilters/TagFilter"

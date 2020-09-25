@@ -1,4 +1,4 @@
-import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
+import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Button, Col, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import React, { useState, useEffect } from "react"
@@ -7,9 +7,9 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
 import { TextInputType } from "./TextInput"
 import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, isFilterObject, TEXT } from "./common"
-import { DropDownInputType } from "~/Component/SearchFilters/DropDown"
-import { DatePickerInputType } from "~/Component/SearchFilters/DatePicker"
-import { DatePickersInputType } from "~/Component/SearchFilters/DatePickers"
+import { DropDownInputType } from "~/Component/Common/SearchFilters/DropDown"
+import { DatePickerInputType } from "~/Component/Common/SearchFilters/DatePicker"
+import { DatePickersInputType } from "~/Component/Common/SearchFilters/DatePickers"
 import { eventBus, REFRESH_FILTER_DATA_OF_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography

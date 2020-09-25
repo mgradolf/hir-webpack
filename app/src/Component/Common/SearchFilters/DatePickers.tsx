@@ -1,6 +1,6 @@
 import React from "react"
-import { IFilterFieldObject, IFilterGenericComponentProps, LabelCol } from "~/Component/SearchFilters/common"
-import styles from "~/Component/SearchFilters/SearchFilters.module.scss"
+import { IFilterFieldObject, IFilterGenericComponentProps, LabelCol } from "~/Component/Common/SearchFilters/common"
+import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, DatePicker, Col } from "antd"
 import moment from "moment"
 
