@@ -10,6 +10,8 @@ import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/A
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
+import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
+import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
 import { IModalState } from "~/store/ModalState"
 import { connect } from "react-redux"
 
@@ -58,6 +60,15 @@ function ModalContainer(modalState: IModalState) {
         <SeatGroupAffiliatedOrganization
           seatgroupId={modalState.addSeatGroupAffiliateOrganization.config.seatgroupId}
         />
+      )}
+      {modalState.createSectionScheduleModal.value && (
+        <ScheduleFormModal
+          sectionId={modalState.createSectionScheduleModal.config.sectionId}
+          scheduleIds={modalState.createSectionScheduleModal.config.scheduleIds}
+        />
+      )}
+      {modalState.updateSectionScheduleLocationModal.value && (
+        <ScheduleLocationFromModal scheduleIds={modalState.updateSectionScheduleLocationModal.config.scheduleIds} />
       )}
     </>
   )

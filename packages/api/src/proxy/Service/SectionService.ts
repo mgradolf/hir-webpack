@@ -14,7 +14,10 @@ export const config: Iconfig = {
     updateSectionNotification: "updateSectionNotification",
     SectionNoticeID: "SectionNoticeID",
     findSectionNoticeRecipients: "findSectionNoticeRecipients",
-    updateSectionFinancialMaps: "updateSectionFinancialMaps"
+    updateSectionFinancialMaps: "updateSectionFinancialMaps",
+    getMeetings: "getMeetings",
+    createMeetings: "createMeetings",
+    saveMeetings: "saveMeetings"
   }
 }
 

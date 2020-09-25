@@ -66,13 +66,3 @@ export interface IOfferingRequisiteGroupFieldNames {
   CatalogNarrative: string
   RequisiteOfferingGroupID: string
 }
-
-export interface ISectionSeatGroupFieldNames {
-  Name: any
-  NumberOfSeats: any
-  EstimatedEnrollment: any
-  DueDatePolicyID: any
-  WaitListEnabled: any
-  SeatGroupID: any
-  SectionID: any
-}

@@ -5,7 +5,8 @@ export const entities = {
   Offering: "Offering",
   Financial: "Financial",
   RequisiteOfferingGroup: "RequisiteOfferingGroup",
-  SeatGroup: "SeatGroup"
+  SeatGroup: "SeatGroup",
+  Meeting: "Meeting"
 }
 
 export function getEntityById(EntityType: string, EntityID: number): Promise<IApiResponse> {
@@ -46,6 +47,13 @@ export function getOfferingRequisiteGroupById(EntityID: number): Promise<IApiRes
 export function getSeatGroupById(EntityID: number): Promise<IApiResponse> {
   return EntityService[config.Actions.getEntity]({
     EntityType: entities.SeatGroup,
+    EntityID
+  })
+}
+
+export function getScheudleById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.getEntity]({
+    EntityType: entities.Meeting,
     EntityID
   })
 }
