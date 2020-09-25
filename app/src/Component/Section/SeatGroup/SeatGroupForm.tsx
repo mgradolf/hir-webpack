@@ -6,7 +6,7 @@ import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGrou
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/FormError"
+import FormError from "~/Component/Common/FormError"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number

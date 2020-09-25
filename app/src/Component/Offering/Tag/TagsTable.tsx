@@ -1,7 +1,7 @@
 import React from "react"
 import { Switch, Row, Col } from "antd"
 import { ColumnsType } from "antd/lib/table"
-import ResponsiveTable from "~/Component/ResponsiveTable"
+import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 
 interface ITagsTableProps {
   data: Array<any>

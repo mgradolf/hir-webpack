@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Dropdown, Row, Col } from "antd"
 import { DownOutlined } from "@ant-design/icons"
-import ResponsiveTable, { RecordType } from "~/Component/ResponsiveTable"
+import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import { ColumnsType } from "antd/lib/table"
 

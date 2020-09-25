@@ -2,7 +2,7 @@ import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Button, Col, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import React, { useState, useEffect } from "react"
-import { RecordType } from "~/Component/ResponsiveTable"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
 import { TextInputType } from "./TextInput"
