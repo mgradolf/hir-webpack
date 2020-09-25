@@ -1,5 +1,4 @@
 import { Row, Card, Col, Button } from "antd"
-import { RouteComponentProps } from "react-router-dom"
 import React, { useState, useCallback } from "react"
 import Modal from "~/Component/Modal"
 import ProgramSearchFilter from "~/Component/SearchFilters"
@@ -19,7 +18,7 @@ enum ModalPages {
   ProgramList
 }
 
-function AddProgramModal(props: RouteComponentProps) {
+function AddProgramModal(props: {}) {
   const { filterData, updateFilterData } = useSearchFilterState()
   const [loading, programItems] = useSearchProgram(filterData)
   const [filterCount, updateFilterCount] = useState<number>(0)
