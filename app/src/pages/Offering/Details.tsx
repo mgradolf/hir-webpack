@@ -8,12 +8,13 @@ import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
 import { DownOutlined, ReadOutlined } from "@ant-design/icons"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
+import styles from "~/pages/Offering/OfferingDetails.module.scss"
 
 const { Title, Text } = Typography
 
 function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
   const offeringID = props.match.params.id
-  const [offeringDetails, setOfferingDetails] = useState<{ [key: string]: any }>({})
+  const [offeringDetails, setOfferingDetails] = useState<{ [key: string]: any }>()
 
   useEffect(() => {
     ;(async function () {
@@ -30,25 +31,25 @@ function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
       {offeringDetails && (
         <div className="site-layout-content">
           <Row>
-            <Col span={3}>
-              <ReadOutlined style={{ fontSize: "160px" }} />
+            <Col xs={7} sm={5} md={3}>
+              <ReadOutlined className={styles.icon} />
             </Col>
-            <Col span={13} style={{ padding: "10px" }}>
+            <Col offset={1} xs={16} sm={18} md={20}>
               <Row>
-                <Text style={{ fontSize: "20px" }}>{offeringDetails.OfferingCode}</Text>
+                <Text className={styles.font20px}>{offeringDetails.OfferingCode}</Text>
               </Row>
               <Row>
-                <Text style={{ fontSize: "15px" }}>Name: {offeringDetails.OfferingName}</Text>
+                <Text className={styles.font15px}>Name: {offeringDetails.OfferingName}</Text>
               </Row>
               <Row>
-                <Text style={{ fontSize: "15px" }}>Organization: {offeringDetails.OrganizationName}</Text>
+                <Text className={styles.font15px}>Organization: {offeringDetails.OrganizationName}</Text>
               </Row>
               <Row>
-                <Text style={{ fontSize: "15px" }}>
+                <Text className={styles.font15px}>
                   Status: <span style={{ color: "blue" }}>{offeringDetails.StatusCode}</span>
                 </Text>
               </Row>
-              <Row style={{ marginTop: "10px" }}>
+              <Row className={styles.marginTop10px}>
                 <Dropdown overlay={<OfferingMenu offering={offeringDetails} />} trigger={["click"]}>
                   <Button type="primary" onClick={(e) => e.preventDefault()}>
                     Go To <DownOutlined />
@@ -57,83 +58,68 @@ function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
               </Row>
             </Col>
           </Row>
+          <Row className={styles.details}>
+            <Col span={12}>
+              <Title level={3}>Offering Details</Title>
+            </Col>
+            <Col span={12}>
+              <OfferingEditLink OfferingId={offeringDetails.OfferingID} PrimaryType={true} />
+            </Col>
+          </Row>
 
-          <div
-            style={{
-              background: "white",
-              padding: "20px",
-              marginTop: "40px",
-              marginLeft: "225px",
-              marginRight: "50px"
-            }}
-          >
-            <Row>
-              <Col span={12}>
-                <Title level={3}>Offering Details</Title>
-              </Col>
-              <Col span={12}>
-                <OfferingEditLink OfferingId={offeringDetails.OfferingID} PrimaryType={true} />
-              </Col>
-            </Row>
-          </div>
-          <div
-            style={{
-              background: "white",
-              padding: "40px",
-              marginTop: "10px",
-              marginLeft: "225px",
-              marginRight: "50px"
-            }}
-          >
-            <Row>
-              <Col span={6}>
-                <Text>Description:</Text>
-              </Col>
-              <Col span={6}>
-                <Text>{offeringDetails.OfferingDescription}</Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={6}>
-                <Text>Offering Type:</Text>
-              </Col>
-              <Col span={6}>
-                <Text>{offeringDetails.OfferingTypeName}</Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={6}>
-                <Text>Creation Date:</Text>
-              </Col>
-              <Col span={6}>
-                <Text>
-                  {offeringDetails.CreationDate !== null
-                    ? moment(offeringDetails.CreationDate).format("YYYY-MM-DD")
-                    : ""}
-                </Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={6}>
-                <Text>Termination Date:</Text>
-              </Col>
-              <Col span={6}>
-                <Text>
-                  {offeringDetails.TerminationDate !== null
-                    ? moment(offeringDetails.TerminationDate).format("YYYY-MM-DD")
-                    : ""}
-                </Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={6}>
-                <Text>Default Section:</Text>
-              </Col>
-              <Col span={6}>
-                <Text>{offeringDetails.SectionTypeName}</Text>
-              </Col>
-            </Row>
-          </div>
+          <Row className={styles.details}>
+            <Col span={8}>
+              <Text>Description:</Text>
+            </Col>
+            <Col span={16}>
+              <Text>{offeringDetails.OfferingDescription}</Text>
+            </Col>
+            <Col span={8}>
+              <Text>Offering Type:</Text>
+            </Col>
+            <Col span={16}>
+              <Text>{offeringDetails.OfferingTypeName}</Text>
+            </Col>
+
+            <Col span={8}>
+              <Text>Creation Date:</Text>
+            </Col>
+            <Col span={16}>
+              <Text>
+                {offeringDetails.CreationDate !== null ? moment(offeringDetails.CreationDate).format("YYYY-MM-DD") : ""}
+              </Text>
+            </Col>
+            <Col span={8}>
+              <Text>Termination Date:</Text>
+            </Col>
+            <Col span={16}>
+              <Text>
+                {offeringDetails.TerminationDate !== null
+                  ? moment(offeringDetails.TerminationDate).format("YYYY-MM-DD")
+                  : ""}
+              </Text>
+            </Col>
+            <Col span={8}>
+              <Text>Default Section:</Text>
+            </Col>
+            <Col span={16}>
+              <Text>{offeringDetails.SectionTypeName}</Text>
+            </Col>
+          </Row>
+        </div>
+      )}
+      {!offeringDetails && (
+        <div
+          style={{
+            textAlign: "center",
+            margin: "auto",
+            fontSize: "2em",
+            opacity: 0.5,
+            marginTop: "30vh",
+            width: "50%"
+          }}
+        >
+          Offering with ID {offeringID} not found
         </div>
       )}
     </>

@@ -79,8 +79,8 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
       eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
       props.handleCancel()
     } else {
-      setErrorMessages(response.error.getErrorMessages())
-      console.log(response.error.getErrorMessages())
+      setErrorMessages(response.error)
+      console.log(response.error)
       console.log(errorMessages)
     }
   }
@@ -98,19 +98,19 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
       >
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
-          <Input value={props.financialID ? props.financialID : undefined} />
+          <Input aria-label="Financial ID" value={props.financialID ? props.financialID : undefined} />
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.FinancialTypeID}>
-          <Input value={financialTypeId} />
+          <Input aria-label="Financial Type" value={financialTypeId} />
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.ApplyToID}>
-          <Input value={props.offeringID} />
+          <Input aria-label="Offering ID" value={props.offeringID} />
         </Form.Item>
 
         <Form.Item label="Category" name={props.fieldNames.FinancialCategoryTypeID} {...layout}>
-          <Select>
+          <Select aria-label="Category Select">
             {financialCategoryTypes.map((x) => {
               return (
                 <Select.Option key={x.ID + x.Name} value={x.ID}>
@@ -122,7 +122,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         </Form.Item>
 
         <Form.Item label="Basis" {...layout} name={props.fieldNames.FinancialBasisTypeID}>
-          <Select>
+          <Select aria-label="Basis Select">
             {financialBasisTypes.map((x) => {
               return (
                 <Select.Option key={x.ID + x.Name} value={x.ID}>
@@ -134,11 +134,11 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         </Form.Item>
 
         <Form.Item label="Description" {...layout} name={props.fieldNames.Description}>
-          <Input />
+          <Input aria-label="Description" />
         </Form.Item>
 
         <Form.Item label="GL Accounts" {...layout} name={props.fieldNames.GLAccountID}>
-          <Select>
+          <Select aria-label="GL Accounts">
             {glAccountTypes.map((x) => {
               return <Select.Option key={x.ID + x.Name} value={x.ID}>{`${x.Name} (${x.Description})`}</Select.Option>
             })}
@@ -146,28 +146,34 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         </Form.Item>
 
         <Form.Item label="Amount" {...layout} name={props.fieldNames.ItemUnitAmount}>
-          <Input type="number" min={0} />
+          <Input aria-label="Amount" type="number" min={0} />
         </Form.Item>
 
         <Form.Item label="Type" {...layout} name={props.fieldNames.IsCharge}>
-          <Radio.Group>
+          <Radio.Group aria-label="Type">
             <Radio value={true}>Income</Radio>
             <Radio value={false}>Expense</Radio>
           </Radio.Group>
         </Form.Item>
 
         <Form.Item name={props.fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
-          <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsOptional)} />
+          <Switch
+            aria-label="Is Item Optional"
+            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsOptional)}
+          />
         </Form.Item>
         <Form.Item name={props.fieldNames.IsTaxable} label="Taxable" {...layout} valuePropName="checked">
-          <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsTaxable)} />
+          <Switch
+            aria-label="Is Taxable"
+            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsTaxable)}
+          />
         </Form.Item>
         <Form.Item name={props.fieldNames.IsActive} label="Active" {...layout} valuePropName="checked">
-          <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)} />
+          <Switch aria-label="Is Active" defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)} />
         </Form.Item>
 
         <Form.Item label="Weight" {...layout} name={props.fieldNames.Weight}>
-          <Input type="number" min={0} />
+          <Input aria-label="Weight" type="number" min={0} />
         </Form.Item>
       </Form>
     </Card>

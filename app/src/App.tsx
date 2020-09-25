@@ -18,6 +18,10 @@ import OfferingRequisitePage from "~/pages/Offering/Requisite"
 import OfferingApprovalPage from "~/pages/Offering/Approval"
 import OfferingTaggPage from "~/pages/Offering/Tag"
 import OfferingQualifiedInstructorPage from "~/pages/Offering/QualifiedInstructor"
+import OfferingSectionPage from "~/pages/Offering/Section"
+import SectionPage from "~/pages/Section"
+import SectionSeatgroupPage from "~/pages/Section/SeatGroup"
+import SectionSchedulePage from "~/pages/Section/Schedule"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/Modal/ModalContainer"
@@ -48,6 +52,10 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/offering/:id/requisite" component={OfferingRequisitePage} />
       <Route exact path="/offering/:id/instructor" component={OfferingQualifiedInstructorPage} />
       <Route exact path="/offering/:id/tag" component={OfferingTaggPage} />
+      <Route exact path="/offering/:id/section" component={OfferingSectionPage} />
+      <Route exact path="/section" component={SectionPage} />
+      <Route exact path="/section/:id/seatgroup" component={SectionSeatgroupPage} />
+      <Route exact path="/section/:id/schedule" component={SectionSchedulePage} />
       <Route component={NotFoundPage} />
     </Switch>
   )

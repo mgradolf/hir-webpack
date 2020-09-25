@@ -4,7 +4,10 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 export const entities = {
   Offering: "Offering",
   Financial: "Financial",
-  RequisiteOfferingGroup: "RequisiteOfferingGroup"
+  RequisiteOfferingGroup: "RequisiteOfferingGroup",
+  SeatGroup: "SeatGroup",
+  Meeting: "Meeting",
+  Section: "Section"
 }
 
 export function getEntityById(EntityType: string, EntityID: number): Promise<IApiResponse> {
@@ -38,6 +41,27 @@ export function removeOfferingFinancialById(EntityID: number): Promise<IApiRespo
 export function getOfferingRequisiteGroupById(EntityID: number): Promise<IApiResponse> {
   return EntityService[config.Actions.getEntity]({
     EntityType: entities.RequisiteOfferingGroup,
+    EntityID
+  })
+}
+
+export function getSectionById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.getEntity]({
+    EntityType: entities.Section,
+    EntityID
+  })
+}
+
+export function getSeatGroupById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.getEntity]({
+    EntityType: entities.SeatGroup,
+    EntityID
+  })
+}
+
+export function getScheudleById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.getEntity]({
+    EntityType: entities.Meeting,
     EntityID
   })
 }

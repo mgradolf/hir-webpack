@@ -1,64 +1,29 @@
 import { useState, useEffect } from "react"
-import {
-  getOfferingStatusTypes,
-  getOrganizations,
-  getOfferingTypes,
-  getSectionTypes,
-  getTagTypes
-} from "~/ApiServices/Service/RefLookupService"
-import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
-import { IFilterValues } from "./FilterColumn"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
+import { RecordType } from "~/Component/ResponsiveTable"
 
-export function useFilterData() {
-  const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
-  const [tagTypes, setTagTypes] = useState<Array<any>>([])
-  const [offeringTypes, setOfferingTypes] = useState<Array<any>>([])
-  const [sectonTypes, setSectionTypes] = useState<Array<any>>([])
-  const [organizations, setOrganizations] = useState<Array<any>>([])
-  const [users, setUsers] = useState<Array<any>>([])
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await getOfferingStatusTypes()
-      if (response && response.data && Array.isArray(response.data)) {
-        setOfferingStatusTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getOrganizations()
-      if (response && response.data) {
-        setOrganizations(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getOfferingTypes()
-      if (response && response.data) {
-        setOfferingTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getUsersByRole({ Role: "coordinator" })
-      if (response && response.data) {
-        setUsers(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getSectionTypes()
-      if (response && response.success) {
-        setSectionTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getTagTypes()
-      if (response && response.success) {
-        setTagTypes(response.data)
-      }
-    })()
-  }, [])
-
-  return [offeringStatusTypes, tagTypes, offeringTypes, sectonTypes, organizations, users]
+export interface IFilterValues extends RecordType {
+  OfferingCode: string
+  OfferingName: string
+  ToCreationDate: string
+  FromCreationDate: string
+  ToTerminationDate: string
+  FromTerminationDate: string
+  IsQuickAdmit: string
+  StatusID: string
+  Coordinator: string
+  OrganizationID: string
+  OfferingTypeID: string
+  SectionTypeID: string
+  InstructorID: string
+  ShowProgramOffering: string
+  TagName: string
+  TagTypeID: string
+  IsSearchTagHierarchy: string
+  OfferingNearCapacity: string
+  ToFinalEnrollmentDate: string
+  FromFinalEnrollmentDate: string
 }
 
 export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
@@ -85,9 +50,11 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
       params["ShowProgramOffering"] = filterData.ShowProgramOffering !== "" ? filterData.ShowProgramOffering : undefined
       params["OfferingNearCapacity"] =
         filterData.OfferingNearCapacity !== "" ? filterData.OfferingNearCapacity : undefined
-      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? Boolean(filterData.IsQuickAdmit) : undefined
+      // eslint-disable-next-line no-eval
+      params["IsQuickAdmit"] = filterData.IsQuickAdmit !== "" ? eval(filterData.IsQuickAdmit) : undefined
       params["IsSearchTagHierarchy"] =
-        filterData.IsSearchTagHierarchy !== "" ? Boolean(filterData.IsSearchTagHierarchy) : undefined
+        // eslint-disable-next-line no-eval
+        filterData.IsSearchTagHierarchy !== "" ? eval(filterData.IsSearchTagHierarchy) : undefined
       params["TagName"] = filterData.TagName !== "" ? filterData.TagName : undefined
       params["TagTypeID"] = filterData.TagTypeID !== "" ? filterData.TagTypeID : undefined
       params["ToFinalEnrollmentDate"] =
@@ -97,7 +64,7 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
 
       const objectKeys = Object.keys(params)
       objectKeys.forEach((key) => {
-        if (!Boolean(params[key]) && typeof params[key] !== "number") {
+        if (params[key] === undefined) {
           delete params[key]
         }
       })
@@ -117,4 +84,32 @@ export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
   }, [filterData])
 
   return [loading, offeringItems]
+}
+
+const INITIAL_OFFERING_FILTER_DATA: IFilterValues = {
+  OfferingCode: "",
+  OfferingName: "",
+  ToCreationDate: "",
+  FromCreationDate: "",
+  ToTerminationDate: "",
+  FromTerminationDate: "",
+  IsQuickAdmit: "",
+  StatusID: "",
+  Coordinator: "",
+  OrganizationID: "",
+  OfferingTypeID: "",
+  SectionTypeID: "",
+  InstructorID: "",
+  ShowProgramOffering: "",
+  TagName: "",
+  TagTypeID: "",
+  IsSearchTagHierarchy: "",
+  OfferingNearCapacity: "",
+  ToFinalEnrollmentDate: "",
+  FromFinalEnrollmentDate: ""
+}
+
+export function useOfferingFilterState(state = INITIAL_OFFERING_FILTER_DATA) {
+  const [filterData, updateFilterData] = useState<IFilterValues>(state)
+  return { filterData, updateFilterData }
 }

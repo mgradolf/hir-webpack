@@ -37,6 +37,12 @@ export function getSectionTypes(): Promise<IApiResponse> {
   })
 }
 
+export function getSectionStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SectionStatusCode"
+  })
+}
+
 export function getGLAccountTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "GLAccount"
@@ -76,5 +82,65 @@ export function getPolicyTypes(): Promise<IApiResponse> {
 export function getInstructorTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "InstructorType"
+  })
+}
+
+export function getCountries(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CountryCode"
+  })
+}
+
+export function getGenderTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GenderType"
+  })
+}
+
+export function getRegionCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RegionCode"
+  })
+}
+
+export function getEthnicityTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "EthnicityType"
+  })
+}
+
+export function getInstitutionStatusTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "InstitutionStatusCode"
+  })
+}
+
+export function getFiscalPeriodCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "FiscalPeriodCode"
+  })
+}
+
+export function getDueDatePolicy(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DueDatePolicy"
+  })
+}
+
+export function getMeetingTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MeetingType"
+  })
+}
+
+export function getSites(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "Site"
+  })
+}
+
+export function getProgramStatusCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProgramStatusCode"
   })
 }

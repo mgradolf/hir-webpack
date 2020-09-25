@@ -1,38 +1,19 @@
 import * as React from "react"
 import { Row, Col, Typography } from "antd"
-import { SelectedFilters, FilterColumn, IFilterValues, OfferingTable } from "~/Component/Offering"
+import { OfferingTable } from "~/Component/Offering/OfferingTable"
+import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
+import OfferingModalOpenButton from "~/Component/Offering/CreateEdit/OfferingModalOpenButton"
 import { RouteComponentProps } from "react-router-dom"
 import styles from "~/pages/Offering/Offering.module.scss"
-import { useOfferings } from "~/Component/Offering/offeringUtils"
+import { useOfferings, useOfferingFilterState } from "~/Hooks/Offering"
+import OfferingSearchFilters from "~/Component/SearchFilters"
+import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 
 const { useState } = React
 const { Title } = Typography
 
-const INITIAL_FILTER_DATA: IFilterValues = {
-  OfferingCode: "",
-  OfferingName: "",
-  ToCreationDate: "",
-  FromCreationDate: "",
-  ToTerminationDate: "",
-  FromTerminationDate: "",
-  IsQuickAdmit: "",
-  StatusID: "",
-  Coordinator: "",
-  OrganizationID: "",
-  OfferingTypeID: "",
-  SectionTypeID: "",
-  InstructorID: "",
-  ShowProgramOffering: "",
-  TagName: "",
-  TagTypeID: "",
-  IsSearchTagHierarchy: "",
-  OfferingNearCapacity: "",
-  ToFinalEnrollmentDate: "",
-  FromFinalEnrollmentDate: ""
-}
-
 function OfferingPage(props: RouteComponentProps) {
-  const [filterData, updateFilterData] = useState<IFilterValues>(INITIAL_FILTER_DATA)
+  const { filterData, updateFilterData } = useOfferingFilterState()
   const [showFilter, setFilterVisiblity] = useState<boolean>(false)
   const [filterCount, setFilterCount] = useState<number>(0)
 
@@ -47,9 +28,16 @@ function OfferingPage(props: RouteComponentProps) {
       <Row>
         <Title level={3}>Manage Offerings</Title>
       </Row>
-      <SelectedFilters filterCount={filterCount} filterColumnVisible={showFilter} toggleFilter={toggleFilter} />
+      <FilterOpenButton
+        filterCount={filterCount}
+        filterColumnVisible={showFilter}
+        toggleFilter={toggleFilter}
+        actionButton={<OfferingModalOpenButton />}
+      />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        <FilterColumn
+        <OfferingSearchFilters
+          meta={OfferingSearchFilterMeta}
+          title="Offering Filter"
           isModalView={false}
           visible={showFilter}
           toggleVisiibility={toggleFilter}

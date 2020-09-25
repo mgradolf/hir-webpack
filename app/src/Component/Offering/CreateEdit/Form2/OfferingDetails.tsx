@@ -27,7 +27,7 @@ export default function OfferingDetails(props: IOfferingDetails) {
           }
         ]}
       >
-        <Input />
+        <Input aria-label="Offering Code" />
       </Form.Item>
       <Form.Item
         label="Offering name"
@@ -40,13 +40,13 @@ export default function OfferingDetails(props: IOfferingDetails) {
           }
         ]}
       >
-        <Input />
+        <Input aria-label="Offering Name" />
       </Form.Item>
       <Form.Item label="Description" name={props.fieldNames.Description} {...layout}>
-        <Input.TextArea />
+        <Input.TextArea aria-label="Description" />
       </Form.Item>
       <Form.Item label="URL" name={props.fieldNames.URL} {...layout}>
-        <Input />
+        <Input aria-label="URL" />
       </Form.Item>
     </>
   )

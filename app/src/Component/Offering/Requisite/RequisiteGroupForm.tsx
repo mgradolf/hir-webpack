@@ -66,7 +66,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
       eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
       props.handleCancel()
     } else {
-      setErrorMessages(response.error.getErrorMessages())
+      setErrorMessages(response.error)
       console.log(response)
     }
   }
@@ -93,14 +93,14 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           }
         ></FormError>
         <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.OfferingID}>
-          <Input value={props.offeringID ? props.offeringID : undefined} />
+          <Input aria-label="Offering ID" value={props.offeringID ? props.offeringID : undefined} />
         </Form.Item>
 
         <Form.Item
           style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }}
           name={fieldNames.RequisiteOfferingGroupID}
         >
-          <Input value={props.requisiteGroupID ? props.requisiteGroupID : undefined} />
+          <Input aria-label="Requisite Group ID" value={props.requisiteGroupID ? props.requisiteGroupID : undefined} />
         </Form.Item>
 
         <Form.Item
@@ -110,7 +110,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           name={fieldNames.Name}
           rules={[{ required: true, message: "Please input group name!" }]}
         >
-          <Input />
+          <Input aria-label="Group Name" />
         </Form.Item>
 
         <Form.Item
@@ -120,7 +120,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           name={fieldNames.PolicyTypeID}
           rules={[{ required: true, message: "Please select policy name!" }]}
         >
-          <Select>
+          <Select aria-label="Policy Name Select">
             {offeringGroupPolicyTypeList.map((x) => {
               return (
                 <Select.Option key={x.ID} value={x.ID}>
@@ -138,7 +138,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           name={fieldNames.PolicyValue}
           rules={[{ required: true, message: "Please input policy name!" }]}
         >
-          <Input />
+          <Input aria-label="Policy Value" />
         </Form.Item>
 
         <Form.Item
@@ -148,7 +148,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           name={fieldNames.IsInformational}
           rules={[{ required: true, message: "Please checked information field!" }]}
         >
-          <Radio.Group>
+          <Radio.Group aria-label="Information Only">
             <Radio value={true}>Yes</Radio>
             <Radio value={false}>No</Radio>
           </Radio.Group>
@@ -161,7 +161,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           name={fieldNames.CatalogNarrative}
           rules={[{ required: true, message: "Please input narrative description!" }]}
         >
-          <TextArea rows={4} />
+          <TextArea rows={4} aria-label="Quick Admit Narrative" />
         </Form.Item>
       </Form>
     </Card>

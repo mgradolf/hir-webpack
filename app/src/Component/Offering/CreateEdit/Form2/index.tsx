@@ -51,8 +51,8 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
         props.redirect(`/offering/${response.data.OfferingID}`)
       }
     } else {
-      console.log(response.error.getErrorMessages())
-      setErrorMessages(response.error.getErrorMessages())
+      console.log(response.error)
+      setErrorMessages(response.error)
     }
   }
   if (!props.editMode) {
@@ -93,10 +93,10 @@ function CreateForm2(props: IOfferingCreateForm2Props) {
           }
         />
         <Form.Item className="hidden" name={props.fieldNames.OfferingTypeID}>
-          <Input />
+          <Input aria-label="Offering Type" />
         </Form.Item>
         <Form.Item className="hidden" name={props.fieldNames.OfferingID}>
-          <Input />
+          <Input aria-label="Offering ID" />
         </Form.Item>
         <OfferingDetails formInstance={props.formInstance} fieldNames={props.fieldNames} />
         <OfferingTimings formInstance={props.formInstance} fieldNames={props.fieldNames} />

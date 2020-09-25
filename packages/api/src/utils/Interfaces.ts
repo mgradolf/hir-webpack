@@ -13,10 +13,8 @@ export enum ErrorType {
 }
 
 export interface IApiResponse {
-  code: number | undefined
+  code: number
   data: any
   error: any
   success: boolean
-  type?: ErrorType
-  errorMessage?: string
 }

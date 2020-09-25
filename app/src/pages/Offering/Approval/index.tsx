@@ -41,6 +41,29 @@ function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
   const [loading, setLoading] = useState<boolean>(false)
   const [offeringApprovalHistory, setOfferingApprovalHistory] = useState<Array<any>>([])
 
+  const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
+    return (
+      <>
+        {display && (
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="10">Modified By:</Col>
+              <Col span="14">{data.ModifiedBy}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Modified Date:</Col>
+              <Col span="14">{data.ModifiedDate ? moment(data.ModifiedDate).format("YYYY-MM-DD") : ""}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Remarks:</Col>
+              <Col span="14">{data.Remarks}</Col>
+            </Row>
+          </div>
+        )}
+      </>
+    )
+  }
+
   useEffect(() => {
     const loadOfferingApprovalHistory = async function () {
       setLoading(true)
@@ -75,15 +98,19 @@ function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
         </Col>
       </Row>
 
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.paddingTop10px}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <Col className={`gutter-row ${styles.offeringApprovalDetails}`} xs={24} sm={24} md={24}>
           <ResponsiveTable
             columns={columns}
             dataSource={offeringApprovalHistory}
             loading={loading}
             bordered
-            pagination={{ position: ["topLeft"] }}
-            scroll={{ x: "fit-content" }}
+            pagination={{ position: ["topLeft"], pageSize: 20 }}
+            rowKey="OfferingApprovalHistID"
+            expandableRowRender={expandableRowRender}
+            breakpoints={["md", "lg", "xl", "xxl"]}
+            responsiveColumnIndices={[1, 2, 3]}
+            scroll={{ y: 600 }}
           />
         </Col>
       </Row>

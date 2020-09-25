@@ -1,7 +1,7 @@
 import React from "react"
-import { Button } from "antd"
 import { removeOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
+import { Button } from "antd"
 
 interface IFinancialRemoveLinkProp {
   offeringId: number
@@ -10,7 +10,7 @@ interface IFinancialRemoveLinkProp {
 function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
   return (
     <Button
-      type="text"
+      type="link"
       onClick={async () => {
         const response = await removeOfferingFinancialById(props.financialId)
         if (response.success) {
