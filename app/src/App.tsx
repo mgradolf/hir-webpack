@@ -20,6 +20,7 @@ import OfferingTaggPage from "~/Pages/Offering/Tag"
 import OfferingQualifiedInstructorPage from "~/Pages/Offering/QualifiedInstructor"
 import OfferingSectionPage from "~/Pages/Offering/Section"
 import SectionPage from "~/Pages/Section"
+import SectionDetailsPage from "~/Pages/Section/Details"
 import SectionSeatgroupPage from "~/Pages/Section/SeatGroup"
 import SectionCatalogPage from "~/Component/Section/Catalog"
 
@@ -53,9 +54,11 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/offering/:id/instructor" component={OfferingQualifiedInstructorPage} />
       <Route exact path="/offering/:id/tag" component={OfferingTaggPage} />
       <Route exact path="/offering/:id/section" component={OfferingSectionPage} />
+      <Route exact path="/offering/:offeringID/section/:sectionID" component={SectionDetailsPage} />
       <Route exact path="/section" component={SectionPage} />
-      <Route exact path="/section/:id/seatgroup" component={SectionSeatgroupPage} />
-      <Route exact path="/section/:id/catalog" component={SectionCatalogPage} />
+      <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
+      <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
+      <Route exact path="/section/:sectionID/catalog" component={SectionCatalogPage} />
 
       <Route component={NotFoundPage} />
     </Switch>

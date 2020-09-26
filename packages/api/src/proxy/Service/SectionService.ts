@@ -14,7 +14,8 @@ export const config = {
     updateSectionNotification: "updateSectionNotification",
     SectionNoticeID: "SectionNoticeID",
     findSectionNoticeRecipients: "findSectionNoticeRecipients",
-    updateSectionFinancialMaps: "updateSectionFinancialMaps"
+    updateSectionFinancialMaps: "updateSectionFinancialMaps",
+    copySection: "copySection"
   }
 }
 

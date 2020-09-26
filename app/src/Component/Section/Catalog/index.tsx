@@ -6,8 +6,8 @@ import { findCatalog, updateBulkContent } from "~/ApiServices/BizApi/catalog/cat
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
-export default function SectionCatalog(props: RouteComponentProps<{ id: string }>) {
-  const sectionID = parseInt(props.match.params.id)
+export default function SectionCatalog(props: RouteComponentProps<{ sectionId: string }>) {
+  const sectionID = parseInt(props.match.params.sectionId)
   const [sectionCatalogs, setSectionCatalogs] = useState<Array<any>>([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {

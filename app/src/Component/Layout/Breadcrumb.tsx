@@ -21,8 +21,8 @@ const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
       const result: any = await getEntityById(previousPath.label, x.label)
-      if (result.success && result.data && result.data.Name) {
-        x.label = result.data.Name
+      if (result.success && result.data) {
+        x.label = result.data.Name || result.data.SectionNumber
         cache[x.path] = x
       }
     } else if (cache[x.path]) {

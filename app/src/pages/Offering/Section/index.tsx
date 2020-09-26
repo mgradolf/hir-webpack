@@ -55,7 +55,7 @@ export default function OfferingPage(props: RouteComponentProps<{ id: string }>)
           sm={24}
           md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
         >
-          <SectionTable dataSource={sectionItems} loading={loading} />
+          <SectionTable dataSource={sectionItems} loading={loading} offeringID={OfferingID} />
         </Col>
       </Row>
     </div>

@@ -32,56 +32,6 @@ function SectionModal(props: ICreateNewSectionProps) {
         }
       })
     }
-    // let section = {
-    //   AttendanceExpected: null,
-    //   AttendanceUnitID: null,
-    //   BillingDate: null,
-    //   BusinessID: null,
-    //   CEUHours: null,
-    //   CancelReasonCodeID: null,
-    //   ClockHours: null,
-    //   CreationDate: null,
-    //   CreditHours: null,
-    //   CreditTypeID: null,
-    //   DefaultEnrollmentDuration: null,
-    //   Description: "Default Section Type",
-    //   EffectiveCreationDate: null,
-    //   EffectiveTerminationDate: null,
-    //   Email: null,
-    //   EndDate: null,
-    //   EndTermID: null,
-    //   FinalEnrollmentDate: null,
-    //   FiscalPeriodCodeID: null,
-    //   GradeScaleTypeID: null,
-    //   IsActive: true,
-    //   IsDistanceLearning: false,
-    //   IsGradesEntered: false,
-    //   LectureLabRatio: null,
-    //   LoadHours: null,
-    //   MaxCEUCredit: null,
-    //   MaxEnrollment: 0,
-    //   MinEnrollment: 0,
-    //   NoteID: null,
-    //   OfferingID: 2,
-    //   PaymentGatewayAccountID: null,
-    //   RecurrenceRule: null,
-    //   RefundPolicyTypeID: null,
-    //   RoomID: null,
-    //   SectionID: 11045,
-    //   SectionNumber: "ML110-4.(4)",
-    //   SectionStatusCodeID: 0,
-    //   SectionStatusReleaseID: 1,
-    //   SectionTypeID: 13,
-    //   SectionUsageType: 1,
-    //   ShowSiteOnly: false,
-    //   StartDate: null,
-    //   StartTermID: null,
-    //   SubmitInquiryToUserID: null,
-    //   TerminationDate: null,
-    //   URL: null,
-    //   oca: 1
-    // }
-    // setSection(section)
   }, [SectionID])
   return (
     <Modal
@@ -100,7 +50,6 @@ function SectionModal(props: ICreateNewSectionProps) {
                 console.log("section created")
                 setShowCreateForm(false)
                 setShowEditForm(true)
-                // props.closeCreateOfferingModal && props.closeCreateOfferingModal()
               }}
               setApiCallInProgress={setApiCallInProgress}
             />

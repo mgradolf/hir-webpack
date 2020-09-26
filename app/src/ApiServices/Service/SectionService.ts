@@ -17,3 +17,7 @@ export function saveAffiliatedOrg(SeatGroupID: number, AffiliateAccountIDs: numb
 export function updateSection(Params: { [key: string]: any }) {
   return SeactionService[config.Actions.updateSection](Params)
 }
+
+export function copySection(Params: { [key: string]: any }) {
+  return SeactionService[config.Actions.copySection](Params)
+}
