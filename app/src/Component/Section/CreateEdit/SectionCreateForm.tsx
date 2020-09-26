@@ -6,7 +6,7 @@ import { getSectionTypes } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
 import { createSection } from "~/ApiServices/Service/OfferingService"
 
-interface IOfferingCreateForm1Props {
+interface ISectionCreateFormProps {
   handleCancel: () => void
   handleSelected: (sectionId: number) => void
   setApiCallInProgress: (flag: boolean) => void
@@ -24,60 +24,59 @@ const SectionFieldName: ISectionCreateFieldNames = {
 }
 
 const defaultSectionTypeValue = 13
-export default function CreateForm1(props: IOfferingCreateForm1Props) {
+export default function SectionCreateForm(props: ISectionCreateFormProps) {
   const [formInstance] = Form.useForm()
-  const [initialFormValue] = useState<{ [key: string]: any }>({})
   const [sectionTypes, setSectionTypes] = useState<Array<any>>([])
-  const [disableRadios, setDisableRadios] = useState(false)
-  const [radioValues] = useState([
-    { label: "Default", value: defaultSectionTypeValue, default: true },
-    { label: "Other", value: "OTHER", default: false }
-  ])
   const [sectionTypesVisible, setSectionTypesVisible] = useState(false)
-  const [isSelected, setIsSelected] = useState(false)
+  const [isSectionTypeSelected, setIsSectionTypeSelected] = useState(false)
+  const [disableRadios, setDisableRadios] = useState(false)
+  const sectionRadioValues = {
+    DEFAULT: "DEFAULT",
+    OTHER: "OTHER"
+  }
+  const [sectionTypeRadioOptions] = useState([
+    { label: "Default", value: sectionRadioValues.DEFAULT, default: true },
+    { label: "Other", value: sectionRadioValues.OTHER, default: false }
+  ])
 
   useEffect(() => {
     formInstance.setFieldsValue({ OfferingID: props.OfferingID })
-    formInstance.getFieldValue(SectionFieldName.SectionTypeID) ? setIsSelected(true) : setIsSelected(false)
-    ;(async () => {
-      setDisableRadios(true)
-      const response = await getSectionTypes()
-      if (response && response.success && Array.isArray(response.data)) {
-        setSectionTypes(
-          response.data.map((x) => {
-            if (x.SectionTypeID === defaultSectionTypeValue) {
-              x.OfferingStatusCodeID = 0
-            }
-            return x
-          })
-        )
-      }
-      setDisableRadios(false)
+    setIsSectionTypeSelected(!!formInstance.getFieldValue(SectionFieldName.SectionTypeID))
+    setDisableRadios(true)
+    getSectionTypes()
+      .then((response) => {
+        if (response && response.success && Array.isArray(response.data)) {
+          setSectionTypes(
+            response.data.map((x) => {
+              if (x.SectionTypeID === defaultSectionTypeValue) {
+                x.OfferingStatusCodeID = 0
+              }
+              return x
+            })
+          )
+        }
+      })
+      .finally(() => setDisableRadios(false))
 
-      if (formInstance.getFieldValue("sectionTypeRadio") === "OTHER") {
-        setSectionTypesVisible(true)
-      }
-    })()
     return () => {
       formInstance.setFieldsValue({ [SectionFieldName.SectionTypeID]: undefined })
     }
   }, [formInstance, props.OfferingID])
 
   const onChangeSectionTypes = (e: RadioChangeEvent) => {
-    if (e.target.value === defaultSectionTypeValue) {
+    if (e.target.value === sectionRadioValues.DEFAULT) {
       setSectionTypesVisible(false)
-      setIsSelected(true)
+      setIsSectionTypeSelected(true)
       formInstance.setFieldsValue({ [SectionFieldName.SectionTypeID]: defaultSectionTypeValue })
-    } else if (e.target.value === "OTHER") {
+    } else if (e.target.value === sectionRadioValues.OTHER) {
       setSectionTypesVisible(true)
-      setIsSelected(false)
+      setIsSectionTypeSelected(false)
       formInstance.setFieldsValue({ [SectionFieldName.SectionTypeID]: undefined })
     }
   }
 
-  const onSelectOtherSectionType = () => {
+  const onSelectSectionType = () => {
     props.setApiCallInProgress(true)
-    console.log(formInstance.getFieldsValue())
     createSection(formInstance.getFieldsValue()).then((response) => {
       if (response.success) {
         props.handleSelected(response.data.SectionID)
@@ -90,26 +89,19 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
     <Card
       title="Create new Section"
       actions={[
-        <Button
-          onClick={() => {
-            props.handleCancel()
-          }}
-        >
-          Cancel
-        </Button>,
-        <Button onClick={onSelectOtherSectionType} disabled={!isSelected}>
-          Select
+        <Button onClick={props.handleCancel}>Cancel</Button>,
+        <Button onClick={onSelectSectionType} disabled={!isSectionTypeSelected}>
+          Create
         </Button>
       ]}
     >
-      <Form form={formInstance} hideRequiredMark layout="horizontal" initialValues={initialFormValue}>
+      <Form form={formInstance} hideRequiredMark layout="horizontal">
         <Form.Item
           label="Select an Section type"
-          name="sectionTypeRadio"
           rules={[{ required: true, message: "Please input an Section type!" }]}
         >
           <Radio.Group aria-label="Section Type" disabled={disableRadios}>
-            {radioValues.map((opt, index) => (
+            {sectionTypeRadioOptions.map((opt, index) => (
               <Radio value={opt.value} key={index} onChange={onChangeSectionTypes}>
                 {opt.label}
               </Radio>
@@ -119,16 +111,9 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
         <Form.Item name={SectionFieldName.OfferingID} className="hidden">
           <Input />
         </Form.Item>
-        {!sectionTypesVisible && (
-          <Form.Item
-            className="hidden"
-            label="Other Section types"
-            name={SectionFieldName.SectionTypeID}
-            rules={[{ required: true, message: "Please select an Section type!" }]}
-          >
-            <Input aria-label="Other Section Type" />
-          </Form.Item>
-        )}
+        <Form.Item name={SectionFieldName.SectionTypeID} className="hidden">
+          <Input />
+        </Form.Item>
         {sectionTypesVisible && (
           <Form.Item
             label="Other Section types"
@@ -139,7 +124,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
               placeholder="Select an Section type"
               aria-label="Section Type Select"
               onSelect={() => {
-                setIsSelected(true)
+                setIsSectionTypeSelected(true)
               }}
             >
               {sectionTypes.length &&

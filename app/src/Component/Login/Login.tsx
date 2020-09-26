@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Form, Input, Button, Card } from "antd"
+import { Form, Button, Card } from "antd"
 import { Error } from "~/Component/Error"
 import style from "~/Component/Login/Login.module.scss"
 import { Store } from "antd/lib/form/interface"
@@ -9,6 +9,7 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { AppState } from "~/Store"
 import { push } from "connected-react-router"
+import TextInput from "~/Component/Common/Form/TextInput"
 
 interface ILoginProps {
   globalErrorMessage?: null | string
@@ -65,20 +66,22 @@ function Login(props: ILoginProps) {
         initialValues={INITIAL_FORM_VALUES}
         onFinish={onFinish}
       >
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
-          <Input aria-label="username" />
-        </Form.Item>
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password aria-label="password" />
-        </Form.Item>
+        <TextInput
+          item={{
+            label: "Username",
+            name: "username",
+            rules: [{ required: true, message: "Please input your username!" }]
+          }}
+          input={{ "aria-label": "username" }}
+        />
+        <TextInput
+          item={{
+            label: "Password",
+            name: "password",
+            rules: [{ required: true, message: "Please input your password!" }]
+          }}
+          input={{ "aria-label": "password", type: "password" }}
+        />
         <Form.Item className={style.Text__center}>
           <Button type="primary" htmlType="submit" loading={loading === EnumLoading.INPROGRESS}>
             Login
