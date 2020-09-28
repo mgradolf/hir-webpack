@@ -57,6 +57,8 @@ function SectionSeatgroupPage(props: RouteComponentProps<{ sectionId: string }>)
               <SeatGroupMenu
                 isDefault={record.IsDefault}
                 sectionId={record.SectionID}
+                programId={record.ProgramID}
+                programCode={record.ProgramCode}
                 seatgroupId={record.SeatGroupID}
               />
             }

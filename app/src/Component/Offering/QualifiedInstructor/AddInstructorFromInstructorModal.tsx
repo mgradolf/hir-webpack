@@ -38,9 +38,6 @@ function AddInstructorFromInstructorModal({
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
   const [selectedInstructors, setSelectedInstructors] = useState<any[]>([])
 
-  console.log("offeirng ID: " + offeringID)
-  console.log("Row data: " + rowData)
-
   const rowSelection = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
       setSelectedInstructors(selectedRows)

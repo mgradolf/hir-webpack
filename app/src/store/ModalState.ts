@@ -8,6 +8,12 @@ const SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL = "SHOW_ADD_OFFERING_FROM_
 const SHOW_CREATE_SECTION_MODAL = "SHOW_CREATE_SECTION_MODAL"
 const SHOW_SECTION_SEATGROUP_MODAL = "SHOW_SECTION_SEATGROUP_MODAL"
 const SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL = "SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL"
+const SHOW_SECTION_SCHEDULE_MODAL = "SHOW_SECTION_SCHEDULE_MODAL"
+const SHOW_SECTION_SCHEDULE_UPDATE_MODAL = "SHOW_SECTION_SCHEDULE_UPDATE_MODAL"
+const SHOW_UPDATE_SECTION_SCHEDULE_LOCATION_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_LOCATION_MODAL"
+const SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL"
+const SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL"
+const SHOW_ADD_PROGRAM_MODAL = "SHOW_ADD_PROGRAM_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -30,6 +36,12 @@ export interface IModalState {
   createSectionModal: ModalConfig
   createSectionSeatGroupModal: ModalConfig
   addSeatGroupAffiliateOrganization: ModalConfig
+  createSectionScheduleModal: ModalConfig
+  updateSectionScheduleModal: ModalConfig
+  updateSectionScheduleLocationModal: ModalConfig
+  updateSectionScheduleInstructorModal: ModalConfig
+  updateSectionScheduleNoteModal: ModalConfig
+  addProgramModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -70,6 +82,30 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   addSeatGroupAffiliateOrganization: {
+    value: false,
+    config: null
+  },
+  createSectionScheduleModal: {
+    value: false,
+    config: null
+  },
+  updateSectionScheduleModal: {
+    value: false,
+    config: null
+  },
+  updateSectionScheduleLocationModal: {
+    value: false,
+    config: null
+  },
+  updateSectionScheduleInstructorModal: {
+    value: false,
+    config: null
+  },
+  updateSectionScheduleNoteModal: {
+    value: false,
+    config: null
+  },
+  addProgramModal: {
     value: false,
     config: null
   }
@@ -151,6 +187,9 @@ export const showCreateSectionModal = (value: boolean, config?: IShowCreateSecti
 type ShowSectionCommonModalType = {
   sectionId: number
   seatgroupId?: number
+  programId?: number
+  programCode?: string
+  isDefault?: boolean
 }
 
 export const showCreateSectionSeatGroupModal = (value: boolean, config?: ShowSectionCommonModalType): IAction => ({
@@ -166,6 +205,55 @@ export const showSeatGroupAffiliateOrganizationModal = (
   config?: ShowSeatGroupAffiliateModalType
 ): IAction => ({
   type: SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL,
+  payload: { value, config }
+})
+
+type ShowSectionScheduleCommonModalType = {
+  sectionId: number
+  scheduleIds?: number
+}
+export const showCreateSectionScheduleModal = (
+  value: boolean,
+  config?: ShowSectionScheduleCommonModalType
+): IAction => ({
+  type: SHOW_SECTION_SCHEDULE_MODAL,
+  payload: { value, config }
+})
+
+type ShowSectionScheduleUpdateModalType = {
+  scheduleIds: any
+}
+export const showUpdateSectionScheduleModal = (
+  value: boolean,
+  config?: ShowSectionScheduleUpdateModalType
+): IAction => ({
+  type: SHOW_SECTION_SCHEDULE_UPDATE_MODAL,
+  payload: { value, config }
+})
+export const showUpdateSectionScheduleLocationModal = (
+  value: boolean,
+  config?: ShowSectionScheduleUpdateModalType
+): IAction => ({
+  type: SHOW_UPDATE_SECTION_SCHEDULE_LOCATION_MODAL,
+  payload: { value, config }
+})
+export const showUpdateSectionScheduleInstructorModal = (
+  value: boolean,
+  config?: ShowSectionScheduleUpdateModalType
+): IAction => ({
+  type: SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL,
+  payload: { value, config }
+})
+export const showUpdateSectionScheduleNoteModal = (
+  value: boolean,
+  config?: ShowSectionScheduleUpdateModalType
+): IAction => ({
+  type: SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL,
+  payload: { value, config }
+})
+
+export const showAddProgramModal = (value: boolean, config = {}): IAction => ({
+  type: SHOW_ADD_PROGRAM_MODAL,
   payload: { value, config }
 })
 
@@ -191,6 +279,18 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, createSectionSeatGroupModal: action.payload }
     case SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL:
       return { ...state, addSeatGroupAffiliateOrganization: action.payload }
+    case SHOW_SECTION_SCHEDULE_MODAL:
+      return { ...state, createSectionScheduleModal: action.payload }
+    case SHOW_SECTION_SCHEDULE_UPDATE_MODAL:
+      return { ...state, updateSectionScheduleModal: action.payload }
+    case SHOW_UPDATE_SECTION_SCHEDULE_LOCATION_MODAL:
+      return { ...state, updateSectionScheduleLocationModal: action.payload }
+    case SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL:
+      return { ...state, updateSectionScheduleInstructorModal: action.payload }
+    case SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL:
+      return { ...state, updateSectionScheduleNoteModal: action.payload }
+    case SHOW_ADD_PROGRAM_MODAL:
+      return { ...state, addProgramModal: action.payload }
     default:
       return state
   }

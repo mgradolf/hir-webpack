@@ -34,7 +34,7 @@ export default function (props: IFilterColumnProps) {
 
   const [show, updateShow] = useState<Show>(
     Object.keys(data).reduce(
-      (visibilityRecord, key) => ({ ...visibilityRecord, [key]: Boolean(data[key] !== "") }),
+      (visibilityRecord, key) => ({ ...visibilityRecord, [key]: Boolean(data[key] !== "" && data[key] !== "*") }),
       initialShow
     )
   )
@@ -185,7 +185,9 @@ export default function (props: IFilterColumnProps) {
           aria-label="Apply Filter"
           className={styles.applyBtn}
           onClick={() => {
-            const filterCount = Object.keys(filterData).filter((key) => filterData[key] !== "").length
+            const filterCount = Object.keys(filterData).filter(
+              (key) => filterData[key] !== "" && filterData[key] !== "*"
+            ).length
             props.onApplyChanges(filterData, filterCount)
           }}
         >

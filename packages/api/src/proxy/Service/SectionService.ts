@@ -15,7 +15,10 @@ export const config = {
     SectionNoticeID: "SectionNoticeID",
     findSectionNoticeRecipients: "findSectionNoticeRecipients",
     updateSectionFinancialMaps: "updateSectionFinancialMaps",
-    copySection: "copySection"
+    copySection: "copySection",
+    getMeetings: "getMeetings",
+    createMeetings: "createMeetings",
+    saveMeetings: "saveMeetings"
   }
 }
 
