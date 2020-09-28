@@ -25,7 +25,7 @@ interface IFilterColumnProps {
 
 type Show = { [key: string]: boolean }
 
-export default function (props: IFilterColumnProps) {
+export default function SearchFilters(props: IFilterColumnProps) {
   const { visible, title, meta, data, toggleVisiibility } = props
   const [filterData, updateFilterData] = useState<{ [key: string]: string }>(data)
   const [metaState, updateMetaState] = useState<typeof meta>(meta)
