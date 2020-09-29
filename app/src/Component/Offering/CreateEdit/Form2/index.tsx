@@ -10,11 +10,11 @@ import OfferingDefaultSection from "~/Component/Offering/CreateEdit/Form2/Offeri
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
-import FormError from "~/Component/FormError"
+import FormError from "~/Component/Common/FormError"
 import { connect } from "react-redux"
-import { showCreateOfferingModal } from "~/store/ModalState"
-import { redirect } from "~/store/ConnectedRoute"
-import "~/sass/global/index.scss"
+import { showCreateOfferingModal } from "~/Store/ModalState"
+import { redirect } from "~/Store/ConnectedRoute"
+import "~/Sass/global/index.scss"
 
 interface IOfferingCreateForm2Props {
   editMode: boolean

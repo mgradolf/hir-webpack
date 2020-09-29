@@ -1,5 +1,5 @@
 import { getOrganizations, getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/SearchFilters/common"
+import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
 
 const programMeta: IFilterFieldObject[] = [
   {

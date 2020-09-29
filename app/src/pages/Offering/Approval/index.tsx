@@ -3,9 +3,9 @@ import moment from "moment"
 
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography } from "antd"
-import ResponsiveTable from "~/Component/ResponsiveTable"
+import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
-import styles from "~/pages/Offering/Approval/Approval.module.scss"
+import styles from "~/Pages/Offering/Approval/Approval.module.scss"
 
 import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
 import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/OfferingApprovalModalOpenButton"

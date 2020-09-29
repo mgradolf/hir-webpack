@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Switch } from "antd"
 import { findPossibleSites } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/FormError"
+import FormError from "~/Component/Common/FormError"
 
 interface IScheduleCreateFormProps {
   scheduleIds: any

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Space, Dropdown } from "antd"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
-import styles from "~/pages/Section/SeatGroup/Seatgroup.module.scss"
-import ResponsiveTable from "~/Component/ResponsiveTable"
+import styles from "~/Pages/Section/SeatGroup/Seatgroup.module.scss"
+import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import SectionSeatGroupModalOpenButton from "~/Component/Section/SeatGroup/SectionSeatGroupModalOpenButton"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import SeatGroupMenu from "~/Component/Section/SeatGroup/SeatGroupMenu"
@@ -12,7 +12,7 @@ import { DownOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
 
-function SectionSeatgroupPage(props: RouteComponentProps<{ id: string }>) {
+function SectionSeatgroupPage(props: RouteComponentProps<{ sectionId: string }>) {
   const columns = [
     {
       title: "Seat Group Name",
@@ -118,7 +118,7 @@ function SectionSeatgroupPage(props: RouteComponentProps<{ id: string }>) {
     )
   }
 
-  const sectionID = props.match.params.id
+  const sectionID = props.match.params.sectionId
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionSeatGroupItems, setSectionSeatGroupItems] = useState<Array<any>>([])
 

@@ -6,12 +6,12 @@ import {
   getFinancialBasisType,
   getFinancialType
 } from "~/ApiServices/Service/RefLookupService"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 import { updateOfferingFinancial, createOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/FormError"
+import FormError from "~/Component/Common/FormError"
 
 interface IOfferingCreateForm2Props {
   offeringID: number

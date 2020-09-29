@@ -60,25 +60,35 @@ export default class ProcessedApiError implements IProcessedApiError {
 
   _processErrorByType(error: IApiError, httpStatusCode: number): ISimplifiedApiErrorMessage | undefined {
     let simplifiedError: ISimplifiedApiErrorMessage | undefined
-    switch (error.Type) {
-      case "INFO":
-        simplifiedError = this._processInfo(error)
-      case "SECURITY":
-        simplifiedError = this._processSecurity(error)
-      case "AVAILABILITY":
-        simplifiedError = this._processAvailability(error)
-      case "CONNECTIVITY":
-        simplifiedError = this._processConnectivity(error)
-      case "PERSISTENCE":
-        simplifiedError = this._processPersistence(error)
-      case "SYSTEM":
-        simplifiedError = this._processSystem(error)
-      case "BIZ_RULE":
-        simplifiedError = this._processBizrule(error)
-      default:
-        simplifiedError = { message: error.Description }
+    if (error && error.Type) {
+      switch (error.Type) {
+        case "INFO":
+          simplifiedError = this._processInfo(error)
+          break
+        case "SECURITY":
+          simplifiedError = this._processSecurity(error)
+          break
+        case "AVAILABILITY":
+          simplifiedError = this._processAvailability(error)
+          break
+        case "CONNECTIVITY":
+          simplifiedError = this._processConnectivity(error)
+          break
+        case "PERSISTENCE":
+          simplifiedError = this._processPersistence(error)
+          break
+        case "SYSTEM":
+          simplifiedError = this._processSystem(error)
+          break
+        case "BIZ_RULE":
+          simplifiedError = this._processBizrule(error)
+          break
+        default:
+          simplifiedError = { message: error.Description }
+          break
+      }
     }
-    if (!simplifiedError.message || !error.Type) {
+    if (!error || !error.Type || !simplifiedError || !simplifiedError.message) {
       simplifiedError = this._processErrorByCode(error, httpStatusCode)
     }
     return simplifiedError

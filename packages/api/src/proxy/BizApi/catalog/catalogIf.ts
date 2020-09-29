@@ -5,7 +5,8 @@ export const config = {
   Service: "com.jenzabar.jxntm.server.bizapi.catalog.CatalogIF",
   Module: "hir",
   Actions: {
-    findCatalogs: "findCatalogs"
+    findCatalogs: "findCatalogs",
+    updateBulkContent: "updateBulkContent"
   }
 }
 

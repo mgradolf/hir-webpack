@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Switch, TimePicker, DatePicker, Checkbox } from "antd"
 import { getMeetingTypes } from "~/ApiServices/Service/RefLookupService"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 import { saveMeetings, createMeetings } from "~/ApiServices/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/FormError"
+import FormError from "~/Component/Common/FormError"
 import moment from "moment"
 
 interface IScheduleCreateFormProps {

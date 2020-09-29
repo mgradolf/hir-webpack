@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "antd"
 import { connect } from "react-redux"
-import { showCreateOfferingPrerequisiteGroupModal } from "~/store/ModalState"
+import { showCreateOfferingPrerequisiteGroupModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 
 interface IRequisiteGroupEditLinkProp {

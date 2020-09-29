@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "antd"
 import { connect } from "react-redux"
-import { showUpdateSectionScheduleLocationModal } from "~/store/ModalState"
+import { showUpdateSectionScheduleLocationModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 
 interface ICreateActionButtonProp {

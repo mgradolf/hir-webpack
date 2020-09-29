@@ -8,7 +8,7 @@ import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
 import { DownOutlined, ReadOutlined } from "@ant-design/icons"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
-import styles from "~/pages/Offering/OfferingDetails.module.scss"
+import styles from "~/Pages/Offering/OfferingDetails.module.scss"
 
 const { Title, Text } = Typography
 

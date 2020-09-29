@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Card, Button, Col, Transfer } from "antd"
 import { saveAffiliatedOrg } from "~/ApiServices/Service/SeatGroupService"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Dropdown, Row, Col } from "antd"
 import { DownOutlined } from "@ant-design/icons"
-import ResponsiveTable, { RecordType } from "~/Component/ResponsiveTable"
+import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import SectionMenu from "~/Component/Section/SectionMenu"
 import { ColumnsType } from "antd/lib/table"
 
@@ -12,6 +12,7 @@ export interface ITableWrapperProps {
   loading: boolean
   isModal?: boolean
   rowSelection?: any
+  offeringID?: number
 }
 
 export default function SectionTable(props: ITableWrapperProps) {
@@ -21,7 +22,19 @@ export default function SectionTable(props: ITableWrapperProps) {
       dataIndex: "SectionNumber",
       key: "SectionNumber",
       render: (text: any, record: any) =>
-        props.isModal ? text : <Link to={`/section/${record.SectionId}`}>{text}</Link>,
+        props.isModal ? (
+          text
+        ) : (
+          <Link
+            to={
+              props.offeringID
+                ? `/offering/${props.offeringID}/section/${record.SectionID}`
+                : `/section/${record.SectionID}`
+            }
+          >
+            {text}
+          </Link>
+        ),
       sorter: (a: any, b: any) => a.SectionNumber.length - b.SectionNumber.length
     },
     {

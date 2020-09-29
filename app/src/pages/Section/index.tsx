@@ -1,1 +1,1 @@
-export { default } from "~/pages/Offering/Section"
+export { default } from "~/Pages/Offering/Section"

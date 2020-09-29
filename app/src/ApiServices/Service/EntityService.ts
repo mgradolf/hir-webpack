@@ -52,6 +52,13 @@ export function getSectionById(EntityID: number): Promise<IApiResponse> {
   })
 }
 
+export function removeSectionById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.removeEntity]({
+    EntityType: entities.Section,
+    EntityID
+  })
+}
+
 export function getSeatGroupById(EntityID: number): Promise<IApiResponse> {
   return EntityService[config.Actions.getEntity]({
     EntityType: entities.SeatGroup,

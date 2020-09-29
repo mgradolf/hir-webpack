@@ -127,6 +127,30 @@ export function getDueDatePolicy(): Promise<IApiResponse> {
   })
 }
 
+export function getGradeScaleType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GradeScaleType"
+  })
+}
+
+export function getCreditType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CreditType"
+  })
+}
+
+export function getAttendanceUnit(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AttendanceUnit"
+  })
+}
+
+export function getRefundPolicyType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RefundPolicyType"
+  })
+}
+
 export function getMeetingTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "MeetingType"

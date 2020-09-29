@@ -1,14 +1,14 @@
 import * as React from "react"
-import Modal from "~/Component/Modal"
+import Modal from "~/Component/Common/Modal"
 import { useEffect, useState } from "react"
 import SeatGroupForm from "~/Component/Section/SeatGroup/SeatGroupForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showCreateSectionSeatGroupModal } from "~/store/ModalState"
+import { showCreateSectionSeatGroupModal } from "~/Store/ModalState"
 import { getSeatGroupById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
 import { ISectionSeatGroupFieldNames } from "~/Component/Section/Interfaces"
-import { AppState } from "~/store"
+import { AppState } from "~/Store"
 
 interface ICreateNewSeatGroupProps {
   seatgroupId?: number

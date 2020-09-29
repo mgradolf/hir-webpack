@@ -4,6 +4,7 @@
   "private": true,
   "main": "lib",
   "dependencies": {
+    "@packages/api": "~1.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -26,7 +27,7 @@
     "clean:dist": "rimraf lib",
     "clean:node_modules": "rimraf node_modules",
     "lint:ts": "eslint --fix --max-warnings 0 './src/**/*.{ts,tsx}'",
-    "lint:sass": "stylelint './src/sass/**/*.scss'",
+    "lint:sass": "stylelint './src/Sass/**/*.scss'",
     "lint": "yarn lint-staged --verbose"
   },
   "prettier": {
@@ -70,7 +71,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
-    "react-styleguidist": "^11.0.8",
+    "react-styleguidist": "^11.1.0",
     "rimraf": "^3.0.2",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",

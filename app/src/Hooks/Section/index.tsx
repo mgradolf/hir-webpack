@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
 import { eventBus, REFRESH_SECTION_PAGE } from "~/utils/EventBus"
-import { RecordType } from "~/Component/ResponsiveTable"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
 
 interface ISectionFilterValues extends RecordType {
   OfferingCode: string

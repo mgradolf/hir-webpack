@@ -7,7 +7,7 @@ import {
   getOfferngApprovalStateList,
   setApprovalStatus
 } from "~/ApiServices/Service/OfferingService"
-import FormError from "~/Component/FormError"
+import FormError from "~/Component/Common/FormError"
 import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 

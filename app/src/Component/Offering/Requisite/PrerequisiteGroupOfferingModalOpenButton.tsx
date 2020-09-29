@@ -1,7 +1,7 @@
 import React from "react"
 import { Row, Col, Typography, Button } from "antd"
 import { connect } from "react-redux"
-import { showAddOfferingFromRequisiteGroupModal } from "~/store/ModalState"
+import { showAddOfferingFromRequisiteGroupModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 
 interface ICreateActionButtonProp {

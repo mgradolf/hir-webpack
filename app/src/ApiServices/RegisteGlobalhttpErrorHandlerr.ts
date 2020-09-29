@@ -1,7 +1,7 @@
 import apiErroreEventBus from "@packages/api/lib/utils/GlobalHttpErrorEventBus"
-import { store } from "~/store"
-import { showGLobalApiError } from "~/store/GlobalError"
-import { showLoginModal } from "~/store/ModalState"
+import { store } from "~/Store"
+import { showGLobalApiError } from "~/Store/GlobalError"
+import { showLoginModal } from "~/Store/ModalState"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 export default function RegisteGlobalhttpErrorHandlerr() {

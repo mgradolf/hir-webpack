@@ -7,7 +7,7 @@ import {
   getOrganizations,
   getRegionCodes
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/SearchFilters/common"
+import { DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 const instructorMeta: IFilterField[] = [
   {

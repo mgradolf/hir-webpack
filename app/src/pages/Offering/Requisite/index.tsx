@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Space } from "antd"
 import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
-import ResponsiveTable from "~/Component/ResponsiveTable"
+import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
 import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
 import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
-import styles from "~/pages/Offering/Requisite/Requisite.module.scss"
+import styles from "~/Pages/Offering/Requisite/Requisite.module.scss"
 
 const { Title } = Typography
 

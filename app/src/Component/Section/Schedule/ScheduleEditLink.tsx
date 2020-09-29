@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { showCreateSectionScheduleModal } from "~/store/ModalState"
+import { showCreateSectionScheduleModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 import { Button } from "antd"
 

@@ -2,7 +2,7 @@ import { Button, Row, Typography } from "antd"
 import { FormInstance } from "antd/lib/form"
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
-import { showAddProgramModal } from "~/store/ModalState"
+import { showAddProgramModal } from "~/Store/ModalState"
 import styles from "~/Component/Program/ProgramFormField.module.scss"
 
 const { Text } = Typography

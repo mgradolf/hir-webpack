@@ -31,3 +31,7 @@ export function saveMeetings(Params: { [key: string]: any }): Promise<IApiRespon
 export function updateSection(Params: { [key: string]: any }) {
   return SectionService[config.Actions.updateSection](Params)
 }
+
+export function copySection(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.copySection](Params)
+}

@@ -1,24 +1,24 @@
 import { Row, Card, Col, Button } from "antd"
 import React, { useState, useCallback } from "react"
-import Modal from "~/Component/Modal"
-import ProgramSearchFilter from "~/Component/SearchFilters"
+import Modal from "~/Component/Common/Modal"
+import ProgramSearchFilter from "~/Component/Common/SearchFilters"
 import ProgramSearchFilterMeta from "~/FormMeta/Program/ProgramSearchFilterMeta"
 import ProgramListTable from "~/Component/Program/ProgramListTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
 import { useSearchFilterState, useSearchProgram } from "~/Hooks/Program"
-import { RecordType } from "~/Component/ResponsiveTable"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
 import zIndex from "~/utils/zIndex"
 import { useDispatch, useSelector } from "react-redux"
 
-import { showAddProgramModal } from "~/store/ModalState"
-import { AppState } from "~/store"
+import { showAddProgramModal } from "~/Store/ModalState"
+import { AppState } from "~/Store"
 
 enum ModalPages {
   FilterPage,
   ProgramList
 }
 
-function AddProgramModal(props: {}) {
+function AddProgramModal() {
   const { filterData, updateFilterData } = useSearchFilterState()
   const [loading, programItems] = useSearchProgram(filterData)
   const [filterCount, updateFilterCount] = useState<number>(0)

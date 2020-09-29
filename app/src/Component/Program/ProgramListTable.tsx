@@ -1,7 +1,7 @@
 import { Row, Col } from "antd"
 import moment from "moment"
 import React from "react"
-import ResponsiveTable from "~/Component/ResponsiveTable"
+import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { ITableWrapperProps } from "~/Component/Section/SectionTable"
 
 function ProgramListTable(props: ITableWrapperProps) {

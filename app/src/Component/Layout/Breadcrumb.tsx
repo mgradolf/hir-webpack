@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Breadcrumb as AntdBreadcrumb } from "antd"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { AppState } from "~/store"
+import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 function transformRouteToLabel(route: string | number): string | number {
@@ -21,8 +21,8 @@ const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
       const result: any = await getEntityById(previousPath.label, x.label)
-      if (result.success && result.data && result.data.Name) {
-        x.label = result.data.Name
+      if (result.success && result.data) {
+        x.label = result.data.Name || result.data.SectionNumber
         cache[x.path] = x
       }
     } else if (cache[x.path]) {

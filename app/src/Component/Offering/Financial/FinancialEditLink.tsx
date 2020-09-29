@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { showCreateOfferingFinancialModal } from "~/store/ModalState"
+import { showCreateOfferingFinancialModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 import { Button } from "antd"
 
