@@ -31,6 +31,9 @@ export default function Sidebar(props: ISidebar) {
           </Menu.Item>
           <Menu.Item key="3">Person</Menu.Item>
           <Menu.Item key="4">Course</Menu.Item>
+          <Menu.Item key="5">
+            <Link to="/question">Question</Link>
+          </Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="sub2" title="Setup">
           <Menu.Item key="5">Organization</Menu.Item>

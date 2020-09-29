@@ -12,12 +12,12 @@ import styles from "~/Pages/Offering/Offering.module.scss"
 const { useState } = React
 const { Title } = Typography
 
-export default function OfferingPage(props: RouteComponentProps<{ id: string }>) {
+export default function OfferingPage(props: RouteComponentProps<{ offeringID: string }>) {
   const { filterData, updateFilterData } = useSectionFilterState()
   const [showFilter, setFilterVisiblity] = useState<boolean>(false)
   const [filterCount, setFilterCount] = useState<number>(0)
 
-  const OfferingID = parseInt(props.match.params.id) || undefined
+  const OfferingID = parseInt(props.match.params.offeringID) || undefined
   const [loading, sectionItems] = useSections(filterData, OfferingID)
 
   const toggleFilter = () => {

@@ -32,7 +32,7 @@ interface IinitialValues {
   Tag: string
   TagTypeID: Array<number | string>
 }
-export default function (props: RouteComponentProps<{ id: string }>) {
+export default function (props: RouteComponentProps<{ offeringID: string }>) {
   const [tagTypes, setTagTypes] = useState<Array<any>>([])
 
   const [offeringTags, setOfferingTags] = useState<Array<any>>([])
@@ -45,7 +45,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
   const [formInstance] = Form.useForm()
   const initialValues: IinitialValues = {
     EntityType: "Offering",
-    EntityID: parseInt(props.match.params.id),
+    EntityID: parseInt(props.match.params.offeringID),
     IsSelected: true,
     Tag: "*",
     TagTypeID: []
@@ -75,7 +75,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
       eventBus.unsubscribe(REFRESH_OFFERING_TAG_PAGE)
     }
     // eslint-disable-next-line
-  }, [props.match.params.id])
+  }, [props.match.params.offeringID])
 
   const resetForm = () => {
     clearResult()
@@ -107,7 +107,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
         response.data
           .map((x) => {
             x.isChecked = false
-            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
+            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.offeringID)) {
               x.isChecked = true
             }
             x.type = "Offering"
@@ -127,7 +127,7 @@ export default function (props: RouteComponentProps<{ id: string }>) {
         response.data
           .map((x) => {
             x.isChecked = false
-            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.id)) {
+            if (x.EntityType === "Offering" && x.EntityID === parseInt(props.match.params.offeringID)) {
               x.isChecked = true
             }
             x.Name = x.Tag

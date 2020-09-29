@@ -168,3 +168,9 @@ export function getProgramStatusCodes(): Promise<IApiResponse> {
     LookUpName: "ProgramStatusCode"
   })
 }
+
+export function getQuestionEvents(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "QuestionEvent"
+  })
+}

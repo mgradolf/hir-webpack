@@ -12,7 +12,7 @@ import { DownOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
 
-function SectionSeatgroupPage(props: RouteComponentProps<{ sectionId: string }>) {
+function SectionSeatgroupPage(props: RouteComponentProps<{ sectionID: string }>) {
   const columns = [
     {
       title: "Seat Group Name",
@@ -118,7 +118,7 @@ function SectionSeatgroupPage(props: RouteComponentProps<{ sectionId: string }>)
     )
   }
 
-  const sectionID = props.match.params.sectionId
+  const sectionID = props.match.params.sectionID
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionSeatGroupItems, setSectionSeatGroupItems] = useState<Array<any>>([])
 
