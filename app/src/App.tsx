@@ -70,7 +70,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
       <Route exact path="/section/:sectionID/question" component={QuestionPage} />
 
-      <Route exact path="/question" component={QuestionPage} />
+      {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />
     </Switch>
   )

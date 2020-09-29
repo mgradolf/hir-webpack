@@ -42,7 +42,7 @@ export default function OfferingPage(props: RouteComponentProps<{ offeringID: st
           visible={showFilter}
           toggleVisiibility={toggleFilter}
           meta={SectionSearchFilterMeta}
-          data={filterData}
+          initialFilter={filterData}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             updateFilterData({ ...filterData, ...newFilterValues })
             setFilterCount(appliedFilterCount)

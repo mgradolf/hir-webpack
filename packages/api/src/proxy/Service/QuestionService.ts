@@ -2,7 +2,7 @@ import ApiMethodFactory from "../../utils/ApiMethodFactory"
 
 export const config = {
   EndPoint: "api/hirServlet",
-  Service: "TagService",
+  Service: "QuestionService",
   Module: "hir",
   Actions: {
     getTagQuestions: "getTagQuestions",

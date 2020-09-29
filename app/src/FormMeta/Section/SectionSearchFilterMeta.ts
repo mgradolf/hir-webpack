@@ -5,7 +5,7 @@ import { findMeetingTypes } from "~/ApiServices/BizApi/schedule/scheduleIf"
 import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
 
-const offeringMeta: IFilterField[] = [
+const sectionMeta: IFilterField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
@@ -159,4 +159,4 @@ const offeringMeta: IFilterField[] = [
   }
 ]
 
-export default offeringMeta
+export default sectionMeta

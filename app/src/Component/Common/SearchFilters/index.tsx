@@ -20,21 +20,23 @@ interface IFilterColumnProps {
   title: string
   toggleVisiibility: () => void
   onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
-  data: RecordType
+  initialFilter: { [key: string]: string }
   isModalView: boolean
 }
 
 type Show = { [key: string]: boolean }
 
 export default function (props: IFilterColumnProps) {
-  const { visible, title, meta, data, toggleVisiibility } = props
-  const [filterData, updateFilterData] = useState<RecordType>(data)
-  const [metaState, updateMetaState] = useState<typeof meta>(meta)
-  const initialShow = meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
+  const [filterData, updateFilterData] = useState<RecordType>(props.initialFilter)
+  const [metaState, updateMetaState] = useState<typeof props.meta>(props.meta)
+  const initialShow = props.meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
 
   const [show, updateShow] = useState<Show>(
-    Object.keys(data).reduce(
-      (visibilityRecord, key) => ({ ...visibilityRecord, [key]: Boolean(data[key] !== "" && data[key] !== "*") }),
+    Object.keys(props.initialFilter).reduce(
+      (visibilityRecord, key) => ({
+        ...visibilityRecord,
+        [key]: Boolean(props.initialFilter[key] !== "" && props.initialFilter[key] !== "*")
+      }),
       initialShow
     )
   )
@@ -72,9 +74,7 @@ export default function (props: IFilterColumnProps) {
 
   useEffect(() => {
     function transformIntoOptions(remoteDataArray: any[], displayKey: string, valueKey: string) {
-      return (
-        (remoteDataArray && remoteDataArray.map((data) => ({ label: data[displayKey], value: data[valueKey] }))) || []
-      )
+      return (remoteDataArray && remoteDataArray.map((x) => ({ label: x[displayKey], value: x[valueKey] }))) || []
     }
 
     function loadRemoteData() {
@@ -97,17 +97,20 @@ export default function (props: IFilterColumnProps) {
 
   return (
     <Col
-      className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
+      className={props.visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
       xs={24}
       sm={24}
       md={props.isModalView ? 12 : 6}
     >
       <Row>
         <Col span={12}>
-          <Title level={4}>{title}</Title>
+          <Title level={4}>{props.title}</Title>
         </Col>
         <Col span={12} className={styles.padding5px}>
-          <CloseOutlined onClick={toggleVisiibility} style={{ fontSize: "20px", color: "black", float: "right" }} />
+          <CloseOutlined
+            onClick={props.toggleVisiibility}
+            style={{ fontSize: "20px", color: "black", float: "right" }}
+          />
         </Col>
       </Row>
       {metaState.map((field, i) => {

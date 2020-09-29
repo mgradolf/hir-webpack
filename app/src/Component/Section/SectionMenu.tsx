@@ -20,6 +20,9 @@ export default function SectionMenu(props: ISectionMenu) {
       <Menu.Item key="3">
         <Link to={`/section/${props.section.SectionID}/catalog`}>Catalog</Link>
       </Menu.Item>
+      <Menu.Item key="4">
+        <Link to={`/section/${props.section.SectionID}/question`}>Question</Link>
+      </Menu.Item>
     </Menu>
   )
 }
