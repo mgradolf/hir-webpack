@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Card, Button, Col, Transfer } from "antd"
 import { saveAffiliatedOrg } from "~/ApiServices/Service/SeatGroupService"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
@@ -40,21 +40,11 @@ export default function SeatGroupAffiliateOrganizationForm(props: ISeatGroupAffi
 
   const handleChange = (nextTargetKeys: any, direction: any, moveKeys: any) => {
     setTargetKeys(nextTargetKeys)
-
-    console.log("targetKeys: ", nextTargetKeys)
-    console.log("direction: ", direction)
-    console.log("moveKeys: ", moveKeys)
   }
 
   const handleSelectChange = (sourceSelectedKeys: any, targetSelectedKeys: any) => {
     setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys])
-
-    console.log("sourceSelectedKeys: ", sourceSelectedKeys)
-    console.log("targetSelectedKeys: ", targetSelectedKeys)
   }
-
-  console.log("target keys: " + targetKeys)
-  console.log("selected keys: " + selectedKeys)
 
   const actions = []
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)

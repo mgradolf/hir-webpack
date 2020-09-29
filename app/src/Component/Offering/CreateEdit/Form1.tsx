@@ -5,7 +5,7 @@ import { FormInstance } from "antd/lib/form"
 import {} from "@ant-design/icons"
 import { RadioChangeEvent } from "antd/lib/radio"
 import { getOfferingTypes } from "~/ApiServices/Service/RefLookupService"
-import "~/sass/utils.scss"
+import "~/Sass/utils.scss"
 
 interface IOfferingCreateForm1Props {
   formInstance: FormInstance

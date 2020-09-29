@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { showSeatGroupAffiliateOrganizationModal } from "~/store/ModalState"
+import { showSeatGroupAffiliateOrganizationModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 import { Button } from "antd"
 

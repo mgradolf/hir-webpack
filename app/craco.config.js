@@ -12,7 +12,7 @@ module.exports = function ({ env }) {
         loaderOptions: (sassLoaderOptions, { env, paths }) => {
           sassLoaderOptions = {
             ...sassLoaderOptions,
-            prependData: "@import './src/sass/global/index.scss';", // it can be a function to load sass data from environment
+            prependData: "@import './src/Sass/global/index.scss';", // it can be a function to load sass data from environment
             implementation: require("node-sass"),
             sourceMap: true,
             sassOptions: {

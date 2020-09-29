@@ -4,7 +4,7 @@ import { CloseOutlined } from "@ant-design/icons"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/Component/Offering/QualifiedInstructor/QualifiedInstructorFilterColumn.module.scss"
 import { ColProps } from "antd/lib/col"
-import { RecordType } from "~/Component/ResponsiveTable"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { useQualifiedInstructorFilterData } from "~/Hooks/Offering/QualifiedInstructors"
 import moment from "moment"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
@@ -460,7 +460,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             checked={visibility.PostalCode}
             onChange={toggleFilterBlockVisibility("PostalCode")}
           >
-            Telephone Number
+            Postal Code
           </Checkbox>
         </LabelCol>
         <InputCol className={visibility.PostalCode ? styles.offeringFilterField : styles.hidden}>
@@ -490,7 +490,7 @@ export function FilterColumn(props: IFilterColumnProps) {
       <Row>
         <LabelCol>
           <Checkbox checked={visibility.IsDeceased} onChange={toggleFilterBlockVisibility("IsDeceased")}>
-            Is IsDeceased
+            Is Deceased
           </Checkbox>
         </LabelCol>
         <InputCol className={visibility.IsDeceased ? styles.offeringFilterField : styles.hidden}>

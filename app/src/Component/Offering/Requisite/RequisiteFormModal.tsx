@@ -1,11 +1,11 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
 import { Form, Typography } from "antd"
-import Modal from "~/Component/Modal"
+import Modal from "~/Component/Common/Modal"
 import RequisiteGroupForm from "~/Component/Offering/Requisite/RequisiteGroupForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showCreateOfferingPrerequisiteGroupModal } from "~/store/ModalState"
+import { showCreateOfferingPrerequisiteGroupModal } from "~/Store/ModalState"
 import { getOfferingRequisiteGroupById } from "~/ApiServices/Service/EntityService"
 
 interface IOfferingRequisiteGroupProps {

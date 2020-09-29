@@ -1,64 +1,29 @@
 import { useState, useEffect } from "react"
-import {
-  getOfferingStatusTypes,
-  getOrganizations,
-  getOfferingTypes,
-  getSectionTypes,
-  getTagTypes
-} from "~/ApiServices/Service/RefLookupService"
-import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
-import { IFilterValues } from "~/Component/Offering"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
 
-export function useOfferingFilterData() {
-  const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
-  const [tagTypes, setTagTypes] = useState<Array<any>>([])
-  const [offeringTypes, setOfferingTypes] = useState<Array<any>>([])
-  const [sectonTypes, setSectionTypes] = useState<Array<any>>([])
-  const [organizations, setOrganizations] = useState<Array<any>>([])
-  const [users, setUsers] = useState<Array<any>>([])
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await getOfferingStatusTypes()
-      if (response && response.data && Array.isArray(response.data)) {
-        setOfferingStatusTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getOrganizations()
-      if (response && response.data) {
-        setOrganizations(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getOfferingTypes()
-      if (response && response.data) {
-        setOfferingTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getUsersByRole({ Role: "coordinator" })
-      if (response && response.data) {
-        setUsers(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getSectionTypes()
-      if (response && response.success) {
-        setSectionTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getTagTypes()
-      if (response && response.success) {
-        setTagTypes(response.data)
-      }
-    })()
-  }, [])
-
-  return [offeringStatusTypes, tagTypes, offeringTypes, sectonTypes, organizations, users]
+export interface IFilterValues extends RecordType {
+  OfferingCode: string
+  OfferingName: string
+  ToCreationDate: string
+  FromCreationDate: string
+  ToTerminationDate: string
+  FromTerminationDate: string
+  IsQuickAdmit: string
+  StatusID: string
+  Coordinator: string
+  OrganizationID: string
+  OfferingTypeID: string
+  SectionTypeID: string
+  InstructorID: string
+  ShowProgramOffering: string
+  TagName: string
+  TagTypeID: string
+  IsSearchTagHierarchy: string
+  OfferingNearCapacity: string
+  ToFinalEnrollmentDate: string
+  FromFinalEnrollmentDate: string
 }
 
 export function useOfferings(filterData: IFilterValues): [boolean, any[]] {
