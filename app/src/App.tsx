@@ -60,7 +60,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
       <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
       <Route exact path="/section/:sectionID/catalog" component={SectionCatalogPage} />
-      <Route exact path="/section/:id/seatgroup" component={SectionSeatgroupPage} />
+      <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
       <Route exact path="/section/:id/schedule" component={SectionSchedulePage} />
       <Route component={NotFoundPage} />
     </Switch>
