@@ -18,7 +18,8 @@ export const config = {
     copySection: "copySection",
     getMeetings: "getMeetings",
     createMeetings: "createMeetings",
-    saveMeetings: "saveMeetings"
+    saveMeetings: "saveMeetings",
+    getSectionFinancials: "getSectionFinancials"
   }
 }
 
