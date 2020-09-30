@@ -23,14 +23,12 @@ interface IFilterColumnProps {
   data: RecordType
   isModalView: boolean
   isChecked?: boolean
-  isClosable?: boolean
 }
 
 type Show = { [key: string]: boolean }
 
 export default function (props: IFilterColumnProps) {
   const isChecked = props.isChecked === undefined ? true : props.isChecked
-  const isClosable = props.isClosable === undefined ? true : props.isClosable
   const { visible, title, meta, data, toggleVisiibility } = props
   const [filterData, updateFilterData] = useState<RecordType>(data)
   const [metaState, updateMetaState] = useState<typeof meta>(meta)
@@ -192,7 +190,7 @@ export default function (props: IFilterColumnProps) {
       sm={24}
       md={props.isModalView ? (!isChecked ? 24 : 12) : 6}
     >
-      {isClosable && (
+      {isChecked && (
         <Row>
           <Col span={12}>
             <Title level={4}>{title}</Title>

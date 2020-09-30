@@ -71,7 +71,6 @@ function AddProgramModal() {
         <ProgramSearchFilter
           title=""
           isModalView
-          isClosable={false}
           meta={ProgramSearchFilterMeta}
           data={(filterData === null ? initialData : (filterData as unknown)) as RecordType}
           visible
