@@ -37,15 +37,6 @@ export interface IFilterFieldComponent {
   customFilterComponent: any
 }
 
-// export interface IFilterGenericComponentProps extends IFilterField {
-//   value: string | number
-//   value2?: string | number
-//   show: boolean
-//   key?: any
-//   toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
-//   filterValueChanged: (key: string, value: any) => void
-// }
-
 export type IFilterField = IFilterFieldObject | IFilterFieldComponent
 
 export function isFilterObject(field: IFilterField): field is IFilterFieldObject {
@@ -66,7 +57,7 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
       show: { [key: string]: boolean }
       value: { [key: string]: string | number }
       toggleCheckboxHandler: (fieldNames: string | string[]) => (event: CheckboxChangeEvent) => void
-      filterValueChanged: (newValues: { [key: string]: string | number }) => void
+      filterValueChanged: (newValues: { [key: string]: string | number | boolean }) => void
     }
 
 const layout = {

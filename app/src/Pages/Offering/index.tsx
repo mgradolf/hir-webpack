@@ -41,7 +41,7 @@ function OfferingPage(props: RouteComponentProps) {
           isModalView={false}
           visible={showFilter}
           toggleVisiibility={toggleFilter}
-          data={filterData}
+          initialFilter={filterData}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             updateFilterData({ ...filterData, ...newFilterValues })
             setFilterCount(appliedFilterCount)

@@ -72,7 +72,7 @@ function AddProgramModal() {
           title=""
           isModalView
           meta={ProgramSearchFilterMeta}
-          data={(filterData === null ? initialData : (filterData as unknown)) as RecordType}
+          initialFilter={(filterData === null ? initialData : (filterData as unknown)) as RecordType}
           visible
           isChecked={false}
           toggleVisiibility={() => {

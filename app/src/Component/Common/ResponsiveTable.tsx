@@ -30,11 +30,14 @@ export default function ResponsiveTable(props: IResponsiveTableProps) {
 
   const responsiveColumns = processResponsiveColumns()
 
-  return (
-    <Table
-      columns={responsiveColumns}
-      expandedRowRender={(record) => props.expandableRowRender && props.expandableRowRender(record, mobileView)}
-      {...otherTableProps}
-    />
-  )
+  const conditionalProps: { [key: string]: any } = {
+    columns: responsiveColumns,
+    ...otherTableProps
+  }
+  if (props.expandableRowRender) {
+    conditionalProps.expandedRowRender = (record: any) =>
+      props.expandableRowRender && props.expandableRowRender(record, mobileView)
+  }
+
+  return <Table {...conditionalProps} />
 }

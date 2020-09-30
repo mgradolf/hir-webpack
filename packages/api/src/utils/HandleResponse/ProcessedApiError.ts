@@ -60,6 +60,7 @@ export default class ProcessedApiError implements IProcessedApiError {
 
   _processErrorByType(error: IApiError, httpStatusCode: number): ISimplifiedApiErrorMessage | undefined {
     let simplifiedError: ISimplifiedApiErrorMessage | undefined
+
     if (error && error.Type) {
       switch (error.Type) {
         case "INFO":

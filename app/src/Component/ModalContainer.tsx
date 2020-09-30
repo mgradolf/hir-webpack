@@ -16,6 +16,8 @@ import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLoca
 import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
+import QuestionCreateModal from "~/Component/Question/QuestionCreateModal"
+import QuestionFindModal from "~/Component/Question/QuestionFindModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -74,6 +76,8 @@ function ModalContainer(modalState: IModalState) {
         <ScheduleLocationFromModal scheduleIds={modalState.updateSectionScheduleLocationModal.config.scheduleIds} />
       )}
       {modalState.addProgramModal.value && <AddProgramModal />}
+      {modalState.questionCreateModal.value && <QuestionCreateModal />}
+      {modalState.questionFindModal.value && <QuestionFindModal />}
     </>
   )
 }

@@ -9,7 +9,7 @@ import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/Ev
 
 const { Title } = Typography
 
-function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string }>) {
+function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID: string }>) {
   const columns = [
     {
       title: "Name",
@@ -43,7 +43,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ id: string
   const [pendingRowDataSelection, setPendingRowDataSelection] = useState<Array<any>>([])
   const [selectedRowKeys, setSelectedRowKeys] = useState<Array<any>>([])
 
-  const offeringID = props.match.params.id
+  const offeringID = props.match.params.offeringID
 
   const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
     return (
