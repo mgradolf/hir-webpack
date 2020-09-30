@@ -15,7 +15,7 @@ function ApiErrorAlert(props: any) {
           description={props.errorMessage}
           type="error"
           onClose={props.removeGLobalApiError}
-          style={{ position: "absolute", right: 10, top: 10, width: "400px" }}
+          style={{ position: "absolute", right: 10, top: 10, width: "400px", zIndex: 1000 }}
         />
       )}
     </>

@@ -39,6 +39,5 @@ export default function ResponsiveTable(props: IResponsiveTableProps) {
       props.expandableRowRender && props.expandableRowRender(record, mobileView)
   }
 
-  console.log(conditionalProps)
   return <Table {...conditionalProps} />
 }

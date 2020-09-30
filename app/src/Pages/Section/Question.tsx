@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { getTagQuestions, UpdateTagQuestions } from "~/ApiServices/Service/QuestionService"
+import { getTagQuestions, updateTagQuestion } from "~/ApiServices/Service/QuestionService"
 import { getQuestionGroup } from "~/ApiServices/Service/RefLookupService"
 import QuestionSearchCustomFIlter from "~/Component/Question/QuestionSearchCustomFIlter"
 import QuestionTable from "~/Component/Question/QuestionTable"
@@ -44,9 +44,9 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
         allQuestions={allQuestions}
         allQuestionGroup={allQuestionGroup}
         updateQuestion={(Params: { [key: string]: any }) => {
-          UpdateTagQuestions(Params).then((x) => {
+          updateTagQuestion(Params).then((x) => {
             if (x.success) {
-              eventBus.publish(REFRESH_QUESTION_PAGE)
+              // eventBus.publish(REFRESH_QUESTION_PAGE)
             }
           })
         }}

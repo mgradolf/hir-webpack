@@ -69,7 +69,6 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
     } else {
       setSelectedEvent(id)
     }
-    console.log("event ", id)
   }
 
   const onChangeTagType = (id: number) => {

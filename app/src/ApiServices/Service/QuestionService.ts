@@ -9,7 +9,7 @@ export function addTagQuestions(Params: { [key: string]: string }): Promise<IApi
   return QuestionService[config.Actions.addTagQuestions](Params)
 }
 
-export function removeTagQuestions(Params: { [key: string]: string }): Promise<IApiResponse> {
+export function removeTagQuestions(Params: { [key: string]: any }): Promise<IApiResponse> {
   return QuestionService[config.Actions.removeTagQuestions](Params)
 }
 
@@ -17,6 +17,6 @@ export function saveTagAnswer(Params: { [key: string]: string }): Promise<IApiRe
   return QuestionService[config.Actions.saveTagAnswer](Params)
 }
 
-export function UpdateTagQuestions(Params: { [key: string]: string }): Promise<IApiResponse> {
-  return QuestionService[config.Actions.UpdateTagQuestions](Params)
+export function updateTagQuestion(Params: { [key: string]: string }): Promise<IApiResponse> {
+  return QuestionService[config.Actions.updateTagQuestion](Params)
 }
