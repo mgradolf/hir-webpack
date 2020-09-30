@@ -270,7 +270,7 @@ export const showAddProgramModal = (value: boolean, config = {}): IAction => ({
 })
 
 interface IQuestionModal {
-  SectionID: number
+  SectionID?: number
   EventID?: number
   TagTypeID?: number
   TagID?: number
