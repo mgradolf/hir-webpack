@@ -16,3 +16,7 @@ export function removeTagQuestions(Params: { [key: string]: string }): Promise<I
 export function saveTagAnswer(Params: { [key: string]: string }): Promise<IApiResponse> {
   return QuestionService[config.Actions.saveTagAnswer](Params)
 }
+
+export function UpdateTagQuestions(Params: { [key: string]: string }): Promise<IApiResponse> {
+  return QuestionService[config.Actions.UpdateTagQuestions](Params)
+}

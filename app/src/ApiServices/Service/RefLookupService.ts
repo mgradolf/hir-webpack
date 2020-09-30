@@ -174,3 +174,9 @@ export function getQuestionEvents(): Promise<IApiResponse> {
     LookUpName: "QuestionEvent"
   })
 }
+
+export function getQuestionGroup(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "QuestionGroup"
+  })
+}

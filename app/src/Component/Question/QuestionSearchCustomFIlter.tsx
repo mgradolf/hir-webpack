@@ -20,33 +20,7 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
 
   const [selectedTagType, setSelectedTagType] = useState<null | number>(null)
   const [selectedTag, setSelectedTag] = useState<null | number>(null)
-  const [selectedEvent, setSelectedEvent] = useState<null | number>(null)
-
-  const onChangeEvent = (id: number) => {
-    if (id < 0) {
-      setSelectedEvent(null)
-    } else {
-      setSelectedEvent(id)
-    }
-  }
-
-  const onChangeTagType = (id: number) => {
-    if (id < 0) {
-      setSelectedTagType(null)
-      setSelectedTag(null)
-    } else {
-      setSelectedTagType(id)
-      setSelectedTag(null)
-    }
-  }
-
-  const onChangeTag = (id: number) => {
-    if (selectedTagType && id >= 0) {
-      setSelectedTag(id)
-    } else {
-      setSelectedTag(null)
-    }
-  }
+  const [selectedEvent, setSelectedEvent] = useState<null | number>()
 
   useEffect(() => {
     const filter: { [key: string]: number } = {}
@@ -62,6 +36,7 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
     getQuestionEvents().then((x) => {
       if (x.success) {
         setAllEvents(x.data)
+        setSelectedEvent(2)
       }
     })
   }, [])
@@ -88,12 +63,39 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
     })
   }, [selectedTagType, props.entityID, props.entityType])
 
+  const onChangeEvent = (id: number) => {
+    if (id < 0) {
+      setSelectedEvent(null)
+    } else {
+      setSelectedEvent(id)
+    }
+    console.log("event ", id)
+  }
+
+  const onChangeTagType = (id: number) => {
+    if (id < 0) {
+      setSelectedTagType(null)
+      setSelectedTag(null)
+    } else {
+      setSelectedTagType(id)
+      setSelectedTag(null)
+    }
+  }
+
+  const onChangeTag = (id: number) => {
+    if (selectedTagType && id >= 0) {
+      setSelectedTag(id)
+    } else {
+      setSelectedTag(null)
+    }
+  }
+
   return (
     <>
       <Form.Item label="Event" {...layout}>
-        <Select onChange={onChangeEvent} defaultValue={2}>
-          {allEvents.map((x) => (
-            <Select.Option key={x.Name + x.ID} value={x.ID}>
+        <Select onChange={onChangeEvent}>
+          {allEvents.map((x, i) => (
+            <Select.Option key={"Event" + x.Name + x.ID + i} value={x.ID}>
               {x.Name}
             </Select.Option>
           ))}
@@ -101,8 +103,8 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
       </Form.Item>
       <Form.Item label="Tag Type" {...layout}>
         <Select onChange={onChangeTagType}>
-          {allTagTypes.map((x) => (
-            <Select.Option key={x.Name + x.ID} value={x.ID}>
+          {allTagTypes.map((x, i) => (
+            <Select.Option key={"TagType" + x.Name + x.ID + i} value={x.ID}>
               {x.Name}
             </Select.Option>
           ))}
@@ -110,8 +112,8 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
       </Form.Item>
       <Form.Item label="Tag" {...layout}>
         <Select onChange={onChangeTag}>
-          {allTags.map((x) => (
-            <Select.Option key={x.Name + x.ID} value={x.ID}>
+          {allTags.map((x, i) => (
+            <Select.Option key={"Tag" + x.Name + x.ID + i} value={x.ID}>
               {x.Name}
             </Select.Option>
           ))}

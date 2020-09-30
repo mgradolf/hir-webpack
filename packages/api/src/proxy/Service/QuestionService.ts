@@ -8,7 +8,8 @@ export const config = {
     getTagQuestions: "getTagQuestions",
     addTagQuestions: "addTagQuestions",
     removeTagQuestions: "removeTagQuestions",
-    saveTagAnswer: "saveTagAnswer"
+    saveTagAnswer: "saveTagAnswer",
+    UpdateTagQuestions: "UpdateTagQuestions"
   }
 }
 
