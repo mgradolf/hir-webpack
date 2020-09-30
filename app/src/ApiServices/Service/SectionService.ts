@@ -35,3 +35,9 @@ export function updateSection(Params: { [key: string]: any }) {
 export function copySection(Params: { [key: string]: any }) {
   return SectionService[config.Actions.copySection](Params)
 }
+
+export function getSectionFinancials(SectionID: number): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionFinancials]({
+    SectionID
+  })
+}

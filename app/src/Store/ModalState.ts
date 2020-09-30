@@ -14,6 +14,7 @@ const SHOW_UPDATE_SECTION_SCHEDULE_LOCATION_MODAL = "SHOW_UPDATE_SECTION_SCHEDUL
 const SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL"
 const SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL"
 const SHOW_ADD_PROGRAM_MODAL = "SHOW_ADD_PROGRAM_MODAL"
+const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -42,6 +43,7 @@ export interface IModalState {
   updateSectionScheduleInstructorModal: ModalConfig
   updateSectionScheduleNoteModal: ModalConfig
   addProgramModal: ModalConfig
+  createBudgetModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -106,6 +108,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   addProgramModal: {
+    value: false,
+    config: null
+  },
+  createBudgetModal: {
     value: false,
     config: null
   }
@@ -257,6 +263,15 @@ export const showAddProgramModal = (value: boolean, config = {}): IAction => ({
   payload: { value, config }
 })
 
+interface IShowCreateBudgetModal {
+  sectionId?: number
+}
+
+export const showCreateBudgetModal = (value: boolean, config?: IShowCreateBudgetModal): IAction => ({
+  type: SHOW_CREATE_BUDGET_MODAL,
+  payload: { value, config }
+})
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -291,6 +306,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, updateSectionScheduleNoteModal: action.payload }
     case SHOW_ADD_PROGRAM_MODAL:
       return { ...state, addProgramModal: action.payload }
+    case SHOW_CREATE_BUDGET_MODAL:
+      return { ...state, createBudgetModal: action.payload }
     default:
       return state
   }

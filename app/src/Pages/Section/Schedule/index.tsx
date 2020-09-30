@@ -15,7 +15,7 @@ import { DownOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
 
-function SectionSchedulePage(props: RouteComponentProps<{ id: string }>) {
+function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) {
   const columns = [
     {
       title: "Day",
@@ -115,7 +115,7 @@ function SectionSchedulePage(props: RouteComponentProps<{ id: string }>) {
     )
   }
 
-  const sectionID = props.match.params.id
+  const sectionID = props.match.params.sectionID
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionScheduleItems, setSectionScheduleItems] = useState<Array<any>>([])
   const [schedueIDs, setScheduleIDs] = useState<Array<any>>([])
