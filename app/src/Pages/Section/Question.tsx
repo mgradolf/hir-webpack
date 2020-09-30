@@ -3,7 +3,9 @@ import { RouteComponentProps } from "react-router-dom"
 import { getTagQuestions, updateTagQuestion } from "~/ApiServices/Service/QuestionService"
 import { getQuestionGroup } from "~/ApiServices/Service/RefLookupService"
 import QuestionSearchCustomFIlter from "~/Component/Question/QuestionSearchCustomFIlter"
+import QuestionCreateButton from "~/Component/Question/QuestionCreateButton"
 import QuestionTable from "~/Component/Question/QuestionTable"
+import QuestionFindButton from "~/Component/Question/QuestionFindButton"
 import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 
 export default function QuestionPage(props: RouteComponentProps<{ offeringID?: string; sectionID?: string }>) {
@@ -38,7 +40,9 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
 
   return (
     <div>
-      <QuestionSearchCustomFIlter entityID={sectionID} entityType="Section" setFilters={setFilters} />
+      <QuestionSearchCustomFIlter entityID={sectionID} entityType="SectionID" setFilters={setFilters} />
+      <QuestionCreateButton SectionID={sectionID} {...filters} />
+      <QuestionFindButton SectionID={sectionID} {...filters} />
       <QuestionTable
         loading={apiCallInProgress}
         allQuestions={allQuestions}
@@ -46,7 +50,6 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
         updateQuestion={(Params: { [key: string]: any }) => {
           updateTagQuestion(Params).then((x) => {
             if (x.success) {
-              // eventBus.publish(REFRESH_QUESTION_PAGE)
             }
           })
         }}

@@ -51,17 +51,13 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
 
   useEffect(() => {
     getTags({
-      EntityType: props.entityType,
-      EntityID: props.entityID,
-      TagTypeID: selectedTagType ? [selectedTagType] : undefined,
-      IsSelected: true,
-      Tag: "*"
+      TagTypeID: selectedTagType ? [selectedTagType] : undefined
     }).then((x) => {
       if (x.success) {
         setAllTags([{ ID: -3, Name: " " }, ...x.data])
       }
     })
-  }, [selectedTagType, props.entityID, props.entityType])
+  }, [selectedTagType])
 
   const onChangeEvent = (id: number) => {
     if (id < 0) {
