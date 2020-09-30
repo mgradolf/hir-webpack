@@ -57,6 +57,7 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
       value: string | number
       value2?: string | number
       show: boolean
+      isChecked?: boolean
       key?: any
       toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
       filterValueChanged: (key: string, value: any) => void

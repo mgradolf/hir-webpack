@@ -67,6 +67,7 @@ function ProgramListTable(props: ITableWrapperProps) {
 
   return (
     <ResponsiveTable
+      id={props.id}
       columns={columns}
       dataSource={props.dataSource}
       loading={props.loading}

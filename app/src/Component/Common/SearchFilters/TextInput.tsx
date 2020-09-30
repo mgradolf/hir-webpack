@@ -7,10 +7,11 @@ import {
 } from "~/Component/Common/SearchFilters/common"
 import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, Input } from "antd"
+import TextInput from "~/Component/Common/Form/TextInput"
 
 export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
-  const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
-  return (
+  const { value, show, toggleCheckboxHandler, filterValueChanged, label, isChecked } = props
+  return isChecked ? (
     <Row>
       <LabelCol>
         <Checkbox checked={show} onChange={toggleCheckboxHandler}>
@@ -27,5 +28,14 @@ export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldOb
         />
       </InputCol>
     </Row>
+  ) : (
+    <TextInput
+      item={{
+        label,
+        name: props.fieldName,
+        labelCol: { span: 6 }
+      }}
+      input={{ "aria-label": props.ariaLabel }}
+    />
   )
 }

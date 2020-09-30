@@ -8,6 +8,7 @@ import SectionMenu from "~/Component/Section/SectionMenu"
 import { ColumnsType } from "antd/lib/table"
 
 export interface ITableWrapperProps {
+  id?: string
   dataSource: Array<any>
   loading: boolean
   isModal?: boolean

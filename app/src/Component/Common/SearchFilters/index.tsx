@@ -1,5 +1,5 @@
 import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
-import { Button, Col, Row, Typography } from "antd"
+import { Button, Col, Form, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import React, { useState, useEffect } from "react"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
@@ -22,11 +22,15 @@ interface IFilterColumnProps {
   onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
   data: RecordType
   isModalView: boolean
+  isChecked?: boolean
+  isClosable?: boolean
 }
 
 type Show = { [key: string]: boolean }
 
 export default function (props: IFilterColumnProps) {
+  const isChecked = props.isChecked === undefined ? true : props.isChecked
+  const isClosable = props.isClosable === undefined ? true : props.isClosable
   const { visible, title, meta, data, toggleVisiibility } = props
   const [filterData, updateFilterData] = useState<RecordType>(data)
   const [metaState, updateMetaState] = useState<typeof meta>(meta)
@@ -95,89 +99,111 @@ export default function (props: IFilterColumnProps) {
     }
   }, [props.meta])
 
+  const filterFieldsArray = metaState.map((field, i) => {
+    if (isFilterObject(field)) {
+      const { inputType, fieldName } = field
+      if (inputType === TEXT) {
+        return (
+          <TextInputType
+            {...field}
+            key={i}
+            value={filterData[fieldName]}
+            show={show[fieldName]}
+            isChecked={isChecked}
+            toggleCheckboxHandler={toggleShow(fieldName)}
+            filterValueChanged={onChangeField}
+          />
+        )
+      }
+
+      if (inputType === DROPDOWN) {
+        return (
+          <DropDownInputType
+            {...field}
+            key={i}
+            value={filterData[fieldName]}
+            show={show[fieldName]}
+            isChecked={isChecked}
+            toggleCheckboxHandler={toggleShow(fieldName)}
+            filterValueChanged={onChangeField}
+          />
+        )
+      }
+
+      if (inputType === DATE_PICKER) {
+        return (
+          <DatePickerInputType
+            {...field}
+            key={i}
+            value={filterData[fieldName]}
+            show={show[fieldName]}
+            isChecked={isChecked}
+            toggleCheckboxHandler={toggleShow(fieldName)}
+            filterValueChanged={onChangeField}
+          />
+        )
+      }
+
+      if (inputType === DATE_PICKERS) {
+        return (
+          <DatePickersInputType
+            {...field}
+            key={i}
+            value={filterData[field.valueKey as string]}
+            value2={filterData[field.valueKey2 as string]}
+            show={show[fieldName]}
+            isChecked={isChecked}
+            toggleCheckboxHandler={toggleShow(fieldName)}
+            filterValueChanged={onChangeField}
+          />
+        )
+      }
+    } else if (field.customFilterComponent) {
+      return field.customFilterComponent({
+        ...field,
+        key: i,
+        value: filterData,
+        show,
+        toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
+        filterValueChanged: onChangeFieldCopmonent
+      })
+    }
+
+    return null
+  })
+
+  const filterContent = isChecked ? (
+    filterFieldsArray
+  ) : (
+    <Form
+      hideRequiredMark
+      layout="horizontal"
+      initialValues={filterData}
+      onValuesChange={(newValues) => updateFilterData({ ...filterData, ...newValues })}
+    >
+      {filterFieldsArray}
+    </Form>
+  )
+
   return (
     <Col
       className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
       xs={24}
       sm={24}
-      md={props.isModalView ? 12 : 6}
+      md={props.isModalView ? (!isChecked ? 24 : 12) : 6}
     >
-      <Row>
-        <Col span={12}>
-          <Title level={4}>{title}</Title>
-        </Col>
-        <Col span={12} className={styles.padding5px}>
-          <CloseOutlined onClick={toggleVisiibility} style={{ fontSize: "20px", color: "black", float: "right" }} />
-        </Col>
-      </Row>
-      {metaState.map((field, i) => {
-        if (isFilterObject(field)) {
-          const { inputType, fieldName } = field
-          if (inputType === TEXT) {
-            return (
-              <TextInputType
-                {...field}
-                key={i}
-                value={filterData[fieldName]}
-                show={show[fieldName]}
-                toggleCheckboxHandler={toggleShow(fieldName)}
-                filterValueChanged={onChangeField}
-              />
-            )
-          }
+      {isClosable && (
+        <Row>
+          <Col span={12}>
+            <Title level={4}>{title}</Title>
+          </Col>
+          <Col span={12} className={styles.padding5px}>
+            <CloseOutlined onClick={toggleVisiibility} style={{ fontSize: "20px", color: "black", float: "right" }} />
+          </Col>
+        </Row>
+      )}
 
-          if (inputType === DROPDOWN) {
-            return (
-              <DropDownInputType
-                {...field}
-                key={i}
-                value={filterData[fieldName]}
-                show={show[fieldName]}
-                toggleCheckboxHandler={toggleShow(fieldName)}
-                filterValueChanged={onChangeField}
-              />
-            )
-          }
-
-          if (inputType === DATE_PICKER) {
-            return (
-              <DatePickerInputType
-                {...field}
-                key={i}
-                value={filterData[fieldName]}
-                show={show[fieldName]}
-                toggleCheckboxHandler={toggleShow(fieldName)}
-                filterValueChanged={onChangeField}
-              />
-            )
-          }
-
-          if (inputType === DATE_PICKERS) {
-            return (
-              <DatePickersInputType
-                {...field}
-                key={i}
-                value={filterData[field.valueKey as string]}
-                value2={filterData[field.valueKey2 as string]}
-                show={show[fieldName]}
-                toggleCheckboxHandler={toggleShow(fieldName)}
-                filterValueChanged={onChangeField}
-              />
-            )
-          }
-        } else if (field.customFilterComponent) {
-          return field.customFilterComponent({
-            ...field,
-            key: i,
-            value: filterData,
-            show,
-            toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
-            filterValueChanged: onChangeFieldCopmonent
-          })
-        }
-
-        return null
-      })}
+      {filterContent}
 
       <Row className={styles.floatRight}>
         <Button
