@@ -67,11 +67,23 @@ export default function (props: IFilterColumnProps) {
     })
   }
 
-  const onChangeFieldCopmonent = (values: React.SetStateAction<RecordType>) => {
+  const onChangeFieldCopmonent = (values: RecordType) => {
     updateFilterData({
       ...filterData,
       ...values
     })
+
+    const newShow: { [key: string]: boolean } = {}
+
+    Object.keys(values).forEach((key) => {
+      if (values[key] !== "" && !show[key]) {
+        newShow[key] = true
+      }
+    })
+
+    if (Object.keys(newShow).length > 0) {
+      updateShow({ ...show, ...newShow })
+    }
   }
 
   useEffect(() => {
@@ -162,6 +174,7 @@ export default function (props: IFilterColumnProps) {
         key: i,
         value: filterData,
         show,
+        isChecked,
         toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
         filterValueChanged: onChangeFieldCopmonent
       })

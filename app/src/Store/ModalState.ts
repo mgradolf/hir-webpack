@@ -1,3 +1,5 @@
+import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
+
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
 const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"
 const SHOW_CREATE_OFFERING_FINANCIAL_MODAL = "SHOW_CREATE_OFFERING_FINANCIAL_MODAL"
@@ -292,7 +294,7 @@ export const showQuestionFindModal = (value: boolean, config?: IQuestionModal): 
 })
 
 interface IRoomFinderModal {
-  onSelectRoomCallback: (roomInfo: { SiteID: number; BuildingID: number; RoomID: number }) => void
+  onSelectRoomCallback: (roomInfo: IRoom) => void
 }
 
 export const showRoomFinderModal = (value: boolean, config?: IRoomFinderModal): IAction => ({
