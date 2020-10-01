@@ -18,6 +18,7 @@ import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
 import QuestionCreateModal from "~/Component/Question/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/QuestionFindModal"
+import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -78,6 +79,9 @@ function ModalContainer(modalState: IModalState) {
       {modalState.addProgramModal.value && <AddProgramModal />}
       {modalState.questionCreateModal.value && <QuestionCreateModal />}
       {modalState.questionFindModal.value && <QuestionFindModal />}
+      {modalState.roomFinderModal.value && (
+        <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
+      )}
     </>
   )
 }
