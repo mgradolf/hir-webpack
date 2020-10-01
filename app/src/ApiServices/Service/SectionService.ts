@@ -35,3 +35,7 @@ export function updateSection(Params: { [key: string]: any }) {
 export function copySection(Params: { [key: string]: any }) {
   return SectionService[config.Actions.copySection](Params)
 }
+
+export function findRoom(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findRoom](Params)
+}
