@@ -143,13 +143,9 @@ function QuestionTable(props: IQuestionTable) {
           danger
           onClick={() => {
             removeTagQuestions({ TagQuestionIDs: [data.TagQuestionID] }).then((x) => {
-              console.log(x)
               if (!x.success && x.error) {
                 const errors: Array<ISimplifiedApiErrorMessage> = x.error
                 errors.forEach((error) => {
-                  console.log(props.showGLobalApiError)
-                  console.log(error)
-
                   props.showGLobalApiError && props.showGLobalApiError(error.message)
                 })
               } else if (x.success) {
@@ -218,15 +214,10 @@ function QuestionTable(props: IQuestionTable) {
                 type="primary"
                 danger
                 onClick={() => {
-                  console.log("removeTagQuestions ", { TagQuestionIDs: [data.TagQuestionID] })
                   removeTagQuestions({ TagQuestionIDs: [data.TagQuestionID] }).then((x) => {
-                    console.log(x)
                     if (!x.success && x.error) {
                       const errors: Array<ISimplifiedApiErrorMessage> = x.error
                       errors.forEach((error) => {
-                        console.log(props.showGLobalApiError)
-                        console.log(error)
-
                         props.showGLobalApiError && props.showGLobalApiError(error.message)
                       })
                     } else if (x.success) {

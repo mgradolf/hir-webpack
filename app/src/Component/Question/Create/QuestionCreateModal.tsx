@@ -1,10 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import { Dispatch } from "redux"
 import { connect } from "react-redux"
 import { AppState } from "~/Store"
 import { redirect } from "~/Store/ConnectedRoute"
 import { showQuestionCreateModal } from "~/Store/ModalState"
+import { Form } from "antd"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import Modal from "~/Component/Common/Modal"
+import QuestionCreateForm from "~/Component/Question/Create/QuestionCreateForm"
 
 interface IQuestionModal {
   closeModal?: () => void
@@ -15,6 +18,11 @@ interface IQuestionModal {
 }
 
 function QuestionCreateModal(props: IQuestionModal) {
+  const [formInstance] = Form.useForm()
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const onFormSubmission = (Params: any) => {
+    console.log(Params)
+  }
   return (
     <Modal
       showModal={true}
@@ -23,7 +31,17 @@ function QuestionCreateModal(props: IQuestionModal) {
       apiCallInProgress={false}
       closable={true}
       closeModal={props.closeModal}
-      children={<>Hello World</>}
+      children={
+        <>
+          <QuestionCreateForm
+            formInstance={formInstance}
+            errorMessages={errorMessages}
+            setErrorMessages={setErrorMessages}
+            handleCancel={props.closeModal}
+            onFormSubmission={onFormSubmission}
+          />
+        </>
+      }
     />
   )
 }

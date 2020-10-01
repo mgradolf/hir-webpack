@@ -39,15 +39,11 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
             aria-label="Is Published"
             defaultChecked={record.isPublished}
             onChange={(checked) => {
-              console.log(record)
-              console.log(checked)
               const catalogs: Array<any> = []
               sectionCatalogs.forEach((x) => {
                 if (checked && x.catalogID === record.catalogID) {
                   catalogs.push(x.catalogID)
-                  console.log(x.isPublished, x.catalogID, checked)
                 } else if (!checked && x.catalogID === record.catalogID) {
-                  console.log("do nothing")
                 } else if (x.isPublished) {
                   catalogs.push(x.catalogID)
                 }

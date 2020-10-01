@@ -180,3 +180,9 @@ export function getQuestionGroup(): Promise<IApiResponse> {
     LookUpName: "QuestionGroup"
   })
 }
+
+export function getPreferenceValueType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "PreferenceValueType"
+  })
+}

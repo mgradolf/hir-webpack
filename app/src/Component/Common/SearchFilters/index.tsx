@@ -55,9 +55,6 @@ export default function (props: IFilterColumnProps) {
       updateShow({ ...show, ...fieldShow })
       updateFilterData({ ...filterData, ...fieldValues })
     }
-
-    console.log("show ", show)
-    console.log("filterData ", filterData)
   }
 
   const onChangeField = (fieldName: string, value: string) => {

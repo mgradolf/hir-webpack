@@ -78,7 +78,7 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
   }
 
   const onChangeTag = (id: number) => {
-    if (selectedTagType && id >= 0) {
+    if (id >= 0) {
       setSelectedTag(id)
     } else {
       setSelectedTag(null)
@@ -88,7 +88,7 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
   return (
     <>
       <Form.Item label="Event" {...layout}>
-        <Select onChange={onChangeEvent}>
+        <Select onChange={onChangeEvent} defaultValue={2}>
           {allEvents.map((x, i) => (
             <Select.Option key={"Event" + x.Name + x.ID + i} value={x.ID}>
               {x.Name}

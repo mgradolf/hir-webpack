@@ -16,7 +16,7 @@ import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLoca
 import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
-import QuestionCreateModal from "~/Component/Question/QuestionCreateModal"
+import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/QuestionFindModal"
 
 function ModalContainer(modalState: IModalState) {
