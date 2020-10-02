@@ -3,7 +3,7 @@ import { Form, Select } from "antd"
 import { getTags } from "~/ApiServices/Service/TagService"
 import { getQuestionEvents, getTagTypes } from "~/ApiServices/Service/RefLookupService"
 
-interface IQuestionSearchCustomFIlter {
+interface IQuestionSearchByEventTag {
   entityType: string
   entityID: number
   setFilters: (param: { [key: string]: number }) => void
@@ -13,7 +13,7 @@ const layout = {
   labelCol: { span: 6 }
 }
 
-export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomFIlter) {
+export default function QuestionSearchByEventTag(props: IQuestionSearchByEventTag) {
   const [allEvents, setAllEvents] = useState<Array<any>>([])
   const [allTagTypes, setAllTagTypes] = useState<Array<any>>([])
   const [allTags, setAllTags] = useState<Array<any>>([])

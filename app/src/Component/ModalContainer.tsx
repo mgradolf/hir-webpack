@@ -19,7 +19,7 @@ import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
-import QuestionFindModal from "~/Component/Question/QuestionFindModal"
+import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
