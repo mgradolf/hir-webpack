@@ -78,7 +78,11 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
         style={{ marginRight: "16px" }}
         onSelectRoom={(room) => {
           setSelectedRoom(room)
-          props.formInstance.setFieldsValue({ [props.fieldNames.RoomID]: room.RoomID })
+          props.formInstance.setFieldsValue({
+            [props.fieldNames.SiteID]: room.SiteID,
+            [props.fieldNames.BuildingID]: room.BuildingID || "",
+            [props.fieldNames.RoomID]: room.RoomID || ""
+          })
         }}
       />
       {selectedRoom !== null && (
@@ -86,7 +90,11 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
           aria-label="Clear Selected Room"
           onClick={() => {
             setSelectedRoom(null)
-            props.formInstance.setFieldsValue({ [props.fieldNames.RoomID]: "" })
+            props.formInstance.setFieldsValue({
+              [props.fieldNames.SiteID]: "",
+              [props.fieldNames.BuildingID]: "",
+              [props.fieldNames.RoomID]: ""
+            })
           }}
         >
           Clear Selected Room
