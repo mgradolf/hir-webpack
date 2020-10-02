@@ -39,13 +39,17 @@ export default function QuestionCreateForm(props: IQuestionCreateForm) {
   const [allOrganizations, setAllOrganizations] = useState<Array<any>>([])
   const [allPreferanceValueType, setAllPreferanceValueType] = useState<Array<any>>([])
   const [showSelectionOption, setShowSelectionOption] = useState(false)
+  const [fixedOptions, setFixedOptions] = useState<Array<any>>([])
 
   const actions = []
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
   actions.push(
     <Button
       onClick={() => {
-        props.onFormSubmission(props.formInstance.getFieldsValue())
+        props.onFormSubmission({
+          ...props.formInstance.getFieldsValue(),
+          FixedOptions: fixedOptions
+        })
       }}
     >
       Submit
@@ -107,7 +111,7 @@ export default function QuestionCreateForm(props: IQuestionCreateForm) {
         <Form.Item label="Display As" name={fieldNames.IsActive} valuePropName="checked" {...layout}>
           <Checkbox />
         </Form.Item>
-        {showSelectionOption && <QuestionSelectionOptionForm />}
+        {showSelectionOption && <QuestionSelectionOptionForm setFixedOptions={setFixedOptions} />}
       </Form>
     </Card>
   )
