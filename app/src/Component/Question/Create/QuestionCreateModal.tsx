@@ -9,6 +9,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import Modal from "~/Component/Common/Modal"
 import QuestionCreateForm from "~/Component/Question/Create/QuestionCreateForm"
 import { createQuestion, addTagQuestions } from "~/ApiServices/Service/QuestionService"
+import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 
 interface IQuestionModal {
   closeModal?: () => void
@@ -23,7 +24,6 @@ function QuestionCreateModal(props: IQuestionModal) {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const onFormSubmission = (Params: any) => {
-    console.log(Params)
     Params.PreferenceValueTypeID = Number(Params.PreferenceValueTypeID)
     Params.OrganizationID = Number(Params.OrganizationID)
     setErrorMessages([])
@@ -35,6 +35,7 @@ function QuestionCreateModal(props: IQuestionModal) {
           Questions: [{ PreferenceDefID: x.data.PreferenceDefID, TagID: props.TagID, EventID: props.EventID }]
         }).then((y) => {
           if (y.success) {
+            eventBus.publish(REFRESH_QUESTION_PAGE)
             props.closeModal && props.closeModal()
           } else {
             setErrorMessages(y.error)

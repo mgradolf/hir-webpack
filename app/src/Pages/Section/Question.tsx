@@ -40,7 +40,11 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
 
   return (
     <div>
-      <QuestionSearchByEventTag entityID={sectionID} entityType="SectionID" setFilters={setFilters} />
+      <QuestionSearchByEventTag
+        setFilters={(Params: any) => {
+          setFilters(Params)
+        }}
+      />
       <QuestionCreateButton SectionID={sectionID} {...filters} />
       <QuestionFindButton SectionID={sectionID} {...filters} />
       <QuestionTable

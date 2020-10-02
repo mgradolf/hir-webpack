@@ -6,6 +6,7 @@ const SHOW_OFFERING_PREREQUISITE_GROUP_MODAL = "SHOW_OFFERING_PREREQUISITE_GROUP
 const SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL = "SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL"
 const SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL = "SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL"
 const SHOW_CREATE_SECTION_MODAL = "SHOW_CREATE_SECTION_MODAL"
+const SHOW_SECTION_COPY_MODAL = "SHOW_SECTION_COPY_MODAL"
 const SHOW_SECTION_SEATGROUP_MODAL = "SHOW_SECTION_SEATGROUP_MODAL"
 const SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL = "SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL"
 const SHOW_SECTION_SCHEDULE_MODAL = "SHOW_SECTION_SCHEDULE_MODAL"
@@ -37,6 +38,7 @@ export interface IModalState {
   addOfferingFromRequisiteGroupModal: ModalConfig
   addInstructorFromInstructorModal: ModalConfig
   createSectionModal: ModalConfig
+  copySectionModal: ModalConfig
   createSectionSeatGroupModal: ModalConfig
   addSeatGroupAffiliateOrganization: ModalConfig
   createSectionScheduleModal: ModalConfig
@@ -80,6 +82,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   createSectionModal: {
+    value: false,
+    config: null
+  },
+  copySectionModal: {
     value: false,
     config: null
   },
@@ -202,6 +208,15 @@ export const showCreateSectionModal = (value: boolean, config?: IShowCreateSecti
   payload: { value, config }
 })
 
+interface IShowCopySectionModal {
+  SectionID: number
+  SectionNumber: string
+}
+export const showCopySectionModal = (value: boolean, config?: IShowCopySectionModal): IAction => ({
+  type: SHOW_SECTION_COPY_MODAL,
+  payload: { value, config }
+})
+
 type ShowSectionCommonModalType = {
   sectionId: number
   seatgroupId?: number
@@ -318,6 +333,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, addInstructorFromInstructorModal: action.payload }
     case SHOW_CREATE_SECTION_MODAL:
       return { ...state, createSectionModal: action.payload }
+    case SHOW_SECTION_COPY_MODAL:
+      return { ...state, copySectionModal: action.payload }
     case SHOW_SECTION_SEATGROUP_MODAL:
       return { ...state, createSectionSeatGroupModal: action.payload }
     case SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL:

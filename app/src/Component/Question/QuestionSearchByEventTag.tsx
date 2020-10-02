@@ -4,8 +4,8 @@ import { getTags } from "~/ApiServices/Service/TagService"
 import { getQuestionEvents, getTagTypes } from "~/ApiServices/Service/RefLookupService"
 
 interface IQuestionSearchByEventTag {
-  entityType: string
-  entityID: number
+  entityType?: string
+  entityID?: number
   setFilters: (param: { [key: string]: number }) => void
 }
 
@@ -24,7 +24,7 @@ export default function QuestionSearchByEventTag(props: IQuestionSearchByEventTa
 
   useEffect(() => {
     const filter: { [key: string]: number } = {}
-    filter[props.entityType] = props.entityID
+    if (props.entityID && props.entityType) filter[props.entityType] = props.entityID
     if (selectedEvent) filter.EventID = selectedEvent
     if (selectedTagType) filter.TagTypeID = selectedTagType
     if (selectedTag) filter.TagID = selectedTag
