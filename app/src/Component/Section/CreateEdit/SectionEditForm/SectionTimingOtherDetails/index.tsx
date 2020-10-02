@@ -9,6 +9,7 @@ import SectionDetailsCreationTime from "~/Component/Section/CreateEdit/SectionEd
 import SectionDetailsTerminationTime from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationTime"
 import SectionDetailsEnrollmentBillingDate from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsEnrollmentBillingDate"
 import { FormInstance } from "antd/lib/form"
+import SectionDetailsRoomFinder from "./SectionDetailsRoomFinder"
 
 interface ISectionEditProps {
   Section: { [key: string]: string }
@@ -139,6 +140,7 @@ export default function SectionDetails(props: ISectionEditProps) {
             })}
         </Select>
       </Form.Item>
+      <SectionDetailsRoomFinder formInstance={props.formInstance} fieldNames={fieldNames} />
     </>
   )
 }

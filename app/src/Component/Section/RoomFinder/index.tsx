@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { showRoomFinderModal } from "~/Store/ModalState"
 import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
 
-function RoomFinder(props: { onSelectRoom: (room: IRoom) => void }) {
+function RoomFinder(props: { onSelectRoom: (room: IRoom) => void; style?: React.CSSProperties }) {
   const dispatch = useDispatch()
   const showRoomFinder: () => void = useCallback(
     () => dispatch(showRoomFinderModal(true, { onSelectRoomCallback: props.onSelectRoom })),
@@ -12,7 +12,7 @@ function RoomFinder(props: { onSelectRoom: (room: IRoom) => void }) {
   )
 
   return (
-    <Button aria-label="Room Finder" onClick={showRoomFinder}>
+    <Button style={props.style} aria-label="Room Finder" onClick={showRoomFinder}>
       Room Finder
     </Button>
   )
