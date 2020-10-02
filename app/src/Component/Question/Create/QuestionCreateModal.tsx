@@ -8,7 +8,7 @@ import { Form } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import Modal from "~/Component/Common/Modal"
 import QuestionCreateForm from "~/Component/Question/Create/QuestionCreateForm"
-import { createQuestion } from "~/ApiServices/Service/QuestionService"
+import { createQuestion, addTagQuestions } from "~/ApiServices/Service/QuestionService"
 
 interface IQuestionModal {
   closeModal?: () => void
@@ -31,7 +31,15 @@ function QuestionCreateModal(props: IQuestionModal) {
     createQuestion(Params).then((x) => {
       setApiCallInProgress(false)
       if (x.success) {
-        props.closeModal && props.closeModal()
+        addTagQuestions({
+          Questions: [{ PreferenceDefID: x.data.PreferenceDefID, TagID: props.TagID, EventID: props.EventID }]
+        }).then((y) => {
+          if (y.success) {
+            props.closeModal && props.closeModal()
+          } else {
+            setErrorMessages(y.error)
+          }
+        })
       } else {
         setErrorMessages(x.error)
       }

@@ -88,7 +88,7 @@ export default function QuestionSelectionOptionForm(props: IQuestionSelectionOpt
         return x
       })
     )
-  }, 1000)
+  }, 200)
 
   const onRemoveRow = (index: number): void => {
     updateDataSource(
@@ -118,15 +118,15 @@ export default function QuestionSelectionOptionForm(props: IQuestionSelectionOpt
 
   return (
     <div style={{ border: "1px solid black" }}>
+      <Button size="middle" type="primary" onClick={onAddRow} style={{ float: "right", margin: "10px", zIndex: 10 }}>
+        Add
+      </Button>
       <FixedQuestionSortableTable
         dataSource={dataSource}
         updatedList={updateDataSource}
         rowSelection={rowSelection}
         columns={columns}
       />
-      <Button type="primary" onClick={onAddRow}>
-        Add
-      </Button>
     </div>
   )
 }
