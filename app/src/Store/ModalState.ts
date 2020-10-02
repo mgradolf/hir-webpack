@@ -14,6 +14,7 @@ const SHOW_UPDATE_SECTION_SCHEDULE_LOCATION_MODAL = "SHOW_UPDATE_SECTION_SCHEDUL
 const SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL"
 const SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL"
 const SHOW_ADD_PROGRAM_MODAL = "SHOW_ADD_PROGRAM_MODAL"
+const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
 const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
 const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
 
@@ -44,6 +45,7 @@ export interface IModalState {
   updateSectionScheduleInstructorModal: ModalConfig
   updateSectionScheduleNoteModal: ModalConfig
   addProgramModal: ModalConfig
+  createBudgetModal: ModalConfig
   questionCreateModal: ModalConfig
   questionFindModal: ModalConfig
 }
@@ -118,6 +120,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   questionFindModal: {
+    value: false,
+    config: null
+  },
+  createBudgetModal: {
     value: false,
     config: null
   }
@@ -285,6 +291,15 @@ export const showQuestionFindModal = (value: boolean, config?: IQuestionModal): 
   payload: { value, config }
 })
 
+interface IShowCreateBudgetModal {
+  sectionId?: number
+}
+
+export const showCreateBudgetModal = (value: boolean, config?: IShowCreateBudgetModal): IAction => ({
+  type: SHOW_CREATE_BUDGET_MODAL,
+  payload: { value, config }
+})
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -319,6 +334,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, updateSectionScheduleNoteModal: action.payload }
     case SHOW_ADD_PROGRAM_MODAL:
       return { ...state, addProgramModal: action.payload }
+    case SHOW_CREATE_BUDGET_MODAL:
+      return { ...state, createBudgetModal: action.payload }
     case SHOW_QUESTION_CREATE_MODAL:
       return { ...state, questionCreateModal: action.payload }
     case SHOW_QUESTION_FIND_MODAL:

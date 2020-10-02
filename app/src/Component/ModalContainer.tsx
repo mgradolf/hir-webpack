@@ -13,9 +13,11 @@ import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeat
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
 import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
+// import CreateNewBudgetModal from "~/Component/Section/Budget/BudgetFormModal"
 import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
+import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/QuestionFindModal"
 
@@ -76,6 +78,9 @@ function ModalContainer(modalState: IModalState) {
         <ScheduleLocationFromModal scheduleIds={modalState.updateSectionScheduleLocationModal.config.scheduleIds} />
       )}
       {modalState.addProgramModal.value && <AddProgramModal />}
+      {modalState.createBudgetModal.value && (
+        <BudgetFormModal sectionId={modalState.createBudgetModal.config.sectionId} />
+      )}
       {modalState.questionCreateModal.value && <QuestionCreateModal />}
       {modalState.questionFindModal.value && <QuestionFindModal />}
     </>
