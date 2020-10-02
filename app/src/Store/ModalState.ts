@@ -15,6 +15,7 @@ const SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL = "SHOW_UPDATE_SECTION_SCHED
 const SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL"
 const SHOW_ADD_PROGRAM_MODAL = "SHOW_ADD_PROGRAM_MODAL"
 const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
+const SHOW_UPDATE_BUDGET_MODAL = "SHOW_UPDATE_BUDGET_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -44,6 +45,7 @@ export interface IModalState {
   updateSectionScheduleNoteModal: ModalConfig
   addProgramModal: ModalConfig
   createBudgetModal: ModalConfig
+  updateBudgetModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -112,6 +114,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   createBudgetModal: {
+    value: false,
+    config: null
+  },
+  updateBudgetModal: {
     value: false,
     config: null
   }
@@ -263,12 +269,19 @@ export const showAddProgramModal = (value: boolean, config = {}): IAction => ({
   payload: { value, config }
 })
 
-interface IShowCreateBudgetModal {
+interface IShowBudgetModal {
   sectionId?: number
+  seatGroups?: Array<any>
+  sectionFinancialId?: number
 }
 
-export const showCreateBudgetModal = (value: boolean, config?: IShowCreateBudgetModal): IAction => ({
+export const showCreateBudgetModal = (value: boolean, config?: IShowBudgetModal): IAction => ({
   type: SHOW_CREATE_BUDGET_MODAL,
+  payload: { value, config }
+})
+
+export const showUpdateBudgetModal = (value: boolean, config?: IShowBudgetModal): IAction => ({
+  type: SHOW_UPDATE_BUDGET_MODAL,
   payload: { value, config }
 })
 
@@ -308,6 +321,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, addProgramModal: action.payload }
     case SHOW_CREATE_BUDGET_MODAL:
       return { ...state, createBudgetModal: action.payload }
+    case SHOW_UPDATE_BUDGET_MODAL:
+      return { ...state, updateBudgetModal: action.payload }
     default:
       return state
   }

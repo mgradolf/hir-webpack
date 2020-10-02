@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
-
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Typography } from "antd"
+import { Row, Col, Typography, Space, Dropdown } from "antd"
 import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Budget/Budget.module.scss"
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import BudgetMenu from "~/Component/Section/Budget/BudgetMenu"
 import BudgetActionModalButton from "~/Component/Section/Budget/BudgetActionModalButton"
 import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
+import { DownOutlined } from "@ant-design/icons"
 
 const { Title, Text } = Typography
 
@@ -52,7 +53,21 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <a href="">Edit</a>
+        <Space size="middle">
+          <Dropdown
+            overlay={
+              <BudgetMenu
+                sectionId={record.SectionID}
+                seatGroups={record.SeatGroups}
+                sectionFinancialId={record.SectionFinancialID} />
+            }
+            trigger={["click"]}
+          >
+            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              Others <DownOutlined />
+            </a>
+          </Dropdown>
+        </Space>
       )
     }
   ]
@@ -111,7 +126,6 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
   useEffect(() => {
     const loadSectionFinancials = async function () {
       setLoading(true)
-
       const result = await getSectionFinancials(Number(sectionID))
 
       if (result && result.success) {

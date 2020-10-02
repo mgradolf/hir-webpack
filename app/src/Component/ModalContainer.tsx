@@ -13,11 +13,11 @@ import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeat
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
 import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
-import CreateNewBudgetModal from "~/Component/Section/Budget/BudgetFormModal"
-import { IModalState } from "~/Store/ModalState"
-import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
+import BudgetEditFormModal from "~/Component/Section/Budget/BudgetEditFormModal"
+import { IModalState } from "~/Store/ModalState"
+import { connect } from "react-redux"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -79,6 +79,13 @@ function ModalContainer(modalState: IModalState) {
       {modalState.createBudgetModal.value && (
         <BudgetFormModal
           sectionId={modalState.createBudgetModal.config.sectionId}
+        />
+      )}
+      {modalState.updateBudgetModal.value && (
+        <BudgetEditFormModal
+          sectionId={modalState.updateBudgetModal.config.sectionId}
+          seatGroups={modalState.updateBudgetModal.config.seatGroups}
+          sectionFinancialId={modalState.updateBudgetModal.config.sectionFinancialId}
         />
       )}
     </>

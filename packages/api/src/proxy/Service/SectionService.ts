@@ -19,7 +19,14 @@ export const config = {
     getMeetings: "getMeetings",
     createMeetings: "createMeetings",
     saveMeetings: "saveMeetings",
-    getSectionFinancials: "getSectionFinancials"
+    saveFinancial: "saveFinancial",
+    saveFinancials: "saveFinancials",
+    getSectionFinancials: "getSectionFinancials",
+    getAvailableOfferingFinancials: "getAvailableOfferingFinancials",
+    getAvailableFacultyWithFinancials: "getAvailableFacultyWithFinancials",
+    getAvailableResourcesWithFinancials: "getAvailableResourcesWithFinancials",
+    getAvailableMarketingProgramsWithFinancials: "getAvailableMarketingProgramsWithFinancials",
+    removeFinancials: "removeFinancials"
   }
 }
 

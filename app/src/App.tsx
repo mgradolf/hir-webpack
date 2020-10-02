@@ -25,6 +25,7 @@ import SectionSeatgroupPage from "~/Pages/Section/SeatGroup"
 import SectionCatalogPage from "~/Pages/Section/Catalog"
 import SectionSchedulePage from "~/Pages/Section/Schedule"
 import SectionBudgetPage from "~/Pages/Section/Budget"
+import SectionNoticePage from "~/Pages/Section/Notice"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
@@ -64,6 +65,7 @@ function App(props: AppProps): JSX.Element {
         <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
         <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
         <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
+        <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
         <Route component={NotFoundPage} />
       </Switch>
     )

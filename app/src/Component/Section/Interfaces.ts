@@ -35,3 +35,15 @@ export interface IScheduleLocationFieldNames {
   RoomID: any
   ConflictCheck: any
 }
+
+export interface IBudgetFieldNames {
+  SectionID: string
+  FinancialID: string
+  Description: string
+  GLAccountID: string
+  ItemUnitAmount: string
+  InitialDepositAmount: string
+  IsOptional: string
+  ItemQty: string
+  SeatGroupIDs: string
+}
