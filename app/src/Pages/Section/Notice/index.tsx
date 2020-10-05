@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Switch } from "antd"
-import { getSectionNotices } from "~/ApiServices/Service/RefLookupService"
+import { getSectionNotifications } from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Notice/Notice.module.scss"
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_NOTIFICATION_PAGE } from "~/utils/EventBus"
 
-const { Title, Text } = Typography
+const { Title } = Typography
 
 function SectionNoticePage(props: RouteComponentProps<{ sectionID: string }>) {
   const columns = [
     {
-      title: "Section Notification Type",
-      dataIndex: "Name"
+      title: "Active",
+      dataIndex: "IsActive",
+      render: (text: any, record: any) => <Switch checked={!!text} onChange={(event) => catalogPublished(event)} />
     },
     {
-      title: "Published",
-      dataIndex: "isPublished",
-      render: (text: any, record: any) => (
-        <Switch checked={!!text} onChange={(event) => catalogPublished(event)} />
-      )
+      title: "Section Notification Type",
+      dataIndex: "SectionNoticeType"
     }
   ]
 
@@ -29,16 +27,11 @@ function SectionNoticePage(props: RouteComponentProps<{ sectionID: string }>) {
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionNoticeItems, setSectionNoticeItems] = useState<Array<any>>([])
 
-  async function catalogPublished(event: any) {
-
-  }
-
   useEffect(() => {
     const loadSectionNotices = async function () {
       setLoading(true)
 
-      const result = await getSectionNotices()
-
+      const result = await getSectionNotifications(Number(sectionID))
       if (result && result.success) {
         setLoading(false)
         setSectionNoticeItems(result.data)

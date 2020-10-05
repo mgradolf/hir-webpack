@@ -6,16 +6,16 @@ import { Button } from "antd"
 
 interface IBudgetEditLinkProp {
   sectionId: number
+  financialId: number
   seatGroups: Array<any>
-  sectionFinancialId: number
-  openUpdateBudgetModal: (sectionId: number, seatGroups: Array<any>, sectionFinancialId: number) => void
+  openUpdateBudgetModal: (sectionId: number, financialId: number, seatGroups: Array<any>) => void
 }
 function BudgetEditLink(props: IBudgetEditLinkProp) {
   return (
     <Button
       type="link"
       onClick={() => {
-        props.openUpdateBudgetModal(props.sectionId, props.seatGroups, props.sectionFinancialId)
+        props.openUpdateBudgetModal(props.sectionId, props.financialId, props.seatGroups)
       }}
     >
       Edit
@@ -25,8 +25,8 @@ function BudgetEditLink(props: IBudgetEditLinkProp) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    openUpdateBudgetModal: (sectionId: number, seatGroups: Array<any>, sectionFinancialId: number) => {
-      return dispatch(showUpdateBudgetModal(true, { sectionId, seatGroups, sectionFinancialId }))
+    openUpdateBudgetModal: (sectionId: number, financialId: number, seatGroups: Array<any>) => {
+      return dispatch(showUpdateBudgetModal(true, { sectionId, financialId, seatGroups }))
     }
   }
 }

@@ -46,4 +46,27 @@ export interface IBudgetFieldNames {
   IsOptional: string
   ItemQty: string
   SeatGroupIDs: string
+  FinancialBasisType: string
+  FinancialType: string
+}
+
+export interface IDiscountFieldNames {
+  SectionID: string
+  SectionFinancialID: string
+  DiscountProgramID: string
+  DiscountTypeID: string
+  Amount: string
+  ShortName: string
+  Name: string
+  AmountTypeID: string
+  IsPromotedForMarketing: string
+  GLAccountID: string
+  IsActive: string
+  DiscountVolume: string
+  DiscountVolumeMultiply: string
+  ToAge: string
+  FromAge: string
+  ToDate: string
+  FromDate: string
+  promoCode: string
 }

@@ -5,12 +5,12 @@ import BudgetEditForm from "~/Component/Section/Budget/BudgetEditForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showUpdateBudgetModal } from "~/Store/ModalState"
-import { getSectionFinancialById } from "~/ApiServices/Service/EntityService"
+import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
 import { Form } from "antd"
 import { IBudgetFieldNames } from "~/Component/Section/Interfaces"
 
 interface IBudgetEditProps {
-  sectionFinancialId: number
+  financialId: number
   seatGroups: Array<any>
   sectionId: number
   closeUpdateBudgetModal?: () => void
@@ -25,14 +25,17 @@ const fieldNames: IBudgetFieldNames = {
   ItemQty: "ItemQty",
   InitialDepositAmount: "InitialDepositAmount",
   IsOptional: "IsOptional",
-  SeatGroupIDs: "SeatGroupIDs"
+  SeatGroupIDs: "SeatGroupIDs",
+  FinancialBasisType: "FinancialBasisType",
+  FinancialType: "FinancialType"
 }
 
-function BudgetUpdate({ sectionFinancialId, closeUpdateBudgetModal, seatGroups, sectionId }: IBudgetEditProps) {
+function BudgetUpdate({ financialId, closeUpdateBudgetModal, seatGroups, sectionId }: IBudgetEditProps) {
   const [formInstance] = Form.useForm()
   const [budgetLoading, setBudgetLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [initialFormValue] = useState<{ [key: string]: any }>({ ItemUnitAmount: 0 })
+  const [initialFormValue] = useState<{ [key: string]: any }>({})
+  const [financialType, setFinancialType] = useState(String)
 
   const handleCancel = () => {
     if (closeUpdateBudgetModal) {
@@ -41,12 +44,13 @@ function BudgetUpdate({ sectionFinancialId, closeUpdateBudgetModal, seatGroups, 
   }
 
   useEffect(() => {
-    if (sectionFinancialId) {
-      ; (async () => {
+    if (financialId) {
+      ;(async () => {
         setBudgetLoading(true)
-        const response = await getSectionFinancialById(sectionFinancialId)
+        const response = await getSectionFinancials({ SectionID: sectionId, FinancialID: financialId })
         if (response && response.success) {
-          formInstance.setFieldsValue(response.data)
+          formInstance.setFieldsValue(response.data[0])
+          setFinancialType(response.data[0].FinancialType)
         } else {
           if (closeUpdateBudgetModal) {
             closeUpdateBudgetModal()
@@ -55,9 +59,7 @@ function BudgetUpdate({ sectionFinancialId, closeUpdateBudgetModal, seatGroups, 
         setBudgetLoading(false)
       })()
     }
-  }, [sectionFinancialId, closeUpdateBudgetModal, formInstance, sectionId])
-
-  console.log("Form: ", formInstance)
+  }, [financialId, closeUpdateBudgetModal, formInstance, sectionId])
 
   return (
     <Modal
@@ -68,6 +70,7 @@ function BudgetUpdate({ sectionFinancialId, closeUpdateBudgetModal, seatGroups, 
       children={
         <>
           <BudgetEditForm
+            financialType={financialType}
             sectionId={sectionId}
             selectedSeatGroups={seatGroups}
             handleCancel={handleCancel}

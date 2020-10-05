@@ -174,3 +174,9 @@ export function getSectionNotices(): Promise<IApiResponse> {
     LookUpName: "SectionNoticeType"
   })
 }
+
+export function getDiscountAmountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DiscountAmountType"
+  })
+}

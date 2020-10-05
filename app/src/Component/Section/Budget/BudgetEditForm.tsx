@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Checkbox, Switch } from "antd"
-import {
-  getGLAccountTypes
-} from "~/ApiServices/Service/RefLookupService"
+import { getGLAccountTypes } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
-import { updateOfferingFinancial, createOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
+import { saveFinancial } from "~/ApiServices/Service/SectionService"
 
 interface IBudgetEditFormProps {
+  financialType: string
   sectionId: number
   selectedSeatGroups: Array<any>
   initialFormValue: { [key: string]: any }
@@ -33,65 +32,61 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
   const defaultValueList: Array<any> = []
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       const response = await getGLAccountTypes()
       if (response && response.success && response.data) {
         setGlAccountTypes(response.data)
       }
     })()
-      ; (async () => {
-        const response = await getSeatGroups(props.sectionId)
-        if (response && response.success && response.data) {
-          setSeatGroupItems(response.data)
-        }
-      })()
+    ;(async () => {
+      const response = await getSeatGroups(props.sectionId)
+      if (response && response.success && response.data) {
+        setSeatGroupItems(response.data)
+      }
+    })()
   }, [props])
 
   if (seatGroupItems.length > 0) {
-    seatGroupItems.forEach(seatGroup => {
-      props.selectedSeatGroups.forEach(sg => {
+    seatGroupItems.forEach((seatGroup) => {
+      seatGroupList.push({
+        label: seatGroup.Name,
+        value: seatGroup.SeatGroupID
+      })
+      props.selectedSeatGroups.forEach((sg) => {
         if (sg.SeatGroupID === seatGroup.SeatGroupID) {
-          seatGroupList.push(
-            {
-              label: sg.Name,
-              value: sg.SeatGroupID
-            }
-          )
           defaultValueList.push(sg.SeatGroupID)
           return
         }
-      });
-    });
+      })
+    })
+    props.formInstance.setFieldsValue({
+      [props.fieldNames.SeatGroupIDs]: defaultValueList
+    })
   }
-
-  console.log("Options: ", seatGroupList)
-  console.log("Values: ", defaultValueList)
 
   const onFormSubmission = async () => {
-    // await props.formInstance.validateFields()
-    // const params = props.formInstance.getFieldsValue()
+    await props.formInstance.validateFields()
+    const params = props.formInstance.getFieldsValue()
 
-    // type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
-    // const serviceMethoToCall: serviceMethodType = props.financialID ? updateOfferingFinancial : createOfferingFinancial
+    console.log("Params: ", params)
 
-    // props.setApiCallInProgress(true)
-    // setErrorMessages([])
-    // const response = await serviceMethoToCall(params)
-    // props.setApiCallInProgress(false)
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
+    const serviceMethoToCall: serviceMethodType = saveFinancial
 
-    // if (response && response.success) {
-    //   props.formInstance.resetFields()
-    //   eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
-    //   props.handleCancel()
-    // } else {
-    //   setErrorMessages(response.error)
-    //   console.log(response.error)
-    //   console.log(errorMessages)
-    // }
-  }
+    props.setApiCallInProgress(true)
+    setErrorMessages([])
+    const response = await serviceMethoToCall(params)
+    props.setApiCallInProgress(false)
 
-  const onChange = (checkedValues: any) => {
-    console.log("checked: ", checkedValues)
+    if (response && response.success) {
+      props.formInstance.resetFields()
+      eventBus.publish(REFRESH_SECTION_BUDGET_PAGE)
+      props.handleCancel()
+    } else {
+      setErrorMessages(response.error)
+      console.log(response.error)
+      console.log(errorMessages)
+    }
   }
 
   const actions = []
@@ -99,7 +94,7 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
-    <Card title="Edit financial" actions={actions}>
+    <Card title={`Edit ${props.financialType} Financial`} actions={actions}>
       <Form
         form={props.formInstance}
         initialValues={props.initialFormValue}
@@ -107,12 +102,20 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
       >
         <FormError errorMessages={errorMessages} />
 
+        <Form.Item className="hidden" name={props.fieldNames.SectionID}>
+          <Input aria-label="Section ID" value={props.sectionId} />
+        </Form.Item>
+
+        <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
+          <Input aria-label="Financial ID" />
+        </Form.Item>
+
         <Form.Item label="Description" {...layout} name={props.fieldNames.Description}>
           <Input aria-label="Description" />
         </Form.Item>
 
         <Form.Item label="Basis" {...layout} name={props.fieldNames.FinancialBasisType}>
-          <Input aria-label="Basis" />
+          <Input aria-label="Basis" disabled />
         </Form.Item>
 
         <Form.Item label="GL Accounts" {...layout} name={props.fieldNames.GLAccountID}>
@@ -127,9 +130,17 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
           <Input aria-label="Amount" type="number" min={0} />
         </Form.Item>
 
-        <Form.Item label="Deposit Amount" {...layout} name={props.fieldNames.InitialDepositAmount}>
-          <Input aria-label="Deposit Amount" type="number" min={0} />
-        </Form.Item>
+        {props.financialType !== "Faculty" && props.financialType !== "Marketing Program" && (
+          <Form.Item label="Deposit Amount" {...layout} name={props.fieldNames.InitialDepositAmount}>
+            <Input aria-label="Deposit Amount" type="number" min={0} />
+          </Form.Item>
+        )}
+
+        {props.financialType === "Faculty" && (
+          <Form.Item label="Quantity" {...layout} name={props.fieldNames.ItemQty}>
+            <Input aria-label="Quantity" type="number" min={0} />
+          </Form.Item>
+        )}
 
         <Form.Item name={props.fieldNames.IsOptional} label="Optional" {...layout} valuePropName="checked">
           <Switch
@@ -138,12 +149,11 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
           />
         </Form.Item>
 
-        {seatGroupList &&
-          <Form.Item label="Seat Groups" {...layout}>
-            <Checkbox.Group options={seatGroupList} defaultValue={defaultValueList} onChange={onChange} />
+        {seatGroupList && (
+          <Form.Item label="Seat Groups" {...layout} name={props.fieldNames.SeatGroupIDs}>
+            <Checkbox.Group options={seatGroupList} />
           </Form.Item>
-        }
-
+        )}
       </Form>
     </Card>
   )

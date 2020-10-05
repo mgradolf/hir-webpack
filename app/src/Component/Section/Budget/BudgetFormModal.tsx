@@ -19,7 +19,9 @@ const filedNames: IBudgetFieldNames = {
   ItemQty: "ItemQty",
   InitialDepositAmount: "InitialDepositAmount",
   IsOptional: "IsOptional",
-  SeatGroupIDs: "SeatGroupIDs"
+  SeatGroupIDs: "SeatGroupIDs",
+  FinancialBasisType: "FinancialBasisType",
+  FinancialType: "FinancialType"
 }
 
 interface ICreateNewBudgetProps {
@@ -61,12 +63,7 @@ function CreateNewBudget(props: ICreateNewBudgetProps) {
       apiCallInProgress={apiCallInProgress}
       children={
         <>
-          {firstFormVisible && (
-            <CreateForm1
-              handleCancel={handleCancel}
-              handleSelected={onBudgetTypeSelected}
-            />
-          )}
+          {firstFormVisible && <CreateForm1 handleCancel={handleCancel} handleSelected={onBudgetTypeSelected} />}
           {secondFormVisible && (
             <CreateForm2
               sectionId={props.sectionId}

@@ -16,6 +16,8 @@ const SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_NO
 const SHOW_ADD_PROGRAM_MODAL = "SHOW_ADD_PROGRAM_MODAL"
 const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
 const SHOW_UPDATE_BUDGET_MODAL = "SHOW_UPDATE_BUDGET_MODAL"
+const SHOW_CREATE_DISCOUNT_MODAL = "SHOW_CREATE_DISCOUNT_MODAL"
+const SHOW_UPDATE_DISCOUNT_MODAL = "SHOW_UPDATE_DISCOUNT_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -46,6 +48,8 @@ export interface IModalState {
   addProgramModal: ModalConfig
   createBudgetModal: ModalConfig
   updateBudgetModal: ModalConfig
+  createDiscountModal: ModalConfig
+  updateDiscountModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -118,6 +122,14 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   updateBudgetModal: {
+    value: false,
+    config: null
+  },
+  createDiscountModal: {
+    value: false,
+    config: null
+  },
+  updateDiscountModal: {
     value: false,
     config: null
   }
@@ -271,6 +283,7 @@ export const showAddProgramModal = (value: boolean, config = {}): IAction => ({
 
 interface IShowBudgetModal {
   sectionId?: number
+  financialId?: number
   seatGroups?: Array<any>
   sectionFinancialId?: number
 }
@@ -282,6 +295,21 @@ export const showCreateBudgetModal = (value: boolean, config?: IShowBudgetModal)
 
 export const showUpdateBudgetModal = (value: boolean, config?: IShowBudgetModal): IAction => ({
   type: SHOW_UPDATE_BUDGET_MODAL,
+  payload: { value, config }
+})
+
+interface IShowDiscountModal {
+  sectionId?: number
+  sectionDiscountId?: number
+}
+
+export const showCreateDiscountModal = (value: boolean, config?: IShowDiscountModal): IAction => ({
+  type: SHOW_CREATE_DISCOUNT_MODAL,
+  payload: { value, config }
+})
+
+export const showUpdateDiscountModal = (value: boolean, config?: IShowDiscountModal): IAction => ({
+  type: SHOW_UPDATE_DISCOUNT_MODAL,
   payload: { value, config }
 })
 
@@ -323,6 +351,10 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, createBudgetModal: action.payload }
     case SHOW_UPDATE_BUDGET_MODAL:
       return { ...state, updateBudgetModal: action.payload }
+    case SHOW_CREATE_DISCOUNT_MODAL:
+      return { ...state, createDiscountModal: action.payload }
+    case SHOW_UPDATE_DISCOUNT_MODAL:
+      return { ...state, updateDiscountModal: action.payload }
     default:
       return state
   }

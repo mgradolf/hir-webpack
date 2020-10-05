@@ -19,7 +19,6 @@ import { connect } from "react-redux"
 import { showCreateBudgetModal } from "~/Store/ModalState"
 import { redirect } from "~/Store/ConnectedRoute"
 import "~/Sass/global/index.scss"
-import { isArray } from "util"
 
 interface IBudgetCreateForm2Props {
   sectionId: number
@@ -49,21 +48,21 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
-    var seatGropuIDs: any[] = []
+    const seatGropuIDs: any[] = []
     if (applySeatGroup) {
-      seatGroupItems.forEach(key => {
+      seatGroupItems.forEach((key) => {
         seatGropuIDs.push(key.SeatGroupID)
-      });
+      })
     }
 
-    var financialList: Array<any> = []
-    financialIDs.forEach(financialID => {
-      var financialObj = {
+    const financialList: Array<any> = []
+    financialIDs.forEach((financialID) => {
+      const financialObj = {
         FinancialID: financialID,
         SeatGroupIDs: seatGropuIDs
       }
       financialList.push(financialObj)
-    });
+    })
     params["SectionFinancials"] = financialList
     console.log("Params: ", params)
 
@@ -91,69 +90,81 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
 
   const onChangeOffering = (value: any) => {
     setDataAvailable(true)
-    var finacialIDArray: any[] = []
+    const finacialIDArray: any[] = []
     finacialIDArray.push(value)
     setFinancialIDs(finacialIDArray)
   }
 
   const onChangeFaculty = (value: any) => {
     setDataAvailable(true)
-    availableFinancial.forEach(key => {
+    availableFinancial.forEach((key) => {
       if (key.FacultyID === value) {
-        var financialItems: Array<any> = key.Financials
-        var finacialIDArray: any[] = []
-        financialItems.forEach(financial => {
+        const financialItems: Array<any> = key.Financials
+        const finacialIDArray: any[] = []
+        financialItems.forEach((financial) => {
           finacialIDArray.push(financial.FinancialID)
-        });
+        })
         setFinancialIDs(finacialIDArray)
       }
-    });
+    })
   }
 
   const onChangeResource = (value: any) => {
     setDataAvailable(true)
-    availableFinancial.forEach(key => {
+    availableFinancial.forEach((key) => {
       if (key.ResourceID === value) {
-        var financialItems: Array<any> = key.Financials
-        var finacialIDArray: any[] = []
-        financialItems.forEach(financial => {
+        const financialItems: Array<any> = key.Financials
+        const finacialIDArray: any[] = []
+        financialItems.forEach((financial) => {
           finacialIDArray.push(financial.FinancialID)
-        });
+        })
         setFinancialIDs(finacialIDArray)
       }
-    });
+    })
   }
 
   const onChangeMarketingProgram = (value: any) => {
     setDataAvailable(true)
-    availableFinancial.forEach(key => {
+    availableFinancial.forEach((key) => {
       if (key.MarketingProgramID === value) {
-        var financialItems: Array<any> = key.Financials
-        var finacialIDArray: any[] = []
-        financialItems.forEach(financial => {
+        const financialItems: Array<any> = key.Financials
+        const finacialIDArray: any[] = []
+        financialItems.forEach((financial) => {
           finacialIDArray.push(financial.FinancialID)
-        });
+        })
         setFinancialIDs(finacialIDArray)
       }
-    });
+    })
   }
 
-  actions.push(<Button onClick={() => { props.goBackToFirstForm() }}>Go Back</Button>)
+  actions.push(
+    <Button
+      onClick={() => {
+        props.goBackToFirstForm()
+      }}
+    >
+      Go Back
+    </Button>
+  )
   actions.push(<Button onClick={props.closeCreatBudgetModal}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission} disabled={!dataAvailable}>Submit</Button>)
+  actions.push(
+    <Button onClick={onFormSubmission} disabled={!dataAvailable}>
+      Submit
+    </Button>
+  )
 
   useEffect(() => {
     props.formInstance.setFieldsValue({
       [props.fieldNames.SectionID]: props.sectionId
     })
-      ; (async () => {
-        const response = await getSeatGroups(props.sectionId)
-        if (response && response.success && response.data) {
-          setSeatGroupItems(response.data)
-        }
-      })()
+    ;(async () => {
+      const response = await getSeatGroups(props.sectionId)
+      if (response && response.success && response.data) {
+        setSeatGroupItems(response.data)
+      }
+    })()
     if (props.budgetType === "Offering") {
-      ; (async () => {
+      ;(async () => {
         const response = await getAvailableOfferingFinancials(props.sectionId)
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
@@ -161,7 +172,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
       })()
     }
     if (props.budgetType === "Instructor") {
-      ; (async () => {
+      ;(async () => {
         const response = await getAvailableFacultyWithFinancials(props.sectionId)
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
@@ -169,7 +180,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
       })()
     }
     if (props.budgetType === "Resource") {
-      ; (async () => {
+      ;(async () => {
         const response = await getAvailableResourcesWithFinancials(props.sectionId)
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
@@ -177,7 +188,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
       })()
     }
     if (props.budgetType === "Marketing Program") {
-      ; (async () => {
+      ;(async () => {
         const response = await getAvailableMarketingProgramsWithFinancials(props.sectionId)
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
@@ -187,70 +198,72 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
   }, [props])
 
   return (
-    <Card
-      title={`Create new ${props.budgetType} Financial`}
-      actions={actions}
-    >
-      <Form
-        form={props.formInstance}
-        style={{ height: "40vh", overflowY: "scroll", padding: "10px" }}
-      >
-        <FormError
-          errorMessages={errorMessages}
-        />
+    <Card title={`Create new ${props.budgetType} Financial`} actions={actions}>
+      <Form form={props.formInstance} style={{ height: "40vh", overflowY: "scroll", padding: "10px" }}>
+        <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
           <Input aria-label="Section ID" />
         </Form.Item>
 
-        {props.budgetType === "Offering" &&
+        {props.budgetType === "Offering" && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeOffering}>
               {availableFinancial.map((x) => {
-                return <Select.Option key={x.FinancialID} value={x.FinancialID}>{x.Description}</Select.Option>
+                return (
+                  <Select.Option key={x.FinancialID} value={x.FinancialID}>
+                    {x.Description}
+                  </Select.Option>
+                )
               })}
             </Select>
           </Form.Item>
-        }
+        )}
 
-        {props.budgetType === "Instructor" &&
+        {props.budgetType === "Instructor" && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeFaculty}>
               {availableFinancial.map((x) => {
-                return <Select.Option key={x.FacultyID} value={x.FacultyID}>{x.FormattedName}</Select.Option>
+                return (
+                  <Select.Option key={x.FacultyID} value={x.FacultyID}>
+                    {x.FormattedName}
+                  </Select.Option>
+                )
               })}
             </Select>
           </Form.Item>
-        }
+        )}
 
-        {props.budgetType === "Resource" &&
+        {props.budgetType === "Resource" && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeResource}>
               {availableFinancial.map((x) => {
-                return <Select.Option key={x.ResourceID} value={x.ResourceID}>{x.Resource}</Select.Option>
+                return (
+                  <Select.Option key={x.ResourceID} value={x.ResourceID}>
+                    {x.Resource}
+                  </Select.Option>
+                )
               })}
             </Select>
           </Form.Item>
-        }
+        )}
 
-        {props.budgetType === "Marketing Program" &&
+        {props.budgetType === "Marketing Program" && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeMarketingProgram}>
               {availableFinancial.map((x) => {
-                return <Select.Option key={x.MarketingProgramID} value={x.MarketingProgramID}>{x.MarketSource}</Select.Option>
+                return (
+                  <Select.Option key={x.MarketingProgramID} value={x.MarketingProgramID}>
+                    {x.MarketSource}
+                  </Select.Option>
+                )
               })}
             </Select>
           </Form.Item>
-        }
+        )}
 
-        <Form.Item
-          label="Apply to all seat groups" {...layout}
-          valuePropName="checked">
-          <Switch
-            onChange={onChangeApplySeatGroups}
-            aria-label="Apply to all seat groups"
-          />
+        <Form.Item label="Apply to all seat groups" {...layout} valuePropName="checked">
+          <Switch onChange={onChangeApplySeatGroups} aria-label="Apply to all seat groups" />
         </Form.Item>
-
       </Form>
     </Card>
   )

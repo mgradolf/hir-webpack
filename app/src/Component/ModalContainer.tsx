@@ -16,6 +16,8 @@ import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLoca
 import AddProgramModal from "~/Component/Program/AddProgramModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import BudgetEditFormModal from "~/Component/Section/Budget/BudgetEditFormModal"
+import DiscountFomrModal from "~/Component/Section/Discount/DiscountFormModal"
+import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditFormModal"
 import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 
@@ -77,15 +79,22 @@ function ModalContainer(modalState: IModalState) {
       )}
       {modalState.addProgramModal.value && <AddProgramModal />}
       {modalState.createBudgetModal.value && (
-        <BudgetFormModal
-          sectionId={modalState.createBudgetModal.config.sectionId}
-        />
+        <BudgetFormModal sectionId={modalState.createBudgetModal.config.sectionId} />
       )}
       {modalState.updateBudgetModal.value && (
         <BudgetEditFormModal
           sectionId={modalState.updateBudgetModal.config.sectionId}
+          financialId={modalState.updateBudgetModal.config.financialId}
           seatGroups={modalState.updateBudgetModal.config.seatGroups}
-          sectionFinancialId={modalState.updateBudgetModal.config.sectionFinancialId}
+        />
+      )}
+      {modalState.createDiscountModal.value && (
+        <DiscountFomrModal sectionId={modalState.createDiscountModal.config.sectionId} />
+      )}
+      {modalState.updateDiscountModal.value && (
+        <DiscountEditFormModal
+          sectionDiscountId={modalState.updateDiscountModal.config.sectionDiscountId}
+          sectionId={modalState.updateDiscountModal.config.sectionId}
         />
       )}
     </>
