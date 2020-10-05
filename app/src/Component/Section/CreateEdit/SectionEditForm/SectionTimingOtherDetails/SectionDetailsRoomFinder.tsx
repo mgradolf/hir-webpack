@@ -37,6 +37,8 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
     loadSites()
   }, [])
 
+  const siteID = (selectedRoom && selectedRoom.SiteID) || undefined
+
   useEffect(() => {
     async function loadBuildings(siteID: number) {
       const res = await findPossibleBuildings(siteID)
@@ -46,10 +48,12 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
       }
     }
 
-    if (selectedRoom?.SiteID) {
-      loadBuildings(selectedRoom?.SiteID)
+    if (siteID) {
+      loadBuildings(siteID)
     }
-  }, [selectedRoom?.SiteID])
+  }, [siteID])
+
+  const buildingID = (selectedRoom && selectedRoom.BuildingID) || undefined
 
   useEffect(() => {
     async function loadRooms(buildingID: number) {
@@ -60,10 +64,10 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
       }
     }
 
-    if (selectedRoom?.BuildingID) {
-      loadRooms(selectedRoom?.BuildingID)
+    if (buildingID) {
+      loadRooms(buildingID)
     }
-  }, [selectedRoom?.BuildingID])
+  }, [buildingID])
 
   const label = isSelectedRoomNotEmpty(selectedRoom)
     ? `${roomNameMap[selectedRoom.RoomID]}, ${buildingNameMap[selectedRoom.BuildingID]}, ${
