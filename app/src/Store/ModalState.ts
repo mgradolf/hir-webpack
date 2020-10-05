@@ -1,3 +1,5 @@
+import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
+
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
 const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"
 const SHOW_CREATE_OFFERING_FINANCIAL_MODAL = "SHOW_CREATE_OFFERING_FINANCIAL_MODAL"
@@ -6,6 +8,7 @@ const SHOW_OFFERING_PREREQUISITE_GROUP_MODAL = "SHOW_OFFERING_PREREQUISITE_GROUP
 const SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL = "SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL"
 const SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL = "SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL"
 const SHOW_CREATE_SECTION_MODAL = "SHOW_CREATE_SECTION_MODAL"
+const SHOW_SECTION_COPY_MODAL = "SHOW_SECTION_COPY_MODAL"
 const SHOW_SECTION_SEATGROUP_MODAL = "SHOW_SECTION_SEATGROUP_MODAL"
 const SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL = "SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL"
 const SHOW_SECTION_SCHEDULE_MODAL = "SHOW_SECTION_SCHEDULE_MODAL"
@@ -18,6 +21,9 @@ const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
 const SHOW_UPDATE_BUDGET_MODAL = "SHOW_UPDATE_BUDGET_MODAL"
 const SHOW_CREATE_DISCOUNT_MODAL = "SHOW_CREATE_DISCOUNT_MODAL"
 const SHOW_UPDATE_DISCOUNT_MODAL = "SHOW_UPDATE_DISCOUNT_MODAL"
+const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
+const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
+const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -38,6 +44,7 @@ export interface IModalState {
   addOfferingFromRequisiteGroupModal: ModalConfig
   addInstructorFromInstructorModal: ModalConfig
   createSectionModal: ModalConfig
+  copySectionModal: ModalConfig
   createSectionSeatGroupModal: ModalConfig
   addSeatGroupAffiliateOrganization: ModalConfig
   createSectionScheduleModal: ModalConfig
@@ -50,6 +57,9 @@ export interface IModalState {
   updateBudgetModal: ModalConfig
   createDiscountModal: ModalConfig
   updateDiscountModal: ModalConfig
+  questionCreateModal: ModalConfig
+  questionFindModal: ModalConfig
+  roomFinderModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -85,6 +95,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     value: false,
     config: null
   },
+  copySectionModal: {
+    value: false,
+    config: null
+  },
   createSectionSeatGroupModal: {
     value: false,
     config: null
@@ -114,6 +128,18 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   addProgramModal: {
+    value: false,
+    config: null
+  },
+  questionCreateModal: {
+    value: false,
+    config: null
+  },
+  questionFindModal: {
+    value: false,
+    config: null
+  },
+  roomFinderModal: {
     value: false,
     config: null
   },
@@ -208,6 +234,15 @@ export const showCreateSectionModal = (value: boolean, config?: IShowCreateSecti
   payload: { value, config }
 })
 
+interface IShowCopySectionModal {
+  SectionID: number
+  SectionNumber: string
+}
+export const showCopySectionModal = (value: boolean, config?: IShowCopySectionModal): IAction => ({
+  type: SHOW_SECTION_COPY_MODAL,
+  payload: { value, config }
+})
+
 type ShowSectionCommonModalType = {
   sectionId: number
   seatgroupId?: number
@@ -281,6 +316,31 @@ export const showAddProgramModal = (value: boolean, config = {}): IAction => ({
   payload: { value, config }
 })
 
+interface IQuestionModal {
+  SectionID?: number
+  EventID?: number
+  TagTypeID?: number
+  TagID?: number
+}
+export const showQuestionCreateModal = (value: boolean, config?: IQuestionModal): IAction => ({
+  type: SHOW_QUESTION_CREATE_MODAL,
+  payload: { value, config }
+})
+
+export const showQuestionFindModal = (value: boolean, config?: IQuestionModal): IAction => ({
+  type: SHOW_QUESTION_FIND_MODAL,
+  payload: { value, config }
+})
+
+interface IRoomFinderModal {
+  onSelectRoomCallback: (roomInfo: IRoom) => void
+}
+
+export const showRoomFinderModal = (value: boolean, config?: IRoomFinderModal): IAction => ({
+  type: SHOW_ROOM_FINDER_MODAL,
+  payload: { value, config }
+})
+
 interface IShowBudgetModal {
   sectionId?: number
   financialId?: number
@@ -331,6 +391,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, addInstructorFromInstructorModal: action.payload }
     case SHOW_CREATE_SECTION_MODAL:
       return { ...state, createSectionModal: action.payload }
+    case SHOW_SECTION_COPY_MODAL:
+      return { ...state, copySectionModal: action.payload }
     case SHOW_SECTION_SEATGROUP_MODAL:
       return { ...state, createSectionSeatGroupModal: action.payload }
     case SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL:
@@ -355,6 +417,12 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, createDiscountModal: action.payload }
     case SHOW_UPDATE_DISCOUNT_MODAL:
       return { ...state, updateDiscountModal: action.payload }
+    case SHOW_QUESTION_CREATE_MODAL:
+      return { ...state, questionCreateModal: action.payload }
+    case SHOW_QUESTION_FIND_MODAL:
+      return { ...state, questionFindModal: action.payload }
+    case SHOW_ROOM_FINDER_MODAL:
+      return { ...state, roomFinderModal: action.payload }
     default:
       return state
   }

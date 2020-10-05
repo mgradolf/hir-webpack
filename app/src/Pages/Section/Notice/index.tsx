@@ -13,7 +13,7 @@ function SectionNoticePage(props: RouteComponentProps<{ sectionID: string }>) {
     {
       title: "Active",
       dataIndex: "IsActive",
-      render: (text: any, record: any) => <Switch checked={!!text} onChange={(event) => catalogPublished(event)} />
+      render: (text: any, record: any) => <Switch checked={!!text} />
     },
     {
       title: "Section Notification Type",

@@ -9,17 +9,22 @@ import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/Requ
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
+import SectionCopyModal from "~/Component/Section/Copy/SectionCopyModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
 import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
+// import CreateNewBudgetModal from "~/Component/Section/Budget/BudgetFormModal"
+import { IModalState } from "~/Store/ModalState"
+import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
+import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import BudgetEditFormModal from "~/Component/Section/Budget/BudgetEditFormModal"
 import DiscountFomrModal from "~/Component/Section/Discount/DiscountFormModal"
 import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditFormModal"
-import { IModalState } from "~/Store/ModalState"
-import { connect } from "react-redux"
+import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
+import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -57,6 +62,7 @@ function ModalContainer(modalState: IModalState) {
         />
       )}
       {modalState.createSectionModal.value && <SectionFormModal />}
+      {modalState.copySectionModal.value && <SectionCopyModal />}
       {modalState.createSectionSeatGroupModal.value && (
         <SectionSeatGroupFormModal
           sectionId={modalState.createSectionSeatGroupModal.config.sectionId}
@@ -96,6 +102,11 @@ function ModalContainer(modalState: IModalState) {
           sectionDiscountId={modalState.updateDiscountModal.config.sectionDiscountId}
           sectionId={modalState.updateDiscountModal.config.sectionId}
         />
+      )}
+      {modalState.questionCreateModal.value && <QuestionCreateModal />}
+      {modalState.questionFindModal.value && <QuestionFindModal />}
+      {modalState.roomFinderModal.value && (
+        <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
       )}
     </>
   )

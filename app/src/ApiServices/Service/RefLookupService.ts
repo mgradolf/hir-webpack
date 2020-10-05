@@ -180,3 +180,27 @@ export function getDiscountAmountTypes(): Promise<IApiResponse> {
     LookUpName: "DiscountAmountType"
   })
 }
+
+export function getQuestionEvents(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "QuestionEvent"
+  })
+}
+
+export function getQuestionGroup(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "QuestionGroup"
+  })
+}
+
+export function getRoomTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RoomUseType"
+  })
+}
+
+export function getPreferenceValueType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "PreferenceValueType"
+  })
+}

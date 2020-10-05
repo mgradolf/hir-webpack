@@ -12,8 +12,8 @@ import styles from "~/Pages/Offering/OfferingDetails.module.scss"
 
 const { Title, Text } = Typography
 
-function OfferingDetailsPage(props: RouteComponentProps<{ id: string }>) {
-  const offeringID = props.match.params.id
+function OfferingDetailsPage(props: RouteComponentProps<{ offeringID: string }>) {
+  const offeringID = props.match.params.offeringID
   const [offeringDetails, setOfferingDetails] = useState<{ [key: string]: any }>()
 
   useEffect(() => {

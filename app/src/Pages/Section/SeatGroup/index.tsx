@@ -119,8 +119,6 @@ function SectionSeatgroupPage(props: RouteComponentProps<{ sectionID: string }>)
   }
 
   const sectionID = props.match.params.sectionID
-  console.log("Section ID: ", sectionID)
-
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionSeatGroupItems, setSectionSeatGroupItems] = useState<Array<any>>([])
 

@@ -34,12 +34,9 @@ export const handleResponse = (promise: Promise<any>): Promise<IApiResponse> => 
   return promise
     .then((response: AxiosResponse<any>) => {
       const result = <IApiResponse>response.data
-      if (
-        result.code === 200 &&
-        ((Array.isArray(result.data) && result.data.length === 0) || result.data === "" || !result.data)
-      ) {
+      if (!result.success) {
         result.code = 404
-        result.error = new ProcessedApiError(result.error, result.code)
+        result.error = new ProcessedApiError(result.error, result.code).getErrorMessages()
       }
       return result
     })

@@ -6,8 +6,8 @@ import { findCatalog, updateBulkContent } from "~/ApiServices/BizApi/catalog/cat
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
-export default function SectionCatalog(props: RouteComponentProps<{ sectionId: string }>) {
-  const sectionID = parseInt(props.match.params.sectionId)
+export default function SectionCatalog(props: RouteComponentProps<{ sectionID: string }>) {
+  const sectionID = parseInt(props.match.params.sectionID)
   const [sectionCatalogs, setSectionCatalogs] = useState<Array<any>>([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
@@ -39,15 +39,11 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionId: s
             aria-label="Is Published"
             defaultChecked={record.isPublished}
             onChange={(checked) => {
-              console.log(record)
-              console.log(checked)
               const catalogs: Array<any> = []
               sectionCatalogs.forEach((x) => {
                 if (checked && x.catalogID === record.catalogID) {
                   catalogs.push(x.catalogID)
-                  console.log(x.isPublished, x.catalogID, checked)
                 } else if (!checked && x.catalogID === record.catalogID) {
-                  console.log("do nothing")
                 } else if (x.isPublished) {
                   catalogs.push(x.catalogID)
                 }

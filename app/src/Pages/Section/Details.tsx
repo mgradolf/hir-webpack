@@ -5,6 +5,7 @@ import { Redirect, RouteComponentProps } from "react-router-dom"
 import { Row, Col, Button, Dropdown, Typography, Space, Spin } from "antd"
 
 import SectionEditLink from "~/Component/Section/CreateEdit/SectionEditLink"
+import SectionCopyModalOpenButton from "~/Component/Section/Copy/SectionCopyModalOpenButton"
 import { DownOutlined, ReadOutlined } from "@ant-design/icons"
 import { getSectionById, removeSectionById } from "~/ApiServices/Service/EntityService"
 import SectionMenu from "~/Component/Section/SectionMenu"
@@ -87,6 +88,7 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
                 danger
                 loading={removeApiCallInProgress}
                 disabled={removeApiCallInProgress}
+                style={{ marginRight: "10px" }}
                 onClick={() => {
                   setRemoveApiCallInProgress(true)
                   removeSectionById(Number(sectionID))
@@ -104,6 +106,10 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
               >
                 Remove
               </Button>
+              <SectionCopyModalOpenButton
+                SectionID={sectionDetails.SectionID}
+                SectionNumber={sectionDetails.SectionNumber}
+              />
               {redirectAfterRemoveURL !== "" && <Redirect to={redirectAfterRemoveURL} />}
             </Col>
           </Row>

@@ -12,7 +12,7 @@ import styles from "~/Pages/Offering/Requisite/Requisite.module.scss"
 
 const { Title } = Typography
 
-function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
+function OfferingRequisitePage(props: RouteComponentProps<{ offeringID: string }>) {
   const columns = [
     {
       title: "Offering Code",
@@ -66,7 +66,7 @@ function OfferingRequisitePage(props: RouteComponentProps<{ id: string }>) {
     )
   }
 
-  const offeringID = props.match.params.id
+  const offeringID = props.match.params.offeringID
   const [requisiteGroupID, setRequisiteGroupID] = useState<number>()
   const [hasRequisiteGroup, setHasRequisiteGroup] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)

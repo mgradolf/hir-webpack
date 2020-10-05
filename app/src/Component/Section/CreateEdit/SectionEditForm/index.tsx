@@ -33,7 +33,6 @@ export default function SectionEditForm(props: ISectionEditProps) {
         props.setApiCallInProgress(true)
         setButtonLoading(true)
         setButtonText("Saving ...")
-        console.log(formInstance.getFieldsValue())
         updateSection(formInstance.getFieldsValue()).then((response) => {
           if (response.success) {
             props.setApiCallInProgress(false)

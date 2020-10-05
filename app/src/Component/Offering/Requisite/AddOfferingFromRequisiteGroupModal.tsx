@@ -61,7 +61,7 @@ function AddOfferingFromRequisiteGroupModal({
           <SearchFilters
             meta={OfferingSearchFilterMeta}
             isModalView={true}
-            data={filterData}
+            initialFilter={filterData}
             title={""}
             visible
             toggleVisiibility={() => {

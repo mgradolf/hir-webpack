@@ -99,3 +99,7 @@ export function getSectionNotifications(SectionID: number): Promise<IApiResponse
 export function removeFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
   return SectionService[config.Actions.removeFinancials](Params)
 }
+
+export function findRoom(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findRoom](Params)
+}

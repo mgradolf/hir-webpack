@@ -9,7 +9,7 @@ import styles from "~/Pages/Offering/Financial/Financial.module.scss"
 
 const { Title } = Typography
 
-function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
+function OfferingCatalogPage(props: RouteComponentProps<{ offeringID: string }>) {
   const columns = [
     {
       title: "Catalog Name",
@@ -43,7 +43,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ id: string }>) {
   const [pendingRowDataSelection, setPendingRowDataSelection] = useState<Array<any>>([])
   const [selectedRowKeys, setSelectedRowKeys] = useState<Array<any>>([])
 
-  const offeringID = props.match.params.id
+  const offeringID = props.match.params.offeringID
 
   const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
     return (

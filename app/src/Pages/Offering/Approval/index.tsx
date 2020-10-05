@@ -12,7 +12,7 @@ import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/Offer
 
 const { Title } = Typography
 
-function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
+function OfferingApprovalPage(props: RouteComponentProps<{ offeringID: string }>) {
   const columns = [
     {
       title: "Status",
@@ -37,7 +37,7 @@ function OfferingApprovalPage(props: RouteComponentProps<{ id: string }>) {
     }
   ]
 
-  const offeringID = props.match.params.id
+  const offeringID = props.match.params.offeringID
   const [loading, setLoading] = useState<boolean>(false)
   const [offeringApprovalHistory, setOfferingApprovalHistory] = useState<Array<any>>([])
 
