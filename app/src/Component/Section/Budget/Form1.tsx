@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Form, Select, Card, Button } from "antd"
+import { } from "@ant-design/icons"
 import "~/Sass/utils.scss"
 
 interface IBudgetCreateForm1Props {
@@ -40,21 +41,20 @@ export default function CreateForm1(props: IBudgetCreateForm1Props) {
             placeholder="Select an financial type"
             aria-label="Financial Type Select"
             onSelect={(value: any) => {
-              debugger
               setIsSelected(true)
               setSelectedValue(value)
             }}
           >
-            <Select.Option key="offering" value="offering">
+            <Select.Option key="offering" value="Offering">
               Offering Financials
             </Select.Option>
-            <Select.Option key="instructor" value="instructor">
+            <Select.Option key="instructor" value="Instructor">
               Instructor Financials
             </Select.Option>
-            <Select.Option key="resource" value="resource">
+            <Select.Option key="resource" value="Resource">
               Resource Financials
             </Select.Option>
-            <Select.Option key="marketingProgram" value="marketingProgram">
+            <Select.Option key="marketingProgram" value="Marketing Program">
               Marketing Program Financials
             </Select.Option>
           </Select>
