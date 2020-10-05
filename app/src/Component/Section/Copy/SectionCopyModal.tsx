@@ -8,11 +8,12 @@ import Modal from "~/Component/Common/Modal"
 import { Button, Card, Form } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
-import { eventBus, REFRESH_SECTION_PAGE } from "~/utils/EventBus"
 import { copySection } from "~/ApiServices/Service/SectionService"
+import SectionCopyForm from "~/Component/Section/Copy/SectionCopyForm"
 
 interface IQuestionModal {
   closeModal?: () => void
+  redirect?: (url: string) => void
   SectionID?: number
   SectionNumber?: string
 }
@@ -26,11 +27,12 @@ function SectionCopyModal(props: IQuestionModal) {
   actions.push(
     <Button
       onClick={() => {
+        console.log(formInstance.getFieldsValue())
         setErrorMessages([])
         setapiCallInProgress(true)
         copySection(formInstance.getFieldsValue()).then((x) => {
           if (x.success && props.closeModal) {
-            eventBus.publish(REFRESH_SECTION_PAGE)
+            props.redirect && props.redirect(`/section/${x.data.SectionID}`)
             props.closeModal()
           } else {
             setErrorMessages(x.error)
@@ -51,8 +53,9 @@ function SectionCopyModal(props: IQuestionModal) {
       closeModal={props.closeModal}
       children={
         <Card title={`Copy Section ${props.SectionNumber}`} actions={actions}>
-          <Form style={{ overflowY: "scroll", padding: "10px", height: "65vh" }}>
+          <Form form={formInstance} style={{ overflowY: "scroll", padding: "10px", height: "65vh" }}>
             <FormError errorMessages={errorMessages}></FormError>
+            <SectionCopyForm formInstance={formInstance} SectionID={props.SectionID}></SectionCopyForm>
           </Form>
         </Card>
       }

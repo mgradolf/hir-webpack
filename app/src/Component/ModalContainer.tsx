@@ -9,6 +9,7 @@ import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/Requ
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
+import SectionCopyModal from "~/Component/Section/Copy/SectionCopyModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
@@ -57,6 +58,7 @@ function ModalContainer(modalState: IModalState) {
         />
       )}
       {modalState.createSectionModal.value && <SectionFormModal />}
+      {modalState.copySectionModal.value && <SectionCopyModal />}
       {modalState.createSectionSeatGroupModal.value && (
         <SectionSeatGroupFormModal
           sectionId={modalState.createSectionSeatGroupModal.config.sectionId}
