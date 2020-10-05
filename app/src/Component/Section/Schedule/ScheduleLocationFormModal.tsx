@@ -33,6 +33,14 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
     }
   }
 
+  const initialFormValue: { [key in keyof IScheduleLocationFieldNames]: any } = {
+    ScheduleIDs: scheduleIds,
+    SiteID: "",
+    BuildingID: "",
+    RoomID: "",
+    ConflictCheck: ""
+  }
+
   return (
     <Modal
       showModal={true}
@@ -44,6 +52,7 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
             fieldNames={fieldNames}
             formInstance={formInstance}
             handleCancel={handleCancel}
+            initialFormValue={initialFormValue}
             scheduleIds={scheduleIds}
             setApiCallInProgress={setApiCallInProgress}
           />

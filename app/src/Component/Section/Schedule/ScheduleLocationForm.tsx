@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Switch } from "antd"
-import { findPossibleSites } from "~/ApiServices/BizApi/scheduling/schedulingIF"
+import {
+  findPossibleBuildings,
+  findPossibleRooms,
+  findPossibleSites
+} from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import "~/Sass/utils.scss"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
+import { FormInstance } from "antd/lib/form"
+import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
+import ScheduleLocationRoomFinder from "~/Component/Section/RoomFinder/RoomFinderFormField"
+
+const { Option } = Select
 
 interface IScheduleCreateFormProps {
   scheduleIds: any
   handleCancel: () => void
   setApiCallInProgress: (flag: boolean) => void
-  formInstance: any
-  fieldNames: { [key: string]: any }
+  formInstance: FormInstance
+  fieldNames: IScheduleLocationFieldNames
+  initialFormValue: { [key in keyof IScheduleLocationFieldNames]: any }
 }
 
 const layout = {
@@ -18,16 +28,50 @@ const layout = {
 }
 export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
   const [siteItems, setSiteItems] = useState<Array<any>>([])
+  const [buildingItems, setBuildingItems] = useState<Array<any>>([])
+  const [roomItems, setRoomItems] = useState<Array<any>>([])
+
+  const [selectedSiteID, setSelectedSiteID] = useState<number | null>(null)
+  const [selectedBuildingID, setSelectedBuildingID] = useState<number | null>(null)
+
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
-    ;(async () => {
-      const response = await findPossibleSites()
-      if (response && response.success && response.data) {
-        setSiteItems(response.data)
+    async function loadSites() {
+      const res = await findPossibleSites()
+      if (Array.isArray(res.data)) {
+        setSiteItems(res.data)
       }
-    })()
-  }, [props])
+    }
+
+    loadSites()
+  }, [])
+
+  useEffect(() => {
+    async function loadBuildings(siteID: number) {
+      const res = await findPossibleBuildings([siteID])
+      if (Array.isArray(res.data)) {
+        setBuildingItems(res.data)
+      }
+    }
+
+    if (selectedSiteID) {
+      loadBuildings(selectedSiteID)
+    }
+  }, [selectedSiteID])
+
+  useEffect(() => {
+    async function loadRooms(buildingID: number) {
+      const res = await findPossibleRooms([buildingID])
+      if (Array.isArray(res.data)) {
+        setRoomItems(res.data)
+      }
+    }
+
+    if (selectedBuildingID) {
+      loadRooms(selectedBuildingID)
+    }
+  }, [selectedBuildingID])
 
   const onFormSubmission = async () => {
     setErrorMessages([])
@@ -58,54 +102,75 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
     // }
   }
 
+  const onValuesChange = (changedValues: { [key: string]: any }) => {
+    if (changedValues[props.fieldNames.SiteID] !== undefined) {
+      setSelectedSiteID(changedValues[props.fieldNames.SiteID])
+    }
+
+    if (changedValues[props.fieldNames.BuildingID] !== undefined) {
+      setSelectedBuildingID(changedValues[props.fieldNames.BuildingID])
+    }
+  }
+
   const actions = []
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
     <Card title="Update Location" actions={actions}>
-      <Form form={props.formInstance} style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+      <Form
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        onValuesChange={onValuesChange}
+        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
+      >
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds} />
         </Form.Item>
-
-        <Form.Item label="Site" name={props.fieldNames.SiteID} {...layout}>
-          <Select aria-label="Site select">
-            {siteItems.map((x) => {
-              return (
-                <Select.Option key={x.SiteID + x.Name} value={x.SiteID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
+        <Form.Item name={props.fieldNames.SiteID} label="Site" {...layout}>
+          <Select aria-label="Site Select">
+            {siteItems.map(({ Name: label, SiteID: value }, i) => (
+              <Option value={value} key={`${value}_${i}`}>
+                {label}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
+        {buildingItems.length > 0 && (
+          <Form.Item name={props.fieldNames.BuildingID} label="Building" {...layout}>
+            <Select aria-label="Building Select">
+              {buildingItems.map(({ Name: label, BuildingID: value }, i) => (
+                <Option value={value} key={`${value}_${i}`}>
+                  {label}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
+        {roomItems.length > 0 && (
+          <Form.Item name={props.fieldNames.RoomID} label="Room" {...layout}>
+            <Select aria-label="Room Select">
+              {roomItems.map(({ Name: label, RoomID: value }, i) => (
+                <Option value={value} key={`${value}_${i}`}>
+                  {label}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
 
-        {/* <Form.Item label="Building" name={props.fieldNames.BuidlingID} {...layout}>
-          <Select aria-label="Building select" onChange={buildingHandler}>
-            {buildingItems.map((x) => {
-              return (
-                <Select.Option key={x.BuildingID + x.Name} value={x.BuildingID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
-
-        <Form.Item label="Room" name={props.fieldNames.RoomID} {...layout}>
-          <Select aria-label="Room select">
-            {roomItems.map((x) => {
-              return (
-                <Select.Option key={x.RoomID + x.Name} value={x.RoomID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item> */}
-
+        <ScheduleLocationRoomFinder
+          formInstance={props.formInstance}
+          onSelectRoom={(room) => {
+            setSelectedSiteID(room.SiteID)
+            setSelectedBuildingID(room.BuildingID)
+          }}
+          onClearRoom={() => {
+            setBuildingItems([])
+            setRoomItems([])
+          }}
+        />
         <Form.Item
           name={props.fieldNames.ConflictCheck}
           label="Check for conflicts(slower)"
