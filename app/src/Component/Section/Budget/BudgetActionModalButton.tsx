@@ -21,8 +21,7 @@ function CreateActionButton(props: ICreateActionButtonProp) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    openCreateBudgetModal: (sectionId: number) =>
-      dispatch(showCreateBudgetModal(true, { sectionId }))
+    openCreateBudgetModal: (sectionId: number) => dispatch(showCreateBudgetModal(true, { sectionId }))
   }
 }
 

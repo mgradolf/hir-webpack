@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Form, Select, Card, Button } from "antd"
-import { } from "@ant-design/icons"
+import {} from "@ant-design/icons"
 import "~/Sass/utils.scss"
 
 interface IBudgetCreateForm1Props {

@@ -8,7 +8,7 @@ export const entities = {
   SeatGroup: "SeatGroup",
   Meeting: "Meeting",
   Section: "Section",
-  SectionFinancial: "SectionFinancial",
+  SectionFinancial: "SectionFinancial"
 }
 
 export function getEntityById(EntityType: string, EntityID: number): Promise<IApiResponse> {
