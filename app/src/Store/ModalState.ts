@@ -1,3 +1,5 @@
+import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
+
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
 const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"
 const SHOW_CREATE_OFFERING_FINANCIAL_MODAL = "SHOW_CREATE_OFFERING_FINANCIAL_MODAL"
@@ -18,6 +20,7 @@ const SHOW_ADD_PROGRAM_MODAL = "SHOW_ADD_PROGRAM_MODAL"
 const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
 const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
 const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
+const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -50,6 +53,7 @@ export interface IModalState {
   createBudgetModal: ModalConfig
   questionCreateModal: ModalConfig
   questionFindModal: ModalConfig
+  roomFinderModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -126,6 +130,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   questionFindModal: {
+    value: false,
+    config: null
+  },
+  roomFinderModal: {
     value: false,
     config: null
   },
@@ -306,6 +314,15 @@ export const showQuestionFindModal = (value: boolean, config?: IQuestionModal): 
   payload: { value, config }
 })
 
+interface IRoomFinderModal {
+  onSelectRoomCallback: (roomInfo: IRoom) => void
+}
+
+export const showRoomFinderModal = (value: boolean, config?: IRoomFinderModal): IAction => ({
+  type: SHOW_ROOM_FINDER_MODAL,
+  payload: { value, config }
+})
+
 interface IShowCreateBudgetModal {
   sectionId?: number
 }
@@ -357,6 +374,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, questionCreateModal: action.payload }
     case SHOW_QUESTION_FIND_MODAL:
       return { ...state, questionFindModal: action.payload }
+    case SHOW_ROOM_FINDER_MODAL:
+      return { ...state, roomFinderModal: action.payload }
     default:
       return state
   }

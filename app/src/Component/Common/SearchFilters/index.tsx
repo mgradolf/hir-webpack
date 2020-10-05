@@ -6,7 +6,7 @@ import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
 import { TextInputType } from "./TextInput"
-import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, isFilterObject, TEXT } from "./common"
+import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, isFilterObject, NUMBER, TEXT } from "./common"
 import { DropDownInputType } from "~/Component/Common/SearchFilters/DropDown"
 import { DatePickerInputType } from "~/Component/Common/SearchFilters/DatePicker"
 import { DatePickersInputType } from "~/Component/Common/SearchFilters/DatePickers"
@@ -64,11 +64,23 @@ export default function (props: IFilterColumnProps) {
     })
   }
 
-  const onChangeFieldCopmonent = (values: React.SetStateAction<RecordType>) => {
+  const onChangeFieldCopmonent = (values: RecordType) => {
     updateFilterData({
       ...filterData,
       ...values
     })
+
+    const newShow: { [key: string]: boolean } = {}
+
+    Object.keys(values).forEach((key) => {
+      if (values[key] !== "" && !show[key]) {
+        newShow[key] = true
+      }
+    })
+
+    if (Object.keys(newShow).length > 0) {
+      updateShow({ ...show, ...newShow })
+    }
   }
 
   useEffect(() => {
@@ -97,7 +109,7 @@ export default function (props: IFilterColumnProps) {
   const filterFieldsArray = metaState.map((field, i) => {
     if (isFilterObject(field)) {
       const { inputType, fieldName } = field
-      if (inputType === TEXT) {
+      if (inputType === TEXT || inputType === NUMBER) {
         return (
           <TextInputType
             {...field}
@@ -159,6 +171,7 @@ export default function (props: IFilterColumnProps) {
         key: i,
         value: filterData,
         show,
+        isChecked,
         toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
         filterValueChanged: onChangeFieldCopmonent
       })

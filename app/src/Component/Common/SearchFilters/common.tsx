@@ -8,8 +8,9 @@ export const TEXT = "TEXT"
 export const DROPDOWN = "DROPDOWN"
 export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
+export const NUMBER = "NUMBER"
 
-type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS
+type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
 
 export interface IFilterFieldObject {
   label: string
@@ -35,6 +36,7 @@ export interface IFilterFieldComponent {
   inputType: string
   fieldName: string
   customFilterComponent: any
+  extraProps?: { [key: string]: any }
 }
 
 export type IFilterField = IFilterFieldObject | IFilterFieldComponent
@@ -56,6 +58,7 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
   : IFilterFieldComponent & {
       show: { [key: string]: boolean }
       value: { [key: string]: string | number }
+      isChecked?: boolean
       toggleCheckboxHandler: (fieldNames: string | string[]) => (event: CheckboxChangeEvent) => void
       filterValueChanged: (newValues: { [key: string]: string | number | boolean }) => void
     }

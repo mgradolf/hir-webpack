@@ -18,6 +18,7 @@ import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLoca
 import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
+import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
@@ -85,6 +86,9 @@ function ModalContainer(modalState: IModalState) {
       )}
       {modalState.questionCreateModal.value && <QuestionCreateModal />}
       {modalState.questionFindModal.value && <QuestionFindModal />}
+      {modalState.roomFinderModal.value && (
+        <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
+      )}
     </>
   )
 }
