@@ -6,8 +6,12 @@ export const config = {
   Module: "hir",
   Actions: {
     getTagQuestions: "getTagQuestions",
+    searchQuestions: "searchQuestions",
+    createQuestion: "createQuestion",
     addTagQuestions: "addTagQuestions",
+    UpdateTagQuestions: "UpdateTagQuestions",
     removeTagQuestions: "removeTagQuestions",
+    searchQuestionResponse: "searchQuestionResponse",
     saveTagAnswer: "saveTagAnswer",
     updateTagQuestion: "updateTagQuestion"
   }

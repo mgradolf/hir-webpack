@@ -21,7 +21,7 @@ export type AppState = {
 export type AppStore = Store<AppState, AnyAction>
 
 function createStore(): { store: AppStore; history: History } {
-  const history = createBrowserHistory({ basename: process.env.REACT_APP_ROUTER_PREFIX })
+  const history = createBrowserHistory({ basename: process.env.PUBLIC_URL })
   const reducers = combineReducers<AppState>({
     authentication: authenticationReducer,
     router: connectRouter(history),

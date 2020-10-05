@@ -186,3 +186,9 @@ export function getRoomTypes(): Promise<IApiResponse> {
     LookUpName: "RoomUseType"
   })
 }
+
+export function getPreferenceValueType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "PreferenceValueType"
+  })
+}

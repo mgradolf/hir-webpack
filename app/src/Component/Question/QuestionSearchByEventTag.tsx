@@ -3,9 +3,9 @@ import { Form, Select } from "antd"
 import { getTags } from "~/ApiServices/Service/TagService"
 import { getQuestionEvents, getTagTypes } from "~/ApiServices/Service/RefLookupService"
 
-interface IQuestionSearchCustomFIlter {
-  entityType: string
-  entityID: number
+interface IQuestionSearchByEventTag {
+  entityType?: string
+  entityID?: number
   setFilters: (param: { [key: string]: number }) => void
 }
 
@@ -13,7 +13,7 @@ const layout = {
   labelCol: { span: 6 }
 }
 
-export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomFIlter) {
+export default function QuestionSearchByEventTag(props: IQuestionSearchByEventTag) {
   const [allEvents, setAllEvents] = useState<Array<any>>([])
   const [allTagTypes, setAllTagTypes] = useState<Array<any>>([])
   const [allTags, setAllTags] = useState<Array<any>>([])
@@ -24,7 +24,7 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
 
   useEffect(() => {
     const filter: { [key: string]: number } = {}
-    filter[props.entityType] = props.entityID
+    if (props.entityID && props.entityType) filter[props.entityType] = props.entityID
     if (selectedEvent) filter.EventID = selectedEvent
     if (selectedTagType) filter.TagTypeID = selectedTagType
     if (selectedTag) filter.TagID = selectedTag
@@ -78,7 +78,7 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
   }
 
   const onChangeTag = (id: number) => {
-    if (selectedTagType && id >= 0) {
+    if (id >= 0) {
       setSelectedTag(id)
     } else {
       setSelectedTag(null)
@@ -88,7 +88,7 @@ export default function QuestionSearchCustomFIlter(props: IQuestionSearchCustomF
   return (
     <>
       <Form.Item label="Event" {...layout}>
-        <Select onChange={onChangeEvent}>
+        <Select onChange={onChangeEvent} defaultValue={2}>
           {allEvents.map((x, i) => (
             <Select.Option key={"Event" + x.Name + x.ID + i} value={x.ID}>
               {x.Name}

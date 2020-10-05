@@ -70,8 +70,6 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
-  console.log("secitonid: " + props.sectionId)
-
   return (
     <Card title={props.seatgroupId ? `Edit seat group` : "Create new seat group"} actions={actions}>
       <Form

@@ -39,3 +39,9 @@ export function copySection(Params: { [key: string]: any }) {
 export function findRoom(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findRoom](Params)
 }
+
+export function getSectionFinancials(SectionID: number): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionFinancials]({
+    SectionID
+  })
+}

@@ -19,7 +19,8 @@ export const config = {
     getMeetings: "getMeetings",
     createMeetings: "createMeetings",
     saveMeetings: "saveMeetings",
-    findRoom: "findRoom"
+    findRoom: "findRoom",
+    getSectionFinancials: "getSectionFinancials"
   }
 }
 

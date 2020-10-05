@@ -8,6 +8,7 @@ const SHOW_OFFERING_PREREQUISITE_GROUP_MODAL = "SHOW_OFFERING_PREREQUISITE_GROUP
 const SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL = "SHOW_ADD_INSTRUCTOR_FROM_INSTRUCTOR_MODAL"
 const SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL = "SHOW_ADD_OFFERING_FROM_PREREQUISITE_GROUP_MODAL"
 const SHOW_CREATE_SECTION_MODAL = "SHOW_CREATE_SECTION_MODAL"
+const SHOW_SECTION_COPY_MODAL = "SHOW_SECTION_COPY_MODAL"
 const SHOW_SECTION_SEATGROUP_MODAL = "SHOW_SECTION_SEATGROUP_MODAL"
 const SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL = "SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL"
 const SHOW_SECTION_SCHEDULE_MODAL = "SHOW_SECTION_SCHEDULE_MODAL"
@@ -16,6 +17,7 @@ const SHOW_UPDATE_SECTION_SCHEDULE_LOCATION_MODAL = "SHOW_UPDATE_SECTION_SCHEDUL
 const SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_INSTRUCTOR_MODAL"
 const SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL = "SHOW_UPDATE_SECTION_SCHEDULE_NOTE_MODAL"
 const SHOW_ADD_PROGRAM_MODAL = "SHOW_ADD_PROGRAM_MODAL"
+const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
 const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
 const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
 const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
@@ -39,6 +41,7 @@ export interface IModalState {
   addOfferingFromRequisiteGroupModal: ModalConfig
   addInstructorFromInstructorModal: ModalConfig
   createSectionModal: ModalConfig
+  copySectionModal: ModalConfig
   createSectionSeatGroupModal: ModalConfig
   addSeatGroupAffiliateOrganization: ModalConfig
   createSectionScheduleModal: ModalConfig
@@ -47,6 +50,7 @@ export interface IModalState {
   updateSectionScheduleInstructorModal: ModalConfig
   updateSectionScheduleNoteModal: ModalConfig
   addProgramModal: ModalConfig
+  createBudgetModal: ModalConfig
   questionCreateModal: ModalConfig
   questionFindModal: ModalConfig
   roomFinderModal: ModalConfig
@@ -82,6 +86,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   createSectionModal: {
+    value: false,
+    config: null
+  },
+  copySectionModal: {
     value: false,
     config: null
   },
@@ -126,6 +134,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   roomFinderModal: {
+    value: false,
+    config: null
+  },
+  createBudgetModal: {
     value: false,
     config: null
   }
@@ -201,6 +213,15 @@ interface IShowCreateSectionModal {
 
 export const showCreateSectionModal = (value: boolean, config?: IShowCreateSectionModal): IAction => ({
   type: SHOW_CREATE_SECTION_MODAL,
+  payload: { value, config }
+})
+
+interface IShowCopySectionModal {
+  SectionID: number
+  SectionNumber: string
+}
+export const showCopySectionModal = (value: boolean, config?: IShowCopySectionModal): IAction => ({
+  type: SHOW_SECTION_COPY_MODAL,
   payload: { value, config }
 })
 
@@ -302,6 +323,15 @@ export const showRoomFinderModal = (value: boolean, config?: IRoomFinderModal): 
   payload: { value, config }
 })
 
+interface IShowCreateBudgetModal {
+  sectionId?: number
+}
+
+export const showCreateBudgetModal = (value: boolean, config?: IShowCreateBudgetModal): IAction => ({
+  type: SHOW_CREATE_BUDGET_MODAL,
+  payload: { value, config }
+})
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -320,6 +350,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, addInstructorFromInstructorModal: action.payload }
     case SHOW_CREATE_SECTION_MODAL:
       return { ...state, createSectionModal: action.payload }
+    case SHOW_SECTION_COPY_MODAL:
+      return { ...state, copySectionModal: action.payload }
     case SHOW_SECTION_SEATGROUP_MODAL:
       return { ...state, createSectionSeatGroupModal: action.payload }
     case SHOW_SECTION_SEATGROUP_AFFILIATE_ORGANIZATION_MODAL:
@@ -336,6 +368,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, updateSectionScheduleNoteModal: action.payload }
     case SHOW_ADD_PROGRAM_MODAL:
       return { ...state, addProgramModal: action.payload }
+    case SHOW_CREATE_BUDGET_MODAL:
+      return { ...state, createBudgetModal: action.payload }
     case SHOW_QUESTION_CREATE_MODAL:
       return { ...state, questionCreateModal: action.payload }
     case SHOW_QUESTION_FIND_MODAL:

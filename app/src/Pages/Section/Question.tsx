@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getTagQuestions, updateTagQuestion } from "~/ApiServices/Service/QuestionService"
 import { getQuestionGroup } from "~/ApiServices/Service/RefLookupService"
-import QuestionSearchCustomFIlter from "~/Component/Question/QuestionSearchCustomFIlter"
-import QuestionCreateButton from "~/Component/Question/QuestionCreateButton"
+import QuestionSearchByEventTag from "~/Component/Question/QuestionSearchByEventTag"
+import QuestionCreateButton from "~/Component/Question/Create/QuestionCreateButton"
 import QuestionTable from "~/Component/Question/QuestionTable"
-import QuestionFindButton from "~/Component/Question/QuestionFindButton"
+import QuestionFindButton from "~/Component/Question/Search/QuestionFindButton"
 import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 
 export default function QuestionPage(props: RouteComponentProps<{ offeringID?: string; sectionID?: string }>) {
@@ -40,7 +40,11 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
 
   return (
     <div>
-      <QuestionSearchCustomFIlter entityID={sectionID} entityType="SectionID" setFilters={setFilters} />
+      <QuestionSearchByEventTag
+        setFilters={(Params: any) => {
+          setFilters(Params)
+        }}
+      />
       <QuestionCreateButton SectionID={sectionID} {...filters} />
       <QuestionFindButton SectionID={sectionID} {...filters} />
       <QuestionTable
