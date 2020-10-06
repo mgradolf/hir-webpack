@@ -1,37 +1,21 @@
 import React from "react"
-import { Menu } from "antd"
-import { Link } from "react-router-dom"
+import GoToMenu from "~/Component/Common/GoToMenu"
 
 interface ISectionMenu {
   section: { [key: string]: any }
 }
+
 export default function SectionMenu(props: ISectionMenu) {
-  return (
-    <Menu>
-      <Menu.Item key="0">
-        <Link to={`/section/${props.section.SectionID}/seatgroup`}>Seatgroup</Link>
-      </Menu.Item>
-      <Menu.Item key="1">
-        <Link to={`/section/${props.section.SectionID}/budget`}>Budget</Link>
-      </Menu.Item>
-      <Menu.Item key="2">
-        <Link to={`/section/${props.section.SectionID}/discount`}>Discount</Link>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Link to={`/section/${props.section.SectionID}/schedule`}>Schedule</Link>
-      </Menu.Item>
-      <Menu.Item key="4">
-        <Link to={`/section/${props.section.SectionID}/catalog`}>Catalog</Link>
-      </Menu.Item>
-      <Menu.Item key="5">
-        <Link to={`/section/${props.section.SectionID}/notification`}>Email Notification</Link>
-      </Menu.Item>
-      <Menu.Item key="6">
-        <Link to={`/section/${props.section.SectionID}/question`}>Question</Link>
-      </Menu.Item>
-      <Menu.Item key="5">
-        <Link to={`/section/${props.section.SectionID}/registration`}>Registration</Link>
-      </Menu.Item>
-    </Menu>
-  )
+  const menus = [
+    { title: "Seatgroup", url: `/section/${props.section.SectionID}/seatgroup` },
+    { title: "Budget", url: `/section/${props.section.SectionID}/budget` },
+    { title: "Discount", url: `/section/${props.section.SectionID}/discount` },
+    { title: "Schedule", url: `/section/${props.section.SectionID}/schedule` },
+    { title: "Catalog", url: `/section/${props.section.SectionID}/catalog` },
+    { title: "Email Notification", url: `/section/${props.section.SectionID}/notification` },
+    { title: "Question", url: `/section/${props.section.SectionID}/question` },
+    { title: "Registration", url: `/section/${props.section.SectionID}/registration` },
+    { title: "Tag", url: `/section/${props.section.SectionID}/tag` }
+  ]
+  return <GoToMenu menuList={menus} />
 }

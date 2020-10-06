@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react"
 import { Dispatch } from "redux"
 import moment from "moment"
 import { Redirect, RouteComponentProps } from "react-router-dom"
-import { Row, Col, Button, Dropdown, Typography, Space, Spin } from "antd"
-
+import { Row, Col, Button, Typography, Space, Spin } from "antd"
 import SectionEditLink from "~/Component/Section/CreateEdit/SectionEditLink"
 import SectionCopyModalOpenButton from "~/Component/Section/Copy/SectionCopyModalOpenButton"
-import { DownOutlined, ReadOutlined } from "@ant-design/icons"
+import { ReadOutlined } from "@ant-design/icons"
 import { getSectionById, removeSectionById } from "~/ApiServices/Service/EntityService"
 import SectionMenu from "~/Component/Section/SectionMenu"
 import styles from "~/Pages/Offering/OfferingDetails.module.scss"
@@ -64,11 +63,7 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
                 </Text>
               </Row>
               <Row className={styles.marginTop10px}>
-                <Dropdown overlay={<SectionMenu section={sectionDetails} />} trigger={["click"]}>
-                  <Button type="primary" onClick={(e) => e.preventDefault()}>
-                    Go To <DownOutlined />
-                  </Button>
-                </Dropdown>
+                <SectionMenu section={sectionDetails} />
               </Row>
             </Col>
           </Row>

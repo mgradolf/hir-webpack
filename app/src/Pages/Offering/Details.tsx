@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react"
-
 import moment from "moment"
 import { RouteComponentProps } from "react-router-dom"
-import { Row, Col, Button, Dropdown, Typography } from "antd"
-
+import { Row, Col, Typography } from "antd"
 import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
-import { DownOutlined, ReadOutlined } from "@ant-design/icons"
+import { ReadOutlined } from "@ant-design/icons"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import styles from "~/Pages/Offering/OfferingDetails.module.scss"
@@ -50,11 +48,7 @@ function OfferingDetailsPage(props: RouteComponentProps<{ offeringID: string }>)
                 </Text>
               </Row>
               <Row className={styles.marginTop10px}>
-                <Dropdown overlay={<OfferingMenu offering={offeringDetails} />} trigger={["click"]}>
-                  <Button type="primary" onClick={(e) => e.preventDefault()}>
-                    Go To <DownOutlined />
-                  </Button>
-                </Dropdown>
+                <OfferingMenu offering={offeringDetails} />
               </Row>
             </Col>
           </Row>
