@@ -1,11 +1,28 @@
 import * as React from "react"
+import { Form } from "antd"
 import Modal from "~/Component/Common/Modal"
 import { useState } from "react"
 import CreateForm1 from "~/Component/Section/Budget/Form1"
+import CreateForm2 from "~/Component/Section/Budget/Form2"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateBudgetModal } from "~/Store/ModalState"
 import { redirect } from "~/Store/ConnectedRoute"
+import { IBudgetFieldNames } from "~/Component/Section/Interfaces"
+
+const filedNames: IBudgetFieldNames = {
+  SectionID: "SectionID",
+  FinancialID: "FinancialID",
+  Description: "Description",
+  GLAccountID: "GLAccountID",
+  ItemUnitAmount: "ItemUnitAmount",
+  ItemQty: "ItemQty",
+  InitialDepositAmount: "InitialDepositAmount",
+  IsOptional: "IsOptional",
+  SeatGroupIDs: "SeatGroupIDs",
+  FinancialBasisType: "FinancialBasisType",
+  FinancialType: "FinancialType"
+}
 
 interface ICreateNewBudgetProps {
   sectionId: number
@@ -14,12 +31,11 @@ interface ICreateNewBudgetProps {
 }
 
 function CreateNewBudget(props: ICreateNewBudgetProps) {
-  const [editMode] = useState(false)
-  // const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
-  // const [formInstance] = Form.useForm()
+  const [formInstance] = Form.useForm()
+  const [selectedBudgetType, setSelectedBudgetType] = useState(String)
   const [firstFormVisible, setFirstFormVisible] = useState(true)
   const [secondFormVisible, setSecondFormVisible] = useState(false)
-  const [apiCallInProgress] = useState(false)
+  const [apiCallInProgress, setApiCallInProgress] = useState(false)
 
   const handleCancel = () => {
     if (props.closeCreateBudgetModal) {
@@ -29,12 +45,12 @@ function CreateNewBudget(props: ICreateNewBudgetProps) {
   }
 
   const onBudgetTypeSelected = (selectedBudgetType: any) => {
+    setSelectedBudgetType(selectedBudgetType)
     setFirstFormVisible(false)
     setSecondFormVisible(true)
   }
 
   const goBackToBudgetTypeForm = () => {
-    // setInitialFormValue({})
     setSecondFormVisible(false)
     setFirstFormVisible(true)
   }
@@ -47,18 +63,17 @@ function CreateNewBudget(props: ICreateNewBudgetProps) {
       apiCallInProgress={apiCallInProgress}
       children={
         <>
-          {firstFormVisible && !editMode && (
-            <CreateForm1 handleCancel={handleCancel} handleSelected={onBudgetTypeSelected} />
-          )}
-          {/* {secondFormVisible && (
+          {firstFormVisible && <CreateForm1 handleCancel={handleCancel} handleSelected={onBudgetTypeSelected} />}
+          {secondFormVisible && (
             <CreateForm2
-              editMode={editMode}
-              initialFormValue={initialFormValue}
+              sectionId={props.sectionId}
+              budgetType={selectedBudgetType}
+              fieldNames={filedNames}
               formInstance={formInstance}
-              goBackToFirstForm={goBackToOfferingTypeForm}
+              goBackToFirstForm={goBackToBudgetTypeForm}
               setApiCallInProgress={setApiCallInProgress}
             />
-          )} */}
+          )}
         </>
       }
     />

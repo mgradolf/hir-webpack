@@ -1,49 +1,42 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Space, Dropdown } from "antd"
-import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
+import { getSectionDiscounts } from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Budget/Budget.module.scss"
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
-import BudgetMenu from "~/Component/Section/Budget/BudgetMenu"
-import BudgetActionModalButton from "~/Component/Section/Budget/BudgetActionModalButton"
-import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
+import DiscountMenu from "~/Component/Section/Discount/DiscountMenu"
+import DiscountActionModalButton from "~/Component/Section/Discount/DiscountActionModalButton"
+import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
 import { DownOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
 
-function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
+function SectionDiscountPage(props: RouteComponentProps<{ sectionID: string }>) {
   const columns = [
     {
-      title: "Type",
-      dataIndex: "FinancialType"
+      title: "Name",
+      dataIndex: "DiscountProgramName"
     },
     {
-      title: "Item",
-      dataIndex: "ItemName"
-    },
-    {
-      title: "Description",
-      dataIndex: "Description"
-    },
-    {
-      title: "Seat Group",
-      dataIndex: "SeatGroupName"
+      title: "Discount Type",
+      dataIndex: "DiscountType"
     },
     {
       title: "GL Account",
       dataIndex: "GLAccount"
     },
     {
-      title: "Basis",
-      dataIndex: "FinancialBasisType"
-    },
-    {
       title: "Amount",
-      dataIndex: "ItemUnitAmount"
+      dataIndex: "Amount"
     },
     {
-      title: "Quantity",
-      dataIndex: "ItemQty"
+      title: "Amount Type",
+      dataIndex: "DiscountAmountType"
+    },
+    {
+      title: "Promoted?",
+      dataIndex: "IsPromotedForMarketing",
+      render: (value: any) => (value ? "Yes" : "No")
     },
     {
       title: "Item Code",
@@ -55,14 +48,7 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
       render: (record: any) => (
         <Space size="middle">
           <Dropdown
-            overlay={
-              <BudgetMenu
-                sectionId={record.SectionID}
-                financialId={record.FinancialID}
-                seatGroups={record.SeatGroups}
-                sectionFinancialId={record.SectionFinancialID}
-              />
-            }
+            overlay={<DiscountMenu sectionId={record.SectionID} sectionDiscountId={record.SectionDiscountID} />}
             trigger={["click"]}
           >
             <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
@@ -80,13 +66,8 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
         {display && (
           <div style={{ border: "1px solid", padding: "5px" }}>
             <Row>
-              <Col span="10">Description:</Col>
-              <Col span="14">{data.Description}</Col>
-            </Row>
-
-            <Row>
-              <Col span="10">Seat Group:</Col>
-              <Col span="14">{data.SeatGroupName}</Col>
+              <Col span="10">Discount Type:</Col>
+              <Col span="14">{data.DiscountType}</Col>
             </Row>
 
             <Row>
@@ -95,18 +76,18 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
             </Row>
 
             <Row>
-              <Col span="10">Basis:</Col>
-              <Col span="14">{data.FinancialBasisType}</Col>
-            </Row>
-
-            <Row>
               <Col span="10">Amount:</Col>
-              <Col span="14">{data.ItemUnitAmount}</Col>
+              <Col span="14">{data.Amount}</Col>
             </Row>
 
             <Row>
-              <Col span="10">Quantity:</Col>
-              <Col span="14">{data.ItemQty}</Col>
+              <Col span="10">Amount Type:</Col>
+              <Col span="14">{data.DiscountAmountType}</Col>
+            </Row>
+
+            <Row>
+              <Col span="10">Promoted?:</Col>
+              <Col span="14">{data.IsPromotedForMarketing ? "Yes" : "No"}</Col>
             </Row>
 
             <Row>
@@ -123,39 +104,27 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
   console.log("Section ID: ", sectionID)
 
   const [loading, setLoading] = useState<boolean>(false)
-  const [sectionFinancialItems, setSectionFinancialItems] = useState<Array<any>>([])
+  const [sectionDiscountItems, setSectionDiscountItems] = useState<Array<any>>([])
 
   useEffect(() => {
-    const loadSectionFinancials = async function () {
+    const loadSectionDiscounts = async function () {
       setLoading(true)
-      const result = await getSectionFinancials({ SectionID: sectionID })
+      const result = await getSectionDiscounts({ SectionID: Number(sectionID) })
 
       if (result && result.success) {
         setLoading(false)
-        setSectionFinancialItems(
+        setSectionDiscountItems(
           result.data.map((x: any, index: number) => {
             x.key = index
-            x.SeatGroupName = "None"
-
-            let seatGroupName = ""
-            const seatGroups = x.SeatGroups
-            if (seatGroups !== null) {
-              for (let i = 0; i < seatGroups.length; i++) {
-                if (i > 0) seatGroupName += ", "
-                seatGroupName += seatGroups[i].Name
-              }
-            }
-            if (seatGroupName !== "") x.SeatGroupName = seatGroupName
-
             return x
           })
         )
       }
     }
-    eventBus.subscribe(REFRESH_SECTION_BUDGET_PAGE, loadSectionFinancials)
-    eventBus.publish(REFRESH_SECTION_BUDGET_PAGE)
+    eventBus.subscribe(REFRESH_SECTION_DISCOUNT_PAGE, loadSectionDiscounts)
+    eventBus.publish(REFRESH_SECTION_DISCOUNT_PAGE)
     return () => {
-      eventBus.unsubscribe(REFRESH_SECTION_BUDGET_PAGE)
+      eventBus.unsubscribe(REFRESH_SECTION_DISCOUNT_PAGE)
     }
   }, [sectionID])
 
@@ -163,10 +132,10 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
     <div className="site-layout-content">
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" xs={24} sm={24} md={12}>
-          <Title level={3}>Manage Budgets</Title>
+          <Title level={3}>Manage Discount Programs</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <BudgetActionModalButton sectionId={parseInt(sectionID)} />
+          <DiscountActionModalButton sectionId={parseInt(sectionID)} />
         </Col>
       </Row>
 
@@ -174,7 +143,7 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
         <Col className={`gutter-row ${styles.sectionSeatGroupDetails}`} xs={24} sm={24} md={24}>
           <ResponsiveTable
             columns={columns}
-            dataSource={sectionFinancialItems}
+            dataSource={sectionDiscountItems}
             loading={loading}
             expandableRowRender={expandableRowRender}
             bordered
@@ -189,4 +158,4 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
   )
 }
 
-export default SectionBudgetPage
+export default SectionDiscountPage

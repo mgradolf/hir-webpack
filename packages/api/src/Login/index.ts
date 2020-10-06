@@ -5,7 +5,7 @@ import { ApiConfig, IApiResponse } from "../utils/Interfaces"
 
 export async function login(UserName: string, UserPassword: string): Promise<IApiResponse> {
   const requestConfig: ApiConfig = {
-    baseURL: process.env.REACT_APP_API_ROOT,
+    baseURL: `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`, //process.env.REACT_APP_API_ROOT,
     url: `api/login?UserName=${UserName}&UserPassword=${UserPassword}`,
     method: "POST",
     headers: {

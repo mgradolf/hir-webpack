@@ -19,8 +19,20 @@ export const config = {
     getMeetings: "getMeetings",
     createMeetings: "createMeetings",
     saveMeetings: "saveMeetings",
-    findRoom: "findRoom",
-    getSectionFinancials: "getSectionFinancials"
+    saveFinancial: "saveFinancial",
+    saveFinancials: "saveFinancials",
+    getSectionFinancials: "getSectionFinancials",
+    getSectionNotifications: "getSectionNotifications",
+    saveSectionDiscount: "saveSectionDiscount",
+    removeSectionDiscounts: "removeSectionDiscounts",
+    getSectionDiscounts: "getSectionDiscounts",
+    getAvailableDiscountPrograms: "getAvailableDiscountPrograms",
+    getAvailableOfferingFinancials: "getAvailableOfferingFinancials",
+    getAvailableFacultyWithFinancials: "getAvailableFacultyWithFinancials",
+    getAvailableResourcesWithFinancials: "getAvailableResourcesWithFinancials",
+    getAvailableMarketingProgramsWithFinancials: "getAvailableMarketingProgramsWithFinancials",
+    removeFinancials: "removeFinancials",
+    findRoom: "findRoom"
   }
 }
 

@@ -10,7 +10,7 @@ function callServiceApi(
   Module?: any
 ): Promise<IApiResponse> {
   const config: ApiConfig = {
-    baseURL: process.env.REACT_APP_API_ROOT,
+    baseURL: `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`, // process.env.REACT_APP_API_ROOT,
     url: endPoint,
     method: "POST",
     headers: {

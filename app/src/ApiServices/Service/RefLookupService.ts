@@ -169,6 +169,18 @@ export function getProgramStatusCodes(): Promise<IApiResponse> {
   })
 }
 
+export function getSectionNotices(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SectionNoticeType"
+  })
+}
+
+export function getDiscountAmountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DiscountAmountType"
+  })
+}
+
 export function getQuestionEvents(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "QuestionEvent"
