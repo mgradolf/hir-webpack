@@ -30,6 +30,7 @@ import SectionBudgetPage from "~/Pages/Section/Budget"
 import SectionNoticePage from "~/Pages/Section/Notice"
 import SectionDiscountPage from "~/Pages/Section/Discount"
 import RegistrationPage from "~/Pages/Section/Registration"
+import SectionTagPage from "~/Pages/Section/Tag"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
@@ -76,6 +77,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
       <Route exact path="/section/:sectionID/question" component={QuestionPage} />
       <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
+      <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
 
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />
