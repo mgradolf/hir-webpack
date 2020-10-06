@@ -5,6 +5,7 @@ import { RadioChangeEvent } from "antd/lib/radio"
 import { getSectionTypes } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
 import { createSection } from "~/ApiServices/Service/OfferingService"
+import { DEFAULT_SECTION_TYPE_ID } from "~/utils/Constants"
 
 interface ISectionCreateFormProps {
   handleCancel: () => void
@@ -23,7 +24,6 @@ const SectionFieldName: ISectionCreateFieldNames = {
   SectionTypeID: "SectionTypeID"
 }
 
-const defaultSectionTypeValue = 13
 export default function SectionCreateForm(props: ISectionCreateFormProps) {
   const [formInstance] = Form.useForm()
   const [sectionTypes, setSectionTypes] = useState<Array<any>>([])
@@ -48,7 +48,7 @@ export default function SectionCreateForm(props: ISectionCreateFormProps) {
         if (response && response.success && Array.isArray(response.data)) {
           setSectionTypes(
             response.data.map((x) => {
-              if (x.SectionTypeID === defaultSectionTypeValue) {
+              if (x.SectionTypeID === DEFAULT_SECTION_TYPE_ID) {
                 x.OfferingStatusCodeID = 0
               }
               return x
@@ -67,7 +67,7 @@ export default function SectionCreateForm(props: ISectionCreateFormProps) {
     if (e.target.value === sectionRadioValues.DEFAULT) {
       setSectionTypesVisible(false)
       setIsSectionTypeSelected(true)
-      formInstance.setFieldsValue({ [SectionFieldName.SectionTypeID]: defaultSectionTypeValue })
+      formInstance.setFieldsValue({ [SectionFieldName.SectionTypeID]: DEFAULT_SECTION_TYPE_ID })
     } else if (e.target.value === sectionRadioValues.OTHER) {
       setSectionTypesVisible(true)
       setIsSectionTypeSelected(false)

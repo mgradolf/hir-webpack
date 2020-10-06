@@ -6,6 +6,7 @@ import {} from "@ant-design/icons"
 import { RadioChangeEvent } from "antd/lib/radio"
 import { getOfferingTypes } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
+import { DEFAULT_OFFERING_TYPE_ID } from "~/utils/Constants"
 
 interface IOfferingCreateForm1Props {
   formInstance: FormInstance
@@ -19,7 +20,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
   const [offeringTypes, setofferingTypes] = useState<Array<any>>([])
   const [disableRadios, setDisableRadios] = useState(false)
   const [radioValues] = useState([
-    { label: "Default", value: 1000, default: true },
+    { label: "Default", value: DEFAULT_OFFERING_TYPE_ID, default: true },
     { label: "Other", value: "OTHER", default: false }
   ])
   const [offeringTypesVisible, setOfferingTypesVisible] = useState(false)
@@ -33,7 +34,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
       if (response && response.success && Array.isArray(response.data)) {
         setofferingTypes(
           response.data.map((x) => {
-            if (x.OfferingTypeID === 1000) {
+            if (x.OfferingTypeID === DEFAULT_OFFERING_TYPE_ID) {
               x.OfferingStatusCodeID = 0
             }
             return x
@@ -52,10 +53,10 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
   }, [props])
 
   const onChangeOfferingTypes = (e: RadioChangeEvent) => {
-    if (e.target.value === 1000) {
+    if (e.target.value === DEFAULT_OFFERING_TYPE_ID) {
       setOfferingTypesVisible(false)
       setIsSelected(true)
-      props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: 1000 })
+      props.formInstance.setFieldsValue({ [props.fieldNames.OfferingTypeID]: DEFAULT_OFFERING_TYPE_ID })
     } else if (e.target.value === "OTHER") {
       setOfferingTypesVisible(true)
       setIsSelected(false)
