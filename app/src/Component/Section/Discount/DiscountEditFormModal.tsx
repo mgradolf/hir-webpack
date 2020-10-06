@@ -21,6 +21,7 @@ const fieldNames: IDiscountFieldNames = {
   DiscountProgramID: "DiscountProgramID",
   GLAccountID: "GLAccountID",
   DiscountTypeID: "DiscountTypeID",
+  DiscountType: "DiscountType",
   DiscountVolume: "DiscountVolume",
   DiscountVolumeMultiply: "DiscountVolumeMultiply",
   IsActive: "IsActive",
@@ -53,10 +54,12 @@ function DiscountUpdate({ closeUpdateDiscountModal, sectionDiscountId, sectionId
       ;(async () => {
         setDiscountLoading(true)
         const response = await getSectionDiscounts({ SectionDiscountID: sectionDiscountId })
-        if (response && response.success) {
+        if (response && response.success && response.data) {
           formInstance.setFieldsValue(response.data[0])
           if (response.data[0].DiscountServiceParams !== undefined) {
-            formInstance.setFieldsValue(response.data[0].DiscountServiceParams)
+            const discountServiceParams = response.data[0].DiscountServiceParams
+            delete discountServiceParams["DiscountType"]
+            formInstance.setFieldsValue(discountServiceParams)
           }
         } else {
           if (closeUpdateDiscountModal) {
@@ -66,7 +69,8 @@ function DiscountUpdate({ closeUpdateDiscountModal, sectionDiscountId, sectionId
         setDiscountLoading(false)
       })()
     }
-  }, [closeUpdateDiscountModal, formInstance, sectionDiscountId])
+    // eslint-disable-next-line
+  }, [closeUpdateDiscountModal, sectionDiscountId])
 
   return (
     <Modal
