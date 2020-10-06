@@ -10,6 +10,7 @@ const { Text } = Typography
 
 interface ISectionDetailsRoomFinder {
   formInstance: FormInstance
+  label?: string
   onSelectRoom?: (room: IRoom) => void
   onClearRoom?: () => void
 }
@@ -75,6 +76,8 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
     }
   }, [buildingID])
 
+  const defaultFormItemLabel = "Room"
+
   const label = isSelectedRoomNotEmpty(selectedRoom)
     ? `${roomNameMap[selectedRoom.RoomID]}, ${buildingNameMap[selectedRoom.BuildingID]}, ${
         siteNameMap[selectedRoom.SiteID]
@@ -82,7 +85,7 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
     : `No room selected`
 
   return (
-    <Form.Item label="Room:" labelCol={{ span: 6 }}>
+    <Form.Item label={props.label || defaultFormItemLabel} labelCol={{ span: 6 }}>
       <Text style={{ marginRight: "16px" }}>{label}</Text>
       <RoomFinder
         style={{ marginRight: "16px" }}

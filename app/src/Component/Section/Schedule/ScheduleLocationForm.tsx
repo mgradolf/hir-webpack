@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Switch } from "antd"
+import { Form, Card, Button, Input, Select, Switch, Divider } from "antd"
 import {
   findPossibleBuildings,
   findPossibleRooms,
@@ -105,10 +105,12 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
   const onValuesChange = (changedValues: { [key: string]: any }) => {
     if (changedValues[props.fieldNames.SiteID] !== undefined) {
       setSelectedSiteID(changedValues[props.fieldNames.SiteID])
+      props.formInstance.setFieldsValue({ [props.fieldNames.BuildingID]: "", [props.fieldNames.RoomID]: "" })
     }
 
     if (changedValues[props.fieldNames.BuildingID] !== undefined) {
       setSelectedBuildingID(changedValues[props.fieldNames.BuildingID])
+      props.formInstance.setFieldsValue({ [props.fieldNames.RoomID]: "" })
     }
   }
 
@@ -159,7 +161,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
             </Select>
           </Form.Item>
         )}
-
+        <Divider orientation="left">Search room via room finder</Divider>
         <ScheduleLocationRoomFinder
           formInstance={props.formInstance}
           onSelectRoom={(room) => {
@@ -167,6 +169,8 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
             setSelectedBuildingID(room.BuildingID)
           }}
           onClearRoom={() => {
+            setSelectedSiteID(null)
+            setSelectedBuildingID(null)
             setBuildingItems([])
             setRoomItems([])
           }}
