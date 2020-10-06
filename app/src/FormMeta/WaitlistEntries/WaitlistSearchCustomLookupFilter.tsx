@@ -8,6 +8,9 @@ import {
 import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, Input, Select, Button, Col } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
+import { connect } from "react-redux"
+import { Dispatch } from "redux"
+import { IShowPersonLookupModal, showPersonLookupModal } from "~/Store/ModalState"
 
 export const LOOKUP_TYPES = {
   ACCOUNT: "Account",
@@ -15,7 +18,12 @@ export const LOOKUP_TYPES = {
   STUDENT: "Student",
   PURCHASER_STUDENT: "Purchaser/Student"
 }
-export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericComponentProps<IFilterFieldObject>) {
+
+interface IWaitlistSearchCustomLookupFilter extends IFilterGenericComponentProps<IFilterFieldObject> {
+  handlePersonLookupModal?: (value: boolean, config?: IShowPersonLookupModal) => void
+  key?: any
+}
+function WaitlistSearchCustomLookupFilter(props: IWaitlistSearchCustomLookupFilter) {
   const [selectedValue, setSelectedValue] = useState("Rowan")
   const [mobileView, setMobileView] = useState(false)
   useDeviceViews((deviceViews: IDeviceView) => {
@@ -64,7 +72,14 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
       <Col span={4} xs={8}>
         <Button
           onClick={() => {
-            setSelectedValue("Adam")
+            props.handlePersonLookupModal &&
+              props.handlePersonLookupModal(true, {
+                type: LOOKUP_TYPES.ACCOUNT,
+                onSelectPerson: (id: number) => {
+                  setSelectedValue("Adam")
+                  props.handlePersonLookupModal && props.handlePersonLookupModal(false)
+                }
+              })
           }}
         >
           Lookup
@@ -73,3 +88,12 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
     </Row>
   )
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    handlePersonLookupModal: (value: boolean, config?: IShowPersonLookupModal) =>
+      dispatch(showPersonLookupModal(value, config))
+  }
+}
+
+export default connect(undefined, mapDispatchToProps)(WaitlistSearchCustomLookupFilter)

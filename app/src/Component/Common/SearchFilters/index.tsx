@@ -182,15 +182,18 @@ export default function (props: IFilterColumnProps) {
         )
       }
     } else if (field.customFilterComponent) {
-      return field.customFilterComponent({
-        ...field,
-        key: i,
-        value: filterData,
-        show,
-        isChecked,
-        toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
-        filterValueChanged: onChangeFieldCopmonent
-      })
+      return (
+        <field.customFilterComponent
+          {...{
+            ...field,
+            key: i,
+            value: filterData,
+            show,
+            toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
+            filterValueChanged: onChangeFieldCopmonent
+          }}
+        />
+      )
     }
 
     return null

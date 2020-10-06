@@ -1,0 +1,105 @@
+import * as React from "react"
+import Modal from "~/Component/Common/Modal"
+import { connect } from "react-redux"
+import { Dispatch } from "redux"
+import { showPersonLookupModal } from "~/Store/ModalState"
+import SearchFilters from "~/Component/Common/SearchFilters"
+import { Row, Col, Card, Button } from "antd"
+import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
+import { useOfferings, useOfferingFilterState, IFilterValues } from "~/Hooks/Offering"
+import { OfferingTable } from "~/Component/Offering/OfferingTable"
+import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
+import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
+
+const { useState } = React
+
+interface IAddOfferingFromRequisiteGroupModal {
+  onSelectPerson?: (params: any) => void
+  type?: string
+}
+
+enum ModalPages {
+  FilterPage,
+  OfferingsList
+}
+
+function AddOfferingFromRequisiteGroupModal(props: IAddOfferingFromRequisiteGroupModal) {
+  const { filterData, updateFilterData } = useOfferingFilterState()
+  const [filterCount, updateFilterCount] = useState<number>(0)
+
+  const [loading, offeringItems] = useOfferings(filterData as IFilterValues)
+  const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
+  const [selectedOfferings, setSelectedOfferings] = useState<any[]>([])
+
+  const rowSelection = {
+    onChange: (selectedRowKeys: any, selectedRows: any) => {
+      setSelectedOfferings(selectedRows)
+    },
+    getCheckboxProps: (record: { name: string }) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name
+    })
+  }
+
+  function handleSelect() {
+    // const selectedOfferingIds = selectedOfferings.map((offering) => offering.OfferingID)
+    eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+  }
+
+  return (
+    <Modal showModal={true} width="1000px">
+      {(modalSelectedPage === ModalPages.FilterPage && (
+        <Row justify="center">
+          <SearchFilters
+            meta={OfferingSearchFilterMeta}
+            isModalView={true}
+            initialFilter={filterData}
+            title={""}
+            visible
+            toggleVisiibility={() => {
+              setSelectedOfferings([])
+            }}
+            onApplyChanges={(newFilterValues, newFilterCount) => {
+              updateFilterData({
+                ...filterData,
+                ...newFilterValues
+              })
+
+              updateFilterCount(newFilterCount)
+              setModalPage(ModalPages.OfferingsList)
+            }}
+          />
+        </Row>
+      )) ||
+        (modalSelectedPage === ModalPages.OfferingsList && (
+          <Card
+            title="Select offerings"
+            actions={[
+              <Button type="ghost">Cancel</Button>,
+              <Button type="primary" disabled={selectedOfferings.length === 0} onClick={handleSelect}>
+                Select
+              </Button>
+            ]}
+          >
+            <FilterOpenButton
+              filterCount={filterCount as number}
+              filterColumnVisible={false}
+              toggleFilter={() => setModalPage(ModalPages.FilterPage)}
+              hideCreateButton
+            />
+            <Col style={{ height: "65vh" }}>
+              <OfferingTable dataSource={offeringItems} loading={loading} isModal rowSelection={rowSelection} />
+            </Col>
+          </Card>
+        )) || <></>}
+    </Modal>
+  )
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    closeAddOfferingFromRequisiteGroupModal: () => dispatch(showPersonLookupModal(false))
+  }
+}
+
+export default connect(undefined, mapDispatchToProps)(AddOfferingFromRequisiteGroupModal)

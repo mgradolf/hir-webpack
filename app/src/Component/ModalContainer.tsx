@@ -26,6 +26,8 @@ import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditForm
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 
+import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
+
 function ModalContainer(modalState: IModalState) {
   return (
     <>
@@ -107,6 +109,12 @@ function ModalContainer(modalState: IModalState) {
       {modalState.questionFindModal.value && <QuestionFindModal />}
       {modalState.roomFinderModal.value && (
         <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
+      )}
+      {modalState.personLookupModal.value && (
+        <PersonLookupModal
+          type={modalState.personLookupModal.config.type}
+          onSelectPerson={modalState.personLookupModal.config.onSelectPersonCallBack}
+        />
       )}
     </>
   )
