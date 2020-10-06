@@ -5,8 +5,16 @@ import React, { useState, useEffect } from "react"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
-import { TextInputType } from "./TextInput"
-import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, isFilterObject, NUMBER, TEXT } from "./common"
+import { TextInputType } from "~/Component/Common/SearchFilters/TextInput"
+import {
+  DATE_PICKER,
+  DATE_PICKERS,
+  DROPDOWN,
+  IFilterField,
+  isFilterObject,
+  NUMBER,
+  TEXT
+} from "~/Component/Common/SearchFilters/common"
 import { DropDownInputType } from "~/Component/Common/SearchFilters/DropDown"
 import { DatePickerInputType } from "~/Component/Common/SearchFilters/DatePicker"
 import { DatePickersInputType } from "~/Component/Common/SearchFilters/DatePickers"
