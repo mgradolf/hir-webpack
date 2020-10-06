@@ -23,6 +23,9 @@ export default function SectionMenu(props: ISectionMenu) {
       <Menu.Item key="4">
         <Link to={`/section/${props.section.SectionID}/question`}>Question</Link>
       </Menu.Item>
+      <Menu.Item key="5">
+        <Link to={`/section/${props.section.SectionID}/registration`}>Registration</Link>
+      </Menu.Item>
     </Menu>
   )
 }

@@ -27,6 +27,7 @@ import SectionSeatgroupPage from "~/Pages/Section/SeatGroup"
 import SectionCatalogPage from "~/Pages/Section/Catalog"
 import SectionSchedulePage from "~/Pages/Section/Schedule"
 import SectionBudgetPage from "~/Pages/Section/Budget"
+import RegistrationPage from "~/Pages/Section/Registration"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
@@ -70,8 +71,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
       <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
       <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
-
       <Route exact path="/section/:sectionID/question" component={QuestionPage} />
+      <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
 
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />
