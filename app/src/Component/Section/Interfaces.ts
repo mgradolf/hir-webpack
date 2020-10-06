@@ -55,6 +55,7 @@ export interface IDiscountFieldNames {
   SectionFinancialID: string
   DiscountProgramID: string
   DiscountTypeID: string
+  DiscountType: string
   Amount: string
   ShortName: string
   Name: string

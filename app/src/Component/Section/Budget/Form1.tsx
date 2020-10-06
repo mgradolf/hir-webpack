@@ -2,6 +2,12 @@ import React, { useState } from "react"
 import { Form, Select, Card, Button } from "antd"
 import {} from "@ant-design/icons"
 import "~/Sass/utils.scss"
+import {
+  BUDGET_FINANCIAL_TYPE_INSTRUCTOR,
+  BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM,
+  BUDGET_FINANCIAL_TYPE_OFFERING,
+  BUDGET_FINANCIAL_TYPE_RESOURCE
+} from "~/utils/Constants"
 
 interface IBudgetCreateForm1Props {
   handleCancel: () => void
@@ -45,16 +51,16 @@ export default function CreateForm1(props: IBudgetCreateForm1Props) {
               setSelectedValue(value)
             }}
           >
-            <Select.Option key="offering" value="Offering">
+            <Select.Option key="offering" value={BUDGET_FINANCIAL_TYPE_OFFERING}>
               Offering Financials
             </Select.Option>
-            <Select.Option key="instructor" value="Instructor">
+            <Select.Option key="instructor" value={BUDGET_FINANCIAL_TYPE_INSTRUCTOR}>
               Instructor Financials
             </Select.Option>
-            <Select.Option key="resource" value="Resource">
+            <Select.Option key="resource" value={BUDGET_FINANCIAL_TYPE_RESOURCE}>
               Resource Financials
             </Select.Option>
-            <Select.Option key="marketingProgram" value="Marketing Program">
+            <Select.Option key="marketingProgram" value={BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM}>
               Marketing Program Financials
             </Select.Option>
           </Select>

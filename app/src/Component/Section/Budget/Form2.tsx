@@ -19,6 +19,12 @@ import { connect } from "react-redux"
 import { showCreateBudgetModal } from "~/Store/ModalState"
 import { redirect } from "~/Store/ConnectedRoute"
 import "~/Sass/global/index.scss"
+import {
+  BUDGET_FINANCIAL_TYPE_INSTRUCTOR,
+  BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM,
+  BUDGET_FINANCIAL_TYPE_OFFERING,
+  BUDGET_FINANCIAL_TYPE_RESOURCE
+} from "~/utils/Constants"
 
 interface IBudgetCreateForm2Props {
   sectionId: number
@@ -163,7 +169,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
         setSeatGroupItems(response.data)
       }
     })()
-    if (props.budgetType === "Offering") {
+    if (props.budgetType === BUDGET_FINANCIAL_TYPE_OFFERING) {
       ;(async () => {
         const response = await getAvailableOfferingFinancials(props.sectionId)
         if (response && response.success && response.data) {
@@ -171,7 +177,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
         }
       })()
     }
-    if (props.budgetType === "Instructor") {
+    if (props.budgetType === BUDGET_FINANCIAL_TYPE_INSTRUCTOR) {
       ;(async () => {
         const response = await getAvailableFacultyWithFinancials(props.sectionId)
         if (response && response.success && response.data) {
@@ -179,7 +185,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
         }
       })()
     }
-    if (props.budgetType === "Resource") {
+    if (props.budgetType === BUDGET_FINANCIAL_TYPE_RESOURCE) {
       ;(async () => {
         const response = await getAvailableResourcesWithFinancials(props.sectionId)
         if (response && response.success && response.data) {
@@ -187,7 +193,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
         }
       })()
     }
-    if (props.budgetType === "Marketing Program") {
+    if (props.budgetType === BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM) {
       ;(async () => {
         const response = await getAvailableMarketingProgramsWithFinancials(props.sectionId)
         if (response && response.success && response.data) {
@@ -205,7 +211,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
           <Input aria-label="Section ID" />
         </Form.Item>
 
-        {props.budgetType === "Offering" && (
+        {props.budgetType === BUDGET_FINANCIAL_TYPE_OFFERING && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeOffering}>
               {availableFinancial.map((x) => {
@@ -219,7 +225,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
           </Form.Item>
         )}
 
-        {props.budgetType === "Instructor" && (
+        {props.budgetType === BUDGET_FINANCIAL_TYPE_INSTRUCTOR && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeFaculty}>
               {availableFinancial.map((x) => {
@@ -233,7 +239,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
           </Form.Item>
         )}
 
-        {props.budgetType === "Resource" && (
+        {props.budgetType === BUDGET_FINANCIAL_TYPE_RESOURCE && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeResource}>
               {availableFinancial.map((x) => {
@@ -247,7 +253,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
           </Form.Item>
         )}
 
-        {props.budgetType === "Marketing Program" && (
+        {props.budgetType === BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM && (
           <Form.Item label={props.budgetType} {...layout}>
             <Select aria-label={props.budgetType} onChange={onChangeMarketingProgram}>
               {availableFinancial.map((x) => {

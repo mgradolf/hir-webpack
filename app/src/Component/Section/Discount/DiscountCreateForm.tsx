@@ -15,6 +15,7 @@ import { connect } from "react-redux"
 import { showCreateDiscountModal } from "~/Store/ModalState"
 import { redirect } from "~/Store/ConnectedRoute"
 import "~/Sass/global/index.scss"
+import { FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID } from "~/utils/Constants"
 
 interface IDiscountCreateFormProps {
   sectionId: number
@@ -101,7 +102,7 @@ function CreateDiscountProgram(props: IDiscountCreateFormProps) {
     ;(async () => {
       const response = await getSectionFinancials({
         SectionID: props.sectionId,
-        FinancialBasisTypeID: 1
+        FinancialBasisTypeID: FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID
       })
       if (response && response.success && response.data) {
         setSectionFinancialID(response.data[0].SectionFinancialID)
