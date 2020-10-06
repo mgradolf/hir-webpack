@@ -169,6 +169,18 @@ export function getProgramStatusCodes(): Promise<IApiResponse> {
   })
 }
 
+export function getSectionNotices(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SectionNoticeType"
+  })
+}
+
+export function getDiscountAmountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DiscountAmountType"
+  })
+}
+
 export function getQuestionEvents(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "QuestionEvent"
@@ -178,6 +190,12 @@ export function getQuestionEvents(): Promise<IApiResponse> {
 export function getQuestionGroup(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "QuestionGroup"
+  })
+}
+
+export function getRoomTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RoomUseType"
   })
 }
 

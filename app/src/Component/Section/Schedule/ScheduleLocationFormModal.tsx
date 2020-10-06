@@ -25,12 +25,18 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 
-  console.log("Schedule IDs: " + JSON.stringify(scheduleIds))
-
   const handleCancel = () => {
     if (closeScheduleModal) {
       closeScheduleModal()
     }
+  }
+
+  const initialFormValue: { [key in keyof IScheduleLocationFieldNames]: any } = {
+    ScheduleIDs: scheduleIds,
+    SiteID: "",
+    BuildingID: "",
+    RoomID: "",
+    ConflictCheck: ""
   }
 
   return (
@@ -44,6 +50,7 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
             fieldNames={fieldNames}
             formInstance={formInstance}
             handleCancel={handleCancel}
+            initialFormValue={initialFormValue}
             scheduleIds={scheduleIds}
             setApiCallInProgress={setApiCallInProgress}
           />

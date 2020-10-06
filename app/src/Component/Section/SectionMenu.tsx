@@ -15,12 +15,18 @@ export default function SectionMenu(props: ISectionMenu) {
         <Link to={`/section/${props.section.SectionID}/budget`}>Budget</Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to={`/section/${props.section.SectionID}/schedule`}>Schedule</Link>
+        <Link to={`/section/${props.section.SectionID}/discount`}>Discount</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to={`/section/${props.section.SectionID}/catalog`}>Catalog</Link>
+        <Link to={`/section/${props.section.SectionID}/schedule`}>Schedule</Link>
       </Menu.Item>
       <Menu.Item key="4">
+        <Link to={`/section/${props.section.SectionID}/catalog`}>Catalog</Link>
+      </Menu.Item>
+      <Menu.Item key="5">
+        <Link to={`/section/${props.section.SectionID}/notification`}>Email Notification</Link>
+      </Menu.Item>
+      <Menu.Item key="6">
         <Link to={`/section/${props.section.SectionID}/question`}>Question</Link>
       </Menu.Item>
       <Menu.Item key="5">

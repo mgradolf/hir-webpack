@@ -27,6 +27,8 @@ export interface ISectionDetailsFieldNames {
   FinalEnrollmentDate: string
   BillingDate: string
   FiscalPeriodCodeID: string
+  SiteID: string
+  BuildingID: string
   RoomID: string
   ShowSiteOnly: string
   SectionTypeID: string
@@ -52,6 +54,8 @@ const fieldNames: ISectionDetailsFieldNames = {
   FinalEnrollmentDate: "FinalEnrollmentDate",
   BillingDate: "BillingDate",
   FiscalPeriodCodeID: "FiscalPeriodCodeID",
+  SiteID: "SiteID",
+  BuildingID: "BuildingID",
   RoomID: "RoomID",
   ShowSiteOnly: "ShowSiteOnly",
   SectionTypeID: "SectionTypeID",

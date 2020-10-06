@@ -22,6 +22,7 @@ export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldOb
         <Input
           aria-label={props.ariaLabel}
           name={props.fieldName}
+          type={props.inputType.toLowerCase()}
           defaultValue={props.defaultValue}
           value={value === "*" ? "" : value}
           onChange={(e) => filterValueChanged(props.fieldName, e.target.value)}
@@ -35,7 +36,7 @@ export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldOb
         name: props.fieldName,
         labelCol: { span: 6 }
       }}
-      input={{ "aria-label": props.ariaLabel }}
+      input={{ "aria-label": props.ariaLabel, type: props.inputType.toLowerCase() }}
     />
   )
 }

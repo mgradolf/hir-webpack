@@ -40,9 +40,6 @@ export default function SectionDetailsTerminationTime(props: ISectionDetailsTerm
 
   const onDateChange = (date: any, dateString: string) => {
     props.formInstance.setFieldsValue({ [props.fieldNames.TerminationDate]: dateString })
-    console.log(date)
-    console.log(dateString)
-    console.log(props.formInstance.getFieldsValue())
   }
 
   const [terms, setTerms] = useState<Array<any>>([])

@@ -16,7 +16,6 @@ import { push } from "connected-react-router"
 const { Title, Text } = Typography
 
 function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sectionID: string }>) {
-  console.log(props)
   const sectionID = props?.match?.params?.sectionID
   const offeringID = props?.match?.params?.offeringID
   const [sectionDetails, setSectionDetails] = useState<{ [key: string]: any }>()

@@ -68,7 +68,6 @@ function QuestionFindModal(props: IQuestionModal) {
             <FormError errorMessages={errorMessages}></FormError>
             <QuestionSearch
               onFormSubmission={(Params: any) => {
-                console.log("Submit serch find modal ", Params)
                 setapiCallInProgress(true)
                 setErrorMessages([])
                 searchQuestions(Params).then((x) => {

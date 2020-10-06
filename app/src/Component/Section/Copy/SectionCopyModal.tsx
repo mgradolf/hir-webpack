@@ -27,7 +27,6 @@ function SectionCopyModal(props: IQuestionModal) {
   actions.push(
     <Button
       onClick={() => {
-        console.log(formInstance.getFieldsValue())
         setErrorMessages([])
         setapiCallInProgress(true)
         copySection(formInstance.getFieldsValue()).then((x) => {

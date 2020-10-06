@@ -37,8 +37,6 @@ function CreateNewSchedule({ scheduleIds, closeScheduleModal, sectionId }: ISche
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({})
 
-  console.log("Schedule IDs: " + JSON.stringify(scheduleIds))
-
   const handleCancel = () => {
     if (closeScheduleModal) {
       closeScheduleModal()

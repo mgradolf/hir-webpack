@@ -169,7 +169,6 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
     return (
       <ul>
         {generatedValue.map((x, i) => {
-          console.log(x)
           return (
             <>
               {x.value && (

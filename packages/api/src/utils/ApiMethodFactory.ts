@@ -2,6 +2,11 @@ import callApi from "./CallApi"
 import { getToken } from "./TokenStore"
 import { ApiConfig, IApiResponse } from "./Interfaces"
 
+export const baseURL =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_API_ROOT
+    : `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
+
 function callServiceApi(
   endPoint: string,
   Service: string,
@@ -10,7 +15,7 @@ function callServiceApi(
   Module?: any
 ): Promise<IApiResponse> {
   const config: ApiConfig = {
-    baseURL: process.env.REACT_APP_API_ROOT,
+    baseURL,
     url: endPoint,
     method: "POST",
     headers: {

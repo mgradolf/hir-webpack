@@ -18,7 +18,11 @@ import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLoca
 import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
+import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
+import BudgetEditFormModal from "~/Component/Section/Budget/BudgetEditFormModal"
+import DiscountFomrModal from "~/Component/Section/Discount/DiscountFormModal"
+import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditFormModal"
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 
@@ -83,8 +87,27 @@ function ModalContainer(modalState: IModalState) {
       {modalState.createBudgetModal.value && (
         <BudgetFormModal sectionId={modalState.createBudgetModal.config.sectionId} />
       )}
+      {modalState.updateBudgetModal.value && (
+        <BudgetEditFormModal
+          sectionId={modalState.updateBudgetModal.config.sectionId}
+          financialId={modalState.updateBudgetModal.config.financialId}
+          seatGroups={modalState.updateBudgetModal.config.seatGroups}
+        />
+      )}
+      {modalState.createDiscountModal.value && (
+        <DiscountFomrModal sectionId={modalState.createDiscountModal.config.sectionId} />
+      )}
+      {modalState.updateDiscountModal.value && (
+        <DiscountEditFormModal
+          sectionDiscountId={modalState.updateDiscountModal.config.sectionDiscountId}
+          sectionId={modalState.updateDiscountModal.config.sectionId}
+        />
+      )}
       {modalState.questionCreateModal.value && <QuestionCreateModal />}
       {modalState.questionFindModal.value && <QuestionFindModal />}
+      {modalState.roomFinderModal.value && (
+        <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
+      )}
     </>
   )
 }
