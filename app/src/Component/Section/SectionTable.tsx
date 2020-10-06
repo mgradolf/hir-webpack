@@ -1,8 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
-import { Space, Dropdown, Row, Col } from "antd"
-import { DownOutlined } from "@ant-design/icons"
+import { Space, Row, Col } from "antd"
 import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import SectionMenu from "~/Component/Section/SectionMenu"
 import { ColumnsType } from "antd/lib/table"
@@ -102,11 +101,7 @@ export default function SectionTable(props: ITableWrapperProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <Dropdown overlay={<SectionMenu section={record} />} trigger={["click"]}>
-            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              Others <DownOutlined />
-            </a>
-          </Dropdown>
+          <SectionMenu section={record} />
         </Space>
       )
     })
