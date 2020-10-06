@@ -8,8 +8,7 @@ import {
 import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Row, Checkbox, DatePicker } from "antd"
 import moment from "moment"
-
-const dateFormat = "MM/DD/YYYY"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 export function DatePickerInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
@@ -20,12 +19,12 @@ export function DatePickerInputType(props: IFilterGenericComponentProps<IFilterF
           {label}
         </Checkbox>
       </LabelCol>
-      <InputCol className={show ? styles.offeringFilterField : styles.hidden}>
+      <InputCol className={show ? styles.offeringFilterField : "hidden"}>
         <DatePicker
           allowClear
           value={value ? moment(value) : undefined}
           onChange={(value) => filterValueChanged(props.fieldName, value)}
-          format={dateFormat}
+          format={DATE_FORMAT}
         />
       </InputCol>
     </Row>

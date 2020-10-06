@@ -2,13 +2,13 @@ import React from "react"
 import { Form, DatePicker, Input } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 interface ISectionDetailsEnrollmentBillingDate {
   formInstance: FormInstance
   fieldNames: ISectionDetailsFieldNames
 }
 
-const dateFormat = "YYYY-MM-DD HH:mm:ss"
 const layout = { labelCol: { span: 6 } }
 
 export default function SectionDetailsEnrollmentBillingDate(props: ISectionDetailsEnrollmentBillingDate) {
@@ -33,7 +33,7 @@ export default function SectionDetailsEnrollmentBillingDate(props: ISectionDetai
         <DatePicker
           aria-label="Pick Enrollment Date"
           placeholder="YYYY/MM/DD"
-          format={dateFormat}
+          format={DATE_FORMAT}
           onChange={onEnrollmentDateChange}
           defaultValue={defaultEnrollmentDate}
         />
@@ -42,7 +42,7 @@ export default function SectionDetailsEnrollmentBillingDate(props: ISectionDetai
         <DatePicker
           aria-label="Pick Billing Date"
           placeholder="YYYY/MM/DD"
-          format={dateFormat}
+          format={DATE_FORMAT}
           onChange={onBillingDateChange}
           defaultValue={defaultBillingDate}
         />

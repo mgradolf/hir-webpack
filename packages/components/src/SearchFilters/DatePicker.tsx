@@ -3,8 +3,7 @@ import { IFilterFieldObject, IFilterGenericComponentProps, InputCol, LabelCol } 
 import styles from "./SearchFilters.module.scss"
 import { Row, Checkbox, DatePicker } from "antd"
 import moment from "moment"
-
-const dateFormat = "MM/DD/YYYY"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 export default function DatePickerInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const { value, show, toggleCheckboxHandler, filterValueChanged, label } = props
@@ -15,12 +14,12 @@ export default function DatePickerInputType(props: IFilterGenericComponentProps<
           {label}
         </Checkbox>
       </LabelCol>
-      <InputCol className={show ? styles.offeringFilterField : styles.hidden}>
+      <InputCol className={show ? styles.offeringFilterField : "hidden"}>
         <DatePicker
           allowClear
           value={value ? moment(value) : undefined}
           onChange={(value) => filterValueChanged(props.fieldName, value)}
-          format={dateFormat}
+          format={DATE_FORMAT}
         />
       </InputCol>
     </Row>

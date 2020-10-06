@@ -93,7 +93,7 @@ export default function SearchFilters(props: IFilterColumnProps) {
 
   return (
     <Col
-      className={visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
+      className={visible ? `gutter-row ${styles.offeringFilter}` : "hidden"}
       xs={24}
       sm={24}
       md={props.isModalView ? 12 : 6}

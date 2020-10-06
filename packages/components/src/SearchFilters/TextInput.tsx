@@ -12,7 +12,7 @@ export default function TextInputType(props: IFilterGenericComponentProps<IFilte
           {label}
         </Checkbox>
       </LabelCol>
-      <InputCol className={show ? styles.offeringFilterField : styles.hidden}>
+      <InputCol className={show ? styles.offeringFilterField : "hidden"}>
         <Input
           aria-label={props.ariaLabel}
           name={props.fieldName}

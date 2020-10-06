@@ -64,6 +64,14 @@ export default function (props: IFilterColumnProps) {
     })
   }
 
+  const onChangeDatePickersField = (fieldName: string, value: string, fieldName2?: string, value2?: string) => {
+    updateFilterData({
+      ...filterData,
+      [fieldName]: value,
+      ...(fieldName2 && value2 && { [fieldName2]: value2 })
+    })
+  }
+
   const onChangeFieldCopmonent = (values: RecordType) => {
     updateFilterData({
       ...filterData,
@@ -161,7 +169,7 @@ export default function (props: IFilterColumnProps) {
             show={show[fieldName]}
             isChecked={isChecked}
             toggleCheckboxHandler={toggleShow(fieldName)}
-            filterValueChanged={onChangeField}
+            filterValueChanged={onChangeDatePickersField}
           />
         )
       }
@@ -195,7 +203,7 @@ export default function (props: IFilterColumnProps) {
 
   return (
     <Col
-      className={props.visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
+      className={props.visible ? `gutter-row ${styles.offeringFilter}` : "hidden"}
       xs={24}
       sm={24}
       md={props.isModalView ? (!isChecked ? 24 : 12) : 6}

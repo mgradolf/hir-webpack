@@ -19,7 +19,7 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
           {label}
         </Checkbox>
       </LabelCol>
-      <InputCol className={show ? styles.offeringFilterField : styles.hidden}>
+      <InputCol className={show ? styles.offeringFilterField : "hidden"}>
         <Select
           aria-label={props.ariaLabel}
           style={{ width: 250 }}

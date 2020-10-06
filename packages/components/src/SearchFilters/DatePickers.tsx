@@ -3,8 +3,7 @@ import { IFilterFieldObject, IFilterGenericComponentProps, LabelCol } from "./co
 import styles from "./SearchFilters.module.scss"
 import { Row, Checkbox, DatePicker, Col } from "antd"
 import moment from "moment"
-
-const dateFormat = "MM/DD/YYYY"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 export default function DatePickersInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   const {
@@ -26,7 +25,7 @@ export default function DatePickersInputType(props: IFilterGenericComponentProps
           {label}
         </Checkbox>
       </LabelCol>
-      <Row className={show ? styles.offeringFilterDateField : styles.hidden}>
+      <Row className={show ? styles.offeringFilterDateField : "hidden"}>
         <Col span={11}>
           {props.displayKey}
           <DatePicker
@@ -34,7 +33,7 @@ export default function DatePickersInputType(props: IFilterGenericComponentProps
             aria-label={ariaLabel}
             value={value ? moment(value) : undefined}
             onChange={(value) => filterValueChanged(valueKey as string, value)}
-            format={dateFormat}
+            format={DATE_FORMAT}
           />
         </Col>
         <Col span={11} offset={2}>
@@ -44,7 +43,7 @@ export default function DatePickersInputType(props: IFilterGenericComponentProps
             allowClear
             value={value2 ? moment(value2) : undefined}
             onChange={(value) => filterValueChanged(valueKey2 as string, value)}
-            format={dateFormat}
+            format={DATE_FORMAT}
           />
         </Col>
       </Row>

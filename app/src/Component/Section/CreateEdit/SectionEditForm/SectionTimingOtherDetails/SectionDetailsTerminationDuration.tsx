@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import { Form, Input, Row } from "antd"
 import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
 import { FormInstance } from "antd/lib/form"
-import { hidden } from "~/utils/style"
 
 interface IDefineDurationTime {
   fieldNames: ISectionDetailsFieldNames
@@ -127,7 +126,7 @@ export default function DefineDurationTime(props: IDefineDurationTime) {
 
   return (
     <>
-      <Form.Item name={props.fieldNames.RecurrenceRule} style={hidden}>
+      <Form.Item name={props.fieldNames.RecurrenceRule} className="hidden">
         <Input />
       </Form.Item>
       <Row justify="center">

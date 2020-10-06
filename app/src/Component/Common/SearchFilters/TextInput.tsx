@@ -18,7 +18,7 @@ export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldOb
           {label}
         </Checkbox>
       </LabelCol>
-      <InputCol className={show ? styles.offeringFilterField : styles.hidden}>
+      <InputCol className={show ? styles.offeringFilterField : "hidden"}>
         <Input
           aria-label={props.ariaLabel}
           name={props.fieldName}

@@ -53,7 +53,7 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
       isChecked?: boolean
       key?: any
       toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
-      filterValueChanged: (key: string, value: any) => void
+      filterValueChanged: (key: string, value: any, key2?: string, value2?: string) => void
     }
   : IFilterFieldComponent & {
       show: { [key: string]: boolean }
