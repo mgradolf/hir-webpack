@@ -3,7 +3,6 @@ import { FormInstance } from "antd/lib/form"
 import React, { useState, useEffect } from "react"
 import RoomFinder from "~/Component/Section/RoomFinder"
 import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
-import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
 
 import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
 
@@ -11,14 +10,21 @@ const { Text } = Typography
 
 interface ISectionDetailsRoomFinder {
   formInstance: FormInstance
-  fieldNames: ISectionDetailsFieldNames
+  onSelectRoom?: (room: IRoom) => void
+  onClearRoom?: () => void
+}
+
+enum FieldNames {
+  SiteID = "SiteID",
+  BuildingID = "BuildingID",
+  RoomID = "RoomID"
 }
 
 function isSelectedRoomNotEmpty(room: IRoom | null): room is IRoom {
   return room !== null
 }
 
-function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
+function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
   const [selectedRoom, setSelectedRoom] = useState<IRoom | null>(null)
 
   const [siteNameMap, setSiteNameMap] = useState<{ [key: number]: string }>({})
@@ -83,10 +89,14 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
         onSelectRoom={(room) => {
           setSelectedRoom(room)
           props.formInstance.setFieldsValue({
-            [props.fieldNames.SiteID]: room.SiteID,
-            [props.fieldNames.BuildingID]: room.BuildingID || "",
-            [props.fieldNames.RoomID]: room.RoomID || ""
+            [FieldNames.SiteID]: room.SiteID,
+            [FieldNames.BuildingID]: room.BuildingID || "",
+            [FieldNames.RoomID]: room.RoomID || ""
           })
+
+          if (props.onSelectRoom) {
+            props.onSelectRoom(room)
+          }
         }}
       />
       {selectedRoom !== null && (
@@ -95,10 +105,14 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
           onClick={() => {
             setSelectedRoom(null)
             props.formInstance.setFieldsValue({
-              [props.fieldNames.SiteID]: "",
-              [props.fieldNames.BuildingID]: "",
-              [props.fieldNames.RoomID]: ""
+              [FieldNames.SiteID]: "",
+              [FieldNames.BuildingID]: "",
+              [FieldNames.RoomID]: ""
             })
+
+            if (props.onClearRoom) {
+              props.onClearRoom()
+            }
           }}
         >
           Clear Selected Room
@@ -108,4 +122,4 @@ function SectionDetailsRoomFinder(props: ISectionDetailsRoomFinder) {
   )
 }
 
-export default SectionDetailsRoomFinder
+export default RoomFinderFormField
