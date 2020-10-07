@@ -24,6 +24,7 @@ const SHOW_UPDATE_DISCOUNT_MODAL = "SHOW_UPDATE_DISCOUNT_MODAL"
 const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
 const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
 const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
+const SHOW_UPDATE_NOTICE_MODAL = "SHOW_UPDATE_NOTICE_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -60,6 +61,7 @@ export interface IModalState {
   questionCreateModal: ModalConfig
   questionFindModal: ModalConfig
   roomFinderModal: ModalConfig
+  updateNoticeModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -156,6 +158,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   updateDiscountModal: {
+    value: false,
+    config: null
+  },
+  updateNoticeModal: {
     value: false,
     config: null
   }
@@ -373,6 +379,16 @@ export const showUpdateDiscountModal = (value: boolean, config?: IShowDiscountMo
   payload: { value, config }
 })
 
+interface IShowNoticeModal {
+  sectionId: number
+  sectionNoticeTypeId: number
+}
+
+export const showUpdateNoticeModal = (value: boolean, config?: IShowNoticeModal): IAction => ({
+  type: SHOW_UPDATE_NOTICE_MODAL,
+  payload: { value, config }
+})
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -423,6 +439,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, questionFindModal: action.payload }
     case SHOW_ROOM_FINDER_MODAL:
       return { ...state, roomFinderModal: action.payload }
+    case SHOW_UPDATE_NOTICE_MODAL:
+      return { ...state, updateNoticeModal: action.payload }
     default:
       return state
   }

@@ -213,12 +213,12 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
 
         {discountTypeID === DISCOUNT_AGE_RANGE_TYPE_ID && (
           <Form.Item label="From Age (year)" {...layout} name={props.fieldNames.FromAge}>
-            <Input aria-label="From age" />
+            <Input aria-label="From age" type="number" />
           </Form.Item>
         )}
         {discountTypeID === DISCOUNT_AGE_RANGE_TYPE_ID && (
           <Form.Item label="To Age (year)" {...layout} name={props.fieldNames.ToAge}>
-            <Input aria-label="To age" />
+            <Input aria-label="To age" type="number" />
           </Form.Item>
         )}
 
@@ -232,10 +232,10 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
           <Form.Item label="Effective Date From" {...layout}>
             <DatePicker
               aria-label="Pick Effective From Date"
-              placeholder="YYYY-MM-DD"
-              format="YYYY-MM-DD"
+              placeholder="YYYY-MM-DD hh:mm"
+              format="YYYY-MM-DD hh:mm"
               onChange={onFromDateChange}
-              defaultValue={fromDate ? moment(fromDate, "YYYY-MM-DD") : undefined}
+              defaultValue={fromDate ? moment(fromDate, "DD/MM/YYYY hh:mm") : undefined}
             />
           </Form.Item>
         )}
@@ -244,10 +244,10 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
           <Form.Item label="Effective Date To" {...layout}>
             <DatePicker
               aria-label="Pick Effective To Date"
-              placeholder="YYYY-MM-DD"
-              format="YYYY-MM-DD"
+              placeholder="YYYY-MM-DD hh:mm"
+              format="YYYY-MM-DD hh:mm"
               onChange={onToDateChange}
-              defaultValue={toDate ? moment(toDate, "YYYY-MM-DD") : undefined}
+              defaultValue={toDate ? moment(toDate, "DD/MM/YYYY hh:mm") : undefined}
             />
           </Form.Item>
         )}
