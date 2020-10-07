@@ -1,0 +1,38 @@
+.site-layout-content {
+  background: #fff;
+  min-height: 280px;
+  padding: 24px;
+}
+
+.show {
+  display: block !important;
+}
+
+.marginRight5px {
+  margin-right: 5px;
+}
+
+.paddingTop10px {
+  padding-top: 10px;
+}
+
+.margin0px {
+  margin: 0 !important;
+}
+
+.fontWeightBold {
+  font-weight: bold;
+}
+
+.offeringDetails {
+  background: $white;
+  border-radius: 4px;
+  padding: .4rem 1rem 1rem !important;
+}
+
+.offeringCloseImg {
+  float: right;
+  height: 21px;
+  padding: 5px;
+  width: 21px;
+}

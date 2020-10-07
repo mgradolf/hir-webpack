@@ -1,4 +1,5 @@
 export interface ApiConfig {
+  baseURL?: undefined | string
   url?: string
   method?: string
   headers?: any
@@ -7,13 +8,13 @@ export interface ApiConfig {
 }
 
 export enum ErrorType {
-  'GLOBAL',
-  'CUSTOM'
+  GLOBAL,
+  CUSTOM
 }
 
-export interface ErrorSchema {
-  status: number | undefined
-  type?: ErrorType
-  error: any
+export interface IApiResponse {
+  code: number
   data: any
+  error: any
+  success: boolean
 }

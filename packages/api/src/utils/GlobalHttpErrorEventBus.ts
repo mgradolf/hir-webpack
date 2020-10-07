@@ -12,7 +12,6 @@ class GlobalHttpErrorEventBus {
   }
   publish(err: any) {
     if (this.callback) {
-      console.log(this.callback)
       this.callback(err)
       return true
     }

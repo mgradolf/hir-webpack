@@ -1,0 +1,63 @@
+.site-layout-content {
+  background: #fff;
+  min-height: 280px;
+  padding: 24px;
+}
+
+.logo {
+  float: left;
+  height: 50px;
+  margin: 6px 24px 6px 0;
+  width: 120px;
+}
+
+.textAlignRight {
+  text-align: right;
+}
+
+.floatRight {
+  float: right;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.marginRight5px {
+  margin-right: 5px;
+}
+
+.margin0px {
+  margin: 0 !important;
+}
+
+.padding5px {
+  padding: 8px;
+}
+
+.paddingTop10px {
+  padding-top: 10px;
+}
+
+.paddingTop15px {
+  padding-top: 15px;
+}
+
+.fontWeightBold {
+  font-weight: bold;
+}
+
+.offeringRequisiteDetails {
+  background: $white;
+  border-radius: 4px;
+  padding: .4rem 1rem 1rem !important;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+}

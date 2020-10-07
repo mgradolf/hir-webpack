@@ -1,39 +1,40 @@
-import { ApiConfig } from '../../utils/Interfaces'
-import { getToken } from '../../utils/TokenStore'
-import callApi from '../../utils/CallApi'
+import ApiMethodFactory from "../../utils/ApiMethodFactory"
 
-const commonConfigs: ApiConfig = {
-  url: 'api/hirServlet',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${getToken()}`
-  },
-  data: {
-    Service: 'OfferingService'
+export const config = {
+  EndPoint: "api/hirServlet",
+  Service: "SectionService",
+  Module: "hir",
+  Actions: {
+    findAffiliatedOrgsForSeatGroup: "findAffiliatedOrgsForSeatGroup",
+    getPaymentGatewayAccount: "getPaymentGatewayAccount",
+    getSeatGroupsBySection: "getSeatGroupsBySection",
+    getCoordinator: "getCoordinator",
+    updateSection: "updateSection",
+    saveAffiliatedOrg: "saveAffiliatedOrg",
+    updateSectionNotification: "updateSectionNotification",
+    SectionNoticeID: "SectionNoticeID",
+    findSectionNoticeRecipients: "findSectionNoticeRecipients",
+    updateSectionFinancialMaps: "updateSectionFinancialMaps",
+    copySection: "copySection",
+    getMeetings: "getMeetings",
+    createMeetings: "createMeetings",
+    saveMeetings: "saveMeetings",
+    saveFinancial: "saveFinancial",
+    saveFinancials: "saveFinancials",
+    getSectionFinancials: "getSectionFinancials",
+    saveSectionNotification: "saveSectionNotification",
+    getSectionNotifications: "getSectionNotifications",
+    saveSectionDiscount: "saveSectionDiscount",
+    removeSectionDiscounts: "removeSectionDiscounts",
+    getSectionDiscounts: "getSectionDiscounts",
+    getAvailableDiscountPrograms: "getAvailableDiscountPrograms",
+    getAvailableOfferingFinancials: "getAvailableOfferingFinancials",
+    getAvailableFacultyWithFinancials: "getAvailableFacultyWithFinancials",
+    getAvailableResourcesWithFinancials: "getAvailableResourcesWithFinancials",
+    getAvailableMarketingProgramsWithFinancials: "getAvailableMarketingProgramsWithFinancials",
+    removeFinancials: "removeFinancials",
+    findRoom: "findRoom"
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/*                        affiliated orgs for seatgroup                       */
-/* -------------------------------------------------------------------------- */
-export const findAffiliatedOrgsForSeatGroup = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'findAffiliatedOrgsForSeatGroup', Params)
-export const getPaymentGatewayAccount = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'getPaymentGatewayAccount', Params)
-export const getSeatGroupsBySection = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'getSeatGroupsBySection', Params)
-export const getCoordinator = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'getCoordinator', Params)
-export const updateSectionDetails = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateSectionDetails', Params)
-export const saveAffiliatedOrg = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'saveAffiliatedOrg', Params)
-export const updateSectionNotification = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateSectionNotification', Params)
-export const SectionNoticeID = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'SectionNoticeID', Params)
-export const findSectionNoticeRecipients = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'findSectionNoticeRecipients', Params)
-export const updateSectionFinancialMaps = (Params: any): Promise<any> =>
-  callApi(commonConfigs, 'updateSectionFinancialMaps', Params)
+export default ApiMethodFactory(config)
