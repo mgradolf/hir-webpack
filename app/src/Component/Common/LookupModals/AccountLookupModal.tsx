@@ -6,16 +6,14 @@ import { showPersonLookupModal } from "~/Store/ModalState"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { Row, Card, Button } from "antd"
 import { eventBus, EVENT_PERSON_SELECTED } from "~/utils/EventBus"
-import PersonTable from "~/Component/Person/PersonTable"
+import AccountTable from "~/Component/Account/AccountTable"
 import FilterOpenButton from "~/Component/Person/PersonFilterOpenButton"
-import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
-import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
-import { useEffect } from "react"
+import AccountSearchFilterMeta from "~/FormMeta/Account/AccountSearchFilterMeta"
+import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
+import { useEffect, useState } from "react"
 import { IParamsToBeDispatched } from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
-import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
-const { useState } = React
 
-interface IPersonLookupModal {
+interface IAccountLookupModal {
   type?: string
   closePersonLookupModal?: () => void
 }
@@ -25,20 +23,18 @@ enum ModalPages {
   PersonList
 }
 
-function PersonLookupModal(props: IPersonLookupModal) {
+function AccountLookupModal(props: IAccountLookupModal) {
   const [filterData, updateFilterData] = useState<{ [key: string]: any }>({})
   const [filterCount, updateFilterCount] = useState<number>(0)
-
-  // const [loading, offeringItems] = useOfferings(filterData as IFilterValues)
   const [loading, setLoading] = useState(false)
-  const [persons, setPersons] = useState<any[]>([])
+  const [accounts, setAccounts] = useState<any[]>([])
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
-  const [selectedPerson, setSelectedPerson] = useState<{ [key: string]: any }>({})
+  const [selectedAccount, setselectedAccount] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
     setLoading(true)
-    searchPersons([filterData]).then((x) => {
-      if (x.success) setPersons(x.data)
+    findAccountForLookUp([filterData]).then((x) => {
+      if (x.success) setAccounts(x.data)
       setLoading(false)
     })
   }, [filterData])
@@ -46,7 +42,7 @@ function PersonLookupModal(props: IPersonLookupModal) {
   const rowSelection = {
     type: "radio",
     onChange: (selectedRowKeys: any, selectedRows: any) => {
-      setSelectedPerson(selectedRows[0])
+      setselectedAccount(selectedRows[0])
     },
     getCheckboxProps: (record: { name: string }) => ({
       name: record.name
@@ -58,21 +54,8 @@ function PersonLookupModal(props: IPersonLookupModal) {
       NameToDisplay: "",
       Params: {}
     }
-    selected.NameToDisplay = selectedPerson.FirstName
-    switch (props.type) {
-      case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER:
-        selected.Params = { RequesterPersonID: selectedPerson.PersonID }
-        break
-      case WAITLIST_ENTRIES_LOOKUP_TYPES.STUDENT:
-        selected.Params = { RecipientPersonID: selectedPerson.PersonID }
-        break
-      case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER_STUDENT:
-        selected.Params = {
-          RequesterRecipientPersonID1: selectedPerson.PersonID,
-          RequesterRecipientPersonID2: selectedPerson.PersonID
-        }
-        break
-    }
+    selected.NameToDisplay = selectedAccount.AccountName
+    selected.Params = { AccountID: selectedAccount.AccountID }
 
     eventBus.publish(EVENT_PERSON_SELECTED, selected)
     props.closePersonLookupModal && props.closePersonLookupModal()
@@ -83,13 +66,16 @@ function PersonLookupModal(props: IPersonLookupModal) {
       {(modalSelectedPage === ModalPages.FilterPage && (
         <Row justify="center">
           <SearchFilters
-            meta={PersonSearchFilterMeta}
+            meta={AccountSearchFilterMeta}
             isModalView={true}
             initialFilter={filterData}
-            title="Person Filter"
+            title="Account Filter"
             visible
             toggleVisiibility={() => props.closePersonLookupModal && props.closePersonLookupModal()}
             onApplyChanges={(newFilterValues, newFilterCount) => {
+              Object.keys(newFilterValues).forEach((x) => {
+                if (newFilterValues[x] === "") delete newFilterValues[x]
+              })
               updateFilterData({
                 ...filterData,
                 ...newFilterValues
@@ -103,12 +89,12 @@ function PersonLookupModal(props: IPersonLookupModal) {
       )) ||
         (modalSelectedPage === ModalPages.PersonList && (
           <Card
-            title="Select Person"
+            title="Select Account"
             actions={[
               <Button type="ghost" onClick={props.closePersonLookupModal}>
                 Cancel
               </Button>,
-              <Button type="primary" disabled={selectedPerson.length === 0} onClick={handleSelect}>
+              <Button type="primary" disabled={selectedAccount.length === 0} onClick={handleSelect}>
                 Select
               </Button>
             ]}
@@ -120,7 +106,7 @@ function PersonLookupModal(props: IPersonLookupModal) {
               hideCreateButton
             />
 
-            <PersonTable dataSource={persons} loading={loading} isModal={true} rowSelection={rowSelection} />
+            <AccountTable dataSource={accounts} loading={loading} isModal={true} rowSelection={rowSelection} />
           </Card>
         )) || <></>}
     </Modal>
@@ -133,4 +119,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(PersonLookupModal)
+export default connect(undefined, mapDispatchToProps)(AccountLookupModal)

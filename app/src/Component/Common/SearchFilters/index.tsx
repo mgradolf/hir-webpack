@@ -81,6 +81,9 @@ export default function (props: IFilterColumnProps) {
   }
 
   const onChangeFieldCopmonent = (values: RecordType) => {
+    console.log(filterData)
+    console.log(values)
+
     updateFilterData({
       ...filterData,
       ...values

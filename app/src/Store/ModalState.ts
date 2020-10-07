@@ -380,7 +380,6 @@ export const showUpdateDiscountModal = (value: boolean, config?: IShowDiscountMo
 })
 
 export interface IShowPersonLookupModal {
-  onSelectPerson: (params: any) => void
   type: string
 }
 export const showPersonLookupModal = (value: boolean, config?: IShowPersonLookupModal): IAction => {

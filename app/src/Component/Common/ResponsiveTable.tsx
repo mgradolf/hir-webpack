@@ -14,6 +14,7 @@ interface IResponsiveTableProps extends TableProps<RecordType> {
   expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
   breakpoints?: Breakpoint[]
   responsiveColumnIndices?: number[]
+  isModal?: boolean
 }
 
 export default function ResponsiveTable(props: IResponsiveTableProps) {

@@ -1,9 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import moment from "moment"
-import { Space, Row, Col } from "antd"
 import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import { ColumnsType } from "antd/lib/table"
 
 export interface IWaitListEntryTable {
@@ -16,116 +12,66 @@ export interface IWaitListEntryTable {
 export default function WaitListEntryTable(props: IWaitListEntryTable) {
   const columns: ColumnsType<RecordType> = [
     {
-      title: "Offering Code",
-      dataIndex: "OfferingCode",
-      key: "OfferingCode",
-      render: (text: any, record: any) =>
-        props.isModal ? text : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>,
-      sorter: (a: any, b: any) => a.OfferingCode.length - b.OfferingCode.length
+      title: "SectionNumber",
+      dataIndex: "SectionNumber",
+      width: 150
     },
     {
-      title: "Offering Name",
-      dataIndex: "OfferingName",
-      key: "OfferingName",
-      sorter: (a: any, b: any) => a.OfferingName.length - b.OfferingName.length
+      title: "SeatGroupName",
+      dataIndex: "SeatGroupName",
+      width: 150
     },
     {
-      title: "Creation Date",
-      dataIndex: "CreationDate",
-      key: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      title: "AccountName",
+      dataIndex: "AccountName",
+      width: 150
     },
     {
-      title: "Termination Date",
-      dataIndex: "TerminationDate",
-      key: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      title: "PurchaserName",
+      dataIndex: "PurchaserName",
+      width: 150
     },
     {
-      title: "Status",
-      dataIndex: "StatusCode",
-      key: "StatusCode",
-      sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
+      title: "StudentName",
+      dataIndex: "StudentName",
+      width: 150
     },
     {
-      title: "Offering Type",
-      dataIndex: "OfferingTypeName",
-      key: "OfferingTypeName"
+      title: "Email",
+      dataIndex: "StudentEmailAddress",
+      width: 150
+    },
+    {
+      title: "Request State",
+      dataIndex: "RequestState",
+      width: 150
+    },
+    {
+      title: "Priority",
+      dataIndex: "Priority",
+      width: 150
+    },
+    {
+      title: "Email",
+      dataIndex: "StudentEmailAddress",
+      width: 150
+    },
+    {
+      title: "CreationTime",
+      dataIndex: "CreationTime",
+      width: 150
+    },
+    {
+      title: "ExpirationTime",
+      dataIndex: "RequestExpirationTime",
+      width: 150
+    },
+    {
+      title: "Source",
+      dataIndex: "Source",
+      width: 150
     }
   ]
-
-  if (!props.isModal) {
-    columns.push({
-      title: "Action",
-      key: "action",
-      render: (record: any) => (
-        <Space size="middle">
-          <OfferingMenu offering={record} />
-        </Space>
-      )
-    })
-  }
-
-  function expandableRowRender(data: any, mobileView: boolean) {
-    return (
-      <div style={{ border: "1px solid", padding: "5px" }}>
-        <Row>
-          <Col span="10">Description:</Col>
-          <Col span="14">{data.OfferingDescription}</Col>
-        </Row>
-        {mobileView && (
-          <Row>
-            <Col span="10">Offering Name:</Col>
-            <Col span="14">{data.OfferingName}</Col>
-          </Row>
-        )}
-        <Row>
-          <Col span="10">Department:</Col>
-          <Col span="14">{data.OrganizationName}</Col>
-        </Row>
-        <Row>
-          <Col span="10">Def Section:</Col>
-          <Col span="14">{data.SectionTypeName}</Col>
-        </Row>
-        {mobileView && (
-          <Row>
-            <Col span="10">Creation Date:</Col>
-            <Col span="14">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Termination Date:</Col>
-            <Col span="14">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Status:</Col>
-            <Col span="14">{data.StatusCode}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Department:</Col>
-            <Col span="14">{data.OrganizationName}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Offering Type:</Col>
-            <Col span="14">{data.OfferingTypeName}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Def Section:</Col>
-            <Col span="14">{data.SectionTypeName}</Col>
-          </Row>
-        )}
-      </div>
-    )
-  }
 
   return (
     <ResponsiveTable
@@ -133,13 +79,9 @@ export default function WaitListEntryTable(props: IWaitListEntryTable) {
       dataSource={props.dataSource}
       loading={props.loading}
       bordered
-      breakpoints={["md", "lg", "xl", "xxl"]}
-      responsiveColumnIndices={[1, 2, 3, 4, 5]}
-      expandableRowRender={expandableRowRender}
-      rowKey="OfferingID"
-      pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
-      rowSelection={props.rowSelection}
+      rowKey="PurchaserID"
+      pagination={{ position: ["topLeft"], pageSize: 10 }}
+      scroll={{ x: 300 }}
     />
   )
 }
