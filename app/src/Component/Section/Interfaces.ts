@@ -71,3 +71,17 @@ export interface IDiscountFieldNames {
   FromDate: string
   promoCode: string
 }
+
+export interface INoticeFieldNames {
+  SectionID: string
+  SectionNoticeTypeID: string
+  FromUserID: string
+  FromEmailAddress: string
+  DisableFields: string
+  Subject: string
+  Message: string
+  MimeType: string
+  ToUserIDs: string
+  ToEmailAddress: string
+  IsActive: string
+}

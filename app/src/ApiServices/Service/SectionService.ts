@@ -90,10 +90,12 @@ export function getAvailableMarketingProgramsWithFinancials(SectionID: number): 
   })
 }
 
-export function getSectionNotifications(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getSectionNotifications]({
-    SectionID
-  })
+export function saveSectionNotification(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.saveSectionNotification](Params)
+}
+
+export function getSectionNotifications(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionNotifications](Params)
 }
 
 export function removeFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
