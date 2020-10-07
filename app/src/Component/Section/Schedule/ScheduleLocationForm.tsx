@@ -11,6 +11,9 @@ import FormError from "~/Component/Common/FormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
 import ScheduleLocationRoomFinder from "~/Component/Section/RoomFinder/RoomFinderFormField"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { saveLocations } from "~/ApiServices/Service/SectionService"
+import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 
 const { Option } = Select
 
@@ -76,30 +79,34 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
   const onFormSubmission = async () => {
     setErrorMessages([])
 
-    // await props.formInstance.validateFields()
-    // const params = props.formInstance.getFieldsValue()
+    await props.formInstance.validateFields()
+    const params = props.formInstance.getFieldsValue() as { [key in keyof IScheduleLocationFieldNames]: any }
 
-    // if (props.scheduleIds) {
-    //   params["ScheduleIDs"] = props.scheduleIds
-    // }
+    if (params.RoomID === "") {
+      delete params.RoomID
+    }
 
-    // type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
-    // const serviceMethoToCall: serviceMethodType = props.scheduleIds ? saveMeetings : createMeetings
+    if (params.BuildingID === "") {
+      delete params.BuildingID
+    }
 
-    // props.setApiCallInProgress(true)
-    // setErrorMessages([])
-    // const response = await serviceMethoToCall(params)
-    // props.setApiCallInProgress(false)
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
+    const serviceMethoToCall: serviceMethodType = saveLocations
 
-    // if (response && response.success) {
-    //   props.formInstance.resetFields()
-    //   //eventBus.publish(REFRESH_SECTION_SCHEDULE_PAGE)
-    //   props.handleCancel()
-    // } else {
-    //   setErrorMessages(response.error)
-    //   console.log(response.error)
-    //   console.log(errorMessages)
-    // }
+    props.setApiCallInProgress(true)
+    setErrorMessages([])
+    const response = await serviceMethoToCall(params)
+    props.setApiCallInProgress(false)
+
+    if (response && response.success) {
+      props.formInstance.resetFields()
+      eventBus.publish(REFRESH_SECTION_SCHEDULE_PAGE)
+      props.handleCancel()
+    } else {
+      setErrorMessages(response.error)
+      console.log(response.error)
+      console.log(errorMessages)
+    }
   }
 
   const onValuesChange = (changedValues: { [key: string]: any }) => {
@@ -175,6 +182,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
             setRoomItems([])
           }}
         />
+        <Divider />
         <Form.Item
           name={props.fieldNames.ConflictCheck}
           label="Check for conflicts(slower)"

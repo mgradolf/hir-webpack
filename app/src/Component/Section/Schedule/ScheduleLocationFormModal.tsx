@@ -36,7 +36,7 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
     SiteID: "",
     BuildingID: "",
     RoomID: "",
-    ConflictCheck: ""
+    ConflictCheck: false
   }
 
   return (

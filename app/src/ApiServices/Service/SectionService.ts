@@ -103,3 +103,7 @@ export function removeFinancials(Params: { [key: string]: any }): Promise<IApiRe
 export function findRoom(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findRoom](Params)
 }
+
+export function saveLocations(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveLocations](Params)
+}

@@ -32,7 +32,8 @@ export const config = {
     getAvailableResourcesWithFinancials: "getAvailableResourcesWithFinancials",
     getAvailableMarketingProgramsWithFinancials: "getAvailableMarketingProgramsWithFinancials",
     removeFinancials: "removeFinancials",
-    findRoom: "findRoom"
+    findRoom: "findRoom",
+    saveLocations: "saveLocations"
   }
 }
 
