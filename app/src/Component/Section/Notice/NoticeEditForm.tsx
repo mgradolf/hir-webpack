@@ -28,12 +28,12 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
 
   useEffect(() => {
     props.formInstance.setFieldsValue({ [props.fieldNames.SectionID]: props.sectionId })
-      ; (async () => {
-        const response = await getAllUsers()
-        if (response && response.success && response.data) {
-          setFromUserItems(response.data)
-        }
-      })()
+    ;(async () => {
+      const response = await getAllUsers()
+      if (response && response.success && response.data) {
+        setFromUserItems(response.data)
+      }
+    })()
   }, [props])
 
   const onFormSubmission = async () => {
@@ -63,11 +63,7 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
 
   const actions = []
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(
-    <Button onClick={onFormSubmission}>
-      Submit
-    </Button>
-  )
+  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
     <Card title={`Edit Email Notification`} actions={actions}>
