@@ -89,7 +89,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
               Site
             </Checkbox>
           </LabelCol>
-          <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+          <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
             <Select
               aria-label="Site Select"
               style={{ width: 250 }}
@@ -106,10 +106,10 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
         </Row>
         {buildings.length > 0 && (
           <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <LabelCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Text>Building</Text>
             </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Select
                 aria-label="Building Select"
                 style={{ width: 250 }}
@@ -127,10 +127,10 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
         )}
         {rooms.length > 0 && !hideRoomDropdown && (
           <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <LabelCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Text>Room</Text>
             </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Select
                 aria-label="Room Select"
                 style={{ width: 250 }}

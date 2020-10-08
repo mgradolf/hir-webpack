@@ -5,8 +5,16 @@ import React, { useState, useEffect } from "react"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
-import { TextInputType } from "./TextInput"
-import { DATE_PICKER, DATE_PICKERS, DROPDOWN, IFilterField, isFilterObject, NUMBER, TEXT } from "./common"
+import { TextInputType } from "~/Component/Common/SearchFilters/TextInput"
+import {
+  DATE_PICKER,
+  DATE_PICKERS,
+  DROPDOWN,
+  IFilterField,
+  isFilterObject,
+  NUMBER,
+  TEXT
+} from "~/Component/Common/SearchFilters/common"
 import { DropDownInputType } from "~/Component/Common/SearchFilters/DropDown"
 import { DatePickerInputType } from "~/Component/Common/SearchFilters/DatePicker"
 import { DatePickersInputType } from "~/Component/Common/SearchFilters/DatePickers"
@@ -64,7 +72,18 @@ export default function (props: IFilterColumnProps) {
     })
   }
 
+  const onChangeDatePickersField = (fieldName: string, value: string, fieldName2?: string, value2?: string) => {
+    updateFilterData({
+      ...filterData,
+      [fieldName]: value,
+      ...(fieldName2 && value2 && { [fieldName2]: value2 })
+    })
+  }
+
   const onChangeFieldCopmonent = (values: RecordType) => {
+    console.log(filterData)
+    console.log(values)
+
     updateFilterData({
       ...filterData,
       ...values
@@ -161,20 +180,23 @@ export default function (props: IFilterColumnProps) {
             show={show[fieldName]}
             isChecked={isChecked}
             toggleCheckboxHandler={toggleShow(fieldName)}
-            filterValueChanged={onChangeField}
+            filterValueChanged={onChangeDatePickersField}
           />
         )
       }
     } else if (field.customFilterComponent) {
-      return field.customFilterComponent({
-        ...field,
-        key: i,
-        value: filterData,
-        show,
-        isChecked,
-        toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
-        filterValueChanged: onChangeFieldCopmonent
-      })
+      return (
+        <field.customFilterComponent
+          {...{
+            ...field,
+            key: i,
+            value: filterData,
+            show,
+            toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
+            filterValueChanged: onChangeFieldCopmonent
+          }}
+        />
+      )
     }
 
     return null
@@ -185,6 +207,7 @@ export default function (props: IFilterColumnProps) {
   ) : (
     <Form
       hideRequiredMark
+      {...(props.isModalView && { style: { overflowY: "scroll", padding: "10px" } })}
       layout="horizontal"
       initialValues={filterData}
       onValuesChange={(newValues) => updateFilterData({ ...filterData, ...newValues })}
@@ -195,7 +218,7 @@ export default function (props: IFilterColumnProps) {
 
   return (
     <Col
-      className={props.visible ? `gutter-row ${styles.offeringFilter}` : styles.hidden}
+      className={props.visible ? `gutter-row ${styles.offeringFilter}` : "hidden"}
       xs={24}
       sm={24}
       md={props.isModalView ? (!isChecked ? 24 : 12) : 6}

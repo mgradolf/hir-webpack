@@ -10,29 +10,28 @@ import { Row, Checkbox, Input } from "antd"
 import TextInput from "~/Component/Common/Form/TextInput"
 
 export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
-  const { value, show, toggleCheckboxHandler, filterValueChanged, label, isChecked } = props
-  return isChecked ? (
+  return props.isChecked ? (
     <Row>
       <LabelCol>
-        <Checkbox checked={show} onChange={toggleCheckboxHandler}>
-          {label}
+        <Checkbox checked={props.show} onChange={props.toggleCheckboxHandler}>
+          {props.label}
         </Checkbox>
       </LabelCol>
-      <InputCol className={show ? styles.offeringFilterField : styles.hidden}>
+      <InputCol className={props.show ? styles.offeringFilterField : "hidden"}>
         <Input
           aria-label={props.ariaLabel}
           name={props.fieldName}
           type={props.inputType.toLowerCase()}
           defaultValue={props.defaultValue}
-          value={value === "*" ? "" : value}
-          onChange={(e) => filterValueChanged(props.fieldName, e.target.value)}
+          value={props.value === "*" ? "" : props.value}
+          onChange={(e) => props.filterValueChanged(props.fieldName, e.target.value)}
         />
       </InputCol>
     </Row>
   ) : (
     <TextInput
       item={{
-        label,
+        label: props.label,
         name: props.fieldName,
         labelCol: { span: 6 }
       }}

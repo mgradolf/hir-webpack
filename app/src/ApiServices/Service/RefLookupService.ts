@@ -48,6 +48,11 @@ export function getGLAccountTypes(): Promise<IApiResponse> {
     LookUpName: "GLAccount"
   })
 }
+export function getAccountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AccountType"
+  })
+}
 
 export function getFinancialCategoryType(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({

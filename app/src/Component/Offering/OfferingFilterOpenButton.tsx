@@ -34,7 +34,7 @@ export function FilterOpenButton(props: IToolbarProps) {
         <Col className={`gutter-row ${styles.textAlign}`} xs={24} sm={24} md={12}>
           <Button
             type="primary"
-            className={props.filterColumnVisible ? styles.hidden : styles.marginRight5px}
+            className={props.filterColumnVisible ? "hidden" : styles.marginRight5px}
             onClick={props.toggleFilter}
           >
             Filters

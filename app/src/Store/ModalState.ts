@@ -25,6 +25,7 @@ const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
 const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
 const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
 const SHOW_UPDATE_NOTICE_MODAL = "SHOW_UPDATE_NOTICE_MODAL"
+const SHOW_PERSON_LOOKUP_MODAL = "SHOW_PERSON_LOOKUP_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -62,6 +63,7 @@ export interface IModalState {
   questionFindModal: ModalConfig
   roomFinderModal: ModalConfig
   updateNoticeModal: ModalConfig
+  personLookupModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -162,6 +164,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   updateNoticeModal: {
+    value: false,
+    config: null
+  },
+  personLookupModal: {
     value: false,
     config: null
   }
@@ -389,6 +395,16 @@ export const showUpdateNoticeModal = (value: boolean, config?: IShowNoticeModal)
   payload: { value, config }
 })
 
+export interface IShowPersonLookupModal {
+  type: string
+}
+export const showPersonLookupModal = (value: boolean, config?: IShowPersonLookupModal): IAction => {
+  return {
+    type: SHOW_PERSON_LOOKUP_MODAL,
+    payload: { value, config }
+  }
+}
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -441,6 +457,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, roomFinderModal: action.payload }
     case SHOW_UPDATE_NOTICE_MODAL:
       return { ...state, updateNoticeModal: action.payload }
+    case SHOW_PERSON_LOOKUP_MODAL:
+      return { ...state, personLookupModal: action.payload }
     default:
       return state
   }

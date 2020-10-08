@@ -27,6 +27,10 @@ import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
 
+import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
+import AccountLookupModal from "~/Component/Common/LookupModals/AccountLookupModal"
+import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
+
 function ModalContainer(modalState: IModalState) {
   return (
     <>
@@ -115,6 +119,14 @@ function ModalContainer(modalState: IModalState) {
           sectionNoticeTypeId={modalState.updateNoticeModal.config.sectionNoticeTypeId}
         />
       )}
+      {modalState.personLookupModal.value &&
+        modalState.personLookupModal.config.type !== WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
+          <PersonLookupModal type={modalState.personLookupModal.config.type} />
+        )}
+      {modalState.personLookupModal.value &&
+        modalState.personLookupModal.config.type === WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
+          <AccountLookupModal type={modalState.personLookupModal.config.type} />
+        )}
     </>
   )
 }

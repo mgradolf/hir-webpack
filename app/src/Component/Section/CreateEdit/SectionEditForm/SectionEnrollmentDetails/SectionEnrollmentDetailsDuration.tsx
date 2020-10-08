@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Form, Input, Row } from "antd"
 import { ISectionEnrollmentDetails } from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
 import { FormInstance } from "antd/lib/form"
-import { hidden } from "~/utils/style"
 import Radio, { RadioChangeEvent } from "antd/lib/radio"
 
 interface IDefineDurationTime {
@@ -128,7 +127,7 @@ function DefineDurationTime(props: IDefineDurationTime) {
 
   return (
     <>
-      <Form.Item name={props.fieldNames.DefaultEnrollmentDuration} style={hidden}>
+      <Form.Item name={props.fieldNames.DefaultEnrollmentDuration} className="hidden">
         <Input />
       </Form.Item>
       <Row justify="center">

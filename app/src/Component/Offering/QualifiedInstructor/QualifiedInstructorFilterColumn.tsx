@@ -8,9 +8,9 @@ import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { useQualifiedInstructorFilterData } from "~/Hooks/Offering/QualifiedInstructors"
 import moment from "moment"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const { Title } = Typography
-const dateFormat = "MM/DD/YYYY"
 
 const layout = {
   label: {
@@ -165,7 +165,7 @@ export function FilterColumn(props: IFilterColumnProps) {
   }
 
   return (
-    <Col className={visible ? `gutter-row ${styles.offeringInstructorFilter}` : styles.hidden} xs={24} sm={24} md={12}>
+    <Col className={visible ? `gutter-row ${styles.offeringInstructorFilter}` : "hidden"} xs={24} sm={24} md={12}>
       <Row>
         <Col span={12}>
           <Title level={4}>Instructor Filter</Title>
@@ -184,7 +184,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Instructor ID
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.FacultySerialNum ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={visibility.FacultySerialNum ? styles.offeringFilterField : "hidden"}>
           <Input
             name="FacultySerialNum"
             defaultValue=""
@@ -199,7 +199,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Last Name
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.LastName ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.LastName ? styles.offeringInstructorFilterFieldModal : "hidden"}>
           <Input
             name="LastName"
             defaultValue=""
@@ -214,7 +214,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             First Name
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.FirstName ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.FirstName ? styles.offeringInstructorFilterFieldModal : "hidden"}>
           <Input
             name="FirstName"
             defaultValue=""
@@ -230,7 +230,7 @@ export function FilterColumn(props: IFilterColumnProps) {
               Instructor Type
             </Checkbox>
           </LabelCol>
-          <InputCol className={visibility.InstructorTypeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <InputCol className={visibility.InstructorTypeID ? styles.offeringInstructorFilterFieldModal : "hidden"}>
             <Select
               style={{ width: 200 }}
               value={filterData.InstructorTypeID}
@@ -256,7 +256,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Qualified to Teach Offering
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.CanTeachOfferingID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.CanTeachOfferingID ? styles.offeringInstructorFilterFieldModal : "hidden"}>
           <Select
             style={{ width: 200 }}
             showSearch
@@ -281,7 +281,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Taught Offering
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.TaughtOfferingID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.TaughtOfferingID ? styles.offeringInstructorFilterFieldModal : "hidden"}>
           <Select
             style={{ width: 200 }}
             showSearch
@@ -307,7 +307,7 @@ export function FilterColumn(props: IFilterColumnProps) {
               Gender
             </Checkbox>
           </LabelCol>
-          <InputCol className={visibility.GenderTypeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <InputCol className={visibility.GenderTypeID ? styles.offeringInstructorFilterFieldModal : "hidden"}>
             <Select style={{ width: 200 }} value={filterData.GenderTypeID} onChange={onChangeSelect("GenderTypeID")}>
               {genderTypes.map((x) => {
                 return (
@@ -327,7 +327,7 @@ export function FilterColumn(props: IFilterColumnProps) {
               Region
             </Checkbox>
           </LabelCol>
-          <InputCol className={visibility.RegionCodeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <InputCol className={visibility.RegionCodeID ? styles.offeringInstructorFilterFieldModal : "hidden"}>
             <Select style={{ width: 200 }} value={filterData.RegionCodeID} onChange={onChangeSelect("RegionCodeID")}>
               {regionCodes.map((x) => {
                 return (
@@ -347,7 +347,7 @@ export function FilterColumn(props: IFilterColumnProps) {
               Ethnicity
             </Checkbox>
           </LabelCol>
-          <InputCol className={visibility.EthnicityTypeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <InputCol className={visibility.EthnicityTypeID ? styles.offeringInstructorFilterFieldModal : "hidden"}>
             <Select
               style={{ width: 200 }}
               value={filterData.EthnicityTypeID}
@@ -371,7 +371,7 @@ export function FilterColumn(props: IFilterColumnProps) {
               Department
             </Checkbox>
           </LabelCol>
-          <InputCol className={visibility.OrganizationID ? styles.offeringFilterField : styles.hidden}>
+          <InputCol className={visibility.OrganizationID ? styles.offeringFilterField : "hidden"}>
             <Select style={{ width: 250 }} onChange={onChangeSelect("OrganizationID")}>
               {organizations.map((x) => {
                 return (
@@ -391,7 +391,7 @@ export function FilterColumn(props: IFilterColumnProps) {
               Country
             </Checkbox>
           </LabelCol>
-          <InputCol className={visibility.CountryCodeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+          <InputCol className={visibility.CountryCodeID ? styles.offeringInstructorFilterFieldModal : "hidden"}>
             <Select style={{ width: 200 }} value={filterData.CountryCodeID} onChange={onChangeSelect("CountryCodeID")}>
               {countries.map((x) => {
                 return (
@@ -410,12 +410,12 @@ export function FilterColumn(props: IFilterColumnProps) {
             Birthday
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.Birthday ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.Birthday ? styles.offeringInstructorFilterFieldModal : "hidden"}>
           <DatePicker
             allowClear
             value={filterData.Birthday ? moment(filterData.Birthday) : undefined}
             onChange={onChangeDate("Birthday")}
-            format={dateFormat}
+            format={DATE_FORMAT}
           />
         </InputCol>
       </Row>
@@ -429,7 +429,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Telephone Number
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.TelephoneNumber ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={visibility.TelephoneNumber ? styles.offeringFilterField : "hidden"}>
           <Input
             name="TelephoneNumber"
             defaultValue=""
@@ -444,12 +444,12 @@ export function FilterColumn(props: IFilterColumnProps) {
             Last Taught Date
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.LastTaughtDate ? styles.offeringInstructorFilterFieldModal : styles.hidden}>
+        <InputCol className={visibility.LastTaughtDate ? styles.offeringInstructorFilterFieldModal : "hidden"}>
           <DatePicker
             allowClear
             value={filterData.LastTaughtDate ? moment(filterData.LastTaughtDate) : undefined}
             onChange={onChangeDate("LastTaughtDate")}
-            format={dateFormat}
+            format={DATE_FORMAT}
           />
         </InputCol>
       </Row>
@@ -463,7 +463,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Postal Code
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.PostalCode ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={visibility.PostalCode ? styles.offeringFilterField : "hidden"}>
           <Input
             name="PostalCode"
             defaultValue=""
@@ -478,7 +478,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Gov ID
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.GovID ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={visibility.GovID ? styles.offeringFilterField : "hidden"}>
           <Input
             name="GovID"
             defaultValue=""
@@ -493,7 +493,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             Is Deceased
           </Checkbox>
         </LabelCol>
-        <InputCol className={visibility.IsDeceased ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={visibility.IsDeceased ? styles.offeringFilterField : "hidden"}>
           <Select style={{ width: 250 }} value={filterData.IsDeceased} onChange={onChangeSelect("IsDeceased")}>
             <Select.Option value="true">Yes</Select.Option>
             <Select.Option value="false">No</Select.Option>
@@ -511,7 +511,7 @@ export function FilterColumn(props: IFilterColumnProps) {
             </Checkbox>
           </LabelCol>
           <InputCol
-            className={visibility.InstitutionStatusCodeID ? styles.offeringInstructorFilterFieldModal : styles.hidden}
+            className={visibility.InstitutionStatusCodeID ? styles.offeringInstructorFilterFieldModal : "hidden"}
           >
             <Select
               style={{ width: 200 }}

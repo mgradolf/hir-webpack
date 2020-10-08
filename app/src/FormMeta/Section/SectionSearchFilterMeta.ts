@@ -4,7 +4,7 @@ import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/S
 import { findMeetingTypes } from "~/ApiServices/BizApi/schedule/scheduleIf"
 import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-import RoomFinderField from "./SectionSearchCustomFilters/RoomFinderField"
+import RoomFinderField from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFinderField"
 
 const sectionMeta: IFilterField[] = [
   {

@@ -33,9 +33,10 @@ export interface IFilterFieldObject {
 }
 
 export interface IFilterFieldComponent {
+  key?: any
   inputType: string
   fieldName: string
-  customFilterComponent: any
+  customFilterComponent: React.FunctionComponent<any>
   extraProps?: { [key: string]: any }
 }
 
@@ -53,9 +54,10 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
       isChecked?: boolean
       key?: any
       toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
-      filterValueChanged: (key: string, value: any) => void
+      filterValueChanged: (key: string, value: any, key2?: string, value2?: string) => void
     }
   : IFilterFieldComponent & {
+      key?: any
       show: { [key: string]: boolean }
       value: { [key: string]: string | number }
       isChecked?: boolean
