@@ -57,27 +57,27 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
   const [amountLabel, setAmountLabel] = useState<string>(discountAmountLabel)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const response = await getGLAccountTypes()
       if (response && response.success && response.data) {
         setGlAccountTypes(response.data)
       }
     })()
-    ;(async () => {
-      const response = await getDiscountAmountTypes()
-      if (response && response.success && response.data) {
-        setDiscountAmountTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getSectionFinancials({
-        SectionID: props.sectionId,
-        FinancialBasisTypeID: FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID
-      })
-      if (response && response.success && response.data) {
-        setSectionFinancialItems(response.data)
-      }
-    })()
+      ; (async () => {
+        const response = await getDiscountAmountTypes()
+        if (response && response.success && response.data) {
+          setDiscountAmountTypes(response.data)
+        }
+      })()
+      ; (async () => {
+        const response = await getSectionFinancials({
+          SectionID: props.sectionId,
+          FinancialBasisTypeID: FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID
+        })
+        if (response && response.success && response.data) {
+          setSectionFinancialItems(response.data)
+        }
+      })()
   }, [props])
 
   const onFormSubmission = async () => {
@@ -229,14 +229,26 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
         )}
 
         {discountTypeID === DISCOUNT_DATE_RANGE_TYPE_ID && (
+          <Form.Item className="hidden" name={props.fieldNames.FromDate}>
+            <Input aria-label="From date" />
+          </Form.Item>
+        )}
+
+        {discountTypeID === DISCOUNT_DATE_RANGE_TYPE_ID && (
           <Form.Item label="Effective Date From" {...layout}>
             <DatePicker
               aria-label="Pick Effective From Date"
               placeholder="YYYY-MM-DD hh:mm"
               format="YYYY-MM-DD hh:mm"
               onChange={onFromDateChange}
-              defaultValue={fromDate ? moment(fromDate, "DD/MM/YYYY hh:mm") : undefined}
+              defaultValue={fromDate ? moment(fromDate, "YYYY-MM-DD hh:mm") : undefined}
             />
+          </Form.Item>
+        )}
+
+        {discountTypeID === DISCOUNT_DATE_RANGE_TYPE_ID && (
+          <Form.Item className="hidden" name={props.fieldNames.ToDate}>
+            <Input aria-label="To date" />
           </Form.Item>
         )}
 
@@ -247,7 +259,7 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
               placeholder="YYYY-MM-DD hh:mm"
               format="YYYY-MM-DD hh:mm"
               onChange={onToDateChange}
-              defaultValue={toDate ? moment(toDate, "DD/MM/YYYY hh:mm") : undefined}
+              defaultValue={toDate ? moment(toDate, "YYYY-MM-DD hh:mm") : undefined}
             />
           </Form.Item>
         )}

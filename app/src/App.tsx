@@ -31,6 +31,7 @@ import SectionNoticePage from "~/Pages/Section/Notice"
 import SectionDiscountPage from "~/Pages/Section/Discount"
 import RegistrationPage from "~/Pages/Section/Registration"
 import SectionTagPage from "~/Pages/Section/Tag"
+import RequestPage from "~/Pages/Section/Request"
 import WaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
 import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
 import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
@@ -54,43 +55,44 @@ function App(props: AppProps): JSX.Element {
       <Redirect to={{ pathname: "/login" }} />
     </Switch>
   ) : (
-    <Switch>
-      <Route exact path="/" component={OfferingPage} />
-      <Route path="/profile" component={ProfilePage} />
-      <Route path="/about" component={AboutPage} />
-      <Route path="/admin" component={AdminPage} />
+      <Switch>
+        <Route exact path="/" component={OfferingPage} />
+        <Route path="/profile" component={ProfilePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/admin" component={AdminPage} />
 
-      <Route exact path="/offering" component={OfferingPage} />
-      <Route exact path="/offering/:offeringID" component={OfferingDetailsPage} />
-      <Route exact path="/offering/:offeringID/financial" component={OfferingFinancialPage} />
-      <Route exact path="/offering/:offeringID/catalog" component={OfferingCatalogPage} />
-      <Route exact path="/offering/:offeringID/approval" component={OfferingApprovalPage} />
-      <Route exact path="/offering/:offeringID/requisite" component={OfferingRequisitePage} />
-      <Route exact path="/offering/:offeringID/instructor" component={OfferingQualifiedInstructorPage} />
-      <Route exact path="/offering/:offeringID/tag" component={OfferingTaggPage} />
-      <Route exact path="/offering/:offeringID/section" component={OfferingSectionPage} />
-      <Route exact path="/offering/:offeringID/section/:sectionID" component={SectionDetailsPage} />
+        <Route exact path="/offering" component={OfferingPage} />
+        <Route exact path="/offering/:offeringID" component={OfferingDetailsPage} />
+        <Route exact path="/offering/:offeringID/financial" component={OfferingFinancialPage} />
+        <Route exact path="/offering/:offeringID/catalog" component={OfferingCatalogPage} />
+        <Route exact path="/offering/:offeringID/approval" component={OfferingApprovalPage} />
+        <Route exact path="/offering/:offeringID/requisite" component={OfferingRequisitePage} />
+        <Route exact path="/offering/:offeringID/instructor" component={OfferingQualifiedInstructorPage} />
+        <Route exact path="/offering/:offeringID/tag" component={OfferingTaggPage} />
+        <Route exact path="/offering/:offeringID/section" component={OfferingSectionPage} />
+        <Route exact path="/offering/:offeringID/section/:sectionID" component={SectionDetailsPage} />
 
-      <Route exact path="/section" component={SectionPage} />
-      <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
-      <Route exact path="/section/:sectionID/catalog" component={SectionCatalogPage} />
-      <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
-      <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
-      <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
-      <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
-      <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
-      <Route exact path="/section/:sectionID/question" component={QuestionPage} />
-      <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
-      <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
-      <Route exact path="/section/:sectionID/waitlist" component={WaitlistEntriesPage} />
-      <Route exact path="/section/:sectionID/academic" component={SectionAcademicLogPage} />
-      <Route exact path="/section/:sectionID/enrollment" component={SectionEnrollmentLogPage} />
-      <Route exact path="/section/:sectionID/order" component={SectionOrderLogPage} />
+        <Route exact path="/section" component={SectionPage} />
+        <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
+        <Route exact path="/section/:sectionID/catalog" component={SectionCatalogPage} />
+        <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
+        <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
+        <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
+        <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
+        <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
+        <Route exact path="/section/:sectionID/question" component={QuestionPage} />
+        <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
+        <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
+        <Route exact path="/section/:sectionID/request" component={RequestPage} />
+        <Route exact path="/section/:sectionID/waitlist" component={WaitlistEntriesPage} />
+        <Route exact path="/section/:sectionID/academic" component={SectionAcademicLogPage} />
+        <Route exact path="/section/:sectionID/enrollment" component={SectionEnrollmentLogPage} />
+        <Route exact path="/section/:sectionID/order" component={SectionOrderLogPage} />
 
-      {/* <Route exact path="/question" component={QuestionPage} /> */}
-      <Route component={NotFoundPage} />
-    </Switch>
-  )
+        {/* <Route exact path="/question" component={QuestionPage} /> */}
+        <Route component={NotFoundPage} />
+      </Switch>
+    )
   return (
     <Provider store={props.store}>
       <ModalContainer />

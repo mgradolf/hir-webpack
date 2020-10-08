@@ -10,8 +10,8 @@ import { Form } from "antd"
 import { INoticeFieldNames } from "~/Component/Section/Interfaces"
 
 interface INoticetEditProps {
-  sectionNoticeTypeId: number
   sectionId: number
+  sectionNoticeTypeId: number
   closeUpdateNoticeModal?: () => void
 }
 
@@ -43,7 +43,7 @@ function NoticeUpdate({ closeUpdateNoticeModal, sectionNoticeTypeId, sectionId }
 
   useEffect(() => {
     if (sectionNoticeTypeId) {
-      ;(async () => {
+      ; (async () => {
         setNoticeLoading(true)
         const response = await getSectionNotifications({
           SectionID: sectionId,
