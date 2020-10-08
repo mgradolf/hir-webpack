@@ -207,6 +207,7 @@ export default function (props: IFilterColumnProps) {
   ) : (
     <Form
       hideRequiredMark
+      {...(props.isModalView && { style: { overflowY: "scroll", padding: "10px" } })}
       layout="horizontal"
       initialValues={filterData}
       onValuesChange={(newValues) => updateFilterData({ ...filterData, ...newValues })}

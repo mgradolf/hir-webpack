@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Row, Col, Typography } from "antd"
 import WaitListEntryTable from "~/Component/Section/WaitlistEntries/WaitListEntryTable"
 import { RouteComponentProps } from "react-router-dom"
@@ -9,9 +9,17 @@ import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistI
 
 const { Title } = Typography
 
-export default function WaitlistEntriesPage(props: RouteComponentProps) {
+export default function WaitlistEntriesPage(props: RouteComponentProps<{ sectionID: string }>) {
+  const SectionID = Number(props.match.params.sectionID)
   const [waitListEntries, setWaitListEntries] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    setLoading(true)
+    findWaitListEntries([{ SectionID }]).then((x) => {
+      if (x.success) setWaitListEntries(x.data)
+      setLoading(false)
+    })
+  }, [SectionID])
   return (
     <div className="site-layout-content">
       <Row>
@@ -33,7 +41,7 @@ export default function WaitlistEntriesPage(props: RouteComponentProps) {
             if (newFilterValues[key] === "") delete newFilterValues[key]
           })
           setLoading(true)
-          findWaitListEntries([newFilterValues]).then((x) => {
+          findWaitListEntries([{ ...newFilterValues, SectionID }]).then((x) => {
             if (x.success) {
               setWaitListEntries(x.data)
               document.getElementById("WaitListEntryTable")?.scrollIntoView({
