@@ -57,27 +57,27 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
   const [amountLabel, setAmountLabel] = useState<string>(discountAmountLabel)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       const response = await getGLAccountTypes()
       if (response && response.success && response.data) {
         setGlAccountTypes(response.data)
       }
     })()
-      ; (async () => {
-        const response = await getDiscountAmountTypes()
-        if (response && response.success && response.data) {
-          setDiscountAmountTypes(response.data)
-        }
-      })()
-      ; (async () => {
-        const response = await getSectionFinancials({
-          SectionID: props.sectionId,
-          FinancialBasisTypeID: FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID
-        })
-        if (response && response.success && response.data) {
-          setSectionFinancialItems(response.data)
-        }
-      })()
+    ;(async () => {
+      const response = await getDiscountAmountTypes()
+      if (response && response.success && response.data) {
+        setDiscountAmountTypes(response.data)
+      }
+    })()
+    ;(async () => {
+      const response = await getSectionFinancials({
+        SectionID: props.sectionId,
+        FinancialBasisTypeID: FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID
+      })
+      if (response && response.success && response.data) {
+        setSectionFinancialItems(response.data)
+      }
+    })()
   }, [props])
 
   const onFormSubmission = async () => {

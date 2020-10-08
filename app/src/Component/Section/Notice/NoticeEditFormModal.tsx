@@ -43,7 +43,7 @@ function NoticeUpdate({ closeUpdateNoticeModal, sectionNoticeTypeId, sectionId }
 
   useEffect(() => {
     if (sectionNoticeTypeId) {
-      ; (async () => {
+      ;(async () => {
         setNoticeLoading(true)
         const response = await getSectionNotifications({
           SectionID: sectionId,

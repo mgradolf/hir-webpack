@@ -30,9 +30,7 @@ interface ISectionFilterValues extends RecordType {
   RoomID: string
 }
 
-export function useRequests(
-  sectionID: number | undefined = undefined
-): [boolean, any[]] {
+export function useRequests(sectionID: number | undefined = undefined): [boolean, any[]] {
   const [requestItems, setRequestItems] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
 
