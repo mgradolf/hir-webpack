@@ -22,6 +22,7 @@ export const config = {
     saveFinancial: "saveFinancial",
     saveFinancials: "saveFinancials",
     getSectionFinancials: "getSectionFinancials",
+    saveSectionNotification: "saveSectionNotification",
     getSectionNotifications: "getSectionNotifications",
     saveSectionDiscount: "saveSectionDiscount",
     removeSectionDiscounts: "removeSectionDiscounts",

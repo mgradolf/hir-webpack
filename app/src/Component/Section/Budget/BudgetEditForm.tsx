@@ -8,6 +8,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import FormError from "~/Component/Common/FormError"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { saveFinancial } from "~/ApiServices/Service/SectionService"
+import { BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM, BUDGET_FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
 
 interface IBudgetEditFormProps {
   financialType: string
@@ -126,13 +127,14 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
           <Input aria-label="Amount" type="number" min={0} />
         </Form.Item>
 
-        {props.financialType !== "Faculty" && props.financialType !== "Marketing Program" && (
-          <Form.Item label="Deposit Amount" {...layout} name={props.fieldNames.InitialDepositAmount}>
-            <Input aria-label="Deposit Amount" type="number" min={0} />
-          </Form.Item>
-        )}
+        {props.financialType !== BUDGET_FINANCIAL_TYPE_FACULTY &&
+          props.financialType !== BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM && (
+            <Form.Item label="Deposit Amount" {...layout} name={props.fieldNames.InitialDepositAmount}>
+              <Input aria-label="Deposit Amount" type="number" min={0} />
+            </Form.Item>
+          )}
 
-        {props.financialType === "Faculty" && (
+        {props.financialType === BUDGET_FINANCIAL_TYPE_FACULTY && (
           <Form.Item label="Quantity" {...layout} name={props.fieldNames.ItemQty}>
             <Input aria-label="Quantity" type="number" min={0} />
           </Form.Item>

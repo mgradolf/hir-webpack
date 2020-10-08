@@ -25,6 +25,7 @@ import DiscountFomrModal from "~/Component/Section/Discount/DiscountFormModal"
 import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditFormModal"
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
+import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
 
 import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
 import AccountLookupModal from "~/Component/Common/LookupModals/AccountLookupModal"
@@ -111,6 +112,12 @@ function ModalContainer(modalState: IModalState) {
       {modalState.questionFindModal.value && <QuestionFindModal />}
       {modalState.roomFinderModal.value && (
         <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
+      )}
+      {modalState.updateNoticeModal.value && (
+        <NoticeEditFormModal
+          sectionId={modalState.updateNoticeModal.config.sectionId}
+          sectionNoticeTypeId={modalState.updateNoticeModal.config.sectionNoticeTypeId}
+        />
       )}
       {modalState.personLookupModal.value &&
         modalState.personLookupModal.config.type !== WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
