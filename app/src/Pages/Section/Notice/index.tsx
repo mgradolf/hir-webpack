@@ -13,23 +13,28 @@ function SectionNoticePage(props: RouteComponentProps<{ sectionID: string }>) {
   const columns = [
     {
       title: "Section Notification Type",
-      dataIndex: "SectionNoticeType"
+      dataIndex: "SectionNoticeType",
+      key: "SectionNoticeType"
     },
     {
       title: "From Email Address",
-      dataIndex: "FromEmailAddress"
+      dataIndex: "FromEmailAddress",
+      key: "FromEmailAddress"
     },
     {
       title: "To Email Address",
-      dataIndex: "ToEmailAddress"
+      dataIndex: "ToEmailAddress",
+      key: "ToEmailAddress"
     },
     {
       title: "Subject",
-      dataIndex: "Subject"
+      dataIndex: "Subject",
+      key: "Subject"
     },
     {
       title: "Active",
       dataIndex: "IsActive",
+      key: "IsActive",
       render: (value: boolean) => (value ? "Yes" : "No")
     },
     {
@@ -37,7 +42,7 @@ function SectionNoticePage(props: RouteComponentProps<{ sectionID: string }>) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <NoticeEditLink sectionId={record.SectionID} sectionNoticeTypeId={record.SectionNoticeTypeID} />
+          <NoticeEditLink sectionId={parseInt(sectionID)} sectionNoticeTypeId={record.SectionNoticeTypeID} />
         </Space>
       )
     }

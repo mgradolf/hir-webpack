@@ -15,7 +15,8 @@ export default function SectionMenu(props: ISectionMenu) {
     { title: "Email Notification", url: `/section/${props.section.SectionID}/notification` },
     { title: "Question", url: `/section/${props.section.SectionID}/question` },
     { title: "Registration", url: `/section/${props.section.SectionID}/registration` },
-    { title: "Tag", url: `/section/${props.section.SectionID}/tag` }
+    { title: "Tag", url: `/section/${props.section.SectionID}/tag` },
+    { title: "Requests", url: `/section/${props.section.SectionID}/request` }
   ]
   return <GoToMenu menuList={menus} />
 }
