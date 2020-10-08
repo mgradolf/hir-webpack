@@ -15,7 +15,8 @@ type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typ
 export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
-  defaultValue: string
+  hidden?: boolean
+  defaultValue: any
   placeholder?: string
 
   fieldName: string

@@ -11,7 +11,7 @@ import TextInput from "~/Component/Common/Form/TextInput"
 
 export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   return props.isChecked ? (
-    <Row>
+    <Row {...(props.hidden && props.defaultValue && { className: "hidden" })}>
       <LabelCol>
         <Checkbox checked={props.show} onChange={props.toggleCheckboxHandler}>
           {props.label}
@@ -33,7 +33,8 @@ export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldOb
       item={{
         label: props.label,
         name: props.fieldName,
-        labelCol: { span: 6 }
+        labelCol: { span: 6 },
+        ...(props.hidden && props.defaultValue && { className: "hidden" })
       }}
       input={{ "aria-label": props.ariaLabel, type: props.inputType.toLowerCase() }}
     />
