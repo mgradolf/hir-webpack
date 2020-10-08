@@ -1,6 +1,6 @@
 import React from "react"
 import moment from "moment"
-import { Space, Row, Col } from "antd"
+import { Space, Row, Col, Button } from "antd"
 import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import { ColumnsType } from "antd/lib/table"
 
@@ -65,7 +65,7 @@ export function RequestTable(props: ITableWrapperProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <a>View Details</a>
+          <Button>View Details</Button>
         </Space>
       )
     }
