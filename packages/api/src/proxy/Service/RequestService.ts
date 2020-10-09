@@ -5,7 +5,8 @@ export const config = {
   Service: "requestService",
   Module: "hir",
   Actions: {
-    getLiteRequests: "getLiteRequests"
+    getLiteRequests: "getLiteRequests",
+    readRequestForStaff: "readRequestForStaff"
   }
 }
 

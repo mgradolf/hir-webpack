@@ -27,6 +27,7 @@ const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
 const SHOW_UPDATE_NOTICE_MODAL = "SHOW_UPDATE_NOTICE_MODAL"
 const SHOW_PERSON_LOOKUP_MODAL = "SHOW_PERSON_LOOKUP_MODAL"
 const SHOW_ADD_SECTION_PRODUCT_MODAL = "SHOW_ADD_SECTION_PRODUCT_MODAL"
+const SHOW_REQUEST_DETAILS_MODAL = "SHOW_REQUEST_DETAILS_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -66,6 +67,7 @@ export interface IModalState {
   updateNoticeModal: ModalConfig
   personLookupModal: ModalConfig
   addSectionProductModal: ModalConfig
+  requestDetailsModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -174,6 +176,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   addSectionProductModal: {
+    value: false,
+    config: null
+  },
+  requestDetailsModal: {
     value: false,
     config: null
   }
@@ -420,6 +426,15 @@ export const showAddSectionProductModal = (value: boolean, config?: IShowSection
   payload: { value, config }
 })
 
+interface IShowRequestModal {
+  requestId: number
+}
+
+export const showRequestDetailsModal = (value: boolean, config?: IShowRequestModal): IAction => ({
+  type: SHOW_REQUEST_DETAILS_MODAL,
+  payload: { value, config }
+})
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -476,6 +491,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, personLookupModal: action.payload }
     case SHOW_ADD_SECTION_PRODUCT_MODAL:
       return { ...state, addSectionProductModal: action.payload }
+    case SHOW_REQUEST_DETAILS_MODAL:
+      return { ...state, requestDetailsModal: action.payload }
     default:
       return state
   }

@@ -1,14 +1,16 @@
 import React from "react"
 import moment from "moment"
-import { Space, Row, Col, Button } from "antd"
+import { Space, Row, Col } from "antd"
 import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import { ColumnsType } from "antd/lib/table"
+import RequestMenu from "~/Component/Section/Request/RequestMenu"
 
 export interface ITableWrapperProps {
   dataSource: Array<any>
   loading: boolean
   isModal?: boolean
   rowSelection?: any
+  sectionId: number
 }
 
 export function RequestTable(props: ITableWrapperProps) {
@@ -65,7 +67,7 @@ export function RequestTable(props: ITableWrapperProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <Button>View Details</Button>
+          <RequestMenu sectionId={props.sectionId} request={record} />
         </Space>
       )
     }
@@ -73,62 +75,44 @@ export function RequestTable(props: ITableWrapperProps) {
 
   function expandableRowRender(data: any, mobileView: boolean) {
     return (
-      <div style={{ border: "1px solid", padding: "5px" }}>
-        <Row>
-          <Col span="10">Description:</Col>
-          <Col span="14">{data.OfferingDescription}</Col>
-        </Row>
+      <>
         {mobileView && (
-          <Row>
-            <Col span="10">Offering Name:</Col>
-            <Col span="14">{data.OfferingName}</Col>
-          </Row>
+          <div style={{ border: "1px solid", padding: "5px" }}>
+            <Row>
+              <Col span="10">Creation Time:</Col>
+              <Col span="14">{data.CreateDate ? moment(data.CreateDate).format("YYYY-MM-DD hh:mm A") : ""}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Request Type:</Col>
+              <Col span="14">{data.RequestType}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Request Status:</Col>
+              <Col span="14">{data.State}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Expiration Time:</Col>
+              <Col span="14">{data.ExpirationDate ? moment(data.ExpirationDate).format("YYYY-MM-DD hh:mm A") : ""}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Source:</Col>
+              <Col span="14">{data.Source}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Purchaser:</Col>
+              <Col span="14">{data.PurchaserPersonName}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Account:</Col>
+              <Col span="14">{data.AccountName}</Col>
+            </Row>
+            <Row>
+              <Col span="10">Staff:</Col>
+              <Col span="14">{data.RequesterStaffUserName}</Col>
+            </Row>
+          </div>
         )}
-        <Row>
-          <Col span="10">Department:</Col>
-          <Col span="14">{data.OrganizationName}</Col>
-        </Row>
-        <Row>
-          <Col span="10">Def Section:</Col>
-          <Col span="14">{data.SectionTypeName}</Col>
-        </Row>
-        {mobileView && (
-          <Row>
-            <Col span="10">Creation Date:</Col>
-            <Col span="14">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Termination Date:</Col>
-            <Col span="14">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Status:</Col>
-            <Col span="14">{data.StatusCode}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Department:</Col>
-            <Col span="14">{data.OrganizationName}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Offering Type:</Col>
-            <Col span="14">{data.OfferingTypeName}</Col>
-          </Row>
-        )}
-        {mobileView && (
-          <Row>
-            <Col span="10">Def Section:</Col>
-            <Col span="14">{data.SectionTypeName}</Col>
-          </Row>
-        )}
-      </div>
+      </>
     )
   }
 

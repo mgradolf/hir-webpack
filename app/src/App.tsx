@@ -31,12 +31,13 @@ import SectionNoticePage from "~/Pages/Section/Notice"
 import SectionDiscountPage from "~/Pages/Section/Discount"
 import RegistrationPage from "~/Pages/Section/Registration"
 import SectionTagPage from "~/Pages/Section/Tag"
-import RequestPage from "~/Pages/Section/Request"
+import RequestPage from "~/Pages/Request"
 import SectionProductPage from "~/Pages/Section/Product"
 import WaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
 import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
 import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
 import SectionOrderLogPage from "~/Pages/Section/OrderLog"
+import RequestDetailsPage from "~/Pages/Request/Details"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
@@ -90,6 +91,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/academic" component={SectionAcademicLogPage} />
       <Route exact path="/section/:sectionID/enrollment" component={SectionEnrollmentLogPage} />
       <Route exact path="/section/:sectionID/order" component={SectionOrderLogPage} />
+
+      <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
 
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />
