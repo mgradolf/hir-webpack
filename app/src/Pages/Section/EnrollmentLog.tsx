@@ -71,7 +71,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     <div className="site-layout-content">
       <AcademicLogSearch
         meta={getSectionEnrollmentActivitySearchMeta(SectionID)}
-        title="Find Student Academic Activity"
+        title="Find Student Enrollment Activity"
         visible={true}
         isChecked={false}
         toggleVisiibility={() => console.log("s")}
@@ -88,7 +88,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
         columns={columns}
         searchFunc={getStudentEnrollmentActivity}
         expandableColumnIndices={[5]}
-        responsiveColumnIndices={[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]}
+        responsiveColumnIndices={[2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
         searchParams={searchParams}
         rowKey="ActivityID"
       />
