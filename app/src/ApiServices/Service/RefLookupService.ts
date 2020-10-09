@@ -227,3 +227,9 @@ export function getSectionRosterStatusCode(): Promise<IApiResponse> {
     LookUpName: "SectionRosterStatusCode"
   })
 }
+
+export function getProductCategoryTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProductCategory"
+  })
+}

@@ -26,6 +26,7 @@ import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditForm
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
+import AddProductFromProductModal from "~/Component/Section/Product/AddProductFromProductModal"
 
 import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
 import AccountLookupModal from "~/Component/Common/LookupModals/AccountLookupModal"
@@ -127,6 +128,9 @@ function ModalContainer(modalState: IModalState) {
         modalState.personLookupModal.config.type === WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
           <AccountLookupModal type={modalState.personLookupModal.config.type} />
         )}
+      {modalState.addSectionProductModal.value && (
+        <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
+      )}
     </>
   )
 }
