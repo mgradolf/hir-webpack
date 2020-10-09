@@ -45,3 +45,6 @@ export const BUDGET_FINANCIAL_TYPE_RESOURCE = "Resource"
 export const BUDGET_FINANCIAL_TYPE_INSTRUCTOR = "Instructor"
 export const BUDGET_FINANCIAL_TYPE_FACULTY = "Faculty"
 export const BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM = "Marketing Program"
+
+export const PROCESSED_REQUEST_STATE_ID = 4
+export const ACTION_REQUIRED_REQUEST_STATE_ID = 2
