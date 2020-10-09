@@ -38,7 +38,6 @@ export default function DataTable(props: IDataTableProps) {
   const [mobileView, setMobileView] = useState<any>(undefined)
 
   useDeviceViews((deviceViews: IDeviceView) => {
-    console.log("deviceViews.mobile ", deviceViews.mobile)
     setMobileView(deviceViews.mobile)
   })
 
