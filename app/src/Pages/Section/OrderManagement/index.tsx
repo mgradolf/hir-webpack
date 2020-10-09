@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
-import AcademicLogSearch from "~/Component/Common/SearchFilters"
+import { searchOrders } from "~/ApiServices/Service/OrderService"
+import OrderManagementSearch from "~/Component/Common/SearchFilters"
 import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionOrderActivitySearchMeta"
+import { OrderManagementSearchFilterMeta } from "~/FormMeta/Order/OrderManagementSearchFilterMeta"
 import { ColumnsType } from "antd/lib/table"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
@@ -11,58 +11,23 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({ SectionIDs: [SectionID] })
   const columns: ColumnsType<RecordType> = [
     {
-      title: "User ID",
-      dataIndex: "PersonID",
-      width: 100
-    },
-    {
-      title: "User Name",
-      dataIndex: "PersonName",
-      width: 100
-    },
-    {
-      title: "Activity Date",
-      dataIndex: "ActivityModifiedDate",
-      width: 100
-    },
-    {
-      title: "Activity Type",
-      dataIndex: "StudentID",
-      width: 100
-    },
-    {
-      title: "Order Number",
+      title: "Order ID",
       dataIndex: "OrderID",
       width: 100
     },
     {
-      title: "Paid By",
-      dataIndex: "BillToAddress",
+      title: "Other Items",
+      dataIndex: "OtherItems",
       width: 100
     },
     {
-      title: "Order Status",
-      dataIndex: "OPCStatusCodeID",
+      title: "Buyer Name",
+      dataIndex: "BuyerName",
       width: 100
     },
     {
-      title: "Order Date",
-      dataIndex: "OrderDate",
-      width: 100
-    },
-    {
-      title: "Total Items",
-      dataIndex: "TotalItems",
-      width: 100
-    },
-    {
-      title: "Discount Amount",
-      dataIndex: "DiscountAmount",
-      width: 100
-    },
-    {
-      title: "Total Amount",
-      dataIndex: "TotalAmount",
+      title: "Account",
+      dataIndex: "AccountName",
       width: 100
     },
     {
@@ -71,16 +36,61 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
       width: 100
     },
     {
-      title: "Completion Date",
+      title: "Order Status",
+      dataIndex: "OrderStatus",
+      width: 100
+    },
+    {
+      title: "Completed Date",
       dataIndex: "CompletedDate",
+      width: 100
+    },
+    {
+      title: "Total Order Amount",
+      dataIndex: "TotalAmount",
+      width: 100
+    },
+    {
+      title: "Credit Amount",
+      dataIndex: "CreditAmount",
+      width: 100
+    },
+    {
+      title: "Amount Amount",
+      dataIndex: "RefundAmount",
+      width: 100
+    },
+    {
+      title: "Cash Credit",
+      dataIndex: "CashCredit",
+      width: 100
+    },
+    {
+      title: "Balance",
+      dataIndex: "Balance",
+      width: 100
+    },
+    {
+      title: "Payment Due Date",
+      dataIndex: "PaymentDueDate",
+      width: 100
+    },
+    {
+      title: "PO outstanding",
+      dataIndex: "HasPO",
+      width: 100
+    },
+    {
+      title: "Source",
+      dataIndex: "Source",
       width: 100
     }
   ]
 
   return (
     <div className="site-layout-content">
-      <AcademicLogSearch
-        meta={getSectionAcademicActivitySearchMeta(SectionID)}
+      <OrderManagementSearch
+        meta={OrderManagementSearchFilterMeta(SectionID)}
         title="Find Order Activity"
         visible={true}
         isChecked={false}
@@ -96,11 +106,11 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
       />
       <EnrollmentLogTable
         columns={columns}
-        searchFunc={getOrderActivity}
+        searchFunc={searchOrders}
         expandableColumnIndices={[5]}
-        responsiveColumnIndices={[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
+        responsiveColumnIndices={[1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
         searchParams={searchParams}
-        rowKey="ActivityID"
+        rowKey="OrderID"
       />
     </div>
   )

@@ -210,6 +210,24 @@ export function getPreferenceValueType(): Promise<IApiResponse> {
   })
 }
 
+export function getOPCStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "OPCStatusCode"
+  })
+}
+
+export function getSourceModule(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SourceModule"
+  })
+}
+
+export function getSectionRosterStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SectionRosterStatusCode"
+  })
+}
+
 export function getProductCategoryTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "ProductCategory"

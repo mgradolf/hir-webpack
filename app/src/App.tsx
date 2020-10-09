@@ -38,6 +38,7 @@ import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
 import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
 import SectionOrderLogPage from "~/Pages/Section/OrderLog"
 import RequestDetailsPage from "~/Pages/Request/Details"
+import SectionOrderManagementPage from "~/Pages/Section/OrderManagement"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
@@ -85,6 +86,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/question" component={QuestionPage} />
       <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
+      <Route exact path="/section/:sectionID/order-management" component={SectionOrderManagementPage} />
       <Route exact path="/section/:sectionID/request" component={RequestPage} />
       <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
       <Route exact path="/section/:sectionID/waitlist" component={WaitlistEntriesPage} />
