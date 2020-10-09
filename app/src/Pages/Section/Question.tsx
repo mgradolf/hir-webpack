@@ -7,6 +7,7 @@ import QuestionCreateButton from "~/Component/Question/Create/QuestionCreateButt
 import QuestionTable from "~/Component/Question/QuestionTable"
 import QuestionFindButton from "~/Component/Question/Search/QuestionFindButton"
 import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
+import { Form } from "antd"
 
 export default function QuestionPage(props: RouteComponentProps<{ offeringID?: string; sectionID?: string }>) {
   const sectionID = Number(props.match.params.sectionID)
@@ -39,14 +40,22 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
   }, [filters])
 
   return (
-    <div>
-      <QuestionSearchByEventTag
-        setFilters={(Params: any) => {
-          setFilters(Params)
-        }}
-      />
-      <QuestionCreateButton SectionID={sectionID} {...filters} />
-      <QuestionFindButton SectionID={sectionID} {...filters} />
+    <>
+      <Form
+        hideRequiredMark
+        layout="horizontal"
+        style={{ background: "#fff", borderRadius: "4px", marginBottom: "1rem", padding: "1rem" }}
+      >
+        <QuestionSearchByEventTag
+          setFilters={(Params: any) => {
+            setFilters(Params)
+          }}
+        />
+        <div style={{ zIndex: 10, textAlignLast: "end" }}>
+          <QuestionCreateButton SectionID={sectionID} {...filters} />
+          <QuestionFindButton SectionID={sectionID} {...filters} />
+        </div>
+      </Form>
       <QuestionTable
         loading={apiCallInProgress}
         allQuestions={allQuestions}
@@ -58,6 +67,6 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
           })
         }}
       />
-    </div>
+    </>
   )
 }

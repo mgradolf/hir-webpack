@@ -1,0 +1,14 @@
+import ActivityService, { config } from "@packages/api/lib/proxy/Service/ActivityService"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+
+export function getStudentAcademicActivity(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return ActivityService[config.Actions.getStudentAcademicActivity](Params)
+}
+
+export function getStudentEnrollmentActivity(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return ActivityService[config.Actions.getStudentEnrollmentActivity](Params)
+}
+
+export function getOrderActivity(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return ActivityService[config.Actions.getOrderActivity](Params)
+}

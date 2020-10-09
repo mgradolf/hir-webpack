@@ -34,9 +34,9 @@ import SectionTagPage from "~/Pages/Section/Tag"
 import RequestPage from "~/Pages/Section/Request"
 import SectionProductPage from "~/Pages/Section/Product"
 import WaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
-import SectionAcademicLogPage from "~/Pages/Section/AcademicLogPage"
-import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLogPage"
-import SectionOrderLogPage from "~/Pages/Section/OrderLogPage"
+import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
+import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
+import SectionOrderLogPage from "~/Pages/Section/OrderLog"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
