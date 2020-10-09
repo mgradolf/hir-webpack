@@ -209,3 +209,9 @@ export function getPreferenceValueType(): Promise<IApiResponse> {
     LookUpName: "PreferenceValueType"
   })
 }
+
+export function getProductCategoryTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProductCategory"
+  })
+}
