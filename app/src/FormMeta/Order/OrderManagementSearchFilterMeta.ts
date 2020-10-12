@@ -3,6 +3,7 @@ import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchF
 import PersonSelectorForOrderManagement from "~/FormMeta/Order/PersonSelectorForOrderManagement"
 import DateTypelectorForOrderManagement from "~/FormMeta/Order/DateTypelectorForOrderManagement"
 import TotalAmountRangeForOrderManagement from "~/FormMeta/Order/TotalAmountRangeForOrderManagement"
+import AccountLookupForOrderManagement from "~/FormMeta/Order/AccountLookupForOrderManagement"
 
 // const Params = {
 //   SectionIDs: [9],
@@ -87,6 +88,11 @@ export function OrderManagementSearchFilterMeta(SectionID: number): IFilterField
       defaultValue: "",
       fieldName: "ProductName",
       ariaLabel: "ProductName"
+    },
+    {
+      inputType: "ACCOUNT_LOOKUP",
+      fieldName: "",
+      customFilterComponent: AccountLookupForOrderManagement
     }
   ]
 }
