@@ -233,3 +233,9 @@ export function getProductCategoryTypes(): Promise<IApiResponse> {
     LookUpName: "ProductCategory"
   })
 }
+
+export function getCommentCategories(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CommentCategory"
+  })
+}

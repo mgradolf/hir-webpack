@@ -30,6 +30,8 @@ import AddProductFromProductModal from "~/Component/Section/Product/AddProductFr
 
 import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
 import AccountLookupModal from "~/Component/Common/LookupModals/AccountLookupModal"
+import CommentCreateModal from "~/Component/Section/Comment/CommentCreateModal"
+
 import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
 
 function ModalContainer(modalState: IModalState) {
@@ -131,6 +133,8 @@ function ModalContainer(modalState: IModalState) {
       {modalState.addSectionProductModal.value && (
         <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
       )}
+
+      {modalState.sectionCommentModal.value && <CommentCreateModal />}
     </>
   )
 }

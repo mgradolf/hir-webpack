@@ -39,6 +39,7 @@ import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
 import SectionOrderLogPage from "~/Pages/Section/OrderLog"
 import RequestDetailsPage from "~/Pages/Request/Details"
 import SectionOrderManagementPage from "~/Pages/Section/OrderManagement"
+import SectionCommentPage from "~/Pages/Section/Comment"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
@@ -93,9 +94,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/academic" component={SectionAcademicLogPage} />
       <Route exact path="/section/:sectionID/enrollment" component={SectionEnrollmentLogPage} />
       <Route exact path="/section/:sectionID/order" component={SectionOrderLogPage} />
-
+      <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
       <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
-
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />
     </Switch>

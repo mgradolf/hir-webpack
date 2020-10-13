@@ -105,3 +105,27 @@ export function removeFinancials(Params: { [key: string]: any }): Promise<IApiRe
 export function findRoom(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findRoom](Params)
 }
+
+export function saveGeneralComment(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveGeneralComment](Params)
+}
+
+export function saveFacultyComment(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveFacultyComment](Params)
+}
+
+export function saveEnrollmentComment(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveEnrollmentComment](Params)
+}
+
+export function findGeneralCommentHistory(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findGeneralCommentHistory](Params)
+}
+
+export function findFacultyComments(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findFacultyComments](Params)
+}
+
+export function findEnrollmentCommentHistory(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findEnrollmentCommentHistory](Params)
+}
