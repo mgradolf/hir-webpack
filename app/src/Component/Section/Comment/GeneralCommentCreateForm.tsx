@@ -27,7 +27,7 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
       actions={[<Button onClick={props.onCancel}>Cancel</Button>, <Button onClick={submit}>Select</Button>]}
     >
       <Form form={formInstance}>
-        <Form.Item label="Category" name="CommentCategoryID">
+        <Form.Item label="Category" name="CommentCategoryID" labelCol={{ span: 6 }}>
           <Select>
             {props.commentCatagories.map((x, i) => (
               <Select.Option key={i} value={x.ID}>
@@ -36,7 +36,7 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
             ))}
           </Select>
         </Form.Item>
-        <Form.Item label="Commments" name="CommentText">
+        <Form.Item label="Commments" name="CommentText" labelCol={{ span: 6 }}>
           <TextArea></TextArea>
         </Form.Item>
       </Form>

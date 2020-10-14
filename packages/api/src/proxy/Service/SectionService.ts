@@ -39,7 +39,9 @@ export const config = {
     saveEnrollmentComment: "saveEnrollmentComment",
     findGeneralCommentHistory: "findGeneralCommentHistory",
     findFacultyComments: "findFacultyComments",
-    findEnrollmentCommentHistory: "findEnrollmentCommentHistory"
+    findEnrollmentCommentHistory: "findEnrollmentCommentHistory",
+    findFaculty: "findFaculty",
+    findEnrollmentStudentHistory: "findEnrollmentStudentHistory"
   }
 }
 

@@ -129,3 +129,11 @@ export function findFacultyComments(Params: { [key: string]: any }) {
 export function findEnrollmentCommentHistory(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findEnrollmentCommentHistory](Params)
 }
+
+export function findFaculty(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findFaculty](Params)
+}
+
+export function findEnrollmentStudentHistory(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findEnrollmentStudentHistory](Params)
+}

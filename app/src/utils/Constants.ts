@@ -2,6 +2,7 @@ export const DEFAULT_OFFERING_TYPE_ID = 1000
 export const DEFAULT_SECTION_TYPE_ID = 13
 export const DATE_FORMAT = "MM/DD/YYYY"
 export const TIME_FORMAT = "hh:mm A"
+export const DATE_TIME = ""
 
 export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
   ACCOUNT: "Account",
@@ -26,9 +27,9 @@ export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
 }
 
 export const COMMENT_TYPES = {
-  GENERAL: "GENERAL",
-  INSTRUCTOR: "INSTRUCTOR",
-  ENROLLMENT: "ENROLLMENT"
+  GENERAL: "General",
+  INSTRUCTOR: "Instructor",
+  ENROLLMENT: "Enrollment"
 }
 
 export const FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID = 1

@@ -20,6 +20,7 @@ export const REFRESH_SECTION_TAG_PAGE = "REFRESH_SECTION_TAG_PAGE"
 export const REFRESH_QUESTION_PAGE = "REFRESH_QUESTION_PAGE"
 
 export const EVENT_PERSON_SELECTED = "EVENT_PERSON_SELECTED"
+export const REFRESH_PAGE = "REFRESH_PAGE"
 
 type fn = (param?: any) => void
 class PageEventBus {
