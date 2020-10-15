@@ -5,7 +5,15 @@ export const config = {
   Service: "orderService",
   Module: "hir",
   Actions: {
-    searchOrders: "searchOrders"
+    searchOrders: "searchOrders",
+    getOrderDetails: "getOrderDetails",
+    getOrderItems: "getOrderItems",
+    getOrderLines: "getOrderLines",
+    getOrderItemsLit: "getOrderItemsLit",
+    getPayments: "getPayments",
+    getCredits: "getCredits",
+    getReturnItem: "getReturnItem",
+    getPurchaseOrder: "getPurchaseOrder"
   }
 }
 export default ApiMethodFactory(config)
