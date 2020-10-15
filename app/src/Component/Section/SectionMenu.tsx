@@ -30,7 +30,7 @@ export default function SectionMenu(props: ISectionMenu) {
       title: "Financial",
       url: "#",
       items: [
-        { title: "Order Management", url: `/section/${props.section.SectionID}/order/management` },
+        { title: "Order Management", url: `/section/${props.section.SectionID}/order` },
         { title: "Order Items", url: `/section/${props.section.SectionID}/order/items` }
       ]
     },
@@ -38,9 +38,9 @@ export default function SectionMenu(props: ISectionMenu) {
       title: "Logs",
       url: "#",
       items: [
-        { title: "Academic Log", url: `/section/${props.section.SectionID}/academic` },
-        { title: "Enrollment Log", url: `/section/${props.section.SectionID}/enrollment` },
-        { title: "Order Log", url: `/section/${props.section.SectionID}/order` }
+        { title: "Academic Log", url: `/section/${props.section.SectionID}/academic-logs` },
+        { title: "Enrollment Log", url: `/section/${props.section.SectionID}/enrollment-log` },
+        { title: "Order Log", url: `/section/${props.section.SectionID}/order-log` }
       ]
     }
   ]

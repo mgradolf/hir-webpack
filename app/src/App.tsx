@@ -89,15 +89,15 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/question" component={QuestionPage} />
       <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
-      <Route exact path="/section/:sectionID/order/management" component={SectionOrderManagementPage} />
+      <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
       <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
       <Route exact path="/section/:sectionID/order/:orderID" component={SectionOrderDetailsPage} />
       <Route exact path="/section/:sectionID/request" component={RequestPage} />
-      <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
+      <Route exact path="/section/:sectionID/producst" component={SectionProductPage} />
       <Route exact path="/section/:sectionID/waitlist" component={WaitlistEntriesPage} />
-      <Route exact path="/section/:sectionID/academic" component={SectionAcademicLogPage} />
-      <Route exact path="/section/:sectionID/enrollment" component={SectionEnrollmentLogPage} />
-      <Route exact path="/section/:sectionID/order" component={SectionOrderLogPage} />
+      <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
+      <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
+      <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
       <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
       <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
       {/* <Route exact path="/question" component={QuestionPage} /> */}
