@@ -110,6 +110,7 @@ export default function DataTable(props: IDataTableProps) {
     _conditionalProps.scroll = { ...(props.isModal && { y: Math.floor(window.innerHeight * 0.45) }), x: 300 }
     _conditionalProps.pagination = { position: ["topLeft"], pageSize: 20 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
+    _conditionalProps.rowKey = "rowkey"
 
     setConditionalProps(_conditionalProps)
   }
@@ -125,7 +126,12 @@ export default function DataTable(props: IDataTableProps) {
       })
       searchFunc(searchParams).then((x) => {
         if (x.success) {
-          setTableProps(x.data)
+          setTableProps(
+            x.data.map((y: any, i: number) => {
+              y.rowkey = props.rowKey + " " + i
+              return y
+            })
+          )
         }
         setLoading(false)
       })

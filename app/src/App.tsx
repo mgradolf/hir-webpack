@@ -43,6 +43,7 @@ import SectionOrderItemsPage from "~/Pages/Section/Order/OrderItems"
 import SectionOrderPaymentsPage from "~/Pages/Section/Order/Payments"
 import SectionOrderDetailsPage from "~/Pages/Section/Order/OrderDetails"
 import SectionCommentPage from "~/Pages/Section/Comment"
+import SectionNoShowPage from "~/Pages/Section/NoShow"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
@@ -101,6 +102,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
       <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
       <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
+      <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
       <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />

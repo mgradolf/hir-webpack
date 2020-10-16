@@ -23,7 +23,8 @@ export default function SectionMenu(props: ISectionMenu) {
         { title: "Requests", url: `/section/${props.section.SectionID}/request` },
         { title: "Products", url: `/section/${props.section.SectionID}/product` },
         { title: "Waitlist Entries", url: `/section/${props.section.SectionID}/waitlist` },
-        { title: "Comment", url: `/section/${props.section.SectionID}/comment` }
+        { title: "Comment", url: `/section/${props.section.SectionID}/comment` },
+        { title: "No Show", url: `/section/${props.section.SectionID}/no-show` }
       ]
     },
     {
