@@ -2,17 +2,31 @@ import React, { useEffect, useState } from "react"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { Row, Input, Select, Col, Form } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
-import { ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES } from "~/utils/Constants"
+
+export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
+  BUYER: {
+    name: "Buyer",
+    key: "PersonID"
+  },
+  STUDENT: {
+    name: "Student",
+    key: "StudentName"
+  },
+  BILLED_TO: {
+    name: "Billed To",
+    key: "BilledPersonName"
+  }
+}
 
 export interface IParamsToBeDispatched {
   NameToDisplay: string
   Params: { [key: string]: string }
 }
 
-interface IWaitlistSearchCustomLookupFilter extends IFilterGenericComponentProps<IFilterFieldComponent> {
+interface IPersonSelector extends IFilterGenericComponentProps<IFilterFieldComponent> {
   key?: any
 }
-export default function PersonSelectorForOrderManagement(props: IWaitlistSearchCustomLookupFilter) {
+export default function PersonSelector(props: IPersonSelector) {
   const [selectedInputType, setSelectedInputType] = useState("number")
   const [selectedKey, setSelectedKey] = useState(ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES.BUYER.key)
   const [seletectLookupType, setSeletectLookupType] = useState(ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES.BUYER.name)

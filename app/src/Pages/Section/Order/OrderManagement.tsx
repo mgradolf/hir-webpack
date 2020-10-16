@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from "react-router-dom"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
 import OrderManagementSearch from "~/Component/Common/SearchFilters"
 import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { OrderManagementSearchFilterMeta } from "~/FormMeta/Order/OrderManagementSearchFilterMeta"
+import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
 import { ColumnsType } from "antd/lib/table"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {

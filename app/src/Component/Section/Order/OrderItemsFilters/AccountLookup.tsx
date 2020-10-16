@@ -19,8 +19,6 @@ interface IParamsToBeDispatched {
 
 function AccountLookupForOrderManagement(props: IAccountLookupForOrderManagement) {
   const [selectedValue, setSelectedValue] = useState("")
-  console.log(props)
-
   useEffect(() => {
     eventBus.subscribe(EVENT_PERSON_SELECTED, (person: IParamsToBeDispatched) => {
       setSelectedValue(person.NameToDisplay)
@@ -34,7 +32,7 @@ function AccountLookupForOrderManagement(props: IAccountLookupForOrderManagement
     }
   }, [props])
   return (
-    <Form.Item key={props.key} label="Account" labelCol={{ span: 6 }}>
+    <Form.Item label="Account" labelCol={{ span: 6 }}>
       <Row>
         <Col span={18}>
           <Input value={selectedValue} readOnly />

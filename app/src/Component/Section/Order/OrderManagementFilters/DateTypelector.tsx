@@ -25,7 +25,7 @@ const ORDER_MANAGEMENT_PERSON_DATE_TYPES = {
     key2: "PaymentDueDateTo"
   }
 }
-export default function PersonSelectorForOrderManagement(props: IWaitlistSearchCustomLookupFilter) {
+export default function DateTypeSelector(props: IWaitlistSearchCustomLookupFilter) {
   const [selectedKey, setSelectedKey] = useState(ORDER_MANAGEMENT_PERSON_DATE_TYPES.CREATED_DATE.key1)
   const [selectedKey2, setSelectedKey2] = useState(ORDER_MANAGEMENT_PERSON_DATE_TYPES.CREATED_DATE.key2)
   const [seletectLookupType, setSeletectLookupType] = useState(ORDER_MANAGEMENT_PERSON_DATE_TYPES.CREATED_DATE.name)

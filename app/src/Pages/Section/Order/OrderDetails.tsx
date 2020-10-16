@@ -1,11 +1,11 @@
 import React from "react"
 import { Tabs } from "antd"
 import { RouteComponentProps } from "react-router-dom"
-import Details from "~/Component/Section/Order/OrderDetails"
-import OrderItems from "~/Component/Section/Order/OrderItems"
-import Orderlines from "~/Component/Section/Order/Orderlines"
-import OrderCredits from "~/Component/Section/Order/OrderCredits"
-import OrderPaymentsLines from "~/Component/Section/Order/OrderPaymentsLines"
+import Details from "~/Component/Section/Order/Details/OrderDetails"
+import OrderItems from "~/Component/Section/Order/Details/OrderItems"
+import Orderlines from "~/Component/Section/Order/Details/Orderlines"
+import OrderCredits from "~/Component/Section/Order/Details/OrderCredits"
+import OrderPaymentsLines from "~/Component/Section/Order/Details/OrderPaymentsLines"
 
 export default function OrderDetails(props: RouteComponentProps<{ sectionID: string; orderID: string }>) {
   const OrderID = Number(props.match.params.orderID)

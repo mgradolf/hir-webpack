@@ -1,7 +1,7 @@
 import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Button, Col, Form, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
@@ -18,7 +18,7 @@ import {
 import { DropDownInputType } from "~/Component/Common/SearchFilters/DropDown"
 import { DatePickerInputType } from "~/Component/Common/SearchFilters/DatePicker"
 import { DatePickersInputType } from "~/Component/Common/SearchFilters/DatePickers"
-import { eventBus, REFRESH_FILTER_DATA_OF_PAGE } from "~/utils/EventBus"
+// import { eventBus, REFRESH_FILTER_DATA_OF_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -38,7 +38,7 @@ type Show = { [key: string]: boolean }
 export default function (props: IFilterColumnProps) {
   const isChecked = props.isChecked === undefined ? true : props.isChecked
   const [filterData, updateFilterData] = useState<RecordType>(props.initialFilter)
-  const [metaState, updateMetaState] = useState<typeof props.meta>(props.meta)
+  // const [metaState, updateMetaState] = useState<typeof props.meta>(props.meta)
   const initialShow = props.meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
 
   const [show, updateShow] = useState<Show>(
@@ -81,9 +81,6 @@ export default function (props: IFilterColumnProps) {
   }
 
   const onChangeFieldCopmonent = (values: RecordType) => {
-    console.log(filterData)
-    console.log(values)
-
     updateFilterData({
       ...filterData,
       ...values
@@ -102,30 +99,32 @@ export default function (props: IFilterColumnProps) {
     }
   }
 
-  useEffect(() => {
-    function transformIntoOptions(remoteDataArray: any[], displayKey: string, valueKey: string) {
-      return (remoteDataArray && remoteDataArray.map((x) => ({ label: x[displayKey], value: x[valueKey] }))) || []
-    }
+  // useEffect(() => {
+  //   function transformIntoOptions(remoteDataArray: any[], displayKey: string, valueKey: string) {
+  //     return (remoteDataArray && remoteDataArray.map((x) => ({ label: x[displayKey], value: x[valueKey] }))) || []
+  //   }
 
-    function loadRemoteData() {
-      const metaList = [...props.meta]
-      metaList.forEach(async (field) => {
-        if (isFilterObject(field) && typeof field.refLookupService === "function" && field.inputType === DROPDOWN) {
-          const res = await field.refLookupService()
-          field.options = transformIntoOptions(res.data, field.displayKey as string, field.valueKey as string)
-          updateMetaState(metaList)
-        }
-      })
-    }
+  //   function loadRemoteData() {
+  //     const metaList = [...props.meta]
+  //     const newMetaList: IFilterField[] = []
+  //     metaList.forEach(async (field) => {
+  //       if (isFilterObject(field) && typeof field.refLookupService === "function" && field.inputType === DROPDOWN) {
+  //         const res = await field.refLookupService()
+  //         field.options = transformIntoOptions(res.data, field.displayKey as string, field.valueKey as string)
+  //       }
+  //       newMetaList.push(field)
+  //     })
+  //     updateMetaState(newMetaList)
+  //   }
 
-    eventBus.subscribe(REFRESH_FILTER_DATA_OF_PAGE, loadRemoteData)
-    loadRemoteData()
-    return () => {
-      eventBus.unsubscribe(REFRESH_FILTER_DATA_OF_PAGE)
-    }
-  }, [props.meta])
+  // eventBus.subscribe(REFRESH_FILTER_DATA_OF_PAGE, loadRemoteData)
+  //   loadRemoteData()
+  //   return () => {
+  // eventBus.unsubscribe(REFRESH_FILTER_DATA_OF_PAGE)
+  //   }
+  // }, [props.meta])
 
-  const filterFieldsArray = metaState.map((field, i) => {
+  const filterFieldsArray = props.meta.map((field, i) => {
     if (isFilterObject(field)) {
       const { inputType, fieldName } = field
       if (inputType === TEXT || inputType === NUMBER) {
@@ -185,6 +184,7 @@ export default function (props: IFilterColumnProps) {
         )
       }
     } else if (field.customFilterComponent) {
+      console.log("key for component ", i)
       return (
         <field.customFilterComponent
           {...{

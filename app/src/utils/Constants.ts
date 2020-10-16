@@ -11,21 +11,6 @@ export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
   PURCHASER_STUDENT: "Purchaser/Student"
 }
 
-export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
-  BUYER: {
-    name: "Buyer",
-    key: "PersonID"
-  },
-  STUDENT: {
-    name: "Student",
-    key: "StudentName"
-  },
-  BILLED_TO: {
-    name: "Billed To",
-    key: "BilledPersonName"
-  }
-}
-
 export const COMMENT_TYPES = {
   GENERAL: "General",
   INSTRUCTOR: "Instructor",
