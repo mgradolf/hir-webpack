@@ -31,7 +31,8 @@ export default function SectionMenu(props: ISectionMenu) {
       url: "#",
       items: [
         { title: "Order Management", url: `/section/${props.section.SectionID}/order` },
-        { title: "Order Items", url: `/section/${props.section.SectionID}/order/items` }
+        { title: "Order Items", url: `/section/${props.section.SectionID}/order/items` },
+        { title: "Paymentss", url: `/section/${props.section.SectionID}/order/payments` }
       ]
     },
     {

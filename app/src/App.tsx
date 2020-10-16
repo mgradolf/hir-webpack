@@ -40,6 +40,7 @@ import SectionOrderLogPage from "~/Pages/Section/OrderLog"
 import RequestDetailsPage from "~/Pages/Request/Details"
 import SectionOrderManagementPage from "~/Pages/Section/Order/OrderManagement"
 import SectionOrderItemsPage from "~/Pages/Section/Order/OrderItems"
+import SectionOrderPaymentsPage from "~/Pages/Section/Order/Payments"
 import SectionOrderDetailsPage from "~/Pages/Section/Order/OrderDetails"
 import SectionCommentPage from "~/Pages/Section/Comment"
 
@@ -91,6 +92,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
       <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
       <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
+      <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
       <Route exact path="/section/:sectionID/order/:orderID" component={SectionOrderDetailsPage} />
       <Route exact path="/section/:sectionID/request" component={RequestPage} />
       <Route exact path="/section/:sectionID/producst" component={SectionProductPage} />
