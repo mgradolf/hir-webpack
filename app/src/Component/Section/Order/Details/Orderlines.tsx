@@ -11,12 +11,8 @@ export default function Orderlines({ OrderID }: IOrderlines) {
       searchParams={{ OrderID }}
       columns={[
         {
-          title: "Order ID",
-          dataIndex: "OrderID"
-        },
-        {
-          title: "Order Status",
-          dataIndex: "OrderStatus"
+          title: "Line ID",
+          dataIndex: "OrderLineID"
         },
         {
           title: "Quantity",

@@ -12,12 +12,8 @@ export default function OrderPaymentLines({ OrderID }: IOrderPaymentLines) {
       searchParams={{ OrderID }}
       columns={[
         {
-          title: "Order ID",
-          dataIndex: "OrderID"
-        },
-        {
-          title: "Order Status",
-          dataIndex: "OrderStatus"
+          title: "Payment Line ID",
+          dataIndex: "PaymentLineID"
         },
         {
           title: "Payment ID",
@@ -28,23 +24,22 @@ export default function OrderPaymentLines({ OrderID }: IOrderPaymentLines) {
           dataIndex: "PaymentAcceptedName"
         },
         {
-          title: "Gateway",
-          dataIndex: "Gateway"
-        },
-        {
-          title: "Payment Line ID",
-          dataIndex: "PaymentLineID"
+          title: "Payment Status",
+          dataIndex: "PaymentStatus"
         },
         {
           title: "Payer",
           dataIndex: "PersonName"
         },
         {
+          title: "Details",
+          dataIndex: "FinancialDescription"
+        },
+        {
           title: "Creation Date",
           dataIndex: "CreateDate",
           render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
         },
-
         {
           title: "Completed Date",
           dataIndex: "CompletedDate",

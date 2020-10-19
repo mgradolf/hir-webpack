@@ -12,14 +12,6 @@ export default function Orderlines({ OrderID }: IOrderlines) {
       searchParams={{ OrderID }}
       columns={[
         {
-          title: "Order ID",
-          dataIndex: "OrderID"
-        },
-        {
-          title: "Order Status",
-          dataIndex: "OrderStatus"
-        },
-        {
           title: "Credit ID",
           dataIndex: "CreditMemoID"
         },
@@ -30,23 +22,23 @@ export default function Orderlines({ OrderID }: IOrderlines) {
         },
         {
           title: "Credit Status",
-          dataIndex: "CreditMemoStatus"
+          dataIndex: "CreditStatus"
         },
         {
           title: "Item Description",
-          dataIndex: "OrderItemDescription"
+          dataIndex: "orderItemDescription"
         },
         {
           title: "Details",
-          dataIndex: "AssociatedFinance"
+          dataIndex: "FinancialDescription"
         },
         {
           title: "Total Amount",
-          dataIndex: "TotalAmount"
+          dataIndex: "Amount"
         },
         {
           title: "Cash Credit",
-          dataIndex: "RefundAmountss"
+          dataIndex: "RefundAmount"
         }
       ]}
     />

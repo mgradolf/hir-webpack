@@ -1,4 +1,3 @@
-import moment from "moment"
 import React from "react"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import OrderItemsTable from "~/Component/Common/ResponsiveTable"
@@ -13,34 +12,45 @@ export default function OrderItems({ OrderID, SectionID }: IOrderItems) {
       searchParams={{ OrderID }}
       columns={[
         {
-          title: "Order ID",
-          dataIndex: "OrderID"
+          title: "Item ID",
+          dataIndex: "OrderItemID"
         },
         {
-          title: "Order Date",
-          dataIndex: "OrderDate",
-          render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
-        },
-        {
-          title: "Purchaser",
+          title: "Purchased Name",
           dataIndex: "PurchaserName"
         },
         {
-          title: "Item",
+          title: "Item Name",
           dataIndex: "ItemName"
         },
         {
-          title: "Quantity",
-          dataIndex: "Quantity"
+          title: "Price",
+          dataIndex: "Amount"
         },
+        {
+          title: "Discount",
+          dataIndex: "DiscountAmount"
+        },
+        {
+          title: "Credit",
+          dataIndex: "CreditAmount"
+        },
+        {
+          title: "Net Price",
+          dataIndex: "NetPrice"
+        },
+        {
+          title: "Payment Amount",
+          dataIndex: "PaymentAmount"
+        },
+        {
+          title: "Refund Amount",
+          dataIndex: "RefundAmount"
+        },
+
         {
           title: "Balance",
           dataIndex: "Balance"
-        },
-        {
-          title: "Due Date",
-          dataIndex: "PaymentDueDate",
-          render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
         }
       ]}
     />
