@@ -184,7 +184,6 @@ export default function (props: IFilterColumnProps) {
         )
       }
     } else if (field.customFilterComponent) {
-      console.log("key for component ", i)
       return (
         <field.customFilterComponent
           {...{

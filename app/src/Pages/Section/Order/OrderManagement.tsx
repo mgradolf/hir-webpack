@@ -5,6 +5,7 @@ import OrderManagementSearch from "~/Component/Common/SearchFilters"
 import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
 import { ColumnsType } from "antd/lib/table"
+import moment from "moment"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID)
@@ -17,8 +18,8 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
       render: (text: any, record: any) => <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
     },
     {
-      title: "Other Items",
-      dataIndex: "OtherItems",
+      title: "Order Items",
+      dataIndex: "TotalItems",
       width: 100
     },
     {
@@ -28,12 +29,13 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     },
     {
       title: "Account",
-      dataIndex: "AccountName",
+      dataIndex: "OrganizationName",
       width: 100
     },
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
+      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
       width: 100
     },
     {
@@ -44,6 +46,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Completed Date",
       dataIndex: "CompletedDate",
+      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
       width: 100
     },
     {
@@ -57,13 +60,13 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
       width: 100
     },
     {
-      title: "Amount Amount",
-      dataIndex: "RefundAmount",
+      title: "Amount Paid",
+      dataIndex: "AmountPaid",
       width: 100
     },
     {
       title: "Cash Credit",
-      dataIndex: "CashCredit",
+      dataIndex: "CreditAmount",
       width: 100
     },
     {
@@ -74,6 +77,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Payment Due Date",
       dataIndex: "PaymentDueDate",
+      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
       width: 100
     },
     {

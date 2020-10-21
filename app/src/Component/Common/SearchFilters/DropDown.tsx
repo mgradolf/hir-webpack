@@ -11,7 +11,7 @@ import { Row, Checkbox, Select, Form } from "antd"
 const { Option } = Select
 
 export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
-  const [options, setOptions] = useState<any[]>([])
+  const [options, setOptions] = useState<any[]>(props.options || [])
 
   useEffect(() => {
     props.refLookupService &&

@@ -110,6 +110,7 @@ function App(props: AppProps): JSX.Element {
   )
   return (
     <Provider store={props.store}>
+      <div id="modal-container"></div>
       <ModalContainer />
       <ConnectedRouter history={props.history}>
         {/* Should be refactored later as condition check gets repeated */}

@@ -22,7 +22,13 @@ export default function (props: IFormError) {
         <div
           id="errorMessages"
           role="alert"
-          style={{ backgroundColor: "#ffecec", color: red.primary, padding: "10px 30px", width: "100%" }}
+          style={{
+            backgroundColor: "#ffecec",
+            color: red.primary,
+            padding: "10px 30px",
+            width: "100%",
+            marginBottom: "15px"
+          }}
         >
           <h1>Error</h1>
           <ol>
