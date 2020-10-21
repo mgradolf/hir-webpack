@@ -125,14 +125,16 @@ export default function DataTable(props: IDataTableProps) {
       })
       searchFunc(searchParams).then((x) => {
         if (x.success) {
-          setTableProps(
-            x.data.map((y: any, i: number) => {
-              y.rowkey = props.rowKey + " " + i
-              return y
-            })
-          )
+          const data = x.data.map((y: any, i: number) => {
+            y.rowkey = props.rowKey + " " + i
+            return y
+          })
+          setTableProps(data)
+          console.log("asdsd ", data)
         }
-        setLoading(false)
+        setTimeout(() => {
+          setLoading(false)
+        }, 0)
       })
     }
     // eslint-disable-next-line

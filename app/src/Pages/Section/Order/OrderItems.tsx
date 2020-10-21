@@ -14,7 +14,7 @@ import ApplyDiscountModal from "~/Component/Section/Order/ApplyDiscountModal"
 export default function OrderItems(props: RouteComponentProps<{ sectionID?: string }>) {
   const SectionID = Number(props.match.params.sectionID)
   const [searchParams, setSearchParams] = useState({ SectionID })
-  const [selectedOrderItemID, setSelectedOrderItemID] = useState(0)
+  const [selectedOrderItem, setSelectedOrderItemID] = useState<{ [key: string]: any }>({})
   const [showViewReturnItemModal, setShowViewReturnItemModal] = useState(false)
   const [showIssueCreditModal, setShowIssueCreditModal] = useState(false)
   const [showApplyDiscountModal, setShowApplyDiscountModal] = useState(false)
@@ -39,15 +39,24 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
       {showViewReturnItemModal && (
         <ViewReturnItemsModal
           setShowViewReturnItemsModal={setShowViewReturnItemModal}
-          OrderItemID={selectedOrderItemID}
+          OrderItemID={selectedOrderItem.OrderItemID}
+          OrderID={selectedOrderItem.OrderID}
         />
         // <ViewReturnItemsModal setShowViewReturnItemsModal={setShowViewReturnItemModal} OrderItemID={20896} />
       )}
       {showIssueCreditModal && (
-        <IssueCreditModal setShowViewReturnItemsModal={setShowIssueCreditModal} OrderItemID={selectedOrderItemID} />
+        <IssueCreditModal
+          setShowViewReturnItemsModal={setShowIssueCreditModal}
+          OrderItemID={selectedOrderItem.OrderItemID}
+          OrderID={selectedOrderItem.OrderID}
+        />
       )}
       {showApplyDiscountModal && (
-        <ApplyDiscountModal setShowViewReturnItemsModal={setShowApplyDiscountModal} OrderItemID={selectedOrderItemID} />
+        <ApplyDiscountModal
+          setShowViewReturnItemsModal={setShowApplyDiscountModal}
+          OrderItemID={selectedOrderItem.OrderItemID}
+          OrderID={selectedOrderItem.OrderID}
+        />
       )}
       <OrderItemsTable
         searchFunc={getOrderItems}
@@ -97,7 +106,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
                         <Button
                           type="link"
                           onClick={() => {
-                            setSelectedOrderItemID(record.OrderItemID)
+                            setSelectedOrderItemID(record)
                             setShowViewReturnItemModal(true)
                           }}
                         >
@@ -108,7 +117,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
                         <Button
                           type="link"
                           onClick={() => {
-                            setSelectedOrderItemID(record.OrderItemID)
+                            setSelectedOrderItemID(record)
                             setShowIssueCreditModal(true)
                           }}
                         >
@@ -119,7 +128,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
                         <Button
                           type="link"
                           onClick={() => {
-                            setSelectedOrderItemID(record.OrderItemID)
+                            setSelectedOrderItemID(record)
                             setShowApplyDiscountModal(true)
                           }}
                         >

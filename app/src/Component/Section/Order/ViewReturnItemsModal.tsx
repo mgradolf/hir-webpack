@@ -9,8 +9,10 @@ import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
 
 interface IViewReturnItemsModal {
+  OrderID: number
   OrderItemID: number
   setShowViewReturnItemsModal: (flag: boolean) => void
 }
@@ -69,6 +71,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
         >
           <div style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
             {" "}
+            <OrderDetailForModal OrderID={props.OrderID} />
             <Form form={formInstance} initialValues={{ [fieldNames.ReturnQuantity]: 1 }}>
               <FormError errorMessages={errorMessages} />
               <Form.Item name={fieldNames.ReturnQuantity} label="Return Quantity" labelCol={{ span: 6 }}>
