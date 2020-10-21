@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { RouteComponentProps } from "react-router-dom"
+import { Link, RouteComponentProps } from "react-router-dom"
 import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
 import AcademicLogSearch from "~/Component/Common/SearchFilters"
 import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
@@ -33,7 +33,8 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Order Number",
       dataIndex: "OrderID",
-      width: 100
+      width: 100,
+      render: (text: any, record: any) => <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
     },
     {
       title: "Paid By",

@@ -4,6 +4,7 @@ export const DATE_FORMAT = "MM/DD/YYYY"
 export const TIME_FORMAT = "hh:mm A"
 export const DATE_TIME_FORMAT = "MM/DD/YYYY hh:mm A"
 export const REQUEST_DATE_TIME_FORMAT = "YYYY-MM-DD hh:mm A"
+export const DATE_TIME = ""
 
 export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
   ACCOUNT: "Account",
@@ -58,6 +59,12 @@ export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
   }
 }
 
+export const COMMENT_TYPES = {
+  GENERAL: "General",
+  INSTRUCTOR: "Instructor",
+  ENROLLMENT: "Enrollment"
+}
+
 export const FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID = 1
 
 export const DISCOUNT_APPLY_TO_ALL_TYPE_ID = 1
@@ -84,3 +91,5 @@ export const ACTION_REQUIRED_REQUEST_STATE_ID = 2
 export const ERROR_REQUEST_STATE_ID = 5
 
 export const ADMIN_SOURCE_NAME = "Admin"
+
+export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3

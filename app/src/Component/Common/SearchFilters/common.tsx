@@ -35,7 +35,6 @@ export interface IFilterFieldObject {
 }
 
 export interface IFilterFieldComponent {
-  key?: any
   inputType: string
   fieldName: string
   customFilterComponent: React.FunctionComponent<any>

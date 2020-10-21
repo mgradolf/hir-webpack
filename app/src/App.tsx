@@ -38,7 +38,12 @@ import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
 import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
 import SectionOrderLogPage from "~/Pages/Section/OrderLog"
 import RequestDetailsPage from "~/Pages/Request/Details"
-import SectionOrderManagementPage from "~/Pages/Section/OrderManagement"
+import SectionOrderManagementPage from "~/Pages/Section/Order/OrderManagement"
+import SectionOrderItemsPage from "~/Pages/Section/Order/OrderItems"
+import SectionOrderPaymentsPage from "~/Pages/Section/Order/Payments"
+import SectionOrderDetailsPage from "~/Pages/Section/Order/OrderDetails"
+import SectionCommentPage from "~/Pages/Section/Comment"
+import SectionNoShowPage from "~/Pages/Section/NoShow"
 
 import QuestionPage from "~/Pages/QuestionPage"
 
@@ -86,22 +91,26 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/question" component={QuestionPage} />
       <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
-      <Route exact path="/section/:sectionID/order-management" component={SectionOrderManagementPage} />
+      <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
+      <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
+      <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
+      <Route exact path="/section/:sectionID/order/:orderID" component={SectionOrderDetailsPage} />
       <Route exact path="/section/:sectionID/request" component={RequestPage} />
-      <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
+      <Route exact path="/section/:sectionID/producst" component={SectionProductPage} />
       <Route exact path="/section/:sectionID/waitlist" component={WaitlistEntriesPage} />
-      <Route exact path="/section/:sectionID/academic" component={SectionAcademicLogPage} />
-      <Route exact path="/section/:sectionID/enrollment" component={SectionEnrollmentLogPage} />
-      <Route exact path="/section/:sectionID/order" component={SectionOrderLogPage} />
-
+      <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
+      <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
+      <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
+      <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
+      <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
       <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
-
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />
     </Switch>
   )
   return (
     <Provider store={props.store}>
+      <div id="modal-container"></div>
       <ModalContainer />
       <ConnectedRouter history={props.history}>
         {/* Should be refactored later as condition check gets repeated */}

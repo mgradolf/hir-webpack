@@ -6,10 +6,10 @@ import FocusTrap from "focus-trap-react"
 import { Options as FocusTrapOptions } from "focus-trap"
 
 interface IModalProp {
-  closable?: boolean
-  closeModal?: () => void
   showModal: boolean
   children: JSX.Element
+  closable?: boolean
+  closeModal?: () => void
   width?: string
   zIndex?: number
   loading?: boolean

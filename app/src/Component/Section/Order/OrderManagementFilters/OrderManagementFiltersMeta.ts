@@ -1,8 +1,9 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import PersonSelectorForOrderManagement from "~/FormMeta/Order/PersonSelectorForOrderManagement"
-import DateTypelectorForOrderManagement from "~/FormMeta/Order/DateTypelectorForOrderManagement"
-import TotalAmountRangeForOrderManagement from "~/FormMeta/Order/TotalAmountRangeForOrderManagement"
+import PersonSelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/PersonSelector"
+import DateTypelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/DateTypelector"
+import TotalAmountRangeForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/TotalAmountRange"
+import AccountLookupForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/AccountLookup"
 
 // const Params = {
 //   SectionIDs: [9],
@@ -87,6 +88,11 @@ export function OrderManagementSearchFilterMeta(SectionID: number): IFilterField
       defaultValue: "",
       fieldName: "ProductName",
       ariaLabel: "ProductName"
+    },
+    {
+      inputType: "ACCOUNT_LOOKUP",
+      fieldName: "",
+      customFilterComponent: AccountLookupForOrderManagement
     }
   ]
 }

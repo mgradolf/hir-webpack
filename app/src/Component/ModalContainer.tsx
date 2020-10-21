@@ -38,6 +38,7 @@ import PostPaymentModal from "~/Component/Section/Request/Resolutions/PostPaymen
 import SpecifyRecipientModal from "~/Component/Section/Request/Resolutions/SpecifyRecipientModal"
 import StudentFinderModal from "./Student/StudentFinderModal"
 import ErrorDetailsModal from "./Section/Request/Resolutions/ErrorDetailsModal"
+import CommentCreateModal from "~/Component/Section/Comment/CommentCreateModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -183,6 +184,8 @@ function ModalContainer(modalState: IModalState) {
           AccountID={modalState.studentFinderModal.config.AccountID}
         />
       )}
+
+      {modalState.sectionCommentModal.value && <CommentCreateModal />}
     </>
   )
 }

@@ -2,22 +2,28 @@ import React, { useEffect, useState } from "react"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { Row, Input, Select, Col, Form } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { IShowPersonLookupModal, showPersonLookupModal } from "~/Store/ModalState"
-// import { eventBus, EVENT_PERSON_SELECTED } from "~/utils/EventBus"
-import { ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES } from "~/utils/Constants"
+
+export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
+  BUYER: {
+    name: "Buyer",
+    key: "PersonID"
+  },
+  STUDENT: {
+    name: "Student",
+    key: "StudentName"
+  },
+  BILLED_TO: {
+    name: "Billed To",
+    key: "BilledPersonName"
+  }
+}
 
 export interface IParamsToBeDispatched {
   NameToDisplay: string
   Params: { [key: string]: string }
 }
 
-interface IWaitlistSearchCustomLookupFilter extends IFilterGenericComponentProps<IFilterFieldComponent> {
-  handlePersonLookupModal?: (value: boolean, config?: IShowPersonLookupModal) => void
-  key?: any
-}
-function PersonSelectorForOrderManagement(props: IWaitlistSearchCustomLookupFilter) {
+export default function PersonSelector(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   const [selectedInputType, setSelectedInputType] = useState("number")
   const [selectedKey, setSelectedKey] = useState(ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES.BUYER.key)
   const [seletectLookupType, setSeletectLookupType] = useState(ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES.BUYER.name)
@@ -42,18 +48,6 @@ function PersonSelectorForOrderManagement(props: IWaitlistSearchCustomLookupFilt
         break
     }
   }, [seletectLookupType])
-  // useEffect(() => {
-  //   eventBus.subscribe(EVENT_PERSON_SELECTED, (person: IParamsToBeDispatched) => {
-  //     Object.keys(person.Params).forEach((key) => {
-  //       if (person.Params[key] === "") delete person.Params[key]
-  //     })
-  //     props.filterValueChanged(person.Params)
-  //     console.log("person ", person)
-  //   })
-  //   return () => {
-  //     eventBus.unsubscribe(EVENT_PERSON_SELECTED)
-  //   }
-  // }, [props])
 
   return props.isChecked ? (
     <Row>
@@ -75,7 +69,7 @@ function PersonSelectorForOrderManagement(props: IWaitlistSearchCustomLookupFilt
     </Row>
   ) : (
     <Form.Item>
-      <Row key={props.key}>
+      <Row>
         <Col span={4} offset={2} {...(mobileView && { xs: { span: 8, offset: 0 } })}>
           <Select
             style={{ width: "100%" }}
@@ -111,25 +105,7 @@ function PersonSelectorForOrderManagement(props: IWaitlistSearchCustomLookupFilt
             }}
           />
         </Col>
-        {/* <Col span={4} xs={8}>
-        <Button
-          onClick={() => {
-            props.handlePersonLookupModal && props.handlePersonLookupModal(true, { type: seletectLookupType })
-          }}
-        >
-          Lookup
-        </Button>
-      </Col> */}
       </Row>
     </Form.Item>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    handlePersonLookupModal: (value: boolean, config?: IShowPersonLookupModal) =>
-      dispatch(showPersonLookupModal(value, config))
-  }
-}
-
-export default connect(undefined, mapDispatchToProps)(PersonSelectorForOrderManagement)
