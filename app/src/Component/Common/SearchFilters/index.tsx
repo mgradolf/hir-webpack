@@ -115,6 +115,12 @@ export default function (props: IFilterColumnProps) {
           field.options = transformIntoOptions(res.data, field.displayKey as string, field.valueKey as string)
           updateMetaState(metaList)
         }
+
+        if (isFilterObject(field) && typeof field.requestService === "function" && field.inputType === DROPDOWN) {
+          const res = await field.requestService()
+          field.options = transformIntoOptions(res.data.Values, field.displayKey as string, field.valueKey as string)
+          updateMetaState(metaList)
+        }
       })
     }
 

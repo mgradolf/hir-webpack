@@ -12,7 +12,7 @@ import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
 import { useEffect } from "react"
 import { IParamsToBeDispatched } from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
-import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
+import { WAITLIST_ENTRIES_LOOKUP_TYPES, REQUEST_LOOKUP_TYPES } from "~/utils/Constants"
 const { useState } = React
 
 interface IPersonLookupModal {
@@ -61,9 +61,12 @@ function PersonLookupModal(props: IPersonLookupModal) {
     selected.NameToDisplay = selectedPerson.FirstName
     switch (props.type) {
       case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER:
-        selected.Params = { RequesterPersonID: selectedPerson.PersonID }
+        selected.Params = {
+          RequesterPersonID: selectedPerson.PersonID,
+          PurchaserPersonID: selectedPerson.PersonID
+        }
         break
-      case WAITLIST_ENTRIES_LOOKUP_TYPES.STUDENT:
+      case WAITLIST_ENTRIES_LOOKUP_TYPES.STUDENT || REQUEST_LOOKUP_TYPES.RECIPIENT:
         selected.Params = { RecipientPersonID: selectedPerson.PersonID }
         break
       case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER_STUDENT:
@@ -71,6 +74,9 @@ function PersonLookupModal(props: IPersonLookupModal) {
           RequesterRecipientPersonID1: selectedPerson.PersonID,
           RequesterRecipientPersonID2: selectedPerson.PersonID
         }
+        break
+      case REQUEST_LOOKUP_TYPES.ANY:
+        selected.Params = { PersonID: selectedPerson.PersonID }
         break
     }
 

@@ -4,12 +4,16 @@
   padding: 24px;
 }
 
+.textRight {
+  text-align: right;
+}
+
 .marginRight5px {
   margin-right: 5px;
 }
 
 .paddingTop10px {
-  padding-top: 10px;
+  padding-top: 10px !important;
 }
 
 .margin0px {
@@ -17,7 +21,7 @@
 }
 
 .marginTop10px {
-  margin-top: 10px;
+  margin-top: 10px !important;
 }
 
 .font15px {

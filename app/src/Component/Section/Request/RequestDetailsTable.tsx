@@ -1,17 +1,35 @@
 import React from "react"
-import { Space, Row, Col } from "antd"
+import { Space, Row, Col, Button, Dropdown } from "antd"
 import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import { ColumnsType } from "antd/lib/table"
 import RequestDetailsMenu from "~/Component/Section/Request/RequestDetailsMenu"
+import {
+  PROCESSED_REQUEST_STATE_ID,
+  ERROR_REQUEST_STATE_ID,
+  ACTION_REQUIRED_REQUEST_STATE_ID,
+  REQUEST_TASK_TYPE_NAME
+} from "~/utils/Constants"
+import { DownOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
 
 export interface ITableWrapperProps {
-  dataSource: Array<any>
+  dataSource: any
   loading: boolean
   isModal?: boolean
   rowSelection?: any
 }
 
 export function RequestDetailsTable(props: ITableWrapperProps) {
+  const requestData = props.dataSource.ContextData.RequestData
+
+  const extraDataSource = {
+    AccountID: props.dataSource.AccountID,
+    PaymentTypeName: requestData.PaymentTypeName,
+    PaymentTypeID: requestData.PaymentTypeID,
+    PaymentAmount: requestData.TotalPaymentAmount,
+    PaymentGatewayAccountID: requestData.Allocation[0].PaymentGatewayAccountID
+  }
+
   const columns: ColumnsType<RecordType> = [
     {
       title: "Processing",
@@ -36,15 +54,41 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
     },
     {
       title: "Status",
-      dataIndex: "State",
-      key: "State"
+      key: "State",
+      render: (record: any) =>
+        record.Issues !== null && record.Issues.length > 0 ? record.Issues[0].Description : record.State
     },
     {
       title: "Action",
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <RequestDetailsMenu task={record} />
+          {record.StateID === PROCESSED_REQUEST_STATE_ID && record.TaskType === REQUEST_TASK_TYPE_NAME.ORDER && (
+            <Link to={`/order/${record.ProcessResult.OrderID}`}>View Records</Link>
+          )}
+          {record.StateID === PROCESSED_REQUEST_STATE_ID && record.TaskType === REQUEST_TASK_TYPE_NAME.REGISTRATION && (
+            <Link to={`/seatgroup/${record.ProcessResult.SeatGroupID}`}>View Records</Link>
+          )}
+          {record.StateID === PROCESSED_REQUEST_STATE_ID &&
+            record.TaskType === REQUEST_TASK_TYPE_NAME.EXTERNAL_GATEWAY_PAYMENT && (
+              <Link to={`/gateway_activity/${record.ProcessResult.PaymentGatewayActivityID}`}>View Records</Link>
+            )}
+          {record.StateID === PROCESSED_REQUEST_STATE_ID &&
+            record.TaskType === REQUEST_TASK_TYPE_NAME.PURCHASE_ORDER && (
+              <Link to={`/purchase_order/${record.ProcessResult.PurchaseOrderID}`}>View Records</Link>
+            )}
+          {(record.StateID === ACTION_REQUIRED_REQUEST_STATE_ID || record.StateID === ERROR_REQUEST_STATE_ID) &&
+            record.Issues.length > 0 &&
+            record.UpdatedResponse === undefined && (
+              <Dropdown
+                overlay={<RequestDetailsMenu taskJson={record} extraDataSource={extraDataSource} />}
+                trigger={["click"]}
+              >
+                <Button type="link" onClick={(e) => e.preventDefault()}>
+                  Actions <DownOutlined />
+                </Button>
+              </Dropdown>
+            )}
         </Space>
       )
     }
@@ -80,16 +124,14 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
   return (
     <ResponsiveTable
       columns={columns}
-      dataSource={props.dataSource}
+      dataSource={props.dataSource.Tasks.Tasks}
       loading={props.loading}
       bordered
       breakpoints={["md", "lg", "xl", "xxl"]}
-      responsiveColumnIndices={[1, 2, 3, 4, 5]}
+      responsiveColumnIndices={[1, 2, 3, 4]}
       expandableRowRender={expandableRowRender}
-      rowKey="RequestID"
-      pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
-      rowSelection={props.rowSelection}
+      rowKey="Key"
+      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 500 }}
     />
   )
 }

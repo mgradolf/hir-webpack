@@ -3,43 +3,56 @@ import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 import { eventBus, REFRESH_SECTION_REQUEST_PAGE } from "~/utils/EventBus"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
 
-interface ISectionFilterValues extends RecordType {
-  OfferingCode: string
-  OfferingName: string
-  Coordinator: string
-  IsQuickAdmit: string
-  SectionNumber: string
-  SectionFacultyFirstName: string
-  SectionFacultyLastName: string
-  FromStartDate: string
-  ToStartDate: string
-  ToCreationDate: string
-  FromCreationDate: string
-  ToTerminationDate: string
-  FromTerminationDate: string
-  MeetsOn: string
-  MeetingType: string
-  SectionStatusCodeID: string
-  OrganizationID: string
-  ComboSearchTagHierarchy: string
-  ComboSearchTagTypeIDHierarchy: string
-  TagName: string
-  TagTypeID: string
-  SiteID: string
-  BuildingID: string
-  RoomID: string
+export interface IRequestFilterValues extends RecordType {
+  SectionID: string
+  RequestTypeID: string
+  StateID: string
+  sourceID: string
+  AccountID: string
+  PersonID: string
+  PurchaserPersonID: string
+  RecipientPersonID: string
+  ReservationToken: string
+  CreatedFromDate: string
+  CreatedToDate: string
+  RequesterStaffUserName: string
 }
 
-export function useRequests(sectionID: number | undefined = undefined): [boolean, any[]] {
+export function useRequests(filterData: IRequestFilterValues, SectionID: number): [boolean, any[]] {
   const [requestItems, setRequestItems] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const loadRequests = async function () {
       setLoading(true)
-      const result = await getLiteRequests({ ProductID: sectionID, ProductType: "SectionID" })
 
-      if (result && result.success) {
+      const params: { [key: string]: any } = {}
+      params["ProductID"] = SectionID !== undefined ? SectionID : undefined
+      params["ProductType"] = SectionID !== undefined ? "SectionID" : undefined
+      params["RequestTypeID"] = filterData.RequestTypeID !== "" ? Number(filterData.RequestTypeID) : undefined
+      params["StateID"] = filterData.StateID !== "" ? Number(filterData.StateID) : undefined
+      params["sourceID"] = filterData.sourceID !== "" ? Number(filterData.sourceID) : undefined
+      params["AccountID"] = filterData.AccountID !== "" ? Number(filterData.AccountID) : undefined
+      params["PersonID"] = filterData.PersonID !== "" ? Number(filterData.PersonID) : undefined
+      params["PurchaserPersonID"] =
+        filterData.PurchaserPersonID !== "" ? Number(filterData.PurchaserPersonID) : undefined
+      params["RecipientPersonID"] =
+        filterData.RecipientPersonID !== "" ? Number(filterData.RecipientPersonID) : undefined
+      params["ReservationToken"] = filterData.ReservationToken !== "" ? filterData.ReservationToken : undefined
+      params["RequesterStaffUserName"] =
+        filterData.RequesterStaffUserName !== "" ? filterData.RequesterStaffUserName : undefined
+      params["CreatedFromDate"] = filterData.CreatedFromDate !== "" ? filterData.CreatedFromDate : undefined
+      params["CreatedToDate"] = filterData.CreatedToDate !== "" ? filterData.CreatedToDate : undefined
+
+      const objectKeys = Object.keys(params)
+      objectKeys.forEach((key) => {
+        if (params[key] === undefined) {
+          delete params[key]
+        }
+      })
+
+      const result = await getLiteRequests(params)
+      if (result && result.success && result.data) {
         setRequestItems(result.data.Requests)
       }
       setLoading(false)
@@ -49,39 +62,27 @@ export function useRequests(sectionID: number | undefined = undefined): [boolean
     return () => {
       eventBus.unsubscribe(REFRESH_SECTION_REQUEST_PAGE)
     }
-  }, [sectionID])
+  }, [filterData, SectionID])
 
   return [loading, requestItems]
 }
 
-const INITIAL_SECTION_FILTER_DATA: ISectionFilterValues = {
-  OfferingCode: "",
-  OfferingName: "",
-  Coordinator: "",
-  IsQuickAdmit: "",
-  SectionNumber: "",
-  SectionFacultyFirstName: "",
-  SectionFacultyLastName: "",
-  FromStartDate: "",
-  ToStartDate: "",
-  ToCreationDate: "",
-  FromCreationDate: "",
-  ToTerminationDate: "",
-  FromTerminationDate: "",
-  MeetsOn: "",
-  MeetingType: "",
-  SectionStatusCodeID: "",
-  OrganizationID: "",
-  ComboSearchTagHierarchy: "",
-  ComboSearchTagTypeIDHierarchy: "",
-  TagName: "",
-  TagTypeID: "",
-  SiteID: "",
-  BuildingID: "",
-  RoomID: ""
+const INITIAL_REQUEST_FILTER_DATA: IRequestFilterValues = {
+  SectionID: "",
+  RequestTypeID: "",
+  StateID: "",
+  sourceID: "",
+  AccountID: "",
+  PersonID: "",
+  PurchaserPersonID: "",
+  RecipientPersonID: "",
+  CreatedFromDate: "",
+  CreatedToDate: "",
+  ReservationToken: "",
+  RequesterStaffUserName: ""
 }
 
-export function useSectionFilterState(state = INITIAL_SECTION_FILTER_DATA) {
-  const [filterData, updateFilterData] = useState<ISectionFilterValues>(state)
+export function useRequestFilterState(state = INITIAL_REQUEST_FILTER_DATA) {
+  const [filterData, updateFilterData] = useState<IRequestFilterValues>(state)
   return { filterData, updateFilterData }
 }

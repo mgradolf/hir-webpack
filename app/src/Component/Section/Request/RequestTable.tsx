@@ -3,7 +3,7 @@ import moment from "moment"
 import { Space, Row, Col } from "antd"
 import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import { ColumnsType } from "antd/lib/table"
-import RequestMenu from "~/Component/Section/Request/RequestMenu"
+import { Link } from "react-router-dom"
 
 export interface ITableWrapperProps {
   dataSource: Array<any>
@@ -18,7 +18,9 @@ export function RequestTable(props: ITableWrapperProps) {
     {
       title: "Request ID",
       dataIndex: "RequestID",
-      key: "RequestID"
+      key: "RequestID",
+      render: (text: any, record: any) =>
+        props.isModal ? text : <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>{text}</Link>
     },
     {
       title: "Creation Time",
@@ -67,7 +69,7 @@ export function RequestTable(props: ITableWrapperProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <RequestMenu sectionId={props.sectionId} request={record} />
+          <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>View Details</Link>
         </Space>
       )
     }
