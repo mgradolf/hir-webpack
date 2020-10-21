@@ -8,12 +8,16 @@ import OrderItemsTable from "~/Component/Common/ResponsiveTable"
 import { Button, Dropdown, Menu, Space } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import ViewReturnItemsModal from "~/Component/Section/Order/ViewReturnItemsModal"
+import IssueCreditModal from "~/Component/Section/Order/IssueCreditModal"
+import ApplyDiscountModal from "~/Component/Section/Order/ApplyDiscountModal"
 
 export default function OrderItems(props: RouteComponentProps<{ sectionID?: string }>) {
   const SectionID = Number(props.match.params.sectionID)
   const [searchParams, setSearchParams] = useState({ SectionID })
   const [selectedOrderItemID, setSelectedOrderItemID] = useState(0)
   const [showViewReturnItemModal, setShowViewReturnItemModal] = useState(false)
+  const [showIssueCreditModal, setShowIssueCreditModal] = useState(false)
+  const [showApplyDiscountModal, setShowApplyDiscountModal] = useState(false)
   return (
     <div className="site-layout-content">
       <OrderItemsSearchFilters
@@ -38,6 +42,12 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           OrderItemID={selectedOrderItemID}
         />
         // <ViewReturnItemsModal setShowViewReturnItemsModal={setShowViewReturnItemModal} OrderItemID={20896} />
+      )}
+      {showIssueCreditModal && (
+        <IssueCreditModal setShowViewReturnItemsModal={setShowIssueCreditModal} OrderItemID={selectedOrderItemID} />
+      )}
+      {showApplyDiscountModal && (
+        <ApplyDiscountModal setShowViewReturnItemsModal={setShowApplyDiscountModal} OrderItemID={selectedOrderItemID} />
       )}
       <OrderItemsTable
         searchFunc={getOrderItems}
@@ -95,10 +105,26 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
                         </Button>
                       </Menu.Item>
                       <Menu.Item key="1">
-                        <Button type="link">Issue Credit</Button>
+                        <Button
+                          type="link"
+                          onClick={() => {
+                            setSelectedOrderItemID(record.OrderItemID)
+                            setShowIssueCreditModal(true)
+                          }}
+                        >
+                          Issue Credit
+                        </Button>
                       </Menu.Item>
                       <Menu.Item key="2">
-                        <Button type="link">Apply Discounts</Button>
+                        <Button
+                          type="link"
+                          onClick={() => {
+                            setSelectedOrderItemID(record.OrderItemID)
+                            setShowApplyDiscountModal(true)
+                          }}
+                        >
+                          Apply Discounts
+                        </Button>
                       </Menu.Item>
                     </Menu>
                   }

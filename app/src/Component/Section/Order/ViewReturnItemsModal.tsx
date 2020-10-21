@@ -78,7 +78,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
                 <TextArea />
               </Form.Item>
             </Form>
-            <Typography.Title level={3}>Credit Amount (Click "Credit Amount" Column to Edit)</Typography.Title>
+            <Typography.Title level={4}>Credit Amount (Click "Credit Amount" Column to Edit)</Typography.Title>
             <Table
               columns={[
                 { title: "Item", dataIndex: "Description" },
@@ -109,7 +109,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
               searchFunc={getCreditMemoDataByOrderItemID}
               searchParams={{ OrderItemID: props.OrderItemID }}
             />
-            <Typography.Title level={3}>Returned Items</Typography.Title>
+            <Typography.Title level={4}>Returned Items</Typography.Title>
             <Table
               columns={[
                 { title: "Returned Quantity", dataIndex: "ReturnedQuantity" },
