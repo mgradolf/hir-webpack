@@ -48,7 +48,6 @@ export default function ({
               {!loading && (
                 <Col flex={width}>
                   {children}
-                  <h1>hello world</h1>
                   {apiCallInProgress && (
                     <div className={style.modal_api_in_progress}>
                       <div className={style.modal_api_in_progress__spinner}>

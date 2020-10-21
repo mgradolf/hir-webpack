@@ -38,16 +38,14 @@ export default function DataTable(props: IDataTableProps) {
   const [mobileView, setMobileView] = useState<any>(undefined)
 
   useDeviceViews((deviceViews: IDeviceView) => {
-    setMobileView(deviceViews.mobile)
+    setMobileView(deviceViews.mobile || deviceViews.tab)
   })
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
-    console.log(record)
-    console.log(mobileView)
     const _columns: any = columns
 
     const responsiveExpandableRowElements =
-      responsiveColumnIndices && mobileView ? (
+      responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
         <>
           {responsiveColumnIndices.map((index) => {
             const title = _columns[index - 1].title
@@ -61,6 +59,7 @@ export default function DataTable(props: IDataTableProps) {
           })}
         </>
       ) : null
+
     const expandableRowElements = expandableColumnIndices ? (
       <>
         {expandableColumnIndices.map((index) => {

@@ -23,10 +23,7 @@ export interface IParamsToBeDispatched {
   Params: { [key: string]: string }
 }
 
-interface IPersonSelector extends IFilterGenericComponentProps<IFilterFieldComponent> {
-  key?: any
-}
-export default function PersonSelector(props: IPersonSelector) {
+export default function PersonSelector(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   const [selectedInputType, setSelectedInputType] = useState("number")
   const [selectedKey, setSelectedKey] = useState(ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES.BUYER.key)
   const [seletectLookupType, setSeletectLookupType] = useState(ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES.BUYER.name)
@@ -72,7 +69,7 @@ export default function PersonSelector(props: IPersonSelector) {
     </Row>
   ) : (
     <Form.Item>
-      <Row key={props.key}>
+      <Row>
         <Col span={4} offset={2} {...(mobileView && { xs: { span: 8, offset: 0 } })}>
           <Select
             style={{ width: "100%" }}

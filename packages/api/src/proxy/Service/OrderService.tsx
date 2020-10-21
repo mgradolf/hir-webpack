@@ -6,14 +6,16 @@ export const config = {
   Module: "hir",
   Actions: {
     searchOrders: "searchOrders",
-    getOrderDetails: "getOrderDetails",
     getOrderItems: "getOrderItems",
+    getOrderDetails: "getOrderDetails",
     getOrderLines: "getOrderLines",
     getOrderItemsLit: "getOrderItemsLit",
     getPayments: "getPayments",
     getCredits: "getCredits",
-    getReturnItem: "getReturnItem",
-    getPurchaseOrder: "getPurchaseOrder"
+    getReturnItems: "getReturnItems",
+    getPurchaseOrder: "getPurchaseOrder",
+    getCreditMemoDataByOrderItemID: "getCreditMemoDataByOrderItemID",
+    applyReturnItem: "applyReturnItem"
   }
 }
 export default ApiMethodFactory(config)

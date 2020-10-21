@@ -9,10 +9,6 @@ export interface IParamsToBeDispatched {
   Params: { [key: string]: string }
 }
 
-interface IWaitlistSearchCustomLookupFilter extends IFilterGenericComponentProps<IFilterFieldComponent> {
-  key?: any
-}
-
 const ORDER_MANAGEMENT_PERSON_DATE_TYPES = {
   CREATED_DATE: {
     name: "Order Date",
@@ -25,7 +21,7 @@ const ORDER_MANAGEMENT_PERSON_DATE_TYPES = {
     key2: "PaymentDueDateTo"
   }
 }
-export default function DateTypeSelector(props: IWaitlistSearchCustomLookupFilter) {
+export default function DateTypeSelector(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   const [selectedKey, setSelectedKey] = useState(ORDER_MANAGEMENT_PERSON_DATE_TYPES.CREATED_DATE.key1)
   const [selectedKey2, setSelectedKey2] = useState(ORDER_MANAGEMENT_PERSON_DATE_TYPES.CREATED_DATE.key2)
   const [seletectLookupType, setSeletectLookupType] = useState(ORDER_MANAGEMENT_PERSON_DATE_TYPES.CREATED_DATE.name)
@@ -67,7 +63,7 @@ export default function DateTypeSelector(props: IWaitlistSearchCustomLookupFilte
     </Row>
   ) : (
     <Form.Item>
-      <Row key={props.key}>
+      <Row>
         <Col span={4} offset={2} {...(mobileView && { xs: { span: 8, offset: 0 } })}>
           <Select
             style={{ width: "100%" }}

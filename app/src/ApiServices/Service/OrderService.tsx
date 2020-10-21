@@ -29,10 +29,18 @@ export function getCredit(Params: { [key: string]: any }): Promise<IApiResponse>
   return OrderService[config.Actions.getCredits](Params)
 }
 
-export function getReturnItem(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OrderService[config.Actions.getReturnItem](Params)
+export function getReturnItems(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OrderService[config.Actions.getReturnItems](Params)
 }
 
 export function getPurchaseOrder(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OrderService[config.Actions.getPurchaseOrder](Params)
+}
+
+export function getCreditMemoDataByOrderItemID(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OrderService[config.Actions.getCreditMemoDataByOrderItemID](Params)
+}
+
+export function applyReturnItem(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OrderService[config.Actions.applyReturnItem](Params)
 }
