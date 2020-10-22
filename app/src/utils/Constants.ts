@@ -93,3 +93,5 @@ export const ERROR_REQUEST_STATE_ID = 5
 export const ADMIN_SOURCE_NAME = "Admin"
 
 export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
+
+export const PARAM_TYPE_REQUEST = "Request"
