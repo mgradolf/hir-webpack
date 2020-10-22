@@ -105,11 +105,7 @@ export default function ScheduleForm(props: IScheduleCreateFormProps) {
 
   return (
     <Card title={props.scheduleIds ? `Update meeting` : "Create new meeting"} actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds ? props.scheduleIds : undefined} />

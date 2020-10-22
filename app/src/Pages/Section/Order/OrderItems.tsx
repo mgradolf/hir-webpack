@@ -13,7 +13,7 @@ import ApplyDiscountModal from "~/Component/Section/Order/ApplyDiscountModal"
 
 export default function OrderItems(props: RouteComponentProps<{ sectionID?: string }>) {
   const SectionID = Number(props.match.params.sectionID)
-  const [searchParams, setSearchParams] = useState({ SectionID })
+  const [searchParams, setSearchParams] = useState(SectionID ? { SectionID } : {})
   const [selectedOrderItem, setSelectedOrderItemID] = useState<{ [key: string]: any }>({})
   const [showViewReturnItemModal, setShowViewReturnItemModal] = useState(false)
   const [showIssueCreditModal, setShowIssueCreditModal] = useState(false)
@@ -21,7 +21,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
   return (
     <div className="site-layout-content">
       <OrderItemsSearchFilters
-        meta={OrderItemsFiltersMeta(SectionID)}
+        meta={OrderItemsFiltersMeta}
         isChecked={false}
         isModalView={true}
         visible={true}
@@ -30,7 +30,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
-          newValues.SectionID = SectionID
+          if (SectionID) newValues.SectionID = SectionID
           console.log(newValues)
           setSearchParams(newValues)
         }}

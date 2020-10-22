@@ -74,7 +74,7 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
       expandableRowRender={expandableRowRender}
       rowKey="PreferenceDef.PreferenceDefID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600, x: 600 }}
+      isModal={props.isModal}
       rowSelection={{
         type: "checkbox",
         ...rowSelection

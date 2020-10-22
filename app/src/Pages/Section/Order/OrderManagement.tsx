@@ -8,14 +8,20 @@ import { ColumnsType } from "antd/lib/table"
 import moment from "moment"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
-  const SectionID = Number(props.match.params.sectionID)
-  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({ SectionIDs: [SectionID] })
+  const SectionID = Number(props.match.params.sectionID) || undefined
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(SectionID ? { SectionIDs: [SectionID] } : {})
   const columns: ColumnsType<RecordType> = [
     {
       title: "Order ID",
       dataIndex: "OrderID",
       width: 100,
-      render: (text: any, record: any) => <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
+      render: (text: any, record: any) => {
+        return SectionID ? (
+          <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
+        ) : (
+          <Link to={`/order/${record.OrderID}`}>{text}</Link>
+        )
+      }
     },
     {
       title: "Order Items",
@@ -95,14 +101,14 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
   return (
     <div className="site-layout-content">
       <OrderManagementSearch
-        meta={OrderManagementSearchFilterMeta(SectionID)}
+        meta={OrderManagementSearchFilterMeta}
         title="Find Order Activity"
         visible={true}
         isChecked={false}
         toggleVisiibility={() => console.log("s")}
         onApplyChanges={(newValues, count) => {
           const Params: any = newValues
-          Params.SectionIDs = [SectionID]
+          if (SectionID) Params.SectionIDs = [SectionID]
           setSearchParams(Params)
           console.log(newValues)
         }}

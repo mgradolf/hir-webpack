@@ -129,7 +129,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
             </Button>
           ]}
         >
-          <Form form={formInstance} style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+          <Form form={formInstance} className="modal-form">
             <FormError
               errorMessages={errorMessages}
               genericInstructions={

@@ -6,6 +6,7 @@ import OrderItems from "~/Component/Section/Order/Details/OrderItems"
 import Orderlines from "~/Component/Section/Order/Details/Orderlines"
 import OrderCredits from "~/Component/Section/Order/Details/OrderCredits"
 import OrderPaymentsLines from "~/Component/Section/Order/Details/OrderPaymentsLines"
+import OrderReturnItems from "~/Component/Section/Order/Details/OrderReturnItems"
 
 export default function OrderDetails(props: RouteComponentProps<{ sectionID: string; orderID: string }>) {
   const OrderID = Number(props.match.params.orderID)
@@ -27,6 +28,9 @@ export default function OrderDetails(props: RouteComponentProps<{ sectionID: str
         </Tabs.TabPane>
         <Tabs.TabPane tab="Payments" key="5">
           <OrderPaymentsLines OrderID={OrderID} />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Returns" key="6s">
+          <OrderReturnItems OrderID={OrderID} />
         </Tabs.TabPane>
       </Tabs>
     </div>

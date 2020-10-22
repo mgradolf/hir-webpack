@@ -67,7 +67,7 @@ export default function QuestionCreateForm(props: IQuestionCreateForm) {
 
   return (
     <Card title="Offering Approval" actions={actions}>
-      <Form form={props.formInstance} style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+      <Form form={props.formInstance} className="modal-form">
         <FormError
           errorMessages={props.errorMessages}
           genericInstructions={

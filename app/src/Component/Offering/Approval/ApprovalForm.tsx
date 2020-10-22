@@ -76,7 +76,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
 
   return (
     <Card title="Offering Approval" actions={actions}>
-      <Form form={props.formInstance} style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+      <Form form={props.formInstance} className="modal-form">
         <FormError
           errorMessages={errorMessages}
           genericInstructions={

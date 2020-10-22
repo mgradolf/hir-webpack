@@ -121,7 +121,7 @@ export default function WaitListEntryTable(props: IWaitListEntryTable) {
       loading={props.loading}
       bordered
       rowKey="WaitListEntryID"
-      pagination={{ position: ["topLeft"], pageSize: 10 }}
+      pagination={{ position: ["topLeft"], pageSize: 20 }}
       scroll={{ x: 300 }}
     />
   )

@@ -96,7 +96,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
       <Route exact path="/section/:sectionID/order/:orderID" component={SectionOrderDetailsPage} />
       <Route exact path="/section/:sectionID/request" component={RequestPage} />
-      <Route exact path="/section/:sectionID/producst" component={SectionProductPage} />
+      <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
       <Route exact path="/section/:sectionID/waitlist" component={WaitlistEntriesPage} />
       <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
       <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
@@ -104,6 +104,11 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
       <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
       <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
+
+      <Route exact path="/order" component={SectionOrderManagementPage} />
+      <Route exact path="/order/items" component={SectionOrderItemsPage} />
+      <Route exact path="/order/payments" component={SectionOrderPaymentsPage} />
+      <Route exact path="/order/:orderID" component={SectionOrderDetailsPage} />
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />
     </Switch>

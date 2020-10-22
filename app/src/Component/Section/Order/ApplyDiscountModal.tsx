@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd"
-import Table from "~/Component/Common/ResponsiveTable"
-import { applyReturnItem, getCreditMemoDataByOrderItemID } from "~/ApiServices/Service/OrderService"
+import { Button, Card, Col, Form, Input, Row, Select } from "antd"
+import { applyReturnItem } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
@@ -65,7 +64,7 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
             </Button>
           ]}
         >
-          <div style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+          <div className="modal-form">
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
             <Form form={formInstance} initialValues={{ [fieldNames.ReturnQuantity]: 1 }}>
@@ -104,7 +103,7 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
                 </Col>
               </Row>
             </Form.Item>
-            <Typography.Title level={4}>All Discounts Applied To This Enrollment</Typography.Title>
+            {/* <Typography.Title level={4}>All Discounts Applied To This Enrollment</Typography.Title>
             <Table
               columns={[
                 { title: "Discount Program", dataIndex: "Description" },
@@ -115,7 +114,7 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
               ]}
               searchFunc={getCreditMemoDataByOrderItemID}
               searchParams={{ OrderItemID: props.OrderItemID }}
-            />
+            /> */}
           </div>
         </Card>
       }

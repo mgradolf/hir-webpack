@@ -30,79 +30,69 @@ import AccountLookup from "~/Component/Section/Order/OrderItemsFilters/AccountLo
 //   ProductName: "SAD*"
 // }
 
-export function OrderItemsFiltersMeta(SectionID: number): IFilterField[] {
-  return [
-    {
-      label: "",
-      inputType: NUMBER,
-      hidden: true,
-      defaultValue: SectionID,
-      fieldName: "SectionID",
-      ariaLabel: "SectionID"
-    },
-    {
-      inputType: "PERSON_SELECTOR",
-      fieldName: "",
-      customFilterComponent: PersonSelector
-    },
-    {
-      inputType: "DATE_TYPE_SELECTOR",
-      fieldName: "",
-      customFilterComponent: DateTypelector
-    },
-    // {
-    //   inputType: "TOTAL_AMOUNT_RANGE",
-    //   fieldName: "",
-    //   customFilterComponent: TotalAmountRange
-    // },
-    {
-      label: "Order Id",
-      inputType: NUMBER,
-      defaultValue: "",
-      fieldName: "OrderID",
-      ariaLabel: "OrderID"
-    },
-    {
-      label: "Order Status",
-      inputType: DROPDOWN,
-      defaultValue: "",
-      fieldName: "OrderStatusID",
-      ariaLabel: "Order Status",
-      refLookupService: getOPCStatusCode,
-      displayKey: "Name",
-      valueKey: "StatusID"
-    },
-    {
-      label: "Department",
-      inputType: DROPDOWN,
-      defaultValue: "",
-      fieldName: "OrganizationID",
-      ariaLabel: "Department Select",
-      refLookupService: getOrganizations,
-      displayKey: "Name",
-      valueKey: "OrganizationID"
-    },
-    {
-      label: "Source",
-      inputType: DROPDOWN,
-      defaultValue: "",
-      fieldName: "SourceID",
-      ariaLabel: "Source",
-      refLookupService: getSourceModule,
-      displayKey: "Name",
-      valueKey: "ID"
-    },
-    {
-      label: "Product Name",
-      inputType: TEXT,
-      defaultValue: "",
-      fieldName: "ProductName",
-      ariaLabel: "ProductName"
-    },
-    {
-      inputType: "ACCOUNT_LOOKUP",
-      fieldName: "",
-      customFilterComponent: AccountLookup
-    }
-  ]
-}
+export const OrderItemsFiltersMeta: IFilterField[] = [
+  {
+    inputType: "PERSON_SELECTOR",
+    fieldName: "",
+    customFilterComponent: PersonSelector
+  },
+  {
+    inputType: "DATE_TYPE_SELECTOR",
+    fieldName: "",
+    customFilterComponent: DateTypelector
+  },
+  // {
+  //   inputType: "TOTAL_AMOUNT_RANGE",
+  //   fieldName: "",
+  //   customFilterComponent: TotalAmountRange
+  // },
+  {
+    label: "Order Id",
+    inputType: NUMBER,
+    defaultValue: "",
+    fieldName: "OrderID",
+    ariaLabel: "OrderID"
+  },
+  {
+    label: "Order Status",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "OrderStatusID",
+    ariaLabel: "Order Status",
+    refLookupService: getOPCStatusCode,
+    displayKey: "Name",
+    valueKey: "StatusID"
+  },
+  {
+    label: "Department",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "OrganizationID",
+    ariaLabel: "Department Select",
+    refLookupService: getOrganizations,
+    displayKey: "Name",
+    valueKey: "OrganizationID"
+  },
+  {
+    label: "Source",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "SourceID",
+    ariaLabel: "Source",
+    refLookupService: getSourceModule,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Product Name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "ProductName",
+    ariaLabel: "ProductName"
+  },
+  {
+    inputType: "ACCOUNT_LOOKUP",
+    fieldName: "",
+    customFilterComponent: AccountLookup
+  }
+]

@@ -88,7 +88,7 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
       expandableRowRender={expandableRowRender}
       rowKey="RequestID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
+      isModal={props.isModal}
       rowSelection={props.rowSelection}
     />
   )
