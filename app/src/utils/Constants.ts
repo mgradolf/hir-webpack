@@ -2,6 +2,8 @@ export const DEFAULT_OFFERING_TYPE_ID = 1000
 export const DEFAULT_SECTION_TYPE_ID = 13
 export const DATE_FORMAT = "MM/DD/YYYY"
 export const TIME_FORMAT = "hh:mm A"
+export const DATE_TIME_FORMAT = "MM/DD/YYYY hh:mm A"
+export const REQUEST_DATE_TIME_FORMAT = "YYYY-MM-DD hh:mm A"
 export const DATE_TIME = ""
 
 export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
@@ -9,6 +11,52 @@ export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
   PURCHASER: "Purchaser",
   STUDENT: "Student",
   PURCHASER_STUDENT: "Purchaser/Student"
+}
+
+export const REQUEST_LOOKUP_TYPES = {
+  ACCOUNT: "Account",
+  PURCHASER: "Purchaser",
+  RECIPIENT: "Recipient",
+  ANY: "Any"
+}
+
+export const REQUEST_RESOLUTION_NAMES = {
+  EDIT: "Edit",
+  ANSWER_QUESTIONS: "AnswerQuestions",
+  SPECIFY_RECIPIENT: "SpecifyRecipient",
+  MAKE_PAYMENT: "MakePayment",
+  POST_PAYMNET: "PostPayment",
+  SWITCH_RECIPIENT: "SwitchRecipient",
+  ERROR_DETAILS: "ErrorDetails"
+}
+
+export const REQUEST_PROCESS_ACTION_NAME = {
+  ANSWER_QUESTIONS: "answerQuestions",
+  EDIT: "changeBlockerState",
+  POST_PAYMNET: "directPostExternalPayment",
+  SPECIFY_RECIPIENT: "setTaskRecipient"
+}
+
+export const REQUEST_TASK_TYPE_NAME = {
+  ORDER: "Order",
+  REGISTRATION: "Registration",
+  PURCHASE_ORDER: "PurchaseOrder",
+  EXTERNAL_GATEWAY_PAYMENT: "ExternalGatewayPayment"
+}
+
+export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
+  BUYER: {
+    name: "Buyer",
+    key: "PersonID"
+  },
+  STUDENT: {
+    name: "Student",
+    key: "StudentName"
+  },
+  BILLED_TO: {
+    name: "Billed To",
+    key: "BilledPersonName"
+  }
 }
 
 export const COMMENT_TYPES = {
@@ -40,5 +88,8 @@ export const BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM = "Marketing Program"
 
 export const PROCESSED_REQUEST_STATE_ID = 4
 export const ACTION_REQUIRED_REQUEST_STATE_ID = 2
+export const ERROR_REQUEST_STATE_ID = 5
+
+export const ADMIN_SOURCE_NAME = "Admin"
 
 export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
