@@ -5,7 +5,9 @@ export const config = {
   Service: "accountService",
   Module: "hir",
   Actions: {
-    getAccountAffiliation: "getAccountAffiliation"
+    getAccountAffiliation: "getAccountAffiliation",
+    getAccountByPurchaserID: "getAccountByPurchaserID",
+    saveAccountAffiliation: "saveAccountAffiliation"
   }
 }
 

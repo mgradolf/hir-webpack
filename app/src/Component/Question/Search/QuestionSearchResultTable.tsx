@@ -7,8 +7,8 @@ import { TableRowSelection } from "antd/lib/table/interface"
 interface IQuestionSearchResultTable {
   dataSource: any[]
   loading: boolean
-  isModal: boolean
-  setSelectedQuestions: any
+  isModal?: boolean
+  setSelectedQuestions?: any
 }
 
 export default function QuestionSearchResultTable(props: IQuestionSearchResultTable) {
@@ -25,11 +25,11 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
   const columns: ColumnsType<RecordType> = [
     {
       title: "Question",
-      dataIndex: "PreferenceDef.Name"
+      dataIndex: "Description"
     },
     {
       title: "Display Question As",
-      dataIndex: "PreferenceDef.Name",
+      dataIndex: "Name",
       width: 200
     },
     {
@@ -38,7 +38,7 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
     },
     {
       title: "Active",
-      dataIndex: "PreferenceDef.IsActive"
+      dataIndex: "IsActive"
     },
     {
       title: "Organization",
@@ -72,13 +72,15 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
       breakpoints={["md", "lg", "xl", "xxl"]}
       responsiveColumnIndices={[1, 2, 3, 4, 5]}
       expandableRowRender={expandableRowRender}
-      rowKey="PreferenceDef.PreferenceDefID"
+      rowKey="PreferenceDefID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
       isModal={props.isModal}
-      rowSelection={{
-        type: "checkbox",
-        ...rowSelection
-      }}
+      {...(props.setSelectedQuestions && {
+        rowSelection: {
+          type: "checkbox",
+          ...rowSelection
+        }
+      })}
     />
   )
 }
