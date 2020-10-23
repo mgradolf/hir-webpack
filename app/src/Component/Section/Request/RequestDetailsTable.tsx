@@ -130,7 +130,7 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
       breakpoints={["md", "lg", "xl", "xxl"]}
       responsiveColumnIndices={[0, 1, 2, 3]}
       expandableRowRender={expandableRowRender}
-      rowKey="RequestID"
+      rowKey="Key"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
       rowSelection={props.rowSelection}
       isModal={props.isModal}

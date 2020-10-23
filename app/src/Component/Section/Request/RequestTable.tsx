@@ -10,7 +10,7 @@ export interface ITableWrapperProps {
   loading: boolean
   isModal?: boolean
   rowSelection?: any
-  sectionId: number
+  sectionId?: number
 }
 
 export function RequestTable(props: ITableWrapperProps) {
@@ -20,7 +20,13 @@ export function RequestTable(props: ITableWrapperProps) {
       dataIndex: "RequestID",
       key: "RequestID",
       render: (text: any, record: any) =>
-        props.isModal ? text : <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>{text}</Link>
+        props.isModal ? (
+          text
+        ) : props.sectionId ? (
+          <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>{text}</Link>
+        ) : (
+          <Link to={`/requests/${record.RequestID}`}>{text}</Link>
+        )
     },
     {
       title: "Creation Time",
@@ -69,7 +75,8 @@ export function RequestTable(props: ITableWrapperProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>View Details</Link>
+          {props.sectionId && <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>View Details</Link>}
+          {!props.sectionId && <Link to={`/requests/${record.RequestID}`}>View Details</Link>}
         </Space>
       )
     }

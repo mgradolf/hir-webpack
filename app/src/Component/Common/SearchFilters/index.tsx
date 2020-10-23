@@ -99,31 +99,6 @@ export default function (props: IFilterColumnProps) {
     }
   }
 
-  // useEffect(() => {
-  //   function transformIntoOptions(remoteDataArray: any[], displayKey: string, valueKey: string) {
-  //     return (remoteDataArray && remoteDataArray.map((x) => ({ label: x[displayKey], value: x[valueKey] }))) || []
-  //   }
-
-  //   function loadRemoteData() {
-  //     const metaList = [...props.meta]
-  //     const newMetaList: IFilterField[] = []
-  //     metaList.forEach(async (field) => {
-  //       if (isFilterObject(field) && typeof field.refLookupService === "function" && field.inputType === DROPDOWN) {
-  //         const res = await field.refLookupService()
-  //         field.options = transformIntoOptions(res.data, field.displayKey as string, field.valueKey as string)
-  //       }
-  //       newMetaList.push(field)
-  //     })
-  //     updateMetaState(newMetaList)
-  //   }
-
-  // eventBus.subscribe(REFRESH_FILTER_DATA_OF_PAGE, loadRemoteData)
-  //   loadRemoteData()
-  //   return () => {
-  // eventBus.unsubscribe(REFRESH_FILTER_DATA_OF_PAGE)
-  //   }
-  // }, [props.meta])
-
   const filterFieldsArray = props.meta.map((field, i) => {
     if (isFilterObject(field)) {
       const { inputType, fieldName } = field

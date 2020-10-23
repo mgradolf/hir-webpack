@@ -18,7 +18,7 @@ export interface IRequestFilterValues extends RecordType {
   RequesterStaffUserName: string
 }
 
-export function useRequests(filterData: IRequestFilterValues, SectionID: number): [boolean, any[]] {
+export function useRequests(filterData: IRequestFilterValues, SectionID?: number): [boolean, any[]] {
   const [requestItems, setRequestItems] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -27,8 +27,8 @@ export function useRequests(filterData: IRequestFilterValues, SectionID: number)
       setLoading(true)
 
       const params: { [key: string]: any } = {}
-      params["ProductID"] = SectionID !== undefined ? SectionID : undefined
-      params["ProductType"] = SectionID !== undefined ? "SectionID" : undefined
+      params["ProductID"] = SectionID ? SectionID : undefined
+      params["ProductType"] = SectionID ? "SectionID" : undefined
       params["RequestTypeID"] = filterData.RequestTypeID !== "" ? Number(filterData.RequestTypeID) : undefined
       params["StateID"] = filterData.StateID !== "" ? Number(filterData.StateID) : undefined
       params["sourceID"] = filterData.sourceID !== "" ? Number(filterData.sourceID) : undefined
