@@ -132,11 +132,7 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
 
   return (
     <Card title={`Edit Discount Program`} actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>

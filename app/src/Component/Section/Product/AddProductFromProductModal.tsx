@@ -3,7 +3,7 @@ import Modal from "~/Component/Common/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddSectionProductModal } from "~/Store/ModalState"
-import { Row, Col, Card, Button } from "antd"
+import { Row, Card, Button } from "antd"
 import { eventBus, REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
 import ProductSearchFilters from "~/Component/Common/SearchFilters"
 import { addSectionProduct } from "~/ApiServices/BizApi/product/productIf"
@@ -88,9 +88,7 @@ function AddProductFromProductModal({ sectionId, closeAddProductFromProductModal
               toggleFilter={() => setModalPage(ModalPages.FilterPage)}
               hideCreateButton
             />
-            <Col>
-              <ProductTable dataSource={productItems} loading={loading} isModal rowSelection={rowSelection} />
-            </Col>
+            <ProductTable dataSource={productItems} loading={loading} isModal rowSelection={rowSelection} />
           </Card>
         )) || <></>}
     </Modal>

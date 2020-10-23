@@ -2,9 +2,7 @@ import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { Button, Card, Form, Input, Typography } from "antd"
 import Table from "~/Component/Common/ResponsiveTable"
-import { applyReturnItem, getCreditMemoDataByOrderItemID, getReturnItems } from "~/ApiServices/Service/OrderService"
-import moment from "moment"
-import { DATE_FORMAT } from "~/utils/Constants"
+import { applyReturnItem, getCreditMemoDataByOrderItemID } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
@@ -69,7 +67,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
             </Button>
           ]}
         >
-          <div style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+          <div className="modal-form">
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
             <Form form={formInstance} initialValues={{ [fieldNames.ReturnQuantity]: 1 }}>
@@ -111,20 +109,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
               ]}
               searchFunc={getCreditMemoDataByOrderItemID}
               searchParams={{ OrderItemID: props.OrderItemID }}
-            />
-            <Typography.Title level={4}>Returned Items</Typography.Title>
-            <Table
-              columns={[
-                { title: "Returned Quantity", dataIndex: "ReturnedQuantity" },
-                {
-                  title: "Date Returned",
-                  dataIndex: "DateReturned",
-                  render: (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
-                },
-                { title: "Return Note", dataIndex: "ReturnedNote" }
-              ]}
-              searchFunc={getReturnItems}
-              searchParams={{ OrderItemID: props.OrderItemID }}
+              pagination={false}
             />
           </div>
         </Card>

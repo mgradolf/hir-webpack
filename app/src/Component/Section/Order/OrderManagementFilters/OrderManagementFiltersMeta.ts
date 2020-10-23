@@ -30,69 +30,59 @@ import AccountLookupForOrderManagement from "~/Component/Section/Order/OrderMana
 //   ProductName: "SAD*"
 // }
 
-export function OrderManagementSearchFilterMeta(SectionID: number): IFilterField[] {
-  return [
-    {
-      label: "",
-      inputType: NUMBER,
-      hidden: true,
-      defaultValue: SectionID,
-      fieldName: "SectionIDs",
-      ariaLabel: "SectionIDs"
-    },
-    {
-      inputType: "PERSON_SELECTOR",
-      fieldName: "",
-      customFilterComponent: PersonSelectorForOrderManagement
-    },
-    {
-      inputType: "DATE_TYPE_SELECTOR",
-      fieldName: "",
-      customFilterComponent: DateTypelectorForOrderManagement
-    },
-    {
-      inputType: "TOTAL_AMOUNT_RANGE",
-      fieldName: "",
-      customFilterComponent: TotalAmountRangeForOrderManagement
-    },
-    {
-      label: "Order Id",
-      inputType: NUMBER,
-      defaultValue: "",
-      fieldName: "OrderID",
-      ariaLabel: "OrderID"
-    },
-    {
-      label: "Order Status",
-      inputType: DROPDOWN,
-      defaultValue: "",
-      fieldName: "OrderStatusID",
-      ariaLabel: "Order Status",
-      refLookupService: getOPCStatusCode,
-      displayKey: "Name",
-      valueKey: "StatusID"
-    },
-    {
-      label: "Source",
-      inputType: DROPDOWN,
-      defaultValue: "",
-      fieldName: "SourceID",
-      ariaLabel: "Source",
-      refLookupService: getSourceModule,
-      displayKey: "Name",
-      valueKey: "ID"
-    },
-    {
-      label: "Product Name",
-      inputType: TEXT,
-      defaultValue: "",
-      fieldName: "ProductName",
-      ariaLabel: "ProductName"
-    },
-    {
-      inputType: "ACCOUNT_LOOKUP",
-      fieldName: "",
-      customFilterComponent: AccountLookupForOrderManagement
-    }
-  ]
-}
+export const OrderManagementSearchFilterMeta: IFilterField[] = [
+  {
+    inputType: "PERSON_SELECTOR",
+    fieldName: "",
+    customFilterComponent: PersonSelectorForOrderManagement
+  },
+  {
+    inputType: "DATE_TYPE_SELECTOR",
+    fieldName: "",
+    customFilterComponent: DateTypelectorForOrderManagement
+  },
+  {
+    inputType: "TOTAL_AMOUNT_RANGE",
+    fieldName: "",
+    customFilterComponent: TotalAmountRangeForOrderManagement
+  },
+  {
+    label: "Order Id",
+    inputType: NUMBER,
+    defaultValue: "",
+    fieldName: "OrderID",
+    ariaLabel: "OrderID"
+  },
+  {
+    label: "Order Status",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "OrderStatusID",
+    ariaLabel: "Order Status",
+    refLookupService: getOPCStatusCode,
+    displayKey: "Name",
+    valueKey: "StatusID"
+  },
+  {
+    label: "Source",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "SourceID",
+    ariaLabel: "Source",
+    refLookupService: getSourceModule,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Product Name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "ProductName",
+    ariaLabel: "ProductName"
+  },
+  {
+    inputType: "ACCOUNT_LOOKUP",
+    fieldName: "",
+    customFilterComponent: AccountLookupForOrderManagement
+  }
+]

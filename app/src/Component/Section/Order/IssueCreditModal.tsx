@@ -1,9 +1,7 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, DatePicker, Form, Input, Select, Typography } from "antd"
-import Table from "~/Component/Common/ResponsiveTable"
-import { applyReturnItem, getReturnItems } from "~/ApiServices/Service/OrderService"
-import moment from "moment"
+import { Button, Card, DatePicker, Form, Input, Select } from "antd"
+import { applyReturnItem } from "~/ApiServices/Service/OrderService"
 import { DATE_FORMAT } from "~/utils/Constants"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -69,7 +67,7 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
             </Button>
           ]}
         >
-          <div style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
+          <div className="modal-form">
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
             <Form form={formInstance} initialValues={{ [fieldNames.ReturnQuantity]: 1 }}>
@@ -102,7 +100,7 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
                 <TextArea />
               </Form.Item>
             </Form>
-            <Typography.Title level={4}>Order Lines and Credit(s) Against This Order</Typography.Title>
+            {/* <Typography.Title level={4}>Order Lines and Credit(s) Against This Order</Typography.Title>
             <Table
               columns={[
                 { title: "Line Item Type", dataIndex: "ReturnedQuantity" },
@@ -117,7 +115,7 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
               ]}
               searchFunc={getReturnItems}
               searchParams={{ OrderItemID: props.OrderItemID }}
-            />
+            /> */}
           </div>
         </Card>
       }

@@ -77,11 +77,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
 
   return (
     <Card title="Prerequisite Group Setup" actions={actions}>
-      <Form
-        initialValues={props.initialFormValue}
-        form={props.formInstance}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form initialValues={props.initialFormValue} form={props.formInstance} className="modal-form">
         <FormError
           errorMessages={errorMessages}
           genericInstructions={

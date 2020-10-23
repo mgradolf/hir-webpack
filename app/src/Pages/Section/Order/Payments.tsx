@@ -8,7 +8,7 @@ import { PaymentsFiltersMeta } from "~/Component/Section/Order/PaymentFilters/Pa
 
 export default function Payments(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID)
-  const [searchParams, setSearchParams] = useState([{ SectionID }])
+  const [searchParams, setSearchParams] = useState([SectionID ? { SectionID } : {}])
   return (
     <div className="site-layout-content">
       <SearchFilters
@@ -21,7 +21,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
-          newValues.SectionID = SectionID
+          if (SectionID) newValues.SectionID = SectionID
           console.log(newValues)
           setSearchParams([newValues])
         }}

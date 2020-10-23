@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/Store/ModalState"
 import SearchFilters from "~/Component/Common/SearchFilters"
-import { Row, Col, Card, Button } from "antd"
+import { Row, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { useOfferings, useOfferingFilterState, IFilterValues } from "~/Hooks/Offering"
@@ -98,9 +98,7 @@ function AddOfferingFromRequisiteGroupModal({
               toggleFilter={() => setModalPage(ModalPages.FilterPage)}
               hideCreateButton
             />
-            <Col style={{ height: "65vh" }}>
-              <OfferingTable dataSource={offeringItems} loading={loading} isModal rowSelection={rowSelection} />
-            </Col>
+            <OfferingTable dataSource={offeringItems} loading={loading} isModal rowSelection={rowSelection} />
           </Card>
         )) || <></>}
     </Modal>

@@ -72,11 +72,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
 
   return (
     <Card title={props.seatgroupId ? `Edit seat group` : "Create new seat group"} actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.SeatGroupID}>
           <Input value={props.seatgroupId ? props.seatgroupId : undefined} />

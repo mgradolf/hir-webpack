@@ -31,8 +31,7 @@ export default function PersonTable(props: IPerson) {
       loading={props.loading}
       rowSelection={props.rowSelection}
       rowKey="PersonID"
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600, x: 300 }}
-      pagination={{ position: ["topLeft"], pageSize: 10 }}
+      pagination={{ position: ["topLeft"], pageSize: 20 }}
     />
   )
 }
