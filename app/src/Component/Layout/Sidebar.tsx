@@ -22,33 +22,29 @@ export default function Sidebar(props: ISidebar) {
     >
       <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
       <Menu theme="dark" mode="inline">
-        <Menu.SubMenu key="sub1" title="Manage">
-          <Menu.Item key="1">
+        <Menu.SubMenu key="1" title="Manage">
+          <Menu.Item key="1.1">
             <Link to="/offering">Offering</Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="1.2">
             <Link to="/section">Sections</Link>
           </Menu.Item>
-          <Menu.SubMenu key="sub12" title="Financials">
-            <Menu.Item key="sub122">
+          <Menu.SubMenu key="1.3" title="Financials">
+            <Menu.Item key="1.3.1">
               <Link to="/order">Orders</Link>
             </Menu.Item>
-            <Menu.Item key="sub123">
+            <Menu.Item key="1.3.2">
               <Link to="/order/items">Items</Link>
             </Menu.Item>
-            <Menu.Item key="sub124">
+            <Menu.Item key="1.3.3">
               <Link to="/order/payments">Payments</Link>
             </Menu.Item>
           </Menu.SubMenu>
+          <Menu.Item key="1.4">
+            <Link to="/waitlist">Waitlist</Link>
+          </Menu.Item>
         </Menu.SubMenu>
-        {/* <Menu.SubMenu key="sub2" title="Setup">
-          <Menu.Item key="5">Organization</Menu.Item>
-          <Menu.Item key="6">Reference Data</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu key="sub3" title="Tools">
-          <Menu.Item key="7">Reports</Menu.Item>
-        </Menu.SubMenu> */}
-        <Menu.Item key="8" onClick={logout}>
+        <Menu.Item key="2" onClick={logout}>
           Logout
         </Menu.Item>
       </Menu>

@@ -2,35 +2,15 @@ import { getOPCStatusCode, getOrganizations, getSourceModule } from "~/ApiServic
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import PersonSelector from "~/Component/Section/Order/OrderItemsFilters/PersonSelector"
 import DateTypelector from "~/Component/Section/Order/OrderItemsFilters/DateTypelector"
-// import TotalAmountRange from "~/Component/Section/Order/OrderItemsFilters/TotalAmountRange"
 import AccountLookup from "~/Component/Section/Order/OrderItemsFilters/AccountLookup"
-
-// const Params = {
-//   SectionIDs: [9],
-
-//   PersonID: 14269,
-//   StudentName: "ABC*",
-//   BilledPersonName: "ABC*",
-
-//   CreateDateTo: "2018-09-07T06:39:04+06:00",
-//   CreateDateFrom: "2016-09-07T06:39:04+06:00",
-
-//   PaymentDueDateTo: "2018-09-07T06:39:04+06:00",
-//   PaymentDueDateFrom: "2016-09-07T06:39:04+06:00",
-
-//   TotalAmountFrom: 0.0,
-//   TotalAmountTo: 10000.0,
-
-//   OrderID: 19431,
-//   OrderStatusID: 0,
-//   HasPO: false,
-
-//   SourceID: 0,
-//   AccountID: 0,
-//   ProductName: "SAD*"
-// }
+import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
+  {
+    inputType: "SECTION_SELECTOR",
+    fieldName: "",
+    customFilterComponent: SectionLookupOpenButton
+  },
   {
     inputType: "PERSON_SELECTOR",
     fieldName: "",
@@ -41,11 +21,6 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
     fieldName: "",
     customFilterComponent: DateTypelector
   },
-  // {
-  //   inputType: "TOTAL_AMOUNT_RANGE",
-  //   fieldName: "",
-  //   customFilterComponent: TotalAmountRange
-  // },
   {
     label: "Order Id",
     inputType: NUMBER,
