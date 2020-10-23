@@ -10,10 +10,10 @@ export default function OrderReturnItems({ OrderID }: IOrderReturnItems) {
   return (
     <ResponsiveTable
       columns={[
-        { title: "OfferingName", dataIndex: "OfferingName" },
-        { title: "SectionNumber", dataIndex: "SectionNumber" },
-        { title: "StudentID", dataIndex: "StudentID" },
+        { title: "StudentID", dataIndex: "StudentSerialNumber" },
         { title: "StudentName", dataIndex: "StudentName" },
+        { title: "SectionNumber", dataIndex: "SectionNumber" },
+        { title: "OfferingName", dataIndex: "OfferingName" },
         {
           title: "Registration Date",
           dataIndex: "DateReturned",
