@@ -226,6 +226,12 @@ export function getOPCStatusCode(): Promise<IApiResponse> {
   })
 }
 
+export function getRequestType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RequestType"
+  })
+}
+
 export function getSourceModule(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "SourceModule"
@@ -241,6 +247,12 @@ export function getSectionRosterStatusCode(): Promise<IApiResponse> {
 export function getProductCategoryTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "ProductCategory"
+  })
+}
+
+export function getTranscriptTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "TranscriptType"
   })
 }
 

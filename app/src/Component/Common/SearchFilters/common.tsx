@@ -31,6 +31,7 @@ export interface IFilterFieldObject {
 
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
+  requestService?: () => Promise<IApiResponse>
 }
 
 export interface IFilterFieldComponent {

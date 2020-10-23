@@ -1,7 +1,7 @@
 import { Row, Col, Button } from "antd"
 import React from "react"
 import { FilterOutlined } from "@ant-design/icons"
-import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
+import styles from "~/Component/Section/Request/RequestFilterOpenButton.module.scss"
 
 type IToolbarPropsBase = {
   filterCount: number
@@ -21,7 +21,7 @@ type ShowCountWithAction = {
   actionButton?: React.ReactNode
 }
 
-export function FilterOpenButton(props: IToolbarProps) {
+export default function FilterOpenButton(props: IToolbarProps) {
   return (
     <Row>
       <Col className="gutter-row" xs={24} sm={24} md={12}>

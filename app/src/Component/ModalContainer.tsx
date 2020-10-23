@@ -27,12 +27,18 @@ import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
 import AddProductFromProductModal from "~/Component/Section/Product/AddProductFromProductModal"
+import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
 
 import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
 import AccountLookupModal from "~/Component/Common/LookupModals/AccountLookupModal"
+import { WAITLIST_ENTRIES_LOOKUP_TYPES, REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
+import AnswerQuestionsModal from "~/Component/Section/Request/Resolutions/AnswerQuestionsModal"
+import EditBlockerModal from "~/Component/Section/Request/Resolutions/EditBlockerModal"
+import PostPaymentModal from "~/Component/Section/Request/Resolutions/PostPaymentModal"
+import SpecifyRecipientModal from "~/Component/Section/Request/Resolutions/SpecifyRecipientModal"
+import StudentFinderModal from "./Student/StudentFinderModal"
+import ErrorDetailsModal from "./Section/Request/Resolutions/ErrorDetailsModal"
 import CommentCreateModal from "~/Component/Section/Comment/CommentCreateModal"
-
-import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -132,6 +138,51 @@ function ModalContainer(modalState: IModalState) {
         )}
       {modalState.addSectionProductModal.value && (
         <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
+      )}
+      {modalState.requestViewResponseModal.value && (
+        <ViewResponseModal requestJson={modalState.requestViewResponseModal.config.requestJson} />
+      )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.ANSWER_QUESTIONS && (
+          <AnswerQuestionsModal taskJson={modalState.requestResolutionModal.config.taskJson} />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.EDIT && (
+          <EditBlockerModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            resolutionJson={modalState.requestResolutionModal.config.resolutionJson}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.POST_PAYMNET && (
+          <PostPaymentModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            extraDataSource={modalState.requestResolutionModal.config.extraDataSource}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.SPECIFY_RECIPIENT && (
+          <SpecifyRecipientModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            AccountID={modalState.requestResolutionModal.config.extraDataSource.AccountID}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.SWITCH_RECIPIENT && (
+          <SpecifyRecipientModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            AccountID={modalState.requestResolutionModal.config.extraDataSource.AccountID}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.ERROR_DETAILS && (
+          <ErrorDetailsModal taskJson={modalState.requestResolutionModal.config.taskJson} />
+        )}
+      {modalState.studentFinderModal.value && (
+        <StudentFinderModal
+          onSelectStudent={modalState.studentFinderModal.config.onSelectStudentCallback}
+          AccountID={modalState.studentFinderModal.config.AccountID}
+        />
       )}
 
       {modalState.sectionCommentModal.value && <CommentCreateModal />}

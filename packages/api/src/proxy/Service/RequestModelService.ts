@@ -3,11 +3,10 @@ import ApiMethodFactory from "../../utils/ApiMethodFactory"
 export const config = {
   EndPoint: "api/hirServlet",
   Service: "requestService",
-  Module: "hir",
+  Module: "requestmodel",
   Actions: {
-    getLiteRequests: "getLiteRequests",
-    readRequestForStaff: "readRequestForStaff",
-    getEnumValues: "getEnumValues"
+    retry: "retry",
+    cancel: "cancel"
   }
 }
 

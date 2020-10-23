@@ -8,3 +8,9 @@ export function getLiteRequests(Params: { [key: string]: any }): Promise<IApiRes
 export function readRequestForStaff(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RequestService[config.Actions.readRequestForStaff](Params)
 }
+
+export function getEnumValues(): Promise<IApiResponse> {
+  return RequestService[config.Actions.getEnumValues]({
+    EnumType: "RequestStateType"
+  })
+}
