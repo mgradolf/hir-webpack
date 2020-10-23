@@ -98,4 +98,7 @@ export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
 export const PARAM_TYPE_REQUEST = "Request"
 export const PARAM_TYPE_REQUESTS = "Requests"
 
+export const PARAM_TYPE_REGISTRATION = "Registration"
+export const PARAM_TYPE_REGISTRATIONS = "Registrations"
+
 export const ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE = 1

@@ -46,6 +46,9 @@ export default function Sidebar(props: ISidebar) {
           <Menu.Item key="1.5">
             <Link to="/requests">Requests</Link>
           </Menu.Item>
+          <Menu.Item key="1.6">
+            <Link to="/registrations">Registrations</Link>
+          </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key="2" onClick={logout}>
           Logout
