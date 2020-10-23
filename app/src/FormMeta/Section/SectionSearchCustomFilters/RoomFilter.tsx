@@ -82,7 +82,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   function renderRoomFilterChecked() {
     return (
-      <Col key={props.key} style={{ paddingLeft: 0 }}>
+      <Col style={{ paddingLeft: 0 }}>
         <Row>
           <LabelCol>
             <Checkbox checked={show.SiteID} onChange={toggleCheckboxHandler(["SiteID", "BuildingID", "RoomID"])}>
@@ -152,7 +152,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   function renderRoomFilterUnchecked() {
     return (
-      <Col key={props.key}>
+      <Col>
         <Form.Item name="SiteID" label="Site" labelCol={{ span: 6 }}>
           <Select aria-label="Site Select">
             {sites.map(({ Name: label, SiteID: value }, i) => (

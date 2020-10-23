@@ -7,13 +7,13 @@ import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 export default function SectionCatalog(props: RouteComponentProps<{ sectionID: string }>) {
-  const sectionID = parseInt(props.match.params.sectionID)
+  const SectionID = parseInt(props.match.params.sectionID)
   const [sectionCatalogs, setSectionCatalogs] = useState<Array<any>>([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     const loadCatalogs = () => {
       setLoading(true)
-      findCatalog([{ SectionID: sectionID }])
+      findCatalog([{ SectionID }])
         .then((response) => {
           if (response.success) setSectionCatalogs(response.data)
         })
@@ -26,7 +26,7 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
     return () => {
       eventBus.unsubscribe(REFRESH_SECTION_SEATGROUP_PAGE)
     }
-  }, [sectionID])
+  }, [SectionID])
 
   const columns = [
     {
@@ -49,7 +49,7 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
                 }
               })
 
-              updateBulkContent(["Section", sectionID, catalogs]).then((response) => {
+              updateBulkContent(["Section", SectionID, catalogs]).then((response) => {
                 eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
               })
             }}

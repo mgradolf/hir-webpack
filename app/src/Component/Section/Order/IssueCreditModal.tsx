@@ -1,13 +1,15 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, DatePicker, Form, Input, Select } from "antd"
-import { applyReturnItem } from "~/ApiServices/Service/OrderService"
+import { Button, Card, DatePicker, Form, Input } from "antd"
+import { applyIssueCredit } from "~/ApiServices/Service/OrderService"
+import { findOrderLineWiseBalance } from "~/ApiServices/BizApi/order/orderIf"
 import { DATE_FORMAT } from "~/utils/Constants"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
+import DropDown from "~/Component/Common/Form/DropDown"
 
 interface IIssueCreditModal {
   OrderID: number
@@ -15,19 +17,13 @@ interface IIssueCreditModal {
   setShowViewReturnItemsModal: (flag: boolean) => void
 }
 
-interface ICreditMemoData {
-  OrderLineID: number
-  Amount: number
-}
-
 const fieldNames = {
-  OrderItemID: "OrderItemID",
-  ReturnQuantity: "ReturnQuantity",
-  ReturnNote: "ReturnNote",
-  CreditMemoData: "CreditMemoData"
+  OrderLineID: "OrderLineID",
+  Amount: "Amount",
+  Reason: "Reason",
+  CreditMemoDate: "CreditMemoDate"
 }
 export default function IssueCreditModal(props: IIssueCreditModal) {
-  const [CreditMemoData] = useState<ICreditMemoData[]>([])
   const [formInstance] = Form.useForm()
   const [errorMessages, setErrorMessages] = useState<ISimplifiedApiErrorMessage[]>([])
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -50,10 +46,8 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
               onClick={() => {
                 setErrorMessages([])
                 setApiCallInProgress(true)
-                applyReturnItem({
-                  ...formInstance.getFieldsValue(),
-                  [fieldNames.OrderItemID]: props.OrderItemID,
-                  [fieldNames.CreditMemoData]: CreditMemoData
+                applyIssueCredit({
+                  ...formInstance.getFieldsValue()
                 }).then((x) => {
                   setApiCallInProgress(false)
                   if (x.success) {
@@ -70,52 +64,27 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
           <div className="modal-form">
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
-            <Form form={formInstance} initialValues={{ [fieldNames.ReturnQuantity]: 1 }}>
+            <Form form={formInstance}>
               <FormError errorMessages={errorMessages} />
-              <Form.Item label="Associated With" labelCol={{ span: 6 }}>
-                <Select>
-                  <Select.Option value="1" key="1">
-                    Option 1
-                  </Select.Option>
-                  <Select.Option value="1" key="2">
-                    Option 1
-                  </Select.Option>
-                  <Select.Option value="1" key="3">
-                    Option 1
-                  </Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item name={fieldNames.ReturnQuantity} label="Amount Credited" labelCol={{ span: 6 }}>
+              <DropDown
+                searchFunc={findOrderLineWiseBalance}
+                searchParams={[{ OrderID: props.OrderID }]}
+                label="Associated With"
+                fieldName={fieldNames.OrderLineID}
+                displayField="Description"
+                valueField="OrderLineID"
+                labelColumn={{ span: 6 }}
+              />
+              <Form.Item name={fieldNames.Amount} label="Amount Credited" labelCol={{ span: 6 }}>
                 <Input type="number" />
               </Form.Item>
-              <Form.Item name={fieldNames.ReturnNote} label="Credit Date" labelCol={{ span: 6 }}>
-                <DatePicker
-                  aria-label="Pick Termination Date"
-                  placeholder="YYYY/MM/DD"
-                  format={DATE_FORMAT}
-                  // defaultValue={}
-                />
+              <Form.Item name={fieldNames.CreditMemoDate} label="Credit Date" labelCol={{ span: 6 }}>
+                <DatePicker aria-label="Pick Termination Date" placeholder="YYYY/MM/DD" format={DATE_FORMAT} />
               </Form.Item>
-              <Form.Item label="Description/Reason" labelCol={{ span: 6 }}>
+              <Form.Item name={fieldNames.Reason} label="Description/Reason" labelCol={{ span: 6 }}>
                 <TextArea />
               </Form.Item>
             </Form>
-            {/* <Typography.Title level={4}>Order Lines and Credit(s) Against This Order</Typography.Title>
-            <Table
-              columns={[
-                { title: "Line Item Type", dataIndex: "ReturnedQuantity" },
-                {
-                  title: "Given On",
-                  dataIndex: "DateReturned",
-                  render: (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
-                },
-                { title: "Description/Reason", dataIndex: "ReturnedNote" },
-                { title: "Status", dataIndex: "ReturnedNote" },
-                { title: "Amount", dataIndex: "ReturnedNote" }
-              ]}
-              searchFunc={getReturnItems}
-              searchParams={{ OrderItemID: props.OrderItemID }}
-            /> */}
           </div>
         </Card>
       }

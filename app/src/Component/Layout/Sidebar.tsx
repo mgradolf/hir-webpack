@@ -44,6 +44,20 @@ export default function Sidebar(props: ISidebar) {
             <Link to="/waitlist">Waitlist</Link>
           </Menu.Item>
           <Menu.Item key="1.5">
+            <Link to="/catalog">Catalog</Link>
+          </Menu.Item>
+          <Menu.Item key="1.6">
+            <Link to="/product">Product</Link>
+          </Menu.Item>
+          <Menu.SubMenu key="1.7" title="Question">
+            <Menu.Item key="1.7.1">
+              <Link to="/question">Bank</Link>
+            </Menu.Item>
+            <Menu.Item key="1.7.2">
+              <Link to="/question/tagging">Tagging</Link>
+            </Menu.Item>
+          </Menu.SubMenu>
+          <Menu.Item key="1.8">
             <Link to="/requests">Requests</Link>
           </Menu.Item>
           <Menu.Item key="1.6">

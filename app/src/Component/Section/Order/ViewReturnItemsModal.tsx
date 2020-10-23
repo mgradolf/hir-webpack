@@ -27,7 +27,7 @@ const fieldNames = {
   CreditMemoData: "CreditMemoData"
 }
 export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
-  const [CreditMemoData, setCreditMemoData] = useState<ICreditMemoData[]>([])
+  const [CreditMemoData, setCreditMemoData] = useState<{ [key: string]: any }>({})
   const [formInstance] = Form.useForm()
   const [errorMessages, setErrorMessages] = useState<ISimplifiedApiErrorMessage[]>([])
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -53,7 +53,9 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
                 applyReturnItem({
                   ...formInstance.getFieldsValue(),
                   [fieldNames.OrderItemID]: props.OrderItemID,
-                  [fieldNames.CreditMemoData]: CreditMemoData
+                  [fieldNames.CreditMemoData]: Object.keys(CreditMemoData).map((x) => {
+                    return { OrderLineID: Number(x), Amount: CreditMemoData[x] }
+                  })
                 }).then((x) => {
                   setApiCallInProgress(false)
                   if (x.success) {
@@ -93,14 +95,8 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
                         type="number"
                         onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                           e.persist()
-                          setCreditMemoData(
-                            CreditMemoData.map((x) => {
-                              if (x.OrderLineID === record.OrderLineID) {
-                                x.Amount = Number(e.target.value)
-                              }
-                              return x
-                            })
-                          )
+                          const item = { [String(record.OrderLineID)]: Number(e.target.value) }
+                          setCreditMemoData({ ...CreditMemoData, ...item })
                         }}
                       />
                     )

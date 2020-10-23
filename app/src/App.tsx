@@ -47,6 +47,7 @@ import SectionCommentPage from "~/Pages/Section/Comment"
 import SectionNoShowPage from "~/Pages/Section/NoShow"
 
 import QuestionPage from "~/Pages/QuestionPage"
+import SectionQuestionPage from "~/Pages/Section/Question"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
@@ -89,7 +90,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
       <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
       <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
-      <Route exact path="/section/:sectionID/question" component={QuestionPage} />
+      <Route exact path="/section/:sectionID/question" component={SectionQuestionPage} />
       <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
       <Route exact path="/section/:sectionID/registration/:studentID" component={RegistrationDetailsPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
@@ -112,6 +113,11 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/order/payments" component={SectionOrderPaymentsPage} />
       <Route exact path="/order/:orderID" component={SectionOrderDetailsPage} />
 
+      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
+      <Route exact path="/product" component={SectionProductPage} />
+      <Route exact path="/catalog" component={SectionCatalogPage} />
+      <Route exact path="/question" component={QuestionPage} />
+      <Route exact path="/question/tagging" component={SectionQuestionPage} />
       <Route exact path="/requests" component={RequestPage} />
       <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
 

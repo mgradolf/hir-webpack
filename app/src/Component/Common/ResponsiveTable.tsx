@@ -129,7 +129,6 @@ export default function DataTable(props: IDataTableProps) {
             return y
           })
           setTableProps(data)
-          console.log("asdsd ", data)
         }
         setTimeout(() => {
           setLoading(false)

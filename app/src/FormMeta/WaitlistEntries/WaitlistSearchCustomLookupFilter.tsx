@@ -58,7 +58,7 @@ function WaitlistSearchCustomLookupFilter(props: IWaitlistSearchCustomLookupFilt
       </InputCol> */}
     </Row>
   ) : (
-    <Row key={props.key}>
+    <Row>
       <Col span={4} offset={2} {...(mobileView && { xs: { span: 8, offset: 0 } })}>
         <Select
           style={{ width: "100%" }}

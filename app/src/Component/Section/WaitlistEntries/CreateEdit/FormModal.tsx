@@ -9,9 +9,9 @@ import { eventBus, EVENT_PERSON_SELECTED_FOR_WAITLIST_ENTRY_CREATION, REFRESH_PA
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
-import { findAccount } from "~/ApiServices/BizApi/account/accountIF"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
+import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
@@ -83,7 +83,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
 
   useEffect(() => {
     eventBus.subscribe(EVENT_PERSON_SELECTED_FOR_WAITLIST_ENTRY_CREATION, (person: IParamsToBeDispatched) => {
-      findAccount([person.Params.RequesterPersonID]).then((x) => {
+      getAccountByPurchaserID({ PersonID: person.Params.RequesterPersonID }).then((x) => {
         if (x.success) {
           formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: person.Params.RequesterPersonID })
           formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: person.Params.RequesterPersonID })
