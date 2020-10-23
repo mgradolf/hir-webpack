@@ -100,6 +100,10 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
         {mobileView && (
           <div style={{ border: "1px solid", padding: "5px" }}>
             <Row>
+              <Col span="10">Processing:</Col>
+              <Col span="14">{data.TaskType}</Col>
+            </Row>
+            <Row>
               <Col span="10">Description:</Col>
               <Col span="14">{data.Description}</Col>
             </Row>
@@ -110,10 +114,6 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
             <Row>
               <Col span="10">Issues:</Col>
               <Col span="14">{data.Issues.length}</Col>
-            </Row>
-            <Row>
-              <Col span="10">Status:</Col>
-              <Col span="14">{data.State}</Col>
             </Row>
           </div>
         )}
@@ -128,9 +128,9 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
       loading={props.loading}
       bordered
       breakpoints={["md", "lg", "xl", "xxl"]}
-      responsiveColumnIndices={[1, 2, 3, 4]}
+      responsiveColumnIndices={[0, 1, 2, 3]}
       expandableRowRender={expandableRowRender}
-      rowKey="RequestID"
+      rowKey="Key"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
       rowSelection={props.rowSelection}
       isModal={props.isModal}

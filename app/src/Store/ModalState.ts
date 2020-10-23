@@ -33,6 +33,7 @@ const SHOW_REQUEST_DETAILS_MODAL = "SHOW_REQUEST_DETAILS_MODAL"
 const SHOW_REQUEST_VIEW_RESPONSE_MODAL = "SHOW_REQUEST_VIEW_RESPONSE_MODAL"
 const SHOW_REQUEST_RESOLUTION_MODAL = "SHOW_REQUEST_RESOLUTION_MODAL"
 const SHOW_SECTION_COMMENT_MODAL = "SHOW_SECTION_COMMENT_MODAL"
+const SHOW_ADD_CONTACT_MODAL = "SHOW_ADD_CONTACT_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -77,6 +78,7 @@ export interface IModalState {
   requestViewResponseModal: ModalConfig
   requestResolutionModal: ModalConfig
   sectionCommentModal: ModalConfig
+  addContactModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -205,6 +207,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   sectionCommentModal: {
+    value: false,
+    config: null
+  },
+  addContactModal: {
     value: false,
     config: null
   }
@@ -493,6 +499,15 @@ export const showSectionCommmentModal = (value: boolean, config?: ISectionCommen
   payload: { value, config }
 })
 
+interface IShowAddContactModal {
+  AccountID?: number
+}
+
+export const showAddContactModal = (value: boolean, config?: IShowAddContactModal): IAction => ({
+  type: SHOW_ADD_CONTACT_MODAL,
+  payload: { value, config }
+})
+
 export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, action: IAction): IModalState => {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
@@ -559,6 +574,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, requestResolutionModal: action.payload }
     case SHOW_SECTION_COMMENT_MODAL:
       return { ...state, sectionCommentModal: action.payload }
+    case SHOW_ADD_CONTACT_MODAL:
+      return { ...state, addContactModal: action.payload }
     default:
       return state
   }

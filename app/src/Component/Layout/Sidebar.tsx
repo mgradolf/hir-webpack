@@ -24,7 +24,7 @@ export default function Sidebar(props: ISidebar) {
       <Menu theme="dark" mode="inline">
         <Menu.SubMenu key="1" title="Manage">
           <Menu.Item key="1.1">
-            <Link to="/offering">Offering</Link>
+            <Link to="/offering">Offerings</Link>
           </Menu.Item>
           <Menu.Item key="1.2">
             <Link to="/section">Sections</Link>
@@ -58,7 +58,7 @@ export default function Sidebar(props: ISidebar) {
             </Menu.Item>
           </Menu.SubMenu>
           <Menu.Item key="1.8">
-            <Link to="/request">Request</Link>
+            <Link to="/requests">Requests</Link>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key="2" onClick={logout}>

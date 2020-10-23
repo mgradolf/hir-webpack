@@ -1,7 +1,6 @@
 import { Button, Card, Col } from "antd"
 import React, { useState, useEffect, useCallback } from "react"
 import Modal from "~/Component/Common/Modal"
-import zIndex from "~/utils/zIndex"
 import StudentListTable from "~/Component/Student/StudentListTable"
 
 import { useDispatch } from "react-redux"
@@ -62,10 +61,10 @@ function StudentFinderModal(props: IStudentFinderProps) {
   }
 
   return (
-    <Modal zIndex={zIndex.defaultModal + 1} showModal width="800px">
-      <Card title="Select Student" actions={cardActions} style={{ maxHeight: "90vh", overflow: "auto" }}>
+    <Modal showModal width="800px">
+      <Card title="Select Student" actions={cardActions}>
         {students.length > 0 && (
-          <Col style={{ height: "65vh" }}>
+          <Col style={{ height: "65vh", overflowY: "scroll" }}>
             <StudentListTable
               id="studentList"
               dataSource={students}

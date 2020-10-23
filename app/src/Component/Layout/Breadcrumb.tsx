@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { PARAM_TYPE_REQUEST, PARAM_TYPE_REQUESTS } from "~/utils/Constants"
 
 function transformRouteToLabel(route: string | number): string | number {
   if (typeof route === "number") return route
@@ -20,10 +21,12 @@ const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
   let previousPath: any = {}
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
-      const result: any = await getEntityById(previousPath.label, x.label)
-      if (result.success && result.data) {
-        x.label = result.data.Name || result.data.SectionNumber
-        cache[x.path] = x
+      if (previousPath.label !== PARAM_TYPE_REQUEST && previousPath.label !== PARAM_TYPE_REQUESTS) {
+        const result: any = await getEntityById(previousPath.label, x.label)
+        if (result.success && result.data) {
+          x.label = result.data.Name || result.data.SectionNumber
+          cache[x.path] = x
+        }
       }
     } else if (cache[x.path]) {
       x.label = cache[x.path].label

@@ -7,6 +7,7 @@ export function getAccountAffiliation(Params: { [key: string]: any }): Promise<I
 export function getAccountByPurchaserID(Params: { [key: string]: any }): Promise<IApiResponse> {
   return AccountService[config.Actions.getAccountByPurchaserID](Params)
 }
+
 export function saveAccountAffiliation(Params: { [key: string]: any }): Promise<IApiResponse> {
   return AccountService[config.Actions.saveAccountAffiliation](Params)
 }
