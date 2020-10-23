@@ -116,6 +116,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/catalog" component={SectionCatalogPage} />
       <Route exact path="/question" component={QuestionPage} />
       <Route exact path="/question/tagging" component={SectionQuestionPage} />
+      <Route exact path="/request" component={RequestPage} />
+      <Route exact path="/request/:requestID" component={RequestDetailsPage} />
       <Route component={NotFoundPage} />
     </Switch>
   )

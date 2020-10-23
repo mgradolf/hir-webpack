@@ -57,6 +57,9 @@ export default function Sidebar(props: ISidebar) {
               <Link to="/question/tagging">Tagging</Link>
             </Menu.Item>
           </Menu.SubMenu>
+          <Menu.Item key="1.8">
+            <Link to="/request">Request</Link>
+          </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key="2" onClick={logout}>
           Logout
