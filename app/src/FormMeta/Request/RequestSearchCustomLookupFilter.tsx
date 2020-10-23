@@ -58,7 +58,7 @@ function RequestSearchCustomLookupFilter(props: IRequestSearchCustomLookupFilter
       </InputCol> */}
     </Row>
   ) : (
-    <Row key={props.key} style={{ marginTop: "10px" }}>
+    <Row style={{ marginTop: "10px" }}>
       <Col span={8} {...(mobileView && { xs: { span: 8, offset: 0 } })}>
         <Select
           style={{ width: "100%" }}

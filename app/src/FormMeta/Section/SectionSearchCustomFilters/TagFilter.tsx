@@ -66,7 +66,7 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
   }
 
   return (
-    <Col key={props.key} style={{ paddingLeft: 0 }}>
+    <Col style={{ paddingLeft: 0 }}>
       <Row>
         <LabelCol>
           <Checkbox checked={show.IsSearchTagHierarchy} onChange={toggleCheckboxHandler("IsSearchTagHierarchy")}>

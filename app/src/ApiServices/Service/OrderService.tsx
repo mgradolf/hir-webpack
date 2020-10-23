@@ -44,3 +44,7 @@ export function getCreditMemoDataByOrderItemID(Params: { [key: string]: any }): 
 export function applyReturnItem(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OrderService[config.Actions.applyReturnItem](Params)
 }
+
+export function applyIssueCredit(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OrderService[config.Actions.applyIssueCredit](Params)
+}

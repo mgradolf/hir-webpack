@@ -15,7 +15,8 @@ export const config = {
     getReturnItems: "getReturnItems",
     getPurchaseOrder: "getPurchaseOrder",
     getCreditMemoDataByOrderItemID: "getCreditMemoDataByOrderItemID",
-    applyReturnItem: "applyReturnItem"
+    applyReturnItem: "applyReturnItem",
+    applyIssueCredit: "applyIssueCredit"
   }
 }
 export default ApiMethodFactory(config)
