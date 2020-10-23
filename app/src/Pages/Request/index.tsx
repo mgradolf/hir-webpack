@@ -12,12 +12,15 @@ import RequestFilterOpenButton from "~/Component/Section/Request/RequestFilterOp
 const { useState } = React
 const { Title } = Typography
 
-function RequestPage(props: RouteComponentProps<{ sectionID: string }>) {
+function RequestPage(props: RouteComponentProps<{ sectionID?: string }>) {
   const { filterData, updateFilterData } = useRequestFilterState()
   const [showFilter, setFilterVisiblity] = useState<boolean>(false)
   const [filterCount, setFilterCount] = useState<number>(0)
 
-  const SectionID = parseInt(props.match.params.sectionID)
+  let SectionID: number | undefined = undefined
+  if (props.match.params.sectionID) {
+    SectionID = Number(props.match.params.sectionID)
+  }
   const [loading, requestItems] = useRequests(filterData, SectionID)
 
   const toggleFilter = () => {

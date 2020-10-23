@@ -110,6 +110,9 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/order/payments" component={SectionOrderPaymentsPage} />
       <Route exact path="/order/:orderID" component={SectionOrderDetailsPage} />
 
+      <Route exact path="/requests" component={RequestPage} />
+      <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
+
       <Route exact path="/waitlist" component={WaitlistEntriesPage} />
       {/* <Route exact path="/question" component={QuestionPage} /> */}
       <Route component={NotFoundPage} />

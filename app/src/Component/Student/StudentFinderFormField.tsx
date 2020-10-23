@@ -3,10 +3,12 @@ import { FormInstance } from "antd/lib/form"
 import React, { useState } from "react"
 import StudentFinder from "~/Component/Student/index"
 import { IStudent } from "~/Component/Student/StudentFinderModal"
+import AddContactModalOpenButton from "~/Component/Student/AddContactModalOpenButton"
 
 const { Text } = Typography
 
 interface IStudentFinder {
+  initialData: { [key: string]: any }
   AccountID: number
   formInstance?: FormInstance
   onSelectStudent?: (student: IStudent) => void
@@ -18,7 +20,12 @@ function isSelectedStudentNotEmpty(student: IStudent | null): student is IStuden
 }
 
 function StudentFinderFormField(props: IStudentFinder) {
-  const [selectedStudent, setSelectedStudent] = useState<IStudent | null>(null)
+  const recipientPersonID = props.initialData.RecipientPersonID
+  const recipientPersonName = props.initialData.RecipientPersonName
+
+  const [selectedStudent, setSelectedStudent] = useState<IStudent | null>(
+    recipientPersonID !== undefined ? { PersonID: recipientPersonID, PersonName: recipientPersonName } : null
+  )
 
   const label = isSelectedStudentNotEmpty(selectedStudent) ? selectedStudent.PersonName : `No student selected`
 
@@ -37,6 +44,7 @@ function StudentFinderFormField(props: IStudentFinder) {
       />
       {selectedStudent !== null && (
         <Button
+          style={{ marginRight: "16px" }}
           aria-label="Clear Selected Student"
           onClick={() => {
             setSelectedStudent(null)
@@ -45,9 +53,10 @@ function StudentFinderFormField(props: IStudentFinder) {
             }
           }}
         >
-          Clear Selected Student
+          Clear
         </Button>
       )}
+      <AddContactModalOpenButton AccountID={props.AccountID} />
     </Form.Item>
   )
 }

@@ -12,3 +12,9 @@ export function findAccountAffiliation(Params: Array<{ [key: string]: any }>): P
 export function findAccount(Params: Array<any>): Promise<IApiResponse> {
   return AccountIf[config.Actions.findAccount](Params)
 }
+export function getAffiliationRoleTypes(Params: Array<any>): Promise<IApiResponse> {
+  return AccountIf[config.Actions.getAffiliationRoleTypes](Params)
+}
+export function getTaggedQuestionsByAffiliationRoleType(Params: Array<any>): Promise<IApiResponse> {
+  return AccountIf[config.Actions.getTaggedQuestionsByAffiliationRoleType](Params)
+}

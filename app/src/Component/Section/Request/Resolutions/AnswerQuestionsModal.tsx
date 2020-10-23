@@ -70,9 +70,8 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
   }
 
   return (
-    <Modal showModal={true} width="800px" closable={true}>
+    <Modal showModal={true} width="800px" apiCallInProgress={loading} closable={true}>
       <Card
-        loading={loading}
         title="Additional registration questions"
         actions={[
           <Button type="ghost" onClick={props.closeAnswerQuestionsModal}>
