@@ -48,3 +48,11 @@ export function applyReturnItem(Params: { [key: string]: any }): Promise<IApiRes
 export function applyIssueCredit(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OrderService[config.Actions.applyIssueCredit](Params)
 }
+
+export function getAvailableDiscountByOrderItemID(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OrderService[config.Actions.getAvailableDiscountByOrderItemID](Params)
+}
+
+export function grantDiscountProgram(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OrderService[config.Actions.grantDiscountProgram](Params)
+}

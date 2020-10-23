@@ -1,12 +1,13 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, Col, Form, Input, Row, Select } from "antd"
-import { applyReturnItem } from "~/ApiServices/Service/OrderService"
+import { Button, Card, Form, Input, Radio } from "antd"
+import { getAvailableDiscountByOrderItemID, grantDiscountProgram } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
+import DropDown from "~/Component/Common/Form/DropDown"
 
 interface IApplyDiscountModal {
   OrderID: number
@@ -21,8 +22,10 @@ interface ICreditMemoData {
 
 const fieldNames = {
   OrderItemID: "OrderItemID",
-  ReturnQuantity: "ReturnQuantity",
-  ReturnNote: "ReturnNote"
+  SectionDiscountID: "SectionDiscountID",
+  Amount: "Amount",
+  IsDollarAmount: "IsDollarAmount",
+  Reason: "Reason"
 }
 
 export default function ApplyDiscountModal(props: IApplyDiscountModal) {
@@ -48,7 +51,7 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
               onClick={() => {
                 setErrorMessages([])
                 setApiCallInProgress(true)
-                applyReturnItem({
+                grantDiscountProgram({
                   ...formInstance.getFieldsValue(),
                   [fieldNames.OrderItemID]: props.OrderItemID
                 }).then((x) => {
@@ -67,54 +70,30 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
           <div className="modal-form">
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
-            <Form form={formInstance} initialValues={{ [fieldNames.ReturnQuantity]: 1 }}>
+            <Form form={formInstance}>
               <FormError errorMessages={errorMessages} />
-              <Form.Item label="Available Discounts" labelCol={{ span: 6 }}>
-                <Select>
-                  <Select.Option value="1" key="1">
-                    Option 1
-                  </Select.Option>
-                  <Select.Option value="1" key="2">
-                    Option 1
-                  </Select.Option>
-                  <Select.Option value="1" key="3">
-                    Option 1
-                  </Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item label="Reason" labelCol={{ span: 6 }}>
+              <DropDown
+                fieldName={fieldNames.SectionDiscountID}
+                searchFunc={getAvailableDiscountByOrderItemID}
+                searchParams={{ OrderItemID: props.OrderItemID }}
+                displayField="Name"
+                valueField="SectionDiscountID"
+                labelColumn={{ span: 6 }}
+                label="Available Discounts"
+              />
+              <Form.Item name={fieldNames.Reason} label="Reason" labelCol={{ span: 6 }}>
                 <TextArea />
               </Form.Item>
+              <Form.Item name={fieldNames.IsDollarAmount} label="Amount in" labelCol={{ span: 6 }}>
+                <Radio.Group aria-label="Amount in">
+                  <Radio value={true}>Doller</Radio>
+                  <Radio value={false}>Percentage</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item name={fieldNames.Amount} label="Amount" labelCol={{ span: 6 }}>
+                <Input type="number" />
+              </Form.Item>
             </Form>
-            <Form.Item labelCol={{ span: 6 }}>
-              <Row>
-                <Col span={12}>
-                  <Select defaultValue="1">
-                    <Select.Option value="1" key="1">
-                      Amount in Doller
-                    </Select.Option>
-                    <Select.Option value="1" key="2">
-                      Amount in Percentage
-                    </Select.Option>
-                  </Select>
-                </Col>
-                <Col span={12}>
-                  <Input />
-                </Col>
-              </Row>
-            </Form.Item>
-            {/* <Typography.Title level={4}>All Discounts Applied To This Enrollment</Typography.Title>
-            <Table
-              columns={[
-                { title: "Discount Program", dataIndex: "Description" },
-                { title: "Discount Name", dataIndex: "ChargeAmount" },
-                { title: "Discount Description", dataIndex: "ChargeAmount" },
-                { title: "Create Date", dataIndex: "ChargeAmount" },
-                { title: "Discount in $", dataIndex: "ChargeAmount" }
-              ]}
-              searchFunc={getCreditMemoDataByOrderItemID}
-              searchParams={{ OrderItemID: props.OrderItemID }}
-            /> */}
           </div>
         </Card>
       }
