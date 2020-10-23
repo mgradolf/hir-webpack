@@ -27,7 +27,8 @@ export const REQUEST_RESOLUTION_NAMES = {
   MAKE_PAYMENT: "MakePayment",
   POST_PAYMNET: "PostPayment",
   SWITCH_RECIPIENT: "SwitchRecipient",
-  ERROR_DETAILS: "ErrorDetails"
+  ERROR_DETAILS: "ErrorDetails",
+  RETRY: "Retry"
 }
 
 export const REQUEST_PROCESS_ACTION_NAME = {
@@ -95,3 +96,5 @@ export const ADMIN_SOURCE_NAME = "Admin"
 export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
 
 export const PARAM_TYPE_REQUEST = "Request"
+
+export const ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE = 1

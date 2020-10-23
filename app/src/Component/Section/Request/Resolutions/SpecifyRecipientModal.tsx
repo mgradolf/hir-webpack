@@ -9,6 +9,8 @@ import { eventBus, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
 import { REQUEST_PROCESS_ACTION_NAME, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
 import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
 import { useEffect } from "react"
+import FormError from "~/Component/Common/FormError"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
 import moment from "moment"
 
@@ -31,6 +33,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   const [loading, setLoading] = useState(false)
   const [gradeScaleItems, setGradeScaleItems] = useState<Array<any>>([])
   const [transcriptItems, setTranscriptItems] = useState<Array<any>>([])
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
   initialAnswer["GradeScaleTypeID"] = props.taskJson.TaskData.GradeScaleTypeID
@@ -48,6 +51,10 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   initialAnswer["CompleteOnTermination"] =
     props.taskJson.TaskData.CompleteOnTermination !== undefined ? props.taskJson.TaskData.CompleteOnTermination : false
   initialAnswer["AttendanceExpected"] = props.taskJson.TaskData.AttendanceExpected
+  if (props.taskJson.TaskData.RecipientPersonID !== undefined) {
+    initialAnswer["RecipientPersonID"] = props.taskJson.TaskData.RecipientPersonID
+    initialAnswer["RecipientPersonName"] = props.taskJson.TaskData.RecipientPersonName
+  }
 
   useEffect(() => {
     ;(async function () {
@@ -72,29 +79,41 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
     try {
       await form.validateFields()
 
-      props.taskJson["UpdatedResponse"] = form.getFieldsValue()
+      if (form.getFieldValue("RecipientPersonID") === null) {
+        setErrorMessages([{ message: "Please select recipient!" }])
+      } else {
+        props.taskJson["UpdatedResponse"] = form.getFieldsValue()
 
-      const params: any = {}
-      params["AdditionalProperties"] = form.getFieldsValue()
-      params["RecipientPersonID"] = form.getFieldValue("RecipientPersonID")
-      params["RecipientPersonName"] = form.getFieldValue("RecipientPersonName")
-      params["DependencyKey"] = props.taskJson.Issues[0].DependencyKey
-      params["TaskKey"] = props.taskJson.Key
-      params["ProcessActionName"] = REQUEST_PROCESS_ACTION_NAME.SPECIFY_RECIPIENT
+        const params: any = {}
+        params["AdditionalProperties"] = form.getFieldsValue()
+        params["RecipientPersonID"] = form.getFieldValue("RecipientPersonID")
+        params["RecipientPersonName"] = form.getFieldValue("RecipientPersonName")
+        params["TaskKey"] = props.taskJson.Key
+        params["ProcessActionName"] = REQUEST_PROCESS_ACTION_NAME.SPECIFY_RECIPIENT
 
-      const specifyRecipient: IParamsToBeDispatched = {
-        ValueUpdate: true,
-        Params: params
+        if (props.taskJson.Issues[0].DependencyKey !== undefined) {
+          params["DependencyKey"] = props.taskJson.Issues[0].DependencyKey
+        }
+        if (props.taskJson.Issues[0].ValidatorKey !== undefined) {
+          params["ValidatorKey"] = props.taskJson.Issues[0].ValidatorKey
+        }
+        console.log("Params: ", params)
+
+        const specifyRecipient: IParamsToBeDispatched = {
+          ValueUpdate: true,
+          Params: params
+        }
+
+        eventBus.publish(EVENT_REQUEST_RESOLUTION, specifyRecipient)
+        props.closeSpecifyRecipientModal && props.closeSpecifyRecipientModal()
       }
-
-      eventBus.publish(EVENT_REQUEST_RESOLUTION, specifyRecipient)
-      props.closeSpecifyRecipientModal && props.closeSpecifyRecipientModal()
     } catch (errorInfo) {
       console.log("Failed:", errorInfo)
     }
   }
 
   const onSelectStudent = (student: IStudent) => {
+    setErrorMessages([])
     form.setFieldsValue({
       [`RecipientPersonID`]: student.PersonID,
       [`RecipientPersonName`]: student.PersonName
@@ -109,9 +128,8 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   }
 
   return (
-    <Modal showModal={true} width="800px" closable={true}>
+    <Modal showModal={true} width="800px" apiCallInProgress={loading} closable={true}>
       <Card
-        loading={loading}
         title="Registration Detail"
         actions={[
           <Button type="ghost" onClick={props.closeSpecifyRecipientModal}>
@@ -127,8 +145,10 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           form={form}
           style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
         >
+          <FormError errorMessages={errorMessages} />
           <Divider orientation="left">Student Registration</Divider>
           <StudentFinderFormField
+            initialData={initialAnswer}
             AccountID={props.AccountID}
             onSelectStudent={onSelectStudent}
             onClearStudent={onClearStudent}

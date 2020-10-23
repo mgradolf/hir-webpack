@@ -7,7 +7,9 @@ export const config = {
   Actions: {
     findAccountForLookUp: "findAccountForLookUp",
     findAccountAffiliation: "findAccountAffiliation",
-    findAccount: "findAccount"
+    findAccount: "findAccount",
+    getAffiliationRoleTypes: "getAffiliationRoleTypes",
+    getTaggedQuestionsByAffiliationRoleType: "getTaggedQuestionsByAffiliationRoleType"
   }
 }
 

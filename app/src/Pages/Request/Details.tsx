@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import moment from "moment"
 import { RouteComponentProps } from "react-router-dom"
-import { Row, Col, Typography, Button, Input, Space, Spin, Collapse, DatePicker } from "antd"
+import { Row, Col, Typography, Button, Input, Space, Spin, DatePicker, Tabs } from "antd"
 import { readRequestForStaff } from "~/ApiServices/Service/RequestService"
-import { bulkUpdate, extendExpirationDate } from "~/ApiServices/Service/RequestActivityService"
+import { bulkUpdate, extendExpirationDate, makeExternalPayment } from "~/ApiServices/Service/RequestActivityService"
 import { retry, cancel } from "~/ApiServices/Service/RequestModelService"
 import { getUserByUserLogin } from "~/ApiServices/Service/HRUserService"
 import { getUsername } from "@packages/api/lib/utils/UserInfoStore"
@@ -13,11 +13,16 @@ import styles from "~/Pages/Request/RequestDetails.module.scss"
 import { RequestDetailsTable } from "~/Component/Section/Request/RequestDetailsTable"
 import { RequestActivityTable } from "~/Component/Section/Request/RequestActivityTable"
 import ViewResponseModalOpenButton from "~/Component/Section/Request/ViewResponseModalOpenButton"
-import { eventBus, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
-import { ADMIN_SOURCE_NAME, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
+import { eventBus, EVENT_REQUEST_RESOLUTION, EVENT_REQUEST_RETRY, EVENT_REQUEST_MAKE_PAYMENT } from "~/utils/EventBus"
+import {
+  ACTION_REQUIRED_REQUEST_STATE_ID,
+  ADMIN_SOURCE_NAME,
+  DATE_TIME_FORMAT,
+  REQUEST_DATE_TIME_FORMAT
+} from "~/utils/Constants"
 
 const { Title, Text } = Typography
-const { Panel } = Collapse
+const { TabPane } = Tabs
 
 export interface IParamsToBeDispatched {
   ValueUpdate: boolean
@@ -55,6 +60,29 @@ function RequestDetailsPage(props: RouteComponentProps<{ requestID: string }>) {
       }
       setApiCallInProgress(false)
     })()
+  }, [requestID])
+
+  useEffect(() => {
+    const makePaymentAction = async () => {
+      const requestData = requestDetails !== undefined ? requestDetails.ContextData.RequestData : {}
+
+      const params: any = {}
+      params["RequestID"] = Number(requestID)
+      params["PaymentGatewayAccountID"] = requestData.Allocation[0].PaymentGatewayAccountID
+
+      setApiCallInProgress(true)
+      setErrorMessages([])
+      const response = await makeExternalPayment(params)
+      setApiCallInProgress(false)
+      if (response && response.success) {
+        console.log("Make payment action done success")
+        window.open(response.data.URL)
+      } else {
+        setErrorMessages(response.error)
+        console.log(response.error)
+        console.log(errorMessages)
+      }
+    }
 
     eventBus.subscribe(EVENT_REQUEST_RESOLUTION, (param: IParamsToBeDispatched) => {
       if (param.ValueUpdate) {
@@ -66,10 +94,16 @@ function RequestDetailsPage(props: RouteComponentProps<{ requestID: string }>) {
       params["SourceName"] = ADMIN_SOURCE_NAME
       processList.push(params)
     })
+
+    eventBus.subscribe(EVENT_REQUEST_RETRY, () => applyAction("retry"))
+    eventBus.subscribe(EVENT_REQUEST_MAKE_PAYMENT, makePaymentAction)
     return () => {
       eventBus.unsubscribe(EVENT_REQUEST_RESOLUTION)
+      eventBus.unsubscribe(EVENT_REQUEST_RETRY)
+      eventBus.unsubscribe(EVENT_REQUEST_MAKE_PAYMENT)
     }
-  }, [requestID, processList])
+    // eslint-disable-next-line
+  }, [requestID, processList, requestDetails])
 
   const expirationDateHandler = (date: any, dateString: any) => {
     if (date === null) {
@@ -157,25 +191,11 @@ function RequestDetailsPage(props: RouteComponentProps<{ requestID: string }>) {
       )}
       {requestDetails && (
         <div className="site-layout-content">
-          <Row style={{ paddingBottom: "10px" }}>
-            <Title level={3}>Request Details</Title>
-          </Row>
-          <Row className={styles.details}>
-            <Col span={2}>
-              <Text>Status:</Text>
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ paddingBottom: "15px" }}>
+            <Col className="gutter-row" xs={24} sm={24} md={12}>
+              <Title level={3}>Request Details</Title>
             </Col>
-            <Col span={6}>
-              <Input type="text" disabled value={requestDetails.State} />
-            </Col>
-
-            <Col span={2} offset={1}>
-              <Text>Account:</Text>
-            </Col>
-            <Col span={6}>
-              <Input type="text" disabled value={requestDetails.AccountName} />
-            </Col>
-
-            <Col span={7} style={{ textAlign: "right" }}>
+            <Col className={`gutter-row ${styles.textRight}`} xs={24} sm={24} md={12}>
               {requestDetails.RetryStatus && (
                 <Button type="primary" onClick={() => applyAction("retry")}>
                   Retry
@@ -189,27 +209,42 @@ function RequestDetailsPage(props: RouteComponentProps<{ requestID: string }>) {
               <ViewResponseModalOpenButton requestJson={requestDetails.RequestJSON} />
             </Col>
           </Row>
+          <Row className={styles.details}>
+            <Col xs={8} sm={7} md={2}>
+              <Text>Status:</Text>
+            </Col>
+            <Col xs={16} sm={17} md={6}>
+              <Input type="text" disabled value={requestDetails.State} />
+            </Col>
+
+            <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
+              <Text>Account:</Text>
+            </Col>
+            <Col xs={16} sm={17} md={6}>
+              <Input type="text" disabled value={requestDetails.AccountName} />
+            </Col>
+          </Row>
 
           <Row className={styles.details}>
-            <Col span={2}>
+            <Col xs={8} sm={7} md={2}>
               <Text>Type:</Text>
             </Col>
-            <Col span={6}>
+            <Col xs={16} sm={17} md={6}>
               <Input type="text" disabled value={requestDetails.RequestType} />
             </Col>
 
-            <Col span={2} offset={1}>
+            <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
               <Text>Purchaser:</Text>
             </Col>
-            <Col span={6}>
+            <Col xs={16} sm={17} md={6}>
               <Input type="text" disabled value={requestDetails.PurchaserPersonName} />
             </Col>
           </Row>
           <Row className={styles.details}>
-            <Col span={2}>
+            <Col xs={8} sm={7} md={2}>
               <Text>Created:</Text>
             </Col>
-            <Col span={6}>
+            <Col xs={16} sm={17} md={6}>
               <Input
                 type="text"
                 disabled
@@ -219,19 +254,20 @@ function RequestDetailsPage(props: RouteComponentProps<{ requestID: string }>) {
               />
             </Col>
 
-            <Col span={2} offset={1}>
+            <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
               <Text>Source:</Text>
             </Col>
-            <Col span={6}>
+            <Col xs={16} sm={17} md={6}>
               <Input type="text" disabled value={requestDetails.Source} />
             </Col>
           </Row>
           <Row className={styles.details}>
-            <Col span={2}>
+            <Col xs={8} sm={7} md={2}>
               <Text>Expires:</Text>
             </Col>
-            <Col span={6}>
+            <Col xs={16} sm={17} md={6}>
               <DatePicker
+                disabled={requestDetails.StateID !== ACTION_REQUIRED_REQUEST_STATE_ID}
                 aria-label="Pick Expiration Date"
                 placeholder={DATE_TIME_FORMAT}
                 format={DATE_TIME_FORMAT}
@@ -244,28 +280,33 @@ function RequestDetailsPage(props: RouteComponentProps<{ requestID: string }>) {
               />
             </Col>
 
-            <Col span={6} offset={1}>
+            <Col xs={24} sm={24} md={{ span: 6, offset: 1 }}>
               <Button disabled={expirationDateUpdate} onClick={updateExpirationDate} type="primary">
                 Update
               </Button>
             </Col>
           </Row>
 
-          <Row>
-            <Col xs={24} className={styles.textRight}>
-              <Button type="primary" disabled={showSubmit} onClick={updateAllAction}>
-                Save All Updates
-              </Button>
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
+            <Col className={`gutter-row ${styles.requestDetails}`} xs={24} sm={24} md={24}>
+              <Tabs type="card">
+                <TabPane tab="Request" key="1">
+                  <Button
+                    type="primary"
+                    style={{ float: "right", zIndex: 11, marginTop: "16px" }}
+                    disabled={showSubmit}
+                    onClick={updateAllAction}
+                  >
+                    Save All Updates
+                  </Button>
+                  <RequestDetailsTable dataSource={requestDetails} loading={false} />
+                </TabPane>
+                <TabPane tab="Request Activity" key="2">
+                  <RequestActivityTable dataSource={requestDetails.ActivityLogs.ActivityLogs} loading={false} />
+                </TabPane>
+              </Tabs>
             </Col>
           </Row>
-          <Collapse defaultActiveKey={["1"]} accordion className={styles.marginTop10px}>
-            <Panel header="Request" key="1">
-              <RequestDetailsTable dataSource={requestDetails} loading={false} />
-            </Panel>
-            <Panel header="Request Activity" key="2">
-              <RequestActivityTable dataSource={requestDetails.ActivityLogs.ActivityLogs} loading={false} />
-            </Panel>
-          </Collapse>
         </div>
       )}
       {!requestDetails && !apiCallInProgress && (
