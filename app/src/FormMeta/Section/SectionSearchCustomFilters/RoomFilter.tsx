@@ -1,7 +1,11 @@
 import { Col, Form, Row, Checkbox, Select, Typography } from "antd"
 import React, { useState, useEffect } from "react"
 
-import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import {
+  findPossibleBuildings,
+  findPossibleRooms,
+  findPossibleSites
+} from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import {
   IFilterFieldComponent,
   IFilterGenericComponentProps,
@@ -34,7 +38,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   useEffect(() => {
     async function loadBuildings() {
-      const res = await findPossibleBuildings(props.value.SiteID as number)
+      const res = await findPossibleBuildings([props.value.SiteID as number])
       if (Array.isArray(res.data)) {
         setBuildings(res.data)
       }
@@ -47,7 +51,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   useEffect(() => {
     async function loadRooms() {
-      const res = await findPossibleRooms(props.value.BuildingID as number)
+      const res = await findPossibleRooms([props.value.BuildingID as number])
       if (Array.isArray(res.data)) {
         setRooms(res.data)
       }
@@ -82,14 +86,14 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   function renderRoomFilterChecked() {
     return (
-      <Col key={props.key} style={{ paddingLeft: 0 }}>
+      <Col style={{ paddingLeft: 0 }}>
         <Row>
           <LabelCol>
             <Checkbox checked={show.SiteID} onChange={toggleCheckboxHandler(["SiteID", "BuildingID", "RoomID"])}>
               Site
             </Checkbox>
           </LabelCol>
-          <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+          <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
             <Select
               aria-label="Site Select"
               style={{ width: 250 }}
@@ -106,10 +110,10 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
         </Row>
         {buildings.length > 0 && (
           <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <LabelCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Text>Building</Text>
             </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Select
                 aria-label="Building Select"
                 style={{ width: 250 }}
@@ -127,10 +131,10 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
         )}
         {rooms.length > 0 && !hideRoomDropdown && (
           <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <LabelCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Text>Room</Text>
             </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
+            <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
               <Select
                 aria-label="Room Select"
                 style={{ width: 250 }}
@@ -152,7 +156,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   function renderRoomFilterUnchecked() {
     return (
-      <Col key={props.key}>
+      <Col>
         <Form.Item name="SiteID" label="Site" labelCol={{ span: 6 }}>
           <Select aria-label="Site Select">
             {sites.map(({ Name: label, SiteID: value }, i) => (

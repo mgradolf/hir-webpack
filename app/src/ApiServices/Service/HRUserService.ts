@@ -7,3 +7,6 @@ export function getAllUsers(): Promise<IApiResponse> {
 export function getUsersByRole(Params: { [key: string]: any }): Promise<IApiResponse> {
   return HRUserService[config.Actions.getUsersByRole](Params)
 }
+export function getUserByUserLogin(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return HRUserService[config.Actions.getUserByUserLogin](Params)
+}

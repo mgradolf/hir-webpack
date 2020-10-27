@@ -22,6 +22,7 @@ export const config = {
     saveFinancial: "saveFinancial",
     saveFinancials: "saveFinancials",
     getSectionFinancials: "getSectionFinancials",
+    saveSectionNotification: "saveSectionNotification",
     getSectionNotifications: "getSectionNotifications",
     saveSectionDiscount: "saveSectionDiscount",
     removeSectionDiscounts: "removeSectionDiscounts",
@@ -32,8 +33,20 @@ export const config = {
     getAvailableResourcesWithFinancials: "getAvailableResourcesWithFinancials",
     getAvailableMarketingProgramsWithFinancials: "getAvailableMarketingProgramsWithFinancials",
     removeFinancials: "removeFinancials",
+    removeMeetings: "removeMeetings",
+    removeLocations: "removeLocations",
+    removeInstructors: "removeInstructors",
+    removeMeetingInformations: "removeMeetingInformations",
     findRoom: "findRoom",
-    saveLocations: "saveLocations"
+    saveLocations: "saveLocations",
+    saveGeneralComment: "saveGeneralComment",
+    saveFacultyComment: "saveFacultyComment",
+    saveEnrollmentComment: "saveEnrollmentComment",
+    findGeneralCommentHistory: "findGeneralCommentHistory",
+    findFacultyComments: "findFacultyComments",
+    findEnrollmentCommentHistory: "findEnrollmentCommentHistory",
+    findFaculty: "findFaculty",
+    findEnrollmentStudentHistory: "findEnrollmentStudentHistory"
   }
 }
 

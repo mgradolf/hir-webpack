@@ -131,7 +131,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
         form={props.formInstance}
         initialValues={props.initialFormValue}
         onValuesChange={onValuesChange}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
+        className="modal-form"
       >
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>

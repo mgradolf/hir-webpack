@@ -4,6 +4,7 @@ import { RadioChangeEvent } from "antd/lib/radio"
 import { FormInstance } from "antd/lib/form"
 import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
 import { getTerms } from "~/ApiServices/Service/RefLookupService"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const creationTimeOptionsValue = {
   datePicker: "datePicker",
@@ -18,7 +19,6 @@ interface ISectionDetailsCreationTime {
   formInstance: FormInstance
   fieldNames: ISectionDetailsFieldNames
 }
-const dateFormat = "YYYY-MM-DD HH:mm:ss"
 const layout = { labelCol: { span: 6 } }
 
 export default function SectionDetailsCreationTime(props: ISectionDetailsCreationTime) {
@@ -60,7 +60,7 @@ export default function SectionDetailsCreationTime(props: ISectionDetailsCreatio
             <DatePicker
               aria-label="Pick Creation Date"
               placeholder="YYYY/MM/DD"
-              format={dateFormat}
+              format={DATE_FORMAT}
               onChange={onDateChange}
               defaultValue={defaultCreationDate}
             />

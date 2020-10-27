@@ -30,6 +30,16 @@ export function getPaymentGatewayAccounts(): Promise<IApiResponse> {
     LookUpName: "PaymentGatewayAccount"
   })
 }
+export function getPaymentTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "PaymentType"
+  })
+}
+export function getBasePaymentTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "BasePaymentType"
+  })
+}
 
 export function getSectionTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
@@ -46,6 +56,11 @@ export function getSectionStatusCode(): Promise<IApiResponse> {
 export function getGLAccountTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "GLAccount"
+  })
+}
+export function getAccountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AccountType"
   })
 }
 
@@ -202,5 +217,47 @@ export function getRoomTypes(): Promise<IApiResponse> {
 export function getPreferenceValueType(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "PreferenceValueType"
+  })
+}
+
+export function getOPCStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "OPCStatusCode"
+  })
+}
+
+export function getRequestType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "RequestType"
+  })
+}
+
+export function getSourceModule(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SourceModule"
+  })
+}
+
+export function getSectionRosterStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SectionRosterStatusCode"
+  })
+}
+
+export function getProductCategoryTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProductCategory"
+  })
+}
+
+export function getTranscriptTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "TranscriptType"
+  })
+}
+
+export function getCommentCategories(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CommentCategory"
   })
 }

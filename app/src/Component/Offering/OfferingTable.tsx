@@ -137,8 +137,8 @@ export function OfferingTable(props: ITableWrapperProps) {
       responsiveColumnIndices={[1, 2, 3, 4, 5]}
       expandableRowRender={expandableRowRender}
       rowKey="OfferingID"
+      isModal={props.isModal}
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
       rowSelection={props.rowSelection}
     />
   )

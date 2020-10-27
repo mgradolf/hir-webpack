@@ -1,7 +1,7 @@
 import { Row, Col } from "antd"
 import React, { useState, useEffect } from "react"
 
-import { findPossibleBuildings } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import { findPossibleBuildings } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { ITableWrapperProps } from "~/Component/Section/SectionTable"
@@ -23,7 +23,7 @@ function RoomListTable(props: ITableWrapperProps & { extraData: { SiteID: number
 
   useEffect(() => {
     async function loadBuildings(siteID: number) {
-      const res = await findPossibleBuildings(siteID)
+      const res = await findPossibleBuildings([siteID])
       if (res.success && Array.isArray(res.data)) {
         const buildingNameMap = res.data.reduce((typeMap, type) => ({ ...typeMap, [type.BuildingID]: type.Name }), {})
         setBuildingNameMap(buildingNameMap)
@@ -101,7 +101,7 @@ function RoomListTable(props: ITableWrapperProps & { extraData: { SiteID: number
       expandableRowRender={expandableRowRender}
       rowKey="RoomID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
+      isModal={props.isModal}
     />
   )
 }

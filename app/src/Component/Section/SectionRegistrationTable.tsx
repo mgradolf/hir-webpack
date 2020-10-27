@@ -195,7 +195,7 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
       expandableRowRender={expandableRowData}
       rowKey="StudentID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600, x: 300 }}
+      isModal={props.isModal}
     />
   )
 }

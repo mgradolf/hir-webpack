@@ -4,7 +4,11 @@ import React, { useState, useEffect } from "react"
 import RoomFinder from "~/Component/Section/RoomFinder"
 import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
 
-import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import {
+  findPossibleBuildings,
+  findPossibleRooms,
+  findPossibleSites
+} from "~/ApiServices/BizApi/scheduling/schedulingIF"
 
 const { Text } = Typography
 
@@ -48,7 +52,7 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
 
   useEffect(() => {
     async function loadBuildings(siteID: number) {
-      const res = await findPossibleBuildings(siteID)
+      const res = await findPossibleBuildings([siteID])
       if (res.success && Array.isArray(res.data)) {
         const buildingNameMap = res.data.reduce((typeMap, type) => ({ ...typeMap, [type.BuildingID]: type.Name }), {})
         setBuildingNameMap(buildingNameMap)
@@ -64,7 +68,7 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
 
   useEffect(() => {
     async function loadRooms(buildingID: number) {
-      const res = await findPossibleRooms(buildingID)
+      const res = await findPossibleRooms([buildingID])
       if (res.success && Array.isArray(res.data)) {
         const roomNameMap = res.data.reduce((typeMap, type) => ({ ...typeMap, [type.RoomID]: type.RoomNumber }), {})
         setRoomNameMap(roomNameMap)

@@ -8,6 +8,7 @@ import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import moment from "moment"
+import { DATE_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 
 interface IScheduleCreateFormProps {
   sectionId: number
@@ -18,9 +19,6 @@ interface IScheduleCreateFormProps {
   formInstance: any
   fieldNames: { [key: string]: any }
 }
-
-const dateFormat = "YYYY-MM-DD"
-const timeFormat = "hh:mm A"
 
 const layout = {
   labelCol: { span: 6 }
@@ -107,11 +105,7 @@ export default function ScheduleForm(props: IScheduleCreateFormProps) {
 
   return (
     <Card title={props.scheduleIds ? `Update meeting` : "Create new meeting"} actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds ? props.scheduleIds : undefined} />
@@ -143,9 +137,9 @@ export default function ScheduleForm(props: IScheduleCreateFormProps) {
           <TimePicker
             aria-label="Pick start time"
             use12Hours
-            format={timeFormat}
+            format={TIME_FORMAT}
             onChange={onStartTimeChange}
-            defaultValue={startTime ? moment(startTime, timeFormat) : undefined}
+            defaultValue={startTime ? moment(startTime, TIME_FORMAT) : undefined}
           />
         </Form.Item>
 
@@ -157,9 +151,9 @@ export default function ScheduleForm(props: IScheduleCreateFormProps) {
           <TimePicker
             aria-label="Pick end time"
             use12Hours
-            format={timeFormat}
+            format={TIME_FORMAT}
             onChange={onEndTimeChange}
-            defaultValue={endTime ? moment(endTime, timeFormat) : undefined}
+            defaultValue={endTime ? moment(endTime, TIME_FORMAT) : undefined}
           />
         </Form.Item>
 
@@ -171,9 +165,9 @@ export default function ScheduleForm(props: IScheduleCreateFormProps) {
           <DatePicker
             aria-label="Pick Meeting Date"
             placeholder="YYYY-MM-DD"
-            format={dateFormat}
+            format={DATE_FORMAT}
             onChange={onDateChange}
-            defaultValue={meetingDate ? moment(meetingDate, dateFormat) : undefined}
+            defaultValue={meetingDate ? moment(meetingDate, DATE_FORMAT) : undefined}
           />
         </Form.Item>
 

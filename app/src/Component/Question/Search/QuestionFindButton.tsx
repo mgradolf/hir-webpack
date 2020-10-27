@@ -15,7 +15,7 @@ function QuestionFindButton(props: IQuestionFindButtonProp) {
   return (
     <Button
       type="primary"
-      style={{ float: "right", zIndex: 10, marginRight: "10px" }}
+      style={{ marginRight: "10px" }}
       disabled={!props.EventID || !props.TagID}
       onClick={() => {
         props.openQuestionFindModal &&

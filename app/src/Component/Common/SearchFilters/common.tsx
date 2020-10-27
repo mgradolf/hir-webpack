@@ -15,7 +15,8 @@ type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typ
 export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
-  defaultValue: string
+  hidden?: boolean
+  defaultValue: any
   placeholder?: string
 
   fieldName: string
@@ -30,12 +31,13 @@ export interface IFilterFieldObject {
 
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
+  requestService?: () => Promise<IApiResponse>
 }
 
 export interface IFilterFieldComponent {
   inputType: string
   fieldName: string
-  customFilterComponent: any
+  customFilterComponent: React.FunctionComponent<any>
   extraProps?: { [key: string]: any }
 }
 
@@ -53,9 +55,10 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
       isChecked?: boolean
       key?: any
       toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
-      filterValueChanged: (key: string, value: any) => void
+      filterValueChanged: (key: string, value: any, key2?: string, value2?: string) => void
     }
   : IFilterFieldComponent & {
+      key?: any
       show: { [key: string]: boolean }
       value: { [key: string]: string | number }
       isChecked?: boolean

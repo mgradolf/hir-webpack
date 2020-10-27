@@ -1,4 +1,5 @@
 import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
+import { IStudent } from "~/Component/Student/StudentFinderModal"
 
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
 const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"
@@ -24,6 +25,15 @@ const SHOW_UPDATE_DISCOUNT_MODAL = "SHOW_UPDATE_DISCOUNT_MODAL"
 const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
 const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
 const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
+const SHOW_STUDENT_FINDER_MODAL = "SHOW_STUDENT_FINDER_MODAL"
+const SHOW_UPDATE_NOTICE_MODAL = "SHOW_UPDATE_NOTICE_MODAL"
+const SHOW_PERSON_LOOKUP_MODAL = "SHOW_PERSON_LOOKUP_MODAL"
+const SHOW_ADD_SECTION_PRODUCT_MODAL = "SHOW_ADD_SECTION_PRODUCT_MODAL"
+const SHOW_REQUEST_DETAILS_MODAL = "SHOW_REQUEST_DETAILS_MODAL"
+const SHOW_REQUEST_VIEW_RESPONSE_MODAL = "SHOW_REQUEST_VIEW_RESPONSE_MODAL"
+const SHOW_REQUEST_RESOLUTION_MODAL = "SHOW_REQUEST_RESOLUTION_MODAL"
+const SHOW_SECTION_COMMENT_MODAL = "SHOW_SECTION_COMMENT_MODAL"
+const SHOW_ADD_CONTACT_MODAL = "SHOW_ADD_CONTACT_MODAL"
 
 export type ModalConfig = {
   value: boolean
@@ -60,6 +70,15 @@ export interface IModalState {
   questionCreateModal: ModalConfig
   questionFindModal: ModalConfig
   roomFinderModal: ModalConfig
+  studentFinderModal: ModalConfig
+  updateNoticeModal: ModalConfig
+  personLookupModal: ModalConfig
+  addSectionProductModal: ModalConfig
+  requestDetailsModal: ModalConfig
+  requestViewResponseModal: ModalConfig
+  requestResolutionModal: ModalConfig
+  sectionCommentModal: ModalConfig
+  addContactModal: ModalConfig
 }
 
 const INITIAL_MODAL_STATE: IModalState = {
@@ -143,6 +162,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     value: false,
     config: null
   },
+  studentFinderModal: {
+    value: false,
+    config: null
+  },
   createBudgetModal: {
     value: false,
     config: null
@@ -156,6 +179,38 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   updateDiscountModal: {
+    value: false,
+    config: null
+  },
+  updateNoticeModal: {
+    value: false,
+    config: null
+  },
+  personLookupModal: {
+    value: false,
+    config: null
+  },
+  addSectionProductModal: {
+    value: false,
+    config: null
+  },
+  requestDetailsModal: {
+    value: false,
+    config: null
+  },
+  requestViewResponseModal: {
+    value: false,
+    config: null
+  },
+  requestResolutionModal: {
+    value: false,
+    config: null
+  },
+  sectionCommentModal: {
+    value: false,
+    config: null
+  },
+  addContactModal: {
     value: false,
     config: null
   }
@@ -281,6 +336,7 @@ export const showCreateSectionScheduleModal = (
 
 type ShowSectionScheduleUpdateModalType = {
   scheduleIds: any
+  sectionId?: number
 }
 export const showUpdateSectionScheduleModal = (
   value: boolean,
@@ -341,6 +397,16 @@ export const showRoomFinderModal = (value: boolean, config?: IRoomFinderModal): 
   payload: { value, config }
 })
 
+interface IStudentFinderModal {
+  AccountID?: number
+  onSelectStudentCallback: (studentInfo: IStudent) => void
+}
+
+export const showStudentFinderModal = (value: boolean, config?: IStudentFinderModal): IAction => ({
+  type: SHOW_STUDENT_FINDER_MODAL,
+  payload: { value, config }
+})
+
 interface IShowBudgetModal {
   sectionId?: number
   financialId?: number
@@ -370,6 +436,76 @@ export const showCreateDiscountModal = (value: boolean, config?: IShowDiscountMo
 
 export const showUpdateDiscountModal = (value: boolean, config?: IShowDiscountModal): IAction => ({
   type: SHOW_UPDATE_DISCOUNT_MODAL,
+  payload: { value, config }
+})
+
+interface IShowNoticeModal {
+  sectionId: number
+  sectionNoticeTypeId: number
+}
+
+export const showUpdateNoticeModal = (value: boolean, config?: IShowNoticeModal): IAction => ({
+  type: SHOW_UPDATE_NOTICE_MODAL,
+  payload: { value, config }
+})
+
+export interface IShowPersonLookupModal {
+  type: string
+}
+export const showPersonLookupModal = (value: boolean, config?: IShowPersonLookupModal): IAction => {
+  return {
+    type: SHOW_PERSON_LOOKUP_MODAL,
+    payload: { value, config }
+  }
+}
+
+interface IShowSectionProductModal {
+  sectionId?: number
+}
+
+export const showAddSectionProductModal = (value: boolean, config?: IShowSectionProductModal): IAction => ({
+  type: SHOW_ADD_SECTION_PRODUCT_MODAL,
+  payload: { value, config }
+})
+
+interface IShowRequestModal {
+  requestId?: number
+  requestJson?: any
+  taskJson?: any
+  resolutionJson?: any
+  initialUpdate?: any
+  extraDataSource?: any
+}
+
+export const showRequestDetailsModal = (value: boolean, config?: IShowRequestModal): IAction => ({
+  type: SHOW_REQUEST_DETAILS_MODAL,
+  payload: { value, config }
+})
+
+export const showRequestViewResponseModal = (value: boolean, config?: IShowRequestModal): IAction => ({
+  type: SHOW_REQUEST_VIEW_RESPONSE_MODAL,
+  payload: { value, config }
+})
+
+export const showRequestResolutionModal = (value: boolean, config?: IShowRequestModal): IAction => ({
+  type: SHOW_REQUEST_RESOLUTION_MODAL,
+  payload: { value, config }
+})
+
+interface ISectionCommentModal {
+  SectionID: number
+}
+export const showSectionCommmentModal = (value: boolean, config?: ISectionCommentModal): IAction => ({
+  type: SHOW_SECTION_COMMENT_MODAL,
+  payload: { value, config }
+})
+
+interface IShowAddContactModal {
+  AccountID?: number
+}
+
+export const showAddContactModal = (value: boolean, config?: IShowAddContactModal): IAction => ({
+  type: SHOW_ADD_CONTACT_MODAL,
   payload: { value, config }
 })
 
@@ -423,6 +559,24 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, questionFindModal: action.payload }
     case SHOW_ROOM_FINDER_MODAL:
       return { ...state, roomFinderModal: action.payload }
+    case SHOW_STUDENT_FINDER_MODAL:
+      return { ...state, studentFinderModal: action.payload }
+    case SHOW_UPDATE_NOTICE_MODAL:
+      return { ...state, updateNoticeModal: action.payload }
+    case SHOW_PERSON_LOOKUP_MODAL:
+      return { ...state, personLookupModal: action.payload }
+    case SHOW_ADD_SECTION_PRODUCT_MODAL:
+      return { ...state, addSectionProductModal: action.payload }
+    case SHOW_REQUEST_DETAILS_MODAL:
+      return { ...state, requestDetailsModal: action.payload }
+    case SHOW_REQUEST_VIEW_RESPONSE_MODAL:
+      return { ...state, requestViewResponseModal: action.payload }
+    case SHOW_REQUEST_RESOLUTION_MODAL:
+      return { ...state, requestResolutionModal: action.payload }
+    case SHOW_SECTION_COMMENT_MODAL:
+      return { ...state, sectionCommentModal: action.payload }
+    case SHOW_ADD_CONTACT_MODAL:
+      return { ...state, addContactModal: action.payload }
     default:
       return state
   }

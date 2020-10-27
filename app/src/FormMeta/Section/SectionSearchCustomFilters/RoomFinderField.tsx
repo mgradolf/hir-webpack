@@ -6,7 +6,7 @@ import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
 
 function RoomFinderField(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
   return (
-    <Row key={props.key}>
+    <Row>
       <RoomFinder
         onSelectRoom={(room: IRoom) => {
           props.filterValueChanged(room)

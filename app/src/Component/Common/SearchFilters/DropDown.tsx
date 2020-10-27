@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   IFilterFieldObject,
   IFilterGenericComponentProps,
@@ -11,23 +11,36 @@ import { Row, Checkbox, Select, Form } from "antd"
 const { Option } = Select
 
 export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
-  const { value, show, toggleCheckboxHandler, filterValueChanged, label, isChecked } = props
-  return isChecked ? (
+  const [options, setOptions] = useState<any[]>(props.options || [])
+
+  useEffect(() => {
+    props.refLookupService &&
+      props.refLookupService().then((x) => {
+        if (x.success && props.displayKey && props.valueKey) {
+          x.data = x.data.map((y: any) => ({
+            label: y[props.displayKey || "label"],
+            value: y[props.valueKey || "value"]
+          }))
+          setOptions(x.data)
+        }
+      })
+  }, [props])
+  return props.isChecked ? (
     <Row>
       <LabelCol>
-        <Checkbox checked={show} onChange={toggleCheckboxHandler}>
-          {label}
+        <Checkbox checked={props.show} onChange={props.toggleCheckboxHandler}>
+          {props.label}
         </Checkbox>
       </LabelCol>
-      <InputCol className={show ? styles.offeringFilterField : styles.hidden}>
+      <InputCol className={props.show ? styles.offeringFilterField : "hidden"}>
         <Select
           aria-label={props.ariaLabel}
           style={{ width: 250 }}
-          value={value}
-          onChange={(value) => filterValueChanged(props.fieldName, value)}
+          value={props.value}
+          onChange={(value) => props.filterValueChanged(props.fieldName, value)}
         >
-          {props.options &&
-            props.options.map(({ label, value }, i) => (
+          {options &&
+            options.map(({ label, value }, i) => (
               <Option value={value} key={`${value}_${i}`}>
                 {label}
               </Option>
@@ -36,10 +49,10 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
       </InputCol>
     </Row>
   ) : (
-    <Form.Item name={props.fieldName} label={label} labelCol={{ span: 6 }}>
+    <Form.Item name={props.fieldName} label={props.label} labelCol={{ span: 6 }}>
       <Select aria-label={props.ariaLabel}>
-        {props.options &&
-          props.options.map(({ label, value }, i) => (
+        {options &&
+          options.map(({ label, value }, i) => (
             <Option value={value} key={`${value}_${i}`}>
               {label}
             </Option>

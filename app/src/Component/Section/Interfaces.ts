@@ -36,6 +36,12 @@ export interface IScheduleLocationFieldNames {
   ConflictCheck: any
 }
 
+export interface IScheduleInstructorFieldNames {
+  ScheduleIDs: any
+  PersonIDs: any
+  ConflictCheck: any
+}
+
 export interface IBudgetFieldNames {
   SectionID: string
   FinancialID: string
@@ -70,4 +76,18 @@ export interface IDiscountFieldNames {
   ToDate: string
   FromDate: string
   promoCode: string
+}
+
+export interface INoticeFieldNames {
+  SectionID: string
+  SectionNoticeTypeID: string
+  FromUserID: string
+  FromEmailAddress: string
+  DisableFields: string
+  Subject: string
+  Message: string
+  MimeType: string
+  ToUserIDs: string
+  ToEmailAddress: string
+  IsActive: string
 }

@@ -1,10 +1,10 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { findMeetingTypes } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-import RoomFinderField from "./SectionSearchCustomFilters/RoomFinderField"
+import RoomFinderField from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFinderField"
 
 const sectionMeta: IFilterField[] = [
   {

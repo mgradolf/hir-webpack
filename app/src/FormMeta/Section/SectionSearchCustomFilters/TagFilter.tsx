@@ -66,14 +66,14 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
   }
 
   return (
-    <Col key={props.key} style={{ paddingLeft: 0 }}>
+    <Col style={{ paddingLeft: 0 }}>
       <Row>
         <LabelCol>
           <Checkbox checked={show.IsSearchTagHierarchy} onChange={toggleCheckboxHandler("IsSearchTagHierarchy")}>
             Is Search Tag Hierarchy
           </Checkbox>
         </LabelCol>
-        <InputCol className={show.IsSearchTagHierarchy ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={show.IsSearchTagHierarchy ? styles.offeringFilterField : "hidden"}>
           <Select
             aria-label="Is Search Tag Hierarchy"
             style={{ width: 250 }}
@@ -95,7 +95,7 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
             Tag Type
           </Checkbox>
         </LabelCol>
-        <InputCol className={show[fieldNameState.active.tagType] ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={show[fieldNameState.active.tagType] ? styles.offeringFilterField : "hidden"}>
           <Select
             aria-label="Tag Type"
             style={{ width: 250 }}
@@ -119,7 +119,7 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
             Tag Name
           </Checkbox>
         </LabelCol>
-        <InputCol className={show[fieldNameState.active.tagName] ? styles.offeringFilterField : styles.hidden}>
+        <InputCol className={show[fieldNameState.active.tagName] ? styles.offeringFilterField : "hidden"}>
           <Input
             aria-label="Tag Name"
             name={fieldNameState.active.tagName}

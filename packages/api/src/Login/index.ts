@@ -1,5 +1,6 @@
 import callApi from "../utils/CallApi"
 import { setTokens } from "../utils/TokenStore"
+import { setUsername } from "../utils/UserInfoStore"
 import { ApiConfig, IApiResponse } from "../utils/Interfaces"
 import { baseURL } from "../utils/ApiMethodFactory"
 
@@ -16,6 +17,7 @@ export async function login(UserName: string, UserPassword: string): Promise<IAp
   const response: IApiResponse = await callApi(requestConfig)
   if (response && response.success) {
     setTokens(response.data["token"])
+    setUsername(UserName)
   }
   return response
 }
