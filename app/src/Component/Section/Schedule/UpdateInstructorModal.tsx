@@ -5,12 +5,14 @@ import { showUpdateSectionScheduleInstructorModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
 
 interface ICreateActionButtonProp {
+  sectionId: number
   scheduleIds: any
-  openCreateScheduleInstructorModal?: (scheduleIds: any) => void
+  openCreateScheduleInstructorModal?: (scheduleIds: any, sectionId: number) => void
 }
 function CreateActionButton(props: ICreateActionButtonProp) {
   const onClick = () => {
-    if (props.openCreateScheduleInstructorModal) props.openCreateScheduleInstructorModal(props.scheduleIds)
+    if (props.openCreateScheduleInstructorModal)
+      props.openCreateScheduleInstructorModal(props.scheduleIds, props.sectionId)
   }
   return (
     <Button type="link" onClick={onClick}>
@@ -21,8 +23,8 @@ function CreateActionButton(props: ICreateActionButtonProp) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    openCreateScheduleInstructorModal: (scheduleIds: any) =>
-      dispatch(showUpdateSectionScheduleInstructorModal(true, { scheduleIds }))
+    openCreateScheduleInstructorModal: (scheduleIds: any, sectionId: number) =>
+      dispatch(showUpdateSectionScheduleInstructorModal(true, { scheduleIds, sectionId }))
   }
 }
 

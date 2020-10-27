@@ -3,25 +3,24 @@ import Modal from "~/Component/Common/Modal"
 import { useState } from "react"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showUpdateSectionScheduleLocationModal } from "~/Store/ModalState"
+import { showUpdateSectionScheduleInstructorModal } from "~/Store/ModalState"
 import { Form } from "antd"
-import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
-import ScheduleLocationForm from "~/Component/Section/Schedule/ScheduleLocationForm"
+import { IScheduleInstructorFieldNames } from "~/Component/Section/Interfaces"
+import ScheduleInstructorForm from "~/Component/Section/Schedule/ScheduleInstructorForm"
 
 interface IScheduleProps {
+  sectionId: number
   scheduleIds: any
   closeScheduleModal?: () => void
 }
 
-const fieldNames: IScheduleLocationFieldNames = {
+const fieldNames: IScheduleInstructorFieldNames = {
   ScheduleIDs: "ScheduleIDs",
-  SiteID: "SiteID",
-  BuildingID: "BuildingID",
-  RoomID: "RoomID",
+  PersonIDs: "PersonIDs",
   ConflictCheck: "ConflictCheck"
 }
 
-function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: IScheduleProps) {
+function UpdateScheduleInstructor({ sectionId, scheduleIds, closeScheduleModal }: IScheduleProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 
@@ -31,11 +30,9 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
     }
   }
 
-  const initialFormValue: { [key in keyof IScheduleLocationFieldNames]: any } = {
+  const initialFormValue: { [key in keyof IScheduleInstructorFieldNames]: any } = {
     ScheduleIDs: scheduleIds,
-    SiteID: "",
-    BuildingID: "",
-    RoomID: "",
+    PersonIDs: "",
     ConflictCheck: false
   }
 
@@ -46,7 +43,8 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
       apiCallInProgress={apiCallInProgress}
       children={
         <>
-          <ScheduleLocationForm
+          <ScheduleInstructorForm
+            sectionId={sectionId}
             fieldNames={fieldNames}
             formInstance={formInstance}
             handleCancel={handleCancel}
@@ -61,7 +59,7 @@ function UpdateScheduleLocation({ scheduleIds, closeScheduleModal }: ISchedulePr
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeScheduleModal: () => dispatch(showUpdateSectionScheduleLocationModal(false)) }
+  return { closeScheduleModal: () => dispatch(showUpdateSectionScheduleInstructorModal(false)) }
 }
 
-export default connect(undefined, mapDispatchToProps)(UpdateScheduleLocation)
+export default connect(undefined, mapDispatchToProps)(UpdateScheduleInstructor)

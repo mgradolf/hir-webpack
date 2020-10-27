@@ -102,8 +102,28 @@ export function removeFinancials(Params: { [key: string]: any }): Promise<IApiRe
   return SectionService[config.Actions.removeFinancials](Params)
 }
 
+export function removeMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeMeetings](Params)
+}
+
+export function removeLocations(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeLocations](Params)
+}
+
+export function removeInstructors(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeInstructors](Params)
+}
+
+export function removeMeetingInformations(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeMeetingInformations](Params)
+}
+
 export function findRoom(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findRoom](Params)
+}
+
+export function saveLocations(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveLocations](Params)
 }
 
 export function saveGeneralComment(Params: { [key: string]: any }) {

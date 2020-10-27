@@ -336,6 +336,7 @@ export const showCreateSectionScheduleModal = (
 
 type ShowSectionScheduleUpdateModalType = {
   scheduleIds: any
+  sectionId?: number
 }
 export const showUpdateSectionScheduleModal = (
   value: boolean,

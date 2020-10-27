@@ -36,6 +36,12 @@ export interface IScheduleLocationFieldNames {
   ConflictCheck: any
 }
 
+export interface IScheduleInstructorFieldNames {
+  ScheduleIDs: any
+  PersonIDs: any
+  ConflictCheck: any
+}
+
 export interface IBudgetFieldNames {
   SectionID: string
   FinancialID: string

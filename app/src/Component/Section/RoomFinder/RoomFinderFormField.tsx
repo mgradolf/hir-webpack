@@ -4,12 +4,17 @@ import React, { useState, useEffect } from "react"
 import RoomFinder from "~/Component/Section/RoomFinder"
 import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
 
-import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import {
+  findPossibleBuildings,
+  findPossibleRooms,
+  findPossibleSites
+} from "~/ApiServices/BizApi/scheduling/schedulingIF"
 
 const { Text } = Typography
 
 interface ISectionDetailsRoomFinder {
   formInstance: FormInstance
+  label?: string
   onSelectRoom?: (room: IRoom) => void
   onClearRoom?: () => void
 }
@@ -47,7 +52,7 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
 
   useEffect(() => {
     async function loadBuildings(siteID: number) {
-      const res = await findPossibleBuildings(siteID)
+      const res = await findPossibleBuildings([siteID])
       if (res.success && Array.isArray(res.data)) {
         const buildingNameMap = res.data.reduce((typeMap, type) => ({ ...typeMap, [type.BuildingID]: type.Name }), {})
         setBuildingNameMap(buildingNameMap)
@@ -63,7 +68,7 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
 
   useEffect(() => {
     async function loadRooms(buildingID: number) {
-      const res = await findPossibleRooms(buildingID)
+      const res = await findPossibleRooms([buildingID])
       if (res.success && Array.isArray(res.data)) {
         const roomNameMap = res.data.reduce((typeMap, type) => ({ ...typeMap, [type.RoomID]: type.RoomNumber }), {})
         setRoomNameMap(roomNameMap)
@@ -75,6 +80,8 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
     }
   }, [buildingID])
 
+  const defaultFormItemLabel = "Room"
+
   const label = isSelectedRoomNotEmpty(selectedRoom)
     ? `${roomNameMap[selectedRoom.RoomID]}, ${buildingNameMap[selectedRoom.BuildingID]}, ${
         siteNameMap[selectedRoom.SiteID]
@@ -82,7 +89,7 @@ function RoomFinderFormField(props: ISectionDetailsRoomFinder) {
     : `No room selected`
 
   return (
-    <Form.Item label="Room:" labelCol={{ span: 6 }}>
+    <Form.Item label={props.label || defaultFormItemLabel} labelCol={{ span: 6 }}>
       <Text style={{ marginRight: "16px" }}>{label}</Text>
       <RoomFinder
         style={{ marginRight: "16px" }}
