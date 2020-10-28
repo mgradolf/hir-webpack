@@ -149,17 +149,17 @@ const sectionMeta: IFilterField[] = [
     valueKey: "UserLogin"
   },
   {
-    inputType: "ALTERNATE_TAG_TAG_ID_FIELDNAME",
+    label: "Select Tag",
     fieldName: "IsSearchTagHierarchy",
     customFilterComponent: TagFilter
   },
   {
-    inputType: "COMBO_DEPENDENT_ROOM",
+    label: "Select Site",
     fieldName: "SiteID",
     customFilterComponent: RoomFilter
   },
   {
-    inputType: "ROOM_FINDER_FIELD",
+    label: "Selecte Roomm",
     fieldName: "SiteID",
     customFilterComponent: RoomFinderField
   }

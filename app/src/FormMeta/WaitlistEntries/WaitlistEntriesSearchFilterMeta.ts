@@ -4,7 +4,7 @@ import WaitlistSearchCustomLookupFilter from "~/FormMeta/WaitlistEntries/Waitlis
 
 const sectionMeta: IFilterField[] = [
   {
-    inputType: "SECTION_SELECTOR",
+    label: "Section Lookup",
     fieldName: "",
     customFilterComponent: SectionLookupOpenButton
   },
@@ -46,7 +46,7 @@ const sectionMeta: IFilterField[] = [
     ]
   },
   {
-    inputType: "ROOM_FINDER_FIELD",
+    label: "Person Lookup",
     fieldName: "SiteID",
     customFilterComponent: WaitlistSearchCustomLookupFilter
   }

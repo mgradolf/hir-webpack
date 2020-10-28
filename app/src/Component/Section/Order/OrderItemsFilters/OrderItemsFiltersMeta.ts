@@ -7,17 +7,17 @@ import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupM
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
-    inputType: "SECTION_SELECTOR",
+    label: "Section Lookup",
     fieldName: "",
     customFilterComponent: SectionLookupOpenButton
   },
   {
-    inputType: "PERSON_SELECTOR",
+    label: "Person Lookup",
     fieldName: "",
     customFilterComponent: PersonSelector
   },
   {
-    inputType: "DATE_TYPE_SELECTOR",
+    label: "Date Type Select",
     fieldName: "",
     customFilterComponent: DateTypelector
   },
@@ -66,7 +66,7 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
     ariaLabel: "ProductName"
   },
   {
-    inputType: "ACCOUNT_LOOKUP",
+    label: "Account Lookup",
     fieldName: "",
     customFilterComponent: AccountLookup
   }

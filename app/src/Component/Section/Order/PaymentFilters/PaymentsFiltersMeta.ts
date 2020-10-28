@@ -11,12 +11,12 @@ import AccountLookup from "~/Component/Section/Order/PaymentFilters/AccountLooku
 
 export const PaymentsFiltersMeta: IFilterField[] = [
   {
-    inputType: "PERSON_SELECTOR",
+    label: "Person Selector",
     fieldName: "",
     customFilterComponent: PersonSelector
   },
   {
-    inputType: "TOTAL_AMOUNT_RANGE",
+    label: "Total Amount",
     fieldName: "",
     customFilterComponent: TotalAmountRange
   },
@@ -95,7 +95,7 @@ export const PaymentsFiltersMeta: IFilterField[] = [
     ariaLabel: "TransactionNumber"
   },
   {
-    inputType: "ACCOUNT_LOOKUP",
+    label: "Account Lookup",
     fieldName: "",
     customFilterComponent: AccountLookup
   }

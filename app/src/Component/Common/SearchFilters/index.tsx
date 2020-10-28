@@ -4,21 +4,19 @@ import { CloseOutlined } from "@ant-design/icons"
 import React, { useState } from "react"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
-
-import { TextInputType } from "~/Component/Common/SearchFilters/TextInput"
+import { TextInputType } from "~/Component/Common/SearchFilters/SearchInput"
 import {
+  IFilterField,
+  isFilterObject,
   DATE_PICKER,
   DATE_PICKERS,
   DROPDOWN,
-  IFilterField,
-  isFilterObject,
   NUMBER,
   TEXT
 } from "~/Component/Common/SearchFilters/common"
-import { DropDownInputType } from "~/Component/Common/SearchFilters/DropDown"
-import { DatePickerInputType } from "~/Component/Common/SearchFilters/DatePicker"
-import { DatePickersInputType } from "~/Component/Common/SearchFilters/DatePickers"
-// import { eventBus, REFRESH_FILTER_DATA_OF_PAGE } from "~/utils/EventBus"
+import { DropDownInputType } from "~/Component/Common/SearchFilters/SearchDropDown"
+import { DatePickerInputType } from "~/Component/Common/SearchFilters/SearchDatePicker"
+import { DatePickersInputType } from "~/Component/Common/SearchFilters/SearchDatePickers"
 
 const { Title } = Typography
 
@@ -37,8 +35,7 @@ type Show = { [key: string]: boolean }
 
 export default function (props: IFilterColumnProps) {
   const isChecked = props.isChecked === undefined ? true : props.isChecked
-  const [filterData, updateFilterData] = useState<RecordType>(props.initialFilter)
-  // const [metaState, updateMetaState] = useState<typeof props.meta>(props.meta)
+  const [filterData, setFilterData] = useState<RecordType>(props.initialFilter)
   const initialShow = props.meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
 
   const [show, updateShow] = useState<Show>(
@@ -54,26 +51,26 @@ export default function (props: IFilterColumnProps) {
   const toggleShow = (name: string | string[]) => (event: CheckboxChangeEvent) => {
     if (typeof name === "string") {
       updateShow({ ...show, [name]: event.target.checked })
-      updateFilterData({ ...filterData, [name]: event.target.checked ? filterData[name] : "" })
+      setFilterData({ ...filterData, [name]: event.target.checked ? filterData[name] : "" })
     } else {
       // group of fields to reset when unchecked
       const fieldShow = name.reduce((s, f) => ({ ...s, [f]: event.target.checked }), {})
       const fieldValues = name.reduce((v, f) => ({ ...v, [f]: "" }), {})
 
       updateShow({ ...show, ...fieldShow })
-      updateFilterData({ ...filterData, ...fieldValues })
+      setFilterData({ ...filterData, ...fieldValues })
     }
   }
 
   const onChangeField = (fieldName: string, value: string) => {
-    updateFilterData({
+    setFilterData({
       ...filterData,
       [fieldName]: value
     })
   }
 
   const onChangeDatePickersField = (fieldName: string, value: string, fieldName2?: string, value2?: string) => {
-    updateFilterData({
+    setFilterData({
       ...filterData,
       [fieldName]: value,
       ...(fieldName2 && value2 && { [fieldName2]: value2 })
@@ -81,7 +78,7 @@ export default function (props: IFilterColumnProps) {
   }
 
   const onChangeFieldCopmonent = (values: RecordType) => {
-    updateFilterData({
+    setFilterData({
       ...filterData,
       ...values
     })
@@ -184,7 +181,7 @@ export default function (props: IFilterColumnProps) {
       {...(props.isModalView && { style: { overflowY: "scroll", padding: "10px" } })}
       layout="horizontal"
       initialValues={filterData}
-      onValuesChange={(newValues) => updateFilterData({ ...filterData, ...newValues })}
+      onValuesChange={(newValues) => setFilterData({ ...filterData, ...newValues })}
     >
       {filterFieldsArray}
     </Form>
