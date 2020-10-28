@@ -1,4 +1,4 @@
-import { Col, Form, Row, Checkbox, Select, Typography } from "antd"
+import { Col, Row, Checkbox, Select, Typography } from "antd"
 import React, { useState, useEffect } from "react"
 
 import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
@@ -28,9 +28,10 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
         setSites(res.data)
       }
     }
+    console.log("props.isChecked ", props.isChecked)
 
     loadSites()
-  }, [])
+  }, [props.isChecked])
 
   useEffect(() => {
     async function loadBuildings() {
@@ -73,6 +74,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     setBuildings([])
     setRooms([])
     filterValueChanged({ SiteID: value, BuildingID: "", RoomID: "" })
+    console.log("site value changed ", value)
   }
 
   const handleBuildingChange = (value: number) => {
@@ -152,39 +154,58 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   function renderRoomFilterUnchecked() {
     return (
-      <Col>
-        <Form.Item name="SiteID" label="Site" labelCol={{ span: 6 }}>
-          <Select aria-label="Site Select">
-            {sites.map(({ Name: label, SiteID: value }, i) => (
-              <Option value={value} key={`${value}_${i}`}>
-                {label}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
-        {buildings.length > 0 && (
-          <Form.Item name="BuildingID" label="Building" labelCol={{ span: 6 }}>
-            <Select aria-label="Building Select">
-              {buildings.map(({ Name: label, BuildingID: value }, i) => (
+      <>
+        <Row>
+          <LabelCol>
+            <Text>Site</Text>
+          </LabelCol>
+          <InputCol>
+            <Select aria-label="Site Select" onChange={handleSiteChange}>
+              {sites.map(({ Name: label, SiteID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
                 </Option>
               ))}
             </Select>
-          </Form.Item>
+          </InputCol>
+        </Row>
+        {buildings.length > 0 && (
+          <Row>
+            <LabelCol>
+              <Text>Building</Text>
+            </LabelCol>
+            <InputCol>
+              <Select aria-label="Building Select" onChange={handleBuildingChange}>
+                {buildings.map(({ Name: label, BuildingID: value }, i) => (
+                  <Option value={value} key={`${value}_${i}`}>
+                    {label}
+                  </Option>
+                ))}
+              </Select>
+            </InputCol>
+          </Row>
         )}
         {rooms.length > 0 && !hideRoomDropdown && (
-          <Form.Item name="RoomID" label="Room" labelCol={{ span: 6 }}>
-            <Select aria-label="Room Select">
-              {rooms.map(({ Name: label, RoomID: value }, i) => (
-                <Option value={value} key={`${value}_${i}`}>
-                  {label}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
+          <Row>
+            <LabelCol>
+              <Text>Building</Text>
+            </LabelCol>
+            <InputCol>
+              <Select
+                aria-label="Room Select"
+                value={value.RoomID}
+                onChange={(value) => filterValueChanged({ RoomID: value })}
+              >
+                {rooms.map(({ Name: label, RoomID: value }, i) => (
+                  <Option value={value} key={`${value}_${i}`}>
+                    {label}
+                  </Option>
+                ))}
+              </Select>
+            </InputCol>
+          </Row>
         )}
-      </Col>
+      </>
     )
   }
 
