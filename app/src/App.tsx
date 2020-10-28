@@ -5,8 +5,7 @@ import { Provider, connect } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { History } from "history"
 import LoginPage from "~/Pages/Login/LoginPage"
-// // import HomePage from "~/Pages/HomePage"
-import ProfilePage from "~/Pages/ProfilePage"
+import HomePage from "~/Pages/HomePage"
 import AboutPage from "~/Pages/AboutPage"
 import AdminPage from "~/Pages/AdminPage"
 import NotFoundPage from "~/Pages/NotFoundPage"
@@ -65,8 +64,7 @@ function App(props: AppProps): JSX.Element {
     </Switch>
   ) : (
     <Switch>
-      <Route exact path="/" component={OfferingPage} />
-      <Route path="/profile" component={ProfilePage} />
+      <Route exact path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
 

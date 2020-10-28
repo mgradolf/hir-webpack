@@ -37,12 +37,12 @@ export const sidebarMenus: ISidebarMenu[] = [
     submenu: [
       {
         title: "People",
-        url: "#",
+        url: "",
         submenu: [
-          { title: "Persons", url: "#", submenu: [] },
-          { title: "Students", url: "#", submenu: [] },
-          { title: "Instructors", url: "#", submenu: [] },
-          { title: "Forget Me Requests", url: "#", submenu: [] }
+          { title: "Persons", url: "", submenu: [] },
+          { title: "Students", url: "", submenu: [] },
+          { title: "Instructors", url: "", submenu: [] },
+          { title: "Forget Me Requests", url: "", submenu: [] }
         ]
       },
       { title: "Accounts", url: "", submenu: [] },
@@ -50,20 +50,20 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Courses",
         url: "",
         submenu: [
-          { title: "Offerings ", url: "#", submenu: [] },
-          { title: "Sections", url: "#", submenu: [] },
-          { title: "Registrations", url: "#", submenu: [] },
-          { title: "Waitlist Entries", url: "#", submenu: [] }
+          { title: "Offerings ", url: "/offering", submenu: [] },
+          { title: "Sections", url: "/section", submenu: [] },
+          { title: "Registrations", url: "", submenu: [] },
+          { title: "Waitlist Entries", url: "/waitlist", submenu: [] }
         ]
       },
       {
         title: "Programs",
         url: "",
         submenu: [
-          { title: "Offerings", url: "#", submenu: [] },
-          { title: "Programs", url: "#", submenu: [] },
-          { title: "Applications", url: "#", submenu: [] },
-          { title: "Enrollments", url: "#", submenu: [] }
+          { title: "Offerings", url: "", submenu: [] },
+          { title: "Programs", url: "", submenu: [] },
+          { title: "Applications", url: "", submenu: [] },
+          { title: "Enrollments", url: "", submenu: [] }
         ]
       },
       { title: "Students Certificate", url: "", submenu: [] },
@@ -71,20 +71,20 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Financials",
         url: "",
         submenu: [
-          { title: "Order", url: "", submenu: [] },
-          { title: "Order Items", url: "", submenu: [] },
-          { title: "Payments", url: "", submenu: [] },
+          { title: "Order", url: "/order", submenu: [] },
+          { title: "Order Items", url: "/order/items", submenu: [] },
+          { title: "Payments", url: "/order/payments", submenu: [] },
           { title: "Transactions", url: "", submenu: [] },
           { title: "Discount Programs", url: "", submenu: [] }
         ]
       },
-      { title: "Requests", url: "", submenu: [] },
+      { title: "Requests", url: "/requests", submenu: [] },
       {
         title: "Questions",
         url: "",
         submenu: [
-          { title: "Repository", url: "", submenu: [] },
-          { title: "Tagging", url: "", submenu: [] },
+          { title: "Repository", url: "/question", submenu: [] },
+          { title: "Tagging", url: "/question/tagging", submenu: [] },
           { title: "Responses", url: "", submenu: [] }
         ]
       },
@@ -96,8 +96,8 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Response", url: "", submenu: [] }
         ]
       },
-      { title: "Products", url: "", submenu: [] },
-      { title: "Catalogs", url: "", submenu: [] },
+      { title: "Products", url: "/product", submenu: [] },
+      { title: "Catalogs", url: "/catalog", submenu: [] },
       { title: "Batches", url: "", submenu: [] }
     ]
   },
@@ -105,15 +105,15 @@ export const sidebarMenus: ISidebarMenu[] = [
     title: "Discovery",
     url: "",
     submenu: [
-      { title: "Reports", url: "#", submenu: [] },
-      { title: "Mail Merge", url: "#", submenu: [] },
-      { title: "Analysis", url: "#", submenu: [] },
+      { title: "Reports", url: "", submenu: [] },
+      { title: "Mail Merge", url: "", submenu: [] },
+      { title: "Analysis", url: "", submenu: [] },
       {
         title: "Analysis",
-        url: "#",
+        url: "",
         submenu: [
-          { title: "Discount Analyzer", url: "#", submenu: [] },
-          { title: "Master P & L Calculator", url: "#", submenu: [] }
+          { title: "Discount Analyzer", url: "", submenu: [] },
+          { title: "Master P & L Calculator", url: "", submenu: [] }
         ]
       },
       {
@@ -124,34 +124,34 @@ export const sidebarMenus: ISidebarMenu[] = [
             title: "Sections",
             url: "",
             submenu: [
-              { title: "Section Instructors", url: "#", submenu: [] },
-              { title: "Section Schedule and Location", url: "#", submenu: [] }
+              { title: "Section Instructors", url: "", submenu: [] },
+              { title: "Section Schedule and Location", url: "", submenu: [] }
             ]
           },
           {
             title: "Financial",
             url: "",
             submenu: [
-              { title: "Credits", url: "#", submenu: [] },
-              { title: "Payment Dues", url: "#", submenu: [] },
-              { title: "Agent Enrollment Revenue", url: "#", submenu: [] }
+              { title: "Credits", url: "", submenu: [] },
+              { title: "Payment Dues", url: "", submenu: [] },
+              { title: "Agent Enrollment Revenue", url: "", submenu: [] }
             ]
           },
           {
             title: "Activity",
             url: "",
             submenu: [
-              { title: "Student Academic", url: "#", submenu: [] },
-              { title: "Student Enrollment", url: "#", submenu: [] },
-              { title: "Other Activity", url: "#", submenu: [] }
+              { title: "Student Academic", url: "", submenu: [] },
+              { title: "Student Enrollment", url: "", submenu: [] },
+              { title: "Other Activity", url: "", submenu: [] }
             ]
           },
           {
             title: "System",
             url: "",
             submenu: [
-              { title: "Gateway Activity", url: "#", submenu: [] },
-              { title: "System Schedule", url: "#", submenu: [] }
+              { title: "Gateway Activity", url: "", submenu: [] },
+              { title: "System Schedule", url: "", submenu: [] }
             ]
           }
         ]

@@ -30,7 +30,7 @@ export default function Sidebar(props: { collapsed: boolean }) {
                     return (
                       <Menu.SubMenu key={i + " " + j} title={y.title}>
                         {y.submenu.map((z, k) => (
-                          <Menu.Item key={j + " " + i + " " + k}>
+                          <Menu.Item className={z.url === "" ? "disabled-link" : ""} key={j + " " + i + " " + k}>
                             <Link to={z.url || "#"}>{z.title}</Link>
                           </Menu.Item>
                         ))}
@@ -38,7 +38,7 @@ export default function Sidebar(props: { collapsed: boolean }) {
                     )
                   }
                   return (
-                    <Menu.Item key={j + " " + i}>
+                    <Menu.Item className={y.url === "" ? "disabled-link" : ""} key={j + " " + i}>
                       <Link to={y.url || "#"}>{y.title}</Link>
                     </Menu.Item>
                   )

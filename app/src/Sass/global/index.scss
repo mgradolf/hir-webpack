@@ -20,3 +20,7 @@
   max-height: 65vh;
   overflow: scroll;
 }
+
+.disabled-link {
+  pointer-events: none;
+}
