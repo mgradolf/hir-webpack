@@ -1,7 +1,11 @@
 import { Col, Row, Checkbox, Select, Typography } from "antd"
 import React, { useState, useEffect } from "react"
 
-import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import {
+  findPossibleBuildings,
+  findPossibleRooms,
+  findPossibleSites
+} from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import {
   IFilterFieldComponent,
   IFilterGenericComponentProps,
@@ -35,7 +39,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   useEffect(() => {
     async function loadBuildings() {
-      const res = await findPossibleBuildings(props.value.SiteID as number)
+      const res = await findPossibleBuildings([props.value.SiteID as number])
       if (Array.isArray(res.data)) {
         setBuildings(res.data)
       }
@@ -48,7 +52,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   useEffect(() => {
     async function loadRooms() {
-      const res = await findPossibleRooms(props.value.BuildingID as number)
+      const res = await findPossibleRooms([props.value.BuildingID as number])
       if (Array.isArray(res.data)) {
         setRooms(res.data)
       }

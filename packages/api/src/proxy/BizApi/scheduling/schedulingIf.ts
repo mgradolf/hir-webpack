@@ -5,6 +5,7 @@ export const config: Iconfig = {
   Service: "com.jenzabar.jxntm.server.bizapi.scheduling.SchedulingIF",
   Module: "hir",
   Actions: {
+    findMeetingTypes: "findMeetingTypes",
     findPossibleSites: "findPossibleSites",
     findPossibleBuildings: "findPossibleBuildings",
     findPossibleRooms: "findPossibleRooms",
