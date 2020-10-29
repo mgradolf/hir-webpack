@@ -3,8 +3,16 @@ import React from "react"
 import moment from "moment"
 
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
-import { ITableWrapperProps } from "~/Component/Section/SectionTable"
 import { REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
+
+export interface ITableWrapperProps {
+  id?: string
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+  offeringID?: number
+}
 
 function StudentListTable(props: ITableWrapperProps) {
   const columns = [

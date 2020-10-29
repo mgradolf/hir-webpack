@@ -73,7 +73,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
         meta={getSectionEnrollmentActivitySearchMeta(SectionID)}
         title="Find Student Enrollment Activity"
         visible={true}
-        isChecked={false}
+        isCheckeble={false}
         toggleVisiibility={() => console.log("s")}
         onApplyChanges={(newValues, count) => {
           const Params: any = newValues

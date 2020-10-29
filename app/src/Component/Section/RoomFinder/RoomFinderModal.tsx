@@ -133,7 +133,7 @@ function RoomFinderModal(props: IRoomFinderProps) {
           meta={RoomFinderMeta}
           initialFilter={(filterData === null ? initialRoomCriteria : (filterData as unknown)) as RecordType}
           visible
-          isChecked={false}
+          isCheckeble={false}
           toggleVisiibility={() => {
             closeRoomFinderModal()
             setSelectedRoom(null)

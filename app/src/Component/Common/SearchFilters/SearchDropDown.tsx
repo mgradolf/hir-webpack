@@ -12,8 +12,8 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
 
   const { refLookupService, displayKey, valueKey } = props
   useEffect(() => {
-    setLoading(true)
-    refLookupService &&
+    if (refLookupService) {
+      setLoading(true)
       refLookupService().then((x) => {
         if (x.success && displayKey && valueKey) {
           x.data = x.data.map((y: any) => ({
@@ -24,6 +24,7 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
         }
         setLoading(false)
       })
+    }
   }, [refLookupService, displayKey, valueKey])
 
   return (
@@ -31,7 +32,7 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
       <Select
         loading={loading}
         aria-label={props.ariaLabel}
-        style={props.isChecked ? { width: 150 } : {}}
+        style={props.isCheckeble ? { width: 150 } : {}}
         value={props.value}
         onChange={(value) => props.filterValueChanged(props.fieldName, value)}
       >

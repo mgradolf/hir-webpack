@@ -22,7 +22,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
     <div className="site-layout-content">
       <OrderItemsSearchFilters
         meta={OrderItemsFiltersMeta}
-        isChecked={false}
+        isCheckeble={false}
         isModalView={true}
         visible={true}
         title="Search Order Items"

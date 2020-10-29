@@ -5,11 +5,11 @@ import { Space, Row, Col } from "antd"
 import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import SectionMenu from "~/Component/Section/SectionMenu"
 import { ColumnsType } from "antd/lib/table"
+import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
 
-export interface ITableWrapperProps {
+interface ITableWrapperProps {
   id?: string
-  dataSource: Array<any>
-  loading: boolean
+  searchParams: { [key: string]: any }
   isModal?: boolean
   rowSelection?: any
   offeringID?: number
@@ -175,8 +175,8 @@ export default function SectionTable(props: ITableWrapperProps) {
   return (
     <ResponsiveTable
       columns={columns}
-      dataSource={props.dataSource}
-      loading={props.loading}
+      searchFunc={searchSection}
+      searchParams={props.searchParams}
       bordered
       breakpoints={["md", "lg", "xl", "xxl"]}
       responsiveColumnIndices={[1, 2, 3, 5, 6, 7, 8]}

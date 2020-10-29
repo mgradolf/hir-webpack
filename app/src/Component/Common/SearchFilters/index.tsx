@@ -28,13 +28,13 @@ interface IFilterColumnProps {
   onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
   initialFilter: { [key: string]: string }
   isModalView: boolean
-  isChecked?: boolean
+  isCheckeble?: boolean
 }
 
 type Show = { [key: string]: boolean }
 
 export default function (props: IFilterColumnProps) {
-  const isChecked = props.isChecked === undefined ? true : props.isChecked
+  const isCheckeble = props.isCheckeble === undefined ? true : props.isCheckeble
   const [filterData, setFilterData] = useState<RecordType>(props.initialFilter)
   const initialShow = props.meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
 
@@ -105,9 +105,7 @@ export default function (props: IFilterColumnProps) {
             {...field}
             key={i}
             value={filterData[fieldName]}
-            show={show[fieldName]}
-            isChecked={isChecked}
-            toggleCheckboxHandler={toggleShow(fieldName)}
+            isCheckeble={isCheckeble}
             filterValueChanged={onChangeField}
           />
         )
@@ -119,9 +117,7 @@ export default function (props: IFilterColumnProps) {
             {...field}
             key={i}
             value={filterData[fieldName]}
-            show={show[fieldName]}
-            isChecked={isChecked}
-            toggleCheckboxHandler={toggleShow(fieldName)}
+            isCheckeble={isCheckeble}
             filterValueChanged={onChangeField}
           />
         )
@@ -133,9 +129,7 @@ export default function (props: IFilterColumnProps) {
             {...field}
             key={i}
             value={filterData[fieldName]}
-            show={show[fieldName]}
-            isChecked={isChecked}
-            toggleCheckboxHandler={toggleShow(fieldName)}
+            isCheckeble={isCheckeble}
             filterValueChanged={onChangeField}
           />
         )
@@ -148,9 +142,7 @@ export default function (props: IFilterColumnProps) {
             key={i}
             value={filterData[field.valueKey as string]}
             value2={filterData[field.valueKey2 as string]}
-            show={show[fieldName]}
-            isChecked={isChecked}
-            toggleCheckboxHandler={toggleShow(fieldName)}
+            isCheckeble={isCheckeble}
             filterValueChanged={onChangeDatePickersField}
           />
         )
@@ -163,6 +155,7 @@ export default function (props: IFilterColumnProps) {
             key: i,
             value: filterData,
             show,
+            isCheckeble,
             toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
             filterValueChanged: onChangeFieldCopmonent
           }}
@@ -173,7 +166,7 @@ export default function (props: IFilterColumnProps) {
     return null
   })
 
-  const filterContent = isChecked ? (
+  const filterContent = isCheckeble ? (
     filterFieldsArray
   ) : (
     <Form
@@ -192,9 +185,9 @@ export default function (props: IFilterColumnProps) {
       className={props.visible ? `gutter-row ${styles.offeringFilter}` : "hidden"}
       xs={24}
       sm={24}
-      md={props.isModalView ? (!isChecked ? 24 : 12) : 6}
+      md={props.isModalView ? (!isCheckeble ? 24 : 12) : 6}
     >
-      {isChecked && (
+      {isCheckeble && (
         <Row>
           <Col span={12}>
             <Title level={4}>{props.title}</Title>
@@ -219,7 +212,26 @@ export default function (props: IFilterColumnProps) {
             const filterCount = Object.keys(filterData).filter(
               (key) => filterData[key] !== "" && filterData[key] !== "*"
             ).length
-            props.onApplyChanges(filterData, filterCount)
+
+            const params: { [key: string]: any } = filterData
+            console.log("filterData ", filterData)
+            const objectKeys = Object.keys(params)
+            objectKeys.forEach((key) => {
+              if (
+                params[key] === undefined ||
+                params[key] === null ||
+                params[key] === "" ||
+                params[key] === "0" ||
+                params[key] === 0
+              ) {
+                delete params[key]
+              }
+              if (!isNaN(Number(params[key]))) {
+                params[key] = Number(params[key])
+              }
+            })
+            console.log("params ", params)
+            props.onApplyChanges(params, filterCount)
           }}
         >
           Apply

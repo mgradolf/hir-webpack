@@ -4,7 +4,15 @@ import React, { useState, useEffect } from "react"
 import { findPossibleBuildings } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
-import { ITableWrapperProps } from "~/Component/Section/SectionTable"
+
+export interface ITableWrapperProps {
+  id?: string
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+  offeringID?: number
+}
 
 function RoomListTable(props: ITableWrapperProps & { extraData: { SiteID: number } }) {
   const [roomTypesMap, setRommTypesMap] = useState<{ [key: number]: string } | null>(null)

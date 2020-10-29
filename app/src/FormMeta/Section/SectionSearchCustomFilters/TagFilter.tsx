@@ -1,25 +1,22 @@
-import { Row, Checkbox, Select, Col, Input } from "antd"
+import { Select, Col, Input } from "antd"
 import React, { useEffect, useState } from "react"
-
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
 import {
   IFilterFieldComponent,
   IFilterGenericComponentProps,
-  InputCol,
-  LabelCol
+  SearchComponentWrapper
 } from "~/Component/Common/SearchFilters/common"
-import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 
 const { Option } = Select
-
-export default function TagFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
+const fieldNames = {
+  combotagType: "ComboSearchTagTypeIDHierarchy",
+  combotagName: "ComboSearchTagHierarchy",
+  tagType: "TagTypeID",
+  tagName: "TagName"
+}
+export default function TagFilter(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   const [tagTypes, setTagTypes] = useState<any[]>([])
-  const [isSearchTagHierarcy, setIsSearchTagHierarchy] = useState<boolean>(
-    Boolean(props.value.ComboSearchTagHierarchy) ||
-      Boolean(props.value.ComboSearchTagTypeIDHierarchy) ||
-      Boolean(props.show.IsSearchTagHierarchy)
-  )
-  const { show, toggleCheckboxHandler, filterValueChanged, value } = props
+  const [isSearchTagHierarcy, setIsSearchTagHierarchy] = useState<boolean>(false)
 
   useEffect(() => {
     async function fetchTagTypes() {
@@ -31,104 +28,84 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
     fetchTagTypes()
   }, [])
 
-  let fieldNameState: { inactive: any; active: any }
-
-  if (isSearchTagHierarcy) {
-    fieldNameState = {
-      active: {
-        tagType: "ComboSearchTagTypeIDHierarchy",
-        tagName: "ComboSearchTagHierarchy"
-      },
-      inactive: {
-        tagType: "TagTypeID",
-        tagName: "TagName"
-      }
+  const onTagTypeChangeHandler = (value: string | number) => {
+    const update = {
+      [fieldNames.combotagType]: isSearchTagHierarcy ? value : "",
+      [fieldNames.tagType]: isSearchTagHierarcy ? "" : value
     }
-  } else {
-    fieldNameState = {
-      inactive: {
-        tagType: "ComboSearchTagTypeIDHierarchy",
-        tagName: "ComboSearchTagHierarchy"
-      },
-      active: {
-        tagType: "TagTypeID",
-        tagName: "TagName"
-      }
-    }
+    props.filterValueChanged(update)
   }
-
-  const onChangeHandler = (fieldType: "tagType" | "tagName", value: string | number) => {
-    filterValueChanged({
-      [fieldNameState.inactive.tagType]: "",
-      [fieldNameState.inactive.tagName]: "",
-      [fieldNameState.active[fieldType]]: value
-    })
+  const onTagNameChangeHandler = (value: string | number) => {
+    const update = {
+      [fieldNames.combotagName]: isSearchTagHierarcy ? value : "",
+      [fieldNames.tagName]: isSearchTagHierarcy ? "" : value
+    }
+    props.filterValueChanged(update)
   }
 
   return (
     <Col style={{ paddingLeft: 0 }}>
-      <Row>
-        <LabelCol>
-          <Checkbox checked={show.IsSearchTagHierarchy} onChange={toggleCheckboxHandler("IsSearchTagHierarchy")}>
-            Is Search Tag Hierarchy
-          </Checkbox>
-        </LabelCol>
-        <InputCol className={show.IsSearchTagHierarchy ? styles.offeringFilterField : "hidden"}>
-          <Select
-            aria-label="Is Search Tag Hierarchy"
-            style={{ width: 250 }}
-            value={isSearchTagHierarcy.toString()}
-            // eslint-disable-next-line no-eval
-            onChange={(value) => setIsSearchTagHierarchy(eval(value))}
-          >
-            <Option value="true">Yes</Option>
-            <Option value="false">No</Option>
-          </Select>
-        </InputCol>
-      </Row>
-      <Row>
-        <LabelCol>
-          <Checkbox
-            checked={show[fieldNameState.active.tagType]}
-            onChange={toggleCheckboxHandler(fieldNameState.active.tagType)}
-          >
-            Tag Type
-          </Checkbox>
-        </LabelCol>
-        <InputCol className={show[fieldNameState.active.tagType] ? styles.offeringFilterField : "hidden"}>
-          <Select
-            aria-label="Tag Type"
-            style={{ width: 250 }}
-            value={value[fieldNameState.active.tagType]}
-            onChange={(value) => onChangeHandler("tagType", value)}
-          >
-            {tagTypes.map(({ Name: label, ID: value }, i) => (
-              <Option value={value} key={`${value}_${i}`}>
-                {label}
-              </Option>
-            ))}
-          </Select>
-        </InputCol>
-      </Row>
-      <Row>
-        <LabelCol>
-          <Checkbox
-            checked={show[fieldNameState.active.tagName]}
-            onChange={toggleCheckboxHandler(fieldNameState.active.tagName)}
-          >
-            Tag Name
-          </Checkbox>
-        </LabelCol>
-        <InputCol className={show[fieldNameState.active.tagName] ? styles.offeringFilterField : "hidden"}>
-          <Input
-            aria-label="Tag Name"
-            name={fieldNameState.active.tagName}
-            defaultValue=""
-            value={value[fieldNameState.active.tagName] === "*" ? "" : value[fieldNameState.active.tagName]}
-            onChange={(e) => onChangeHandler("tagName", e.target.value)}
-          />
-        </InputCol>
-      </Row>
+      <SearchComponentWrapper {...props} fieldName="">
+        <Select
+          aria-label="Is Search Tag Hierarchy"
+          style={{ width: 250 }}
+          defaultValue={isSearchTagHierarcy.toString()}
+          value={isSearchTagHierarcy.toString()}
+          // eslint-disable-next-line no-eval
+          onChange={(value) => setIsSearchTagHierarchy(eval(value))}
+        >
+          <Option value="true" key="true">
+            Yes
+          </Option>
+          <Option value="false" key="false">
+            No
+          </Option>
+        </Select>
+      </SearchComponentWrapper>
+      {isSearchTagHierarcy && (
+        <>
+          {" "}
+          <SearchComponentWrapper {...props} label="Tag Type" fieldName={fieldNames.tagType}>
+            <Select
+              aria-label="Tag Type"
+              style={{ width: 250 }}
+              value={props.value[fieldNames.tagType]}
+              onChange={(value) => onTagTypeChangeHandler(value)}
+            >
+              {tagTypes.map(({ Name: label, ID: value }, i) => (
+                <Option value={value} key={`${value}_${i}`}>
+                  {label}
+                </Option>
+              ))}
+            </Select>
+          </SearchComponentWrapper>
+          <SearchComponentWrapper {...props} label="Tag Name" fieldName={fieldNames.tagName}>
+            <Input aria-label="Tag Name" defaultValue="" onChange={(e) => onTagNameChangeHandler(e.target.value)} />
+          </SearchComponentWrapper>
+        </>
+      )}
+      {!isSearchTagHierarcy && (
+        <>
+          {" "}
+          <SearchComponentWrapper {...props} label="Tag Type" fieldName={fieldNames.combotagType}>
+            <Select
+              aria-label="Tag Type"
+              style={{ width: 250 }}
+              value={props.value[fieldNames.combotagType]}
+              onChange={(value) => onTagTypeChangeHandler(value)}
+            >
+              {tagTypes.map(({ Name: label, ID: value }, i) => (
+                <Option value={value} key={`${value}_${i}`}>
+                  {label}
+                </Option>
+              ))}
+            </Select>
+          </SearchComponentWrapper>
+          <SearchComponentWrapper {...props} label="Tag Name" fieldName={fieldNames.combotagName}>
+            <Input aria-label="Tag Name" defaultValue="" onChange={(e) => onTagNameChangeHandler(e.target.value)} />
+          </SearchComponentWrapper>
+        </>
+      )}
     </Col>
   )
 }
