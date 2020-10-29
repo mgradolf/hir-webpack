@@ -119,7 +119,7 @@ function SectionLookupModal(props: ISectionLookupModal) {
           <ResponsiveTable
             columns={columns}
             searchFunc={searchSection}
-            searchParams={[searchParams]}
+            searchParams={searchParams}
             isModal
             rowKey="SectionID"
             rowSelection={rowSelection}
