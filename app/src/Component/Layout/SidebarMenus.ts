@@ -39,7 +39,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "People",
         url: "",
         submenu: [
-          { title: "Persons", url: "", submenu: [] },
+          { title: "Persons", url: "/person", submenu: [] },
           { title: "Students", url: "", submenu: [] },
           { title: "Instructors", url: "", submenu: [] },
           { title: "Forget Me Requests", url: "", submenu: [] }
@@ -52,7 +52,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Offerings ", url: "/offering", submenu: [] },
           { title: "Sections", url: "/section", submenu: [] },
-          { title: "Registrations", url: "", submenu: [] },
+          { title: "Registrations", url: "/registration", submenu: [] },
           { title: "Waitlist Entries", url: "/waitlist", submenu: [] }
         ]
       },
