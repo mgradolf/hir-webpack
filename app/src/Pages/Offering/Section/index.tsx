@@ -41,7 +41,7 @@ export default function OfferingPage(props: RouteComponentProps<{ offeringID: st
           title={""}
           isModalView={false}
           visible={showFilter}
-          toggleVisiibility={toggleFilter}
+          hideFilters={toggleFilter}
           meta={SectionSearchFilterMeta}
           initialFilter={searchParams}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {

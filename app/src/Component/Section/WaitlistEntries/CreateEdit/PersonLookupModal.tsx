@@ -83,7 +83,7 @@ export default function PersonLookupModal(props: IPersonLookupModal) {
             initialFilter={filterData}
             title="Person Filter"
             visible
-            toggleVisiibility={() => props.closePersonLookupModal && props.closePersonLookupModal(false)}
+            hideFilters={() => props.closePersonLookupModal && props.closePersonLookupModal(false)}
             onApplyChanges={(newFilterValues, newFilterCount) => {
               updateFilterData({
                 ...filterData,

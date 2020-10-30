@@ -13,7 +13,7 @@ interface ISectionLookupModal {
   closeModal: (sections?: any[]) => void
 }
 
-function SectionLookupModal(props: ISectionLookupModal) {
+export function SectionLookupModal(props: ISectionLookupModal) {
   const columns: ColumnsType<RecordType> = [
     {
       title: "Section Number",
@@ -109,7 +109,7 @@ function SectionLookupModal(props: ISectionLookupModal) {
             initialFilter={searchParams}
             title={""}
             visible
-            toggleVisiibility={() => {
+            hideFilters={() => {
               setSelectedSections([])
             }}
             onApplyChanges={(newSearchParams, newSearchParamsCount) => {

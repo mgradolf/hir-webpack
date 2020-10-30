@@ -26,7 +26,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
         isModalView={true}
         visible={true}
         title="Search Order Items"
-        toggleVisiibility={() => {
+        hideFilters={() => {
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {

@@ -95,7 +95,7 @@ type ISearchOptions = {
 
 interface IFilterColumnProps {
   visible: boolean
-  toggleVisiibility: () => void
+  hideFilters: () => void
   onApplyChanges: (newValues: IFilterValues, appliedFilterCount: number) => void
   data: IFilterValues
 }
@@ -110,7 +110,7 @@ export function FilterColumn(props: IFilterColumnProps) {
     countries,
     institutionStatuses
   ] = useQualifiedInstructorFilterData()
-  const { visible, toggleVisiibility, data } = props
+  const { visible, hideFilters, data } = props
   const [searchOptions, updateSearchOptions] = useState<ISearchOptions>({
     AvailableForSectionID: [],
     CanTeachOfferingID: [],
@@ -171,7 +171,7 @@ export function FilterColumn(props: IFilterColumnProps) {
           <Title level={4}>Instructor Filter</Title>
         </Col>
         <Col span={12} className={styles.padding5px}>
-          <CloseOutlined onClick={toggleVisiibility} style={{ fontSize: "20px", color: "black", float: "right" }} />
+          <CloseOutlined onClick={hideFilters} style={{ fontSize: "20px", color: "black", float: "right" }} />
         </Col>
       </Row>
       <Row className={styles.filterRow}>

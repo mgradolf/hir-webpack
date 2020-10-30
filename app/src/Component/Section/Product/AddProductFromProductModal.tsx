@@ -68,7 +68,7 @@ function AddProductFromProductModal({ sectionId, closeAddProductFromProductModal
             isModalView
             meta={ProductSearchFilterMeta}
             title="Product Filter"
-            toggleVisiibility={() => {
+            hideFilters={() => {
               closeAddProductFromProductModal()
               setSelectedProduct([])
             }}

@@ -64,7 +64,7 @@ function AddOfferingFromRequisiteGroupModal({
             initialFilter={filterData}
             title={""}
             visible
-            toggleVisiibility={() => {
+            hideFilters={() => {
               closeAddOfferingFromRequisiteGroupModal()
               setSelectedOfferings([])
             }}

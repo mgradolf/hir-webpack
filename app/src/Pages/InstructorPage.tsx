@@ -55,7 +55,7 @@ export default function InstructorPage() {
         isModalView={true}
         meta={InstructorSearchFiltersMeta}
         title="Instructor Filter"
-        toggleVisiibility={() => {
+        hideFilters={() => {
           console.log("p")
         }}
         onApplyChanges={(newFilterValues, newFilterCount) => {

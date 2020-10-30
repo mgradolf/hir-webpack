@@ -50,7 +50,7 @@ export default function WaitlistEntriesPage(props: RouteComponentProps<{ section
         visible={true}
         isCheckeble={false}
         isModalView
-        toggleVisiibility={() => console.log("meo")}
+        hideFilters={() => console.log("meo")}
         onApplyChanges={(newFilterValues, appliedFilterCount) => {
           console.log(newFilterValues)
           console.log(appliedFilterCount)

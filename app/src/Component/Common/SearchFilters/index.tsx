@@ -24,7 +24,7 @@ interface IFilterColumnProps {
   meta: IFilterField[]
   visible: boolean
   title: string
-  toggleVisiibility: () => void
+  hideFilters?: () => void
   onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
   initialFilter: { [key: string]: string }
   isModalView: boolean
@@ -187,16 +187,13 @@ export default function (props: IFilterColumnProps) {
       sm={24}
       md={props.isModalView ? (!isCheckeble ? 24 : 12) : 6}
     >
-      {isCheckeble && (
+      {isCheckeble && props.hideFilters && (
         <Row>
           <Col span={12}>
             <Title level={4}>{props.title}</Title>
           </Col>
           <Col span={12} className={styles.padding5px}>
-            <CloseOutlined
-              onClick={props.toggleVisiibility}
-              style={{ fontSize: "20px", color: "black", float: "right" }}
-            />
+            <CloseOutlined onClick={props.hideFilters} style={{ fontSize: "20px", color: "black", float: "right" }} />
           </Col>
         </Row>
       )}

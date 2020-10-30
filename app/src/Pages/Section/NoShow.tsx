@@ -53,7 +53,7 @@ export default function NoShow(props: RouteComponentProps<{ sectionID: string }>
         isModalView={true}
         visible={true}
         title="Search No Show Items"
-        toggleVisiibility={() => {
+        hideFilters={() => {
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {

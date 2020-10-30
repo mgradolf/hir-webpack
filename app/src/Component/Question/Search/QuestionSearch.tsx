@@ -55,7 +55,7 @@ export default function QuestionSearch(props: IQuestionSearch) {
       visible={true}
       isCheckeble={false}
       isModalView
-      toggleVisiibility={() => {
+      hideFilters={() => {
         console.log("do nothing")
       }}
       meta={QuestionSearchFiltersMeta}

@@ -76,7 +76,7 @@ function AddInstructorFromInstructorModal({
             isModalView
             meta={InstructorSearchFiltersMeta}
             title="Instructor Filter"
-            toggleVisiibility={() => {
+            hideFilters={() => {
               closeAddInstructorFromInstructorModal()
               setSelectedInstructors([])
             }}

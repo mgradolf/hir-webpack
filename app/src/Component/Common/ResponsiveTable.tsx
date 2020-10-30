@@ -10,7 +10,7 @@ export type RecordType = { [key: string]: string }
 // only one set of breakpoints, we need support for multiple set of
 // breakpoints
 
-interface IDataTableProps extends TableProps<RecordType> {
+export interface IDataTableProps extends TableProps<RecordType> {
   columns: ColumnsType<RecordType>
   searchParams?: any
   searchFunc?: (Params: any) => Promise<IApiResponse>

@@ -17,7 +17,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
         isModalView={true}
         visible={true}
         title="Search Order Items"
-        toggleVisiibility={() => {
+        hideFilters={() => {
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {

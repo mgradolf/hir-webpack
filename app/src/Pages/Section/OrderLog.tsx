@@ -85,7 +85,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
         title="Find Order Activity"
         visible={true}
         isCheckeble={false}
-        toggleVisiibility={() => console.log("s")}
+        hideFilters={() => console.log("s")}
         onApplyChanges={(newValues, count) => {
           const Params: any = newValues
           Params.SectionIDs = [SectionID]

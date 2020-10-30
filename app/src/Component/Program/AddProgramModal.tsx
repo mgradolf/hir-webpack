@@ -75,7 +75,7 @@ function AddProgramModal() {
           initialFilter={(filterData === null ? initialData : (filterData as unknown)) as RecordType}
           visible
           isCheckeble={false}
-          toggleVisiibility={() => {
+          hideFilters={() => {
             closeAddProgramModal()
             setSelectedProgram(null)
           }}

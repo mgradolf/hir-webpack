@@ -66,7 +66,7 @@ export default function ProductPage(props: ITableWrapperProps) {
         isCheckeble={false}
         meta={ProductSearchFilterMeta}
         title="Product Filter"
-        toggleVisiibility={() => {
+        hideFilters={() => {
           console.log("meo")
         }}
         onApplyChanges={(newFilterValues, newFilterCount) => {

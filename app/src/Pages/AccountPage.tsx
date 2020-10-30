@@ -26,7 +26,7 @@ export default function AccountPage() {
         title="Account Filter"
         visible={true}
         isCheckeble={false}
-        toggleVisiibility={() => console.log("s")}
+        hideFilters={() => console.log("s")}
         onApplyChanges={(newFilterValues, newFilterCount) => {
           updateFilterData(newFilterValues)
         }}

@@ -43,7 +43,7 @@ function RequestPage(props: RouteComponentProps<{ sectionID?: string }>) {
           title={"Request Filter"}
           isModalView={false}
           visible={showFilter}
-          toggleVisiibility={toggleFilter}
+          hideFilters={toggleFilter}
           meta={RequestSearchFilterMeta}
           initialFilter={filterData}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
