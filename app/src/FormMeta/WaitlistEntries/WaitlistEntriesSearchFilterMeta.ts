@@ -5,7 +5,7 @@ import WaitlistSearchCustomLookupFilter from "~/FormMeta/WaitlistEntries/Waitlis
 const sectionMeta: IFilterField[] = [
   {
     label: "Section Lookup",
-    fieldName: "",
+    fieldName: "SectionID",
     customFilterComponent: SectionLookupOpenButton
   },
   {

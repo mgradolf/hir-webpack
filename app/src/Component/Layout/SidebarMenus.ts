@@ -41,11 +41,11 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Persons", url: "/person", submenu: [] },
           { title: "Students", url: "", submenu: [] },
-          { title: "Instructors", url: "", submenu: [] },
+          { title: "Instructors", url: "/instructor", submenu: [] },
           { title: "Forget Me Requests", url: "", submenu: [] }
         ]
       },
-      { title: "Accounts", url: "", submenu: [] },
+      { title: "Accounts", url: "/account", submenu: [] },
       {
         title: "Courses",
         url: "",
@@ -63,7 +63,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Offerings", url: "", submenu: [] },
           { title: "Programs", url: "", submenu: [] },
           { title: "Applications", url: "", submenu: [] },
-          { title: "Enrollments", url: "", submenu: [] }
+          { title: "Enrollments", url: "/enrollment", submenu: [] }
         ]
       },
       { title: "Students Certificate", url: "", submenu: [] },
@@ -141,9 +141,9 @@ export const sidebarMenus: ISidebarMenu[] = [
             title: "Activity",
             url: "",
             submenu: [
-              { title: "Student Academic", url: "", submenu: [] },
-              { title: "Student Enrollment", url: "", submenu: [] },
-              { title: "Other Activity", url: "", submenu: [] }
+              { title: "Student Academic", url: "/search/activity/academic-log", submenu: [] },
+              { title: "Student Enrollment", url: "/search/activity/enrollment-log", submenu: [] },
+              { title: "Other Activity", url: "/search/activity/order-log", submenu: [] }
             ]
           },
           {

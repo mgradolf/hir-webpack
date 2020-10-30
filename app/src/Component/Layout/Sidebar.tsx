@@ -18,9 +18,6 @@ export default function Sidebar(props: { collapsed: boolean }) {
     >
       <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
       <Menu theme="dark" mode="inline">
-        {/* {sidebarMenus.map((x, i) => (
-          <SidebarMenuRenderer sidebarMenu={x} keyprefix={i} />
-        ))} */}
         {sidebarMenus.map((x, i) => {
           if (x.submenu && x.submenu?.length > 0) {
             return (
@@ -29,11 +26,28 @@ export default function Sidebar(props: { collapsed: boolean }) {
                   if (y.submenu.length > 0) {
                     return (
                       <Menu.SubMenu key={i + " " + j} title={y.title}>
-                        {y.submenu.map((z, k) => (
-                          <Menu.Item className={z.url === "" ? "disabled-link" : ""} key={j + " " + i + " " + k}>
-                            <Link to={z.url || "#"}>{z.title}</Link>
-                          </Menu.Item>
-                        ))}
+                        {
+                          // eslint-disable-next-line
+                          y.submenu.map((z, k) => {
+                            if (z.submenu.length > 0) {
+                              return (
+                                // eslint-disable-next-line
+                                <Menu.SubMenu key={i + " " + j + " " + k} title={z.title}>
+                                  {z.submenu.map((w, m) => {
+                                    return (
+                                      <Menu.Item
+                                        className={w.url === "" ? "disabled-link" : ""}
+                                        key={j + " " + i + " " + k + "" + m}
+                                      >
+                                        <Link to={w.url || "#"}>{w.title}</Link>
+                                      </Menu.Item>
+                                    )
+                                  })}
+                                </Menu.SubMenu>
+                              )
+                            }
+                          })
+                        }
                       </Menu.SubMenu>
                     )
                   }
@@ -61,19 +75,45 @@ export default function Sidebar(props: { collapsed: boolean }) {
   )
 }
 
-// function SidebarMenuRenderer(props: { sidebarMenu: ISidebarMenu; keyprefix: number }) {
-// if (props.sidebarMenu.submenu.length > 0) {
+// export default function Sidebar(props: { collapsed: boolean }) {
 //   return (
-//     <Menu.SubMenu key={props.keyprefix} title={props.sidebarMenu.title}>
-//       {props.sidebarMenu.submenu.map((x, i) => {
-//         return <>{x.submenu.length > 0 && <SidebarMenuRenderer sidebarMenu={x} keyprefix={i} />}</>
-//       })}
-//     </Menu.SubMenu>
+//     <Layout.Sider
+//       style={{ minHeight: "100vh" }}
+//       breakpoint="xs"
+//       collapsedWidth={0}
+//       trigger={null}
+//       collapsible
+//       collapsed={props.collapsed}
+//     >
+//       <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
+//       <Menu theme="dark" mode="inline">
+//         {sidebarMenus.map((x, i) => (
+//           <SidebarMenuRenderer sidebarMenu={x} keyprefix={i} />
+//         ))}
+//         {sidebarMenus.map((x, i) => {})}
+//         <Menu.Item key="1000000" onClick={logout}>
+//           Logout
+//         </Menu.Item>
+//       </Menu>
+//     </Layout.Sider>
 //   )
 // }
+
+// function SidebarMenuRenderer(props: { sidebarMenu: ISidebarMenu; keyprefix: number }) {
+//   if (props.sidebarMenu.submenu.length === 0) {
+//     return (
+//       <Menu.Item key={props.keyprefix}>
+//         <Link to={props.sidebarMenu.url || "#"}>{props.sidebarMenu.title}</Link>
+//       </Menu.Item>
+//     )
+//   }
 //   return (
-//     <Menu.Item>
-//       <Link to={props.sidebarMenu.url || "#"}>{props.sidebarMenu.title}</Link>
-//     </Menu.Item>
+//     <>
+//       <Menu.SubMenu key={props.keyprefix} title={props.sidebarMenu.title}>
+//         {props.sidebarMenu.submenu.map((x, i) => {
+//           return <SidebarMenuRenderer sidebarMenu={x} keyprefix={i} />
+//         })}
+//       </Menu.SubMenu>
+//     </>
 //   )
 // }
