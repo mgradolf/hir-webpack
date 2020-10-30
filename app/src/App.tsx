@@ -46,7 +46,7 @@ import SectionNoShowPage from "~/Pages/Section/NoShow"
 import PersonPage from "~/Pages/PersonPage"
 import InstructorPage from "~/Pages/InstructorPage"
 import AccountPage from "~/Pages/AccountPage"
-
+import ProductPage from "~/Pages/ProductPage"
 import QuestionPage from "~/Pages/QuestionPage"
 import SectionQuestionPage from "~/Pages/Section/Question"
 
@@ -113,7 +113,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/order/:orderID" component={SectionOrderDetailsPage} />
 
       <Route exact path="/waitlist" component={WaitlistEntriesPage} />
-      <Route exact path="/product" component={SectionProductPage} />
+      <Route exact path="/product" component={ProductPage} />
       <Route exact path="/catalog" component={SectionCatalogPage} />
       <Route exact path="/question" component={QuestionPage} />
       <Route exact path="/question/tagging" component={SectionQuestionPage} />

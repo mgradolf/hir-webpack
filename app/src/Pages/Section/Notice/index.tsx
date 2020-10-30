@@ -79,7 +79,6 @@ function SectionNoticePage(props: RouteComponentProps<{ sectionID: string }>) {
   }
 
   const sectionID = props.match.params.sectionID
-  console.log("Section ID: ", sectionID)
 
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionNoticeItems, setSectionNoticeItems] = useState<Array<any>>([])

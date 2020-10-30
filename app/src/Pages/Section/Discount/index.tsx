@@ -101,7 +101,6 @@ function SectionDiscountPage(props: RouteComponentProps<{ sectionID: string }>) 
   }
 
   const sectionID = props.match.params.sectionID
-  console.log("Section ID: ", sectionID)
 
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionDiscountItems, setSectionDiscountItems] = useState<Array<any>>([])
