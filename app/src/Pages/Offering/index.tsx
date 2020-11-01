@@ -65,16 +65,16 @@
 import React, { useState } from "react"
 import { Space } from "antd"
 import StandardSearchList from "~/Component/Common/Page/StandardSearchList"
-import { SectionLookupModal } from "~/Component/LookupModals/SectionLookupModal"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { ColumnsType } from "antd/lib/table"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
-import { Link } from "react-router-dom"
+import { Link, RouteComponentProps } from "react-router-dom"
+import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
 import moment from "moment"
 
-export default function Offering() {
+export default function Offering(props: RouteComponentProps) {
   const [showModal, setShowModal] = useState(false)
   const columns: ColumnsType<RecordType> = [
     {
@@ -128,7 +128,7 @@ export default function Offering() {
     <StandardSearchList
       title="Manage Offerings"
       modalOpenButtonText="+ Create Offering"
-      modalToBeOpen={<SectionLookupModal closeModal={() => setShowModal(false)} />}
+      modalToBeOpen={<OfferingFormModal closeModal={() => setShowModal(false)} />}
       meta={OfferingSearchFilterMeta}
       showModal={showModal}
       setShowModal={setShowModal}

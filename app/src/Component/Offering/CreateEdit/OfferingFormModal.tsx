@@ -1,20 +1,19 @@
 import * as React from "react"
 import { Form } from "antd"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
 import CreateForm1 from "~/Component/Offering/CreateEdit/Form1"
 import CreateForm2 from "~/Component/Offering/CreateEdit/Form2"
 import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showCreateOfferingModal } from "~/Store/ModalState"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
-import { redirect } from "~/Store/ConnectedRoute"
+// import { connect } from "react-redux"
+// import { Dispatch } from "redux"
+// import { showCreateOfferingModal } from "~/Store/ModalState"
+// import { redirect } from "~/Store/ConnectedRoute"
 
 interface ICreateNewOfferingProps {
   offeringId?: number
-  redirect?: (url: string) => void
-  closeCreateOfferingModal?: () => void
+  closeModal?: () => void
 }
 
 const fieldNames: IOfferingFieldNames = {
@@ -43,7 +42,7 @@ const fieldNames: IOfferingFieldNames = {
   PaymentGatewayAccountID: "PaymentGatewayAccountID"
 }
 
-function CreateNewOffering(props: ICreateNewOfferingProps) {
+export default function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [editMode, setEditMode] = useState(false)
   const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
   const [formInstance] = Form.useForm()
@@ -52,8 +51,8 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 
   const handleCancel = () => {
-    if (props.closeCreateOfferingModal) {
-      props.closeCreateOfferingModal()
+    if (props.closeModal) {
+      props.closeModal()
     }
     goBackToOfferingTypeForm()
   }
@@ -71,8 +70,8 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
           setFirstFormVisible(false)
           setSecondFormVisible(true)
         } else {
-          if (props.closeCreateOfferingModal) {
-            props.closeCreateOfferingModal()
+          if (props.closeModal) {
+            props.closeModal()
           }
         }
       } else {
@@ -118,43 +117,37 @@ function CreateNewOffering(props: ICreateNewOfferingProps) {
   }
 
   return (
-    <Modal
-      showModal={true}
-      width="800px"
-      loading={!(firstFormVisible || secondFormVisible)}
-      apiCallInProgress={apiCallInProgress}
-      children={
-        <>
-          {firstFormVisible && !editMode && (
-            <CreateForm1
-              fieldNames={fieldNames}
-              initialFormValue={initialFormValue}
-              formInstance={formInstance}
-              handleCancel={handleCancel}
-              handleSelected={onOfferingTypeSelected}
-            />
-          )}
-          {secondFormVisible && (
-            <CreateForm2
-              editMode={editMode}
-              fieldNames={fieldNames}
-              initialFormValue={initialFormValue}
-              formInstance={formInstance}
-              goBackToFirstForm={goBackToOfferingTypeForm}
-              setApiCallInProgress={setApiCallInProgress}
-            />
-          )}
-        </>
-      }
-    />
+    <Modal width="800px" loading={!(firstFormVisible || secondFormVisible)} apiCallInProgress={apiCallInProgress}>
+      <>
+        {firstFormVisible && !editMode && (
+          <CreateForm1
+            fieldNames={fieldNames}
+            initialFormValue={initialFormValue}
+            formInstance={formInstance}
+            handleCancel={handleCancel}
+            handleSelected={onOfferingTypeSelected}
+          />
+        )}
+        {secondFormVisible && (
+          <CreateForm2
+            editMode={editMode}
+            fieldNames={fieldNames}
+            initialFormValue={initialFormValue}
+            formInstance={formInstance}
+            goBackToFirstForm={goBackToOfferingTypeForm}
+            setApiCallInProgress={setApiCallInProgress}
+          />
+        )}
+      </>
+    </Modal>
   )
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeCreateOfferingModal: () => dispatch(showCreateOfferingModal({ value: false })),
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
+// const mapDispatchToProps = (dispatch: Dispatch) => {
+//   return {
+//     closeModal: () => dispatch(showCreateOfferingModal({ value: false })),
+//     redirect: (url: string) => dispatch(redirect(url))
+//   }
+// }
 
-export default connect(undefined, mapDispatchToProps)(CreateNewOffering)
+// export default connect(undefined, mapDispatchToProps)(CreateNewOffering)
