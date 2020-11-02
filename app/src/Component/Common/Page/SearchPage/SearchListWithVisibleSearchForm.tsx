@@ -7,8 +7,9 @@ import ResponsiveTable, { IDataTableProps } from "~/Component/Common/ResponsiveT
 export interface ISearchListWithVisibleSearchFormProp {
   title: string
   blocks?: JSX.Element[]
-  meta: IFilterField[]
+  meta?: IFilterField[]
   tableProps: IDataTableProps
+  initialFilter?: { [key: string]: string }
 }
 
 export default function SearchListWithVisibleSearchForm(props: ISearchListWithVisibleSearchFormProp) {
@@ -19,17 +20,20 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
       <Row>
         <Typography.Title level={3}>{props.title}</Typography.Title>
       </Row>
-      <SearchFilters
-        title={""}
-        isModalView={true}
-        isCheckeble={false}
-        visible={true}
-        meta={props.meta}
-        initialFilter={{}}
-        onApplyChanges={(newFilterValues, appliedFilterCount) => {
-          setSearchParams(newFilterValues)
-        }}
-      />
+      {props.meta && (
+        <SearchFilters
+          title={""}
+          isModalView={true}
+          isCheckeble={false}
+          visible={true}
+          meta={props.meta}
+          initialFilter={props.initialFilter || {}}
+          onApplyChanges={(newFilterValues, appliedFilterCount) => {
+            setSearchParams(newFilterValues)
+            console.log(newFilterValues)
+          }}
+        />
+      )}
       <Row justify="end" gutter={[8, 8]}>
         {props.blocks && props.blocks.map((x) => <Col>{x}</Col>)}
       </Row>

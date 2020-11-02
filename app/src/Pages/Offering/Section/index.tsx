@@ -233,7 +233,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
         </>
       ]}
       hideSearchField={true}
-      title="Manage Offerings"
+      title="Manage Sections"
       meta={SectionSearchFilterMeta}
       tableProps={{
         columns: columns,

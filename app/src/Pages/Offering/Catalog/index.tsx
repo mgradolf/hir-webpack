@@ -90,9 +90,9 @@ function OfferingCatalogPage(props: RouteComponentProps<{ offeringID: string }>)
     async function searchOfferingCatalog() {
       setLoading(true)
 
-      const result = await findCatalog([{ OfferingID: offeringID }])
+      const result = await findCatalog({ OfferingID: offeringID })
 
-      if (result && result.success) {
+      if (result && result.success && Array.isArray(result.data)) {
         const publishedRowData = []
         for (let i = 0; i < result.data.length; i++) {
           if (result.data[i].isPublished) {

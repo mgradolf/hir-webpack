@@ -13,9 +13,9 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
   useEffect(() => {
     const loadCatalogs = () => {
       setLoading(true)
-      findCatalog([{ SectionID }])
+      findCatalog({ SectionID })
         .then((response) => {
-          if (response.success) setSectionCatalogs(response.data)
+          if (response.success && Array.isArray(response.data)) setSectionCatalogs(response.data)
         })
         .finally(() => {
           setLoading(false)

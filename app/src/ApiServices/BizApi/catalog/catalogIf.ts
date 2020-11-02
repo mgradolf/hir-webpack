@@ -5,7 +5,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 /* -------------------------------------------------------------------------- */
 
 export function findCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return CatalogIf[config.Actions.findCatalogs](Params)
+  return CatalogIf[config.Actions.findCatalogs]([Params])
 }
 
 export function updateBulkContent(Params: { [key: string]: any }): Promise<IApiResponse> {

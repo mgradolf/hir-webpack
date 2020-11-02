@@ -9,13 +9,14 @@ import ResponsiveTable, { IDataTableProps } from "~/Component/Common/ResponsiveT
 export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]
   title: string
-  meta: IFilterField[]
+  meta?: IFilterField[]
   tableProps: IDataTableProps
+  initialFilter?: { [key: string]: string }
 }
 
 export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
   const [filterCount, setFilterCount] = useState(0)
-  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({})
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(props.initialFilter || {})
   const [showFilter, setShowFilter] = useState(false)
   return (
     <div className="site-layout-content">
@@ -40,41 +41,22 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
         </Col>
         {props.blocks && props.blocks.map((x) => <Col>{x}</Col>)}
       </Row>
-      {/* <Row>
-        <Col className={`gutter-row ${styles.textAlign}`} xs={24} sm={24} md={12}>
-          {!showFilter && (
-            <Button type="primary" className={styles.marginRight5px} onClick={() => setShowFilter(true)}>
-              Filters
-            </Button>
-          )}
-          <>
-            {props.setShowModal && (
-              <Button
-                type="primary"
-                style={{ float: "right" }}
-                onClick={() => props.setShowModal && props.setShowModal(true)}
-              >
-                {props.modalOpenButtonText}
-              </Button>
-            )}
-            {props.showModal && props.modalToBeOpen}
-          </>
-        </Col>
-      </Row> */}
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        <SearchFilters
-          title={""}
-          isModalView={false}
-          visible={showFilter}
-          hideFilters={() => setShowFilter(false)}
-          meta={props.meta}
-          initialFilter={searchParams}
-          onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            setSearchParams(newFilterValues)
-            setFilterCount(appliedFilterCount)
-            setShowFilter(false)
-          }}
-        />
+        {props.meta && (
+          <SearchFilters
+            title={""}
+            isModalView={false}
+            visible={showFilter}
+            hideFilters={() => setShowFilter(false)}
+            meta={props.meta}
+            initialFilter={searchParams}
+            onApplyChanges={(newFilterValues, appliedFilterCount) => {
+              setSearchParams(newFilterValues)
+              setFilterCount(appliedFilterCount)
+              setShowFilter(false)
+            }}
+          />
+        )}
         <Col
           className={`gutter-row ${styles.offeringDetails}`}
           xs={24}

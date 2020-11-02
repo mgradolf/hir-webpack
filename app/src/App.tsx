@@ -28,7 +28,7 @@ import SectionSchedulePage from "~/Pages/Section/Schedule"
 import SectionBudgetPage from "~/Pages/Section/Budget"
 import SectionNoticePage from "~/Pages/Section/Notice"
 import SectionDiscountPage from "~/Pages/Section/Discount"
-import RegistrationPage from "~/Pages/Section/Registration"
+import SectionRegistrationPage from "~/Pages/Section/Registration"
 import SectionTagPage from "~/Pages/Section/Tag"
 import RequestPage from "~/Pages/Request"
 import SectionProductPage from "~/Pages/Section/Product"
@@ -43,12 +43,15 @@ import SectionOrderPaymentsPage from "~/Pages/Section/Order/Payments"
 import SectionOrderDetailsPage from "~/Pages/Section/Order/OrderDetails"
 import SectionCommentPage from "~/Pages/Section/Comment"
 import SectionNoShowPage from "~/Pages/Section/NoShow"
+
 import PersonPage from "~/Pages/PersonPage"
 import InstructorPage from "~/Pages/InstructorPage"
 import AccountPage from "~/Pages/AccountPage"
 import ProductPage from "~/Pages/ProductPage"
 import QuestionPage from "~/Pages/QuestionPage"
 import SectionQuestionPage from "~/Pages/Section/Question"
+import CatalogPage from "~/Pages/CatalogPage"
+import RegistrationPage from "~/Pages/RegistrationPage"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
@@ -91,7 +94,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
       <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
       <Route exact path="/section/:sectionID/question" component={SectionQuestionPage} />
-      <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
+      <Route exact path="/section/:sectionID/registration" component={SectionRegistrationPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
       <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
       <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
@@ -114,7 +117,7 @@ function App(props: AppProps): JSX.Element {
 
       <Route exact path="/waitlist" component={WaitlistEntriesPage} />
       <Route exact path="/product" component={ProductPage} />
-      <Route exact path="/catalog" component={SectionCatalogPage} />
+      <Route exact path="/catalog" component={CatalogPage} />
       <Route exact path="/question" component={QuestionPage} />
       <Route exact path="/question/tagging" component={SectionQuestionPage} />
       <Route exact path="/requests" component={RequestPage} />

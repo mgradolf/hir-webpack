@@ -123,7 +123,7 @@ export default function DataTable(props: IDataTableProps) {
         if (searchParams[key] === "") delete searchParams[key]
       })
       searchFunc(searchParams).then((x) => {
-        if (x.success) {
+        if (x.success && Array.isArray(x.data)) {
           const data = x.data.map((y: any, i: number) => {
             y.rowkey = props.rowKey + " " + i
             return y
