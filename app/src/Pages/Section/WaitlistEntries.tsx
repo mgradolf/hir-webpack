@@ -21,7 +21,7 @@ export default function WaitlistEntriesPage(props: RouteComponentProps<{ section
   useEffect(() => {
     eventBus.subscribe(REFRESH_PAGE, () => {
       setLoading(true)
-      findWaitListEntries([{ SectionID }]).then((x) => {
+      findWaitListEntries({ SectionID }).then((x) => {
         if (x.success) setWaitListEntries(x.data)
         setLoading(false)
       })
@@ -58,7 +58,7 @@ export default function WaitlistEntriesPage(props: RouteComponentProps<{ section
             if (newFilterValues[key] === "") delete newFilterValues[key]
           })
           setLoading(true)
-          findWaitListEntries([{ ...newFilterValues, SectionID }]).then((x) => {
+          findWaitListEntries({ ...newFilterValues, SectionID }).then((x) => {
             if (x.success) {
               setWaitListEntries(x.data)
               document.getElementById("WaitListEntryTable")?.scrollIntoView({

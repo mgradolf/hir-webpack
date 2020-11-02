@@ -15,7 +15,7 @@ import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
-  SectionID: number
+  SectionID?: number
   setShowCreateModal: (flag: boolean) => void
 }
 
@@ -143,7 +143,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
             <DropDown
               label="Seat Group"
               fieldName={fieldNames.SeatGroupID}
-              searchFunc={() => getSeatGroups(props.SectionID)}
+              searchFunc={() => (props.SectionID ? getSeatGroups({ SectionID: props.SectionID }) : getSeatGroups({}))}
               displayField="Name"
               valueField="SeatGroupID"
               labelColumn={{ span: 6 }}

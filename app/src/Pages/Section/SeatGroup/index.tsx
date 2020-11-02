@@ -126,7 +126,7 @@ function SectionSeatgroupPage(props: RouteComponentProps<{ sectionID: string }>)
     const loadSectionSeatGroups = async function () {
       setLoading(true)
 
-      const result = await getSeatGroups(Number(sectionID))
+      const result = await getSeatGroups({ SectionID: Number(sectionID) })
 
       if (result && result.success) {
         setLoading(false)

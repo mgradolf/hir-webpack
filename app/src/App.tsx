@@ -32,7 +32,7 @@ import SectionRegistrationPage from "~/Pages/Section/Registration"
 import SectionTagPage from "~/Pages/Section/Tag"
 import RequestPage from "~/Pages/Request"
 import SectionProductPage from "~/Pages/Section/Product"
-import WaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
+import SectionWaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
 import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
 import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
 import SectionOrderLogPage from "~/Pages/Section/OrderLog"
@@ -52,6 +52,7 @@ import QuestionPage from "~/Pages/QuestionPage"
 import SectionQuestionPage from "~/Pages/Section/Question"
 import CatalogPage from "~/Pages/CatalogPage"
 import RegistrationPage from "~/Pages/RegistrationPage"
+import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
@@ -102,7 +103,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/order/:orderID" component={SectionOrderDetailsPage} />
       <Route exact path="/section/:sectionID/request" component={RequestPage} />
       <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
-      <Route exact path="/section/:sectionID/waitlist" component={WaitlistEntriesPage} />
+      <Route exact path="/section/:sectionID/waitlist" component={SectionWaitlistEntriesPage} />
       <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
       <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
       <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />

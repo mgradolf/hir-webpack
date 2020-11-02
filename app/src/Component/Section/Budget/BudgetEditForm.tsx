@@ -40,7 +40,7 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
       }
     })()
     ;(async () => {
-      const response = await getSeatGroups(props.sectionId)
+      const response = await getSeatGroups({ SectiondID: props.sectionId })
       if (response && response.success && response.data) {
         setSeatGroupItems(response.data)
       }
