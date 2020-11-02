@@ -1,14 +1,11 @@
+import React from "react"
 import { ITableWrapperProps } from "~/Component/Offering/OfferingTable"
 import { Row, Col } from "antd"
-import React, { useState } from "react"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import SearchPage from "~/Component/Common/Page/SearchPage"
 import ProductSearchFilterMeta from "~/FormMeta/Section/Product/ProductSearchFilterMeta"
-import ProductSearchFilters from "~/Component/Common/SearchFilters"
 import { searchProducts } from "~/ApiServices/Service/ProductService"
 
 export default function ProductPage(props: ITableWrapperProps) {
-  const [filterData, updateFilterData] = useState<{ [key: string]: any }>({})
-
   const columns = [
     {
       title: "Name",
@@ -58,36 +55,22 @@ export default function ProductPage(props: ITableWrapperProps) {
   }
 
   return (
-    <div>
-      <ProductSearchFilters
-        initialFilter={filterData}
-        visible={true}
-        isModalView={true}
-        isCheckeble={false}
-        meta={ProductSearchFilterMeta}
-        title="Product Filter"
-        hideFilters={() => {
-          console.log("meo")
-        }}
-        onApplyChanges={(newFilterValues, newFilterCount) => {
-          updateFilterData(newFilterValues)
-        }}
-      />
-
-      <ResponsiveTable
-        columns={columns}
-        searchFunc={searchProducts}
-        searchParams={filterData}
-        loading={props.loading}
-        bordered
-        breakpoints={["xxl"]}
-        responsiveColumnIndices={[1, 2, 3]}
-        rowSelection={props.rowSelection}
-        expandableRowRender={expandableRowRender}
-        rowKey="ProductID"
-        pagination={{ position: ["topLeft"], pageSize: 20 }}
-        isModal={props.isModal}
-      />
-    </div>
+    <SearchPage
+      title="Products"
+      meta={ProductSearchFilterMeta}
+      tableProps={{
+        columns: columns,
+        searchFunc: searchProducts,
+        loading: props.loading,
+        bordered: true,
+        breakpoints: ["xxl"],
+        responsiveColumnIndices: [1, 2, 3],
+        rowSelection: props.rowSelection,
+        expandableRowRender: expandableRowRender,
+        rowKey: "ProductID",
+        pagination: { position: ["topLeft"], pageSize: 20 },
+        isModal: props.isModal
+      }}
+    ></SearchPage>
   )
 }

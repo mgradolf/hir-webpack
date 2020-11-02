@@ -7,7 +7,7 @@ import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import ResponsiveTable, { IDataTableProps } from "~/Component/Common/ResponsiveTable"
 
 export interface ISearchListWithHiddenSearchFormProp {
-  blocks: JSX.Element[]
+  blocks?: JSX.Element[]
   title: string
   meta: IFilterField[]
   tableProps: IDataTableProps
@@ -38,9 +38,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             </Button>
           )}
         </Col>
-        {props.blocks.map((x) => (
-          <Col>{x}</Col>
-        ))}
+        {props.blocks && props.blocks.map((x) => <Col>{x}</Col>)}
       </Row>
       {/* <Row>
         <Col className={`gutter-row ${styles.textAlign}`} xs={24} sm={24} md={12}>

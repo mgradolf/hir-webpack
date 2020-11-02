@@ -6,7 +6,7 @@ import ResponsiveTable, { IDataTableProps } from "~/Component/Common/ResponsiveT
 
 export interface ISearchListWithVisibleSearchFormProp {
   title: string
-  blocks: JSX.Element[]
+  blocks?: JSX.Element[]
   meta: IFilterField[]
   tableProps: IDataTableProps
 }
@@ -31,9 +31,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
         }}
       />
       <Row justify="end" gutter={[8, 8]}>
-        {props.blocks.map((x) => (
-          <Col>{x}</Col>
-        ))}
+        {props.blocks && props.blocks.map((x) => <Col>{x}</Col>)}
       </Row>
       <ResponsiveTable {...props.tableProps} searchParams={searchParams} />
     </div>

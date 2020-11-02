@@ -11,7 +11,7 @@ function useQuery() {
 
 interface IPage extends Partial<RouteComponentProps> {
   hideSearchField?: boolean
-  blocks: JSX.Element[]
+  blocks?: JSX.Element[]
   title: string
   meta: IFilterField[]
   tableProps: IDataTableProps
