@@ -63,8 +63,8 @@
 // export default OfferingPage
 
 import React, { useState } from "react"
-import { Space } from "antd"
-import StandardSearchList from "~/Component/Common/Page/StandardSearchList"
+import { Button, Space } from "antd"
+import SearchPage from "~/Component/Common/Page/SearchPage"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
@@ -125,13 +125,17 @@ export default function Offering(props: RouteComponentProps) {
   ]
 
   return (
-    <StandardSearchList
+    <SearchPage
+      blocks={[
+        <>
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
+            + Create Offering
+          </Button>
+          {showModal && <OfferingFormModal closeModal={() => setShowModal(false)} />}
+        </>
+      ]}
       title="Manage Offerings"
-      modalOpenButtonText="+ Create Offering"
-      modalToBeOpen={<OfferingFormModal closeModal={() => setShowModal(false)} />}
       meta={OfferingSearchFilterMeta}
-      showModal={showModal}
-      setShowModal={setShowModal}
       tableProps={{
         columns: columns,
         searchFunc: searchOffering,
@@ -139,6 +143,6 @@ export default function Offering(props: RouteComponentProps) {
         pagination: { position: ["topLeft"], pageSize: 20 },
         rowKey: "OfferingID"
       }}
-    ></StandardSearchList>
+    ></SearchPage>
   )
 }

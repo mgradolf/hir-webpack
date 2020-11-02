@@ -6,37 +6,43 @@ import SearchFilters from "~/Component/Common/SearchFilters"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import ResponsiveTable, { IDataTableProps } from "~/Component/Common/ResponsiveTable"
 
-interface IModal {
-  closeModal: (sections?: any[]) => void
-}
-
-interface IStandardSearchListProp {
+export interface ISearchListWithHiddenSearchFormProp {
+  blocks: JSX.Element[]
   title: string
-  modalOpenButtonText?: string
-  modalToBeOpen?: JSX.Element
-  showModal?: boolean
-  setShowModal?: (flag: boolean) => void
   meta: IFilterField[]
   tableProps: IDataTableProps
 }
 
-export default function StandardSearchList(props: IStandardSearchListProp) {
+export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
   const [filterCount, setFilterCount] = useState(0)
-  const [showFilter, setShowFilter] = useState(false)
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({})
-
+  const [showFilter, setShowFilter] = useState(false)
   return (
     <div className="site-layout-content">
       <Row>
         <Typography.Title level={3}>{props.title}</Typography.Title>
       </Row>
-      <Row>
-        <Col className="gutter-row" xs={24} sm={24} md={12}>
+      <Row justify="start" gutter={[8, 8]}>
+        <Col>
           <span>
             <FilterOutlined />
             <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
           </span>
         </Col>
+      </Row>
+      <Row justify="end" gutter={[8, 8]}>
+        <Col>
+          {!showFilter && (
+            <Button type="primary" onClick={() => setShowFilter(true)}>
+              Filters
+            </Button>
+          )}
+        </Col>
+        {props.blocks.map((x) => (
+          <Col>{x}</Col>
+        ))}
+      </Row>
+      {/* <Row>
         <Col className={`gutter-row ${styles.textAlign}`} xs={24} sm={24} md={12}>
           {!showFilter && (
             <Button type="primary" className={styles.marginRight5px} onClick={() => setShowFilter(true)}>
@@ -56,7 +62,7 @@ export default function StandardSearchList(props: IStandardSearchListProp) {
             {props.showModal && props.modalToBeOpen}
           </>
         </Col>
-      </Row>
+      </Row> */}
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <SearchFilters
           title={""}
