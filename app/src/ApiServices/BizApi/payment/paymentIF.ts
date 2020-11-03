@@ -4,5 +4,5 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 /*                              offering requisite section                              */
 /* -------------------------------------------------------------------------- */
 export function searchPayments(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return PaymentIF[config.Actions.searchPayment](Params)
+  return PaymentIF[config.Actions.searchPayment]([Params])
 }

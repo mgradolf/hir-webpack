@@ -16,7 +16,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
         isCheckeble={false}
         isModalView={true}
         visible={true}
-        title="Search Order Items"
+        title="Search Payment Items"
         hideFilters={() => {
           console.log("meo")
         }}
