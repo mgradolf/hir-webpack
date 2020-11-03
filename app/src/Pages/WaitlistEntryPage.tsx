@@ -10,7 +10,7 @@ import SearchPage from "~/Component/Common/Page/SearchPage"
 import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
-export default function SectionCatalog() {
+export default function WaitlistEntryPage() {
   const [entryToEdit, setEntryToEdit] = useState()
   const [showCreateModal, setShowCreateModal] = useState(false)
   useEffect(() => {

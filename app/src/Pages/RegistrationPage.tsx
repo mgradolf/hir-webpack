@@ -185,7 +185,7 @@ export default function SectionCatalog() {
   const registrationMeta: IFilterField[] = [
     {
       label: "Section Lookup",
-      fieldName: "",
+      fieldName: "SectionID",
       customFilterComponent: SectionLookupOpenButton
     }
   ]

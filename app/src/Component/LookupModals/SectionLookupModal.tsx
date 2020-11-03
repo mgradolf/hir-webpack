@@ -148,7 +148,10 @@ export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFil
           closeModal={(sections) => {
             if (sections && sections.length > 0) {
               setSelectedSection(sections[0])
-              props.filterValueChanged({ SectionID: sections[0].SectionID })
+              props.filterValueChanged({
+                [props.fieldName]:
+                  props.extraProps && props.extraProps.isArray ? [sections[0].SectionID] : sections[0].SectionID
+              })
             }
             setShowModal(false)
           }}

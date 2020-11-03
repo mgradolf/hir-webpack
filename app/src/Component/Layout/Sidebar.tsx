@@ -9,16 +9,9 @@ import { sidebarMenus } from "~/Component/Layout/SidebarMenus"
 export default function Sidebar(props: { collapsed: boolean }) {
   let counter = 0
   return (
-    <Layout.Sider
-      style={{ minHeight: "100vh" }}
-      breakpoint="xs"
-      collapsedWidth={0}
-      trigger={null}
-      collapsible
-      collapsed={props.collapsed}
-    >
+    <Layout.Sider width={250} breakpoint="xs" collapsedWidth={0} trigger={null} collapsible collapsed={props.collapsed}>
       <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
-      <Menu theme="dark" mode="inline">
+      <Menu theme="dark" mode="inline" style={{ overflow: "scroll", height: "100vh" }}>
         {sidebarMenus.map((x, i) => {
           if (x.submenu && x.submenu?.length > 0) {
             return (

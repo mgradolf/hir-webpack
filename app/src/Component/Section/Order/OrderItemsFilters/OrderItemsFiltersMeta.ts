@@ -8,7 +8,7 @@ import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupM
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Section Lookup",
-    fieldName: "",
+    fieldName: "SectionID",
     customFilterComponent: SectionLookupOpenButton
   },
   {

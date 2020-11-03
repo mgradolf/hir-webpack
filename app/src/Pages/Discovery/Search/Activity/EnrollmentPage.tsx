@@ -1,14 +1,11 @@
-import React, { useState } from "react"
-import { RouteComponentProps } from "react-router-dom"
+import React from "react"
 import { getStudentEnrollmentActivity } from "~/ApiServices/Service/ActivityService"
-import AcademicLogSearch from "~/Component/Common/SearchFilters"
-import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import { getSectionEnrollmentActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionEnrollmentActivitySearchMeta"
 import { ColumnsType } from "antd/lib/table"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
+import SearchPage from "~/Component/Common/Page/SearchPage"
 
-export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID: string }>) {
-  const SectionID = Number(props.match.params.sectionID)
-  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({ SectionIDs: [SectionID] })
+export default function AcademicLogPage() {
   const columns: ColumnsType<RecordType> = [
     {
       title: "Activity Date",
@@ -66,32 +63,20 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
       width: 100
     }
   ]
-
   return (
-    <div className="site-layout-content">
-      <AcademicLogSearch
-        meta={getSectionEnrollmentActivitySearchMeta}
-        title="Find Student Enrollment Activity"
-        visible={true}
-        isCheckeble={false}
-        hideFilters={() => console.log("s")}
-        onApplyChanges={(newValues, count) => {
-          const Params: any = newValues
-          Params.SectionIDs = [SectionID]
-          setSearchParams(Params)
-          console.log(newValues)
-        }}
-        initialFilter={{}}
-        isModalView
-      />
-      <EnrollmentLogTable
-        columns={columns}
-        searchFunc={getStudentEnrollmentActivity}
-        expandableColumnIndices={[5]}
-        responsiveColumnIndices={[2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
-        searchParams={searchParams}
-        rowKey="ActivityID"
-      />
-    </div>
+    <SearchPage
+      title="Enrollment Activity"
+      initialFilter={{}}
+      meta={getSectionEnrollmentActivitySearchMeta}
+      hideSearchField={false}
+      tableProps={{
+        columns: columns,
+        searchFunc: getStudentEnrollmentActivity,
+        expandableColumnIndices: [5],
+        responsiveColumnIndices: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        rowKey: "ActivityID",
+        pagination: { position: ["topLeft"], pageSize: 20 }
+      }}
+    ></SearchPage>
   )
 }

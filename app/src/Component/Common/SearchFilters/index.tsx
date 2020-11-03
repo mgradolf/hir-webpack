@@ -211,7 +211,7 @@ export default function (props: IFilterColumnProps) {
             ).length
 
             const params: { [key: string]: any } = filterData
-            console.log("filterData ", filterData)
+            console.log("filterData ", JSON.stringify(filterData))
             const objectKeys = Object.keys(params)
             objectKeys.forEach((key) => {
               if (
@@ -223,11 +223,11 @@ export default function (props: IFilterColumnProps) {
               ) {
                 delete params[key]
               }
-              if (!isNaN(Number(params[key]))) {
-                params[key] = Number(params[key])
-              }
+              // if (!isNaN(Number(params[key] && !Array.isArray(params[key])))) {
+              //   params[key] = Number(params[key])
+              // }
             })
-            console.log("params ", params)
+            console.log("params ", JSON.stringify(params))
             props.onApplyChanges(params, filterCount)
           }}
         >

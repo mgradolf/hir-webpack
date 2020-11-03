@@ -1,14 +1,12 @@
-import React, { useState } from "react"
-import { Link, RouteComponentProps } from "react-router-dom"
+import React from "react"
 import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
-import AcademicLogSearch from "~/Component/Common/SearchFilters"
-import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionOrderActivitySearchMeta"
 import { ColumnsType } from "antd/lib/table"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
+import SearchPage from "~/Component/Common/Page/SearchPage"
+import { Link } from "react-router-dom"
 
-export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
-  const SectionID = Number(props.match.params.sectionID)
-  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({ SectionIDs: [SectionID] })
+export default function AcademicLogPage() {
   const columns: ColumnsType<RecordType> = [
     {
       title: "User ID",
@@ -34,7 +32,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
       title: "Order Number",
       dataIndex: "OrderID",
       width: 100,
-      render: (text: any, record: any) => <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
+      render: (text: any, record: any) => <Link to={`/order/${record.OrderID}`}>{text}</Link>
     },
     {
       title: "Paid By",
@@ -79,30 +77,18 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
   ]
 
   return (
-    <div className="site-layout-content">
-      <AcademicLogSearch
-        meta={getSectionAcademicActivitySearchMeta}
-        title="Find Order Activity"
-        visible={true}
-        isCheckeble={false}
-        hideFilters={() => console.log("s")}
-        onApplyChanges={(newValues, count) => {
-          const Params: any = newValues
-          Params.SectionIDs = [SectionID]
-          setSearchParams(Params)
-          console.log(newValues)
-        }}
-        initialFilter={{}}
-        isModalView
-      />
-      <EnrollmentLogTable
-        columns={columns}
-        searchFunc={getOrderActivity}
-        expandableColumnIndices={[5]}
-        responsiveColumnIndices={[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
-        searchParams={searchParams}
-        rowKey="ActivityID"
-      />
-    </div>
+    <SearchPage
+      title="Order Activity"
+      initialFilter={{}}
+      meta={getSectionAcademicActivitySearchMeta}
+      hideSearchField={false}
+      tableProps={{
+        columns: columns,
+        searchFunc: getOrderActivity,
+        expandableColumnIndices: [5],
+        responsiveColumnIndices: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        pagination: { position: ["topLeft"], pageSize: 20 }
+      }}
+    ></SearchPage>
   )
 }

@@ -53,6 +53,9 @@ import SectionQuestionPage from "~/Pages/Section/Question"
 import CatalogPage from "~/Pages/CatalogPage"
 import RegistrationPage from "~/Pages/RegistrationPage"
 import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
+import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
+import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
+import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
 
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
@@ -128,9 +131,9 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/instructor" component={InstructorPage} />
       <Route exact path="/account" component={AccountPage} />
       <Route exact path="/enrollment" component={SectionEnrollmentLogPage} />
-      <Route exact path="/search/activity/academic-log" component={SectionAcademicLogPage} />
-      <Route exact path="/search/activity/enrollment-log" component={SectionEnrollmentLogPage} />
-      <Route exact path="/search/activity/order-log" component={SectionOrderLogPage} />
+      <Route exact path="/search/activity/academic-log" component={AcademicPage} />
+      <Route exact path="/search/activity/enrollment-log" component={EnrollmentPage} />
+      <Route exact path="/search/activity/order-log" component={OrderLogPage} />
       <Route component={NotFoundPage} />
     </Switch>
   )

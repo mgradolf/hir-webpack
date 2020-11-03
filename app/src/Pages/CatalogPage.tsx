@@ -60,7 +60,7 @@ export default function SectionCatalog() {
   const catalogMeta: IFilterField[] = [
     {
       label: "Section Lookup",
-      fieldName: "",
+      fieldName: "SectionID",
       customFilterComponent: SectionLookupOpenButton
     }
   ]
