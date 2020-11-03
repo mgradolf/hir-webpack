@@ -51,6 +51,7 @@ import ProductPage from "~/Pages/ProductPage"
 import QuestionPage from "~/Pages/QuestionPage"
 import SectionQuestionPage from "~/Pages/Section/Question"
 import CatalogPage from "~/Pages/CatalogPage"
+import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import RegistrationPage from "~/Pages/RegistrationPage"
 import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
@@ -130,7 +131,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/person" component={PersonPage} />
       <Route exact path="/instructor" component={InstructorPage} />
       <Route exact path="/account" component={AccountPage} />
-      <Route exact path="/enrollment" component={SectionEnrollmentLogPage} />
+      <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} />
       <Route exact path="/search/activity/academic-log" component={AcademicPage} />
       <Route exact path="/search/activity/enrollment-log" component={EnrollmentPage} />
       <Route exact path="/search/activity/order-log" component={OrderLogPage} />
