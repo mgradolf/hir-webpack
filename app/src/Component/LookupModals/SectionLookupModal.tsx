@@ -8,6 +8,7 @@ import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
 import moment from "moment"
 import { ColumnsType } from "antd/lib/table"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { FormInstance } from "antd/lib/form"
 
 interface ISectionLookupModal {
   closeModal: (sections?: any[]) => void
@@ -152,6 +153,45 @@ export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFil
                 [props.fieldName]:
                   props.extraProps && props.extraProps.isArray ? [sections[0].SectionID] : sections[0].SectionID
               })
+            }
+            setShowModal(false)
+          }}
+        />
+      )}
+    </Form.Item>
+  )
+}
+
+interface ISectionLookupFormField {
+  fieldName?: string
+  isArray?: boolean
+  formInstance?: FormInstance
+  setSectionID?: (id: number) => void
+}
+export function SectionLookupFormField(props: ISectionLookupFormField) {
+  const [showModal, setShowModal] = useState(false)
+  const [selectedSection, setSelectedSection] = useState<{ [key: string]: any }>({})
+  return (
+    <Form.Item label="Section" labelCol={{ span: 6 }}>
+      <Row>
+        <Col span="auto">
+          <Input value={selectedSection.SectionNumber} readOnly />
+        </Col>
+        <Col>
+          <Button onClick={() => setShowModal(true)}>Lookup</Button>
+        </Col>
+      </Row>
+      {showModal && (
+        <SectionLookupModal
+          closeModal={(sections) => {
+            if (sections && sections.length > 0) {
+              setSelectedSection(sections[0])
+              props.formInstance &&
+                props.fieldName &&
+                props.formInstance.setFieldsValue({
+                  [props.fieldName]: props.isArray ? [sections[0].SectionID] : sections[0].SectionID
+                })
+              props.setSectionID && props.setSectionID(sections[0].SectionID)
             }
             setShowModal(false)
           }}
