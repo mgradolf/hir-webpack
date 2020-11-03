@@ -1,7 +1,9 @@
 import { ColumnsType } from "antd/lib/table"
 import React from "react"
 import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
+import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
+import SearchPage from "~/Component/Common/Page/SearchPage"
 
 export default function PersonTable() {
   const columns: ColumnsType<RecordType> = [
@@ -19,12 +21,16 @@ export default function PersonTable() {
     { title: "Name", dataIndex: "Name", width: 150 }
   ]
   return (
-    <ResponsiveTable
-      columns={columns}
-      searchFunc={searchPersons}
-      searchParams={{}}
-      rowKey="PersonID"
-      pagination={{ position: ["topLeft"], pageSize: 20 }}
-    />
+    <SearchPage
+      title="Manage Persons"
+      meta={PersonSearchFilterMeta}
+      hideSearchField={false}
+      tableProps={{
+        columns: columns,
+        searchFunc: searchPersons,
+        rowKey: "PersonID",
+        pagination: { position: ["topLeft"], pageSize: 20 }
+      }}
+    ></SearchPage>
   )
 }

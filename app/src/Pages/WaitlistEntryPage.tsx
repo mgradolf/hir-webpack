@@ -139,7 +139,7 @@ export default function WaitlistEntryPage() {
         <WaitlistEntriesFormModal WaitListEntry={entryToEdit} setShowCreateModal={setShowCreateModal} />
       )}
       <SearchPage
-        title="Catalogs"
+        title="Waitlist Entries"
         initialFilter={{}}
         meta={WaitlistEntriesSearchFilterMeta}
         hideSearchField={false}
