@@ -1,12 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import InstructorSearchFiltersMeta from "~/FormMeta/Offering/QualifiedInstructorSearchFilterMeta"
-import InstructorSearchFilters from "~/Component/Common/SearchFilters"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
 import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
 import moment from "moment"
+import SearchPage from "~/Component/Common/Page/SearchPage"
 
 export default function InstructorPage() {
-  const [searchParamm, setSearchParamm] = useState<{ [key: string]: any }>({})
   const columns = [
     {
       title: "ID",
@@ -47,23 +45,16 @@ export default function InstructorPage() {
     }
   ]
   return (
-    <div className="site-layout-content">
-      <InstructorSearchFilters
-        initialFilter={searchParamm}
-        visible
-        isCheckeble={false}
-        isModalView={true}
-        meta={InstructorSearchFiltersMeta}
-        title="Instructor Filter"
-        hideFilters={() => {
-          console.log("p")
-        }}
-        onApplyChanges={(newFilterValues, newFilterCount) => {
-          setSearchParamm(newFilterValues)
-        }}
-      />
-
-      <ResponsiveTable rowKey="AccountID" columns={columns} searchFunc={searchFaculties} searchParams={searchParamm} />
-    </div>
+    <SearchPage
+      title="Manage Insttructors"
+      meta={InstructorSearchFiltersMeta}
+      hideSearchField={false}
+      tableProps={{
+        columns: columns,
+        searchFunc: searchFaculties,
+        rowKey: "PersonID",
+        pagination: { position: ["topLeft"], pageSize: 20 }
+      }}
+    ></SearchPage>
   )
 }
