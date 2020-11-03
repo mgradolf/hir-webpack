@@ -1,38 +1,30 @@
-import React, { useEffect, useState } from "react"
-import SearchFilters from "~/Component/Common/SearchFilters"
-import AccountTable from "~/Component/Account/AccountTable"
+import React from "react"
 import AccountSearchFilterMeta from "~/FormMeta/Account/AccountSearchFilterMeta"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
+import SearchPage from "~/Component/Common/Page/SearchPage"
+import { ColumnsType } from "antd/lib/table"
+import { RecordType } from "~/Component/Common/ResponsiveTable"
 
 export default function AccountPage() {
-  const [filterData, updateFilterData] = useState<{ [key: string]: any }>({})
-  const [loading, setLoading] = useState(false)
-  const [accounts, setAccounts] = useState<any[]>([])
-
-  useEffect(() => {
-    setLoading(true)
-    findAccountForLookUp([filterData]).then((x) => {
-      if (x.success) setAccounts(x.data)
-      setLoading(false)
-    })
-  }, [filterData])
-
+  const columns: ColumnsType<RecordType> = [
+    { title: "Account Type", dataIndex: "AccountTypeName", width: 150 },
+    { title: "Account Name", dataIndex: "AccountName", width: 150 },
+    { title: "Contact Name", dataIndex: "ContactName", width: 150 },
+    { title: "Phone", dataIndex: "TelephoneNumber", width: 150 },
+    { title: "Email Address", dataIndex: "EmailAddress", width: 150 },
+    { title: "Address", dataIndex: "BillingAddress", width: 150 }
+  ]
   return (
-    <div className="site-layout-content">
-      <SearchFilters
-        meta={AccountSearchFilterMeta}
-        isModalView={true}
-        initialFilter={filterData}
-        title="Account Filter"
-        visible={true}
-        isCheckeble={false}
-        hideFilters={() => console.log("s")}
-        onApplyChanges={(newFilterValues, newFilterCount) => {
-          updateFilterData(newFilterValues)
-        }}
-      />
-
-      <AccountTable dataSource={accounts} loading={loading} isModal={true} />
-    </div>
+    <SearchPage
+      title="Accounts"
+      meta={AccountSearchFilterMeta}
+      hideSearchField={false}
+      tableProps={{
+        columns: columns,
+        searchFunc: findAccountForLookUp,
+        rowKey: "AccountID",
+        pagination: { position: ["topLeft"], pageSize: 20 }
+      }}
+    ></SearchPage>
   )
 }

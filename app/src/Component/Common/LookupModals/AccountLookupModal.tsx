@@ -33,7 +33,7 @@ function AccountLookupModal(props: IAccountLookupModal) {
 
   useEffect(() => {
     setLoading(true)
-    findAccountForLookUp([filterData]).then((x) => {
+    findAccountForLookUp(filterData).then((x) => {
       if (x.success) setAccounts(x.data)
       setLoading(false)
     })
