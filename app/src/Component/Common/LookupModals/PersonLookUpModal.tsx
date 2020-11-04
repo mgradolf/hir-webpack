@@ -37,7 +37,7 @@ function PersonLookupModal(props: IPersonLookupModal) {
 
   useEffect(() => {
     setLoading(true)
-    searchPersons([filterData]).then((x) => {
+    searchPersons(filterData).then((x) => {
       if (x.success) setPersons(x.data)
       setLoading(false)
     })

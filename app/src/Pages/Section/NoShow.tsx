@@ -49,7 +49,7 @@ export default function NoShow(props: RouteComponentProps<{ sectionID: string }>
             ariaLabel: "OrderID"
           }
         ]}
-        isChecked={false}
+        isCheckeble={false}
         isModalView={true}
         visible={true}
         title="Search No Show Items"

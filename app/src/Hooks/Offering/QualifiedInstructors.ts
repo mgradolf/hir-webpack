@@ -79,7 +79,7 @@ export function useInstructors(filterData: IInstructorFilterValues): [boolean, a
         }
       })
 
-      const result = await searchFaculties([params])
+      const result = await searchFaculties(params)
 
       if (result && result.success) {
         setInstructorItems(result.data)

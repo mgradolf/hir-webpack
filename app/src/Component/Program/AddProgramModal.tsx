@@ -74,7 +74,7 @@ function AddProgramModal() {
           meta={ProgramSearchFilterMeta}
           initialFilter={(filterData === null ? initialData : (filterData as unknown)) as RecordType}
           visible
-          isChecked={false}
+          isCheckeble={false}
           toggleVisiibility={() => {
             closeAddProgramModal()
             setSelectedProgram(null)

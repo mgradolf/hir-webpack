@@ -32,17 +32,17 @@ import AccountLookupForOrderManagement from "~/Component/Section/Order/OrderMana
 
 export const OrderManagementSearchFilterMeta: IFilterField[] = [
   {
-    inputType: "PERSON_SELECTOR",
+    label: "Person Selector",
     fieldName: "",
     customFilterComponent: PersonSelectorForOrderManagement
   },
   {
-    inputType: "DATE_TYPE_SELECTOR",
+    label: "Date Type Selector",
     fieldName: "",
     customFilterComponent: DateTypelectorForOrderManagement
   },
   {
-    inputType: "TOTAL_AMOUNT_RANGE",
+    label: "Total Amount",
     fieldName: "",
     customFilterComponent: TotalAmountRangeForOrderManagement
   },
@@ -81,7 +81,7 @@ export const OrderManagementSearchFilterMeta: IFilterField[] = [
     ariaLabel: "ProductName"
   },
   {
-    inputType: "ACCOUNT_LOOKUP",
+    label: "Account Lookup",
     fieldName: "",
     customFilterComponent: AccountLookupForOrderManagement
   }

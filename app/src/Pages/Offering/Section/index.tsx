@@ -3,7 +3,7 @@ import { Row, Col, Typography } from "antd"
 import SectionFilterOpenButton from "~/Component/Section/SectionFilterOpenButton"
 import SectionTable from "~/Component/Section/SectionTable"
 import { RouteComponentProps } from "react-router-dom"
-import { useSectionFilterState, useSections } from "~/Hooks/Section"
+// import { useSectionFilterState, useSections } from "~/Hooks/Section"
 import SectionSearchFilters from "~/Component/Common/SearchFilters"
 import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
 import SectionModalOpenButton from "~/Component/Section/CreateEdit/SectionModalOpenButton"
@@ -13,17 +13,18 @@ const { useState } = React
 const { Title } = Typography
 
 export default function OfferingPage(props: RouteComponentProps<{ offeringID: string }>) {
-  const { filterData, updateFilterData } = useSectionFilterState()
-  const [showFilter, setFilterVisiblity] = useState<boolean>(false)
-  const [filterCount, setFilterCount] = useState<number>(0)
-
   const OfferingID = parseInt(props.match.params.offeringID) || undefined
-  const [loading, sectionItems] = useSections(filterData, OfferingID)
+  // const { filterData, updateFilterData } = useSectionFilterState()
+  // const [filterCount, setFilterCount] = useState<number>(0)
+
+  // const [loading, sectionItems] = useSections(filterData, OfferingID)
+  const [showFilter, setFilterVisiblity] = useState<boolean>(false)
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({})
+  const [filterCount, setFilterCount] = useState<number>(0)
 
   const toggleFilter = () => {
     setFilterVisiblity(!showFilter)
   }
-
   return (
     <div className="site-layout-content">
       <Row>
@@ -42,9 +43,9 @@ export default function OfferingPage(props: RouteComponentProps<{ offeringID: st
           visible={showFilter}
           toggleVisiibility={toggleFilter}
           meta={SectionSearchFilterMeta}
-          initialFilter={filterData}
+          initialFilter={searchParams}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            updateFilterData({ ...filterData, ...newFilterValues })
+            setSearchParams(newFilterValues)
             setFilterCount(appliedFilterCount)
             setFilterVisiblity(false)
           }}
@@ -55,7 +56,7 @@ export default function OfferingPage(props: RouteComponentProps<{ offeringID: st
           sm={24}
           md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
         >
-          <SectionTable dataSource={sectionItems} loading={loading} offeringID={OfferingID} />
+          <SectionTable searchParams={searchParams} offeringID={OfferingID} />
         </Col>
       </Row>
     </div>

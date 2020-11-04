@@ -105,7 +105,7 @@ function SectionLookupModal(props: ISectionLookupModal) {
           <SearchFilters
             meta={OfferingSearchFilterMeta}
             isModalView={true}
-            isChecked={false}
+            isCheckeble={false}
             initialFilter={searchParams}
             title={""}
             visible
@@ -113,16 +113,13 @@ function SectionLookupModal(props: ISectionLookupModal) {
               setSelectedSections([])
             }}
             onApplyChanges={(newSearchParams, newSearchParamsCount) => {
-              setSearchParams({
-                ...searchParams,
-                ...newSearchParams
-              })
+              setSearchParams(newSearchParams)
             }}
           />
           <ResponsiveTable
             columns={columns}
             searchFunc={searchSection}
-            searchParams={[searchParams]}
+            searchParams={searchParams}
             isModal
             rowKey="SectionID"
             rowSelection={rowSelection}

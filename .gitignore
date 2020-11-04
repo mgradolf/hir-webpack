@@ -4,3 +4,4 @@ lib/**/*
 .git-temp/**/*
 **/src/**/*.jsx
 **/src/**/*.js
+build

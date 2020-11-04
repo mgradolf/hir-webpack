@@ -14,7 +14,7 @@ export function deleteSection(Params: Array<any>): Promise<IApiResponse> {
 }
 
 export function searchSection(Params: Array<any>): Promise<IApiResponse> {
-  return CourseIf[config.Actions.searchSection](Params)
+  return CourseIf[config.Actions.searchSection]([Params])
 }
 
 export function findSectionNotice(Params: Array<any>): Promise<IApiResponse> {

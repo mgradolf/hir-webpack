@@ -133,7 +133,7 @@ export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: 
         meta={getSectionAcademicActivitySearchMeta(SectionID)}
         title="Find Student Academic Activity"
         visible={true}
-        isChecked={false}
+        isCheckeble={false}
         toggleVisiibility={() => console.log("s")}
         onApplyChanges={(newValues, count) => {
           const Params: any = newValues

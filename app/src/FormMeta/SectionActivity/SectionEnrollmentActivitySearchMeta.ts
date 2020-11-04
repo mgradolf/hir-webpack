@@ -20,7 +20,7 @@ export function getSectionEnrollmentActivitySearchMeta(SectionID: number): IFilt
       ariaLabel: "User ID"
     },
     {
-      inputType: "STUDENT_FINDER_BY_NAME_ID",
+      label: "Student Lookup",
       fieldName: "StudentID",
       customFilterComponent: StudentSearchFilterByNameID
     },

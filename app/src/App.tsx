@@ -5,8 +5,7 @@ import { Provider, connect } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { History } from "history"
 import LoginPage from "~/Pages/Login/LoginPage"
-// // import HomePage from "~/Pages/HomePage"
-import ProfilePage from "~/Pages/ProfilePage"
+import HomePage from "~/Pages/HomePage"
 import AboutPage from "~/Pages/AboutPage"
 import AdminPage from "~/Pages/AdminPage"
 import NotFoundPage from "~/Pages/NotFoundPage"
@@ -45,6 +44,9 @@ import SectionOrderPaymentsPage from "~/Pages/Section/Order/Payments"
 import SectionOrderDetailsPage from "~/Pages/Section/Order/OrderDetails"
 import SectionCommentPage from "~/Pages/Section/Comment"
 import SectionNoShowPage from "~/Pages/Section/NoShow"
+import PersonPage from "~/Pages/PersonPage"
+import InstructorPage from "~/Pages/InstructorPage"
+import AccountPage from "~/Pages/AccountPage"
 
 import QuestionPage from "~/Pages/QuestionPage"
 import SectionQuestionPage from "~/Pages/Section/Question"
@@ -66,8 +68,7 @@ function App(props: AppProps): JSX.Element {
     </Switch>
   ) : (
     <Switch>
-      <Route exact path="/" component={OfferingPage} />
-      <Route path="/profile" component={ProfilePage} />
+      <Route exact path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
 
@@ -121,11 +122,17 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/requests" component={RequestPage} />
       <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
 
-      <Route exact path="/registrations" component={RegistrationPage} />
-      <Route exact path="/registrations/:registrationID" component={RequestDetailsPage} />
+      <Route exact path="/registration" component={RegistrationPage} />
+      <Route exact path="/registration/:registrationID" component={RegistrationDetailsPage} />
 
       <Route exact path="/waitlist" component={WaitlistEntriesPage} />
-      {/* <Route exact path="/question" component={QuestionPage} /> */}
+      <Route exact path="/person" component={PersonPage} />
+      <Route exact path="/instructor" component={InstructorPage} />
+      <Route exact path="/account" component={AccountPage} />
+      <Route exact path="/enrollment" component={SectionEnrollmentLogPage} />
+      <Route exact path="/search/activity/academic-log" component={SectionAcademicLogPage} />
+      <Route exact path="/search/activity/enrollment-log" component={SectionEnrollmentLogPage} />
+      <Route exact path="/search/activity/order-log" component={SectionOrderLogPage} />
       <Route component={NotFoundPage} />
     </Switch>
   )

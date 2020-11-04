@@ -1,4 +1,4 @@
-import { Col, Form, Row, Checkbox, Select, Typography } from "antd"
+import { Col, Select } from "antd"
 import React, { useState, useEffect } from "react"
 
 import {
@@ -9,16 +9,12 @@ import {
 import {
   IFilterFieldComponent,
   IFilterGenericComponentProps,
-  InputCol,
-  LabelCol
+  SearchComponentWrapper
 } from "~/Component/Common/SearchFilters/common"
-import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
-
-const { Text } = Typography
 const { Option } = Select
 
 export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
-  const { show, value, toggleCheckboxHandler, filterValueChanged, isChecked } = props
+  const { value, filterValueChanged, isCheckeble } = props
   const hideRoomDropdown = props.extraProps && props.extraProps.hideRoomDropdown
 
   const [sites, setSites] = useState<any[]>([])
@@ -34,7 +30,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     }
 
     loadSites()
-  }, [])
+  }, [isCheckeble])
 
   useEffect(() => {
     async function loadBuildings() {
@@ -62,21 +58,22 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     }
   }, [props.value.BuildingID])
 
-  useEffect(() => {
-    function resetOptionsOfDependentFields() {
-      setBuildings([])
-      setRooms([])
-    }
+  // useEffect(() => {
+  //   function resetOptionsOfDependentFields() {
+  //     setBuildings([])
+  //     setRooms([])
+  //   }
 
-    if (!props.show.SiteID) {
-      resetOptionsOfDependentFields()
-    }
-  }, [props.show.SiteID])
+  // if (!props.show.SiteID) {
+  //   resetOptionsOfDependentFields()
+  // }
+  // }, [])
 
   const handleSiteChange = (value: number) => {
     setBuildings([])
     setRooms([])
     filterValueChanged({ SiteID: value, BuildingID: "", RoomID: "" })
+    console.log("site value changed ", value)
   }
 
   const handleBuildingChange = (value: number) => {
@@ -87,110 +84,112 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
   function renderRoomFilterChecked() {
     return (
       <Col style={{ paddingLeft: 0 }}>
-        <Row>
-          <LabelCol>
-            <Checkbox checked={show.SiteID} onChange={toggleCheckboxHandler(["SiteID", "BuildingID", "RoomID"])}>
-              Site
-            </Checkbox>
-          </LabelCol>
-          <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
-            <Select
-              aria-label="Site Select"
-              style={{ width: 250 }}
-              value={value.SiteID as number}
-              onChange={handleSiteChange}
-            >
-              {sites.map(({ Name: label, SiteID: value }, i) => (
-                <Option value={value} key={`${value}_${i}`}>
-                  {label}
-                </Option>
-              ))}
-            </Select>
-          </InputCol>
-        </Row>
-        {buildings.length > 0 && (
-          <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
-              <Text>Building</Text>
-            </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
-              <Select
-                aria-label="Building Select"
-                style={{ width: 250 }}
-                value={value.BuildingID as number}
-                onChange={handleBuildingChange}
-              >
-                {buildings.map(({ Name: label, BuildingID: value }, i) => (
-                  <Option value={value} key={`${value}_${i}`}>
-                    {label}
-                  </Option>
-                ))}
-              </Select>
-            </InputCol>
-          </Row>
-        )}
-        {rooms.length > 0 && !hideRoomDropdown && (
-          <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
-              <Text>Room</Text>
-            </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : "hidden"}>
-              <Select
-                aria-label="Room Select"
-                style={{ width: 250 }}
-                value={value.RoomID}
-                onChange={(value) => filterValueChanged({ RoomID: value })}
-              >
-                {rooms.map(({ Name: label, RoomID: value }, i) => (
-                  <Option value={value} key={`${value}_${i}`}>
-                    {label}
-                  </Option>
-                ))}
-              </Select>
-            </InputCol>
-          </Row>
-        )}
-      </Col>
-    )
-  }
-
-  function renderRoomFilterUnchecked() {
-    return (
-      <Col>
-        <Form.Item name="SiteID" label="Site" labelCol={{ span: 6 }}>
-          <Select aria-label="Site Select">
+        <SearchComponentWrapper {...props}>
+          <Select
+            aria-label="Site Select"
+            style={{ width: 250 }}
+            value={value.SiteID as number}
+            onChange={handleSiteChange}
+          >
             {sites.map(({ Name: label, SiteID: value }, i) => (
               <Option value={value} key={`${value}_${i}`}>
                 {label}
               </Option>
             ))}
           </Select>
-        </Form.Item>
+        </SearchComponentWrapper>
         {buildings.length > 0 && (
-          <Form.Item name="BuildingID" label="Building" labelCol={{ span: 6 }}>
-            <Select aria-label="Building Select">
+          <SearchComponentWrapper {...props}>
+            <Select
+              aria-label="Building Select"
+              style={{ width: 250 }}
+              value={value.BuildingID as number}
+              onChange={handleBuildingChange}
+            >
               {buildings.map(({ Name: label, BuildingID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
                 </Option>
               ))}
             </Select>
-          </Form.Item>
+          </SearchComponentWrapper>
         )}
         {rooms.length > 0 && !hideRoomDropdown && (
-          <Form.Item name="RoomID" label="Room" labelCol={{ span: 6 }}>
-            <Select aria-label="Room Select">
+          <SearchComponentWrapper {...props}>
+            <Select
+              aria-label="Room Select"
+              style={{ width: 250 }}
+              value={value.RoomID}
+              onChange={(value) => filterValueChanged({ RoomID: value })}
+            >
               {rooms.map(({ Name: label, RoomID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
                 </Option>
               ))}
             </Select>
-          </Form.Item>
+          </SearchComponentWrapper>
         )}
       </Col>
     )
   }
 
-  return isChecked ? renderRoomFilterChecked() : renderRoomFilterUnchecked()
+  // function renderRoomFilterUnchecked() {
+  //   return (
+  //     <>
+  //       <Row>
+  //         <LabelCol>
+  //           <Text>Site</Text>
+  //         </LabelCol>
+  //         <InputCol>
+  //           <Select aria-label="Site Select" onChange={handleSiteChange}>
+  //             {sites.map(({ Name: label, SiteID: value }, i) => (
+  //               <Option value={value} key={`${value}_${i}`}>
+  //                 {label}
+  //               </Option>
+  //             ))}
+  //           </Select>
+  //         </InputCol>
+  //       </Row>
+  //       {buildings.length > 0 && (
+  //         <Row>
+  //           <LabelCol>
+  //             <Text>Building</Text>
+  //           </LabelCol>
+  //           <InputCol>
+  //             <Select aria-label="Building Select" onChange={handleBuildingChange}>
+  //               {buildings.map(({ Name: label, BuildingID: value }, i) => (
+  //                 <Option value={value} key={`${value}_${i}`}>
+  //                   {label}
+  //                 </Option>
+  //               ))}
+  //             </Select>
+  //           </InputCol>
+  //         </Row>
+  //       )}
+  //       {rooms.length > 0 && !hideRoomDropdown && (
+  //         <Row>
+  //           <LabelCol>
+  //             <Text>Building</Text>
+  //           </LabelCol>
+  //           <InputCol>
+  //             <Select
+  //               aria-label="Room Select"
+  //               value={value.RoomID}
+  //               onChange={(value) => filterValueChanged({ RoomID: value })}
+  //             >
+  //               {rooms.map(({ Name: label, RoomID: value }, i) => (
+  //                 <Option value={value} key={`${value}_${i}`}>
+  //                   {label}
+  //                 </Option>
+  //               ))}
+  //             </Select>
+  //           </InputCol>
+  //         </Row>
+  //       )}
+  //     </>
+  //   )
+  // }
+
+  return renderRoomFilterChecked() // : renderRoomFilterUnchecked()
 }

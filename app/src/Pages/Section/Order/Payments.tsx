@@ -13,7 +13,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
     <div className="site-layout-content">
       <SearchFilters
         meta={PaymentsFiltersMeta}
-        isChecked={false}
+        isCheckeble={false}
         isModalView={true}
         visible={true}
         title="Search Order Items"

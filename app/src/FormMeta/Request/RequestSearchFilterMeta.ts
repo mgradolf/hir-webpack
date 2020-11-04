@@ -62,7 +62,7 @@ const requestMeta: IFilterField[] = [
     ariaLabel2: "Creation Date To"
   },
   {
-    inputType: "ACCOUNT_AND_PERSON_FILTER_FIELD",
+    label: "Account & Person",
     fieldName: "",
     customFilterComponent: RequestSearchCustomLookupFilter
   }

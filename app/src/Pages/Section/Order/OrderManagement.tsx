@@ -104,7 +104,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
         meta={OrderManagementSearchFilterMeta}
         title="Find Order Activity"
         visible={true}
-        isChecked={false}
+        isCheckeble={false}
         toggleVisiibility={() => console.log("s")}
         onApplyChanges={(newValues, count) => {
           const Params: any = newValues

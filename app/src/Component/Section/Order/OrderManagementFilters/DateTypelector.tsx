@@ -43,7 +43,7 @@ export default function DateTypeSelector(props: IFilterGenericComponentProps<IFi
     }
   }, [seletectLookupType])
 
-  return props.isChecked ? (
+  return props.isCheckeble ? (
     <Row>
       {/* <LabelCol>
         <Checkbox checked={props.show} onChange={props.toggleCheckboxHandler}>

@@ -4,15 +4,11 @@ import { Layout } from "antd"
 import { Link } from "react-router-dom"
 import { logout } from "~/ApiServices/Login"
 import styles from "~/Layout/DefaultLayout.module.scss"
+import { sidebarMenus } from "~/Component/Layout/SidebarMenus"
 
-const { Sider } = Layout
-
-interface ISidebar {
-  collapsed: boolean
-}
-export default function Sidebar(props: ISidebar) {
+export default function Sidebar(props: { collapsed: boolean }) {
   return (
-    <Sider
+    <Layout.Sider
       style={{ minHeight: "100vh" }}
       breakpoint="xs"
       collapsedWidth={0}
@@ -22,52 +18,102 @@ export default function Sidebar(props: ISidebar) {
     >
       <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
       <Menu theme="dark" mode="inline">
-        <Menu.SubMenu key="1" title="Manage">
-          <Menu.Item key="1.1">
-            <Link to="/offering">Offerings</Link>
-          </Menu.Item>
-          <Menu.Item key="1.2">
-            <Link to="/section">Sections</Link>
-          </Menu.Item>
-          <Menu.SubMenu key="1.3" title="Financials">
-            <Menu.Item key="1.3.1">
-              <Link to="/order">Orders</Link>
-            </Menu.Item>
-            <Menu.Item key="1.3.2">
-              <Link to="/order/items">Items</Link>
-            </Menu.Item>
-            <Menu.Item key="1.3.3">
-              <Link to="/order/payments">Payments</Link>
-            </Menu.Item>
-          </Menu.SubMenu>
-          <Menu.Item key="1.4">
-            <Link to="/waitlist">Waitlist</Link>
-          </Menu.Item>
-          <Menu.Item key="1.5">
-            <Link to="/catalog">Catalog</Link>
-          </Menu.Item>
-          <Menu.Item key="1.6">
-            <Link to="/product">Product</Link>
-          </Menu.Item>
-          <Menu.SubMenu key="1.7" title="Question">
-            <Menu.Item key="1.7.1">
-              <Link to="/question">Bank</Link>
-            </Menu.Item>
-            <Menu.Item key="1.7.2">
-              <Link to="/question/tagging">Tagging</Link>
-            </Menu.Item>
-          </Menu.SubMenu>
-          <Menu.Item key="1.8">
-            <Link to="/requests">Requests</Link>
-          </Menu.Item>
-          <Menu.Item key="1.6">
-            <Link to="/registrations">Registrations</Link>
-          </Menu.Item>
-        </Menu.SubMenu>
+        {sidebarMenus.map((x, i) => {
+          if (x.submenu && x.submenu?.length > 0) {
+            return (
+              <Menu.SubMenu key={i} title={x.title}>
+                {x.submenu.map((y, j) => {
+                  if (y.submenu.length > 0) {
+                    return (
+                      <Menu.SubMenu key={i + " " + j} title={y.title}>
+                        {
+                          // eslint-disable-next-line
+                          y.submenu.map((z, k) => {
+                            if (z.submenu.length > 0) {
+                              return (
+                                // eslint-disable-next-line
+                                <Menu.SubMenu key={i + " " + j + " " + k} title={z.title}>
+                                  {z.submenu.map((w, m) => {
+                                    return (
+                                      <Menu.Item
+                                        className={w.url === "" ? "disabled-link" : ""}
+                                        key={j + " " + i + " " + k + "" + m}
+                                      >
+                                        <Link to={w.url || "#"}>{w.title}</Link>
+                                      </Menu.Item>
+                                    )
+                                  })}
+                                </Menu.SubMenu>
+                              )
+                            }
+                          })
+                        }
+                      </Menu.SubMenu>
+                    )
+                  }
+                  return (
+                    <Menu.Item className={y.url === "" ? "disabled-link" : ""} key={j + " " + i}>
+                      <Link to={y.url || "#"}>{y.title}</Link>
+                    </Menu.Item>
+                  )
+                })}
+              </Menu.SubMenu>
+            )
+          } else {
+            return (
+              <Menu.Item key={i}>
+                <Link to={x.url || "#"}>{x.title}</Link>
+              </Menu.Item>
+            )
+          }
+        })}
         <Menu.Item key="2" onClick={logout}>
           Logout
         </Menu.Item>
       </Menu>
-    </Sider>
+    </Layout.Sider>
   )
 }
+
+// export default function Sidebar(props: { collapsed: boolean }) {
+//   return (
+//     <Layout.Sider
+//       style={{ minHeight: "100vh" }}
+//       breakpoint="xs"
+//       collapsedWidth={0}
+//       trigger={null}
+//       collapsible
+//       collapsed={props.collapsed}
+//     >
+//       <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
+//       <Menu theme="dark" mode="inline">
+//         {sidebarMenus.map((x, i) => (
+//           <SidebarMenuRenderer sidebarMenu={x} keyprefix={i} />
+//         ))}
+//         {sidebarMenus.map((x, i) => {})}
+//         <Menu.Item key="1000000" onClick={logout}>
+//           Logout
+//         </Menu.Item>
+//       </Menu>
+//     </Layout.Sider>
+//   )
+// }
+
+// function SidebarMenuRenderer(props: { sidebarMenu: ISidebarMenu; keyprefix: number }) {
+//   if (props.sidebarMenu.submenu.length === 0) {
+//     return (
+//       <Menu.Item key={props.keyprefix}>
+//         <Link to={props.sidebarMenu.url || "#"}>{props.sidebarMenu.title}</Link>
+//       </Menu.Item>
+//     )
+//   }
+//   return (
+//     <>
+//       <Menu.SubMenu key={props.keyprefix} title={props.sidebarMenu.title}>
+//         {props.sidebarMenu.submenu.map((x, i) => {
+//           return <SidebarMenuRenderer sidebarMenu={x} keyprefix={i} />
+//         })}
+//       </Menu.SubMenu>
+//     </>
+//   )
+// }

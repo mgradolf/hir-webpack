@@ -32,7 +32,7 @@ export function getSectionAcademicActivitySearchMeta(SectionID: number): IFilter
       ariaLabel2: "To"
     },
     {
-      inputType: "STUDENT_FINDER_BY_NAME_ID",
+      label: "Student Lookup",
       fieldName: "SiteID",
       customFilterComponent: StudentSearchFilterByNameID
     }

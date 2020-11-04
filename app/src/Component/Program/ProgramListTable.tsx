@@ -2,8 +2,15 @@ import { Row, Col } from "antd"
 import moment from "moment"
 import React from "react"
 import ResponsiveTable from "~/Component/Common/ResponsiveTable"
-import { ITableWrapperProps } from "~/Component/Section/SectionTable"
 
+export interface ITableWrapperProps {
+  id?: string
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+  offeringID?: number
+}
 function ProgramListTable(props: ITableWrapperProps) {
   const columns = [
     {
