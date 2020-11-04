@@ -37,6 +37,7 @@ export default function (props: IFilterColumnProps) {
   const isCheckeble = props.isCheckeble === undefined ? true : props.isCheckeble
   const [filterData, setFilterData] = useState<RecordType>(props.initialFilter)
   const initialShow = props.meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
+  const [showLess, setShowLess] = useState(true)
 
   const [show, updateShow] = useState<Show>(
     Object.keys(props.initialFilter).reduce(
@@ -176,7 +177,16 @@ export default function (props: IFilterColumnProps) {
       initialValues={filterData}
       onValuesChange={(newValues) => setFilterData({ ...filterData, ...newValues })}
     >
-      {filterFieldsArray}
+      <Row>
+        {filterFieldsArray
+          .filter((field, index) => {
+            if (showLess && index < 5) return true
+            return !showLess
+          })
+          .map((field) => (
+            <Col span={12}>{field}</Col>
+          ))}
+      </Row>
     </Form>
   )
 
@@ -200,39 +210,46 @@ export default function (props: IFilterColumnProps) {
 
       {filterContent}
 
-      <Row className={styles.floatRight}>
-        <Button
-          type="primary"
-          aria-label="Apply Filter"
-          className={styles.applyBtn}
-          onClick={() => {
-            const filterCount = Object.keys(filterData).filter(
-              (key) => filterData[key] !== "" && filterData[key] !== "*"
-            ).length
+      <Row justify="end" gutter={[8, 8]}>
+        {!isCheckeble && (
+          <Col>
+            <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
+          </Col>
+        )}
+        <Col>
+          <Button
+            type="primary"
+            aria-label="Apply Filter"
+            // className={styles.applyBtn}
+            onClick={() => {
+              const filterCount = Object.keys(filterData).filter(
+                (key) => filterData[key] !== "" && filterData[key] !== "*"
+              ).length
 
-            const params: { [key: string]: any } = filterData
-            console.log("filterData ", JSON.stringify(filterData))
-            const objectKeys = Object.keys(params)
-            objectKeys.forEach((key) => {
-              if (
-                params[key] === undefined ||
-                params[key] === null ||
-                params[key] === "" ||
-                params[key] === "0" ||
-                params[key] === 0
-              ) {
-                delete params[key]
-              }
-              // if (!isNaN(Number(params[key] && !Array.isArray(params[key])))) {
-              //   params[key] = Number(params[key])
-              // }
-            })
-            console.log("params ", JSON.stringify(params))
-            props.onApplyChanges(params, filterCount)
-          }}
-        >
-          Apply
-        </Button>
+              const params: { [key: string]: any } = filterData
+              console.log("filterData ", JSON.stringify(filterData))
+              const objectKeys = Object.keys(params)
+              objectKeys.forEach((key) => {
+                if (
+                  params[key] === undefined ||
+                  params[key] === null ||
+                  params[key] === "" ||
+                  params[key] === "0" ||
+                  params[key] === 0
+                ) {
+                  delete params[key]
+                }
+                // if (!isNaN(Number(params[key] && !Array.isArray(params[key])))) {
+                //   params[key] = Number(params[key])
+                // }
+              })
+              console.log("params ", JSON.stringify(params))
+              props.onApplyChanges(params, filterCount)
+            }}
+          >
+            Apply
+          </Button>
+        </Col>
       </Row>
     </Col>
   )
