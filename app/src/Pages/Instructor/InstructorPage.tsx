@@ -3,6 +3,7 @@ import InstructorSearchFiltersMeta from "~/FormMeta/Offering/QualifiedInstructor
 import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
+import { Link } from "react-router-dom"
 
 export default function InstructorPage() {
   const columns = [
@@ -10,6 +11,7 @@ export default function InstructorPage() {
       title: "ID",
       dataIndex: "FacultySerialNum",
       key: "FacultySerialNum",
+      render: (text: any, record: any) => <Link to={`/instructor/${record.FacultyID}`}>{record.FacultySerialNum}</Link>,
       sorter: (a: any, b: any) => a.FacultySerialNum.length - b.FacultySerialNum.length
     },
     {

@@ -3,6 +3,7 @@ import { Row, Col } from "antd"
 import React from "react"
 import moment from "moment"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { Link } from "react-router-dom"
 
 export function QualifiedInstructorTable(props: ITableWrapperProps) {
   const columns = [
@@ -10,6 +11,7 @@ export function QualifiedInstructorTable(props: ITableWrapperProps) {
       title: "ID",
       dataIndex: "FacultySerialNum",
       key: "FacultySerialNum",
+      render: (text: any, record: any) => <Link to={`/instructor/${record.FacultyID}`}>{record.FacultySerialNum}</Link>,
       sorter: (a: any, b: any) => a.FacultySerialNum.length - b.FacultySerialNum.length
     },
     {
