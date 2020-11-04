@@ -29,6 +29,7 @@ import SectionBudgetPage from "~/Pages/Section/Budget"
 import SectionNoticePage from "~/Pages/Section/Notice"
 import SectionDiscountPage from "~/Pages/Section/Discount"
 import SectionRegistrationPage from "~/Pages/Section/Registration"
+import RegistrationDetailsPage from "~/Pages/Registration/Details"
 import SectionTagPage from "~/Pages/Section/Tag"
 import SectionProductPage from "~/Pages/Section/Product"
 import SectionWaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
@@ -119,6 +120,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
       <Route exact path="/section/:sectionID/question" component={SectionQuestionPage} />
       <Route exact path="/section/:sectionID/registration" component={SectionRegistrationPage} />
+      <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
+      <Route exact path="/section/:sectionID/registration/:studentID" component={RegistrationDetailsPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
       <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
       <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
@@ -159,6 +162,10 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/registration" component={RegistrationPage} />
       <Route exact path="/registration/:studentSerialNumber" component={RegistrationDetailPage} />
 
+      <Route exact path="/registration/:registrationID" component={RegistrationDetailsPage} />
+
+      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
+      <Route exact path="/person" component={PersonPage} />
       <Route exact path="/instructor" component={InstructorPage} />
       <Route exact path="/instructor/:facultyID" component={InstructorDetails} />
 

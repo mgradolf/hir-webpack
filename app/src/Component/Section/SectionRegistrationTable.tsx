@@ -13,9 +13,12 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
     {
       title: "ID",
       dataIndex: "StudentSerialNumber",
-      render: (text: any, record: any) => (
-        <Link to={`/registration/${record.StudentSerialNumber}`}>{record.StudentSerialNumber}</Link>
-      ),
+      render: (text: any, record: any) =>
+        record.SectionID ? (
+          <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>{record.StudentSerialNumber}</Link>
+        ) : (
+          <Link to={`/registration/${record.StudentSerialNumber}`}>{record.StudentSerialNumber}</Link>
+        ),
       width: 100
     },
     {
@@ -196,7 +199,7 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
       breakpoints={["md", "lg", "xl", "xxl"]}
       responsiveColumnIndices={[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
       expandableRowRender={expandableRowData}
-      rowKey="StudentID"
+      rowKey="index"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
       isModal={props.isModal}
     />
