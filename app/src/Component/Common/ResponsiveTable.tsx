@@ -42,6 +42,31 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [loading, setLoading] = useState(false)
   const [mobileView, setMobileView] = useState<any>(undefined)
 
+  useEffect(() => {
+    if (mobileView === undefined) {
+    } else if (otherTableProps.dataSource) {
+      setTableProps()
+    } else if (searchParams && searchFunc) {
+      setLoading(true)
+      Object.keys(searchParams).forEach((key) => {
+        if (searchParams[key] === "") delete searchParams[key]
+      })
+      searchFunc(searchParams).then((x) => {
+        if (x.success && Array.isArray(x.data)) {
+          const data = x.data.map((y: any, i: number) => {
+            y.rowKey = i
+            return y
+          })
+          setTableProps(data)
+        }
+        setTimeout(() => {
+          setLoading(false)
+        }, 0)
+      })
+    }
+    // eslint-disable-next-line
+  }, [otherTableProps.dataSource, searchParams, mobileView])
+
   useDeviceViews((deviceViews: IDeviceView) => {
     setMobileView(deviceViews.mobile || deviceViews.tab)
   })
@@ -118,55 +143,5 @@ export function ResponsiveTable(props: IDataTableProps) {
     setConditionalProps(_conditionalProps)
   }
 
-  useEffect(() => {
-    if (mobileView === undefined) {
-    } else if (otherTableProps.dataSource) {
-      setTableProps()
-    } else if (searchParams && searchFunc) {
-      setLoading(true)
-      Object.keys(searchParams).forEach((key) => {
-        if (searchParams[key] === "") delete searchParams[key]
-      })
-      searchFunc(searchParams).then((x) => {
-        if (x.success && Array.isArray(x.data)) {
-          const data = x.data.map((y: any, i: number) => {
-            y.rowkey = props.rowKey + " " + i
-            return y
-          })
-          setTableProps(data)
-        }
-        setTimeout(() => {
-          setLoading(false)
-        }, 0)
-      })
-    }
-    // eslint-disable-next-line
-  }, [otherTableProps.dataSource, searchParams, mobileView])
-
-  return (
-    // <>
-    //   <Dropdown
-    //     trigger={["click"]}
-    //     overlay={
-    //       <Menu>
-    //         <Menu.Item key={1}>
-    //           <Button type="link">Save to CSV file</Button>
-    //         </Menu.Item>
-    //         <Menu.Item key={2}>
-    //           <Button type="link">Print Table Data</Button>
-    //         </Menu.Item>
-    //         <Menu.Item key={3}>
-    //           <Button type="link">Word Mail Merge</Button>
-    //         </Menu.Item>
-    //         <Menu.Item key={4}>
-    //           <Button type="link">Export to Spreadsheet</Button>
-    //         </Menu.Item>
-    //       </Menu>
-    //     }
-    //   >
-    //     Export
-    //   </Dropdown>
-    // </>
-    <Table {...conditionalProps} loading={otherTableProps.loading || loading} />
-  )
+  return <Table {...conditionalProps} loading={otherTableProps.loading || loading} />
 }
