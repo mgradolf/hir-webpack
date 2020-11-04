@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 import { eventBus, REFRESH_SECTION_REQUEST_PAGE } from "~/utils/EventBus"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
 
-export interface IRequestFilterValues extends RecordType {
+export interface IRequestFilterValues {
   SectionID: string
   RequestTypeID: string
   StateID: string

@@ -1,12 +1,12 @@
 import React from "react"
 import { getOrderLines } from "~/ApiServices/Service/OrderService"
-import OrderlinesTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 interface IOrderlines {
   OrderID: number
 }
 export default function Orderlines({ OrderID }: IOrderlines) {
   return (
-    <OrderlinesTable
+    <ResponsiveTable
       searchFunc={getOrderLines}
       searchParams={{ OrderID }}
       columns={[

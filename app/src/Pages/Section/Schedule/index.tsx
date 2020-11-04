@@ -10,7 +10,7 @@ import {
   removeMeetingInformations
 } from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Schedule/Schedule.module.scss"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import ScheduleMenu from "~/Component/Section/Schedule/ScheduleMenu"
 import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"

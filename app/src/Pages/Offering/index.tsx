@@ -68,15 +68,15 @@ import SearchPage from "~/Component/Common/Page/SearchPage"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
-import { ColumnsType } from "antd/lib/table"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { Link, RouteComponentProps } from "react-router-dom"
 import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
 import moment from "moment"
 
 export default function Offering(props: RouteComponentProps) {
   const [showModal, setShowModal] = useState(false)
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Offering Code",
       dataIndex: "OfferingCode",

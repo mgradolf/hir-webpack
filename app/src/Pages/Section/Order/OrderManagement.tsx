@@ -2,15 +2,15 @@ import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
 import OrderManagementSearch from "~/Component/Common/SearchFilters"
-import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
-import { ColumnsType } from "antd/lib/table"
+
 import moment from "moment"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID) || undefined
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(SectionID ? { SectionIDs: [SectionID] } : {})
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Order ID",
       dataIndex: "OrderID",
@@ -115,7 +115,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
         initialFilter={{}}
         isModalView
       />
-      <EnrollmentLogTable
+      <ResponsiveTable
         columns={columns}
         searchFunc={searchOrders}
         expandableColumnIndices={[5]}

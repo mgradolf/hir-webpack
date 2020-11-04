@@ -1,6 +1,5 @@
-import { ColumnsType } from "antd/lib/table"
 import React, { useState } from "react"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { OrderItemsFiltersMeta } from "~/Component/Section/Order/OrderItemsFilters/OrderItemsFiltersMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
@@ -17,7 +16,7 @@ export default function PersonTable() {
   const [showViewReturnItemModal, setShowViewReturnItemModal] = useState(false)
   const [showIssueCreditModal, setShowIssueCreditModal] = useState(false)
   const [showApplyDiscountModal, setShowApplyDiscountModal] = useState(false)
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Order ID",
       dataIndex: "OrderID",

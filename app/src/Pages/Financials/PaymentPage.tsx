@@ -1,13 +1,12 @@
-import { ColumnsType } from "antd/lib/table"
 import React from "react"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
 import { PaymentsFiltersMeta } from "~/Component/Section/Order/PaymentFilters/PaymentsFiltersMeta"
 import moment from "moment"
 
 export default function PersonTable() {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     { title: "Payment ID", dataIndex: "PaymentID" },
     { title: "Payer", dataIndex: "PersonName" },
     {

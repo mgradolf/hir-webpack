@@ -2,9 +2,9 @@ import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Row, Col } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SectionMenu from "~/Component/Section/SectionMenu"
-import { ColumnsType } from "antd/lib/table"
+
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
 
 interface ITableWrapperProps {
@@ -16,7 +16,7 @@ interface ITableWrapperProps {
 }
 
 export default function SectionTable(props: ITableWrapperProps) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Section Number",
       dataIndex: "SectionNumber",

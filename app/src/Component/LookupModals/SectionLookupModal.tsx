@@ -3,10 +3,10 @@ import { Card, Button, Form, Input, Row, Col } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import OfferingSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
 import moment from "moment"
-import { ColumnsType } from "antd/lib/table"
+
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { FormInstance } from "antd/lib/form"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
@@ -16,7 +16,7 @@ interface ISectionLookupModal {
 }
 
 export function SectionLookupModal(props: ISectionLookupModal) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Section Number",
       dataIndex: "SectionNumber",

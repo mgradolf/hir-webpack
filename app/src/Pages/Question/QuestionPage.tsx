@@ -1,7 +1,7 @@
 import React from "react"
 import { searchQuestions } from "~/ApiServices/Service/QuestionService"
-import { ColumnsType } from "antd/lib/table"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { Col, Row } from "antd"
 // import { TableRowSelection } from "antd/lib/table/interface"
@@ -59,7 +59,7 @@ export default function QuestionPage() {
   //   }),
   //   columnTitle: "Select"
   // }
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Question",
       dataIndex: "Description"

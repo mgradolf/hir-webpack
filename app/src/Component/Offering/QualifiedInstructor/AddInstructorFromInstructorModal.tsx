@@ -71,7 +71,7 @@ function AddInstructorFromInstructorModal({
       {(modalSelectedPage === ModalPages.FilterPage && (
         <Row justify="center">
           <InstructorSearchFilters
-            initialFilter={filterData}
+            initialFilter={(filterData as unknown) as { [key: string]: string }}
             visible
             isModalView
             meta={InstructorSearchFiltersMeta}

@@ -1,7 +1,7 @@
 import { ITableWrapperProps } from "~/Component/Offering/OfferingTable"
 import { Row, Col } from "antd"
 import React from "react"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 export function ProductTable(props: ITableWrapperProps) {
   const columns = [

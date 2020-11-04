@@ -4,7 +4,7 @@ import { FilterOutlined } from "@ant-design/icons"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import ResponsiveTable, { IDataTableProps } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 
 export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]

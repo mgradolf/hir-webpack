@@ -1,12 +1,11 @@
-import { ColumnsType } from "antd/lib/table"
 import React from "react"
 import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 
 export default function PersonTable() {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     { title: "First Name", dataIndex: "FirstName", width: 150 },
     { title: "Last Name", dataIndex: "LastName", width: 150 },
     { title: "Middle Name", dataIndex: "MiddleName", width: 150 },

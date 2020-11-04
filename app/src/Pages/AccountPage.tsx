@@ -2,11 +2,11 @@ import React from "react"
 import AccountSearchFilterMeta from "~/FormMeta/Account/AccountSearchFilterMeta"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
 import SearchPage from "~/Component/Common/Page/SearchPage"
-import { ColumnsType } from "antd/lib/table"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export default function AccountPage() {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     { title: "Account Type", dataIndex: "AccountTypeName", width: 150 },
     { title: "Account Name", dataIndex: "AccountName", width: 150 },
     { title: "Contact Name", dataIndex: "ContactName", width: 150 },

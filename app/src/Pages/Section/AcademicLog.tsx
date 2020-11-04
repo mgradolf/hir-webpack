@@ -2,14 +2,13 @@ import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getStudentAcademicActivity } from "~/ApiServices/Service/ActivityService"
 import AcademicLogSearch from "~/Component/Common/SearchFilters"
-import AcademicLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionAcademicActivitySearchMeta"
-import { ColumnsType } from "antd/lib/table"
 
 export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID)
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({ SectionIDs: [SectionID] })
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "User ID",
       dataIndex: "UserID",
@@ -144,7 +143,7 @@ export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: 
         initialFilter={{}}
         isModalView
       />
-      <AcademicLogTable
+      <ResponsiveTable
         columns={columns}
         searchFunc={getStudentAcademicActivity}
         expandableColumnIndices={[5]}

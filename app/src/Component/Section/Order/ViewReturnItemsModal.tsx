@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { Button, Card, Form, Input, Typography } from "antd"
-import Table from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { applyReturnItem, getCreditMemoDataByOrderItemID } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -82,7 +82,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
               </Form.Item>
             </Form>
             <Typography.Title level={4}>Credit Amount (Click "Credit Amount" Column to Edit)</Typography.Title>
-            <Table
+            <ResponsiveTable
               columns={[
                 { title: "Item", dataIndex: "Description" },
                 { title: "Cost", dataIndex: "ChargeAmount" },

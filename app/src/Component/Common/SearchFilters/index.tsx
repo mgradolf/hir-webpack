@@ -2,7 +2,6 @@ import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Button, Col, Form, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import React, { useState } from "react"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import { TextInputType } from "~/Component/Common/SearchFilters/SearchInput"
 import {
@@ -25,7 +24,7 @@ interface IFilterColumnProps {
   visible: boolean
   title: string
   hideFilters?: () => void
-  onApplyChanges: (newValues: RecordType, appliedFilterCount: number) => void
+  onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   initialFilter: { [key: string]: string }
   isModalView: boolean
   isCheckeble?: boolean
@@ -35,7 +34,7 @@ type Show = { [key: string]: boolean }
 
 export default function (props: IFilterColumnProps) {
   const isCheckeble = props.isCheckeble === undefined ? true : props.isCheckeble
-  const [filterData, setFilterData] = useState<RecordType>(props.initialFilter)
+  const [filterData, setFilterData] = useState<{ [key: string]: any }>(props.initialFilter)
   const initialShow = props.meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
   const [showLess, setShowLess] = useState(true)
 
@@ -78,7 +77,7 @@ export default function (props: IFilterColumnProps) {
     })
   }
 
-  const onChangeFieldCopmonent = (values: RecordType) => {
+  const onChangeFieldCopmonent = (values: { [key: string]: any }) => {
     setFilterData({
       ...filterData,
       ...values

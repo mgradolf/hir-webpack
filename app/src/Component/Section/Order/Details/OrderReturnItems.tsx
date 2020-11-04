@@ -1,7 +1,7 @@
 import moment from "moment"
 import React from "react"
 import { getReturnItems } from "~/ApiServices/Service/OrderService"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { DATE_FORMAT } from "~/utils/Constants"
 interface IOrderReturnItems {
   OrderID: number

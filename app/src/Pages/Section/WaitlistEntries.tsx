@@ -1,5 +1,4 @@
 import { Button, Col, Row } from "antd"
-import { ColumnsType } from "antd/lib/table"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import WaitlistEntriesFormModal from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
@@ -7,9 +6,9 @@ import WaitlistEntriesSearchFilterMeta from "~/FormMeta/WaitlistEntries/Waitlist
 import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistIF"
 import { deleteWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import SearchPage from "~/Component/Common/Page/SearchPage"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { RouteComponentProps } from "react-router-dom"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export default function WaitlistEntryPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID)
@@ -33,7 +32,7 @@ export default function WaitlistEntryPage(props: RouteComponentProps<{ sectionID
       setShowCreateModal(true)
     }
   }, [entryToEdit])
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "SectionNumber",
       dataIndex: "SectionNumber",

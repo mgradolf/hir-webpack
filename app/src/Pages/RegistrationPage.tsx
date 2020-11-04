@@ -1,13 +1,13 @@
 import React from "react"
-import { ColumnsType } from "antd/lib/table"
+
 import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
 import SearchPage from "~/Component/Common/Page/SearchPage"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
 
 export default function SectionCatalog() {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "ID",
       dataIndex: "StudentSerialNumber",

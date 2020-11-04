@@ -2,9 +2,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Row, Col } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
-import { ColumnsType } from "antd/lib/table"
 
 export interface ITableWrapperProps {
   dataSource: Array<any>
@@ -14,7 +13,7 @@ export interface ITableWrapperProps {
 }
 
 export function OfferingTable(props: ITableWrapperProps) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Offering Code",
       dataIndex: "OfferingCode",

@@ -1,5 +1,5 @@
 import { Button, Col, Row } from "antd"
-import { ColumnsType } from "antd/lib/table"
+
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import WaitlistEntriesFormModal from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
@@ -7,7 +7,7 @@ import WaitlistEntriesSearchFilterMeta from "~/FormMeta/WaitlistEntries/Waitlist
 import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistIF"
 import { deleteWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import SearchPage from "~/Component/Common/Page/SearchPage"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 export default function WaitlistEntryPage() {
@@ -18,7 +18,7 @@ export default function WaitlistEntryPage() {
       setShowCreateModal(true)
     }
   }, [entryToEdit])
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "SectionNumber",
       dataIndex: "SectionNumber",

@@ -1,13 +1,13 @@
 import React from "react"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
-import OrderItemsTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 interface IOrderItems {
   OrderID: number
   SectionID: number
 }
 export default function OrderItems({ OrderID, SectionID }: IOrderItems) {
   return (
-    <OrderItemsTable
+    <ResponsiveTable
       searchFunc={getOrderItems}
       searchParams={{ OrderID }}
       columns={[

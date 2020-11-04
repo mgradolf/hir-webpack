@@ -2,7 +2,7 @@ import { ITableWrapperProps } from "~/Component/Offering/OfferingTable"
 import { Row, Col } from "antd"
 import React from "react"
 import moment from "moment"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 export function QualifiedInstructorTable(props: ITableWrapperProps) {
   const columns = [

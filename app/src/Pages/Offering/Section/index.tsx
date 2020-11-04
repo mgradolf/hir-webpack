@@ -131,8 +131,8 @@ import React, { useState } from "react"
 import { Button, Space } from "antd"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
-import { ColumnsType } from "antd/lib/table"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { Link, RouteComponentProps } from "react-router-dom"
 import moment from "moment"
 import SectionMenu from "~/Component/Section/SectionMenu"
@@ -142,7 +142,7 @@ import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 export default function Offering(props: RouteComponentProps<{ offeringID: string }>) {
   const offeringID = Number(props.match.params.offeringID)
   const [showModal, setShowModal] = useState(false)
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Section Number",
       dataIndex: "SectionNumber",

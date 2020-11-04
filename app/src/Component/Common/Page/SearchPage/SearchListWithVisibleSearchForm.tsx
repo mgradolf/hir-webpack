@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Col, Row, Typography } from "antd"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import ResponsiveTable, { IDataTableProps } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 
 export interface ISearchListWithVisibleSearchFormProp {
   title: string

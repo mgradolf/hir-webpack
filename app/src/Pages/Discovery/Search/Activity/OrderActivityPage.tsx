@@ -1,13 +1,13 @@
 import React from "react"
 import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionOrderActivitySearchMeta"
-import { ColumnsType } from "antd/lib/table"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { Link } from "react-router-dom"
 
 export default function AcademicLogPage() {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "User ID",
       dataIndex: "PersonID",

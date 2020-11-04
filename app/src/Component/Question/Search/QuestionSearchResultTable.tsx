@@ -1,7 +1,7 @@
 import React from "react"
 import { Row, Col } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+
 import { TableRowSelection } from "antd/lib/table/interface"
 
 interface IQuestionSearchResultTable {
@@ -22,7 +22,7 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
     }),
     columnTitle: "Select"
   }
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Question",
       dataIndex: "Description"

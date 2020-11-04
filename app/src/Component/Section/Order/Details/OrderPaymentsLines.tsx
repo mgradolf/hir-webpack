@@ -1,13 +1,13 @@
 import moment from "moment"
 import React from "react"
 import { getPayment } from "~/ApiServices/Service/OrderService"
-import OrderPaymentsTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 interface IOrderPaymentLines {
   OrderID: number
 }
 export default function OrderPaymentLines({ OrderID }: IOrderPaymentLines) {
   return (
-    <OrderPaymentsTable
+    <ResponsiveTable
       searchFunc={getPayment}
       searchParams={{ OrderID }}
       columns={[

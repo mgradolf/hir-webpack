@@ -1,8 +1,7 @@
 import React from "react"
 import moment from "moment"
 import { Row, Col } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export interface ITableWrapperProps {
   dataSource: Array<any>
@@ -12,7 +11,7 @@ export interface ITableWrapperProps {
 }
 
 export function GatewayActivityTable(props: ITableWrapperProps) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Activity ID",
       dataIndex: "ActivityID",

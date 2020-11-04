@@ -1,6 +1,5 @@
 import React from "react"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export interface ISectionRegistrationTable {
   dataSource: Array<any>
@@ -9,7 +8,7 @@ export interface ISectionRegistrationTable {
 }
 
 export default function SectionRegistrationTable(props: ISectionRegistrationTable) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "ID",
       dataIndex: "StudentSerialNumber",

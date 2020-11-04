@@ -1,7 +1,7 @@
 import { Row, Col } from "antd"
 import moment from "moment"
 import React from "react"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 export interface ITableWrapperProps {
   id?: string

@@ -1,6 +1,5 @@
-import { ColumnsType } from "antd/lib/table"
 import React from "react"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
 import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
@@ -8,7 +7,7 @@ import moment from "moment"
 import { Link } from "react-router-dom"
 
 export default function PersonTable() {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Order ID",
       dataIndex: "OrderID",

@@ -45,7 +45,7 @@ function RequestPage(props: RouteComponentProps<{ sectionID?: string }>) {
           visible={showFilter}
           hideFilters={toggleFilter}
           meta={requestMeta}
-          initialFilter={filterData}
+          initialFilter={filterData as { [key: string]: any }}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             updateFilterData({ ...filterData, ...newFilterValues })
             setFilterCount(appliedFilterCount)

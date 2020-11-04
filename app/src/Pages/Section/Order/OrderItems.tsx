@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from "react-router-dom"
 import OrderItemsSearchFilters from "~/Component/Common/SearchFilters"
 import { OrderItemsFiltersMeta } from "~/Component/Section/Order/OrderItemsFilters/OrderItemsFiltersMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
-import OrderItemsTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { Button, Dropdown, Menu, Space } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import ViewReturnItemsModal from "~/Component/Section/Order/ViewReturnItemsModal"
@@ -58,7 +58,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           OrderID={selectedOrderItem.OrderID}
         />
       )}
-      <OrderItemsTable
+      <ResponsiveTable
         searchFunc={getOrderItems}
         searchParams={searchParams}
         rowKey="OrderItemID"

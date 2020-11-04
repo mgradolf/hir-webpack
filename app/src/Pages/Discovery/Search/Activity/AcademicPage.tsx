@@ -1,12 +1,12 @@
 import React from "react"
 import { getStudentAcademicActivity } from "~/ApiServices/Service/ActivityService"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionAcademicActivitySearchMeta"
-import { ColumnsType } from "antd/lib/table"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
+
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 
 export default function AcademicLogPage() {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "User ID",
       dataIndex: "UserID",

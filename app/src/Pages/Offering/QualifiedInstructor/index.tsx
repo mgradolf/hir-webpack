@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Button } from "antd"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import OfferingInstructorModalOpenButton from "~/Component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/Pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"

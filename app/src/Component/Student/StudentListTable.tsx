@@ -2,7 +2,7 @@ import { Row, Col } from "antd"
 import React from "react"
 import moment from "moment"
 
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
 
 export interface ITableWrapperProps {
