@@ -3,12 +3,17 @@ import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import Table, { TableProps, ColumnsType } from "antd/lib/table"
 import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import moment from "moment"
+import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 
 export type TableColumnType = ColumnsType<{ [key: string]: string }>
 
 // TODO: Currently we have generic responsive support for
 // only one set of breakpoints, we need support for multiple set of
 // breakpoints
+export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
+export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
+export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
 
 export interface IDataTableProps extends TableProps<{ [key: string]: string }> {
   columns: TableColumnType

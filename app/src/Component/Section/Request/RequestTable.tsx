@@ -1,8 +1,7 @@
 import React from "react"
 import moment from "moment"
 import { Space, Row, Col } from "antd"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
-
+import { renderDateTime, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { Link } from "react-router-dom"
 
 export interface ITableWrapperProps {
@@ -32,7 +31,7 @@ export function RequestTable(props: ITableWrapperProps) {
       title: "Creation Time",
       dataIndex: "CreateDate",
       key: "CreateDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD hh:mm A") : "")
+      render: renderDateTime
     },
     {
       title: "RequestType",
@@ -48,7 +47,7 @@ export function RequestTable(props: ITableWrapperProps) {
       title: "Expiration Time",
       dataIndex: "ExpirationDate",
       key: "ExpirationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD hh:mm A") : "")
+      render: renderDateTime
     },
     {
       title: "Source",

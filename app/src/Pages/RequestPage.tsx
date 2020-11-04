@@ -1,5 +1,5 @@
 import React from "react"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 import { requestMeta } from "~/FormMeta/Request/RequestSearchFilterMeta"
@@ -19,7 +19,7 @@ export default function PersonTable() {
       title: "Creation Time",
       dataIndex: "CreateDate",
       key: "CreateDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD hh:mm A") : "")
+      render: renderDateTime
     },
     {
       title: "RequestType",
@@ -35,7 +35,7 @@ export default function PersonTable() {
       title: "Expiration Time",
       dataIndex: "ExpirationDate",
       key: "ExpirationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD hh:mm A") : "")
+      render: renderDateTime
     },
     {
       title: "Source",

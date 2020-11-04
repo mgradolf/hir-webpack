@@ -68,11 +68,9 @@ import SearchPage from "~/Component/Common/Page/SearchPage"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
-
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { Link, RouteComponentProps } from "react-router-dom"
 import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
-import moment from "moment"
 
 export default function Offering(props: RouteComponentProps) {
   const [showModal, setShowModal] = useState(false)
@@ -94,13 +92,13 @@ export default function Offering(props: RouteComponentProps) {
       title: "Creation Date",
       dataIndex: "CreationDate",
       key: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Termination Date",
       dataIndex: "TerminationDate",
       key: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Status",

@@ -3,6 +3,7 @@ import moment from "moment"
 import React from "react"
 import { findCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
 import SearchPage from "~/Component/Common/Page/SearchPage"
+import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
 
@@ -17,13 +18,13 @@ export default function SectionCatalog() {
       title: "Start Date",
       dataIndex: "startDate",
       key: "startDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       key: "endDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Current Status",

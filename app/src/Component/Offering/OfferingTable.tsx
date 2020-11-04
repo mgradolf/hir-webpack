@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Row, Col } from "antd"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 
 export interface ITableWrapperProps {
@@ -32,13 +32,13 @@ export function OfferingTable(props: ITableWrapperProps) {
       title: "Creation Date",
       dataIndex: "CreationDate",
       key: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Termination Date",
       dataIndex: "TerminationDate",
       key: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Status",

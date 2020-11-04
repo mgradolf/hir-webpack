@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
 import { Space, Row, Col } from "antd"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SectionMenu from "~/Component/Section/SectionMenu"
 
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
@@ -55,13 +55,13 @@ export default function SectionTable(props: ITableWrapperProps) {
       title: "Creation Date",
       dataIndex: "CreationDate",
       key: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Termination Date",
       dataIndex: "TerminationDate",
       key: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Instructors",
@@ -83,7 +83,7 @@ export default function SectionTable(props: ITableWrapperProps) {
       title: "Start Date",
       dataIndex: "StartDate",
       key: "StartDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Locations",

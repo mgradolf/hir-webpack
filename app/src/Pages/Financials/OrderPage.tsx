@@ -1,9 +1,8 @@
 import React from "react"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
 import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
-import moment from "moment"
 import { Link } from "react-router-dom"
 
 export default function PersonTable() {
@@ -34,7 +33,7 @@ export default function PersonTable() {
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {
@@ -45,7 +44,7 @@ export default function PersonTable() {
     {
       title: "Completed Date",
       dataIndex: "CompletedDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {
@@ -76,7 +75,7 @@ export default function PersonTable() {
     {
       title: "Payment Due Date",
       dataIndex: "PaymentDueDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {

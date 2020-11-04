@@ -3,7 +3,7 @@ import moment from "moment"
 
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography } from "antd"
-import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
 import styles from "~/Pages/Offering/Approval/Approval.module.scss"
 
@@ -25,7 +25,7 @@ function OfferingApprovalPage(props: RouteComponentProps<{ offeringID: string }>
     {
       title: "Modified Date",
       dataIndex: "ModifiedDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Remarks",

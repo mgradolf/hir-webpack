@@ -1,10 +1,9 @@
 import React, { useState } from "react"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { OrderItemsFiltersMeta } from "~/Component/Section/Order/OrderItemsFilters/OrderItemsFiltersMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import { Button, Dropdown, Menu, Space } from "antd"
-import moment from "moment"
 import { Link } from "react-router-dom"
 import { DownOutlined } from "@ant-design/icons"
 import ViewReturnItemsModal from "~/Component/Section/Order/ViewReturnItemsModal"
@@ -25,7 +24,7 @@ export default function PersonTable() {
     {
       title: "Order Date",
       dataIndex: "OrderDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Purchaser",
@@ -46,7 +45,7 @@ export default function PersonTable() {
     {
       title: "Due Date",
       dataIndex: "PaymentDueDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Action",

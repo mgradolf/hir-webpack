@@ -3,7 +3,7 @@ import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { findCatalog, updateBulkContent } from "~/ApiServices/BizApi/catalog/catalogIf"
-import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 export default function SectionCatalog(props: RouteComponentProps<{ sectionID: string }>) {
@@ -66,13 +66,13 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
       title: "Start Date",
       dataIndex: "startDate",
       key: "startDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       key: "endDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Current Status",

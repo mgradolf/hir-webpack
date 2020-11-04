@@ -1,9 +1,8 @@
 import React from "react"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
 import { PaymentsFiltersMeta } from "~/Component/Section/Order/PaymentFilters/PaymentsFiltersMeta"
-import moment from "moment"
 
 export default function PersonTable() {
   const columns: TableColumnType = [
@@ -12,7 +11,7 @@ export default function PersonTable() {
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     // { title: "Payment Status", dataIndex: "paymentStatus" },
     { title: "Payment Type", dataIndex: "Type" },

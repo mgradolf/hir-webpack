@@ -1,7 +1,6 @@
-import moment from "moment"
 import React from "react"
 import { getCredit } from "~/ApiServices/Service/OrderService"
-import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 interface IOrderlines {
   OrderID: number
 }
@@ -18,7 +17,7 @@ export default function Orderlines({ OrderID }: IOrderlines) {
         {
           title: "Credit Date",
           dataIndex: "CreditMemoDate",
-          render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+          render: renderDate
         },
         {
           title: "Credit Status",

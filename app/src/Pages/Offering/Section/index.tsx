@@ -131,10 +131,8 @@ import React, { useState } from "react"
 import { Button, Space } from "antd"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
-
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { Link, RouteComponentProps } from "react-router-dom"
-import moment from "moment"
 import SectionMenu from "~/Component/Section/SectionMenu"
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
@@ -171,13 +169,13 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
       title: "Creation Date",
       dataIndex: "CreationDate",
       key: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Termination Date",
       dataIndex: "TerminationDate",
       key: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Instructors",
@@ -199,7 +197,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
       title: "Start Date",
       dataIndex: "StartDate",
       key: "StartDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Locations",

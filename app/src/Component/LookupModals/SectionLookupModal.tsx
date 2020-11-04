@@ -3,10 +3,8 @@ import { Card, Button, Form, Input, Row, Col } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import OfferingSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
-import moment from "moment"
-
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { FormInstance } from "antd/lib/form"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
@@ -39,13 +37,13 @@ export function SectionLookupModal(props: ISectionLookupModal) {
       title: "Creation Date",
       dataIndex: "CreationDate",
       key: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Termination Date",
       dataIndex: "TerminationDate",
       key: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Instructors",
@@ -67,7 +65,7 @@ export function SectionLookupModal(props: ISectionLookupModal) {
       title: "Start Date",
       dataIndex: "StartDate",
       key: "StartDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Locations",

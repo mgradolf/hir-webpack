@@ -1,9 +1,8 @@
 import { TableRowSelection } from "antd/lib/table/interface"
-import moment from "moment"
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchNoShowProcessings } from "~/ApiServices/Service/RegistrationService"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchFilter from "~/Component/Common/SearchFilters"
 import { NUMBER } from "~/Component/Common/SearchFilters/common"
 import { Button } from "antd"
@@ -38,7 +37,7 @@ export default function NoShow(props: RouteComponentProps<{ sectionID: string }>
     {
       title: "Order Date",
       dataIndex: "OrderDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     { title: "Section Number", dataIndex: "SectionNumber" },
     { title: "Quantity", dataIndex: "Quantity" },

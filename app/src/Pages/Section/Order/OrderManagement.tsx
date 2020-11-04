@@ -2,10 +2,8 @@ import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
 import OrderManagementSearch from "~/Component/Common/SearchFilters"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
-
-import moment from "moment"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID) || undefined
@@ -41,7 +39,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {
@@ -52,7 +50,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Completed Date",
       dataIndex: "CompletedDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {
@@ -83,7 +81,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Payment Due Date",
       dataIndex: "PaymentDueDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {

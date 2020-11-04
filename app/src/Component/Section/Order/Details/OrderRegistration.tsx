@@ -1,8 +1,6 @@
-import moment from "moment"
 import React from "react"
 import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
-import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { DATE_FORMAT } from "~/utils/Constants"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 interface IOrderReturnItems {
   OrderID: number
 }
@@ -17,7 +15,7 @@ export default function OrderReturnItems({ OrderID }: IOrderReturnItems) {
         {
           title: "Registration Date",
           dataIndex: "DateReturned",
-          render: (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
+          render: renderDate
         }
       ]}
       searchFunc={findRegistrations}

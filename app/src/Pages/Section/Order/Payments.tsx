@@ -1,8 +1,7 @@
-import moment from "moment"
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
-import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { PaymentsFiltersMeta } from "~/Component/Section/Order/PaymentFilters/PaymentsFiltersMeta"
 
@@ -37,7 +36,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
           {
             title: "Creation Date",
             dataIndex: "CreateDate",
-            render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+            render: renderDate
           },
           // { title: "Payment Status", dataIndex: "paymentStatus" },
           { title: "Payment Type", dataIndex: "Type" },

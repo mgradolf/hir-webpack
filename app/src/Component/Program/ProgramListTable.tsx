@@ -1,7 +1,6 @@
 import { Row, Col } from "antd"
-import moment from "moment"
 import React from "react"
-import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 export interface ITableWrapperProps {
   id?: string
@@ -32,13 +31,13 @@ function ProgramListTable(props: ITableWrapperProps) {
     {
       title: "Start Date",
       dataIndex: "ProgramStartDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       key: "ProgramStartDate"
     },
     {
       title: "End Date",
       dataIndex: "ProgramEndDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       key: "ProgramEndDate"
     },
     {

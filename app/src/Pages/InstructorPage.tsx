@@ -1,8 +1,8 @@
 import React from "react"
 import InstructorSearchFiltersMeta from "~/FormMeta/Offering/QualifiedInstructorSearchFilterMeta"
 import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
-import moment from "moment"
 import SearchPage from "~/Component/Common/Page/SearchPage"
+import { renderDate } from "~/Component/Common/ResponsiveTable"
 
 export default function InstructorPage() {
   const columns = [
@@ -30,7 +30,7 @@ export default function InstructorPage() {
     {
       title: "Birthday",
       dataIndex: "Birthday",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       key: "Birthday"
     },
     {
