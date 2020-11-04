@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 interface IPerson {
@@ -9,18 +10,20 @@ interface IPerson {
 }
 export default function PersonTable(props: IPerson) {
   const columns: TableColumnType = [
-    { title: "First Name", dataIndex: "FirstName", width: 150 },
-    { title: "Last Name", dataIndex: "LastName", width: 150 },
-    { title: "Middle Name", dataIndex: "MiddleName", width: 150 },
-    { title: "Other Name", dataIndex: "OtherName", width: 150 },
+    {
+      title: "Name",
+      width: 150,
+      render: (text: any, record: any) => (
+        <Link to={`/person/${record.PersonID}`}>{`${record.FirstName} ${record.LastName}`}</Link>
+      )
+    },
+    { title: "Role Name", dataIndex: "RoleName", width: 150 },
     { title: "Address", dataIndex: "Address", width: 150 },
     { title: "City", dataIndex: "City", width: 150 },
     { title: "Postal Code", dataIndex: "PostalCode", width: 150 },
     { title: "Email Address", dataIndex: "EmailAddress", width: 150 },
     { title: "Telephone Number", dataIndex: "TelephoneNumber", width: 150 },
-    { title: "Account Name", dataIndex: "AccountName", width: 150 },
-    { title: "Role Name", dataIndex: "RoleName", width: 150 },
-    { title: "Name", dataIndex: "Name", width: 150 }
+    { title: "Account Name", dataIndex: "AccountName", width: 150 }
   ]
   return (
     <ResponsiveTable

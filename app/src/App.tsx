@@ -46,7 +46,8 @@ import SectionRequestPage from "~/Pages/Request"
 import SectionQuestionPage from "~/Pages/Section/Question"
 
 import RequestPage from "~/Pages/RequestPage"
-import PersonPage from "~/Pages/PersonPage"
+import PersonPage from "~/Pages/Person/PersonPage"
+import PersonDetailPage from "~/Pages/Person/PersonDetailPage"
 import InstructorPage from "~/Pages/InstructorPage"
 import AccountPage from "~/Pages/AccountPage"
 import ProductPage from "~/Pages/ProductPage"
@@ -121,6 +122,9 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
       <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
 
+      <Route exact path="/person" component={PersonPage} />
+      <Route exact path="/person/:personID" component={PersonDetailPage} />
+
       <Route exact path="/order" component={FinancialOrderPagePage} />
       <Route exact path="/order/items" component={FinancialOrderItemPage} />
       <Route exact path="/order/payments" component={FinancialPaymentPage} />
@@ -136,7 +140,6 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/requests" component={RequestPage} />
       <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
       <Route exact path="/registration" component={RegistrationPage} />
-      <Route exact path="/person" component={PersonPage} />
       <Route exact path="/instructor" component={InstructorPage} />
       <Route exact path="/account" component={AccountPage} />
 
