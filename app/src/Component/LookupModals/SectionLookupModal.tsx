@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Card, Button, Form, Input, Row, Col } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import SearchFilters from "~/Component/Common/SearchFilters"
@@ -9,6 +9,7 @@ import moment from "moment"
 import { ColumnsType } from "antd/lib/table"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { FormInstance } from "antd/lib/form"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface ISectionLookupModal {
   closeModal: (sections?: any[]) => void
@@ -133,7 +134,22 @@ export function SectionLookupModal(props: ISectionLookupModal) {
 
 export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   const [showModal, setShowModal] = useState(false)
-  const [selectedSection, setSelectedSection] = useState<{ [key: string]: any }>({})
+  const [selectedSection, setSelectedSection] = useState<any>({})
+  const [disabled, setDisabled] = useState(props.extraProps && props.extraProps.SectionID)
+
+  useEffect(() => {
+    if (props.extraProps && props.extraProps.SectionID) {
+      getEntityById("Section", props.extraProps.SectionID).then((x) => {
+        if (x.success) {
+          setDisabled(true)
+          setSelectedSection(x.data)
+          props.filterValueChanged({
+            [props.fieldName]: x.data.SectionID
+          })
+        }
+      })
+    }
+  }, [props])
   return (
     <Form.Item label="Section" labelCol={{ span: 6 }}>
       <Row>
@@ -141,7 +157,9 @@ export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFil
           <Input value={selectedSection.SectionNumber} readOnly />
         </Col>
         <Col>
-          <Button onClick={() => setShowModal(true)}>Lookup</Button>
+          <Button onClick={() => setShowModal(true)} {...disabled}>
+            Lookup
+          </Button>
         </Col>
       </Row>
       {showModal && (

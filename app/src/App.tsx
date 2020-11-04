@@ -43,14 +43,13 @@ import OrderDetails from "~/Pages/Section/Order/OrderDetails"
 import SectionCommentPage from "~/Pages/Section/Comment"
 import SectionNoShowPage from "~/Pages/Section/NoShow"
 import SectionRequestPage from "~/Pages/Request"
-import RequestPage from "~/Pages/RequestPage"
+import SectionQuestionPage from "~/Pages/Section/Question"
 
+import RequestPage from "~/Pages/RequestPage"
 import PersonPage from "~/Pages/PersonPage"
 import InstructorPage from "~/Pages/InstructorPage"
 import AccountPage from "~/Pages/AccountPage"
 import ProductPage from "~/Pages/ProductPage"
-import QuestionPage from "~/Pages/QuestionPage"
-import SectionQuestionPage from "~/Pages/Section/Question"
 import CatalogPage from "~/Pages/CatalogPage"
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import RegistrationPage from "~/Pages/RegistrationPage"
@@ -58,6 +57,9 @@ import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
 import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
 import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
+
+import QuestionPage from "~/Pages/Question/QuestionPage"
+import QuestionTaggingPage from "~/Pages/Question/QuestionTaggingPage"
 
 import FinancialOrderPagePage from "~/Pages/Financials/OrderPage"
 import FinancialOrderItemPage from "~/Pages/Financials/OrderItemPage"
@@ -127,8 +129,10 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/waitlist" component={WaitlistEntriesPage} />
       <Route exact path="/product" component={ProductPage} />
       <Route exact path="/catalog" component={CatalogPage} />
+
       <Route exact path="/question" component={QuestionPage} />
-      <Route exact path="/question/tagging" component={SectionQuestionPage} />
+      <Route exact path="/question/tagging" component={QuestionTaggingPage} />
+
       <Route exact path="/requests" component={RequestPage} />
       <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
       <Route exact path="/registration" component={RegistrationPage} />
