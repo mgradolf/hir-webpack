@@ -32,7 +32,7 @@ function AccountLookupForOrderManagement(props: IAccountLookupForOrderManagement
     }
   }, [props])
   return (
-    <Form.Item label="Account" labelCol={{ span: 6 }}>
+    <Form.Item colon={false} label="Account" labelCol={{ span: 6 }}>
       <Row>
         <Col span={18}>
           <Input value={selectedValue} readOnly />

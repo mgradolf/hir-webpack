@@ -12,16 +12,6 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
     customFilterComponent: SectionLookupOpenButton
   },
   {
-    label: "Person Lookup",
-    fieldName: "",
-    customFilterComponent: PersonSelector
-  },
-  {
-    label: "Date Type Select",
-    fieldName: "",
-    customFilterComponent: DateTypelector
-  },
-  {
     label: "Order Id",
     inputType: NUMBER,
     defaultValue: "",
@@ -69,5 +59,15 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
     label: "Account Lookup",
     fieldName: "",
     customFilterComponent: AccountLookup
+  },
+  {
+    label: "Person Lookup",
+    fieldName: "",
+    customFilterComponent: PersonSelector
+  },
+  {
+    label: "Date Type Select",
+    fieldName: "",
+    customFilterComponent: DateTypelector
   }
 ]

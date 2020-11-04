@@ -2,49 +2,14 @@ import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLook
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import PersonSelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/PersonSelector"
 import DateTypelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/DateTypelector"
-import TotalAmountRangeForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/TotalAmountRange"
+import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import AccountLookupForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/AccountLookup"
-
-// const Params = {
-//   SectionIDs: [9],
-
-//   PersonID: 14269,
-//   StudentName: "ABC*",
-//   BilledPersonName: "ABC*",
-
-//   CreateDateTo: "2018-09-07T06:39:04+06:00",
-//   CreateDateFrom: "2016-09-07T06:39:04+06:00",
-
-//   PaymentDueDateTo: "2018-09-07T06:39:04+06:00",
-//   PaymentDueDateFrom: "2016-09-07T06:39:04+06:00",
-
-//   TotalAmountFrom: 0.0,
-//   TotalAmountTo: 10000.0,
-
-//   OrderID: 19431,
-//   OrderStatusID: 0,
-//   HasPO: false,
-
-//   SourceID: 0,
-//   AccountID: 0,
-//   ProductName: "SAD*"
-// }
 
 export const OrderManagementSearchFilterMeta: IFilterField[] = [
   {
-    label: "Person Selector",
-    fieldName: "",
-    customFilterComponent: PersonSelectorForOrderManagement
-  },
-  {
-    label: "Date Type Selector",
-    fieldName: "",
-    customFilterComponent: DateTypelectorForOrderManagement
-  },
-  {
     label: "Total Amount",
     fieldName: "",
-    customFilterComponent: TotalAmountRangeForOrderManagement
+    customFilterComponent: TotalAmountRange
   },
   {
     label: "Order Id",
@@ -84,5 +49,15 @@ export const OrderManagementSearchFilterMeta: IFilterField[] = [
     label: "Account Lookup",
     fieldName: "",
     customFilterComponent: AccountLookupForOrderManagement
+  },
+  {
+    label: "Person Selector",
+    fieldName: "",
+    customFilterComponent: PersonSelectorForOrderManagement
+  },
+  {
+    label: "Date Type Selector",
+    fieldName: "",
+    customFilterComponent: DateTypelectorForOrderManagement
   }
 ]
