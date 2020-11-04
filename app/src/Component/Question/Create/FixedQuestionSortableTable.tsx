@@ -31,7 +31,7 @@ export default class SortableTable extends React.Component<TypeSortableTable> {
     }
   }
 
-  DraggableBodyRow = ({ className, style, ...restProps }: any) => {
+  DraggableBodyRow = ({ ...restProps }: any) => {
     const index = this.props.dataSource.findIndex((x) => x.index === restProps["data-row-key"])
     return <SortableItem index={index} {...restProps} />
   }

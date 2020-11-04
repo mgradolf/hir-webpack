@@ -1,34 +1,34 @@
-import React from "react"
-import { Col, Typography } from "antd"
-import { ColProps } from "antd/lib/col"
-const { Title } = Typography
+// import React from "react"
+// import { Col, Typography } from "antd"
+// import { ColProps } from "antd/lib/col"
+// const { Title } = Typography
 
-const layout = {
-  label: {
-    md: 24,
-    lg: 24,
-    xl: 10,
-    xxl: 10,
-    sm: 24,
-    xs: 24
-  },
-  input: {
-    md: 20,
-    lg: 20,
-    xl: 14,
-    xxl: 14,
-    sm: 20,
-    xs: 20
-  }
-}
+// const layout = {
+//   label: {
+//     md: 24,
+//     lg: 24,
+//     xl: 10,
+//     xxl: 10,
+//     sm: 24,
+//     xs: 24
+//   },
+//   input: {
+//     md: 20,
+//     lg: 20,
+//     xl: 14,
+//     xxl: 14,
+//     sm: 20,
+//     xs: 20
+//   }
+// }
 
-function LabelCol(props: ColProps) {
-  return <Col {...layout.label} {...props} />
-}
+// function LabelCol(props: ColProps) {
+//   return <Col {...layout.label} {...props} />
+// }
 
-function InputCol(props: ColProps) {
-  return <Col {...layout.input} {...props} />
-}
+// function InputCol(props: ColProps) {
+//   return <Col {...layout.input} {...props} />
+// }
 
 export interface IFilterValues {
   LastName: string
@@ -52,44 +52,44 @@ export interface IFilterValues {
   CanTeachOfferingID: string
 }
 
-const initialVisibility = {
-  LastName: false,
-  FirstName: false,
-  FacultySerialNum: false,
-  InstructorTypeID: false,
-  TelephoneNumber: false,
-  IsDeceased: false,
-  PostalCode: false,
-  CountryCodeID: false,
-  Birthday: false,
-  InstitutionStatusCodeID: false,
-  OrganizationID: false,
-  TaughtOfferingID: false,
-  GenderTypeID: false,
-  AvailableForSectionID: false,
-  RegionCodeID: false,
-  EthnicityTypeID: false,
-  GovID: false,
-  LastTaughtDate: false,
-  CanTeachOfferingID: false
-}
+// const initialVisibility = {
+//   LastName: false,
+//   FirstName: false,
+//   FacultySerialNum: false,
+//   InstructorTypeID: false,
+//   TelephoneNumber: false,
+//   IsDeceased: false,
+//   PostalCode: false,
+//   CountryCodeID: false,
+//   Birthday: false,
+//   InstitutionStatusCodeID: false,
+//   OrganizationID: false,
+//   TaughtOfferingID: false,
+//   GenderTypeID: false,
+//   AvailableForSectionID: false,
+//   RegionCodeID: false,
+//   EthnicityTypeID: false,
+//   GovID: false,
+//   LastTaughtDate: false,
+//   CanTeachOfferingID: false
+// }
 
-type IVisibility = {
-  [key in keyof IFilterValues]: boolean
-}
+// type IVisibility = {
+//   [key in keyof IFilterValues]: boolean
+// }
 
-type ISearchOptions = {
-  CanTeachOfferingID: Array<any>
-  TaughtOfferingID: Array<any>
-  AvailableForSectionID: Array<any>
-}
+// type ISearchOptions = {
+//   CanTeachOfferingID: Array<any>
+//   TaughtOfferingID: Array<any>
+//   AvailableForSectionID: Array<any>
+// }
 
-interface IFilterColumnProps {
-  visible: boolean
-  hideFilters: () => void
-  onApplyChanges: (newValues: IFilterValues, appliedFilterCount: number) => void
-  data: IFilterValues
-}
+// interface IFilterColumnProps {
+//   visible: boolean
+//   hideFilters: () => void
+//   onApplyChanges: (newValues: IFilterValues, appliedFilterCount: number) => void
+//   data: IFilterValues
+// }
 
 // export function FilterColumn(props: IFilterColumnProps) {
 //   const [
