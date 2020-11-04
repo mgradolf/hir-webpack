@@ -11,3 +11,13 @@ export interface IRegistrationFieldNames {
   AttendanceExpected: any
   GradeScaleTypeID: any
 }
+
+export interface IRegistrationActionFieldNames {
+  SectionID: any
+  StudentID: any
+  EffectiveDate: any
+  GradeScoreDefinitionID: any
+  IsRefund: any
+  CreditMemoData: any
+  GradeScaleTypeID: any
+}

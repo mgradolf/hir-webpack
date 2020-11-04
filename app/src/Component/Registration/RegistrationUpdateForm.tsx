@@ -57,6 +57,7 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
     if (response && response.success) {
       form.resetFields()
       console.log("Successfully updated......")
+      window.location.reload()
     } else {
       setErrorMessages(response.error)
       console.log(response.error)
@@ -116,7 +117,7 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
         label="Creation Time"
         rules={[{ required: true, message: "Please pick the date!" }]}
         {...layout}
-        name="CreationTime"
+        name={props.fieldNames.CreationTime}
       >
         <DatePicker aria-label="Pick Creation Date" placeholder={DATE_TIME_FORMAT} format={DATE_TIME_FORMAT} />
       </Form.Item>
@@ -125,7 +126,7 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
         label="Termination Time"
         rules={[{ required: true, message: "Please pick the date!" }]}
         {...layout}
-        name="TerminationTime"
+        name={props.fieldNames.TerminationTime}
       >
         <DatePicker aria-label="Pick Termination Date" placeholder={DATE_TIME_FORMAT} format={DATE_TIME_FORMAT} />
       </Form.Item>
@@ -134,12 +135,12 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
         label="Effective Date"
         rules={[{ required: true, message: "Please pick the date!" }]}
         {...layout}
-        name="StatusDate"
+        name={props.fieldNames.StatusDate}
       >
         <DatePicker aria-label="Pick Effective Date" placeholder={DATE_TIME_FORMAT} format={DATE_TIME_FORMAT} />
       </Form.Item>
 
-      <Form.Item label="Repeat/Retake" {...layout} valuePropName="checked" name="IsRepeat">
+      <Form.Item label="Repeat/Retake" {...layout} valuePropName="checked" name={props.fieldNames.IsRepeat}>
         <Switch aria-label="Repeat/Retake" />
       </Form.Item>
 
@@ -147,7 +148,7 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
         label="Complete status on termination"
         {...layout}
         valuePropName="checked"
-        name="CompleteOnTermination"
+        name={props.fieldNames.IsCompleteOnTermination}
       >
         <Switch aria-label="Complete status on termination" />
       </Form.Item>
@@ -156,7 +157,7 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
         label="Expected Attendance"
         rules={[{ required: true, message: "Please input your answer!" }]}
         {...layout}
-        name="AttendanceExpected"
+        name={props.fieldNames.AttendanceExpected}
       >
         <Input aria-label="Expected Attendance" />
       </Form.Item>

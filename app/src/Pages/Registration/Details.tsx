@@ -5,7 +5,8 @@ import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
 import styles from "~/Pages/Request/RequestDetails.module.scss"
 import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetailsMenu"
 import RegistrationUpdateForm from "~/Component/Registration/RegistrationUpdateForm"
-import { IRegistrationFieldNames } from "~/Component/Registration/Interfaces"
+import RegistrationActionForm from "~/Component/Registration/RegistrationActionForm"
+import { IRegistrationActionFieldNames, IRegistrationFieldNames } from "~/Component/Registration/Interfaces"
 
 const { Title, Text } = Typography
 const { TabPane } = Tabs
@@ -22,6 +23,16 @@ const fieldNames: IRegistrationFieldNames = {
   GradeScaleTypeID: "GradeScaleTypeID",
   TranscriptCreditTypeID: "TranscriptCreditTypeID",
   AttendanceExpected: "AttendanceExpected"
+}
+
+const actionFieldName: IRegistrationActionFieldNames = {
+  SectionID: "SectionID",
+  StudentID: "StudentID",
+  EffectiveDate: "EffectiveDate",
+  IsRefund: "IsRefund",
+  CreditMemoData: "CreditMemoData",
+  GradeScaleTypeID: "GradeScaleTypeID",
+  GradeScoreDefinitionID: "GradeScoreDefinitionID"
 }
 
 export interface IParamsToBeDispatched {
@@ -140,8 +151,14 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
                     initialFormValue={registrationDetails}
                   />
                 </TabPane>
-                <TabPane tab="Question Responses" key="2"></TabPane>
-                <TabPane tab="Drop/Withdraw/Delete" key="3"></TabPane>
+                <TabPane tab="Drop/Withdraw/Delete" key="2">
+                  <RegistrationActionForm
+                    fieldNames={actionFieldName}
+                    setApiCallInProgress={setApiCallInProgress}
+                    initialFormValue={registrationDetails}
+                  />
+                </TabPane>
+                <TabPane tab="Question Responses" key="3"></TabPane>
                 <TabPane tab="Final Grade" key="4"></TabPane>
               </Tabs>
             </Col>

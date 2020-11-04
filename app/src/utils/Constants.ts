@@ -102,3 +102,5 @@ export const PARAM_TYPE_REGISTRATION = "Registration"
 export const PARAM_TYPE_REGISTRATIONS = "Registrations"
 
 export const ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE = 1
+
+export const GRADE_CLASSIFICATION_TYPE_WITHDRAW = 2
