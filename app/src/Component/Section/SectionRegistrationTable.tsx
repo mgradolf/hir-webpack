@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export interface ISectionRegistrationTable {
@@ -12,6 +13,9 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
     {
       title: "ID",
       dataIndex: "StudentSerialNumber",
+      render: (text: any, record: any) => (
+        <Link to={`/registration/${record.StudentSerialNumber}`}>{record.StudentSerialNumber}</Link>
+      ),
       width: 100
     },
     {

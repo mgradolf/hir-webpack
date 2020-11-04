@@ -57,7 +57,10 @@ import AccountPage from "~/Pages/AccountPage"
 import ProductPage from "~/Pages/ProductPage"
 import CatalogPage from "~/Pages/CatalogPage"
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
-import RegistrationPage from "~/Pages/RegistrationPage"
+
+import RegistrationPage from "~/Pages/Registration/RegistrationPage"
+import RegistrationDetailPage from "~/Pages/Registration/RegistrationDetailPage"
+
 import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
 import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
@@ -143,7 +146,9 @@ function App(props: AppProps): JSX.Element {
 
       <Route exact path="/requests" component={RequestPage} />
       <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
+
       <Route exact path="/registration" component={RegistrationPage} />
+      <Route exact path="/registration/:studentSerialNumber" component={RegistrationDetailPage} />
 
       <Route exact path="/instructor" component={InstructorPage} />
       <Route exact path="/instructor/:facultyID" component={InstructorDetails} />

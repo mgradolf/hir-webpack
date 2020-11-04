@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
 import SearchPage from "~/Component/Common/Page/SearchPage"
@@ -11,6 +12,9 @@ export default function SectionCatalog() {
     {
       title: "ID",
       dataIndex: "StudentSerialNumber",
+      render: (text: any, record: any) => (
+        <Link to={`/registration/${record.StudentSerialNumber}`}>{record.StudentSerialNumber}</Link>
+      ),
       width: 100
     },
     {
