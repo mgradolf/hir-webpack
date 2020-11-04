@@ -34,11 +34,14 @@ export default function WaitlistEntryPage() {
     {
       title: "AccountName",
       dataIndex: "AccountName",
+      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{record.AccountName}</Link>,
       width: 150
     },
     {
       title: "PurchaserName",
       dataIndex: "PurchaserName",
+      render: (text: any, record: any) => <Link to={`/personn/${record.PersonID}`}>{record.PurchaserName}</Link>,
+      key: "WaitListEntryID",
       width: 150
     },
     {

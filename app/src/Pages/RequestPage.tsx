@@ -45,16 +45,19 @@ export default function PersonTable() {
     {
       title: "Purchaser",
       dataIndex: "PurchaserPersonName",
+      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       key: "PurchaserPersonName"
     },
     {
       title: "Account",
       dataIndex: "AccountName",
+      render: (text: any, record: any) => <Link to={`/account/${record.PersonID}`}>{text}</Link>,
       key: "AccountName"
     },
     {
       title: "Staff",
       dataIndex: "RequesterStaffUserName",
+      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       key: "RequesterStaffUserName"
     },
     {

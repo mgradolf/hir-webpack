@@ -44,18 +44,20 @@ export default function WaitListEntryTable(props: IWaitListEntryTable) {
     {
       title: "AccountName",
       dataIndex: "AccountName",
-      key: "WaitListEntryID",
+      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{record.AccountName}</Link>,
       width: 150
     },
     {
       title: "PurchaserName",
       dataIndex: "PurchaserName",
+      render: (text: any, record: any) => <Link to={`/personn/${record.PersonID}`}>{record.PurchaserName}</Link>,
       key: "WaitListEntryID",
       width: 150
     },
     {
       title: "StudentName",
       dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/personn/${record.PersonID}`}>{record.StudentName}</Link>,
       key: "WaitListEntryID",
       width: 150
     },

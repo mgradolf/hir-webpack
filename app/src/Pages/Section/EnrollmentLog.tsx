@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import { getStudentEnrollmentActivity } from "~/ApiServices/Service/ActivityService"
 import AcademicLogSearch from "~/Component/Common/SearchFilters"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDateTime, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { getSectionEnrollmentActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionEnrollmentActivitySearchMeta"
 
 export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID: string }>) {
@@ -12,11 +12,13 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     {
       title: "Activity Date",
       dataIndex: "ActivityModifiedDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Section Number",
       dataIndex: "SectionNumber",
+      render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>,
       width: 100
     },
     {
@@ -40,22 +42,25 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     },
     {
       title: "User Name",
-      dataIndex: "SectionName",
+      dataIndex: "ActivityModifiedByName",
+      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       width: 100
     },
     {
       title: "Activity Type",
-      dataIndex: "SectionID",
+      dataIndex: "ActivityOperation",
       width: 100
     },
     {
       title: "Creation Date",
       dataIndex: "EffectiveCreationDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Termination Date",
       dataIndex: "EffectiveTerminationDate",
+      render: renderDateTime,
       width: 100
     },
     {
@@ -64,7 +69,6 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
       width: 100
     }
   ]
-
   return (
     <div className="site-layout-content">
       <AcademicLogSearch

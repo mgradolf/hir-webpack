@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
 import AcademicLogSearch from "~/Component/Common/SearchFilters"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDateTime, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionOrderActivitySearchMeta"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
@@ -12,32 +12,42 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "User ID",
       dataIndex: "PersonID",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
       title: "User Name",
       dataIndex: "PersonName",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
       title: "Activity Date",
       dataIndex: "ActivityModifiedDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Activity Type",
-      dataIndex: "StudentID",
+      dataIndex: "ActivityOperation",
       width: 100
     },
     {
       title: "Order Number",
       dataIndex: "OrderID",
       width: 100,
-      render: (text: any, record: any) => <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
+      render: (text: any, record: any) => <Link to={`/order/${record.OrderID}`}>{text}</Link>
     },
     {
       title: "Paid By",
       dataIndex: "BillToAddress",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
@@ -68,11 +78,13 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Completion Date",
       dataIndex: "CompletedDate",
+      render: renderDateTime,
       width: 100
     }
   ]

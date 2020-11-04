@@ -54,7 +54,8 @@ import PersonDetailPage from "~/Pages/Person/PersonDetailPage"
 import InstructorPage from "~/Pages/Instructor/InstructorPage"
 import InstructorDetails from "~/Pages/Instructor/InstructorDetails"
 
-import AccountPage from "~/Pages/AccountPage"
+import AccountPage from "~/Pages/Account/AccountPage"
+import AccountDetailsPage from "~/Pages/Account/AccountDetails"
 
 import ProductPage from "~/Pages/Product/ProductPage"
 import ProductDetailsPage from "~/Pages/Product/ProductDetails"
@@ -170,6 +171,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/instructor/:facultyID" component={InstructorDetails} />
 
       <Route exact path="/account" component={AccountPage} />
+      <Route exact path="/account/:accountID" component={AccountDetailsPage} />
 
       <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} />
 

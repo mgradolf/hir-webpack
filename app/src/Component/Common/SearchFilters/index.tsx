@@ -179,7 +179,7 @@ export default function (props: IFilterColumnProps) {
       <Row>
         {filterFieldsArray
           .filter((field, index) => {
-            if (showLess && index < 5) return true
+            if (showLess && index < 4) return true
             return !showLess
           })
           .map((field) => (
@@ -212,7 +212,7 @@ export default function (props: IFilterColumnProps) {
       {filterContent}
 
       <Row justify="end" gutter={[8, 8]}>
-        {!isCheckeble && filterFieldsArray.length > 5 && (
+        {!isCheckeble && filterFieldsArray.length > 4 && (
           <Col>
             <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
           </Col>

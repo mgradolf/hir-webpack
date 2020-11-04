@@ -23,7 +23,8 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
     },
     {
       title: "Name",
-      dataIndex: "PurchaserName",
+      dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.StudentName}</Link>,
       width: 150,
       ellipsis: true
     },

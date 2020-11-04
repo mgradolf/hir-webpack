@@ -1,20 +1,26 @@
 import React from "react"
 import { getStudentAcademicActivity } from "~/ApiServices/Service/ActivityService"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionAcademicActivitySearchMeta"
-
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
+import { Link } from "react-router-dom"
 
 export default function AcademicLogPage() {
   const columns: TableColumnType = [
     {
       title: "User ID",
       dataIndex: "UserID",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
       title: "User Name",
       dataIndex: "ActivityModifiedByName",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
@@ -30,11 +36,17 @@ export default function AcademicLogPage() {
     {
       title: "Student ID",
       dataIndex: "StudentID",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
       title: "Student Name",
       dataIndex: "StudentName",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
@@ -43,18 +55,23 @@ export default function AcademicLogPage() {
       width: 100
     },
     {
-      title: "Section ID",
-      dataIndex: "SectionID",
+      title: "Section Nummber",
+      dataIndex: "SectionNumber",
+      render: (text: any, record: any) => {
+        return <Link to={`/section/${record.SectionID}`}>{text}</Link>
+      },
       width: 100
     },
     {
       title: "Section Creation Date",
       dataIndex: "SectionCreationDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Section Termination Date",
       dataIndex: "SectionTerminationDate",
+      render: renderDateTime,
       width: 100
     },
     {
@@ -110,16 +127,19 @@ export default function AcademicLogPage() {
     {
       title: "Creation Time",
       dataIndex: "CreationTime",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Termination Time",
       dataIndex: "TerminationTime",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Completion On Termination",
       dataIndex: "Completion OnTermination",
+      render: renderDateTime,
       width: 100
     }
   ]
