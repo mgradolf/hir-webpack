@@ -4,12 +4,14 @@ import { Row, Col } from "antd"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import ProductSearchFilterMeta from "~/FormMeta/Section/Product/ProductSearchFilterMeta"
 import { searchProducts } from "~/ApiServices/Service/ProductService"
+import { Link } from "react-router-dom"
 
 export default function ProductPage(props: ITableWrapperProps) {
   const columns = [
     {
       title: "Name",
       dataIndex: "ProductName",
+      render: (text: any, record: any) => <Link to={`/product/${record.ProductID}`}>{record.ProductName}</Link>,
       key: "ProductName"
     },
     {

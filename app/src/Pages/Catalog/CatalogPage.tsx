@@ -1,6 +1,7 @@
 import { Col, Row } from "antd"
 import moment from "moment"
 import React from "react"
+import { Link } from "react-router-dom"
 import { findCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
@@ -12,6 +13,7 @@ export default function SectionCatalog() {
     {
       title: "Catalog Name",
       dataIndex: "catalogName",
+      render: (text: any, record: any) => <Link to={`/catalog/${record.catalogID}`}>{record.catalogName}</Link>,
       key: "catalogName"
     },
     {
@@ -78,7 +80,7 @@ export default function SectionCatalog() {
         breakpoints: ["xxl"],
         responsiveColumnIndices: [1, 2, 3],
         expandableRowRender: expandableRowRender,
-        rowKey: "ProductID",
+        rowKey: "catalogID",
         pagination: { position: ["topLeft"], pageSize: 20 }
       }}
     ></SearchPage>
