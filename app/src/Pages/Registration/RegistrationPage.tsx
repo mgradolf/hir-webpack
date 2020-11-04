@@ -13,7 +13,7 @@ export default function SectionCatalog() {
       title: "ID",
       dataIndex: "StudentSerialNumber",
       render: (text: any, record: any) => (
-        <Link to={`/registration/${record.StudentSerialNumber}`}>{record.StudentSerialNumber}</Link>
+        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>{record.StudentSerialNumber}</Link>
       ),
       width: 100
     },

@@ -66,7 +66,7 @@ import CatalogDetailsPage from "~/Pages/Catalog/CatalogDetailsPage"
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 
 import RegistrationPage from "~/Pages/Registration/RegistrationPage"
-import RegistrationDetailPage from "~/Pages/Registration/RegistrationDetailPage"
+// import RegistrationDetailPage from "~/Pages/Registration/RegistrationDetailPage"
 
 import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
@@ -161,9 +161,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
 
       <Route exact path="/registration" component={RegistrationPage} />
-      <Route exact path="/registration/:studentSerialNumber" component={RegistrationDetailPage} />
-
-      <Route exact path="/registration/:registrationID" component={RegistrationDetailsPage} />
+      <Route exact path="/registration/:studentID" component={RegistrationDetailsPage} />
 
       <Route exact path="/waitlist" component={WaitlistEntriesPage} />
       <Route exact path="/person" component={PersonPage} />
