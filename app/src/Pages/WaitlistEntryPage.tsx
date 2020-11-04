@@ -9,6 +9,7 @@ import { deleteWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { Link } from "react-router-dom"
 
 export default function WaitlistEntryPage() {
   const [entryToEdit, setEntryToEdit] = useState()
@@ -22,6 +23,7 @@ export default function WaitlistEntryPage() {
     {
       title: "SectionNumber",
       dataIndex: "SectionNumber",
+      render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>,
       width: 150
     },
     {

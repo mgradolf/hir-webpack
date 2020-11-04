@@ -183,7 +183,9 @@ export default function (props: IFilterColumnProps) {
             return !showLess
           })
           .map((field) => (
-            <Col span={12}>{field}</Col>
+            <Col lg={12} md={12} sm={12} xs={24}>
+              {field}
+            </Col>
           ))}
       </Row>
     </Form>
@@ -210,7 +212,7 @@ export default function (props: IFilterColumnProps) {
       {filterContent}
 
       <Row justify="end" gutter={[8, 8]}>
-        {!isCheckeble && (
+        {!isCheckeble && filterFieldsArray.length > 5 && (
           <Col>
             <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
           </Col>

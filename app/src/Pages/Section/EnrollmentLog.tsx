@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { RouteComponentProps } from "react-router-dom"
+import { Link, RouteComponentProps } from "react-router-dom"
 import { getStudentEnrollmentActivity } from "~/ApiServices/Service/ActivityService"
 import AcademicLogSearch from "~/Component/Common/SearchFilters"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
@@ -22,11 +22,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     {
       title: "Student Name",
       dataIndex: "SortName",
-      width: 100
-    },
-    {
-      title: "Student ID",
-      dataIndex: "StudentID",
+      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.SortName}</Link>,
       width: 100
     },
     {
@@ -37,6 +33,9 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     {
       title: "Modified By",
       dataIndex: "ActivityModifiedByName",
+      render: (text: any, record: any) => (
+        <Link to={`/person/${record.ActivityModifiedByUID}`}>{record.ActivityModifiedByName}</Link>
+      ),
       width: 100
     },
     {

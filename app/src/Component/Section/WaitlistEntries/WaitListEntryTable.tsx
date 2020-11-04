@@ -2,6 +2,7 @@ import React from "react"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 import { Button } from "antd"
+import { Link } from "react-router-dom"
 
 export interface IWaitListEntryTable {
   dataSource: Array<any>
@@ -17,6 +18,20 @@ export default function WaitListEntryTable(props: IWaitListEntryTable) {
     {
       title: "SectionNumber",
       dataIndex: "SectionNumber",
+      render: (text: any, record: any) =>
+        props.isModal ? (
+          text
+        ) : (
+          <Link
+            to={
+              record.offeringID
+                ? `/offering/${record.offeringID}/section/${record.SectionID}`
+                : `/section/${record.SectionID}`
+            }
+          >
+            {text}
+          </Link>
+        ),
       key: "WaitListEntryID",
       width: 150
     },

@@ -4,6 +4,7 @@ import { getSectionEnrollmentActivitySearchMeta } from "~/FormMeta/SectionActivi
 
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchPage from "~/Component/Common/Page/SearchPage"
+import { Link } from "react-router-dom"
 
 export default function AcademicLogPage() {
   const columns: TableColumnType = [
@@ -20,11 +21,7 @@ export default function AcademicLogPage() {
     {
       title: "Student Name",
       dataIndex: "SortName",
-      width: 100
-    },
-    {
-      title: "Student ID",
-      dataIndex: "StudentID",
+      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.SortName}</Link>,
       width: 100
     },
     {
@@ -35,11 +32,9 @@ export default function AcademicLogPage() {
     {
       title: "Modified By",
       dataIndex: "ActivityModifiedByName",
-      width: 100
-    },
-    {
-      title: "User Name",
-      dataIndex: "SectionName",
+      render: (text: any, record: any) => (
+        <Link to={`/person/${record.ActivityModifiedByUID}`}>{record.ActivityModifiedByName}</Link>
+      ),
       width: 100
     },
     {
