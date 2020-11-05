@@ -182,8 +182,8 @@ export default function (props: IFilterColumnProps) {
             if (showLess && index < 4) return true
             return !showLess
           })
-          .map((field) => (
-            <Col lg={12} md={12} sm={12} xs={24}>
+          .map((field, i) => (
+            <Col key={i + 10000} lg={12} md={12} sm={12} xs={24}>
               {field}
             </Col>
           ))}

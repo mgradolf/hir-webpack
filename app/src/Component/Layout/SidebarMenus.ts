@@ -105,7 +105,7 @@ export const sidebarMenus: ISidebarMenu[] = [
     title: "Discovery",
     url: "",
     submenu: [
-      { title: "Reports", url: "", submenu: [] },
+      { title: "Reports", url: "/report", submenu: [] },
       { title: "Mail Merge", url: "", submenu: [] },
       { title: "Analysis", url: "", submenu: [] },
       {

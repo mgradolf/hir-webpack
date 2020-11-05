@@ -13,7 +13,7 @@ export function TextInputType(props: IFilterGenericComponentProps<IFilterFieldOb
         aria-label={props.ariaLabel}
         name={props.fieldName}
         type={props.inputType.toLowerCase()}
-        defaultValue={props.defaultValue}
+        {...(props.isCheckeble && { defaultValue: props.defaultValue })}
         value={props.value === "*" ? "" : props.value}
         onChange={(e) => props.filterValueChanged(props.fieldName, e.target.value)}
       />
