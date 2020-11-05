@@ -7,9 +7,8 @@ import {
   findGeneralCommentHistory
 } from "~/ApiServices/Service/SectionService"
 import CommentCreateModalOpenButton from "~/Component/Section/Comment/CommentCreateModalOpenButton"
-import CommentTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { COMMENT_TYPES } from "~/utils/Constants"
-import { ColumnsType } from "antd/lib/table"
 
 import Title from "antd/lib/typography/Title"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
@@ -19,7 +18,7 @@ export default function (props: RouteComponentProps<{ sectionID: string }>) {
   const [searchParams] = useState<{ [key: string]: any }>({ SectionID })
   const [commentType, setCommentType] = useState(COMMENT_TYPES.GENERAL)
 
-  const genralColumns: ColumnsType<RecordType> = [
+  const genralColumns: TableColumnType = [
     {
       title: "Date/Time",
       dataIndex: "CreationDate"
@@ -37,14 +36,8 @@ export default function (props: RouteComponentProps<{ sectionID: string }>) {
       dataIndex: "FormattedName"
     }
   ]
-  const instructorColumns: ColumnsType<RecordType> = [
-    ...genralColumns,
-    { title: "Faculty Name", dataIndex: "FacultyName" }
-  ]
-  const enrollmentColumns: ColumnsType<RecordType> = [
-    ...genralColumns,
-    { title: "Student Name", dataIndex: "StudentName" }
-  ]
+  const instructorColumns: TableColumnType = [...genralColumns, { title: "Faculty Name", dataIndex: "FacultyName" }]
+  const enrollmentColumns: TableColumnType = [...genralColumns, { title: "Student Name", dataIndex: "StudentName" }]
 
   useEffect(() => {
     eventBus.subscribe(REFRESH_PAGE, () => {
@@ -82,7 +75,7 @@ export default function (props: RouteComponentProps<{ sectionID: string }>) {
       </Row>
 
       {commentType === COMMENT_TYPES.GENERAL && (
-        <CommentTable
+        <ResponsiveTable
           title={() => <Title level={3}>General Comments</Title>}
           columns={genralColumns}
           searchFunc={findGeneralCommentHistory}
@@ -91,7 +84,7 @@ export default function (props: RouteComponentProps<{ sectionID: string }>) {
         />
       )}
       {commentType === COMMENT_TYPES.INSTRUCTOR && (
-        <CommentTable
+        <ResponsiveTable
           title={() => <Title level={3}>Faculty Comments</Title>}
           columns={instructorColumns}
           searchFunc={findFacultyComments}
@@ -100,7 +93,7 @@ export default function (props: RouteComponentProps<{ sectionID: string }>) {
         />
       )}
       {commentType === COMMENT_TYPES.ENROLLMENT && (
-        <CommentTable
+        <ResponsiveTable
           title={() => <Title level={3}>Enrollmment Comments</Title>}
           columns={enrollmentColumns}
           searchFunc={findEnrollmentCommentHistory}

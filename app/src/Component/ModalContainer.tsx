@@ -8,7 +8,7 @@ import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApp
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
-import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
+// import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import SectionCopyModal from "~/Component/Section/Copy/SectionCopyModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
@@ -77,7 +77,7 @@ function ModalContainer(modalState: IModalState) {
           rowData={modalState.addInstructorFromInstructorModal.config.rowData}
         />
       )}
-      {modalState.createSectionModal.value && <SectionFormModal />}
+      {/* {modalState.createSectionModal.value && <SectionFormModal />} */}
       {modalState.copySectionModal.value && <SectionCopyModal />}
       {modalState.createSectionSeatGroupModal.value && (
         <SectionSeatGroupFormModal

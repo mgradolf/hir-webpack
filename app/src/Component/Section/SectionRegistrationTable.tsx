@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export interface ISectionRegistrationTable {
   dataSource: Array<any>
@@ -10,18 +9,19 @@ export interface ISectionRegistrationTable {
 }
 
 export default function SectionRegistrationTable(props: ISectionRegistrationTable) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "ID",
       dataIndex: "StudentSerialNumber",
-      width: 120,
       render: (text: any, record: any) => (
-        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>{text}</Link>
-      )
+        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>{record.StudentSerialNumber}</Link>
+      ),
+      width: 100
     },
     {
       title: "Name",
-      dataIndex: "PurchaserName",
+      dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.StudentName}</Link>,
       width: 150,
       ellipsis: true
     },

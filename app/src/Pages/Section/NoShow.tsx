@@ -1,9 +1,8 @@
 import { TableRowSelection } from "antd/lib/table/interface"
-import moment from "moment"
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchNoShowProcessings } from "~/ApiServices/Service/RegistrationService"
-import NoShowTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import SearchFilter from "~/Component/Common/SearchFilters"
 import { NUMBER } from "~/Component/Common/SearchFilters/common"
 import { Button } from "antd"
@@ -31,6 +30,19 @@ export default function NoShow(props: RouteComponentProps<{ sectionID: string }>
     columnTitle: "Select"
   }
 
+  const columns: TableColumnType = [
+    { title: "Student First Name", dataIndex: "StudentFirstName" },
+    { title: "Last Name", dataIndex: "StudentLastName" },
+    { title: "Order ID", dataIndex: "OrderID" },
+    {
+      title: "Order Date",
+      dataIndex: "OrderDate",
+      render: renderDate
+    },
+    { title: "Section Number", dataIndex: "SectionNumber" },
+    { title: "Quantity", dataIndex: "Quantity" },
+    { title: "Total Amount", dataIndex: "TotalAmount" }
+  ]
   return (
     <div className="site-layout-content">
       <NoShowDeleteModal
@@ -53,7 +65,7 @@ export default function NoShow(props: RouteComponentProps<{ sectionID: string }>
         isModalView={true}
         visible={true}
         title="Search No Show Items"
-        toggleVisiibility={() => {
+        hideFilters={() => {
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
@@ -70,23 +82,11 @@ export default function NoShow(props: RouteComponentProps<{ sectionID: string }>
       >
         Drop/Delete
       </Button>
-      <NoShowTable
+      <ResponsiveTable
+        columns={columns}
         searchFunc={searchNoShowProcessings}
         searchParams={searchParams}
         rowKey="OrderDate"
-        columns={[
-          { title: "Student First Name", dataIndex: "StudentFirstName" },
-          { title: "Last Name", dataIndex: "StudentLastName" },
-          { title: "Order ID", dataIndex: "OrderID" },
-          {
-            title: "Order Date",
-            dataIndex: "OrderDate",
-            render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
-          },
-          { title: "Section Number", dataIndex: "SectionNumber" },
-          { title: "Quantity", dataIndex: "Quantity" },
-          { title: "Total Amount", dataIndex: "TotalAmount" }
-        ]}
         rowSelection={{
           type: "checkbox",
           ...rowSelection

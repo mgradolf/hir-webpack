@@ -106,9 +106,11 @@ export function SearchFieldWrapper(
     </Row>
   ) : (
     <Form.Item
+      colon={false}
       label={props.label}
       name={props.fieldName}
-      labelCol={{ span: 6 }}
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 12 }}
       {...(props.hidden && { className: "hidden" })}
     >
       {props.children}
@@ -133,7 +135,13 @@ export function SearchComponentWrapper(
       <InputCol className={checked ? styles.offeringFilterField : "hidden"}>{props.children}</InputCol>
     </Row>
   ) : (
-    <Form.Item label={props.label} name={props.fieldName} labelCol={{ span: 6 }}>
+    <Form.Item
+      colon={false}
+      label={props.label}
+      name={props.fieldName}
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 12 }}
+    >
       {props.children}
     </Form.Item>
   )

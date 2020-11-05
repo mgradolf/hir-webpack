@@ -1,35 +1,33 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showCreateSectionModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 
 interface ISectionEditLinkProp {
+  OfferingID: number
   SectionID: number
   PrimaryType: boolean | false
   style?: { [key: string]: string }
-  openSectionEditModal: (OfferingId: number) => void
 }
-function SectionEditLink(props: ISectionEditLinkProp) {
+export default function SectionEditLink(props: ISectionEditLinkProp) {
+  const [openModal, setOpenModal] = useState(false)
   return (
-    <Button
-      style={props.style}
-      type={props.PrimaryType ? "primary" : "link"}
-      onClick={() => {
-        props.openSectionEditModal(props.SectionID)
-      }}
-    >
-      Edit
-    </Button>
+    <>
+      <Button
+        style={props.style}
+        type={props.PrimaryType ? "primary" : "link"}
+        onClick={() => {
+          setOpenModal(true)
+        }}
+      >
+        Edit
+      </Button>
+      {openModal && (
+        <SectionFormModal
+          OfferingID={props.OfferingID}
+          SectionID={props.SectionID}
+          closeModal={() => setOpenModal(false)}
+        />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openSectionEditModal: (SectionID: number) => {
-      return dispatch(showCreateSectionModal(true, { SectionID }))
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(SectionEditLink)

@@ -1,10 +1,9 @@
-import moment from "moment"
 import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import OrderItemsSearchFilters from "~/Component/Common/SearchFilters"
 import { OrderItemsFiltersMeta } from "~/Component/Section/Order/OrderItemsFilters/OrderItemsFiltersMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
-import OrderItemsTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { Button, Dropdown, Menu, Space } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import ViewReturnItemsModal from "~/Component/Section/Order/ViewReturnItemsModal"
@@ -26,7 +25,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
         isModalView={true}
         visible={true}
         title="Search Order Items"
-        toggleVisiibility={() => {
+        hideFilters={() => {
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
@@ -58,7 +57,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           OrderID={selectedOrderItem.OrderID}
         />
       )}
-      <OrderItemsTable
+      <ResponsiveTable
         searchFunc={getOrderItems}
         searchParams={searchParams}
         rowKey="OrderItemID"
@@ -71,7 +70,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           {
             title: "Order Date",
             dataIndex: "OrderDate",
-            render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+            render: renderDate
           },
           {
             title: "Purchaser",
@@ -92,7 +91,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           {
             title: "Due Date",
             dataIndex: "PaymentDueDate",
-            render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+            render: renderDate
           },
           {
             title: "Action",

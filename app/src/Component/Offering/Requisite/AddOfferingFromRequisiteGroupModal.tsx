@@ -61,10 +61,10 @@ function AddOfferingFromRequisiteGroupModal({
           <SearchFilters
             meta={OfferingSearchFilterMeta}
             isModalView={true}
-            initialFilter={filterData}
+            initialFilter={filterData as { [key: string]: any }}
             title={""}
             visible
-            toggleVisiibility={() => {
+            hideFilters={() => {
               closeAddOfferingFromRequisiteGroupModal()
               setSelectedOfferings([])
             }}

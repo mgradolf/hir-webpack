@@ -40,7 +40,7 @@ export default function ({
       <FocusTrap
         focusTrapOptions={focusTrapOption}
         children={
-          <div>
+          <div id="modalContainer" tabIndex={-1}>
             <div className={style.modal} style={{ zIndex }}></div>
             <Row className={style.modal_content} style={{ zIndex: zIndex + 1 }}>
               <Col flex="auto"></Col>

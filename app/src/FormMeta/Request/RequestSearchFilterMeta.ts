@@ -3,7 +3,7 @@ import { getEnumValues } from "~/ApiServices/Service/RequestService"
 import { DROPDOWN, IFilterField, DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
 import RequestSearchCustomLookupFilter from "~/FormMeta/Request/RequestSearchCustomLookupFilter"
 
-const requestMeta: IFilterField[] = [
+export const requestMeta: IFilterField[] = [
   {
     label: "Request Type",
     inputType: DROPDOWN,
@@ -67,5 +67,3 @@ const requestMeta: IFilterField[] = [
     customFilterComponent: RequestSearchCustomLookupFilter
   }
 ]
-
-export default requestMeta

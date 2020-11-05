@@ -1,8 +1,7 @@
-import moment from "moment"
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
-import PaymentsTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { PaymentsFiltersMeta } from "~/Component/Section/Order/PaymentFilters/PaymentsFiltersMeta"
 
@@ -16,8 +15,8 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
         isCheckeble={false}
         isModalView={true}
         visible={true}
-        title="Search Order Items"
-        toggleVisiibility={() => {
+        title="Search Payment Items"
+        hideFilters={() => {
           console.log("meo")
         }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
@@ -27,7 +26,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
         }}
         initialFilter={{}}
       />
-      <PaymentsTable
+      <ResponsiveTable
         searchFunc={searchPayments}
         searchParams={searchParams}
         rowKey="PaymentID"
@@ -37,7 +36,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
           {
             title: "Creation Date",
             dataIndex: "CreateDate",
-            render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+            render: renderDate
           },
           // { title: "Payment Status", dataIndex: "paymentStatus" },
           { title: "Payment Type", dataIndex: "Type" },

@@ -5,8 +5,6 @@ import zIndex from "~/utils/zIndex"
 import RoomListTable from "~/Component/Section/RoomFinder/RoomListTable"
 import RoomSearchFilters from "~/Component/Common/SearchFilters"
 import RoomFinderMeta from "./RoomFinderMeta"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
-
 import { useDispatch } from "react-redux"
 
 import { showRoomFinderModal } from "~/Store/ModalState"
@@ -131,10 +129,12 @@ function RoomFinderModal(props: IRoomFinderProps) {
           title=""
           isModalView
           meta={RoomFinderMeta}
-          initialFilter={(filterData === null ? initialRoomCriteria : (filterData as unknown)) as RecordType}
+          initialFilter={
+            filterData === null ? initialRoomCriteria : ((filterData as unknown) as { [key: string]: any })
+          }
           visible
           isCheckeble={false}
-          toggleVisiibility={() => {
+          hideFilters={() => {
             closeRoomFinderModal()
             setSelectedRoom(null)
           }}

@@ -5,7 +5,7 @@ import { RouteComponentProps } from "react-router-dom"
 import styles from "~/Pages/Request/Request.module.scss"
 import { useRequests, useRequestFilterState } from "~/Hooks/Section/Request"
 import RequestSearchFilters from "~/Component/Common/SearchFilters"
-import RequestSearchFilterMeta from "~/FormMeta/Request/RequestSearchFilterMeta"
+import { requestMeta } from "~/FormMeta/Request/RequestSearchFilterMeta"
 
 import RequestFilterOpenButton from "~/Component/Section/Request/RequestFilterOpenButton"
 
@@ -43,9 +43,9 @@ function RequestPage(props: RouteComponentProps<{ sectionID?: string }>) {
           title={"Request Filter"}
           isModalView={false}
           visible={showFilter}
-          toggleVisiibility={toggleFilter}
-          meta={RequestSearchFilterMeta}
-          initialFilter={filterData}
+          hideFilters={toggleFilter}
+          meta={requestMeta}
+          initialFilter={filterData as { [key: string]: any }}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             updateFilterData({ ...filterData, ...newFilterValues })
             setFilterCount(appliedFilterCount)

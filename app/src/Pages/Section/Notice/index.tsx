@@ -4,7 +4,7 @@ import { Row, Col, Typography, Space } from "antd"
 import { getSectionNotifications } from "~/ApiServices/Service/SectionService"
 import NoticeEditLink from "~/Component/Section/Notice/NoticeEditLink"
 import styles from "~/Pages/Section/Notice/Notice.module.scss"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_NOTIFICATION_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography

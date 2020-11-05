@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 
 import { findPossibleBuildings } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 export interface ITableWrapperProps {
   id?: string

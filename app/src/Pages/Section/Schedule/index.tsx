@@ -10,7 +10,7 @@ import {
   removeMeetingInformations
 } from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Schedule/Schedule.module.scss"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderTime, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import ScheduleMenu from "~/Component/Section/Schedule/ScheduleMenu"
 import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
@@ -30,17 +30,17 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
     {
       title: "Date",
       dataIndex: "MeetingDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Start",
       dataIndex: "StartTime",
-      render: (text: any) => (text !== null ? moment(text).format("hh:mm A") : "")
+      render: renderTime
     },
     {
       title: "End",
       dataIndex: "EndTime",
-      render: (text: any) => (text !== null ? moment(text).format("hh:mm A") : "")
+      render: renderTime
     },
     {
       title: "Meeting Type",

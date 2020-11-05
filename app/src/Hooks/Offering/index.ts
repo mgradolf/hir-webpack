@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { eventBus, REFRESH_OFFERING_PAGE } from "~/utils/EventBus"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
 
-export interface IFilterValues extends RecordType {
+export interface IFilterValues {
   OfferingCode: string
   OfferingName: string
   ToCreationDate: string

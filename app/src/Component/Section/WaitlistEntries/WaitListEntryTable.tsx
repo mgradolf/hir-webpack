@@ -1,7 +1,8 @@
 import React from "react"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+
 import { Button } from "antd"
+import { Link } from "react-router-dom"
 
 export interface IWaitListEntryTable {
   dataSource: Array<any>
@@ -13,10 +14,24 @@ export interface IWaitListEntryTable {
 }
 
 export default function WaitListEntryTable(props: IWaitListEntryTable) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "SectionNumber",
       dataIndex: "SectionNumber",
+      render: (text: any, record: any) =>
+        props.isModal ? (
+          text
+        ) : (
+          <Link
+            to={
+              record.offeringID
+                ? `/offering/${record.offeringID}/section/${record.SectionID}`
+                : `/section/${record.SectionID}`
+            }
+          >
+            {text}
+          </Link>
+        ),
       key: "WaitListEntryID",
       width: 150
     },
@@ -29,18 +44,20 @@ export default function WaitListEntryTable(props: IWaitListEntryTable) {
     {
       title: "AccountName",
       dataIndex: "AccountName",
-      key: "WaitListEntryID",
+      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{record.AccountName}</Link>,
       width: 150
     },
     {
       title: "PurchaserName",
       dataIndex: "PurchaserName",
+      render: (text: any, record: any) => <Link to={`/personn/${record.PersonID}`}>{record.PurchaserName}</Link>,
       key: "WaitListEntryID",
       width: 150
     },
     {
       title: "StudentName",
       dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/personn/${record.PersonID}`}>{record.StudentName}</Link>,
       key: "WaitListEntryID",
       width: 150
     },

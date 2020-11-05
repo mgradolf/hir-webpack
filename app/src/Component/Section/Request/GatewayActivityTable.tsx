@@ -1,8 +1,6 @@
 import React from "react"
-import moment from "moment"
 import { Row, Col } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { renderDateTime, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export interface ITableWrapperProps {
   dataSource: Array<any>
@@ -12,7 +10,7 @@ export interface ITableWrapperProps {
 }
 
 export function GatewayActivityTable(props: ITableWrapperProps) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Activity ID",
       dataIndex: "ActivityID",
@@ -22,7 +20,7 @@ export function GatewayActivityTable(props: ITableWrapperProps) {
       title: "Activity Time",
       dataIndex: "ActivityTime",
       key: "ActivityTime",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD hh:mm A") : "")
+      render: renderDateTime
     },
     {
       title: "Person",

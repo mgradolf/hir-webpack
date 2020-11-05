@@ -1,8 +1,7 @@
 import React from "react"
 import moment from "moment"
 import { Space, Row, Col } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { renderDateTime, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { Link } from "react-router-dom"
 
 export interface ITableWrapperProps {
@@ -14,7 +13,7 @@ export interface ITableWrapperProps {
 }
 
 export function RequestTable(props: ITableWrapperProps) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Request ID",
       dataIndex: "RequestID",
@@ -32,7 +31,7 @@ export function RequestTable(props: ITableWrapperProps) {
       title: "Creation Time",
       dataIndex: "CreateDate",
       key: "CreateDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD hh:mm A") : "")
+      render: renderDateTime
     },
     {
       title: "RequestType",
@@ -48,7 +47,7 @@ export function RequestTable(props: ITableWrapperProps) {
       title: "Expiration Time",
       dataIndex: "ExpirationDate",
       key: "ExpirationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD hh:mm A") : "")
+      render: renderDateTime
     },
     {
       title: "Source",
@@ -58,16 +57,19 @@ export function RequestTable(props: ITableWrapperProps) {
     {
       title: "Purchaser",
       dataIndex: "PurchaserPersonName",
+      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       key: "PurchaserPersonName"
     },
     {
       title: "Account",
       dataIndex: "AccountName",
+      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>,
       key: "AccountName"
     },
     {
       title: "Staff",
       dataIndex: "RequesterStaffUserName",
+      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       key: "RequesterStaffUserName"
     },
     {

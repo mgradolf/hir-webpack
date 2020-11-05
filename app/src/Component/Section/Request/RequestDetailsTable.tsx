@@ -1,7 +1,7 @@
 import React from "react"
 import { Space, Row, Col, Button, Dropdown } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+
 import RequestDetailsMenu from "~/Component/Section/Request/RequestDetailsMenu"
 import {
   PROCESSED_REQUEST_STATE_ID,
@@ -30,7 +30,7 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
     PaymentGatewayAccountID: requestData.Allocation[0].PaymentGatewayAccountID
   }
 
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Processing",
       dataIndex: "TaskType",

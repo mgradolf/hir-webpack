@@ -1,25 +1,19 @@
-import * as React from "react"
-import Modal from "~/Component/Common/Modal"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showCreateSectionModal } from "~/Store/ModalState"
-import { redirect } from "~/Store/ConnectedRoute"
+import React, { useState, useEffect } from "react"
+import Modal from "~/Component/Common/Modal/index2"
 import SectionCreateForm from "~/Component/Section/CreateEdit/SectionCreateForm"
 import SectionEditForm from "~/Component/Section/CreateEdit/SectionEditForm"
-import { AppState } from "~/Store"
-import { useState, useEffect } from "react"
+
 import { getSectionById } from "~/ApiServices/Service/EntityService"
 
 interface ICreateNewSectionProps {
-  OfferingID?: number
+  OfferingID: number
   SectionID?: number
-  redirect?: (url: string) => void
-  closeCreateOfferingModal?: () => void
+  closeModal: () => void
 }
 
-function SectionModal(props: ICreateNewSectionProps) {
+export default function SectionModal(props: ICreateNewSectionProps) {
   const [showCreateForm, setShowCreateForm] = useState(!!props.OfferingID && !props.SectionID)
-  const [showEditForm, setShowEditForm] = useState(!props.OfferingID && !!props.SectionID)
+  const [showEditForm, setShowEditForm] = useState(!!props.OfferingID && !!props.SectionID)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [SectionID, setSectionID] = useState(props.SectionID)
   const [Section, setSection] = useState({})
@@ -35,7 +29,6 @@ function SectionModal(props: ICreateNewSectionProps) {
   }, [SectionID])
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={false}
       apiCallInProgress={apiCallInProgress}
@@ -44,7 +37,7 @@ function SectionModal(props: ICreateNewSectionProps) {
           {showCreateForm && (
             <SectionCreateForm
               OfferingID={Number(props.OfferingID)}
-              handleCancel={() => props.closeCreateOfferingModal && props.closeCreateOfferingModal()}
+              handleCancel={() => props.closeModal && props.closeModal()}
               handleSelected={(sectionId: number) => {
                 setSectionID(sectionId)
                 console.log("section created")
@@ -57,10 +50,10 @@ function SectionModal(props: ICreateNewSectionProps) {
           {showEditForm && (
             <SectionEditForm
               Section={Section}
-              handleCancel={() => props.closeCreateOfferingModal && props.closeCreateOfferingModal()}
+              handleCancel={() => props.closeModal && props.closeModal()}
               handleSubmit={() => {
                 console.log("section edited")
-                props.closeCreateOfferingModal && props.closeCreateOfferingModal()
+                props.closeModal && props.closeModal()
               }}
               setApiCallInProgress={setApiCallInProgress}
             />
@@ -70,17 +63,3 @@ function SectionModal(props: ICreateNewSectionProps) {
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeCreateOfferingModal: () => dispatch(showCreateSectionModal(false)),
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
-const mapStateToProps = (state: AppState) => {
-  return {
-    OfferingID: state.modalState.createSectionModal.config.OfferingID,
-    SectionID: state.modalState.createSectionModal.config.SectionID
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(SectionModal)

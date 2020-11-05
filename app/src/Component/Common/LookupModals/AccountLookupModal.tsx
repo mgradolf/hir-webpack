@@ -33,7 +33,7 @@ function AccountLookupModal(props: IAccountLookupModal) {
 
   useEffect(() => {
     setLoading(true)
-    findAccountForLookUp([filterData]).then((x) => {
+    findAccountForLookUp(filterData).then((x) => {
       if (x.success) setAccounts(x.data)
       setLoading(false)
     })
@@ -71,7 +71,7 @@ function AccountLookupModal(props: IAccountLookupModal) {
             initialFilter={filterData}
             title="Account Filter"
             visible
-            toggleVisiibility={() => props.closePersonLookupModal && props.closePersonLookupModal()}
+            hideFilters={() => props.closePersonLookupModal && props.closePersonLookupModal()}
             onApplyChanges={(newFilterValues, newFilterCount) => {
               Object.keys(newFilterValues).forEach((x) => {
                 if (newFilterValues[x] === "") delete newFilterValues[x]

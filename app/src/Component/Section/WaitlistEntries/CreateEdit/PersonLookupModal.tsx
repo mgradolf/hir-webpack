@@ -1,20 +1,18 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import SearchFilters from "~/Component/Common/SearchFilters"
-import { Row, Card, Button } from "antd"
-import { eventBus, EVENT_PERSON_SELECTED_FOR_WAITLIST_ENTRY_CREATION } from "~/utils/EventBus"
+import { Row, Card, Button, Form, Col, Input } from "antd"
 import PersonTable from "~/Component/Person/PersonTable"
 import FilterOpenButton from "~/Component/Person/PersonFilterOpenButton"
 import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
 import { useEffect } from "react"
-import { IParamsToBeDispatched } from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
-import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
+import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 const { useState } = React
 
 interface IPersonLookupModal {
-  type: string
-  closePersonLookupModal: (flag: boolean) => void
+  isArray?: boolean
+  closeModal: (persons?: Array<{ [key: string]: any }>) => void
 }
 
 enum ModalPages {
@@ -28,7 +26,7 @@ export default function PersonLookupModal(props: IPersonLookupModal) {
   const [loading, setLoading] = useState(false)
   const [persons, setPersons] = useState<any[]>([])
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
-  const [selectedPerson, setSelectedPerson] = useState<{ [key: string]: any }>({})
+  const [selectedPersons, setSelectedPersons] = useState<Array<{ [key: string]: any }>>([])
 
   useEffect(() => {
     setLoading(true)
@@ -39,38 +37,13 @@ export default function PersonLookupModal(props: IPersonLookupModal) {
   }, [filterData])
 
   const rowSelection = {
-    type: "radio",
+    type: props.isArray ? "checkbox" : "radio",
     onChange: (selectedRowKeys: any, selectedRows: any) => {
-      setSelectedPerson(selectedRows[0])
+      setSelectedPersons(selectedRows)
     },
     getCheckboxProps: (record: { name: string }) => ({
       name: record.name
     })
-  }
-
-  function handleSelect() {
-    const selected: IParamsToBeDispatched = {
-      NameToDisplay: "",
-      Params: {}
-    }
-    selected.NameToDisplay = selectedPerson.PersonDescriptor
-    switch (props.type) {
-      case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER:
-        selected.Params = { RequesterPersonID: selectedPerson.PersonID }
-        break
-      case WAITLIST_ENTRIES_LOOKUP_TYPES.STUDENT:
-        selected.Params = { RecipientPersonID: selectedPerson.PersonID }
-        break
-      case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER_STUDENT:
-        selected.Params = {
-          RequesterRecipientPersonID1: selectedPerson.PersonID,
-          RequesterRecipientPersonID2: selectedPerson.PersonID
-        }
-        break
-    }
-
-    eventBus.publish(EVENT_PERSON_SELECTED_FOR_WAITLIST_ENTRY_CREATION, selected)
-    props.closePersonLookupModal && props.closePersonLookupModal(false)
   }
 
   return (
@@ -83,7 +56,6 @@ export default function PersonLookupModal(props: IPersonLookupModal) {
             initialFilter={filterData}
             title="Person Filter"
             visible
-            toggleVisiibility={() => props.closePersonLookupModal && props.closePersonLookupModal(false)}
             onApplyChanges={(newFilterValues, newFilterCount) => {
               updateFilterData({
                 ...filterData,
@@ -100,10 +72,14 @@ export default function PersonLookupModal(props: IPersonLookupModal) {
           <Card
             title="Select Person"
             actions={[
-              <Button type="ghost" onClick={() => props.closePersonLookupModal(false)}>
+              <Button type="ghost" onClick={() => props.closeModal()}>
                 Cancel
               </Button>,
-              <Button type="primary" disabled={selectedPerson.length === 0} onClick={handleSelect}>
+              <Button
+                type="primary"
+                disabled={selectedPersons.length === 0}
+                onClick={() => props.closeModal && props.closeModal(selectedPersons)}
+              >
                 Select
               </Button>
             ]}
@@ -119,5 +95,37 @@ export default function PersonLookupModal(props: IPersonLookupModal) {
           </Card>
         )) || <></>}
     </Modal>
+  )
+}
+
+export function PersonLookupOpenButton(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+  const [showModal, setShowModal] = useState(false)
+  const [selectedPersons, setSelectedPerson] = useState<{ [key: string]: any }>({})
+  return (
+    <Form.Item label="Section" labelCol={{ span: 6 }}>
+      <Row>
+        <Col span="auto">
+          <Input value={selectedPersons.PersonDescriptor} readOnly />
+        </Col>
+        <Col>
+          <Button onClick={() => setShowModal(true)}>Lookup</Button>
+        </Col>
+      </Row>
+      {showModal && (
+        <PersonLookupModal
+          {...(props.extraProps && { isArray: props.extraProps.isArray })}
+          closeModal={(persons) => {
+            if (persons && persons.length > 0) {
+              setSelectedPerson(persons[0])
+              props.filterValueChanged({
+                [props.fieldName]:
+                  props.extraProps && props.extraProps.isArray ? [persons[0].PersonID] : persons[0].PersonID
+              })
+            }
+            setShowModal(false)
+          }}
+        />
+      )}
+    </Form.Item>
   )
 }

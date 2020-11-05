@@ -2,15 +2,13 @@ import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
 import OrderManagementSearch from "~/Component/Common/SearchFilters"
-import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
-import { ColumnsType } from "antd/lib/table"
-import moment from "moment"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID) || undefined
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(SectionID ? { SectionIDs: [SectionID] } : {})
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Order ID",
       dataIndex: "OrderID",
@@ -41,7 +39,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {
@@ -52,7 +50,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Completed Date",
       dataIndex: "CompletedDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {
@@ -83,7 +81,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Payment Due Date",
       dataIndex: "PaymentDueDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       width: 100
     },
     {
@@ -105,7 +103,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
         title="Find Order Activity"
         visible={true}
         isCheckeble={false}
-        toggleVisiibility={() => console.log("s")}
+        hideFilters={() => console.log("s")}
         onApplyChanges={(newValues, count) => {
           const Params: any = newValues
           if (SectionID) Params.SectionIDs = [SectionID]
@@ -115,7 +113,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
         initialFilter={{}}
         isModalView
       />
-      <EnrollmentLogTable
+      <ResponsiveTable
         columns={columns}
         searchFunc={searchOrders}
         expandableColumnIndices={[5]}

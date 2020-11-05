@@ -2,43 +2,52 @@ import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
 import AcademicLogSearch from "~/Component/Common/SearchFilters"
-import EnrollmentLogTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { renderDateTime, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionOrderActivitySearchMeta"
-import { ColumnsType } from "antd/lib/table"
 
 export default function OrderLogPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID)
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({ SectionIDs: [SectionID] })
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "User ID",
       dataIndex: "PersonID",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
       title: "User Name",
       dataIndex: "PersonName",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
       title: "Activity Date",
       dataIndex: "ActivityModifiedDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Activity Type",
-      dataIndex: "StudentID",
+      dataIndex: "ActivityOperation",
       width: 100
     },
     {
       title: "Order Number",
       dataIndex: "OrderID",
       width: 100,
-      render: (text: any, record: any) => <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
+      render: (text: any, record: any) => <Link to={`/order/${record.OrderID}`}>{text}</Link>
     },
     {
       title: "Paid By",
       dataIndex: "BillToAddress",
+      render: (text: any, record: any) => {
+        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+      },
       width: 100
     },
     {
@@ -69,11 +78,13 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Completion Date",
       dataIndex: "CompletedDate",
+      render: renderDateTime,
       width: 100
     }
   ]
@@ -81,11 +92,11 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
   return (
     <div className="site-layout-content">
       <AcademicLogSearch
-        meta={getSectionAcademicActivitySearchMeta(SectionID)}
+        meta={getSectionAcademicActivitySearchMeta}
         title="Find Order Activity"
         visible={true}
         isCheckeble={false}
-        toggleVisiibility={() => console.log("s")}
+        hideFilters={() => console.log("s")}
         onApplyChanges={(newValues, count) => {
           const Params: any = newValues
           Params.SectionIDs = [SectionID]
@@ -95,7 +106,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
         initialFilter={{}}
         isModalView
       />
-      <EnrollmentLogTable
+      <ResponsiveTable
         columns={columns}
         searchFunc={getOrderActivity}
         expandableColumnIndices={[5]}

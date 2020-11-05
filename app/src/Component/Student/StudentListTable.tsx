@@ -1,9 +1,6 @@
 import { Row, Col } from "antd"
 import React from "react"
-import moment from "moment"
-
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
-import { REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
+import { renderDateTime, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 export interface ITableWrapperProps {
   id?: string
@@ -35,7 +32,7 @@ function StudentListTable(props: ITableWrapperProps) {
       title: "Birth Date",
       dataIndex: "Birthday",
       key: "Birthday",
-      render: (text: any) => (text !== null ? moment(text).format(REQUEST_DATE_TIME_FORMAT) : "")
+      render: renderDateTime
     },
     {
       title: "Role",

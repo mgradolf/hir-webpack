@@ -73,6 +73,7 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
             </Col>
             <Col span={12}>
               <SectionEditLink
+                OfferingID={sectionDetails.OfferingID}
                 SectionID={sectionDetails.SectionID}
                 PrimaryType={true}
                 style={{ marginRight: "10px" }}

@@ -8,18 +8,8 @@ import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupM
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Section Lookup",
-    fieldName: "",
+    fieldName: "SectionID",
     customFilterComponent: SectionLookupOpenButton
-  },
-  {
-    label: "Person Lookup",
-    fieldName: "",
-    customFilterComponent: PersonSelector
-  },
-  {
-    label: "Date Type Select",
-    fieldName: "",
-    customFilterComponent: DateTypelector
   },
   {
     label: "Order Id",
@@ -69,5 +59,15 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
     label: "Account Lookup",
     fieldName: "",
     customFilterComponent: AccountLookup
+  },
+  {
+    label: "Person Lookup",
+    fieldName: "",
+    customFilterComponent: PersonSelector
+  },
+  {
+    label: "Date Type Select",
+    fieldName: "",
+    customFilterComponent: DateTypelector
   }
 ]

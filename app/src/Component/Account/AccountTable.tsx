@@ -1,6 +1,5 @@
-import { ColumnsType } from "antd/lib/table"
 import React from "react"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 interface IPerson {
   dataSource: any[]
@@ -9,7 +8,7 @@ interface IPerson {
   rowSelection?: any
 }
 export default function AccountTable(props: IPerson) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     { title: "Account Type", dataIndex: "AccountTypeName", width: 150 },
     { title: "Account Name", dataIndex: "AccountName", width: 150 },
     { title: "Contact Name", dataIndex: "ContactName", width: 150 },

@@ -3,15 +3,20 @@ import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import Table, { TableProps, ColumnsType } from "antd/lib/table"
 import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import moment from "moment"
+import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 
-export type RecordType = { [key: string]: string }
+export type TableColumnType = ColumnsType<{ [key: string]: string }>
 
 // TODO: Currently we have generic responsive support for
 // only one set of breakpoints, we need support for multiple set of
 // breakpoints
+export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
+export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
+export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
 
-interface IDataTableProps extends TableProps<RecordType> {
-  columns: ColumnsType<RecordType>
+export interface IDataTableProps extends TableProps<{ [key: string]: string }> {
+  columns: TableColumnType
   searchParams?: any
   searchFunc?: (Params: any) => Promise<IApiResponse>
   expandableColumnIndices?: number[]
@@ -22,7 +27,7 @@ interface IDataTableProps extends TableProps<RecordType> {
   rowKey?: string
 }
 
-export default function DataTable(props: IDataTableProps) {
+export function ResponsiveTable(props: IDataTableProps) {
   const {
     columns,
     searchParams,
@@ -36,6 +41,31 @@ export default function DataTable(props: IDataTableProps) {
 
   const [loading, setLoading] = useState(false)
   const [mobileView, setMobileView] = useState<any>(undefined)
+
+  useEffect(() => {
+    if (mobileView === undefined) {
+    } else if (otherTableProps.dataSource) {
+      setTableProps()
+    } else if (searchParams && searchFunc) {
+      setLoading(true)
+      Object.keys(searchParams).forEach((key) => {
+        if (searchParams[key] === "") delete searchParams[key]
+      })
+      searchFunc(searchParams).then((x) => {
+        if (x.success && Array.isArray(x.data)) {
+          const data = x.data.map((y: any, i: number) => {
+            y.rowKey = i
+            return y
+          })
+          setTableProps(data)
+        }
+        setTimeout(() => {
+          setLoading(false)
+        }, 0)
+      })
+    }
+    // eslint-disable-next-line
+  }, [otherTableProps.dataSource, searchParams, mobileView])
 
   useDeviceViews((deviceViews: IDeviceView) => {
     setMobileView(deviceViews.mobile || deviceViews.tab)
@@ -84,7 +114,7 @@ export default function DataTable(props: IDataTableProps) {
 
   const [conditionalProps, setConditionalProps] = useState<{ [key: string]: any }>({})
   const setTableProps = (data?: any) => {
-    const _conditionalProps: TableProps<RecordType> = {
+    const _conditionalProps: TableProps<{ [key: string]: string }> = {
       columns: columns.map((col, index) =>
         responsiveColumnIndices && responsiveColumnIndices.includes(index)
           ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
@@ -112,31 +142,6 @@ export default function DataTable(props: IDataTableProps) {
 
     setConditionalProps(_conditionalProps)
   }
-
-  useEffect(() => {
-    if (mobileView === undefined) {
-    } else if (otherTableProps.dataSource) {
-      setTableProps()
-    } else if (searchParams && searchFunc) {
-      setLoading(true)
-      Object.keys(searchParams).forEach((key) => {
-        if (searchParams[key] === "") delete searchParams[key]
-      })
-      searchFunc(searchParams).then((x) => {
-        if (x.success) {
-          const data = x.data.map((y: any, i: number) => {
-            y.rowkey = props.rowKey + " " + i
-            return y
-          })
-          setTableProps(data)
-        }
-        setTimeout(() => {
-          setLoading(false)
-        }, 0)
-      })
-    }
-    // eslint-disable-next-line
-  }, [otherTableProps.dataSource, searchParams, mobileView])
 
   return <Table {...conditionalProps} loading={otherTableProps.loading || loading} />
 }

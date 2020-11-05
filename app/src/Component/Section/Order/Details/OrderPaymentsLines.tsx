@@ -1,13 +1,12 @@
-import moment from "moment"
 import React from "react"
 import { getPayment } from "~/ApiServices/Service/OrderService"
-import OrderPaymentsTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 interface IOrderPaymentLines {
   OrderID: number
 }
 export default function OrderPaymentLines({ OrderID }: IOrderPaymentLines) {
   return (
-    <OrderPaymentsTable
+    <ResponsiveTable
       searchFunc={getPayment}
       searchParams={{ OrderID }}
       columns={[
@@ -38,12 +37,12 @@ export default function OrderPaymentLines({ OrderID }: IOrderPaymentLines) {
         {
           title: "Creation Date",
           dataIndex: "CreateDate",
-          render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+          render: renderDate
         },
         {
           title: "Completed Date",
           dataIndex: "CompletedDate",
-          render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+          render: renderDate
         },
         {
           title: "Ammount Paid",

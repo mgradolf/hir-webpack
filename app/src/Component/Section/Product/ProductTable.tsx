@@ -1,13 +1,15 @@
 import { ITableWrapperProps } from "~/Component/Offering/OfferingTable"
 import { Row, Col } from "antd"
 import React from "react"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { Link } from "react-router-dom"
 
 export function ProductTable(props: ITableWrapperProps) {
   const columns = [
     {
       title: "Name",
       dataIndex: "ProductName",
+      render: (text: any, record: any) => <Link to={`/product/${record.ProductID}`}>{record.ProductName}</Link>,
       key: "ProductName"
     },
     {
