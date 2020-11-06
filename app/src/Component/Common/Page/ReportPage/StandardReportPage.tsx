@@ -14,7 +14,7 @@ export interface IStandardReportPage {
 
 export default function StandardReportPage(props: IStandardReportPage) {
   const [filterCount, setFilterCount] = useState(0)
-  // const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(props.initialFilter || {})
+  const [downloadUrl, setdownloadUrl] = useState<string>()
 
   const openReportInNewTab = (params: { [key: string]: any }) => {
     let urlParams = "/api/reportServlet?"
@@ -23,6 +23,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
     }
     urlParams += "token=" + getToken()
     console.log(params, urlParams)
+    setdownloadUrl(urlParams)
     window.open(urlParams, "_blank")
   }
   return (
@@ -54,6 +55,11 @@ export default function StandardReportPage(props: IStandardReportPage) {
           />
         )}
       </Row>
+      {downloadUrl && (
+        <Row>
+          <iframe title={props.title} style={{ width: "100%", height: "100vh" }} src={downloadUrl} />
+        </Row>
+      )}
     </div>
   )
 }

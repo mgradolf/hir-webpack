@@ -10,7 +10,9 @@ export default function Sidebar(props: { collapsed: boolean }) {
   let counter = 0
   return (
     <Layout.Sider width={250} breakpoint="xs" collapsedWidth={0} trigger={null} collapsible collapsed={props.collapsed}>
-      <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
+      <Link to="/">
+        <div className={[styles.expanded, props.collapsed ? styles.collapsed : null].join(" ")}></div>
+      </Link>
       <Menu theme="dark" mode="inline" style={{ overflow: "scroll", height: "100vh" }}>
         {sidebarMenus.map((x, i) => {
           if (x.submenu && x.submenu?.length > 0) {
