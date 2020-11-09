@@ -128,8 +128,8 @@ const offeringMeta: IFilterField[] = [
     fieldName: "TagTypeID",
     ariaLabel: "Tag Type Select",
     refLookupService: getTagTypes,
-    displayKey: "ID",
-    valueKey: "Name"
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
     label: "Tag",

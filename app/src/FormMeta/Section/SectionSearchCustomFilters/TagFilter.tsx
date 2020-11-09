@@ -28,31 +28,15 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
     fetchTagTypes()
   }, [])
 
-  const onTagTypeChangeHandler = (value: string | number) => {
-    const update = {
-      [fieldNames.combotagType]: isSearchTagHierarcy ? value : "",
-      [fieldNames.tagType]: isSearchTagHierarcy ? "" : value
-    }
-    props.filterValueChanged(update)
-  }
-  const onTagNameChangeHandler = (value: string | number) => {
-    const update = {
-      [fieldNames.combotagName]: isSearchTagHierarcy ? value : "",
-      [fieldNames.tagName]: isSearchTagHierarcy ? "" : value
-    }
-    props.filterValueChanged(update)
-  }
-
   return (
     <Col style={{ paddingLeft: 0 }}>
       <SearchComponentWrapper {...props} fieldName="">
         <Select
           aria-label="Is Search Tag Hierarchy"
           style={{ width: 250 }}
-          defaultValue={isSearchTagHierarcy.toString()}
-          value={isSearchTagHierarcy.toString()}
-          // eslint-disable-next-line no-eval
-          onChange={(value) => setIsSearchTagHierarchy(eval(value))}
+          onChange={(selectedValue) => {
+            setIsSearchTagHierarchy(selectedValue === "true" ? true : false)
+          }}
         >
           <Option value="true" key="true">
             Yes
@@ -62,16 +46,11 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
           </Option>
         </Select>
       </SearchComponentWrapper>
-      {isSearchTagHierarcy && (
+      {isSearchTagHierarcy && tagTypes.length && (
         <>
           {" "}
           <SearchComponentWrapper {...props} label="Tag Type" fieldName={fieldNames.tagType}>
-            <Select
-              aria-label="Tag Type"
-              style={{ width: 250 }}
-              value={props.value[fieldNames.tagType]}
-              onChange={(value) => onTagTypeChangeHandler(value)}
-            >
+            <Select aria-label="Tag Type" style={{ width: 250 }}>
               {tagTypes.map(({ Name: label, ID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
@@ -80,20 +59,15 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
             </Select>
           </SearchComponentWrapper>
           <SearchComponentWrapper {...props} label="Tag Name" fieldName={fieldNames.tagName}>
-            <Input aria-label="Tag Name" defaultValue="" onChange={(e) => onTagNameChangeHandler(e.target.value)} />
+            <Input aria-label="Tag Name" />
           </SearchComponentWrapper>
         </>
       )}
-      {!isSearchTagHierarcy && (
+      {!isSearchTagHierarcy && tagTypes.length && (
         <>
           {" "}
           <SearchComponentWrapper {...props} label="Tag Type" fieldName={fieldNames.combotagType}>
-            <Select
-              aria-label="Tag Type"
-              style={{ width: 250 }}
-              value={props.value[fieldNames.combotagType]}
-              onChange={(value) => onTagTypeChangeHandler(value)}
-            >
+            <Select aria-label="Tag Type" style={{ width: 250 }}>
               {tagTypes.map(({ Name: label, ID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
@@ -102,7 +76,7 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
             </Select>
           </SearchComponentWrapper>
           <SearchComponentWrapper {...props} label="Tag Name" fieldName={fieldNames.combotagName}>
-            <Input aria-label="Tag Name" defaultValue="" onChange={(e) => onTagNameChangeHandler(e.target.value)} />
+            <Input aria-label="Tag Name" />
           </SearchComponentWrapper>
         </>
       )}

@@ -14,12 +14,15 @@ import {
 const { Option } = Select
 
 export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
-  const { value, filterValueChanged, isCheckeble } = props
-  const hideRoomDropdown = props.extraProps && props.extraProps.hideRoomDropdown
+  // const { value, filterValueChanged, isCheckeble } = props
+  // const hideRoomDropdown = props.extraProps && props.extraProps.hideRoomDropdown
 
   const [sites, setSites] = useState<any[]>([])
   const [buildings, setBuildings] = useState<any[]>([])
   const [rooms, setRooms] = useState<any[]>([])
+
+  const [siteId, setSiteId] = useState<any>()
+  const [buildingId, setBuildingId] = useState<any>()
 
   useEffect(() => {
     async function loadSites() {
@@ -30,33 +33,34 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     }
 
     loadSites()
-  }, [isCheckeble])
+  }, [props.isCheckeble])
 
   useEffect(() => {
     async function loadBuildings() {
-      const res = await findPossibleBuildings([props.value.SiteID as number])
+      console.log("siteId ", siteId)
+      const res = await findPossibleBuildings([siteId])
       if (Array.isArray(res.data)) {
         setBuildings(res.data)
       }
     }
 
-    if (props.value.SiteID !== "") {
+    if (siteId !== "") {
       loadBuildings()
     }
-  }, [props.value.SiteID])
+  }, [siteId])
 
   useEffect(() => {
     async function loadRooms() {
-      const res = await findPossibleRooms([props.value.BuildingID as number])
+      const res = await findPossibleRooms([buildingId])
       if (Array.isArray(res.data)) {
         setRooms(res.data)
       }
     }
 
-    if (props.value.BuildingID !== "") {
+    if (buildingId !== "") {
       loadRooms()
     }
-  }, [props.value.BuildingID])
+  }, [buildingId])
 
   // useEffect(() => {
   //   function resetOptionsOfDependentFields() {
@@ -72,40 +76,38 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
   const handleSiteChange = (value: number) => {
     setBuildings([])
     setRooms([])
-    filterValueChanged({ SiteID: value, BuildingID: "", RoomID: "" })
+    setSiteId(value)
+    setBuildingId(undefined)
+    props.formInstance.setFieldsValue({ SiteID: value })
+    props.formInstance.setFieldsValue({ BuildingID: "" })
+    props.formInstance.setFieldsValue({ RoomID: "" })
     console.log("site value changed ", value)
   }
 
   const handleBuildingChange = (value: number) => {
     setRooms([])
-    filterValueChanged({ BuildingID: value, RoomID: "" })
+    setBuildingId(value)
+    props.formInstance.setFieldsValue({ BuildingID: value })
+    props.formInstance.setFieldsValue({ RoomID: "" })
   }
 
   function renderRoomFilterChecked() {
     return (
       <Col style={{ paddingLeft: 0 }}>
-        <SearchComponentWrapper {...props}>
-          <Select
-            aria-label="Site Select"
-            style={{ width: 250 }}
-            value={value.SiteID as number}
-            onChange={handleSiteChange}
-          >
-            {sites.map(({ Name: label, SiteID: value }, i) => (
-              <Option value={value} key={`${value}_${i}`}>
-                {label}
-              </Option>
-            ))}
-          </Select>
-        </SearchComponentWrapper>
+        {sites.length && (
+          <SearchComponentWrapper {...props} label="Select Site" fieldName="SiteID">
+            <Select aria-label="Site Select" style={{ width: 250 }} onChange={handleSiteChange}>
+              {sites.map(({ Name: label, SiteID: value }, i) => (
+                <Option value={value} key={`${value}_${i}`}>
+                  {label}
+                </Option>
+              ))}
+            </Select>
+          </SearchComponentWrapper>
+        )}
         {buildings.length > 0 && (
-          <SearchComponentWrapper {...props}>
-            <Select
-              aria-label="Building Select"
-              style={{ width: 250 }}
-              value={value.BuildingID as number}
-              onChange={handleBuildingChange}
-            >
+          <SearchComponentWrapper {...props} label="Selevt Building" fieldName="BuildingID">
+            <Select aria-label="Building Select" style={{ width: 250 }} onChange={handleBuildingChange}>
               {buildings.map(({ Name: label, BuildingID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
@@ -114,14 +116,10 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
             </Select>
           </SearchComponentWrapper>
         )}
-        {rooms.length > 0 && !hideRoomDropdown && (
-          <SearchComponentWrapper {...props}>
-            <Select
-              aria-label="Room Select"
-              style={{ width: 250 }}
-              value={value.RoomID}
-              onChange={(value) => filterValueChanged({ RoomID: value })}
-            >
+        {/* {rooms.length > 0 || (props.extraProps && !props.extraProps.hideRoomDropdown) && ( */}
+        {rooms.length > 0 && (
+          <SearchComponentWrapper {...props} label="Select Room" fieldName="RoomID">
+            <Select aria-label="Room Select" style={{ width: 250 }}>
               {rooms.map(({ Name: label, RoomID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
@@ -133,63 +131,6 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
       </Col>
     )
   }
-
-  // function renderRoomFilterUnchecked() {
-  //   return (
-  //     <>
-  //       <Row>
-  //         <LabelCol>
-  //           <Text>Site</Text>
-  //         </LabelCol>
-  //         <InputCol>
-  //           <Select aria-label="Site Select" onChange={handleSiteChange}>
-  //             {sites.map(({ Name: label, SiteID: value }, i) => (
-  //               <Option value={value} key={`${value}_${i}`}>
-  //                 {label}
-  //               </Option>
-  //             ))}
-  //           </Select>
-  //         </InputCol>
-  //       </Row>
-  //       {buildings.length > 0 && (
-  //         <Row>
-  //           <LabelCol>
-  //             <Text>Building</Text>
-  //           </LabelCol>
-  //           <InputCol>
-  //             <Select aria-label="Building Select" onChange={handleBuildingChange}>
-  //               {buildings.map(({ Name: label, BuildingID: value }, i) => (
-  //                 <Option value={value} key={`${value}_${i}`}>
-  //                   {label}
-  //                 </Option>
-  //               ))}
-  //             </Select>
-  //           </InputCol>
-  //         </Row>
-  //       )}
-  //       {rooms.length > 0 && !hideRoomDropdown && (
-  //         <Row>
-  //           <LabelCol>
-  //             <Text>Building</Text>
-  //           </LabelCol>
-  //           <InputCol>
-  //             <Select
-  //               aria-label="Room Select"
-  //               value={value.RoomID}
-  //               onChange={(value) => filterValueChanged({ RoomID: value })}
-  //             >
-  //               {rooms.map(({ Name: label, RoomID: value }, i) => (
-  //                 <Option value={value} key={`${value}_${i}`}>
-  //                   {label}
-  //                 </Option>
-  //               ))}
-  //             </Select>
-  //           </InputCol>
-  //         </Row>
-  //       )}
-  //     </>
-  //   )
-  // }
 
   return renderRoomFilterChecked() // : renderRoomFilterUnchecked()
 }

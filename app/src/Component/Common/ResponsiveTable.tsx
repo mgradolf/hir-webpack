@@ -43,6 +43,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [mobileView, setMobileView] = useState<any>(undefined)
 
   useEffect(() => {
+    if (loading) return
     if (mobileView === undefined) {
     } else if (otherTableProps.dataSource) {
       setTableProps()

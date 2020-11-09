@@ -33,8 +33,7 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
         loading={loading}
         aria-label={props.ariaLabel}
         style={props.isCheckeble ? { width: 150 } : {}}
-        value={props.value}
-        onChange={(value) => props.filterValueChanged(props.fieldName, value)}
+        disabled={props.disabled}
       >
         {options &&
           options.map(({ label, value }, i) => (

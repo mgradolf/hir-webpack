@@ -2,7 +2,6 @@ import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Button, Col, Form, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import React, { useState } from "react"
-import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import { TextInputType } from "~/Component/Common/SearchFilters/SearchInput"
 import {
   IFilterField,
@@ -28,124 +27,30 @@ interface IFilterColumnProps {
   initialFilter: { [key: string]: string }
   isModalView: boolean
   isCheckeble?: boolean
+  showClearbutton?: boolean
 }
 
 type Show = { [key: string]: boolean }
 
-export default function (props: IFilterColumnProps) {
-  const isCheckeble = props.isCheckeble === undefined ? true : props.isCheckeble
-  const [filterData, setFilterData] = useState<{ [key: string]: any }>(props.initialFilter)
-  const initialShow = props.meta.reduce((show, field) => ({ ...show, [field.fieldName as string]: false }), {}) as Show
+export default function ({ showClearbutton = true, ...props }: IFilterColumnProps) {
+  const [formInstance] = Form.useForm()
   const [showLess, setShowLess] = useState(true)
-
-  const [show, updateShow] = useState<Show>(
-    Object.keys(props.initialFilter).reduce(
-      (visibilityRecord, key) => ({
-        ...visibilityRecord,
-        [key]: Boolean(props.initialFilter[key] !== "" && props.initialFilter[key] !== "*")
-      }),
-      initialShow
-    )
-  )
-
-  const toggleShow = (name: string | string[]) => (event: CheckboxChangeEvent) => {
-    if (typeof name === "string") {
-      updateShow({ ...show, [name]: event.target.checked })
-      setFilterData({ ...filterData, [name]: event.target.checked ? filterData[name] : "" })
-    } else {
-      // group of fields to reset when unchecked
-      const fieldShow = name.reduce((s, f) => ({ ...s, [f]: event.target.checked }), {})
-      const fieldValues = name.reduce((v, f) => ({ ...v, [f]: "" }), {})
-
-      updateShow({ ...show, ...fieldShow })
-      setFilterData({ ...filterData, ...fieldValues })
-    }
-  }
-
-  const onChangeField = (fieldName: string, value: string) => {
-    setFilterData({
-      ...filterData,
-      [fieldName]: value
-    })
-  }
-
-  const onChangeDatePickersField = (fieldName: string, value: string, fieldName2?: string, value2?: string) => {
-    setFilterData({
-      ...filterData,
-      [fieldName]: value,
-      ...(fieldName2 && value2 && { [fieldName2]: value2 })
-    })
-  }
-
-  const onChangeFieldCopmonent = (values: { [key: string]: any }) => {
-    setFilterData({
-      ...filterData,
-      ...values
-    })
-
-    const newShow: { [key: string]: boolean } = {}
-
-    Object.keys(values).forEach((key) => {
-      if (values[key] !== "" && !show[key]) {
-        newShow[key] = true
-      }
-    })
-
-    if (Object.keys(newShow).length > 0) {
-      updateShow({ ...show, ...newShow })
-    }
-  }
+  const isCheckeble = props.isCheckeble === undefined ? true : props.isCheckeble
 
   const filterFieldsArray = props.meta.map((field, i) => {
     if (isFilterObject(field)) {
-      const { inputType, fieldName } = field
-      if (inputType === TEXT || inputType === NUMBER) {
-        return (
-          <TextInputType
-            {...field}
-            key={i}
-            value={filterData[fieldName]}
-            isCheckeble={isCheckeble}
-            filterValueChanged={onChangeField}
-          />
-        )
-      }
-
-      if (inputType === DROPDOWN) {
-        return (
-          <DropDownInputType
-            {...field}
-            key={i}
-            value={filterData[fieldName]}
-            isCheckeble={isCheckeble}
-            filterValueChanged={onChangeField}
-          />
-        )
-      }
-
-      if (inputType === DATE_PICKER) {
-        return (
-          <DatePickerInputType
-            {...field}
-            key={i}
-            value={filterData[fieldName]}
-            isCheckeble={isCheckeble}
-            filterValueChanged={onChangeField}
-          />
-        )
-      }
-
-      if (inputType === DATE_PICKERS) {
-        return (
-          <DatePickersInputType
-            {...field}
-            key={i}
-            value={filterData[field.valueKey as string]}
-            value2={filterData[field.valueKey2 as string]}
-            isCheckeble={isCheckeble}
-            filterValueChanged={onChangeDatePickersField}
-          />
-        )
+      switch (field.inputType) {
+        case TEXT:
+        case NUMBER:
+          return <TextInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
+        case DROPDOWN:
+          return <DropDownInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
+        case DATE_PICKER:
+          return <DatePickerInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
+        case DATE_PICKERS:
+          return <DatePickersInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
+        default:
+          return null
       }
     } else if (field.customFilterComponent) {
       return (
@@ -153,28 +58,24 @@ export default function (props: IFilterColumnProps) {
           {...{
             ...field,
             key: i,
-            value: filterData,
-            show,
             isCheckeble,
-            toggleCheckboxHandler: (fieldName: string | string[]) => toggleShow(fieldName),
-            filterValueChanged: onChangeFieldCopmonent
+            formInstance
           }}
         />
       )
     }
-
     return null
   })
 
   const filterContent = isCheckeble ? (
-    filterFieldsArray
+    <Form form={formInstance}>filterFieldsArray</Form>
   ) : (
     <Form
       hideRequiredMark
       {...(props.isModalView && { style: { overflowY: "scroll", padding: "10px" } })}
       layout="horizontal"
-      initialValues={filterData}
-      onValuesChange={(newValues) => setFilterData({ ...filterData, ...newValues })}
+      initialValues={props.initialFilter}
+      form={formInstance}
     >
       <Row>
         {filterFieldsArray
@@ -217,34 +118,30 @@ export default function (props: IFilterColumnProps) {
             <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
           </Col>
         )}
+        {showClearbutton && (
+          <Col>
+            <Button
+              danger
+              type="primary"
+              onClick={() => {
+                formInstance.resetFields()
+                const filterCount = Object.keys(props.initialFilter).length
+                console.log("initial filter params ", JSON.stringify(props.initialFilter), filterCount)
+                props.onApplyChanges(props.initialFilter, filterCount)
+              }}
+            >
+              Clear
+            </Button>
+          </Col>
+        )}
         <Col>
           <Button
             type="primary"
             aria-label="Apply Filter"
-            // className={styles.applyBtn}
             onClick={() => {
-              const filterCount = Object.keys(filterData).filter(
-                (key) => filterData[key] !== "" && filterData[key] !== "*"
-              ).length
-
-              const params: { [key: string]: any } = filterData
-              console.log("filterData ", JSON.stringify(filterData))
-              const objectKeys = Object.keys(params)
-              objectKeys.forEach((key) => {
-                if (
-                  params[key] === undefined ||
-                  params[key] === null ||
-                  params[key] === "" ||
-                  params[key] === "0" ||
-                  params[key] === 0
-                ) {
-                  delete params[key]
-                }
-                // if (!isNaN(Number(params[key] && !Array.isArray(params[key])))) {
-                //   params[key] = Number(params[key])
-                // }
-              })
-              console.log("params ", JSON.stringify(params))
+              const params: { [key: string]: any } = formInstance.getFieldsValue()
+              const filterCount = Object.keys(params).length
+              console.log("params ", JSON.stringify(params), filterCount)
               props.onApplyChanges(params, filterCount)
             }}
           >
