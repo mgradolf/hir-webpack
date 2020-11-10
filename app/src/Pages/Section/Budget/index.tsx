@@ -177,6 +177,7 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
             loading={loading}
             expandableRowRender={expandableRowRender}
             bordered
+            rowKey="SectionFinancialID"
             pagination={{ position: ["topLeft"], pageSize: 20 }}
             breakpoints={["md", "lg", "xl", "xxl"]}
             responsiveColumnIndices={[1, 2, 3, 4, 5, 6, 7]}

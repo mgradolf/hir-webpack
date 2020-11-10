@@ -15,9 +15,18 @@ export interface IRegistrationFieldNames {
 export interface IRegistrationActionFieldNames {
   SectionID: any
   StudentID: any
+  SeatGroupID: any
   EffectiveDate: any
   GradeScoreDefinitionID: any
   IsRefund: any
   CreditMemoData: any
   GradeScaleTypeID: any
+}
+
+export interface IEmailSendFieldNames {
+  ToEmailAddress: any
+  FromEmailAddress: any
+  Subject: any
+  Message: any
+  MimeType: any
 }

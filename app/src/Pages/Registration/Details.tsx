@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { Row, Col, Typography, Input, Space, Spin, Divider, Tabs } from "antd"
+import { Row, Col, Typography, Input, Space, Spin, Divider, Tabs, Dropdown, Button } from "antd"
 import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
 import styles from "~/Pages/Request/RequestDetails.module.scss"
 import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetailsMenu"
 import RegistrationUpdateForm from "~/Component/Registration/RegistrationUpdateForm"
 import RegistrationActionForm from "~/Component/Registration/RegistrationActionForm"
+import RegistrationQuestionsForm from "~/Component/Registration/RegistrationQuestionsForm"
 import { IRegistrationActionFieldNames, IRegistrationFieldNames } from "~/Component/Registration/Interfaces"
+import { DownOutlined } from "@ant-design/icons"
 
 const { Title, Text } = Typography
 const { TabPane } = Tabs
@@ -28,6 +30,7 @@ const fieldNames: IRegistrationFieldNames = {
 const actionFieldName: IRegistrationActionFieldNames = {
   SectionID: "SectionID",
   StudentID: "StudentID",
+  SeatGroupID: "SeatGroupID",
   EffectiveDate: "EffectiveDate",
   IsRefund: "IsRefund",
   CreditMemoData: "CreditMemoData",
@@ -72,7 +75,18 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
               <Title level={3}>Registration Details</Title>
             </Col>
             <Col className={`gutter-row ${styles.textRight}`} xs={24} sm={24} md={12}>
-              <RegistrationDetailsMenu />
+              <Dropdown
+                overlay={
+                  <RegistrationDetailsMenu
+                    setApiCallInProgress={setApiCallInProgress}
+                    additionalData={registrationDetails}
+                  />
+                }
+              >
+                <Button type="primary" onClick={(e) => e.preventDefault()}>
+                  Go To <DownOutlined />
+                </Button>
+              </Dropdown>
             </Col>
           </Row>
           <Divider orientation="left">Section</Divider>
@@ -145,21 +159,19 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
             <Col className={`gutter-row ${styles.requestDetails}`} xs={24} sm={24} md={24}>
               <Tabs type="card">
                 <TabPane tab="Registration Details" key="1">
-                  <RegistrationUpdateForm
-                    fieldNames={fieldNames}
-                    setApiCallInProgress={setApiCallInProgress}
-                    initialFormValue={registrationDetails}
-                  />
+                  <RegistrationUpdateForm fieldNames={fieldNames} initialFormValue={registrationDetails} />
                 </TabPane>
                 <TabPane tab="Drop/Withdraw/Delete" key="2">
-                  <RegistrationActionForm
-                    fieldNames={actionFieldName}
-                    setApiCallInProgress={setApiCallInProgress}
-                    initialFormValue={registrationDetails}
+                  <RegistrationActionForm fieldNames={actionFieldName} initialFormValue={registrationDetails} />
+                </TabPane>
+                <TabPane tab="Question Responses" key="3">
+                  <RegistrationQuestionsForm
+                    secitonID={registrationDetails.SectionID}
+                    studentID={registrationDetails.StudentID}
                   />
                 </TabPane>
-                <TabPane tab="Question Responses" key="3"></TabPane>
                 <TabPane tab="Final Grade" key="4"></TabPane>
+                <TabPane tab="Issue Certificate" key="5"></TabPane>
               </Tabs>
             </Col>
           </Row>
