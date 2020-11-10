@@ -1,43 +1,56 @@
-import { Collapse } from "antd"
-import React from "react"
+import { Collapse, Row, Spin } from "antd"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { getReportList } from "~/ApiServices/Service/ReportService"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 export default function ReportPage() {
-  const reports: { header: string; reports: { title: string; url: string }[] }[] = [
-    {
-      header: "Course",
-      reports: [
-        { title: "Catalog Design Information", url: "#" },
-        { title: "Offering Seat Capacity Utilization", url: "#" }
-      ]
-    },
-    {
-      header: "Financial",
-      reports: [{ title: "Purchase Order", url: "/report/financial/purchase-order" }]
-    },
-    { header: "Instructor", reports: [] },
-    { header: "Membership", reports: [] },
-    { header: "Product", reports: [] },
-    { header: "Program", reports: [] },
-    { header: "Registration", reports: [] },
-    { header: "Section", reports: [] },
-    { header: "Student", reports: [] }
-  ]
-  return (
-    <>
-      {reports.map((item, i) => (
-        <Collapse defaultActiveKey={[i]} accordion>
-          <Collapse.Panel header={item.header} key="0">
-            <ul>
-              {item.reports.map((report) => (
-                <li>
-                  <Link to={report.url}>{report.title} </Link>
-                </li>
-              ))}
-            </ul>
-          </Collapse.Panel>
-        </Collapse>
+  const [reports, setReports] = useState<{ [key: string]: any }>({})
+  const [loading, setLoading] = useState(false)
+  const loadReportList = () => {
+    setLoading(true)
+    getReportList().then((x) => {
+      if (x.success && x.data && Array.isArray(x.data.Reports)) {
+        const ReportsWithFolderNameAsKeys: { [key: string]: any[] } = {}
+        x.data.Reports.forEach((y: any) => {
+          if (!ReportsWithFolderNameAsKeys[y.Folder]) {
+            ReportsWithFolderNameAsKeys[y.Folder] = []
+          }
+          ReportsWithFolderNameAsKeys[y.Folder].push(y)
+        })
+        console.log(ReportsWithFolderNameAsKeys)
+        setReports(ReportsWithFolderNameAsKeys)
+      }
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    eventBus.subscribe(REFRESH_PAGE, loadReportList)
+    eventBus.publish(REFRESH_PAGE)
+    return () => {
+      eventBus.unsubscribe(REFRESH_PAGE)
+    }
+  }, [])
+
+  const toRender = loading ? (
+    <Row align="middle" justify="center">
+      <Spin size="large" />
+    </Row>
+  ) : (
+    <Collapse>
+      {Object.keys(reports).map((key, i) => (
+        <Collapse.Panel header={key} key={i}>
+          <ul>
+            {reports[key].map((report: any, j: number) => (
+              <li key={j + 10000}>
+                <Link to={`/report/${report.ReportName}`}>{report.ReportLabel || report.ReportName} </Link>
+                <p dangerouslySetInnerHTML={{ __html: report.ReportDescription }}></p>
+              </li>
+            ))}
+          </ul>
+        </Collapse.Panel>
       ))}
-    </>
+    </Collapse>
   )
+  return toRender
 }

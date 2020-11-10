@@ -74,6 +74,7 @@ import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
 import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
 
 import ReportPage from "~/Pages/Report/ReportPage"
+import IndividualReportPage from "~/Pages/Report/IndividualReportPage"
 import FinancialReportPurchaseOrder from "~/Pages/Report/Financial/PurchaseOrder"
 
 import QuestionPage from "~/Pages/Question/QuestionPage"
@@ -181,6 +182,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/search/activity/order-log" component={OrderLogPage} />
 
       <Route exact path="/report" component={ReportPage} />
+      <Route exact path="/report/:reportName" component={IndividualReportPage} />
       <Route exact path="/report/financial/purchase-order" component={FinancialReportPurchaseOrder} />
 
       <Route component={NotFoundPage} />

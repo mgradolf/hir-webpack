@@ -8,6 +8,8 @@ import { getToken } from "@packages/api/lib/utils/TokenStore"
 
 export interface IStandardReportPage {
   title: string
+  reportName: string
+  description?: string
   meta?: IFilterField[]
   initialFilter: { [key: string]: string }
 }
@@ -17,12 +19,11 @@ export default function StandardReportPage(props: IStandardReportPage) {
   const [downloadUrl, setdownloadUrl] = useState<string>()
 
   const openReportInNewTab = (params: { [key: string]: any }) => {
-    let urlParams = "/api/reportServlet?"
+    let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
       urlParams += `${key}=${params[key]}&`
     }
     urlParams += "token=" + getToken()
-    console.log(params, urlParams)
     setdownloadUrl(urlParams)
     window.open(urlParams, "_blank")
   }
@@ -31,6 +32,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
       <Row>
         <Typography.Title level={3}>{props.title}</Typography.Title>
       </Row>
+      {props.description && <div dangerouslySetInnerHTML={{ __html: props.description }}></div>}
       <Row justify="start" gutter={[8, 8]}>
         <Col>
           <span>

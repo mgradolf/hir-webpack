@@ -12,13 +12,13 @@ export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
 
-type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
+export type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
 
 export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
   hidden?: boolean
-  defaultValue: any
+  defaultValue?: any
   placeholder?: string
   disabled?: boolean
 
@@ -97,7 +97,7 @@ export function SearchFieldWrapper(
     setChecked(event.target.checked)
   }
   return props.isCheckeble ? (
-    <Row>
+    <Row {...(props.hidden && { className: "hidden" })}>
       <LabelCol>
         <Checkbox onChange={toggleCheckboxHandler}>{props.label}</Checkbox>
       </LabelCol>

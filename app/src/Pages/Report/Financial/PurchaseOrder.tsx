@@ -1,19 +1,13 @@
 import React from "react"
 import StandardReportPage from "~/Component/Common/Page/ReportPage/StandardReportPage"
-import { DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS } from "~/Component/Common/SearchFilters/common"
 
 export default function PurchaseOrder() {
   return (
     <StandardReportPage
       title="Purchase Order Report"
+      reportName="financial.PurchaserOrderTransaction"
       meta={[
-        {
-          label: "Report Name",
-          fieldName: "ReportName",
-          ariaLabel: "ReportName",
-          defaultValue: "",
-          inputType: TEXT
-        },
         {
           label: "Order Date Range",
           fieldName: "OrderDateFrom",
