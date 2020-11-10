@@ -9,6 +9,7 @@ export const config = {
     getCreditMemoData: "getCreditMemoData",
     findGradeScoreDefinition: "findGradeScoreDefinition",
     dropWithdrawRegistration: "dropWithdrawRegistration",
+    dropOrWithdrawRegistration: "dropOrWithdrawRegistration",
     deleteRegistration: "deleteRegistration",
     editRegistration: "editRegistration",
     getGradeDefinitionDetails: "getGradeDefinitionDetails",

@@ -4,6 +4,9 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 export function getAllUsers(): Promise<IApiResponse> {
   return HRUserService[config.Actions.getAllUsers]({})
 }
+export function getLoggedInUser(): Promise<IApiResponse> {
+  return HRUserService[config.Actions.getLoggedInUser]({})
+}
 export function getUsersByRole(Params: { [key: string]: any }): Promise<IApiResponse> {
   return HRUserService[config.Actions.getUsersByRole](Params)
 }

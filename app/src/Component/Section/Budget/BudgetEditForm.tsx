@@ -40,7 +40,7 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
       }
     })()
     ;(async () => {
-      const response = await getSeatGroups({ SectiondID: props.sectionId })
+      const response = await getSeatGroups({ SectionID: props.sectionId })
       if (response && response.success && response.data) {
         setSeatGroupItems(response.data)
       }
@@ -53,12 +53,15 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
         label: seatGroup.Name,
         value: seatGroup.SeatGroupID
       })
-      props.selectedSeatGroups.forEach((sg) => {
-        if (sg.SeatGroupID === seatGroup.SeatGroupID) {
-          defaultValueList.push(sg.SeatGroupID)
-          return
-        }
-      })
+
+      if (props.selectedSeatGroups) {
+        props.selectedSeatGroups.forEach((sg) => {
+          if (sg.SeatGroupID === seatGroup.SeatGroupID) {
+            defaultValueList.push(sg.SeatGroupID)
+            return
+          }
+        })
+      }
     })
     props.formInstance.setFieldsValue({
       [props.fieldNames.SeatGroupIDs]: defaultValueList

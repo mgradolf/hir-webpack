@@ -17,6 +17,10 @@ export function dropWithdrawRegistration(Params: { [key: string]: any }): Promis
   return RegistrationService[config.Actions.dropWithdrawRegistration](Params)
 }
 
+export function dropOrWithdrawRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.dropOrWithdrawRegistration](Params)
+}
+
 export function deleteRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.deleteRegistration](Params)
 }

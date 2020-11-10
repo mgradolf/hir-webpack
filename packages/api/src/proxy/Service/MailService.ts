@@ -2,13 +2,11 @@ import ApiMethodFactory from "../../utils/ApiMethodFactory"
 
 export const config = {
   EndPoint: "api/hirServlet",
-  Service: "HRUserService",
+  Service: "mailService",
   Module: "hir",
   Actions: {
-    getAllUsers: "getAllUsers",
-    getUserByUserLogin: "getUserByUserLogin",
-    getUsersByRole: "getUsersByRole",
-    getLoggedInUser: "getLoggedInUser"
+    sendEmail: "sendEmail",
+    sendRegistrationConfirmationEmail: "sendRegistrationConfirmationEmail"
   }
 }
 
