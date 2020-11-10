@@ -8,7 +8,8 @@ export const config = {
     getAllUsers: "getAllUsers",
     getUserByUserLogin: "getUserByUserLogin",
     getUsersByRole: "getUsersByRole",
-    getLoggedInUser: "getLoggedInUser"
+    getLoggedInUser: "getLoggedInUser",
+    getUserByUserID: "getUserByUserID"
   }
 }
 

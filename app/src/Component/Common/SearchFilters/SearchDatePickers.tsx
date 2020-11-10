@@ -4,22 +4,34 @@ import {
   IFilterGenericComponentProps,
   SearchFieldWrapper
 } from "~/Component/Common/SearchFilters/common"
-import { DatePicker } from "antd"
+import { DatePicker, Input, Form } from "antd"
 import { DATE_FORMAT } from "~/utils/Constants"
 
 export function DatePickersInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
   return (
-    <SearchFieldWrapper {...props}>
-      <DatePicker.RangePicker
-        style={{ width: "100%" }}
-        allowEmpty={[true, true]}
-        aria-label={props.ariaLabel}
-        allowClear
-        onChange={(momentValues: any, values: any): void => {
-          props.filterValueChanged(props.fieldName, values[0], props.fieldName2, values[1])
-        }}
-        format={DATE_FORMAT}
-      />
-    </SearchFieldWrapper>
+    <>
+      <Form.Item className="hidden" name={props.fieldName}>
+        <Input />
+      </Form.Item>
+      <Form.Item className="hidden" name={props.fieldName2}>
+        <Input />
+      </Form.Item>
+      <SearchFieldWrapper {...props}>
+        <DatePicker.RangePicker
+          style={{ width: "100%" }}
+          allowEmpty={[true, true]}
+          aria-label={props.ariaLabel}
+          disabled={props.disabled}
+          allowClear
+          onChange={(momentValues: any, dateStrings: any): void => {
+            dateStrings[0] && props.formInstance.setFieldsValue({ [props.fieldName]: dateStrings[0] })
+            props.fieldName2 &&
+              dateStrings[1] &&
+              props.formInstance.setFieldsValue({ [props.fieldName2]: dateStrings[1] })
+          }}
+          format={DATE_FORMAT}
+        />
+      </SearchFieldWrapper>
+    </>
   )
 }

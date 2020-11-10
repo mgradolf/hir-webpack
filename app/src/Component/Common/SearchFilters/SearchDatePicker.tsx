@@ -5,7 +5,6 @@ import {
   SearchFieldWrapper
 } from "~/Component/Common/SearchFilters/common"
 import { DatePicker } from "antd"
-import moment from "moment"
 import { DATE_FORMAT } from "~/utils/Constants"
 
 export function DatePickerInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
@@ -13,8 +12,10 @@ export function DatePickerInputType(props: IFilterGenericComponentProps<IFilterF
     <SearchFieldWrapper {...props}>
       <DatePicker
         allowClear
-        value={props.value ? moment(props.value) : undefined}
-        onChange={(value) => props.filterValueChanged(props.fieldName, value)}
+        disabled={props.disabled}
+        onChange={(dateString) => {
+          dateString && props.formInstance.setFieldsValue({ [props.fieldName]: dateString })
+        }}
         format={DATE_FORMAT}
       />
     </SearchFieldWrapper>

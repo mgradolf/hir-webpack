@@ -4,6 +4,7 @@ import { Col, Row, Checkbox, Form } from "antd"
 import { ColProps } from "antd/lib/col"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
+import { FormInstance } from "antd/lib/form"
 
 export const TEXT = "TEXT"
 export const DROPDOWN = "DROPDOWN"
@@ -11,14 +12,15 @@ export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
 
-type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
+export type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
 
 export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
   hidden?: boolean
-  defaultValue: any
+  defaultValue?: any
   placeholder?: string
+  disabled?: boolean
 
   fieldName: string
   displayKey?: string
@@ -51,16 +53,13 @@ export function isFilterObject(field: IFilterField): field is IFilterFieldObject
 export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObject
   ? IFilterFieldObject & {
       isCheckeble?: boolean
-      key?: any
-      value: string | number
-      value2?: string | number
-      filterValueChanged: (key: string, value: any, key2?: string, value2?: string) => void
+      formInstance: FormInstance
     }
   : IFilterFieldComponent & {
       isCheckeble?: boolean
-      key?: any
       value: { [key: string]: string | number }
       filterValueChanged: (newValues: { [key: string]: string | number | boolean }) => void
+      formInstance: FormInstance
     }
 
 const layout = {
@@ -98,11 +97,13 @@ export function SearchFieldWrapper(
     setChecked(event.target.checked)
   }
   return props.isCheckeble ? (
-    <Row>
+    <Row {...(props.hidden && { className: "hidden" })}>
       <LabelCol>
         <Checkbox onChange={toggleCheckboxHandler}>{props.label}</Checkbox>
       </LabelCol>
-      <InputCol className={checked ? styles.offeringFilterField : "hidden"}>{props.children}</InputCol>
+      <InputCol className={checked ? styles.offeringFilterField : "hidden"}>
+        <Form.Item name={props.fieldName}>{props.children}</Form.Item>
+      </InputCol>
     </Row>
   ) : (
     <Form.Item
