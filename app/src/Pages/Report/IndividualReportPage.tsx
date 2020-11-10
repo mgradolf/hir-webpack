@@ -11,6 +11,7 @@ import {
 import { RouteComponentProps } from "react-router-dom"
 import { getReportByReportName } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { Row, Spin } from "antd"
 // import meta from "./ReportFormMeta/system.DynamicReportForm"
 
 const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterField[] => {
@@ -48,20 +49,26 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
   const ReportName = props.match.params.reportName
   const [report, setReport] = useState<{ [key: string]: any }>({})
   const [reportMeta, setReportMeta] = useState<IFilterField[]>([])
+  const [loading, setLoading] = useState(false)
 
   const loadReportMeta = async () => {
-    const preDefinedMeta = await import(`~/Pages/Report/ReportFormMeta/${ReportName}`)
-    console.log("preDefinedMeta ", preDefinedMeta)
+    setLoading(true)
+    let preDefinedMeta: any
+    try {
+      preDefinedMeta = await import(`~/Pages/Report/ReportFormMeta/${ReportName}`)
+    } catch (error) {}
     const result = await getReportByReportName({ ReportName })
     if (result.success) {
       setReport(result.data)
-      if (preDefinedMeta && Array.isArray(preDefinedMeta) && preDefinedMeta.length > 0) {
-        setReportMeta(preDefinedMeta)
+      if (preDefinedMeta && Array.isArray(preDefinedMeta.default) && preDefinedMeta.default.length > 0) {
+        console.log("preDefinedMeta ", preDefinedMeta.default)
+        setReportMeta(preDefinedMeta.default)
       } else {
         const metas: IFilterField[] = generateIfilterFieldObject(result.data.Params)
         setReportMeta(metas)
       }
     }
+    setLoading(false)
   }
   useEffect(() => {
     eventBus.subscribe(REFRESH_PAGE, loadReportMeta)
@@ -71,13 +78,22 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
     }
     // eslint-disable-next-line
   }, [ReportName])
-  return (
-    <StandardReportPage
-      title={report.ReportLabel}
-      reportName={ReportName}
-      description={report.ReportDescription}
-      meta={reportMeta}
-      initialFilter={{ ReportName }}
-    />
-  )
+
+  if (loading)
+    return (
+      <Row align="middle" justify="center">
+        <Spin size="large" />
+      </Row>
+    )
+  else if (reportMeta && reportMeta.length > 0)
+    return (
+      <StandardReportPage
+        title={report.ReportLabel}
+        reportName={ReportName}
+        description={report.ReportDescription}
+        meta={reportMeta}
+        initialFilter={{ ReportName }}
+      />
+    )
+  else return <p>Could not find any report with "{ReportName}" title</p>
 }
