@@ -1,11 +1,12 @@
-// import { findAvailableAffiliatedOrgs } from "~/ApiServices/BizApi/course/courseIF"
+import { SearchAccountLookup } from "~/Component/Common/Lookups/SearchAccountLookup"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 
 const meta: IFilterField[] = [
-  // {
-  //   label: "Affiliate Organization",
-  //   refLookupService: () => findAvailableAffiliatedOrgs([null])
-  // }
+  {
+    label: "Account",
+    fieldName: "AccountID",
+    customFilterComponent: SearchAccountLookup
+  }
 ]
 
 export default meta

@@ -25,7 +25,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
     }
     urlParams += "token=" + getToken()
     setdownloadUrl(urlParams)
-    window.open(urlParams, "_blank")
+    // window.open(urlParams, "_blank")
   }
   return (
     <div className="site-layout-content">

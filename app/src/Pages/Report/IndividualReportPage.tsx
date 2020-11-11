@@ -12,7 +12,6 @@ import { RouteComponentProps } from "react-router-dom"
 import { getReportByReportName } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Row, Spin } from "antd"
-// import meta from "./ReportFormMeta/system.DynamicReportForm"
 
 const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterField[] => {
   const metas: IFilterField[] = []
@@ -74,6 +73,9 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
         setReportMeta(metas)
       }
     }
+    setTimeout(() => {
+      console.log(reportMeta)
+    }, 0)
     setLoading(false)
   }
   useEffect(() => {

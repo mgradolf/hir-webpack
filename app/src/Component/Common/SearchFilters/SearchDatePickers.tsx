@@ -16,7 +16,7 @@ export function DatePickersInputType(props: IFilterGenericComponentProps<IFilter
       <Form.Item className="hidden" name={props.fieldName2}>
         <Input />
       </Form.Item>
-      <SearchFieldWrapper {...props}>
+      <SearchFieldWrapper {...props} fieldName="">
         <DatePicker.RangePicker
           style={{ width: "100%" }}
           allowEmpty={[true, true]}
@@ -24,10 +24,14 @@ export function DatePickersInputType(props: IFilterGenericComponentProps<IFilter
           disabled={props.disabled}
           allowClear
           onChange={(momentValues: any, dateStrings: any): void => {
-            dateStrings[0] && props.formInstance.setFieldsValue({ [props.fieldName]: dateStrings[0] })
-            props.fieldName2 &&
-              dateStrings[1] &&
+            if (dateStrings[0]) {
+              console.log(dateStrings)
+              props.formInstance.setFieldsValue({ [props.fieldName]: dateStrings[0] })
+            }
+            if (props.fieldName2 && dateStrings[1]) {
+              console.log(props)
               props.formInstance.setFieldsValue({ [props.fieldName2]: dateStrings[1] })
+            }
           }}
           format={DATE_FORMAT}
         />
