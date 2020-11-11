@@ -18,3 +18,8 @@ export interface IApiResponse {
   error: any
   success: boolean
 }
+
+export const RESPONSE_TYPE = {
+  EXCEL: "__downloadDataAsEXCEL",
+  CSV: "__downloadDataAsCSV"
+}

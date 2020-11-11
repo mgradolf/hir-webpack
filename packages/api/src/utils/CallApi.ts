@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios"
-import { ApiConfig, ErrorType, IApiResponse } from "./Interfaces"
+import { ApiConfig, IApiResponse } from "./Interfaces"
 import { handleResponse } from "./HandleResponse"
 import apiErroreEventBus from "./GlobalHttpErrorEventBus"
 

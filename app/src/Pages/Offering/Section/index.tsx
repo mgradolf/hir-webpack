@@ -237,8 +237,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
         columns: columns,
         searchFunc: searchSection,
         responsiveColumnIndices: [1, 2, 3, 4, 5],
-        pagination: { position: ["topLeft"], pageSize: 20 },
-        rowKey: "OfferingID"
+        pagination: { position: ["topLeft"], pageSize: 20 }
       }}
     ></SearchPage>
   )
