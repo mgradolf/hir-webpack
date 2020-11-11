@@ -32,7 +32,6 @@ export default function StandardReportPage(props: IStandardReportPage) {
       <Row>
         <Typography.Title level={3}>{props.title}</Typography.Title>
       </Row>
-      {props.description && <div dangerouslySetInnerHTML={{ __html: props.description }}></div>}
       <Row justify="start" gutter={[8, 8]}>
         <Col>
           <span>

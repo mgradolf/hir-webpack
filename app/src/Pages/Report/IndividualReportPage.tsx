@@ -17,7 +17,13 @@ import { Row, Spin } from "antd"
 const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterField[] => {
   const metas: IFilterField[] = []
   Params.forEach((param: any) => {
-    if (param.Name === "pUserName" || param.Name === "externalQuery" || param.Name === "SUBREPORT_DIR") return
+    if (
+      param.Name === "pUserName" ||
+      param.Name === "externalQuery" ||
+      param.Name === "SUBREPORT_DIR" ||
+      param.Name === "SchoolName"
+    )
+      return
     const meta: IFilterField = {
       label: param.Name,
       fieldName: param.Name,

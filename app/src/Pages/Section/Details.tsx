@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Dispatch } from "redux"
-import moment from "moment"
+import apiErroreEventBus from "@packages/api/lib/utils/GlobalHttpErrorEventBus"
 import { Redirect, RouteComponentProps } from "react-router-dom"
 import { Row, Col, Button, Typography, Space, Spin } from "antd"
 import SectionEditLink from "~/Component/Section/CreateEdit/SectionEditLink"
@@ -11,6 +11,7 @@ import SectionMenu from "~/Component/Section/SectionMenu"
 import styles from "~/Pages/Offering/OfferingDetails.module.scss"
 import { connect } from "react-redux"
 import { push } from "connected-react-router"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 const { Title, Text } = Typography
 
@@ -23,7 +24,7 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
   const [redirectAfterRemoveURL, setRedirectAfterRemove] = useState("")
 
   useEffect(() => {
-    ;(async function () {
+    const loadSection = async function () {
       setApiCallInProgress(true)
       const result = await getSectionById(Number(sectionID))
 
@@ -31,7 +32,11 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
         setSectionDetails(result.data)
       }
       setApiCallInProgress(false)
-    })()
+    }
+
+    eventBus.subscribe(REFRESH_PAGE, loadSection)
+    eventBus.publish(REFRESH_PAGE)
+    return () => eventBus.unsubscribe(REFRESH_PAGE)
   }, [sectionID])
 
   return (
@@ -51,17 +56,6 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
               <Row>
                 <Text className={styles.font20px}>{sectionDetails.SectionNumber}</Text>
               </Row>
-              <Row>
-                <Text className={styles.font15px}>Name: {sectionDetails.OfferingName}</Text>
-              </Row>
-              <Row>
-                <Text className={styles.font15px}>Organization: {sectionDetails.OrganizationName}</Text>
-              </Row>
-              <Row>
-                <Text className={styles.font15px}>
-                  Status: <span style={{ color: "blue" }}>{sectionDetails.StatusCode}</span>
-                </Text>
-              </Row>
               <Row className={styles.marginTop10px}>
                 <SectionMenu section={sectionDetails} />
               </Row>
@@ -69,7 +63,7 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
           </Row>
           <Row className={styles.details}>
             <Col span={12}>
-              <Title level={3}>Section Details</Title>
+              <Title level={3}>Section Actions</Title>
             </Col>
             <Col span={12}>
               <SectionEditLink
@@ -88,10 +82,13 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
                   setRemoveApiCallInProgress(true)
                   removeSectionById(Number(sectionID))
                     .then((x) => {
-                      if (offeringID) {
-                        setRedirectAfterRemove(`/offering/${offeringID}/section`)
-                      } else {
-                        setRedirectAfterRemove(`/section`)
+                      if (x.success) {
+                        apiErroreEventBus.publish([{ message: `Section ${sectionDetails.SectionNumber} removed` }])
+                        if (offeringID) {
+                          setRedirectAfterRemove(`/offering/${offeringID}/section`)
+                        } else {
+                          setRedirectAfterRemove(`/section`)
+                        }
                       }
                     })
                     .finally(() => {
@@ -106,40 +103,6 @@ function SectionDetailsPage(props: RouteComponentProps<{ offeringID: string; sec
                 SectionNumber={sectionDetails.SectionNumber}
               />
               {redirectAfterRemoveURL !== "" && <Redirect to={redirectAfterRemoveURL} />}
-            </Col>
-          </Row>
-
-          <Row className={styles.details}>
-            <Col span={8}>
-              <Text>Description:</Text>
-            </Col>
-            <Col span={16}>
-              <Text>{sectionDetails.Description}</Text>
-            </Col>
-            <Col span={8}>
-              <Text>Offering Type:</Text>
-            </Col>
-            <Col span={16}>
-              <Text>{sectionDetails.OfferingTypeName}</Text>
-            </Col>
-
-            <Col span={8}>
-              <Text>Creation Date:</Text>
-            </Col>
-            <Col span={16}>
-              <Text>
-                {sectionDetails.CreationDate !== null ? moment(sectionDetails.CreationDate).format("YYYY-MM-DD") : ""}
-              </Text>
-            </Col>
-            <Col span={8}>
-              <Text>Termination Date:</Text>
-            </Col>
-            <Col span={16}>
-              <Text>
-                {sectionDetails.TerminationDate !== null
-                  ? moment(sectionDetails.TerminationDate).format("YYYY-MM-DD")
-                  : ""}
-              </Text>
             </Col>
           </Row>
         </div>

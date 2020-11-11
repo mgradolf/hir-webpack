@@ -151,10 +151,10 @@ export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFil
   return (
     <Form.Item colon={false} label="Section" labelCol={{ span: 8 }}>
       <Row>
-        <Col span={16}>
+        <Col span={12}>
           <Input value={selectedSection.SectionNumber} readOnly />
         </Col>
-        <Col span={8}>
+        <Col span={4}>
           <Button onClick={() => setShowModal(true)} {...disabled}>
             Lookup
           </Button>

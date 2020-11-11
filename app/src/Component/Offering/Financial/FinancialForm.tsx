@@ -142,7 +142,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         </Form.Item>
 
         <Form.Item label="Amount" {...layout} name={props.fieldNames.ItemUnitAmount}>
-          <Input aria-label="Amount" type="number" min={0} />
+          <Input aria-label="Amount" type="number" min={0} max={999999} />
         </Form.Item>
 
         <Form.Item label="Type" {...layout} name={props.fieldNames.IsCharge}>

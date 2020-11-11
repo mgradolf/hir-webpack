@@ -140,7 +140,6 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.scroll = { ...(props.isModal && { y: Math.floor(window.innerHeight * 0.45) }), x: 300 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
-
     setConditionalProps(_conditionalProps)
   }
 

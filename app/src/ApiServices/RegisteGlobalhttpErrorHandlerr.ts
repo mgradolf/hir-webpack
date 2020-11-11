@@ -12,6 +12,9 @@ export default function RegisteGlobalhttpErrorHandlerr() {
           store.dispatch(showLoginModal({ value: true }))
         } else if (x.isGloabal) {
           store.dispatch(showGLobalApiError(x.message))
+        } else {
+          // todo
+          store.dispatch(showGLobalApiError(x.message))
         }
       })
     } else {
