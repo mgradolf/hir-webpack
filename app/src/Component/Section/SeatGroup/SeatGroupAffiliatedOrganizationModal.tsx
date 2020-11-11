@@ -31,7 +31,7 @@ function SeatGroupAffiliatedOrganization({
     if (seatgroupId) {
       ;(async () => {
         setSectionSeatGroupLoading(true)
-        const response = await findAvailableAffiliatedOrgs(seatgroupId)
+        const response = await findAvailableAffiliatedOrgs({ SeatGroupID: seatgroupId })
         if (response && response.success && Array.isArray(response.data)) {
           response.data.map((x) => {
             affiliatedOrganization.push({

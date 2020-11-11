@@ -32,6 +32,8 @@ export interface IFilterFieldObject {
   displayKey2?: string
   valueKey2?: string
 
+  fullWidth?: boolean
+
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
   requestService?: () => Promise<IApiResponse>
@@ -41,6 +43,7 @@ export interface IFilterFieldComponent {
   label: string
   fieldName: string
   customFilterComponent: React.FunctionComponent<any>
+  fullWidth?: boolean
   extraProps?: { [key: string]: any }
 }
 

@@ -68,7 +68,7 @@ export default function ({ showClearbutton = true, ...props }: IFilterColumnProp
   })
 
   const filterContent = isCheckeble ? (
-    <Form form={formInstance}>filterFieldsArray</Form>
+    <Form form={formInstance}>{filterFieldsArray}</Form>
   ) : (
     <Form
       hideRequiredMark

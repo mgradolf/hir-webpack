@@ -21,7 +21,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
   const openReportInNewTab = (params: { [key: string]: any }) => {
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
-      urlParams += `${key}=${params[key]}&`
+      if (params[key]) urlParams += `${key}=${params[key]}&`
     }
     urlParams += "token=" + getToken()
     setdownloadUrl(urlParams)

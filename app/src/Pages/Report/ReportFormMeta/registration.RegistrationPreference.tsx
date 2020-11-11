@@ -5,7 +5,10 @@ const meta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionID",
-    customFilterComponent: SectionLookupOpenButton
+    customFilterComponent: SectionLookupOpenButton,
+    extraProps: {
+      isArray: true
+    }
   }
 ]
 

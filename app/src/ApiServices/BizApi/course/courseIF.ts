@@ -24,3 +24,7 @@ export function findSectionNotice(Params: Array<any>): Promise<IApiResponse> {
 export function createSectionNotice(Params: Array<any>): Promise<IApiResponse> {
   return CourseIf[config.Actions.createSectionNotice](Params)
 }
+
+export function findAvailableAffiliatedOrgs(Params: Array<any>): Promise<IApiResponse> {
+  return CourseIf[config.Actions.findAvailableAffiliatedOrgs](Params)
+}
