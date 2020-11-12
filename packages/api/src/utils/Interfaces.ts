@@ -5,6 +5,7 @@ export interface ApiConfig {
   headers?: any
   params?: any
   data?: any
+  responseType?: any
 }
 
 export enum ErrorType {

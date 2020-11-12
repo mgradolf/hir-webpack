@@ -44,6 +44,7 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   const [loading, setLoading] = useState(false)
   const [mobileView, setMobileView] = useState<any>(undefined)
+  const [downloading, setDownloading] = useState(false)
 
   const loadDataFromSearchFunc = () => {
     if (loading) {
@@ -163,7 +164,11 @@ export function ResponsiveTable(props: IDataTableProps) {
       ...(searchParams ? searchParams : {}),
       [fileType]: true
     }
-    searchFunc && searchFunc(params)
+    setDownloading(true)
+    searchFunc &&
+      searchFunc(params).then((x) => {
+        setDownloading(false)
+      })
   }
 
   return (
@@ -191,6 +196,8 @@ export function ResponsiveTable(props: IDataTableProps) {
             trigger={["click"]}
           >
             <Button
+              loading={downloading}
+              disabled={downloading}
               style={{ position: "absolute", zIndex: 100, right: "15px", top: "15px", border: "1px solid" }}
               type="link"
               onClick={(e) => e.preventDefault()}

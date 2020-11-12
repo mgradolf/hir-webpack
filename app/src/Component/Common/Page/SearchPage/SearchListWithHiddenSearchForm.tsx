@@ -39,7 +39,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             </Button>
           )}
         </Col>
-        {props.blocks && props.blocks.map((x) => <Col>{x}</Col>)}
+        {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (

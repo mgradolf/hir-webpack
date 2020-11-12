@@ -1,7 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios"
 import { ApiConfig, IApiResponse, RESPONSE_TYPE } from "./Interfaces"
-import { handleResponse } from "./HandleResponse"
-import apiErroreEventBus from "./GlobalHttpErrorEventBus"
 import { saveAs } from "file-saver"
 
 const getNewConfigWithResponseType = (config: ApiConfig): { newConfig: ApiConfig; fileExtension: string } => {
@@ -15,7 +13,7 @@ const getNewConfigWithResponseType = (config: ApiConfig): { newConfig: ApiConfig
     header = {
       ["ResponseType"]: "application/vnd.ms-excel"
     }
-    fileExtension = ".excel"
+    fileExtension = ".xls"
   } else if (Params[RESPONSE_TYPE.CSV] || (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.CSV])) {
     if (Params[RESPONSE_TYPE.CSV]) delete Params[RESPONSE_TYPE.CSV]
     else if (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.CSV]) delete Params[0][RESPONSE_TYPE.CSV]
@@ -31,7 +29,8 @@ const getNewConfigWithResponseType = (config: ApiConfig): { newConfig: ApiConfig
       headers: {
         ...config.headers,
         ...header
-      }
+      },
+      responseType: "blob"
     },
     fileExtension
   }
@@ -42,13 +41,10 @@ export default async function download(config: ApiConfig): Promise<IApiResponse>
 
   const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>newConfig
   requestConfig.withCredentials = true
-  const response: IApiResponse = await handleResponse(axios.request(requestConfig))
-  if (!response.success && response.error) {
-    apiErroreEventBus.publish(response.error)
-  }
+  const response = (await axios.request(requestConfig)).data
 
-  if (response.success && response.data) {
-    saveAs(response.data, "download" + fileExtension)
+  if (response) {
+    saveAs(response, `report-${new Date().toISOString()}${fileExtension}`)
   }
-  return response
+  return { data: response, success: true, code: 200, error: null }
 }
