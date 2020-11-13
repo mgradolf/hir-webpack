@@ -2,7 +2,7 @@ import { getOPCStatusCode, getOrganizations, getSourceModule } from "~/ApiServic
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import PersonSelector from "~/Component/Section/Order/OrderItemsFilters/PersonSelector"
 import DateTypelector from "~/Component/Section/Order/OrderItemsFilters/DateTypelector"
-import AccountLookup from "~/Component/Section/Order/OrderItemsFilters/AccountLookup"
+import { SearchAccountLookup } from "~/Component/Common/Lookups/SearchAccountLookup"
 import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
@@ -57,8 +57,8 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   },
   {
     label: "Account Lookup",
-    fieldName: "",
-    customFilterComponent: AccountLookup
+    fieldName: "AccountID",
+    customFilterComponent: SearchAccountLookup
   },
   {
     label: "Person Lookup",
