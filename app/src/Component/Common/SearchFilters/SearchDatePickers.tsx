@@ -16,7 +16,7 @@ export function DatePickersInputType(props: IFilterGenericComponentProps<IFilter
       <Form.Item className="hidden" name={props.fieldName2}>
         <Input />
       </Form.Item>
-      <SearchFieldWrapper {...props} fieldName="">
+      <SearchFieldWrapper {...props} fieldName={""}>
         <DatePicker.RangePicker
           style={{ width: "100%" }}
           allowEmpty={[true, true]}

@@ -83,6 +83,9 @@ import QuestionTaggingPage from "~/Pages/Question/QuestionTaggingPage"
 import FinancialOrderPagePage from "~/Pages/Financials/OrderPage"
 import FinancialOrderItemPage from "~/Pages/Financials/OrderItemPage"
 import FinancialPaymentPage from "~/Pages/Financials/PaymentPage"
+
+import ChartPage from "~/Pages/Chart/ChartPage"
+import ChartDetailsPage from "~/Pages/Chart/ChartDetailsPage"
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
 
@@ -184,6 +187,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/report" component={ReportPage} />
       <Route exact path="/report/:reportName" component={IndividualReportPage} />
       <Route exact path="/report/financial/purchase-order" component={FinancialReportPurchaseOrder} />
+      <Route exact path="/chart" component={ChartPage} />
+      <Route exact path="/chart/:chartName" component={ChartDetailsPage} />
 
       <Route component={NotFoundPage} />
     </Switch>
