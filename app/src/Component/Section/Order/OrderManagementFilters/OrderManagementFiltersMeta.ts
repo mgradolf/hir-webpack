@@ -3,7 +3,7 @@ import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchF
 import PersonSelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/PersonSelector"
 import DateTypelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/DateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchAccountLookup } from "~/Component/Common/Lookups/SearchAccountLookup"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 
 export const OrderManagementSearchFilterMeta: IFilterField[] = [
   {

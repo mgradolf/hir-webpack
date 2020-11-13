@@ -190,7 +190,7 @@ interface ISectionLookupFormField {
   fieldName?: string
   isArray?: boolean
   formInstance?: FormInstance
-  setSectionID?: (id: number) => void
+  setSection?: (section: any) => void
 }
 export function SectionLookupFormField(props: ISectionLookupFormField) {
   const [showModal, setShowModal] = useState(false)
@@ -216,7 +216,7 @@ export function SectionLookupFormField(props: ISectionLookupFormField) {
                 props.formInstance.setFieldsValue({
                   [props.fieldName]: props.isArray ? [sections[0].SectionID] : sections[0].SectionID
                 })
-              props.setSectionID && props.setSectionID(sections[0].SectionID)
+              props.setSection && props.setSection(sections[0])
             }
             setShowModal(false)
           }}

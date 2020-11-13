@@ -1,4 +1,4 @@
-import { SearchAccountLookup } from "~/Component/Common/Lookups/SearchAccountLookup"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 
 const meta: IFilterField[] = [

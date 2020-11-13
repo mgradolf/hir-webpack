@@ -1,7 +1,7 @@
 import * as React from "react"
 import AccountSearchFilterMeta from "~/FormMeta/Account/AccountSearchFilterMeta"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
-import { SearchLookupOpenButton } from "~/Component/Common/Lookups/SearchLookupOpenButton"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 

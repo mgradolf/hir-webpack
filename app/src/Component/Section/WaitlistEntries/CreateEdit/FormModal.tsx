@@ -1,18 +1,19 @@
-import { Button, Card, Col, DatePicker, Form, Input, Radio, Row, Switch } from "antd"
+import { Button, Card, DatePicker, Form, Input, Radio, Switch } from "antd"
 import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import DropDown from "~/Component/Common/Form/DropDown"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { DATE_FORMAT, DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
-import PersonLookupModal from "~/Component/Section/WaitlistEntries/CreateEdit/PersonLookupModal"
+import { SearchPersonLookupButton } from "~/Component/Common/Form/FormLookups/FormPersonLookup"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
-import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 import { SectionLookupFormField } from "~/Component/LookupModals/SectionLookupModal"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
@@ -57,12 +58,19 @@ interface IParamsToBeDispatched {
 
 export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEditFormModal) {
   const [formInstance] = Form.useForm()
-  const [SectionID, setSectionID] = useState(props.SectionID)
-  const [showPersonLookupModal, setShowPersonLookupModal] = useState(false)
+  const [Section, setSection] = useState<{ [key: string]: any }>()
   const [showAdministrators, setShowAdministrators] = useState(false)
   const [personNameToDisplay, setPersonNameToDisplay] = useState("")
   const [errorMessages, setErrorMessages] = useState<ISimplifiedApiErrorMessage[]>([])
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
+
+  useEffect(() => {
+    if (props.SectionID) {
+      getEntityById("Section", props.SectionID).then((x) => {
+        if (x.success) setSection(x.data)
+      })
+    }
+  }, [props.SectionID])
   useEffect(() => {
     if (props.WaitListEntry) {
       formInstance.setFieldsValue({ [fieldNames.SeatGroupID]: props.WaitListEntry.SeatGroupID })
@@ -124,16 +132,18 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
                 </ul>
               }
             ></FormError>
-            {!props.SectionID && <SectionLookupFormField setSectionID={setSectionID} />}
-            <DropDown
-              label="Seat Group"
-              fieldName={fieldNames.SeatGroupID}
-              searchFunc={() => getSeatGroups({ SectionID })}
-              displayField="Name"
-              valueField="SeatGroupID"
-              labelColumn={{ span: 6 }}
-              disabled={!!props.WaitListEntry || !SectionID}
-            ></DropDown>
+            {!Section && <SectionLookupFormField setSection={setSection} />}
+            {Section && (
+              <DropDown
+                label="Seat Group"
+                fieldName={fieldNames.SeatGroupID}
+                searchFunc={() => getSeatGroups({ SectionID: Section.SectionID })}
+                displayField="Name"
+                valueField="SeatGroupID"
+                labelColumn={{ span: 6 }}
+                disabled={!!props.WaitListEntry || !Section}
+              ></DropDown>
+            )}
             <Form.Item label="Managed By" labelCol={{ span: 6 }}>
               <Radio.Group
                 disabled={!!props.WaitListEntry}
@@ -166,47 +176,28 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
             <Form.Item className="hidden" name={fieldNames.AccountID}>
               <Input />
             </Form.Item>
-            <Form.Item label="Purchaser" labelCol={{ span: 6 }}>
-              <Row>
-                <Col span={18}>
-                  <Input readOnly value={personNameToDisplay} />
-                </Col>
-                <Col span={6}>
-                  <Button
-                    onClick={() => {
-                      setShowPersonLookupModal(true)
-                    }}
-                    disabled={!!props.WaitListEntry}
-                  >
-                    Select
-                  </Button>
-                  {showPersonLookupModal && (
-                    <PersonLookupModal
-                      closeModal={(persons?: Array<{ [key: string]: string }>) => {
-                        setShowPersonLookupModal(false)
-                        if (persons && persons.length > 0) {
-                          const person = persons[0]
-                          console.log(person)
-                          getAccountByPurchaserID({ PersonID: person.PersonID }).then((x) => {
-                            console.log(x)
-                            if (x.success) {
-                              formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: person.PersonID })
-                              formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: person.PersonID })
-                              formInstance.setFieldsValue({ [fieldNames.AccountID]: x.data.AccountID })
-                              setPersonNameToDisplay(person.PersonDescriptor)
-                            } else {
-                              setErrorMessages([
-                                { message: "Selected Purchaser doesn't have an account, please select another one" }
-                              ])
-                            }
-                          })
-                        }
-                      }}
-                    />
-                  )}
-                </Col>
-              </Row>
-            </Form.Item>
+            <SearchPersonLookupButton
+              formInstance={formInstance}
+              onCloseModal={(persons?: Array<{ [key: string]: string }>) => {
+                if (persons && persons.length > 0) {
+                  const person = persons[0]
+                  console.log(person)
+                  getAccountByPurchaserID({ PersonID: person.PersonID }).then((x) => {
+                    if (x.success) {
+                      formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: person.PersonID })
+                      formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: person.PersonID })
+                      formInstance.setFieldsValue({ [fieldNames.AccountID]: x.data.AccountID })
+                      setPersonNameToDisplay(person.PersonDescriptor)
+                    } else {
+                      setErrorMessages([
+                        { message: "Selected Purchaser doesn't have an account, please select another one" }
+                      ])
+                    }
+                  })
+                }
+              }}
+            />
+
             <Form.Item label="Student" labelCol={{ span: 6 }}>
               <Input readOnly value={personNameToDisplay} />
             </Form.Item>

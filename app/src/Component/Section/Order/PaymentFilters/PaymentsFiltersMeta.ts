@@ -7,7 +7,7 @@ import {
 import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
 import PersonSelector from "~/Component/Section/Order/PaymentFilters/PersonSelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchAccountLookup } from "~/Component/Common/Lookups/SearchAccountLookup"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 
 export const PaymentsFiltersMeta: IFilterField[] = [
   {
