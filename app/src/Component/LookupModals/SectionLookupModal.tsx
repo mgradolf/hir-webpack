@@ -173,7 +173,7 @@ export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFil
                 props.formInstance.setFieldsValue({
                   [props.fieldName]:
                     props.extraProps && props.extraProps.isArray
-                      ? "[" + sections.map((x) => x.SectionID).toString() + "]"
+                      ? sections.map((x) => x.SectionID)
                       : sections[0].SectionID
                 })
               }

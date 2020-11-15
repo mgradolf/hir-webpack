@@ -21,9 +21,9 @@ export default function AcademicLogPage() {
       width: 100
     },
     {
-      title: "Student Name",
-      dataIndex: "SortName",
-      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.SortName}</Link>,
+      title: "Student No",
+      dataIndex: "StudentSerialNum",
+      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}?type=Student`}>{text}</Link>,
       width: 100
     },
     {
@@ -34,15 +34,11 @@ export default function AcademicLogPage() {
     {
       title: "Modified By",
       dataIndex: "ActivityModifiedByName",
-      render: (text: any, record: any) => (
-        <Link to={`/person/${record.ActivityModifiedByUID}`}>{record.ActivityModifiedByName}</Link>
-      ),
       width: 100
     },
     {
       title: "User Name",
-      dataIndex: "ActivityModifiedByName",
-      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
+      dataIndex: "SortName",
       width: 100
     },
     {

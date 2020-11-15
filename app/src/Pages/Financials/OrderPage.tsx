@@ -24,16 +24,14 @@ export default function PersonTable() {
       title: "Buyer Name",
       dataIndex: "BuyerName",
       render: (text: any, record: any) => {
-        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+        if (record.Person && record.Person.PersonID) return <Link to={`/person/${record.Person.PersonID}`}>{text}</Link>
+        else return <>{text}</>
       },
       width: 100
     },
     {
       title: "Account",
       dataIndex: "OrganizationName",
-      render: (text: any, record: any) => {
-        return <Link to={`/account/${record.AccountID}`}>{text}</Link>
-      },
       width: 100
     },
     {

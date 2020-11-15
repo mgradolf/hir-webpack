@@ -14,14 +14,16 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
       title: "ID",
       dataIndex: "StudentSerialNumber",
       render: (text: any, record: any) => (
-        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>{record.StudentSerialNumber}</Link>
+        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}s`}>{record.StudentSerialNumber}</Link>
       ),
       width: 100
     },
     {
       title: "Name",
       dataIndex: "StudentName",
-      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.StudentName}</Link>,
+      render: (text: any, record: any) => (
+        <Link to={`/person/${record.StudentID}?type=Student`}>{record.StudentName}</Link>
+      ),
       width: 150,
       ellipsis: true
     },

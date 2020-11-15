@@ -11,7 +11,9 @@ export default function InstructorPage() {
       title: "ID",
       dataIndex: "FacultySerialNum",
       key: "FacultySerialNum",
-      render: (text: any, record: any) => <Link to={`/instructor/${record.FacultyID}`}>{record.FacultySerialNum}</Link>,
+      render: (text: any, record: any) => (
+        <Link to={`/person/${record.FacultyID}?type=Faculty`}>{record.FacultySerialNum}</Link>
+      ),
       sorter: (a: any, b: any) => a.FacultySerialNum.length - b.FacultySerialNum.length
     },
     {

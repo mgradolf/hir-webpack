@@ -8,19 +8,8 @@ import { Link } from "react-router-dom"
 export default function AcademicLogPage() {
   const columns: TableColumnType = [
     {
-      title: "User ID",
-      dataIndex: "UserID",
-      render: (text: any, record: any) => {
-        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
-      },
-      width: 100
-    },
-    {
       title: "User Name",
       dataIndex: "ActivityModifiedByName",
-      render: (text: any, record: any) => {
-        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
-      },
       width: 100
     },
     {
@@ -37,7 +26,7 @@ export default function AcademicLogPage() {
       title: "Student ID",
       dataIndex: "StudentID",
       render: (text: any, record: any) => {
-        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+        return <Link to={`/person/${record.StudentID}?type=Student`}>{text}</Link>
       },
       width: 100
     },
@@ -45,7 +34,7 @@ export default function AcademicLogPage() {
       title: "Student Name",
       dataIndex: "StudentName",
       render: (text: any, record: any) => {
-        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
+        return <Link to={`/person/${record.StudentID}?type=Student`}>{text}</Link>
       },
       width: 100
     },

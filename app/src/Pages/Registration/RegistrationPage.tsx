@@ -20,7 +20,9 @@ export default function SectionCatalog() {
     {
       title: "Name",
       dataIndex: "StudentName",
-      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.StudentName}</Link>,
+      render: (text: any, record: any) => (
+        <Link to={`/person/${record.StudentID}?type=Student`}>{record.StudentName}</Link>
+      ),
       width: 150,
       ellipsis: true
     },
