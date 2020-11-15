@@ -1,8 +1,12 @@
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { Card, Spin } from "antd"
+import { Col, Row, Spin } from "antd"
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps, useLocation } from "react-router-dom"
 import { getPersonDetails } from "~/ApiServices/Service/PersonService"
+import { NameAddressInfo } from "~/Component/Person/Details/NameAddressInfo"
+// import { PersonalInfo } from "~/Component/Person/Details/PersonalInfo"
+// import { ReferenceInfo } from "~/Component/Person/Details/ReferenceInfo"
+// import { UpdateInfo } from "~/Component/Person/Details/UpdateInfo"
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)
@@ -32,30 +36,34 @@ export default function PersonDetailsPage(props: RouteComponentProps<{ personID:
 
     getPersonDetails(Param).then((x) => {
       setLoading(false)
-      if (x.success) setPerson(x.data)
+      if (x.success) setPerson(x.data[0])
       else setError(x.error)
     })
   }, [PersonID, idType])
 
-  if (loading) return <Spin spinning={true} size="large" />
+  if (loading)
+    return (
+      <Row justify="center" align="middle">
+        <Spin size="large" />
+      </Row>
+    )
   if (error) return <p>Couldn't found any person with person id {PersonID}</p>
   return (
     <div className="site-layout-content">
-      <Card title="Person Details">
-        <table>
-          <tbody>
-            {Object.keys(person).map((key, index) => {
-              if (!person[key]) return null
-              return (
-                <tr>
-                  <td width={200}>{key}</td>
-                  <td>{String(person[key])}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </Card>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24}>
+          <NameAddressInfo person={person} />
+        </Col>
+        {/* <Col xs={24} sm={24} md={12}>
+          <PersonalInfo person={person} />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
+          <ReferenceInfo person={person} />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
+          <UpdateInfo person={person} />
+        </Col> */}
+      </Row>
     </div>
   )
 }
