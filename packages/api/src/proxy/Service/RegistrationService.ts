@@ -16,7 +16,8 @@ export const config = {
     saveFinalGrade: "saveFinalGrade",
     searchNoShowProcessings: "searchNoShowProcessings",
     bulkDropRegistration: "bulkDropRegistration",
-    bulkDeleteRegistration: "bulkDeleteRegistration"
+    bulkDeleteRegistration: "bulkDeleteRegistration",
+    validateRegistration: "validateRegistration"
   }
 }
 export default ApiMethodFactory(config)

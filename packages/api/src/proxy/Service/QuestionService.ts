@@ -13,6 +13,7 @@ export const config = {
     removeTagQuestions: "removeTagQuestions",
     searchQuestionResponse: "searchQuestionResponse",
     saveTagAnswer: "saveTagAnswer",
+    saveTagAnswers: "saveTagAnswers",
     updateTagQuestion: "updateTagQuestion"
   }
 }

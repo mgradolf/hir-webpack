@@ -6,15 +6,25 @@ import { showRequestResolutionModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select, Divider, DatePicker, Switch } from "antd"
 import { IParamsToBeDispatched } from "~/Pages/Request/Details"
 import { eventBus, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
-import { REQUEST_PROCESS_ACTION_NAME, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
+import {
+  REQUEST_PROCESS_ACTION_NAME,
+  DATE_TIME_FORMAT,
+  REQUEST_DATE_TIME_FORMAT,
+  REGISTRATION_VERIFICATION,
+  REGISTRATION_VERIFICATION_NAME,
+  REGISTRATION_VERIFICATION_DETAILS,
+  REGISTRATION_VERIFICATION_REQUEST_NAME
+} from "~/utils/Constants"
 import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
 import { useEffect } from "react"
 import FormError from "~/Component/Common/FormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
+import { validateRegistration } from "~/ApiServices/Service/RegistrationService"
 import moment from "moment"
 
 import { IStudent } from "~/Component/Student/StudentFinderModal"
+import RegistrationVerificationError from "~/Component/Common/RegistrationVerificationError"
 
 const { useState } = React
 
@@ -31,9 +41,13 @@ interface ISpecifyRecipientModal {
 function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(true)
+  const [isVerified, setIsVerified] = useState(true)
   const [gradeScaleItems, setGradeScaleItems] = useState<Array<any>>([])
   const [transcriptItems, setTranscriptItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [verificationItems] = useState<Array<any>>([])
+  const [waiveMap] = useState<{ [key: string]: any }>({})
 
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
   initialAnswer["GradeScaleTypeID"] = props.taskJson.TaskData.GradeScaleTypeID
@@ -112,12 +126,97 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
     }
   }
 
-  const onSelectStudent = (student: IStudent) => {
+  const onSelectStudent = async (student: IStudent) => {
     setErrorMessages([])
     form.setFieldsValue({
       [`RecipientPersonID`]: student.PersonID,
       [`RecipientPersonName`]: student.PersonName
     })
+
+    setLoading(true)
+    const response = await validateRegistration({
+      SeatGroupID: props.taskJson.TaskData.SeatGroupID,
+      PersonID: student.PersonID
+    })
+
+    if (response && response.success) {
+      let isVerificationPass = true
+      Object.keys(response.data).forEach((key) => {
+        const registrationCheckPass = response.data[key]
+        if (!registrationCheckPass) {
+          processRegistrationVerification(key, response.data)
+          isVerificationPass = false
+        }
+      })
+      if (isVerificationPass) {
+        setIsUpdate(false)
+      } else {
+        setIsVerified(false)
+      }
+    }
+    setLoading(false)
+  }
+
+  const processRegistrationVerification = (registrationCheckKey: any, responseData: any) => {
+    if (registrationCheckKey === REGISTRATION_VERIFICATION.PREREQUISITE_CHECK) {
+      verificationItems.push({
+        Name: REGISTRATION_VERIFICATION_NAME.PREREQUISITE_CHECK,
+        RequestName: [REGISTRATION_VERIFICATION_REQUEST_NAME.PREREQUISITE_CHECK],
+        Details: responseData[REGISTRATION_VERIFICATION_DETAILS.check_prerequisiteconflict_conflicts],
+        IsWaive: true
+      })
+    }
+    if (registrationCheckKey === REGISTRATION_VERIFICATION.SCHEDULE_CONFLICT_CHECK) {
+      verificationItems.push({
+        Name: REGISTRATION_VERIFICATION_NAME.SCHEDULE_CONFLICT_CHECK,
+        RequestName: [REGISTRATION_VERIFICATION_REQUEST_NAME.SCHEDULE_CONFLICT_CHECK],
+        Details: null,
+        IsWaive: true
+      })
+    }
+    if (registrationCheckKey === REGISTRATION_VERIFICATION.REGISTRATION_QUESTION_CHECK) {
+      verificationItems.push({
+        Name: REGISTRATION_VERIFICATION_NAME.REGISTRATION_QUESTION_CHECK,
+        RequestName: [REGISTRATION_VERIFICATION_REQUEST_NAME.REGISTRATION_QUESTION_CHECK],
+        Details: null,
+        IsWaive: true
+      })
+    }
+    if (registrationCheckKey === REGISTRATION_VERIFICATION.STUDENT_ON_HOLE_CHECK) {
+      verificationItems.push({
+        Name: REGISTRATION_VERIFICATION_NAME.STUDENT_ON_HOLE_CHECK,
+        RequestName: [
+          REGISTRATION_VERIFICATION_REQUEST_NAME.STUDENT_ON_HOLE_CHECK,
+          REGISTRATION_VERIFICATION_REQUEST_NAME.STUDENT_ON_HOLE_CHECK_WITH_MESSAGE
+        ],
+        Details: null,
+        IsWaive: false
+      })
+    }
+    if (registrationCheckKey === REGISTRATION_VERIFICATION.DUPLICATE_REQUEST_CHECK) {
+      verificationItems.push({
+        Name: REGISTRATION_VERIFICATION_NAME.DUPLICATE_REQUEST_CHECK,
+        RequestName: [],
+        Details: null,
+        IsWaive: false
+      })
+    }
+    if (registrationCheckKey === REGISTRATION_VERIFICATION.REGISTRATION_CHECK) {
+      verificationItems.push({
+        Name: REGISTRATION_VERIFICATION_NAME.REGISTRATION_CHECK,
+        RequestName: [],
+        Details: null,
+        IsWaive: false
+      })
+    }
+    if (registrationCheckKey === REGISTRATION_VERIFICATION.SECTION_VALIDITY_CHECK) {
+      verificationItems.push({
+        Name: REGISTRATION_VERIFICATION_NAME.SECTION_VALIDITY_CHECK,
+        RequestName: [],
+        Details: responseData[REGISTRATION_VERIFICATION_DETAILS.check_sectionvalidity_issues],
+        IsWaive: true
+      })
+    }
   }
 
   const onClearStudent = () => {
@@ -125,6 +224,37 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
       [`RecipientPersonID`]: null,
       [`RecipientPersonName`]: null
     })
+  }
+
+  const onWaive = (name: any, requestName: Array<any>) => {
+    requestName.forEach((element) => {
+      waiveMap[element] = 1
+    })
+
+    let position = undefined
+    verificationItems.forEach((element, index) => {
+      if (element.Name === name) {
+        position = index
+        return
+      }
+    })
+
+    if (position !== undefined) {
+      verificationItems.splice(position, 1)
+    }
+
+    if (verificationItems.length === 0) {
+      setIsUpdate(false)
+    }
+    console.log("Waive map: ", waiveMap)
+  }
+
+  const onAnswer = () => {
+    console.log("Answer")
+  }
+
+  const onDetails = (name: any) => {
+    console.log("Name: ", name)
   }
 
   return (
@@ -135,7 +265,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           <Button type="ghost" onClick={props.closeSpecifyRecipientModal}>
             Cancel
           </Button>,
-          <Button type="primary" onClick={onFormSubmission}>
+          <Button type="primary" disabled={isUpdate} onClick={onFormSubmission}>
             Update
           </Button>
         ]}
@@ -146,6 +276,15 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
         >
           <FormError errorMessages={errorMessages} />
+          {!isVerified && (
+            <RegistrationVerificationError
+              errorMessages={verificationItems}
+              onWaive={onWaive}
+              onAnswer={onAnswer}
+              onDetails={onDetails}
+            />
+          )}
+
           <Divider orientation="left">Student Registration</Divider>
           <StudentFinderFormField
             initialData={initialAnswer}

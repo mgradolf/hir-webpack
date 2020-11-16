@@ -7,7 +7,12 @@ import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetail
 import RegistrationUpdateForm from "~/Component/Registration/RegistrationUpdateForm"
 import RegistrationActionForm from "~/Component/Registration/RegistrationActionForm"
 import RegistrationQuestionsForm from "~/Component/Registration/RegistrationQuestionsForm"
-import { IRegistrationActionFieldNames, IRegistrationFieldNames } from "~/Component/Registration/Interfaces"
+import RegistrationGradeForm from "~/Component/Registration/RegistrationGradeForm"
+import {
+  IRegistrationActionFieldNames,
+  IRegistrationFieldNames,
+  IRegistrationGradeFieldNames
+} from "~/Component/Registration/Interfaces"
 import { DownOutlined } from "@ant-design/icons"
 
 const { Title, Text } = Typography
@@ -36,6 +41,19 @@ const actionFieldName: IRegistrationActionFieldNames = {
   CreditMemoData: "CreditMemoData",
   GradeScaleTypeID: "GradeScaleTypeID",
   GradeScoreDefinitionID: "GradeScoreDefinitionID"
+}
+
+const gradeFieldName: IRegistrationGradeFieldNames = {
+  SectionID: "SectionID",
+  StudentID: "StudentID",
+  SeatGroupID: "SeatGroupID",
+  CompletionDate: "CompletionDate",
+  CEUHours: "CEUHours",
+  CreditHours: "CreditHours",
+  GradeScaleTypeID: "GradeScaleTypeID",
+  GradeScoreDefinitionID: "GradeScoreDefinitionID",
+  AttendanceActual: "AttendanceActual",
+  AttendanceExpected: "AttendanceExpected"
 }
 
 export interface IParamsToBeDispatched {
@@ -92,33 +110,33 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
           <Divider orientation="left">Section</Divider>
           <Row className={styles.details}>
             <Col xs={8} sm={7} md={{ span: 2, offset: 2 }}>
-              <Text>Offering Code:</Text>
-            </Col>
-            <Col xs={16} sm={17} md={6}>
-              <Input type="text" disabled value={registrationDetails.OfferingCode} />
-            </Col>
-
-            <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
               <Text>Offering Name:</Text>
             </Col>
             <Col xs={16} sm={17} md={6}>
               <Input type="text" disabled value={registrationDetails.OfferingName} />
             </Col>
-          </Row>
 
-          <Row className={styles.details}>
-            <Col xs={8} sm={7} md={{ span: 2, offset: 2 }}>
+            <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
               <Text>Section Number:</Text>
             </Col>
             <Col xs={16} sm={17} md={6}>
               <Input type="text" disabled value={registrationDetails.SectionNumber} />
             </Col>
+          </Row>
 
-            <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
+          <Row className={styles.details}>
+            <Col xs={8} sm={7} md={{ span: 2, offset: 2 }}>
               <Text>Status:</Text>
             </Col>
             <Col xs={16} sm={17} md={6}>
               <Input type="text" disabled value={registrationDetails.TranscriptCreditType} />
+            </Col>
+
+            <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
+              <Text>Seat Group:</Text>
+            </Col>
+            <Col xs={16} sm={17} md={6}>
+              <Input type="text" disabled value={registrationDetails.SeatGroup} />
             </Col>
           </Row>
 
@@ -131,10 +149,10 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
             </Col>
 
             <Col xs={8} sm={7} md={{ span: 2, offset: 1 }}>
-              <Text>Seat Group:</Text>
+              <Text>Final Grade:</Text>
             </Col>
             <Col xs={16} sm={17} md={6}>
-              <Input type="text" disabled value={registrationDetails.SeatGroup} />
+              <Input type="text" disabled value={registrationDetails.AlphaValue} />
             </Col>
           </Row>
 
@@ -166,11 +184,13 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
                 </TabPane>
                 <TabPane tab="Question Responses" key="3">
                   <RegistrationQuestionsForm
-                    secitonID={registrationDetails.SectionID}
+                    sectionID={registrationDetails.SectionID}
                     studentID={registrationDetails.StudentID}
                   />
                 </TabPane>
-                <TabPane tab="Final Grade" key="4"></TabPane>
+                <TabPane tab="Final Grade" key="4">
+                  <RegistrationGradeForm fieldNames={gradeFieldName} initialFormValue={registrationDetails} />
+                </TabPane>
                 <TabPane tab="Issue Certificate" key="5"></TabPane>
               </Tabs>
             </Col>
