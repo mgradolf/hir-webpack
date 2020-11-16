@@ -67,7 +67,7 @@ export default function TagsTable(props: ITagsTableProps) {
       columns={columns}
       dataSource={props.data}
       rowKey="ID"
-      pagination={{ position: ["topLeft"], pageSize: 20 }}
+      pagination={false}
       size="small"
       bordered
       loading={props.loading}

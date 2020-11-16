@@ -37,7 +37,11 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
       <Row justify="end" gutter={[8, 8]}>
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
       </Row>
-      <ResponsiveTable {...props.tableProps} searchParams={searchParams} />
+      <Row>
+        <Col span={24}>
+          <ResponsiveTable {...props.tableProps} searchParams={searchParams} />
+        </Col>
+      </Row>
     </div>
   )
 }

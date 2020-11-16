@@ -5,6 +5,7 @@ export interface ApiConfig {
   headers?: any
   params?: any
   data?: any
+  responseType?: any
 }
 
 export enum ErrorType {
@@ -17,4 +18,9 @@ export interface IApiResponse {
   data: any
   error: any
   success: boolean
+}
+
+export const RESPONSE_TYPE = {
+  EXCEL: "__downloadDataAsEXCEL",
+  CSV: "__downloadDataAsCSV"
 }

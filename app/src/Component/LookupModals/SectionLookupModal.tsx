@@ -11,6 +11,7 @@ import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface ISectionLookupModal {
   closeModal: (sections?: any[]) => void
+  isArray?: boolean
 }
 
 export function SectionLookupModal(props: ISectionLookupModal) {
@@ -78,9 +79,9 @@ export function SectionLookupModal(props: ISectionLookupModal) {
   ]
   const [searchParams, setSearchParams] = useState({})
   const [selectedSections, setSelectedSections] = useState<any[]>([])
-  const rowSelection = {
+  const rowSelection: any = {
+    type: props.isArray ? "checkbox" : "radio",
     onChange: (selectedRowKeys: any, selectedRows: any) => {
-      console.log(selectedRows)
       setSelectedSections(selectedRows)
     }
   }
@@ -132,7 +133,7 @@ export function SectionLookupModal(props: ISectionLookupModal) {
 
 export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   const [showModal, setShowModal] = useState(false)
-  const [selectedSection, setSelectedSection] = useState<any>({})
+  const [selectedSection, setSelectedSection] = useState<string>("")
   const [disabled, setDisabled] = useState(props.extraProps && props.extraProps.SectionID)
 
   useEffect(() => {
@@ -141,40 +142,47 @@ export function SectionLookupOpenButton(props: IFilterGenericComponentProps<IFil
         if (x.success) {
           setDisabled(true)
           setSelectedSection(x.data)
-          props.filterValueChanged({
-            [props.fieldName]: x.data.SectionID
-          })
         }
       })
     }
   }, [props])
   return (
-    <Form.Item colon={false} label="Section" labelCol={{ span: 8 }}>
-      <Row>
-        <Col span={16}>
-          <Input value={selectedSection.SectionNumber} readOnly />
-        </Col>
-        <Col span={8}>
-          <Button onClick={() => setShowModal(true)} {...disabled}>
-            Lookup
-          </Button>
-        </Col>
-      </Row>
-      {showModal && (
-        <SectionLookupModal
-          closeModal={(sections) => {
-            if (sections && sections.length > 0) {
-              setSelectedSection(sections[0])
-              props.filterValueChanged({
-                [props.fieldName]:
-                  props.extraProps && props.extraProps.isArray ? [sections[0].SectionID] : sections[0].SectionID
-              })
-            }
-            setShowModal(false)
-          }}
-        />
-      )}
-    </Form.Item>
+    <>
+      <Form.Item className="hidden" name={props.fieldName}>
+        <Input />
+      </Form.Item>
+      <Form.Item colon={false} label="Section" labelCol={{ span: 8 }}>
+        <Row>
+          <Col span={12}>
+            <Input value={selectedSection} readOnly />
+          </Col>
+          <Col span={4}>
+            <Button onClick={() => setShowModal(true)} {...disabled}>
+              Lookup
+            </Button>
+          </Col>
+        </Row>
+        {showModal && (
+          <SectionLookupModal
+            {...(props.extraProps && props.extraProps.isArray && { isArray: props.extraProps.isArray })}
+            closeModal={(sections) => {
+              if (sections && sections.length > 0) {
+                props.extraProps && props.extraProps.isArray
+                  ? setSelectedSection(sections.map((x) => x.SectionNumber).toString())
+                  : setSelectedSection(sections[0].SectionNumber)
+                props.formInstance.setFieldsValue({
+                  [props.fieldName]:
+                    props.extraProps && props.extraProps.isArray
+                      ? "[" + sections.map((x) => x.SectionID).toString() + "]"
+                      : sections[0].SectionID
+                })
+              }
+              setShowModal(false)
+            }}
+          />
+        )}
+      </Form.Item>
+    </>
   )
 }
 
@@ -182,7 +190,7 @@ interface ISectionLookupFormField {
   fieldName?: string
   isArray?: boolean
   formInstance?: FormInstance
-  setSectionID?: (id: number) => void
+  setSection?: (section: any) => void
 }
 export function SectionLookupFormField(props: ISectionLookupFormField) {
   const [showModal, setShowModal] = useState(false)
@@ -199,6 +207,7 @@ export function SectionLookupFormField(props: ISectionLookupFormField) {
       </Row>
       {showModal && (
         <SectionLookupModal
+          isArray={props.isArray}
           closeModal={(sections) => {
             if (sections && sections.length > 0) {
               setSelectedSection(sections[0])
@@ -207,7 +216,7 @@ export function SectionLookupFormField(props: ISectionLookupFormField) {
                 props.formInstance.setFieldsValue({
                   [props.fieldName]: props.isArray ? [sections[0].SectionID] : sections[0].SectionID
                 })
-              props.setSectionID && props.setSectionID(sections[0].SectionID)
+              props.setSection && props.setSection(sections[0])
             }
             setShowModal(false)
           }}

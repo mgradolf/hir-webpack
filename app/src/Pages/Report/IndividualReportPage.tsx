@@ -12,12 +12,17 @@ import { RouteComponentProps } from "react-router-dom"
 import { getReportByReportName } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Row, Spin } from "antd"
-// import meta from "./ReportFormMeta/system.DynamicReportForm"
 
 const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterField[] => {
   const metas: IFilterField[] = []
   Params.forEach((param: any) => {
-    if (param.Name === "pUserName" || param.Name === "externalQuery" || param.Name === "SUBREPORT_DIR") return
+    if (
+      param.Name === "pUserName" ||
+      param.Name === "externalQuery" ||
+      param.Name === "SUBREPORT_DIR" ||
+      param.Name === "SchoolName"
+    )
+      return
     const meta: IFilterField = {
       label: param.Name,
       fieldName: param.Name,
@@ -68,6 +73,9 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
         setReportMeta(metas)
       }
     }
+    setTimeout(() => {
+      console.log(reportMeta)
+    }, 0)
     setLoading(false)
   }
   useEffect(() => {

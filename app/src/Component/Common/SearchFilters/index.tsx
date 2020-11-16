@@ -28,11 +28,18 @@ interface IFilterColumnProps {
   isModalView: boolean
   isCheckeble?: boolean
   showClearbutton?: boolean
+  applyButtonLabel?: string
+  clearButtonLabel?: string
 }
 
 type Show = { [key: string]: boolean }
 
-export default function ({ showClearbutton = true, ...props }: IFilterColumnProps) {
+export default function ({
+  showClearbutton = true,
+  applyButtonLabel = "Search",
+  clearButtonLabel = "Clear",
+  ...props
+}: IFilterColumnProps) {
   const [formInstance] = Form.useForm()
   const [showLess, setShowLess] = useState(true)
   const isCheckeble = props.isCheckeble === undefined ? true : props.isCheckeble
@@ -68,7 +75,7 @@ export default function ({ showClearbutton = true, ...props }: IFilterColumnProp
   })
 
   const filterContent = isCheckeble ? (
-    <Form form={formInstance}>filterFieldsArray</Form>
+    <Form form={formInstance}>{filterFieldsArray}</Form>
   ) : (
     <Form
       hideRequiredMark
@@ -130,7 +137,7 @@ export default function ({ showClearbutton = true, ...props }: IFilterColumnProp
                 props.onApplyChanges(props.initialFilter, filterCount)
               }}
             >
-              Clear
+              {clearButtonLabel}
             </Button>
           </Col>
         )}
@@ -140,12 +147,15 @@ export default function ({ showClearbutton = true, ...props }: IFilterColumnProp
             aria-label="Apply Filter"
             onClick={() => {
               const params: { [key: string]: any } = formInstance.getFieldsValue()
+              for (const key in params) {
+                if (key === "" || !params[key]) delete params[key]
+              }
               const filterCount = Object.keys(params).length
-              console.log("params ", JSON.stringify(params), filterCount)
+              console.log("params ", params, filterCount)
               props.onApplyChanges(params, filterCount)
             }}
           >
-            Apply
+            {applyButtonLabel}
           </Button>
         </Col>
       </Row>

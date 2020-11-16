@@ -4,33 +4,25 @@ import { FilterOutlined } from "@ant-design/icons"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { getToken } from "@packages/api/lib/utils/TokenStore"
+import { SimpleBarChart } from "~/Component/Common/Charts/SimpleBarChart"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { IChartConfig } from "~/Pages/Chart/ChartMeta/IChartConfig"
 
 export interface IStandardReportPage {
-  title: string
-  reportName: string
-  description?: string
+  config: IChartConfig
   meta?: IFilterField[]
+  searchFunc: (Params: { [key: string]: any }, from?: number, to?: number) => Promise<IApiResponse>
   initialFilter: { [key: string]: string }
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
   const [filterCount, setFilterCount] = useState(0)
-  const [downloadUrl, setdownloadUrl] = useState<string>()
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
 
-  const openReportInNewTab = (params: { [key: string]: any }) => {
-    let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
-    for (const key in params) {
-      if (params[key]) urlParams += `${key}=${params[key]}&`
-    }
-    urlParams += "token=" + getToken()
-    setdownloadUrl(urlParams)
-    // window.open(urlParams, "_blank")
-  }
   return (
     <div className="site-layout-content">
       <Row>
-        <Typography.Title level={3}>{props.title}</Typography.Title>
+        <Typography.Title level={3}>{props.config.title}</Typography.Title>
       </Row>
       <Row justify="start" gutter={[8, 8]}>
         <Col>
@@ -49,17 +41,18 @@ export default function StandardReportPage(props: IStandardReportPage) {
             visible={true}
             meta={props.meta}
             initialFilter={props.initialFilter}
+            applyButtonLabel="Render Chart"
+            clearButtonLabel="Clear Chart"
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
-              openReportInNewTab(newFilterValues)
               setFilterCount(appliedFilterCount)
+              setSearchParams(newFilterValues)
             }}
           />
         )}
       </Row>
-      {downloadUrl && (
-        <Row>
-          <iframe title={props.title} style={{ width: "100%", height: "100vh" }} src={downloadUrl} />
-        </Row>
+
+      {props.config.chartType === "simplebarchart" && (
+        <SimpleBarChart searchParams={searchParams} searchFunc={props.searchFunc} config={props.config} />
       )}
     </div>
   )

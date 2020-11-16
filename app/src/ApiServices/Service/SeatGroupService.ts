@@ -29,8 +29,6 @@ export function findAffiliatedOrgsForSeatGroup(SeatGroupID: number): Promise<IAp
   })
 }
 
-export function findAvailableAffiliatedOrgs(SeatGroupID: number): Promise<IApiResponse> {
-  return SeatGroupService[config.Actions.findAvailableAffiliatedOrgs]({
-    SeatGroupID
-  })
+export function findAvailableAffiliatedOrgs(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SeatGroupService[config.Actions.findAvailableAffiliatedOrgs](Params)
 }

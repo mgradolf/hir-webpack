@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
 import Table, { TableProps, ColumnsType } from "antd/lib/table"
 import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { IApiResponse, RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import moment from "moment"
 import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { Button, Dropdown, Menu } from "antd"
+import { DownOutlined } from "@ant-design/icons"
 
 export type TableColumnType = ColumnsType<{ [key: string]: string }>
 
@@ -41,10 +44,11 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   const [loading, setLoading] = useState(false)
   const [mobileView, setMobileView] = useState<any>(undefined)
+  const [downloading, setDownloading] = useState(false)
 
-  useEffect(() => {
-    if (loading) return
-    if (mobileView === undefined) {
+  const loadDataFromSearchFunc = () => {
+    if (loading) {
+      return
     } else if (otherTableProps.dataSource) {
       setTableProps()
     } else if (searchParams && searchFunc) {
@@ -65,8 +69,20 @@ export function ResponsiveTable(props: IDataTableProps) {
         }, 0)
       })
     }
+  }
+  useEffect(() => {
+    loadDataFromSearchFunc()
     // eslint-disable-next-line
-  }, [otherTableProps.dataSource, searchParams, mobileView])
+  }, [otherTableProps.dataSource, searchParams])
+
+  useEffect(() => {
+    eventBus.subscribe(REFRESH_PAGE, loadDataFromSearchFunc)
+    eventBus.publish(REFRESH_PAGE)
+    return () => {
+      eventBus.unsubscribe(REFRESH_PAGE)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   useDeviceViews((deviceViews: IDeviceView) => {
     setMobileView(deviceViews.mobile || deviceViews.tab)
@@ -140,9 +156,57 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.scroll = { ...(props.isModal && { y: Math.floor(window.innerHeight * 0.45) }), x: 300 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
-
     setConditionalProps(_conditionalProps)
   }
 
-  return <Table {...conditionalProps} loading={otherTableProps.loading || loading} />
+  const downloadData = (fileType: string) => {
+    const params = {
+      ...(searchParams ? searchParams : {}),
+      [fileType]: true
+    }
+    setDownloading(true)
+    searchFunc &&
+      searchFunc(params).then((x) => {
+        setDownloading(false)
+      })
+  }
+
+  return (
+    <div>
+      {searchFunc &&
+        searchParams &&
+        conditionalProps &&
+        conditionalProps.dataSource &&
+        conditionalProps.dataSource.length > 0 && (
+          <Dropdown
+            overlay={
+              <Menu>
+                <Menu.Item>
+                  <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.CSV)}>
+                    CSV
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.EXCEL)}>
+                    Excel
+                  </Button>
+                </Menu.Item>
+              </Menu>
+            }
+            trigger={["click"]}
+          >
+            <Button
+              loading={downloading}
+              disabled={downloading}
+              style={{ position: "absolute", zIndex: 100, right: "15px", top: "15px", border: "1px solid" }}
+              type="link"
+              onClick={(e) => e.preventDefault()}
+            >
+              Download <DownOutlined />
+            </Button>
+          </Dropdown>
+        )}
+      <Table {...conditionalProps} loading={otherTableProps.loading || loading} />
+    </div>
+  )
 }
