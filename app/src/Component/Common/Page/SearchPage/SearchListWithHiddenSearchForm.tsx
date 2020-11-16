@@ -5,6 +5,7 @@ import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
+import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
 export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]
@@ -12,16 +13,29 @@ export interface ISearchListWithHiddenSearchFormProp {
   meta?: IFilterField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
+  helpKey?: string
 }
 
 export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
   const [filterCount, setFilterCount] = useState(0)
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(props.initialFilter || {})
   const [showFilter, setShowFilter] = useState(false)
+  const [help, setHelp] = useState(false)
+
   return (
     <div className="site-layout-content">
       <Row>
-        <Typography.Title level={3}>{props.title}</Typography.Title>
+        <Col span={21}>
+          <Typography.Title level={3}>{props.title}</Typography.Title>
+        </Col>
+        {props.helpKey && (
+          <Col span={3}>
+            <Button type="link" onClick={() => setHelp(true)}>
+              Help
+            </Button>
+          </Col>
+        )}
+        {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
       </Row>
       <Row justify="start" gutter={[8, 8]}>
         <Col>

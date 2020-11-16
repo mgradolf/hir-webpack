@@ -8,39 +8,48 @@ import { Link } from "react-router-dom"
 export default function AcademicLogPage() {
   const columns: TableColumnType = [
     {
+      title: "User ID",
+      dataIndex: "ActivityModifiedByUID",
+      width: 100
+    },
+    {
       title: "User Name",
       dataIndex: "ActivityModifiedByName",
       width: 100
     },
     {
       title: "Activity Date",
-      dataIndex: "ActivityDate",
+      dataIndex: "ActivityModifiedDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Activity Type",
-      dataIndex: "ActivityType",
+      dataIndex: "ActivityOperation",
       width: 100
     },
     {
       title: "Student ID",
-      dataIndex: "StudentID",
+      dataIndex: "StudentSerialNum",
       render: (text: any, record: any) => {
-        return <Link to={`/person/${record.StudentID}?type=Student`}>{text}</Link>
+        return <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
       },
       width: 100
     },
     {
       title: "Student Name",
-      dataIndex: "StudentName",
+      dataIndex: "SortName",
       render: (text: any, record: any) => {
-        return <Link to={`/person/${record.StudentID}?type=Student`}>{text}</Link>
+        return <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
       },
       width: 100
     },
     {
-      title: "Section Name",
-      dataIndex: "SectionName",
+      title: "Section Number",
+      dataIndex: "SectionNumber",
+      render: (text: any, record: any) => {
+        return <Link to={`/section/${record.SectionNumber}?type=Student`}>{text}</Link>
+      },
       width: 100
     },
     {
@@ -65,7 +74,7 @@ export default function AcademicLogPage() {
     },
     {
       title: "Program ID",
-      dataIndex: "ProgramID",
+      dataIndex: "ProgramCode",
       width: 100
     },
     {
@@ -127,8 +136,7 @@ export default function AcademicLogPage() {
     },
     {
       title: "Completion On Termination",
-      dataIndex: "Completion OnTermination",
-      render: renderDateTime,
+      dataIndex: "CompleteOnTermination",
       width: 100
     }
   ]

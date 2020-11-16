@@ -12,7 +12,7 @@ export function QualifiedInstructorTable(props: ITableWrapperProps) {
       dataIndex: "FacultySerialNum",
       key: "FacultySerialNum",
       render: (text: any, record: any) => (
-        <Link to={`/person/${record.FacultyID}?type=Faculty`}>{record.FacultySerialNum}</Link>
+        <Link to={`/person/faculty/${record.FacultyID}`}>{record.FacultySerialNum}</Link>
       ),
       sorter: (a: any, b: any) => a.FacultySerialNum.length - b.FacultySerialNum.length
     },

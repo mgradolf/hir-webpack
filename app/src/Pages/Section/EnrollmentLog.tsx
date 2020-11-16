@@ -24,9 +24,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     {
       title: "Student Name",
       dataIndex: "SortName",
-      render: (text: any, record: any) => (
-        <Link to={`/person/${record.StudentID}?type=Student`}>{record.SortName}</Link>
-      ),
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{record.SortName}</Link>,
       width: 100
     },
     {

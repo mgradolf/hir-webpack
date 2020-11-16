@@ -10,18 +10,12 @@ export default function AcademicLogPage() {
   const columns: TableColumnType = [
     {
       title: "User ID",
-      dataIndex: "PersonID",
-      render: (text: any, record: any) => {
-        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
-      },
+      dataIndex: "ActivityModifiedByUID",
       width: 100
     },
     {
       title: "User Name",
-      dataIndex: "PersonName",
-      render: (text: any, record: any) => {
-        return <Link to={`/person/${record.PersonID}`}>{text}</Link>
-      },
+      dataIndex: "ActivityModifiedByName",
       width: 100
     },
     {
@@ -42,21 +36,22 @@ export default function AcademicLogPage() {
       render: (text: any, record: any) => <Link to={`/order/${record.OrderID}`}>{text}</Link>
     },
     {
-      title: "Paid By",
-      dataIndex: "BillToAddress",
+      title: "Payer Name",
+      dataIndex: "PersonName",
       render: (text: any, record: any) => {
         return <Link to={`/person/${record.PersonID}`}>{text}</Link>
       },
       width: 100
     },
-    {
-      title: "Order Status",
-      dataIndex: "OPCStatusCodeID",
-      width: 100
-    },
+    // {
+    //   title: "Order Status",
+    //   dataIndex: "OPCStatusCodeID",
+    //   width: 100
+    // },
     {
       title: "Order Date",
       dataIndex: "OrderDate",
+      render: renderDateTime,
       width: 100
     },
     {
@@ -81,7 +76,7 @@ export default function AcademicLogPage() {
       width: 100
     },
     {
-      title: "Completion Date",
+      title: "Completed Date",
       dataIndex: "CompletedDate",
       render: renderDateTime,
       width: 100

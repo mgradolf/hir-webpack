@@ -33,6 +33,7 @@ export default function PersonTable() {
         rowKey: "PersonID",
         pagination: { position: ["topLeft"], pageSize: 20 }
       }}
+      helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
     ></SearchPage>
   )
 }

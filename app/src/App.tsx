@@ -147,6 +147,8 @@ function App(props: AppProps): JSX.Element {
 
       <Route exact path="/person" component={PersonPage} />
       <Route exact path="/person/:personID" component={PersonDetailPage} />
+      <Route exact path="/person/faculty/:facultyID" component={PersonDetailPage} />
+      <Route exact path="/person/student/:studentID" component={PersonDetailPage} />
 
       <Route exact path="/order" component={FinancialOrderPagePage} />
       <Route exact path="/order/items" component={FinancialOrderItemPage} />
