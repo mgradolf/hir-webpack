@@ -8,7 +8,8 @@ import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLook
 export const OrderManagementSearchFilterMeta: IFilterField[] = [
   {
     label: "Total Amount",
-    fieldName: "",
+    fieldName: "TotalAmountFrom",
+    fieldName2: "TotalAmountTo",
     customFilterComponent: TotalAmountRange
   },
   {
