@@ -1,9 +1,9 @@
 import { getOPCStatusCode, getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import PersonSelector from "~/Component/Section/Order/OrderItemsFilters/PersonSelector"
-import DateTypelector from "~/Component/Section/Order/OrderItemsFilters/DateTypelector"
+import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
+import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
@@ -63,11 +63,37 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Person Lookup",
     fieldName: "",
-    customFilterComponent: PersonSelector
+    customFilterComponent: SearchPersonSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          name: "Purchaser",
+          key: "PayerName"
+        },
+        {
+          name: "Student",
+          key: "StudentName"
+        }
+      ]
+    }
   },
   {
     label: "Date Type Select",
     fieldName: "",
-    customFilterComponent: DateTypelector
+    customFilterComponent: SearchDateTypeSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          name: "Order Date",
+          key1: "CreateDateFrom",
+          key2: "CreateDateTo"
+        },
+        {
+          name: "Due Date",
+          key1: "PaymentDueDateFrom",
+          key2: "PaymentDueDateTo"
+        }
+      ]
+    }
   }
 ]

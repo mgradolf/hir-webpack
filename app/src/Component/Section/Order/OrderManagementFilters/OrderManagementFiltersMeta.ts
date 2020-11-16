@@ -1,7 +1,7 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
-import DateTypelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/DateTypelector"
+import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 
@@ -73,8 +73,22 @@ export const OrderManagementSearchFilterMeta: IFilterField[] = [
     }
   },
   {
-    label: "Date Type Selector",
+    label: "Date Type Select",
     fieldName: "",
-    customFilterComponent: DateTypelectorForOrderManagement
+    customFilterComponent: SearchDateTypeSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          name: "Order Date",
+          key1: "CreateDateFrom",
+          key2: "CreateDateTo"
+        },
+        {
+          name: "Due Date",
+          key1: "PaymentDueDateFrom",
+          key2: "PaymentDueDateTo"
+        }
+      ]
+    }
   }
 ]
