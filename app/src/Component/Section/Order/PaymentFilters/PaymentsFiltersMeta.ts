@@ -5,9 +5,10 @@ import {
   getSourceModule
 } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
-import PersonSelector from "~/Component/Section/Order/PaymentFilters/PersonSelector"
+
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
 
 export const PaymentsFiltersMeta: IFilterField[] = [
   {
@@ -98,6 +99,18 @@ export const PaymentsFiltersMeta: IFilterField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: PersonSelector
+    customFilterComponent: SearchPersonSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          name: "Payer",
+          key: "PersonID"
+        },
+        {
+          name: "Student",
+          key: "StudentName"
+        }
+      ]
+    }
   }
 ]

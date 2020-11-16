@@ -48,23 +48,7 @@ export default function DateTypeSelector(props: IWaitlistSearchCustomLookupFilte
   }, [seletectLookupType])
 
   return props.isCheckeble ? (
-    <Row>
-      {/* <LabelCol>
-        <Checkbox checked={props.show} onChange={props.toggleCheckboxHandler}>
-          {props.label}
-        </Checkbox>
-      </LabelCol>
-      <InputCol className={props.show ? styles.offeringFilterField : "hidden"}>
-        <Input
-          aria-label={props.ariaLabel}
-          name={props.fieldName}
-          type={props.inputType.toLowerCase()}
-          defaultValue={props.defaultValue}
-          value={props.value === "*" ? "" : props.value}
-          onChange={(e) => props.filterValueChanged(props.fieldName, e.target.value)}
-        />
-      </InputCol> */}
-    </Row>
+    <Row></Row>
   ) : (
     <Form.Item>
       <Row>

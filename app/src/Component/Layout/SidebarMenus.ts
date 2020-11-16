@@ -108,7 +108,6 @@ export const sidebarMenus: ISidebarMenu[] = [
       { title: "Reports", url: "/report", submenu: [] },
       { title: "Charts", url: "/chart", submenu: [] },
       { title: "Mail Merge", url: "", submenu: [] },
-      { title: "Analysis", url: "", submenu: [] },
       {
         title: "Analysis",
         url: "",

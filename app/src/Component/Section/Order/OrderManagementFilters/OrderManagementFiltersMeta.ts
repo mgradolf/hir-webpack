@@ -1,6 +1,6 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import PersonSelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/PersonSelector"
+import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
 import DateTypelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/DateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
@@ -54,7 +54,23 @@ export const OrderManagementSearchFilterMeta: IFilterField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: PersonSelectorForOrderManagement
+    customFilterComponent: SearchPersonSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          name: "Buyer Name",
+          key: "BuyerName"
+        },
+        {
+          name: "Student Name",
+          key: "StudentName"
+        },
+        {
+          name: "Billed To Name",
+          key: "BilledPersonName"
+        }
+      ]
+    }
   },
   {
     label: "Date Type Selector",
