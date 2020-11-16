@@ -10,6 +10,7 @@ export interface IFormLookupOpenButton {
   entityLookupFunc?: () => Promise<{ [key: string]: any }>
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
   onCloseModal?: (persons?: Array<{ [key: string]: string }>) => void
+  lookupModalTitle: string
   disabled?: boolean
   displayField: string
   valueField: string
@@ -69,6 +70,7 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
         </Row>
         {showModal && (
           <LookupModal
+            title={props.lookupModalTitle}
             isArray={props.isArray}
             closeModal={closeModal}
             searchFunc={props.searchFunc}

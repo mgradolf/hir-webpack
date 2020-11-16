@@ -88,7 +88,7 @@ export function SectionLookupModal(props: ISectionLookupModal) {
   return (
     <Modal width="1000px">
       <Card
-        title="Select offerings"
+        title="Select Section"
         actions={[
           <Button type="ghost" onClick={() => props.closeModal()}>
             Cancel

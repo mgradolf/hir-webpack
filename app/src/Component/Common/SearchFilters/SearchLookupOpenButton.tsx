@@ -12,6 +12,7 @@ import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 export interface SearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
   entityLookupFunc?: () => Promise<{ [key: string]: any }>
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
+  lookupModalTitle: string
   disabled?: boolean
   valueField: string
   displayField: string
@@ -64,6 +65,7 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
         </Row>
         {showModal && (
           <LookupModal
+            title={props.lookupModalTitle}
             {...(props.extraProps && props.extraProps.isArray && { isArray: props.extraProps.isArray })}
             closeModal={closeModal}
             searchFunc={props.searchFunc}

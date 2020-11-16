@@ -25,6 +25,7 @@ export function SearchPersonLookupButton(props: { formInstance: FormInstance; on
   ]
   return (
     <FormLookupOpenButton
+      lookupModalTitle="Select Person"
       searchFunc={searchPersons}
       valueField="PersonID"
       displayField="SortName"

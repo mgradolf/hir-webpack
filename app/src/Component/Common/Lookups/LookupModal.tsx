@@ -7,6 +7,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 
 interface ILookupModal {
+  title: string
   closeModal: (items?: any[]) => void
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
   isArray?: boolean
@@ -26,7 +27,7 @@ export function LookupModal(props: ILookupModal) {
   return (
     <Modal width="1000px">
       <Card
-        title="Select offerings"
+        title={props.title}
         actions={[
           <Button type="ghost" onClick={() => props.closeModal()}>
             Cancel

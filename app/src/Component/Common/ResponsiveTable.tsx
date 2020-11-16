@@ -176,6 +176,7 @@ export function ResponsiveTable(props: IDataTableProps) {
       {searchFunc &&
         searchParams &&
         conditionalProps &&
+        !isModal &&
         conditionalProps.dataSource &&
         conditionalProps.dataSource.length > 0 && (
           <Dropdown

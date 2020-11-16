@@ -87,7 +87,7 @@ function AddOfferingFromRequisiteGroupModal({
       )) ||
         (modalSelectedPage === ModalPages.OfferingsList && (
           <Card
-            title="Select offerings"
+            title=""
             actions={[
               <Button type="ghost" onClick={closeAddOfferingFromRequisiteGroupModal}>
                 Cancel

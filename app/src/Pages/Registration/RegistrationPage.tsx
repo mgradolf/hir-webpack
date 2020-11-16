@@ -110,82 +110,82 @@ export default function SectionCatalog() {
     }
   ]
 
-  const expandableRowData = (data: any, mobileView: boolean): JSX.Element => {
-    const generatedValue = [
-      {
-        title: "Grade Scale",
-        value: data["GradeScaleType"]
-      },
-      {
-        title: "Transcript Credit",
-        value: data["TranscriptCreditType"]
-      },
-      {
-        title: "Repeat/Retake",
-        value: data["IsRepeat"]
-      },
-      {
-        title: "Seat Group",
-        value: data["SeatGroup"]
-      },
-      {
-        title: "Source",
-        value: data["Source"]
-      },
-      {
-        title: "Status in Section",
-        value: data["SectionRosterStatusCodeName"]
-      },
-      {
-        title: "Completion Date",
-        value: data["CompletionDate"]
-      },
-      {
-        title: "GPA Value",
-        value: data["GPAValue"]
-      },
-      {
-        title: "Attempted Hours",
-        value: data["AttemptedHours"]
-      },
-      {
-        title: "Earned Hours",
-        value: data["EarnedHours"]
-      },
-      {
-        title: "GPA Hours",
-        value: data["GPAHours"]
-      },
-      {
-        title: "CEU Hours",
-        value: data["CEUHours"]
-      },
-      {
-        title: "Expected Attendance",
-        value: data["AttendanceExpected"]
-      },
-      {
-        title: "Attendance Actual",
-        value: data["AttendanceActual"]
-      }
-    ]
-    return (
-      <ul>
-        {generatedValue.map((x, i) => {
-          return (
-            <>
-              {x.value && (
-                <li key={i}>
-                  <span>{x.title} : </span>
-                  <span> {x.value}</span>
-                </li>
-              )}
-            </>
-          )
-        })}
-      </ul>
-    )
-  }
+  // const expandableRowData = (data: any, mobileView: boolean): JSX.Element => {
+  //   const generatedValue = [
+  //     {
+  //       title: "Grade Scale",
+  //       value: data["GradeScaleType"]
+  //     },
+  //     {
+  //       title: "Transcript Credit",
+  //       value: data["TranscriptCreditType"]
+  //     },
+  //     {
+  //       title: "Repeat/Retake",
+  //       value: data["IsRepeat"]
+  //     },
+  //     {
+  //       title: "Seat Group",
+  //       value: data["SeatGroup"]
+  //     },
+  //     {
+  //       title: "Source",
+  //       value: data["Source"]
+  //     },
+  //     {
+  //       title: "Status in Section",
+  //       value: data["SectionRosterStatusCodeName"]
+  //     },
+  //     {
+  //       title: "Completion Date",
+  //       value: data["CompletionDate"]
+  //     },
+  //     {
+  //       title: "GPA Value",
+  //       value: data["GPAValue"]
+  //     },
+  //     {
+  //       title: "Attempted Hours",
+  //       value: data["AttemptedHours"]
+  //     },
+  //     {
+  //       title: "Earned Hours",
+  //       value: data["EarnedHours"]
+  //     },
+  //     {
+  //       title: "GPA Hours",
+  //       value: data["GPAHours"]
+  //     },
+  //     {
+  //       title: "CEU Hours",
+  //       value: data["CEUHours"]
+  //     },
+  //     {
+  //       title: "Expected Attendance",
+  //       value: data["AttendanceExpected"]
+  //     },
+  //     {
+  //       title: "Attendance Actual",
+  //       value: data["AttendanceActual"]
+  //     }
+  //   ]
+  //   return (
+  //     <ul>
+  //       {generatedValue.map((x, i) => {
+  //         return (
+  //           <>
+  //             {x.value && (
+  //               <li key={i}>
+  //                 <span>{x.title} : </span>
+  //                 <span> {x.value}</span>
+  //               </li>
+  //             )}
+  //           </>
+  //         )
+  //       })}
+  //     </ul>
+  //   )
+  // }
 
   const registrationMeta: IFilterField[] = [
     {
@@ -204,9 +204,10 @@ export default function SectionCatalog() {
         columns: columns,
         searchFunc: findRegistrations,
         bordered: true,
-        breakpoints: ["xxl"],
-        responsiveColumnIndices: [1, 2, 3],
-        expandableRowRender: expandableRowData,
+        responsiveColumnIndices: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        expandableColumnIndices: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        // responsiveColumnIndices: [1, 2, 3],
+        // expandableRowRender: expandableRowData,
         pagination: { position: ["topLeft"], pageSize: 20 }
       }}
     ></SearchPage>

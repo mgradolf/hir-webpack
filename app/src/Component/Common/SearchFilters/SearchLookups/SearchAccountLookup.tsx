@@ -16,6 +16,7 @@ export function SearchAccountLookup(props: IFilterGenericComponentProps<IFilterF
   ]
   return (
     <SearchLookupOpenButton
+      lookupModalTitle="Select Account"
       searchFunc={findAccountForLookUp}
       valueField="AccountID"
       displayField="AccountName"

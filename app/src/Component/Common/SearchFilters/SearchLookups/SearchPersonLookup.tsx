@@ -1,5 +1,5 @@
 import * as React from "react"
-import AccountSearchFilterMeta from "~/FormMeta/Account/AccountSearchFilterMeta"
+import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
@@ -25,11 +25,12 @@ export function SearchPersonLookupButton(props: IFilterGenericComponentProps<IFi
   ]
   return (
     <SearchLookupOpenButton
+      lookupModalTitle="Select Person"
       searchFunc={searchPersons}
       valueField="PersonID"
       displayField="Name"
       columns={columns}
-      meta={AccountSearchFilterMeta}
+      meta={PersonSearchFilterMeta}
       {...props}
     />
   )

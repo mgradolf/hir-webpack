@@ -30,9 +30,7 @@ import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
 import AddProductFromProductModal from "~/Component/Section/Product/AddProductFromProductModal"
 import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
 
-import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
-import AccountLookupModal from "~/Component/Common/LookupModals/AccountLookupModal"
-import { WAITLIST_ENTRIES_LOOKUP_TYPES, REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
+import { REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
 import AnswerQuestionsModal from "~/Component/Section/Request/Resolutions/AnswerQuestionsModal"
 import EditBlockerModal from "~/Component/Section/Request/Resolutions/EditBlockerModal"
 import PostPaymentModal from "~/Component/Section/Request/Resolutions/PostPaymentModal"
@@ -136,14 +134,6 @@ function ModalContainer(modalState: IModalState) {
           sectionNoticeTypeId={modalState.updateNoticeModal.config.sectionNoticeTypeId}
         />
       )}
-      {modalState.personLookupModal.value &&
-        modalState.personLookupModal.config.type !== WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
-          <PersonLookupModal type={modalState.personLookupModal.config.type} />
-        )}
-      {modalState.personLookupModal.value &&
-        modalState.personLookupModal.config.type === WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
-          <AccountLookupModal type={modalState.personLookupModal.config.type} />
-        )}
       {modalState.addSectionProductModal.value && (
         <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
       )}
