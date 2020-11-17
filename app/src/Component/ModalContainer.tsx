@@ -152,7 +152,7 @@ function ModalContainer(modalState: IModalState) {
       )}
       {modalState.requestResolutionModal.value &&
         modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.ANSWER_QUESTIONS && (
-          <AnswerQuestionsModal taskJson={modalState.requestResolutionModal.config.taskJson} />
+          <AnswerQuestionsModal fromVerification={false} taskJson={modalState.requestResolutionModal.config.taskJson} />
         )}
       {modalState.requestResolutionModal.value &&
         modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.EDIT && (
@@ -186,6 +186,9 @@ function ModalContainer(modalState: IModalState) {
         modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.ERROR_DETAILS && (
           <ErrorDetailsModal taskJson={modalState.requestResolutionModal.config.taskJson} />
         )}
+      {modalState.requestQuestionAnswerModal.value && (
+        <AnswerQuestionsModal fromVerification={true} taskJson={modalState.requestQuestionAnswerModal.config.taskJson} />
+      )}
       {modalState.studentFinderModal.value && (
         <StudentFinderModal
           onSelectStudent={modalState.studentFinderModal.config.onSelectStudentCallback}

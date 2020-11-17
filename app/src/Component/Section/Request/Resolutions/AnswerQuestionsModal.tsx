@@ -2,7 +2,7 @@ import * as React from "react"
 import Modal from "~/Component/Common/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
-import { showRequestResolutionModal } from "~/Store/ModalState"
+import { showRequestQuestionAnswerModal, showRequestResolutionModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select } from "antd"
 import { findPublishedAndActiveQuestionsWithOptions } from "~/ApiServices/Service/RequestActivityService"
 import { IParamsToBeDispatched } from "~/Pages/Request/Details"
@@ -18,7 +18,8 @@ const layout = {
 
 interface IAnswerQuestionsModal {
   taskJson?: any
-  closeAnswerQuestionsModal?: () => void
+  fromVerification?: boolean
+  closeAnswerQuestionsModal: (fromVerification: any) => void
 }
 
 function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
@@ -28,7 +29,7 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       setLoading(true)
       const result = await findPublishedAndActiveQuestionsWithOptions({
         SeatGroupID: props.taskJson.TaskData.SeatGroupID,
@@ -48,22 +49,22 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
   const onFormSubmission = async () => {
     try {
       await form.validateFields()
-
       props.taskJson["UpdatedResponse"] = form.getFieldsValue()
 
-      const params: any = {}
-      params["QuestionAnswers"] = form.getFieldsValue()
-      params["DependencyKey"] = props.taskJson.Issues[0].DependencyKey
-      params["TaskKey"] = props.taskJson.Key
-      params["ProcessActionName"] = REQUEST_PROCESS_ACTION_NAME.ANSWER_QUESTIONS
+      if (!props.fromVerification) {
+        const params: any = {}
+        params["QuestionAnswers"] = form.getFieldsValue()
+        params["DependencyKey"] = props.taskJson.Issues[0].DependencyKey
+        params["TaskKey"] = props.taskJson.Key
+        params["ProcessActionName"] = REQUEST_PROCESS_ACTION_NAME.ANSWER_QUESTIONS
 
-      const answer: IParamsToBeDispatched = {
-        ValueUpdate: true,
-        Params: params
+        const answer: IParamsToBeDispatched = {
+          ValueUpdate: true,
+          Params: params
+        }
+        eventBus.publish(EVENT_REQUEST_RESOLUTION, answer)
       }
-
-      eventBus.publish(EVENT_REQUEST_RESOLUTION, answer)
-      props.closeAnswerQuestionsModal && props.closeAnswerQuestionsModal()
+      props.closeAnswerQuestionsModal && props.closeAnswerQuestionsModal(props.fromVerification)
     } catch (errorInfo) {
       console.log("Failed:", errorInfo)
     }
@@ -74,7 +75,7 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
       <Card
         title="Additional registration questions"
         actions={[
-          <Button type="ghost" onClick={props.closeAnswerQuestionsModal}>
+          <Button type="ghost" onClick={() => props.closeAnswerQuestionsModal(props.fromVerification)}>
             Cancel
           </Button>,
           <Button type="primary" onClick={onFormSubmission}>
@@ -136,7 +137,12 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    closeAnswerQuestionsModal: () => dispatch(showRequestResolutionModal(false))
+    closeAnswerQuestionsModal: (fromVerification: boolean) => {
+      if (fromVerification) {
+        return dispatch(showRequestQuestionAnswerModal(false))
+      }
+      return dispatch(showRequestResolutionModal(false))
+    }
   }
 }
 

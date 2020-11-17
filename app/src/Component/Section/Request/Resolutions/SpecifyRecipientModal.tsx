@@ -9,11 +9,7 @@ import { eventBus, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
 import {
   REQUEST_PROCESS_ACTION_NAME,
   DATE_TIME_FORMAT,
-  REQUEST_DATE_TIME_FORMAT,
-  REGISTRATION_VERIFICATION,
-  REGISTRATION_VERIFICATION_NAME,
-  REGISTRATION_VERIFICATION_DETAILS,
-  REGISTRATION_VERIFICATION_REQUEST_NAME
+  REQUEST_DATE_TIME_FORMAT
 } from "~/utils/Constants"
 import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
 import { useEffect } from "react"
@@ -24,7 +20,8 @@ import { validateRegistration } from "~/ApiServices/Service/RegistrationService"
 import moment from "moment"
 
 import { IStudent } from "~/Component/Student/StudentFinderModal"
-import RegistrationVerificationError from "~/Component/Common/RegistrationVerificationError"
+import RegistrationVerification from "~/utils/RegistrationVerification"
+import RegistrationError from "../RegistrationError"
 
 const { useState } = React
 
@@ -39,6 +36,7 @@ interface ISpecifyRecipientModal {
 }
 
 function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
+  const sectionID = props.taskJson.TaskData.SectionID
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [isUpdate, setIsUpdate] = useState(true)
@@ -46,8 +44,9 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   const [gradeScaleItems, setGradeScaleItems] = useState<Array<any>>([])
   const [transcriptItems, setTranscriptItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [verificationItems] = useState<Array<any>>([])
-  const [waiveMap] = useState<{ [key: string]: any }>({})
+  const [verificationItems, setVerificationItems] = useState<Array<any>>([])
+  const [waiveMap, setWaiveMap] = useState<{ [key: string]: any }>({})
+  const [jsonData, setJsonData] = useState<{ [key: string]: any }>(props.taskJson)
 
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
   initialAnswer["GradeScaleTypeID"] = props.taskJson.TaskData.GradeScaleTypeID
@@ -71,7 +70,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   }
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       setLoading(true)
       const result = await getGradeScaleType()
       if (result && result.success) {
@@ -79,14 +78,14 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
       }
       setLoading(false)
     })()
-    ;(async function () {
-      setLoading(true)
-      const result = await getCreditType()
-      if (result && result.success) {
-        setTranscriptItems(result.data)
-      }
-      setLoading(false)
-    })()
+      ; (async function () {
+        setLoading(true)
+        const result = await getCreditType()
+        if (result && result.success) {
+          setTranscriptItems(result.data)
+        }
+        setLoading(false)
+      })()
   }, [props])
 
   const onFormSubmission = async () => {
@@ -111,6 +110,13 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
         if (props.taskJson.Issues[0].ValidatorKey !== undefined) {
           params["ValidatorKey"] = props.taskJson.Issues[0].ValidatorKey
         }
+
+        if (waiveMap !== undefined) {
+          let regMapName = "Registration_SectionID_" + sectionID + "_" + form.getFieldValue("RecipientPersonID")
+          params["OverrieData"] = {
+            [regMapName]: waiveMap
+          }
+        }
         console.log("Params: ", params)
 
         const specifyRecipient: IParamsToBeDispatched = {
@@ -128,6 +134,10 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
 
   const onSelectStudent = async (student: IStudent) => {
     setErrorMessages([])
+    jsonData.TaskData["RecipientPersonID"] = student.PersonID
+    jsonData.TaskData["RecipientPersonName"] = student.PersonName
+    setJsonData(jsonData)
+
     form.setFieldsValue({
       [`RecipientPersonID`]: student.PersonID,
       [`RecipientPersonName`]: student.PersonName
@@ -144,82 +154,28 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
       Object.keys(response.data).forEach((key) => {
         const registrationCheckPass = response.data[key]
         if (!registrationCheckPass) {
-          processRegistrationVerification(key, response.data)
+          verificationItems.push(RegistrationVerification(key, response.data))
           isVerificationPass = false
         }
       })
       if (isVerificationPass) {
         setIsUpdate(false)
       } else {
+        setVerificationItems(verificationItems)
         setIsVerified(false)
       }
     }
     setLoading(false)
   }
 
-  const processRegistrationVerification = (registrationCheckKey: any, responseData: any) => {
-    if (registrationCheckKey === REGISTRATION_VERIFICATION.PREREQUISITE_CHECK) {
-      verificationItems.push({
-        Name: REGISTRATION_VERIFICATION_NAME.PREREQUISITE_CHECK,
-        RequestName: [REGISTRATION_VERIFICATION_REQUEST_NAME.PREREQUISITE_CHECK],
-        Details: responseData[REGISTRATION_VERIFICATION_DETAILS.check_prerequisiteconflict_conflicts],
-        IsWaive: true
-      })
-    }
-    if (registrationCheckKey === REGISTRATION_VERIFICATION.SCHEDULE_CONFLICT_CHECK) {
-      verificationItems.push({
-        Name: REGISTRATION_VERIFICATION_NAME.SCHEDULE_CONFLICT_CHECK,
-        RequestName: [REGISTRATION_VERIFICATION_REQUEST_NAME.SCHEDULE_CONFLICT_CHECK],
-        Details: null,
-        IsWaive: true
-      })
-    }
-    if (registrationCheckKey === REGISTRATION_VERIFICATION.REGISTRATION_QUESTION_CHECK) {
-      verificationItems.push({
-        Name: REGISTRATION_VERIFICATION_NAME.REGISTRATION_QUESTION_CHECK,
-        RequestName: [REGISTRATION_VERIFICATION_REQUEST_NAME.REGISTRATION_QUESTION_CHECK],
-        Details: null,
-        IsWaive: true
-      })
-    }
-    if (registrationCheckKey === REGISTRATION_VERIFICATION.STUDENT_ON_HOLE_CHECK) {
-      verificationItems.push({
-        Name: REGISTRATION_VERIFICATION_NAME.STUDENT_ON_HOLE_CHECK,
-        RequestName: [
-          REGISTRATION_VERIFICATION_REQUEST_NAME.STUDENT_ON_HOLE_CHECK,
-          REGISTRATION_VERIFICATION_REQUEST_NAME.STUDENT_ON_HOLE_CHECK_WITH_MESSAGE
-        ],
-        Details: null,
-        IsWaive: false
-      })
-    }
-    if (registrationCheckKey === REGISTRATION_VERIFICATION.DUPLICATE_REQUEST_CHECK) {
-      verificationItems.push({
-        Name: REGISTRATION_VERIFICATION_NAME.DUPLICATE_REQUEST_CHECK,
-        RequestName: [],
-        Details: null,
-        IsWaive: false
-      })
-    }
-    if (registrationCheckKey === REGISTRATION_VERIFICATION.REGISTRATION_CHECK) {
-      verificationItems.push({
-        Name: REGISTRATION_VERIFICATION_NAME.REGISTRATION_CHECK,
-        RequestName: [],
-        Details: null,
-        IsWaive: false
-      })
-    }
-    if (registrationCheckKey === REGISTRATION_VERIFICATION.SECTION_VALIDITY_CHECK) {
-      verificationItems.push({
-        Name: REGISTRATION_VERIFICATION_NAME.SECTION_VALIDITY_CHECK,
-        RequestName: [],
-        Details: responseData[REGISTRATION_VERIFICATION_DETAILS.check_sectionvalidity_issues],
-        IsWaive: true
-      })
-    }
-  }
-
   const onClearStudent = () => {
+    setVerificationItems([])
+    setWaiveMap({})
+
+    jsonData.TaskData["RecipientPersonID"] = null
+    jsonData.TaskData["RecipientPersonName"] = null
+    setJsonData(jsonData)
+
     form.setFieldsValue({
       [`RecipientPersonID`]: null,
       [`RecipientPersonName`]: null
@@ -230,31 +186,14 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
     requestName.forEach((element) => {
       waiveMap[element] = 1
     })
+    setWaiveMap(waiveMap)
 
-    let position = undefined
-    verificationItems.forEach((element, index) => {
-      if (element.Name === name) {
-        position = index
-        return
-      }
-    })
+    let itemList = verificationItems.filter(x => x.Name !== name)
+    setVerificationItems(itemList)
 
-    if (position !== undefined) {
-      verificationItems.splice(position, 1)
-    }
-
-    if (verificationItems.length === 0) {
+    if (itemList.length === 0) {
       setIsUpdate(false)
     }
-    console.log("Waive map: ", waiveMap)
-  }
-
-  const onAnswer = () => {
-    console.log("Answer")
-  }
-
-  const onDetails = (name: any) => {
-    console.log("Name: ", name)
   }
 
   return (
@@ -276,14 +215,6 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
         >
           <FormError errorMessages={errorMessages} />
-          {!isVerified && (
-            <RegistrationVerificationError
-              errorMessages={verificationItems}
-              onWaive={onWaive}
-              onAnswer={onAnswer}
-              onDetails={onDetails}
-            />
-          )}
 
           <Divider orientation="left">Student Registration</Divider>
           <StudentFinderFormField
@@ -292,6 +223,13 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
             onSelectStudent={onSelectStudent}
             onClearStudent={onClearStudent}
           />
+
+          {!isVerified &&
+            <RegistrationError
+              errorMessages={verificationItems}
+              jsonData={jsonData}
+              onWaive={onWaive} />
+          }
 
           <Form.Item label="Recipient Person ID" className="hidden" {...layout} name="RecipientPersonID">
             <Input />
@@ -385,7 +323,6 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
 
           <Form.Item
             label="Expected Attendance"
-            rules={[{ required: true, message: "Please input your answer!" }]}
             {...layout}
             name="AttendanceExpected"
           >

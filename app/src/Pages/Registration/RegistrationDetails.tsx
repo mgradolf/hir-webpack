@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { Row, Col, Typography, Input, Space, Spin, Divider, Tabs, Dropdown, Button } from "antd"
+import { Row, Col, Typography, Input, Space, Spin, Divider, Tabs, Button } from "antd"
 import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
+import { sendRegistrationConfirmationEmail } from "~/ApiServices/Service/MailService"
 import styles from "~/Pages/Request/RequestDetails.module.scss"
-import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetailsMenu"
 import RegistrationUpdateForm from "~/Component/Registration/RegistrationUpdateForm"
 import RegistrationActionForm from "~/Component/Registration/RegistrationActionForm"
 import RegistrationQuestionsForm from "~/Component/Registration/RegistrationQuestionsForm"
@@ -13,7 +13,6 @@ import {
   IRegistrationFieldNames,
   IRegistrationGradeFieldNames
 } from "~/Component/Registration/Interfaces"
-import { DownOutlined } from "@ant-design/icons"
 
 const { Title, Text } = Typography
 const { TabPane } = Tabs
@@ -69,7 +68,7 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
   const [registrationDetails, setRegistrationDetails] = useState<{ [key: string]: any }>()
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       setApiCallInProgress(true)
       const result = await findRegistrations({ SectionID: Number(sectionID), StudentID: Number(studentID) })
       if (result && result.success) {
@@ -93,18 +92,20 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
               <Title level={3}>Registration Details</Title>
             </Col>
             <Col className={`gutter-row ${styles.textRight}`} xs={24} sm={24} md={12}>
-              <Dropdown
-                overlay={
-                  <RegistrationDetailsMenu
-                    setApiCallInProgress={setApiCallInProgress}
-                    additionalData={registrationDetails}
-                  />
-                }
-              >
-                <Button type="primary" onClick={(e) => e.preventDefault()}>
-                  Go To <DownOutlined />
-                </Button>
-              </Dropdown>
+              <Button type="primary"
+                onClick={async () => {
+                  setApiCallInProgress(true)
+                  const response = await sendRegistrationConfirmationEmail({
+                    StudentID: studentID,
+                    SeatGroupID: registrationDetails.SeatGroupID
+                  })
+                  if (response.success) {
+                    console.log("Successfully send email!")
+                  }
+                  setApiCallInProgress(false)
+                }}>
+                Email Confirmation
+              </Button>
             </Col>
           </Row>
           <Divider orientation="left">Section</Divider>
@@ -191,7 +192,9 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
                 <TabPane tab="Final Grade" key="4">
                   <RegistrationGradeForm fieldNames={gradeFieldName} initialFormValue={registrationDetails} />
                 </TabPane>
-                <TabPane tab="Issue Certificate" key="5"></TabPane>
+                <TabPane tab="Issue Certificate" key="5">
+                  <Typography.Text style={{ marginLeft: "20px" }}>Coming Soon....</Typography.Text>
+                </TabPane>
               </Tabs>
             </Col>
           </Row>
