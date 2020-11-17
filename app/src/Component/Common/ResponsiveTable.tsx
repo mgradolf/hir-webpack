@@ -9,7 +9,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 
-export type TableColumnType = ColumnsType<{ [key: string]: string }>
+export type TableColumnType = ColumnsType<{ [key: string]: any }>
 
 // TODO: Currently we have generic responsive support for
 // only one set of breakpoints, we need support for multiple set of
@@ -19,7 +19,7 @@ export const renderDateTime = (text: any) => (text !== null ? moment(text).forma
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
 export const renderBoolean = (text: any) => (text ? "Yes" : "No")
 
-export interface IDataTableProps extends TableProps<{ [key: string]: string }> {
+export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
   searchParams?: any
   searchFunc?: (Params: any) => Promise<IApiResponse>
@@ -160,7 +160,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     ) {
       _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
     }
-    _conditionalProps.scroll = { ...(props.isModal && { y: Math.floor(window.innerHeight * 0.45) }), x: 300 }
+    _conditionalProps.scroll = { x: columns.length * 120 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
     setConditionalProps(_conditionalProps)

@@ -1,5 +1,6 @@
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import {
+  getCountries,
   getEthnicityTypes,
   getGenderTypes,
   getInstitutionStatusTypes,
@@ -107,7 +108,7 @@ const instructorMeta: IFilterField[] = [
     defaultValue: "",
     fieldName: "CountryCodeID",
     ariaLabel: "Country Select",
-    refLookupService: getOrganizations,
+    refLookupService: getCountries,
     displayKey: "Description",
     valueKey: "ID"
   },

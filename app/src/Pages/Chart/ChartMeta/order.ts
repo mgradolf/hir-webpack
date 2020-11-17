@@ -11,12 +11,12 @@ export const config: IChartConfig = {
     return data.map((item) => {
       return {
         Date: moment(item["OrderDate"]).format(DATE_FORMAT),
-        OrderAmount: item["OrderAmount"]
+        "Order Amount": item["OrderAmount"]
       }
     })
   },
   xField: "Date",
-  yField: "OrderAmount"
+  yField: "Order Amount"
 }
 export const searchFunc = () => analyzeOrdersByDate
 export const meta: IFilterField[] = [

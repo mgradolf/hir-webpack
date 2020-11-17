@@ -35,7 +35,7 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
       if (props.extraProps && props.extraProps.isArray) {
         setSelectedItem(items.map((x) => x[props.displayField]).toString())
         props.formInstance.setFieldsValue({
-          [props.fieldName]: "[" + items.map((x) => x[props.valueField]).toString() + "]"
+          [props.fieldName]: items.map((x) => x[props.valueField])
         })
       } else {
         setSelectedItem(items[0][props.displayField])
