@@ -24,7 +24,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     {
       title: "Student Name",
       dataIndex: "SortName",
-      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.SortName}</Link>,
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{record.SortName}</Link>,
       width: 100
     },
     {
@@ -35,15 +35,11 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     {
       title: "Modified By",
       dataIndex: "ActivityModifiedByName",
-      render: (text: any, record: any) => (
-        <Link to={`/person/${record.ActivityModifiedByUID}`}>{record.ActivityModifiedByName}</Link>
-      ),
       width: 100
     },
     {
       title: "User Name",
       dataIndex: "ActivityModifiedByName",
-      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       width: 100
     },
     {
@@ -65,7 +61,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     },
     {
       title: "Registration Source",
-      dataIndex: "SourceID",
+      dataIndex: "SourceName",
       width: 100
     }
   ]

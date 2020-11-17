@@ -16,6 +16,7 @@ interface IPage extends Partial<RouteComponentProps> {
   meta?: IFilterField[]
   tableProps: IDataTableProps
   initialFilter?: any
+  helpKey?: string
 }
 export default function Page(props: IPage) {
   const hideSearchFieldByUrlParam = useQuery().get("hide-search") === "true"
@@ -24,7 +25,8 @@ export default function Page(props: IPage) {
     title: props.title,
     meta: props.meta,
     tableProps: props.tableProps,
-    initialFilter: props.initialFilter
+    initialFilter: props.initialFilter,
+    helpKey: props.helpKey
   }
   if (props.meta && (hideSearchFieldByUrlParam || props.hideSearchField)) {
     return <SearchListWithHiddenSearchForm {...propsToPass} />

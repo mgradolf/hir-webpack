@@ -14,9 +14,6 @@ import {
 const { Option } = Select
 
 export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
-  // const { value, filterValueChanged, isCheckeble } = props
-  // const hideRoomDropdown = props.extraProps && props.extraProps.hideRoomDropdown
-
   const [sites, setSites] = useState<any[]>([])
   const [buildings, setBuildings] = useState<any[]>([])
   const [rooms, setRooms] = useState<any[]>([])

@@ -42,6 +42,8 @@ export interface IFilterFieldObject {
 export interface IFilterFieldComponent {
   label: string
   fieldName: string
+  label2?: string
+  fieldName2?: string
   customFilterComponent: React.FunctionComponent<any>
   fullWidth?: boolean
   extraProps?: { [key: string]: any }

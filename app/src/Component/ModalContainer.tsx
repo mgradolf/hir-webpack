@@ -1,5 +1,7 @@
 import React from "react"
 import { AppState } from "~/Store"
+import { IModalState } from "~/Store/ModalState"
+import { connect } from "react-redux"
 import OfflineAlert from "~/Component/Alerts/Offline"
 import LoginModal from "~/Component/Login/LoginModal"
 import CreateNewOfferingModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
@@ -8,16 +10,12 @@ import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApp
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
 import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
-// import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import SectionCopyModal from "~/Component/Section/Copy/SectionCopyModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
 import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
 import ScheduleInstructorFromModal from "~/Component/Section/Schedule/ScheduleInstructorFormModal"
-// import CreateNewBudgetModal from "~/Component/Section/Budget/BudgetFormModal"
-import { IModalState } from "~/Store/ModalState"
-import { connect } from "react-redux"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
 import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
@@ -30,9 +28,7 @@ import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
 import AddProductFromProductModal from "~/Component/Section/Product/AddProductFromProductModal"
 import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
 
-import PersonLookupModal from "~/Component/Common/LookupModals/PersonLookUpModal"
-import AccountLookupModal from "~/Component/Common/LookupModals/AccountLookupModal"
-import { WAITLIST_ENTRIES_LOOKUP_TYPES, REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
+import { REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
 import AnswerQuestionsModal from "~/Component/Section/Request/Resolutions/AnswerQuestionsModal"
 import EditBlockerModal from "~/Component/Section/Request/Resolutions/EditBlockerModal"
 import PostPaymentModal from "~/Component/Section/Request/Resolutions/PostPaymentModal"
@@ -136,14 +132,6 @@ function ModalContainer(modalState: IModalState) {
           sectionNoticeTypeId={modalState.updateNoticeModal.config.sectionNoticeTypeId}
         />
       )}
-      {modalState.personLookupModal.value &&
-        modalState.personLookupModal.config.type !== WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
-          <PersonLookupModal type={modalState.personLookupModal.config.type} />
-        )}
-      {modalState.personLookupModal.value &&
-        modalState.personLookupModal.config.type === WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT && (
-          <AccountLookupModal type={modalState.personLookupModal.config.type} />
-        )}
       {modalState.addSectionProductModal.value && (
         <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
       )}

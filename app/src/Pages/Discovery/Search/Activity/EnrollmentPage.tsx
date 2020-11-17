@@ -23,7 +23,13 @@ export default function AcademicLogPage() {
     {
       title: "Student Name",
       dataIndex: "SortName",
-      render: (text: any, record: any) => <Link to={`/person/${record.StudentID}`}>{record.SortName}</Link>,
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>,
+      width: 100
+    },
+    {
+      title: "Student ID",
+      dataIndex: "StudentSerialNum",
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>,
       width: 100
     },
     {
@@ -33,16 +39,12 @@ export default function AcademicLogPage() {
     },
     {
       title: "Modified By",
-      dataIndex: "ActivityModifiedByName",
-      render: (text: any, record: any) => (
-        <Link to={`/person/${record.ActivityModifiedByUID}`}>{record.ActivityModifiedByName}</Link>
-      ),
+      dataIndex: "ActivityModifiedByUID",
       width: 100
     },
     {
       title: "User Name",
       dataIndex: "ActivityModifiedByName",
-      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       width: 100
     },
     {
@@ -64,7 +66,7 @@ export default function AcademicLogPage() {
     },
     {
       title: "Registration Source",
-      dataIndex: "SourceID",
+      dataIndex: "SourceName",
       width: 100
     }
   ]
@@ -79,7 +81,6 @@ export default function AcademicLogPage() {
         searchFunc: getStudentEnrollmentActivity,
         expandableColumnIndices: [5],
         responsiveColumnIndices: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-        rowKey: "ActivityID",
         pagination: { position: ["topLeft"], pageSize: 20 }
       }}
     ></SearchPage>

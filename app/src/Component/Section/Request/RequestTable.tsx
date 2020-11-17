@@ -69,7 +69,6 @@ export function RequestTable(props: ITableWrapperProps) {
     {
       title: "Staff",
       dataIndex: "RequesterStaffUserName",
-      render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>,
       key: "RequesterStaffUserName"
     },
     {

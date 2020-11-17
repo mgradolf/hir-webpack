@@ -1,14 +1,15 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import PersonSelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/PersonSelector"
-import DateTypelectorForOrderManagement from "~/Component/Section/Order/OrderManagementFilters/DateTypelector"
+import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
+import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 
 export const OrderManagementSearchFilterMeta: IFilterField[] = [
   {
     label: "Total Amount",
-    fieldName: "",
+    fieldName: "TotalAmountFrom",
+    fieldName2: "TotalAmountTo",
     customFilterComponent: TotalAmountRange
   },
   {
@@ -53,11 +54,41 @@ export const OrderManagementSearchFilterMeta: IFilterField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: PersonSelectorForOrderManagement
+    customFilterComponent: SearchPersonSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          name: "Buyer Name",
+          key: "BuyerName"
+        },
+        {
+          name: "Student Name",
+          key: "StudentName"
+        },
+        {
+          name: "Billed To Name",
+          key: "BilledPersonName"
+        }
+      ]
+    }
   },
   {
-    label: "Date Type Selector",
+    label: "Date Type Select",
     fieldName: "",
-    customFilterComponent: DateTypelectorForOrderManagement
+    customFilterComponent: SearchDateTypeSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          name: "Order Date",
+          key1: "CreateDateFrom",
+          key2: "CreateDateTo"
+        },
+        {
+          name: "Due Date",
+          key1: "PaymentDueDateFrom",
+          key2: "PaymentDueDateTo"
+        }
+      ]
+    }
   }
 ]

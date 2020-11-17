@@ -1,41 +1,73 @@
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { Card, Spin } from "antd"
+import { Col, Row, Spin } from "antd"
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { getPersonDetails } from "~/ApiServices/Service/PersonService"
+import { NameAddressInfo } from "~/Component/Person/Details/NameAddressInfo"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { PersonalInfo } from "~/Component/Person/Details/PersonalInfo"
+import { ReferenceInfo } from "~/Component/Person/Details/ReferenceInfo"
+import { LoginInfo } from "~/Component/Person/Details/LoginInfo"
 
-export default function PersonDetailsPage(props: RouteComponentProps<{ personID: string }>) {
+export default function PersonDetailsPage(
+  props: RouteComponentProps<{ personID?: string; facultyID?: string; studentID?: string }>
+) {
   const PersonID = Number(props?.match?.params?.personID)
+  const FacultyID = Number(props?.match?.params?.facultyID)
+  const StudentID = Number(props?.match?.params?.studentID)
+
   const [person, setPerson] = useState<{ [key: string]: any }>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<IProcessedApiError>()
-  useEffect(() => {
+
+  const loadPersonDetails = () => {
+    console.log(props.match.params)
     setLoading(true)
-    getEntityById("Person", PersonID).then((x) => {
+    let Param: { [key: string]: any }
+    if (StudentID) Param = { StudentID: StudentID }
+    else if (FacultyID) Param = { FacultyID: FacultyID }
+    else Param = { PersonID: PersonID }
+
+    getPersonDetails(Param).then((x) => {
       setLoading(false)
-      if (x.success) setPerson(x.data)
+      if (x.success) setPerson(x.data[0])
       else setError(x.error)
     })
-  }, [PersonID])
-  if (loading) return <Spin spinning={true} size="large" />
+  }
+  useEffect(() => {
+    eventBus.subscribe(REFRESH_PAGE, loadPersonDetails)
+    eventBus.publish(REFRESH_PAGE)
+    return () => {
+      eventBus.unsubscribe(REFRESH_PAGE)
+    }
+    // eslint-disable-next-line
+  }, [PersonID, FacultyID, StudentID])
+
+  if (loading)
+    return (
+      <Row justify="center" align="middle">
+        <Spin size="large" />
+      </Row>
+    )
   if (error) return <p>Couldn't found any person with person id {PersonID}</p>
   return (
     <div className="site-layout-content">
-      <Card title="Person Details">
-        <table>
-          <tbody>
-            {Object.keys(person).map((key, index) => {
-              if (!person[key]) return null
-              return (
-                <tr>
-                  <td width={200}>{key}</td>
-                  <td>{String(person[key])}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </Card>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={12}>
+          <NameAddressInfo person={person} />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
+          <PersonalInfo person={person} />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
+          <ReferenceInfo person={person} />
+        </Col>
+        {person.Login && (
+          <Col xs={24} sm={24} md={12}>
+            <LoginInfo login={person.Login} />
+          </Col>
+        )}
+      </Row>
     </div>
   )
 }

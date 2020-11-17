@@ -5,7 +5,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import DropDown from "~/Component/Common/Form/DropDown"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { DATE_FORMAT, DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/FormLookups/FormPersonLookup"
+import { FormPersonLookupButton } from "~/Component/Common/Form/FormLookups/FormPersonLookup"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import FormError from "~/Component/Common/FormError"
@@ -176,7 +176,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
             <Form.Item className="hidden" name={fieldNames.AccountID}>
               <Input />
             </Form.Item>
-            <SearchPersonLookupButton
+            <FormPersonLookupButton
               formInstance={formInstance}
               onCloseModal={(persons?: Array<{ [key: string]: string }>) => {
                 if (persons && persons.length > 0) {

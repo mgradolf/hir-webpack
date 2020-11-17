@@ -9,7 +9,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 
-export type TableColumnType = ColumnsType<{ [key: string]: string }>
+export type TableColumnType = ColumnsType<{ [key: string]: any }>
 
 // TODO: Currently we have generic responsive support for
 // only one set of breakpoints, we need support for multiple set of
@@ -17,8 +17,9 @@ export type TableColumnType = ColumnsType<{ [key: string]: string }>
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
+export const renderBoolean = (text: any) => (text ? "Yes" : "No")
 
-export interface IDataTableProps extends TableProps<{ [key: string]: string }> {
+export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
   searchParams?: any
   searchFunc?: (Params: any) => Promise<IApiResponse>
@@ -90,11 +91,30 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
     const _columns: any = columns
-
+    console.log(mobileView)
     const responsiveExpandableRowElements =
       responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
         <>
-          {responsiveColumnIndices.map((index) => {
+          {responsiveColumnIndices
+            .filter((index) => index <= _columns.length)
+            .map((index) => {
+              const title = _columns[index - 1].title
+              const text = record[_columns[index - 1].dataIndex]
+              return (
+                <li key={index}>
+                  <span>{title} : </span>
+                  <span> {text}</span>
+                </li>
+              )
+            })}
+        </>
+      ) : null
+
+    const expandableRowElements = expandableColumnIndices ? (
+      <>
+        {expandableColumnIndices
+          .filter((index) => index <= _columns.length)
+          .map((index) => {
             const title = _columns[index - 1].title
             const text = record[_columns[index - 1].dataIndex]
             return (
@@ -104,21 +124,6 @@ export function ResponsiveTable(props: IDataTableProps) {
               </li>
             )
           })}
-        </>
-      ) : null
-
-    const expandableRowElements = expandableColumnIndices ? (
-      <>
-        {expandableColumnIndices.map((index) => {
-          const title = _columns[index - 1].title
-          const text = record[_columns[index - 1].dataIndex]
-          return (
-            <li key={index}>
-              <span>{title} : </span>
-              <span> {text}</span>
-            </li>
-          )
-        })}
       </>
     ) : null
     return (
@@ -132,11 +137,13 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [conditionalProps, setConditionalProps] = useState<{ [key: string]: any }>({})
   const setTableProps = (data?: any) => {
     const _conditionalProps: TableProps<{ [key: string]: string }> = {
-      columns: columns.map((col, index) =>
-        responsiveColumnIndices && responsiveColumnIndices.includes(index)
-          ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
-          : col
-      ),
+      columns: columns
+        .filter((x, i) => !expandableColumnIndices?.includes(i + 1))
+        .map((col, index) =>
+          responsiveColumnIndices && responsiveColumnIndices.includes(index)
+            ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
+            : col
+        ),
       ...otherTableProps
     }
 
@@ -153,7 +160,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     ) {
       _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
     }
-    _conditionalProps.scroll = { ...(props.isModal && { y: Math.floor(window.innerHeight * 0.45) }), x: 300 }
+    _conditionalProps.scroll = { x: columns.length * 120 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
     setConditionalProps(_conditionalProps)
@@ -176,6 +183,7 @@ export function ResponsiveTable(props: IDataTableProps) {
       {searchFunc &&
         searchParams &&
         conditionalProps &&
+        !isModal &&
         conditionalProps.dataSource &&
         conditionalProps.dataSource.length > 0 && (
           <Dropdown

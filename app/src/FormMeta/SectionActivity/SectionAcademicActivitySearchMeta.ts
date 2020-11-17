@@ -1,6 +1,6 @@
+import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 import { DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
-import StudentSearchFilterByNameID from "~/FormMeta/SectionActivity/StudentSearchFilterByNameID"
 
 export const getSectionAcademicActivitySearchMeta: IFilterField[] = [
   {
@@ -33,7 +33,10 @@ export const getSectionAcademicActivitySearchMeta: IFilterField[] = [
   },
   {
     label: "Student Lookup",
-    fieldName: "SiteID",
-    customFilterComponent: StudentSearchFilterByNameID
+    fieldName: "StudentIDs",
+    customFilterComponent: SearchStudentLookup,
+    extraProps: {
+      isArray: true
+    }
   }
 ]

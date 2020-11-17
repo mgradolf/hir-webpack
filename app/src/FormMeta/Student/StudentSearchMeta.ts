@@ -1,7 +1,7 @@
 import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
 
-const programMeta: IFilterFieldObject[] = [
+export const studentSearchMeta: IFilterFieldObject[] = [
   {
     label: "First Name",
     inputType: TEXT,
@@ -93,5 +93,3 @@ const programMeta: IFilterFieldObject[] = [
     valueKey: "ID"
   }
 ]
-
-export default programMeta
