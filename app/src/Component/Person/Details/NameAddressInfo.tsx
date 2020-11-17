@@ -3,14 +3,10 @@ import React from "react"
 
 export function NameAddressInfo({ person }: { person: { [key: string]: any } }) {
   return (
-    <Card title="Contact Info">
+    <>
       <Card title="Address">
         <table style={{ width: "400px" }}>
           <tbody>
-            {/* <tr>
-              <td>Name</td>
-              <td>{person.FormattedName}</td>
-            </tr> */}
             {person.Addresses &&
               Array.isArray(person.Addresses) &&
               person.Addresses.map((x) => (
@@ -65,6 +61,6 @@ export function NameAddressInfo({ person }: { person: { [key: string]: any } }) 
           </tbody>
         </table>
       </Card>
-    </Card>
+    </>
   )
 }

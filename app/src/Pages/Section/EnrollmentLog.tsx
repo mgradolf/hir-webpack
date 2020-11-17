@@ -61,7 +61,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
     },
     {
       title: "Registration Source",
-      dataIndex: "SourceID",
+      dataIndex: "SourceName",
       width: 100
     }
   ]

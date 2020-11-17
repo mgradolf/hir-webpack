@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { RouteComponentProps } from "react-router-dom"
+import { Link, RouteComponentProps } from "react-router-dom"
 import { getStudentAcademicActivity } from "~/ApiServices/Service/ActivityService"
 import AcademicLogSearch from "~/Component/Common/SearchFilters"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDateTime, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionAcademicActivitySearchMeta"
 
 export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: string }>) {
@@ -31,32 +31,32 @@ export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: 
     },
     {
       title: "Student ID",
-      dataIndex: "StudentID",
+      dataIndex: "StudentSerialNum",
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>,
       width: 100
     },
     {
       title: "Student Name",
       dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>,
       width: 100
     },
     {
-      title: "Section Name",
-      dataIndex: "SectionName",
-      width: 100
-    },
-    {
-      title: "Section ID",
-      dataIndex: "SectionID",
+      title: "Section Number",
+      dataIndex: "SectionNumber",
+      render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>,
       width: 100
     },
     {
       title: "Section Creation Date",
       dataIndex: "SectionCreationDate",
+      render: renderDateTime,
       width: 100
     },
     {
       title: "Section Termination Date",
       dataIndex: "SectionTerminationDate",
+      render: renderDateTime,
       width: 100
     },
     {
@@ -65,13 +65,13 @@ export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: 
       width: 100
     },
     {
-      title: "Transcript Credit Type ID",
-      dataIndex: "TranscriptCreditTypeID",
+      title: "Transcript Credit Type",
+      dataIndex: "TranscriptCreditType",
       width: 100
     },
     {
-      title: "Grade Scale Type ID",
-      dataIndex: "GradeScaleTypeID",
+      title: "Grade Scale Type",
+      dataIndex: "GradeScaleType",
       width: 100
     },
     {
@@ -121,7 +121,8 @@ export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: 
     },
     {
       title: "Completion On Termination",
-      dataIndex: "Completion OnTermination",
+      dataIndex: "CompleteOnTermination",
+      render: renderBoolean,
       width: 100
     }
   ]

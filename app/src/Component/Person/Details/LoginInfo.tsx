@@ -1,18 +1,18 @@
 import { Card } from "antd"
 import React, { useEffect, useState } from "react"
 
-export function ReferenceInfo({ person }: { person: { [key: string]: any } }) {
+export function LoginInfo({ login }: { login: { [key: string]: any } }) {
   const [state, setState] = useState<{ [key: string]: any }>({})
   useEffect(() => {
     setState({
-      "Can Defer Payment": person.CanDeferPayment ? "Yes" : "No",
-      GovID: person.GovID,
-      ERPID: person.ERPID,
-      "Creator Account ID": person.CreatorAccountID
+      "Person ID": login.PersonID,
+      "Secret Answer": login.SecretAnswer,
+      "Secret Question": login.SecretQuestion,
+      "User Login": login.UserLogin
     })
-  }, [person])
+  }, [login])
   return (
-    <Card title="Reference Info">
+    <Card title="Login Info">
       <table style={{ width: "400px" }}>
         <tbody>
           {Object.keys(state).map((key, i) => (

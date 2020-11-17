@@ -112,6 +112,24 @@ export function getGenderTypes(): Promise<IApiResponse> {
   })
 }
 
+export function getMaritalStatusType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MaritalStatusType"
+  })
+}
+
+export function getCitizenshipType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CitizenshipType"
+  })
+}
+
+export function getReligionType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ReligionType"
+  })
+}
+
 export function getRegionCodes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "RegionCode"

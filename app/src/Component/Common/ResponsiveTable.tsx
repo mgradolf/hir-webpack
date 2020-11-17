@@ -17,6 +17,7 @@ export type TableColumnType = ColumnsType<{ [key: string]: string }>
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
+export const renderBoolean = (text: any) => (text ? "Yes" : "No")
 
 export interface IDataTableProps extends TableProps<{ [key: string]: string }> {
   columns: TableColumnType
@@ -90,11 +91,30 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
     const _columns: any = columns
-
+    console.log(mobileView)
     const responsiveExpandableRowElements =
       responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
         <>
-          {responsiveColumnIndices.map((index) => {
+          {responsiveColumnIndices
+            .filter((index) => index <= _columns.length)
+            .map((index) => {
+              const title = _columns[index - 1].title
+              const text = record[_columns[index - 1].dataIndex]
+              return (
+                <li key={index}>
+                  <span>{title} : </span>
+                  <span> {text}</span>
+                </li>
+              )
+            })}
+        </>
+      ) : null
+
+    const expandableRowElements = expandableColumnIndices ? (
+      <>
+        {expandableColumnIndices
+          .filter((index) => index <= _columns.length)
+          .map((index) => {
             const title = _columns[index - 1].title
             const text = record[_columns[index - 1].dataIndex]
             return (
@@ -104,21 +124,6 @@ export function ResponsiveTable(props: IDataTableProps) {
               </li>
             )
           })}
-        </>
-      ) : null
-
-    const expandableRowElements = expandableColumnIndices ? (
-      <>
-        {expandableColumnIndices.map((index) => {
-          const title = _columns[index - 1].title
-          const text = record[_columns[index - 1].dataIndex]
-          return (
-            <li key={index}>
-              <span>{title} : </span>
-              <span> {text}</span>
-            </li>
-          )
-        })}
       </>
     ) : null
     return (
@@ -132,11 +137,13 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [conditionalProps, setConditionalProps] = useState<{ [key: string]: any }>({})
   const setTableProps = (data?: any) => {
     const _conditionalProps: TableProps<{ [key: string]: string }> = {
-      columns: columns.map((col, index) =>
-        responsiveColumnIndices && responsiveColumnIndices.includes(index)
-          ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
-          : col
-      ),
+      columns: columns
+        .filter((x, i) => !expandableColumnIndices?.includes(i + 1))
+        .map((col, index) =>
+          responsiveColumnIndices && responsiveColumnIndices.includes(index)
+            ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
+            : col
+        ),
       ...otherTableProps
     }
 
