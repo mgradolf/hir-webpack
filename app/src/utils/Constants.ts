@@ -45,6 +45,39 @@ export const REQUEST_TASK_TYPE_NAME = {
   EXTERNAL_GATEWAY_PAYMENT: "ExternalGatewayPayment"
 }
 
+export const REGISTRATION_VERIFICATION = {
+  PREREQUISITE_CHECK: "Request.PrerequisiteCheck_passed",
+  SCHEDULE_CONFLICT_CHECK: "Request.ScheduleConflict_passed",
+  REGISTRATION_QUESTION_CHECK: "Request.RegistrationQuestionCheck_passed",
+  STUDENT_ON_HOLE_CHECK: "Request.StudentOnHoldCheck_passed",
+  DUPLICATE_REQUEST_CHECK: "Request.DuplicateRequestCheck_passed",
+  SECTION_VALIDITY_CHECK: "SectionValidityCheck_passed",
+  REGISTRATION_CHECK: "RegistrationCheck_passed"
+}
+
+export const REGISTRATION_VERIFICATION_DETAILS = {
+  check_prerequisiteconflict_conflicts: "check_prerequisiteconflict_conflicts",
+  check_sectionvalidity_issues: "check_sectionvalidity_issues"
+}
+
+export const REGISTRATION_VERIFICATION_NAME = {
+  PREREQUISITE_CHECK: "Test prerequisites",
+  SCHEDULE_CONFLICT_CHECK: "Test schedule conflicts",
+  REGISTRATION_QUESTION_CHECK: "Registration questions",
+  STUDENT_ON_HOLE_CHECK: "Test student on hold",
+  DUPLICATE_REQUEST_CHECK: "Test duplicate request",
+  SECTION_VALIDITY_CHECK: "Test if section open for registration",
+  REGISTRATION_CHECK: "Test if already registered"
+}
+
+export const REGISTRATION_VERIFICATION_REQUEST_NAME = {
+  PREREQUISITE_CHECK: "SectionPrerequisiteCheck",
+  SCHEDULE_CONFLICT_CHECK: "ScheduleConflictCheck",
+  REGISTRATION_QUESTION_CHECK: "AnswerQuestion",
+  STUDENT_ON_HOLE_CHECK: "StudentOnHoldCheck",
+  STUDENT_ON_HOLE_CHECK_WITH_MESSAGE: "StudentOnHoldCheckWithMessage"
+}
+
 export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
   BUYER: {
     name: "Buyer",
@@ -90,10 +123,9 @@ export const BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM = "Marketing Program"
 export const PROCESSED_REQUEST_STATE_ID = 4
 export const ACTION_REQUIRED_REQUEST_STATE_ID = 2
 export const ERROR_REQUEST_STATE_ID = 5
+export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
 
 export const ADMIN_SOURCE_NAME = "Admin"
-
-export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
 
 export const PARAM_TYPE_REQUEST = "Request"
 export const PARAM_TYPE_REQUESTS = "Requests"
@@ -102,7 +134,12 @@ export const PARAM_TYPE_REGISTRATION = "Registration"
 export const PARAM_TYPE_REGISTRATIONS = "Registrations"
 
 export const ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE = 1
-
 export const GRADE_CLASSIFICATION_TYPE_WITHDRAW = 2
 
 export const QUESTION_EVENT_TYPE_REGISTRATION = 1
+export const QUESTION_EVENT_TYPE_PROFILE = 2
+
+export const CREDIT_HOURS = "CreditHours"
+export const CEU_HOURS = "CEUHours"
+
+export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"

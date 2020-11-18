@@ -32,6 +32,7 @@ const SHOW_ADD_SECTION_PRODUCT_MODAL = "SHOW_ADD_SECTION_PRODUCT_MODAL"
 const SHOW_REQUEST_DETAILS_MODAL = "SHOW_REQUEST_DETAILS_MODAL"
 const SHOW_REQUEST_VIEW_RESPONSE_MODAL = "SHOW_REQUEST_VIEW_RESPONSE_MODAL"
 const SHOW_REQUEST_RESOLUTION_MODAL = "SHOW_REQUEST_RESOLUTION_MODAL"
+const SHOW_REQUEST_QUESTION_ANSWER_MODAL = "SHOW_REQUEST_QUESTION_ANSWER_MODAL"
 const SHOW_SECTION_COMMENT_MODAL = "SHOW_SECTION_COMMENT_MODAL"
 const SHOW_ADD_CONTACT_MODAL = "SHOW_ADD_CONTACT_MODAL"
 
@@ -77,6 +78,7 @@ export interface IModalState {
   requestDetailsModal: ModalConfig
   requestViewResponseModal: ModalConfig
   requestResolutionModal: ModalConfig
+  requestQuestionAnswerModal: ModalConfig
   sectionCommentModal: ModalConfig
   addContactModal: ModalConfig
 }
@@ -203,6 +205,10 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   requestResolutionModal: {
+    value: false,
+    config: null
+  },
+  requestQuestionAnswerModal: {
     value: false,
     config: null
   },
@@ -492,6 +498,11 @@ export const showRequestResolutionModal = (value: boolean, config?: IShowRequest
   payload: { value, config }
 })
 
+export const showRequestQuestionAnswerModal = (value: boolean, config?: IShowRequestModal): IAction => ({
+  type: SHOW_REQUEST_QUESTION_ANSWER_MODAL,
+  payload: { value, config }
+})
+
 interface ISectionCommentModal {
   SectionID: number
 }
@@ -573,6 +584,8 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, requestViewResponseModal: action.payload }
     case SHOW_REQUEST_RESOLUTION_MODAL:
       return { ...state, requestResolutionModal: action.payload }
+    case SHOW_REQUEST_QUESTION_ANSWER_MODAL:
+      return { ...state, requestQuestionAnswerModal: action.payload }
     case SHOW_SECTION_COMMENT_MODAL:
       return { ...state, sectionCommentModal: action.payload }
     case SHOW_ADD_CONTACT_MODAL:

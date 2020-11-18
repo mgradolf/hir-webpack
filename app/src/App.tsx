@@ -29,7 +29,7 @@ import SectionBudgetPage from "~/Pages/Section/Budget"
 import SectionNoticePage from "~/Pages/Section/Notice"
 import SectionDiscountPage from "~/Pages/Section/Discount"
 import SectionRegistrationPage from "~/Pages/Section/Registration"
-import RegistrationDetailsPage from "~/Pages/Registration/Details"
+import RegistrationDetailsPage from "~/Pages/Registration/RegistrationDetails"
 import SectionTagPage from "~/Pages/Section/Tag"
 import SectionProductPage from "~/Pages/Section/Product"
 import SectionWaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
@@ -43,7 +43,7 @@ import SectionOrderPaymentsPage from "~/Pages/Section/Order/Payments"
 import OrderDetails from "~/Pages/Section/Order/OrderDetails"
 import SectionCommentPage from "~/Pages/Section/Comment"
 import SectionNoShowPage from "~/Pages/Section/NoShow"
-import SectionRequestPage from "~/Pages/Request"
+import SectionRequestPage from "~/Pages/Request/RequestPage"
 import SectionQuestionPage from "~/Pages/Section/Question"
 
 import RequestPage from "~/Pages/RequestPage"
@@ -102,99 +102,99 @@ function App(props: AppProps): JSX.Element {
       <Redirect to={{ pathname: "/login" }} />
     </Switch>
   ) : (
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/about" component={AboutPage} />
-      <Route path="/admin" component={AdminPage} />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/admin" component={AdminPage} />
 
-      <Route exact path="/offering" component={OfferingPage} />
-      <Route exact path="/offering/:offeringID" component={OfferingDetailsPage} />
-      <Route exact path="/offering/:offeringID/financial" component={OfferingFinancialPage} />
-      <Route exact path="/offering/:offeringID/catalog" component={OfferingCatalogPage} />
-      <Route exact path="/offering/:offeringID/approval" component={OfferingApprovalPage} />
-      <Route exact path="/offering/:offeringID/requisite" component={OfferingRequisitePage} />
-      <Route exact path="/offering/:offeringID/instructor" component={OfferingQualifiedInstructorPage} />
-      <Route exact path="/offering/:offeringID/tag" component={OfferingTaggPage} />
-      <Route exact path="/offering/:offeringID/section" component={OfferingSectionPage} />
-      <Route exact path="/offering/:offeringID/section/:sectionID" component={SectionDetailsPage} />
+        <Route exact path="/offering" component={OfferingPage} />
+        <Route exact path="/offering/:offeringID" component={OfferingDetailsPage} />
+        <Route exact path="/offering/:offeringID/financial" component={OfferingFinancialPage} />
+        <Route exact path="/offering/:offeringID/catalog" component={OfferingCatalogPage} />
+        <Route exact path="/offering/:offeringID/approval" component={OfferingApprovalPage} />
+        <Route exact path="/offering/:offeringID/requisite" component={OfferingRequisitePage} />
+        <Route exact path="/offering/:offeringID/instructor" component={OfferingQualifiedInstructorPage} />
+        <Route exact path="/offering/:offeringID/tag" component={OfferingTaggPage} />
+        <Route exact path="/offering/:offeringID/section" component={OfferingSectionPage} />
+        <Route exact path="/offering/:offeringID/section/:sectionID" component={SectionDetailsPage} />
 
-      <Route exact path="/section" component={SectionPage} />
-      <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
-      <Route exact path="/section/:sectionID/catalog" component={SectionCatalogPage} />
-      <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
-      <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
-      <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
-      <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
-      <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
-      <Route exact path="/section/:sectionID/question" component={SectionQuestionPage} />
-      <Route exact path="/section/:sectionID/registration" component={SectionRegistrationPage} />
-      <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
-      <Route exact path="/section/:sectionID/registration/:studentID" component={RegistrationDetailsPage} />
-      <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
-      <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
-      <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
-      <Route exact path="/section/:sectionID/order/:orderID" component={OrderDetails} />
-      <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
-      <Route exact path="/section/:sectionID/request" component={SectionRequestPage} />
-      <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
-      <Route exact path="/section/:sectionID/waitlist" component={SectionWaitlistEntriesPage} />
-      <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
-      <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
-      <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
-      <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
-      <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
-      <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
+        <Route exact path="/section" component={SectionPage} />
+        <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
+        <Route exact path="/section/:sectionID/catalog" component={SectionCatalogPage} />
+        <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
+        <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
+        <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
+        <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
+        <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
+        <Route exact path="/section/:sectionID/question" component={SectionQuestionPage} />
+        <Route exact path="/section/:sectionID/registration" component={SectionRegistrationPage} />
+        <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
+        <Route exact path="/section/:sectionID/registration/:studentID" component={RegistrationDetailsPage} />
+        <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
+        <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
+        <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
+        <Route exact path="/section/:sectionID/order/:orderID" component={OrderDetails} />
+        <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
+        <Route exact path="/section/:sectionID/request" component={SectionRequestPage} />
+        <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
+        <Route exact path="/section/:sectionID/waitlist" component={SectionWaitlistEntriesPage} />
+        <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
+        <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
+        <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
+        <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
+        <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
+        <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
 
-      <Route exact path="/person" component={PersonPage} />
-      <Route exact path="/person/:personID" component={PersonDetailPage} />
-      <Route exact path="/person/faculty/:facultyID" component={PersonDetailPage} />
-      <Route exact path="/person/student/:studentID" component={PersonDetailPage} />
+        <Route exact path="/person" component={PersonPage} />
+        <Route exact path="/person/:personID" component={PersonDetailPage} />
+        <Route exact path="/person/faculty/:facultyID" component={PersonDetailPage} />
+        <Route exact path="/person/student/:studentID" component={PersonDetailPage} />
 
-      <Route exact path="/order" component={FinancialOrderPagePage} />
-      <Route exact path="/order/items" component={FinancialOrderItemPage} />
-      <Route exact path="/order/payments" component={FinancialPaymentPage} />
-      <Route exact path="/order/:orderID" component={OrderDetails} />
+        <Route exact path="/order" component={FinancialOrderPagePage} />
+        <Route exact path="/order/items" component={FinancialOrderItemPage} />
+        <Route exact path="/order/payments" component={FinancialPaymentPage} />
+        <Route exact path="/order/:orderID" component={OrderDetails} />
 
-      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
+        <Route exact path="/waitlist" component={WaitlistEntriesPage} />
 
-      <Route exact path="/product" component={ProductPage} />
-      <Route exact path="/product/:productID" component={ProductDetailsPage} />
+        <Route exact path="/product" component={ProductPage} />
+        <Route exact path="/product/:productID" component={ProductDetailsPage} />
 
-      <Route exact path="/catalog" component={CatalogPage} />
-      <Route exact path="/catalog/:catalogID" component={CatalogDetailsPage} />
+        <Route exact path="/catalog" component={CatalogPage} />
+        <Route exact path="/catalog/:catalogID" component={CatalogDetailsPage} />
 
-      <Route exact path="/question" component={QuestionPage} />
-      <Route exact path="/question/tagging" component={QuestionTaggingPage} />
+        <Route exact path="/question" component={QuestionPage} />
+        <Route exact path="/question/tagging" component={QuestionTaggingPage} />
 
-      <Route exact path="/requests" component={RequestPage} />
-      <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
+        <Route exact path="/requests" component={RequestPage} />
+        <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
 
-      <Route exact path="/registration" component={RegistrationPage} />
-      <Route exact path="/registration/:studentID" component={RegistrationDetailsPage} />
+        <Route exact path="/registration" component={RegistrationPage} />
+        <Route exact path="/registration/:studentID" component={RegistrationDetailsPage} />
 
-      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
-      <Route exact path="/person" component={PersonPage} />
-      <Route exact path="/instructor" component={InstructorPage} />
-      <Route exact path="/instructor/:facultyID" component={InstructorDetails} />
+        <Route exact path="/waitlist" component={WaitlistEntriesPage} />
+        <Route exact path="/person" component={PersonPage} />
+        <Route exact path="/instructor" component={InstructorPage} />
+        <Route exact path="/instructor/:facultyID" component={InstructorDetails} />
 
-      <Route exact path="/account" component={AccountPage} />
-      <Route exact path="/account/:accountID" component={AccountDetailsPage} />
+        <Route exact path="/account" component={AccountPage} />
+        <Route exact path="/account/:accountID" component={AccountDetailsPage} />
 
-      <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} />
+        <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} />
 
-      <Route exact path="/search/activity/academic-log" component={AcademicPage} />
-      <Route exact path="/search/activity/enrollment-log" component={EnrollmentPage} />
-      <Route exact path="/search/activity/order-log" component={OrderLogPage} />
+        <Route exact path="/search/activity/academic-log" component={AcademicPage} />
+        <Route exact path="/search/activity/enrollment-log" component={EnrollmentPage} />
+        <Route exact path="/search/activity/order-log" component={OrderLogPage} />
 
-      <Route exact path="/report" component={ReportPage} />
-      <Route exact path="/report/:reportName" component={IndividualReportPage} />
-      <Route exact path="/report/financial/purchase-order" component={FinancialReportPurchaseOrder} />
-      <Route exact path="/chart" component={ChartPage} />
-      <Route exact path="/chart/:chartName" component={ChartDetailsPage} />
+        <Route exact path="/report" component={ReportPage} />
+        <Route exact path="/report/:reportName" component={IndividualReportPage} />
+        <Route exact path="/report/financial/purchase-order" component={FinancialReportPurchaseOrder} />
+        <Route exact path="/chart" component={ChartPage} />
+        <Route exact path="/chart/:chartName" component={ChartDetailsPage} />
 
-      <Route component={NotFoundPage} />
-    </Switch>
-  )
+        <Route component={NotFoundPage} />
+      </Switch>
+    )
   return (
     <Provider store={props.store}>
       <div id="modal-container"></div>

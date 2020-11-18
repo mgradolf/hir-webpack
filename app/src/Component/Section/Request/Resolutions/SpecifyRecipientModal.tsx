@@ -5,16 +5,24 @@ import { Dispatch } from "redux"
 import { showRequestResolutionModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select, Divider, DatePicker, Switch } from "antd"
 import { IParamsToBeDispatched } from "~/Pages/Request/Details"
-import { eventBus, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
-import { REQUEST_PROCESS_ACTION_NAME, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
+import { eventBus, EVENT_REQUEST_QUESTION_ANSWER, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
+import {
+  REQUEST_PROCESS_ACTION_NAME,
+  DATE_TIME_FORMAT,
+  REQUEST_DATE_TIME_FORMAT,
+  REGISTRATION_VERIFICATION_NAME
+} from "~/utils/Constants"
 import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
 import { useEffect } from "react"
 import FormError from "~/Component/Common/FormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
+import { validateRegistration } from "~/ApiServices/Service/RegistrationService"
 import moment from "moment"
 
 import { IStudent } from "~/Component/Student/StudentFinderModal"
+import RegistrationVerification from "~/utils/RegistrationVerification"
+import RegistrationError from "../RegistrationError"
 
 const { useState } = React
 
@@ -29,11 +37,18 @@ interface ISpecifyRecipientModal {
 }
 
 function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
+  const sectionID = props.taskJson.TaskData.SectionID
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(true)
+  const [isVerified, setIsVerified] = useState(true)
   const [gradeScaleItems, setGradeScaleItems] = useState<Array<any>>([])
   const [transcriptItems, setTranscriptItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [verificationItems, setVerificationItems] = useState<Array<any>>([])
+  const [waiveMap, setWaiveMap] = useState<{ [key: string]: any }>({})
+  const [answerMap, setAnswerMap] = useState<{ [key: string]: any }>({})
+  const [jsonData, setJsonData] = useState<{ [key: string]: any }>(props.taskJson)
 
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
   initialAnswer["GradeScaleTypeID"] = props.taskJson.TaskData.GradeScaleTypeID
@@ -57,7 +72,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   }
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       setLoading(true)
       const result = await getGradeScaleType()
       if (result && result.success) {
@@ -65,15 +80,31 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
       }
       setLoading(false)
     })()
-    ;(async function () {
-      setLoading(true)
-      const result = await getCreditType()
-      if (result && result.success) {
-        setTranscriptItems(result.data)
+      ; (async function () {
+        setLoading(true)
+        const result = await getCreditType()
+        if (result && result.success) {
+          setTranscriptItems(result.data)
+        }
+        setLoading(false)
+      })()
+
+    eventBus.subscribe(EVENT_REQUEST_QUESTION_ANSWER, (param: IParamsToBeDispatched) => {
+      const params: { [key: string]: any } = param.Params
+      setAnswerMap(params.Response)
+
+      let itemList = verificationItems
+        .filter(x => x.Name !== REGISTRATION_VERIFICATION_NAME.REGISTRATION_QUESTION_CHECK)
+      setVerificationItems(itemList)
+
+      if (itemList.length === 0) {
+        setIsUpdate(false)
       }
-      setLoading(false)
-    })()
-  }, [props])
+    })
+    return () => {
+      eventBus.unsubscribe(EVENT_REQUEST_QUESTION_ANSWER)
+    }
+  }, [props, verificationItems])
 
   const onFormSubmission = async () => {
     try {
@@ -97,6 +128,16 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
         if (props.taskJson.Issues[0].ValidatorKey !== undefined) {
           params["ValidatorKey"] = props.taskJson.Issues[0].ValidatorKey
         }
+
+        if (waiveMap !== undefined) {
+          let regMapName = "Registration_SectionID_" + sectionID + "_" + form.getFieldValue("RecipientPersonID")
+          params["OverrieData"] = {
+            [regMapName]: waiveMap
+          }
+        }
+        if (answerMap !== undefined && answerMap.length > 0) {
+          params["QuestionAnswers"] = answerMap
+        }
         console.log("Params: ", params)
 
         const specifyRecipient: IParamsToBeDispatched = {
@@ -112,19 +153,68 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
     }
   }
 
-  const onSelectStudent = (student: IStudent) => {
+  const onSelectStudent = async (student: IStudent) => {
     setErrorMessages([])
+    jsonData.TaskData["RecipientPersonID"] = student.PersonID
+    jsonData.TaskData["RecipientPersonName"] = student.PersonName
+    setJsonData(jsonData)
+
     form.setFieldsValue({
       [`RecipientPersonID`]: student.PersonID,
       [`RecipientPersonName`]: student.PersonName
     })
+
+    setLoading(true)
+    const response = await validateRegistration({
+      SeatGroupID: props.taskJson.TaskData.SeatGroupID,
+      PersonID: student.PersonID
+    })
+
+    if (response && response.success) {
+      let isVerificationPass = true
+      Object.keys(response.data).forEach((key) => {
+        const registrationCheckPass = response.data[key]
+        if (!registrationCheckPass) {
+          verificationItems.push(RegistrationVerification(key, response.data))
+          isVerificationPass = false
+        }
+      })
+      if (isVerificationPass) {
+        setIsUpdate(false)
+      } else {
+        setVerificationItems(verificationItems)
+        setIsVerified(false)
+      }
+    }
+    setLoading(false)
   }
 
   const onClearStudent = () => {
+    setVerificationItems([])
+    setWaiveMap({})
+
+    jsonData.TaskData["RecipientPersonID"] = null
+    jsonData.TaskData["RecipientPersonName"] = null
+    setJsonData(jsonData)
+
     form.setFieldsValue({
       [`RecipientPersonID`]: null,
       [`RecipientPersonName`]: null
     })
+  }
+
+  const onWaive = (name: any, requestName: Array<any>) => {
+    requestName.forEach((element) => {
+      waiveMap[element] = 1
+    })
+    setWaiveMap(waiveMap)
+
+    let itemList = verificationItems.filter(x => x.Name !== name)
+    setVerificationItems(itemList)
+
+    if (itemList.length === 0) {
+      setIsUpdate(false)
+    }
   }
 
   return (
@@ -135,7 +225,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           <Button type="ghost" onClick={props.closeSpecifyRecipientModal}>
             Cancel
           </Button>,
-          <Button type="primary" onClick={onFormSubmission}>
+          <Button type="primary" disabled={isUpdate} onClick={onFormSubmission}>
             Update
           </Button>
         ]}
@@ -146,6 +236,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
         >
           <FormError errorMessages={errorMessages} />
+
           <Divider orientation="left">Student Registration</Divider>
           <StudentFinderFormField
             initialData={initialAnswer}
@@ -153,6 +244,13 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
             onSelectStudent={onSelectStudent}
             onClearStudent={onClearStudent}
           />
+
+          {!isVerified &&
+            <RegistrationError
+              errorMessages={verificationItems}
+              jsonData={jsonData}
+              onWaive={onWaive} />
+          }
 
           <Form.Item label="Recipient Person ID" className="hidden" {...layout} name="RecipientPersonID">
             <Input />
@@ -246,7 +344,6 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
 
           <Form.Item
             label="Expected Attendance"
-            rules={[{ required: true, message: "Please input your answer!" }]}
             {...layout}
             name="AttendanceExpected"
           >
