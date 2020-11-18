@@ -55,7 +55,6 @@ export default function ({
         case DATE_PICKER:
           return <DatePickerInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         case DATE_PICKERS:
-          console.log("hello")
           return <DatePickersInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         default:
           return null

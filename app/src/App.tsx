@@ -66,7 +66,6 @@ import CatalogDetailsPage from "~/Pages/Catalog/CatalogDetailsPage"
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 
 import RegistrationPage from "~/Pages/Registration/RegistrationPage"
-// import RegistrationDetailPage from "~/Pages/Registration/RegistrationDetailPage"
 
 import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"

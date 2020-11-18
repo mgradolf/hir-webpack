@@ -9,7 +9,7 @@ export function SearchPersonLookupButton(props: IFilterGenericComponentProps<IFi
     <SearchLookupOpenButton
       lookupModalTitle="Select Person"
       valueField="PersonID"
-      displayField="Name"
+      displayField="FirstName"
       meta={PersonSearchMeta}
       {...props}
       formInstance={props.formInstance}
