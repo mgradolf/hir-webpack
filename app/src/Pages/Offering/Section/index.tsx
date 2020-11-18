@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import SearchPage from "~/Component/Common/Page/SearchPage"
-import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
+import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
 import { RouteComponentProps } from "react-router-dom"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
@@ -24,7 +24,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
       ]}
       hideSearchField={true}
       title="Manage Sections"
-      meta={SectionSearchFilterMeta}
+      meta={SectionSearchMeta}
       tableProps={getSectionTableColumns()}
       helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
     ></SearchPage>

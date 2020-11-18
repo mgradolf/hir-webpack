@@ -1,5 +1,5 @@
 import * as React from "react"
-import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
+import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
 import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
@@ -10,7 +10,7 @@ export function SearchSectionLookupButton(props: IFilterGenericComponentProps<IF
       lookupModalTitle="Select Section"
       valueField="SectionID"
       displayField="SectionNumber"
-      meta={SectionSearchFilterMeta}
+      meta={SectionSearchMeta}
       {...props}
       formInstance={props.formInstance}
       {...getSectionTableColumns(true)}

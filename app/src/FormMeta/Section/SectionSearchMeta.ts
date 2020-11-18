@@ -6,7 +6,7 @@ import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
 import RoomFinderField from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFinderField"
 
-const sectionMeta: IFilterField[] = [
+export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
@@ -164,5 +164,3 @@ const sectionMeta: IFilterField[] = [
     customFilterComponent: RoomFinderField
   }
 ]
-
-export default sectionMeta
