@@ -143,3 +143,4 @@ export const CREDIT_HOURS = "CreditHours"
 export const CEU_HOURS = "CEUHours"
 
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
+export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"

@@ -14,7 +14,7 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
       title: "ID",
       dataIndex: "StudentSerialNumber",
       render: (text: any, record: any) => (
-        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}s`}>{record.StudentSerialNumber}</Link>
+        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>{record.StudentSerialNumber}</Link>
       ),
       width: 100
     },
