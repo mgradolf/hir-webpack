@@ -6,7 +6,6 @@ import { getPersonDetails } from "~/ApiServices/Service/PersonService"
 import { NameAddressInfo } from "~/Component/Person/Details/NameAddressInfo"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { PersonalInfo } from "~/Component/Person/Details/PersonalInfo"
-import { ReferenceInfo } from "~/Component/Person/Details/ReferenceInfo"
 import { LoginInfo } from "~/Component/Person/Details/LoginInfo"
 
 export default function PersonDetailsPage(
@@ -54,13 +53,10 @@ export default function PersonDetailsPage(
     <div className="site-layout-content">
       <Row gutter={16}>
         <Col xs={24} sm={24} md={12}>
-          <NameAddressInfo person={person} />
-        </Col>
-        <Col xs={24} sm={24} md={12}>
           <PersonalInfo person={person} />
         </Col>
         <Col xs={24} sm={24} md={12}>
-          <ReferenceInfo person={person} />
+          <NameAddressInfo person={person} />
         </Col>
         {person.Login && (
           <Col xs={24} sm={24} md={12}>

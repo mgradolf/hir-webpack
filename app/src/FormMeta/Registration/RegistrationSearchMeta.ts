@@ -5,12 +5,12 @@ import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLook
 
 export const RegistrationSearchMeta: IFilterField[] = [
   {
-    label: "Section Lookup",
+    label: "Section",
     fieldName: "SectionID",
     customFilterComponent: SearchSectionLookupButton
   },
   {
-    label: "Purchaser Lookup",
+    label: "Purchaser",
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton
   },

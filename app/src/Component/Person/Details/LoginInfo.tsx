@@ -5,14 +5,13 @@ export function LoginInfo({ login }: { login: { [key: string]: any } }) {
   const [state, setState] = useState<{ [key: string]: any }>({})
   useEffect(() => {
     setState({
-      "Person ID": login.PersonID,
-      "Secret Answer": login.SecretAnswer,
+      "User Login": login.UserLogin,
       "Secret Question": login.SecretQuestion,
-      "User Login": login.UserLogin
+      "Secret Answer": login.SecretAnswer
     })
   }, [login])
   return (
-    <Card title="Login Info">
+    <Card title="Web Login">
       <table style={{ width: "400px" }}>
         <tbody>
           {Object.keys(state).map((key, i) => (
