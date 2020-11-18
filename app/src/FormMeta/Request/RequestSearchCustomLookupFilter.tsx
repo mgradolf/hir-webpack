@@ -5,7 +5,7 @@ import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 import { REQUEST_LOOKUP_TYPES } from "~/utils/Constants"
 import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
 import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
-import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
+import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
 import AccountSearchFilterMeta from "~/FormMeta/Account/AccountSearchFilterMeta"
 
@@ -91,7 +91,7 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
             { title: "Telephone Number", dataIndex: "TelephoneNumber", width: 150 },
             { title: "Account Name", dataIndex: "AccountName", width: 150 }
           ]}
-          meta={PersonSearchFilterMeta}
+          meta={PersonSearchMeta}
         />
       )}
       {openAccountLookupModal && (

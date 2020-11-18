@@ -1,5 +1,5 @@
 import * as React from "react"
-import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
+import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
@@ -10,7 +10,7 @@ export function SearchPersonLookupButton(props: IFilterGenericComponentProps<IFi
       lookupModalTitle="Select Person"
       valueField="PersonID"
       displayField="Name"
-      meta={PersonSearchFilterMeta}
+      meta={PersonSearchMeta}
       {...props}
       formInstance={props.formInstance}
       {...getPersonTableColumns(true)}

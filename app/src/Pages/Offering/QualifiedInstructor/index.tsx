@@ -2,14 +2,49 @@ import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Button } from "antd"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import OfferingInstructorModalOpenButton from "~/Component/Offering/QualifiedInstructor/OfferingInstructorModalOpenButton"
+import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/Pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
-import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
 function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID: string }>) {
+  const offeringID = props.match.params.offeringID
+  const [loading, setLoading] = useState<boolean>(false)
+  const [offeringInstructorList, setOfferingInstructorList] = useState<Array<any>>([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Array<any>>([])
+
+  const loadOfferingInstructors = function () {
+    console.log("meo meo")
+    setLoading(true)
+    getQualifiedInstructors(Number(offeringID)).then((result) => {
+      if (result && result.success) {
+        const selectedRowData = []
+        for (let i = 0; i < result.data.length; i++) {
+          selectedRowData.push(result.data[i].instructorID)
+        }
+        setLoading(false)
+        setOfferingInstructorList(result.data)
+        setSelectedRowKeys(selectedRowData)
+      }
+    })
+  }
+
+  useEffect(() => {
+    loadOfferingInstructors()
+    // eslint-disable-next-line
+  }, [offeringID])
+
+  useEffect(() => {
+    eventBus.subscribe(REFRESH_PAGE, loadOfferingInstructors)
+    eventBus.publish(REFRESH_PAGE)
+    return () => {
+      eventBus.unsubscribe(REFRESH_PAGE)
+    }
+    // eslint-disable-next-line
+  }, [offeringID])
+
   const columns = [
     {
       title: "Name",
@@ -37,14 +72,6 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
       )
     }
   ]
-
-  const [loading, setLoading] = useState<boolean>(false)
-  const [offeringInstructorList, setOfferingInstructorList] = useState<Array<any>>([])
-  const [pendingRowDataSelection, setPendingRowDataSelection] = useState<Array<any>>([])
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Array<any>>([])
-
-  const offeringID = props.match.params.offeringID
-
   const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
     return (
       <>
@@ -77,33 +104,9 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
     const result = await updateInstructors(Number(offeringID), allRowData)
 
     if (result && result.success) {
-      setLoading(false)
-      setPendingRowDataSelection(allRowData)
+      eventBus.publish(REFRESH_PAGE)
     }
   }
-
-  useEffect(() => {
-    const loadOfferingInstructors = async function () {
-      setLoading(true)
-
-      const result = await getQualifiedInstructors(Number(offeringID))
-
-      if (result && result.success) {
-        const selectedRowData = []
-        for (let i = 0; i < result.data.length; i++) {
-          selectedRowData.push(result.data[i].instructorID)
-        }
-        setLoading(false)
-        setOfferingInstructorList(result.data)
-        setSelectedRowKeys(selectedRowData)
-      }
-    }
-    eventBus.subscribe(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE, loadOfferingInstructors)
-    eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
-    }
-  }, [offeringID, pendingRowDataSelection])
 
   return (
     <div className="site-layout-content">
@@ -112,7 +115,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
           <Title level={3}>Manage Offering Instructors</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <OfferingInstructorModalOpenButton offeringId={parseInt(offeringID)} rowData={selectedRowKeys} />
+          <AddInstructorButton offeringID={parseInt(offeringID)} rowData={selectedRowKeys} />
         </Col>
       </Row>
 
@@ -123,7 +126,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
             dataSource={offeringInstructorList}
             loading={loading}
             bordered
-            rowKey="instructorID"
+            rowKey="FacultyID"
             pagination={{ position: ["topLeft"], pageSize: 20 }}
             expandableRowRender={expandableRowRender}
             breakpoints={["md", "lg", "xl", "xxl"]}

@@ -1,5 +1,5 @@
 import React from "react"
-import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
+import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchFilterMeta"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
 
@@ -7,7 +7,7 @@ export default function PersonTable() {
   return (
     <SearchPage
       title="Manage Persons"
-      meta={PersonSearchFilterMeta}
+      meta={PersonSearchMeta}
       hideSearchField={false}
       tableProps={{
         ...getPersonTableColumns()

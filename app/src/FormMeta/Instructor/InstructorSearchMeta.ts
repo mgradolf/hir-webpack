@@ -10,7 +10,7 @@ import {
 } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
-const instructorMeta: IFilterField[] = [
+export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Instructor ID",
     inputType: TEXT,
@@ -169,5 +169,3 @@ const instructorMeta: IFilterField[] = [
     valueKey: "ID"
   }
 ]
-
-export default instructorMeta
