@@ -99,33 +99,15 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
     const _columns: any = columns
-    const responsiveExpandableRowElements =
-      responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
-        <>
-          {responsiveColumnIndices
-            .filter((index) => index <= _columns.length)
-            .map((index) => {
-              const title = _columns[index - 1].title
-              const text = record[_columns[index - 1].dataIndex]
-              return (
-                <li key={index}>
-                  <span>{title} : </span>
-                  <span> {text}</span>
-                </li>
-              )
-            })}
-        </>
-      ) : null
-
     const expandableRowElements = expandableColumnIndices ? (
       <>
         {expandableColumnIndices
           .filter((index) => index <= _columns.length)
-          .map((index) => {
+          .map((index, i) => {
             const title = _columns[index - 1].title
             const text = record[_columns[index - 1].dataIndex]
             return (
-              <li key={index}>
+              <li key={i}>
                 <span>{title} : </span>
                 <span> {text}</span>
               </li>
@@ -133,10 +115,36 @@ export function ResponsiveTable(props: IDataTableProps) {
           })}
       </>
     ) : null
+    const responsiveExpandableRowElements =
+      responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
+        <>
+          {responsiveColumnIndices
+            .filter((index) => {
+              return !expandableColumnIndices?.includes(index) || index <= _columns.length
+            })
+            .map((index, i) => {
+              const title = _columns[index - 1].title
+              let text: any = record[_columns[index - 1].dataIndex]
+              if (Array.isArray(text)) text = text.toString()
+              else if (typeof text === "boolean") text = renderBoolean(text)
+              return (
+                <>
+                  {title && text && (
+                    <li key={i + 10000}>
+                      <span>{title} : </span>
+                      <span>{text}</span>
+                    </li>
+                  )}
+                </>
+              )
+            })}
+        </>
+      ) : null
+
     return (
       <ul>
-        {responsiveExpandableRowElements}
         {expandableRowElements}
+        {responsiveExpandableRowElements}
       </ul>
     )
   }
@@ -167,7 +175,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     ) {
       _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
     }
-    _conditionalProps.scroll = { x: columns.length * 80 }
+    _conditionalProps.scroll = { ...(isModal && { y: 300 }), x: columns.length * 80 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
     _conditionalProps.pagination =

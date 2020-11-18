@@ -103,7 +103,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
           </SearchComponentWrapper>
         )}
         {buildings.length > 0 && (
-          <SearchComponentWrapper {...props} label="Selevt Building" fieldName="BuildingID">
+          <SearchComponentWrapper {...props} label="Select Building" fieldName="BuildingID">
             <Select aria-label="Building Select" style={{ width: 250 }} onChange={handleBuildingChange}>
               {buildings.map(({ Name: label, BuildingID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>

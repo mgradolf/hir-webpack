@@ -1,9 +1,14 @@
-import { ITableWrapperProps } from "~/Component/Offering/OfferingTable"
 import { Row, Col } from "antd"
 import React from "react"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { Link } from "react-router-dom"
 
+interface ITableWrapperProps {
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+}
 export function ProductTable(props: ITableWrapperProps) {
   const columns = [
     {

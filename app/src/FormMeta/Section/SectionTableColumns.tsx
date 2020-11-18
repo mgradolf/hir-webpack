@@ -7,8 +7,8 @@ import SectionMenu from "~/Component/Section/SectionMenu"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getSectionTableColumns = (isModal = false, OfferingID?: number): ITableConfigProp => {
-  const expandableColumnIndices = [7, 8, 9, 10, 11, 12]
-  const responsiveColumnIndices = [5, 6, 7, 8, 9, 10, 11, 12]
+  const expandableColumnIndices = [7, 8, 9, 10, 11]
+  const responsiveColumnIndices = [5, 6, 7, 8, 9, 10, 11]
   const columns: TableColumnType = [
     {
       title: "Section Number",
@@ -78,7 +78,7 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
       dataIndex: "Locations",
 
       render: (locations: Array<string | null> | null) => {
-        return Array.isArray(locations) && locations.map((x: any) => (x ? <span>{x}</span> : null))
+        return Array.isArray(locations) && locations.map((x: any, i: number) => (x ? <span key={i}>{x}</span> : null))
       }
     },
     {
@@ -86,7 +86,9 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
       dataIndex: "MeetingTypes",
 
       render: (meetingTypes: Array<string | null> | null) => {
-        return Array.isArray(meetingTypes) && meetingTypes.map((x: any) => (x ? <span>{x}</span> : null))
+        return (
+          Array.isArray(meetingTypes) && meetingTypes.map((x: any, i: number) => (x ? <span key={i}>{x}</span> : null))
+        )
       }
     },
     {

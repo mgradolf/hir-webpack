@@ -1,11 +1,16 @@
 import React from "react"
-import { ITableWrapperProps } from "~/Component/Offering/OfferingTable"
 import { Row, Col } from "antd"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import ProductSearchFilterMeta from "~/FormMeta/Section/Product/ProductSearchFilterMeta"
 import { searchProducts } from "~/ApiServices/Service/ProductService"
 import { Link } from "react-router-dom"
 
+interface ITableWrapperProps {
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+}
 export default function ProductPage(props: ITableWrapperProps) {
   const columns = [
     {

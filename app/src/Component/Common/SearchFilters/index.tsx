@@ -55,6 +55,7 @@ export default function ({
         case DATE_PICKER:
           return <DatePickerInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         case DATE_PICKERS:
+          console.log("hello")
           return <DatePickersInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         default:
           return null
@@ -148,7 +149,7 @@ export default function ({
             onClick={() => {
               const params: { [key: string]: any } = formInstance.getFieldsValue()
               for (const key in params) {
-                if (key === "" || !params[key]) delete params[key]
+                if (key === "" || !params[key] || key.includes("____")) delete params[key]
               }
               const filterCount = Object.keys(params).length
               console.log("params ", params, filterCount)

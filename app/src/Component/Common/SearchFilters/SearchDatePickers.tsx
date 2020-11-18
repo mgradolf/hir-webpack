@@ -8,6 +8,7 @@ import { DatePicker, Input, Form } from "antd"
 import { DATE_FORMAT } from "~/utils/Constants"
 
 export function DatePickersInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
+  const timeStamp = "____" + Date.now().toString()
   return (
     <>
       <Form.Item className="hidden" name={props.fieldName}>
@@ -16,7 +17,7 @@ export function DatePickersInputType(props: IFilterGenericComponentProps<IFilter
       <Form.Item className="hidden" name={props.fieldName2}>
         <Input />
       </Form.Item>
-      <SearchFieldWrapper {...props} fieldName={""}>
+      <SearchFieldWrapper {...props} fieldName={timeStamp}>
         <DatePicker.RangePicker
           style={{ width: "100%" }}
           allowEmpty={[true, true]}
