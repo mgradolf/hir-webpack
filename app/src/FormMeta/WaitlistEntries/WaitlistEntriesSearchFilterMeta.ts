@@ -1,12 +1,12 @@
 import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import WaitlistSearchCustomLookupFilter from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
 
 const sectionMeta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionID",
-    customFilterComponent: SectionLookupOpenButton
+    customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Creation Date",

@@ -6,7 +6,7 @@ import { findCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
 import SearchPage from "~/Component/Common/Page/SearchPage"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 
 export default function SectionCatalog() {
   const columns = [
@@ -64,7 +64,7 @@ export default function SectionCatalog() {
     {
       label: "Section Lookup",
       fieldName: "SectionID",
-      customFilterComponent: SectionLookupOpenButton
+      customFilterComponent: SearchSectionLookupButton
     }
   ]
   return (

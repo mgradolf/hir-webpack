@@ -2,18 +2,18 @@ import * as React from "react"
 import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { FormLookupOpenButton } from "~/Component/Common/Form/FormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
-import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
+import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 
-export function FormPersonLookupButton(props: { formInstance: FormInstance; onCloseModal?: (person: any) => void }) {
+export function FormSectionLookupButton(props: { formInstance: FormInstance; onCloseModal?: (Section: any) => void }) {
   return (
     <FormLookupOpenButton
-      lookupModalTitle="Select Person"
-      valueField="PersonID"
+      lookupModalTitle="Select Section"
+      valueField="SectionID"
       displayField="SortName"
-      fieldName="PersonID"
-      label="Person"
+      fieldName="SectionID"
+      label="Section"
       formInstance={props.formInstance}
-      {...getPersonTableColumns(true)}
+      {...getSectionTableColumns(true)}
       meta={PersonSearchFilterMeta}
       onCloseModal={props.onCloseModal}
     />

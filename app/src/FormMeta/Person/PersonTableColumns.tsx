@@ -1,8 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
 import { renderBoolean, renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
-export const getPersonTableColumns = (isModal = false): TableColumnType => {
+export const getPersonTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Name",
@@ -39,8 +41,7 @@ export const getPersonTableColumns = (isModal = false): TableColumnType => {
     { title: "Role", dataIndex: "RoleName" }
   ]
 
-  return columns
+  const responsiveColumnIndices = [17, 18, 19, 20, 21, 22, 23, 24, 25]
+  const expandableColumnIndices = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPersons }
 }
-
-export const personResponsiveIndices = [17, 18, 19, 20, 21, 22, 23, 24, 25]
-export const personExpandableIndices = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]

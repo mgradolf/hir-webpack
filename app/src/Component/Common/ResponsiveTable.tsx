@@ -18,6 +18,10 @@ export const renderDate = (text: any) => (text !== null ? moment(text).format(DA
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
 export const renderBoolean = (text: any) => (text ? "Yes" : "No")
+export const renderWeek = (text: any[], record: any) => {
+  const weeks: string[] = ["Monday", "TuesDay", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  return text && Array.isArray(text) && weeks.filter((x, i) => text.includes(i + 1))
+}
 
 export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
@@ -91,7 +95,6 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
     const _columns: any = columns
-    console.log(mobileView)
     const responsiveExpandableRowElements =
       responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
         <>
@@ -160,9 +163,13 @@ export function ResponsiveTable(props: IDataTableProps) {
     ) {
       _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
     }
-    _conditionalProps.scroll = { x: columns.length * 120 }
+    _conditionalProps.scroll = { x: columns.length * 80 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
+    _conditionalProps.pagination =
+      props.pagination && typeof props.pagination === "boolean" && !props.pagination
+        ? props.pagination
+        : { position: ["topLeft"], pageSize: 20 }
     setConditionalProps(_conditionalProps)
   }
 

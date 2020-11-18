@@ -1,13 +1,13 @@
 import { getSectionRosterStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionIDs",
-    customFilterComponent: SectionLookupOpenButton,
+    customFilterComponent: SearchSectionLookupButton,
     extraProps: {
       isArray: true
     }
