@@ -25,6 +25,9 @@ export function searchQuestionResponse(Params: { [key: string]: any }): Promise<
 export function saveTagAnswer(Params: { [key: string]: any }): Promise<IApiResponse> {
   return QuestionService[config.Actions.saveTagAnswer](Params)
 }
+export function saveTagAnswers(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QuestionService[config.Actions.saveTagAnswers](Params)
+}
 export function updateTagQuestion(Params: { [key: string]: any }): Promise<IApiResponse> {
   return QuestionService[config.Actions.updateTagQuestion](Params)
 }

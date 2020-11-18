@@ -30,3 +30,16 @@ export interface IEmailSendFieldNames {
   Message: any
   MimeType: any
 }
+
+export interface IRegistrationGradeFieldNames {
+  SectionID: any
+  StudentID: any
+  SeatGroupID: any
+  CEUHours: any
+  CreditHours: any
+  GradeScaleTypeID: any
+  GradeScoreDefinitionID: any
+  CompletionDate: any
+  AttendanceExpected: any
+  AttendanceActual: any
+}

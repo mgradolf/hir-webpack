@@ -59,7 +59,6 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
     setErrorMessages([])
     const response = await editRegistration(params)
     if (response && response.success) {
-      form.resetFields()
       console.log("Successfully updated......")
       window.location.reload()
     } else {

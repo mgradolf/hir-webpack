@@ -48,3 +48,7 @@ export function bulkDropRegistration(Params: { [key: string]: any }): Promise<IA
 export function bulkDeleteRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.bulkDeleteRegistration](Params)
 }
+
+export function validateRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.validateRegistration](Params)
+}
