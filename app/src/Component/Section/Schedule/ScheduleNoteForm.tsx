@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Switch, Select } from "antd"
-import { findQualifiedInstructors } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import "~/Sass/utils.scss"
-import { scheduleInstructor } from "~/ApiServices/Service/SectionService"
+import { Form, Card, Button, Input, Select } from "antd"
+import { getMeetingInformationTypes } from "~/ApiServices/Service/RefLookupService"
+import { saveMeetingInformations } from "~/ApiServices/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { FormInstance } from "antd/lib/form"
-import { IScheduleInstructorFieldNames } from "~/Component/Section/Interfaces"
+import { IScheduleNoteFieldNames } from "~/Component/Section/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
+import "~/Sass/utils.scss"
 
-interface IScheduleInstructorFormProps {
-  sectionId: number
+interface IScheduleNoteFormProps {
   scheduleIds: any
   handleCancel: () => void
   setApiCallInProgress: (flag: boolean) => void
   formInstance: FormInstance
-  fieldNames: IScheduleInstructorFieldNames
-  initialFormValue: { [key in keyof IScheduleInstructorFieldNames]: any }
+  fieldNames: IScheduleNoteFieldNames
+  initialFormValue: { [key in keyof IScheduleNoteFieldNames]: any }
 }
 
 const layout = {
   labelCol: { span: 6 }
 }
-export default function ScheduleInstructorForm(props: IScheduleInstructorFormProps) {
-  const [instructorItems, setInstructorItems] = useState<Array<any>>([])
+export default function ScheduleNoteForm(props: IScheduleNoteFormProps) {
+  const [meetingTypes, setMeetingTypes] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
     ; (async () => {
-      const response = await findQualifiedInstructors([props.sectionId])
+      const response = await getMeetingInformationTypes()
       if (response && response.success && response.data) {
-        setInstructorItems(response.data)
-      } else {
-        setErrorMessages(response.error)
+        setMeetingTypes(response.data)
       }
     })()
   }, [props])
@@ -43,12 +40,10 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
-    let personID = params["PersonIDs"]
-    params["PersonIDs"] = [personID]
     console.log("params: ", params)
 
     type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
-    const serviceMethoToCall: serviceMethodType = scheduleInstructor
+    const serviceMethoToCall: serviceMethodType = saveMeetingInformations
 
     props.setApiCallInProgress(true)
     setErrorMessages([])
@@ -70,19 +65,19 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
-    <Card title="Update Instructor" actions={actions}>
+    <Card title="Add Notes" actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds} />
         </Form.Item>
 
-        <Form.Item label="Instructor" {...layout} name={props.fieldNames.PersonIDs}>
-          <Select aria-label="Select Instructor">
-            {instructorItems.map((x) => {
+        <Form.Item label="Meeting Type" {...layout} name={props.fieldNames.MeetingInformationTypeID}>
+          <Select aria-label="Select Meeting Type">
+            {meetingTypes.map((x) => {
               return (
-                <Select.Option key={x.PersonID} value={x.PersonID}>
-                  {x.FormattedName}
+                <Select.Option key={x.ID} value={x.ID}>
+                  {x.Name}
                 </Select.Option>
               )
             })}
@@ -90,12 +85,11 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
         </Form.Item>
 
         <Form.Item
-          name={props.fieldNames.ConflictCheck}
-          label="Check for conflicts(slower)"
+          name={props.fieldNames.InfoValue}
+          label="Note"
           {...layout}
-          valuePropName="checked"
         >
-          <Switch aria-label="Check for conflicts(slower)" />
+          <Input.TextArea aria-label="Notes" rows={4} />
         </Form.Item>
       </Form>
     </Card>

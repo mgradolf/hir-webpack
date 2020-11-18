@@ -46,7 +46,9 @@ export const config = {
     findFacultyComments: "findFacultyComments",
     findEnrollmentCommentHistory: "findEnrollmentCommentHistory",
     findFaculty: "findFaculty",
-    findEnrollmentStudentHistory: "findEnrollmentStudentHistory"
+    findEnrollmentStudentHistory: "findEnrollmentStudentHistory",
+    scheduleInstructor: "scheduleInstructor",
+    saveMeetingInformations: "saveMeetingInformations"
   }
 }
 
