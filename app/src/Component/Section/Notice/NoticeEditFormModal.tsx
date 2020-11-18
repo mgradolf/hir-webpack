@@ -10,8 +10,8 @@ import { Form } from "antd"
 import { INoticeFieldNames } from "~/Component/Section/Interfaces"
 
 interface INoticetEditProps {
-  sectionNoticeTypeId: number
   sectionId: number
+  sectionNoticeTypeId: number
   closeUpdateNoticeModal?: () => void
 }
 

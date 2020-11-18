@@ -15,7 +15,7 @@ function QuestionCreateButton(props: IQuestionCreateButtonProp) {
   return (
     <Button
       type="primary"
-      style={{ float: "right", zIndex: 10 }}
+      style={{ marginRight: "10px" }}
       disabled={!props.EventID || !props.TagID}
       onClick={() => {
         props.openQuestionCreateModal &&

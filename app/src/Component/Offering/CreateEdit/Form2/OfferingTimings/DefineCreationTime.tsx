@@ -3,8 +3,8 @@ import { Form, Radio, DatePicker, Select, Input, Col, Row } from "antd"
 import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { RadioChangeEvent } from "antd/lib/radio"
-import { hidden } from "~/utils/style"
 import moment from "moment"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 interface IOfferingTimings {
   fieldNames: IOfferingFieldNames
@@ -14,8 +14,6 @@ interface IOfferingTimings {
 interface IDefineTime extends IOfferingTimings {
   terms: Array<any>
 }
-
-const dateFormat = "YYYY-MM-DD HH:mm:ss"
 
 export default function DefineCreationTime(props: IDefineTime) {
   const radioValues = {
@@ -64,7 +62,7 @@ export default function DefineCreationTime(props: IDefineTime) {
 
   return (
     <>
-      <Form.Item name={props.fieldNames.CreationDate} style={hidden}>
+      <Form.Item name={props.fieldNames.CreationDate} className="hidden">
         <Input aria-label="Creation Date" />
       </Form.Item>
       <Form.Item>
@@ -84,9 +82,9 @@ export default function DefineCreationTime(props: IDefineTime) {
                   aria-label="Pick Creation Date"
                   placeholder="YYYY/MM/DD"
                   disabled={disableTime}
-                  format={dateFormat}
+                  format={DATE_FORMAT}
                   onChange={onDateChange}
-                  defaultValue={defaultCreationDate ? moment(defaultCreationDate, dateFormat) : undefined}
+                  defaultValue={defaultCreationDate ? moment(defaultCreationDate, DATE_FORMAT) : undefined}
                 />
               </Form.Item>
             </Col>

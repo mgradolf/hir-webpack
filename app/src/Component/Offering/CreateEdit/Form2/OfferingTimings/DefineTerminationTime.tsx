@@ -4,8 +4,8 @@ import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { RadioChangeEvent } from "antd/lib/radio"
 import DefineDurationTime from "~/Component/Offering/CreateEdit/Form2/OfferingTimings/DefineDurationTime"
-import { hidden } from "~/utils/style"
 import moment from "moment"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 interface IOfferingTimings {
   fieldNames: IOfferingFieldNames
@@ -15,8 +15,6 @@ interface IOfferingTimings {
 interface IDefineTime extends IOfferingTimings {
   terms: Array<any>
 }
-
-const dateFormat = "YYYY-MM-DD HH:mm:ss"
 
 export default function DefineTerminationTime(props: IDefineTime) {
   const radioValues = {
@@ -89,12 +87,12 @@ export default function DefineTerminationTime(props: IDefineTime) {
               aria-label="Pick Termination Date"
               placeholder="YYYY/MM/DD"
               disabled={disableTime}
-              format={dateFormat}
+              format={DATE_FORMAT}
               onChange={onDateChange}
-              defaultValue={defaultTerminationDate ? moment(defaultTerminationDate, dateFormat) : undefined}
+              defaultValue={defaultTerminationDate ? moment(defaultTerminationDate, DATE_FORMAT) : undefined}
             />
           </Form.Item>
-          <Form.Item name={props.fieldNames.TerminationDate} style={hidden}>
+          <Form.Item name={props.fieldNames.TerminationDate} className="hidden">
             <Input aria-label="Termination Date" />
           </Form.Item>
         </Col>

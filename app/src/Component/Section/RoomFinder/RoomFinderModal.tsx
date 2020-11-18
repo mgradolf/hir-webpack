@@ -5,8 +5,6 @@ import zIndex from "~/utils/zIndex"
 import RoomListTable from "~/Component/Section/RoomFinder/RoomListTable"
 import RoomSearchFilters from "~/Component/Common/SearchFilters"
 import RoomFinderMeta from "./RoomFinderMeta"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
-
 import { useDispatch } from "react-redux"
 
 import { showRoomFinderModal } from "~/Store/ModalState"
@@ -48,7 +46,7 @@ interface IRoomFinderProps {
 
 function RoomFinderModal(props: IRoomFinderProps) {
   const [filterData, updateFilterData] = useState<RoomCriteria | null>(null)
-  const [rooms, setRooms] = useState<Array<any>>([])
+  const [rooms, setRooms] = useState<Array<any> | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [selectedRoom, setSelectedRoom] = useState<any | null>(null)
 
@@ -95,7 +93,7 @@ function RoomFinderModal(props: IRoomFinderProps) {
       }
     }
 
-    if (rooms.length > 0) {
+    if (rooms) {
       scrollToProgramList()
     }
   }, [rooms])
@@ -131,10 +129,12 @@ function RoomFinderModal(props: IRoomFinderProps) {
           title=""
           isModalView
           meta={RoomFinderMeta}
-          initialFilter={(filterData === null ? initialRoomCriteria : (filterData as unknown)) as RecordType}
+          initialFilter={
+            filterData === null ? initialRoomCriteria : ((filterData as unknown) as { [key: string]: any })
+          }
           visible
-          isChecked={false}
-          toggleVisiibility={() => {
+          isCheckeble={false}
+          hideFilters={() => {
             closeRoomFinderModal()
             setSelectedRoom(null)
           }}
@@ -142,7 +142,7 @@ function RoomFinderModal(props: IRoomFinderProps) {
             updateFilterData({ ...(filterData as RoomCriteria), ...newFilterValues })
           }}
         />
-        {rooms.length > 0 && (
+        {rooms && (
           <Col style={{ height: "65vh" }}>
             <RoomListTable
               id="roomList"

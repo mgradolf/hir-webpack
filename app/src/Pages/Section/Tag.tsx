@@ -6,7 +6,6 @@ import { Form, Card, Select, Input, Switch, Row, Col, Button, Spin } from "antd"
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons"
 import TagsTable from "~/Component/Section/Tag/TagsTable"
 import { eventBus, REFRESH_SECTION_TAG_PAGE } from "~/utils/EventBus"
-import { hidden } from "~/utils/style"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface IFieldNames {
@@ -159,7 +158,7 @@ export default function (props: RouteComponentProps<{ sectionID: string }>) {
     <>
       <Card>
         <Form form={formInstance} initialValues={initialValues}>
-          <div style={hidden}>
+          <div className="hidden">
             <Form.Item label="Tag types" name={fieldNames.EntityType}>
               <Input aria-label="Tag Types" />
             </Form.Item>

@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Space, Dropdown } from "antd"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import styles from "~/Pages/Section/SeatGroup/Seatgroup.module.scss"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import SectionSeatGroupModalOpenButton from "~/Component/Section/SeatGroup/SectionSeatGroupModalOpenButton"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import SeatGroupMenu from "~/Component/Section/SeatGroup/SeatGroupMenu"
@@ -126,7 +126,7 @@ function SectionSeatgroupPage(props: RouteComponentProps<{ sectionID: string }>)
     const loadSectionSeatGroups = async function () {
       setLoading(true)
 
-      const result = await getSeatGroups(Number(sectionID))
+      const result = await getSeatGroups({ SectionID: Number(sectionID) })
 
       if (result && result.success) {
         setLoading(false)

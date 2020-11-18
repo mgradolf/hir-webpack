@@ -1,6 +1,6 @@
 import React from "react"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { Link } from "react-router-dom"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export interface ISectionRegistrationTable {
   dataSource: Array<any>
@@ -9,15 +9,19 @@ export interface ISectionRegistrationTable {
 }
 
 export default function SectionRegistrationTable(props: ISectionRegistrationTable) {
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "ID",
       dataIndex: "StudentSerialNumber",
+      render: (text: any, record: any) => (
+        <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>{record.StudentSerialNumber}</Link>
+      ),
       width: 100
     },
     {
       title: "Name",
-      dataIndex: "PurchaserName",
+      dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{record.StudentName}</Link>,
       width: 150,
       ellipsis: true
     },
@@ -107,82 +111,82 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
     }
   ]
 
-  const expandableRowData = (data: any, mobileView: boolean): JSX.Element => {
-    const generatedValue = [
-      {
-        title: "Grade Scale",
-        value: data["GradeScaleType"]
-      },
-      {
-        title: "Transcript Credit",
-        value: data["TranscriptCreditType"]
-      },
-      {
-        title: "Repeat/Retake",
-        value: data["IsRepeat"]
-      },
-      {
-        title: "Seat Group",
-        value: data["SeatGroup"]
-      },
-      {
-        title: "Source",
-        value: data["Source"]
-      },
-      {
-        title: "Status in Section",
-        value: data["SectionRosterStatusCodeName"]
-      },
-      {
-        title: "Completion Date",
-        value: data["CompletionDate"]
-      },
-      {
-        title: "GPA Value",
-        value: data["GPAValue"]
-      },
-      {
-        title: "Attempted Hours",
-        value: data["AttemptedHours"]
-      },
-      {
-        title: "Earned Hours",
-        value: data["EarnedHours"]
-      },
-      {
-        title: "GPA Hours",
-        value: data["GPAHours"]
-      },
-      {
-        title: "CEU Hours",
-        value: data["CEUHours"]
-      },
-      {
-        title: "Expected Attendance",
-        value: data["AttendanceExpected"]
-      },
-      {
-        title: "Attendance Actual",
-        value: data["AttendanceActual"]
-      }
-    ]
-    return (
-      <ul>
-        {generatedValue.map((x, i) => {
-          return (
-            <>
-              {x.value && (
-                <li key={i}>
-                  <span>{x.title} : </span>
-                  <span> {x.value}</span>
-                </li>
-              )}
-            </>
-          )
-        })}
-      </ul>
-    )
-  }
+  // const expandableRowData = (data: any, mobileView: boolean): JSX.Element => {
+  //   const generatedValue = [
+  //     {
+  //       title: "Grade Scale",
+  //       value: data["GradeScaleType"]
+  //     },
+  //     {
+  //       title: "Transcript Credit",
+  //       value: data["TranscriptCreditType"]
+  //     },
+  //     {
+  //       title: "Repeat/Retake",
+  //       value: data["IsRepeat"]
+  //     },
+  //     {
+  //       title: "Seat Group",
+  //       value: data["SeatGroup"]
+  //     },
+  //     {
+  //       title: "Source",
+  //       value: data["Source"]
+  //     },
+  //     {
+  //       title: "Status in Section",
+  //       value: data["SectionRosterStatusCodeName"]
+  //     },
+  //     {
+  //       title: "Completion Date",
+  //       value: data["CompletionDate"]
+  //     },
+  //     {
+  //       title: "GPA Value",
+  //       value: data["GPAValue"]
+  //     },
+  //     {
+  //       title: "Attempted Hours",
+  //       value: data["AttemptedHours"]
+  //     },
+  //     {
+  //       title: "Earned Hours",
+  //       value: data["EarnedHours"]
+  //     },
+  //     {
+  //       title: "GPA Hours",
+  //       value: data["GPAHours"]
+  //     },
+  //     {
+  //       title: "CEU Hours",
+  //       value: data["CEUHours"]
+  //     },
+  //     {
+  //       title: "Expected Attendance",
+  //       value: data["AttendanceExpected"]
+  //     },
+  //     {
+  //       title: "Attendance Actual",
+  //       value: data["AttendanceActual"]
+  //     }
+  //   ]
+  //   return (
+  //     <ul>
+  //       {generatedValue.map((x, i) => {
+  //         return (
+  //           <>
+  //             {x.value && (
+  //               <li key={i}>
+  //                 <span>{x.title} : </span>
+  //                 <span> {x.value}</span>
+  //               </li>
+  //             )}
+  //           </>
+  //         )
+  //       })}
+  //     </ul>
+  //   )
+  // }
 
   return (
     <ResponsiveTable
@@ -192,10 +196,11 @@ export default function SectionRegistrationTable(props: ISectionRegistrationTabl
       bordered
       breakpoints={["md", "lg", "xl", "xxl"]}
       responsiveColumnIndices={[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
-      expandableRowRender={expandableRowData}
-      rowKey="StudentID"
+      expandableColumnIndices={[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
+      // expandableRowRender={expandableRowData}
+      rowKey="StudentSerialNumber"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600, x: 300 }}
+      isModal={props.isModal}
     />
   )
 }

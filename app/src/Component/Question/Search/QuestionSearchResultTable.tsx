@@ -1,14 +1,14 @@
 import React from "react"
 import { Row, Col } from "antd"
-import ResponsiveTable, { RecordType } from "~/Component/Common/ResponsiveTable"
-import { ColumnsType } from "antd/lib/table"
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+
 import { TableRowSelection } from "antd/lib/table/interface"
 
 interface IQuestionSearchResultTable {
   dataSource: any[]
   loading: boolean
-  isModal: boolean
-  setSelectedQuestions: any
+  isModal?: boolean
+  setSelectedQuestions?: any
 }
 
 export default function QuestionSearchResultTable(props: IQuestionSearchResultTable) {
@@ -22,14 +22,14 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
     }),
     columnTitle: "Select"
   }
-  const columns: ColumnsType<RecordType> = [
+  const columns: TableColumnType = [
     {
       title: "Question",
-      dataIndex: "PreferenceDef.Name"
+      dataIndex: "Description"
     },
     {
       title: "Display Question As",
-      dataIndex: "PreferenceDef.Name",
+      dataIndex: "Name",
       width: 200
     },
     {
@@ -38,7 +38,7 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
     },
     {
       title: "Active",
-      dataIndex: "PreferenceDef.IsActive"
+      dataIndex: "IsActive"
     },
     {
       title: "Organization",
@@ -72,13 +72,15 @@ export default function QuestionSearchResultTable(props: IQuestionSearchResultTa
       breakpoints={["md", "lg", "xl", "xxl"]}
       responsiveColumnIndices={[1, 2, 3, 4, 5]}
       expandableRowRender={expandableRowRender}
-      rowKey="PreferenceDef.PreferenceDefID"
+      rowKey="PreferenceDefID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600, x: 600 }}
-      rowSelection={{
-        type: "checkbox",
-        ...rowSelection
-      }}
+      isModal={props.isModal}
+      {...(props.setSelectedQuestions && {
+        rowSelection: {
+          type: "checkbox",
+          ...rowSelection
+        }
+      })}
     />
   )
 }

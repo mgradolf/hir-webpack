@@ -1,21 +1,21 @@
 import { Col, Row, Switch } from "antd"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
-import { RouteComponentProps } from "react-router-dom"
+import { Link, RouteComponentProps } from "react-router-dom"
 import { findCatalog, updateBulkContent } from "~/ApiServices/BizApi/catalog/catalogIf"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 export default function SectionCatalog(props: RouteComponentProps<{ sectionID: string }>) {
-  const sectionID = parseInt(props.match.params.sectionID)
+  const SectionID = parseInt(props.match.params.sectionID)
   const [sectionCatalogs, setSectionCatalogs] = useState<Array<any>>([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     const loadCatalogs = () => {
       setLoading(true)
-      findCatalog([{ SectionID: sectionID }])
+      findCatalog({ SectionID })
         .then((response) => {
-          if (response.success) setSectionCatalogs(response.data)
+          if (response.success && Array.isArray(response.data)) setSectionCatalogs(response.data)
         })
         .finally(() => {
           setLoading(false)
@@ -26,7 +26,7 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
     return () => {
       eventBus.unsubscribe(REFRESH_SECTION_SEATGROUP_PAGE)
     }
-  }, [sectionID])
+  }, [SectionID])
 
   const columns = [
     {
@@ -49,7 +49,7 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
                 }
               })
 
-              updateBulkContent(["Section", sectionID, catalogs]).then((response) => {
+              updateBulkContent(["Section", SectionID, catalogs]).then((response) => {
                 eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
               })
             }}
@@ -60,19 +60,20 @@ export default function SectionCatalog(props: RouteComponentProps<{ sectionID: s
     {
       title: "Catalog Name",
       dataIndex: "catalogName",
+      render: (text: any, record: any) => <Link to={`/catalog/${record.catalogID}`}>{record.catalogName}</Link>,
       key: "catalogName"
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
       key: "startDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       key: "endDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Current Status",

@@ -1,25 +1,25 @@
-import { Col, Form, Row, Checkbox, Select, Typography } from "antd"
+import { Col, Select } from "antd"
 import React, { useState, useEffect } from "react"
 
-import { findPossibleBuildings, findPossibleRooms, findPossibleSites } from "~/ApiServices/BizApi/schedule/scheduleIf"
+import {
+  findPossibleBuildings,
+  findPossibleRooms,
+  findPossibleSites
+} from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import {
   IFilterFieldComponent,
   IFilterGenericComponentProps,
-  InputCol,
-  LabelCol
+  SearchComponentWrapper
 } from "~/Component/Common/SearchFilters/common"
-import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
-
-const { Text } = Typography
 const { Option } = Select
 
 export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
-  const { show, value, toggleCheckboxHandler, filterValueChanged, isChecked } = props
-  const hideRoomDropdown = props.extraProps && props.extraProps.hideRoomDropdown
-
   const [sites, setSites] = useState<any[]>([])
   const [buildings, setBuildings] = useState<any[]>([])
   const [rooms, setRooms] = useState<any[]>([])
+
+  const [siteId, setSiteId] = useState<any>()
+  const [buildingId, setBuildingId] = useState<any>()
 
   useEffect(() => {
     async function loadSites() {
@@ -30,163 +30,104 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     }
 
     loadSites()
-  }, [])
+  }, [props.isCheckeble])
 
   useEffect(() => {
     async function loadBuildings() {
-      const res = await findPossibleBuildings(props.value.SiteID as number)
+      console.log("siteId ", siteId)
+      const res = await findPossibleBuildings([siteId])
       if (Array.isArray(res.data)) {
         setBuildings(res.data)
       }
     }
 
-    if (props.value.SiteID !== "") {
+    if (siteId !== "") {
       loadBuildings()
     }
-  }, [props.value.SiteID])
+  }, [siteId])
 
   useEffect(() => {
     async function loadRooms() {
-      const res = await findPossibleRooms(props.value.BuildingID as number)
+      const res = await findPossibleRooms([buildingId])
       if (Array.isArray(res.data)) {
         setRooms(res.data)
       }
     }
 
-    if (props.value.BuildingID !== "") {
+    if (buildingId !== "") {
       loadRooms()
     }
-  }, [props.value.BuildingID])
+  }, [buildingId])
 
-  useEffect(() => {
-    function resetOptionsOfDependentFields() {
-      setBuildings([])
-      setRooms([])
-    }
+  // useEffect(() => {
+  //   function resetOptionsOfDependentFields() {
+  //     setBuildings([])
+  //     setRooms([])
+  //   }
 
-    if (!props.show.SiteID) {
-      resetOptionsOfDependentFields()
-    }
-  }, [props.show.SiteID])
+  // if (!props.show.SiteID) {
+  //   resetOptionsOfDependentFields()
+  // }
+  // }, [])
 
   const handleSiteChange = (value: number) => {
     setBuildings([])
     setRooms([])
-    filterValueChanged({ SiteID: value, BuildingID: "", RoomID: "" })
+    setSiteId(value)
+    setBuildingId(undefined)
+    props.formInstance.setFieldsValue({ SiteID: value })
+    props.formInstance.setFieldsValue({ BuildingID: "" })
+    props.formInstance.setFieldsValue({ RoomID: "" })
+    console.log("site value changed ", value)
   }
 
   const handleBuildingChange = (value: number) => {
     setRooms([])
-    filterValueChanged({ BuildingID: value, RoomID: "" })
+    setBuildingId(value)
+    props.formInstance.setFieldsValue({ BuildingID: value })
+    props.formInstance.setFieldsValue({ RoomID: "" })
   }
 
   function renderRoomFilterChecked() {
     return (
-      <Col key={props.key} style={{ paddingLeft: 0 }}>
-        <Row>
-          <LabelCol>
-            <Checkbox checked={show.SiteID} onChange={toggleCheckboxHandler(["SiteID", "BuildingID", "RoomID"])}>
-              Site
-            </Checkbox>
-          </LabelCol>
-          <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
-            <Select
-              aria-label="Site Select"
-              style={{ width: 250 }}
-              value={value.SiteID as number}
-              onChange={handleSiteChange}
-            >
+      <Col style={{ paddingLeft: 0 }}>
+        {sites.length && (
+          <SearchComponentWrapper {...props} label="Select Site" fieldName="SiteID">
+            <Select aria-label="Site Select" style={{ width: 250 }} onChange={handleSiteChange}>
               {sites.map(({ Name: label, SiteID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
                 </Option>
               ))}
             </Select>
-          </InputCol>
-        </Row>
-        {buildings.length > 0 && (
-          <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
-              <Text>Building</Text>
-            </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
-              <Select
-                aria-label="Building Select"
-                style={{ width: 250 }}
-                value={value.BuildingID as number}
-                onChange={handleBuildingChange}
-              >
-                {buildings.map(({ Name: label, BuildingID: value }, i) => (
-                  <Option value={value} key={`${value}_${i}`}>
-                    {label}
-                  </Option>
-                ))}
-              </Select>
-            </InputCol>
-          </Row>
+          </SearchComponentWrapper>
         )}
-        {rooms.length > 0 && !hideRoomDropdown && (
-          <Row>
-            <LabelCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
-              <Text>Room</Text>
-            </LabelCol>
-            <InputCol className={show.SiteID ? styles.offeringFilterField : styles.hidden}>
-              <Select
-                aria-label="Room Select"
-                style={{ width: 250 }}
-                value={value.RoomID}
-                onChange={(value) => filterValueChanged({ RoomID: value })}
-              >
-                {rooms.map(({ Name: label, RoomID: value }, i) => (
-                  <Option value={value} key={`${value}_${i}`}>
-                    {label}
-                  </Option>
-                ))}
-              </Select>
-            </InputCol>
-          </Row>
-        )}
-      </Col>
-    )
-  }
-
-  function renderRoomFilterUnchecked() {
-    return (
-      <Col key={props.key}>
-        <Form.Item name="SiteID" label="Site" labelCol={{ span: 6 }}>
-          <Select aria-label="Site Select">
-            {sites.map(({ Name: label, SiteID: value }, i) => (
-              <Option value={value} key={`${value}_${i}`}>
-                {label}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
         {buildings.length > 0 && (
-          <Form.Item name="BuildingID" label="Building" labelCol={{ span: 6 }}>
-            <Select aria-label="Building Select">
+          <SearchComponentWrapper {...props} label="Select Building" fieldName="BuildingID">
+            <Select aria-label="Building Select" style={{ width: 250 }} onChange={handleBuildingChange}>
               {buildings.map(({ Name: label, BuildingID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
                 </Option>
               ))}
             </Select>
-          </Form.Item>
+          </SearchComponentWrapper>
         )}
-        {rooms.length > 0 && !hideRoomDropdown && (
-          <Form.Item name="RoomID" label="Room" labelCol={{ span: 6 }}>
-            <Select aria-label="Room Select">
+        {/* {rooms.length > 0 || (props.extraProps && !props.extraProps.hideRoomDropdown) && ( */}
+        {rooms.length > 0 && (
+          <SearchComponentWrapper {...props} label="Select Room" fieldName="RoomID">
+            <Select aria-label="Room Select" style={{ width: 250 }}>
               {rooms.map(({ Name: label, RoomID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
                   {label}
                 </Option>
               ))}
             </Select>
-          </Form.Item>
+          </SearchComponentWrapper>
         )}
       </Col>
     )
   }
 
-  return isChecked ? renderRoomFilterChecked() : renderRoomFilterUnchecked()
+  return renderRoomFilterChecked() // : renderRoomFilterUnchecked()
 }

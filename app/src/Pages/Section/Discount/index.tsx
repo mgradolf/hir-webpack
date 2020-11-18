@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Space, Dropdown } from "antd"
 import { getSectionDiscounts } from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Budget/Budget.module.scss"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import DiscountMenu from "~/Component/Section/Discount/DiscountMenu"
 import DiscountActionModalButton from "~/Component/Section/Discount/DiscountActionModalButton"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
@@ -101,7 +101,6 @@ function SectionDiscountPage(props: RouteComponentProps<{ sectionID: string }>) 
   }
 
   const sectionID = props.match.params.sectionID
-  console.log("Section ID: ", sectionID)
 
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionDiscountItems, setSectionDiscountItems] = useState<Array<any>>([])

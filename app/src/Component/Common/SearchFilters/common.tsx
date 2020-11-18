@@ -1,8 +1,10 @@
-import React from "react"
+import React, { ReactNode, useState } from "react"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { Col } from "antd"
+import { Col, Row, Checkbox, Form } from "antd"
 import { ColProps } from "antd/lib/col"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
+import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
+import { FormInstance } from "antd/lib/form"
 
 export const TEXT = "TEXT"
 export const DROPDOWN = "DROPDOWN"
@@ -10,13 +12,15 @@ export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
 
-type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
+export type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
 
 export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
-  defaultValue: string
+  hidden?: boolean
+  defaultValue?: any
   placeholder?: string
+  disabled?: boolean
 
   fieldName: string
   displayKey?: string
@@ -28,14 +32,20 @@ export interface IFilterFieldObject {
   displayKey2?: string
   valueKey2?: string
 
+  fullWidth?: boolean
+
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
+  requestService?: () => Promise<IApiResponse>
 }
 
 export interface IFilterFieldComponent {
-  inputType: string
+  label: string
   fieldName: string
-  customFilterComponent: any
+  label2?: string
+  fieldName2?: string
+  customFilterComponent: React.FunctionComponent<any>
+  fullWidth?: boolean
   extraProps?: { [key: string]: any }
 }
 
@@ -47,20 +57,14 @@ export function isFilterObject(field: IFilterField): field is IFilterFieldObject
 
 export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObject
   ? IFilterFieldObject & {
-      value: string | number
-      value2?: string | number
-      show: boolean
-      isChecked?: boolean
-      key?: any
-      toggleCheckboxHandler: (event: CheckboxChangeEvent) => void
-      filterValueChanged: (key: string, value: any) => void
+      isCheckeble?: boolean
+      formInstance: FormInstance
     }
   : IFilterFieldComponent & {
-      show: { [key: string]: boolean }
+      isCheckeble?: boolean
       value: { [key: string]: string | number }
-      isChecked?: boolean
-      toggleCheckboxHandler: (fieldNames: string | string[]) => (event: CheckboxChangeEvent) => void
       filterValueChanged: (newValues: { [key: string]: string | number | boolean }) => void
+      formInstance: FormInstance
     }
 
 const layout = {
@@ -88,4 +92,63 @@ export function LabelCol(props: ColProps) {
 
 export function InputCol(props: ColProps) {
   return <Col {...layout.input} {...props} />
+}
+
+export function SearchFieldWrapper(
+  props: IFilterGenericComponentProps<IFilterFieldObject> & { children?: React.ReactNode }
+) {
+  const [checked, setChecked] = useState(false)
+  const toggleCheckboxHandler = (event: CheckboxChangeEvent) => {
+    setChecked(event.target.checked)
+  }
+  return props.isCheckeble ? (
+    <Row {...(props.hidden && { className: "hidden" })}>
+      <LabelCol>
+        <Checkbox onChange={toggleCheckboxHandler}>{props.label}</Checkbox>
+      </LabelCol>
+      <InputCol className={checked ? styles.offeringFilterField : "hidden"}>
+        <Form.Item name={props.fieldName}>{props.children}</Form.Item>
+      </InputCol>
+    </Row>
+  ) : (
+    <Form.Item
+      colon={false}
+      label={props.label}
+      name={props.fieldName}
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 12 }}
+      {...(props.hidden && { className: "hidden" })}
+    >
+      {props.children}
+    </Form.Item>
+  )
+}
+
+export function SearchComponentWrapper(
+  props: IFilterGenericComponentProps<IFilterFieldComponent> & {
+    children?: React.ReactNode
+  }
+) {
+  const [checked, setChecked] = useState(false)
+  const toggleCheckboxHandler = (event: CheckboxChangeEvent) => {
+    setChecked(event.target.checked)
+  }
+  return props.isCheckeble ? (
+    <Row>
+      <LabelCol>
+        <Checkbox onChange={toggleCheckboxHandler}>{props.label}</Checkbox>
+      </LabelCol>
+      <InputCol className={checked ? styles.offeringFilterField : "hidden"}>{props.children}</InputCol>
+    </Row>
+  ) : (
+    <Form.Item
+      colon={false}
+      label={props.label}
+      name={props.fieldName}
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 12 }}
+    >
+      {props.children}
+    </Form.Item>
+  )
 }

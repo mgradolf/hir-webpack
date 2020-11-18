@@ -1,9 +1,15 @@
 import { Row, Col } from "antd"
-import moment from "moment"
 import React from "react"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
-import { ITableWrapperProps } from "~/Component/Section/SectionTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
+export interface ITableWrapperProps {
+  id?: string
+  dataSource: Array<any>
+  loading: boolean
+  isModal?: boolean
+  rowSelection?: any
+  offeringID?: number
+}
 function ProgramListTable(props: ITableWrapperProps) {
   const columns = [
     {
@@ -25,13 +31,13 @@ function ProgramListTable(props: ITableWrapperProps) {
     {
       title: "Start Date",
       dataIndex: "ProgramStartDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       key: "ProgramStartDate"
     },
     {
       title: "End Date",
       dataIndex: "ProgramEndDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : ""),
+      render: renderDate,
       key: "ProgramEndDate"
     },
     {
@@ -78,7 +84,7 @@ function ProgramListTable(props: ITableWrapperProps) {
       expandableRowRender={expandableRowRender}
       rowKey="ProgramID"
       pagination={{ position: ["topLeft"], pageSize: 20 }}
-      scroll={{ y: props.isModal ? Math.floor(window.innerHeight * 0.45) : 600 }}
+      isModal={props.isModal}
     />
   )
 }

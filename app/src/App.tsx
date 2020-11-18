@@ -5,8 +5,7 @@ import { Provider, connect } from "react-redux"
 import { ConnectedRouter } from "connected-react-router"
 import { History } from "history"
 import LoginPage from "~/Pages/Login/LoginPage"
-// // import HomePage from "~/Pages/HomePage"
-import ProfilePage from "~/Pages/ProfilePage"
+import HomePage from "~/Pages/HomePage"
 import AboutPage from "~/Pages/AboutPage"
 import AdminPage from "~/Pages/AdminPage"
 import NotFoundPage from "~/Pages/NotFoundPage"
@@ -29,11 +28,63 @@ import SectionSchedulePage from "~/Pages/Section/Schedule"
 import SectionBudgetPage from "~/Pages/Section/Budget"
 import SectionNoticePage from "~/Pages/Section/Notice"
 import SectionDiscountPage from "~/Pages/Section/Discount"
-import RegistrationPage from "~/Pages/Section/Registration"
+import SectionRegistrationPage from "~/Pages/Section/Registration"
+import RegistrationDetailsPage from "~/Pages/Registration/RegistrationDetails"
 import SectionTagPage from "~/Pages/Section/Tag"
+import SectionProductPage from "~/Pages/Section/Product"
+import SectionWaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
+import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
+import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
+import SectionOrderLogPage from "~/Pages/Section/OrderLog"
+import RequestDetailsPage from "~/Pages/Request/Details"
+import SectionOrderManagementPage from "~/Pages/Section/Order/OrderManagement"
+import SectionOrderItemsPage from "~/Pages/Section/Order/OrderItems"
+import SectionOrderPaymentsPage from "~/Pages/Section/Order/Payments"
+import OrderDetails from "~/Pages/Section/Order/OrderDetails"
+import SectionCommentPage from "~/Pages/Section/Comment"
+import SectionNoShowPage from "~/Pages/Section/NoShow"
+import SectionRequestPage from "~/Pages/Request/RequestPage"
+import SectionQuestionPage from "~/Pages/Section/Question"
 
-import QuestionPage from "~/Pages/QuestionPage"
+import RequestPage from "~/Pages/RequestPage"
 
+import PersonPage from "~/Pages/Person/PersonPage"
+import PersonDetailPage from "~/Pages/Person/PersonDetailPage"
+
+import InstructorPage from "~/Pages/Instructor/InstructorPage"
+import InstructorDetails from "~/Pages/Instructor/InstructorDetails"
+
+import AccountPage from "~/Pages/Account/AccountPage"
+import AccountDetailsPage from "~/Pages/Account/AccountDetails"
+
+import ProductPage from "~/Pages/Product/ProductPage"
+import ProductDetailsPage from "~/Pages/Product/ProductDetails"
+
+import CatalogPage from "~/Pages/Catalog/CatalogPage"
+import CatalogDetailsPage from "~/Pages/Catalog/CatalogDetailsPage"
+
+import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
+
+import RegistrationPage from "~/Pages/Registration/RegistrationPage"
+
+import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
+import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
+import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
+import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
+
+import ReportPage from "~/Pages/Report/ReportPage"
+import IndividualReportPage from "~/Pages/Report/IndividualReportPage"
+import FinancialReportPurchaseOrder from "~/Pages/Report/Financial/PurchaseOrder"
+
+import QuestionPage from "~/Pages/Question/QuestionPage"
+import QuestionTaggingPage from "~/Pages/Question/QuestionTaggingPage"
+
+import FinancialOrderPagePage from "~/Pages/Financials/OrderPage"
+import FinancialOrderItemPage from "~/Pages/Financials/OrderItemPage"
+import FinancialPaymentPage from "~/Pages/Financials/PaymentPage"
+
+import ChartPage from "~/Pages/Chart/ChartPage"
+import ChartDetailsPage from "~/Pages/Chart/ChartDetailsPage"
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
 
@@ -51,8 +102,7 @@ function App(props: AppProps): JSX.Element {
     </Switch>
   ) : (
     <Switch>
-      <Route exact path="/" component={OfferingPage} />
-      <Route path="/profile" component={ProfilePage} />
+      <Route exact path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/admin" component={AdminPage} />
 
@@ -75,16 +125,78 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/budget" component={SectionBudgetPage} />
       <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
       <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
-      <Route exact path="/section/:sectionID/question" component={QuestionPage} />
+      <Route exact path="/section/:sectionID/question" component={SectionQuestionPage} />
+      <Route exact path="/section/:sectionID/registration" component={SectionRegistrationPage} />
       <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
+      <Route exact path="/section/:sectionID/registration/:studentID" component={RegistrationDetailsPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
+      <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
+      <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
+      <Route exact path="/section/:sectionID/order/:orderID" component={OrderDetails} />
+      <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
+      <Route exact path="/section/:sectionID/request" component={SectionRequestPage} />
+      <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
+      <Route exact path="/section/:sectionID/waitlist" component={SectionWaitlistEntriesPage} />
+      <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
+      <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
+      <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
+      <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
+      <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
+      <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
 
-      {/* <Route exact path="/question" component={QuestionPage} /> */}
+      <Route exact path="/person" component={PersonPage} />
+      <Route exact path="/person/:personID" component={PersonDetailPage} />
+      <Route exact path="/person/faculty/:facultyID" component={PersonDetailPage} />
+      <Route exact path="/person/student/:studentID" component={PersonDetailPage} />
+
+      <Route exact path="/order" component={FinancialOrderPagePage} />
+      <Route exact path="/order/items" component={FinancialOrderItemPage} />
+      <Route exact path="/order/payments" component={FinancialPaymentPage} />
+      <Route exact path="/order/:orderID" component={OrderDetails} />
+
+      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
+
+      <Route exact path="/product" component={ProductPage} />
+      <Route exact path="/product/:productID" component={ProductDetailsPage} />
+
+      <Route exact path="/catalog" component={CatalogPage} />
+      <Route exact path="/catalog/:catalogID" component={CatalogDetailsPage} />
+
+      <Route exact path="/question" component={QuestionPage} />
+      <Route exact path="/question/tagging" component={QuestionTaggingPage} />
+
+      <Route exact path="/requests" component={RequestPage} />
+      <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
+
+      <Route exact path="/registration" component={RegistrationPage} />
+      <Route exact path="/registration/:studentID" component={RegistrationDetailsPage} />
+
+      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
+      <Route exact path="/person" component={PersonPage} />
+      <Route exact path="/instructor" component={InstructorPage} />
+      <Route exact path="/instructor/:facultyID" component={InstructorDetails} />
+
+      <Route exact path="/account" component={AccountPage} />
+      <Route exact path="/account/:accountID" component={AccountDetailsPage} />
+
+      <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} />
+
+      <Route exact path="/search/activity/academic-log" component={AcademicPage} />
+      <Route exact path="/search/activity/enrollment-log" component={EnrollmentPage} />
+      <Route exact path="/search/activity/order-log" component={OrderLogPage} />
+
+      <Route exact path="/report" component={ReportPage} />
+      <Route exact path="/report/:reportName" component={IndividualReportPage} />
+      <Route exact path="/report/financial/purchase-order" component={FinancialReportPurchaseOrder} />
+      <Route exact path="/chart" component={ChartPage} />
+      <Route exact path="/chart/:chartName" component={ChartDetailsPage} />
+
       <Route component={NotFoundPage} />
     </Switch>
   )
   return (
     <Provider store={props.store}>
+      <div id="modal-container"></div>
       <ModalContainer />
       <ConnectedRouter history={props.history}>
         {/* Should be refactored later as condition check gets repeated */}

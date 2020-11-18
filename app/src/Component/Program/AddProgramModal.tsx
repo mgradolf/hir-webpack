@@ -6,7 +6,6 @@ import ProgramSearchFilterMeta from "~/FormMeta/Program/ProgramSearchFilterMeta"
 import ProgramListTable from "~/Component/Program/ProgramListTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
 import { IProgramFilterValues, useSearchFilterState, useSearchProgram } from "~/Hooks/Program"
-import { RecordType } from "~/Component/Common/ResponsiveTable"
 import zIndex from "~/utils/zIndex"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -72,10 +71,10 @@ function AddProgramModal() {
           title=""
           isModalView
           meta={ProgramSearchFilterMeta}
-          initialFilter={(filterData === null ? initialData : (filterData as unknown)) as RecordType}
+          initialFilter={(filterData === null ? initialData : (filterData as unknown)) as { [key: string]: any }}
           visible
-          isChecked={false}
-          toggleVisiibility={() => {
+          isCheckeble={false}
+          hideFilters={() => {
             closeAddProgramModal()
             setSelectedProgram(null)
           }}

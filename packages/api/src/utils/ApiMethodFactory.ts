@@ -1,6 +1,7 @@
 import callApi from "./CallApi"
 import { getToken } from "./TokenStore"
-import { ApiConfig, IApiResponse } from "./Interfaces"
+import { ApiConfig, IApiResponse, RESPONSE_TYPE } from "./Interfaces"
+import download from "./DownloadData"
 
 export const baseURL =
   process.env.NODE_ENV === "development"
@@ -19,7 +20,7 @@ function callServiceApi(
     url: endPoint,
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       Authorization: `Bearer ${getToken()}`
     },
     data: {
@@ -29,6 +30,16 @@ function callServiceApi(
       Params
     }
   }
+
+  if (
+    Params[RESPONSE_TYPE.EXCEL] ||
+    (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.EXCEL]) ||
+    Params[RESPONSE_TYPE.CSV] ||
+    (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.CSV])
+  ) {
+    return download(config)
+  }
+
   return callApi(config)
 }
 

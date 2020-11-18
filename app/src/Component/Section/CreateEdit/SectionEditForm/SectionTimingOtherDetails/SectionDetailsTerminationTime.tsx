@@ -5,6 +5,7 @@ import { FormInstance } from "antd/lib/form"
 import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
 import SectionDetailsTerminationDuration from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationDuration"
 import { getTerms } from "~/ApiServices/Service/RefLookupService"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const terminationTimeOptionsValue = {
   datePicker: "datePicker",
@@ -22,7 +23,6 @@ interface ISectionDetailsTerminationTimeProps {
   fieldNames: ISectionDetailsFieldNames
 }
 
-const dateFormat = "YYYY-MM-DD HH:mm:ss"
 const layout = { labelCol: { span: 6 } }
 
 export default function SectionDetailsTerminationTime(props: ISectionDetailsTerminationTimeProps) {
@@ -69,7 +69,7 @@ export default function SectionDetailsTerminationTime(props: ISectionDetailsTerm
             <DatePicker
               aria-label="Pick Termination Date"
               placeholder="YYYY/MM/DD"
-              format={dateFormat}
+              format={DATE_FORMAT}
               onChange={onDateChange}
               defaultValue={defaultTerminationDate}
             />

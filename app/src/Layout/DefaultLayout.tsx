@@ -26,7 +26,7 @@ export default function DefaultLayout(props: ILayoutProps) {
           <Breadcrumb />
           {props.children}
         </Content>
-        <Footer style={{ textAlign: "center" }}>Jenzbar ©2020 Created by Jenzabar Team</Footer>
+        <Footer style={{ textAlign: "center" }}>Jenzabar ©2020 Created by Jenzabar Team</Footer>
       </Layout>
     </Layout>
   )

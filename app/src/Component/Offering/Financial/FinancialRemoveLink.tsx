@@ -2,6 +2,7 @@ import React from "react"
 import { removeOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 import { Button } from "antd"
+import apiErroreEventBus from "@packages/api/lib/utils/GlobalHttpErrorEventBus"
 
 interface IFinancialRemoveLinkProp {
   offeringId: number
@@ -15,6 +16,8 @@ function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
         const response = await removeOfferingFinancialById(props.financialId)
         if (response.success) {
           eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
+        } else {
+          apiErroreEventBus.publish(response.error)
         }
       }}
     >

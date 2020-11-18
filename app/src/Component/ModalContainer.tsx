@@ -1,5 +1,7 @@
 import React from "react"
 import { AppState } from "~/Store"
+import { IModalState } from "~/Store/ModalState"
+import { connect } from "react-redux"
 import OfflineAlert from "~/Component/Alerts/Offline"
 import LoginModal from "~/Component/Login/LoginModal"
 import CreateNewOfferingModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
@@ -7,16 +9,12 @@ import OfferingFinancialFormModal from "~/Component/Offering/Financial/OfferingF
 import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApprovalFormModal"
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
-import AddInstructorFromInstructorModal from "~/Component/Offering/QualifiedInstructor/AddInstructorFromInstructorModal"
-import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import SectionCopyModal from "~/Component/Section/Copy/SectionCopyModal"
 import SectionSeatGroupFormModal from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
 import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
-// import CreateNewBudgetModal from "~/Component/Section/Budget/BudgetFormModal"
-import { IModalState } from "~/Store/ModalState"
-import { connect } from "react-redux"
+import ScheduleInstructorFromModal from "~/Component/Section/Schedule/ScheduleInstructorFormModal"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
 import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
@@ -26,6 +24,18 @@ import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditForm
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
+import AddProductFromProductModal from "~/Component/Section/Product/AddProductFromProductModal"
+import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
+
+import { REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
+import AnswerQuestionsModal from "~/Component/Section/Request/Resolutions/AnswerQuestionsModal"
+import EditBlockerModal from "~/Component/Section/Request/Resolutions/EditBlockerModal"
+import PostPaymentModal from "~/Component/Section/Request/Resolutions/PostPaymentModal"
+import SpecifyRecipientModal from "~/Component/Section/Request/Resolutions/SpecifyRecipientModal"
+import StudentFinderModal from "./Student/StudentFinderModal"
+import ErrorDetailsModal from "./Section/Request/Resolutions/ErrorDetailsModal"
+import CommentCreateModal from "~/Component/Section/Comment/CommentCreateModal"
+import AddContactModal from "~/Component/Student/AddContactModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -56,13 +66,7 @@ function ModalContainer(modalState: IModalState) {
           requisiteGroupID={modalState.addOfferingFromRequisiteGroupModal.config.requisiteGroupId}
         />
       )}
-      {modalState.addInstructorFromInstructorModal.value && (
-        <AddInstructorFromInstructorModal
-          offeringID={modalState.addInstructorFromInstructorModal.config.offeringId}
-          rowData={modalState.addInstructorFromInstructorModal.config.rowData}
-        />
-      )}
-      {modalState.createSectionModal.value && <SectionFormModal />}
+      {/* {modalState.createSectionModal.value && <SectionFormModal />} */}
       {modalState.copySectionModal.value && <SectionCopyModal />}
       {modalState.createSectionSeatGroupModal.value && (
         <SectionSeatGroupFormModal
@@ -83,6 +87,12 @@ function ModalContainer(modalState: IModalState) {
       )}
       {modalState.updateSectionScheduleLocationModal.value && (
         <ScheduleLocationFromModal scheduleIds={modalState.updateSectionScheduleLocationModal.config.scheduleIds} />
+      )}
+      {modalState.updateSectionScheduleInstructorModal.value && (
+        <ScheduleInstructorFromModal
+          scheduleIds={modalState.updateSectionScheduleInstructorModal.config.scheduleIds}
+          sectionId={modalState.updateSectionScheduleInstructorModal.config.sectionId}
+        />
       )}
       {modalState.addProgramModal.value && <AddProgramModal />}
       {modalState.createBudgetModal.value && (
@@ -115,6 +125,62 @@ function ModalContainer(modalState: IModalState) {
           sectionNoticeTypeId={modalState.updateNoticeModal.config.sectionNoticeTypeId}
         />
       )}
+      {modalState.addSectionProductModal.value && (
+        <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
+      )}
+      {modalState.requestViewResponseModal.value && (
+        <ViewResponseModal requestJson={modalState.requestViewResponseModal.config.requestJson} />
+      )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.ANSWER_QUESTIONS && (
+          <AnswerQuestionsModal fromVerification={false} taskJson={modalState.requestResolutionModal.config.taskJson} />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.EDIT && (
+          <EditBlockerModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            resolutionJson={modalState.requestResolutionModal.config.resolutionJson}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.POST_PAYMNET && (
+          <PostPaymentModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            extraDataSource={modalState.requestResolutionModal.config.extraDataSource}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.SPECIFY_RECIPIENT && (
+          <SpecifyRecipientModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            AccountID={modalState.requestResolutionModal.config.extraDataSource.AccountID}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.SWITCH_RECIPIENT && (
+          <SpecifyRecipientModal
+            taskJson={modalState.requestResolutionModal.config.taskJson}
+            AccountID={modalState.requestResolutionModal.config.extraDataSource.AccountID}
+          />
+        )}
+      {modalState.requestResolutionModal.value &&
+        modalState.requestResolutionModal.config.resolutionJson.Key === REQUEST_RESOLUTION_NAMES.ERROR_DETAILS && (
+          <ErrorDetailsModal taskJson={modalState.requestResolutionModal.config.taskJson} />
+        )}
+      {modalState.requestQuestionAnswerModal.value && (
+        <AnswerQuestionsModal
+          fromVerification={true}
+          taskJson={modalState.requestQuestionAnswerModal.config.taskJson}
+        />
+      )}
+      {modalState.studentFinderModal.value && (
+        <StudentFinderModal
+          onSelectStudent={modalState.studentFinderModal.config.onSelectStudentCallback}
+          AccountID={modalState.studentFinderModal.config.AccountID}
+        />
+      )}
+      {modalState.sectionCommentModal.value && <CommentCreateModal />}
+      {modalState.addContactModal.value && <AddContactModal AccountID={modalState.addContactModal.config.AccountID} />}
     </>
   )
 }

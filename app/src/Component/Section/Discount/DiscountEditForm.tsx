@@ -132,11 +132,7 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
 
   return (
     <Card title={`Edit Discount Program`} actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
@@ -229,14 +225,26 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
         )}
 
         {discountTypeID === DISCOUNT_DATE_RANGE_TYPE_ID && (
+          <Form.Item className="hidden" name={props.fieldNames.FromDate}>
+            <Input aria-label="From date" />
+          </Form.Item>
+        )}
+
+        {discountTypeID === DISCOUNT_DATE_RANGE_TYPE_ID && (
           <Form.Item label="Effective Date From" {...layout}>
             <DatePicker
               aria-label="Pick Effective From Date"
               placeholder="YYYY-MM-DD hh:mm"
               format="YYYY-MM-DD hh:mm"
               onChange={onFromDateChange}
-              defaultValue={fromDate ? moment(fromDate, "DD/MM/YYYY hh:mm") : undefined}
+              defaultValue={fromDate ? moment(fromDate, "YYYY-MM-DD hh:mm") : undefined}
             />
+          </Form.Item>
+        )}
+
+        {discountTypeID === DISCOUNT_DATE_RANGE_TYPE_ID && (
+          <Form.Item className="hidden" name={props.fieldNames.ToDate}>
+            <Input aria-label="To date" />
           </Form.Item>
         )}
 
@@ -247,7 +255,7 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
               placeholder="YYYY-MM-DD hh:mm"
               format="YYYY-MM-DD hh:mm"
               onChange={onToDateChange}
-              defaultValue={toDate ? moment(toDate, "DD/MM/YYYY hh:mm") : undefined}
+              defaultValue={toDate ? moment(toDate, "YYYY-MM-DD hh:mm") : undefined}
             />
           </Form.Item>
         )}

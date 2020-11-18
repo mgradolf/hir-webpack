@@ -3,6 +3,7 @@ import { store } from "~/Store"
 import { setRedirectToLogin } from "~/Store/Authentication"
 import { showLoginModal } from "~/Store/ModalState"
 import { removeTokens, getToken } from "@packages/api/lib/utils/TokenStore"
+import { removeUsername } from "@packages/api/lib/utils/UserInfoStore"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus } from "~/utils/EventBus"
 
@@ -21,6 +22,7 @@ export async function login(UserName: string, UserPassword: string): Promise<IAp
 
 export function logout(): void {
   removeTokens()
+  removeUsername()
   store.dispatch(showLoginModal({ value: false }))
   store.dispatch(setRedirectToLogin(true))
 }

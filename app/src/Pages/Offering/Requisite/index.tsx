@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Space } from "antd"
 import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
 import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
 import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
@@ -25,12 +25,12 @@ function OfferingRequisitePage(props: RouteComponentProps<{ offeringID: string }
     {
       title: "Creation Date",
       dataIndex: "CreationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Termination Date",
       dataIndex: "TerminationDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Action",

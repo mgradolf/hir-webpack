@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react"
 import moment from "moment"
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Typography, Space, Dropdown, Menu } from "antd"
-import { getMeetings } from "~/ApiServices/Service/SectionService"
+import { Row, Col, Typography, Space, Dropdown, Menu, Button } from "antd"
+import {
+  getMeetings,
+  removeMeetings,
+  removeLocations,
+  removeInstructors,
+  removeMeetingInformations
+} from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Schedule/Schedule.module.scss"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderTime, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import ScheduleMenu from "~/Component/Section/Schedule/ScheduleMenu"
 import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
@@ -24,17 +30,17 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
     {
       title: "Date",
       dataIndex: "MeetingDate",
-      render: (text: any) => (text !== null ? moment(text).format("YYYY-MM-DD") : "")
+      render: renderDate
     },
     {
       title: "Start",
       dataIndex: "StartTime",
-      render: (text: any) => (text !== null ? moment(text).format("hh:mm A") : "")
+      render: renderTime
     },
     {
       title: "End",
       dataIndex: "EndTime",
-      render: (text: any) => (text !== null ? moment(text).format("hh:mm A") : "")
+      render: renderTime
     },
     {
       title: "Meeting Type",
@@ -154,6 +160,54 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
     }
   }
 
+  const deleteSchedules = async () => {
+    setLoading(true)
+    const response = await removeMeetings({ ScheduleIDs: schedueIDs })
+    if (response.success) {
+      setLoading(false)
+      window.location.reload()
+    } else {
+      setLoading(false)
+      console.log(response.error)
+    }
+  }
+
+  const deleteLocations = async () => {
+    setLoading(true)
+    const response = await removeLocations({ ScheduleIDs: schedueIDs })
+    if (response.success) {
+      setLoading(false)
+      window.location.reload()
+    } else {
+      setLoading(false)
+      console.log(response.error)
+    }
+  }
+
+  const deleteInstructors = async () => {
+    setLoading(true)
+    const response = await removeInstructors({ ScheduleIDs: schedueIDs })
+    if (response.success) {
+      setLoading(false)
+      window.location.reload()
+    } else {
+      setLoading(false)
+      console.log(response.error)
+    }
+  }
+
+  const deleteNotes = async () => {
+    setLoading(true)
+    const response = await removeMeetingInformations({ ScheduleIDs: schedueIDs })
+    if (response.success) {
+      setLoading(false)
+      window.location.reload()
+    } else {
+      setLoading(false)
+      console.log(response.error)
+    }
+  }
+
   const menu = (
     <Menu>
       <Menu.Item>
@@ -163,7 +217,7 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
         <UpdateLocationModal scheduleIds={schedueIDs} />
       </Menu.Item>
       <Menu.Item>
-        <UpdateInstructorModal scheduleIds={schedueIDs} />
+        <UpdateInstructorModal sectionId={parseInt(sectionID)} scheduleIds={schedueIDs} />
       </Menu.Item>
       <Menu.Item>
         <UpdateNoteModal scheduleIds={schedueIDs} />
@@ -174,24 +228,24 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
   const removeMenu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+        <Button type="link" onClick={deleteSchedules}>
           Schedule
-        </a>
+        </Button>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+        <Button type="link" onClick={deleteLocations}>
           Location
-        </a>
+        </Button>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+        <Button type="link" onClick={deleteInstructors}>
           Instructor
-        </a>
+        </Button>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+        <Button type="link" onClick={deleteNotes}>
           Notes
-        </a>
+        </Button>
       </Menu.Item>
     </Menu>
   )
@@ -213,7 +267,7 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
             Updates
           </Dropdown.Button>
           <Dropdown.Button
-            disabled={schedueIDs.length > 0 ? true : true}
+            disabled={schedueIDs.length > 0 ? false : true}
             overlay={removeMenu}
             type="primary"
             style={{ marginLeft: "5px" }}

@@ -9,13 +9,17 @@ export const config = {
     getCreditMemoData: "getCreditMemoData",
     findGradeScoreDefinition: "findGradeScoreDefinition",
     dropWithdrawRegistration: "dropWithdrawRegistration",
+    dropOrWithdrawRegistration: "dropOrWithdrawRegistration",
     deleteRegistration: "deleteRegistration",
     editRegistration: "editRegistration",
     getGradeDefinitionDetails: "getGradeDefinitionDetails",
     saveFinalGrade: "saveFinalGrade",
     searchNoShowProcessings: "searchNoShowProcessings",
     bulkDropRegistration: "bulkDropRegistration",
-    bulkDeleteRegistration: "bulkDeleteRegistration"
+    bulkDeleteRegistration: "bulkDeleteRegistration",
+    validateRegistration: "validateRegistration",
+    checkCertificate: "checkCertificate",
+    issueCertificate: "issueCertificate"
   }
 }
 export default ApiMethodFactory(config)

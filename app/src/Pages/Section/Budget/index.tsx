@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Space, Dropdown } from "antd"
 import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
 import styles from "~/Pages/Section/Budget/Budget.module.scss"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import BudgetMenu from "~/Component/Section/Budget/BudgetMenu"
 import BudgetActionModalButton from "~/Component/Section/Budget/BudgetActionModalButton"
 import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
@@ -120,7 +120,6 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
   }
 
   const sectionID = props.match.params.sectionID
-  console.log("Section ID: ", sectionID)
 
   const [loading, setLoading] = useState<boolean>(false)
   const [sectionFinancialItems, setSectionFinancialItems] = useState<Array<any>>([])
@@ -178,6 +177,7 @@ function SectionBudgetPage(props: RouteComponentProps<{ sectionID: string }>) {
             loading={loading}
             expandableRowRender={expandableRowRender}
             bordered
+            rowKey="SectionFinancialID"
             pagination={{ position: ["topLeft"], pageSize: 20 }}
             breakpoints={["md", "lg", "xl", "xxl"]}
             responsiveColumnIndices={[1, 2, 3, 4, 5, 6, 7]}

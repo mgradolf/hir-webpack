@@ -7,7 +7,9 @@ export const config = {
   Actions: {
     getAllUsers: "getAllUsers",
     getUserByUserLogin: "getUserByUserLogin",
-    getUsersByRole: "getUsersByRole"
+    getUsersByRole: "getUsersByRole",
+    getLoggedInUser: "getLoggedInUser",
+    getUserByUserID: "getUserByUserID"
   }
 }
 

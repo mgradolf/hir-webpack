@@ -17,6 +17,10 @@ export function dropWithdrawRegistration(Params: { [key: string]: any }): Promis
   return RegistrationService[config.Actions.dropWithdrawRegistration](Params)
 }
 
+export function dropOrWithdrawRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.dropOrWithdrawRegistration](Params)
+}
+
 export function deleteRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.deleteRegistration](Params)
 }
@@ -43,4 +47,16 @@ export function bulkDropRegistration(Params: { [key: string]: any }): Promise<IA
 
 export function bulkDeleteRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.bulkDeleteRegistration](Params)
+}
+
+export function validateRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.validateRegistration](Params)
+}
+
+export function checkCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.checkCertificate](Params)
+}
+
+export function issueCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.issueCertificate](Params)
 }

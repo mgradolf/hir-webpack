@@ -1,63 +1,32 @@
-import * as React from "react"
-import { Row, Col, Typography } from "antd"
-import SectionFilterOpenButton from "~/Component/Section/SectionFilterOpenButton"
-import SectionTable from "~/Component/Section/SectionTable"
+import React, { useState } from "react"
+import { Button } from "antd"
+import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
 import { RouteComponentProps } from "react-router-dom"
-import { useSectionFilterState, useSections } from "~/Hooks/Section"
-import SectionSearchFilters from "~/Component/Common/SearchFilters"
-import SectionSearchFilterMeta from "~/FormMeta/Section/SectionSearchFilterMeta"
-import SectionModalOpenButton from "~/Component/Section/CreateEdit/SectionModalOpenButton"
-import styles from "~/Pages/Offering/Offering.module.scss"
+import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
+import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 
-const { useState } = React
-const { Title } = Typography
-
-export default function OfferingPage(props: RouteComponentProps<{ offeringID: string }>) {
-  const { filterData, updateFilterData } = useSectionFilterState()
-  const [showFilter, setFilterVisiblity] = useState<boolean>(false)
-  const [filterCount, setFilterCount] = useState<number>(0)
-
-  const OfferingID = parseInt(props.match.params.offeringID) || undefined
-  const [loading, sectionItems] = useSections(filterData, OfferingID)
-
-  const toggleFilter = () => {
-    setFilterVisiblity(!showFilter)
-  }
+export default function Offering(props: RouteComponentProps<{ offeringID: string }>) {
+  const offeringID = Number(props.match.params.offeringID)
+  const [showModal, setShowModal] = useState(false)
 
   return (
-    <div className="site-layout-content">
-      <Row>
-        <Title level={3}>Manage Sections</Title>
-      </Row>
-      <SectionFilterOpenButton
-        filterCount={filterCount}
-        filterColumnVisible={showFilter}
-        toggleFilter={toggleFilter}
-        actionButton={OfferingID ? <SectionModalOpenButton OfferingID={OfferingID} /> : undefined}
-      />
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        <SectionSearchFilters
-          title={""}
-          isModalView={false}
-          visible={showFilter}
-          toggleVisiibility={toggleFilter}
-          meta={SectionSearchFilterMeta}
-          initialFilter={filterData}
-          onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            updateFilterData({ ...filterData, ...newFilterValues })
-            setFilterCount(appliedFilterCount)
-            setFilterVisiblity(false)
-          }}
-        />
-        <Col
-          className={`gutter-row ${styles.offeringDetails}`}
-          xs={24}
-          sm={24}
-          md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
-        >
-          <SectionTable dataSource={sectionItems} loading={loading} offeringID={OfferingID} />
-        </Col>
-      </Row>
-    </div>
+    <SearchPage
+      blocks={[
+        <>
+          {setShowModal && (
+            <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
+              + Create Section
+            </Button>
+          )}
+          {showModal && <SectionFormModal OfferingID={offeringID} closeModal={() => setShowModal(false)} />}
+        </>
+      ]}
+      hideSearchField={true}
+      title="Manage Sections"
+      meta={SectionSearchMeta}
+      tableProps={getSectionTableColumns()}
+      helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
+    ></SearchPage>
   )
 }

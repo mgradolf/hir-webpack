@@ -102,6 +102,58 @@ export function removeFinancials(Params: { [key: string]: any }): Promise<IApiRe
   return SectionService[config.Actions.removeFinancials](Params)
 }
 
+export function removeMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeMeetings](Params)
+}
+
+export function removeLocations(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeLocations](Params)
+}
+
+export function removeInstructors(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeInstructors](Params)
+}
+
+export function removeMeetingInformations(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeMeetingInformations](Params)
+}
+
 export function findRoom(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findRoom](Params)
+}
+
+export function saveLocations(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveLocations](Params)
+}
+
+export function saveGeneralComment(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveGeneralComment](Params)
+}
+
+export function saveFacultyComment(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveFacultyComment](Params)
+}
+
+export function saveEnrollmentComment(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveEnrollmentComment](Params)
+}
+
+export function findGeneralCommentHistory(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findGeneralCommentHistory](Params)
+}
+
+export function findFacultyComments(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findFacultyComments](Params)
+}
+
+export function findEnrollmentCommentHistory(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findEnrollmentCommentHistory](Params)
+}
+
+export function findFaculty(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findFaculty](Params)
+}
+
+export function findEnrollmentStudentHistory(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.findEnrollmentStudentHistory](Params)
 }

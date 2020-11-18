@@ -1,7 +1,7 @@
 import React from "react"
 import { Switch, Row, Col } from "antd"
-import { ColumnsType } from "antd/lib/table"
-import ResponsiveTable from "~/Component/Common/ResponsiveTable"
+
+import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 interface ITagsTableProps {
   data: Array<any>
@@ -11,7 +11,7 @@ interface ITagsTableProps {
 }
 
 export default function TagsTable(props: ITagsTableProps) {
-  const columns: ColumnsType<{ [key: string]: string }> = [
+  const columns: TableColumnType = [
     {
       title: "Tag type",
       dataIndex: "TagType",
@@ -67,7 +67,7 @@ export default function TagsTable(props: ITagsTableProps) {
       columns={columns}
       dataSource={props.data}
       rowKey="ID"
-      pagination={{ position: ["topRight"], pageSize: 20 }}
+      pagination={false}
       size="small"
       bordered
       loading={props.loading}

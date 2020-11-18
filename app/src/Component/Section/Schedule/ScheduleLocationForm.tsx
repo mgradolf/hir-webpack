@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Switch } from "antd"
+import { Form, Card, Button, Input, Select, Switch, Divider } from "antd"
 import {
   findPossibleBuildings,
   findPossibleRooms,
@@ -11,6 +11,9 @@ import FormError from "~/Component/Common/FormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
 import ScheduleLocationRoomFinder from "~/Component/Section/RoomFinder/RoomFinderFormField"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { saveLocations } from "~/ApiServices/Service/SectionService"
+import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 
 const { Option } = Select
 
@@ -76,39 +79,45 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
   const onFormSubmission = async () => {
     setErrorMessages([])
 
-    // await props.formInstance.validateFields()
-    // const params = props.formInstance.getFieldsValue()
+    await props.formInstance.validateFields()
+    const params = props.formInstance.getFieldsValue() as { [key in keyof IScheduleLocationFieldNames]: any }
 
-    // if (props.scheduleIds) {
-    //   params["ScheduleIDs"] = props.scheduleIds
-    // }
+    if (params.RoomID === "") {
+      delete params.RoomID
+    }
 
-    // type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
-    // const serviceMethoToCall: serviceMethodType = props.scheduleIds ? saveMeetings : createMeetings
+    if (params.BuildingID === "") {
+      delete params.BuildingID
+    }
 
-    // props.setApiCallInProgress(true)
-    // setErrorMessages([])
-    // const response = await serviceMethoToCall(params)
-    // props.setApiCallInProgress(false)
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
+    const serviceMethoToCall: serviceMethodType = saveLocations
 
-    // if (response && response.success) {
-    //   props.formInstance.resetFields()
-    //   //eventBus.publish(REFRESH_SECTION_SCHEDULE_PAGE)
-    //   props.handleCancel()
-    // } else {
-    //   setErrorMessages(response.error)
-    //   console.log(response.error)
-    //   console.log(errorMessages)
-    // }
+    props.setApiCallInProgress(true)
+    setErrorMessages([])
+    const response = await serviceMethoToCall(params)
+    props.setApiCallInProgress(false)
+
+    if (response && response.success) {
+      props.formInstance.resetFields()
+      eventBus.publish(REFRESH_SECTION_SCHEDULE_PAGE)
+      props.handleCancel()
+    } else {
+      setErrorMessages(response.error)
+      console.log(response.error)
+      console.log(errorMessages)
+    }
   }
 
   const onValuesChange = (changedValues: { [key: string]: any }) => {
     if (changedValues[props.fieldNames.SiteID] !== undefined) {
       setSelectedSiteID(changedValues[props.fieldNames.SiteID])
+      props.formInstance.setFieldsValue({ [props.fieldNames.BuildingID]: "", [props.fieldNames.RoomID]: "" })
     }
 
     if (changedValues[props.fieldNames.BuildingID] !== undefined) {
       setSelectedBuildingID(changedValues[props.fieldNames.BuildingID])
+      props.formInstance.setFieldsValue({ [props.fieldNames.RoomID]: "" })
     }
   }
 
@@ -122,7 +131,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
         form={props.formInstance}
         initialValues={props.initialFormValue}
         onValuesChange={onValuesChange}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
+        className="modal-form"
       >
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
@@ -159,7 +168,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
             </Select>
           </Form.Item>
         )}
-
+        <Divider orientation="left">Search room via room finder</Divider>
         <ScheduleLocationRoomFinder
           formInstance={props.formInstance}
           onSelectRoom={(room) => {
@@ -167,10 +176,13 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
             setSelectedBuildingID(room.BuildingID)
           }}
           onClearRoom={() => {
+            setSelectedSiteID(null)
+            setSelectedBuildingID(null)
             setBuildingItems([])
             setRoomItems([])
           }}
         />
+        <Divider />
         <Form.Item
           name={props.fieldNames.ConflictCheck}
           label="Check for conflicts(slower)"

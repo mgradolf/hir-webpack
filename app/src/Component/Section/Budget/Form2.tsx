@@ -164,7 +164,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
       [props.fieldNames.SectionID]: props.sectionId
     })
     ;(async () => {
-      const response = await getSeatGroups(props.sectionId)
+      const response = await getSeatGroups({ SectionID: props.sectionId })
       if (response && response.success && response.data) {
         setSeatGroupItems(response.data)
       }

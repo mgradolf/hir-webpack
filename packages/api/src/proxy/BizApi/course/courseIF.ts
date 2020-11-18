@@ -10,7 +10,8 @@ export const config = {
     deleteSection: "deleteSection",
     searchSection: "searchSection",
     findSectionNotice: "findSectionNotice",
-    createSectionNotice: "createSectionNotice"
+    createSectionNotice: "createSectionNotice",
+    findAvailableAffiliatedOrgs: "findAvailableAffiliatedOrgs"
   }
 }
 

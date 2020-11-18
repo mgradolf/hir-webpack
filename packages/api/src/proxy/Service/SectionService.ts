@@ -33,7 +33,20 @@ export const config = {
     getAvailableResourcesWithFinancials: "getAvailableResourcesWithFinancials",
     getAvailableMarketingProgramsWithFinancials: "getAvailableMarketingProgramsWithFinancials",
     removeFinancials: "removeFinancials",
-    findRoom: "findRoom"
+    removeMeetings: "removeMeetings",
+    removeLocations: "removeLocations",
+    removeInstructors: "removeInstructors",
+    removeMeetingInformations: "removeMeetingInformations",
+    findRoom: "findRoom",
+    saveLocations: "saveLocations",
+    saveGeneralComment: "saveGeneralComment",
+    saveFacultyComment: "saveFacultyComment",
+    saveEnrollmentComment: "saveEnrollmentComment",
+    findGeneralCommentHistory: "findGeneralCommentHistory",
+    findFacultyComments: "findFacultyComments",
+    findEnrollmentCommentHistory: "findEnrollmentCommentHistory",
+    findFaculty: "findFaculty",
+    findEnrollmentStudentHistory: "findEnrollmentStudentHistory"
   }
 }
 

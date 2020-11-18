@@ -14,7 +14,7 @@ const RoomFinderMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    inputType: "COMBO_DEPENDENT_ROOM",
+    label: "Site",
     fieldName: "SiteID",
     customFilterComponent: RoomFilter,
     extraProps: { hideRoomDropdown: true }

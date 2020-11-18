@@ -22,13 +22,12 @@ const layout = {
 }
 
 export default function NoticeEditForm(props: INoticeEditFormProps) {
-  const noticeActive = props.formInstance.getFieldValue(props.fieldNames.IsActive)
-
-  const [dataSubmittable, setDataSubmittable] = useState<boolean>(noticeActive)
+  console.log("Section id: ", props.sectionId)
   const [fromUserItems, setFromUserItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
+    props.formInstance.setFieldsValue({ [props.fieldNames.SectionID]: props.sectionId })
     ;(async () => {
       const response = await getAllUsers()
       if (response && response.success && response.data) {
@@ -62,29 +61,17 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
     }
   }
 
-  const onActiveChangeHandler = (value: any) => {
-    setDataSubmittable(value)
-  }
-
   const actions = []
   actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(
-    <Button onClick={onFormSubmission} disabled={!dataSubmittable}>
-      Submit
-    </Button>
-  )
+  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
     <Card title={`Edit Email Notification`} actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
-          <Input aria-label="Section ID" value={props.sectionId} />
+          <Input aria-label="Section ID" />
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.SectionNoticeTypeID}>
@@ -149,7 +136,6 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
         <Form.Item name={props.fieldNames.IsActive} label="Active Notification" {...layout} valuePropName="checked">
           <Switch
             aria-label="Active Notification"
-            onChange={onActiveChangeHandler}
             defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)}
           />
         </Form.Item>

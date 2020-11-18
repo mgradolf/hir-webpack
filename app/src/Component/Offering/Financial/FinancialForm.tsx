@@ -91,11 +91,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
 
   return (
     <Card title={props.financialID ? `Edit Offering financial` : "Create new offering financial"} actions={actions}>
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
-      >
+      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
           <Input aria-label="Financial ID" value={props.financialID ? props.financialID : undefined} />
@@ -146,7 +142,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         </Form.Item>
 
         <Form.Item label="Amount" {...layout} name={props.fieldNames.ItemUnitAmount}>
-          <Input aria-label="Amount" type="number" min={0} />
+          <Input aria-label="Amount" type="number" min={0} max={999999} />
         </Form.Item>
 
         <Form.Item label="Type" {...layout} name={props.fieldNames.IsCharge}>
