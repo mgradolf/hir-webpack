@@ -7,7 +7,7 @@ import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
 import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
 import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
-import AccountSearchFilterMeta from "~/FormMeta/Account/AccountSearchFilterMeta"
+import { AccountSearchMeta } from "~/FormMeta/Account/AccountSearchMeta"
 
 const fieldNames = {
   RequesterPersonID: "RequesterPersonID",
@@ -126,7 +126,7 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
             { title: "Email Address", dataIndex: "EmailAddress", width: 150 },
             { title: "Address", dataIndex: "BillingAddress", width: 150 }
           ]}
-          meta={AccountSearchFilterMeta}
+          meta={AccountSearchMeta}
         />
       )}
 

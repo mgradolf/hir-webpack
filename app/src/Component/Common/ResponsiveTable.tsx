@@ -27,6 +27,7 @@ export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
   searchParams?: any
   searchFunc?: (Params: any) => Promise<IApiResponse>
+  dataLoaded?: (Params: any) => void
   expandableColumnIndices?: number[]
   responsiveColumnIndices?: number[]
   expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
@@ -40,6 +41,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     columns,
     searchParams,
     searchFunc,
+    dataLoaded,
     expandableColumnIndices,
     responsiveColumnIndices,
     breakpoints,
@@ -58,9 +60,10 @@ export function ResponsiveTable(props: IDataTableProps) {
       setTableProps()
     } else if (searchParams && searchFunc) {
       setLoading(true)
-      Object.keys(searchParams).forEach((key) => {
-        if (searchParams[key] === "") delete searchParams[key]
-      })
+      typeof searchParams === "object" &&
+        Object.keys(searchParams).forEach((key) => {
+          if (searchParams[key] === "") delete searchParams[key]
+        })
       searchFunc(searchParams).then((x) => {
         if (x.success && Array.isArray(x.data)) {
           const data = x.data.map((y: any, i: number) => {
@@ -68,6 +71,7 @@ export function ResponsiveTable(props: IDataTableProps) {
             return y
           })
           setTableProps(data)
+          dataLoaded && dataLoaded(data)
         }
         setTimeout(() => {
           setLoading(false)

@@ -22,7 +22,7 @@ import moment from "moment"
 
 import { IStudent } from "~/Component/Student/StudentFinderModal"
 import RegistrationVerification from "~/utils/RegistrationVerification"
-import RegistrationError from "../RegistrationError"
+import RegistrationError from "~/Component/Section/Request/RegistrationError"
 
 const { useState } = React
 
@@ -72,7 +72,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   }
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       setLoading(true)
       const result = await getGradeScaleType()
       if (result && result.success) {
@@ -80,21 +80,22 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
       }
       setLoading(false)
     })()
-      ; (async function () {
-        setLoading(true)
-        const result = await getCreditType()
-        if (result && result.success) {
-          setTranscriptItems(result.data)
-        }
-        setLoading(false)
-      })()
+    ;(async function () {
+      setLoading(true)
+      const result = await getCreditType()
+      if (result && result.success) {
+        setTranscriptItems(result.data)
+      }
+      setLoading(false)
+    })()
 
     eventBus.subscribe(EVENT_REQUEST_QUESTION_ANSWER, (param: IParamsToBeDispatched) => {
       const params: { [key: string]: any } = param.Params
       setAnswerMap(params.Response)
 
-      let itemList = verificationItems
-        .filter(x => x.Name !== REGISTRATION_VERIFICATION_NAME.REGISTRATION_QUESTION_CHECK)
+      const itemList = verificationItems.filter(
+        (x) => x.Name !== REGISTRATION_VERIFICATION_NAME.REGISTRATION_QUESTION_CHECK
+      )
       setVerificationItems(itemList)
 
       if (itemList.length === 0) {
@@ -130,7 +131,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
         }
 
         if (waiveMap !== undefined) {
-          let regMapName = "Registration_SectionID_" + sectionID + "_" + form.getFieldValue("RecipientPersonID")
+          const regMapName = "Registration_SectionID_" + sectionID + "_" + form.getFieldValue("RecipientPersonID")
           params["OverrieData"] = {
             [regMapName]: waiveMap
           }
@@ -209,7 +210,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
     })
     setWaiveMap(waiveMap)
 
-    let itemList = verificationItems.filter(x => x.Name !== name)
+    const itemList = verificationItems.filter((x) => x.Name !== name)
     setVerificationItems(itemList)
 
     if (itemList.length === 0) {
@@ -245,12 +246,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
             onClearStudent={onClearStudent}
           />
 
-          {!isVerified &&
-            <RegistrationError
-              errorMessages={verificationItems}
-              jsonData={jsonData}
-              onWaive={onWaive} />
-          }
+          {!isVerified && <RegistrationError errorMessages={verificationItems} jsonData={jsonData} onWaive={onWaive} />}
 
           <Form.Item label="Recipient Person ID" className="hidden" {...layout} name="RecipientPersonID">
             <Input />
@@ -342,11 +338,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
             <Switch aria-label="Complete status on termination" />
           </Form.Item>
 
-          <Form.Item
-            label="Expected Attendance"
-            {...layout}
-            name="AttendanceExpected"
-          >
+          <Form.Item label="Expected Attendance" {...layout} name="AttendanceExpected">
             <Input aria-label="Expected Attendance" />
           </Form.Item>
         </Form>

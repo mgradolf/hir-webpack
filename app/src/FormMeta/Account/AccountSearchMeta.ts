@@ -1,7 +1,7 @@
 import { getAccountTypes } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
-const accountMeta: IFilterField[] = [
+export const AccountSearchMeta: IFilterField[] = [
   {
     label: "Account Type",
     inputType: DROPDOWN,
@@ -34,5 +34,3 @@ const accountMeta: IFilterField[] = [
     ariaLabel: "First Name"
   }
 ]
-
-export default accountMeta

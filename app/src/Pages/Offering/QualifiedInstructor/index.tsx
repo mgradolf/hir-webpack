@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Button } from "antd"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
@@ -11,39 +11,24 @@ const { Title } = Typography
 
 function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID: string }>) {
   const offeringID = props.match.params.offeringID
-  const [loading, setLoading] = useState<boolean>(false)
-  const [offeringInstructorList, setOfferingInstructorList] = useState<Array<any>>([])
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Array<any>>([])
+  const [instructorIDs, setInstructorIDs] = useState<number[]>([])
+  const [loading, setLoading] = useState(false)
 
-  const loadOfferingInstructors = function () {
-    console.log("meo meo")
+  const removeInstructor = (event: any, instructorID: any) => {
+    console.log(instructorIDs)
     setLoading(true)
-    getQualifiedInstructors(Number(offeringID)).then((result) => {
-      if (result && result.success) {
-        const selectedRowData = []
-        for (let i = 0; i < result.data.length; i++) {
-          selectedRowData.push(result.data[i].instructorID)
+    const IDs = instructorIDs.filter((x) => x !== instructorID)
+    console.log(IDs, instructorIDs, instructorID)
+    updateInstructors(Number(offeringID), IDs)
+      .then((result) => {
+        if (result && result.success) {
+          eventBus.publish(REFRESH_PAGE)
         }
+      })
+      .finally(() => {
         setLoading(false)
-        setOfferingInstructorList(result.data)
-        setSelectedRowKeys(selectedRowData)
-      }
-    })
+      })
   }
-
-  useEffect(() => {
-    loadOfferingInstructors()
-    // eslint-disable-next-line
-  }, [offeringID])
-
-  useEffect(() => {
-    eventBus.subscribe(REFRESH_PAGE, loadOfferingInstructors)
-    eventBus.publish(REFRESH_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_PAGE)
-    }
-    // eslint-disable-next-line
-  }, [offeringID])
 
   const columns = [
     {
@@ -65,7 +50,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
     {
       title: "Action",
       key: "action",
-      render: (record: any) => (
+      render: (text: any, record: any) => (
         <Button type="link" onClick={(e) => removeInstructor(e, record.instructorID)}>
           Remove
         </Button>
@@ -95,19 +80,6 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
     )
   }
 
-  async function removeInstructor(event: any, instructorID: any) {
-    const allRowData = selectedRowKeys
-    const index = allRowData.indexOf(instructorID)
-    allRowData.splice(index, 1)
-
-    setLoading(true)
-    const result = await updateInstructors(Number(offeringID), allRowData)
-
-    if (result && result.success) {
-      eventBus.publish(REFRESH_PAGE)
-    }
-  }
-
   return (
     <div className="site-layout-content">
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -115,23 +87,26 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
           <Title level={3}>Manage Offering Instructors</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <AddInstructorButton offeringID={parseInt(offeringID)} rowData={selectedRowKeys} />
+          <AddInstructorButton offeringID={parseInt(offeringID)} rowData={instructorIDs} />
         </Col>
       </Row>
 
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <Col className={`gutter-row ${styles.offeringInstructorDetails}`} xs={24} sm={24} md={24}>
           <ResponsiveTable
-            columns={columns}
-            dataSource={offeringInstructorList}
+            dataLoaded={(data: any[]) => {
+              const _data = data.map((x) => x.instructorID)
+              console.log("dataLoaded ", _data)
+              setInstructorIDs(_data)
+            }}
             loading={loading}
+            columns={columns}
+            searchFunc={getQualifiedInstructors}
+            searchParams={offeringID}
             bordered
-            rowKey="FacultyID"
-            pagination={{ position: ["topLeft"], pageSize: 20 }}
             expandableRowRender={expandableRowRender}
             breakpoints={["md", "lg", "xl", "xxl"]}
             responsiveColumnIndices={[1, 2, 3]}
-            scroll={{ y: 600 }}
           />
         </Col>
       </Row>
