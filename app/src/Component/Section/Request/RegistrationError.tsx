@@ -74,7 +74,7 @@ export function RegistrationError(props: IFormError) {
                       okText="Ok"
                       cancelText="Cancel"
                     >
-                      <a style={{ marginLeft: "16px" }} onClick={(e) => e.preventDefault()}>Details</a>
+                      <Button type="link">Details</Button>
                     </Popconfirm>
                   )}
               </Form.Item>

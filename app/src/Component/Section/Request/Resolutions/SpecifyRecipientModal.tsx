@@ -5,11 +5,12 @@ import { Dispatch } from "redux"
 import { showRequestResolutionModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select, Divider, DatePicker, Switch } from "antd"
 import { IParamsToBeDispatched } from "~/Pages/Request/Details"
-import { eventBus, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
+import { eventBus, EVENT_REQUEST_QUESTION_ANSWER, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
 import {
   REQUEST_PROCESS_ACTION_NAME,
   DATE_TIME_FORMAT,
-  REQUEST_DATE_TIME_FORMAT
+  REQUEST_DATE_TIME_FORMAT,
+  REGISTRATION_VERIFICATION_NAME
 } from "~/utils/Constants"
 import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
 import { useEffect } from "react"
@@ -46,6 +47,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [verificationItems, setVerificationItems] = useState<Array<any>>([])
   const [waiveMap, setWaiveMap] = useState<{ [key: string]: any }>({})
+  const [answerMap, setAnswerMap] = useState<{ [key: string]: any }>({})
   const [jsonData, setJsonData] = useState<{ [key: string]: any }>(props.taskJson)
 
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
@@ -86,7 +88,23 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
         }
         setLoading(false)
       })()
-  }, [props])
+
+    eventBus.subscribe(EVENT_REQUEST_QUESTION_ANSWER, (param: IParamsToBeDispatched) => {
+      const params: { [key: string]: any } = param.Params
+      setAnswerMap(params.Response)
+
+      let itemList = verificationItems
+        .filter(x => x.Name !== REGISTRATION_VERIFICATION_NAME.REGISTRATION_QUESTION_CHECK)
+      setVerificationItems(itemList)
+
+      if (itemList.length === 0) {
+        setIsUpdate(false)
+      }
+    })
+    return () => {
+      eventBus.unsubscribe(EVENT_REQUEST_QUESTION_ANSWER)
+    }
+  }, [props, verificationItems])
 
   const onFormSubmission = async () => {
     try {
@@ -116,6 +134,9 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           params["OverrieData"] = {
             [regMapName]: waiveMap
           }
+        }
+        if (answerMap !== undefined && answerMap.length > 0) {
+          params["QuestionAnswers"] = answerMap
         }
         console.log("Params: ", params)
 

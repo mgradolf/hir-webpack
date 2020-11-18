@@ -6,7 +6,7 @@ import { showRequestQuestionAnswerModal, showRequestResolutionModal } from "~/St
 import { Card, Button, Form, Input, Select } from "antd"
 import { findPublishedAndActiveQuestionsWithOptions } from "~/ApiServices/Service/RequestActivityService"
 import { IParamsToBeDispatched } from "~/Pages/Request/Details"
-import { eventBus, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
+import { eventBus, EVENT_REQUEST_RESOLUTION, EVENT_REQUEST_QUESTION_ANSWER } from "~/utils/EventBus"
 import { useEffect } from "react"
 import { REQUEST_PROCESS_ACTION_NAME } from "~/utils/Constants"
 
@@ -63,6 +63,14 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
           Params: params
         }
         eventBus.publish(EVENT_REQUEST_RESOLUTION, answer)
+      } else {
+        const params: any = {}
+        params["Response"] = form.getFieldsValue()
+        const answer: IParamsToBeDispatched = {
+          ValueUpdate: true,
+          Params: params
+        }
+        eventBus.publish(EVENT_REQUEST_QUESTION_ANSWER, answer)
       }
       props.closeAnswerQuestionsModal && props.closeAnswerQuestionsModal(props.fromVerification)
     } catch (errorInfo) {
