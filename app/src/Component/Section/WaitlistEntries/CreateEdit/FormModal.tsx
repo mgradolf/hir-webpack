@@ -12,7 +12,7 @@ import FormError from "~/Component/Common/FormError"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
-import { SectionLookupFormField } from "~/Component/LookupModals/SectionLookupModal"
+import { FormSectionLookupButton } from "~/Component/Common/Form/FormLookups/FormSectionLookup"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface IWaitlistEntryCreateEditFormModal {
@@ -132,7 +132,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
                 </ul>
               }
             ></FormError>
-            {!Section && <SectionLookupFormField setSection={setSection} />}
+            {!Section && <FormSectionLookupButton formInstance={formInstance} />}
             {Section && (
               <DropDown
                 label="Seat Group"

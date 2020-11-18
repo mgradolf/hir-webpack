@@ -63,6 +63,11 @@ export function getAccountTypes(): Promise<IApiResponse> {
     LookUpName: "AccountType"
   })
 }
+export function getAffiliationRoleType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AffiliationRoleType"
+  })
+}
 
 export function getFinancialCategoryType(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({

@@ -1,3 +1,3 @@
-export default (value: any, index: any, self: any): any => {
+export const onlyUnique = (value: any, index: any, self: any): any => {
   return self.indexOf(value) === index
 }

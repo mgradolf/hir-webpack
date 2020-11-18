@@ -7,10 +7,10 @@ import SearchFilters from "~/Component/Common/SearchFilters"
 import { Row, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
-import { useOfferings, useOfferingFilterState, IFilterValues } from "~/Hooks/Offering"
-import { OfferingTable } from "~/Component/Offering/OfferingTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
 import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
+import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 const { useState } = React
 
@@ -30,14 +30,12 @@ function AddOfferingFromRequisiteGroupModal({
   requisiteGroupID,
   closeAddOfferingFromRequisiteGroupModal
 }: IOfferingRequisiteGroupProps) {
-  const { filterData, updateFilterData } = useOfferingFilterState()
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>({})
   const [filterCount, updateFilterCount] = useState<number>(0)
-
-  const [loading, offeringItems] = useOfferings(filterData as IFilterValues)
   const [modalSelectedPage, setModalPage] = useState<ModalPages>(ModalPages.FilterPage)
   const [selectedOfferings, setSelectedOfferings] = useState<any[]>([])
 
-  const rowSelection = {
+  const rowSelection: any = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
       setSelectedOfferings(selectedRows)
     },
@@ -61,51 +59,55 @@ function AddOfferingFromRequisiteGroupModal({
 
   return (
     <Modal showModal={true} width="1000px">
-      {(modalSelectedPage === ModalPages.FilterPage && (
-        <Row justify="center">
-          <SearchFilters
-            meta={OfferingSearchFilterMeta}
-            isModalView={true}
-            initialFilter={filterData as { [key: string]: any }}
-            title={""}
-            visible
-            hideFilters={() => {
-              closeAddOfferingFromRequisiteGroupModal()
-              setSelectedOfferings([])
-            }}
-            onApplyChanges={(newFilterValues, newFilterCount) => {
-              updateFilterData({
-                ...filterData,
-                ...newFilterValues
-              })
+      <div style={{ padding: "10px", height: "65vh" }}>
+        {(modalSelectedPage === ModalPages.FilterPage && (
+          <Row justify="center">
+            <SearchFilters
+              meta={OfferingSearchFilterMeta}
+              isModalView={true}
+              initialFilter={{}}
+              title={""}
+              visible
+              hideFilters={() => {
+                closeAddOfferingFromRequisiteGroupModal()
+                setSelectedOfferings([])
+              }}
+              onApplyChanges={(newFilterValues, newFilterCount) => {
+                setSearchParams(newFilterValues)
 
-              updateFilterCount(newFilterCount)
-              setModalPage(ModalPages.OfferingsList)
-            }}
-          />
-        </Row>
-      )) ||
-        (modalSelectedPage === ModalPages.OfferingsList && (
-          <Card
-            title=""
-            actions={[
-              <Button type="ghost" onClick={closeAddOfferingFromRequisiteGroupModal}>
-                Cancel
-              </Button>,
-              <Button type="primary" disabled={selectedOfferings.length === 0} onClick={handleSelect}>
-                Select
-              </Button>
-            ]}
-          >
-            <FilterOpenButton
-              filterCount={filterCount as number}
-              filterColumnVisible={false}
-              toggleFilter={() => setModalPage(ModalPages.FilterPage)}
-              hideCreateButton
+                updateFilterCount(newFilterCount)
+                setModalPage(ModalPages.OfferingsList)
+              }}
             />
-            <OfferingTable dataSource={offeringItems} loading={loading} isModal rowSelection={rowSelection} />
-          </Card>
-        )) || <></>}
+          </Row>
+        )) ||
+          (modalSelectedPage === ModalPages.OfferingsList && (
+            <Card
+              title=""
+              actions={[
+                <Button type="ghost" onClick={closeAddOfferingFromRequisiteGroupModal}>
+                  Cancel
+                </Button>,
+                <Button type="primary" disabled={selectedOfferings.length === 0} onClick={handleSelect}>
+                  Select
+                </Button>
+              ]}
+            >
+              <FilterOpenButton
+                filterCount={filterCount as number}
+                filterColumnVisible={false}
+                toggleFilter={() => setModalPage(ModalPages.FilterPage)}
+                hideCreateButton
+              />
+              <ResponsiveTable
+                {...getOfferingTableColumns(true)}
+                searchParams={searchParams}
+                rowSelection={rowSelection}
+                isModal={true}
+              />
+            </Card>
+          )) || <></>}
+      </div>
     </Modal>
   )
 }

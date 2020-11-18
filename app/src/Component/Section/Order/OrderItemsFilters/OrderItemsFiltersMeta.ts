@@ -2,14 +2,14 @@ import { getOPCStatusCode, getOrganizations, getSourceModule } from "~/ApiServic
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionID",
-    customFilterComponent: SectionLookupOpenButton
+    customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Order Id",

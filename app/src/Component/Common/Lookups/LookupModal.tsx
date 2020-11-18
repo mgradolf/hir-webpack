@@ -16,7 +16,7 @@ interface ILookupModal {
 }
 
 export function LookupModal(props: ILookupModal) {
-  const [searchParams, setSearchParams] = useState({})
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
   const [selectedItems, setSelectedItems] = useState<any[]>([])
   const rowSelection: any = {
     type: props.isArray ? "checkbox" : "radio",

@@ -1,11 +1,11 @@
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SectionLookupOpenButton } from "~/Component/LookupModals/SectionLookupModal"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 
 const meta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionID",
-    customFilterComponent: SectionLookupOpenButton,
+    customFilterComponent: SearchSectionLookupButton,
     extraProps: {
       isArray: true
     }

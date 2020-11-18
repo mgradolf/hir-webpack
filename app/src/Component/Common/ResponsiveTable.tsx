@@ -18,11 +18,16 @@ export const renderDate = (text: any) => (text !== null ? moment(text).format(DA
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
 export const renderBoolean = (text: any) => (text ? "Yes" : "No")
+export const renderWeek = (text: any[], record: any) => {
+  const weeks: string[] = ["Monday", "TuesDay", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  return text && Array.isArray(text) && weeks.filter((x, i) => text.includes(i + 1))
+}
 
 export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
   searchParams?: any
   searchFunc?: (Params: any) => Promise<IApiResponse>
+  dataLoaded?: (Params: any) => void
   expandableColumnIndices?: number[]
   responsiveColumnIndices?: number[]
   expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
@@ -36,6 +41,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     columns,
     searchParams,
     searchFunc,
+    dataLoaded,
     expandableColumnIndices,
     responsiveColumnIndices,
     breakpoints,
@@ -54,9 +60,10 @@ export function ResponsiveTable(props: IDataTableProps) {
       setTableProps()
     } else if (searchParams && searchFunc) {
       setLoading(true)
-      Object.keys(searchParams).forEach((key) => {
-        if (searchParams[key] === "") delete searchParams[key]
-      })
+      typeof searchParams === "object" &&
+        Object.keys(searchParams).forEach((key) => {
+          if (searchParams[key] === "") delete searchParams[key]
+        })
       searchFunc(searchParams).then((x) => {
         if (x.success && Array.isArray(x.data)) {
           const data = x.data.map((y: any, i: number) => {
@@ -64,6 +71,7 @@ export function ResponsiveTable(props: IDataTableProps) {
             return y
           })
           setTableProps(data)
+          dataLoaded && dataLoaded(data)
         }
         setTimeout(() => {
           setLoading(false)
@@ -91,34 +99,15 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
     const _columns: any = columns
-    console.log(mobileView)
-    const responsiveExpandableRowElements =
-      responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
-        <>
-          {responsiveColumnIndices
-            .filter((index) => index <= _columns.length)
-            .map((index) => {
-              const title = _columns[index - 1].title
-              const text = record[_columns[index - 1].dataIndex]
-              return (
-                <li key={index}>
-                  <span>{title} : </span>
-                  <span> {text}</span>
-                </li>
-              )
-            })}
-        </>
-      ) : null
-
     const expandableRowElements = expandableColumnIndices ? (
       <>
         {expandableColumnIndices
           .filter((index) => index <= _columns.length)
-          .map((index) => {
+          .map((index, i) => {
             const title = _columns[index - 1].title
             const text = record[_columns[index - 1].dataIndex]
             return (
-              <li key={index}>
+              <li key={i}>
                 <span>{title} : </span>
                 <span> {text}</span>
               </li>
@@ -126,10 +115,36 @@ export function ResponsiveTable(props: IDataTableProps) {
           })}
       </>
     ) : null
+    const responsiveExpandableRowElements =
+      responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
+        <>
+          {responsiveColumnIndices
+            .filter((index) => {
+              return !expandableColumnIndices?.includes(index) || index <= _columns.length
+            })
+            .map((index, i) => {
+              const title = _columns[index - 1].title
+              let text: any = record[_columns[index - 1].dataIndex]
+              if (Array.isArray(text)) text = text.toString()
+              else if (typeof text === "boolean") text = renderBoolean(text)
+              return (
+                <>
+                  {title && text && (
+                    <li key={i + 10000}>
+                      <span>{title} : </span>
+                      <span>{text}</span>
+                    </li>
+                  )}
+                </>
+              )
+            })}
+        </>
+      ) : null
+
     return (
       <ul>
-        {responsiveExpandableRowElements}
         {expandableRowElements}
+        {responsiveExpandableRowElements}
       </ul>
     )
   }
@@ -160,9 +175,13 @@ export function ResponsiveTable(props: IDataTableProps) {
     ) {
       _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
     }
-    _conditionalProps.scroll = { x: columns.length * 120 }
+    _conditionalProps.scroll = { ...(isModal && { y: 300 }), x: columns.length * 80 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
+    _conditionalProps.pagination =
+      props.pagination && typeof props.pagination === "boolean" && !props.pagination
+        ? props.pagination
+        : { position: ["topLeft"], pageSize: 20 }
     setConditionalProps(_conditionalProps)
   }
 

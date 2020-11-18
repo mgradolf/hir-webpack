@@ -1,7 +1,7 @@
-import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupService"
+import { getAffiliationRoleType, getCountries } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
 
-const programMeta: IFilterFieldObject[] = [
+export const PersonSearchMeta: IFilterFieldObject[] = [
   {
     label: "First Name",
     inputType: TEXT,
@@ -78,7 +78,7 @@ const programMeta: IFilterFieldObject[] = [
     defaultValue: "",
     fieldName: "RoleName",
     ariaLabel: "Account Role",
-    refLookupService: getAccountTypes,
+    refLookupService: getAffiliationRoleType,
     displayKey: "Name",
     valueKey: "ID"
   },
@@ -93,5 +93,3 @@ const programMeta: IFilterFieldObject[] = [
     valueKey: "ID"
   }
 ]
-
-export default programMeta

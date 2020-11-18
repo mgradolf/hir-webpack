@@ -24,7 +24,7 @@ interface IFilterColumnProps {
   title: string
   hideFilters?: () => void
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
-  initialFilter: { [key: string]: string }
+  initialFilter?: { [key: string]: string }
   isModalView: boolean
   isCheckeble?: boolean
   showClearbutton?: boolean
@@ -132,9 +132,9 @@ export default function ({
               type="primary"
               onClick={() => {
                 formInstance.resetFields()
-                const filterCount = Object.keys(props.initialFilter).length
+                const filterCount = props.initialFilter ? Object.keys(props.initialFilter).length : 0
                 console.log("initial filter params ", JSON.stringify(props.initialFilter), filterCount)
-                props.onApplyChanges(props.initialFilter, filterCount)
+                props.onApplyChanges({}, filterCount)
               }}
             >
               {clearButtonLabel}
@@ -148,7 +148,7 @@ export default function ({
             onClick={() => {
               const params: { [key: string]: any } = formInstance.getFieldsValue()
               for (const key in params) {
-                if (key === "" || !params[key]) delete params[key]
+                if (key === "" || !params[key] || key.includes("____")) delete params[key]
               }
               const filterCount = Object.keys(params).length
               console.log("params ", params, filterCount)

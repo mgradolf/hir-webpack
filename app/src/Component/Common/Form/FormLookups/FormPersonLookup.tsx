@@ -1,7 +1,6 @@
 import * as React from "react"
-import PersonSearchFilterMeta from "~/FormMeta/Person/PersonSearchFilterMeta"
+import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { FormLookupOpenButton } from "~/Component/Common/Form/FormLookupOpenButton"
-import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
 import { FormInstance } from "antd/lib/form"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
 
@@ -14,9 +13,8 @@ export function FormPersonLookupButton(props: { formInstance: FormInstance; onCl
       fieldName="PersonID"
       label="Person"
       formInstance={props.formInstance}
-      searchFunc={searchPersons}
-      columns={getPersonTableColumns(true)}
-      meta={PersonSearchFilterMeta}
+      {...getPersonTableColumns(true)}
+      meta={PersonSearchMeta}
       onCloseModal={props.onCloseModal}
     />
   )

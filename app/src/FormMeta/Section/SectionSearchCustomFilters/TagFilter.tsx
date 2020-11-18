@@ -30,9 +30,9 @@ export default function TagFilter(props: IFilterGenericComponentProps<IFilterFie
 
   return (
     <Col style={{ paddingLeft: 0 }}>
-      <SearchComponentWrapper {...props} fieldName="">
+      <SearchComponentWrapper {...props} fieldName={props.fieldName}>
         <Select
-          aria-label="Is Search Tag Hierarchy"
+          aria-label="Search Tag Hierarchy"
           style={{ width: 250 }}
           onChange={(selectedValue) => {
             setIsSearchTagHierarchy(selectedValue === "true" ? true : false)

@@ -4,9 +4,9 @@ import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/S
 import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-import RoomFinderField from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFinderField"
+// import RoomFinderField from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFinderField"
 
-const sectionMeta: IFilterField[] = [
+export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
@@ -149,20 +149,18 @@ const sectionMeta: IFilterField[] = [
     valueKey: "UserLogin"
   },
   {
-    label: "Select Tag",
-    fieldName: "IsSearchTagHierarchy",
+    label: "Search Tag Hierarchy",
+    fieldName: "searchTagHeirarchy",
     customFilterComponent: TagFilter
   },
   {
     label: "Select Site",
     fieldName: "SiteID",
     customFilterComponent: RoomFilter
-  },
-  {
-    label: "Selecte Roomm",
-    fieldName: "SiteID",
-    customFilterComponent: RoomFinderField
   }
+  // {
+  //   label: "Selecte Roomm",
+  //   fieldName: "SiteID",
+  //   customFilterComponent: RoomFinderField
+  // }
 ]
-
-export default sectionMeta
