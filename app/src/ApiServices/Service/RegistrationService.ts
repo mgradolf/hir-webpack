@@ -52,3 +52,11 @@ export function bulkDeleteRegistration(Params: { [key: string]: any }): Promise<
 export function validateRegistration(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.validateRegistration](Params)
 }
+
+export function checkCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.checkCertificate](Params)
+}
+
+export function issueCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.issueCertificate](Params)
+}

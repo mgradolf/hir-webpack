@@ -139,13 +139,11 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
         if (answerMap !== undefined && answerMap.length > 0) {
           params["QuestionAnswers"] = answerMap
         }
-        console.log("Params: ", params)
 
         const specifyRecipient: IParamsToBeDispatched = {
           ValueUpdate: true,
           Params: params
         }
-
         eventBus.publish(EVENT_REQUEST_RESOLUTION, specifyRecipient)
         props.closeSpecifyRecipientModal && props.closeSpecifyRecipientModal()
       }

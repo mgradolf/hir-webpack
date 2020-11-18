@@ -43,3 +43,13 @@ export interface IRegistrationGradeFieldNames {
   AttendanceExpected: any
   AttendanceActual: any
 }
+
+export interface ICertificateFieldNames {
+  SectionID: any
+  StudentID: any
+  CertificateID: any
+  IssueDate: any
+  ExpirationDate: any
+  Comment: any
+  IsProgram: any
+}

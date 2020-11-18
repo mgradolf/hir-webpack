@@ -9,10 +9,12 @@ import RegistrationActionForm from "~/Component/Registration/RegistrationActionF
 import RegistrationQuestionsForm from "~/Component/Registration/RegistrationQuestionsForm"
 import RegistrationGradeForm from "~/Component/Registration/RegistrationGradeForm"
 import {
+  ICertificateFieldNames,
   IRegistrationActionFieldNames,
   IRegistrationFieldNames,
   IRegistrationGradeFieldNames
 } from "~/Component/Registration/Interfaces"
+import IssueCertificateForm from "~/Component/Registration/IssueCertificateForm"
 
 const { Title, Text } = Typography
 const { TabPane } = Tabs
@@ -53,6 +55,16 @@ const gradeFieldName: IRegistrationGradeFieldNames = {
   GradeScoreDefinitionID: "GradeScoreDefinitionID",
   AttendanceActual: "AttendanceActual",
   AttendanceExpected: "AttendanceExpected"
+}
+
+const certificateFieldName: ICertificateFieldNames = {
+  SectionID: "SectionID",
+  StudentID: "StudentID",
+  CertificateID: "CertificateID",
+  IssueDate: "IssueDate",
+  ExpirationDate: "ExpirationDate",
+  Comment: "Comment",
+  IsProgram: "IsProgram"
 }
 
 export interface IParamsToBeDispatched {
@@ -195,7 +207,7 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
                   <RegistrationGradeForm fieldNames={gradeFieldName} initialFormValue={registrationDetails} />
                 </TabPane>
                 <TabPane tab="Issue Certificate" key="5">
-                  <Typography.Text style={{ marginLeft: "20px" }}>Coming Soon....</Typography.Text>
+                  <IssueCertificateForm fieldNames={certificateFieldName} initialFormValue={registrationDetails} />
                 </TabPane>
               </Tabs>
             </Col>
