@@ -68,7 +68,7 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
   const [registrationDetails, setRegistrationDetails] = useState<{ [key: string]: any }>()
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       setApiCallInProgress(true)
       const result = await findRegistrations({ SectionID: Number(sectionID), StudentID: Number(studentID) })
       if (result && result.success) {
@@ -92,7 +92,8 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
               <Title level={3}>Registration Details</Title>
             </Col>
             <Col className={`gutter-row ${styles.textRight}`} xs={24} sm={24} md={12}>
-              <Button type="primary"
+              <Button
+                type="primary"
                 onClick={async () => {
                   setApiCallInProgress(true)
                   const response = await sendRegistrationConfirmationEmail({
@@ -103,7 +104,8 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
                     console.log("Successfully send email!")
                   }
                   setApiCallInProgress(false)
-                }}>
+                }}
+              >
                 Email Confirmation
               </Button>
             </Col>

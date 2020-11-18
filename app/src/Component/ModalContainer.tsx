@@ -168,7 +168,10 @@ function ModalContainer(modalState: IModalState) {
           <ErrorDetailsModal taskJson={modalState.requestResolutionModal.config.taskJson} />
         )}
       {modalState.requestQuestionAnswerModal.value && (
-        <AnswerQuestionsModal fromVerification={true} taskJson={modalState.requestQuestionAnswerModal.config.taskJson} />
+        <AnswerQuestionsModal
+          fromVerification={true}
+          taskJson={modalState.requestQuestionAnswerModal.config.taskJson}
+        />
       )}
       {modalState.studentFinderModal.value && (
         <StudentFinderModal
