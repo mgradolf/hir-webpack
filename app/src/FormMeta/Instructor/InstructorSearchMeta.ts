@@ -8,7 +8,7 @@ import {
   getOrganizations,
   getRegionCodes
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DATE_PICKER, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const InstructorSearchMeta: IFilterField[] = [
   {
@@ -31,6 +31,55 @@ export const InstructorSearchMeta: IFilterField[] = [
     defaultValue: "",
     fieldName: "FirstName",
     ariaLabel: "First Name"
+  },
+  {
+    label: "Maiden Name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "MaidenName",
+    ariaLabel: "Maiden Name"
+  },
+  {
+    label: "Other Name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "OtherName",
+    ariaLabel: "Other Name"
+  },
+  {
+    label: "Email",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "Email",
+    ariaLabel: "Email"
+  },
+  {
+    label: "Is Active",
+    inputType: BOOLEAN,
+    defaultValue: "",
+    fieldName: "IsActive",
+    ariaLabel: "Is Active"
+  },
+  {
+    label: "Able To Teach",
+    inputType: BOOLEAN,
+    defaultValue: "",
+    fieldName: "IsAbleToTeach",
+    ariaLabel: "Able To Teach"
+  },
+  {
+    label: "ERP",
+    inputType: NUMBER,
+    defaultValue: "",
+    fieldName: "ERPCode",
+    ariaLabel: "ERP Code"
+  },
+  {
+    label: "SSN",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "SSN",
+    ariaLabel: "GovID"
   },
   {
     label: "Instructor Type",

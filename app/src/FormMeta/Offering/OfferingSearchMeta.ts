@@ -6,7 +6,8 @@ import {
   getSectionTypes,
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchInstructorLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchInstructorLookup"
 
 export const OfferingSearchMeta: IFilterField[] = [
   {
@@ -157,5 +158,17 @@ export const OfferingSearchMeta: IFilterField[] = [
     defaultValue: "",
     fieldName: "OfferingNearCapacity",
     ariaLabel: "Offering Near Capacity"
+  },
+  {
+    label: "Show Program Offering",
+    inputType: BOOLEAN,
+    defaultValue: "",
+    fieldName: "ShowProgramOffering",
+    ariaLabel: "Show Program Offering"
+  },
+  {
+    label: "Instructor",
+    fieldName: "FacultyID",
+    customFilterComponent: SearchInstructorLookupButton
   }
 ]

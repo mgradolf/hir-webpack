@@ -40,7 +40,7 @@ export interface IFilterFieldObject {
   valueKey2?: string
 
   fullWidth?: boolean
-
+  extraProps?: { [key: string]: any }
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
   requestService?: () => Promise<IApiResponse>
@@ -114,7 +114,12 @@ export function SearchFieldWrapper(
         <Checkbox onChange={toggleCheckboxHandler}>{props.label}</Checkbox>
       </LabelCol>
       <InputCol className={checked ? styles.offeringFilterField : "hidden"}>
-        <Form.Item name={props.fieldName}>{props.children}</Form.Item>
+        <Form.Item
+          name={props.fieldName}
+          {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
+        >
+          {props.children}
+        </Form.Item>
       </InputCol>
     </Row>
   ) : (
@@ -125,6 +130,7 @@ export function SearchFieldWrapper(
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 12 }}
       {...(props.hidden && { className: "hidden" })}
+      {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
     >
       {props.children}
     </Form.Item>

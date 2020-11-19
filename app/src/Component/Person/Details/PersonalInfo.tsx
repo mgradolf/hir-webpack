@@ -33,7 +33,6 @@ export function PersonalInfo({ person }: { person: { [key: string]: any } }) {
     infos = { ...infos, "Can Defer Payment": person.CanDeferPayment ? "Yes" : "No" }
     infos = { ...infos, SSN: person.GovID }
     infos = { ...infos, ERPID: person.ERPID }
-    infos = { ...infos, "Creator Account ID": person.CreatorAccountID }
     setState(infos)
   }, [person])
   return (

@@ -36,7 +36,7 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
   props.initialFormValue["IsProgram"] = false
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       setLoading(true)
       const result = await getApplicableSectionCertificate([sectionID])
       if (result && result.success) {
@@ -66,17 +66,18 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
   }
 
   const certificateHandler = (certificateID: any) => {
-    certificateItems.forEach(element => {
+    certificateItems.forEach((element) => {
       if (element.CertificateID === certificateID) {
         validityMonths = element.ValidityMonths
       }
-    });
+    })
 
-    let currentDate = new Date()
+    const currentDate = new Date()
     if (validityMonths !== null) {
       form.setFieldsValue({
-        [props.fieldNames.ExpirationDate]:
-          moment(new Date(currentDate.setMonth(currentDate.getMonth() + validityMonths)))
+        [props.fieldNames.ExpirationDate]: moment(
+          new Date(currentDate.setMonth(currentDate.getMonth() + validityMonths))
+        )
       })
     } else {
       form.setFieldsValue({
@@ -87,14 +88,15 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
   }
 
   const issueDateHandler = (date: any) => {
-    let selectedDate = date.toDate()
+    const selectedDate = date.toDate()
     console.log("Selected date: ", selectedDate)
     console.log("validity month: ", validityMonths)
 
     if (validityMonths !== null) {
       form.setFieldsValue({
-        [props.fieldNames.ExpirationDate]:
-          moment(new Date(selectedDate.setMonth(selectedDate.getMonth() + validityMonths)))
+        [props.fieldNames.ExpirationDate]: moment(
+          new Date(selectedDate.setMonth(selectedDate.getMonth() + validityMonths))
+        )
       })
     }
   }
@@ -115,15 +117,15 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
           <Input aria-label="Certificate type" />
         </Form.Item>
 
-        <Form.Item label="Certificate Type" {...layout} >
+        <Form.Item label="Certificate Type" {...layout}>
           <Input disabled value={props.initialFormValue.IsProgram ? "Program" : "Offering"} />
         </Form.Item>
 
-        <Form.Item label="Student Name" {...layout} >
+        <Form.Item label="Student Name" {...layout}>
           <Input disabled value={props.initialFormValue.StudentName} />
         </Form.Item>
 
-        <Form.Item label="Section Number" {...layout} >
+        <Form.Item label="Section Number" {...layout}>
           <Input disabled value={props.initialFormValue.SectionNumber} />
         </Form.Item>
 
@@ -143,7 +145,7 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
           <Input aria-label="Issue date" />
         </Form.Item> */}
 
-        <Form.Item label="Issue Date" {...layout} name={props.fieldNames.IssueDate} >
+        <Form.Item label="Issue Date" {...layout} name={props.fieldNames.IssueDate}>
           <DatePicker
             aria-label="Pick Issue Date"
             placeholder={DATE_FORMAT}
@@ -152,12 +154,8 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
           />
         </Form.Item>
 
-        <Form.Item label="Expiration Date" {...layout} name={props.fieldNames.ExpirationDate} >
-          <DatePicker
-            aria-label="Pick Expiration Date"
-            placeholder={DATE_FORMAT}
-            format={DATE_FORMAT}
-          />
+        <Form.Item label="Expiration Date" {...layout} name={props.fieldNames.ExpirationDate}>
+          <DatePicker aria-label="Pick Expiration Date" placeholder={DATE_FORMAT} format={DATE_FORMAT} />
         </Form.Item>
 
         <Form.Item label="Comment" {...layout} name={props.fieldNames.Comment}>
