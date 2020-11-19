@@ -1,5 +1,9 @@
 import React, { useState } from "react"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import {
+  IFilterFieldComponent,
+  IFilterGenericComponentProps,
+  SearchComponentWrapper
+} from "~/Component/Common/SearchFilters/common"
 import { Row, Input, Select, Button, Col, Form } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
@@ -31,9 +35,7 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
     else if (seletectLookupType !== "") setOpenPersonLookupModal(true)
   }
 
-  return props.isCheckeble ? (
-    <Row></Row>
-  ) : (
+  const toRender = (
     <>
       <Form.Item className="hidden" name={fieldNames.RequesterPersonID}>
         <Input />
@@ -170,4 +172,5 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
       </Form.Item>
     </>
   )
+  return props.isCheckeble ? <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper> : toRender
 }

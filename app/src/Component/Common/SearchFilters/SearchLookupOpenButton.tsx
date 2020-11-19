@@ -3,7 +3,8 @@ import { Button, Form, Input, Row, Col } from "antd"
 import {
   IFilterField,
   IFilterFieldComponent,
-  IFilterGenericComponentProps
+  IFilterGenericComponentProps,
+  SearchComponentWrapper
 } from "~/Component/Common/SearchFilters/common"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -49,7 +50,7 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
     setShowModal(false)
   }
 
-  return (
+  const toRender = (
     <>
       <Form.Item className="hidden" name={props.fieldName}>
         <Input />
@@ -80,4 +81,5 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
       </Form.Item>
     </>
   )
+  return props.isCheckeble ? <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper> : toRender
 }

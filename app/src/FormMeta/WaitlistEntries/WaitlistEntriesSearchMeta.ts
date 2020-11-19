@@ -3,16 +3,16 @@ import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/Sea
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import WaitlistSearchCustomLookupFilter from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
 
-const sectionMeta: IFilterField[] = [
-  {
-    label: "Offering",
-    fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
-  },
+export const WaitlistEntriesSearchMeta: IFilterField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
     customFilterComponent: SearchSectionLookupButton
+  },
+  {
+    label: "Offering",
+    fieldName: "OfferingID",
+    customFilterComponent: SearchOfferingLookupButton
   },
   {
     label: "Creation Date",
@@ -57,5 +57,3 @@ const sectionMeta: IFilterField[] = [
     customFilterComponent: WaitlistSearchCustomLookupFilter
   }
 ]
-
-export default sectionMeta

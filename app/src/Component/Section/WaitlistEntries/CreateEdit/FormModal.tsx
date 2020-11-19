@@ -18,7 +18,7 @@ import { getEntityById } from "~/ApiServices/Service/EntityService"
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
   SectionID?: number
-  setShowCreateModal: (flag: boolean) => void
+  closeModal: () => void
 }
 
 interface IFormFields {
@@ -56,7 +56,7 @@ interface IParamsToBeDispatched {
   Params: { [key: string]: string }
 }
 
-export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEditFormModal) {
+export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEditFormModal) {
   const [formInstance] = Form.useForm()
   const [Section, setSection] = useState<{ [key: string]: any }>()
   const [showAdministrators, setShowAdministrators] = useState(false)
@@ -99,7 +99,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
         <Card
           title={props.WaitListEntry ? "Edit Waitlist Enntry" : "Create New Waitlist Entry"}
           actions={[
-            <Button onClick={() => props.setShowCreateModal(false)}>Cancel</Button>,
+            <Button onClick={() => props.closeModal()}>Cancel</Button>,
             <Button
               onClick={() => {
                 setApiCallInProgress(true)
@@ -112,7 +112,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
                   setApiCallInProgress(false)
                   if (x.success) {
                     eventBus.publish(REFRESH_PAGE)
-                    props.setShowCreateModal(false)
+                    props.closeModal()
                   } else setErrorMessages(x.error)
                 })
               }}
