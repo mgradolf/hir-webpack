@@ -284,3 +284,9 @@ export function getCommentCategories(): Promise<IApiResponse> {
     LookUpName: "CommentCategory"
   })
 }
+
+export function getMeetingInformationTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MeetingInformationType"
+  })
+}

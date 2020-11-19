@@ -42,6 +42,12 @@ export interface IScheduleInstructorFieldNames {
   ConflictCheck: any
 }
 
+export interface IScheduleNoteFieldNames {
+  ScheduleIDs: any
+  InfoValue: any
+  MeetingInformationTypeID: any
+}
+
 export interface IBudgetFieldNames {
   SectionID: string
   FinancialID: string

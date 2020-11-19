@@ -157,3 +157,11 @@ export function findFaculty(Params: { [key: string]: any }) {
 export function findEnrollmentStudentHistory(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findEnrollmentStudentHistory](Params)
 }
+
+export function scheduleInstructor(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.scheduleInstructor](Params)
+}
+
+export function saveMeetingInformations(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveMeetingInformations](Params)
+}

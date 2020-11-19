@@ -31,10 +31,11 @@ import AnswerQuestionsModal from "~/Component/Section/Request/Resolutions/Answer
 import EditBlockerModal from "~/Component/Section/Request/Resolutions/EditBlockerModal"
 import PostPaymentModal from "~/Component/Section/Request/Resolutions/PostPaymentModal"
 import SpecifyRecipientModal from "~/Component/Section/Request/Resolutions/SpecifyRecipientModal"
-import StudentFinderModal from "./Student/StudentFinderModal"
-import ErrorDetailsModal from "./Section/Request/Resolutions/ErrorDetailsModal"
+import StudentFinderModal from "~/Component/Student/StudentFinderModal"
+import ErrorDetailsModal from "~/Component/Section/Request/Resolutions/ErrorDetailsModal"
 import CommentCreateModal from "~/Component/Section/Comment/CommentCreateModal"
 import AddContactModal from "~/Component/Student/AddContactModal"
+import ScheduleNoteFormModal from "~/Component/Section/Schedule/ScheduleNoteFormModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -92,6 +93,9 @@ function ModalContainer(modalState: IModalState) {
           scheduleIds={modalState.updateSectionScheduleInstructorModal.config.scheduleIds}
           sectionId={modalState.updateSectionScheduleInstructorModal.config.sectionId}
         />
+      )}
+      {modalState.updateSectionScheduleNoteModal.value && (
+        <ScheduleNoteFormModal scheduleIds={modalState.updateSectionScheduleNoteModal.config.scheduleIds} />
       )}
       {modalState.addProgramModal.value && <AddProgramModal />}
       {modalState.createBudgetModal.value && (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import moment from "moment"
 import { RouteComponentProps } from "react-router"
-import { Row, Col, Typography, Space, Dropdown, Menu, Button } from "antd"
+import { Row, Col, Typography, Dropdown, Menu, Button } from "antd"
 import {
   getMeetings,
   removeMeetings,
@@ -12,12 +12,10 @@ import {
 import styles from "~/Pages/Section/Schedule/Schedule.module.scss"
 import { renderDate, renderTime, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
-import ScheduleMenu from "~/Component/Section/Schedule/ScheduleMenu"
 import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
 import UpdateLocationModal from "~/Component/Section/Schedule/UpdateLocationModal"
 import UpdateInstructorModal from "~/Component/Section/Schedule/UpdateInstructorModal"
 import UpdateNoteModal from "~/Component/Section/Schedule/UpdateNoteModal"
-import { DownOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
 
@@ -56,23 +54,7 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
     },
     {
       title: "Notes",
-      dataIndex: "Description"
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (record: any) => (
-        <Space size="middle">
-          <Dropdown
-            overlay={<ScheduleMenu sectionId={record.SectionID} scheduleId={record.ScheduleID} />}
-            trigger={["click"]}
-          >
-            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              Others <DownOutlined />
-            </a>
-          </Dropdown>
-        </Space>
-      )
+      dataIndex: "InformationSummary"
     }
   ]
 
@@ -113,7 +95,7 @@ function SectionSchedulePage(props: RouteComponentProps<{ sectionID: string }>) 
 
             <Row>
               <Col span="10">Notes:</Col>
-              <Col span="14">{data.Description}</Col>
+              <Col span="14">{data.InformationSummary}</Col>
             </Row>
           </div>
         )}
