@@ -50,7 +50,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   } = props
 
   const [loading, setLoading] = useState(false)
-  const [mobileView, setMobileView] = useState<any>(undefined)
+  const [mobileView, setMobileView] = useState<boolean>(false)
   const [downloading, setDownloading] = useState(false)
 
   const loadDataFromSearchFunc = () => {
@@ -94,6 +94,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [])
 
   useDeviceViews((deviceViews: IDeviceView) => {
+    console.log("deviceViews ", deviceViews)
     setMobileView(deviceViews.mobile || deviceViews.tab)
   })
 
@@ -109,17 +110,21 @@ export function ResponsiveTable(props: IDataTableProps) {
             return (
               <li key={i}>
                 <span>{title} : </span>
-                <span> {text}</span>
+                <span> {_columns[index].render ? _columns[index].render(text) : text}</span>
               </li>
             )
           })}
       </>
     ) : null
+    console.log("hello")
+    console.log(responsiveColumnIndices)
+    console.log(mobileView)
     const responsiveExpandableRowElements =
       responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
         <>
           {responsiveColumnIndices
             .filter((index) => {
+              console.log(expandableColumnIndices, index, !expandableColumnIndices?.includes(index))
               return !expandableColumnIndices?.includes(index) || index <= _columns.length
             })
             .map((index, i) => {

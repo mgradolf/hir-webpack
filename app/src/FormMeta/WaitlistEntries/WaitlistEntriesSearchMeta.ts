@@ -52,7 +52,7 @@ export const WaitlistEntriesSearchMeta: IFilterField[] = [
     ]
   },
   {
-    label: "Person Lookup",
+    label: "Account/Person",
     fieldName: "SiteID",
     customFilterComponent: WaitlistSearchCustomLookupFilter
   }

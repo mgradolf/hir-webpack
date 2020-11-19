@@ -35,6 +35,39 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
     else if (seletectLookupType !== "") setOpenPersonLookupModal(true)
   }
 
+  const onModalClose = (value: any) => {
+    switch (seletectLookupType) {
+      case WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT:
+        props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.AccountID]: value })
+        break
+      case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER:
+        props.formInstance.setFieldsValue({ [fieldNames.AccountID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: value })
+        break
+      case WAITLIST_ENTRIES_LOOKUP_TYPES.STUDENT:
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.AccountID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: value })
+        break
+      case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER_STUDENT:
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.AccountID]: "" })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: value })
+        props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: value })
+        break
+    }
+  }
+
   const toRender = (
     <>
       <Form.Item className="hidden" name={fieldNames.RequesterPersonID}>
@@ -63,30 +96,7 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
           closeModal={(items?: any[]) => {
             if (items && items.length > 0) {
               setSelectedValueToDisplay(items[0].FirstName)
-              switch (seletectLookupType) {
-                case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER:
-                  props.formInstance.setFieldsValue({ [fieldNames.AccountID]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: items[0].PersonID })
-                  break
-                case WAITLIST_ENTRIES_LOOKUP_TYPES.STUDENT:
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.AccountID]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: items[0].PersonID })
-                  break
-                case WAITLIST_ENTRIES_LOOKUP_TYPES.PURCHASER_STUDENT:
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.AccountID]: "" })
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: items[0].PersonID })
-                  props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: items[0].PersonID })
-                  break
-              }
-              props.formInstance.setFieldsValue({ [fieldNames.AccountID]: "" })
+              onModalClose(items[0].PersonID)
             }
             setOpenPersonLookupModal(false)
           }}
@@ -111,11 +121,7 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
           closeModal={(items?: any[]) => {
             if (items && items.length > 0) {
               setSelectedValueToDisplay(items[0].AccountName)
-              props.formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: "" })
-              props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID1]: "" })
-              props.formInstance.setFieldsValue({ [fieldNames.RequesterRecipientPersonID2]: "" })
-              props.formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: "" })
-              props.formInstance.setFieldsValue({ [fieldNames.AccountID]: items[0].AccountID })
+              onModalClose(items[0].AccountID)
             }
             setopenAccountLookupModal(false)
           }}
@@ -163,7 +169,15 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
             </Select>
           </Col>
           <Col span={6} xs={8}>
-            <Input readOnly value={selectedValueToDisplay} />
+            <Input
+              value={selectedValueToDisplay}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                e.persist()
+                setSelectedValueToDisplay(e.target.value)
+                onModalClose(e.target.value)
+                console.log(e.target.value)
+              }}
+            />
           </Col>
           <Col span={2} xs={8}>
             <Button onClick={openModal}>Lookup</Button>

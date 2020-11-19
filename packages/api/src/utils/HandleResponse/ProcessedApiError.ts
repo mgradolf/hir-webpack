@@ -13,6 +13,7 @@ interface IContext {
   Service?: string
   type?: string
   Module?: string
+  MessageKeys?: string[]
 }
 
 interface IApiError {
@@ -79,7 +80,9 @@ export default class ProcessedApiError implements IProcessedApiError {
           simplifiedError = this._processPersistence(error)
           break
         case "SYSTEM":
+          console.log("SYSTEM ", error)
           simplifiedError = this._processSystem(error)
+          console.log("simplifiedError ", simplifiedError)
           break
         case "BIZ_RULE":
           simplifiedError = this._processBizrule(error)
@@ -141,7 +144,12 @@ export default class ProcessedApiError implements IProcessedApiError {
     throw new Error("Not Implemented")
   }
   _processSystem(error: IApiError): ISimplifiedApiErrorMessage | undefined {
-    return error.Description ? { message: error.Description } : undefined
+    if (error.Context && Array.isArray(error.Context.MessageKeys)) {
+      return { message: error.Context.MessageKeys.map((x) => `- ${x} \n`).toString() }
+    } else if (error.Description) {
+      return { message: error.Description }
+    }
+    return undefined
   }
   _processBizrule(error: IApiError): ISimplifiedApiErrorMessage | undefined {
     if (error.Context && error.Context.name && error.Description) {

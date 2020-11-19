@@ -21,6 +21,7 @@ export const getWaitlistEntriesTableColumns = (
     {
       title: "AccountName",
       dataIndex: "AccountName",
+      width: 100,
       render: (text: any, record: any) =>
         isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{record.AccountName}</Link>
     },
@@ -28,7 +29,7 @@ export const getWaitlistEntriesTableColumns = (
       title: "PurchaserName",
       dataIndex: "PurchaserName",
       render: (text: any, record: any) =>
-        isModal ? { text } : <Link to={`/personn/${record.PersonID}`}>{record.PurchaserName}</Link>
+        isModal ? { text } : <Link to={`/personn/${record.PurchaserID}`}>{record.PurchaserName}</Link>
     },
     { title: "StudentName", dataIndex: "StudentName" },
     { title: "Email", dataIndex: "StudentEmailAddress" },
@@ -43,11 +44,12 @@ export const getWaitlistEntriesTableColumns = (
     { title: "Source", dataIndex: "Source" },
     {
       ...(!isModal && {
-        title: "Edit",
+        title: "Action",
         render: (text: any, record: any) => {
           return (
             <>
               <Button
+                style={{ marginRight: "10px" }}
                 type="primary"
                 onClick={() => {
                   setShowCreateModal(record)
