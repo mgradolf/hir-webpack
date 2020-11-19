@@ -10,10 +10,10 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import FormError from "~/Component/Common/FormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
-import ScheduleLocationRoomFinder from "~/Component/Section/RoomFinder/RoomFinderFormField"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { saveLocations } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
+import { FormRoomLookupButton } from "~/Component/Common/Form/FormLookups/FormRoomLookup"
 
 const { Option } = Select
 
@@ -169,18 +169,18 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
           </Form.Item>
         )}
         <Divider orientation="left">Search room via room finder</Divider>
-        <ScheduleLocationRoomFinder
+        <FormRoomLookupButton
           formInstance={props.formInstance}
-          onSelectRoom={(room) => {
-            setSelectedSiteID(room.SiteID)
-            setSelectedBuildingID(room.BuildingID)
-          }}
-          onClearRoom={() => {
-            setSelectedSiteID(null)
-            setSelectedBuildingID(null)
-            setBuildingItems([])
-            setRoomItems([])
-          }}
+          // onSelectRoom={(room) => {
+          //   setSelectedSiteID(room.SiteID)
+          //   setSelectedBuildingID(room.BuildingID)
+          // }}
+          // onClearRoom={() => {
+          //   setSelectedSiteID(null)
+          //   setSelectedBuildingID(null)
+          //   setBuildingItems([])
+          //   setRoomItems([])
+          // }}
         />
         <Divider />
         <Form.Item

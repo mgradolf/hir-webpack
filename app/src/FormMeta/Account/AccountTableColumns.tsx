@@ -6,13 +6,12 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getAccountTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
+    { title: "Account Type", dataIndex: "AccountTypeName" },
     {
       title: "Account Name",
       dataIndex: "AccountName",
       render: (text: any, record: any) => (isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     },
-    { title: "Account Type", dataIndex: "AccountTypeName" },
-    { title: "Account Name", dataIndex: "AccountName" },
     { title: "Primary Contact", dataIndex: "ContactName" },
     { title: "Phone", dataIndex: "TelephoneNumber" },
     { title: "Email", dataIndex: "EmailAddress" },

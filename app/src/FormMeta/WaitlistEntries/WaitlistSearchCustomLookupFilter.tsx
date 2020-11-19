@@ -3,7 +3,7 @@ import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component
 import { Row, Input, Select, Button, Col, Form } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
-import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
 import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchFilterMeta"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"

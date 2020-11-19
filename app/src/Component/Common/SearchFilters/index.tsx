@@ -10,11 +10,13 @@ import {
   DATE_PICKERS,
   DROPDOWN,
   NUMBER,
-  TEXT
+  TEXT,
+  BOOLEAN
 } from "~/Component/Common/SearchFilters/common"
 import { DropDownInputType } from "~/Component/Common/SearchFilters/SearchDropDown"
 import { DatePickerInputType } from "~/Component/Common/SearchFilters/SearchDatePicker"
 import { DatePickersInputType } from "~/Component/Common/SearchFilters/SearchDatePickers"
+import { BooleanInputType } from "~/Component/Common/SearchFilters/SearchBooleanInput"
 
 const { Title } = Typography
 
@@ -32,8 +34,6 @@ interface IFilterColumnProps {
   clearButtonLabel?: string
 }
 
-type Show = { [key: string]: boolean }
-
 export default function ({
   showClearbutton = true,
   applyButtonLabel = "Search",
@@ -50,6 +50,8 @@ export default function ({
         case TEXT:
         case NUMBER:
           return <TextInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
+        case BOOLEAN:
+          return <BooleanInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         case DROPDOWN:
           return <DropDownInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         case DATE_PICKER:

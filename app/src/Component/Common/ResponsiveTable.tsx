@@ -175,7 +175,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     ) {
       _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
     }
-    _conditionalProps.scroll = { ...(isModal && { y: 300 }), x: columns.length * 80 }
+    _conditionalProps.scroll = { x: columns.length * 80 }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
     _conditionalProps.pagination =

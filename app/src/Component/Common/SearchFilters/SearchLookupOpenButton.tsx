@@ -5,7 +5,7 @@ import {
   IFilterFieldComponent,
   IFilterGenericComponentProps
 } from "~/Component/Common/SearchFilters/common"
-import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 
@@ -18,6 +18,8 @@ export interface SearchLookupOpenButton extends IFilterGenericComponentProps<IFi
   displayField: string
   columns: TableColumnType
   meta: IFilterField[]
+  responsiveColumnIndices?: number[]
+  expandableColumnIndices?: number[]
 }
 
 export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
@@ -71,6 +73,8 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
             searchFunc={props.searchFunc}
             columns={props.columns}
             meta={props.meta}
+            responsiveColumnIndices={props.responsiveColumnIndices}
+            expandableColumnIndices={props.expandableColumnIndices}
           />
         )}
       </Form.Item>

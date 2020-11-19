@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import SearchPage from "~/Component/Common/Page/SearchPage"
-import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
+import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
 import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
 import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
 
@@ -19,7 +19,7 @@ export default function Offering() {
         </>
       ]}
       title="Manage Offerings"
-      meta={OfferingSearchFilterMeta}
+      meta={OfferingSearchMeta}
       tableProps={{
         ...getOfferingTableColumns()
       }}

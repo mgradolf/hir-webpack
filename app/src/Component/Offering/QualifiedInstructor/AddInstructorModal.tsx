@@ -1,7 +1,7 @@
 import * as React from "react"
 import { InstructorSearchMeta } from "~/FormMeta/Instructor/InstructorSearchMeta"
 import { getInstructorTableColumns } from "~/FormMeta/Instructor/InstructorTableColumns"
-import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 
 interface IInstructorProps {
   offeringID: number

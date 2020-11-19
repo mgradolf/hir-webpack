@@ -40,6 +40,10 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
       sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
     },
     {
+      title: "Department",
+      dataIndex: "OrganizationName"
+    },
+    {
       title: "Offering Type",
       dataIndex: "OfferingTypeName"
     },

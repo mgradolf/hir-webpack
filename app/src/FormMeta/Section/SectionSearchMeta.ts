@@ -2,9 +2,8 @@ import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-// import RoomFinderField from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFinderField"
+import { SearchRoomLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchRoomLookup"
 
 export const SectionSearchMeta: IFilterField[] = [
   {
@@ -154,13 +153,8 @@ export const SectionSearchMeta: IFilterField[] = [
     customFilterComponent: TagFilter
   },
   {
-    label: "Select Site",
-    fieldName: "SiteID",
-    customFilterComponent: RoomFilter
+    label: "Room",
+    fieldName: "RoomID",
+    customFilterComponent: SearchRoomLookup
   }
-  // {
-  //   label: "Selecte Roomm",
-  //   fieldName: "SiteID",
-  //   customFilterComponent: RoomFinderField
-  // }
 ]

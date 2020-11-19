@@ -11,8 +11,15 @@ export const DROPDOWN = "DROPDOWN"
 export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
+export const BOOLEAN = "BOOLEAN"
 
-export type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
+export type IFilterFieldType =
+  | typeof TEXT
+  | typeof DROPDOWN
+  | typeof DATE_PICKER
+  | typeof DATE_PICKERS
+  | typeof NUMBER
+  | typeof BOOLEAN
 
 export interface IFilterFieldObject {
   label: string

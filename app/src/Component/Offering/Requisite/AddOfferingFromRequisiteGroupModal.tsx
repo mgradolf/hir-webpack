@@ -8,7 +8,7 @@ import { Row, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
-import OfferingSearchFilterMeta from "~/FormMeta/Offering/OfferingSearchFilterMeta"
+import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
 import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
@@ -63,7 +63,7 @@ function AddOfferingFromRequisiteGroupModal({
         {(modalSelectedPage === ModalPages.FilterPage && (
           <Row justify="center">
             <SearchFilters
-              meta={OfferingSearchFilterMeta}
+              meta={OfferingSearchMeta}
               isModalView={true}
               initialFilter={{}}
               title={""}

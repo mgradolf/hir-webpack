@@ -1,5 +1,18 @@
-import { getAffiliationRoleType, getCountries } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
+import {
+  getAccountTypes,
+  getAffiliationRoleType,
+  getCountries,
+  getEthnicityTypes,
+  getGenderTypes
+} from "~/ApiServices/Service/RefLookupService"
+import {
+  BOOLEAN,
+  DATE_PICKER,
+  DROPDOWN,
+  IFilterFieldObject,
+  NUMBER,
+  TEXT
+} from "~/Component/Common/SearchFilters/common"
 
 export const PersonSearchMeta: IFilterFieldObject[] = [
   {
@@ -43,6 +56,74 @@ export const PersonSearchMeta: IFilterFieldObject[] = [
     defaultValue: "",
     fieldName: "City",
     ariaLabel: "City"
+  },
+  {
+    label: "ERP",
+    inputType: NUMBER,
+    defaultValue: "",
+    fieldName: "ERPCode",
+    ariaLabel: "ERP Code"
+  },
+  {
+    label: "SSN",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "SSN",
+    ariaLabel: "GovID"
+  },
+  // {
+  //   label: "State/Province",
+  //   inputType: DROPDOWN,
+  //   defaultValue: "",
+  //   fieldName: "RoleName",
+  //   ariaLabel: "State/Province",
+  //   refLookupService: getAffiliationRoleType,
+  //   displayKey: "Name",
+  //   valueKey: "ID"
+  // },
+  {
+    label: "Birth Date",
+    inputType: DATE_PICKER,
+    defaultValue: "",
+    fieldName: "BirthDate",
+    ariaLabel: "Birth Date"
+  },
+  {
+    label: "Ethnicity",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "EthnicityTypeID",
+    ariaLabel: "Ethnicity",
+    refLookupService: getEthnicityTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Gender",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "GenderTypeID",
+    ariaLabel: "Gender",
+    refLookupService: getGenderTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Account Type",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "AccountTypeID",
+    ariaLabel: "Account Type",
+    refLookupService: getAccountTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Is Deceased",
+    inputType: BOOLEAN,
+    defaultValue: "",
+    fieldName: "IsDeceased",
+    ariaLabel: "Is Deceased"
   },
   {
     label: "Postal Code",

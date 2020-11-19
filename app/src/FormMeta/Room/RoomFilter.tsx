@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 
 import {
   findPossibleBuildings,
-  findPossibleRooms,
+  // findPossibleRooms,
   findPossibleSites
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import {
@@ -16,10 +16,10 @@ const { Option } = Select
 export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
   const [sites, setSites] = useState<any[]>([])
   const [buildings, setBuildings] = useState<any[]>([])
-  const [rooms, setRooms] = useState<any[]>([])
+  // const [rooms, setRooms] = useState<any[]>([])
 
   const [siteId, setSiteId] = useState<any>()
-  const [buildingId, setBuildingId] = useState<any>()
+  // const [buildingId, setBuildingId] = useState<any>()
 
   useEffect(() => {
     async function loadSites() {
@@ -35,7 +35,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
   useEffect(() => {
     async function loadBuildings() {
       console.log("siteId ", siteId)
-      const res = await findPossibleBuildings([siteId])
+      const res = await findPossibleBuildings(siteId)
       if (Array.isArray(res.data)) {
         setBuildings(res.data)
       }
@@ -46,18 +46,18 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     }
   }, [siteId])
 
-  useEffect(() => {
-    async function loadRooms() {
-      const res = await findPossibleRooms([buildingId])
-      if (Array.isArray(res.data)) {
-        setRooms(res.data)
-      }
-    }
+  // useEffect(() => {
+  //   async function loadRooms() {
+  //     const res = await findPossibleRooms([buildingId])
+  //     if (Array.isArray(res.data)) {
+  //       setRooms(res.data)
+  //     }
+  //   }
 
-    if (buildingId !== "") {
-      loadRooms()
-    }
-  }, [buildingId])
+  //   if (buildingId !== "") {
+  //     loadRooms()
+  //   }
+  // }, [buildingId])
 
   // useEffect(() => {
   //   function resetOptionsOfDependentFields() {
@@ -72,20 +72,20 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
 
   const handleSiteChange = (value: number) => {
     setBuildings([])
-    setRooms([])
+    // setRooms([])
     setSiteId(value)
-    setBuildingId(undefined)
+    // setBuildingId(undefined)
     props.formInstance.setFieldsValue({ SiteID: value })
     props.formInstance.setFieldsValue({ BuildingID: "" })
-    props.formInstance.setFieldsValue({ RoomID: "" })
-    console.log("site value changed ", value)
+    // props.formInstance.setFieldsValue({ RoomID: "" })
+    console.log("handleSiteChange ", value)
   }
 
   const handleBuildingChange = (value: number) => {
-    setRooms([])
-    setBuildingId(value)
+    // setRooms([])
+    // setBuildingId(value)
     props.formInstance.setFieldsValue({ BuildingID: value })
-    props.formInstance.setFieldsValue({ RoomID: "" })
+    // props.formInstance.setFieldsValue({ RoomID: "" })
   }
 
   function renderRoomFilterChecked() {
@@ -114,7 +114,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
           </SearchComponentWrapper>
         )}
         {/* {rooms.length > 0 || (props.extraProps && !props.extraProps.hideRoomDropdown) && ( */}
-        {rooms.length > 0 && (
+        {/* {rooms.length > 0 && (
           <SearchComponentWrapper {...props} label="Select Room" fieldName="RoomID">
             <Select aria-label="Room Select" style={{ width: 250 }}>
               {rooms.map(({ Name: label, RoomID: value }, i) => (
@@ -124,7 +124,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
               ))}
             </Select>
           </SearchComponentWrapper>
-        )}
+        )} */}
       </Col>
     )
   }

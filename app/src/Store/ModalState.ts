@@ -1,4 +1,3 @@
-import { IRoom } from "~/Component/Section/RoomFinder/RoomFinderModal"
 import { IStudent } from "~/Component/Student/StudentFinderModal"
 
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
@@ -24,7 +23,6 @@ const SHOW_CREATE_DISCOUNT_MODAL = "SHOW_CREATE_DISCOUNT_MODAL"
 const SHOW_UPDATE_DISCOUNT_MODAL = "SHOW_UPDATE_DISCOUNT_MODAL"
 const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
 const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
-const SHOW_ROOM_FINDER_MODAL = "SHOW_ROOM_FINDER_MODAL"
 const SHOW_STUDENT_FINDER_MODAL = "SHOW_STUDENT_FINDER_MODAL"
 const SHOW_UPDATE_NOTICE_MODAL = "SHOW_UPDATE_NOTICE_MODAL"
 const SHOW_PERSON_LOOKUP_MODAL = "SHOW_PERSON_LOOKUP_MODAL"
@@ -70,7 +68,6 @@ export interface IModalState {
   updateDiscountModal: ModalConfig
   questionCreateModal: ModalConfig
   questionFindModal: ModalConfig
-  roomFinderModal: ModalConfig
   studentFinderModal: ModalConfig
   updateNoticeModal: ModalConfig
   personLookupModal: ModalConfig
@@ -157,10 +154,6 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   questionFindModal: {
-    value: false,
-    config: null
-  },
-  roomFinderModal: {
     value: false,
     config: null
   },
@@ -394,15 +387,6 @@ export const showQuestionFindModal = (value: boolean, config?: IQuestionModal): 
   payload: { value, config }
 })
 
-interface IRoomFinderModal {
-  onSelectRoomCallback: (roomInfo: IRoom) => void
-}
-
-export const showRoomFinderModal = (value: boolean, config?: IRoomFinderModal): IAction => ({
-  type: SHOW_ROOM_FINDER_MODAL,
-  payload: { value, config }
-})
-
 interface IStudentFinderModal {
   AccountID?: number
   onSelectStudentCallback: (studentInfo: IStudent) => void
@@ -568,8 +552,6 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, questionCreateModal: action.payload }
     case SHOW_QUESTION_FIND_MODAL:
       return { ...state, questionFindModal: action.payload }
-    case SHOW_ROOM_FINDER_MODAL:
-      return { ...state, roomFinderModal: action.payload }
     case SHOW_STUDENT_FINDER_MODAL:
       return { ...state, studentFinderModal: action.payload }
     case SHOW_UPDATE_NOTICE_MODAL:

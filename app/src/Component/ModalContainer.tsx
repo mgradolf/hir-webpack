@@ -16,7 +16,6 @@ import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
 import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
 import ScheduleInstructorFromModal from "~/Component/Section/Schedule/ScheduleInstructorFormModal"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
-import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import BudgetEditFormModal from "~/Component/Section/Budget/BudgetEditFormModal"
 import DiscountFomrModal from "~/Component/Section/Discount/DiscountFormModal"
@@ -116,9 +115,6 @@ function ModalContainer(modalState: IModalState) {
       )}
       {modalState.questionCreateModal.value && <QuestionCreateModal />}
       {modalState.questionFindModal.value && <QuestionFindModal />}
-      {modalState.roomFinderModal.value && (
-        <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
-      )}
       {modalState.updateNoticeModal.value && (
         <NoticeEditFormModal
           sectionId={modalState.updateNoticeModal.config.sectionId}

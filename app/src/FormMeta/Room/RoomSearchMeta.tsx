@@ -1,8 +1,14 @@
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
-import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter"
+import { BOOLEAN, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import RoomFilter from "~/FormMeta/Room/RoomFilter"
 
-const RoomFinderMeta: IFilterField[] = [
+export const RoomeSearchMeta: IFilterField[] = [
+  {
+    label: "Site",
+    fieldName: "SiteID",
+    customFilterComponent: RoomFilter,
+    extraProps: { hideRoomDropdown: true }
+  },
   {
     label: "Room Type",
     inputType: DROPDOWN,
@@ -12,12 +18,6 @@ const RoomFinderMeta: IFilterField[] = [
     refLookupService: getRoomTypes,
     displayKey: "Name",
     valueKey: "ID"
-  },
-  {
-    label: "Site",
-    fieldName: "SiteID",
-    customFilterComponent: RoomFilter,
-    extraProps: { hideRoomDropdown: true }
   },
   {
     fieldName: "Floor",
@@ -39,7 +39,12 @@ const RoomFinderMeta: IFilterField[] = [
     defaultValue: "",
     ariaLabel: "Maximum Capacity",
     label: "Maximum Capacity"
+  },
+  {
+    fieldName: "Accessible",
+    inputType: BOOLEAN,
+    defaultValue: "",
+    ariaLabel: "Accessible",
+    label: "Accessible"
   }
 ]
-
-export default RoomFinderMeta

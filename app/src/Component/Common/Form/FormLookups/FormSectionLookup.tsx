@@ -12,9 +12,9 @@ export function FormSectionLookupButton(props: { formInstance: FormInstance; onC
       displayField="SortName"
       fieldName="SectionID"
       label="Section"
-      formInstance={props.formInstance}
       {...getSectionTableColumns(true)}
       meta={SectionSearchMeta}
+      formInstance={props.formInstance}
       onCloseModal={props.onCloseModal}
     />
   )

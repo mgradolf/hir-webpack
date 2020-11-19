@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Button, Form, Input, Row, Col } from "antd"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { FormInstance } from "antd/lib/form"

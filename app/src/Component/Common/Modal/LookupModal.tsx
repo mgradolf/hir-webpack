@@ -10,6 +10,8 @@ interface ILookupModal {
   title: string
   closeModal: (items?: any[]) => void
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
+  responsiveColumnIndices?: number[]
+  expandableColumnIndices?: number[]
   isArray?: boolean
   columns: TableColumnType
   meta: IFilterField[]
@@ -58,6 +60,8 @@ export function LookupModal(props: ILookupModal) {
             searchParams={searchParams}
             isModal={true}
             rowSelection={rowSelection}
+            responsiveColumnIndices={props.responsiveColumnIndices}
+            expandableColumnIndices={props.expandableColumnIndices}
           />
         </div>
       </Card>

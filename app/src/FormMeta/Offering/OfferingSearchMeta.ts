@@ -8,7 +8,7 @@ import {
 } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
-const offeringMeta: IFilterField[] = [
+export const OfferingSearchMeta: IFilterField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
@@ -159,5 +159,3 @@ const offeringMeta: IFilterField[] = [
     ariaLabel: "Offering Near Capacity"
   }
 ]
-
-export default offeringMeta
