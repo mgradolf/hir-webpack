@@ -48,6 +48,8 @@ import SectionQuestionPage from "~/Pages/Section/Question"
 
 import RequestPage from "~/Pages/RequestPage"
 
+import CertificatePage from "~/Pages/Certificate/CertificatePage"
+
 import PersonPage from "~/Pages/Person/PersonPage"
 import PersonDetailPage from "~/Pages/Person/PersonDetailPage"
 
@@ -195,6 +197,7 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/report/financial/purchase-order" component={FinancialReportPurchaseOrder} />
       <Route exact path="/chart" component={ChartPage} />
       <Route exact path="/chart/:chartName" component={ChartDetailsPage} />
+      <Route exact path="/certificate" component={CertificatePage} />
 
       <Route component={NotFoundPage} />
     </Switch>

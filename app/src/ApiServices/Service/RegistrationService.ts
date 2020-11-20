@@ -60,3 +60,7 @@ export function checkCertificate(Params: { [key: string]: any }): Promise<IApiRe
 export function issueCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.issueCertificate](Params)
 }
+
+export function searchCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.searchCertificate](Params)
+}

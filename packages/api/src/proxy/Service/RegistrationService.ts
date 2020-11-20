@@ -19,7 +19,8 @@ export const config = {
     bulkDeleteRegistration: "bulkDeleteRegistration",
     validateRegistration: "validateRegistration",
     checkCertificate: "checkCertificate",
-    issueCertificate: "issueCertificate"
+    issueCertificate: "issueCertificate",
+    searchCertificate: "searchCertificate"
   }
 }
 export default ApiMethodFactory(config)

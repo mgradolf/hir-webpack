@@ -1,16 +1,30 @@
-import React from "react"
-import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
+import React, { useState } from "react"
+import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
+import { CertificateSearchMeta } from "~/FormMeta/Certificate/CertificateSearchMeta"
+import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 
-export default function CertificateTable() {
+export default function Certificate() {
+  // eslint-disable-next-line
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <SearchPage
+      blocks={[
+        <>
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
+            + Issue Certificate
+          </Button>
+          {/* {showModal && <OfferingFormModal closeModal={() => setShowModal(false)} />} */}
+        </>
+      ]}
       title="Manage Certificates"
-      meta={PersonSearchMeta}
+      initialFilter={{}}
+      meta={CertificateSearchMeta}
       hideSearchField={false}
       tableProps={{
-        ...getPersonTableColumns()
+        ...getCertificateTableColumns(),
+        bordered: true
       }}
     ></SearchPage>
   )
