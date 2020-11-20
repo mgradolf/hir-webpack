@@ -6,12 +6,24 @@ import { deleteWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+import { ReadOutlined } from "@ant-design/icons"
 
 export const getWaitlistEntriesTableColumns = (
   isModal = false,
   setShowCreateModal: (record: any) => void
 ): ITableConfigProp => {
   const columns: TableColumnType = [
+    {
+      ...(!isModal && {
+        title: "",
+        dataIndex: "",
+        render: (text: any, record: any) => (
+          <Link to={`/section/${record.SectionID}/waitlist/${record.WaitListEntryID}`}>
+            <ReadOutlined />
+          </Link>
+        )
+      })
+    },
     {
       title: "SectionNumber",
       dataIndex: "SectionNumber",

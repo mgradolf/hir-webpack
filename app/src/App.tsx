@@ -51,8 +51,9 @@ import RequestPage from "~/Pages/RequestPage"
 import PersonPage from "~/Pages/Person/PersonPage"
 import PersonDetailPage from "~/Pages/Person/PersonDetailPage"
 
+import StudentPage from "~/Pages/Student/StudentPage"
+
 import InstructorPage from "~/Pages/Instructor/InstructorPage"
-import InstructorDetails from "~/Pages/Instructor/InstructorDetails"
 
 import AccountPage from "~/Pages/Account/AccountPage"
 import AccountDetailsPage from "~/Pages/Account/AccountDetails"
@@ -67,7 +68,8 @@ import CatalogDetailsPage from "~/Pages/Catalog/CatalogDetailsPage"
 
 import RegistrationPage from "~/Pages/Registration/RegistrationPage"
 
-import WaitlistEntriesPage from "~/Pages/WaitlistEntryPage"
+import WaitlistEntriesPage from "~/Pages/WaitlistEntry/WaitlistEntryPage"
+import WaitlistEntryDetailsPage from "~/Pages/WaitlistEntry/WaitlistEntryDetailsPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
 import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
 import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
@@ -136,7 +138,10 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
       <Route exact path="/section/:sectionID/request" component={SectionRequestPage} />
       <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
+
       <Route exact path="/section/:sectionID/waitlist" component={SectionWaitlistEntriesPage} />
+      <Route exact path="/section/:sectionID/waitlist/:waitListEntryID" component={WaitlistEntryDetailsPage} />
+
       <Route exact path="/section/:sectionID/academic-log" component={SectionAcademicLogPage} />
       <Route exact path="/section/:sectionID/enrollment-log" component={SectionEnrollmentLogPage} />
       <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
@@ -144,17 +149,10 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
       <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
 
-      <Route exact path="/person" component={PersonPage} />
-      <Route exact path="/person/:personID" component={PersonDetailPage} />
-      <Route exact path="/person/faculty/:facultyID" component={PersonDetailPage} />
-      <Route exact path="/person/student/:studentID" component={PersonDetailPage} />
-
       <Route exact path="/order" component={FinancialOrderPagePage} />
       <Route exact path="/order/items" component={FinancialOrderItemPage} />
       <Route exact path="/order/payments" component={FinancialPaymentPage} />
       <Route exact path="/order/:orderID" component={OrderDetails} />
-
-      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
 
       <Route exact path="/product" component={ProductPage} />
       <Route exact path="/product/:productID" component={ProductDetailsPage} />
@@ -171,13 +169,20 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/registration" component={RegistrationPage} />
       <Route exact path="/registration/:studentID" component={RegistrationDetailsPage} />
 
-      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
       <Route exact path="/person" component={PersonPage} />
+      <Route exact path="/person/:personID" component={PersonDetailPage} />
+
+      <Route exact path="/student" component={StudentPage} />
+      <Route exact path="/person/student/:studentID" component={PersonDetailPage} />
+
       <Route exact path="/instructor" component={InstructorPage} />
-      <Route exact path="/instructor/:facultyID" component={InstructorDetails} />
+      <Route exact path="/person/faculty/:facultyID" component={PersonDetailPage} />
 
       <Route exact path="/account" component={AccountPage} />
       <Route exact path="/account/:accountID" component={AccountDetailsPage} />
+
+      <Route exact path="/waitlist" component={WaitlistEntriesPage} />
+      <Route exact path="/waitlist/:waitListEntryID" component={WaitlistEntryDetailsPage} />
 
       {/* <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} /> */}
 

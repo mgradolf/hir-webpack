@@ -8,7 +8,7 @@ export function PersonalInfo({ person }: { person: { [key: string]: any } }) {
 
   useEffect(() => {
     let infos: { [key: string]: any } = {}
-    infos = { ...infos, Name: person.FormattedName }
+    // infos = { ...infos, Name: person.FormattedName }
     infos = { ...infos, "First Name": person.FirstName }
     infos = { ...infos, "Middle Name": person.MiddleName }
     infos = { ...infos, "Last Name": person.LastName }
@@ -36,7 +36,7 @@ export function PersonalInfo({ person }: { person: { [key: string]: any } }) {
     setState(infos)
   }, [person])
   return (
-    <Card title="Basic Info">
+    <Card title={person.FormattedName}>
       <table style={{ width: "400px" }}>
         <tbody>
           {Object.keys(state).map((key, i) => (

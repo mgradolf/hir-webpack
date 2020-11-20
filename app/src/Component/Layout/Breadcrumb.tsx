@@ -5,7 +5,7 @@ import { useSelector } from "react-redux"
 import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
-const blockedPages: string[] = ["Request", "Requests", "Registration", "Registrations", "Order"]
+const blockedPages: string[] = ["Request", "Requests", "Registration", "Registrations", "Order", "Waitlist"]
 
 function transformRouteToLabel(route: string | number): string | number {
   if (typeof route === "number") return route

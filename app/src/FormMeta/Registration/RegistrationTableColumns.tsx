@@ -3,9 +3,21 @@ import { Link } from "react-router-dom"
 import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
 import { renderBoolean, renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+import { ReadOutlined } from "@ant-design/icons"
 
 export const getRegistrationTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
+    {
+      ...(!isModal && {
+        title: "",
+        dataIndex: "",
+        render: (text: any, record: any) => (
+          <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>
+            <ReadOutlined />
+          </Link>
+        )
+      })
+    },
     {
       title: "Order ID",
       dataIndex: "OrderID",

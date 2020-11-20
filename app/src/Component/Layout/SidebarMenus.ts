@@ -4,32 +4,6 @@ export interface ISidebarMenu {
   submenu: ISidebarMenu[]
 }
 
-// export const sidebarMenus: ISidebarMenu[] = [
-//   { title: "Offerings", url: "/offering", submenu: [] },
-//   { title: "Sections", url: "/section", submenu: [] },
-//   {
-//     title: "Financials",
-//     url: "",
-//     submenu: [
-//       { title: "Orders", url: "/order", submenu: [] },
-//       { title: "Items", url: "/order/items", submenu: [] },
-//       { title: "Payments", url: "/order/payments", submenu: [] }
-//     ]
-//   },
-//   { title: "Waitlist", url: "/waitlist", submenu: [] },
-//   { title: "Catalog", url: "/catalog", submenu: [] },
-//   { title: "Product", url: "/product", submenu: [] },
-//   {
-//     title: "Question",
-//     url: "",
-//     submenu: [
-//       { title: "Bank", url: "/question", submenu: [] },
-//       { title: "Tagging", url: "/question/tagging", submenu: [] }
-//     ]
-//   },
-//   { title: "Requests", url: "/requests", submenu: [] }
-// ]
-
 export const sidebarMenus: ISidebarMenu[] = [
   {
     title: "Manage",
@@ -40,7 +14,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Persons", url: "/person", submenu: [] },
-          { title: "Students", url: "", submenu: [] },
+          { title: "Students", url: "/student", submenu: [] },
           { title: "Instructors", url: "/instructor", submenu: [] },
           { title: "Forget Me Requests", url: "", submenu: [] }
         ]
