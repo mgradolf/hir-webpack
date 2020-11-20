@@ -94,7 +94,6 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [])
 
   useDeviceViews((deviceViews: IDeviceView) => {
-    console.log("deviceViews ", deviceViews)
     setMobileView(deviceViews.mobile || deviceViews.tab)
   })
 
@@ -108,23 +107,23 @@ export function ResponsiveTable(props: IDataTableProps) {
             const title = _columns[index - 1].title
             const text = record[_columns[index - 1].dataIndex]
             return (
-              <li key={i}>
-                <span>{title} : </span>
-                <span> {_columns[index].render ? _columns[index].render(text) : text}</span>
-              </li>
+              <React.Fragment key={i}>
+                {title && text && (
+                  <li>
+                    <span>{title} : </span>
+                    <span> {_columns[index] && _columns[index].render ? _columns[index].render(text) : text}</span>
+                  </li>
+                )}
+              </React.Fragment>
             )
           })}
       </>
     ) : null
-    console.log("hello")
-    console.log(responsiveColumnIndices)
-    console.log(mobileView)
     const responsiveExpandableRowElements =
       responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
         <>
           {responsiveColumnIndices
             .filter((index) => {
-              console.log(expandableColumnIndices, index, !expandableColumnIndices?.includes(index))
               return !expandableColumnIndices?.includes(index) || index <= _columns.length
             })
             .map((index, i) => {
@@ -133,14 +132,14 @@ export function ResponsiveTable(props: IDataTableProps) {
               if (Array.isArray(text)) text = text.toString()
               else if (typeof text === "boolean") text = renderBoolean(text)
               return (
-                <>
+                <React.Fragment key={i}>
                   {title && text && (
-                    <li key={i + 10000}>
+                    <li>
                       <span>{title} : </span>
-                      <span>{text}</span>
+                      <span> {_columns[index] && _columns[index].render ? _columns[index].render(text) : text}</span>
                     </li>
                   )}
-                </>
+                </React.Fragment>
               )
             })}
         </>

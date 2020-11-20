@@ -1,6 +1,6 @@
 import React from "react"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
 import { PaymentsFiltersMeta } from "~/Component/Section/Order/PaymentFilters/PaymentsFiltersMeta"
 

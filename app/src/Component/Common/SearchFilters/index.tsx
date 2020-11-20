@@ -26,7 +26,7 @@ interface IFilterColumnProps {
   title: string
   hideFilters?: () => void
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
-  initialFilter?: { [key: string]: string }
+  initialFilter?: { [key: string]: any }
   isModalView: boolean
   isCheckeble?: boolean
   showClearbutton?: boolean

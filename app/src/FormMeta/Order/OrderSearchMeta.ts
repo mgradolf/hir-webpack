@@ -1,11 +1,13 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchLookupSelector"
 import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
-export const OrderManagementSearchFilterMeta: IFilterField[] = [
+export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Total Amount",
     fieldName: "TotalAmountFrom",
@@ -13,7 +15,7 @@ export const OrderManagementSearchFilterMeta: IFilterField[] = [
     customFilterComponent: TotalAmountRange
   },
   {
-    label: "Order Id",
+    label: "Order ID",
     inputType: NUMBER,
     defaultValue: "",
     fieldName: "OrderID",
@@ -48,26 +50,32 @@ export const OrderManagementSearchFilterMeta: IFilterField[] = [
   },
   {
     label: "Account Lookup",
-    fieldName: "",
+    fieldName: "AccountID",
     customFilterComponent: SearchAccountLookup
   },
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: SearchPersonSelector,
+    customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
         {
-          name: "Buyer Name",
-          key: "BuyerName"
+          label: "Buyer First Name",
+          fieldName: "BuyerName",
+          valueField: "FirstName",
+          lookupComponent: SearchPersonLookupButton
         },
         {
-          name: "Student Name",
-          key: "StudentName"
+          label: "Student First Name",
+          fieldName: "StudentName",
+          valueField: "FirstName",
+          lookupComponent: SearchStudentLookup
         },
         {
-          name: "Billed To Name",
-          key: "BilledPersonName"
+          label: "Billed To First Name",
+          fieldName: "BilledPersonName",
+          valueField: "FirstName",
+          lookupComponent: SearchPersonLookupButton
         }
       ]
     }

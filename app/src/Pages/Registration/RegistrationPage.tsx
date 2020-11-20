@@ -1,6 +1,6 @@
 import React from "react"
 import { RegistrationSearchMeta } from "~/FormMeta/Registration/RegistrationSearchMeta"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 
 export default function SectionCatalog() {

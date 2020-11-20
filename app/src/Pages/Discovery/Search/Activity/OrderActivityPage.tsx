@@ -3,7 +3,7 @@ import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionOrderActivitySearchMeta"
 
 import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { Link } from "react-router-dom"
 
 export default function AcademicLogPage() {

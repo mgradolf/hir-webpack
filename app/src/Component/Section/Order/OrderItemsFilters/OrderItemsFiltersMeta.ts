@@ -3,7 +3,8 @@ import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchF
 import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchLookupSelector"
+import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
@@ -63,16 +64,20 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Person Lookup",
     fieldName: "",
-    customFilterComponent: SearchPersonSelector,
+    customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
         {
-          name: "Purchaser",
-          key: "PayerName"
+          label: "Purchaser",
+          fieldName: "PayerName",
+          valueField: "FirstName",
+          lookupComponent: SearchSectionLookupButton
         },
         {
-          name: "Student",
-          key: "StudentName"
+          label: "Student",
+          fieldName: "StudentName",
+          valueField: "FirstName",
+          lookupComponent: SearchStudentLookup
         }
       ]
     }

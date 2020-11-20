@@ -2,7 +2,7 @@ import React from "react"
 import { getStudentAcademicActivity } from "~/ApiServices/Service/ActivityService"
 import { getSectionAcademicActivitySearchMeta } from "~/FormMeta/SectionActivity/SectionAcademicActivitySearchMeta"
 import { renderBoolean, renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { Link } from "react-router-dom"
 
 export default function AcademicLogPage() {

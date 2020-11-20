@@ -4,15 +4,18 @@ import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component
 import { getStudentTableColumns } from "~/FormMeta/Student/StudentTableColumns"
 import { studentSearchMeta } from "~/FormMeta/Student/StudentSearchMeta"
 
-export function SearchStudentLookup(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+interface ISearchStudentLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
+  valueField?: string
+}
+export function SearchStudentLookup(props: ISearchStudentLookup) {
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Student"
-      valueField="StudentID"
       displayField="FirstName"
       meta={studentSearchMeta}
       {...props}
       {...getStudentTableColumns(true)}
+      valueField={props.valueField || "StudentID"}
     />
   )
 }

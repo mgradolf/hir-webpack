@@ -8,7 +8,9 @@ import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common
 
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchPersonSelector"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchLookupSelector"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const PaymentsFiltersMeta: IFilterField[] = [
   {
@@ -99,16 +101,20 @@ export const PaymentsFiltersMeta: IFilterField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: SearchPersonSelector,
+    customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
         {
-          name: "Payer",
-          key: "PersonID"
+          label: "Payer",
+          valueField: "FirstName",
+          fieldName: "PayerName",
+          lookupComponent: SearchPersonLookupButton
         },
         {
-          name: "Student",
-          key: "StudentName"
+          label: "Student First Name",
+          valueField: "StudentName",
+          fieldName: "FirstName",
+          lookupComponent: SearchStudentLookup
         }
       ]
     }

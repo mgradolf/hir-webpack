@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
 import { RouteComponentProps } from "react-router-dom"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"

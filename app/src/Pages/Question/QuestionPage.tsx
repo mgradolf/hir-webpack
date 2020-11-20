@@ -2,7 +2,7 @@ import React from "react"
 import { searchQuestions } from "~/ApiServices/Service/QuestionService"
 
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { Col, Row } from "antd"
 // import { TableRowSelection } from "antd/lib/table/interface"
 import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"

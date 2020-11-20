@@ -1,6 +1,6 @@
 import React from "react"
 import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
 
 export default function PersonTable() {

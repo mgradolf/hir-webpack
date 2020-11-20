@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { OrderItemsFiltersMeta } from "~/Component/Section/Order/OrderItemsFilters/OrderItemsFiltersMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import { Button, Dropdown, Menu, Space } from "antd"

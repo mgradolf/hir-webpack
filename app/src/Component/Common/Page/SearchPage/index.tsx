@@ -19,7 +19,7 @@ interface IPage extends Partial<RouteComponentProps> {
   defaultFilter?: any
   helpKey?: string
 }
-export default function Page(props: IPage) {
+export function SearchPage(props: IPage) {
   const hideSearchFieldByUrlParam = useQuery().get("hide-search") === "true"
   const { hideSearchField, ...propsToPass } = props
   if (props.meta && (hideSearchFieldByUrlParam || props.hideSearchField)) {

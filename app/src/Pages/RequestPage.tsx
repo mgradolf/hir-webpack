@@ -1,6 +1,6 @@
 import React from "react"
 import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 import { requestMeta } from "~/FormMeta/Request/RequestSearchFilterMeta"
 import { Col, Row, Space } from "antd"

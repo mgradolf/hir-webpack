@@ -4,16 +4,18 @@ import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchL
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
 
-export function SearchPersonLookupButton(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
+  valueField?: string
+}
+export function SearchPersonLookupButton(props: ISearchLookupOpenButton) {
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Person"
-      valueField="PersonID"
       displayField="FirstName"
       meta={PersonSearchMeta}
       {...props}
-      formInstance={props.formInstance}
       {...getPersonTableColumns(true)}
+      valueField={props.valueField || "PersonID"}
     />
   )
 }

@@ -1,9 +1,9 @@
 import React from "react"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import SearchPage from "~/Component/Common/Page/SearchPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
-import { OrderManagementSearchFilterMeta } from "~/Component/Section/Order/OrderManagementFilters/OrderManagementFiltersMeta"
 import { Link } from "react-router-dom"
+import { OrderSearchMeta } from "~/FormMeta/Order/OrderSearchMeta"
 
 export default function PersonTable() {
   const columns: TableColumnType = [
@@ -96,7 +96,7 @@ export default function PersonTable() {
   return (
     <SearchPage
       title="Orders"
-      meta={OrderManagementSearchFilterMeta}
+      meta={OrderSearchMeta}
       hideSearchField={false}
       tableProps={{
         columns: columns,
