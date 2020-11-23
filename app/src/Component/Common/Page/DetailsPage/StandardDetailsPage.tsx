@@ -20,6 +20,7 @@ export type CardContainer = {
 export interface IStandardDetailsPage {
   getDetailsMeta: (Params: any) => CardContainer[]
   getDetailsFunc: () => Promise<IApiResponse>
+  actions?: JSX.Element[]
 }
 export function StandardDetailsPage(props: IStandardDetailsPage) {
   const [loading, setLoading] = useState(false)
@@ -65,6 +66,15 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
 
   const toRender = (
     <div className="site-layout-content">
+      {Array.isArray(props.actions) && (
+        <Row justify="end">
+          {props.actions.map((x, key) => (
+            <Col key={key} style={{ marginLeft: "10px", marginBottom: "10px" }}>
+              {x}
+            </Col>
+          ))}
+        </Row>
+      )}
       <Row>
         {blocks.map((x: CardContainer, i) => (
           <Col key={i} xs={24} sm={24} md={12}>

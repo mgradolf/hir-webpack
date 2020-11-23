@@ -1,9 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import GoToMenu from "~/Component/Common/GoToMenu"
 interface IOfferingMenu {
   offering: { [key: string]: any }
 }
 export default function OfferingMenu(props: IOfferingMenu) {
+  useEffect(() => {
+    console.log(props)
+  }, [props])
   const menus = [
     { title: "Offering Financial", url: `/offering/${props.offering.OfferingID}/financial` },
     { title: "Requisite Management", url: `/offering/${props.offering.OfferingID}/requisite` },

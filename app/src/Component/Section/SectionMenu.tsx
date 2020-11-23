@@ -5,7 +5,7 @@ interface ISectionMenu {
   section: { [key: string]: any }
 }
 
-export default function SectionMenu(props: ISectionMenu) {
+export function SectionMenu(props: ISectionMenu) {
   const menus: IMenu[] = [
     {
       title: "Basic",

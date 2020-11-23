@@ -6,10 +6,6 @@ import CreateForm1 from "~/Component/Offering/CreateEdit/Form1"
 import CreateForm2 from "~/Component/Offering/CreateEdit/Form2"
 import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
-// import { connect } from "react-redux"
-// import { Dispatch } from "redux"
-// import { showCreateOfferingModal } from "~/Store/ModalState"
-// import { redirect } from "~/Store/ConnectedRoute"
 
 interface ICreateNewOfferingProps {
   offeringId?: number
@@ -136,18 +132,10 @@ export default function CreateNewOffering(props: ICreateNewOfferingProps) {
             formInstance={formInstance}
             goBackToFirstForm={goBackToOfferingTypeForm}
             setApiCallInProgress={setApiCallInProgress}
+            closeModal={props.closeModal}
           />
         )}
       </>
     </Modal>
   )
 }
-
-// const mapDispatchToProps = (dispatch: Dispatch) => {
-//   return {
-//     closeModal: () => dispatch(showCreateOfferingModal({ value: false })),
-//     redirect: (url: string) => dispatch(redirect(url))
-//   }
-// }
-
-// export default connect(undefined, mapDispatchToProps)(CreateNewOffering)

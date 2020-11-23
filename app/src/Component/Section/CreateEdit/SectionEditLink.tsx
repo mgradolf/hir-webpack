@@ -3,12 +3,11 @@ import { Button } from "antd"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 
 interface ISectionEditLinkProp {
-  OfferingID: number
-  SectionID: number
+  section: { [key: string]: any }
   PrimaryType: boolean | false
   style?: { [key: string]: string }
 }
-export default function SectionEditLink(props: ISectionEditLinkProp) {
+export function SectionEditLink(props: ISectionEditLinkProp) {
   const [openModal, setOpenModal] = useState(false)
   return (
     <>
@@ -23,8 +22,8 @@ export default function SectionEditLink(props: ISectionEditLinkProp) {
       </Button>
       {openModal && (
         <SectionFormModal
-          OfferingID={props.OfferingID}
-          SectionID={props.SectionID}
+          OfferingID={props.section.OfferingID}
+          SectionID={props.section.SectionID}
           closeModal={() => setOpenModal(false)}
         />
       )}
