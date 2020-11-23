@@ -95,7 +95,7 @@ export const SectionSearchMeta: IFilterField[] = [
     label: "Status",
     inputType: DROPDOWN,
     defaultValue: "",
-    fieldName: "StatusID",
+    fieldName: "SectionStatusCodeID",
     ariaLabel: "Offering Status Select",
     refLookupService: getSectionStatusCode,
     displayKey: "Name",

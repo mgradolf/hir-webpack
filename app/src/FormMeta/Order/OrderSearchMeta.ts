@@ -1,6 +1,6 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchLookupSelector"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
@@ -63,19 +63,19 @@ export const OrderSearchMeta: IFilterField[] = [
           label: "Buyer First Name",
           fieldName: "BuyerName",
           valueField: "FirstName",
-          lookupComponent: SearchPersonLookupButton
+          component: SearchPersonLookupButton
         },
         {
           label: "Student First Name",
           fieldName: "StudentName",
           valueField: "FirstName",
-          lookupComponent: SearchStudentLookup
+          component: SearchStudentLookup
         },
         {
           label: "Billed To First Name",
           fieldName: "BilledPersonName",
           valueField: "FirstName",
-          lookupComponent: SearchPersonLookupButton
+          component: SearchPersonLookupButton
         }
       ]
     }

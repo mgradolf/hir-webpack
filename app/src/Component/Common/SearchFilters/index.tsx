@@ -2,7 +2,7 @@ import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
 import { Button, Col, Form, Row, Typography } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import React, { useState } from "react"
-import { TextInputType } from "~/Component/Common/SearchFilters/SearchInput"
+import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
 import {
   IFilterField,
   isFilterObject,
@@ -49,7 +49,7 @@ export default function ({
       switch (field.inputType) {
         case TEXT:
         case NUMBER:
-          return <TextInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
+          return <SearchInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         case BOOLEAN:
           return <BooleanInputType {...field} key={i} isCheckeble={isCheckeble} formInstance={formInstance} />
         case DROPDOWN:

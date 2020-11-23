@@ -1,20 +1,42 @@
 import {
   getAccountTypes,
   getAffiliationRoleType,
-  getCountries,
   getEthnicityTypes,
   getGenderTypes
 } from "~/ApiServices/Service/RefLookupService"
-import {
-  BOOLEAN,
-  DATE_PICKER,
-  DROPDOWN,
-  IFilterFieldObject,
-  NUMBER,
-  TEXT
-} from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
-export const PersonSearchMeta: IFilterFieldObject[] = [
+export const PersonSearchMeta: IFilterField[] = [
+  {
+    label: "Person Selector",
+    fieldName: "",
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Last Name",
+          fieldName: "LastName",
+          valueField: "LastName",
+          component: SearchInputType
+        },
+        {
+          label: "Maiden Name",
+          fieldName: "MaidenName",
+          valueField: "MaidenName",
+          component: SearchInputType
+        },
+        {
+          label: "Other Name",
+          fieldName: "OtherName",
+          valueField: "OtherName",
+          component: SearchInputType
+        }
+      ]
+    }
+  },
   {
     label: "First Name",
     inputType: TEXT,
@@ -23,64 +45,67 @@ export const PersonSearchMeta: IFilterFieldObject[] = [
     ariaLabel: "First Name"
   },
   {
-    label: "Last Name",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
-  },
-  {
-    label: "Middle Name",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "MiddleName",
-    ariaLabel: "Middle Name"
-  },
-  {
-    label: "Other Name",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "OtherName",
-    ariaLabel: "Other Name"
-  },
-  {
-    label: "Address",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "Address",
-    ariaLabel: "Address"
-  },
-  {
-    label: "City",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "City",
-    ariaLabel: "City"
+    label: "Address Selector",
+    fieldName: "",
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Address",
+          fieldName: "AddressLine",
+          valueField: "Address",
+          component: SearchInputType
+        },
+        {
+          label: "City",
+          fieldName: "Locality",
+          valueField: "Locality",
+          component: SearchInputType
+        },
+        {
+          label: "Postal Code",
+          fieldName: "PostalCode",
+          valueField: "PostalCode",
+          component: SearchInputType
+        }
+      ]
+    }
   },
   {
     label: "ERP",
-    inputType: NUMBER,
+    inputType: TEXT,
     defaultValue: "",
-    fieldName: "ERPCode",
+    fieldName: "ERPID",
     ariaLabel: "ERP Code"
+  },
+  {
+    label: "Contact Selector",
+    fieldName: "",
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Email",
+          fieldName: "EmailAddress",
+          valueField: "EmailAddress",
+          component: SearchInputType
+        },
+        {
+          label: "Phone",
+          fieldName: "TelephoneNumber",
+          valueField: "TelephoneNumber",
+          component: SearchInputType
+        }
+      ]
+    }
   },
   {
     label: "SSN",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "SSN",
-    ariaLabel: "GovID"
+    fieldName: "GovID",
+    ariaLabel: "SSN"
   },
-  // {
-  //   label: "State/Province",
-  //   inputType: DROPDOWN,
-  //   defaultValue: "",
-  //   fieldName: "RoleName",
-  //   ariaLabel: "State/Province",
-  //   refLookupService: getAffiliationRoleType,
-  //   displayKey: "Name",
-  //   valueKey: "ID"
-  // },
   {
     label: "Birth Date",
     inputType: DATE_PICKER,
@@ -126,27 +151,6 @@ export const PersonSearchMeta: IFilterFieldObject[] = [
     ariaLabel: "Is Deceased"
   },
   {
-    label: "Postal Code",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "PostalCode",
-    ariaLabel: "Postal Code"
-  },
-  {
-    label: "Email",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "EmailAddress",
-    ariaLabel: "Email"
-  },
-  {
-    label: "Phone",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "TelephoneNumber",
-    ariaLabel: "Phone"
-  },
-  {
     label: "Account Name",
     inputType: TEXT,
     defaultValue: "",
@@ -163,14 +167,19 @@ export const PersonSearchMeta: IFilterFieldObject[] = [
     displayKey: "Name",
     valueKey: "ID"
   },
+  // {
+  //   label: "Country",
+  //   inputType: DROPDOWN,
+  //   defaultValue: "",
+  //   fieldName: "CountryCodeID",
+  //   ariaLabel: "Country Select",
+  //   refLookupService: getCountries,
+  //   displayKey: "Description",
+  //   valueKey: "ID"
+  // },
   {
-    label: "Country",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "CountryCodeID",
-    ariaLabel: "Country Select",
-    refLookupService: getCountries,
-    displayKey: "Description",
-    valueKey: "ID"
+    label: "State/Province",
+    fieldName: "RegionCodeID",
+    customFilterComponent: SearchRegion
   }
 ]

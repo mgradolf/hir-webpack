@@ -50,7 +50,7 @@ export const InstructorSearchMeta: IFilterField[] = [
     label: "Email",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "Email",
+    fieldName: "EmailAddress",
     ariaLabel: "Email"
   },
   {

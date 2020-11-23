@@ -128,7 +128,7 @@ export function SearchFieldWrapper(
       label={props.label}
       name={props.fieldName}
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 12 }}
+      wrapperCol={{ span: 24 }}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
     >

@@ -3,7 +3,7 @@ import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchF
 import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchLookupSelector"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
@@ -71,13 +71,13 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
           label: "Purchaser",
           fieldName: "PayerName",
           valueField: "FirstName",
-          lookupComponent: SearchSectionLookupButton
+          component: SearchSectionLookupButton
         },
         {
           label: "Student",
           fieldName: "StudentName",
           valueField: "FirstName",
-          lookupComponent: SearchStudentLookup
+          component: SearchStudentLookup
         }
       ]
     }
