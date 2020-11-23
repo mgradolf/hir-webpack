@@ -144,11 +144,11 @@ export const PersonSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    label: "Is Deceased",
+    label: "Deceased",
     inputType: BOOLEAN,
     defaultValue: "",
     fieldName: "IsDeceased",
-    ariaLabel: "Is Deceased"
+    ariaLabel: "Deceased"
   },
   {
     label: "Account Name",

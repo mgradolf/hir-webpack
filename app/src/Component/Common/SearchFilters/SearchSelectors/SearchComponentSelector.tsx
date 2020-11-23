@@ -43,11 +43,13 @@ export function SearchLookupSelector(props: IFilterGenericComponentProps<IFilter
       </Col>
       {selectorKeys.map((x, i) => {
         return (
-          <Col span={16} key={i}>
+          <>
             {selectedKey === x.fieldName && (
-              <x.component {...props} label="" fieldName={x.fieldName} valueField={x.valueField} />
+              <Col span={16} key={i}>
+                <x.component {...props} label="" fieldName={x.fieldName} valueField={x.valueField} />
+              </Col>
             )}
-          </Col>
+          </>
         )
       })}
     </Row>
