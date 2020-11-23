@@ -6,6 +6,12 @@ import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 const blockedPages: string[] = ["Request", "Requests", "Registration", "Registrations", "Order", "Waitlist"]
+const names: { [key: string]: string } = {
+  Offering: "OfferingCode",
+  Section: "SectionNumber",
+  Person: "FirstName",
+  Student: "FirstName"
+}
 
 function transformRouteToLabel(route: string | number): string | number {
   if (typeof route === "number") return route
@@ -18,14 +24,15 @@ interface IBreadcrumbPath {
 }
 
 const cache: any = {}
-const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
+const transformIdToName = async (paths: Array<IBreadcrumbPath>): Promise<Array<any>> => {
   let previousPath: any = {}
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
       if (!blockedPages.includes(previousPath.label)) {
         const result: any = await getEntityById(previousPath.label, x.label)
         if (result.success && result.data) {
-          x.label = result.data.Name || result.data.SectionNumber
+          const key = names[previousPath.label]
+          x.label = result.data[key] || result.data.Name
           cache[x.path] = x
         }
       }

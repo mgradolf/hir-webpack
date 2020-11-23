@@ -18,7 +18,7 @@ export type CardContainer = {
 }
 
 export interface IStandardDetailsPage {
-  getDetailsBlock: (Params: any) => CardContainer[]
+  getDetailsMeta: (Params: any) => CardContainer[]
   getDetailsFunc: () => Promise<IApiResponse>
 }
 export function StandardDetailsPage(props: IStandardDetailsPage) {
@@ -30,7 +30,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
     props.getDetailsFunc().then((x) => {
       setLoading(false)
       if (x.success) {
-        setBlocks(props.getDetailsBlock(x.data[0]))
+        setBlocks(props.getDetailsMeta(x.data))
       } else setError(x.error)
     })
   }
@@ -67,7 +67,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
     <div className="site-layout-content">
       <Row>
         {blocks.map((x: CardContainer, i) => (
-          <Col key={i} xs={24} sm={24} md={8}>
+          <Col key={i} xs={24} sm={24} md={12}>
             {Array.isArray(x.contents)
               ? CardContainerRender(x)
               : Array.isArray(x.groupedContents)
