@@ -49,8 +49,9 @@ export const OrderSearchMeta: IFilterField[] = [
     ariaLabel: "ProductName"
   },
   {
-    label: "Account Lookup",
-    fieldName: "AccountID",
+    label: "Account",
+    fieldName: "AccountName",
+    valueField: "AccountName",
     customFilterComponent: SearchAccountLookup
   },
   {

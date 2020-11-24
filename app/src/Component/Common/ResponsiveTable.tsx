@@ -164,9 +164,15 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [conditionalProps, setConditionalProps] = useState<{ [key: string]: any }>({})
   const setTableProps = (data?: any) => {
     const _conditionalProps: TableProps<{ [key: string]: string }> = {
-      columns: columns.filter(
-        (x, i) => !expandableColumnIndices?.includes(i + 1) || !responsiveColumnIndices?.includes(i + 1)
-      ),
+      columns: columns
+        .filter((x, i) => {
+          const include = !expandableColumnIndices?.includes(i + 1)
+          console.log(include, i, expandableColumnIndices)
+          return include
+        })
+        .filter((x, i) => {
+          return !(mobileView && responsiveColumnIndices?.includes(i + 1))
+        }),
 
       // .map((col, index) =>
       //   responsiveColumnIndices && responsiveColumnIndices.includes(index)
@@ -175,6 +181,8 @@ export function ResponsiveTable(props: IDataTableProps) {
       // ),
       ...otherTableProps
     }
+
+    console.log(_conditionalProps.columns)
 
     _conditionalProps.dataSource = otherTableProps.dataSource ? otherTableProps.dataSource : data
 

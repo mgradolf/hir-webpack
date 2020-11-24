@@ -34,6 +34,10 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
     // eslint-disable-next-line
   }, [])
 
+  useEffect(() => {
+    setSelectedItem(undefined)
+  }, [props.clearTrigger])
+
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
       if (props.extraProps && props.extraProps.isArray) {
@@ -59,7 +63,17 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
       <Form.Item colon={false} label={props.label} labelCol={{ span: 8 }}>
         <Row>
           <Col span={12}>
-            <Input value={selectedItem} readOnly />
+            <Input
+              value={selectedItem}
+              readOnly
+              allowClear
+              onChange={(e) => {
+                e.preventDefault()
+                console.log(e)
+                setSelectedItem(undefined)
+                props.formInstance.setFieldsValue({ [props.fieldName]: "" })
+              }}
+            />
           </Col>
           <Col span={4}>
             <Button onClick={() => setShowModal(true)} disabled={props.disabled}>

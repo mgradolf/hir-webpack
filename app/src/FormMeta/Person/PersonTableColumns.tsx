@@ -18,7 +18,7 @@ export const getPersonTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Last Name", dataIndex: "LastName" },
     { title: "First Name", dataIndex: "FirstName" },
     { title: "Middle Name", dataIndex: "MiddleName" },
-    { title: "SSN", dataIndex: "SSN" },
+    { title: "SSN", dataIndex: "GovID" },
     { title: "ERP ID", dataIndex: "ERPID" },
     { title: "BirthDate ", dataIndex: "Birthday", render: renderDate },
     { title: "Gender", dataIndex: "GenderTypeName" },
@@ -41,7 +41,7 @@ export const getPersonTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Role", dataIndex: "RoleName" }
   ]
 
-  const responsiveColumnIndices = [17, 18, 19, 20, 21, 22, 23, 24, 25]
-  const expandableColumnIndices = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  const responsiveColumnIndices = [3, 4, 5]
+  const expandableColumnIndices = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPersons }
 }

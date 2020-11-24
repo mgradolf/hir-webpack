@@ -49,8 +49,10 @@ export interface IFilterFieldObject {
 export interface IFilterFieldComponent {
   label: string
   fieldName: string
+  valueField?: string
   label2?: string
   fieldName2?: string
+  valueField2?: string
   customFilterComponent: React.FunctionComponent<any>
   fullWidth?: boolean
   extraProps?: { [key: string]: any }
@@ -72,6 +74,7 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
       value: { [key: string]: string | number }
       filterValueChanged: (newValues: { [key: string]: string | number | boolean }) => void
       formInstance: FormInstance
+      clearTrigger: boolean
     }
 
 const layout = {

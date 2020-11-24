@@ -8,7 +8,7 @@ export function SearchAccountLookup(props: IFilterGenericComponentProps<IFilterF
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Account"
-      valueField="AccountID"
+      valueField={props.valueField || "AccountID"}
       displayField="AccountName"
       {...getAccountTableColumns(true)}
       meta={AccountSearchMeta}

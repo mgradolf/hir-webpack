@@ -43,13 +43,13 @@ export function SearchLookupSelector(props: IFilterGenericComponentProps<IFilter
       </Col>
       {selectorKeys.map((x, i) => {
         return (
-          <>
+          <React.Fragment key={i}>
             {selectedKey === x.fieldName && (
-              <Col span={16} key={i}>
+              <Col span={16}>
                 <x.component {...props} label="" fieldName={x.fieldName} valueField={x.valueField} />
               </Col>
             )}
-          </>
+          </React.Fragment>
         )
       })}
     </Row>

@@ -60,7 +60,7 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
       <Form.Item colon={false} label={props.label} labelCol={{ span: 6 }}>
         <Row>
           <Col span={12}>
-            <Input value={selectedItem} readOnly />
+            <Input value={selectedItem} readOnly allowClear />
           </Col>
           <Col span={4}>
             <Button onClick={() => setShowModal(true)} disabled={props.disabled}>

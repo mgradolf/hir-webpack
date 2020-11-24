@@ -43,6 +43,7 @@ export default function ({
   const [formInstance] = Form.useForm()
   const [showLess, setShowLess] = useState(true)
   const isCheckeble = props.isCheckeble === undefined ? true : props.isCheckeble
+  const [clearTrigger, setClearTrigger] = useState(false)
 
   const filterFieldsArray = props.meta.map((field, i) => {
     if (isFilterObject(field)) {
@@ -68,7 +69,8 @@ export default function ({
             ...field,
             key: i,
             isCheckeble,
-            formInstance
+            formInstance,
+            clearTrigger
           }}
         />
       )
@@ -136,7 +138,8 @@ export default function ({
                 formInstance.resetFields()
                 const filterCount = props.initialFilter ? Object.keys(props.initialFilter).length : 0
                 console.log("initial filter params ", JSON.stringify(props.initialFilter), filterCount)
-                props.onApplyChanges({}, filterCount)
+                setClearTrigger(!clearTrigger)
+                // props.onApplyChanges({}, filterCount)
               }}
             >
               {clearButtonLabel}
