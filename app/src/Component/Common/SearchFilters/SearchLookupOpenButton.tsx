@@ -31,7 +31,8 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
     if (props.entityLookupFunc) {
       props.entityLookupFunc().then((item) => setSelectedItem(item))
     }
-  }, [props])
+    // eslint-disable-next-line
+  }, [])
 
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
