@@ -63,7 +63,6 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
     {
       title: "Start Date",
       dataIndex: "StartDate",
-
       render: renderDate
     },
 
@@ -84,7 +83,6 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
     {
       title: "Meeting Types",
       dataIndex: "MeetingTypes",
-
       render: (meetingTypes: Array<string | null> | null) => {
         return (
           Array.isArray(meetingTypes) && meetingTypes.map((x: any, i: number) => (x ? <span key={i}>{x}</span> : null))

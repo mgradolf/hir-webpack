@@ -94,7 +94,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [])
 
   useDeviceViews((deviceViews: IDeviceView) => {
-    setMobileView(deviceViews.mobile || deviceViews.tab)
+    setMobileView(deviceViews.mobile)
   })
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
@@ -104,14 +104,18 @@ export function ResponsiveTable(props: IDataTableProps) {
         {expandableColumnIndices
           .filter((index) => index <= _columns.length)
           .map((index, i) => {
-            const title = _columns[index - 1].title
-            const text = record[_columns[index - 1].dataIndex]
+            const _index = index - 1
+            const title = _columns[_index].title
+            const text = record[_columns[_index].dataIndex]
             return (
               <React.Fragment key={i}>
                 {title && text && (
                   <li>
                     <span>{title} : </span>
-                    <span> {_columns[index] && _columns[index].render ? _columns[index].render(text) : text}</span>
+                    <span>
+                      {" "}
+                      {_columns[_index] && _columns[_index].render ? _columns[_index].render(text, record) : text}
+                    </span>
                   </li>
                 )}
               </React.Fragment>
@@ -127,8 +131,9 @@ export function ResponsiveTable(props: IDataTableProps) {
               return !expandableColumnIndices?.includes(index) || index <= _columns.length
             })
             .map((index, i) => {
-              const title = _columns[index - 1].title
-              let text: any = record[_columns[index - 1].dataIndex]
+              const _index = index - 1
+              const title = _columns[_index].title
+              let text: any = record[_columns[_index].dataIndex]
               if (Array.isArray(text)) text = text.toString()
               else if (typeof text === "boolean") text = renderBoolean(text)
               return (
@@ -136,7 +141,10 @@ export function ResponsiveTable(props: IDataTableProps) {
                   {title && text && (
                     <li>
                       <span>{title} : </span>
-                      <span> {_columns[index] && _columns[index].render ? _columns[index].render(text) : text}</span>
+                      <span>
+                        {" "}
+                        {_columns[_index] && _columns[_index].render ? _columns[_index].render(text, record) : text}
+                      </span>
                     </li>
                   )}
                 </React.Fragment>
@@ -156,13 +164,15 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [conditionalProps, setConditionalProps] = useState<{ [key: string]: any }>({})
   const setTableProps = (data?: any) => {
     const _conditionalProps: TableProps<{ [key: string]: string }> = {
-      columns: columns
-        .filter((x, i) => !expandableColumnIndices?.includes(i + 1))
-        .map((col, index) =>
-          responsiveColumnIndices && responsiveColumnIndices.includes(index)
-            ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
-            : col
-        ),
+      columns: columns.filter(
+        (x, i) => !expandableColumnIndices?.includes(i + 1) || !responsiveColumnIndices?.includes(i + 1)
+      ),
+
+      // .map((col, index) =>
+      //   responsiveColumnIndices && responsiveColumnIndices.includes(index)
+      //     ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
+      //     : col
+      // ),
       ...otherTableProps
     }
 
@@ -177,7 +187,10 @@ export function ResponsiveTable(props: IDataTableProps) {
         (responsiveColumnIndices && responsiveColumnIndices?.length > 0)
       )
     ) {
-      _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
+      _conditionalProps.expandedRowRender = (record: any) => {
+        console.log("_conditionalProps.expandedRowRender")
+        return expandableRowRender(record, mobileView)
+      }
     }
     _conditionalProps.scroll = { x: columns.length }
     _conditionalProps.rowSelection = otherTableProps.rowSelection

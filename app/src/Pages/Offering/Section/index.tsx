@@ -7,7 +7,7 @@ import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 
 export default function Offering(props: RouteComponentProps<{ offeringID: string }>) {
-  const offeringID = Number(props.match.params.offeringID)
+  const OfferingID = Number(props.match.params.offeringID)
   const [showModal, setShowModal] = useState(false)
 
   return (
@@ -19,12 +19,13 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
               + Create Section
             </Button>
           )}
-          {showModal && <SectionFormModal OfferingID={offeringID} closeModal={() => setShowModal(false)} />}
+          {showModal && <SectionFormModal OfferingID={OfferingID} closeModal={() => setShowModal(false)} />}
         </>
       ]}
       hideSearchField={true}
       title="Manage Sections"
       meta={SectionSearchMeta}
+      defaultFilter={{ OfferingID }}
       tableProps={getSectionTableColumns()}
       helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
     ></SearchPage>

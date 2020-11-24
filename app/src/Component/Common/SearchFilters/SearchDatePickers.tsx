@@ -25,12 +25,11 @@ export function DatePickersInputType(props: IFilterGenericComponentProps<IFilter
           disabled={props.disabled}
           allowClear
           onChange={(momentValues: any, dateStrings: any): void => {
+            console.log(dateStrings)
             if (dateStrings[0]) {
-              console.log(dateStrings)
               props.formInstance.setFieldsValue({ [props.fieldName]: dateStrings[0] })
             }
             if (props.fieldName2 && dateStrings[1]) {
-              console.log(props)
               props.formInstance.setFieldsValue({ [props.fieldName2]: dateStrings[1] })
             }
           }}
