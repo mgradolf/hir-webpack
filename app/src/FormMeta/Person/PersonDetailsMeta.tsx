@@ -72,9 +72,9 @@ export const getPersonDetailsMeta = (person: { [key: string]: any }): CardContai
   const login: CardContainer = {
     title: "Web Login",
     contents: [
-      { label: "User Login", value: person?.login?.UserLogin },
-      { label: "Secret Question", value: person?.login?.SecretQuestion },
-      { label: "Secret Answer", value: person?.login?.SecretAnswer }
+      { label: "User Login", value: person?.Login?.UserLogin },
+      { label: "Secret Question", value: person?.Login?.SecretQuestion },
+      { label: "Secret Answer", value: person?.Login?.SecretAnswer }
     ]
   }
 

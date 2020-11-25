@@ -5,7 +5,7 @@ import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchS
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const OrderSearchMeta: IFilterField[] = [
   {
@@ -70,7 +70,7 @@ export const OrderSearchMeta: IFilterField[] = [
           label: "Student First Name",
           fieldName: "StudentName",
           valueField: "FirstName",
-          component: SearchStudentLookup
+          component: SearchStudentLookupButton
         },
         {
           label: "Billed To First Name",

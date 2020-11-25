@@ -1,67 +1,18 @@
-import * as React from "react"
-import { Row, Col, Typography } from "antd"
-import { RequestTable } from "~/Component/Section/Request/RequestTable"
+import React from "react"
 import { RouteComponentProps } from "react-router-dom"
-import styles from "~/Pages/Request/Request.module.scss"
-import { useRequests, useRequestFilterState } from "~/Hooks/Section/Request"
-import RequestSearchFilters from "~/Component/Common/SearchFilters"
-import { requestMeta } from "~/FormMeta/Request/RequestSearchFilterMeta"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
+import { RequestSearchMeta } from "~/FormMeta/Request/RequestSearchMeta"
+import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 
-import RequestFilterOpenButton from "~/Component/Section/Request/RequestFilterOpenButton"
-
-const { useState } = React
-const { Title } = Typography
-
-function RequestPage(props: RouteComponentProps<{ sectionID?: string }>) {
-  const { filterData, updateFilterData } = useRequestFilterState()
-  const [showFilter, setFilterVisiblity] = useState<boolean>(false)
-  const [filterCount, setFilterCount] = useState<number>(0)
-
-  let SectionID: number | undefined = undefined
-  if (props.match.params.sectionID) {
-    SectionID = Number(props.match.params.sectionID)
-  }
-  const [loading, requestItems] = useRequests(filterData, SectionID)
-
-  const toggleFilter = () => {
-    setFilterVisiblity(!showFilter)
-  }
-
+export default function Request(props: RouteComponentProps<{ sectionID?: string }>) {
+  const SectionID = Number(props?.match?.params?.sectionID)
   return (
-    <div className="site-layout-content">
-      <Row>
-        <Title level={3}>Manage Requests</Title>
-      </Row>
-      <RequestFilterOpenButton
-        filterCount={filterCount}
-        filterColumnVisible={showFilter}
-        toggleFilter={toggleFilter}
-        actionButton={undefined}
-      />
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        <RequestSearchFilters
-          title={"Request Filter"}
-          isModalView={false}
-          visible={showFilter}
-          hideFilters={toggleFilter}
-          meta={requestMeta}
-          initialFilter={filterData as { [key: string]: any }}
-          onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            updateFilterData({ ...filterData, ...newFilterValues })
-            setFilterCount(appliedFilterCount)
-            setFilterVisiblity(false)
-          }}
-        />
-        <Col
-          className={`gutter-row ${styles.offeringDetails}`}
-          xs={24}
-          sm={24}
-          md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
-        >
-          <RequestTable dataSource={requestItems} loading={loading} sectionId={SectionID} />
-        </Col>
-      </Row>
-    </div>
+    <SearchPage
+      title="Requests"
+      meta={RequestSearchMeta}
+      hideSearchField={true}
+      defaultFilter={{ SectionID }}
+      tableProps={getRequestTableColumns()}
+    ></SearchPage>
   )
 }
-export default RequestPage

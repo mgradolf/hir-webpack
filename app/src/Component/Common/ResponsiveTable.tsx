@@ -7,13 +7,21 @@ import moment from "moment"
 import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
-import { DownOutlined } from "@ant-design/icons"
+import { DownOutlined, ReadOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
 
 export type TableColumnType = ColumnsType<{ [key: string]: any }>
 
 // TODO: Currently we have generic responsive support for
 // only one set of breakpoints, we need support for multiple set of
 // breakpoints
+export const renderDetailsLink = (url: string): JSX.Element => {
+  return (
+    <Link to={url}>
+      <ReadOutlined />
+    </Link>
+  )
+}
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
@@ -196,7 +204,9 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.pagination =
       props.pagination && typeof props.pagination === "boolean" && !props.pagination
         ? props.pagination
-        : { position: ["topLeft"], pageSize: 20, simple: true }
+        : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
+        ? { position: ["topLeft"], pageSize: 20, simple: true }
+        : false
     setConditionalProps(_conditionalProps)
   }
 

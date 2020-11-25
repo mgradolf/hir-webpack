@@ -1,7 +1,7 @@
 import { getSectionRosterStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
   {
@@ -22,7 +22,7 @@ export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
   {
     label: "Student Lookup",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookup,
+    customFilterComponent: SearchStudentLookupButton,
     extraProps: {
       isArray: true
     }

@@ -24,7 +24,7 @@ export function RequestTable(props: ITableWrapperProps) {
         ) : props.sectionId ? (
           <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>{text}</Link>
         ) : (
-          <Link to={`/requests/${record.RequestID}`}>{text}</Link>
+          <Link to={`/request/${record.RequestID}`}>{text}</Link>
         )
     },
     {
@@ -77,7 +77,7 @@ export function RequestTable(props: ITableWrapperProps) {
       render: (record: any) => (
         <Space size="middle">
           {props.sectionId && <Link to={`/section/${props.sectionId}/request/${record.RequestID}`}>View Details</Link>}
-          {!props.sectionId && <Link to={`/requests/${record.RequestID}`}>View Details</Link>}
+          {!props.sectionId && <Link to={`/request/${record.RequestID}`}>View Details</Link>}
         </Space>
       )
     }

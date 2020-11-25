@@ -143,9 +143,7 @@ function App(props: AppProps): JSX.Element {
         <Route exact path="/section/:sectionID/order/:orderID" component={OrderDetails} />
         <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
 
-        <Route exact path="/section/:sectionID/request" component={SectionRequestPage} />
         <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
-        <Route exact path="/section" component={SectionPage} />
         <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
 
         <Route exact path="/section/:sectionID/waitlist" component={SectionWaitlistEntriesPage} />
@@ -156,7 +154,9 @@ function App(props: AppProps): JSX.Element {
         <Route exact path="/section/:sectionID/order-log" component={SectionOrderLogPage} />
         <Route exact path="/section/:sectionID/comment" component={SectionCommentPage} />
         <Route exact path="/section/:sectionID/no-show" component={SectionNoShowPage} />
+        <Route exact path="/section/:sectionID/request" component={SectionRequestPage} />
         <Route exact path="/section/:secitonID/request/:requestID" component={RequestDetailsPage} />
+        <Route exact path="/section" component={SectionPage} />
 
         <Route exact path="/order" component={FinancialOrderPagePage} />
         <Route exact path="/order/items" component={FinancialOrderItemPage} />
@@ -173,8 +173,8 @@ function App(props: AppProps): JSX.Element {
         <Route exact path="/question" component={QuestionPage} />
         <Route exact path="/question/tagging" component={QuestionTaggingPage} />
 
-        <Route exact path="/requests" component={RequestPage} />
-        <Route exact path="/requests/:requestID" component={RequestDetailsPage} />
+        <Route exact path="/request" component={RequestPage} />
+        <Route exact path="/request/:requestID" component={RequestDetailsPage} />
 
         <Route exact path="/registration" component={RegistrationPage} />
         <Route exact path="/registration/:studentID" component={RegistrationDetailsPage} />

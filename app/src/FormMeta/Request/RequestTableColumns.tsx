@@ -1,0 +1,90 @@
+import React from "react"
+import { Link } from "react-router-dom"
+import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+import { getLiteRequests } from "~/ApiServices/Service/RequestService"
+
+export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
+  const columns: TableColumnType = [
+    {
+      ...(!isModal && {
+        render: (text: any, record: any) => renderDetailsLink(`/request/${record.RequestID}`)
+      })
+    },
+    {
+      title: "Request ID",
+      dataIndex: "RequestID",
+      key: "RequestID",
+      render: (text: any, record: any) => <Link to={`/request/${record.RequestID}`}>{text}</Link>
+    },
+    {
+      title: "Creation Time",
+      dataIndex: "CreateDate",
+      key: "CreateDate",
+      render: renderDate
+    },
+    {
+      title: "RequestType",
+      dataIndex: "RequestType",
+      key: "RequestType"
+    },
+    {
+      title: "Request Status",
+      dataIndex: "State",
+      key: "State"
+    },
+    {
+      title: "Expiration",
+      dataIndex: "ExpirationDate",
+      key: "ExpirationDate",
+      render: renderDate
+    },
+    {
+      title: "Source",
+      dataIndex: "Source",
+      key: "Source"
+    },
+    {
+      title: "Purchaser",
+      dataIndex: "PurchaserPersonName",
+      render: (text: any, record: any) => <Link to={`/person/${record.PurchaserPersonID}`}>{text}</Link>,
+      key: "PurchaserPersonName"
+    },
+    {
+      title: "Account",
+      dataIndex: "AccountName",
+      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>,
+      key: "AccountName"
+    },
+    {
+      title: "Staff",
+      dataIndex: "RequesterStaffUserName",
+      key: "RequesterStaffUserName"
+    }
+    // {
+    //   title: "Action",
+    //   key: "action",
+    //   render: (record: any) => (
+    //     <Space size="middle">
+    //       <Link to={`/request/${record.RequestID}`}>View Details</Link>
+    //     </Space>
+    //   )
+    // }
+  ]
+
+  const responsiveColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
+  const expandableColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
+  return {
+    columns,
+    responsiveColumnIndices,
+    expandableColumnIndices,
+    searchFunc: (Params: { [key: string]: any }) =>
+      getLiteRequests(Params).then((x: any) => {
+        if (x.success) {
+          x.data = x?.data?.Requests
+        }
+
+        return x
+      })
+  }
+}

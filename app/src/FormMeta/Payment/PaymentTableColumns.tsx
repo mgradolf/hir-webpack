@@ -30,8 +30,10 @@ export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITa
       dataIndex: "CreateDate",
       render: renderDate
     },
-    // { title: "Payment Status", dataIndex: "paymentStatus" },
-    // { title: "Check/Reference", dataIndex: "Check" },
+    { title: "Payment Status", dataIndex: "PaymentStatusName" },
+    { title: "Check", dataIndex: "CheckNumber" },
+    { title: "Reference", dataIndex: "TransactionNumber" },
+    { title: "Total Amount", dataIndex: "TotalPaymentAmount" },
     { title: "Payment Type", dataIndex: "Type" },
     { title: "Account", dataIndex: "AccountName" },
     { title: "Deposite ID", dataIndex: "DepositID" },

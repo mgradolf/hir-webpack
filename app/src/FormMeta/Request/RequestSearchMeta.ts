@@ -1,9 +1,15 @@
 import { getRequestType, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getEnumValues } from "~/ApiServices/Service/RequestService"
 import { DROPDOWN, IFilterField, DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import RequestSearchCustomLookupFilter from "~/FormMeta/Request/RequestSearchCustomLookupFilter"
 
-export const requestMeta: IFilterField[] = [
+export const RequestSearchMeta: IFilterField[] = [
+  {
+    label: "Section",
+    fieldName: "SectionID",
+    customFilterComponent: SearchSectionLookupButton
+  },
   {
     label: "Request Type",
     inputType: DROPDOWN,
@@ -20,7 +26,7 @@ export const requestMeta: IFilterField[] = [
     defaultValue: "",
     fieldName: "StateID",
     ariaLabel: "Request Status",
-    requestService: getEnumValues,
+    refLookupService: getEnumValues,
     displayKey: "Name",
     valueKey: "ID"
   },

@@ -1,14 +1,14 @@
 import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { SearchProgramLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
+import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const CourseCertificateSearchMeta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookup
+    customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Section",
@@ -53,12 +53,12 @@ export const ProgramCertificateSearchMeta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookup
+    customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Program",
     fieldName: "ProgramID",
-    customFilterComponent: SearchProgramLookup
+    customFilterComponent: SearchProgramLookupButton
   },
   {
     label: "Issue Date",

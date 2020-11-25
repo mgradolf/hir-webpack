@@ -7,7 +7,7 @@ import programMeta from "~/FormMeta/Program/ProgramSearchFilterMeta"
 interface ISearchProgramLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
   valueField?: string
 }
-export function SearchProgramLookup(props: ISearchProgramLookup) {
+export function SearchProgramLookupButton(props: ISearchProgramLookup) {
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Program"
