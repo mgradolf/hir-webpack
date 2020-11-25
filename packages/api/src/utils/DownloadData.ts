@@ -21,6 +21,12 @@ const getNewConfigWithResponseType = (config: ApiConfig): { newConfig: ApiConfig
       ["ResponseType"]: "text/csv"
     }
     fileExtension = ".csv"
+  } else if (Params[RESPONSE_TYPE.PDF] || (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])) {
+    if (Params[RESPONSE_TYPE.PDF]) delete Params[RESPONSE_TYPE.PDF]
+    else if (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF]) delete Params[0][RESPONSE_TYPE.PDF]
+    header = {
+      ["ResponseType"]: "application/pdf"
+    }
   } else header = {}
 
   return {
@@ -36,7 +42,7 @@ const getNewConfigWithResponseType = (config: ApiConfig): { newConfig: ApiConfig
   }
 }
 
-export default async function download(config: ApiConfig): Promise<IApiResponse> {
+export async function download(config: ApiConfig): Promise<IApiResponse> {
   const { newConfig, fileExtension } = getNewConfigWithResponseType(config)
 
   const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>newConfig
@@ -46,5 +52,15 @@ export default async function download(config: ApiConfig): Promise<IApiResponse>
   if (response) {
     saveAs(response, `report-${new Date().toISOString()}${fileExtension}`)
   }
+  return { data: response, success: true, code: 200, error: null }
+}
+
+export async function preview(config: ApiConfig): Promise<IApiResponse> {
+  const { newConfig, fileExtension } = getNewConfigWithResponseType(config)
+
+  const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>newConfig
+  requestConfig.withCredentials = true
+  const response = (await axios.request(requestConfig)).data
+
   return { data: response, success: true, code: 200, error: null }
 }

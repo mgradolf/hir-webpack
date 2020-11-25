@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { CertificateSearchMeta } from "~/FormMeta/Certificate/CertificateSearchMeta"
+import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
+import { ProgramCertificateSearchMeta } from "~/FormMeta/Certificate/CertificateSearchMeta"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 
 export default function Certificate() {
@@ -15,12 +16,12 @@ export default function Certificate() {
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
             + Issue Certificate
           </Button>
-          {/* {showModal && <OfferingFormModal closeModal={() => setShowModal(false)} />} */}
+          {showModal && <CertificateFormModal isProgram={true} closeModal={() => setShowModal(false)} />}
         </>
       ]}
       title="Manage Certificates"
       initialFilter={{}}
-      meta={CertificateSearchMeta}
+      meta={ProgramCertificateSearchMeta}
       hideSearchField={false}
       tableProps={{
         ...getCertificateTableColumns(),
