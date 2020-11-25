@@ -12,7 +12,7 @@ import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSel
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
-export const PaymentsFiltersMeta: IFilterField[] = [
+export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Total Amount",
     fieldName: "TotalAmountFrom",

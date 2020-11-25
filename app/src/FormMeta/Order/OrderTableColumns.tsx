@@ -21,18 +21,16 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       }
     },
     {
-      title: "Order Items",
-      dataIndex: "TotalItems",
-      width: 100
-    },
-    {
       title: "Buyer Name",
       dataIndex: "BuyerName",
-      width: 100
+      width: 100,
+      render: (text: any, record: any) => {
+        return isModal ? { text } : <Link to={`/person/${record?.Person?.PersonID}`}>{text}</Link>
+      }
     },
     {
-      title: "Account",
-      dataIndex: "OrganizationName",
+      title: "Order Items",
+      dataIndex: "TotalItems",
       width: 100
     },
     {

@@ -4,9 +4,13 @@ import { Form, Input, DatePicker, Select } from "antd"
 import FormError from "~/Component/Common/FormError"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
-import { getApplicableSectionCertificate } from "~/ApiServices/BizApi/certificate/certificateIF"
+import {
+  getApplicableSectionCertificate,
+  getApplicableProgramCertificate
+} from "~/ApiServices/BizApi/certificate/certificateIF"
 import { FormStudentLookupButton } from "~/Component/Common/Form/FormLookups/FormStudentLookup"
 import { FormSectionLookupButton } from "~/Component/Common/Form/FormLookups/FormSectionLookup"
+import { FormProgramLookupButton } from "~/Component/Common/Form/FormLookups/FormProgramLookup"
 import "~/Sass/utils.scss"
 import { FormInstance } from "antd/lib/form"
 
@@ -25,9 +29,11 @@ const layout = {
 
 export default function CertificateForm(props: ICertificateFormProps) {
   const [certificateItems, setCertificateItems] = useState<Array<any>>([])
+  const [sectionID, setSectionID] = useState<Number>()
+  const [programID, setProgramID] = useState<Number>()
 
+  const isProgram = props.initialFormValue.IsProgram
   let validityMonths: any = null
-  const sectionID = props.initialFormValue.SectionID
 
   useEffect(() => {
     ; (async function () {
@@ -39,8 +45,19 @@ export default function CertificateForm(props: ICertificateFormProps) {
         }
         props.setApiCallInProgress(false)
       }
+
+      if (programID) {
+        props.setApiCallInProgress(true)
+        const result = await getApplicableProgramCertificate([programID])
+        if (result && result.success) {
+          setCertificateItems(result.data)
+        }
+        props.setApiCallInProgress(false)
+      }
+
     })()
-  }, [props.setApiCallInProgress, sectionID])
+    // eslint-disable-next-line
+  }, [props.setApiCallInProgress, sectionID, programID])
 
   const certificateHandler = (certificateID: any) => {
     certificateItems.forEach((element) => {
@@ -78,6 +95,14 @@ export default function CertificateForm(props: ICertificateFormProps) {
     }
   }
 
+  const onCloseModal = (datas: any) => {
+    if (isProgram) {
+      setProgramID(datas[0].ProgramID)
+    } else {
+      setSectionID(datas[0].SectionID)
+    }
+  }
+
   return (
     <Form form={props.formInstance} initialValues={props.initialFormValue}>
       <FormError errorMessages={props.errorMessages} />
@@ -87,11 +112,18 @@ export default function CertificateForm(props: ICertificateFormProps) {
       </Form.Item>
 
       <Form.Item label="Certificate Type" {...layout}>
-        <Input disabled value={props.initialFormValue.IsProgram ? "Program" : "Offering"} />
+        <Input disabled value={isProgram ? "Program" : "Offering"} />
       </Form.Item>
 
       <FormStudentLookupButton formInstance={props.formInstance} />
-      <FormSectionLookupButton formInstance={props.formInstance} />
+
+      {!isProgram &&
+        <FormSectionLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
+      }
+
+      {isProgram &&
+        <FormProgramLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
+      }
 
       <Form.Item label="Certificate Name" {...layout} name={props.fieldNames.CertificateID}>
         <Select aria-label="Certificate name" onChange={certificateHandler}>

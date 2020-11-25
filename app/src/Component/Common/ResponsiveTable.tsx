@@ -167,22 +167,13 @@ export function ResponsiveTable(props: IDataTableProps) {
       columns: columns
         .filter((x, i) => {
           const include = !expandableColumnIndices?.includes(i + 1)
-          console.log(include, i, expandableColumnIndices)
           return include
         })
         .filter((x, i) => {
           return !(mobileView && responsiveColumnIndices?.includes(i + 1))
         }),
-
-      // .map((col, index) =>
-      //   responsiveColumnIndices && responsiveColumnIndices.includes(index)
-      //     ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
-      //     : col
-      // ),
       ...otherTableProps
     }
-
-    console.log(_conditionalProps.columns)
 
     _conditionalProps.dataSource = otherTableProps.dataSource ? otherTableProps.dataSource : data
 
@@ -196,7 +187,6 @@ export function ResponsiveTable(props: IDataTableProps) {
       )
     ) {
       _conditionalProps.expandedRowRender = (record: any) => {
-        console.log("_conditionalProps.expandedRowRender")
         return expandableRowRender(record, mobileView)
       }
     }

@@ -9,7 +9,7 @@ export function FormSectionLookupButton(props: { formInstance: FormInstance; onC
     <FormLookupOpenButton
       lookupModalTitle="Select Section"
       valueField="SectionID"
-      displayField="SortName"
+      displayField="SectionNumber"
       fieldName="SectionID"
       label="Section"
       {...getSectionTableColumns(true)}

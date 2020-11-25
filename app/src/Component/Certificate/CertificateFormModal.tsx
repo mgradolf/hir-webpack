@@ -26,7 +26,7 @@ const fieldNames: ICertificateFieldNames = {
 
 export default function CertificateFormModal(props: ICertificateFormProps) {
   const [formInstance] = Form.useForm()
-  const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
+  const [initialFormValue] = useState<{ [key: string]: any }>({})
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 

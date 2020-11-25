@@ -31,9 +31,9 @@ export function SectionMenu(props: ISectionMenu) {
       title: "Financial",
       url: "#",
       items: [
+        { title: "Payments", url: `/section/${props.section.SectionID}/order/payments` },
         { title: "Orders", url: `/section/${props.section.SectionID}/order` },
-        { title: "Items", url: `/section/${props.section.SectionID}/order/items` },
-        { title: "Payments", url: `/section/${props.section.SectionID}/order/payments` }
+        { title: "Items", url: `/section/${props.section.SectionID}/order/items` }
       ]
     },
     {
