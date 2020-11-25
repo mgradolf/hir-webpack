@@ -9,7 +9,7 @@ export const getCertificateTableColumns = (isModal = false): ITableConfigProp =>
     {
       title: "Certificate Number",
       dataIndex: "CertificateNumber",
-      render: (text: any, record: any) => <Link to="">{text}</Link>
+      render: (text: any, record: any) => <Link to={`/certificate/${record.CertificateID}`}>{text}</Link>
     },
     {
       title: "Certificate Name",

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux"
 import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
-const blockedPages: string[] = ["Request", "Requests", "Registration", "Registrations", "Order", "Waitlist"]
+const blockedPages: string[] = ["Request", "Requests", "Registration", "Registrations", "Order", "Waitlist", "Payments"]
 const names: { [key: string]: string } = {
   Offering: "OfferingCode",
   Section: "SectionNumber",

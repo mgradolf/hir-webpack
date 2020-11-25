@@ -1,7 +1,7 @@
 import callApi from "./CallApi"
 import { getToken } from "./TokenStore"
 import { ApiConfig, IApiResponse, RESPONSE_TYPE } from "./Interfaces"
-import download from "./DownloadData"
+import { download, preview } from "./DownloadData"
 
 export const baseURL =
   process.env.NODE_ENV === "development"
@@ -38,6 +38,11 @@ function callServiceApi(
     (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.CSV])
   ) {
     return download(config)
+  } else if (
+    Params[RESPONSE_TYPE.PDF] ||
+    (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])
+  ) {
+    return preview(config)
   }
 
   return callApi(config)

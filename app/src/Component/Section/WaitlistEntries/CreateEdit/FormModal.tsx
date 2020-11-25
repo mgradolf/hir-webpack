@@ -13,7 +13,7 @@ import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 import { FormSectionLookupButton } from "~/Component/Common/Form/FormLookups/FormSectionLookup"
-import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { getEntityById, getSectionById } from "~/ApiServices/Service/EntityService"
 
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
@@ -49,11 +49,6 @@ const fieldNames: IFormFields = {
   InvitationEmailToRecipient: "InvitationEmailToRecipient",
   Priority: "Priority",
   IsActive: "IsActive"
-}
-
-interface IParamsToBeDispatched {
-  NameToDisplay: string
-  Params: { [key: string]: string }
 }
 
 export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEditFormModal) {
@@ -132,7 +127,20 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
                 </ul>
               }
             ></FormError>
-            {!Section && <FormSectionLookupButton formInstance={formInstance} />}
+
+            <FormSectionLookupButton
+              formInstance={formInstance}
+              onCloseModal={(items?: any[]) => {
+                if (Array.isArray(items) && items.length > 0) setSection(items[0])
+              }}
+              entityLookupFunc={() => {
+                console.log(props.SectionID)
+                return getSectionById(props.SectionID || 0).then((x) => {
+                  return x.data
+                })
+              }}
+            />
+
             {Section && (
               <DropDown
                 label="Seat Group"
