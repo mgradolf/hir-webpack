@@ -67,7 +67,7 @@ export default function SectionEditForm(props: ISectionEditProps) {
           <Collapse.Panel header="Section Enrollment Details" key="2">
             <SectionEnrollmentDetails {...{ ...props, formInstance }} />
           </Collapse.Panel>
-          <Collapse.Panel header="Section Refund And Enquiry Users" key="3">
+          <Collapse.Panel header="Section Refund And Inquiry Details" key="3">
             <SectionRefundEnquiryDetails {...{ ...props, formInstance }} />
           </Collapse.Panel>
         </Collapse>
