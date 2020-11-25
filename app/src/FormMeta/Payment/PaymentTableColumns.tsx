@@ -1,0 +1,27 @@
+import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+
+export const getPaymentTableColumns = (isModal = false): ITableConfigProp => {
+  const columns: TableColumnType = [
+    { title: "Payment ID", dataIndex: "PaymentID" },
+    { title: "Payer", dataIndex: "PersonName" },
+    {
+      title: "Creation Date",
+      dataIndex: "CreateDate",
+      render: renderDate
+    },
+    // { title: "Payment Status", dataIndex: "paymentStatus" },
+    // { title: "Check/Reference", dataIndex: "Check" },
+    { title: "Payment Type", dataIndex: "Type" },
+    { title: "Account", dataIndex: "AccountName" },
+    { title: "Deposite ID", dataIndex: "DepositID" },
+    { title: "Source", dataIndex: "Source" },
+    { title: "Notes", dataIndex: "PaymentNotes" },
+    { title: "GL Accounts", dataIndex: "GLAccountNames" }
+  ]
+
+  const responsiveColumnIndices = [3, 4, 5]
+  const expandableColumnIndices = [6, 7, 8, 9, 10, 11]
+  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPayments }
+}

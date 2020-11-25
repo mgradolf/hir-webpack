@@ -121,8 +121,6 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/offering/:offeringID/section" component={OfferingSectionPage} />
       <Route exact path="/offering/:offeringID/section/:sectionID" component={SectionDetailsPage} />
 
-      <Route exact path="/section" component={SectionPage} />
-      <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
       <Route exact path="/section/:sectionID/catalog" component={SectionCatalogPage} />
       <Route exact path="/section/:sectionID/seatgroup" component={SectionSeatgroupPage} />
       <Route exact path="/section/:sectionID/schedule" component={SectionSchedulePage} />
@@ -130,16 +128,21 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/section/:sectionID/discount" component={SectionDiscountPage} />
       <Route exact path="/section/:sectionID/notification" component={SectionNoticePage} />
       <Route exact path="/section/:sectionID/question" component={SectionQuestionPage} />
-      <Route exact path="/section/:sectionID/registration" component={SectionRegistrationPage} />
-      <Route exact path="/section/:sectionID/registration" component={RegistrationPage} />
-      <Route exact path="/section/:sectionID/registration/:studentID" component={RegistrationDetailsPage} />
       <Route exact path="/section/:sectionID/tag" component={SectionTagPage} />
-      <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
+
+      <Route exact path="/section/:sectionID/registration/:studentID" component={RegistrationDetailsPage} />
+      <Route exact path="/section/:sectionID/registration" component={SectionRegistrationPage} />
+      {/* <Route exact path="/section/:sectionID/registration" component={RegistrationPage} /> */}
+
+      <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
       <Route exact path="/section/:sectionID/order/items" component={SectionOrderItemsPage} />
       <Route exact path="/section/:sectionID/order/:orderID" component={OrderDetails} />
-      <Route exact path="/section/:sectionID/order/payments" component={SectionOrderPaymentsPage} />
+      <Route exact path="/section/:sectionID/order" component={SectionOrderManagementPage} />
+
       <Route exact path="/section/:sectionID/request" component={SectionRequestPage} />
       <Route exact path="/section/:sectionID/product" component={SectionProductPage} />
+      <Route exact path="/section" component={SectionPage} />
+      <Route exact path="/section/:sectionID" component={SectionDetailsPage} />
 
       <Route exact path="/section/:sectionID/waitlist" component={SectionWaitlistEntriesPage} />
       <Route exact path="/section/:sectionID/waitlist/:waitListEntryID" component={WaitlistEntryDetailsPage} />
