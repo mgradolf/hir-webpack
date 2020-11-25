@@ -1,7 +1,7 @@
 import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const RegistrationSearchMeta: IFilterField[] = [
   {
@@ -17,12 +17,12 @@ export const RegistrationSearchMeta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookup
+    customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchStudentLookup
+    customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Start Date",

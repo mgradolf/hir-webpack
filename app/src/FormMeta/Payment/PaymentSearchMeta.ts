@@ -9,11 +9,33 @@ import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/
 
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+// import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 
 export const PaymentSearchMeta: IFilterField[] = [
+  {
+    label: "Section",
+    fieldName: "SectionID",
+    customFilterComponent: SearchSectionLookupButton
+  },
+  {
+    label: "Offering",
+    fieldName: "OfferingID",
+    customFilterComponent: SearchOfferingLookupButton
+  },
+  {
+    label: "Payer",
+    fieldName: "PersonID",
+    customFilterComponent: SearchPersonLookupButton
+  },
+  {
+    label: "Student",
+    fieldName: "StudentID",
+    customFilterComponent: SearchStudentLookupButton
+  },
   {
     label: "Total Amount",
     fieldName: "TotalAmountFrom",
@@ -78,11 +100,11 @@ export const PaymentSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    label: "Source",
+    label: "Gateway",
     inputType: DROPDOWN,
     defaultValue: "",
     fieldName: "PaymentGatewayAccountID",
-    ariaLabel: "Source",
+    ariaLabel: "Gateway",
     refLookupService: getPaymentGatewayAccounts,
     displayKey: "Name",
     valueKey: "ID"
@@ -115,26 +137,26 @@ export const PaymentSearchMeta: IFilterField[] = [
     label: "Account Lookup",
     fieldName: "AccountID",
     customFilterComponent: SearchAccountLookup
-  },
-  {
-    label: "Person Selector",
-    fieldName: "",
-    customFilterComponent: SearchLookupSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "Payer",
-          valueField: "FirstName",
-          fieldName: "PayerName",
-          component: SearchPersonLookupButton
-        },
-        {
-          label: "Student First Name",
-          valueField: "StudentName",
-          fieldName: "FirstName",
-          component: SearchStudentLookup
-        }
-      ]
-    }
   }
+  // {
+  //   label: "Person Selector",
+  //   fieldName: "",
+  //   customFilterComponent: SearchLookupSelector,
+  //   extraProps: {
+  //     selectorKeys: [
+  //       {
+  //         label: "Payer",
+  //         valueField: "FirstName",
+  //         fieldName: "PayerName",
+  //         component: SearchPersonLookupButton
+  //       },
+  //       {
+  //         label: "Student First Name",
+  //         valueField: "StudentName",
+  //         fieldName: "FirstName",
+  //         component: SearchStudentLookupButton
+  //       }
+  //     ]
+  //   }
+  // }
 ]

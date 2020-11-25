@@ -3,11 +3,12 @@ import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getPaymentDetailsMeta = (payment: { [key: string]: any }): CardContainer[] => {
   const paymentInfo: CardContainer = {
-    title: `Payment ${payment.PaymentID}`,
+    title: `Payment ${payment.PaymentID} - ${payment.PaymentStatusName}`,
     contents: [
       { label: "Notes", value: payment.PaymentNotes, render: undefined }, // : null,
       { label: "Person Name", value: payment.PersonName, render: undefined }, // : "nakter 0428",
-      { label: "Transaction Number", value: payment.TransactionNumber, render: undefined }, // : null,
+      { label: "Transaction", value: payment.TransactionNumber, render: undefined }, // : null,
+      { label: "Check", value: payment.CheckNumber, render: undefined }, // : null,
       { label: "GLAccount Names", value: payment.GLAccountNames, render: undefined }, // : "10-0432-6135, 10-0432-7912, 10-3125-6137, 10-8102-6125, AR1000",
       { label: "Sub Total", value: payment.SubTotal, render: undefined }, // : 2443.00,
       { label: "Created", value: payment.CreateDate, render: renderDate }, // : "2017-09-11T05:48:24+06:00",

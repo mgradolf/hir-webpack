@@ -7,7 +7,7 @@ import { studentSearchMeta } from "~/FormMeta/Student/StudentSearchMeta"
 interface ISearchStudentLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
   valueField?: string
 }
-export function SearchStudentLookup(props: ISearchStudentLookup) {
+export function SearchStudentLookupButton(props: ISearchStudentLookup) {
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Student"
