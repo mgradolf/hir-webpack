@@ -62,11 +62,11 @@ export default function QuestionPage() {
   const columns: TableColumnType = [
     {
       title: "Question",
-      dataIndex: "Description"
+      dataIndex: "Name"
     },
     {
       title: "Display Question As",
-      dataIndex: "Name",
+      dataIndex: "Description",
       width: 200
     },
     {

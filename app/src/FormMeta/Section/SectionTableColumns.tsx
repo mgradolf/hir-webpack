@@ -26,6 +26,10 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
       sorter: (a: any, b: any) => a.SectionNumber.length - b.SectionNumber.length
     },
     {
+      title: "Status",
+      dataIndex: "StatusCode"
+    },
+    {
       title: "Creation Date",
       dataIndex: "CreationDate",
       render: renderDate
@@ -55,10 +59,6 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
           faculties.map((x: any, index: number) => <div key={x.FacultyDescriptor + index}>- {x.FacultyDescriptor}</div>)
         )
       }
-    },
-    {
-      title: "Status",
-      dataIndex: "StatusCode"
     },
     {
       title: "Start Date",

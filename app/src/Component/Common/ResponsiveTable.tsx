@@ -204,7 +204,9 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.pagination =
       props.pagination && typeof props.pagination === "boolean" && !props.pagination
         ? props.pagination
-        : { position: ["topLeft"], pageSize: 20, simple: true }
+        : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
+        ? { position: ["topLeft"], pageSize: 20, simple: true }
+        : false
     setConditionalProps(_conditionalProps)
   }
 
