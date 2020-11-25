@@ -1,10 +1,29 @@
+import React from "react"
+import { Link } from "react-router-dom"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
-export const getPaymentTableColumns = (isModal = false): ITableConfigProp => {
+export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
-    { title: "Payment ID", dataIndex: "PaymentID" },
+    {
+      title: "Payment ID",
+      dataIndex: "PaymentID",
+      render: (text: any, record: any) =>
+        isModal ? (
+          text
+        ) : (
+          <Link
+            to={
+              SectionID
+                ? `/section/${SectionID}/order/payments/${record.PaymentID}`
+                : `/order/payments/${record.PaymentID}`
+            }
+          >
+            {text}
+          </Link>
+        )
+    },
     { title: "Payer", dataIndex: "PersonName" },
     {
       title: "Creation Date",

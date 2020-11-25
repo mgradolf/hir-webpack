@@ -16,6 +16,7 @@ export default function WaitlistEntryPage(props: RouteComponentProps<{ sectionID
     <>
       {showCreateModal && (
         <WaitlistEntryCreateEditFormModal
+          SectionID={SectionID}
           WaitListEntry={entry}
           closeModal={() => {
             setShowCreateModal(false)

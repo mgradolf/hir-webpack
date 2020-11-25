@@ -28,7 +28,7 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
 
   useEffect(() => {
     if (props.entityLookupFunc) {
-      props.entityLookupFunc().then((item) => setSelectedItem(item))
+      props.entityLookupFunc().then((item) => setSelectedItem(item[props.displayField]))
     }
   }, [props])
 

@@ -31,6 +31,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
     props.getDetailsFunc().then((x) => {
       setLoading(false)
       if (x.success) {
+        console.log(x.data)
         setBlocks(props.getDetailsMeta(x.data))
       } else setError(x.error)
     })
@@ -52,7 +53,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
             {Array.isArray(card.contents)
               ? card.contents.map((y: CardContents, j: number) => (
                   <tr key={j}>
-                    <td>{y.label}</td>
+                    <td style={{ width: "200px" }}>{y.label}</td>
                     <td style={{ width: "30px" }}></td>
                     <td>{y.jsx ? y.jsx : y.render ? y.render(y.value) : y.value}</td>
                   </tr>

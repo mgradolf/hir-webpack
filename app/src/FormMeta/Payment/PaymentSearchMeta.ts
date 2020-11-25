@@ -1,10 +1,11 @@
 import {
   getBasePaymentTypes,
+  getOPCStatusCode,
   getPaymentGatewayAccounts,
   getPaymentTypes,
   getSourceModule
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
@@ -87,11 +88,28 @@ export const PaymentSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    label: "Transaction Number",
-    inputType: NUMBER,
+    label: "Payment Status",
+    inputType: DROPDOWN,
+    defaultValue: "",
+    fieldName: "PaymentStatusID",
+    ariaLabel: "Payment Status",
+    refLookupService: getOPCStatusCode,
+    displayKey: "Name",
+    valueKey: "StatusID"
+  },
+  {
+    label: "Reference",
+    inputType: TEXT,
     defaultValue: "",
     fieldName: "TransactionNumber",
     ariaLabel: "TransactionNumber"
+  },
+  {
+    label: "Check",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "checkNumber",
+    ariaLabel: "checkNumber"
   },
   {
     label: "Account Lookup",
