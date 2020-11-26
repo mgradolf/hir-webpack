@@ -6,7 +6,7 @@ import { issueCertificate, previewCertificate, searchCertificate } from "~/ApiSe
 import Notification from "~/utils/notification"
 import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import CertificateForm from "../Certificate/CertificateForm"
+import CertificateForm from "~/Component/Certificate/CertificateForm"
 import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 
@@ -24,7 +24,7 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
   props.initialFormValue["IsProgram"] = false
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       setLoading(true)
       const result = await searchCertificate({
         SectionID: props.initialFormValue.SectionID,
@@ -46,11 +46,8 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
     setLoading(true)
     const response = await previewCertificate(params)
     if (response.data) {
-      const file = new Blob(
-        [response.data],
-        { type: 'application/pdf' }
-      );
-      const fileURL = URL.createObjectURL(file);
+      const file = new Blob([response.data], { type: "application/pdf" })
+      const fileURL = URL.createObjectURL(file)
       window.open(fileURL)
     } else {
       setErrorMessages(response.error)
@@ -125,8 +122,12 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
       )}
 
       <div style={{ marginTop: "16px", textAlign: "center" }}>
-        <Button type="primary" onClick={onFormSubmission}>Save Certificate</Button>
-        <Button type="primary" onClick={viewCertificate} style={{ marginLeft: "16px" }}>Preview Certificate</Button>
+        <Button type="primary" onClick={onFormSubmission}>
+          Save Certificate
+        </Button>
+        <Button type="primary" onClick={viewCertificate} style={{ marginLeft: "16px" }}>
+          Preview Certificate
+        </Button>
       </div>
     </Spin>
   )
