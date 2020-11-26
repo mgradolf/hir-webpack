@@ -207,7 +207,7 @@ function App(props: AppProps): JSX.Element {
         <Route exact path="/chart/:chartName" component={ChartDetailsPage} />
 
         <Route exact path="/course/certificate" component={CourseCertificatePage} />
-        <Route exact path="/certificate/:certificateID" component={CertificateDetailPage} />
+        <Route exact path="/certificate/:studentCertificateID" component={CertificateDetailPage} />
         <Route exact path="/program/certificate" component={ProgramCertificatePage} />
 
         <Route component={NotFoundPage} />
