@@ -20,7 +20,8 @@ export const config = {
     validateRegistration: "validateRegistration",
     checkCertificate: "checkCertificate",
     issueCertificate: "issueCertificate",
-    searchCertificate: "searchCertificate"
+    searchCertificate: "searchCertificate",
+    previewCertificate: "previewCertificate"
   }
 }
 export default ApiMethodFactory(config)
