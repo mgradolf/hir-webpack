@@ -31,7 +31,6 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
     props.getDetailsFunc().then((x) => {
       setLoading(false)
       if (x.success) {
-        console.log(x.data)
         setBlocks(props.getDetailsMeta(x.data))
       } else setError(x.error)
     })
@@ -52,12 +51,12 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
           <tbody>
             {Array.isArray(card.contents)
               ? card.contents.map((y: CardContents, j: number) => (
-                  <tr key={j}>
-                    <td style={{ width: "200px" }}>{y.label}</td>
-                    <td style={{ width: "30px" }}></td>
-                    <td>{y.jsx ? y.jsx : y.render ? y.render(y.value) : y.value}</td>
-                  </tr>
-                ))
+                <tr key={j}>
+                  <td>{y.label}</td>
+                  <td style={{ width: "30px" }}></td>
+                  <td>{y.jsx ? y.jsx : y.render ? y.render(y.value) : y.value}</td>
+                </tr>
+              ))
               : []}
           </tbody>
         </table>
@@ -78,12 +77,12 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
       )}
       <Row>
         {blocks.map((x: CardContainer, i) => (
-          <Col key={i} xs={24} sm={24} md={12}>
+          <Col key={i} xs={24} sm={24} md={x.groupedContents ? 12 : 24}>
             {Array.isArray(x.contents)
               ? CardContainerRender(x)
               : Array.isArray(x.groupedContents)
-              ? x.groupedContents.map((y: CardContainer, j: number) => CardContainerRender(y, j))
-              : null}
+                ? x.groupedContents.map((y: CardContainer, j: number) => CardContainerRender(y, j))
+                : null}
           </Col>
         ))}
       </Row>
