@@ -8,7 +8,7 @@ export function addSectionProduct(Params: { [key: string]: any }): Promise<IApiR
 }
 
 export function findSectionProducts(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return ProductIf[config.Actions.findSectionProducts](Params)
+  return ProductIf[config.Actions.findSectionProducts]([Params])
 }
 
 export function findProductFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {

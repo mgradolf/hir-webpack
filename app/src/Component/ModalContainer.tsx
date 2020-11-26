@@ -23,7 +23,6 @@ import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditForm
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
-import AddProductFromProductModal from "~/Component/Section/Product/AddProductFromProductModal"
 import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
 
 import { REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
@@ -124,9 +123,6 @@ function ModalContainer(modalState: IModalState) {
           sectionId={modalState.updateNoticeModal.config.sectionId}
           sectionNoticeTypeId={modalState.updateNoticeModal.config.sectionNoticeTypeId}
         />
-      )}
-      {modalState.addSectionProductModal.value && (
-        <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
       )}
       {modalState.requestViewResponseModal.value && (
         <ViewResponseModal requestJson={modalState.requestViewResponseModal.config.requestJson} />

@@ -32,7 +32,7 @@ export interface IFilterFieldObject {
   fieldName: string
   displayKey?: string
   valueKey?: string
-  ariaLabel: string
+  ariaLabel?: string
 
   fieldName2?: string
   ariaLabel2?: string

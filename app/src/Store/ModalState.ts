@@ -26,7 +26,6 @@ const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
 const SHOW_STUDENT_FINDER_MODAL = "SHOW_STUDENT_FINDER_MODAL"
 const SHOW_UPDATE_NOTICE_MODAL = "SHOW_UPDATE_NOTICE_MODAL"
 const SHOW_PERSON_LOOKUP_MODAL = "SHOW_PERSON_LOOKUP_MODAL"
-const SHOW_ADD_SECTION_PRODUCT_MODAL = "SHOW_ADD_SECTION_PRODUCT_MODAL"
 const SHOW_REQUEST_DETAILS_MODAL = "SHOW_REQUEST_DETAILS_MODAL"
 const SHOW_REQUEST_VIEW_RESPONSE_MODAL = "SHOW_REQUEST_VIEW_RESPONSE_MODAL"
 const SHOW_REQUEST_RESOLUTION_MODAL = "SHOW_REQUEST_RESOLUTION_MODAL"
@@ -449,15 +448,6 @@ export const showPersonLookupModal = (value: boolean, config?: IShowPersonLookup
   }
 }
 
-interface IShowSectionProductModal {
-  sectionId?: number
-}
-
-export const showAddSectionProductModal = (value: boolean, config?: IShowSectionProductModal): IAction => ({
-  type: SHOW_ADD_SECTION_PRODUCT_MODAL,
-  payload: { value, config }
-})
-
 interface IShowRequestModal {
   requestId?: number
   requestJson?: any
@@ -558,8 +548,6 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, updateNoticeModal: action.payload }
     case SHOW_PERSON_LOOKUP_MODAL:
       return { ...state, personLookupModal: action.payload }
-    case SHOW_ADD_SECTION_PRODUCT_MODAL:
-      return { ...state, addSectionProductModal: action.payload }
     case SHOW_REQUEST_DETAILS_MODAL:
       return { ...state, requestDetailsModal: action.payload }
     case SHOW_REQUEST_VIEW_RESPONSE_MODAL:

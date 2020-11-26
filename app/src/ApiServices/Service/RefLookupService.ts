@@ -290,3 +290,21 @@ export function getMeetingInformationTypes(): Promise<IApiResponse> {
     LookUpName: "MeetingInformationType"
   })
 }
+
+export function getProductTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProductType"
+  })
+}
+
+export function getProductDefinitions(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProductDefinition"
+  })
+}
+
+export function getDeliveryModes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DeliveryMode"
+  })
+}

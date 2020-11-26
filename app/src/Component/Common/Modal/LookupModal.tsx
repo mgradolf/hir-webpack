@@ -15,6 +15,7 @@ interface ILookupModal {
   isArray?: boolean
   columns: TableColumnType
   meta: IFilterField[]
+  defaultFilter?: { [key: string]: any }
 }
 
 export function LookupModal(props: ILookupModal) {
@@ -51,7 +52,8 @@ export function LookupModal(props: ILookupModal) {
               setSelectedItems([])
             }}
             onApplyChanges={(newSearchParams, newSearchParamsCount) => {
-              setSearchParams(newSearchParams)
+              console.log(props.defaultFilter, newSearchParams)
+              setSearchParams({ ...props.defaultFilter, ...newSearchParams })
             }}
           />
           <ResponsiveTable

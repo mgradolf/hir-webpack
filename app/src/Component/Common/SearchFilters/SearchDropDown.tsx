@@ -30,6 +30,7 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
   return (
     <SearchFieldWrapper {...props}>
       <Select
+        allowClear={true}
         loading={loading}
         aria-label={props.ariaLabel}
         style={props.isCheckeble ? { width: 150 } : {}}
