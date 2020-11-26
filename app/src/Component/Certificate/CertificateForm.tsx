@@ -22,18 +22,20 @@ interface ICertificateFormProps {
   setApiCallInProgress: (flag: boolean) => void
 }
 
-const layout = {
-  labelCol: { span: 6 }
-}
-
 export default function CertificateForm(props: ICertificateFormProps) {
-  const [certificateItems, setCertificateItems] = useState<Array<any>>([])
-  const [sectionID, setSectionID] = useState<Number>()
-  const [programID, setProgramID] = useState<Number>()
-  const [studentID, setStudentID] = useState<Number>()
-
-  const isProgram = props.initialFormValue.IsProgram
   let validityMonths: any = null
+  const isProgram = props.initialFormValue.IsProgram
+  const fromRegistation = props.initialFormValue.StudentID
+
+  const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: fromRegistation ? 10 : 0 }
+  }
+
+  const [certificateItems, setCertificateItems] = useState<Array<any>>([])
+  const [sectionID, setSectionID] = useState<Number>(fromRegistation ? props.initialFormValue.SectionID : undefined)
+  const [programID, setProgramID] = useState<Number>()
+  const [studentID, setStudentID] = useState<Number>(fromRegistation ? props.initialFormValue.StudentID : undefined)
 
   useEffect(() => {
     ; (async function () {
@@ -121,9 +123,31 @@ export default function CertificateForm(props: ICertificateFormProps) {
         <Input disabled value={isProgram ? "Program" : "Offering"} />
       </Form.Item>
 
-      <FormStudentLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
+      {fromRegistation &&
+        <>
+          <Form.Item label="StudentID" className="hidden" name={props.fieldNames.StudentID}>
+            <Input aria-label="StudentID" />
+          </Form.Item>
 
-      {!isProgram &&
+          <Form.Item label="Student" {...layout}>
+            <Input disabled value={props.initialFormValue.StudentName} />
+          </Form.Item>
+
+          <Form.Item label="SectionID" className="hidden" name={props.fieldNames.SectionID}>
+            <Input aria-label="SectionID" />
+          </Form.Item>
+
+          <Form.Item label="Section" {...layout}>
+            <Input disabled value={props.initialFormValue.SectionNumber} />
+          </Form.Item>
+        </>
+      }
+
+      {!fromRegistation &&
+        <FormStudentLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
+      }
+
+      {!isProgram && !fromRegistation &&
         <DropDown
           onChange={selectSectionHandler}
           label="Section"
@@ -136,7 +160,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
         ></DropDown>
       }
 
-      {isProgram &&
+      {isProgram && !fromRegistation &&
         <DropDown
           onChange={selectProgramHandler}
           label="Program"
