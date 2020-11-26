@@ -308,3 +308,9 @@ export function getDeliveryModes(): Promise<IApiResponse> {
     LookUpName: "DeliveryMode"
   })
 }
+
+export function getCatalogTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CatalogType"
+  })
+}
