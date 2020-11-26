@@ -6,23 +6,23 @@ import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/Standar
 import { getCertificateDetailsMeta } from "~/FormMeta/Certificate/CertificateDetailsMeta"
 
 export default function CertificateDetailsPage(
-  props: RouteComponentProps<{ certificateID?: string; }>
+  props: RouteComponentProps<{ studentCertificateID?: string; }>
 ) {
   const [certificateDetails, setCertificateDetails] = useState<{ [key: string]: any }>({})
   const [downloadUrl, setdownloadUrl] = useState<string>()
-  const CertificateID = Number(props?.match?.params?.certificateID)
+  const studentCertificateID = Number(props?.match?.params?.studentCertificateID)
 
   let Param: { [key: string]: any }
-  if (CertificateID) Param = { CertificateID: CertificateID }
+  if (studentCertificateID) Param = { StudentCertificateID: studentCertificateID }
 
   useEffect(() => {
     ; (async function () {
-      const result = await searchCertificate({ CertificateID: CertificateID })
+      const result = await searchCertificate({ StudentCertificateID: studentCertificateID })
       if (result.success && result.data) {
         setCertificateDetails(result.data[0])
       }
     })()
-  }, [CertificateID])
+  }, [studentCertificateID])
 
   useEffect(() => {
     ; (async function () {
@@ -30,6 +30,7 @@ export default function CertificateDetailsPage(
         const params = {
           CertificateID: certificateDetails.CertificateID,
           StudentID: certificateDetails.StudentID,
+          SectionID: certificateDetails.SectionID,
           IssueDate: certificateDetails.IssueDate,
           [RESPONSE_TYPE.PDF]: true
         }

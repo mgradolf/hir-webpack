@@ -2,6 +2,7 @@ import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { Form, Input, DatePicker, Select } from "antd"
 import FormError from "~/Component/Common/FormError"
+import DropDown from "~/Component/Common/Form/DropDown"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
 import {
@@ -9,10 +10,9 @@ import {
   getApplicableProgramCertificate
 } from "~/ApiServices/BizApi/certificate/certificateIF"
 import { FormStudentLookupButton } from "~/Component/Common/Form/FormLookups/FormStudentLookup"
-import { FormSectionLookupButton } from "~/Component/Common/Form/FormLookups/FormSectionLookup"
-import { FormProgramLookupButton } from "~/Component/Common/Form/FormLookups/FormProgramLookup"
 import "~/Sass/utils.scss"
 import { FormInstance } from "antd/lib/form"
+import { getCompletedProgram, getCompletedSection } from "~/ApiServices/BizApi/certificate/studentCertificateIF"
 
 interface ICertificateFormProps {
   initialFormValue: { [key: string]: any }
@@ -23,14 +23,14 @@ interface ICertificateFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 6 }
+  labelCol: { span: 6 }
 }
 
 export default function CertificateForm(props: ICertificateFormProps) {
   const [certificateItems, setCertificateItems] = useState<Array<any>>([])
   const [sectionID, setSectionID] = useState<Number>()
   const [programID, setProgramID] = useState<Number>()
+  const [studentID, setStudentID] = useState<Number>()
 
   const isProgram = props.initialFormValue.IsProgram
   let validityMonths: any = null
@@ -95,12 +95,18 @@ export default function CertificateForm(props: ICertificateFormProps) {
     }
   }
 
-  const onCloseModal = (datas: any) => {
-    if (isProgram) {
-      setProgramID(datas[0].ProgramID)
-    } else {
-      setSectionID(datas[0].SectionID)
-    }
+  const onCloseModal = (data: any) => {
+    setStudentID(data[0].StudentID)
+  }
+
+  const selectSectionHandler = (value: any) => {
+    setSectionID(value)
+    setCertificateItems([])
+  }
+
+  const selectProgramHandler = (value: any) => {
+    setProgramID(value)
+    setCertificateItems([])
   }
 
   return (
@@ -115,18 +121,39 @@ export default function CertificateForm(props: ICertificateFormProps) {
         <Input disabled value={isProgram ? "Program" : "Offering"} />
       </Form.Item>
 
-      <FormStudentLookupButton formInstance={props.formInstance} />
+      <FormStudentLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
 
       {!isProgram &&
-        <FormSectionLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
+        <DropDown
+          onChange={selectSectionHandler}
+          label="Section"
+          fieldName={props.fieldNames.SectionID}
+          searchFunc={() => getCompletedSection([studentID])}
+          displayField="SectionNumber"
+          valueField="SectionID"
+          labelColumn={{ span: 6 }}
+          disabled={false}
+        ></DropDown>
       }
 
       {isProgram &&
-        <FormProgramLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
+        <DropDown
+          onChange={selectProgramHandler}
+          label="Program"
+          fieldName={props.fieldNames.ProgramID}
+          searchFunc={() => getCompletedProgram([studentID])}
+          displayField="ProgramCode"
+          valueField="ProgramID"
+          labelColumn={{ span: 6 }}
+          disabled={false}
+        ></DropDown>
       }
 
-      <Form.Item label="Certificate Name" {...layout} name={props.fieldNames.CertificateID}>
-        <Select aria-label="Certificate name" onChange={certificateHandler}>
+      <Form.Item label="Certificate Name" {...layout} name={props.fieldNames.CertificateID}
+        rules={[{ required: true, message: "Please select a certificate!" }]}>
+        <Select
+          aria-label="Certificate name"
+          onChange={certificateHandler}>
           {certificateItems.map((x) => {
             return (
               <Select.Option key={x.CertificateID} value={x.CertificateID}>

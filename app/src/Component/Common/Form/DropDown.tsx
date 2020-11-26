@@ -12,6 +12,7 @@ interface IDropDown {
   labelColumn?: { [key: string]: any }
   defaultValue?: any
   disabled?: boolean
+  onChange?: (Params: any) => void
 }
 export default function DropDown(props: IDropDown) {
   const [loading, setLoading] = useState(false)
@@ -36,7 +37,7 @@ export default function DropDown(props: IDropDown) {
   }, [props])
   return (
     <Form.Item label={props.label} name={props.fieldName} labelCol={props.labelColumn}>
-      <Select defaultValue={props.defaultValue} disabled={props.disabled} loading={loading}>
+      <Select defaultValue={props.defaultValue} disabled={props.disabled} loading={loading} onChange={props.onChange}>
         {dataSource.map((x) => (
           <Select.Option key={x.key + x[props.valueField] + x[props.displayField]} value={x[props.valueField]}>
             {x[props.displayField]}

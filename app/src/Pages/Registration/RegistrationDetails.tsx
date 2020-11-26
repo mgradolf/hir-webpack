@@ -60,6 +60,7 @@ const gradeFieldName: IRegistrationGradeFieldNames = {
 const certificateFieldName: ICertificateFieldNames = {
   SectionID: "SectionID",
   StudentID: "StudentID",
+  ProgramID: "ProgramID",
   CertificateID: "CertificateID",
   IssueDate: "IssueDate",
   ExpirationDate: "ExpirationDate",
@@ -80,7 +81,7 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
   const [registrationDetails, setRegistrationDetails] = useState<{ [key: string]: any }>()
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       setApiCallInProgress(true)
       const result = await findRegistrations({ SectionID: Number(sectionID), StudentID: Number(studentID) })
       if (result && result.success) {
