@@ -41,7 +41,7 @@ export const getWaitlistEntriesTableColumns = (
       title: "PurchaserName",
       dataIndex: "PurchaserName",
       render: (text: any, record: any) =>
-        isModal ? { text } : <Link to={`/personn/${record.PurchaserID}`}>{record.PurchaserName}</Link>
+        isModal ? { text } : <Link to={`/person/${record.PurchaserID}`}>{record.PurchaserName}</Link>
     },
     { title: "StudentName", dataIndex: "StudentName" },
     { title: "Email", dataIndex: "StudentEmailAddress" },
@@ -66,6 +66,7 @@ export const getWaitlistEntriesTableColumns = (
                 onClick={() => {
                   setShowCreateModal(record)
                 }}
+                disabled={!!record.RequestState}
               >
                 Edit
               </Button>
@@ -76,6 +77,7 @@ export const getWaitlistEntriesTableColumns = (
                     if (x.success) eventBus.publish(REFRESH_PAGE)
                   })
                 }}
+                disabled={!!record.RequestState}
               >
                 Remove
               </Button>

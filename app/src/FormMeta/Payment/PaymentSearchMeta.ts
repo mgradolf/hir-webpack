@@ -56,14 +56,14 @@ export const PaymentSearchMeta: IFilterField[] = [
     ariaLabel2: "Creation Date To"
   },
   {
-    label: "Order Id",
+    label: "Order ID",
     inputType: NUMBER,
     defaultValue: "",
     fieldName: "OrderID",
     ariaLabel: "OrderID"
   },
   {
-    label: "Payment Id",
+    label: "Payment ID",
     inputType: NUMBER,
     defaultValue: "",
     fieldName: "PaymentID",

@@ -50,8 +50,8 @@ export const OrderSearchMeta: IFilterField[] = [
   },
   {
     label: "Account",
-    fieldName: "AccountName",
-    valueField: "AccountName",
+    fieldName: "AccountID",
+    valueField: "AccountID",
     customFilterComponent: SearchAccountLookup
   },
   {
@@ -61,21 +61,21 @@ export const OrderSearchMeta: IFilterField[] = [
     extraProps: {
       selectorKeys: [
         {
-          label: "Buyer First Name",
+          label: "Buyer Name",
           fieldName: "BuyerName",
-          valueField: "FirstName",
+          valueField: "FormattedName",
           component: SearchPersonLookupButton
         },
         {
-          label: "Student First Name",
+          label: "Student Name",
           fieldName: "StudentName",
-          valueField: "FirstName",
+          valueField: "FormattedName",
           component: SearchStudentLookupButton
         },
         {
-          label: "Billed To First Name",
+          label: "Billed To Name",
           fieldName: "BilledPersonName",
-          valueField: "FirstName",
+          valueField: "FormattedName",
           component: SearchPersonLookupButton
         }
       ]
