@@ -48,7 +48,6 @@ export const CourseCertificateSearchMeta: IFilterField[] = [
   }
 ]
 
-
 export const ProgramCertificateSearchMeta: IFilterField[] = [
   {
     label: "Student",

@@ -5,9 +5,7 @@ import { searchCertificate, previewCertificate } from "~/ApiServices/Service/Reg
 import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
 import { getCertificateDetailsMeta } from "~/FormMeta/Certificate/CertificateDetailsMeta"
 
-export default function CertificateDetailsPage(
-  props: RouteComponentProps<{ studentCertificateID?: string; }>
-) {
+export default function CertificateDetailsPage(props: RouteComponentProps<{ studentCertificateID?: string }>) {
   const [certificateDetails, setCertificateDetails] = useState<{ [key: string]: any }>({})
   const [downloadUrl, setdownloadUrl] = useState<string>()
   const studentCertificateID = Number(props?.match?.params?.studentCertificateID)
@@ -16,7 +14,7 @@ export default function CertificateDetailsPage(
   if (studentCertificateID) Param = { StudentCertificateID: studentCertificateID }
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       const result = await searchCertificate({ StudentCertificateID: studentCertificateID })
       if (result.success && result.data) {
         setCertificateDetails(result.data[0])
@@ -25,7 +23,7 @@ export default function CertificateDetailsPage(
   }, [studentCertificateID])
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       if (Object.keys(certificateDetails).length > 0) {
         const params = {
           CertificateID: certificateDetails.CertificateID,
@@ -35,11 +33,8 @@ export default function CertificateDetailsPage(
           [RESPONSE_TYPE.PDF]: true
         }
         const result = await previewCertificate(params)
-        const file = new Blob(
-          [result.data],
-          { type: 'application/pdf' }
-        );
-        const fileURL = URL.createObjectURL(file);
+        const file = new Blob([result.data], { type: "application/pdf" })
+        const fileURL = URL.createObjectURL(file)
         setdownloadUrl(fileURL)
       }
     })()
