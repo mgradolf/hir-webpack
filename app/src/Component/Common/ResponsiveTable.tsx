@@ -25,7 +25,11 @@ export const renderDetailsLink = (url: string): JSX.Element => {
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
-export const renderBoolean = (text: any) => (text ? "Yes" : "No")
+export const renderBoolean = (text: any) => {
+  if (typeof text === "boolean") {
+    return text ? "Yes" : "No"
+  } else return ""
+}
 export const renderWeek = (text: any[], record: any) => {
   const weeks: string[] = ["Monday", "TuesDay", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   return text && Array.isArray(text) && weeks.filter((x, i) => text.includes(i + 1))

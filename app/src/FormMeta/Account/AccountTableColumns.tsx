@@ -10,7 +10,7 @@ export const getAccountTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Account Name",
       dataIndex: "AccountName",
-      render: (text: any, record: any) => (isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     },
     { title: "Primary Contact", dataIndex: "ContactName" },
     { title: "Phone", dataIndex: "TelephoneNumber" },

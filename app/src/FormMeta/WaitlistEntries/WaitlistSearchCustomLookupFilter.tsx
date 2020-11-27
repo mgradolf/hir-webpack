@@ -170,6 +170,7 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
           </Col>
           <Col span={6} xs={8}>
             <Input
+              readOnly
               value={selectedValueToDisplay}
               onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                 e.persist()

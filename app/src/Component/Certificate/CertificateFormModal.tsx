@@ -49,11 +49,8 @@ export default function CertificateFormModal(props: ICertificateFormProps) {
     setApiCallInProgress(true)
     const response = await previewCertificate(params)
     if (response.data) {
-      const file = new Blob(
-        [response.data],
-        { type: 'application/pdf' }
-      );
-      const fileURL = URL.createObjectURL(file);
+      const file = new Blob([response.data], { type: "application/pdf" })
+      const fileURL = URL.createObjectURL(file)
       window.open(fileURL)
     } else {
       setErrorMessages(response.error)
@@ -88,7 +85,9 @@ export default function CertificateFormModal(props: ICertificateFormProps) {
           title="Issue a Certificate"
           actions={[
             <Button onClick={handleCancel}>Cancel</Button>,
-            <Button type="primary" onClick={viewCertificate}>Preview</Button>,
+            <Button type="primary" onClick={viewCertificate}>
+              Preview
+            </Button>,
             <Button onClick={onFormSubmission}>Submit</Button>
           ]}
         >

@@ -133,12 +133,14 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
               onCloseModal={(items?: any[]) => {
                 if (Array.isArray(items) && items.length > 0) setSection(items[0])
               }}
-              entityLookupFunc={() => {
-                console.log(props.SectionID)
-                return getSectionById(props.SectionID || 0).then((x) => {
-                  return x.data
-                })
-              }}
+              {...(props.SectionID && {
+                entityLookupFunc: () => {
+                  console.log(props.SectionID)
+                  return getSectionById(props.SectionID || 0).then((x) => {
+                    return x.data
+                  })
+                }
+              })}
             />
 
             {Section && (

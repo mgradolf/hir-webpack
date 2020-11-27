@@ -33,12 +33,12 @@ export default function CertificateForm(props: ICertificateFormProps) {
   }
 
   const [certificateItems, setCertificateItems] = useState<Array<any>>([])
-  const [sectionID, setSectionID] = useState<Number>(fromRegistation ? props.initialFormValue.SectionID : undefined)
-  const [programID, setProgramID] = useState<Number>()
-  const [studentID, setStudentID] = useState<Number>(fromRegistation ? props.initialFormValue.StudentID : undefined)
+  const [sectionID, setSectionID] = useState<number>(fromRegistation ? props.initialFormValue.SectionID : undefined)
+  const [programID, setProgramID] = useState<number>()
+  const [studentID, setStudentID] = useState<number>(fromRegistation ? props.initialFormValue.StudentID : undefined)
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       if (sectionID) {
         props.setApiCallInProgress(true)
         const result = await getApplicableSectionCertificate([sectionID])
@@ -56,7 +56,6 @@ export default function CertificateForm(props: ICertificateFormProps) {
         }
         props.setApiCallInProgress(false)
       }
-
     })()
     // eslint-disable-next-line
   }, [props.setApiCallInProgress, sectionID, programID])
@@ -123,7 +122,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
         <Input disabled value={isProgram ? "Program" : "Offering"} />
       </Form.Item>
 
-      {fromRegistation &&
+      {fromRegistation && (
         <>
           <Form.Item label="StudentID" className="hidden" name={props.fieldNames.StudentID}>
             <Input aria-label="StudentID" />
@@ -141,13 +140,11 @@ export default function CertificateForm(props: ICertificateFormProps) {
             <Input disabled value={props.initialFormValue.SectionNumber} />
           </Form.Item>
         </>
-      }
+      )}
 
-      {!fromRegistation &&
-        <FormStudentLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />
-      }
+      {!fromRegistation && <FormStudentLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />}
 
-      {!isProgram && !fromRegistation &&
+      {!isProgram && !fromRegistation && (
         <DropDown
           onChange={selectSectionHandler}
           label="Section"
@@ -158,9 +155,9 @@ export default function CertificateForm(props: ICertificateFormProps) {
           labelColumn={{ span: 6 }}
           disabled={false}
         ></DropDown>
-      }
+      )}
 
-      {isProgram && !fromRegistation &&
+      {isProgram && !fromRegistation && (
         <DropDown
           onChange={selectProgramHandler}
           label="Program"
@@ -171,13 +168,15 @@ export default function CertificateForm(props: ICertificateFormProps) {
           labelColumn={{ span: 6 }}
           disabled={false}
         ></DropDown>
-      }
+      )}
 
-      <Form.Item label="Certificate Name" {...layout} name={props.fieldNames.CertificateID}
-        rules={[{ required: true, message: "Please select a certificate!" }]}>
-        <Select
-          aria-label="Certificate name"
-          onChange={certificateHandler}>
+      <Form.Item
+        label="Certificate Name"
+        {...layout}
+        name={props.fieldNames.CertificateID}
+        rules={[{ required: true, message: "Please select a certificate!" }]}
+      >
+        <Select aria-label="Certificate name" onChange={certificateHandler}>
           {certificateItems.map((x) => {
             return (
               <Select.Option key={x.CertificateID} value={x.CertificateID}>
