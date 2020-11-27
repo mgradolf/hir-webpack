@@ -19,6 +19,7 @@ export interface IFormLookupOpenButton {
   columns: TableColumnType
   meta: IFilterField[]
   isArray?: boolean
+  zIndex?: boolean
   formInstance: FormInstance
 }
 
@@ -76,6 +77,7 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
             searchFunc={props.searchFunc}
             columns={props.columns}
             meta={props.meta}
+            zIndex={props.zIndex}
           />
         )}
       </Form.Item>

@@ -5,7 +5,7 @@ import { Dispatch } from "redux"
 import { showRequestQuestionAnswerModal, showRequestResolutionModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select } from "antd"
 import { findPublishedAndActiveQuestionsWithOptions } from "~/ApiServices/Service/RequestActivityService"
-import { IParamsToBeDispatched } from "~/Pages/Request/Details"
+import { IParamsToBeDispatched } from "~/Pages/Request/RequestDetailsPage"
 import { eventBus, EVENT_REQUEST_RESOLUTION, EVENT_REQUEST_QUESTION_ANSWER } from "~/utils/EventBus"
 import { useEffect } from "react"
 import { REQUEST_PROCESS_ACTION_NAME } from "~/utils/Constants"
@@ -29,7 +29,7 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       setLoading(true)
       const result = await findPublishedAndActiveQuestionsWithOptions({
         SeatGroupID: props.taskJson.TaskData.SeatGroupID,

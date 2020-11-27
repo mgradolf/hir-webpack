@@ -14,10 +14,10 @@ export interface IProgramFilterValues {
 const INITIAL_FILTER_VALUES: IProgramFilterValues = {
   programCode: "*",
   departmentID: "",
-  name: "*",
+  name: "",
   programStatusCodeID: "",
-  programOfferingName: "*",
-  programOfferingCode: "*"
+  programOfferingName: "",
+  programOfferingCode: ""
 }
 
 export function useSearchFilterState() {
@@ -49,7 +49,7 @@ export function useSearchProgram(filterData: IProgramFilterValues | null): [bool
             params[key] = Number(params[key])
           }
         })
-        const result = await searchPrograms([params])
+        const result = await searchPrograms(params)
 
         if (result && result.success) {
           setProgramItems(result.data)

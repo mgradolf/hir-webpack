@@ -63,23 +63,24 @@ export function RequestDetailsTable(props: ITableWrapperProps) {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          {record.StateID === PROCESSED_REQUEST_STATE_ID && record.TaskType === REQUEST_TASK_TYPE_NAME.ORDER && (
-            <Link to={`/order/${record.ProcessResult.OrderID}`}>View Records</Link>
-          )}
-          {record.StateID === PROCESSED_REQUEST_STATE_ID && record.TaskType === REQUEST_TASK_TYPE_NAME.REGISTRATION && (
-            <Link to={`/seatgroup/${record.ProcessResult.SeatGroupID}`}>View Records</Link>
-          )}
-          {record.StateID === PROCESSED_REQUEST_STATE_ID &&
-            record.TaskType === REQUEST_TASK_TYPE_NAME.EXTERNAL_GATEWAY_PAYMENT && (
-              <Link to={`/gateway_activity/${record.ProcessResult.PaymentGatewayActivityID}`}>View Records</Link>
+          {record.StateID === PROCESSED_REQUEST_STATE_ID
+            && record.TaskType === REQUEST_TASK_TYPE_NAME.ORDER && (
+              <Link to={`/order/${record.ProcessResult.OrderID}`}>View Records</Link>
             )}
-          {record.StateID === PROCESSED_REQUEST_STATE_ID &&
-            record.TaskType === REQUEST_TASK_TYPE_NAME.PURCHASE_ORDER && (
-              <Link to={`/purchase_order/${record.ProcessResult.PurchaseOrderID}`}>View Records</Link>
+          {record.StateID === PROCESSED_REQUEST_STATE_ID
+            && record.TaskType === REQUEST_TASK_TYPE_NAME.REGISTRATION && (
+              <Link to={`/section/${record.TaskData.SectionID}/registration`}>View Records</Link>
+            )}
+          {record.StateID === PROCESSED_REQUEST_STATE_ID
+            && record.TaskType === REQUEST_TASK_TYPE_NAME.EXTERNAL_GATEWAY_PAYMENT && (
+              <Link to={`/order/payments/${record.ProcessResult.PaymentID}`}>View Records</Link>
+            )}
+          {record.StateID === PROCESSED_REQUEST_STATE_ID
+            && record.TaskType === REQUEST_TASK_TYPE_NAME.PURCHASE_ORDER && (
+              <Link to={`/order/${record.ProcessResult.PurchaseOrderID}`}>View Records</Link>
             )}
           {(record.StateID === ACTION_REQUIRED_REQUEST_STATE_ID || record.StateID === ERROR_REQUEST_STATE_ID) &&
-            record.Issues.length > 0 &&
-            record.UpdatedResponse === undefined && (
+            record.Issues.length > 0 && record.UpdatedResponse === undefined && (
               <Dropdown
                 overlay={<RequestDetailsMenu taskJson={record} extraDataSource={extraDataSource} />}
                 trigger={["click"]}

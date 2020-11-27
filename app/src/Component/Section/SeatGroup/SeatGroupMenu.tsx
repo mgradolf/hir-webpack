@@ -6,31 +6,34 @@ import SeatGroupRemoveLink from "~/Component/Section/SeatGroup/SeatGroupRemoveLi
 import SeatGroupAffiliateLink from "~/Component/Section/SeatGroup/SeatGroupAffiliateLink"
 
 interface ISeatGroupMenu {
-  sectionId: number
-  seatgroupId: number
-  programId?: number
-  programCode?: string
-  isDefault: boolean
+  additionalData: { [key: string]: any }
 }
 
 export default function SeatGroupMenu(props: ISeatGroupMenu) {
+  const sectionID = props.additionalData.SectionID
+  const isDefault = props.additionalData.IsDefault
+  const seatGroupID = props.additionalData.SeatGroupID
+  const programID = props.additionalData.ProgramID
+  const programCode = props.additionalData.ProgramCode
+  const packageID = props.additionalData.PackageID
+
   return (
     <Menu>
       <Menu.Item key="0">
         <SeatGroupEditLink
-          sectionId={props.sectionId}
-          seatgroupId={props.seatgroupId}
-          programId={props.programId}
-          programCode={props.programCode}
-          isDefault={props.isDefault}
+          sectionId={sectionID}
+          seatgroupId={seatGroupID}
+          programId={programID}
+          programCode={programCode}
+          isDefault={isDefault}
         />
       </Menu.Item>
       <Menu.Item key="1">
-        <SeatGroupRemoveLink seatgroupId={props.seatgroupId} />
+        <SeatGroupRemoveLink seatgroupId={seatGroupID} />
       </Menu.Item>
-      {!props.isDefault && (
+      {!isDefault && !packageID && (
         <Menu.Item key="2">
-          <SeatGroupAffiliateLink seatgroupId={props.seatgroupId} />
+          <SeatGroupAffiliateLink seatgroupId={seatGroupID} />
         </Menu.Item>
       )}
     </Menu>
