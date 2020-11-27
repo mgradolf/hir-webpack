@@ -5,6 +5,7 @@ import SearchFilters from "~/Component/Common/SearchFilters"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import zIndex from "~/utils/zIndex"
 
 interface ILookupModal {
   title: string
@@ -16,6 +17,7 @@ interface ILookupModal {
   columns: TableColumnType
   meta: IFilterField[]
   defaultFilter?: { [key: string]: any }
+  zIndex?: boolean
 }
 
 export function LookupModal(props: ILookupModal) {
@@ -28,7 +30,7 @@ export function LookupModal(props: ILookupModal) {
     }
   }
   return (
-    <Modal width="1000px">
+    <Modal width="1000px" zIndex={props.zIndex ? zIndex.defaultModal + 1 : undefined}>
       <Card
         title={props.title}
         actions={[

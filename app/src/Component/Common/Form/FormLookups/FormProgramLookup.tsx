@@ -4,7 +4,7 @@ import { FormLookupOpenButton } from "~/Component/Common/Form/FormLookupOpenButt
 import { FormInstance } from "antd/lib/form"
 import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
 
-export function FormProgramLookupButton(props: { formInstance: FormInstance; onCloseModal?: (Section: any) => void }) {
+export function FormProgramLookupButton(props: { formInstance: FormInstance; zIndex?: boolean, onCloseModal?: (Section: any) => void }) {
   return (
     <FormLookupOpenButton
       lookupModalTitle="Select Program"
@@ -16,6 +16,7 @@ export function FormProgramLookupButton(props: { formInstance: FormInstance; onC
       meta={programMeta}
       formInstance={props.formInstance}
       onCloseModal={props.onCloseModal}
+      zIndex={props.zIndex}
     />
   )
 }

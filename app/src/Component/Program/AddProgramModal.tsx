@@ -66,7 +66,7 @@ function AddProgramModal() {
 
   return (
     <Modal showModal={true} width="800px" zIndex={zIndex.defaultModal + 1}>
-      <Card title="Select Program" actions={cardActions} style={{ maxHeight: "90vh", overflow: "auto" }}>
+      <Card title="Select Program" actions={cardActions} style={{ maxHeight: "90vh", overflowY: "auto" }}>
         <ProgramSearchFilter
           title=""
           isModalView

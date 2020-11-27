@@ -12,21 +12,21 @@ const programMeta: IFilterFieldObject[] = [
   {
     label: "Program Name",
     inputType: TEXT,
-    defaultValue: "*",
+    defaultValue: "",
     fieldName: "name",
     ariaLabel: "Program Name"
   },
   {
     label: "Program Offering Code",
     inputType: TEXT,
-    defaultValue: "*",
+    defaultValue: "",
     fieldName: "programOfferingCode",
     ariaLabel: "Program Offering Code"
   },
   {
     label: "Program Offering Name",
     inputType: TEXT,
-    defaultValue: "*",
+    defaultValue: "",
     fieldName: "programOfferingName",
     ariaLabel: "Program Offering Name"
   },

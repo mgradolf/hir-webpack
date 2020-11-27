@@ -1,11 +1,16 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getCertificateTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
+    {
+      ...(!isModal && {
+        render: (text: any, record: any) => renderDetailsLink(`/certificate/${record.CertificateID}`)
+      })
+    },
     {
       title: "Certificate Number",
       dataIndex: "CertificateNumber",
@@ -37,7 +42,8 @@ export const getCertificateTableColumns = (isModal = false): ITableConfigProp =>
     },
     {
       title: "Student Name",
-      dataIndex: "StudentName"
+      dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>,
     },
     {
       title: "Prefix",
@@ -121,34 +127,7 @@ export const getCertificateTableColumns = (isModal = false): ITableConfigProp =>
       render: renderDate
     }
   ]
-
-  const responsiveColumnIndices: number[] = [
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26
-  ]
-  const expandableColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+  const responsiveColumnIndices: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+  const expandableColumnIndices: number[] = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchCertificate }
 }
