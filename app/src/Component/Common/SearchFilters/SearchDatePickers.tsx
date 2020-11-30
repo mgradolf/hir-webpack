@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import {
   IFilterFieldObject,
   IFilterGenericComponentProps,
@@ -8,8 +8,19 @@ import { DatePicker, Input, Form } from "antd"
 import { DATE_FORMAT } from "~/utils/Constants"
 import moment from "moment"
 
+import { useFirstRender } from "~/Hooks/useFirstRender"
+
 export function DatePickersInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
-  // const timeStamp = "____" + Date.now().toString()
+  const firstRender = useFirstRender()
+  const [value, setValue] = useState<any>(undefined)
+  useEffect(() => {
+    props.defaultValue &&
+      props.defaultValue2 &&
+      setValue([moment(props.defaultValue, DATE_FORMAT), moment(props.defaultValue2, DATE_FORMAT)])
+  }, [props.defaultValue, props.defaultValue2])
+  useEffect(() => {
+    !firstRender && setValue(undefined)
+  }, [firstRender, props.clearTrigger])
   return (
     <>
       <Form.Item className="hidden" name={props.fieldName}>
@@ -25,15 +36,14 @@ export function DatePickersInputType(props: IFilterGenericComponentProps<IFilter
           aria-label={props.ariaLabel}
           disabled={props.disabled}
           allowClear
-          {...(props.defaultValue &&
-            props.defaultValue2 && {
-              defaultValue: [moment(props.defaultValue, DATE_FORMAT), moment(props.defaultValue2, DATE_FORMAT)]
-            })}
-          onChange={(momentValues: any, dateStrings: any): void => {
+          value={value}
+          onChange={(dates: any, dateStrings: any): void => {
+            console.log(dates, dateStrings)
             props.formInstance.setFieldsValue({ [props.fieldName]: dateStrings[0] })
             if (props.fieldName2) {
               props.formInstance.setFieldsValue({ [props.fieldName2]: dateStrings[1] })
             }
+            setValue(dates)
           }}
           format={DATE_FORMAT}
         />

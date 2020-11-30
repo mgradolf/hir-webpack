@@ -71,6 +71,7 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
   ? IFilterFieldObject & {
       isCheckeble?: boolean
       formInstance: FormInstance
+      clearTrigger?: boolean
     }
   : IFilterFieldComponent & {
       isCheckeble?: boolean

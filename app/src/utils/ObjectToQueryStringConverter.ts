@@ -10,7 +10,7 @@ export function objectToQueryString(value: any): string {
 function _ObjectToQueryString(value: any, parameterPath = ""): string {
   //If the value is null, return the parameter path with null as a value
   if (value === null) {
-    return parameterPath + "=null"
+    return parameterPath
   }
 
   //If the value is a scalar type, return the parameter path plus the parameter value

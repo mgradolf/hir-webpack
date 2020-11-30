@@ -54,21 +54,22 @@ export default function ({
     for (const key in params) {
       if (key === "" || !params[key] || key.includes("____")) delete params[key]
     }
-    console.log("formInstance.getFieldsValue() ", params)
     const filterCount = Object.keys(params).length
     props.onApplyChanges(params, filterCount)
 
-    const _queryString = objectToQueryString(params)
-    if (window.history && Object.keys(params).length > 0) {
-      window.history.pushState({}, "", _queryString)
-      // console.log(_queryString)
-    }
+    const _queryString = objectToQueryString(Object.keys(params).length > 0 ? params : null)
+    window.history && window.history.pushState({}, "", _queryString)
   }
 
   const clearParams = () => {
     formInstance.resetFields()
     setClearTrigger(!clearTrigger)
-    window.history.pushState({}, "", "")
+    const _meta = props.meta.map((x) => {
+      x.defaultValue = undefined
+      x.defaultValue2 = undefined
+      return x
+    })
+    setMeta(_meta)
   }
 
   useEffect(() => {
@@ -76,12 +77,10 @@ export default function ({
     const updateMeta = queryParams && Object.keys(queryParams).length > 0
     updateMeta && setShowLess(false)
     updateMeta && formInstance.setFieldsValue(queryParams)
-    // console.log("queryParams ", queryParams)
     const _meta = updateMeta
       ? props.meta.map((x) => {
           x.defaultValue = queryParams[x.fieldName]
           x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined
-          // console.table(x.fieldName2 === "FromCreationDate" && x)
           return x
         })
       : props.meta
@@ -197,6 +196,7 @@ const SearchFormFields = (props: {
                     key={i}
                     isCheckeble={props.isCheckeble}
                     formInstance={props.formInstance}
+                    clearTrigger={props.clearTrigger}
                   />
                 </Col>
               )
@@ -208,6 +208,7 @@ const SearchFormFields = (props: {
                     key={i}
                     isCheckeble={props.isCheckeble}
                     formInstance={props.formInstance}
+                    clearTrigger={props.clearTrigger}
                   />
                 </Col>
               )
@@ -262,16 +263,6 @@ const SearchForm = (props: {
       form={props.formInstance}
     >
       <Row>
-        {/* {getSearchFormFields()
-          .filter((field, index) => {
-            if (showLess && index < 4) return true
-            return !showLess
-          })
-          .map((field, i) => (
-            <Col key={i + 10000} lg={12} md={12} sm={12} xs={24}>
-              {field}
-            </Col>
-          ))} */}
         <SearchFormFields
           meta={props.meta}
           isCheckeble={props.isCheckeble}
