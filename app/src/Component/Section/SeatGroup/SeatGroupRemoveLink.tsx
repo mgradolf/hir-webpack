@@ -1,6 +1,6 @@
 import React from "react"
 import { removeSeatGroup } from "~/ApiServices/Service/SeatGroupService"
-import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button } from "antd"
 
 interface ISeatGroupRemoveLinkProp {
@@ -13,7 +13,7 @@ function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
       onClick={async () => {
         const response = await removeSeatGroup(props.seatgroupId)
         if (response.success) {
-          eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
+          eventBus.publish(REFRESH_PAGE)
         }
       }}
     >
