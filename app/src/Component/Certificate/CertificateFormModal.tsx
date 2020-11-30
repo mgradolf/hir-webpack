@@ -13,6 +13,7 @@ import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 interface ICertificateFormProps {
   isProgram?: boolean
   closeModal?: () => void
+  initialFormValue?: { [key: string]: any }
 }
 
 const fieldNames: ICertificateFieldNames = {
@@ -28,7 +29,9 @@ const fieldNames: ICertificateFieldNames = {
 
 export default function CertificateFormModal(props: ICertificateFormProps) {
   const [formInstance] = Form.useForm()
-  const [initialFormValue] = useState<{ [key: string]: any }>({})
+  const [initialFormValue] = useState<{ [key: string]: any }>(
+    props.initialFormValue !== undefined ? props.initialFormValue : {}
+  )
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
