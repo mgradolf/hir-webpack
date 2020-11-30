@@ -14,77 +14,77 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Instructor ID",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "FacultySerialNum",
     ariaLabel: "Instructor ID"
   },
   {
     label: "Last Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "LastName",
     ariaLabel: "Last Name"
   },
   {
     label: "First Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "FirstName",
     ariaLabel: "First Name"
   },
   {
     label: "Maiden Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "MaidenName",
     ariaLabel: "Maiden Name"
   },
   {
     label: "Other Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "OtherName",
     ariaLabel: "Other Name"
   },
   {
     label: "Email",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "EmailAddress",
     ariaLabel: "Email"
   },
   {
     label: "Is Active",
     inputType: BOOLEAN,
-    defaultValue: "",
+
     fieldName: "IsActive",
     ariaLabel: "Is Active"
   },
   {
     label: "Able To Teach",
     inputType: BOOLEAN,
-    defaultValue: "",
+
     fieldName: "IsAbleToTeach",
     ariaLabel: "Able To Teach"
   },
   {
     label: "ERP",
     inputType: NUMBER,
-    defaultValue: "",
+
     fieldName: "ERPCode",
     ariaLabel: "ERP Code"
   },
   {
     label: "SSN",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "SSN",
     ariaLabel: "GovID"
   },
   {
     label: "Instructor Type",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "InstructorTypeID",
     ariaLabel: "Instructor Type Select",
     refLookupService: getInstructorTypes,
@@ -94,7 +94,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Qualified to Teach Offering",
     inputType: DROPDOWN, // TODO: Should be a search field
-    defaultValue: "",
+
     fieldName: "CanTeachOfferingID",
     ariaLabel: "Qualified to Teach Offering",
     refLookupService: () => searchOffering({ OfferingCode: "*" }), // To be changed after search handler implementation
@@ -104,7 +104,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Taught Offering",
     inputType: DROPDOWN, // TODO: Should be a search field
-    defaultValue: "",
+
     fieldName: "TaughtOfferingID",
     ariaLabel: "Taught Offering",
     refLookupService: () => searchOffering({ OfferingCode: "*" }), // To be changed after search handler implementation
@@ -114,7 +114,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Gender",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "GenderTypeID",
     ariaLabel: "Gender Select",
     refLookupService: getGenderTypes,
@@ -124,7 +124,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Region",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "RegionCodeID",
     ariaLabel: "Region Select",
     refLookupService: getRegionCodes,
@@ -134,7 +134,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Ethnicity",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "EthnicityTypeID",
     ariaLabel: "Ethnicity Select",
     refLookupService: getEthnicityTypes,
@@ -144,7 +144,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "OrganizationID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
@@ -154,7 +154,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Country",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "CountryCodeID",
     ariaLabel: "Country Select",
     refLookupService: getCountries,
@@ -165,13 +165,13 @@ export const InstructorSearchMeta: IFilterField[] = [
     label: "Birthday",
     inputType: DATE_PICKER,
     fieldName: "Birthday",
-    defaultValue: "",
+
     ariaLabel: "Birthday"
   },
   {
     label: "Telephone Number",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "TelephoneNumber",
     ariaLabel: "Telephone Number"
   },
@@ -179,27 +179,27 @@ export const InstructorSearchMeta: IFilterField[] = [
     label: "Last Taught Date",
     inputType: DATE_PICKER,
     fieldName: "LastTaughtDate",
-    defaultValue: "",
+
     ariaLabel: "Last Taught Date"
   },
   {
     label: "Postal Code",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "PostalCode",
     ariaLabel: "Postal Code"
   },
   {
     label: "Gov ID",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "GovID",
     ariaLabel: "Gov ID"
   },
   {
     label: "Is Deceased",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "IsDeceased",
     ariaLabel: "Is Deceased",
     options: [
@@ -210,7 +210,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Status",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "InstitutionStatusCodeID",
     ariaLabel: "Status Select",
     refLookupService: getInstitutionStatusTypes,

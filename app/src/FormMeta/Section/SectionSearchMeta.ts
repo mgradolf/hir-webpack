@@ -9,14 +9,14 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "OfferingCode",
     ariaLabel: "Offering Code"
   },
   {
     label: "Offering Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "OfferingName",
     ariaLabel: "Offering Name"
   },
@@ -30,14 +30,14 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Instructor first name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "SectionFacultyFirstName",
     ariaLabel: "Instructor first name"
   },
   {
     label: "Instructor last name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "SectionFacultyLastName",
     ariaLabel: "Instructor last name"
   },
@@ -45,7 +45,7 @@ export const SectionSearchMeta: IFilterField[] = [
     label: "Start Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "FromStartDate",
     valueKey: "FromStartDate",
     ariaLabel: "Start Date From",
@@ -58,7 +58,7 @@ export const SectionSearchMeta: IFilterField[] = [
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "FromCreationDate",
     valueKey: "FromCreationDate",
     ariaLabel: "Creation Date From",
@@ -73,7 +73,7 @@ export const SectionSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromTerminationDate",
     valueKey: "FromTerminationDate",
-    defaultValue: "",
+
     ariaLabel: "Termination Date From",
     displayKey2: "To",
     fieldName2: "ToTerminationDate",
@@ -83,7 +83,7 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Is QuickAdmit",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "IsQuickAdmit",
     ariaLabel: "Is Quick Admit",
     options: [
@@ -94,7 +94,7 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Status",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "SectionStatusCodeID",
     ariaLabel: "Offering Status Select",
     refLookupService: getSectionStatusCode,
@@ -104,7 +104,7 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "OrganizationID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
@@ -114,7 +114,7 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Meets On",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "MeetsOn",
     ariaLabel: "Meets on Weekdays",
     options: [
@@ -130,7 +130,7 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Meeting Type",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "MeetingType",
     ariaLabel: "Meeting Type",
     refLookupService: findMeetingTypes,
@@ -140,7 +140,7 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Coordinator",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "Coordinator",
     ariaLabel: "Coordinator Select",
     refLookupService: () => getUsersByRole({ Role: "coordinator" }),

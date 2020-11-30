@@ -54,9 +54,9 @@ export default function NoShow(props: RouteComponentProps<{ sectionID: string }>
       <SearchFilter
         meta={[
           {
-            label: "Order Id",
+            label: "Order ID",
             inputType: NUMBER,
-            defaultValue: "",
+
             fieldName: "OrderID",
             ariaLabel: "OrderID"
           }

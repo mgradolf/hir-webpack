@@ -13,7 +13,7 @@ export default function PurchaseOrder() {
           fieldName: "OrderDateFrom",
           fieldName2: "OrderDateTo",
           ariaLabel: "ReportName",
-          defaultValue: "",
+
           inputType: DATE_PICKERS
         }
       ]}

@@ -14,14 +14,14 @@ export const getSectionAcademicActivitySearchMeta: IFilterField[] = [
   {
     label: "Modified By User ID",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "UserID",
     ariaLabel: "Modified By User ID"
   },
   {
     label: "Activity Date Range",
     inputType: DATE_PICKERS,
-    defaultValue: "",
+
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",

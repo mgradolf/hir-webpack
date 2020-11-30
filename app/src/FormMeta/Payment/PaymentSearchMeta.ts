@@ -46,7 +46,7 @@ export const PaymentSearchMeta: IFilterField[] = [
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "CreateDateFrom",
     valueKey: "CreateDateFrom",
     ariaLabel: "Creation Date From",
@@ -58,21 +58,21 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Order ID",
     inputType: NUMBER,
-    defaultValue: "",
+
     fieldName: "OrderID",
     ariaLabel: "OrderID"
   },
   {
     label: "Payment ID",
     inputType: NUMBER,
-    defaultValue: "",
+
     fieldName: "PaymentID",
     ariaLabel: "PaymentID"
   },
   {
     label: "Payment Types",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "PaymentTypeID",
     ariaLabel: "Payment Types",
     refLookupService: getPaymentTypes,
@@ -82,7 +82,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Base Paymment Type",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "BasePaymentTypeID",
     ariaLabel: "Base Paymment Type",
     refLookupService: getBasePaymentTypes,
@@ -92,7 +92,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Source",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "SourceID",
     ariaLabel: "Source",
     refLookupService: getSourceModule,
@@ -102,7 +102,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Gateway",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "PaymentGatewayAccountID",
     ariaLabel: "Gateway",
     refLookupService: getPaymentGatewayAccounts,
@@ -112,7 +112,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Payment Status",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "PaymentStatusID",
     ariaLabel: "Payment Status",
     refLookupService: getOPCStatusCode,
@@ -122,14 +122,14 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Reference",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "TransactionNumber",
     ariaLabel: "TransactionNumber"
   },
   {
     label: "Check",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "checkNumber",
     ariaLabel: "checkNumber"
   },

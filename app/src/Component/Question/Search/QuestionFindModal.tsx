@@ -38,7 +38,7 @@ function QuestionFindModal(props: IQuestionModal) {
             return {
               EventID: props.EventID,
               TagID: props.TagID,
-              PreferenceDefID: x["PreferenceDef.PreferenceDefID"]
+              PreferenceDefID: x.PreferenceDefID
             }
           })
         }).then((x) => {

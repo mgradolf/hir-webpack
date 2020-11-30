@@ -25,16 +25,17 @@ export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
   hidden?: boolean
-  defaultValue?: any
   placeholder?: string
   disabled?: boolean
 
   fieldName: string
+  defaultValue?: any
   displayKey?: string
   valueKey?: string
   ariaLabel?: string
 
   fieldName2?: string
+  defaultValue2?: any
   ariaLabel2?: string
   displayKey2?: string
   valueKey2?: string
@@ -50,9 +51,11 @@ export interface IFilterFieldComponent {
   label: string
   fieldName: string
   valueField?: string
+  defaultValue?: any
   label2?: string
   fieldName2?: string
   valueField2?: string
+  defaultValue2?: any
   customFilterComponent: React.FunctionComponent<any>
   fullWidth?: boolean
   extraProps?: { [key: string]: any }
@@ -68,6 +71,7 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
   ? IFilterFieldObject & {
       isCheckeble?: boolean
       formInstance: FormInstance
+      clearTrigger?: boolean
     }
   : IFilterFieldComponent & {
       isCheckeble?: boolean
@@ -129,7 +133,7 @@ export function SearchFieldWrapper(
     <Form.Item
       colon={false}
       label={props.label}
-      name={props.fieldName}
+      {...(props.fieldName !== "" && { name: props.fieldName })}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 24 }}
       {...(props.hidden && { className: "hidden" })}

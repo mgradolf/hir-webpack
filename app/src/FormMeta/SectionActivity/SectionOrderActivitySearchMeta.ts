@@ -14,14 +14,14 @@ export const getSectionAcademicActivitySearchMeta: IFilterField[] = [
   {
     label: "User ID",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "UserID",
     ariaLabel: "User ID"
   },
   {
     label: "Order Status",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "OrderStatusID",
     ariaLabel: "Order Status",
     refLookupService: getOPCStatusCode,
@@ -31,7 +31,7 @@ export const getSectionAcademicActivitySearchMeta: IFilterField[] = [
   {
     label: "Order Activity",
     inputType: DATE_PICKERS,
-    defaultValue: "",
+
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
