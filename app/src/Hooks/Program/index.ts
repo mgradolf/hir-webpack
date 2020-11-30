@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { searchPrograms } from "~/ApiServices/BizApi/program/programIF"
-import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 export interface IProgramFilterValues {
   programCode: string
@@ -30,7 +29,7 @@ export function useSearchProgram(filterData: IProgramFilterValues | null): [bool
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    const loadPrograms = async function () {
+    ; (async function () {
       if (filterData !== null) {
         setLoading(true)
         const params: { [key: string]: any } = filterData
@@ -56,12 +55,7 @@ export function useSearchProgram(filterData: IProgramFilterValues | null): [bool
         }
         setLoading(false)
       }
-    }
-    eventBus.subscribe(REFRESH_SECTION_SEATGROUP_PAGE, loadPrograms)
-    eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_SECTION_SEATGROUP_PAGE)
-    }
+    })()
   }, [filterData])
 
   return [loading, programItems]

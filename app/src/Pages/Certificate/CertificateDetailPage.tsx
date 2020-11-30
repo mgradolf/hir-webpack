@@ -1,9 +1,9 @@
-import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { searchCertificate, previewCertificate } from "~/ApiServices/Service/RegistrationService"
+import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
 import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
 import { getCertificateDetailsMeta } from "~/FormMeta/Certificate/CertificateDetailsMeta"
+import { getToken } from "@packages/api/lib/utils/TokenStore"
 
 export default function CertificateDetailsPage(props: RouteComponentProps<{ studentCertificateID?: string }>) {
   const [certificateDetails, setCertificateDetails] = useState<{ [key: string]: any }>({})
@@ -14,7 +14,7 @@ export default function CertificateDetailsPage(props: RouteComponentProps<{ stud
   if (studentCertificateID) Param = { StudentCertificateID: studentCertificateID }
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       const result = await searchCertificate({ StudentCertificateID: studentCertificateID })
       if (result.success && result.data) {
         setCertificateDetails(result.data[0])
@@ -23,19 +23,11 @@ export default function CertificateDetailsPage(props: RouteComponentProps<{ stud
   }, [studentCertificateID])
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       if (Object.keys(certificateDetails).length > 0) {
-        const params = {
-          CertificateID: certificateDetails.CertificateID,
-          StudentID: certificateDetails.StudentID,
-          SectionID: certificateDetails.SectionID,
-          IssueDate: certificateDetails.IssueDate,
-          [RESPONSE_TYPE.PDF]: true
-        }
-        const result = await previewCertificate(params)
-        const file = new Blob([result.data], { type: "application/pdf" })
-        const fileURL = URL.createObjectURL(file)
-        setdownloadUrl(fileURL)
+        let urlParams = `/api/document?DocumentID=${certificateDetails.DocumentID}&`
+        urlParams += "token=" + getToken()
+        setdownloadUrl(urlParams)
       }
     })()
   }, [certificateDetails])
