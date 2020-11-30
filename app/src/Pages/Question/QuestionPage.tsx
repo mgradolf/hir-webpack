@@ -12,14 +12,14 @@ const QuestionSearchFiltersMeta: IFilterField[] = [
   {
     label: "Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "Name",
     ariaLabel: "Question Name"
   },
   {
     label: "Active",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "IsActive",
     ariaLabel: "Active",
     options: [
@@ -30,7 +30,7 @@ const QuestionSearchFiltersMeta: IFilterField[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "OrganizationID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
@@ -40,7 +40,7 @@ const QuestionSearchFiltersMeta: IFilterField[] = [
   {
     label: "Widget",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "PreferenceValueTypeID",
     ariaLabel: "Widget Type Select",
     refLookupService: getPreferenceValueType,

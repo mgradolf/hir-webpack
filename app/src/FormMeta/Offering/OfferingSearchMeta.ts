@@ -6,36 +6,29 @@ import {
   getSectionTypes,
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchInstructorLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchInstructorLookup"
 
 export const OfferingSearchMeta: IFilterField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
-    defaultValue: "",
-    fieldName: "OfferingCode",
-    ariaLabel: "Offering Code"
+    fieldName: "OfferingCode"
   },
   {
     label: "Offering Name",
     inputType: TEXT,
-    defaultValue: "",
-    fieldName: "OfferingName",
-    ariaLabel: "Offering Name"
+    fieldName: "OfferingName"
   },
   {
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
     fieldName: "FromCreationDate",
     valueKey: "FromCreationDate",
-    ariaLabel: "Creation Date From",
     displayKey2: "To",
     valueKey2: "ToCreationDate",
-    fieldName2: "ToCreationDate",
-    ariaLabel2: "Creation Date To"
+    fieldName2: "ToCreationDate"
   },
   {
     label: "Termination Date",
@@ -43,30 +36,20 @@ export const OfferingSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromTerminationDate",
     valueKey: "FromTerminationDate",
-    defaultValue: "",
-    ariaLabel: "Termination Date From",
+
     displayKey2: "To",
     fieldName2: "ToTerminationDate",
-    valueKey2: "ToTerminationDate",
-    ariaLabel2: "Termination Date To"
+    valueKey2: "ToTerminationDate"
   },
   {
-    label: "Is QuickAdmit",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "IsQuickAdmit",
-    ariaLabel: "Is Quick Admit",
-    options: [
-      { label: "Yes", value: "true" },
-      { label: "No", value: "false" }
-    ]
+    label: "QuickAdmit",
+    inputType: BOOLEAN,
+    fieldName: "IsQuickAdmit"
   },
   {
     label: "Offering Status",
     inputType: DROPDOWN,
-    defaultValue: "",
     fieldName: "StatusID",
-    ariaLabel: "Offering Status Select",
     refLookupService: getOfferingStatusTypes,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -74,19 +57,15 @@ export const OfferingSearchMeta: IFilterField[] = [
   {
     label: "Offering Type",
     inputType: DROPDOWN,
-    defaultValue: "",
     refLookupService: getOfferingTypes,
     fieldName: "OfferingTypeID",
-    ariaLabel: "Offering Type",
     displayKey: "Name",
     valueKey: "OfferingTypeID"
   },
   {
     label: "Department",
     inputType: DROPDOWN,
-    defaultValue: "",
     fieldName: "OrganizationID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
@@ -94,9 +73,7 @@ export const OfferingSearchMeta: IFilterField[] = [
   {
     label: "Coordinator",
     inputType: DROPDOWN,
-    defaultValue: "",
     fieldName: "Coordinator",
-    ariaLabel: "Coordinator Select",
     refLookupService: () => getUsersByRole({ Role: "coordinator" }),
     displayKey: "FormattedName",
     valueKey: "UserLogin"
@@ -104,30 +81,20 @@ export const OfferingSearchMeta: IFilterField[] = [
   {
     label: "Section Type",
     inputType: DROPDOWN,
-    defaultValue: "",
     fieldName: "SectionTypeID",
-    ariaLabel: "Section Type Select",
     refLookupService: getSectionTypes,
     displayKey: "SectionTypeName",
     valueKey: "SectionTypeID"
   },
   {
     label: "Is Search Tag Hierarchy",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "IsSearchTagHierarchy",
-    ariaLabel: "Is Search Tag Hierarchy",
-    options: [
-      { label: "Yes", value: "true" },
-      { label: "No", value: "false" }
-    ]
+    inputType: BOOLEAN,
+    fieldName: "IsSearhTagHierarchy"
   },
   {
     label: "Tag Type",
     inputType: DROPDOWN,
-    defaultValue: "",
     fieldName: "TagTypeID",
-    ariaLabel: "Tag Type Select",
     refLookupService: getTagTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -135,9 +102,7 @@ export const OfferingSearchMeta: IFilterField[] = [
   {
     label: "Tag",
     inputType: TEXT,
-    defaultValue: "",
-    fieldName: "TagName",
-    ariaLabel: "Tag name"
+    fieldName: "TagName"
   },
   {
     label: "Final Enrollment Date",
@@ -145,26 +110,20 @@ export const OfferingSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromFinalEnrollmentDate",
     valueKey: "FromFinalEnrollmentDate",
-    defaultValue: "",
-    ariaLabel: "Final Enrollment Date From",
+
     displayKey2: "To",
     fieldName2: "ToFinalEnrollmentDate",
-    valueKey2: "ToFinalEnrollmentDate",
-    ariaLabel2: "Final Enrollment Date To"
+    valueKey2: "ToFinalEnrollmentDate"
   },
   {
     label: "Capacity Util",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "OfferingNearCapacity",
-    ariaLabel: "Offering Near Capacity"
+    inputType: NUMBER,
+    fieldName: "OfferingNearCapacity"
   },
   {
     label: "Show Program Offering",
     inputType: BOOLEAN,
-    defaultValue: "",
-    fieldName: "ShowProgramOffering",
-    ariaLabel: "Show Program Offering"
+    fieldName: "ShowPrgramOffering"
   },
   {
     label: "Instructor",

@@ -28,7 +28,7 @@ export const RegistrationSearchMeta: IFilterField[] = [
     label: "Start Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "StartDateFrom",
     valueKey: "StartDateFrom",
     ariaLabel: "Start Date From",
@@ -41,7 +41,7 @@ export const RegistrationSearchMeta: IFilterField[] = [
     label: "Create Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "CreatedFromDate",
     valueKey: "CreatedFromDate",
     ariaLabel: "Start Date From",

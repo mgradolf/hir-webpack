@@ -24,6 +24,7 @@ export const getPersonDetailsMeta = (person: { [key: string]: any }): CardContai
       { label: "ERPID", value: person.ERPID, render: undefined }
     ]
   }
+
   const address: CardContainer = {
     title: "Address",
     contents: Array.isArray(person.Addresses)
@@ -57,6 +58,7 @@ export const getPersonDetailsMeta = (person: { [key: string]: any }): CardContai
         })
       : []
   }
+
   const email: CardContainer = {
     title: "Email",
     contents: Array.isArray(person.Emails)

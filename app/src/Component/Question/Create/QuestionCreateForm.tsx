@@ -108,7 +108,7 @@ export default function QuestionCreateForm(props: IQuestionCreateForm) {
         <Form.Item label="Display As" name={fieldNames.Description} {...layout}>
           <TextArea />
         </Form.Item>
-        <Form.Item label="Display As" name={fieldNames.IsActive} valuePropName="checked" {...layout}>
+        <Form.Item label="Active" name={fieldNames.IsActive} valuePropName="checked" {...layout}>
           <Checkbox />
         </Form.Item>
         {showSelectionOption && <QuestionSelectionOptionForm setFixedOptions={setFixedOptions} />}

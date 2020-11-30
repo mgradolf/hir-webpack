@@ -17,14 +17,14 @@ export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Order ID",
     inputType: NUMBER,
-    defaultValue: "",
+
     fieldName: "OrderID",
     ariaLabel: "OrderID"
   },
   {
     label: "Order Status",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "OrderStatusID",
     ariaLabel: "Order Status",
     refLookupService: getOPCStatusCode,
@@ -34,7 +34,7 @@ export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Source",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "SourceID",
     ariaLabel: "Source",
     refLookupService: getSourceModule,
@@ -44,7 +44,7 @@ export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Product Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "ProductName",
     ariaLabel: "ProductName"
   },

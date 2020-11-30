@@ -12,7 +12,7 @@ export const RoomeSearchMeta: IFilterField[] = [
   {
     label: "Room Type",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "RoomUseTypeID",
     ariaLabel: "Room Type Select",
     refLookupService: getRoomTypes,
@@ -22,28 +22,28 @@ export const RoomeSearchMeta: IFilterField[] = [
   {
     fieldName: "Floor",
     inputType: NUMBER,
-    defaultValue: "",
+
     ariaLabel: "Floor",
     label: "Floor"
   },
   {
     fieldName: "MinCapacity",
     inputType: NUMBER,
-    defaultValue: "",
+
     ariaLabel: "Minimum Capacity",
     label: "Minimum Capacity"
   },
   {
     fieldName: "MaxCapacity",
     inputType: NUMBER,
-    defaultValue: "",
+
     ariaLabel: "Maximum Capacity",
     label: "Maximum Capacity"
   },
   {
     fieldName: "Accessible",
     inputType: BOOLEAN,
-    defaultValue: "",
+
     ariaLabel: "Accessible",
     label: "Accessible"
   }
