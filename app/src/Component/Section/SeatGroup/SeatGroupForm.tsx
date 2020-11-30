@@ -7,7 +7,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
-import ProgramFormField from "~/Component/Program/ProgramFormField"
+import { FormProgramLookupButton } from "~/Component/Common/Form/FormLookups/FormProgramLookup"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
@@ -35,12 +35,12 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
       [props.fieldNames.ProgramID]: props.programId,
       [props.fieldNames.ProgramCode]: props.programCode
     })
-    ;(async () => {
-      const response = await getDueDatePolicy()
-      if (response && response.success && response.data) {
-        setDueDatePolicy(response.data)
-      }
-    })()
+      ; (async () => {
+        const response = await getDueDatePolicy()
+        if (response && response.success && response.data) {
+          setDueDatePolicy(response.data)
+        }
+      })()
   }, [props])
 
   const onFormSubmission = async () => {
@@ -110,13 +110,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
           <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
         </Form.Item>
         {!props.isDefault && (
-          <Form.Item name={props.fieldNames.ProgramID} label="Program" {...layout}>
-            <ProgramFormField
-              formInstance={props.formInstance}
-              valueKey={props.fieldNames.ProgramID}
-              displayKey={props.fieldNames.ProgramCode}
-            />
-          </Form.Item>
+          <FormProgramLookupButton formInstance={props.formInstance} zIndex={true} />
         )}
       </Form>
     </Card>
