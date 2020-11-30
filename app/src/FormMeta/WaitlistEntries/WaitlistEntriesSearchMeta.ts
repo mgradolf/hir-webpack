@@ -18,7 +18,7 @@ export const WaitlistEntriesSearchMeta: IFilterField[] = [
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "CreationTimeFrom",
     valueKey: "CreationTimeFrom",
     ariaLabel: "Creation Date From",
@@ -33,7 +33,7 @@ export const WaitlistEntriesSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "RequestExpirationTimeFromExclusive",
     valueKey: "RequestExpirationTimeFromExclusive",
-    defaultValue: "",
+
     ariaLabel: "Expiration Date From",
     displayKey2: "To",
     fieldName2: "RequestExpirationTimeToExclusive",
@@ -43,7 +43,7 @@ export const WaitlistEntriesSearchMeta: IFilterField[] = [
   {
     label: "Active",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "IsActive",
     ariaLabel: "Is Active",
     options: [

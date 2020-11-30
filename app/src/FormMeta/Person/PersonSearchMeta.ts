@@ -74,7 +74,7 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "ERP",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "ERPID",
     ariaLabel: "ERP Code"
   },
@@ -102,21 +102,21 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "SSN",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "GovID",
     ariaLabel: "SSN"
   },
   {
     label: "Birth Date",
     inputType: DATE_PICKER,
-    defaultValue: "",
+
     fieldName: "BirthDate",
     ariaLabel: "Birth Date"
   },
   {
     label: "Ethnicity",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "EthnicityTypeID",
     ariaLabel: "Ethnicity",
     refLookupService: getEthnicityTypes,
@@ -126,7 +126,7 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "Gender",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "GenderTypeID",
     ariaLabel: "Gender",
     refLookupService: getGenderTypes,
@@ -136,7 +136,7 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "Account Type",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "AccountTypeID",
     ariaLabel: "Account Type",
     refLookupService: getAccountTypes,
@@ -146,21 +146,21 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "Deceased",
     inputType: BOOLEAN,
-    defaultValue: "",
+
     fieldName: "IsDeceased",
     ariaLabel: "Deceased"
   },
   {
     label: "Account Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "AccountName",
     ariaLabel: "Account Name"
   },
   {
     label: "Account Role",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "RoleName",
     ariaLabel: "Account Role",
     refLookupService: getAffiliationRoleType,
@@ -170,7 +170,7 @@ export const PersonSearchMeta: IFilterField[] = [
   // {
   //   label: "Country",
   //   inputType: DROPDOWN,
-  //   defaultValue: "",
+  //
   //   fieldName: "CountryCodeID",
   //   ariaLabel: "Country Select",
   //   refLookupService: getCountries,

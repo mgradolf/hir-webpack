@@ -10,14 +10,14 @@ export const ProductSearchMeta: IFilterField[] = [
   {
     label: "Product Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "ProductName",
     ariaLabel: "Product Name"
   },
   {
     label: "Product Category",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "ProductCategoryID",
     ariaLabel: "Product Category Select",
     refLookupService: getProductCategoryTypes,

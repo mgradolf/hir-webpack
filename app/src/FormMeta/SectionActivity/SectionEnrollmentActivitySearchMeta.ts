@@ -15,7 +15,7 @@ export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
   {
     label: "Modified By User",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "UserID",
     ariaLabel: "User ID"
   },
@@ -30,7 +30,7 @@ export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
   {
     label: "Enrollment Status",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "SectionRosterStatusCodeID",
     ariaLabel: "Enrollment Status",
     refLookupService: getSectionRosterStatusCode,
@@ -40,7 +40,7 @@ export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
   {
     label: "Activity Date Range",
     inputType: DATE_PICKERS,
-    defaultValue: "",
+
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
@@ -53,7 +53,7 @@ export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
   {
     label: "Registration Source",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "SourceID",
     ariaLabel: "Registration Source",
     refLookupService: getSourceModule,

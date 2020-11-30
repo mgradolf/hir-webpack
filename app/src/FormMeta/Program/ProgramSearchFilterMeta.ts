@@ -33,7 +33,7 @@ const programMeta: IFilterFieldObject[] = [
   {
     label: "Status",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "programStatusCodeID",
     ariaLabel: "Program Status Select",
     refLookupService: getProgramStatusCodes,
@@ -43,7 +43,7 @@ const programMeta: IFilterFieldObject[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "departmentID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,

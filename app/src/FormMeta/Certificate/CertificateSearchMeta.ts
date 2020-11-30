@@ -24,7 +24,7 @@ export const CourseCertificateSearchMeta: IFilterField[] = [
     label: "Issue Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "IssueDateFrom",
     valueKey: "IssueDateFrom",
     ariaLabel: "Issue Date From",
@@ -37,7 +37,7 @@ export const CourseCertificateSearchMeta: IFilterField[] = [
     label: "Expiration Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "ExpiryDateFrom",
     valueKey: "ExpiryDateFrom",
     ariaLabel: "Expiration Date From",
@@ -63,7 +63,7 @@ export const ProgramCertificateSearchMeta: IFilterField[] = [
     label: "Issue Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "IssueDateFrom",
     valueKey: "IssueDateFrom",
     ariaLabel: "Issue Date From",
@@ -76,7 +76,7 @@ export const ProgramCertificateSearchMeta: IFilterField[] = [
     label: "Expiration Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "ExpiryDateFrom",
     valueKey: "ExpiryDateFrom",
     ariaLabel: "Expiration Date From",
