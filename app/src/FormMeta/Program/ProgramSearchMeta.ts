@@ -1,7 +1,7 @@
 import { getOrganizations, getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
 
-const programMeta: IFilterFieldObject[] = [
+export const ProgramSearchMeta: IFilterFieldObject[] = [
   {
     label: "Program Code",
     inputType: TEXT,
@@ -43,7 +43,6 @@ const programMeta: IFilterFieldObject[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-
     fieldName: "departmentID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
@@ -51,5 +50,3 @@ const programMeta: IFilterFieldObject[] = [
     valueKey: "OrganizationID"
   }
 ]
-
-export default programMeta

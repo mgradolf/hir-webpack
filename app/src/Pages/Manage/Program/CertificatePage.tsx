@@ -5,10 +5,8 @@ import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
 import { ProgramCertificateSearchMeta } from "~/FormMeta/Certificate/CertificateSearchMeta"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 
-export default function Certificate() {
-  // eslint-disable-next-line
+export function ProgramCertificatePage() {
   const [showModal, setShowModal] = useState(false)
-
   return (
     <SearchPage
       blocks={[

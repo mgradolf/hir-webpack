@@ -1,5 +1,5 @@
 import * as React from "react"
-import programMeta from "~/FormMeta/Program/ProgramSearchFilterMeta"
+import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
 import { FormLookupOpenButton } from "~/Component/Common/Form/FormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
 import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
@@ -17,7 +17,7 @@ export function FormProgramLookupButton(props: {
       fieldName="ProgramID"
       label="Program"
       {...getProgramTableColumns(true)}
-      meta={programMeta}
+      meta={ProgramSearchMeta}
       formInstance={props.formInstance}
       onCloseModal={props.onCloseModal}
       zIndex={props.zIndex}
