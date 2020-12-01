@@ -14,7 +14,7 @@ export default function CertificateDetailsPage(props: RouteComponentProps<{ stud
   if (studentCertificateID) Param = { StudentCertificateID: studentCertificateID }
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       const result = await searchCertificate({ StudentCertificateID: studentCertificateID })
       if (result.success && result.data) {
         setCertificateDetails(result.data[0])
@@ -23,7 +23,7 @@ export default function CertificateDetailsPage(props: RouteComponentProps<{ stud
   }, [studentCertificateID])
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       if (Object.keys(certificateDetails).length > 0) {
         let urlParams = `/api/document?DocumentID=${certificateDetails.DocumentID}&`
         urlParams += "token=" + getToken()

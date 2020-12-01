@@ -1,20 +1,17 @@
 import * as React from "react"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
 import SeatGroupAffiliateOrganizationForm from "~/Component/Section/SeatGroup/SeatGroupAffiliateOrganizationForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showSeatGroupAffiliateOrganizationModal } from "~/Store/ModalState"
 import { findAffiliatedOrgsForSeatGroup, findAvailableAffiliatedOrgs } from "~/ApiServices/Service/SeatGroupService"
 
 interface ISeatGroupAffiliatedOrganizationProps {
   seatgroupId: number
-  closeSeatGroupAffiliatedOrganizationModal?: () => void
+  closeModal?: () => void
 }
 
-function SeatGroupAffiliatedOrganization({
+export default function SeatGroupAffiliatedOrganization({
   seatgroupId,
-  closeSeatGroupAffiliatedOrganizationModal
+  closeModal
 }: ISeatGroupAffiliatedOrganizationProps) {
   const [sectionSeatGroupLoading, setSectionSeatGroupLoading] = useState(false)
   const [affiliatedOrganization, setAffiliatedOrganization] = useState<Array<any>>([])
@@ -22,8 +19,8 @@ function SeatGroupAffiliatedOrganization({
   const [targetKeys, setTargetKeys] = useState<any[]>([])
 
   const handleCancel = () => {
-    if (closeSeatGroupAffiliatedOrganizationModal) {
-      closeSeatGroupAffiliatedOrganizationModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
@@ -42,8 +39,8 @@ function SeatGroupAffiliatedOrganization({
           })
           setAffiliatedOrganization(affiliatedOrganization)
         } else {
-          if (closeSeatGroupAffiliatedOrganizationModal) {
-            closeSeatGroupAffiliatedOrganizationModal()
+          if (closeModal) {
+            closeModal()
           }
         }
         setSectionSeatGroupLoading(false)
@@ -67,11 +64,10 @@ function SeatGroupAffiliatedOrganization({
         }
       })()
     }
-  }, [seatgroupId, closeSeatGroupAffiliatedOrganizationModal, affiliatedOrganization])
+  }, [seatgroupId, closeModal, affiliatedOrganization])
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={sectionSeatGroupLoading}
       apiCallInProgress={apiCallInProgress}
@@ -89,9 +85,3 @@ function SeatGroupAffiliatedOrganization({
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeSeatGroupAffiliatedOrganizationModal: () => dispatch(showSeatGroupAffiliateOrganizationModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(SeatGroupAffiliatedOrganization)

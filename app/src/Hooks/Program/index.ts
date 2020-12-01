@@ -29,7 +29,7 @@ export function useSearchProgram(filterData: IProgramFilterValues | null): [bool
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       if (filterData !== null) {
         setLoading(true)
         const params: { [key: string]: any } = filterData

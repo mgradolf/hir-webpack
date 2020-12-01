@@ -79,7 +79,7 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
         </Form.Item>
 
         <Form.Item label="From User" {...layout} name={props.fieldNames.FromUserID}>
-          <Select aria-label="From User">
+          <Select aria-label="From User" placeholder="Select users">
             {fromUserItems.map((x) => {
               return (
                 <Select.Option key={x.UserID} value={x.UserID}>

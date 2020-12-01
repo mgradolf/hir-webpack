@@ -24,7 +24,7 @@ export interface IFormLookupOpenButton {
 }
 
 export function FormLookupOpenButton(props: IFormLookupOpenButton) {
-  let defaultDisplayFieldValue = props.formInstance.getFieldValue(props.displayField)
+  const defaultDisplayFieldValue = props.formInstance.getFieldValue(props.displayField)
   const [showModal, setShowModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>(defaultDisplayFieldValue)
 

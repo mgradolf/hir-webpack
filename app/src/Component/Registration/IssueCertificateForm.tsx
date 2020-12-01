@@ -20,7 +20,7 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
   props.initialFormValue["IsProgram"] = false
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       setLoading(true)
       const result = await searchCertificate({
         SectionID: props.initialFormValue.SectionID,
@@ -40,13 +40,13 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
             + Issue Certificate
           </Button>
-          {showModal &&
+          {showModal && (
             <CertificateFormModal
               isProgram={false}
               closeModal={() => setShowModal(false)}
               initialFormValue={props.initialFormValue}
             />
-          }
+          )}
         </Col>
       </Row>
 

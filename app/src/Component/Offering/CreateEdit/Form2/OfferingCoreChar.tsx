@@ -35,7 +35,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
   const [disableStatus, setDisableStatus] = useState(false)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       const response = await getOfferingStatusTypes()
       if (response && response.data && Array.isArray(response.data)) {
         const createMode = !props.editMode
@@ -67,24 +67,24 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         setOfferingStatusTypes(response.data)
       }
     })()
-      ; (async () => {
-        const response = await getOrganizations()
-        if (response && response.data) {
-          setOrganizations(response.data)
-        }
-      })()
-      ; (async () => {
-        const response = await getPaymentGatewayAccounts()
-        if (response && response.data) {
-          setPaymentGatewayAccounts(response.data)
-        }
-      })()
-      ; (async () => {
-        const response = await getAllUsers()
-        if (response && response.data) {
-          setUsers(response.data)
-        }
-      })()
+    ;(async () => {
+      const response = await getOrganizations()
+      if (response && response.data) {
+        setOrganizations(response.data)
+      }
+    })()
+    ;(async () => {
+      const response = await getPaymentGatewayAccounts()
+      if (response && response.data) {
+        setPaymentGatewayAccounts(response.data)
+      }
+    })()
+    ;(async () => {
+      const response = await getAllUsers()
+      if (response && response.data) {
+        setUsers(response.data)
+      }
+    })()
   }, [props])
   return (
     <>

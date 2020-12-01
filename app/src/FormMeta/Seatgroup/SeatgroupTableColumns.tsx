@@ -20,19 +20,11 @@ export const getSeatgroupTableColumns = (isModal = false): ITableConfigProp => {
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown
-          overlay={
-            <SeatGroupMenu
-              additionalData={record}
-            />
-          }
-          trigger={["click"]}
-        >
+        <Dropdown overlay={<SeatGroupMenu additionalData={record} />} trigger={["click"]}>
           <Button type="primary" onClick={(e) => e.preventDefault()}>
             Go To <DownOutlined />
           </Button>
         </Dropdown>
-
       )
     }
   ]
