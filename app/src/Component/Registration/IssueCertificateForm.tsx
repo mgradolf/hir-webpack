@@ -1,14 +1,11 @@
 import "~/Sass/utils.scss"
 import React, { useState, useEffect } from "react"
-import { Button, Form, Spin, Table } from "antd"
-import { ISSUE_CERTIFICATE_SAVE_SUCCESS } from "~/utils/Constants"
-import { issueCertificate, previewCertificate, searchCertificate } from "~/ApiServices/Service/RegistrationService"
-import Notification from "~/utils/notification"
+import { Button, Row, Col } from "antd"
+import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
-import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import CertificateForm from "~/Component/Certificate/CertificateForm"
-import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
+import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
+import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 
 interface ICertificateFormProps {
   initialFormValue: { [key: string]: any }
@@ -16,10 +13,9 @@ interface ICertificateFormProps {
 }
 
 export default function IssueCertificateForm(props: ICertificateFormProps) {
-  const [form] = Form.useForm()
+  const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [certificateItems, setCertificateItems] = useState<Array<any>>([])
-  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   props.initialFormValue["IsProgram"] = false
 
@@ -37,98 +33,24 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
     })()
   }, [props.initialFormValue])
 
-  const viewCertificate = async () => {
-    await form.validateFields()
-    const params = form.getFieldsValue()
-    params[RESPONSE_TYPE.PDF] = true
-
-    console.log("Params: ", params)
-    setLoading(true)
-    const response = await previewCertificate(params)
-    if (response.data) {
-      const file = new Blob([response.data], { type: "application/pdf" })
-      const fileURL = URL.createObjectURL(file)
-      window.open(fileURL)
-    } else {
-      setErrorMessages(response.error)
-      console.log(response.error)
-      console.log(errorMessages)
-    }
-    setLoading(false)
-  }
-
-  const onFormSubmission = async () => {
-    await form.validateFields()
-    const params = form.getFieldsValue()
-
-    setLoading(true)
-    setErrorMessages([])
-    const response = await issueCertificate(params)
-    if (response && response.success) {
-      Notification(ISSUE_CERTIFICATE_SAVE_SUCCESS)
-    } else {
-      setErrorMessages(response.error)
-      console.log(response.error)
-      console.log(errorMessages)
-    }
-    setLoading(false)
-  }
-
-  const columns = [
-    {
-      title: "Certificat Number",
-      dataIndex: "CertificateNumber"
-    },
-    {
-      title: "Certificat Name",
-      dataIndex: "CertificateName"
-    },
-    {
-      title: "Valid",
-      dataIndex: "PublishOnWeb",
-      render: (text: any) => (text ? "Yes" : "No")
-    },
-    {
-      title: "Issue Date",
-      dataIndex: "IssueDate",
-      render: renderDate
-    },
-    {
-      title: "Expiration Date",
-      dataIndex: "ExpirationDate",
-      render: renderDate
-    }
-  ]
-
   return (
-    <Spin size="large" spinning={loading}>
-      <CertificateForm
-        fieldNames={props.fieldNames}
-        formInstance={form}
-        initialFormValue={props.initialFormValue}
-        setApiCallInProgress={setLoading}
-        errorMessages={errorMessages}
-      />
+    <div className="site-layout-content">
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+        <Col style={{ textAlign: "right" }} xs={24} sm={24} md={24}>
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
+            + Issue Certificate
+          </Button>
+          {showModal && (
+            <CertificateFormModal
+              isProgram={false}
+              closeModal={() => setShowModal(false)}
+              initialFormValue={props.initialFormValue}
+            />
+          )}
+        </Col>
+      </Row>
 
-      {Object.keys(certificateItems).length > 0 && (
-        <Table
-          className="issue-certificate-data-table"
-          rowKey="StudentCertificateID"
-          bordered
-          dataSource={certificateItems}
-          pagination={false}
-          columns={columns}
-        />
-      )}
-
-      <div style={{ marginTop: "16px", textAlign: "center" }}>
-        <Button type="primary" onClick={onFormSubmission}>
-          Save Certificate
-        </Button>
-        <Button type="primary" onClick={viewCertificate} style={{ marginLeft: "16px" }}>
-          Preview Certificate
-        </Button>
-      </div>
-    </Spin>
+      <ResponsiveTable {...getCertificateTableColumns()} loading={loading} dataSource={certificateItems} />
+    </div>
   )
 }

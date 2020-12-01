@@ -1,14 +1,10 @@
 import * as React from "react"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
 import SeatGroupForm from "~/Component/Section/SeatGroup/SeatGroupForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showCreateSectionSeatGroupModal } from "~/Store/ModalState"
 import { getSeatGroupById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
 import { ISectionSeatGroupFieldNames } from "~/Component/Section/Interfaces"
-import { AppState } from "~/Store"
 
 interface ICreateNewSeatGroupProps {
   seatgroupId?: number
@@ -16,7 +12,7 @@ interface ICreateNewSeatGroupProps {
   programId?: number
   programCode?: string
   isDefault?: boolean
-  closeCreateSeatGroupModal?: () => void
+  closeModal?: () => void
 }
 
 const fieldNames: ISectionSeatGroupFieldNames = {
@@ -31,9 +27,9 @@ const fieldNames: ISectionSeatGroupFieldNames = {
   ProgramCode: "ProgramCode"
 }
 
-function CreateNewSeatGroup({
+export default function CreateOrUpdateSeatGroup({
   seatgroupId,
-  closeCreateSeatGroupModal,
+  closeModal,
   sectionId,
   programId,
   programCode,
@@ -45,8 +41,8 @@ function CreateNewSeatGroup({
   const [initialFormValue] = useState<{ [key: string]: any }>({})
 
   const handleCancel = () => {
-    if (closeCreateSeatGroupModal) {
-      closeCreateSeatGroupModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
@@ -58,18 +54,17 @@ function CreateNewSeatGroup({
         if (response && response.success) {
           formInstance.setFieldsValue(response.data)
         } else {
-          if (closeCreateSeatGroupModal) {
-            closeCreateSeatGroupModal()
+          if (closeModal) {
+            closeModal()
           }
         }
         setSectionSeatGroupLoading(false)
       })()
     }
-  }, [seatgroupId, closeCreateSeatGroupModal, formInstance])
+  }, [seatgroupId, closeModal, formInstance])
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={sectionSeatGroupLoading}
       apiCallInProgress={apiCallInProgress}
@@ -92,12 +87,3 @@ function CreateNewSeatGroup({
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeCreateSeatGroupModal: () => dispatch(showCreateSectionSeatGroupModal(false)) }
-}
-
-export default connect((state: AppState) => {
-  const { programId, programCode, isDefault } = state.modalState.createSectionSeatGroupModal.config
-  return { programId, programCode, isDefault }
-}, mapDispatchToProps)(CreateNewSeatGroup)

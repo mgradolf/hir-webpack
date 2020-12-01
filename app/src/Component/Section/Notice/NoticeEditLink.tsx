@@ -1,33 +1,32 @@
-import React from "react"
-import { connect } from "react-redux"
-import { showUpdateNoticeModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import React, { useState } from "react"
 import { Button } from "antd"
+import NoticeUpdate from "~/Component/Section/Notice/NoticeEditFormModal"
 
 interface INoticeEditLinkProp {
   sectionId: number
   sectionNoticeTypeId: number
-  openUpdateNoticeModal: (sectionId: number, sectionNoticeTypeId: number) => void
 }
-function NoticeEditLink(props: INoticeEditLinkProp) {
+
+export default function NoticeEditLink(props: INoticeEditLinkProp) {
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <Button
-      type="link"
-      onClick={() => {
-        props.openUpdateNoticeModal(props.sectionId, props.sectionNoticeTypeId)
-      }}
-    >
-      Edit
-    </Button>
+    <>
+      <Button
+        type="primary"
+        onClick={() => {
+          setShowModal(true)
+        }}
+      >
+        Edit
+      </Button>
+      {showModal && (
+        <NoticeUpdate
+          sectionId={props.sectionId}
+          sectionNoticeTypeId={props.sectionNoticeTypeId}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openUpdateNoticeModal: (sectionId: number, sectionNoticeTypeId: number) => {
-      return dispatch(showUpdateNoticeModal(true, { sectionId, sectionNoticeTypeId }))
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(NoticeEditLink)

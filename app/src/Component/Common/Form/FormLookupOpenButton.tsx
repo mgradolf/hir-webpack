@@ -24,8 +24,9 @@ export interface IFormLookupOpenButton {
 }
 
 export function FormLookupOpenButton(props: IFormLookupOpenButton) {
+  const defaultDisplayFieldValue = props.formInstance.getFieldValue(props.displayField)
   const [showModal, setShowModal] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<any>()
+  const [selectedItem, setSelectedItem] = useState<any>(defaultDisplayFieldValue)
 
   useEffect(() => {
     if (props.entityLookupFunc) {
@@ -53,6 +54,11 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
     setShowModal(false)
   }
 
+  const clearSelection = () => {
+    props.formInstance.setFieldsValue({ [props.fieldName]: null })
+    setSelectedItem("")
+  }
+
   return (
     <>
       <Form.Item className="hidden" name={props.fieldName}>
@@ -61,11 +67,16 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
       <Form.Item colon={false} label={props.label} labelCol={{ span: 6 }}>
         <Row>
           <Col span={12}>
-            <Input value={selectedItem} readOnly allowClear />
+            <Input value={selectedItem} readOnly />
           </Col>
           <Col span={4}>
             <Button onClick={() => setShowModal(true)} disabled={props.disabled}>
               Lookup
+            </Button>
+          </Col>
+          <Col span={4}>
+            <Button danger onClick={clearSelection} disabled={props.disabled}>
+              Clear
             </Button>
           </Col>
         </Row>
