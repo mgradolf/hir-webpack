@@ -4,15 +4,13 @@
  * @Return {string}
  */
 export function objectToQueryString(value: any): string {
+  if (!value) {
+    return window.location.href.substring(window.location.href.lastIndexOf("/") + 1).split("?")[0]
+  }
   return "?" + _ObjectToQueryString(value)
 }
 
 function _ObjectToQueryString(value: any, parameterPath = ""): string {
-  //If the value is null, return the parameter path with null as a value
-  if (value === null) {
-    return parameterPath
-  }
-
   //If the value is a scalar type, return the parameter path plus the parameter value
   if (typeof value === "number" || typeof value === "string" || typeof value === "boolean") {
     return parameterPath + "=" + encodeURIComponent(value.toString())

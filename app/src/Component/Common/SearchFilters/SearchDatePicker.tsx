@@ -18,7 +18,8 @@ export function DatePickerInputType(props: IFilterGenericComponentProps<IFilterF
 
   useEffect(() => {
     !firstRender && setDefualtValue(undefined)
-  }, [props.clearTrigger, firstRender])
+    // eslint-disable-next-line
+  }, [props.clearTrigger])
   return (
     <>
       <Form.Item className="hidden" name={props.fieldName}>
