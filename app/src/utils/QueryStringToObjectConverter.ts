@@ -26,7 +26,7 @@ const convertToType = (value: any) => {
   }
   return value
 }
-export const querystringToObject = () => {
+export const querystringToObject = (): { [key: string]: any } => {
   const output: { [key: string]: any } = {}
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
