@@ -35,12 +35,12 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
       [props.fieldNames.ProgramID]: props.programId,
       [props.fieldNames.ProgramCode]: props.programCode
     })
-      ; (async () => {
-        const response = await getDueDatePolicy()
-        if (response && response.success && response.data) {
-          setDueDatePolicy(response.data)
-        }
-      })()
+    ;(async () => {
+      const response = await getDueDatePolicy()
+      if (response && response.success && response.data) {
+        setDueDatePolicy(response.data)
+      }
+    })()
   }, [props])
 
   const onFormSubmission = async () => {
@@ -109,9 +109,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
         <Form.Item name={props.fieldNames.IsOptional} label="Waitlist Enabled" {...layout} valuePropName="checked">
           <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
         </Form.Item>
-        {!props.isDefault && (
-          <FormProgramLookupButton formInstance={props.formInstance} zIndex={true} />
-        )}
+        {!props.isDefault && <FormProgramLookupButton formInstance={props.formInstance} zIndex={true} />}
       </Form>
     </Card>
   )

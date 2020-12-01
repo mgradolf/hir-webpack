@@ -29,7 +29,7 @@ function AnswerQuestionsModal(props: IAnswerQuestionsModal) {
   const initialAnswer = props.taskJson.UpdatedResponse !== undefined ? props.taskJson.UpdatedResponse : {}
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       setLoading(true)
       const result = await findPublishedAndActiveQuestionsWithOptions({
         SeatGroupID: props.taskJson.TaskData.SeatGroupID,

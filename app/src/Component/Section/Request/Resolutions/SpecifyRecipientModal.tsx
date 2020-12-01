@@ -72,7 +72,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
   }
 
   useEffect(() => {
-    ; (async function () {
+    ;(async function () {
       setLoading(true)
       const result = await getGradeScaleType()
       if (result && result.success) {
@@ -80,14 +80,14 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
       }
       setLoading(false)
     })()
-      ; (async function () {
-        setLoading(true)
-        const result = await getCreditType()
-        if (result && result.success) {
-          setTranscriptItems(result.data)
-        }
-        setLoading(false)
-      })()
+    ;(async function () {
+      setLoading(true)
+      const result = await getCreditType()
+      if (result && result.success) {
+        setTranscriptItems(result.data)
+      }
+      setLoading(false)
+    })()
 
     eventBus.subscribe(EVENT_REQUEST_QUESTION_ANSWER, (param: IParamsToBeDispatched) => {
       const params: { [key: string]: any } = param.Params
