@@ -10,7 +10,7 @@ import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 
-export interface SearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
+export interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
   entityLookupFunc?: () => Promise<{ [key: string]: any }>
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
   lookupModalTitle: string
@@ -23,13 +23,13 @@ export interface SearchLookupOpenButton extends IFilterGenericComponentProps<IFi
   expandableColumnIndices?: number[]
 }
 
-export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
+export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
   const [showModal, setShowModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>()
 
   useEffect(() => {
     if (props.entityLookupFunc) {
-      props.entityLookupFunc().then((item) => setSelectedItem(item))
+      props.entityLookupFunc().then((item) => setSelectedItem(item[props.displayField]))
     }
     // eslint-disable-next-line
   }, [])
