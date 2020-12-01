@@ -1,15 +1,17 @@
-import React from "react"
-import { Menu } from "antd"
-
-import SeatGroupEditLink from "~/Component/Section/SeatGroup/SeatGroupEditLink"
+import React, { useState } from "react"
+import { Menu, Button } from "antd"
 import SeatGroupRemoveLink from "~/Component/Section/SeatGroup/SeatGroupRemoveLink"
-import SeatGroupAffiliateLink from "~/Component/Section/SeatGroup/SeatGroupAffiliateLink"
+import UpdateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
+import SeatGroupAffiliatedOrganizationModal from "~/Component/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 
 interface ISeatGroupMenu {
   additionalData: { [key: string]: any }
 }
 
 export default function SeatGroupMenu(props: ISeatGroupMenu) {
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
+  const [showAffiliatedModal, setShowAffiliatedModal] = useState(false)
+
   const sectionID = props.additionalData.SectionID
   const isDefault = props.additionalData.IsDefault
   const seatGroupID = props.additionalData.SeatGroupID
@@ -20,20 +22,43 @@ export default function SeatGroupMenu(props: ISeatGroupMenu) {
   return (
     <Menu>
       <Menu.Item key="0">
-        <SeatGroupEditLink
-          sectionId={sectionID}
-          seatgroupId={seatGroupID}
-          programId={programID}
-          programCode={programCode}
-          isDefault={isDefault}
-        />
+        <Button
+          type="link"
+          onClick={() => {
+            setShowUpdateModal(true)
+          }}
+        >
+          Edit
+        </Button>
+        {showUpdateModal && (
+          <UpdateSeatGroup
+            sectionId={sectionID}
+            seatgroupId={seatGroupID}
+            programId={programID}
+            programCode={programCode}
+            closeModal={() => setShowUpdateModal(false)}
+          />
+        )}
       </Menu.Item>
       <Menu.Item key="1">
         <SeatGroupRemoveLink seatgroupId={seatGroupID} />
       </Menu.Item>
       {!isDefault && !packageID && (
         <Menu.Item key="2">
-          <SeatGroupAffiliateLink seatgroupId={seatGroupID} />
+          <Button
+            type="link"
+            onClick={() => {
+              setShowAffiliatedModal(true)
+            }}
+          >
+            Manage Affiliated Organization
+          </Button>
+          {showAffiliatedModal && (
+            <SeatGroupAffiliatedOrganizationModal
+              seatgroupId={seatGroupID}
+              closeModal={() => setShowAffiliatedModal(false)}
+            />
+          )}
         </Menu.Item>
       )}
     </Menu>

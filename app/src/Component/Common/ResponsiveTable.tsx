@@ -97,10 +97,12 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    eventBus.subscribe(REFRESH_PAGE, loadDataFromSearchFunc)
-    eventBus.publish(REFRESH_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_PAGE)
+    if (!isModal) {
+      eventBus.subscribe(REFRESH_PAGE, loadDataFromSearchFunc)
+      eventBus.publish(REFRESH_PAGE)
+      return () => {
+        eventBus.unsubscribe(REFRESH_PAGE)
+      }
     }
     // eslint-disable-next-line
   }, [])

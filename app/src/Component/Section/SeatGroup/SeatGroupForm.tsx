@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Switch } from "antd"
 import { getDueDatePolicy } from "~/ApiServices/Service/RefLookupService"
-import "~/Sass/utils.scss"
 import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { FormProgramLookupButton } from "~/Component/Common/Form/FormLookups/FormProgramLookup"
+import "~/Sass/utils.scss"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
@@ -35,20 +35,21 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
       [props.fieldNames.ProgramID]: props.programId,
       [props.fieldNames.ProgramCode]: props.programCode
     })
-      ; (async () => {
-        const response = await getDueDatePolicy()
-        if (response && response.success && response.data) {
-          setDueDatePolicy(response.data)
-        }
-      })()
-  }, [props])
+    ;(async () => {
+      const response = await getDueDatePolicy()
+      if (response && response.success && response.data) {
+        setDueDatePolicy(response.data)
+      }
+    })()
+    // eslint-disable-next-line
+  }, [])
 
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
     Object.keys(params).forEach((key) => {
-      if (params[key] === undefined || params[key] === null) delete params[key]
+      if (params[key] === undefined) delete params[key]
     })
 
     type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
@@ -60,7 +61,6 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      props.formInstance.resetFields()
       eventBus.publish(REFRESH_PAGE)
       props.handleCancel()
     } else {
@@ -113,9 +113,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
         <Form.Item name={props.fieldNames.IsOptional} label="Waitlist Enabled" {...layout} valuePropName="checked">
           <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
         </Form.Item>
-        {!props.isDefault && (
-          <FormProgramLookupButton formInstance={props.formInstance} zIndex={true} />
-        )}
+        {!props.isDefault && <FormProgramLookupButton formInstance={props.formInstance} zIndex={true} />}
       </Form>
     </Card>
   )
