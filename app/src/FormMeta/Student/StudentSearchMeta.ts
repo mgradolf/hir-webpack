@@ -3,6 +3,12 @@ import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFil
 
 export const studentSearchMeta: IFilterFieldObject[] = [
   {
+    label: "Last Name",
+    inputType: TEXT,
+    fieldName: "LastName",
+    ariaLabel: "Last Name"
+  },
+  {
     label: "First Name",
     inputType: TEXT,
     defaultValue: "*",
@@ -10,11 +16,17 @@ export const studentSearchMeta: IFilterFieldObject[] = [
     ariaLabel: "First Name"
   },
   {
-    label: "Last Name",
+    label: "Email",
     inputType: TEXT,
 
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
+    fieldName: "EmailAddress",
+    ariaLabel: "Email"
+  },
+  {
+    label: "Telephone",
+    inputType: TEXT,
+    fieldName: "TelephoneNumber",
+    ariaLabel: "Phone"
   },
   {
     label: "Middle Name",
@@ -51,20 +63,7 @@ export const studentSearchMeta: IFilterFieldObject[] = [
     fieldName: "PostalCode",
     ariaLabel: "Postal Code"
   },
-  {
-    label: "Email",
-    inputType: TEXT,
 
-    fieldName: "EmailAddress",
-    ariaLabel: "Email"
-  },
-  {
-    label: "Phone",
-    inputType: TEXT,
-
-    fieldName: "TelephoneNumber",
-    ariaLabel: "Phone"
-  },
   {
     label: "Account Name",
     inputType: TEXT,
