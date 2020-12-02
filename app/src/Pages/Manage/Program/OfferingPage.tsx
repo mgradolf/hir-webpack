@@ -6,7 +6,7 @@ import { getProgramOfferingTableColumns } from "~/FormMeta/ProgramOffering/Progr
 export function ProgramOfferingPage() {
   return (
     <SearchPage
-      title="Manage Persons"
+      title="Manage Program Offerings"
       meta={ProgramOfferingSearchMeta}
       hideSearchField={false}
       tableProps={{

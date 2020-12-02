@@ -6,7 +6,7 @@ import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
 export default function ProgramProgramPage() {
   return (
     <SearchPage
-      title="Manage Program"
+      title="Manage Programs"
       meta={ProgramSearchMeta}
       tableProps={{
         ...getProgramTableColumns()
