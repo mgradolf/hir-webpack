@@ -69,7 +69,8 @@ import ProductDetailsPage from "~/Pages/Product/ProductDetails"
 import CatalogPage from "~/Pages/Catalog/CatalogPage"
 import CatalogDetailsPage from "~/Pages/Catalog/CatalogDetailsPage"
 
-// import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
+import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
+import ProgramApplicationPage from "~/Pages/Program/ProgramApplicationPage"
 
 import RegistrationPage from "~/Pages/Registration/RegistrationPage"
 
@@ -198,7 +199,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/waitlist" component={WaitlistEntriesPage} />
       <Route exact path="/waitlist/:waitListEntryID" component={WaitlistEntryDetailsPage} />
 
-      {/* <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} /> */}
+      <Route exact path="/program/enrollment" component={ProgramEnrollmentPage} />
+      <Route exact path="/program/application" component={ProgramApplicationPage} />
 
       <Route exact path="/search/activity/academic-log" component={AcademicPage} />
       <Route exact path="/search/activity/enrollment-log" component={EnrollmentPage} />

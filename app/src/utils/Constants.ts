@@ -6,6 +6,12 @@ export const DATE_TIME_FORMAT = "MM/DD/YYYY hh:mm A"
 export const REQUEST_DATE_TIME_FORMAT = "YYYY-MM-DD hh:mm A"
 export const DATE_TIME = ""
 
+export const SECTION_STATUS_CODE = {
+  PRELIMINARY: 0,
+  COMPLETED: 4,
+  CANCELLED: 1000
+}
+
 export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
   ACCOUNT: "Account",
   PURCHASER: "Purchaser",
@@ -138,3 +144,5 @@ export const CEU_HOURS = "CEUHours"
 
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
 export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
+
+export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
