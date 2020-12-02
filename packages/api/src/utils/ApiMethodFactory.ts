@@ -38,10 +38,7 @@ function callServiceApi(
     (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.CSV])
   ) {
     return download(config)
-  } else if (
-    Params[RESPONSE_TYPE.PDF] ||
-    (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])
-  ) {
+  } else if (Params[RESPONSE_TYPE.PDF] || (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])) {
     return preview(config)
   }
 

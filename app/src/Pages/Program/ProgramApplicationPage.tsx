@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ProgramApplicationMeta } from "~/FormMeta/Program/ProgramApplicationSearchFilterMeta"
-import { getProgramApplicationTableColumns } from "~/FormMeta/Program/ProgramApplicationTableColumns"
+import { ProgramApplicationMeta } from "~/FormMeta/Program/ProgramSearchFilterMeta"
+import { getProgramApplicationTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
 
 export default function ProgramApplication() {
   return (
