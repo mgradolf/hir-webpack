@@ -135,7 +135,5 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): Car
   meta.push({ groupedContents: [address, email, phone, login] })
   instructorInfo && meta.push(instructorInfo)
   studentInfo && meta.push(studentInfo)
-
-  console.log(meta)
   return meta
 }
