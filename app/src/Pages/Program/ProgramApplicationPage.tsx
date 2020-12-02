@@ -1,16 +1,16 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { ProgramApplicationMeta } from "~/FormMeta/Program/ProgramSearchFilterMeta"
-import { getProgramEnrollmentTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
+import { getProgramApplicationTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
 
-export default function ProgramEnrollment() {
+export default function ProgramApplication() {
   return (
     <SearchPage
-      title="Manage Program Enrollments"
+      title="Manage Program Applications"
       meta={ProgramApplicationMeta}
       hideSearchField={false}
       defaultFilter={{}}
-      tableProps={getProgramEnrollmentTableColumns()}
+      tableProps={getProgramApplicationTableColumns()}
     ></SearchPage>
   )
 }

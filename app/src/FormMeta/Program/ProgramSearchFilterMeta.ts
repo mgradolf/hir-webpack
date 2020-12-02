@@ -1,7 +1,15 @@
-import { getOrganizations, getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
+import {
+  getOrganizations,
+  getProgramStatusCodes,
+  getProgramApplicationStatusCodes,
+  getProgramEnrollmentStatusCodes
+} from "~/ApiServices/Service/RefLookupService"
+import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
-const programMeta: IFilterFieldObject[] = [
+import { getOrganizationByType } from "~/ApiServices/BizApi/organization/orgIF"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+
+export const programMeta: IFilterField[] = [
   {
     label: "Program Code",
     inputType: TEXT,
@@ -52,4 +60,82 @@ const programMeta: IFilterFieldObject[] = [
   }
 ]
 
-export default programMeta
+export const ProgramApplicationMeta: IFilterField[] = [
+  {
+    label: "Program Code",
+    inputType: TEXT,
+    defaultValue: "*",
+    fieldName: "programCode",
+    ariaLabel: "Program Code"
+  },
+  {
+    label: "Program Name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "programName",
+    ariaLabel: "Program Name"
+  },
+  {
+    label: "Status",
+    inputType: DROPDOWN,
+    fieldName: "applicationStatus",
+    ariaLabel: "Program Status Select",
+    refLookupService: getProgramApplicationStatusCodes,
+    displayKey: "Name",
+    valueKey: "StatusID"
+  },
+  {
+    label: "Department",
+    inputType: DROPDOWN,
+    fieldName: "departmentID",
+    ariaLabel: "Department Select",
+    refLookupService: getOrganizationByType,
+    displayKey: "Description",
+    valueKey: "OrganizationID"
+  },
+  {
+    label: "Student Name",
+    fieldName: "studentID",
+    customFilterComponent: SearchStudentLookupButton
+  }
+]
+
+export const ProgramEnrollmentMeta: IFilterField[] = [
+  {
+    label: "Program Code",
+    inputType: TEXT,
+    defaultValue: "*",
+    fieldName: "programCode",
+    ariaLabel: "Program Code"
+  },
+  {
+    label: "Program Name",
+    inputType: TEXT,
+    defaultValue: "",
+    fieldName: "programName",
+    ariaLabel: "Program Name"
+  },
+  {
+    label: "Status",
+    inputType: DROPDOWN,
+    fieldName: "applicationStatus",
+    ariaLabel: "Program Status Select",
+    refLookupService: getProgramEnrollmentStatusCodes,
+    displayKey: "Name",
+    valueKey: "StatusID"
+  },
+  {
+    label: "Department",
+    inputType: DROPDOWN,
+    fieldName: "departmentID",
+    ariaLabel: "Department Select",
+    refLookupService: getOrganizationByType,
+    displayKey: "Description",
+    valueKey: "OrganizationID"
+  },
+  {
+    label: "Student Name",
+    fieldName: "studentID",
+    customFilterComponent: SearchStudentLookupButton
+  }
+]

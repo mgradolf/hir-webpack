@@ -207,6 +207,18 @@ export function getProgramStatusCodes(): Promise<IApiResponse> {
   })
 }
 
+export function getProgramApplicationStatusCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProgramAppStatusCode"
+  })
+}
+
+export function getProgramEnrollmentStatusCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProgramEnrollStatusCode"
+  })
+}
+
 export function getSectionNotices(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "SectionNoticeType"

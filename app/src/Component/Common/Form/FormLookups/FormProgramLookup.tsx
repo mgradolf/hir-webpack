@@ -1,5 +1,5 @@
 import * as React from "react"
-import programMeta from "~/FormMeta/Program/ProgramSearchFilterMeta"
+import { programMeta } from "~/FormMeta/Program/ProgramSearchFilterMeta"
 import { FormLookupOpenButton } from "~/Component/Common/Form/FormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
 import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"

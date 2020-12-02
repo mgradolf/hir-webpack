@@ -2,7 +2,7 @@ import { Card, Col, Button } from "antd"
 import React, { useState, useCallback, useEffect } from "react"
 import Modal from "~/Component/Common/Modal"
 import ProgramSearchFilter from "~/Component/Common/SearchFilters"
-import ProgramSearchFilterMeta from "~/FormMeta/Program/ProgramSearchFilterMeta"
+import { programMeta } from "~/FormMeta/Program/ProgramSearchFilterMeta"
 import ProgramListTable from "~/Component/Program/ProgramListTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
 import { IProgramFilterValues, useSearchFilterState, useSearchProgram } from "~/Hooks/Program"
@@ -70,7 +70,7 @@ function AddProgramModal() {
         <ProgramSearchFilter
           title=""
           isModalView
-          meta={ProgramSearchFilterMeta}
+          meta={programMeta}
           initialFilter={(filterData === null ? initialData : (filterData as unknown)) as { [key: string]: any }}
           visible
           isCheckeble={false}
