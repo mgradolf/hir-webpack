@@ -1,0 +1,2 @@
+yarn build
+ant snapshot

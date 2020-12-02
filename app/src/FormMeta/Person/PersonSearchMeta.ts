@@ -11,7 +11,7 @@ import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
 export const PersonSearchMeta: IFilterField[] = [
   {
-    label: "Person Selector",
+    label: "Name Selector",
     fieldName: "",
     customFilterComponent: SearchLookupSelector,
     extraProps: {
@@ -43,6 +43,27 @@ export const PersonSearchMeta: IFilterField[] = [
     defaultValue: "*",
     fieldName: "FirstName",
     ariaLabel: "First Name"
+  },
+  {
+    label: "Contact Selector",
+    fieldName: "",
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Email",
+          fieldName: "EmailAddress",
+          valueField: "EmailAddress",
+          component: SearchInputType
+        },
+        {
+          label: "Telephone",
+          fieldName: "TelephoneNumber",
+          valueField: "TelephoneNumber",
+          component: SearchInputType
+        }
+      ]
+    }
   },
   {
     label: "Address Selector",
@@ -77,27 +98,6 @@ export const PersonSearchMeta: IFilterField[] = [
 
     fieldName: "ERPID",
     ariaLabel: "ERP Code"
-  },
-  {
-    label: "Contact Selector",
-    fieldName: "",
-    customFilterComponent: SearchLookupSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "Email",
-          fieldName: "EmailAddress",
-          valueField: "EmailAddress",
-          component: SearchInputType
-        },
-        {
-          label: "Phone",
-          fieldName: "TelephoneNumber",
-          valueField: "TelephoneNumber",
-          component: SearchInputType
-        }
-      ]
-    }
   },
   {
     label: "SSN",

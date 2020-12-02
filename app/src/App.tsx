@@ -50,7 +50,7 @@ import SectionQuestionPage from "~/Pages/Section/Question"
 import RequestPage from "~/Pages/RequestPage"
 
 import CourseCertificatePage from "~/Pages/Certificate/CourseCertificatePage"
-import ProgramCertificatePage from "~/Pages/Certificate/ProgramCertificatePage"
+import { ProgramCertificatePage } from "~/Pages/Manage/Program/CertificatePage"
 import CertificateDetailPage from "~/Pages/Certificate/CertificateDetailPage"
 
 import PersonPage from "~/Pages/Person/PersonPage"
@@ -95,6 +95,10 @@ import ChartPage from "~/Pages/Chart/ChartPage"
 import ChartDetailsPage from "~/Pages/Chart/ChartDetailsPage"
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
+import ProgramProgramPage from "./Pages/Manage/Program/ProgramPage"
+import { ProgramDetailsPage } from "./Pages/Manage/Program/ProgramDetailsPage"
+import { ProgramOfferingPage } from "./Pages/Manage/Program/OfferingPage"
+import { ProgramOfferingDetailsPage } from "./Pages/Manage/Program/OfferingDetailsPage"
 
 interface AppProps {
   store: AppStore
@@ -210,7 +214,12 @@ function App(props: AppProps): JSX.Element {
 
       <Route exact path="/course/certificate" component={CourseCertificatePage} />
       <Route exact path="/certificate/:studentCertificateID" component={CertificateDetailPage} />
+
       <Route exact path="/program/certificate" component={ProgramCertificatePage} />
+      <Route exact path="/program/program" component={ProgramProgramPage} />
+      <Route exact path="/program/program/:programID" component={ProgramDetailsPage} />
+      <Route exact path="/program/offering" component={ProgramOfferingPage} />
+      <Route exact path="/program/offering/:programOfferingID" component={ProgramOfferingDetailsPage} />
 
       <Route component={NotFoundPage} />
     </Switch>

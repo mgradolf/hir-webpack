@@ -5,11 +5,10 @@ import {
   getProgramEnrollmentStatusCodes
 } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-
 import { getOrganizationByType } from "~/ApiServices/BizApi/organization/orgIF"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
-export const programMeta: IFilterField[] = [
+export const ProgramSearchMeta: IFilterField[] = [
   {
     label: "Program Code",
     inputType: TEXT,
@@ -51,7 +50,6 @@ export const programMeta: IFilterField[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-
     fieldName: "departmentID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
@@ -60,7 +58,7 @@ export const programMeta: IFilterField[] = [
   }
 ]
 
-export const ProgramApplicationMeta: IFilterField[] = [
+export const ProgramApplicationSeaarchMeta: IFilterField[] = [
   {
     label: "Program Code",
     inputType: TEXT,

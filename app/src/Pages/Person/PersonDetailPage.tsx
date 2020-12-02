@@ -16,19 +16,5 @@ export default function PersonDetailsPage(
   else if (FacultyID) Param = { FacultyID: FacultyID }
   else Param = { PersonID: PersonID }
 
-  return (
-    <StandardDetailsPage
-      getDetailsMeta={getPersonDetailsMeta}
-      getDetailsFunc={() => {
-        return getPersonDetails(Param).then((x) => {
-          if (x.success) {
-            x.data = {
-              ...x.data[0]
-            }
-          }
-          return x
-        })
-      }}
-    />
-  )
+  return <StandardDetailsPage getDetailsMeta={getPersonDetailsMeta} getDetailsFunc={() => getPersonDetails(Param)} />
 }

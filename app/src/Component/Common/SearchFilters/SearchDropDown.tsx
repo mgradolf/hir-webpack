@@ -6,13 +6,24 @@ import {
 } from "~/Component/Common/SearchFilters/common"
 import { Select } from "antd"
 
-export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFieldObject>) {
-  const [options, setOptions] = useState<any[]>(props.options || [])
+export function DropDownInputType(
+  props: IFilterGenericComponentProps<IFilterFieldObject> & { onChangeCallback?: (params: any) => void }
+) {
+  const [options, setOptions] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
 
   const { refLookupService, displayKey, valueKey } = props
   useEffect(() => {
-    if (refLookupService) {
+    if (props.options?.length) {
+      setOptions(
+        props.options?.map((x) => {
+          return {
+            label: x[displayKey || "label"],
+            value: x[valueKey || "value"]
+          }
+        })
+      )
+    } else if (refLookupService) {
       setLoading(true)
       refLookupService().then((x) => {
         if (x.success && displayKey && valueKey) {
@@ -25,7 +36,7 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
         setLoading(false)
       })
     }
-  }, [refLookupService, displayKey, valueKey])
+  }, [refLookupService, displayKey, valueKey, props.options])
 
   return (
     <SearchFieldWrapper {...props}>
@@ -35,6 +46,7 @@ export function DropDownInputType(props: IFilterGenericComponentProps<IFilterFie
         aria-label={props.ariaLabel}
         style={props.isCheckeble ? { width: 150 } : {}}
         disabled={props.disabled}
+        onChange={props.onChangeCallback}
       >
         {options &&
           options.map(({ label, value }, i) => (

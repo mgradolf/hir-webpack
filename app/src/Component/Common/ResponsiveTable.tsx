@@ -5,7 +5,7 @@ import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 import { IApiResponse, RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import moment from "moment"
 import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
 import { DownOutlined, ReadOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
@@ -97,13 +97,13 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    if (!isModal) {
-      eventBus.subscribe(REFRESH_PAGE, loadDataFromSearchFunc)
-      eventBus.publish(REFRESH_PAGE)
-      return () => {
-        eventBus.unsubscribe(REFRESH_PAGE)
-      }
+    const eventName = isModal ? REFRESH_MODAl : REFRESH_PAGE
+    eventBus.subscribe(eventName, loadDataFromSearchFunc)
+    eventBus.publish(eventName)
+    return () => {
+      eventBus.unsubscribe(eventName)
     }
+
     // eslint-disable-next-line
   }, [])
 

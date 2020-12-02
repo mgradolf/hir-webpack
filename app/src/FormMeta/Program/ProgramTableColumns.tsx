@@ -8,7 +8,12 @@ import { searchEnrollment } from "~/ApiServices/BizApi/program/programEnrollment
 
 export const getProgramTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    { title: "Program Code", dataIndex: "ProgramCode" },
+    {
+      title: "Program Code",
+      dataIndex: "ProgramCode",
+      render: (text: any, record: any) =>
+        isModal ? text : <Link to={`/program/program/${record.ProgramID}`}>{text}</Link>
+    },
     { title: "Program Name", dataIndex: "Name" },
     { title: "Status", dataIndex: "ProgramStatusName" },
     { title: "State Date ", dataIndex: "ProgramStartDate", render: renderDate },

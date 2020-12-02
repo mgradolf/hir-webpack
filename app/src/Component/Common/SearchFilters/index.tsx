@@ -73,19 +73,21 @@ export default function ({
   }
 
   useEffect(() => {
-    const queryParams = querystringToObject()
+    const queryParams: { [key: string]: any } = querystringToObject()
     const updateMeta = queryParams && Object.keys(queryParams).length > 0
-    updateMeta && setShowLess(false)
-    updateMeta && formInstance.setFieldsValue(queryParams)
-    const _meta = updateMeta
-      ? props.meta.map((x) => {
-          x.defaultValue = queryParams[x.fieldName]
-          x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined
-          return x
-        })
-      : props.meta
-    setMeta(_meta)
-    applyChanges(queryParams)
+    if (updateMeta) {
+      setShowLess(false)
+      formInstance.setFieldsValue(queryParams)
+      const _meta = props.meta.map((x) => {
+        x.defaultValue = queryParams[x.fieldName]
+        x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined
+        return x
+      })
+      setMeta(_meta)
+      applyChanges(queryParams)
+    } else {
+      setMeta(props.meta)
+    }
 
     // eslint-disable-next-line
   }, [])
