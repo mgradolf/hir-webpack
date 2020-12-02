@@ -77,7 +77,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
       )}
       <Row>
         {blocks.map((x: CardContainer, i) => (
-          <Col key={i} xs={24} sm={24} md={x.groupedContents ? 12 : 24}>
+          <Col key={i} xs={24} sm={24} md={12}>
             {Array.isArray(x.contents)
               ? CardContainerRender(x)
               : Array.isArray(x.groupedContents)

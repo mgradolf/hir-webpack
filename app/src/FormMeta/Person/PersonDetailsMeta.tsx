@@ -2,7 +2,12 @@ import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 
-export const getPersonDetailsMeta = (person: { [key: string]: any }): CardContainer[] => {
+export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): CardContainer[] => {
+  const person: { [key: string]: any } = personInfos[0]
+  const instructor: { [key: string]: any } | undefined = personInfos.find((x) => x.Faculty)?.Faculty
+  const student: { [key: string]: any } | undefined = personInfos.find((x) => x.Student)?.Student
+  console.log("student ", student, personInfos)
+
   const personalInfo: CardContainer = {
     title: person.FormattedName,
     contents: [
@@ -96,5 +101,41 @@ export const getPersonDetailsMeta = (person: { [key: string]: any }): CardContai
     ]
   }
 
-  return [personalInfo, { groupedContents: [address, email, phone] }, login]
+  const studentInfo: CardContainer | undefined = student
+    ? {
+        title: "Student Info",
+        contents: [
+          { label: "Organization", value: student?.Organization },
+          { label: "Start Date", value: student?.StartDate, render: renderDate },
+          { label: "End Date", value: student?.EndDate, render: renderDate },
+          { label: "Academic Standing", value: student?.AcademicStandingTypeName },
+          { label: "Status", value: student?.StudentStatusCodeName },
+          { label: "Commuter", value: student?.IsCommuter, render: renderBoolean },
+          { label: "Solicit For Marketing", value: student?.AllowMarketing, render: renderBoolean },
+          { label: "Family Educational Rights and Privacy Act (FERPA)", value: student?.FERPA, render: renderBoolean }
+        ]
+      }
+    : undefined
+
+  const instructorInfo: CardContainer | undefined = instructor
+    ? {
+        title: "Instructor Info",
+        contents: [
+          { label: "Organization", value: instructor?.OrganizationName },
+          { label: "Status", value: instructor?.InstitutionStatusCodeName },
+          { label: "Type", value: instructor?.InstructorTypeName },
+          { label: "Active", value: instructor?.IsActive, render: renderBoolean },
+          { label: "Serial Num", value: instructor?.FacultySerialNum }
+        ]
+      }
+    : undefined
+
+  const meta: any[] = []
+  meta.push(personalInfo)
+  meta.push({ groupedContents: [address, email, phone, login] })
+  instructorInfo && meta.push(instructorInfo)
+  studentInfo && meta.push(studentInfo)
+
+  console.log(meta)
+  return meta
 }
