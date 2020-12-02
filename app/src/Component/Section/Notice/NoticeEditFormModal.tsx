@@ -1,6 +1,6 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { useEffect, useState } from "react"
+
 import NoticeEditForm from "~/Component/Section/Notice/NoticeEditForm"
 import { getSectionNotifications } from "~/ApiServices/Service/SectionService"
 import { Form } from "antd"
