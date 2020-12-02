@@ -96,6 +96,8 @@ import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
 import ProgramProgramPage from "./Pages/Manage/Program/ProgramPage"
 import { ProgramDetailsPage } from "./Pages/Manage/Program/ProgramDetailsPage"
+import { ProgramOfferingPage } from "./Pages/Manage/Program/OfferingPage"
+import { ProgramOfferingDetailsPage } from "./Pages/Manage/Program/OfferingDetailsPage"
 
 interface AppProps {
   store: AppStore
@@ -214,6 +216,8 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/program/certificate" component={ProgramCertificatePage} />
       <Route exact path="/program/program" component={ProgramProgramPage} />
       <Route exact path="/program/program/:programID" component={ProgramDetailsPage} />
+      <Route exact path="/program/offering" component={ProgramOfferingPage} />
+      <Route exact path="/program/offering/:programOfferingID" component={ProgramOfferingDetailsPage} />
 
       <Route component={NotFoundPage} />
     </Switch>

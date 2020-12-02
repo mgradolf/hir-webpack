@@ -4,3 +4,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 export function searchPrograms(Params: { [key: string]: any }): Promise<IApiResponse> {
   return ProgramIf[config.Actions.searchProgram]([Params])
 }
+
+export function searchProgramOffering(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.searchProgramOffering]([Params])
+}
