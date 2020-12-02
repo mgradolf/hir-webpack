@@ -138,3 +138,5 @@ export const CEU_HOURS = "CEUHours"
 
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
 export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
+
+export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
