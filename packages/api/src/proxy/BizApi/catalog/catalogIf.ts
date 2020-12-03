@@ -6,7 +6,8 @@ export const config = {
   Module: "hir",
   Actions: {
     findCatalogs: "findCatalogs",
-    updateBulkContent: "updateBulkContent"
+    updateBulkContent: "updateBulkContent",
+    searchCatalog: "searchCatalog"
   }
 }
 

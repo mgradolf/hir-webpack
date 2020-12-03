@@ -6,17 +6,17 @@ import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/Sear
 
 export const CatalogSearchMeta: IFilterField[] = [
   {
-    label: "SectionID",
+    label: "Section",
     fieldName: "SectionID",
     customFilterComponent: SearchSectionLookupButton
   }, //: 10825,
   {
-    label: "OfferingID",
+    label: "Offering",
     fieldName: "OfferingID",
     customFilterComponent: SearchOfferingLookupButton
   }, //: 6824,
   {
-    label: "ProgramID",
+    label: "Program",
     fieldName: "ProgramID",
     customFilterComponent: SearchProgramLookupButton,
     valueKey: "ProgramID"

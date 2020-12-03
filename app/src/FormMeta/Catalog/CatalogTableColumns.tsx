@@ -1,34 +1,36 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { findCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { searchCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
+import { renderBoolean, renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Catalog Name",
-      dataIndex: "catalogName",
-      render: (text: any, record: any) => <Link to={`/catalog/${record.catalogID}`}>{record.catalogName}</Link>,
-      key: "catalogName"
+      dataIndex: "Name",
+      render: (text: any, record: any) => <Link to={`/catalog/${record.catalogID}`}>{text}</Link>
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
-      key: "startDate",
       render: renderDate
     },
     {
       title: "End Date",
       dataIndex: "endDate",
-      key: "endDate",
       render: renderDate
     },
     {
-      title: "Current Status",
-      dataIndex: "currentStatus",
-      key: "currentStatus"
+      title: "Active",
+      dataIndex: "IsActive",
+      render: renderBoolean
+    },
+
+    {
+      title: "Description",
+      dataIndex: "Description"
     }
   ]
-  return { columns, searchFunc: findCatalog, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: searchCatalog, responsiveColumnIndices: [], expandableColumnIndices: [5] }
 }

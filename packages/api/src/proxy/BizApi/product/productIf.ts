@@ -8,7 +8,8 @@ export const config: Iconfig = {
     addSectionProduct: "addSectionProduct",
     findSectionProducts: "findSectionProducts",
     deleteSectionProduct: "deleteSectionProduct",
-    findProductFinancials: "findProductFinancials"
+    findProductFinancials: "findProductFinancials",
+    findSellerFulfillers: "findSellerFulfillers"
   }
 }
 

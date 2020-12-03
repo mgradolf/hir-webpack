@@ -5,6 +5,7 @@ import {
   getProductTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchSellerFulfillerLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSellerFulFillerLookup"
 
 export const ProductSearchMeta: IFilterField[] = [
   {
@@ -42,8 +43,8 @@ export const ProductSearchMeta: IFilterField[] = [
     valueKey: "ProductDefinitionID"
   }, //: "*",
   { label: "SKU", fieldName: "ProductSKUNumber", inputType: TEXT }, //: "*",
-  { label: "Seller", fieldName: "ProductSellerID", inputType: TEXT }, //: 1,
-  { label: "Fulfiller", fieldName: "ProductFulfillerID", inputType: TEXT }, //: 1,
+  { label: "Seller", fieldName: "ProductSellerID", customFilterComponent: SearchSellerFulfillerLookupButton }, //: 1,
+  { label: "Fulfiller", fieldName: "ProductFulfillerID", customFilterComponent: SearchSellerFulfillerLookupButton }, //: 1,
   {
     label: "Delivery Mode",
     fieldName: "ProductDeliveryModeID",

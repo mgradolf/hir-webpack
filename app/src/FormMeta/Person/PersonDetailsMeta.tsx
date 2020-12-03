@@ -4,8 +4,9 @@ import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): CardContainer[] => {
   const person: { [key: string]: any } = personInfos[0]
-  const instructor: { [key: string]: any } | undefined = personInfos.find((x) => x.Faculty)?.Faculty
-  const student: { [key: string]: any } | undefined = personInfos.find((x) => x.Student)?.Student
+  const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
+  const student: { [key: string]: any } | undefined = personInfos[1].Student
+  const disabilities: { [key: string]: any } | undefined = personInfos[1].PersonDisabilites
   console.log("student ", student, personInfos)
 
   const personalInfo: CardContainer = {
@@ -37,8 +38,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): Car
       },
       {
         label: "Disability",
-        value:
-          Array.isArray(person.Disability) && person.Disability.map((x: any) => x.DisabilityTypeDescriptor).toString(),
+        value: Array.isArray(disabilities) && disabilities.map((x: any) => x.DisabilityTypeName).toString(),
         render: undefined
       },
       { label: "Can Defer Payment", value: person.CanDeferPayment, render: undefined },
