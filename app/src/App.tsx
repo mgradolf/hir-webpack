@@ -99,6 +99,8 @@ import ProgramProgramPage from "./Pages/Manage/Program/ProgramPage"
 import { ProgramDetailsPage } from "./Pages/Manage/Program/ProgramDetailsPage"
 import { ProgramOfferingPage } from "./Pages/Manage/Program/OfferingPage"
 import { ProgramOfferingDetailsPage } from "./Pages/Manage/Program/OfferingDetailsPage"
+import { MarketingCodeRepositoryPage } from "./Pages/Manage/MarketingCodes/RepositoryPage"
+import MarketingCodeRepositoryDetailsPage from "./Pages/Manage/MarketingCodes/RepositoryDetails"
 
 interface AppProps {
   store: AppStore
@@ -220,6 +222,9 @@ function App(props: AppProps): JSX.Element {
       <Route exact path="/program/program/:programID" component={ProgramDetailsPage} />
       <Route exact path="/program/offering" component={ProgramOfferingPage} />
       <Route exact path="/program/offering/:programOfferingID" component={ProgramOfferingDetailsPage} />
+
+      <Route exact path="/marketing-codes/repository" component={MarketingCodeRepositoryPage} />
+      <Route exact path="/marketing-codes/repository/:marketingCodeID" component={MarketingCodeRepositoryDetailsPage} />
 
       <Route component={NotFoundPage} />
     </Switch>
