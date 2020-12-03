@@ -5,6 +5,7 @@ import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLook
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
@@ -72,7 +73,7 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
           label: "Purchaser",
           fieldName: "PayerName",
           valueField: "FirstName",
-          component: SearchSectionLookupButton
+          component: SearchPersonLookupButton
         },
         {
           label: "Student",

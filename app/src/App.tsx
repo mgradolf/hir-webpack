@@ -95,12 +95,14 @@ import ChartPage from "~/Pages/Chart/ChartPage"
 import ChartDetailsPage from "~/Pages/Chart/ChartDetailsPage"
 import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
-import ProgramProgramPage from "./Pages/Manage/Program/ProgramPage"
-import { ProgramDetailsPage } from "./Pages/Manage/Program/ProgramDetailsPage"
-import { ProgramOfferingPage } from "./Pages/Manage/Program/OfferingPage"
-import { ProgramOfferingDetailsPage } from "./Pages/Manage/Program/OfferingDetailsPage"
-import { MarketingCodeRepositoryPage } from "./Pages/Manage/MarketingCodes/RepositoryPage"
-import MarketingCodeRepositoryDetailsPage from "./Pages/Manage/MarketingCodes/RepositoryDetails"
+import ProgramProgramPage from "~/Pages/Manage/Program/ProgramPage"
+import { ProgramDetailsPage } from "~/Pages/Manage/Program/ProgramDetailsPage"
+import { ProgramOfferingPage } from "~/Pages/Manage/Program/OfferingPage"
+import { ProgramOfferingDetailsPage } from "~/Pages/Manage/Program/OfferingDetailsPage"
+import { MarketingCodeRepositoryPage } from "~/Pages/Manage/MarketingCodes/RepositoryPage"
+import MarketingCodeRepositoryDetailsPage from "~/Pages/Manage/MarketingCodes/RepositoryDetails"
+import { MarketingCodeResponsePage } from "~/Pages/Manage/MarketingCodes/ResponsePage"
+import MarketingCodeResponseDetailsPage from "~/Pages/Manage/MarketingCodes/ResponseDetails"
 
 interface AppProps {
   store: AppStore
@@ -225,6 +227,12 @@ function App(props: AppProps): JSX.Element {
 
       <Route exact path="/marketing-codes/repository" component={MarketingCodeRepositoryPage} />
       <Route exact path="/marketing-codes/repository/:marketingCodeID" component={MarketingCodeRepositoryDetailsPage} />
+      <Route exact path="/marketing-codes/response" component={MarketingCodeResponsePage} />
+      <Route
+        exact
+        path="/marketing-codes/response/:orderItemID/:marketingCodeID"
+        component={MarketingCodeResponseDetailsPage}
+      />
 
       <Route component={NotFoundPage} />
     </Switch>

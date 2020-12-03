@@ -68,7 +68,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Repository", url: "/marketing-codes/repository", submenu: [] },
-          { title: "Response", url: "", submenu: [] }
+          { title: "Response", url: "/marketing-codes/response", submenu: [] }
         ]
       },
       { title: "Products", url: "/product", submenu: [] },

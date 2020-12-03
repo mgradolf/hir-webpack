@@ -13,7 +13,8 @@ const blockedPages: string[] = [
   "Order",
   "Waitlist",
   "Payments",
-  "Repository"
+  "Repository",
+  "Response"
 ]
 const names: { [key: string]: string } = {
   Offering: "OfferingCode",
@@ -37,7 +38,7 @@ const transformIdToName = async (paths: Array<IBreadcrumbPath>): Promise<Array<a
   let previousPath: any = {}
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
-      if (!blockedPages.includes(previousPath.label)) {
+      if (!blockedPages.includes(previousPath.label) && isNaN(Number(previousPath.label))) {
         const result: any = await getEntityById(previousPath.label, x.label)
         if (result.success && result.data) {
           const key = names[previousPath.label]

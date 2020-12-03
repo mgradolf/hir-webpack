@@ -8,7 +8,7 @@ export type CardContents = {
   label: string
   value?: any
   jsx?: JSX.Element
-  render?: (text: any) => string
+  render?: (text: any) => string | JSX.Element
 }
 
 export type CardContainer = {
@@ -47,7 +47,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
   const CardContainerRender = (card: CardContainer, key?: number) => {
     return (
       <Card key={key} title={card.title}>
-        <table>
+        <table className="dorakata-table">
           <tbody>
             {Array.isArray(card.contents)
               ? card.contents.map((y: CardContents, j: number) => (
@@ -89,12 +89,15 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
     </div>
   )
 
-  if (loading)
-    return (
-      <Row justify="center" align="middle">
-        <Spin size="large" />
-      </Row>
-    )
-  if (error) return <p>Not Found</p>
-  return toRender
+  return (
+    <>
+      {loading && (
+        <Row justify="center" align="middle">
+          <Spin size="large" />
+        </Row>
+      )}
+      {!loading && error && <p>Not Found</p>}
+      {!loading && !error && toRender}
+    </>
+  )
 }
