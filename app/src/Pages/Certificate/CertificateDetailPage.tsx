@@ -7,7 +7,7 @@ import { getToken } from "@packages/api/lib/utils/TokenStore"
 
 export default function CertificateDetailsPage(props: RouteComponentProps<{ studentCertificateID?: string }>) {
   const [certificateDetails, setCertificateDetails] = useState<{ [key: string]: any }>({})
-  const [downloadUrl, setdownloadUrl] = useState<string>()
+  const [downloadUrl, setDownloadUrl] = useState<string>()
   const studentCertificateID = Number(props?.match?.params?.studentCertificateID)
 
   let Param: { [key: string]: any }
@@ -24,10 +24,10 @@ export default function CertificateDetailsPage(props: RouteComponentProps<{ stud
 
   useEffect(() => {
     ;(async function () {
-      if (Object.keys(certificateDetails).length > 0) {
+      if (certificateDetails && Object.keys(certificateDetails).length > 0) {
         let urlParams = `/api/document?DocumentID=${certificateDetails.DocumentID}&`
         urlParams += "token=" + getToken()
-        setdownloadUrl(urlParams)
+        setDownloadUrl(urlParams)
       }
     })()
   }, [certificateDetails])

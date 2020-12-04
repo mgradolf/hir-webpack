@@ -48,7 +48,6 @@ export async function download(config: ApiConfig): Promise<IApiResponse> {
   const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>newConfig
   requestConfig.withCredentials = true
   const response = (await axios.request(requestConfig)).data
-
   if (response) {
     saveAs(response, `report-${new Date().toISOString()}${fileExtension}`)
   }
@@ -56,7 +55,7 @@ export async function download(config: ApiConfig): Promise<IApiResponse> {
 }
 
 export async function preview(config: ApiConfig): Promise<IApiResponse> {
-  const { newConfig, fileExtension } = getNewConfigWithResponseType(config)
+  const { newConfig } = getNewConfigWithResponseType(config)
 
   const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>newConfig
   requestConfig.withCredentials = true

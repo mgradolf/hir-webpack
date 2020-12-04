@@ -10,19 +10,14 @@ export const RegistrationSearchMeta: IFilterField[] = [
     customFilterComponent: SearchSectionLookupButton
   },
   {
-    label: "Purchaser",
-    fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
-  },
-  {
     label: "Student",
     fieldName: "StudentID",
     customFilterComponent: SearchStudentLookupButton
   },
   {
-    label: "Account",
-    fieldName: "AccountID",
-    customFilterComponent: SearchStudentLookupButton
+    label: "Purchaser",
+    fieldName: "PersonID",
+    customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Start Date",
@@ -36,6 +31,11 @@ export const RegistrationSearchMeta: IFilterField[] = [
     valueKey2: "StartDateTo",
     fieldName2: "StartDateTo",
     ariaLabel2: "Start Date To"
+  },
+  {
+    label: "Account",
+    fieldName: "AccountID",
+    customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Create Date",
