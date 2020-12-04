@@ -20,5 +20,6 @@
 			"pre-commit": "yarn lint"
 		}
 	},
-	"name": "typescript-webpack"
+	"name": "typescript-webpack",
+	"dependencies": {}
 }
