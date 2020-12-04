@@ -21,6 +21,25 @@ export const OfferingSearchMeta: IFilterField[] = [
     fieldName: "OfferingName"
   },
   {
+    label: "Department",
+    inputType: DROPDOWN,
+    fieldName: "OrganizationID",
+    refLookupService: getOrganizations,
+    displayKey: "Name",
+    valueKey: "OrganizationID"
+  },
+  {
+    label: "Final Enrollment Date",
+    inputType: DATE_PICKERS,
+    displayKey: "From",
+    fieldName: "FromFinalEnrollmentDate",
+    valueKey: "FromFinalEnrollmentDate",
+
+    displayKey2: "To",
+    fieldName2: "ToFinalEnrollmentDate",
+    valueKey2: "ToFinalEnrollmentDate"
+  },
+  {
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
@@ -63,14 +82,6 @@ export const OfferingSearchMeta: IFilterField[] = [
     valueKey: "OfferingTypeID"
   },
   {
-    label: "Department",
-    inputType: DROPDOWN,
-    fieldName: "OrganizationID",
-    refLookupService: getOrganizations,
-    displayKey: "Name",
-    valueKey: "OrganizationID"
-  },
-  {
     label: "Coordinator",
     inputType: DROPDOWN,
     fieldName: "Coordinator",
@@ -103,17 +114,6 @@ export const OfferingSearchMeta: IFilterField[] = [
     label: "Tag",
     inputType: TEXT,
     fieldName: "TagName"
-  },
-  {
-    label: "Final Enrollment Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "FromFinalEnrollmentDate",
-    valueKey: "FromFinalEnrollmentDate",
-
-    displayKey2: "To",
-    fieldName2: "ToFinalEnrollmentDate",
-    valueKey2: "ToFinalEnrollmentDate"
   },
   {
     label: "Capacity Util",

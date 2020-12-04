@@ -7,8 +7,7 @@ import { SectionMenu } from "~/Component/Section/SectionMenu"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getSectionTableColumns = (isModal = false, OfferingID?: number): ITableConfigProp => {
-  const expandableColumnIndices = [7, 8]
-  const responsiveColumnIndices = [2, 3, 4, 5, 6, 7]
+  // const responsiveColumnIndices = [2, 3, 4, 5, 6, 7]
   const columns: TableColumnType = [
     {
       ...(!isModal && {
@@ -110,5 +109,5 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
     }
   ]
 
-  return { columns, expandableColumnIndices, responsiveColumnIndices, searchFunc: searchSection }
+  return { columns, searchFunc: searchSection }
 }
