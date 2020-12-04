@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { searchCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
+import { searchCatalogs } from "~/ApiServices/Service/CatalogService"
 import { renderBoolean, renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
@@ -9,7 +9,7 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Catalog Name",
       dataIndex: "Name",
-      render: (text: any, record: any) => <Link to={`/catalog/${record.catalogID}`}>{text}</Link>
+      render: (text: any, record: any) => <Link to={`/catalog/${record.CatalogID}`}>{text}</Link>
     },
     {
       title: "Start Date",
@@ -26,11 +26,18 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
       dataIndex: "IsActive",
       render: renderBoolean
     },
-
     {
-      title: "Description",
-      dataIndex: "Description"
+      title: "Type",
+      dataIndex: "CatalogTypeName"
+    },
+    {
+      title: "Image",
+      dataIndex: "CatalogImage"
+    },
+    {
+      title: "Sort Type",
+      dataIndex: "SortType"
     }
   ]
-  return { columns, searchFunc: searchCatalog, responsiveColumnIndices: [], expandableColumnIndices: [5] }
+  return { columns, searchFunc: searchCatalogs, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

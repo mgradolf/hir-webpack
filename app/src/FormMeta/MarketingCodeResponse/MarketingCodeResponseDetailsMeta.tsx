@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
+import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getMarketingCodeResponseDetailsMeta = (response: { [key: string]: any }): CardContainer[] => {

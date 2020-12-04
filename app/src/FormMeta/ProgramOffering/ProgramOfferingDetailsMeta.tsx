@@ -1,4 +1,4 @@
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
+import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 
 export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): CardContainer[] => {
   const info: CardContainer = {

@@ -1,4 +1,4 @@
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
+import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getCertificateDetailsMeta = (certificate: { [key: string]: any }): CardContainer[] => {

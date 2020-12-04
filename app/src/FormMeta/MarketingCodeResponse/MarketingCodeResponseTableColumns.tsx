@@ -3,18 +3,25 @@ import { Link } from "react-router-dom"
 import { searchMarketingCodeResponses } from "~/ApiServices/Service/MarketingService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+import { ReadOutlined } from "@ant-design/icons"
 
 export const getMarketingCodeResponseTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Marketing Code",
-      dataIndex: "MarketingCode",
       render: (text: any, record: any) =>
         isModal ? (
           text
         ) : (
-          <Link to={`/marketing-codes/response/${record.OrderItemID}/${record.MarketingCodeID}`}>{text}</Link>
+          <Link to={`/marketing-codes/response/${record.OrderItemID}/${record.MarketingCodeID}`}>
+            <ReadOutlined />
+          </Link>
         )
+    },
+    {
+      title: "Marketing Code",
+      dataIndex: "MarketingCode",
+      render: (text: any, record: any) =>
+        isModal ? text : <Link to={`/marketing-codes/repository/${record.MarketingCodeID}`}>{text}</Link>
     },
     {
       title: "Purchaser Name",
@@ -45,7 +52,7 @@ export const getMarketingCodeResponseTableColumns = (isModal = false): ITableCon
     }
   ]
 
-  const responsiveColumnIndices: number[] = [2]
-  const expandableColumnIndices: number[] = [2]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchMarketingCodeResponses }
 }

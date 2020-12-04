@@ -1,5 +1,5 @@
 import React from "react"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
+import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): CardContainer[] => {

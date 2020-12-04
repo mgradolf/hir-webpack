@@ -1,4 +1,4 @@
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
+import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getMarketingCodeRepositoryDetailsMeta = (MarketingCode: { [key: string]: any }): CardContainer[] => {

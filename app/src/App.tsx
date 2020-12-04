@@ -66,8 +66,8 @@ import AccountDetailsPage from "~/Pages/Account/AccountDetails"
 import ProductPage from "~/Pages/Product/ProductPage"
 import ProductDetailsPage from "~/Pages/Product/ProductDetails"
 
-import CatalogPage from "~/Pages/Catalog/CatalogPage"
-import CatalogDetailsPage from "~/Pages/Catalog/CatalogDetailsPage"
+import { CatalogPage } from "~/Pages/Catalog/CatalogPage"
+import { CatalogDetailsPage } from "~/Pages/Catalog/CatalogDetailsPage"
 
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import ProgramApplicationPage from "~/Pages/Program/ProgramApplicationPage"
