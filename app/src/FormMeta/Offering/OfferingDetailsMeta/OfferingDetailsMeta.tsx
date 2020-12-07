@@ -35,10 +35,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
   const summaryMeta: IDetailsSummary = {
     summary: [summary],
-    actions: [
-      <OfferingMenu offering={offering} />,
-      <OfferingEditLink OfferingId={offering.OfferingID} PrimaryType={true} />
-    ]
+    editableAction: [<OfferingEditLink OfferingId={offering.OfferingID} PrimaryType={true} />]
   }
 
   const SectionFormModalOpenButton = (props: { OfferingID: number }) => {

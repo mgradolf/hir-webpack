@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { Col, Row, Spin, Tabs } from "antd"
+import { Button, Col, Row, Spin, Tabs } from "antd"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
@@ -60,7 +60,7 @@ export function DetailsPage(props: IDetailsPage) {
       {!loading && error && <p>Not Found</p>}
       {!loading && !error && meta.length > 0 && (
         <div className="site-layout-content">
-          {Array.isArray(props.actions) && (
+          {/* {Array.isArray(props.actions) && (
             <Row justify="end">
               {props.actions.map((x, key) => (
                 <Col key={key} style={{ marginLeft: "10px", marginBottom: "10px" }}>
@@ -68,9 +68,9 @@ export function DetailsPage(props: IDetailsPage) {
                 </Col>
               ))}
             </Row>
-          )}
+          )} */}
 
-          <Tabs defaultActiveKey="1" type="card" size="large">
+          <Tabs defaultActiveKey="1" type="card" size="large" tabBarExtraContent={props.actions ? props.actions : []}>
             {meta.map((x, i) => {
               switch (x.type) {
                 case "summary":
