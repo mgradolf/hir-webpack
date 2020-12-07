@@ -45,6 +45,7 @@ export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
   breakpoints?: Breakpoint[]
   isModal?: boolean
+  isTab?: string
   rowKey?: string
 }
 
@@ -97,7 +98,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    const eventName = isModal ? REFRESH_MODAl : REFRESH_PAGE
+    const eventName = isModal ? REFRESH_MODAl : props.isTab ? props.isTab : REFRESH_PAGE
     eventBus.subscribe(eventName, loadDataFromSearchFunc)
     eventBus.publish(eventName)
     return () => {
