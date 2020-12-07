@@ -75,13 +75,13 @@ export function DetailsPage(props: IDetailsPage) {
               switch (x.type) {
                 case "summary":
                   return (
-                    <Tabs.TabPane tab={x.title} key="1">
+                    <Tabs.TabPane tab={x.title} key={i + 1}>
                       <DetailsSummary {...x.meta} />
                     </Tabs.TabPane>
                   )
                 case "searchtable":
                   return (
-                    <Tabs.TabPane tab={x.title} key="2">
+                    <Tabs.TabPane tab={x.title} key={i + 1}>
                       <DetailsSearchTab {...x.meta} />
                     </Tabs.TabPane>
                   )

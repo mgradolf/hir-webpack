@@ -257,7 +257,7 @@ export function ResponsiveTable(props: IDataTableProps) {
             <Button
               loading={downloading}
               disabled={downloading}
-              style={{ position: "absolute", zIndex: 100, right: "15px", top: "15px", border: "1px solid" }}
+              style={{ float: "right", right: "15px", top: "15px", border: "1px solid" }}
               type="link"
               onClick={(e) => e.preventDefault()}
             >

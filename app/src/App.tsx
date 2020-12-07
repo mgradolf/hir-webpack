@@ -12,7 +12,7 @@ import NotFoundPage from "~/Pages/NotFoundPage"
 
 import OfferingPage from "~/Pages/Offering/index"
 import OfferingDetailsPage from "~/Pages/Offering/Details"
-import OfferingFinancialPage from "~/Pages/Offering/Financial"
+import OfferingFinancialPage from "~/Pages/Offering/Financial/FinancialPage"
 import OfferingCatalogPage from "~/Pages/Offering/Catalog"
 import OfferingRequisitePage from "~/Pages/Offering/Requisite"
 import OfferingApprovalPage from "~/Pages/Offering/Approval"

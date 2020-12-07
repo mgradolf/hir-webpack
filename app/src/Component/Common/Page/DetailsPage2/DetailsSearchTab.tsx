@@ -9,7 +9,7 @@ import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
 export interface IDetailsSearchTabProp {
   blocks?: JSX.Element[]
-  title: string
+  title?: string
   meta?: IFilterField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
@@ -27,35 +27,41 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
 
   return (
     <>
-      <Row>
-        <Col span={21}>
-          <Typography.Title level={3}>{props.title}</Typography.Title>
-        </Col>
-        {props.helpKey && (
-          <Col span={3}>
-            <Button type="link" onClick={() => setHelp(true)}>
-              Help
-            </Button>
+      {props.title && (
+        <Row>
+          <Col span={21}>
+            <Typography.Title level={3}>{props.title}</Typography.Title>
+          </Col>
+          {props.helpKey && (
+            <Col span={3}>
+              <Button type="link" onClick={() => setHelp(true)}>
+                Help
+              </Button>
+            </Col>
+          )}
+          {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
+        </Row>
+      )}
+      {props.meta && (
+        <Row justify="start" gutter={[8, 8]}>
+          <Col>
+            <span>
+              <FilterOutlined />
+              <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
+            </span>
+          </Col>
+        </Row>
+      )}
+      <Row justify="end" gutter={[8, 8]}>
+        {props.meta && (
+          <Col>
+            {!showFilter && (
+              <Button type="primary" onClick={() => setShowFilter(true)}>
+                Filters
+              </Button>
+            )}
           </Col>
         )}
-        {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
-      </Row>
-      <Row justify="start" gutter={[8, 8]}>
-        <Col>
-          <span>
-            <FilterOutlined />
-            <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
-          </span>
-        </Col>
-      </Row>
-      <Row justify="end" gutter={[8, 8]}>
-        <Col>
-          {!showFilter && (
-            <Button type="primary" onClick={() => setShowFilter(true)}>
-              Filters
-            </Button>
-          )}
-        </Col>
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>

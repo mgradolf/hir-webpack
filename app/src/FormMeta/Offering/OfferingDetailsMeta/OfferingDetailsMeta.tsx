@@ -6,28 +6,31 @@ import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSum
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
-import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { Button } from "antd"
+import { getFinancialTableColumns } from "~/FormMeta/Financial/FinancialTableColumns"
+import { getQualifiedInstructorTableColumns } from "~/FormMeta/Instructor/QualifiedInstructorTableColumns"
+import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta[] => {
   const summary: CardContainer = {
     title: offering.OfferingCode,
     contents: [
-      { label: "Name", value: offering.OfferingName, render: undefined },
-      { label: "Type", value: offering.OfferingTypeName, render: undefined },
-      { label: "Section Type", value: offering.SectionTypeName, render: undefined },
+      { label: "Offering Name", value: offering.OfferingName, render: undefined },
+      { label: "Offering Type", value: offering.OfferingTypeName, render: undefined },
+      // { label: "Coordinator(s)", value: offering.coordinators, render: undefined },
       { label: "Description", value: offering.OfferingDescription, render: undefined },
-      { label: "Effective Creation Date", value: offering.EffectiveCreationDate, render: renderDate },
-      { label: "Effective Termination Date", value: offering.EffectiveTerminationDate, render: renderDate },
-      { label: "OrganizationName", value: offering.OrganizationName, render: undefined },
-      { label: "Status ", value: offering.StatusCode, render: undefined },
-      { label: "Approval Process ", value: offering.HasApprovalProcess, render: renderBoolean },
+      { label: "URL", value: offering.URL, render: undefined },
+      { label: "Creation Date", value: offering.CreationDate, render: renderDate },
+      { label: "Termination Date", value: offering.TerminationDate, render: renderDate },
+      { label: "Duration/Term", value: offering.StartTermName, render: undefined },
+      { label: "Offering Status ", value: offering.StatusCode, render: undefined },
+      { label: "Department", value: offering.OrganizationName, render: undefined },
       { label: "Quick Admit", value: offering.IsQuickAdmit, render: renderBoolean },
-      { label: "Submit Inquiry To User", value: offering.SubmitInquiryToUserID, render: undefined },
-      { label: "Modifie Date", value: offering.ModifiedDate, render: renderDate },
-      { label: "Modified By", value: offering.ModifiedByUserID, render: undefined }
+      { label: "Inquiry Recipient", value: offering.SubmitInquiryToName, render: undefined },
+      { label: "Selected Gateway", value: offering.PaymentGatewayAccountName, render: undefined },
+      { label: "Default Section Type", value: offering.SectionTypeName, render: undefined }
     ]
   }
   const summaryMeta: IDetailsSummary = {
@@ -51,12 +54,37 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       </>
     )
   }
+
+  const FinancialFormModalOpenButton = (props: { OfferingID: number }) => {
+    const [showModal, setShowModal] = useState(false)
+    return (
+      <>
+        {setShowModal && (
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
+            + Create Offering Financial
+          </Button>
+        )}
+        {showModal && (
+          <CreateNewOfferingFinancial offeringID={props.OfferingID} closeModal={() => setShowModal(false)} />
+        )}
+      </>
+    )
+  }
+
   const sectionMeta: IDetailsSearchTabProp = {
     blocks: [<SectionFormModalOpenButton OfferingID={offering.OfferingID} />],
-    title: "Sections",
-    meta: SectionSearchMeta,
-    defaultFilter: { OfferingID: offering.OfferingID },
     tableProps: getSectionTableColumns()
+  }
+
+  const financialMeta: IDetailsSearchTabProp = {
+    blocks: [<FinancialFormModalOpenButton OfferingID={offering.OfferingID} />],
+    defaultFilter: { OfferingID: offering.OfferingID },
+    tableProps: getFinancialTableColumns(offering.OfferingID)
+  }
+
+  const qualifiedInstructorMeta: IDetailsSearchTabProp = {
+    defaultFilter: { OfferingID: offering.OfferingID },
+    tableProps: getQualifiedInstructorTableColumns(offering.OfferingID)
   }
 
   return [
@@ -66,7 +94,17 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       meta: summaryMeta
     },
     {
-      title: "Section",
+      title: "Financials",
+      type: "searchtable",
+      meta: financialMeta
+    },
+    {
+      title: "Qualified Instructors",
+      type: "searchtable",
+      meta: qualifiedInstructorMeta
+    },
+    {
+      title: "Sections",
       type: "searchtable",
       meta: sectionMeta
     }
