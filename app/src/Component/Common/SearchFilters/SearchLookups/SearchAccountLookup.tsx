@@ -6,15 +6,23 @@ import { getAccountTableColumns } from "~/FormMeta/Account/AccountTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function SearchAccountLookup(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+  console.log("account ", props)
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Account"
       valueField={props.valueField || "AccountID"}
-      displayField="AccountName"
+      displayField={"AccountName"}
       {...getAccountTableColumns(true)}
       meta={AccountSearchMeta}
       {...props}
-      {...(props.defaultValue && { entityLookupFunc: () => getEntityById("Account", props.defaultValue) })}
+      {...(props.defaultValue && {
+        entityLookupFunc: () =>
+          getEntityById("Account", props.defaultValue).then((x) => {
+            if (x.success) x.data["AccountName"] = x.data.Name
+            console.log(x)
+            return x.data
+          })
+      })}
     />
   )
 }

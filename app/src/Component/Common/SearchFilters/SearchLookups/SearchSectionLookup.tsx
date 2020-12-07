@@ -3,6 +3,7 @@ import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
 import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function SearchSectionLookupButton(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   return (
@@ -14,6 +15,12 @@ export function SearchSectionLookupButton(props: IFilterGenericComponentProps<IF
       {...props}
       formInstance={props.formInstance}
       {...getSectionTableColumns(true)}
+      {...(props.defaultValue && {
+        entityLookupFunc: () =>
+          getEntityById("Section", props.defaultValue).then((x) => {
+            return x.data
+          })
+      })}
     />
   )
 }

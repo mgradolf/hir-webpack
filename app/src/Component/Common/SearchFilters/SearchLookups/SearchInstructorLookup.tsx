@@ -3,6 +3,7 @@ import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchL
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { InstructorSearchMeta } from "~/FormMeta/Instructor/InstructorSearchMeta"
 import { getInstructorTableColumns } from "~/FormMeta/Instructor/InstructorTableColumns"
+import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
 
 export function SearchInstructorLookupButton(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   return (
@@ -14,6 +15,12 @@ export function SearchInstructorLookupButton(props: IFilterGenericComponentProps
       {...props}
       formInstance={props.formInstance}
       {...getInstructorTableColumns(true)}
+      {...(props.defaultValue && {
+        entityLookupFunc: () =>
+          searchFaculties({ FacultyID: props.defaultValue }).then((x) => {
+            return x.data[0]
+          })
+      })}
     />
   )
 }

@@ -78,9 +78,18 @@ export default function ({
     if (updateMeta) {
       setShowLess(false)
       formInstance.setFieldsValue(queryParams)
+      console.log(props.meta)
       const _meta = props.meta.map((x) => {
         x.defaultValue = queryParams[x.fieldName]
         x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined
+        console.log(x.extraProps)
+        if (x.extraProps && Array.isArray(x.extraProps.selectorKeys)) {
+          x.extraProps.selectorKeys = x.extraProps.selectorKeys.map((y) => {
+            y.defaultValue = queryParams[y.fieldName]
+            console.log("y ", y, "  queryParams", queryParams)
+            return y
+          })
+        }
         return x
       })
       setMeta(_meta)
