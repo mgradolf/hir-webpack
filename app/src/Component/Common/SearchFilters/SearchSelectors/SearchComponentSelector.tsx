@@ -11,6 +11,7 @@ interface ISelector {
   label?: string
   fieldName: string
   valueField?: string
+  defaultValue?: any
   component: (props?: any) => JSX.Element
 }
 export function SearchLookupSelector(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
@@ -46,7 +47,13 @@ export function SearchLookupSelector(props: IFilterGenericComponentProps<IFilter
           <React.Fragment key={i}>
             {selectedKey === x.fieldName && (
               <Col span={16}>
-                <x.component {...props} label="" fieldName={x.fieldName} valueField={x.valueField} />
+                <x.component
+                  {...props}
+                  label=""
+                  fieldName={x.fieldName}
+                  valueField={x.valueField}
+                  defaultValue={x.defaultValue}
+                />
               </Col>
             )}
           </React.Fragment>

@@ -3,6 +3,7 @@ import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchL
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
 import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface ISearchProgramLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
   valueField?: string
@@ -16,6 +17,12 @@ export function SearchProgramLookupButton(props: ISearchProgramLookup) {
       {...props}
       {...getProgramTableColumns(true)}
       valueField={props.valueField || "ProgramID"}
+      {...(props.defaultValue && {
+        entityLookupFunc: () =>
+          getEntityById("Program", props.defaultValue).then((x) => {
+            return x.data
+          })
+      })}
     />
   )
 }
