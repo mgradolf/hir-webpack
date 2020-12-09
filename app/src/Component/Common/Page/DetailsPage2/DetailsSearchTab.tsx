@@ -9,7 +9,7 @@ import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
 export interface IDetailsSearchTabProp {
   blocks?: JSX.Element[]
-  title: string
+  title?: string
   meta?: IFilterField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
@@ -28,9 +28,11 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
   return (
     <>
       <Row>
-        <Col span={21}>
-          <Typography.Title level={3}>{props.title}</Typography.Title>
-        </Col>
+        {props.title && (
+          <Col span={21}>
+            <Typography.Title level={3}>{props.title}</Typography.Title>
+          </Col>
+        )}
         {props.helpKey && (
           <Col span={3}>
             <Button type="link" onClick={() => setHelp(true)}>
@@ -80,7 +82,11 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
           sm={24}
           md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
         >
-          <ResponsiveTable {...props.tableProps} searchParams={searchParams} isTab={props.title} />
+          <ResponsiveTable
+            {...props.tableProps}
+            searchParams={searchParams}
+            refreshEventName={props.title + Date.now().toString()}
+          />
         </Col>
       </Row>
     </>

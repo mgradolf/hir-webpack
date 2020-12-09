@@ -5,6 +5,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
+import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 
 export const tabTypes = {
   summary: "summary",
@@ -85,6 +86,13 @@ export function DetailsPage(props: IDetailsPage) {
                       <DetailsSearchTab {...x.meta} />
                     </Tabs.TabPane>
                   )
+                case "table":
+                  return (
+                    <Tabs.TabPane tab={x.title} key="3">
+                      <DetailsTableTab {...x.meta} />
+                    </Tabs.TabPane>
+                  )
+
                 default:
                   return <p>Can not load</p>
               }
