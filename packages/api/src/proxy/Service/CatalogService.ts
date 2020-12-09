@@ -5,7 +5,8 @@ export const config = {
   Service: "catalogService",
   Module: "hir",
   Actions: {
-    searchCatalogs: "searchCatalogs"
+    searchCatalogs: "searchCatalogs",
+    getCatalogContent: "getCatalogContent"
   }
 }
 

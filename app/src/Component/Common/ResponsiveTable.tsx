@@ -214,6 +214,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.scroll = { x: columns.length }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
+    console.log("props.pagination ", props.pagination)
     _conditionalProps.pagination =
       props.pagination && typeof props.pagination === "boolean" && !props.pagination
         ? props.pagination
@@ -221,6 +222,7 @@ export function ResponsiveTable(props: IDataTableProps) {
         ? { position: ["topLeft"], pageSize: 20, simple: true }
         : false
     setConditionalProps(_conditionalProps)
+    console.log(_conditionalProps)
   }
 
   const downloadData = (fileType: string) => {

@@ -36,7 +36,7 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
     },
     {
       title: "Sort Type",
-      dataIndex: "SortType"
+      dataIndex: "SortTypeName"
     }
   ]
   return { columns, searchFunc: searchCatalogs, responsiveColumnIndices: [], expandableColumnIndices: [] }

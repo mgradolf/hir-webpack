@@ -71,7 +71,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
 
   const sectionMeta: IDetailsSearchTabProp = {
     blocks: [<SectionFormModalOpenButton OfferingID={offering.OfferingID} />],
-    tableProps: getSectionTableColumns(false, offering.OfferingID)
+    tableProps: { ...getSectionTableColumns(false, offering.OfferingID), pagination: false }
   }
 
   const financialMeta: IDetailsSearchTabProp = {

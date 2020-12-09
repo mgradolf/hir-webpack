@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
 import FinancialRemoveLink from "~/Component/Offering/Financial/FinancialRemoveLink"
-import CreateNewOfferingFinancial from "./OfferingFinancialFormModal"
+import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 
 interface IFinancialMenu {
   offeringId: number
