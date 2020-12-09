@@ -18,7 +18,6 @@ export const getQualifiedInstructorTableColumns = (OfferingID: number): ITableCo
         }
       })
       .then((response) => {
-        console.log("response: ", response)
         if (response?.success) {
           eventBus.publish(REFRESH_PAGE)
         }
