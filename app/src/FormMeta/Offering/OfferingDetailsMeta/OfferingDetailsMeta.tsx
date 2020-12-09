@@ -9,9 +9,10 @@ import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { Button } from "antd"
 import { getFinancialTableColumns } from "~/FormMeta/Financial/FinancialTableColumns"
-import { getQualifiedInstructorTableColumns } from "~/FormMeta/Instructor/QualifiedInstructorTableColumns"
+import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
 import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
+import { getOfferingCatalogTableColumns } from "~/FormMeta/Offering/OfferingCatalogTableColumns"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta[] => {
   const summary: CardContainer = {
@@ -86,6 +87,11 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     tableProps: getQualifiedInstructorTableColumns(offering.OfferingID)
   }
 
+  const catalogMeta: IDetailsSearchTabProp = {
+    defaultFilter: { OfferingID: offering.OfferingID },
+    tableProps: getOfferingCatalogTableColumns(offering.OfferingID)
+  }
+
   return [
     {
       title: "Summary",
@@ -101,6 +107,11 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       title: "Qualified Instructors",
       type: "searchtable",
       meta: qualifiedInstructorMeta
+    },
+    {
+      title: "Catalogs",
+      type: "searchtable",
+      meta: catalogMeta
     },
     {
       title: "Sections",
