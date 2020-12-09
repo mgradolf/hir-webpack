@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Spin, Form, Input, Select, Button } from "antd"
+import { Spin, Form, Input, Select, Button, Row, Col, Card } from "antd"
 import { searchQuestionResponse, saveTagAnswers } from "~/ApiServices/Service/QuestionService"
 import { useEffect } from "react"
 import { QUESTION_EVENT_TYPE_REGISTRATION, REGISTRATION_QUESTION_NOT_FOUND } from "~/utils/Constants"
@@ -7,13 +7,8 @@ import { QUESTION_EVENT_TYPE_REGISTRATION, REGISTRATION_QUESTION_NOT_FOUND } fro
 const { useState } = React
 
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 6 }
-}
-
-const btnLayout = {
   labelCol: { span: 8 },
-  wrapperCol: { span: 8 }
+  wrapperCol: { span: 10 }
 }
 
 interface IRegistrationQuestions {
@@ -83,68 +78,73 @@ export default function RegistrationQuestionsForm(props: IRegistrationQuestions)
   }
 
   return (
-    <Spin size="large" spinning={loading}>
-      <Form form={form} style={{ height: "50vh", overflowY: "scroll", padding: "10px" }}>
-        {answerQuestions.map((questionObj, index) => {
-          const possibleOptions: Array<any> = questionObj.PossibleOptions
-          if (possibleOptions !== null) {
-            return (
-              <Form.Item
-                key={index}
-                label={questionObj.Question}
-                {...layout}
-                name={`${questionObj.TagQuestionID}_${questionObj.PersonID}`}
-              >
-                <Select aria-label={questionObj.Question} defaultValue={questionObj.AnswerText}>
-                  <>
-                    {possibleOptions.map((x) => {
-                      return (
-                        <Select.Option key={`${x.TagQuestionID}_${x.Option}`} value={x.Option}>
-                          {x.Option}
-                        </Select.Option>
-                      )
-                    })}
-                  </>
-                </Select>
-              </Form.Item>
-            )
-          } else {
-            return (
-              <Form.Item
-                key={index}
-                label={questionObj.Question}
-                {...layout}
-                name={`${questionObj.TagQuestionID}_${questionObj.PersonID}`}
-              >
-                <Input aria-label={questionObj.Question} defaultValue={questionObj.AnswerText} />
-              </Form.Item>
-            )
-          }
-        })}
-
-        {answerQuestions.length > 0 && (
-          <Form.Item {...btnLayout}>
-            <Button type="primary" style={{ float: "right" }} onClick={onFormSubmission}>
+    <Row>
+      <Col xs={24} sm={24} md={16}>
+        <Card
+          title={"Update Question Responses"}
+          actions={[
+            <Button type="primary" disabled={answerQuestions.length === 0} onClick={onFormSubmission}>
               Update
             </Button>
-          </Form.Item>
-        )}
+          ]}
+        >
+          <Spin size="large" spinning={loading}>
+            <Form form={form} style={{ height: "50vh", overflowY: "scroll", padding: "10px" }}>
+              {answerQuestions.map((questionObj, index) => {
+                const possibleOptions: Array<any> = questionObj.PossibleOptions
+                if (possibleOptions !== null) {
+                  return (
+                    <Form.Item
+                      key={index}
+                      label={questionObj.Question}
+                      {...layout}
+                      name={`${questionObj.TagQuestionID}_${questionObj.PersonID}`}
+                    >
+                      <Select aria-label={questionObj.Question} defaultValue={questionObj.AnswerText}>
+                        <>
+                          {possibleOptions.map((x) => {
+                            return (
+                              <Select.Option key={`${x.TagQuestionID}_${x.Option}`} value={x.Option}>
+                                {x.Option}
+                              </Select.Option>
+                            )
+                          })}
+                        </>
+                      </Select>
+                    </Form.Item>
+                  )
+                } else {
+                  return (
+                    <Form.Item
+                      key={index}
+                      label={questionObj.Question}
+                      {...layout}
+                      name={`${questionObj.TagQuestionID}_${questionObj.PersonID}`}
+                    >
+                      <Input aria-label={questionObj.Question} defaultValue={questionObj.AnswerText} />
+                    </Form.Item>
+                  )
+                }
+              })}
 
-        {answerQuestions.length === 0 && (
-          <div
-            style={{
-              textAlign: "center",
-              margin: "auto",
-              fontSize: "2em",
-              opacity: 0.5,
-              marginTop: "20vh",
-              width: "50%"
-            }}
-          >
-            {REGISTRATION_QUESTION_NOT_FOUND}
-          </div>
-        )}
-      </Form>
-    </Spin>
+              {answerQuestions.length === 0 && (
+                <div
+                  style={{
+                    textAlign: "center",
+                    margin: "auto",
+                    fontSize: "2em",
+                    opacity: 0.5,
+                    marginTop: "20vh",
+                    width: "50%"
+                  }}
+                >
+                  {REGISTRATION_QUESTION_NOT_FOUND}
+                </div>
+              )}
+            </Form>
+          </Spin>
+        </Card>
+      </Col>
+    </Row>
   )
 }

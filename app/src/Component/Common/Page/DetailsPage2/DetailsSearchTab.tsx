@@ -7,8 +7,15 @@ import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
+export interface IBlockComponentProp {
+  component: React.FunctionComponent<any>
+  props: { [key: string]: any }
+  rowData?: Array<any>
+}
+
 export interface IDetailsSearchTabProp {
   blocks?: JSX.Element[]
+  blockComponents?: IBlockComponentProp[]
   title?: string
   meta?: IFilterField[]
   tableProps: IDataTableProps
@@ -19,6 +26,7 @@ export interface IDetailsSearchTabProp {
 
 export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
   const [filterCount, setFilterCount] = useState(0)
+  const [rowData, setRowData] = useState<Array<any>>([])
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(
     props.initialFilter || props.defaultFilter || {}
   )
@@ -63,6 +71,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
           </Col>
         )}
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
+        {props.blockComponents && props.blockComponents.map((x, i) => <x.component {...x.props} rowData={rowData} />)}
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
@@ -86,7 +95,12 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
           sm={24}
           md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
         >
-          <ResponsiveTable {...props.tableProps} searchParams={searchParams} isTab={props.title} />
+          <ResponsiveTable
+            {...props.tableProps}
+            dataLoaded={(Params: any[]) => setRowData(Params)}
+            searchParams={searchParams}
+            isTab={props.title}
+          />
         </Col>
       </Row>
     </>

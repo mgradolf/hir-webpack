@@ -40,6 +40,32 @@ export const OfferingSearchMeta: IFilterField[] = [
     valueKey2: "ToFinalEnrollmentDate"
   },
   {
+    label: "Instructor",
+    fieldName: "FacultyID",
+    customFilterComponent: SearchInstructorLookupButton
+  },
+  {
+    label: "Coordinator",
+    inputType: DROPDOWN,
+    fieldName: "Coordinator",
+    refLookupService: () => getUsersByRole({ Role: "coordinator" }),
+    displayKey: "FormattedName",
+    valueKey: "UserLogin"
+  },
+  {
+    label: "Offering Status",
+    inputType: DROPDOWN,
+    fieldName: "StatusID",
+    refLookupService: getOfferingStatusTypes,
+    displayKey: "Name",
+    valueKey: "StatusID"
+  },
+  {
+    label: "QuickAdmit",
+    inputType: BOOLEAN,
+    fieldName: "IsQuickAdmit"
+  },
+  {
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
@@ -61,19 +87,6 @@ export const OfferingSearchMeta: IFilterField[] = [
     valueKey2: "ToTerminationDate"
   },
   {
-    label: "QuickAdmit",
-    inputType: BOOLEAN,
-    fieldName: "IsQuickAdmit"
-  },
-  {
-    label: "Offering Status",
-    inputType: DROPDOWN,
-    fieldName: "StatusID",
-    refLookupService: getOfferingStatusTypes,
-    displayKey: "Name",
-    valueKey: "StatusID"
-  },
-  {
     label: "Offering Type",
     inputType: DROPDOWN,
     refLookupService: getOfferingTypes,
@@ -82,20 +95,22 @@ export const OfferingSearchMeta: IFilterField[] = [
     valueKey: "OfferingTypeID"
   },
   {
-    label: "Coordinator",
-    inputType: DROPDOWN,
-    fieldName: "Coordinator",
-    refLookupService: () => getUsersByRole({ Role: "coordinator" }),
-    displayKey: "FormattedName",
-    valueKey: "UserLogin"
-  },
-  {
     label: "Section Type",
     inputType: DROPDOWN,
     fieldName: "SectionTypeID",
     refLookupService: getSectionTypes,
     displayKey: "SectionTypeName",
     valueKey: "SectionTypeID"
+  },
+  {
+    label: "Show Program Offering",
+    inputType: BOOLEAN,
+    fieldName: "ShowPrgramOffering"
+  },
+  {
+    label: "Capacity Util",
+    inputType: NUMBER,
+    fieldName: "OfferingNearCapacity"
   },
   {
     label: "Is Search Tag Hierarchy",
@@ -114,20 +129,5 @@ export const OfferingSearchMeta: IFilterField[] = [
     label: "Tag",
     inputType: TEXT,
     fieldName: "TagName"
-  },
-  {
-    label: "Capacity Util",
-    inputType: NUMBER,
-    fieldName: "OfferingNearCapacity"
-  },
-  {
-    label: "Show Program Offering",
-    inputType: BOOLEAN,
-    fieldName: "ShowPrgramOffering"
-  },
-  {
-    label: "Instructor",
-    fieldName: "FacultyID",
-    customFilterComponent: SearchInstructorLookupButton
   }
 ]

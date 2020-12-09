@@ -95,9 +95,8 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
         <Col className={`gutter-row ${styles.offeringInstructorDetails}`} xs={24} sm={24} md={24}>
           <ResponsiveTable
             dataLoaded={(data: any[]) => {
-              const _data = data.map((x) => x.instructorID)
-              console.log("dataLoaded ", _data)
-              setInstructorIDs(_data)
+              console.log("dataLoaded ", data)
+              setInstructorIDs(data)
             }}
             loading={loading}
             columns={columns}

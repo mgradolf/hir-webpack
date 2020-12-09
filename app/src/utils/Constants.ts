@@ -142,6 +142,7 @@ export const QUESTION_EVENT_TYPE_PROFILE = 2
 export const CREDIT_HOURS = "CreditHours"
 export const CEU_HOURS = "CEUHours"
 
+export const REGISTRATION_EMAIL_CONFIRMATION_SUCCESS = "Successfully send email!"
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
 export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
 

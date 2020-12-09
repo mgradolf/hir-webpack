@@ -18,7 +18,7 @@ export function AddInstructorButton(props: ICreateActionButtonProp) {
   const onClose = (selectedItems?: any[]) => {
     if (selectedItems) {
       const selectedInstructorIds = selectedItems.map((instructor) => instructor.FacultyID)
-      let uniqueRowData = [...props.rowData, ...selectedInstructorIds]
+      let uniqueRowData = [...props.rowData.map((x) => x.instructorID), ...selectedInstructorIds]
 
       uniqueRowData = uniqueRowData.filter(onlyUnique)
       updateInstructors(props.offeringID, uniqueRowData)

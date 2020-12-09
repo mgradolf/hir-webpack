@@ -5,13 +5,13 @@ import { IDetailsSearchTabProp } from "~/Component/Common/Page/DetailsPage2/Deta
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
-import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { Button } from "antd"
 import { getFinancialTableColumns } from "~/FormMeta/Financial/FinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/FormMeta/Instructor/QualifiedInstructorTableColumns"
 import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
+import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta[] => {
   const summary: CardContainer = {
@@ -28,6 +28,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       { label: "Offering Status ", value: offering.StatusCode, render: undefined },
       { label: "Department", value: offering.OrganizationName, render: undefined },
       { label: "Quick Admit", value: offering.IsQuickAdmit, render: renderBoolean },
+      { label: "Approval Process", value: offering.HasApprovalProcess, render: renderBoolean },
       { label: "Inquiry Recipient", value: offering.SubmitInquiryToName, render: undefined },
       { label: "Selected Gateway", value: offering.PaymentGatewayAccountName, render: undefined },
       { label: "Default Section Type", value: offering.SectionTypeName, render: undefined }
@@ -35,7 +36,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
   const summaryMeta: IDetailsSummary = {
     summary: [summary],
-    editableAction: [<OfferingEditLink OfferingId={offering.OfferingID} PrimaryType={true} />]
+    cardActions: [<OfferingEditLink OfferingId={offering.OfferingID} />]
   }
 
   const SectionFormModalOpenButton = (props: { OfferingID: number }) => {
@@ -70,7 +71,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
 
   const sectionMeta: IDetailsSearchTabProp = {
     blocks: [<SectionFormModalOpenButton OfferingID={offering.OfferingID} />],
-    tableProps: getSectionTableColumns()
+    tableProps: getSectionTableColumns(false, offering.OfferingID)
   }
 
   const financialMeta: IDetailsSearchTabProp = {
@@ -80,6 +81,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const qualifiedInstructorMeta: IDetailsSearchTabProp = {
+    blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
     defaultFilter: { OfferingID: offering.OfferingID },
     tableProps: getQualifiedInstructorTableColumns(offering.OfferingID)
   }

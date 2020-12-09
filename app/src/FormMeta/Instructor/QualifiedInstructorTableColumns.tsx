@@ -15,16 +15,16 @@ export const getQualifiedInstructorTableColumns = (OfferingID: number): ITableCo
     },
     { title: "Email", dataIndex: "email" },
     { title: "Telephone", dataIndex: "telephone" },
-    { title: "Address", dataIndex: "Address" }
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (text: any, record: any) => (
-    //     <Button danger type="primary">
-    //       Remove
-    //     </Button>
-    //   )
-    // }
+    { title: "Address", dataIndex: "Address" },
+    {
+      title: "Action",
+      key: "action",
+      render: (text: any, record: any) => (
+        <Button danger type="primary">
+          Remove
+        </Button>
+      )
+    }
   ]
 
   return { columns, searchFunc: () => getQualifiedInstructors(OfferingID) }

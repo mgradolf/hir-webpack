@@ -3,7 +3,6 @@ import { RouteComponentProps } from "react-router-dom"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import { getOfferingDetailsMeta } from "~/FormMeta/Offering/OfferingDetailsMeta/OfferingDetailsMeta"
 
 export default function OfferingDetailsPage(props: RouteComponentProps<{ offeringID?: string }>) {
@@ -35,7 +34,6 @@ export default function OfferingDetailsPage(props: RouteComponentProps<{ offerin
       getDetails={getOfferingDetails}
       entityType="Offering"
       entityID={OfferingID}
-      actions={[<OfferingMenu offering={{ OfferingID }} />]}
     />
   )
 }

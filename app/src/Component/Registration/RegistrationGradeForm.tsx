@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Button, Input, Select, DatePicker, Spin } from "antd"
+import { Form, Button, Input, Select, DatePicker, Spin, Row, Col, Card } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { CEU_HOURS, CREDIT_HOURS, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
@@ -15,17 +15,24 @@ import moment from "moment"
 
 interface IRegistrationGradeFormProps {
   initialFormValue: { [key: string]: any }
-  fieldNames: IRegistrationGradeFieldNames
+}
+
+const fieldNames: IRegistrationGradeFieldNames = {
+  SectionID: "SectionID",
+  StudentID: "StudentID",
+  SeatGroupID: "SeatGroupID",
+  CompletionDate: "CompletionDate",
+  CEUHours: "CEUHours",
+  CreditHours: "CreditHours",
+  GradeScaleTypeID: "GradeScaleTypeID",
+  GradeScoreDefinitionID: "GradeScoreDefinitionID",
+  AttendanceActual: "AttendanceActual",
+  AttendanceExpected: "AttendanceExpected"
 }
 
 const layout = {
   labelCol: { span: 6 },
-  wrapperCol: { span: 6 }
-}
-
-const btnLayout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 8 }
+  wrapperCol: { span: 10 }
 }
 
 export default function RegistrationGradeForm(props: IRegistrationGradeFormProps) {
@@ -39,7 +46,7 @@ export default function RegistrationGradeForm(props: IRegistrationGradeFormProps
   const [gradeScaleTypeID, setGradeScaleTypeID] = useState<number>(props.initialFormValue.GradeScaleTypeID)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
-  props.initialFormValue[props.fieldNames.CreditHours] = props.initialFormValue.AttemptedHours
+  props.initialFormValue[fieldNames.CreditHours] = props.initialFormValue.AttemptedHours
   const completionDate = props.initialFormValue.CompletionDate
 
   useEffect(() => {
@@ -89,7 +96,7 @@ export default function RegistrationGradeForm(props: IRegistrationGradeFormProps
 
   const gradeScaleHandler = (event: any) => {
     setGradeScaleTypeID(event)
-    form.setFieldsValue({ [props.fieldNames.GradeScoreDefinitionID]: null })
+    form.setFieldsValue({ [fieldNames.GradeScoreDefinitionID]: null })
   }
 
   const gradeScoreHandler = async (value: any) => {
@@ -144,108 +151,115 @@ export default function RegistrationGradeForm(props: IRegistrationGradeFormProps
   }
 
   const onDateChange = (date: any, dateString: string) => {
-    form.setFieldsValue({ [props.fieldNames.CompletionDate]: date })
+    form.setFieldsValue({ [fieldNames.CompletionDate]: date })
   }
 
   return (
-    <Spin size="large" spinning={loading}>
-      <Form form={form} initialValues={props.initialFormValue}>
-        <FormError errorMessages={errorMessages} />
+    <Row>
+      <Col xs={24} sm={24} md={16}>
+        <Card
+          title={"Update Grades"}
+          actions={[
+            <Button type="primary" onClick={onFormSubmission}>
+              Update
+            </Button>
+          ]}
+        >
+          <Spin size="large" spinning={loading}>
+            <Form form={form} initialValues={props.initialFormValue}>
+              <FormError errorMessages={errorMessages} />
 
-        <Form.Item className="hidden" name={props.fieldNames.StudentID}>
-          <Input aria-label="Student ID" />
-        </Form.Item>
-        <Form.Item className="hidden" name={props.fieldNames.SectionID}>
-          <Input aria-label="Section ID" />
-        </Form.Item>
-        <Form.Item className="hidden" name={props.fieldNames.SeatGroupID}>
-          <Input aria-label="SeatGroup ID" />
-        </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.StudentID}>
+                <Input aria-label="Student ID" />
+              </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.SectionID}>
+                <Input aria-label="Section ID" />
+              </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.SeatGroupID}>
+                <Input aria-label="SeatGroup ID" />
+              </Form.Item>
 
-        <Form.Item label="Grade Scale" {...layout} name={props.fieldNames.GradeScaleTypeID}>
-          <Select aria-label="Grade Scale" onChange={gradeScaleHandler}>
-            {gradeScaleItems.map((x) => {
-              return (
-                <Select.Option key={x.ID} value={x.ID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
+              <Form.Item label="Grade Scale" {...layout} name={fieldNames.GradeScaleTypeID}>
+                <Select aria-label="Grade Scale" onChange={gradeScaleHandler}>
+                  {gradeScaleItems.map((x) => {
+                    return (
+                      <Select.Option key={x.ID} value={x.ID}>
+                        {x.Name}
+                      </Select.Option>
+                    )
+                  })}
+                </Select>
+              </Form.Item>
 
-        <Form.Item label="Gade Score Definition" {...layout} name={props.fieldNames.GradeScoreDefinitionID}>
-          <Select aria-label="Grade Score Definition" onChange={gradeScoreHandler}>
-            {gradeScoreDefinitionItems.map((x) => {
-              return (
-                <Select.Option key={x.GradeScoreDefinitionID} value={x.GradeScoreDefinitionID}>
-                  {x.AlphaValue} ({x.GradeClassificationType})
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
+              <Form.Item label="Gade Score Definition" {...layout} name={fieldNames.GradeScoreDefinitionID}>
+                <Select aria-label="Grade Score Definition" onChange={gradeScoreHandler}>
+                  {gradeScoreDefinitionItems.map((x) => {
+                    return (
+                      <Select.Option key={x.GradeScoreDefinitionID} value={x.GradeScoreDefinitionID}>
+                        {x.AlphaValue} ({x.GradeClassificationType})
+                      </Select.Option>
+                    )
+                  })}
+                </Select>
+              </Form.Item>
 
-        <Form.Item label="Credit Hours" {...layout} name={props.fieldNames.CreditHours}>
-          <Input type="number" disabled={isCreditHourEditable} aria-label="Credit hours" />
-        </Form.Item>
+              <Form.Item label="Credit Hours" {...layout} name={fieldNames.CreditHours}>
+                <Input type="number" disabled={isCreditHourEditable} aria-label="Credit hours" />
+              </Form.Item>
 
-        <Form.Item label="CEUs" {...layout} name={props.fieldNames.CEUHours}>
-          <Input type="number" disabled={isCEUHourEditable} aria-label="CEUs" />
-        </Form.Item>
+              <Form.Item label="CEUs" {...layout} name={fieldNames.CEUHours}>
+                <Input type="number" disabled={isCEUHourEditable} aria-label="CEUs" />
+              </Form.Item>
 
-        <Form.Item label="Final Grade" {...layout}>
-          <Input disabled aria-label="Final Grade" value={gradeDefinitionDetails.AlphaValue} />
-        </Form.Item>
+              <Form.Item label="Final Grade" {...layout}>
+                <Input disabled aria-label="Final Grade" value={gradeDefinitionDetails.AlphaValue} />
+              </Form.Item>
 
-        <Form.Item label="GPA Value" {...layout}>
-          <Input disabled aria-label="GPA Value" value={gradeDefinitionDetails.GPAValue} />
-        </Form.Item>
+              <Form.Item label="GPA Value" {...layout}>
+                <Input disabled aria-label="GPA Value" value={gradeDefinitionDetails.GPAValue} />
+              </Form.Item>
 
-        <Form.Item label="Earned Hours" {...layout}>
-          <Input disabled aria-label="Earned hours" value={gradeDefinitionDetails.EarnedHours} />
-        </Form.Item>
+              <Form.Item label="Earned Hours" {...layout}>
+                <Input disabled aria-label="Earned hours" value={gradeDefinitionDetails.EarnedHours} />
+              </Form.Item>
 
-        <Form.Item label="Attempted Hours" {...layout}>
-          <Input disabled aria-label="Attempted hours" value={gradeDefinitionDetails.AttemptedHours} />
-        </Form.Item>
+              <Form.Item label="Attempted Hours" {...layout}>
+                <Input disabled aria-label="Attempted hours" value={gradeDefinitionDetails.AttemptedHours} />
+              </Form.Item>
 
-        <Form.Item label="GPA Hours" {...layout}>
-          <Input disabled aria-label="GPA hours" value={gradeDefinitionDetails.GPAHours} />
-        </Form.Item>
+              <Form.Item label="GPA Hours" {...layout}>
+                <Input disabled aria-label="GPA hours" value={gradeDefinitionDetails.GPAHours} />
+              </Form.Item>
 
-        <Form.Item label="CEU Hours" {...layout}>
-          <Input disabled aria-label="CEU hours" value={gradeDefinitionDetails.CEUHours} />
-        </Form.Item>
+              <Form.Item label="CEU Hours" {...layout}>
+                <Input disabled aria-label="CEU hours" value={gradeDefinitionDetails.CEUHours} />
+              </Form.Item>
 
-        <Form.Item className="hidden" name={props.fieldNames.CompletionDate}>
-          <Input aria-label="Completion date" />
-        </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.CompletionDate}>
+                <Input aria-label="Completion date" />
+              </Form.Item>
 
-        <Form.Item label="Completion Date" {...layout}>
-          <DatePicker
-            aria-label="Pick Completion Date"
-            placeholder={DATE_TIME_FORMAT}
-            format={DATE_TIME_FORMAT}
-            onChange={onDateChange}
-            defaultValue={completionDate ? moment(completionDate, REQUEST_DATE_TIME_FORMAT) : undefined}
-          />
-        </Form.Item>
+              <Form.Item label="Completion Date" {...layout}>
+                <DatePicker
+                  aria-label="Pick Completion Date"
+                  placeholder={DATE_TIME_FORMAT}
+                  format={DATE_TIME_FORMAT}
+                  onChange={onDateChange}
+                  defaultValue={completionDate ? moment(completionDate, REQUEST_DATE_TIME_FORMAT) : undefined}
+                />
+              </Form.Item>
 
-        <Form.Item label="Expected Attendance" {...layout} name={props.fieldNames.AttendanceExpected}>
-          <Input aria-label="Expected Attendance" />
-        </Form.Item>
+              <Form.Item label="Expected Attendance" {...layout} name={fieldNames.AttendanceExpected}>
+                <Input aria-label="Expected Attendance" />
+              </Form.Item>
 
-        <Form.Item label="Actual Attendance" {...layout} name={props.fieldNames.AttendanceActual}>
-          <Input aria-label="Actual Attendance" />
-        </Form.Item>
-
-        <Form.Item {...btnLayout}>
-          <Button type="primary" style={{ float: "right" }} onClick={onFormSubmission}>
-            Update
-          </Button>
-        </Form.Item>
-      </Form>
-    </Spin>
+              <Form.Item label="Actual Attendance" {...layout} name={fieldNames.AttendanceActual}>
+                <Input aria-label="Actual Attendance" />
+              </Form.Item>
+            </Form>
+          </Spin>
+        </Card>
+      </Col>
+    </Row>
   )
 }
