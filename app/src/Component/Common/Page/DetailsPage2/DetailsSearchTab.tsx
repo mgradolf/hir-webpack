@@ -35,21 +35,23 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
 
   return (
     <>
-      {props.title && (
-        <Row>
+      <Row>
+        {props.title && (
           <Col span={21}>
             <Typography.Title level={3}>{props.title}</Typography.Title>
           </Col>
-          {props.helpKey && (
-            <Col span={3}>
-              <Button type="link" onClick={() => setHelp(true)}>
-                Help
-              </Button>
-            </Col>
-          )}
-          {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
-        </Row>
-      )}
+        )}
+        {props.helpKey && (
+          <Col span={3}>
+            <Button type="link" onClick={() => setHelp(true)}>
+              Help
+            </Button>
+          </Col>
+        )}
+
+        {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
+      </Row>
+
       {props.meta && (
         <Row justify="start" gutter={[8, 8]}>
           <Col>
@@ -97,9 +99,9 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         >
           <ResponsiveTable
             {...props.tableProps}
-            dataLoaded={(Params: any[]) => setRowData(Params)}
             searchParams={searchParams}
-            isTab={props.title}
+            refreshEventName={props.title + Date.now().toString()}
+            dataLoaded={(Params: any[]) => setRowData(Params)}
           />
         </Col>
       </Row>

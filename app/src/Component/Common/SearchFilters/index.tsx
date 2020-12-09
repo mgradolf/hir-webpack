@@ -74,7 +74,7 @@ export default function ({
 
   useEffect(() => {
     const queryParams: { [key: string]: any } = querystringToObject()
-    const updateMeta = queryParams && Object.keys(queryParams).length > 0
+    const updateMeta = queryParams && Object.keys(queryParams).length > 0 && !props.isModalView
     if (updateMeta) {
       setShowLess(false)
       formInstance.setFieldsValue(queryParams)
