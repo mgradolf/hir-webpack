@@ -1,8 +1,7 @@
-import React from "react"
-import { Menu } from "antd"
-
-import FinancialEditLink from "~/Component/Offering/Financial/FinancialEditLink"
+import React, { useState } from "react"
+import { Button, Menu } from "antd"
 import FinancialRemoveLink from "~/Component/Offering/Financial/FinancialRemoveLink"
+import CreateNewOfferingFinancial from "./OfferingFinancialFormModal"
 
 interface IFinancialMenu {
   offeringId: number
@@ -10,10 +9,26 @@ interface IFinancialMenu {
 }
 
 export default function FinancialMenu(props: IFinancialMenu) {
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
+
   return (
     <Menu>
       <Menu.Item key="0">
-        <FinancialEditLink offeringId={props.offeringId} financialId={props.financialId} />
+        <Button
+          type="link"
+          onClick={() => {
+            setShowUpdateModal(true)
+          }}
+        >
+          Edit
+        </Button>
+        {showUpdateModal && (
+          <CreateNewOfferingFinancial
+            offeringID={props.offeringId}
+            offeringFinancialId={props.financialId}
+            closeModal={() => setShowUpdateModal(false)}
+          />
+        )}
       </Menu.Item>
       <Menu.Item key="1">
         <FinancialRemoveLink offeringId={props.offeringId} financialId={props.financialId} />

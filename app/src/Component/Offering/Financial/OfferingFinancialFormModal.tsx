@@ -1,10 +1,7 @@
 import * as React from "react"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
 import FinancialForm from "~/Component/Offering/Financial/FinancialForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showCreateOfferingFinancialModal } from "~/Store/ModalState"
 import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
 import { IOfferingFinancialFieldNames } from "~/Component/Offering/Interfaces"
@@ -12,7 +9,7 @@ import { IOfferingFinancialFieldNames } from "~/Component/Offering/Interfaces"
 interface ICreateNewOfferingProps {
   offeringFinancialId?: number
   offeringID: number
-  closeCreateOfferingModal?: () => void
+  closeModal?: () => void
 }
 
 const fieldNames: IOfferingFinancialFieldNames = {
@@ -32,15 +29,19 @@ const fieldNames: IOfferingFinancialFieldNames = {
   IsTaxable: "IsTaxable"
 }
 
-function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offeringID }: ICreateNewOfferingProps) {
+export default function CreateNewOfferingFinancial({
+  offeringFinancialId,
+  closeModal,
+  offeringID
+}: ICreateNewOfferingProps) {
   const [formInstance] = Form.useForm()
   const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({ ItemUnitAmount: 0 })
 
   const handleCancel = () => {
-    if (closeCreateOfferingModal) {
-      closeCreateOfferingModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
@@ -52,18 +53,17 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
         if (response && response.success) {
           formInstance.setFieldsValue(response.data)
         } else {
-          if (closeCreateOfferingModal) {
-            closeCreateOfferingModal()
+          if (closeModal) {
+            closeModal()
           }
         }
         setofferingFinancialLoading(false)
       })()
     }
-  }, [offeringFinancialId, closeCreateOfferingModal, formInstance])
+  }, [offeringFinancialId, closeModal, formInstance])
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={offeringFinancialLoading}
       apiCallInProgress={apiCallInProgress}
@@ -83,9 +83,3 @@ function CreateNewOffering({ offeringFinancialId, closeCreateOfferingModal, offe
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeCreateOfferingModal: () => dispatch(showCreateOfferingFinancialModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(CreateNewOffering)

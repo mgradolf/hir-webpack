@@ -11,12 +11,17 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
   const [blocks, setBlocks] = useState<any[]>([])
   const loadDetails = () => {
     setLoading(true)
-    props.getDetailsFunc().then((x) => {
+    if (props.getDetailsFunc) {
+      props.getDetailsFunc().then((x) => {
+        setLoading(false)
+        if (x.success) {
+          setBlocks(props.getDetailsMeta(x.data))
+        } else setError(x.error)
+      })
+    } else if (props.dataLoaded) {
       setLoading(false)
-      if (x.success) {
-        setBlocks(props.getDetailsMeta(x.data))
-      } else setError(x.error)
-    })
+      setBlocks(props.getDetailsMeta(props.dataLoaded))
+    }
   }
   useEffect(() => {
     eventBus.subscribe(REFRESH_PAGE, loadDetails)

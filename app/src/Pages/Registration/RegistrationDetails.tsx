@@ -8,65 +8,10 @@ import RegistrationUpdateForm from "~/Component/Registration/RegistrationUpdateF
 import RegistrationActionForm from "~/Component/Registration/RegistrationActionForm"
 import RegistrationQuestionsForm from "~/Component/Registration/RegistrationQuestionsForm"
 import RegistrationGradeForm from "~/Component/Registration/RegistrationGradeForm"
-import {
-  ICertificateFieldNames,
-  IRegistrationActionFieldNames,
-  IRegistrationFieldNames,
-  IRegistrationGradeFieldNames
-} from "~/Component/Registration/Interfaces"
 import IssueCertificateForm from "~/Component/Registration/IssueCertificateForm"
 
 const { Title, Text } = Typography
 const { TabPane } = Tabs
-
-const fieldNames: IRegistrationFieldNames = {
-  SectionID: "SectionID",
-  StudentID: "StudentID",
-  SeatGroupID: "SeatGroupID",
-  IsRepeat: "IsRepeat",
-  IsCompleteOnTermination: "IsCompleteOnTermination",
-  StatusDate: "StatusDate",
-  CreationTime: "CreationTime",
-  TerminationTime: "TerminationTime",
-  GradeScaleTypeID: "GradeScaleTypeID",
-  TranscriptCreditTypeID: "TranscriptCreditTypeID",
-  AttendanceExpected: "AttendanceExpected"
-}
-
-const actionFieldName: IRegistrationActionFieldNames = {
-  SectionID: "SectionID",
-  StudentID: "StudentID",
-  SeatGroupID: "SeatGroupID",
-  EffectiveDate: "EffectiveDate",
-  IsRefund: "IsRefund",
-  CreditMemoData: "CreditMemoData",
-  GradeScaleTypeID: "GradeScaleTypeID",
-  GradeScoreDefinitionID: "GradeScoreDefinitionID"
-}
-
-const gradeFieldName: IRegistrationGradeFieldNames = {
-  SectionID: "SectionID",
-  StudentID: "StudentID",
-  SeatGroupID: "SeatGroupID",
-  CompletionDate: "CompletionDate",
-  CEUHours: "CEUHours",
-  CreditHours: "CreditHours",
-  GradeScaleTypeID: "GradeScaleTypeID",
-  GradeScoreDefinitionID: "GradeScoreDefinitionID",
-  AttendanceActual: "AttendanceActual",
-  AttendanceExpected: "AttendanceExpected"
-}
-
-const certificateFieldName: ICertificateFieldNames = {
-  SectionID: "SectionID",
-  StudentID: "StudentID",
-  ProgramID: "ProgramID",
-  CertificateID: "CertificateID",
-  IssueDate: "IssueDate",
-  ExpirationDate: "ExpirationDate",
-  Comment: "Comment",
-  IsProgram: "IsProgram"
-}
 
 export interface IParamsToBeDispatched {
   ValueUpdate: boolean
@@ -193,10 +138,10 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
             <Col className={`gutter-row ${styles.requestDetails}`} xs={24} sm={24} md={24}>
               <Tabs type="card">
                 <TabPane tab="Registration Details" key="1">
-                  <RegistrationUpdateForm fieldNames={fieldNames} initialFormValue={registrationDetails} />
+                  <RegistrationUpdateForm initialFormValue={registrationDetails} />
                 </TabPane>
                 <TabPane tab="Drop/Withdraw/Delete" key="2">
-                  <RegistrationActionForm fieldNames={actionFieldName} initialFormValue={registrationDetails} />
+                  <RegistrationActionForm initialFormValue={registrationDetails} />
                 </TabPane>
                 <TabPane tab="Question Responses" key="3">
                   <RegistrationQuestionsForm
@@ -205,10 +150,10 @@ function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID?: string
                   />
                 </TabPane>
                 <TabPane tab="Final Grade" key="4">
-                  <RegistrationGradeForm fieldNames={gradeFieldName} initialFormValue={registrationDetails} />
+                  <RegistrationGradeForm initialFormValue={registrationDetails} />
                 </TabPane>
                 <TabPane tab="Issue Certificate" key="5">
-                  <IssueCertificateForm fieldNames={certificateFieldName} initialFormValue={registrationDetails} />
+                  <IssueCertificateForm initialFormValue={registrationDetails} />
                 </TabPane>
               </Tabs>
             </Col>
