@@ -7,8 +7,15 @@ import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
+export interface IBlockComponentProp {
+  component: React.FunctionComponent<any>
+  props: { [key: string]: any }
+  rowData?: Array<any>
+}
+
 export interface IDetailsSearchTabProp {
   blocks?: JSX.Element[]
+  blockComponents?: IBlockComponentProp[]
   title?: string
   meta?: IFilterField[]
   tableProps: IDataTableProps
@@ -19,6 +26,7 @@ export interface IDetailsSearchTabProp {
 
 export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
   const [filterCount, setFilterCount] = useState(0)
+  const [rowData, setRowData] = useState<Array<any>>([])
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(
     props.initialFilter || props.defaultFilter || {}
   )
@@ -40,25 +48,32 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
             </Button>
           </Col>
         )}
+
         {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
       </Row>
-      <Row justify="start" gutter={[8, 8]}>
-        <Col>
-          <span>
-            <FilterOutlined />
-            <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
-          </span>
-        </Col>
-      </Row>
+
+      {props.meta && (
+        <Row justify="start" gutter={[8, 8]}>
+          <Col>
+            <span>
+              <FilterOutlined />
+              <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
+            </span>
+          </Col>
+        </Row>
+      )}
       <Row justify="end" gutter={[8, 8]}>
-        <Col>
-          {!showFilter && (
-            <Button type="primary" onClick={() => setShowFilter(true)}>
-              Filters
-            </Button>
-          )}
-        </Col>
+        {props.meta && (
+          <Col>
+            {!showFilter && (
+              <Button type="primary" onClick={() => setShowFilter(true)}>
+                Filters
+              </Button>
+            )}
+          </Col>
+        )}
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
+        {props.blockComponents && props.blockComponents.map((x, i) => <x.component {...x.props} rowData={rowData} />)}
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
@@ -86,6 +101,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
             {...props.tableProps}
             searchParams={searchParams}
             refreshEventName={props.title + Date.now().toString()}
+            dataLoaded={(Params: any[]) => setRowData(Params)}
           />
         </Col>
       </Row>

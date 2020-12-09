@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Button, Input, Select, Switch, DatePicker, Spin } from "antd"
+import { Form, Button, Input, Select, Switch, DatePicker, Spin, Card, Row, Col } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
@@ -11,17 +11,25 @@ import moment from "moment"
 
 interface IRegistrationUpdateFormProps {
   initialFormValue: { [key: string]: any }
-  fieldNames: IRegistrationFieldNames
+}
+
+const fieldNames: IRegistrationFieldNames = {
+  SectionID: "SectionID",
+  StudentID: "StudentID",
+  SeatGroupID: "SeatGroupID",
+  IsRepeat: "IsRepeat",
+  IsCompleteOnTermination: "IsCompleteOnTermination",
+  StatusDate: "StatusDate",
+  CreationTime: "CreationTime",
+  TerminationTime: "TerminationTime",
+  GradeScaleTypeID: "GradeScaleTypeID",
+  TranscriptCreditTypeID: "TranscriptCreditTypeID",
+  AttendanceExpected: "AttendanceExpected"
 }
 
 const layout = {
   labelCol: { span: 6 },
-  wrapperCol: { span: 6 }
-}
-
-const btnLayout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 8 }
+  wrapperCol: { span: 10 }
 }
 
 export default function RegistrationUpdateForm(props: IRegistrationUpdateFormProps) {
@@ -70,136 +78,155 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
   }
 
   const onCreationTimeChange = (date: any, dateString: string) => {
-    form.setFieldsValue({ [props.fieldNames.CreationTime]: date })
+    form.setFieldsValue({ [fieldNames.CreationTime]: date })
   }
 
   const onTerminationTimeChange = (date: any, dateString: string) => {
-    form.setFieldsValue({ [props.fieldNames.TerminationTime]: date })
+    form.setFieldsValue({ [fieldNames.TerminationTime]: date })
   }
 
   const onEffectiveDateChange = (date: any, dateString: string) => {
-    form.setFieldsValue({ [props.fieldNames.StatusDate]: date })
+    form.setFieldsValue({ [fieldNames.StatusDate]: date })
   }
 
   return (
-    <Spin size="large" spinning={loading}>
-      <Form form={form} initialValues={props.initialFormValue}>
-        <FormError errorMessages={errorMessages} />
-
-        <Form.Item className="hidden" name={props.fieldNames.StudentID}>
-          <Input aria-label="Student ID" />
-        </Form.Item>
-        <Form.Item className="hidden" name={props.fieldNames.SectionID}>
-          <Input aria-label="Section ID" />
-        </Form.Item>
-        <Form.Item className="hidden" name={props.fieldNames.SeatGroupID}>
-          <Input aria-label="SeatGroup ID" />
-        </Form.Item>
-
-        <Form.Item
-          label="Grade Scale"
-          rules={[{ required: true, message: "Please select your answer!" }]}
-          {...layout}
-          name={props.fieldNames.GradeScaleTypeID}
+    <Row>
+      <Col xs={24} sm={24} md={16}>
+        <Card
+          title={"Update Details"}
+          actions={[
+            <Button type="primary" onClick={onFormSubmission}>
+              Update
+            </Button>
+          ]}
         >
-          <Select aria-label="Grade Scale">
-            {gradeScaleItems.map((x) => {
-              return (
-                <Select.Option key={x.ID} value={x.ID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
+          <Spin size="large" spinning={loading}>
+            <Form form={form} initialValues={props.initialFormValue}>
+              <FormError errorMessages={errorMessages} />
 
-        <Form.Item
-          label="Transcript"
-          rules={[{ required: true, message: "Please select your answer!" }]}
-          {...layout}
-          name={props.fieldNames.TranscriptCreditTypeID}
-        >
-          <Select aria-label="Transcript">
-            {transcriptItems.map((x) => {
-              return (
-                <Select.Option key={x.ID} value={x.ID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.StudentID}>
+                <Input aria-label="Student ID" />
+              </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.SectionID}>
+                <Input aria-label="Section ID" />
+              </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.SeatGroupID}>
+                <Input aria-label="SeatGroup ID" />
+              </Form.Item>
 
-        <Form.Item className="hidden" name={props.fieldNames.CreationTime}>
-          <Input aria-label="Creation time" />
-        </Form.Item>
+              <Form.Item
+                label="Grade Scale"
+                rules={[{ required: true, message: "Please select your answer!" }]}
+                {...layout}
+                name={fieldNames.GradeScaleTypeID}
+              >
+                <Select aria-label="Grade Scale">
+                  {gradeScaleItems.map((x) => {
+                    return (
+                      <Select.Option key={x.ID} value={x.ID}>
+                        {x.Name}
+                      </Select.Option>
+                    )
+                  })}
+                </Select>
+              </Form.Item>
 
-        <Form.Item label="Creation Time" rules={[{ required: true, message: "Please pick the date!" }]} {...layout}>
-          <DatePicker
-            aria-label="Pick Creation Date"
-            placeholder={DATE_TIME_FORMAT}
-            format={DATE_TIME_FORMAT}
-            onChange={onCreationTimeChange}
-            defaultValue={creationTime ? moment(creationTime, REQUEST_DATE_TIME_FORMAT) : undefined}
-          />
-        </Form.Item>
+              <Form.Item
+                label="Transcript"
+                rules={[{ required: true, message: "Please select your answer!" }]}
+                {...layout}
+                name={fieldNames.TranscriptCreditTypeID}
+              >
+                <Select aria-label="Transcript">
+                  {transcriptItems.map((x) => {
+                    return (
+                      <Select.Option key={x.ID} value={x.ID}>
+                        {x.Name}
+                      </Select.Option>
+                    )
+                  })}
+                </Select>
+              </Form.Item>
 
-        <Form.Item className="hidden" name={props.fieldNames.TerminationTime}>
-          <Input aria-label="Termination time" />
-        </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.CreationTime}>
+                <Input aria-label="Creation time" />
+              </Form.Item>
 
-        <Form.Item label="Termination Time" rules={[{ required: true, message: "Please pick the date!" }]} {...layout}>
-          <DatePicker
-            aria-label="Pick Termination Date"
-            placeholder={DATE_TIME_FORMAT}
-            format={DATE_TIME_FORMAT}
-            onChange={onTerminationTimeChange}
-            defaultValue={terminationTime ? moment(terminationTime, REQUEST_DATE_TIME_FORMAT) : undefined}
-          />
-        </Form.Item>
+              <Form.Item
+                label="Creation Time"
+                rules={[{ required: true, message: "Please pick the date!" }]}
+                {...layout}
+              >
+                <DatePicker
+                  aria-label="Pick Creation Date"
+                  placeholder={DATE_TIME_FORMAT}
+                  format={DATE_TIME_FORMAT}
+                  onChange={onCreationTimeChange}
+                  defaultValue={creationTime ? moment(creationTime, REQUEST_DATE_TIME_FORMAT) : undefined}
+                />
+              </Form.Item>
 
-        <Form.Item className="hidden" name={props.fieldNames.StatusDate}>
-          <Input aria-label="Completion date" />
-        </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.TerminationTime}>
+                <Input aria-label="Termination time" />
+              </Form.Item>
 
-        <Form.Item label="Effective Date" rules={[{ required: true, message: "Please pick the date!" }]} {...layout}>
-          <DatePicker
-            aria-label="Pick Effective Date"
-            placeholder={DATE_TIME_FORMAT}
-            format={DATE_TIME_FORMAT}
-            onChange={onEffectiveDateChange}
-            defaultValue={completionDate ? moment(completionDate, REQUEST_DATE_TIME_FORMAT) : undefined}
-          />
-        </Form.Item>
+              <Form.Item
+                label="Termination Time"
+                rules={[{ required: true, message: "Please pick the date!" }]}
+                {...layout}
+              >
+                <DatePicker
+                  aria-label="Pick Termination Date"
+                  placeholder={DATE_TIME_FORMAT}
+                  format={DATE_TIME_FORMAT}
+                  onChange={onTerminationTimeChange}
+                  defaultValue={terminationTime ? moment(terminationTime, REQUEST_DATE_TIME_FORMAT) : undefined}
+                />
+              </Form.Item>
 
-        <Form.Item label="Repeat/Retake" {...layout} valuePropName="checked" name={props.fieldNames.IsRepeat}>
-          <Switch aria-label="Repeat/Retake" />
-        </Form.Item>
+              <Form.Item className="hidden" name={fieldNames.StatusDate}>
+                <Input aria-label="Completion date" />
+              </Form.Item>
 
-        <Form.Item
-          label="Complete status on termination"
-          {...layout}
-          valuePropName="checked"
-          name={props.fieldNames.IsCompleteOnTermination}
-        >
-          <Switch aria-label="Complete status on termination" />
-        </Form.Item>
+              <Form.Item
+                label="Effective Date"
+                rules={[{ required: true, message: "Please pick the date!" }]}
+                {...layout}
+              >
+                <DatePicker
+                  aria-label="Pick Effective Date"
+                  placeholder={DATE_TIME_FORMAT}
+                  format={DATE_TIME_FORMAT}
+                  onChange={onEffectiveDateChange}
+                  defaultValue={completionDate ? moment(completionDate, REQUEST_DATE_TIME_FORMAT) : undefined}
+                />
+              </Form.Item>
 
-        <Form.Item
-          label="Expected Attendance"
-          rules={[{ required: true, message: "Please input your answer!" }]}
-          {...layout}
-          name={props.fieldNames.AttendanceExpected}
-        >
-          <Input aria-label="Expected Attendance" />
-        </Form.Item>
+              <Form.Item label="Repeat/Retake" {...layout} valuePropName="checked" name={fieldNames.IsRepeat}>
+                <Switch aria-label="Repeat/Retake" />
+              </Form.Item>
 
-        <Form.Item {...btnLayout}>
-          <Button type="primary" style={{ float: "right" }} onClick={onFormSubmission}>
-            Update
-          </Button>
-        </Form.Item>
-      </Form>
-    </Spin>
+              <Form.Item
+                label="Complete status on termination"
+                {...layout}
+                valuePropName="checked"
+                name={fieldNames.IsCompleteOnTermination}
+              >
+                <Switch aria-label="Complete status on termination" />
+              </Form.Item>
+
+              <Form.Item
+                label="Expected Attendance"
+                rules={[{ required: true, message: "Please input your answer!" }]}
+                {...layout}
+                name={fieldNames.AttendanceExpected}
+              >
+                <Input aria-label="Expected Attendance" />
+              </Form.Item>
+            </Form>
+          </Spin>
+        </Card>
+      </Col>
+    </Row>
   )
 }
