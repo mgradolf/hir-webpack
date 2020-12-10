@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 
 export const getQualifiedInstructorTableColumns = (OfferingID: number): ITableConfigProp => {
   const removeInstructor = (instructorID: any) => {
@@ -19,7 +19,7 @@ export const getQualifiedInstructorTableColumns = (OfferingID: number): ITableCo
       })
       .then((response) => {
         if (response?.success) {
-          eventBus.publish(REFRESH_PAGE)
+          eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
         }
       })
   }

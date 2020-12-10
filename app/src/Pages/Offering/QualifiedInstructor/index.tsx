@@ -5,7 +5,7 @@ import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/Pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography
 
@@ -22,7 +22,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
     updateInstructors(Number(offeringID), IDs)
       .then((result) => {
         if (result && result.success) {
-          eventBus.publish(REFRESH_PAGE)
+          eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
         }
       })
       .finally(() => {
@@ -106,6 +106,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
             expandableRowRender={expandableRowRender}
             breakpoints={["md", "lg", "xl", "xxl"]}
             responsiveColumnIndices={[1, 2, 3]}
+            refreshEventName={REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE}
           />
         </Col>
       </Row>

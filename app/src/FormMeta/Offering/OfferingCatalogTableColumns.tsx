@@ -5,7 +5,7 @@ import { findCatalog } from "~/ApiServices/BizApi/catalog/catalogIf"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { addOrRemoveOfferingToCatalog } from "~/ApiServices/Service/OfferingService"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_CATALOG_PAGE } from "~/utils/EventBus"
 
 export const getOfferingCatalogTableColumns = (OfferingID: number): ITableConfigProp => {
   const catalogPublished = (event: any, catalogID: any) => {
@@ -31,7 +31,7 @@ export const getOfferingCatalogTableColumns = (OfferingID: number): ITableConfig
 
         addOrRemoveOfferingToCatalog(OfferingID, result).then((response) => {
           if (response && response.success) {
-            eventBus.publish(REFRESH_PAGE)
+            eventBus.publish(REFRESH_OFFERING_CATALOG_PAGE)
           }
         })
       })

@@ -3,7 +3,7 @@ import { Button } from "antd"
 import { AddInstructorModal } from "~/Component/Offering/QualifiedInstructor/AddInstructorModal"
 import { onlyUnique } from "~/utils/util"
 import { updateInstructors } from "~/ApiServices/Service/OfferingService"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 
 interface ICreateActionButtonProp {
   offeringID: number
@@ -22,7 +22,7 @@ export function AddInstructorButton(props: ICreateActionButtonProp) {
 
       uniqueRowData = uniqueRowData.filter(onlyUnique)
       updateInstructors(props.offeringID, uniqueRowData)
-        .then(() => eventBus.publish(REFRESH_PAGE))
+        .then(() => eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE))
         .finally(() => setOpenModal(false))
     } else {
       setOpenModal(false)
