@@ -109,5 +109,5 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
     }
   ]
 
-  return { columns, searchFunc: searchSection }
+  return { columns, searchFunc: OfferingID ? () => searchSection({ OfferingID }) : searchSection }
 }

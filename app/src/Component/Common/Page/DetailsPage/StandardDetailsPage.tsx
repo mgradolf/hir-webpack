@@ -8,16 +8,20 @@ import { IStandardDetailsPage } from "~/Component/Common/Page/DetailsPage/Detail
 export function StandardDetailsPage(props: IStandardDetailsPage) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<IProcessedApiError>()
-  const [blocks, setBlocks] = useState<any[]>([])
+  const [blocks, setBlocks] = useState<any[]>(props.dataLoaded ? props.getDetailsMeta(props.dataLoaded) : [])
+
   const loadDetails = () => {
-    setLoading(true)
-    props.getDetailsFunc().then((x) => {
-      setLoading(false)
-      if (x.success) {
-        setBlocks(props.getDetailsMeta(x.data))
-      } else setError(x.error)
-    })
+    if (props.getDetailsFunc) {
+      setLoading(true)
+      props.getDetailsFunc().then((x) => {
+        setLoading(false)
+        if (x.success) {
+          setBlocks(props.getDetailsMeta(x.data))
+        } else setError(x.error)
+      })
+    }
   }
+
   useEffect(() => {
     eventBus.subscribe(REFRESH_PAGE, loadDetails)
     eventBus.publish(REFRESH_PAGE)

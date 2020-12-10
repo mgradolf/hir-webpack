@@ -3,6 +3,7 @@ import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchL
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { RoomeSearchMeta } from "~/FormMeta/Room/RoomSearchMeta"
 import { getRoomTableColumns } from "~/FormMeta/Room/RoomTableColumns"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function SearchRoomLookup(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   return (
@@ -13,6 +14,12 @@ export function SearchRoomLookup(props: IFilterGenericComponentProps<IFilterFiel
       {...getRoomTableColumns(true)}
       meta={RoomeSearchMeta}
       {...props}
+      {...(props.defaultValue && {
+        entityLookupFunc: () =>
+          getEntityById("Room", props.defaultValue).then((x) => {
+            return x.data
+          })
+      })}
     />
   )
 }

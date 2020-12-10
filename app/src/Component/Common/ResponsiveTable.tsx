@@ -7,8 +7,9 @@ import moment from "moment"
 import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
-import { DownOutlined, ReadOutlined } from "@ant-design/icons"
+import { ReadOutlined, DownloadOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
+import { useFirstRender } from "~/Hooks/useFirstRender"
 
 export type TableColumnType = ColumnsType<{ [key: string]: any }>
 
@@ -45,7 +46,7 @@ export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
   breakpoints?: Breakpoint[]
   isModal?: boolean
-  isTab?: string
+  refreshEventName?: string
   rowKey?: string
 }
 
@@ -65,6 +66,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [loading, setLoading] = useState(false)
   const [mobileView, setMobileView] = useState<boolean>(false)
   const [downloading, setDownloading] = useState(false)
+  const firstRender = useFirstRender()
 
   const loadDataFromSearchFunc = () => {
     if (loading) {
@@ -93,12 +95,16 @@ export function ResponsiveTable(props: IDataTableProps) {
     }
   }
   useEffect(() => {
-    loadDataFromSearchFunc()
+    if (!firstRender) loadDataFromSearchFunc()
     // eslint-disable-next-line
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    const eventName = isModal ? REFRESH_MODAl : props.isTab ? props.isTab : REFRESH_PAGE
+    const eventName = isModal
+      ? REFRESH_MODAl
+      : props.refreshEventName
+      ? `REFRESH_${props.refreshEventName}`
+      : REFRESH_PAGE
     eventBus.subscribe(eventName, loadDataFromSearchFunc)
     eventBus.publish(eventName)
     return () => {
@@ -208,6 +214,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.scroll = { x: columns.length }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
+    console.log("props.pagination ", props.pagination)
     _conditionalProps.pagination =
       typeof props.pagination === "boolean" && !props.pagination
         ? props.pagination
@@ -215,6 +222,7 @@ export function ResponsiveTable(props: IDataTableProps) {
         ? { position: ["topLeft"], pageSize: 20, simple: true }
         : false
     setConditionalProps(_conditionalProps)
+    console.log(_conditionalProps)
   }
 
   const downloadData = (fileType: string) => {
@@ -257,12 +265,13 @@ export function ResponsiveTable(props: IDataTableProps) {
             <Button
               loading={downloading}
               disabled={downloading}
-              style={{ position: "absolute", zIndex: 100, right: "15px", top: "15px", border: "1px solid" }}
-              type="link"
+              style={{ position: "absolute", zIndex: 100, right: "25px", top: "15px", border: "1px solid" }}
+              type="default"
+              // style={{ float: "right", right: "15px", top: "15px", border: "1px solid" }}
+              // type="link"
               onClick={(e) => e.preventDefault()}
-            >
-              Download <DownOutlined />
-            </Button>
+              icon={<DownloadOutlined />}
+            />
           </Dropdown>
         )}
       <Table {...conditionalProps} loading={otherTableProps.loading || loading} />

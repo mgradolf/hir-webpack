@@ -1,28 +1,43 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
+import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
+import { renderBoolean } from "~/Component/Common/ResponsiveTable"
+import { getProductFinancialsTableColumns } from "~/FormMeta/ProductFinancialsTableColumns/ProductFinancialsTableColumns"
 
-export const getProductDetailsMeta = (person: { [key: string]: any }): CardContainer[] => {
-  const personalInfo: CardContainer = {
-    title: person.FormattedName,
+export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetailsMeta[] => {
+  const summary: CardContainer = {
+    title: Product.ProductName,
     contents: [
-      { label: "First Name", value: person.FirstName, render: undefined },
-      { label: "Middle Name", value: person.MiddleName, render: undefined },
-      { label: "Last Name", value: person.LastName, render: undefined },
-      { label: "Maiden Name", value: person.MaidenName, render: undefined },
-      { label: "OtherName", value: person.OtherName, render: undefined },
-      { label: "Birthday", value: person.Birthday, render: renderDate },
-      { label: "Gender", value: person.GenderTypeName, render: undefined },
-      { label: "Marital Status ", value: person.MaritalStatusTypeName, render: undefined },
-      { label: "Private ", value: person.IsConfidential, render: renderBoolean },
-      { label: "Religion", value: person.ReligionTypeName, render: undefined },
-      { label: "Deceased", value: person.IsDeceased, render: renderBoolean },
-      { label: "DeathDate", value: person.DeathDate, render: renderDate },
-      { label: "Citizenship Type", value: person.CitizenshipTypeName, render: undefined },
-      { label: "Can Defer Payment", value: person.CanDeferPayment, render: undefined },
-      { label: "SSN", value: person.GovID, render: undefined },
-      { label: "ERPID", value: person.ERPID, render: undefined }
+      { label: "Product Category", value: Product.ProductCategoryName },
+      { label: "Is Active", value: Product.ProductIsActive, render: renderBoolean },
+      { label: "Optional Item", value: Product.OptionalItem, render: renderBoolean },
+      { label: "Inventory", value: Product.ProductInventoryUnits },
+      { label: "Gateway", value: Product.PaymentGatewayAccountName }
     ]
   }
 
-  return [personalInfo]
+  const summaryMeta: IDetailsSummary = {
+    summary: [summary]
+  }
+
+  const productFinancialMeta: IDetailsTableTabProp = {
+    title: "Contacts",
+    tableProps: {
+      ...getProductFinancialsTableColumns(),
+      searchParams: { ProductID: Product.ProductID }
+    }
+  }
+  return [
+    {
+      title: "Summary",
+      type: "summary",
+      meta: summaryMeta
+    },
+    {
+      title: "Financials",
+      type: "table",
+      meta: productFinancialMeta
+    }
+  ]
 }

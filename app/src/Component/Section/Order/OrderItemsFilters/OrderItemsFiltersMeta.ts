@@ -9,12 +9,12 @@ import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/Searc
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
-    label: "Section Lookup",
+    label: "Section",
     fieldName: "SectionID",
     customFilterComponent: SearchSectionLookupButton
   },
   {
-    label: "Order Id",
+    label: "Order ID",
     inputType: NUMBER,
 
     fieldName: "OrderID",

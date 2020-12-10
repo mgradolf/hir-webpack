@@ -27,6 +27,7 @@ export default function OfferingDetailsPage(props: RouteComponentProps<{ offerin
       }
     })
   }
+
   return (
     <DetailsPage
       getMeta={getOfferingDetailsMeta}

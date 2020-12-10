@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { Col, Row, Spin, Tabs } from "antd"
+import { Row, Spin, Tabs } from "antd"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
+import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 
 export const tabTypes = {
   summary: "summary",
@@ -22,8 +23,8 @@ export interface IDetailsMeta {
 export interface IDetailsPage {
   getMeta: (Params: { [key: string]: any }) => IDetailsMeta[]
   getDetails: () => Promise<IApiResponse>
-  entityType: string
-  entityID: number
+  entityType?: string
+  entityID?: number
   actions?: JSX.Element[]
 }
 
@@ -60,31 +61,28 @@ export function DetailsPage(props: IDetailsPage) {
       {!loading && error && <p>Not Found</p>}
       {!loading && !error && meta.length > 0 && (
         <div className="site-layout-content">
-          {Array.isArray(props.actions) && (
-            <Row justify="end">
-              {props.actions.map((x, key) => (
-                <Col key={key} style={{ marginLeft: "10px", marginBottom: "10px" }}>
-                  {x}
-                </Col>
-              ))}
-            </Row>
-          )}
-
-          <Tabs defaultActiveKey="1" type="card" size="large">
+          <Tabs defaultActiveKey="1" type="card" size="large" tabBarExtraContent={props.actions ? props.actions : []}>
             {meta.map((x, i) => {
               switch (x.type) {
                 case "summary":
                   return (
-                    <Tabs.TabPane tab={x.title} key="1">
+                    <Tabs.TabPane tab={x.title} key={i + 1}>
                       <DetailsSummary {...x.meta} />
                     </Tabs.TabPane>
                   )
                 case "searchtable":
                   return (
-                    <Tabs.TabPane tab={x.title} key="2">
+                    <Tabs.TabPane tab={x.title} key={i + 1}>
                       <DetailsSearchTab {...x.meta} />
                     </Tabs.TabPane>
                   )
+                case "table":
+                  return (
+                    <Tabs.TabPane tab={x.title} key="3">
+                      <DetailsTableTab {...x.meta} />
+                    </Tabs.TabPane>
+                  )
+
                 default:
                   return <p>Can not load</p>
               }

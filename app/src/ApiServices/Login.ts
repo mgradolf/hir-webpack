@@ -15,7 +15,7 @@ export async function login(UserName: string, UserPassword: string): Promise<IAp
   if (response && response.success) {
     store.dispatch(showLoginModal({ value: false }))
     store.dispatch(setRedirectToLogin(false))
-    eventBus.publishSimilarEvents(/REFRESH.*PAGE/i)
+    eventBus.publishSimilarEvents(/REFRESH.*/i)
   }
   return response
 }

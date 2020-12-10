@@ -74,13 +74,22 @@ export default function ({
 
   useEffect(() => {
     const queryParams: { [key: string]: any } = querystringToObject()
-    const updateMeta = queryParams && Object.keys(queryParams).length > 0
+    const updateMeta = queryParams && Object.keys(queryParams).length > 0 && !props.isModalView
     if (updateMeta) {
       setShowLess(false)
       formInstance.setFieldsValue(queryParams)
+      console.log(props.meta)
       const _meta = props.meta.map((x) => {
         x.defaultValue = queryParams[x.fieldName]
         x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined
+        console.log(x.extraProps)
+        if (x.extraProps && Array.isArray(x.extraProps.selectorKeys)) {
+          x.extraProps.selectorKeys = x.extraProps.selectorKeys.map((y) => {
+            y.defaultValue = queryParams[y.fieldName]
+            console.log("y ", y, "  queryParams", queryParams)
+            return y
+          })
+        }
         return x
       })
       setMeta(_meta)

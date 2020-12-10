@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Button, Form, Input, Row, Col } from "antd"
+import { Form, Input, Row, Col } from "antd"
 import {
   IFilterField,
   IFilterFieldComponent,
@@ -9,6 +9,8 @@ import {
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { useFirstRender } from "~/Hooks/useFirstRender"
+import { DeleteOutlined, SearchOutlined } from "@ant-design/icons"
 
 export interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
   entityLookupFunc?: () => Promise<{ [key: string]: any }>
@@ -26,16 +28,21 @@ export interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IF
 export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
   const [showModal, setShowModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>()
+  const firstRender = useFirstRender()
 
   useEffect(() => {
     if (props.entityLookupFunc) {
-      props.entityLookupFunc().then((item) => setSelectedItem(item[props.displayField]))
+      props.entityLookupFunc().then((item) => {
+        console.log("item ", item)
+        setSelectedItem(item[props.displayField])
+      })
     }
     // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-    setSelectedItem(undefined)
+    !firstRender && setSelectedItem(undefined)
+    // eslint-disable-next-line
   }, [props.clearTrigger])
 
   const closeModal = (items?: any[]) => {
@@ -62,24 +69,23 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
       </Form.Item>
       <Form.Item colon={false} label={props.label} labelCol={{ span: 8 }}>
         <Row>
-          <Col span={12}>
+          <Col span={24}>
             <Input
               value={selectedItem}
               readOnly
-              allowClear
-              onChange={(e) => {
-                e.preventDefault()
-                console.log(e)
-                setSelectedItem(undefined)
-                props.formInstance.setFieldsValue({ [props.fieldName]: "" })
-              }}
+              addonBefore={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
+              addonAfter={
+                <DeleteOutlined
+                  color="red"
+                  onClick={() => {
+                    setSelectedItem(undefined)
+                    props.formInstance.setFieldsValue({ [props.fieldName]: "" })
+                  }}
+                />
+              }
             />
           </Col>
-          <Col span={4}>
-            <Button onClick={() => setShowModal(true)} disabled={props.disabled}>
-              Lookup
-            </Button>
-          </Col>
+          {/* <Col span={4}></Col>   */}
         </Row>
         {showModal && (
           <LookupModal

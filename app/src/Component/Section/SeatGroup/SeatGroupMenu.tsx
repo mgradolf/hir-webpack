@@ -33,6 +33,7 @@ export default function SeatGroupMenu(props: ISeatGroupMenu) {
         {showUpdateModal && (
           <UpdateSeatGroup
             sectionId={sectionID}
+            isDefault={isDefault}
             seatgroupId={seatGroupID}
             programId={programID}
             programCode={programCode}

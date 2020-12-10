@@ -16,7 +16,8 @@ export type CardContainer = {
 // ================================================
 export interface IStandardDetailsPage {
   getDetailsMeta: (Params: any) => CardContainer[]
-  getDetailsFunc: () => Promise<IApiResponse>
+  getDetailsFunc?: () => Promise<IApiResponse>
+  dataLoaded?: { [key: string]: any }
   actions?: JSX.Element[]
 }
 // ================================================
