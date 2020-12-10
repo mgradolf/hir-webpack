@@ -4,6 +4,7 @@ import { getFinancialTableColumns } from "~/FormMeta/Financial/FinancialTableCol
 import StandardPage from "~/Component/Common/Page/StandardPage"
 import { Button } from "antd"
 import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
+import { REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 
 export default function FinancialPage(props: RouteComponentProps<{ offeringID?: string }>) {
   const OfferingID = Number(props.match.params.offeringID)
@@ -20,7 +21,7 @@ export default function FinancialPage(props: RouteComponentProps<{ offeringID?: 
         </>
       ]}
       title="Manage Offering Financials"
-      tableProps={{ ...getFinancialTableColumns(OfferingID) }}
+      tableProps={{ ...getFinancialTableColumns(OfferingID), refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE }}
       initialFilter={{ OfferingID: OfferingID }}
     />
   )

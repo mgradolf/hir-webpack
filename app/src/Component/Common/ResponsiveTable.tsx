@@ -101,11 +101,8 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    const eventName = isModal
-      ? REFRESH_MODAl
-      : props.refreshEventName
-      ? `REFRESH_${props.refreshEventName}`
-      : REFRESH_PAGE
+    const eventName = isModal ? REFRESH_MODAl : props.refreshEventName ? props.refreshEventName : REFRESH_PAGE
+
     eventBus.subscribe(eventName, loadDataFromSearchFunc)
     eventBus.publish(eventName)
     return () => {
