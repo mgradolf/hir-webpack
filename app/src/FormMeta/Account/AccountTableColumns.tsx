@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getAccountTableColumns = (isModal = false): ITableConfigProp => {
@@ -14,7 +14,7 @@ export const getAccountTableColumns = (isModal = false): ITableConfigProp => {
     },
     { title: "Primary Contact", dataIndex: "ContactName" },
     { title: "Phone", dataIndex: "TelephoneNumber" },
-    { title: "Email", dataIndex: "EmailAddress" },
+    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
     { title: "Address", dataIndex: "BillingAddress" }
   ]
   return { columns, searchFunc: findAccountForLookUp, responsiveColumnIndices: [], expandableColumnIndices: [] }

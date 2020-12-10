@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography, Button } from "antd"
-import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { renderEmail, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
 import styles from "~/Pages/Offering/QualifiedInstructor/QualifiedInstructor.module.scss"
@@ -37,7 +37,8 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
     },
     {
       title: "Email",
-      dataIndex: "email"
+      dataIndex: "email",
+      render: renderEmail
     },
     {
       title: "Telephone",

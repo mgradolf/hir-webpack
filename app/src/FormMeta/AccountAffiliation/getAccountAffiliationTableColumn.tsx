@@ -1,12 +1,12 @@
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
-import { renderBoolean, renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     { title: "Last Name", dataIndex: "LastName" },
     { title: "First Name", dataIndex: "FirstName" },
-    { title: "Email", dataIndex: "EmailAddress" },
+    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
     { title: "Birth Date", dataIndex: "Birthday", render: renderDate },
     { title: "Role ", dataIndex: "AffiliationRoleTypeName" },
     { title: "Shared", dataIndex: "IsContactShared", render: renderBoolean },

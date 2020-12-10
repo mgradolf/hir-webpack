@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
 
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getInstructorTableColumns = (isModal = false): ITableConfigProp => {
@@ -23,7 +23,7 @@ export const getInstructorTableColumns = (isModal = false): ITableConfigProp => 
       ),
       sorter: (a: any, b: any) => a.FacultySerialNum.length - b.FacultySerialNum.length
     },
-    { title: "Email", dataIndex: "EmailAddress" },
+    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
     { title: "Telephone", dataIndex: "TelephoneNumber" },
     { title: "Organization", dataIndex: "OrganizationName" },
     { title: "Status", dataIndex: "Status" },

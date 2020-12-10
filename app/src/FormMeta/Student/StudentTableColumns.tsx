@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchStudents } from "~/ApiServices/BizApi/student/studentIf"
 
@@ -15,7 +15,7 @@ export const getStudentTableColumns = (isModal = false): ITableConfigProp => {
           <span>{`${record.FirstName} ${record.LastName}`}</span>
         )
     },
-    { title: "Email", dataIndex: "EmailAddress" },
+    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
     { title: "Telephone", dataIndex: "TelephoneNumber" },
     { title: "BirthDate ", dataIndex: "Birthday", render: renderDate },
     { title: "City", dataIndex: "Locality" },
