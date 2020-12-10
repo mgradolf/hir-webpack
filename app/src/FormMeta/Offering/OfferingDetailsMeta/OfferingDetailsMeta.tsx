@@ -79,6 +79,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   const financialMeta: IDetailsTableTabProp = {
     blocks: [<FinancialFormModalOpenButton OfferingID={offering.OfferingID} />],
     tableProps: {
+      pagination: false,
       ...getFinancialTableColumns(offering.OfferingID),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE
@@ -88,6 +89,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   const qualifiedInstructorMeta: IDetailsTableTabProp = {
     blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
     tableProps: {
+      pagination: false,
       ...getQualifiedInstructorTableColumns(offering.OfferingID),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE
@@ -96,6 +98,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
 
   const catalogMeta: IDetailsTableTabProp = {
     tableProps: {
+      pagination: false,
       ...getOfferingCatalogTableColumns(offering.OfferingID),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_OFFERING_CATALOG_PAGE

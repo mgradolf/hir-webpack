@@ -5,7 +5,8 @@ export const config = {
   Service: "productService",
   Module: "hir",
   Actions: {
-    searchProducts: "searchProducts"
+    searchProducts: "searchProducts",
+    getProductFinancials: "getProductFinancials"
   }
 }
 

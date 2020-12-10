@@ -23,6 +23,7 @@ export const renderDetailsLink = (url: string): JSX.Element => {
     </Link>
   )
 }
+export const renderEmail = (text: any): JSX.Element => (text !== null ? <a href={`mailto:${text}`}>{text}</a> : <></>)
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
@@ -211,13 +212,15 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.scroll = { x: columns.length }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
+    console.log("props.pagination ", props.pagination)
     _conditionalProps.pagination =
-      props.pagination && typeof props.pagination === "boolean" && !props.pagination
+      typeof props.pagination === "boolean" && !props.pagination
         ? props.pagination
         : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
         ? { position: ["topLeft"], pageSize: 20, simple: true }
         : false
     setConditionalProps(_conditionalProps)
+    console.log(_conditionalProps)
   }
 
   const downloadData = (fileType: string) => {

@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { ReadOutlined } from "@ant-design/icons"
 
@@ -45,7 +45,8 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     },
     {
       title: "Email",
-      dataIndex: "EmailAddress"
+      dataIndex: "EmailAddress",
+      render: renderEmail
     },
     {
       title: "Account",

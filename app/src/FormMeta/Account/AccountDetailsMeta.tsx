@@ -24,7 +24,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     summary: [summary]
   }
 
-  const sectionMeta: IDetailsTableTabProp = {
+  const contactsMeta: IDetailsTableTabProp = {
     title: "Contacts",
     tableProps: {
       ...getAccountAffiliationTableColumn(),
@@ -41,7 +41,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     {
       title: "Contacts",
       type: "table",
-      meta: sectionMeta
+      meta: contactsMeta
     }
   ]
 }

@@ -2,7 +2,7 @@ import React from "react"
 import { Button } from "antd"
 import { Link } from "react-router-dom"
 import { getQualifiedInstructors, updateInstructors } from "~/ApiServices/Service/OfferingService"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 
@@ -31,7 +31,7 @@ export const getQualifiedInstructorTableColumns = (OfferingID: number): ITableCo
       render: (text: any, record: any) => <Link to={`/person/faculty/${record.FacultyID}`}>{text}</Link>,
       sorter: (a: any, b: any) => a.name.length - b.name.length
     },
-    { title: "Email", dataIndex: "email" },
+    { title: "Email", dataIndex: "email", render: renderEmail },
     { title: "Telephone", dataIndex: "telephone" },
     { title: "Address", dataIndex: "Address" },
     {

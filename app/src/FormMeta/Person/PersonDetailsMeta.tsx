@@ -1,6 +1,6 @@
 import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 
 export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): CardContainer[] => {
   const person: { [key: string]: any } = personInfos[0]
@@ -86,7 +86,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): Car
       ? person.Emails.map((x: any) => {
           return {
             label: x.EmailTypeDescriptor,
-            jsx: x.EmailAddress
+            jsx: renderEmail(x.EmailAddress)
           }
         })
       : []

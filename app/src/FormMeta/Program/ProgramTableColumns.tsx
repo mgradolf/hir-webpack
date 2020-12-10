@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchPrograms } from "~/ApiServices/BizApi/program/programIF"
 import { searchProgramApplication } from "~/ApiServices/BizApi/program/programApplicationIF"
@@ -34,7 +34,7 @@ export const getProgramApplicationTableColumns = (isModal = false): ITableConfig
     { title: "Department", dataIndex: "DepartmentName" },
     { title: "Student Name", dataIndex: "StudentName" },
     { title: "Enrollment Date ", dataIndex: "EnrollmentDate", render: renderDate },
-    { title: "Email", dataIndex: "Email" },
+    { title: "Email", dataIndex: "Email", render: renderEmail },
     { title: "Status", dataIndex: "StatusName" },
     {
       title: "Order ID",
@@ -55,7 +55,7 @@ export const getProgramEnrollmentTableColumns = (isModal = false): ITableConfigP
     { title: "Department", dataIndex: "DepartmentName" },
     { title: "Student Name", dataIndex: "StudentName" },
     { title: "Enrollment Date ", dataIndex: "EnrollmentDate", render: renderDate },
-    { title: "Email", dataIndex: "Email" },
+    { title: "Email", dataIndex: "Email", render: renderEmail },
     { title: "Status", dataIndex: "StatusName" },
     {
       title: "Order ID",

@@ -1,6 +1,6 @@
 import { Row, Col } from "antd"
 import React from "react"
-import { renderDateTime, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { renderDateTime, renderEmail, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 export interface ITableWrapperProps {
   id?: string
@@ -26,6 +26,7 @@ function StudentListTable(props: ITableWrapperProps) {
     {
       title: "Email",
       dataIndex: "EmailAddress",
+      render: renderEmail,
       key: "EmailAddress"
     },
     {

@@ -3,7 +3,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistIF"
 import { deleteWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { ReadOutlined } from "@ant-design/icons"
@@ -44,10 +44,9 @@ export const getWaitlistEntriesTableColumns = (
         isModal ? { text } : <Link to={`/person/${record.PurchaserID}`}>{record.PurchaserName}</Link>
     },
     { title: "StudentName", dataIndex: "StudentName" },
-    { title: "Email", dataIndex: "StudentEmailAddress" },
+    { title: "Email", dataIndex: "StudentEmailAddress", render: renderEmail },
     { title: "Request State", dataIndex: "RequestState" },
     { title: "Priority", dataIndex: "Priority" },
-    { title: "Email", dataIndex: "StudentEmailAddress" },
     { title: "CreationTime", dataIndex: "CreationTime", render: renderDate },
     { title: "ExpirationTime", dataIndex: "RequestExpirationTime", render: renderDate },
     { title: "Start Date", dataIndex: "startDate", render: renderDate },
