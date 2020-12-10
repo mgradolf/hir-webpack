@@ -5,7 +5,7 @@ import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
 import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
 import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
 
-export default function Offering() {
+export function OfferingPage() {
   const [showModal, setShowModal] = useState(false)
 
   return (

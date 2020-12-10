@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Suspense } from "react"
 import { Layout } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
 import Sidebar from "~/Component/Layout/Sidebar"
@@ -24,7 +24,7 @@ export default function DefaultLayout(props: ILayoutProps) {
         </Header>
         <Content style={{ padding: "0 20px" }}>
           <Breadcrumb />
-          {props.children}
+          <Suspense fallback={<div>Loading ...</div>}>{props.children}</Suspense>
         </Content>
         <Footer style={{ textAlign: "center" }}>Jenzabar ©2020 Created by Jenzabar Team</Footer>
       </Layout>

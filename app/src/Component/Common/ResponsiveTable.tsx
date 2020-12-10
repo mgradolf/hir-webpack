@@ -209,7 +209,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
     _conditionalProps.pagination =
-      props.pagination && typeof props.pagination === "boolean" && !props.pagination
+      typeof props.pagination === "boolean" && !props.pagination
         ? props.pagination
         : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
         ? { position: ["topLeft"], pageSize: 20, simple: true }
