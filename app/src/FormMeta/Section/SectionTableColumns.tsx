@@ -2,21 +2,13 @@ import { Space } from "antd"
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchSection } from "~/ApiServices/BizApi/course/courseIF"
-import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { SectionMenu } from "~/Component/Section/SectionMenu"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getSectionTableColumns = (isModal = false, OfferingID?: number): ITableConfigProp => {
   // const responsiveColumnIndices = [2, 3, 4, 5, 6, 7]
   const columns: TableColumnType = [
-    {
-      ...(!isModal && {
-        render: (text: any, record: any) =>
-          renderDetailsLink(
-            OfferingID ? `/offering/${OfferingID}/section/${record.SectionID}` : `/section/${record.SectionID}`
-          )
-      })
-    },
     {
       title: "Section Number",
       dataIndex: "SectionNumber",

@@ -2,9 +2,9 @@ import React from "react"
 import { Card } from "antd"
 import { CardContainer, CardContents } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 
-export const DetailsCardContainer = (props: { card: CardContainer }) => {
+export const DetailsCardContainer = (props: { card: CardContainer; cardActions?: JSX.Element[] }) => {
   return (
-    <Card title={props.card.title}>
+    <Card title={props.card.title} extra={props.cardActions}>
       <table className="dorakata-table">
         <tbody>
           {Array.isArray(props.card.contents)

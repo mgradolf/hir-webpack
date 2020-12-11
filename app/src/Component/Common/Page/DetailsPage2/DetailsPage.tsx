@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { Row, Spin, Tabs } from "antd"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { Row, Spin, Tabs, Typography } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
 import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
+import DetailsCustomTab from "./DetailsCustomTab"
 
 export const tabTypes = {
   summary: "summary",
@@ -25,11 +25,13 @@ export interface IDetailsPage {
   getDetails: () => Promise<IApiResponse>
   entityType?: string
   entityID?: number
+  titleKey?: string
   actions?: JSX.Element[]
 }
 
 export function DetailsPage(props: IDetailsPage) {
   const [loading, setLoading] = useState(false)
+  const [title, setTitle] = useState<string>()
   const [error, setError] = useState<IProcessedApiError>()
   const [meta, setMeta] = useState<IDetailsMeta[]>([])
   const loadDetails = () => {
@@ -39,17 +41,14 @@ export function DetailsPage(props: IDetailsPage) {
       if (x.success && !x.data) {
         // setError({getErrorMessages: () => [{message: "Not Found"}]})
       } else if (x.success && x.data) {
+        setTitle(x.data[`${props.titleKey}`])
         setMeta(props.getMeta(x.data))
       } else setError(x.error)
     })
   }
 
   useEffect(() => {
-    eventBus.subscribe(REFRESH_PAGE, loadDetails)
-    eventBus.publish(REFRESH_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_PAGE)
-    }
+    loadDetails()
     // eslint-disable-next-line
   }, [])
 
@@ -63,6 +62,11 @@ export function DetailsPage(props: IDetailsPage) {
       {!loading && error && <p>Not Found</p>}
       {!loading && !error && meta.length > 0 && (
         <div className="site-layout-content">
+          {title && (
+            <Row>
+              <Typography.Title level={3}>{title}</Typography.Title>
+            </Row>
+          )}
           <Tabs defaultActiveKey="1" type="card" size="large" tabBarExtraContent={props.actions ? props.actions : []}>
             {meta.map((x, i) => {
               switch (x.type) {
@@ -82,6 +86,12 @@ export function DetailsPage(props: IDetailsPage) {
                   return (
                     <Tabs.TabPane tab={x.title} key={i + 1}>
                       <DetailsTableTab {...x.meta} />
+                    </Tabs.TabPane>
+                  )
+                case "custom":
+                  return (
+                    <Tabs.TabPane tab={x.title} key={i + 1}>
+                      <DetailsCustomTab {...x.meta} />
                     </Tabs.TabPane>
                   )
 

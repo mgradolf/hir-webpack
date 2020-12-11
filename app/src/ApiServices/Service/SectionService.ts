@@ -1,6 +1,18 @@
 import SectionService, { config } from "@packages/api/lib/proxy/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function getSectionDetails(SectionID: number): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionDetails]({
+    SectionID
+  })
+}
+
+export function getSectionStatistics(SectionID: number): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionStatistics]({
+    SectionID
+  })
+}
+
 export function findAffiliatedOrgsForSeatGroup(SeatGroupID: number): Promise<IApiResponse> {
   return SectionService[config.Actions.findAffiliatedOrgsForSeatGroup]({
     SeatGroupID

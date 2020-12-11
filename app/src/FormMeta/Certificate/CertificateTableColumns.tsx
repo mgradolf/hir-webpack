@@ -1,20 +1,18 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
-import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
-export const getCertificateTableColumns = (isModal = false): ITableConfigProp => {
+export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp => {
+  const route = isCourse ? "course" : "program"
   const columns: TableColumnType = [
-    {
-      ...(!isModal && {
-        render: (text: any, record: any) => renderDetailsLink(`/certificate/${record.CertificateID}`)
-      })
-    },
     {
       title: "Certificate Number",
       dataIndex: "CertificateNumber",
-      render: (text: any, record: any) => <Link to={`/certificate/${record.CertificateID}`}>{text}</Link>
+      render: (text: any, record: any) => (
+        <Link to={`/${route}/certificate/${record.StudentCertificateID}`}>{text}</Link>
+      )
     },
     {
       title: "Certificate Name",

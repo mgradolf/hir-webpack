@@ -23,7 +23,7 @@ export default function Certificate() {
       meta={CourseCertificateSearchMeta}
       hideSearchField={false}
       tableProps={{
-        ...getCertificateTableColumns(),
+        ...getCertificateTableColumns(true),
         bordered: true
       }}
     ></SearchPage>

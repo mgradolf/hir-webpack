@@ -34,6 +34,7 @@ export default function OfferingDetailsPage(props: RouteComponentProps<{ offerin
       getDetails={getOfferingDetails}
       entityType="Offering"
       entityID={OfferingID}
+      titleKey="OfferingName"
     />
   )
 }
