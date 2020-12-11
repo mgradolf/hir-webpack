@@ -32,7 +32,7 @@ export const getMarketingCodeRepositoryTableColumns = (isModal = false): ITableC
     }
   ]
 
-  const responsiveColumnIndices: number[] = [2]
-  const expandableColumnIndices: number[] = [2]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchMarketingCodes }
 }

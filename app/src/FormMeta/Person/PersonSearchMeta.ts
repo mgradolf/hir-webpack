@@ -109,24 +109,12 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "Birth Date",
     inputType: DATE_PICKER,
-
     fieldName: "BirthDate",
     ariaLabel: "Birth Date"
   },
   {
-    label: "Ethnicity",
-    inputType: DROPDOWN,
-
-    fieldName: "EthnicityTypeID",
-    ariaLabel: "Ethnicity",
-    refLookupService: getEthnicityTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
     label: "Gender",
     inputType: DROPDOWN,
-
     fieldName: "GenderTypeID",
     ariaLabel: "Gender",
     refLookupService: getGenderTypes,
@@ -134,52 +122,47 @@ export const PersonSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    label: "Account Type",
+    label: "Ethnicity",
     inputType: DROPDOWN,
-
-    fieldName: "AccountTypeID",
-    ariaLabel: "Account Type",
-    refLookupService: getAccountTypes,
+    fieldName: "EthnicityTypeID",
+    ariaLabel: "Ethnicity",
+    refLookupService: getEthnicityTypes,
     displayKey: "Name",
     valueKey: "ID"
   },
   {
     label: "Deceased",
     inputType: BOOLEAN,
-
     fieldName: "IsDeceased",
     ariaLabel: "Deceased"
   },
   {
-    label: "Account Name",
-    inputType: TEXT,
-
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
+    label: "State/Province",
+    fieldName: "RegionCodeID",
+    customFilterComponent: SearchRegion
   },
   {
     label: "Account Role",
     inputType: DROPDOWN,
-
     fieldName: "RoleName",
     ariaLabel: "Account Role",
     refLookupService: getAffiliationRoleType,
     displayKey: "Name",
     valueKey: "ID"
   },
-  // {
-  //   label: "Country",
-  //   inputType: DROPDOWN,
-  //
-  //   fieldName: "CountryCodeID",
-  //   ariaLabel: "Country Select",
-  //   refLookupService: getCountries,
-  //   displayKey: "Description",
-  //   valueKey: "ID"
-  // },
   {
-    label: "State/Province",
-    fieldName: "RegionCodeID",
-    customFilterComponent: SearchRegion
+    label: "Account Name",
+    inputType: TEXT,
+    fieldName: "AccountName",
+    ariaLabel: "Account Name"
+  },
+  {
+    label: "Account Type",
+    inputType: DROPDOWN,
+    fieldName: "AccountTypeID",
+    ariaLabel: "Account Type",
+    refLookupService: getAccountTypes,
+    displayKey: "Name",
+    valueKey: "ID"
   }
 ]

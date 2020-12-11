@@ -1,14 +1,13 @@
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import {
-  getCountries,
   getEthnicityTypes,
   getGenderTypes,
   getInstitutionStatusTypes,
   getInstructorTypes,
-  getOrganizations,
-  getRegionCodes
+  getOrganizations
 } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DATE_PICKER, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
 export const InstructorSearchMeta: IFilterField[] = [
   {
@@ -35,12 +34,6 @@ export const InstructorSearchMeta: IFilterField[] = [
     fieldName: "TelephoneNumber",
     ariaLabel: "Telephone Number"
   },
-  {
-    label: "Instructor ID",
-    inputType: TEXT,
-    fieldName: "FacultySerialNum",
-    ariaLabel: "Instructor ID"
-  },
 
   {
     label: "Maiden Name",
@@ -54,18 +47,29 @@ export const InstructorSearchMeta: IFilterField[] = [
     fieldName: "OtherName",
     ariaLabel: "Other Name"
   },
-
   {
-    label: "Is Active",
-    inputType: BOOLEAN,
-    fieldName: "IsActive",
-    ariaLabel: "Is Active"
+    label: "Gender",
+    inputType: DROPDOWN,
+    fieldName: "GenderTypeID",
+    ariaLabel: "Gender Select",
+    refLookupService: getGenderTypes,
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
-    label: "Able To Teach",
-    inputType: BOOLEAN,
-    fieldName: "IsAbleToTeach",
-    ariaLabel: "Able To Teach"
+    label: "Ethnicity",
+    inputType: DROPDOWN,
+    fieldName: "EthnicityTypeID",
+    ariaLabel: "Ethnicity Select",
+    refLookupService: getEthnicityTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "SSN",
+    inputType: TEXT,
+    fieldName: "SSN",
+    ariaLabel: "GovID"
   },
   {
     label: "ERP",
@@ -74,10 +78,29 @@ export const InstructorSearchMeta: IFilterField[] = [
     ariaLabel: "ERP Code"
   },
   {
-    label: "SSN",
-    inputType: TEXT,
-    fieldName: "SSN",
-    ariaLabel: "GovID"
+    label: "Birthday",
+    inputType: DATE_PICKER,
+    fieldName: "Birthday",
+    ariaLabel: "Birthday"
+  },
+  {
+    label: "Is Deceased",
+    inputType: DROPDOWN,
+    fieldName: "IsDeceased",
+    ariaLabel: "Is Deceased",
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ]
+  },
+  {
+    label: "Department",
+    inputType: DROPDOWN,
+    fieldName: "OrganizationID",
+    ariaLabel: "Department Select",
+    refLookupService: getOrganizations,
+    displayKey: "Name",
+    valueKey: "OrganizationID"
   },
   {
     label: "Instructor Type",
@@ -87,6 +110,18 @@ export const InstructorSearchMeta: IFilterField[] = [
     refLookupService: getInstructorTypes,
     displayKey: "Name",
     valueKey: "ID"
+  },
+  {
+    label: "Able To Teach",
+    inputType: BOOLEAN,
+    fieldName: "IsAbleToTeach",
+    ariaLabel: "Able To Teach"
+  },
+  {
+    label: "Is Active",
+    inputType: BOOLEAN,
+    fieldName: "IsActive",
+    ariaLabel: "Is Active"
   },
   {
     label: "Qualified to Teach Offering",
@@ -107,84 +142,10 @@ export const InstructorSearchMeta: IFilterField[] = [
     valueKey: "OfferingID"
   },
   {
-    label: "Gender",
-    inputType: DROPDOWN,
-    fieldName: "GenderTypeID",
-    ariaLabel: "Gender Select",
-    refLookupService: getGenderTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Region",
-    inputType: DROPDOWN,
-    fieldName: "RegionCodeID",
-    ariaLabel: "Region Select",
-    refLookupService: getRegionCodes,
-    displayKey: "Description",
-    valueKey: "ID"
-  },
-  {
-    label: "Ethnicity",
-    inputType: DROPDOWN,
-    fieldName: "EthnicityTypeID",
-    ariaLabel: "Ethnicity Select",
-    refLookupService: getEthnicityTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Department",
-    inputType: DROPDOWN,
-    fieldName: "OrganizationID",
-    ariaLabel: "Department Select",
-    refLookupService: getOrganizations,
-    displayKey: "Name",
-    valueKey: "OrganizationID"
-  },
-  {
-    label: "Country",
-    inputType: DROPDOWN,
-    fieldName: "CountryCodeID",
-    ariaLabel: "Country Select",
-    refLookupService: getCountries,
-    displayKey: "Description",
-    valueKey: "ID"
-  },
-  {
-    label: "Birthday",
-    inputType: DATE_PICKER,
-    fieldName: "Birthday",
-    ariaLabel: "Birthday"
-  },
-
-  {
     label: "Last Taught Date",
     inputType: DATE_PICKER,
     fieldName: "LastTaughtDate",
     ariaLabel: "Last Taught Date"
-  },
-  {
-    label: "Postal Code",
-    inputType: TEXT,
-    fieldName: "PostalCode",
-    ariaLabel: "Postal Code"
-  },
-  {
-    label: "Gov ID",
-    inputType: TEXT,
-    fieldName: "GovID",
-    ariaLabel: "Gov ID"
-  },
-  {
-    label: "Is Deceased",
-    inputType: DROPDOWN,
-    fieldName: "IsDeceased",
-    ariaLabel: "Is Deceased",
-    options: [
-      { label: "Yes", value: "true" },
-      { label: "No", value: "false" }
-    ]
   },
   {
     label: "Status",
@@ -194,5 +155,49 @@ export const InstructorSearchMeta: IFilterField[] = [
     refLookupService: getInstitutionStatusTypes,
     displayKey: "Description",
     valueKey: "ID"
+  },
+  {
+    label: "State/Province",
+    fieldName: "RegionCodeID",
+    customFilterComponent: SearchRegion
+  },
+  {
+    label: "SSN",
+    inputType: TEXT,
+    fieldName: "GovID",
+    ariaLabel: "Gov ID"
   }
+  // {
+  //   label: "Region",
+  //   inputType: DROPDOWN,
+  //   fieldName: "RegionCodeID",
+  //   ariaLabel: "Region Select",
+  //   refLookupService: getRegionCodes,
+  //   displayKey: "Description",
+  //   valueKey: "ID"
+  // },
+
+  // {
+  //   label: "Country",
+  //   inputType: DROPDOWN,
+  //   fieldName: "CountryCodeID",
+  //   ariaLabel: "Country Select",
+  //   refLookupService: getCountries,
+  //   displayKey: "Description",
+  //   valueKey: "ID"
+  // },
+
+  // {
+  //   label: "Postal Code",
+  //   inputType: TEXT,
+  //   fieldName: "PostalCode",
+  //   ariaLabel: "Postal Code"
+  // },
+
+  // {
+  //   label: "Instructor ID",
+  //   inputType: TEXT,
+  //   fieldName: "FacultySerialNum",
+  //   ariaLabel: "Instructor ID"
+  // },
 ]

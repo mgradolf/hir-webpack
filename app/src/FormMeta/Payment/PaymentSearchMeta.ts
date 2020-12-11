@@ -17,30 +17,9 @@ import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/Sea
 
 export const PaymentSearchMeta: IFilterField[] = [
   {
-    label: "Section",
-    fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
-  },
-  {
-    label: "Offering",
-    fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
-  },
-  {
     label: "Payer",
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton
-  },
-  {
-    label: "Student",
-    fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
-  },
-  {
-    label: "Total Amount",
-    fieldName: "TotalAmountFrom",
-    fieldName2: "TotalAmountTo",
-    customFilterComponent: TotalAmountRange
   },
   {
     label: "Creation Date",
@@ -56,11 +35,44 @@ export const PaymentSearchMeta: IFilterField[] = [
     ariaLabel2: "Creation Date To"
   },
   {
+    label: "Check",
+    inputType: TEXT,
+    fieldName: "checkNumber",
+    ariaLabel: "checkNumber"
+  },
+  {
     label: "Order ID",
     inputType: NUMBER,
-
     fieldName: "OrderID",
     ariaLabel: "OrderID"
+  },
+  {
+    label: "Reference",
+    inputType: TEXT,
+    fieldName: "TransactionNumber",
+    ariaLabel: "TransactionNumber"
+  },
+  {
+    label: "Section",
+    fieldName: "SectionID",
+    customFilterComponent: SearchSectionLookupButton
+  },
+  {
+    label: "Offering",
+    fieldName: "OfferingID",
+    customFilterComponent: SearchOfferingLookupButton
+  },
+
+  {
+    label: "Student",
+    fieldName: "StudentID",
+    customFilterComponent: SearchStudentLookupButton
+  },
+  {
+    label: "Total Amount",
+    fieldName: "TotalAmountFrom",
+    fieldName2: "TotalAmountTo",
+    customFilterComponent: TotalAmountRange
   },
   {
     label: "Payment ID",
@@ -118,20 +130,6 @@ export const PaymentSearchMeta: IFilterField[] = [
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
-  },
-  {
-    label: "Reference",
-    inputType: TEXT,
-
-    fieldName: "TransactionNumber",
-    ariaLabel: "TransactionNumber"
-  },
-  {
-    label: "Check",
-    inputType: TEXT,
-
-    fieldName: "checkNumber",
-    ariaLabel: "checkNumber"
   },
   {
     label: "Account Lookup",

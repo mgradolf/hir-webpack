@@ -7,17 +7,17 @@ import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta[] => {
   const summary: CardContainer = {
-    title: account.OfferingCode,
+    title: account.AccountName,
     contents: [
+      // { label: "Account Name", value: account.AccountName },
       { label: "Account Type", value: account.AccountTypeName },
       { label: "Primary Contact", value: account.ContactName },
-      { label: "Account Name", value: account.AccountName },
-      { label: "Payment Term", value: account.PaymentTerm },
-      { label: "Allow to Pay Later", value: account.AllowPayLateDescription },
+      { label: "Tax ID", value: account.TaxID },
       { label: "Public", value: account.IsPublic, render: renderBoolean },
+      { label: "Allow to Pay Later", value: account.AllowPayLateDescription },
       { label: "Approval Required", value: account.IsApprovalRequired, render: renderBoolean },
       { label: "Default Waitlist Priority", value: account.DefaultWaitlistPriority || 5 },
-      { label: "Tax ID", value: account.TaxID }
+      { label: "Payment Term", value: account.PaymentTerm }
     ]
   }
   const summaryMeta: IDetailsSummary = {

@@ -19,7 +19,7 @@ export const getMarketingCodeResponseDetailsMeta = (response: { [key: string]: a
       {
         label: "Order ID",
         value: response.OrderID,
-        render: (text) => <Link to={`/order/${text.OrderID}`}>{response.OrderID}</Link>
+        render: (text) => <Link to={`/order/${response.OrderID}`}>{response.OrderID}</Link>
       },
       { label: "Order Date", value: response.OrderDate, render: renderDate },
       {
@@ -27,12 +27,12 @@ export const getMarketingCodeResponseDetailsMeta = (response: { [key: string]: a
         value: response.PurchaserName,
         render: (text) => <Link to={`/person/${response.PurchaserID}`}>{response.PurchaserName}</Link>
       },
+      { label: "Item Description", value: response.ItemDescription },
       {
         label: "Account Name",
         value: response.AccountName,
         render: (text) => <Link to={`/account/${response.AccountID}`}>{response.AccountName}</Link>
       },
-      { label: "Item Description", value: response.ItemDescription },
       { label: "Net Payment Amount", value: response.Amount }
     ]
   }

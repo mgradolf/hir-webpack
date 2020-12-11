@@ -24,25 +24,29 @@ export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITa
           </Link>
         )
     },
-    { title: "Payer", dataIndex: "PersonName" },
+    {
+      title: "Payer",
+      dataIndex: "PersonName",
+      render: (text, record) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
+    },
+    { title: "Total Amount", dataIndex: "TotalPaymentAmount" },
+    { title: "Payment Type", dataIndex: "Type" },
+    { title: "Check/ Reference", dataIndex: "CheckNumber" },
     {
       title: "Creation Date",
       dataIndex: "CreateDate",
       render: renderDate
-    },
-    { title: "Payment Status", dataIndex: "PaymentStatusName" },
-    { title: "Check", dataIndex: "CheckNumber" },
-    { title: "Reference", dataIndex: "TransactionNumber" },
-    { title: "Total Amount", dataIndex: "TotalPaymentAmount" },
-    { title: "Payment Type", dataIndex: "Type" },
-    { title: "Account", dataIndex: "AccountName" },
-    { title: "Deposite ID", dataIndex: "DepositID" },
-    { title: "Source", dataIndex: "Source" },
-    { title: "Notes", dataIndex: "PaymentNotes" },
-    { title: "GL Accounts", dataIndex: "GLAccountNames" }
+    }
+    // { title: "Payment Status", dataIndex: "PaymentStatusName" },
+    // { title: "Reference", dataIndex: "TransactionNumber" },
+    // { title: "Account", dataIndex: "AccountName" },
+    // { title: "Deposite ID", dataIndex: "DepositID" },
+    // { title: "Source", dataIndex: "Source" },
+    // { title: "Notes", dataIndex: "PaymentNotes" },
+    // { title: "GL Accounts", dataIndex: "GLAccountNames" }
   ]
 
-  const responsiveColumnIndices = [3, 4, 5]
-  const expandableColumnIndices = [6, 7, 8, 9, 10, 11]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPayments }
 }

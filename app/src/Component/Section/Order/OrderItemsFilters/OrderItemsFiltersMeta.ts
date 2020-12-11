@@ -9,61 +9,6 @@ import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/Searc
 
 export const OrderItemsFiltersMeta: IFilterField[] = [
   {
-    label: "Section",
-    fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
-  },
-  {
-    label: "Order ID",
-    inputType: NUMBER,
-
-    fieldName: "OrderID",
-    ariaLabel: "OrderID"
-  },
-  {
-    label: "Order Status",
-    inputType: DROPDOWN,
-
-    fieldName: "OrderStatusID",
-    ariaLabel: "Order Status",
-    refLookupService: getOPCStatusCode,
-    displayKey: "Name",
-    valueKey: "StatusID"
-  },
-  {
-    label: "Department",
-    inputType: DROPDOWN,
-
-    fieldName: "OrganizationID",
-    ariaLabel: "Department Select",
-    refLookupService: getOrganizations,
-    displayKey: "Name",
-    valueKey: "OrganizationID"
-  },
-  {
-    label: "Source",
-    inputType: DROPDOWN,
-
-    fieldName: "SourceID",
-    ariaLabel: "Source",
-    refLookupService: getSourceModule,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Product Name",
-    inputType: TEXT,
-
-    fieldName: "ProductName",
-    ariaLabel: "ProductName"
-  },
-  {
-    label: "Account",
-    fieldName: "AccountName",
-    valueField: "AccountName",
-    customFilterComponent: SearchAccountLookup
-  },
-  {
     label: "Person Lookup",
     fieldName: "",
     customFilterComponent: SearchLookupSelector,
@@ -85,6 +30,13 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
     }
   },
   {
+    label: "Order ID",
+    inputType: NUMBER,
+
+    fieldName: "OrderID",
+    ariaLabel: "OrderID"
+  },
+  {
     label: "Date Type Select",
     fieldName: "",
     customFilterComponent: SearchDateTypeSelector,
@@ -102,5 +54,50 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
         }
       ]
     }
+  },
+  {
+    label: "Section",
+    fieldName: "SectionID",
+    customFilterComponent: SearchSectionLookupButton
+  },
+  {
+    label: "Account",
+    fieldName: "AccountName",
+    valueField: "AccountName",
+    customFilterComponent: SearchAccountLookup
+  },
+  {
+    label: "Department",
+    inputType: DROPDOWN,
+    fieldName: "OrganizationID",
+    ariaLabel: "Department Select",
+    refLookupService: getOrganizations,
+    displayKey: "Name",
+    valueKey: "OrganizationID"
+  },
+  {
+    label: "Product Name",
+    inputType: TEXT,
+    fieldName: "ProductName",
+    ariaLabel: "ProductName"
+  },
+  {
+    label: "Source",
+    inputType: DROPDOWN,
+    fieldName: "SourceID",
+    ariaLabel: "Source",
+    refLookupService: getSourceModule,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Order Status",
+    inputType: DROPDOWN,
+
+    fieldName: "OrderStatusID",
+    ariaLabel: "Order Status",
+    refLookupService: getOPCStatusCode,
+    displayKey: "Name",
+    valueKey: "StatusID"
   }
 ]

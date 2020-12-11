@@ -1,13 +1,13 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ProgramApplicationSeaarchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
-import { getProgramEnrollmentTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
+import { ProgramEnrollmentSearchMeta } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentSearchMeta"
+import { getProgramEnrollmentTableColumns } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentTableColumns"
 
 export default function ProgramEnrollment() {
   return (
     <SearchPage
       title="Manage Program Enrollments"
-      meta={ProgramApplicationSeaarchMeta}
+      meta={ProgramEnrollmentSearchMeta}
       hideSearchField={false}
       defaultFilter={{}}
       tableProps={getProgramEnrollmentTableColumns()}

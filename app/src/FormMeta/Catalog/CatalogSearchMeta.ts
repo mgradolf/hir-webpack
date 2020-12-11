@@ -1,5 +1,5 @@
 import { getCatalogTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
@@ -20,6 +20,17 @@ export const CatalogSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
+    label: "Start Date",
+    fieldName: "StartDateFrom",
+    fieldName2: "StartDateTo",
+    inputType: DATE_PICKERS
+  },
+  {
+    label: "Is Active",
+    fieldName: "IsActive",
+    inputType: BOOLEAN
+  },
+  {
     label: "Offering",
     fieldName: "OfferingID",
     customFilterComponent: SearchOfferingLookupButton
@@ -34,12 +45,6 @@ export const CatalogSearchMeta: IFilterField[] = [
     fieldName: "ProgramID",
     customFilterComponent: SearchProgramLookupButton,
     valueKey: "ProgramID"
-  },
-  {
-    label: "Start Date",
-    fieldName: "StartDateFrom",
-    fieldName2: "StartDateTo",
-    inputType: DATE_PICKERS
   },
   {
     label: "Account",

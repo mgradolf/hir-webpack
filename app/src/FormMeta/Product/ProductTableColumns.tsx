@@ -20,11 +20,11 @@ export const getProductTableColumns = (isModal = false): ITableConfigProp => {
     // { title: "Product Definition ", dataIndex: "ProductDefinitionName" },
     // { title: "Seller", dataIndex: "ProductSellerName" },
     // { title: "Fulfiller", dataIndex: "ProductFulfillerName" },
-    { title: "Active", dataIndex: "ProductIsActive", render: renderBoolean },
-    { title: "Optional Item", dataIndex: "OptionalItem", render: renderBoolean }
+    { title: "Active", dataIndex: "ProductIsActive", render: renderBoolean }
+    // { title: "Optional Item", dataIndex: "OptionalItem", render: renderBoolean }
   ]
 
-  const responsiveColumnIndices: number[] = [3, 4, 5]
+  const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchProducts }
 }

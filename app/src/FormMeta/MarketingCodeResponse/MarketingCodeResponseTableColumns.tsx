@@ -34,7 +34,8 @@ export const getMarketingCodeResponseTableColumns = (isModal = false): ITableCon
     },
     {
       title: "Order ID",
-      dataIndex: "OrderID"
+      dataIndex: "OrderID",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
     },
     {
       title: "Order Date",
