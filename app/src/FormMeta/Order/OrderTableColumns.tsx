@@ -21,6 +21,12 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       }
     },
     {
+      title: "Creation Date",
+      dataIndex: "CreateDate",
+      render: renderDate,
+      width: 100
+    },
+    {
       title: "Buyer Name",
       dataIndex: "BuyerName",
       width: 100,
@@ -29,35 +35,8 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       }
     },
     {
-      title: "Order Items",
-      dataIndex: "TotalItems",
-      width: 100
-    },
-    {
-      title: "Creation Date",
-      dataIndex: "CreateDate",
-      render: renderDate,
-      width: 100
-    },
-    {
-      title: "Order Status",
-      dataIndex: "OrderStatus",
-      width: 100
-    },
-    {
-      title: "Completed Date",
-      dataIndex: "CompletedDate",
-      render: renderDate,
-      width: 100
-    },
-    {
       title: "Total Order Amount",
       dataIndex: "TotalAmount",
-      width: 100
-    },
-    {
-      title: "Credit Amount",
-      dataIndex: "CreditAmount",
       width: 100
     },
     {
@@ -66,19 +45,8 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       width: 100
     },
     {
-      title: "Cash Credit",
-      dataIndex: "CreditAmount",
-      width: 100
-    },
-    {
       title: "Balance",
       dataIndex: "Balance",
-      width: 100
-    },
-    {
-      title: "Payment Due Date",
-      dataIndex: "PaymentDueDate",
-      render: renderDate,
       width: 100
     },
     {
@@ -87,13 +55,49 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       width: 100
     },
     {
-      title: "Source",
-      dataIndex: "Source",
+      title: "Order Items",
+      dataIndex: "TotalItems",
       width: 100
     }
+    // {
+    //   title: "Order Status",
+    //   dataIndex: "OrderStatus",
+    //   width: 100
+    // },
+    // {
+    //   title: "Completed Date",
+    //   dataIndex: "CompletedDate",
+    //   render: renderDate,
+    //   width: 100
+    // },
+
+    // {
+    //   title: "Credit Amount",
+    //   dataIndex: "CreditAmount",
+    //   width: 100
+    // },
+
+    // {
+    //   title: "Cash Credit",
+    //   dataIndex: "CreditAmount",
+    //   width: 100
+    // },
+
+    // {
+    //   title: "Payment Due Date",
+    //   dataIndex: "PaymentDueDate",
+    //   render: renderDate,
+    //   width: 100
+    // },
+
+    // {
+    //   title: "Source",
+    //   dataIndex: "Source",
+    //   width: 100
+    // }
   ]
 
-  const responsiveColumnIndices = [3, 4, 5]
-  const expandableColumnIndices = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchOrders }
 }

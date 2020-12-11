@@ -23,7 +23,7 @@ export const getMarketingCodeRepositoryDetailsMeta = (MarketingCode: { [key: str
   const responsesMeta: IDetailsTableTabProp = {
     tableProps: {
       ...getMarketingCodeResponseTableColumns(),
-      searchParams: { MarketingCode: MarketingCode.MarketingCode }
+      searchParams: { MarketingCodeID: MarketingCode.MarketingCodeID }
     }
   }
   return [
