@@ -2,17 +2,12 @@ import { Space } from "antd"
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
-import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    {
-      ...(!isModal && {
-        render: (text: any, record: any) => renderDetailsLink(`/offering/${record.OfferingID}`)
-      })
-    },
     {
       title: "Offering Code",
       dataIndex: "OfferingCode",

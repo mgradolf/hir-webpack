@@ -2,9 +2,9 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): CardContainer[] => {
   const info: CardContainer = {
-    title: `${registration.OfferingName} - ${registration.SectionNumber}`,
+    title: `Student ID - ${registration.StudentSerialNumber}`,
     contents: [
-      { label: "Student ID", value: registration.StudentSerialNumber },
+      // { label: "Student ID", value: registration.StudentSerialNumber },
       { label: "Student Name", value: registration.StudentName },
       { label: "Status", value: registration.TranscriptCreditType },
       { label: "Seat Group", value: registration.SeatGroup },
@@ -12,6 +12,5 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       { label: "Final Grade", value: registration.AlphaValue }
     ]
   }
-
   return [info]
 }

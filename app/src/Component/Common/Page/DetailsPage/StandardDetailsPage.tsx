@@ -42,7 +42,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
           ))}
         </Row>
       )}
-      <DetailsCardContainerBlock blocks={blocks} />
+      <DetailsCardContainerBlock blocks={blocks} cardActions={props.cardActions ? props.cardActions : []} />
     </div>
   )
 

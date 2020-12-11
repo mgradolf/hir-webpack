@@ -19,10 +19,14 @@ import {
   REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
   REFRESH_SECTION_PAGE
 } from "~/utils/EventBus"
+import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
+import RequisitePage from "~/Pages/Offering/Requisite/RequisitePage"
+import TagPage from "~/Pages/Offering/Tag/TagPage"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta[] => {
   const summary: CardContainer = {
     title: offering.OfferingCode,
+    cardActions: [<OfferingEditLink OfferingId={offering.OfferingID} />],
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },
       { label: "Offering Type", value: offering.OfferingTypeName, render: undefined },
@@ -42,8 +46,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     ]
   }
   const summaryMeta: IDetailsSummary = {
-    summary: [summary],
-    cardActions: [<OfferingEditLink OfferingId={offering.OfferingID} />]
+    summary: [summary]
   }
 
   const SectionFormModalOpenButton = (props: { OfferingID: number }) => {
@@ -86,6 +89,16 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     }
   }
 
+  const requisiteMeta: IDetailsCustomTabProp = {
+    component: RequisitePage,
+    props: { offeringID: offering.OfferingID }
+  }
+
+  const tagMeta: IDetailsCustomTabProp = {
+    component: TagPage,
+    props: { offeringID: offering.OfferingID }
+  }
+
   const qualifiedInstructorMeta: IDetailsTableTabProp = {
     blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
     tableProps: {
@@ -126,9 +139,19 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       meta: financialMeta
     },
     {
+      title: "Requisite",
+      type: "custom",
+      meta: requisiteMeta
+    },
+    {
       title: "Qualified Instructors",
       type: "table",
       meta: qualifiedInstructorMeta
+    },
+    {
+      title: "Tag",
+      type: "custom",
+      meta: tagMeta
     },
     {
       title: "Catalogs",

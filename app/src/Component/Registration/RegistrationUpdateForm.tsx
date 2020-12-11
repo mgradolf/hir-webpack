@@ -93,7 +93,6 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
     <Row>
       <Col xs={24} sm={24} md={16}>
         <Card
-          title={"Update Details"}
           actions={[
             <Button type="primary" onClick={onFormSubmission}>
               Update

@@ -3,7 +3,7 @@ import { RegistrationSearchMeta } from "~/FormMeta/Registration/RegistrationSear
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 
-export default function SectionCatalog() {
+export default function RegistrationPage() {
   return (
     <SearchPage
       title="Registrations"

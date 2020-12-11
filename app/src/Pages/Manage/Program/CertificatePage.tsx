@@ -22,7 +22,7 @@ export function ProgramCertificatePage() {
       meta={ProgramCertificateSearchMeta}
       hideSearchField={false}
       tableProps={{
-        ...getCertificateTableColumns(),
+        ...getCertificateTableColumns(false),
         bordered: true
       }}
     ></SearchPage>
