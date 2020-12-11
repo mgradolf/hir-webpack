@@ -1,7 +1,7 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getPersonDetails } from "~/ApiServices/Service/PersonService"
-import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
+import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getPersonDetailsMeta } from "~/FormMeta/Person/PersonDetailsMeta"
 
 export default function PersonDetailsPage(
@@ -16,5 +16,5 @@ export default function PersonDetailsPage(
   else if (FacultyID) Param = { FacultyID: FacultyID }
   else Param = { PersonID: PersonID }
 
-  return <StandardDetailsPage getDetailsMeta={getPersonDetailsMeta} getDetailsFunc={() => getPersonDetails(Param)} />
+  return <DetailsPage getMeta={getPersonDetailsMeta} getDetails={() => getPersonDetails(Param)} />
 }

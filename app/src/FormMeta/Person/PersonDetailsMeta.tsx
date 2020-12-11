@@ -1,8 +1,10 @@
 import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 
-export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): CardContainer[] => {
+export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDetailsMeta[] => {
   const person: { [key: string]: any } = personInfos[0]
   const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
   const student: { [key: string]: any } | undefined = personInfos[1].Student
@@ -92,15 +94,6 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): Car
       : []
   }
 
-  const login: CardContainer = {
-    title: "Web Login",
-    contents: [
-      { label: "User Login", value: person?.Login?.UserLogin },
-      { label: "Secret Question", value: person?.Login?.SecretQuestion },
-      { label: "Secret Answer", value: person?.Login?.SecretAnswer }
-    ]
-  }
-
   const studentInfo: CardContainer | undefined = student
     ? {
         title: "Student Info",
@@ -121,19 +114,43 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): Car
     ? {
         title: "Instructor Info",
         contents: [
+          { label: "Serial Num", value: instructor?.FacultySerialNum },
           { label: "Organization", value: instructor?.OrganizationName },
           { label: "Status", value: instructor?.InstitutionStatusCodeName },
           { label: "Type", value: instructor?.InstructorTypeName },
-          { label: "Active", value: instructor?.IsActive, render: renderBoolean },
-          { label: "Serial Num", value: instructor?.FacultySerialNum }
+          { label: "Active", value: instructor?.IsActive, render: renderBoolean }
         ]
       }
     : undefined
 
-  const meta: any[] = []
-  meta.push(personalInfo)
-  meta.push({ groupedContents: [address, email, phone, login] })
-  instructorInfo && meta.push(instructorInfo)
-  studentInfo && meta.push(studentInfo)
-  return meta
+  const summaryMeta: IDetailsSummary = {
+    summary: [personalInfo, { groupedContents: [address, email, phone] }]
+  }
+  instructorInfo && summaryMeta.summary.push(instructorInfo)
+  studentInfo && summaryMeta.summary.push(studentInfo)
+
+  const login: CardContainer = {
+    title: "Web Login",
+    contents: [
+      { label: "User Login", value: person?.Login?.UserLogin },
+      { label: "Secret Question", value: person?.Login?.SecretQuestion },
+      { label: "Secret Answer", value: person?.Login?.SecretAnswer }
+    ]
+  }
+
+  const webLoginMeta: IDetailsSummary = {
+    summary: [login]
+  }
+  return [
+    {
+      title: "Summary",
+      type: "summary",
+      meta: summaryMeta
+    },
+    {
+      title: "Web Login",
+      type: "summary",
+      meta: webLoginMeta
+    }
+  ]
 }

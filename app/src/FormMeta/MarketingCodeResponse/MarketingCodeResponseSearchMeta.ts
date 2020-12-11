@@ -16,6 +16,14 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
     customFilterComponent: SearchMarketingCodeLookup
   },
   {
+    label: "Category",
+    inputType: DROPDOWN,
+    refLookupService: () => getMarketingCategory({}),
+    fieldName: "CategoryID",
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
     label: "Lookup",
     fieldName: "",
     fullWidth: true,
@@ -23,16 +31,16 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
     extraProps: {
       selectorKeys: [
         {
-          label: "Offering",
-          fieldName: "OfferingID",
-          valueField: "OfferingID",
-          component: SearchOfferingLookupButton
-        },
-        {
           label: "Section",
           fieldName: "SectionId",
           valueField: "SectionID",
           component: SearchSectionLookupButton
+        },
+        {
+          label: "Offering",
+          fieldName: "OfferingID",
+          valueField: "OfferingID",
+          component: SearchOfferingLookupButton
         },
         {
           label: "Program",
@@ -53,19 +61,10 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
     valueKey2: "EndDate",
     fieldName2: "EndDate"
   },
-
   {
     label: "Purchaser",
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton
-  },
-  {
-    label: "Category",
-    inputType: DROPDOWN,
-    refLookupService: () => getMarketingCategory({}),
-    fieldName: "CategoryID",
-    displayKey: "Name",
-    valueKey: "ID"
   },
   {
     label: "Account",

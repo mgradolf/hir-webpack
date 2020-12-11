@@ -33,6 +33,7 @@ export function SearchRegion(props: IFilterGenericComponentProps<IFilterFieldCom
     <Col style={{ paddingLeft: 0 }}>
       <SearchComponentWrapper {...props} fieldName="CountryCodeID" label="Country">
         <Select
+          allowClear={true}
           loading={loading}
           aria-label="Country Code"
           style={props.isCheckeble ? { width: 150 } : {}}
@@ -47,7 +48,12 @@ export function SearchRegion(props: IFilterGenericComponentProps<IFilterFieldCom
         </Select>
       </SearchComponentWrapper>
       <SearchComponentWrapper {...props}>
-        <Select loading={loading} aria-label="Region Code" style={props.isCheckeble ? { width: 150 } : {}}>
+        <Select
+          allowClear={true}
+          loading={loading}
+          aria-label="Region Code"
+          style={props.isCheckeble ? { width: 150 } : {}}
+        >
           {regiondCodes &&
             regiondCodes.map(({ CountryCodeID, Description }, i) => (
               <Select.Option value={CountryCodeID} key={`${CountryCodeID}_${i}`}>

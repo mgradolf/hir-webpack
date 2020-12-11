@@ -1,7 +1,9 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 
-export const getProgramDetailsMeta = (program: { [key: string]: any }): CardContainer[] => {
+export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta[] => {
   const info: CardContainer = {
     title: `Program Code - ${program.ProgramCode}`,
     contents: [
@@ -34,7 +36,15 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): CardCont
     ]
   }
 
-  const meta: any[] = [info, application, enrollment]
+  const summaryMeta: IDetailsSummary = {
+    summary: [info, application, enrollment]
+  }
 
-  return meta
+  return [
+    {
+      title: "Summary",
+      type: "summary",
+      meta: summaryMeta
+    }
+  ]
 }

@@ -98,7 +98,7 @@ import MarketingCodeResponseDetailsPage from "~/Pages/Manage/MarketingCodes/Resp
 import React from "react"
 
 export const AppRoutes: RouteProps[] = [
-  { path: "/", component: React.lazy(() => import("./Pages/HomePage")) },
+  { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
   { path: "/about", component: AboutPage },
   { path: "/admin", component: AdminPage },
 
@@ -200,7 +200,7 @@ export const AppRoutes: RouteProps[] = [
 
   { path: "/program/certificate", component: ProgramCertificatePage },
   { path: "/program/program", component: ProgramProgramPage },
-  { path: "/program/program/:programID", component: ProgramDetailsPage },
+  { path: "/program/:programID", component: ProgramDetailsPage },
   { path: "/program/offering", component: ProgramOfferingPage },
   { path: "/program/offering/:programOfferingID", component: ProgramOfferingDetailsPage },
 

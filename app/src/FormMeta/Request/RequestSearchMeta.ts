@@ -6,24 +6,8 @@ import RequestSearchCustomLookupFilter from "~/FormMeta/Request/RequestSearchCus
 
 export const RequestSearchMeta: IFilterField[] = [
   {
-    label: "Section",
-    fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
-  },
-  {
-    label: "Request Type",
-    inputType: DROPDOWN,
-
-    fieldName: "RequestTypeID",
-    ariaLabel: "Request Type",
-    refLookupService: getRequestType,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
     label: "Request Status",
     inputType: DROPDOWN,
-
     fieldName: "StateID",
     ariaLabel: "Request Status",
     refLookupService: getEnumValues,
@@ -31,34 +15,19 @@ export const RequestSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    label: "Source",
-    inputType: DROPDOWN,
-
-    fieldName: "sourceID",
-    ariaLabel: "Source",
-    refLookupService: getSourceModule,
-    displayKey: "Name",
-    valueKey: "ID"
+    label: "Account & Person",
+    fieldName: "",
+    customFilterComponent: RequestSearchCustomLookupFilter
   },
   {
-    label: "Staff",
-    inputType: TEXT,
-
-    fieldName: "RequesterStaffUserName",
-    ariaLabel: "Staff"
-  },
-  {
-    label: "Reservation Token",
-    inputType: TEXT,
-
-    fieldName: "ReservationToken",
-    ariaLabel: "ReservationToken"
+    label: "Section",
+    fieldName: "SectionID",
+    customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "CreatedFromDate",
     valueKey: "CreatedFromDate",
     ariaLabel: "Creation Date From",
@@ -68,8 +37,33 @@ export const RequestSearchMeta: IFilterField[] = [
     ariaLabel2: "Creation Date To"
   },
   {
-    label: "Account & Person",
-    fieldName: "",
-    customFilterComponent: RequestSearchCustomLookupFilter
+    label: "Request Type",
+    inputType: DROPDOWN,
+    fieldName: "RequestTypeID",
+    ariaLabel: "Request Type",
+    refLookupService: getRequestType,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Reservation Token",
+    inputType: TEXT,
+    fieldName: "ReservationToken",
+    ariaLabel: "ReservationToken"
+  },
+  {
+    label: "Source",
+    inputType: DROPDOWN,
+    fieldName: "sourceID",
+    ariaLabel: "Source",
+    refLookupService: getSourceModule,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Staff",
+    inputType: TEXT,
+    fieldName: "RequesterStaffUserName",
+    ariaLabel: "Staff"
   }
 ]

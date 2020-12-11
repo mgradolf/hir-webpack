@@ -43,6 +43,24 @@ export const studentSearchMeta: IFilterFieldObject[] = [
     ariaLabel: "Other Name"
   },
   {
+    label: "Account Role",
+    inputType: DROPDOWN,
+
+    fieldName: "RoleName",
+    ariaLabel: "Account Role",
+    refLookupService: getAccountTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Account Name",
+    inputType: TEXT,
+
+    fieldName: "AccountName",
+    ariaLabel: "Account Name"
+  },
+
+  {
     label: "Address",
     inputType: TEXT,
 
@@ -64,23 +82,6 @@ export const studentSearchMeta: IFilterFieldObject[] = [
     ariaLabel: "Postal Code"
   },
 
-  {
-    label: "Account Name",
-    inputType: TEXT,
-
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
-  },
-  {
-    label: "Account Role",
-    inputType: DROPDOWN,
-
-    fieldName: "RoleName",
-    ariaLabel: "Account Role",
-    refLookupService: getAccountTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
   {
     label: "Country",
     inputType: DROPDOWN,

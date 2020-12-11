@@ -1,13 +1,14 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ProgramApplicationSeaarchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
-import { getProgramApplicationTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
+
+import { ProgramApplicationSearchMeta } from "~/FormMeta/ProgramApplication/ProgramApplicationSearchMeta"
+import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication/ProgramApplicationTableColumns"
 
 export default function ProgramApplication() {
   return (
     <SearchPage
       title="Manage Program Applications"
-      meta={ProgramApplicationSeaarchMeta}
+      meta={ProgramApplicationSearchMeta}
       hideSearchField={false}
       defaultFilter={{}}
       tableProps={getProgramApplicationTableColumns()}
