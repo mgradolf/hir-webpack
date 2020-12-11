@@ -9,7 +9,7 @@ import {
 import "~/Sass/utils.scss"
 import { updateOfferingFinancial, createOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 
@@ -75,7 +75,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      eventBus.publish(REFRESH_PAGE)
+      eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
       props.handleCancel()
     } else {
       setErrorMessages(response.error)

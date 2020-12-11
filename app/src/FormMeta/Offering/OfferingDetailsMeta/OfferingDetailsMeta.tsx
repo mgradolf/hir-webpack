@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { IDetailsSearchTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
+import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
@@ -13,6 +13,12 @@ import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/Qualifie
 import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 import { getOfferingCatalogTableColumns } from "~/FormMeta/Offering/OfferingCatalogTableColumns"
+import {
+  REFRESH_OFFERING_CATALOG_PAGE,
+  REFRESH_OFFERING_FINANCIAL_PAGE,
+  REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
+  REFRESH_SECTION_PAGE
+} from "~/utils/EventBus"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta[] => {
   const summary: CardContainer = {
@@ -70,26 +76,42 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     )
   }
 
-  const sectionMeta: IDetailsSearchTabProp = {
-    blocks: [<SectionFormModalOpenButton OfferingID={offering.OfferingID} />],
-    tableProps: { ...getSectionTableColumns(false, offering.OfferingID), pagination: false }
-  }
-
-  const financialMeta: IDetailsSearchTabProp = {
+  const financialMeta: IDetailsTableTabProp = {
     blocks: [<FinancialFormModalOpenButton OfferingID={offering.OfferingID} />],
-    defaultFilter: { OfferingID: offering.OfferingID },
-    tableProps: getFinancialTableColumns(offering.OfferingID)
+    tableProps: {
+      pagination: false,
+      ...getFinancialTableColumns(offering.OfferingID),
+      searchParams: { OfferingID: offering.OfferingID },
+      refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE
+    }
   }
 
-  const qualifiedInstructorMeta: IDetailsSearchTabProp = {
+  const qualifiedInstructorMeta: IDetailsTableTabProp = {
     blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
-    defaultFilter: { OfferingID: offering.OfferingID },
-    tableProps: getQualifiedInstructorTableColumns(offering.OfferingID)
+    tableProps: {
+      pagination: false,
+      ...getQualifiedInstructorTableColumns(offering.OfferingID),
+      searchParams: { OfferingID: offering.OfferingID },
+      refreshEventName: REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE
+    }
   }
 
-  const catalogMeta: IDetailsSearchTabProp = {
-    defaultFilter: { OfferingID: offering.OfferingID },
-    tableProps: getOfferingCatalogTableColumns(offering.OfferingID)
+  const catalogMeta: IDetailsTableTabProp = {
+    tableProps: {
+      pagination: false,
+      ...getOfferingCatalogTableColumns(offering.OfferingID),
+      searchParams: { OfferingID: offering.OfferingID },
+      refreshEventName: REFRESH_OFFERING_CATALOG_PAGE
+    }
+  }
+
+  const sectionMeta: IDetailsTableTabProp = {
+    blocks: [<SectionFormModalOpenButton OfferingID={offering.OfferingID} />],
+    tableProps: {
+      ...getSectionTableColumns(false, offering.OfferingID),
+      searchParams: { OfferingID: offering.OfferingID },
+      refreshEventName: REFRESH_SECTION_PAGE
+    }
   }
 
   return [
@@ -100,22 +122,22 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     },
     {
       title: "Financials",
-      type: "searchtable",
+      type: "table",
       meta: financialMeta
     },
     {
       title: "Qualified Instructors",
-      type: "searchtable",
+      type: "table",
       meta: qualifiedInstructorMeta
     },
     {
       title: "Catalogs",
-      type: "searchtable",
+      type: "table",
       meta: catalogMeta
     },
     {
       title: "Sections",
-      type: "searchtable",
+      type: "table",
       meta: sectionMeta
     }
   ]

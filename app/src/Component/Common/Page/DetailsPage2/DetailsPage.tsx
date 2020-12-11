@@ -80,7 +80,7 @@ export function DetailsPage(props: IDetailsPage) {
                   )
                 case "table":
                   return (
-                    <Tabs.TabPane tab={x.title} key="3">
+                    <Tabs.TabPane tab={x.title} key={i + 1}>
                       <DetailsTableTab {...x.meta} />
                     </Tabs.TabPane>
                   )
