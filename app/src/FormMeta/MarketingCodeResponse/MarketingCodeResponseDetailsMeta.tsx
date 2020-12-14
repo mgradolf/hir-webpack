@@ -25,7 +25,7 @@ export const getMarketingCodeResponseDetailsMeta = (response: { [key: string]: a
       {
         label: "Purchaser Name",
         value: response.PurchaserName,
-        render: (text) => <Link to={`/person/${response.PurchaserID}`}>{response.PurchaserName}</Link>
+        render: (text) => <Link to={`/person/${response.PersonID}`}>{response.PurchaserName}</Link>
       },
       { label: "Item Description", value: response.ItemDescription },
       {

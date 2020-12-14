@@ -26,7 +26,7 @@ export const getMarketingCodeResponseTableColumns = (isModal = false): ITableCon
     {
       title: "Purchaser Name",
       dataIndex: "PurchaserName",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/person/${record.PurchaserID}`}>{text}</Link>)
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
     },
     {
       title: "Category",

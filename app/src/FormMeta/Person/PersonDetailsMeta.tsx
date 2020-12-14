@@ -9,7 +9,6 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
   const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
   const student: { [key: string]: any } | undefined = personInfos[1].Student
   const disabilities: { [key: string]: any } | undefined = personInfos[1].PersonDisabilites
-  console.log("student ", student, personInfos)
 
   const personalInfo: CardContainer = {
     title: person.FormattedName,
@@ -22,7 +21,6 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
       { label: "Maiden Name", value: person.MaidenName, render: undefined },
       { label: "Other Name", value: person.OtherName, render: undefined },
       { label: "Title", value: person.Title, render: undefined },
-
       { label: "SSN", value: person.GovID, render: undefined },
       { label: "ERP ID", value: person.ERPID, render: undefined },
       { label: "Date of Birth", value: person.Birthday, render: renderDate },
@@ -98,6 +96,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
     ? {
         title: "Student Info",
         contents: [
+          { label: "Serial Num", value: student?.StudentSerialNumber },
           { label: "Organization", value: student?.Organization },
           { label: "Start Date", value: student?.StartDate, render: renderDate },
           { label: "End Date", value: student?.EndDate, render: renderDate },

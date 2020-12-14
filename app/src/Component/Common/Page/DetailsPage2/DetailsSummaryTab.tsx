@@ -59,7 +59,7 @@ export const DetailsSummary = (props: IDetailsSummary) => {
                 <DetailsCardContainer card={x} cardActions={props.cardActions ? props.cardActions : []} />
               ) : Array.isArray(x.groupedContents) ? (
                 x.groupedContents.map((y: CardContainer, j: number) => (
-                  <DetailsCardContainer card={y} cardActions={props.cardActions ? props.cardActions : []} />
+                  <DetailsCardContainer key={j} card={y} cardActions={props.cardActions ? props.cardActions : []} />
                 ))
               ) : null}
             </Col>
