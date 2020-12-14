@@ -10,7 +10,7 @@ import { ReadOutlined } from "@ant-design/icons"
 
 export const getWaitlistEntriesTableColumns = (
   isModal = false,
-  setShowCreateModal: (record: any) => void
+  setShowCreateModal?: (record: any) => void
 ): ITableConfigProp => {
   const columns: TableColumnType = [
     {
@@ -33,9 +33,14 @@ export const getWaitlistEntriesTableColumns = (
     {
       title: "AccountName",
       dataIndex: "AccountName",
-      width: 100,
       render: (text: any, record: any) =>
-        isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{record.AccountName}</Link>
+        isModal ? (
+          { text }
+        ) : (
+          <Link to={`/account/${record.AccountID}`}>
+            <div style={{ width: "100px" }}>{record.AccountName}</div>
+          </Link>
+        )
     },
     {
       title: "PurchaserName",
@@ -54,40 +59,41 @@ export const getWaitlistEntriesTableColumns = (
     { title: "Current Status", dataIndex: "currentStatus", render: renderDate },
     { title: "Source", dataIndex: "Source" },
     {
-      ...(!isModal && {
-        title: "Action",
-        render: (text: any, record: any) => {
-          return (
-            <>
-              <Button
-                style={{ marginRight: "10px" }}
-                type="primary"
-                onClick={() => {
-                  setShowCreateModal(record)
-                }}
-                disabled={!!record.RequestState}
-              >
-                Edit
-              </Button>
-              <Button
-                danger
-                onClick={() => {
-                  deleteWaitListEntry({ WaitListEntryID: record.WaitListEntryID }).then((x) => {
-                    if (x.success) eventBus.publish(REFRESH_PAGE)
-                  })
-                }}
-                disabled={!!record.RequestState}
-              >
-                Remove
-              </Button>
-            </>
-          )
-        }
-      })
+      ...(!isModal &&
+        setShowCreateModal && {
+          title: "Action",
+          render: (text: any, record: any) => {
+            return (
+              <>
+                <Button
+                  style={{ marginRight: "10px" }}
+                  type="primary"
+                  onClick={() => {
+                    setShowCreateModal(record)
+                  }}
+                  disabled={!!record.RequestState}
+                >
+                  Edit
+                </Button>
+                <Button
+                  danger
+                  onClick={() => {
+                    deleteWaitListEntry({ WaitListEntryID: record.WaitListEntryID }).then((x) => {
+                      if (x.success) eventBus.publish(REFRESH_PAGE)
+                    })
+                  }}
+                  disabled={!!record.RequestState}
+                >
+                  Remove
+                </Button>
+              </>
+            )
+          }
+        })
     }
   ]
-  const responsiveColumnIndices = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-  const expandableColumnIndices = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
 
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findWaitListEntries }
 }

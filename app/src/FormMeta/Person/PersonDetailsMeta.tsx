@@ -2,7 +2,14 @@ import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
+import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
+import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication/ProgramApplicationTableColumns"
+import { getProgramEnrollmentTableColumns } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentTableColumns"
+import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
+import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
+import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 
 export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDetailsMeta[] => {
   const person: { [key: string]: any } = personInfos[0]
@@ -140,16 +147,63 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
   const webLoginMeta: IDetailsSummary = {
     summary: [login]
   }
-  return [
-    {
-      title: "Summary",
-      type: "summary",
-      meta: summaryMeta
-    },
-    {
-      title: "Web Login",
-      type: "summary",
-      meta: webLoginMeta
+
+  const waitlistEntryMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getWaitlistEntriesTableColumns(false),
+      searchParams: { PersonID: person.PersonID },
+      refreshEventName: "REFRESH_PERSON_TAB"
     }
+  }
+
+  const requestMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getRequestTableColumns(false),
+      searchParams: { PersonID: person.PersonID },
+      refreshEventName: "REFRESH_REQUEST_TAB"
+    }
+  }
+
+  const registrationMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getRegistrationTableColumns(false),
+      searchParams: { PersonID: person.PersonID },
+      refreshEventName: "REFRESH_REGISTRATION_TAB"
+    }
+  }
+
+  const certificateMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getCertificateTableColumns(false),
+      searchParams: { PersonID: person.PersonID },
+      refreshEventName: "REFRESH_CERTIFICATE_TAB"
+    }
+  }
+
+  const programApplicationMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getProgramApplicationTableColumns(false),
+      searchParams: { PersonID: person.PersonID },
+      refreshEventName: "REFRESH_APPLICATION_TAB"
+    }
+  }
+
+  const programEnrollmentMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getProgramEnrollmentTableColumns(false),
+      searchParams: { PersonID: person.PersonID },
+      refreshEventName: "REFRESH_ENROLLMMENT_TAB"
+    }
+  }
+
+  return [
+    { title: "Summary", type: "summary", meta: summaryMeta },
+    { title: "Web Login", type: "summary", meta: webLoginMeta },
+    { title: "Waitlist", type: "table", meta: waitlistEntryMeta },
+    { title: "Requests", type: "table", meta: requestMeta },
+    { title: "Registrations", type: "table", meta: registrationMeta },
+    { title: "Certificates", type: "table", meta: certificateMeta },
+    { title: "Program Applications", type: "table", meta: programApplicationMeta },
+    { title: "Program Enrollments", type: "table", meta: programEnrollmentMeta }
   ]
 }
