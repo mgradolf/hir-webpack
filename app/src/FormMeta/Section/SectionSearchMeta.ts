@@ -48,52 +48,6 @@ export const SectionSearchMeta: IFilterField[] = [
     ariaLabel: "Offering Name"
   },
   {
-    label: "Instructor first name",
-    inputType: TEXT,
-    fieldName: "SectionFacultyFirstName",
-    ariaLabel: "Instructor first name"
-  },
-  {
-    label: "Instructor last name",
-    inputType: TEXT,
-    fieldName: "SectionFacultyLastName",
-    ariaLabel: "Instructor last name"
-  },
-  {
-    label: "Creation Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "FromCreationDate",
-    valueKey: "FromCreationDate",
-    ariaLabel: "Creation Date From",
-    displayKey2: "To",
-    valueKey2: "ToCreationDate",
-    fieldName2: "ToCreationDate",
-    ariaLabel2: "Creation Date To"
-  },
-  {
-    label: "Termination Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "FromTerminationDate",
-    valueKey: "FromTerminationDate",
-    ariaLabel: "Termination Date From",
-    displayKey2: "To",
-    fieldName2: "ToTerminationDate",
-    valueKey2: "ToTerminationDate",
-    ariaLabel2: "Termination Date To"
-  },
-  {
-    label: "Is QuickAdmit",
-    inputType: DROPDOWN,
-    fieldName: "IsQuickAdmit",
-    ariaLabel: "Is Quick Admit",
-    options: [
-      { label: "Yes", value: "true" },
-      { label: "No", value: "false" }
-    ]
-  },
-  {
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "OrganizationID",
@@ -101,6 +55,37 @@ export const SectionSearchMeta: IFilterField[] = [
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
+  },
+  {
+    label: "Instructor Last Name",
+    inputType: TEXT,
+    fieldName: "SectionFacultyLastName",
+    ariaLabel: "Instructor last name"
+  },
+  {
+    label: "Instructor First Name",
+    inputType: TEXT,
+    fieldName: "SectionFacultyFirstName",
+    ariaLabel: "Instructor first name"
+  },
+  {
+    label: "Meeting Type",
+    inputType: DROPDOWN,
+    fieldName: "MeetingType",
+    ariaLabel: "Meeting Type",
+    refLookupService: findMeetingTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Room",
+    fieldName: "RoomID",
+    customFilterComponent: SearchRoomLookup
+  },
+  {
+    label: "Room",
+    fieldName: "RoomID",
+    customFilterComponent: SiteBuildingRoomFilter
   },
   {
     label: "Meets On",
@@ -118,13 +103,9 @@ export const SectionSearchMeta: IFilterField[] = [
     ]
   },
   {
-    label: "Meeting Type",
-    inputType: DROPDOWN,
-    fieldName: "MeetingType",
-    ariaLabel: "Meeting Type",
-    refLookupService: findMeetingTypes,
-    displayKey: "Name",
-    valueKey: "ID"
+    label: "Search Tag Hierarchy",
+    fieldName: "searchTagHeirarchy",
+    customFilterComponent: TagFilter
   },
   {
     label: "Coordinator",
@@ -134,20 +115,39 @@ export const SectionSearchMeta: IFilterField[] = [
     refLookupService: () => getUsersByRole({ Role: "coordinator" }),
     displayKey: "FormattedName",
     valueKey: "UserLogin"
-  },
-  {
-    label: "Search Tag Hierarchy",
-    fieldName: "searchTagHeirarchy",
-    customFilterComponent: TagFilter
-  },
-  {
-    label: "Room",
-    fieldName: "RoomID",
-    customFilterComponent: SiteBuildingRoomFilter
-  },
-  {
-    label: "Room",
-    fieldName: "RoomID",
-    customFilterComponent: SearchRoomLookup
   }
+  // {
+  //   label: "Creation Date",
+  //   inputType: DATE_PICKERS,
+  //   displayKey: "From",
+  //   fieldName: "FromCreationDate",
+  //   valueKey: "FromCreationDate",
+  //   ariaLabel: "Creation Date From",
+  //   displayKey2: "To",
+  //   valueKey2: "ToCreationDate",
+  //   fieldName2: "ToCreationDate",
+  //   ariaLabel2: "Creation Date To"
+  // },
+  // {
+  //   label: "Termination Date",
+  //   inputType: DATE_PICKERS,
+  //   displayKey: "From",
+  //   fieldName: "FromTerminationDate",
+  //   valueKey: "FromTerminationDate",
+  //   ariaLabel: "Termination Date From",
+  //   displayKey2: "To",
+  //   fieldName2: "ToTerminationDate",
+  //   valueKey2: "ToTerminationDate",
+  //   ariaLabel2: "Termination Date To"
+  // },
+  // {
+  //   label: "Is QuickAdmit",
+  //   inputType: DROPDOWN,
+  //   fieldName: "IsQuickAdmit",
+  //   ariaLabel: "Is Quick Admit",
+  //   options: [
+  //     { label: "Yes", value: "true" },
+  //     { label: "No", value: "false" }
+  //   ]
+  // }
 ]

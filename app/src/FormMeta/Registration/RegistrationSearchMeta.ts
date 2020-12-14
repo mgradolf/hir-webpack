@@ -1,4 +1,6 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { SearchPackageLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPackageLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
@@ -33,9 +35,20 @@ export const RegistrationSearchMeta: IFilterField[] = [
     ariaLabel2: "Start Date To"
   },
   {
+    label: "Order ID",
+    inputType: NUMBER,
+    fieldName: "OrderID",
+    ariaLabel: "Order ID"
+  },
+  {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: SearchAccountLookup
+  },
+  {
+    label: "Package",
+    fieldName: "PackageID",
+    customFilterComponent: SearchPackageLookupButton
   },
   {
     label: "Create Date",

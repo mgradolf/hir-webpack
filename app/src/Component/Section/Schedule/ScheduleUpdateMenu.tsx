@@ -9,6 +9,7 @@ import UpdateNoteModal from "~/Component/Section/Schedule/UpdateNoteModal"
 interface IScheduleUpdateMenuProp {
   sectionId: number
   scheduleIds: Array<any>
+  style?: React.CSSProperties
 }
 
 export default function ScheduleUpdateMenu(props: IScheduleUpdateMenuProp) {
@@ -35,6 +36,10 @@ export default function ScheduleUpdateMenu(props: IScheduleUpdateMenuProp) {
     <Dropdown.Button
       disabled={props.scheduleIds.length > 0 ? false : true}
       overlay={getMenu(props.sectionId, props.scheduleIds)}
-    />
+      type="primary"
+      style={props.style}
+    >
+      Updates
+    </Dropdown.Button>
   )
 }
