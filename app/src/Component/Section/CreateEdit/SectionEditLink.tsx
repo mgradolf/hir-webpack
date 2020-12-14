@@ -7,7 +7,7 @@ interface ISectionEditLinkProp {
   PrimaryType: boolean | false
   style?: { [key: string]: string }
 }
-export function SectionEditLink(props: ISectionEditLinkProp) {
+export default function SectionEditLink(props: ISectionEditLinkProp) {
   const [openModal, setOpenModal] = useState(false)
   return (
     <>

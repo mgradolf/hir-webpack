@@ -11,6 +11,7 @@ export type CardContents = {
 export type CardContainer = {
   title?: string
   contents?: CardContents[]
+  cardActions?: JSX.Element[]
   groupedContents?: CardContainer[]
 }
 // ================================================
@@ -18,6 +19,7 @@ export interface IStandardDetailsPage {
   getDetailsMeta: (Params: any) => CardContainer[]
   getDetailsFunc?: () => Promise<IApiResponse>
   dataLoaded?: { [key: string]: any }
+  cardActions?: JSX.Element[]
   actions?: JSX.Element[]
 }
 // ================================================

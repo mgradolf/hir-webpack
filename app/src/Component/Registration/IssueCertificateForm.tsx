@@ -47,7 +47,7 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
           )}
         </Col>
       </Row>
-      <ResponsiveTable {...getCertificateTableColumns()} loading={loading} dataSource={certificateItems} />
+      <ResponsiveTable {...getCertificateTableColumns(true)} loading={loading} dataSource={certificateItems} />
     </>
   )
 }

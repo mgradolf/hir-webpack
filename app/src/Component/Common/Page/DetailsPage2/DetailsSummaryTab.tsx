@@ -11,12 +11,13 @@ export type CardContents = {
 export type CardContainer = {
   title?: string
   contents?: CardContents[]
+  cardActions?: JSX.Element[]
   groupedContents?: CardContainer[]
 }
 
-const DetailsCardContainer = (props: { card: CardContainer; cardActions: JSX.Element[] }) => {
+const DetailsCardContainer = (props: { card: CardContainer }) => {
   return (
-    <Card title={props.card.title} extra={props.cardActions}>
+    <Card title={props.card.title} extra={props.card.cardActions}>
       <table className="dorakata-table">
         <tbody>
           {Array.isArray(props.card.contents)
@@ -36,7 +37,6 @@ const DetailsCardContainer = (props: { card: CardContainer; cardActions: JSX.Ele
 
 export interface IDetailsSummary {
   summary: CardContainer[]
-  cardActions?: JSX.Element[]
   actions?: JSX.Element[]
 }
 export const DetailsSummary = (props: IDetailsSummary) => {
@@ -56,11 +56,9 @@ export const DetailsSummary = (props: IDetailsSummary) => {
           props.summary.map((x: CardContainer, i) => (
             <Col key={i} xs={24} sm={24} md={12}>
               {Array.isArray(x.contents) ? (
-                <DetailsCardContainer card={x} cardActions={props.cardActions ? props.cardActions : []} />
+                <DetailsCardContainer card={x} />
               ) : Array.isArray(x.groupedContents) ? (
-                x.groupedContents.map((y: CardContainer, j: number) => (
-                  <DetailsCardContainer key={j} card={y} cardActions={props.cardActions ? props.cardActions : []} />
-                ))
+                x.groupedContents.map((y: CardContainer, j: number) => <DetailsCardContainer key={j} card={y} />)
               ) : null}
             </Col>
           ))}

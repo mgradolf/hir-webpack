@@ -67,7 +67,7 @@ import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import ProgramApplicationPage from "~/Pages/Program/ProgramApplicationPage"
 
 import RegistrationPage from "~/Pages/Registration/RegistrationPage"
-import RegistrationDetailsPage from "~/Pages/Registration/Details"
+import RegistrationDetailsPage from "~/Pages/Registration/RegistrationDetails"
 
 import WaitlistEntriesPage from "~/Pages/WaitlistEntry/WaitlistEntryPage"
 import WaitlistEntryDetailsPage from "~/Pages/WaitlistEntry/WaitlistEntryDetailsPage"
@@ -195,10 +195,10 @@ export const AppRoutes: RouteProps[] = [
   { path: "/chart/:chartName", component: ChartDetailsPage },
 
   { path: "/course/certificate", component: CourseCertificatePage },
-
-  { path: "/certificate/:studentCertificateID", component: CertificateDetailPage },
+  { path: "/course/certificate/:studentCertificateID", component: CertificateDetailPage },
 
   { path: "/program/certificate", component: ProgramCertificatePage },
+  { path: "/program/certificate/:studentCertificateID", component: CertificateDetailPage },
   { path: "/program/program", component: ProgramProgramPage },
   { path: "/program/:programID", component: ProgramDetailsPage },
   { path: "/program/offering", component: ProgramOfferingPage },

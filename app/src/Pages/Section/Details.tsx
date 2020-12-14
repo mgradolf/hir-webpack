@@ -1,32 +1,37 @@
-import React, { useState } from "react"
+import React from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { getSectionById } from "~/ApiServices/Service/EntityService"
-import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
-import { SectionEditLink } from "~/Component/Section/CreateEdit/SectionEditLink"
-import { SectionRemoveButton } from "~/Component/Section/CreateEdit/SectionRemoveButton"
-import { SectionMenu } from "~/Component/Section/SectionMenu"
+import { getSectionDetails, getSectionStatistics } from "~/ApiServices/Service/SectionService"
+import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getSectionDetailsMeta } from "~/FormMeta/Section/SectionDetailsMeta"
 
 export default function SectionDetailsPage(props: RouteComponentProps<{ sectionID?: string; offeringID?: string }>) {
   const SectionID = Number(props?.match?.params?.sectionID)
-  const OfferingID = Number(props?.match?.params?.offeringID)
-  const [sectionDetails, setSectionDetails] = useState<{ [key: string]: any }>({})
+
+  const getSectionDetailsInfo = () => {
+    return Promise.all([getSectionDetails(SectionID), getSectionStatistics(SectionID)]).then((responses) => {
+      const response1 = responses[0]
+      const response2 = responses[1]
+      if (response1.success && response2.success) {
+        response2.data = {
+          ...response2.data,
+          ...response1.data
+        }
+        return response2
+      } else if (response2.success) {
+        return response2
+      } else {
+        return response1
+      }
+    })
+  }
+
   return (
-    <StandardDetailsPage
-      getDetailsMeta={getSectionDetailsMeta}
-      getDetailsFunc={() => {
-        return getSectionById(SectionID).then((response) => {
-          setSectionDetails(response.data)
-          return response
-        })
-      }}
-      {...(sectionDetails && {
-        actions: [
-          <SectionMenu section={sectionDetails} />,
-          <SectionEditLink section={sectionDetails} PrimaryType={true} />,
-          <SectionRemoveButton Section={sectionDetails} OfferingID={OfferingID} />
-        ]
-      })}
+    <DetailsPage
+      getMeta={getSectionDetailsMeta}
+      getDetails={getSectionDetailsInfo}
+      entityType="Section"
+      entityID={SectionID}
+      titleKey="SectionNumber"
     />
   )
 }
