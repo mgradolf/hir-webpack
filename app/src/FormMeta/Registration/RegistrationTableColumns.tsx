@@ -35,7 +35,9 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     },
     {
       title: "Offering Name",
-      dataIndex: "OfferingName"
+      dataIndex: "OfferingName",
+      render: (text: any, record: any) =>
+        isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
       title: "Student",
@@ -50,7 +52,8 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     },
     {
       title: "Account",
-      dataIndex: "AccountName"
+      dataIndex: "AccountName",
+      render: (text: any, record: any) => (isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     }
 
     // {
@@ -87,7 +90,5 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     // }
   ]
 
-  // const responsiveColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
-  // const expandableColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
   return { columns, searchFunc: findRegistrations }
 }

@@ -121,6 +121,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   const sectionMeta: IDetailsTableTabProp = {
     blocks: [<SectionFormModalOpenButton OfferingID={offering.OfferingID} />],
     tableProps: {
+      pagination: false,
       ...getSectionTableColumns(false, offering.OfferingID),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_SECTION_PAGE
@@ -139,7 +140,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       meta: financialMeta
     },
     {
-      title: "Requisite",
+      title: "Requisites",
       type: "custom",
       meta: requisiteMeta
     },
@@ -149,7 +150,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       meta: qualifiedInstructorMeta
     },
     {
-      title: "Tag",
+      title: "Tags",
       type: "custom",
       meta: tagMeta
     },

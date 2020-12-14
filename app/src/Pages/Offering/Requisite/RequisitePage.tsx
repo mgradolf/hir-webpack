@@ -1,6 +1,5 @@
-import moment from "moment"
 import React, { useState, useEffect } from "react"
-import { Row, Col, Space } from "antd"
+import { Row, Col, Space, Typography } from "antd"
 import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
@@ -9,7 +8,12 @@ import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/Requisit
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
 import styles from "~/Pages/Offering/Requisite/Requisite.module.scss"
 
-export default function RequisitePage(props: { offeringID: number }) {
+interface IRequisitePageProp {
+  offeringID: number
+  title?: string
+}
+
+export default function RequisitePage(props: IRequisitePageProp) {
   const columns = [
     {
       title: "Offering Code",
@@ -39,29 +43,6 @@ export default function RequisitePage(props: { offeringID: number }) {
       )
     }
   ]
-
-  const expandableRowRender = (data: { [key: string]: any }, display: boolean) => {
-    return (
-      <>
-        {display && (
-          <div style={{ border: "1px solid", padding: "5px" }}>
-            <Row>
-              <Col span="10">Offering Name</Col>
-              <Col span="14">{data.Name}</Col>
-            </Row>
-            <Row>
-              <Col span="10">Creation Date</Col>
-              <Col span="14">{data.CreationDate ? moment(data.CreationDate).format("YYYY-MM-DD") : ""}</Col>
-            </Row>
-            <Row>
-              <Col span="10">Termination Date</Col>
-              <Col span="14">{data.TerminationDate ? moment(data.TerminationDate).format("YYYY-MM-DD") : ""}</Col>
-            </Row>
-          </div>
-        )}
-      </>
-    )
-  }
 
   const [requisiteGroupID, setRequisiteGroupID] = useState<number>()
   const [hasRequisiteGroup, setHasRequisiteGroup] = useState<boolean>(false)
@@ -110,6 +91,13 @@ export default function RequisitePage(props: { offeringID: number }) {
 
   return (
     <>
+      {props.title && (
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+          <Col className="gutter-row" xs={24} sm={24} md={24}>
+            <Typography.Title level={3}>{props.title}</Typography.Title>
+          </Col>
+        </Row>
+      )}
       <PrerequisiteGroups offeringId={props.offeringID} policyData={policyTypeList} onSelected={handleSelection} />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.margin0px}>
         <Col className={`gutter-row ${styles.offeringRequisiteDetails}`} xs={24} sm={24} md={24}>
@@ -123,12 +111,6 @@ export default function RequisitePage(props: { offeringID: number }) {
             columns={columns}
             dataSource={offeringRequisiteGroupDetails}
             loading={loading}
-            bordered
-            pagination={{ position: ["topLeft"], pageSize: 20 }}
-            responsiveColumnIndices={[1, 2, 3]}
-            expandableRowRender={expandableRowRender}
-            breakpoints={["md", "lg", "xl", "xxl"]}
-            scroll={{ y: 600 }}
           />
         </Col>
       </Row>
