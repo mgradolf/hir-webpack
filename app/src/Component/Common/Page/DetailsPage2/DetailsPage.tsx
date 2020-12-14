@@ -5,7 +5,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
 import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import DetailsCustomTab from "./DetailsCustomTab"
+import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 
 export const tabTypes = {
   summary: "summary",

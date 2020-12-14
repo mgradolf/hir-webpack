@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { OrderItemsFiltersMeta } from "~/Component/Section/Order/OrderItemsFilters/OrderItemsFiltersMeta"
+import { OrderItemsFiltersMeta } from "~/FormMeta/OrderItem/OrderItemsSearchMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import { Button, Dropdown, Menu, Space } from "antd"
 import { Link } from "react-router-dom"

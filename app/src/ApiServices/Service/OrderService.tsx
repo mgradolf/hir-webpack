@@ -56,3 +56,7 @@ export function getAvailableDiscountByOrderItemID(Params: { [key: string]: any }
 export function grantDiscountProgram(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OrderService[config.Actions.grantDiscountProgram](Params)
 }
+
+export function getPurchaseOrders(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OrderService[config.Actions.getPurchaseOrders](Params)
+}
