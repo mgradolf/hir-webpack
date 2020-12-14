@@ -1,12 +1,14 @@
 import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import SectionEditLink from "~/Component/Section/CreateEdit/SectionEditLink"
-import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
-import { getSchedultTableColumns } from "~/FormMeta/OfferingSchedule/ScheduleTableColumns"
+import SectionSchedulePage from "~/Pages/Section/Schedule/SchedulePage"
+import { REFRESH_SECTION_REGISTRATION_PAGE } from "~/utils/EventBus"
+import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta[] => {
   const sectionInfo: CardContainer = {
@@ -58,11 +60,16 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     summary: [sectionInfo, enrollmentInfo, gradeInfo]
   }
 
-  const scheduleMeta: IDetailsTableTabProp = {
-    blocks: [<ScheduleCreateModal sectionId={section.SectionID} />],
+  const scheduleMeta: IDetailsCustomTabProp = {
+    component: SectionSchedulePage,
+    props: { sectionID: section.SectionID }
+  }
+
+  const registrationMeta: IDetailsTableTabProp = {
     tableProps: {
-      ...getSchedultTableColumns(section.SectionID),
-      searchParams: { SectionID: section.SectionID }
+      ...getRegistrationTableColumns(),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_SECTION_REGISTRATION_PAGE
     }
   }
 
@@ -73,9 +80,14 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       meta: summaryMeta
     },
     {
-      title: "Schedule and Instructor Data",
-      type: "table",
+      title: "Schedules",
+      type: "custom",
       meta: scheduleMeta
+    },
+    {
+      title: "Registrations",
+      type: "table",
+      meta: registrationMeta
     }
   ]
 }
