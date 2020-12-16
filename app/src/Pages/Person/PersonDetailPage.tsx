@@ -11,10 +11,29 @@ export default function PersonDetailsPage(
   const FacultyID = Number(props?.match?.params?.facultyID)
   const StudentID = Number(props?.match?.params?.studentID)
 
+  let entityType: string
+  let entityID: number
   let Param: { [key: string]: any }
-  if (StudentID) Param = { StudentID: StudentID }
-  else if (FacultyID) Param = { FacultyID: FacultyID }
-  else Param = { PersonID: PersonID }
+  if (StudentID) {
+    Param = { StudentID: StudentID }
+    entityType = "Student"
+    entityID = StudentID
+  } else if (FacultyID) {
+    Param = { FacultyID: FacultyID }
+    entityType = "Faculty"
+    entityID = FacultyID
+  } else {
+    Param = { PersonID: PersonID }
+    entityType = "Person"
+    entityID = PersonID
+  }
 
-  return <DetailsPage getMeta={getPersonDetailsMeta} getDetails={() => getPersonDetails(Param)} />
+  return (
+    <DetailsPage
+      getMeta={getPersonDetailsMeta}
+      getDetails={() => getPersonDetails(Param)}
+      entityType={entityType}
+      entityID={entityID}
+    />
+  )
 }

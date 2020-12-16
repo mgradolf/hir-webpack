@@ -21,7 +21,7 @@ export interface IDetailsMeta {
   meta: any
 }
 export interface IDetailsPage {
-  getMeta: (Params: any) => IDetailsMeta[]
+  getMeta: (Params: any, entityType?: string, entityID?: number) => IDetailsMeta[]
   getDetails: () => Promise<IApiResponse>
   entityType?: string
   entityID?: number
@@ -42,7 +42,7 @@ export function DetailsPage(props: IDetailsPage) {
         // setError({getErrorMessages: () => [{message: "Not Found"}]})
       } else if (x.success && x.data) {
         setTitle(x.data[`${props.titleKey}`])
-        setMeta(props.getMeta(x.data))
+        setMeta(props.getMeta(x.data, props.entityType, props.entityID))
       } else setError(x.error)
     })
   }

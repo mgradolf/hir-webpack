@@ -11,7 +11,11 @@ import { getRegistrationTableColumns } from "~/FormMeta/Registration/Registratio
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 
-export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDetailsMeta[] => {
+export const getPersonDetailsMeta = (
+  personInfos: { [key: string]: any }[],
+  entityType?: string,
+  entityID?: number
+): IDetailsMeta[] => {
   const person: { [key: string]: any } = personInfos[0]
   const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
   const student: { [key: string]: any } | undefined = personInfos[1].Student
@@ -167,7 +171,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
   const registrationMeta: IDetailsTableTabProp = {
     tableProps: {
       ...getRegistrationTableColumns(false),
-      searchParams: { PersonID: person.PersonID },
+      searchParams: { StudentID: entityID },
       refreshEventName: "REFRESH_REGISTRATION_TAB"
     }
   }
@@ -196,14 +200,16 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
     }
   }
 
-  return [
+  const array: IDetailsMeta[] = [
     { title: "Summary", type: "summary", meta: summaryMeta },
     { title: "Web Login", type: "summary", meta: webLoginMeta },
     { title: "Waitlist", type: "table", meta: waitlistEntryMeta },
     { title: "Requests", type: "table", meta: requestMeta },
-    { title: "Registrations", type: "table", meta: registrationMeta },
     { title: "Certificates", type: "table", meta: certificateMeta },
     { title: "Program Applications", type: "table", meta: programApplicationMeta },
     { title: "Program Enrollments", type: "table", meta: programEnrollmentMeta }
   ]
+  if (entityType === "Student") array.push({ title: "Registrations", type: "table", meta: registrationMeta })
+
+  return array
 }
