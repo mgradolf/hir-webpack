@@ -1,6 +1,6 @@
 import React from "react"
 import { deleteSectionProduct } from "~/ApiServices/BizApi/product/productIf"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
 import { Button } from "antd"
 
 interface IProducutRemoveLinkProp {
@@ -14,7 +14,7 @@ function ProductRemoveLink(props: IProducutRemoveLinkProp) {
       onClick={async () => {
         const response = await deleteSectionProduct([props.sectionId, [props.productId]])
         if (response.success) {
-          eventBus.publish(REFRESH_PAGE)
+          eventBus.publish(REFRESH_SECTION_PRODUCT_PAGE)
         }
       }}
     >
