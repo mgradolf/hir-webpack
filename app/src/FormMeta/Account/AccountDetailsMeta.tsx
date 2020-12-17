@@ -1,3 +1,4 @@
+import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -9,6 +10,7 @@ import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableCo
 import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
 import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
+import { Link } from "react-router-dom"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -16,7 +18,11 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     contents: [
       // { label: "Account Name", value: account.AccountName },
       { label: "Account Type", value: account.AccountTypeName },
-      { label: "Primary Contact", value: account.ContactName },
+      {
+        label: "Primary Contact",
+        value: account.ContactName,
+        render: (text) => <Link to={`/person/${account.PersonID}`}>{text}</Link>
+      },
       { label: "Tax ID", value: account.TaxID },
       { label: "Public", value: account.IsPublic, render: renderBoolean },
       { label: "Allow to Pay Later", value: account.AllowPayLateDescription },
@@ -37,10 +43,17 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Contacts",
     tabType: "table",
     tabMeta: {
-      title: "Contacts",
+      // searchMeta: [
+      //   {
+      //     label: "Is Active",
+      //     fieldName: "IsActive",
+      //     inputType: BOOLEAN
+      //   }
+      // ],
       tableProps: {
         ...getAccountAffiliationTableColumn(),
-        searchParams: { AccountID: account.AccountID }
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_CONTACT_TAB"
       }
     }
   })

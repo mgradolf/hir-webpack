@@ -37,6 +37,8 @@ export const renderWeek = (text: any[], record: any) => {
   return text && Array.isArray(text) && weeks.filter((x, i) => text.includes(i + 1))
 }
 
+export const sortByBoolean = (a: boolean, b: boolean) => (a === b ? 0 : a ? -1 : 1)
+
 export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
   searchParams?: any

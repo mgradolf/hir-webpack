@@ -114,7 +114,8 @@ export const getPersonDetailsMeta = (
           { label: "Status", value: student?.StudentStatusCodeName },
           { label: "Commuter", value: student?.IsCommuter, render: renderBoolean },
           { label: "Solicit For Marketing", value: student?.AllowMarketing, render: renderBoolean },
-          { label: "Family Educational Rights and Privacy Act (FERPA)", value: student?.FERPA, render: renderBoolean }
+          { label: "Family Educational Rights and Privacy Act (FERPA)", value: student?.FERPA, render: renderBoolean },
+          { label: "Active", value: student?.IsActive, render: renderBoolean }
         ]
       }
     : undefined

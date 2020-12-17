@@ -1,7 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
-import { renderBoolean, renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import {
+  renderBoolean,
+  renderDate,
+  renderEmail,
+  sortByBoolean,
+  TableColumnType
+} from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigProp => {
@@ -21,7 +27,13 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
     { title: "Role ", dataIndex: "AffiliationRoleTypeName" },
     { title: "Shared", dataIndex: "IsContactShared", render: renderBoolean },
     { title: "Status", dataIndex: "AccountAffiliationStatusName" },
-    { title: "Primary Contact", dataIndex: "PrimaryAccountAffiliation", render: renderBoolean }
+    {
+      title: "Primary Contact",
+      dataIndex: "PrimaryAccountAffiliation",
+      render: renderBoolean,
+      sorter: (a: any, b: any) => sortByBoolean(a.PrimaryAccountAffiliation, b.PrimaryAccountAffiliation),
+      sortOrder: "ascend"
+    }
   ]
   return { columns, searchFunc: getAccountAffiliation, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

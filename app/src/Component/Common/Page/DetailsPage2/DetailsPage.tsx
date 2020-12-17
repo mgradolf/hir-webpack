@@ -43,6 +43,7 @@ export function DetailsPage(props: IDetailsPage) {
   const [meta, setMeta] = useState<IDetailsTabMeta[]>([])
   const loadDetails = () => {
     setLoading(true)
+    setError(undefined)
     props.getDetails().then((x) => {
       setLoading(false)
       if (x.success && !x.data) {

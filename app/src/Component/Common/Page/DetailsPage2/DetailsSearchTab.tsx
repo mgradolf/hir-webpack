@@ -17,7 +17,7 @@ export interface IDetailsSearchTabProp {
   blocks?: JSX.Element[]
   blockComponents?: IBlockComponentProp[]
   title?: string
-  meta?: IFilterField[]
+  searchMeta?: IFilterField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
   defaultFilter?: { [key: string]: string }
@@ -52,7 +52,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
       </Row>
 
-      {props.meta && (
+      {props.searchMeta && (
         <Row justify="start" gutter={[8, 8]}>
           <Col>
             <span>
@@ -63,7 +63,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         </Row>
       )}
       <Row justify="end" gutter={[8, 8]}>
-        {props.meta && (
+        {props.searchMeta && (
           <Col>
             {!showFilter && (
               <Button type="primary" onClick={() => setShowFilter(true)}>
@@ -76,13 +76,13 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         {props.blockComponents && props.blockComponents.map((x, i) => <x.component {...x.props} rowData={rowData} />)}
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        {props.meta && (
+        {props.searchMeta && (
           <SearchFilters
             title={""}
             isModalView={false}
             visible={showFilter}
             hideFilters={() => setShowFilter(false)}
-            meta={props.meta}
+            meta={props.searchMeta}
             initialFilter={searchParams}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               setSearchParams({ ...props.defaultFilter, ...newFilterValues })
