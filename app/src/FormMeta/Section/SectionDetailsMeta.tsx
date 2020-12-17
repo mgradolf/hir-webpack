@@ -10,8 +10,10 @@ import SectionSchedulePage from "~/Pages/Section/Schedule/SchedulePage"
 import {
   REFRESH_SECTION_BUDGET_PAGE,
   REFRESH_SECTION_DISCOUNT_PAGE,
+  REFRESH_SECTION_NOTIFICATION_PAGE,
   REFRESH_SECTION_REGISTRATION_PAGE,
-  REFRESH_SECTION_SEATGROUP_PAGE
+  REFRESH_SECTION_SEATGROUP_PAGE,
+  REFRESH_SECTION_PRODUCT_PAGE
 } from "~/utils/EventBus"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
@@ -20,8 +22,13 @@ import CreateNewBudget from "~/Component/Section/Budget/BudgetFormModal"
 import { getSectionSeatgroupTableColumns } from "~/FormMeta/SectionSeatgroup/SeatgroupTableColumns"
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
+import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
 import CreateNewDiscount from "~/Component/Section/Discount/DiscountFormModal"
 import SectionCatalogPage from "~/Pages/Section/Catalog/CatalogPage"
+import SectionQuestionPage from "~/Pages/Section/QuestionPage"
+import SectionTagPage from "~/Pages/Section/TagPage"
+import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
+import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta[] => {
   const sectionInfo: CardContainer = {
@@ -152,6 +159,33 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     props: { sectionID: section.SectionID }
   }
 
+  const questionMeta: IDetailsCustomTabProp = {
+    component: SectionQuestionPage,
+    props: { sectionID: section.SectionID }
+  }
+
+  const tagMeta: IDetailsCustomTabProp = {
+    component: SectionTagPage,
+    props: { sectionID: section.SectionID }
+  }
+
+  const notificationMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getNoticeTableColumns(section.SectionID),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_SECTION_NOTIFICATION_PAGE
+    }
+  }
+
+  const productMeta: IDetailsTableTabProp = {
+    blocks: [<ProductAddButton SectionId={section.SectionID} />],
+    tableProps: {
+      ...getSectionProductTableColumns(section.SectionID),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_SECTION_PRODUCT_PAGE
+    }
+  }
+
   const registrationMeta: IDetailsTableTabProp = {
     tableProps: {
       ...getRegistrationTableColumns(),
@@ -190,6 +224,26 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       title: "Catalogs",
       type: "custom",
       meta: catalogMeta
+    },
+    {
+      title: "Questions",
+      type: "custom",
+      meta: questionMeta
+    },
+    {
+      title: "Tags",
+      type: "custom",
+      meta: tagMeta
+    },
+    {
+      title: "Notifications",
+      type: "table",
+      meta: notificationMeta
+    },
+    {
+      title: "Products",
+      type: "table",
+      meta: productMeta
     },
     {
       title: "Registrations",
