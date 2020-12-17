@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Row, Col, Typography } from "antd"
-import styles from "~/Pages/Section/Schedule/Schedule.module.scss"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
 import ScheduleUpdateMenu from "~/Component/Section/Schedule/ScheduleUpdateMenu"
@@ -33,7 +32,7 @@ export default function SectionSchedulePage(props: { sectionID: number; title?: 
             <Title level={3}>{props.title}</Title>
           </Col>
         )}
-        <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={props.title ? 12 : 24}>
+        <Col className={`gutter-row text-right`} xs={24} sm={24} md={props.title ? 12 : 24}>
           <ScheduleCreateModal sectionId={props.sectionID} />
           <ScheduleUpdateMenu sectionId={props.sectionID} scheduleIds={schedueIDs} style={{ marginLeft: "5px" }} />
           <ScheduleRemoveMenu

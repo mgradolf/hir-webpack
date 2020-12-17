@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { Dispatch } from "redux"
 import { Card, Button, Select } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -11,9 +10,6 @@ import {
 } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
 import FormError from "~/Component/Common/FormError"
-import { connect } from "react-redux"
-import { showCreateDiscountModal } from "~/Store/ModalState"
-import { redirect } from "~/Store/ConnectedRoute"
 import "~/Sass/global/index.scss"
 import { FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID } from "~/utils/Constants"
 
@@ -21,8 +17,7 @@ interface IDiscountCreateFormProps {
   sectionId: number
   formInstance: FormInstance
   handleCancel: () => void
-  redirect?: (url: string) => void
-  closeCreatDiscountModal?: () => void
+  closeModal?: () => void
   setApiCallInProgress: (flag: boolean) => void
 }
 
@@ -30,7 +25,7 @@ const layout = {
   labelCol: { span: 6 }
 }
 
-function CreateDiscountProgram(props: IDiscountCreateFormProps) {
+export default function CreateDiscountProgram(props: IDiscountCreateFormProps) {
   const actions = []
   const [dataAvailable, setDataAvailable] = useState<boolean>(false)
   const [discountProgramID, setDiscountProgramID] = useState(Number)
@@ -73,7 +68,7 @@ function CreateDiscountProgram(props: IDiscountCreateFormProps) {
     if (response && response.success) {
       props.formInstance.resetFields()
       eventBus.publish(REFRESH_SECTION_DISCOUNT_PAGE)
-      props.closeCreatDiscountModal && props.closeCreatDiscountModal()
+      props.closeModal && props.closeModal()
     } else {
       console.log(response.error)
       setErrorMessages(response.error)
@@ -85,7 +80,7 @@ function CreateDiscountProgram(props: IDiscountCreateFormProps) {
     setDiscountProgramID(value)
   }
 
-  actions.push(<Button onClick={props.closeCreatDiscountModal}>Cancel</Button>)
+  actions.push(<Button onClick={props.closeModal}>Cancel</Button>)
   actions.push(
     <Button onClick={onFormSubmission} disabled={!dataAvailable}>
       Submit
@@ -130,12 +125,3 @@ function CreateDiscountProgram(props: IDiscountCreateFormProps) {
     </Card>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeCreatDiscountModal: () => dispatch(showCreateDiscountModal(false)),
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
-
-export default connect(undefined, mapDispatchToProps)(CreateDiscountProgram)
