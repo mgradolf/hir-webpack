@@ -4,9 +4,5 @@ import { OrderSearchMeta } from "~/FormMeta/Order/OrderSearchMeta"
 import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
 
 export default function OrderLogPage() {
-  return (
-    <div className="site-layout-content">
-      <SearchPage title="Order" meta={OrderSearchMeta} hideSearchField={false} tableProps={getOrderTableColumns()} />
-    </div>
-  )
+  return <SearchPage title="Order" meta={OrderSearchMeta} hideSearchField={false} tableProps={getOrderTableColumns()} />
 }

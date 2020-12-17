@@ -84,6 +84,7 @@ import QuestionTaggingPage from "~/Pages/Question/QuestionTaggingPage"
 import FinancialOrderPagePage from "~/Pages/Financials/OrderPage"
 import FinancialOrderItemPage from "~/Pages/Financials/OrderItemPage"
 import FinancialPaymentPage from "~/Pages/Financials/PaymentPage"
+import FinancialDiscountProgramPage from "~/Pages/Financials/DiscountProgramPage"
 import ChartPage from "~/Pages/Chart/ChartPage"
 import ChartDetailsPage from "~/Pages/Chart/ChartDetailsPage"
 import ProgramProgramPage from "~/Pages/Manage/Program/ProgramPage"
@@ -148,6 +149,7 @@ export const AppRoutes: RouteProps[] = [
   { path: "/order", component: FinancialOrderPagePage },
   { path: "/order/:orderID", component: OrderDetailsPage },
   { path: "/order/payments/:paymentID", component: PaymentDetails },
+  { path: "/discount-programs", component: FinancialDiscountProgramPage },
 
   { path: "/product", component: ProductPage },
   { path: "/product/:productID", component: ProductDetailsPage },

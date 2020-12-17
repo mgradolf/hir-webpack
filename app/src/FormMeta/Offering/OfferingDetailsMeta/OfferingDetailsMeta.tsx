@@ -8,7 +8,7 @@ import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { Button } from "antd"
-import { getFinancialTableColumns } from "~/FormMeta/Financial/FinancialTableColumns"
+import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
 import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
@@ -82,7 +82,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     blocks: [<FinancialFormModalOpenButton OfferingID={offering.OfferingID} />],
     tableProps: {
       pagination: false,
-      ...getFinancialTableColumns(offering.OfferingID),
+      ...getOfferingFinancialTableColumns(offering.OfferingID),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE
     }

@@ -6,7 +6,7 @@ import { searchOfferingFinancial } from "~/ApiServices/Service/OfferingService"
 import FinancialMenu from "~/Component/Offering/Financial/FinancialMenu"
 import { DownOutlined } from "@ant-design/icons"
 
-export const getFinancialTableColumns = (OfferingID: number): ITableConfigProp => {
+export const getOfferingFinancialTableColumns = (OfferingID: number): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Description",

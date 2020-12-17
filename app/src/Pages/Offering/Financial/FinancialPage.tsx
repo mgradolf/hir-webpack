@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { getFinancialTableColumns } from "~/FormMeta/Financial/FinancialTableColumns"
+import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import StandardPage from "~/Component/Common/Page/StandardPage"
 import { Button } from "antd"
 import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
@@ -21,7 +21,10 @@ export default function FinancialPage(props: RouteComponentProps<{ offeringID?: 
         </>
       ]}
       title="Manage Offering Financials"
-      tableProps={{ ...getFinancialTableColumns(OfferingID), refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE }}
+      tableProps={{
+        ...getOfferingFinancialTableColumns(OfferingID),
+        refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE
+      }}
       initialFilter={{ OfferingID: OfferingID }}
     />
   )
