@@ -1,4 +1,4 @@
-import { Col, Select } from "antd"
+import { Col, Row, Select } from "antd"
 import React, { useEffect, useState } from "react"
 import { getRegions } from "~/ApiServices/Service/PersonService"
 import { getCountries } from "~/ApiServices/Service/RefLookupService"
@@ -30,38 +30,42 @@ export function SearchRegion(props: IFilterGenericComponentProps<IFilterFieldCom
     }
   }, [selectedCountry])
   return (
-    <Col style={{ paddingLeft: 0 }}>
-      <SearchComponentWrapper {...props} fieldName="CountryCodeID" label="Country">
-        <Select
-          allowClear={true}
-          loading={loading}
-          aria-label="Country Code"
-          style={props.isCheckeble ? { width: 150 } : {}}
-          onChange={(value: any) => setSelectedCountry(value)}
-        >
-          {countries &&
-            countries.map(({ Description, ID }, i) => (
-              <Select.Option value={ID} key={`${ID}_${i}`}>
-                {Description}
-              </Select.Option>
-            ))}
-        </Select>
-      </SearchComponentWrapper>
-      <SearchComponentWrapper {...props}>
-        <Select
-          allowClear={true}
-          loading={loading}
-          aria-label="Region Code"
-          style={props.isCheckeble ? { width: 150 } : {}}
-        >
-          {regiondCodes &&
-            regiondCodes.map(({ CountryCodeID, Description }, i) => (
-              <Select.Option value={CountryCodeID} key={`${CountryCodeID}_${i}`}>
-                {Description}
-              </Select.Option>
-            ))}
-        </Select>
-      </SearchComponentWrapper>
-    </Col>
+    <Row>
+      <Col span={12}>
+        <SearchComponentWrapper {...props} fieldName="CountryCodeID" label="Country">
+          <Select
+            allowClear={true}
+            loading={loading}
+            aria-label="Country Code"
+            style={props.isCheckeble ? { width: 150 } : {}}
+            onChange={(value: any) => setSelectedCountry(value)}
+          >
+            {countries &&
+              countries.map(({ Description, ID }, i) => (
+                <Select.Option value={ID} key={`${ID}_${i}`}>
+                  {Description}
+                </Select.Option>
+              ))}
+          </Select>
+        </SearchComponentWrapper>
+      </Col>
+      <Col span={12}>
+        <SearchComponentWrapper {...props}>
+          <Select
+            allowClear={true}
+            loading={loading}
+            aria-label="Region Code"
+            style={props.isCheckeble ? { width: 150 } : {}}
+          >
+            {regiondCodes &&
+              regiondCodes.map(({ CountryCodeID, Description }, i) => (
+                <Select.Option value={CountryCodeID} key={`${CountryCodeID}_${i}`}>
+                  {Description}
+                </Select.Option>
+              ))}
+          </Select>
+        </SearchComponentWrapper>
+      </Col>
+    </Row>
   )
 }

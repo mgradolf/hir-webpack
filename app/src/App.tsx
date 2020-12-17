@@ -16,15 +16,6 @@ interface AppProps {
   redirectToLogin: boolean
 }
 
-function RenderedRoutes() {
-  return (
-    <>
-      {AppRoutes.map((route, i) => (
-        <Route key={i} {...route} exact={true} />
-      ))}
-    </>
-  )
-}
 function App(props: AppProps): JSX.Element {
   const route: JSX.Element = props.redirectToLogin ? (
     <Switch>
@@ -33,7 +24,9 @@ function App(props: AppProps): JSX.Element {
     </Switch>
   ) : (
     <Switch>
-      <RenderedRoutes />
+      {AppRoutes.map((route, i) => {
+        return <Route key={i} {...route} exact />
+      })}
       <Route path="*" component={NotFoundPage} />
     </Switch>
   )

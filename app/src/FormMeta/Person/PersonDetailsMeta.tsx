@@ -1,6 +1,6 @@
 import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
@@ -15,14 +15,13 @@ export const getPersonDetailsMeta = (
   personInfos: { [key: string]: any }[],
   entityType?: string,
   entityID?: number
-): IDetailsMeta[] => {
+): IDetailsMeta => {
   const person: { [key: string]: any } = personInfos[0]
   const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
   const student: { [key: string]: any } | undefined = personInfos[1].Student
   const disabilities: { [key: string]: any } | undefined = personInfos[1].PersonDisabilites
 
   const personalInfo: CardContainer = {
-    title: person.FormattedName,
     contents: [
       { label: "Prefix", value: person.Prefix, render: undefined },
       { label: "First Name", value: person.FirstName, render: undefined },
@@ -200,16 +199,19 @@ export const getPersonDetailsMeta = (
     }
   }
 
-  const array: IDetailsMeta[] = [
-    { title: "Summary", type: "summary", meta: summaryMeta },
-    { title: "Web Login", type: "summary", meta: webLoginMeta },
-    { title: "Waitlist", type: "table", meta: waitlistEntryMeta },
-    { title: "Requests", type: "table", meta: requestMeta },
-    { title: "Certificates", type: "table", meta: certificateMeta },
-    { title: "Program Applications", type: "table", meta: programApplicationMeta },
-    { title: "Program Enrollments", type: "table", meta: programEnrollmentMeta }
-  ]
-  if (entityType === "Student") array.push({ title: "Registrations", type: "table", meta: registrationMeta })
+  const tabMetas: IDetailsTabMeta[] = []
+  tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
+  tabMetas.push({ tabTitle: "Web Login", tabType: "summary", tabMeta: webLoginMeta })
+  tabMetas.push({ tabTitle: "Waitlist", tabType: "table", tabMeta: waitlistEntryMeta })
+  if (entityType === "Student")
+    tabMetas.push({ tabTitle: "Registrations", tabType: "table", tabMeta: registrationMeta })
+  tabMetas.push({ tabTitle: "Requests", tabType: "table", tabMeta: requestMeta })
+  tabMetas.push({ tabTitle: "Certificates", tabType: "table", tabMeta: certificateMeta })
+  tabMetas.push({ tabTitle: "Program Applications", tabType: "table", tabMeta: programApplicationMeta })
+  tabMetas.push({ tabTitle: "Program Enrollments", tabType: "table", tabMeta: programEnrollmentMeta })
 
-  return array
+  return {
+    pageTitle: person.FormattedName,
+    tabs: tabMetas
+  }
 }

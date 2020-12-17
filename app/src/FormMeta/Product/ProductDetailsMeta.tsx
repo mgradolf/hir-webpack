@@ -5,7 +5,7 @@ import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/Detai
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getProductFinancialsTableColumns } from "~/FormMeta/ProductFinancialsTableColumns/ProductFinancialsTableColumns"
 
-export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetailsMeta[] => {
+export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
     title: Product.ProductName,
     contents: [
@@ -28,16 +28,19 @@ export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetails
       searchParams: { ProductID: Product.ProductID }
     }
   }
-  return [
-    {
-      title: "Summary",
-      type: "summary",
-      meta: summaryMeta
-    },
-    {
-      title: "Financials",
-      type: "table",
-      meta: productFinancialMeta
-    }
-  ]
+  return {
+    pageTitle: `Product - ${Product.ProductName}`,
+    tabs: [
+      {
+        tabTitle: "Summary",
+        tabType: "summary",
+        tabMeta: summaryMeta
+      },
+      {
+        tabTitle: "Financials",
+        tabType: "table",
+        tabMeta: productFinancialMeta
+      }
+    ]
+  }
 }

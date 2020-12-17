@@ -1,13 +1,11 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { getCatalogContentTableColumns } from "~/FormMeta/CatalogContent/getCatalogContentTableColumns"
 
-export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetailsMeta[] => {
+export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetailsMeta => {
+  const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
-    title: Catalog.Name,
     contents: [
       { label: "Name", value: Catalog.Name },
       { label: "Active", value: Catalog.IsActive, render: renderBoolean },
@@ -21,27 +19,27 @@ export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetails
     ]
   }
 
-  const summaryMeta: IDetailsSummary = {
-    summary: [summary]
-  }
+  tabMeta.push({
+    tabTitle: "Summary",
+    tabType: "summary",
+    tabMeta: {
+      summary: [summary]
+    }
+  })
 
-  const catalogContentMeta: IDetailsTableTabProp = {
-    title: "",
-    tableProps: {
-      ...getCatalogContentTableColumns(),
-      searchParams: { CatalogID: Catalog.CatalogID }
+  tabMeta.push({
+    tabTitle: "Content",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getCatalogContentTableColumns(),
+        searchParams: { CatalogID: Catalog.CatalogID }
+      }
     }
+  })
+
+  return {
+    pageTitle: `Catalog - ${Catalog.Name}`,
+    tabs: tabMeta
   }
-  return [
-    {
-      title: "Summary",
-      type: "summary",
-      meta: summaryMeta
-    },
-    {
-      title: "Content",
-      type: "table",
-      meta: catalogContentMeta
-    }
-  ]
 }

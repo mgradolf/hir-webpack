@@ -14,7 +14,7 @@ import { getRegistrationTableColumns } from "~/FormMeta/Registration/Registratio
 import { getMarketingCodeResponseTableColumns } from "~/FormMeta/MarketingCodeResponse/MarketingCodeResponseTableColumns"
 import { getOrderPurchasedTableColumns } from "~/FormMeta/OrderPurchased/OrderPurchasedTableColumns"
 
-export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta[] => {
+export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
     title: `Order Info`,
     contents: [
@@ -137,15 +137,18 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
     }
   }
 
-  return [
-    { title: "Summary", type: "summary", meta: summaryMeta },
-    { title: "Order Items", type: "table", meta: orderItemsMeta },
-    { title: "Order Lines", type: "table", meta: orderLinesMeta },
-    { title: "Order Credits", type: "table", meta: orderCreditsMeta },
-    { title: "Payments", type: "table", meta: orderPaymentsMeta },
-    { title: "Returns", type: "table", meta: orderReturnsMeta },
-    { title: "Registrations", type: "table", meta: orderRegistrationsMeta },
-    { title: "Marketing Code", type: "table", meta: orderMarketingCodeMeta },
-    { title: "Purchase Order", type: "table", meta: orderPurchasedCodeMeta }
-  ]
+  return {
+    pageTitle: `Order ID - ${order.OrderID}`,
+    tabs: [
+      { tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta },
+      { tabTitle: "Order Items", tabType: "table", tabMeta: orderItemsMeta },
+      { tabTitle: "Order Lines", tabType: "table", tabMeta: orderLinesMeta },
+      { tabTitle: "Order Credits", tabType: "table", tabMeta: orderCreditsMeta },
+      { tabTitle: "Payments", tabType: "table", tabMeta: orderPaymentsMeta },
+      { tabTitle: "Returns", tabType: "table", tabMeta: orderReturnsMeta },
+      { tabTitle: "Registrations", tabType: "table", tabMeta: orderRegistrationsMeta },
+      { tabTitle: "Marketing Code", tabType: "table", tabMeta: orderMarketingCodeMeta },
+      { tabTitle: "Purchase Order", tabType: "table", tabMeta: orderPurchasedCodeMeta }
+    ]
+  }
 }

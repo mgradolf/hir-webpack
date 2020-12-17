@@ -30,9 +30,8 @@ import SectionTagPage from "~/Pages/Section/TagPage"
 import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
 import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
 
-export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta[] => {
+export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
-    title: section.OfferingName,
     cardActions: [<SectionEditLink section={section} PrimaryType={true} />],
     contents: [
       { label: "Description", value: section.Description, render: undefined },
@@ -194,61 +193,64 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     }
   }
 
-  return [
-    {
-      title: "Summary",
-      type: "summary",
-      meta: summaryMeta
-    },
-    {
-      title: "Schedules",
-      type: "custom",
-      meta: scheduleMeta
-    },
-    {
-      title: "Financials",
-      type: "table",
-      meta: financialMeta
-    },
-    {
-      title: "Seat Groups",
-      type: "table",
-      meta: seatgroupMeta
-    },
-    {
-      title: "Discounts",
-      type: "table",
-      meta: discountMeta
-    },
-    {
-      title: "Catalogs",
-      type: "custom",
-      meta: catalogMeta
-    },
-    {
-      title: "Questions",
-      type: "custom",
-      meta: questionMeta
-    },
-    {
-      title: "Tags",
-      type: "custom",
-      meta: tagMeta
-    },
-    {
-      title: "Notifications",
-      type: "table",
-      meta: notificationMeta
-    },
-    {
-      title: "Products",
-      type: "table",
-      meta: productMeta
-    },
-    {
-      title: "Registrations",
-      type: "table",
-      meta: registrationMeta
-    }
-  ]
+  return {
+    pageTitle: `Section - ${section.OfferingName}`,
+    tabs: [
+      {
+        tabTitle: "Summary",
+        tabType: "summary",
+        tabMeta: summaryMeta
+      },
+      {
+        tabTitle: "Schedules",
+        tabType: "custom",
+        tabMeta: scheduleMeta
+      },
+      {
+        tabTitle: "Financials",
+        tabType: "table",
+        tabMeta: financialMeta
+      },
+      {
+        tabTitle: "Seat Groups",
+        tabType: "table",
+        tabMeta: seatgroupMeta
+      },
+      {
+        tabTitle: "Discounts",
+        tabType: "table",
+        tabMeta: discountMeta
+      },
+      {
+        tabTitle: "Catalogs",
+        tabType: "custom",
+        tabMeta: catalogMeta
+      },
+      {
+        tabTitle: "Questions",
+        tabType: "custom",
+        tabMeta: questionMeta
+      },
+      {
+        tabTitle: "Tags",
+        tabType: "custom",
+        tabMeta: tagMeta
+      },
+      {
+        tabTitle: "Notifications",
+        tabType: "table",
+        tabMeta: notificationMeta
+      },
+      {
+        tabTitle: "Products",
+        tabType: "table",
+        tabMeta: productMeta
+      },
+      {
+        tabTitle: "Registrations",
+        tabType: "table",
+        tabMeta: registrationMeta
+      }
+    ]
+  }
 }

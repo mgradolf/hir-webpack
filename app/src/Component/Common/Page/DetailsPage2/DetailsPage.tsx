@@ -6,6 +6,7 @@ import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSumm
 import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
 import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 export const tabTypes = {
   summary: "summary",
@@ -15,13 +16,19 @@ export const tabTypes = {
 }
 
 type TabType = "summary" | "table" | "searchtable" | "custom"
-export interface IDetailsMeta {
-  type: TabType
-  title: string
-  meta: any
+export interface IDetailsTabMeta {
+  tabType: TabType
+  tabTitle: string
+  tabMeta: any
 }
+
+export interface IDetailsMeta {
+  pageTitle?: string
+  tabs: IDetailsTabMeta[]
+}
+
 export interface IDetailsPage {
-  getMeta: (Params: any, entityType?: string, entityID?: number) => IDetailsMeta[]
+  getMeta: (Params: any) => IDetailsMeta
   getDetails: () => Promise<IApiResponse>
   entityType?: string
   entityID?: number
@@ -33,7 +40,7 @@ export function DetailsPage(props: IDetailsPage) {
   const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState<string>()
   const [error, setError] = useState<IProcessedApiError>()
-  const [meta, setMeta] = useState<IDetailsMeta[]>([])
+  const [meta, setMeta] = useState<IDetailsTabMeta[]>([])
   const loadDetails = () => {
     setLoading(true)
     props.getDetails().then((x) => {
@@ -41,14 +48,18 @@ export function DetailsPage(props: IDetailsPage) {
       if (x.success && !x.data) {
         // setError({getErrorMessages: () => [{message: "Not Found"}]})
       } else if (x.success && x.data) {
-        setTitle(x.data[`${props.titleKey}`])
-        setMeta(props.getMeta(x.data, props.entityType, props.entityID))
+        setMeta(props.getMeta(x.data).tabs)
+        setTitle(props.getMeta(x.data).pageTitle)
       } else setError(x.error)
     })
   }
 
   useEffect(() => {
-    loadDetails()
+    eventBus.subscribe(REFRESH_PAGE, loadDetails)
+    eventBus.publish(REFRESH_PAGE, loadDetails)
+    return () => {
+      eventBus.unsubscribe(REFRESH_PAGE)
+    }
     // eslint-disable-next-line
   }, [])
 
@@ -69,29 +80,29 @@ export function DetailsPage(props: IDetailsPage) {
           )}
           <Tabs defaultActiveKey="1" type="card" size="large" tabBarExtraContent={props.actions ? props.actions : []}>
             {meta.map((x, i) => {
-              switch (x.type) {
+              switch (x.tabType) {
                 case "summary":
                   return (
-                    <Tabs.TabPane tab={x.title} key={i + 1}>
-                      <DetailsSummary {...x.meta} />
+                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
+                      <DetailsSummary {...x.tabMeta} />
                     </Tabs.TabPane>
                   )
                 case "searchtable":
                   return (
-                    <Tabs.TabPane tab={x.title} key={i + 1}>
-                      <DetailsSearchTab {...x.meta} />
+                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
+                      <DetailsSearchTab {...x.tabMeta} />
                     </Tabs.TabPane>
                   )
                 case "table":
                   return (
-                    <Tabs.TabPane tab={x.title} key={i + 1}>
-                      <DetailsTableTab {...x.meta} />
+                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
+                      <DetailsTableTab {...x.tabMeta} />
                     </Tabs.TabPane>
                   )
                 case "custom":
                   return (
-                    <Tabs.TabPane tab={x.title} key={i + 1}>
-                      <DetailsCustomTab {...x.meta} />
+                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
+                      <DetailsCustomTab {...x.tabMeta} />
                     </Tabs.TabPane>
                   )
 

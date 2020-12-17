@@ -28,6 +28,7 @@ export default function PersonDetailsPage(
     entityID = PersonID
   }
 
+  console.log(Param, PersonID, FacultyID, StudentID, props)
   return (
     <DetailsPage
       getMeta={getPersonDetailsMeta}

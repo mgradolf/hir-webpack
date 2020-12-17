@@ -228,7 +228,13 @@ const SearchFormFields = (props: {
           }
         } else if (field.customFilterComponent) {
           return (
-            <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+            <Col
+              key={1000 + i}
+              lg={field.fullWidth ? 24 : 12}
+              md={field.fullWidth ? 24 : 12}
+              sm={field.fullWidth ? 24 : 12}
+              xs={field.fullWidth ? 24 : 24}
+            >
               <field.customFilterComponent
                 {...{
                   ...field,

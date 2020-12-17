@@ -1,13 +1,18 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/getAccountAffiliationTableColumn"
+import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
+import { getCatalogTableColumns } from "~/FormMeta/Catalog/CatalogTableColumns"
+import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
+import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
+import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
+import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
+import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 
-export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta[] => {
+export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
+  const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
-    title: account.AccountName,
     contents: [
       // { label: "Account Name", value: account.AccountName },
       { label: "Account Type", value: account.AccountTypeName },
@@ -20,28 +25,105 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       { label: "Payment Term", value: account.PaymentTerm }
     ]
   }
-  const summaryMeta: IDetailsSummary = {
-    summary: [summary]
-  }
 
-  const contactsMeta: IDetailsTableTabProp = {
-    title: "Contacts",
-    tableProps: {
-      ...getAccountAffiliationTableColumn(),
-      searchParams: { AccountID: account.AccountID }
+  meta.push({
+    tabTitle: "Summary",
+    tabType: "summary",
+    tabMeta: {
+      summary: [summary]
     }
-  }
-
-  return [
-    {
-      title: "Summary",
-      type: "summary",
-      meta: summaryMeta
-    },
-    {
+  })
+  meta.push({
+    tabTitle: "Contacts",
+    tabType: "table",
+    tabMeta: {
       title: "Contacts",
-      type: "table",
-      meta: contactsMeta
+      tableProps: {
+        ...getAccountAffiliationTableColumn(),
+        searchParams: { AccountID: account.AccountID }
+      }
     }
-  ]
+  })
+  meta.push({
+    tabTitle: "Registrations",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getRegistrationTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_REGISTRATION_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Requests",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getRequestTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_REQUEST_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Orders",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getOrderTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_ORDERS_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Order Items",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getOrderItemTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Payments",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getPaymentTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_PAYMENTS_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Catalogs",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getCatalogTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_CATALOGS_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Packages",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getPackageTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_PACKAGES_TAB"
+      }
+    }
+  })
+
+  return {
+    pageTitle: `Account Name - ${account.AccountName}`,
+    tabs: meta
+  }
 }

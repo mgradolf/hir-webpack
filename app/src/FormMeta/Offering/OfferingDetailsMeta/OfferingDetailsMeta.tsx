@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
@@ -23,9 +23,8 @@ import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/Deta
 import RequisitePage from "~/Pages/Offering/Requisite/RequisitePage"
 import TagPage from "~/Pages/Offering/Tag/TagPage"
 
-export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta[] => {
+export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
-    title: offering.OfferingCode,
     cardActions: [<OfferingEditLink OfferingId={offering.OfferingID} />],
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },
@@ -128,41 +127,46 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     }
   }
 
-  return [
+  const tabMetas: IDetailsTabMeta[] = [
     {
-      title: "Summary",
-      type: "summary",
-      meta: summaryMeta
+      tabTitle: "Summary",
+      tabType: "summary",
+      tabMeta: summaryMeta
     },
     {
-      title: "Financials",
-      type: "table",
-      meta: financialMeta
+      tabTitle: "Financials",
+      tabType: "table",
+      tabMeta: financialMeta
     },
     {
-      title: "Requisites",
-      type: "custom",
-      meta: requisiteMeta
+      tabTitle: "Requisites",
+      tabType: "custom",
+      tabMeta: requisiteMeta
     },
     {
-      title: "Qualified Instructors",
-      type: "table",
-      meta: qualifiedInstructorMeta
+      tabTitle: "Qualified Instructors",
+      tabType: "table",
+      tabMeta: qualifiedInstructorMeta
     },
     {
-      title: "Tags",
-      type: "custom",
-      meta: tagMeta
+      tabTitle: "Tags",
+      tabType: "custom",
+      tabMeta: tagMeta
     },
     {
-      title: "Catalogs",
-      type: "table",
-      meta: catalogMeta
+      tabTitle: "Catalogs",
+      tabType: "table",
+      tabMeta: catalogMeta
     },
     {
-      title: "Sections",
-      type: "table",
-      meta: sectionMeta
+      tabTitle: "Sections",
+      tabType: "table",
+      tabMeta: sectionMeta
     }
   ]
+
+  return {
+    pageTitle: `Offering Code - ${offering.OfferingCode}`,
+    tabs: tabMetas
+  }
 }

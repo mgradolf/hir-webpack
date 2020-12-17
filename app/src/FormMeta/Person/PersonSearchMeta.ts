@@ -139,7 +139,8 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "State/Province",
     fieldName: "RegionCodeID",
-    customFilterComponent: SearchRegion
+    customFilterComponent: SearchRegion,
+    fullWidth: true
   },
   {
     label: "Account Role",
@@ -151,12 +152,6 @@ export const PersonSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    label: "Account Name",
-    inputType: TEXT,
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
-  },
-  {
     label: "Account Type",
     inputType: DROPDOWN,
     fieldName: "AccountTypeID",
@@ -164,5 +159,11 @@ export const PersonSearchMeta: IFilterField[] = [
     refLookupService: getAccountTypes,
     displayKey: "Name",
     valueKey: "ID"
+  },
+  {
+    label: "Account Name",
+    inputType: TEXT,
+    fieldName: "AccountName",
+    ariaLabel: "Account Name"
   }
 ]

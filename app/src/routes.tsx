@@ -143,11 +143,11 @@ export const AppRoutes: RouteProps[] = [
   { path: "/section/:sectionID/request", component: SectionRequestPage },
   { path: "/section/:secitonID/request/:requestID", component: RequestDetailsPage },
 
-  { path: "/order", component: FinancialOrderPagePage },
   { path: "/order/items", component: FinancialOrderItemPage },
   { path: "/order/payments", component: FinancialPaymentPage },
-  { path: "/order/payments/:paymentID", component: PaymentDetails },
+  { path: "/order", component: FinancialOrderPagePage },
   { path: "/order/:orderID", component: OrderDetailsPage },
+  { path: "/order/payments/:paymentID", component: PaymentDetails },
 
   { path: "/product", component: ProductPage },
   { path: "/product/:productID", component: ProductDetailsPage },
