@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { Row, Col, Space, Typography } from "antd"
-import { getGroupOfferings, getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
-import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { Row, Col, Typography } from "antd"
+import { getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
+import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
 import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
-import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
-import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE, eventBus } from "~/utils/EventBus"
+import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import styles from "~/Pages/Offering/Requisite/Requisite.module.scss"
+import { getOfferingPrerequisiteTableColumns } from "~/FormMeta/OfferingRequisite/PrerequisiteTableColumns"
 
 interface IRequisitePageProp {
   offeringID: number
@@ -14,57 +14,9 @@ interface IRequisitePageProp {
 }
 
 export default function RequisitePage(props: IRequisitePageProp) {
-  const columns = [
-    {
-      title: "Offering Code",
-      dataIndex: "OfferingCode"
-    },
-    {
-      title: "Offering Name",
-      dataIndex: "Name"
-    },
-    {
-      title: "Creation Date",
-      dataIndex: "CreationDate",
-      render: renderDate
-    },
-    {
-      title: "Termination Date",
-      dataIndex: "TerminationDate",
-      render: renderDate
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (record: any) => (
-        <Space size="middle">
-          <RequisiteOfferingRemoveLink offeringId={record.OfferingID} requisiteGroupId={requisiteGroupID} />
-        </Space>
-      )
-    }
-  ]
-
   const [requisiteGroupID, setRequisiteGroupID] = useState<number>()
   const [hasRequisiteGroup, setHasRequisiteGroup] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
   const [policyTypeList, setPolicyTypeList] = useState<Array<any>>([])
-  const [offeringRequisiteGroupDetails, setofferingRequisiteGroupDetails] = useState<Array<any>>([])
-
-  const loadOfferingRequisiteGroupDetails = async function (requisiteGroupID: number) {
-    setLoading(true)
-
-    const result = await getGroupOfferings(requisiteGroupID)
-
-    if (result && result.success) {
-      setLoading(false)
-      setofferingRequisiteGroupDetails(
-        result.data.map((x: any, index: number) => {
-          x.key = index
-          return x
-        })
-      )
-    }
-  }
 
   useEffect(() => {
     const loadOfferingRequisiteGroup = async function () {
@@ -74,19 +26,13 @@ export default function RequisitePage(props: IRequisitePageProp) {
         setRequisiteGroupID(result.data[0].RequisiteOfferingGroupID)
         setHasRequisiteGroup(true)
         setPolicyTypeList(result.data)
-        loadOfferingRequisiteGroupDetails(result.data[0].RequisiteOfferingGroupID)
       }
     }
-    eventBus.subscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE, loadOfferingRequisiteGroup)
-    eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
-    }
+    loadOfferingRequisiteGroup()
   }, [props.offeringID])
 
   const handleSelection = (param: any) => {
     setRequisiteGroupID(param.RequisiteGroupID)
-    loadOfferingRequisiteGroupDetails(param.RequisiteGroupID)
   }
 
   return (
@@ -99,21 +45,27 @@ export default function RequisitePage(props: IRequisitePageProp) {
         </Row>
       )}
       <PrerequisiteGroups offeringId={props.offeringID} policyData={policyTypeList} onSelected={handleSelection} />
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={styles.margin0px}>
-        <Col className={`gutter-row ${styles.offeringRequisiteDetails}`} xs={24} sm={24} md={24}>
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+        <Col className={`gutter-row`} xs={24} sm={24} md={24}>
           <PrerequisiteGroupOfferingModalOpenButton
             offeringId={props.offeringID}
             requisiteGroupId={requisiteGroupID}
             hasRequisiteGroup={hasRequisiteGroup}
           />
-          <ResponsiveTable
-            className={styles.paddingTop10px}
-            columns={columns}
-            dataSource={offeringRequisiteGroupDetails}
-            loading={loading}
-          />
         </Col>
       </Row>
+      {requisiteGroupID && (
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={"padding-top-10"}>
+          <Col className="gutter-row" xs={24} sm={24} md={{ span: 24, offset: 0 }}>
+            <ResponsiveTable
+              searchParams={{ RequisiteOfferingGroupID: requisiteGroupID }}
+              {...getOfferingPrerequisiteTableColumns(requisiteGroupID)}
+              refreshEventName={REFRESH_OFFERING_REQUISITE_GROUP_PAGE}
+              className={styles.paddingTop10px}
+            />
+          </Col>
+        </Row>
+      )}
     </>
   )
 }

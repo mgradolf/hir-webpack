@@ -6,7 +6,7 @@ import { Button, Dropdown } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import SeatGroupMenu from "~/Component/Section/SeatGroup/SeatGroupMenu"
 
-export const getSeatgroupTableColumns = (isModal = false): ITableConfigProp => {
+export const getSectionSeatgroupTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     { title: "Seat Group Name", dataIndex: "Name" },
     { title: "Default Seat Group", dataIndex: "IsDefault", render: renderBoolean },

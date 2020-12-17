@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { Dispatch } from "redux"
 import { Card, Button, Input, Select, Switch } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IBudgetFieldNames } from "~/Component/Section/Interfaces"
@@ -15,9 +14,6 @@ import {
 import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import FormError from "~/Component/Common/FormError"
-import { connect } from "react-redux"
-import { showCreateBudgetModal } from "~/Store/ModalState"
-import { redirect } from "~/Store/ConnectedRoute"
 import "~/Sass/global/index.scss"
 import {
   BUDGET_FINANCIAL_TYPE_INSTRUCTOR,
@@ -31,8 +27,7 @@ interface IBudgetCreateForm2Props {
   budgetType: string
   formInstance: FormInstance
   fieldNames: IBudgetFieldNames
-  redirect?: (url: string) => void
-  closeCreatBudgetModal?: () => void
+  closeModal?: () => void
   goBackToFirstForm: () => void
   setApiCallInProgress: (flag: boolean) => void
 }
@@ -41,7 +36,7 @@ const layout = {
   labelCol: { span: 6 }
 }
 
-function CreateForm2(props: IBudgetCreateForm2Props) {
+export default function CreateForm2(props: IBudgetCreateForm2Props) {
   const actions = []
   const [dataAvailable, setDataAvailable] = useState<boolean>(false)
   const [applySeatGroup, setApplySeatGroup] = useState<boolean>(false)
@@ -83,7 +78,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
     if (response && response.success) {
       props.formInstance.resetFields()
       eventBus.publish(REFRESH_SECTION_BUDGET_PAGE)
-      props.closeCreatBudgetModal && props.closeCreatBudgetModal()
+      props.closeModal && props.closeModal()
     } else {
       console.log(response.error)
       setErrorMessages(response.error)
@@ -152,7 +147,7 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
       Go Back
     </Button>
   )
-  actions.push(<Button onClick={props.closeCreatBudgetModal}>Cancel</Button>)
+  actions.push(<Button onClick={props.closeModal}>Cancel</Button>)
   actions.push(
     <Button onClick={onFormSubmission} disabled={!dataAvailable}>
       Submit
@@ -274,12 +269,3 @@ function CreateForm2(props: IBudgetCreateForm2Props) {
     </Card>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeCreatBudgetModal: () => dispatch(showCreateBudgetModal(false)),
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
-
-export default connect(undefined, mapDispatchToProps)(CreateForm2)

@@ -4,7 +4,7 @@ import { addSectionProduct } from "~/ApiServices/BizApi/product/productIf"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { ProductSearchMeta } from "~/FormMeta/Product/ProductSearchMeta"
 import { getProductTableColumns } from "~/FormMeta/Product/ProductTableColumns"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
 
 interface ICreateActionButtonProp {
   SectionId: number
@@ -23,7 +23,7 @@ export function ProductAddButton(props: ICreateActionButtonProp) {
     if (items && items.length > 0) {
       addSectionProduct([props.SectionId, items.map((x) => x.ProductID)])
         .then((x) => {
-          if (x.success) eventBus.publish(REFRESH_PAGE)
+          if (x.success) eventBus.publish(REFRESH_SECTION_PRODUCT_PAGE)
         })
         .finally(() => {
           setShowModal(false)

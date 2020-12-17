@@ -62,7 +62,6 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      props.formInstance.resetFields()
       eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
       props.handleCancel()
     } else {
