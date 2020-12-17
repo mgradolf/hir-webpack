@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
-import { getSectionSeatgroupTableColumns } from "~/FormMeta/SectionSeatgroup/SeatgroupTableColumns"
 import StandardPage from "~/Component/Common/Page/StandardPage"
-import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
+import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
+import CreateNewBudget from "~/Component/Section/Budget/BudgetFormModal"
 
-export default function SeatgroupPage(props: RouteComponentProps<{ sectionID?: string }>) {
+export default function BudgetPage(props: RouteComponentProps<{ sectionID?: string }>) {
   const SectionID = Number(props.match.params.sectionID)
   const [showModal, setShowModal] = useState(false)
 
@@ -14,13 +14,15 @@ export default function SeatgroupPage(props: RouteComponentProps<{ sectionID?: s
       blocks={[
         <>
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
-            + Create Seat Group
+            + Create Budget Financials
           </Button>
-          {showModal && <CreateSeatGroup sectionId={SectionID} closeModal={() => setShowModal(false)} />}
+          {showModal && <CreateNewBudget sectionId={SectionID} closeModal={() => setShowModal(false)} />}
         </>
       ]}
-      title="Manage Seat Groups"
-      tableProps={{ ...getSectionSeatgroupTableColumns() }}
+      title="Manage Budgets"
+      tableProps={{
+        ...getSectionFinancialTableColumns()
+      }}
       initialFilter={{ SectionID: SectionID }}
     />
   )

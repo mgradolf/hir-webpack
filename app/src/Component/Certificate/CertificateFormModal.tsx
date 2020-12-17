@@ -48,10 +48,9 @@ export default function CertificateFormModal(props: ICertificateFormProps) {
     const params = formInstance.getFieldsValue()
     params[RESPONSE_TYPE.PDF] = true
 
-    console.log("Params: ", params)
     setApiCallInProgress(true)
     const response = await previewCertificate(params)
-    if (response.data) {
+    if (response.success && response.data) {
       const file = new Blob([response.data], { type: "application/pdf" })
       const fileURL = URL.createObjectURL(file)
       window.open(fileURL)
