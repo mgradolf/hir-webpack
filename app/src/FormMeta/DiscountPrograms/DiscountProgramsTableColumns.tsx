@@ -1,5 +1,5 @@
-// import React from "react"
-// import { Link } from "react-router-dom"
+import React from "react"
+import { Link } from "react-router-dom"
 import { searchDiscountProgram } from "~/ApiServices/Service/FinancialService"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
@@ -8,8 +8,9 @@ export const getDiscountProgramsTableColumns = (isModal = false): ITableConfigPr
   const columns: TableColumnType = [
     {
       title: "Name",
-      dataIndex: "Name"
-      // render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
+      dataIndex: "Name",
+      render: (text: any, record: any) =>
+        isModal ? text : <Link to={`/discount-programs/${record.DiscountProgramID}`}>{text}</Link>
     },
     {
       title: "Discount Program Type",
