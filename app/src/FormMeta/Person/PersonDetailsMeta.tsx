@@ -1,4 +1,6 @@
 import React from "react"
+import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
+import { findPersonEducationHist } from "~/ApiServices/Service/PersonService"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
@@ -10,6 +12,7 @@ import { getProgramEnrollmentTableColumns } from "~/FormMeta/ProgramEnrollment/P
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
+import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/getAccountAffiliationTableColumn"
 
 export const getPersonDetailsMeta = (
   personInfos: { [key: string]: any }[],
@@ -204,9 +207,71 @@ export const getPersonDetailsMeta = (
   tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
   tabMetas.push({ tabTitle: "Web Login", tabType: "summary", tabMeta: webLoginMeta })
   tabMetas.push({ tabTitle: "Waitlist", tabType: "table", tabMeta: waitlistEntryMeta })
+  tabMetas.push({
+    tabTitle: "Account Relations ",
+    tabType: "table",
+    tabMeta: {
+      // searchMeta: [
+      //   {
+      //     label: "Is Active",
+      //     fieldName: "IsActive",
+      //     inputType: BOOLEAN
+      //   }
+      // ],
+      tableProps: {
+        ...getAccountAffiliationTableColumn(),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_CONTACT_TAB"
+      }
+    }
+  })
+  console.log(entityType)
   if (entityType === "Student")
     tabMetas.push({ tabTitle: "Registrations", tabType: "table", tabMeta: registrationMeta })
   tabMetas.push({ tabTitle: "Requests", tabType: "table", tabMeta: requestMeta })
+  tabMetas.push({
+    tabTitle: "Education History",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        columns: [
+          { title: "Start", dataIndex: "StartDate", render: renderDate },
+          { title: "End", dataIndex: "EndDate", render: renderDate },
+          { title: "Program", dataIndex: "CredentialName" },
+          { title: "Degree", dataIndex: "CredentialType" }
+        ],
+        searchFunc: findPersonEducationHist,
+        responsiveColumnIndices: [],
+        expandableColumnIndices: [],
+        // ...getAccountAffiliationTableColumn(),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_CONTACT_TAB"
+      }
+    }
+  })
+  if (entityType === "Student")
+    tabMetas.push({
+      tabTitle: "Hold",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            // { title: "Hold Type", dataIndex: "StartDate" },
+            { title: "Hold Date", dataIndex: "EndDate", render: renderDate },
+            { title: "Hold Reason", dataIndex: "HoldReason" },
+            { title: "Hold By", dataIndex: "HoldBy" },
+            { title: "Release Date", dataIndex: "ReleaseDate", render: renderDate },
+            { title: "Release Reason", dataIndex: "ReleaseReason" },
+            { title: "Release By", dataIndex: "ReleasedBy" }
+          ],
+          searchFunc: (Params: any) => findStudentHold(Params.StudentID),
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { StudentID: entityID },
+          refreshEventName: "REFRESH_HOLD_TAB"
+        }
+      }
+    })
   tabMetas.push({ tabTitle: "Certificates", tabType: "table", tabMeta: certificateMeta })
   tabMetas.push({ tabTitle: "Program Applications", tabType: "table", tabMeta: programApplicationMeta })
   tabMetas.push({ tabTitle: "Program Enrollments", tabType: "table", tabMeta: programEnrollmentMeta })

@@ -28,7 +28,7 @@ export default function PersonDetailsPage(
     entityID = PersonID
   }
 
-  console.log(Param, PersonID, FacultyID, StudentID, props)
+  console.log(Param, PersonID, FacultyID, StudentID, entityType, entityID)
   return (
     <DetailsPage
       getMeta={getPersonDetailsMeta}

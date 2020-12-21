@@ -11,6 +11,7 @@ import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
 import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { Link } from "react-router-dom"
+import { getTransactionFinancialTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialTableColumns"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -109,6 +110,17 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         ...getPaymentTableColumns(false),
         searchParams: { AccountID: account.AccountID },
         refreshEventName: "REFRESH_PAYMENTS_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Transactions",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getTransactionFinancialTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_TRANSACTION_TAB"
       }
     }
   })

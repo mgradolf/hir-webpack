@@ -50,14 +50,14 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
     contents: [
       { label: "Total Items", value: order.TotalItems },
       { label: "Total Order Amount", value: order.TotalAmount },
-      { label: "Credit Amount", value: order.CreditAmount },
+      { label: "Credits/Discounts", value: order.CreditAmount },
+      { label: "Cash Credit", value: order.RefundAmount },
+      { label: "Payment Due Date", value: order.PaymentDueDate, render: renderDate },
+      { label: "Total Amount Due", value: order.Balance },
       { label: "Discount", value: order.DiscountAmount },
       { label: "Amount Paid", value: order.AmountPaid },
-      { label: "Refund Amount", value: order.RefundAmount },
-      { label: "Balance", value: order.Balance },
-      { label: "Extended", value: order.ExtendedAmount },
-      { label: "HasPO", value: order.HasPO },
-      { label: "Payment Due Date", value: order.PaymentDueDate, render: renderDate }
+      { label: "Extended Amount", value: order.ExtendedAmount },
+      { label: "HasPO", value: order.HasPO }
     ]
   }
 

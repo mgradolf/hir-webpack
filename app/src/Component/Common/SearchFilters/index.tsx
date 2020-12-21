@@ -78,7 +78,6 @@ export default function ({
     if (updateMeta) {
       setShowLess(false)
       formInstance.setFieldsValue(queryParams)
-      console.log(props.meta)
       const _meta = props.meta.map((x) => {
         x.defaultValue = queryParams[x.fieldName]
         x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined

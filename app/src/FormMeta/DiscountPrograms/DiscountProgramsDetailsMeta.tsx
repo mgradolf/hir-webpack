@@ -1,6 +1,7 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
+import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
 
 export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -20,11 +21,36 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
     ]
   }
 
+  const discountType: CardContainer = {
+    contents: []
+  }
+
+  discountType.contents = [
+    { label: "Discount Type", value: discountProgram.DiscountType },
+    ...Object.keys(discountProgram?.DiscountServiceParams).map((key) => ({
+      label: key,
+      value: discountProgram?.DiscountServiceParams[key]
+    }))
+  ]
+
   meta.push({
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
-      summary: [summary]
+      summary: [summary, discountType]
+    }
+  })
+
+  meta.push({
+    tabTitle: "Credits Search",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getOrderCreditsTableColumns(false),
+        searchParams: { DiscountProgramID: discountProgram.DiscountProgramID },
+        pagination: false,
+        refreshEventName: "REFRESH_ORDER_CREDITS_TAB"
+      }
     }
   })
 
