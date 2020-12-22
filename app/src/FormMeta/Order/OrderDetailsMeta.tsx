@@ -8,11 +8,11 @@ import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
 import { getOrderLinesTableColumns } from "~/FormMeta/OrderLine/OrderLinesTableColumns"
 import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
-import { getOrderPaymentTableColumns } from "~/FormMeta/OrderPayment/OrderPaymentTableColumns"
 import { getOrderReturnTableColumns } from "~/FormMeta/OrderReturn/OrderReturnTableColumns"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getMarketingCodeResponseTableColumns } from "~/FormMeta/MarketingCodeResponse/MarketingCodeResponseTableColumns"
 import { getOrderPurchasedTableColumns } from "~/FormMeta/OrderPurchased/OrderPurchasedTableColumns"
+import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -28,7 +28,11 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   const billingIngo: CardContainer = {
     title: `Billing Info`,
     contents: [
-      { label: "Name", value: order.PersonName },
+      {
+        label: "Name",
+        value: order.PersonName,
+        render: (record) => <Link to={`/person/${record?.Person?.PersonID}`}>{record?.Person?.PersonDescriptor}</Link>
+      },
       {
         label: "Account Name",
         value: { name: order.AccountName, id: order.AccountID },
@@ -94,7 +98,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
 
   const orderPaymentsMeta: IDetailsTableTabProp = {
     tableProps: {
-      ...getOrderPaymentTableColumns(false),
+      ...getPaymentTableColumns(false),
       searchParams: { OrderID: order.OrderID },
       pagination: false,
       refreshEventName: "REFRESH_ORDER_PAYMENTS_TAB"
@@ -141,13 +145,13 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
     pageTitle: `Order ID - ${order.OrderID}`,
     tabs: [
       { tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta },
-      { tabTitle: "Order Items", tabType: "table", tabMeta: orderItemsMeta },
-      { tabTitle: "Order Lines", tabType: "table", tabMeta: orderLinesMeta },
-      { tabTitle: "Order Credits", tabType: "table", tabMeta: orderCreditsMeta },
+      { tabTitle: "Items", tabType: "table", tabMeta: orderItemsMeta },
+      { tabTitle: "Charges", tabType: "table", tabMeta: orderLinesMeta },
+      { tabTitle: "Credits", tabType: "table", tabMeta: orderCreditsMeta },
       { tabTitle: "Payments", tabType: "table", tabMeta: orderPaymentsMeta },
       { tabTitle: "Returns", tabType: "table", tabMeta: orderReturnsMeta },
       { tabTitle: "Registrations", tabType: "table", tabMeta: orderRegistrationsMeta },
-      { tabTitle: "Marketing Code", tabType: "table", tabMeta: orderMarketingCodeMeta },
+      { tabTitle: "Marketing Responses", tabType: "table", tabMeta: orderMarketingCodeMeta },
       { tabTitle: "Purchase Order", tabType: "table", tabMeta: orderPurchasedCodeMeta }
     ]
   }

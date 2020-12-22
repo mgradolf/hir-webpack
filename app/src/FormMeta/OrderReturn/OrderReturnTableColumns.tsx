@@ -4,13 +4,14 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOrderReturnTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    { title: "Returned Quantity", dataIndex: "ReturnedQuantity" },
     {
-      title: "Date Returned",
+      title: "Return Date",
       dataIndex: "DateReturned",
       render: renderDate
     },
-    { title: "Return Note", dataIndex: "ReturnedNote" }
+    { title: "Item", dataIndex: "ItemName" },
+    { title: "Quantity", dataIndex: "ReturnedQuantity" },
+    { title: "Note", dataIndex: "ReturnedNote" }
   ]
 
   const responsiveColumnIndices: number[] = []

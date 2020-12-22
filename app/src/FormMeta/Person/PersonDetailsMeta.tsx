@@ -1,24 +1,28 @@
 import React from "react"
 import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
-import { findPersonEducationHist } from "~/ApiServices/Service/PersonService"
+import { findPersonEducationHist, getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderDateTime, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication/ProgramApplicationTableColumns"
 import { getProgramEnrollmentTableColumns } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentTableColumns"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
-import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/getAccountAffiliationTableColumn"
+import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
+import { Link } from "react-router-dom"
+import { searchOnlineClasses, searchStudentSchedule } from "~/ApiServices/Service/StudentService"
+import { searchInstructorOfferings, searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
+import { getFinancialsByTarget } from "~/ApiServices/BizApi/financial/financialIF"
 
 export const getPersonDetailsMeta = (
   personInfos: { [key: string]: any }[],
   entityType?: string,
   entityID?: number
 ): IDetailsMeta => {
+  const tabMetas: IDetailsTabMeta[] = []
   const person: { [key: string]: any } = personInfos[0]
   const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
   const student: { [key: string]: any } | undefined = personInfos[1].Student
@@ -142,73 +146,36 @@ export const getPersonDetailsMeta = (
   instructorInfo && summaryMeta.summary.push(instructorInfo)
   studentInfo && summaryMeta.summary.push(studentInfo)
 
+  tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
+
   const login: CardContainer = {
-    title: "Web Login",
     contents: [
       { label: "User Login", value: person?.Login?.UserLogin },
       { label: "Secret Question", value: person?.Login?.SecretQuestion },
       { label: "Secret Answer", value: person?.Login?.SecretAnswer }
     ]
   }
-
-  const webLoginMeta: IDetailsSummary = {
-    summary: [login]
-  }
-
-  const waitlistEntryMeta: IDetailsTableTabProp = {
-    tableProps: {
-      ...getWaitlistEntriesTableColumns(false),
-      searchParams: { PersonID: person.PersonID },
-      refreshEventName: "REFRESH_PERSON_TAB"
-    }
-  }
-
-  const requestMeta: IDetailsTableTabProp = {
-    tableProps: {
-      ...getRequestTableColumns(false),
-      searchParams: { PersonID: person.PersonID },
-      refreshEventName: "REFRESH_REQUEST_TAB"
-    }
-  }
-
-  const registrationMeta: IDetailsTableTabProp = {
-    tableProps: {
-      ...getRegistrationTableColumns(false),
-      searchParams: { StudentID: entityID },
-      refreshEventName: "REFRESH_REGISTRATION_TAB"
-    }
-  }
-
-  const certificateMeta: IDetailsTableTabProp = {
-    tableProps: {
-      ...getCertificateTableColumns(false),
-      searchParams: { PersonID: person.PersonID },
-      refreshEventName: "REFRESH_CERTIFICATE_TAB"
-    }
-  }
-
-  const programApplicationMeta: IDetailsTableTabProp = {
-    tableProps: {
-      ...getProgramApplicationTableColumns(false),
-      searchParams: { PersonID: person.PersonID },
-      refreshEventName: "REFRESH_APPLICATION_TAB"
-    }
-  }
-
-  const programEnrollmentMeta: IDetailsTableTabProp = {
-    tableProps: {
-      ...getProgramEnrollmentTableColumns(false),
-      searchParams: { PersonID: person.PersonID },
-      refreshEventName: "REFRESH_ENROLLMMENT_TAB"
-    }
-  }
-
-  const tabMetas: IDetailsTabMeta[] = []
-  tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
-  tabMetas.push({ tabTitle: "Web Login", tabType: "summary", tabMeta: webLoginMeta })
-  tabMetas.push({ tabTitle: "Waitlist", tabType: "table", tabMeta: waitlistEntryMeta })
   tabMetas.push({
-    tabTitle: "Account Relations ",
+    tabTitle: "Web Login",
+    tabType: "summary",
+    tabMeta: {
+      summary: [login]
+    }
+  })
+
+  tabMetas.push({
+    tabTitle: "Waitlist",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getWaitlistEntriesTableColumns(false),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_PERSON_TAB"
+      }
+    }
+  })
+  tabMetas.push({
+    tabTitle: "Account Relations",
     tabType: "table",
     tabMeta: {
       // searchMeta: [
@@ -219,16 +186,48 @@ export const getPersonDetailsMeta = (
       //   }
       // ],
       tableProps: {
-        ...getAccountAffiliationTableColumn(),
+        columns: [
+          {
+            title: "Account",
+            dataIndex: "AccountName",
+            render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>
+          },
+          { title: "Role ", dataIndex: "AffiliationRoleTypeName" },
+          { title: "Shared", dataIndex: "IsContactShared", render: renderBoolean },
+          { title: "Status", dataIndex: "AccountAffiliationStatusName" }
+        ],
+        searchFunc: getAccountAffiliation,
         searchParams: { PersonID: person.PersonID },
-        refreshEventName: "REFRESH_CONTACT_TAB"
+        refreshEventName: "REFRESH_CONTACT_TAB",
+        pagination: false
       }
     }
   })
-  console.log(entityType)
-  if (entityType === "Student")
-    tabMetas.push({ tabTitle: "Registrations", tabType: "table", tabMeta: registrationMeta })
-  tabMetas.push({ tabTitle: "Requests", tabType: "table", tabMeta: requestMeta })
+
+  entityType === "Student" &&
+    tabMetas.push({
+      tabTitle: "Registrations",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          ...getRegistrationTableColumns(false),
+          searchParams: { StudentID: entityID },
+          refreshEventName: "REFRESH_REGISTRATION_TAB"
+        }
+      }
+    })
+
+  tabMetas.push({
+    tabTitle: "Requests",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getRequestTableColumns(false),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_REQUEST_TAB"
+      }
+    }
+  })
   tabMetas.push({
     tabTitle: "Education History",
     tabType: "table",
@@ -237,26 +236,78 @@ export const getPersonDetailsMeta = (
         columns: [
           { title: "Start", dataIndex: "StartDate", render: renderDate },
           { title: "End", dataIndex: "EndDate", render: renderDate },
+          { title: "Institution", dataIndex: "EstablishmentName" },
           { title: "Program", dataIndex: "CredentialName" },
           { title: "Degree", dataIndex: "CredentialType" }
         ],
         searchFunc: findPersonEducationHist,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
-        // ...getAccountAffiliationTableColumn(),
         searchParams: { PersonID: person.PersonID },
         refreshEventName: "REFRESH_CONTACT_TAB"
       }
     }
   })
-  if (entityType === "Student")
+
+  entityType === "Student" &&
+    tabMetas.push({
+      tabTitle: "Student Schedule",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            { title: "Date", dataIndex: "EndDate", render: renderDate },
+            { title: "Time", dataIndex: "StartTime" },
+            { title: "Offering Name", dataIndex: "OfferingName" },
+            {
+              title: "Section Number",
+              dataIndex: "SectionNumber",
+              render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+            },
+            { title: "Location", dataIndex: "Location" }
+          ],
+          searchFunc: (Params: any) => searchStudentSchedule({ StudentID: Params.StudentID }),
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { StudentID: entityID },
+          refreshEventName: "REFRESH_STUDENT_SCHEDULE_TAB"
+        }
+      }
+    })
+  entityType === "Student" &&
+    tabMetas.push({
+      tabTitle: "Online Classes",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            { title: "StartDate", dataIndex: "StartDate", render: renderDate },
+            { title: "EndDate", dataIndex: "EndDate", render: renderDate },
+            {
+              title: "Offering Code",
+              dataIndex: "OfferingCode",
+              render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+            },
+            {
+              title: "Section Number",
+              dataIndex: "SectionNumber",
+              render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+            }
+          ],
+          searchFunc: (Params: any) => searchOnlineClasses({ StudentID: Params.StudentID }),
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { StudentID: entityID },
+          refreshEventName: "REFRESH_HOLD_TAB"
+        }
+      }
+    })
+
+  entityType === "Student" &&
     tabMetas.push({
       tabTitle: "Hold",
       tabType: "table",
       tabMeta: {
         tableProps: {
           columns: [
-            // { title: "Hold Type", dataIndex: "StartDate" },
             { title: "Hold Date", dataIndex: "EndDate", render: renderDate },
             { title: "Hold Reason", dataIndex: "HoldReason" },
             { title: "Hold By", dataIndex: "HoldBy" },
@@ -272,9 +323,186 @@ export const getPersonDetailsMeta = (
         }
       }
     })
-  tabMetas.push({ tabTitle: "Certificates", tabType: "table", tabMeta: certificateMeta })
-  tabMetas.push({ tabTitle: "Program Applications", tabType: "table", tabMeta: programApplicationMeta })
-  tabMetas.push({ tabTitle: "Program Enrollments", tabType: "table", tabMeta: programEnrollmentMeta })
+  entityType === "Faculty" &&
+    tabMetas.push({
+      tabTitle: "Faculty Schedule",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            { title: "Start Date", dataIndex: "EndDate", render: renderDateTime },
+            { title: "End Date", dataIndex: "EndDate", render: renderDateTime },
+            // { title: "Start Time", dataIndex: "HoldReason" },
+            // { title: "End Time", dataIndex: "HoldReason" },
+            { title: "Item", dataIndex: "Name" }
+          ],
+          searchFunc: getFacultySchedule,
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { PersonID: person.PersonID },
+          refreshEventName: "REFRESH_FACULTY_SCHEDULE_TAB"
+        }
+      }
+    })
+
+  entityType === "Faculty" &&
+    tabMetas.push({
+      tabTitle: "Instructor Contracts",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            { title: "CurrentEnrollment", dataIndex: "CurrentEnrollment" },
+            { title: "MaxEnrollment", dataIndex: "MaxEnrollment" },
+            { title: "SectionNumber", dataIndex: "SectionNumber" },
+            { title: "PostalCode", dataIndex: "PostalCode" },
+            { title: "SectionStatusCodeName", dataIndex: "SectionStatusCodeName" },
+            { title: "TelephoneNumber", dataIndex: "TelephoneNumber" },
+            { title: "Key_Section", dataIndex: "Key_Section" },
+            { title: "StartDate", dataIndex: "StartDate" },
+            { title: "MinEnrollment", dataIndex: "MinEnrollment" },
+            { title: "PersonID", dataIndex: "PersonID" },
+            { title: "OfferingCode", dataIndex: "OfferingCode" },
+            { title: "SectionID", dataIndex: "SectionID" },
+            { title: "DaysOfWeek", dataIndex: "DaysOfWeek" },
+            { title: "Locality", dataIndex: "Locality" },
+            { title: "FirstName", dataIndex: "FirstName" },
+            { title: "Amount", dataIndex: "Amount" },
+            { title: "Title", dataIndex: "Title" },
+            { title: "ERPID", dataIndex: "ERPID" },
+            { title: "EndDate", dataIndex: "EndDate" },
+            { title: "EmailAddress", dataIndex: "EmailAddress" },
+            { title: "AddressLine1", dataIndex: "AddressLine1" },
+            { title: "MeetsOn", dataIndex: "MeetsOn" },
+            { title: "LastName", dataIndex: "LastName" },
+            { title: "OfferingName", dataIndex: "OfferingName" },
+            { title: "FacultyID", dataIndex: "FacultyID" }
+          ],
+          searchFunc: searchSectionInstructor,
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { FacultyID: entityID },
+          refreshEventName: "REFRESH_FACULTY_CONTACT_TAB"
+        }
+      }
+    })
+
+  entityType === "Faculty" &&
+    tabMetas.push({
+      tabTitle: "Qualified Offerings",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            { title: "OrganizationName", dataIndex: "OrganizationName" },
+            { title: "CreationDate", dataIndex: "CreationDate" },
+            { title: "StartTermName", dataIndex: "StartTermName" },
+            { title: "OfferingDescriptor", dataIndex: "OfferingDescriptor" },
+            { title: "ModifiedDate", dataIndex: "ModifiedDate" },
+            { title: "ModifiedBy", dataIndex: "ModifiedBy" },
+            { title: "oca", dataIndex: "oca" },
+            { title: "StatusCode", dataIndex: "StatusCode" },
+            { title: "URL", dataIndex: "URL" },
+            { title: "OfferingStatusReleaseID", dataIndex: "OfferingStatusReleaseID" },
+            { title: "OfferingStatusCodeID", dataIndex: "OfferingStatusCodeID" },
+            { title: "EffectiveTerminationDate", dataIndex: "EffectiveTerminationDate" },
+            { title: "OfferingCode", dataIndex: "OfferingCode" },
+            { title: "PaymentGatewayAccountName", dataIndex: "PaymentGatewayAccountName" },
+            { title: "EndTermID", dataIndex: "EndTermID" },
+            { title: "HasApprovalProcess", dataIndex: "HasApprovalProcess" },
+            { title: "OfferingTypeID", dataIndex: "OfferingTypeID" },
+            { title: "RecurrenceRule", dataIndex: "RecurrenceRule" },
+            { title: "EndTermName", dataIndex: "EndTermName" },
+            { title: "OfferingUsageType", dataIndex: "OfferingUsageType" },
+            { title: "TerminationDate", dataIndex: "TerminationDate" },
+            { title: "StartTermID", dataIndex: "StartTermID" },
+            { title: "SectionTypeName", dataIndex: "SectionTypeName" },
+            { title: "OrganizationID", dataIndex: "OrganizationID" },
+            { title: "PaymentGatewayAccountID", dataIndex: "PaymentGatewayAccountID" },
+            { title: "OfferingTypeName", dataIndex: "OfferingTypeName" },
+            { title: "CourseID", dataIndex: "CourseID" },
+            { title: "EffectiveCreationDate", dataIndex: "EffectiveCreationDate" },
+            { title: "DefaultSectionTypeID", dataIndex: "DefaultSectionTypeID" },
+            { title: "OfferingDescription", dataIndex: "OfferingDescription" },
+            { title: "IsQuickAdmit", dataIndex: "IsQuickAdmit" },
+            { title: "ModifiedByUserID", dataIndex: "ModifiedByUserID" },
+            { title: "OfferingName", dataIndex: "OfferingName" },
+            { title: "OfferingID", dataIndex: "OfferingID" },
+            { title: "SubmitInquiryToUserID", dataIndex: "SubmitInquiryToUserID" }
+          ],
+          searchFunc: searchInstructorOfferings,
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { FacultyID: entityID },
+          refreshEventName: "REFRESH_FACULTY_OFFERINGS_TAB"
+        }
+      }
+    })
+  entityType === "Faculty" &&
+    tabMetas.push({
+      tabTitle: "Instructor Fees",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            { title: "ApplyToID", dataIndex: "ApplyToID" },
+            { title: "Description", dataIndex: "Description" },
+            { title: "FinancialBasisTypeID", dataIndex: "FinancialBasisTypeID" },
+            { title: "FinancialCategoryTypeID", dataIndex: "FinancialCategoryTypeID" },
+            { title: "FinancialID", dataIndex: "FinancialID" },
+            { title: "FinancialTypeID", dataIndex: "FinancialTypeID" },
+            { title: "GLAccountID", dataIndex: "GLAccountID" },
+            { title: "IsActive", dataIndex: "IsActive" },
+            { title: "IsCharge", dataIndex: "IsCharge" },
+            { title: "IsOptional", dataIndex: "IsOptional" },
+            { title: "IsTaxable", dataIndex: "IsTaxable" },
+            { title: "ItemUnitAmount", dataIndex: "ItemUnitAmount" },
+            { title: "Weight", dataIndex: "Weight" }
+          ],
+          searchFunc: (Params: any) => getFinancialsByTarget(3, 2),
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { FacultyID: entityID, FinancialTypeID: 2 },
+          refreshEventName: "REFRESH_FACULTY_OFFERINGS_TAB"
+        }
+      }
+    })
+
+  tabMetas.push({
+    tabTitle: "Certificates",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getCertificateTableColumns(false),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_CERTIFICATE_TAB"
+      }
+    }
+  })
+
+  tabMetas.push({
+    tabTitle: "Program Applications",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getProgramApplicationTableColumns(false),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_APPLICATION_TAB"
+      }
+    }
+  })
+
+  tabMetas.push({
+    tabTitle: "Program Enrollments",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getProgramEnrollmentTableColumns(false),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_ENROLLMMENT_TAB"
+      }
+    }
+  })
 
   return {
     pageTitle: person.FormattedName,

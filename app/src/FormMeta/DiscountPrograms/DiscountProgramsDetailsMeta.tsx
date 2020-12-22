@@ -2,7 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { putSpaceBetweenCapitalLetters } from "~/utils/util"
-import { getPaymentCreditMemoTableColumns } from "~/FormMeta/PaymentCreditMemo/PaymentCreditMemoTableColumns"
+import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
 
 export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -47,7 +47,7 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
     tabType: "table",
     tabMeta: {
       tableProps: {
-        ...getPaymentCreditMemoTableColumns(),
+        ...getOrderCreditsTableColumns(),
         searchParams: { DiscountProgramID: discountProgram.DiscountProgramID },
         refreshEventName: "REFRESH_ORDER_CREDITS_TAB"
       }

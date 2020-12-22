@@ -1,4 +1,6 @@
-import { getCredit } from "~/ApiServices/Service/OrderService"
+import React from "react"
+import { Link } from "react-router-dom"
+import { searchCreditMemo } from "~/ApiServices/BizApi/payment/paymentIF"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
@@ -6,7 +8,8 @@ export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp =
   const columns: TableColumnType = [
     {
       title: "Credit ID",
-      dataIndex: "CreditMemoID"
+      dataIndex: "CreditMemoID",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
     },
     {
       title: "Credit Date",
@@ -14,28 +17,38 @@ export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp =
       render: renderDate
     },
     {
-      title: "Credit Status",
-      dataIndex: "CreditStatus"
+      title: "Item",
+      dataIndex: "ItemName"
     },
     {
-      title: "Item Description",
-      dataIndex: "orderItemDescription"
-    },
-    {
-      title: "Details",
+      title: "Charge Name",
       dataIndex: "FinancialDescription"
     },
     {
-      title: "Total Amount",
-      dataIndex: "Amount"
+      title: "Credit Reason",
+      dataIndex: "CreditReason"
     },
     {
-      title: "Cash Credit",
+      title: "Discount Program",
+      dataIndex: "DiscountProgramName",
+      render: (text: any, record: any) =>
+        isModal ? text : <Link to={`/discount-program/${record.DiscountProgramID}`}>{text}</Link>
+    },
+    {
+      title: "Charged Amount",
+      dataIndex: "ChargeAmount"
+    },
+    {
+      title: "Credit Amount",
+      dataIndex: "CreditAmount"
+    },
+    {
+      title: "Refund",
       dataIndex: "RefundAmount"
     }
   ]
 
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getCredit }
+  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchCreditMemo }
 }
