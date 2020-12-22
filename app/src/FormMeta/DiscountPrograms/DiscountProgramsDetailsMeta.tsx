@@ -1,7 +1,8 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
-import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
+import { putSpaceBetweenCapitalLetters } from "~/utils/util"
+import { getPaymentCreditMemoTableColumns } from "~/FormMeta/PaymentCreditMemo/PaymentCreditMemoTableColumns"
 
 export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -28,7 +29,7 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
   discountType.contents = [
     { label: "Discount Type", value: discountProgram.DiscountType },
     ...Object.keys(discountProgram?.DiscountServiceParams).map((key) => ({
-      label: key,
+      label: putSpaceBetweenCapitalLetters(key),
       value: discountProgram?.DiscountServiceParams[key]
     }))
   ]
@@ -42,13 +43,12 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
   })
 
   meta.push({
-    tabTitle: "Credits Search",
+    tabTitle: "Transactions",
     tabType: "table",
     tabMeta: {
       tableProps: {
-        ...getOrderCreditsTableColumns(false),
+        ...getPaymentCreditMemoTableColumns(),
         searchParams: { DiscountProgramID: discountProgram.DiscountProgramID },
-        pagination: false,
         refreshEventName: "REFRESH_ORDER_CREDITS_TAB"
       }
     }

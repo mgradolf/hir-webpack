@@ -17,12 +17,12 @@ export const DiscountProgramsSearchMeta: IFilterField[] = [
     fieldName: "Name"
   },
   {
-    label: "Is Promoted For Marketing",
+    label: "Promoted For Marketing",
     inputType: BOOLEAN,
     fieldName: "IsPromotedForMarketing"
   },
   {
-    label: "Is Active",
+    label: "Active",
     inputType: BOOLEAN,
     fieldName: "IsActive"
   }

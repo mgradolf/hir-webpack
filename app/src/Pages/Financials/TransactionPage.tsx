@@ -6,9 +6,10 @@ import { TransactionSearchMeta } from "~/FormMeta/TransactionFinancial/Transacti
 export default function TransactionPage() {
   return (
     <SearchPage
-      title="Order"
+      title="Transactions"
       meta={TransactionSearchMeta}
       hideSearchField={false}
+      defaultFilter={{ IsDepositView: false }}
       tableProps={getTransactionFinancialTableColumns()}
     />
   )

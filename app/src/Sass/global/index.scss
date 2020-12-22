@@ -63,3 +63,10 @@
   padding-top: 12px;
   text-align: left;
 }
+
+.ant-form-item-label {
+  label {
+    height: 40px !important;
+    white-space: normal;
+  }
+}

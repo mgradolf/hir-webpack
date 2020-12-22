@@ -1,5 +1,5 @@
 import React from "react"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchTransactions } from "~/ApiServices/Service/TransactionService"
 import { Link } from "react-router-dom"
@@ -7,14 +7,22 @@ import { Link } from "react-router-dom"
 export const getTransactionFinancialTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Deposit ID",
-      dataIndex: "depositTransactionID",
+      title: "Transaction ID",
+      dataIndex: "TransactionID",
       render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/transaction/${record.depositTransactionID}`}>{text}</Link>
+        isModal ? text : <Link to={`/transaction/${record.TransactionID}`}>{text}</Link>
     },
-    { title: "Date", dataIndex: "TransactionDate" },
-    { title: "Account Owner", dataIndex: "PersonName" },
-    { title: "Account Name", dataIndex: "AffiliateOrg" },
+    { title: "Date", dataIndex: "TransactionDate", render: renderDate },
+    {
+      title: "Account Owner",
+      dataIndex: "PersonName",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
+    },
+    {
+      title: "Account Name",
+      dataIndex: "AffiliatedOrg",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
+    },
     { title: "Department", dataIndex: "Department" },
     { title: "TransactionType", dataIndex: "TransactionType" },
     { title: "Description", dataIndex: "Description" },

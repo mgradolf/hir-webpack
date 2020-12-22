@@ -29,8 +29,15 @@ export function SearchTransactionType(props: IFilterGenericComponentProps<IFilte
     }
   }, [selectedCountry])
   return (
-    <Row>
-      <Col span={12}>
+    <Row
+      style={{
+        border: "1px solid #d3d3d3",
+        padding: "20px 0px 0px 10px",
+        borderRadius: "5px",
+        marginBottom: "20px"
+      }}
+    >
+      <Col span={24}>
         <SearchComponentWrapper {...props} fieldName="BaseTransactionTypeID" label="Base Transaction Type">
           <Select
             allowClear={true}
@@ -47,7 +54,7 @@ export function SearchTransactionType(props: IFilterGenericComponentProps<IFilte
           </Select>
         </SearchComponentWrapper>
       </Col>
-      <Col span={12}>
+      <Col span={24}>
         <SearchComponentWrapper {...props}>
           <Select allowClear={true} loading={loading} style={props.isCheckeble ? { width: 150 } : {}}>
             {regiondCodes &&
