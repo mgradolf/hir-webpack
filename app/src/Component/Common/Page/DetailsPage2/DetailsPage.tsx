@@ -20,6 +20,7 @@ export interface IDetailsTabMeta {
   tabType: TabType
   tabTitle: string
   tabMeta: any
+  multipleTabMetas?: IDetailsTabMeta[]
 }
 
 export interface IDetailsMeta {
@@ -98,7 +99,24 @@ export function DetailsPage(props: IDetailsPage) {
                 case "table":
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsTableTab {...x.tabMeta} />
+                      <>
+                        {x.multipleTabMetas && x.multipleTabMetas.length > 0 ? (
+                          <Tabs
+                            defaultActiveKey="1"
+                            type="card"
+                            size="large"
+                            tabBarExtraContent={props.actions ? props.actions : []}
+                          >
+                            {x.multipleTabMetas.map((y, j) => (
+                              <Tabs.TabPane tab={y.tabTitle} key={j + 1000}>
+                                <DetailsTableTab {...y.tabMeta} />
+                              </Tabs.TabPane>
+                            ))}
+                          </Tabs>
+                        ) : (
+                          <DetailsTableTab {...x.tabMeta} />
+                        )}
+                      </>
                     </Tabs.TabPane>
                   )
                 case "custom":

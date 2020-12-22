@@ -247,8 +247,15 @@ export const getPersonDetailsMeta = (
     }
   })
 
+  const schedule: IDetailsTabMeta = {
+    tabTitle: "Schedule",
+    tabType: "table",
+    tabMeta: [],
+    multipleTabMetas: []
+  }
   entityType === "Student" &&
-    tabMetas.push({
+    schedule.multipleTabMetas &&
+    schedule.multipleTabMetas.push({
       tabTitle: "Student Schedule",
       tabType: "table",
       tabMeta: {
@@ -273,7 +280,8 @@ export const getPersonDetailsMeta = (
       }
     })
   entityType === "Student" &&
-    tabMetas.push({
+    schedule.multipleTabMetas &&
+    schedule.multipleTabMetas.push({
       tabTitle: "Online Classes",
       tabType: "table",
       tabMeta: {
@@ -300,6 +308,29 @@ export const getPersonDetailsMeta = (
         }
       }
     })
+  entityType === "Faculty" &&
+    schedule.multipleTabMetas &&
+    schedule.multipleTabMetas.push({
+      tabTitle: "Faculty Schedule",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          columns: [
+            { title: "Start Date", dataIndex: "EndDate", render: renderDateTime },
+            { title: "End Date", dataIndex: "EndDate", render: renderDateTime },
+            // { title: "Start Time", dataIndex: "HoldReason" },
+            // { title: "End Time", dataIndex: "HoldReason" },
+            { title: "Item", dataIndex: "Name" }
+          ],
+          searchFunc: getFacultySchedule,
+          responsiveColumnIndices: [],
+          expandableColumnIndices: [],
+          searchParams: { PersonID: person.PersonID },
+          refreshEventName: "REFRESH_FACULTY_SCHEDULE_TAB"
+        }
+      }
+    })
+  entityType !== "Person" && tabMetas.push(schedule)
 
   entityType === "Student" &&
     tabMetas.push({
@@ -320,27 +351,6 @@ export const getPersonDetailsMeta = (
           expandableColumnIndices: [],
           searchParams: { StudentID: entityID },
           refreshEventName: "REFRESH_HOLD_TAB"
-        }
-      }
-    })
-  entityType === "Faculty" &&
-    tabMetas.push({
-      tabTitle: "Faculty Schedule",
-      tabType: "table",
-      tabMeta: {
-        tableProps: {
-          columns: [
-            { title: "Start Date", dataIndex: "EndDate", render: renderDateTime },
-            { title: "End Date", dataIndex: "EndDate", render: renderDateTime },
-            // { title: "Start Time", dataIndex: "HoldReason" },
-            // { title: "End Time", dataIndex: "HoldReason" },
-            { title: "Item", dataIndex: "Name" }
-          ],
-          searchFunc: getFacultySchedule,
-          responsiveColumnIndices: [],
-          expandableColumnIndices: [],
-          searchParams: { PersonID: person.PersonID },
-          refreshEventName: "REFRESH_FACULTY_SCHEDULE_TAB"
         }
       }
     })
