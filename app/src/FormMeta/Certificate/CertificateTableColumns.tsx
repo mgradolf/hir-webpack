@@ -15,13 +15,9 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
       )
     },
     {
-      title: "Certificate Name",
-      dataIndex: "CertificateName"
-    },
-    {
-      title: "Valid",
-      dataIndex: "PublishOnWeb",
-      render: (text: any) => (text ? "Yes" : "No")
+      title: "Student Name",
+      dataIndex: "StudentName",
+      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
     },
     {
       title: "Issue Date",
@@ -29,129 +25,108 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
       render: renderDate
     },
     {
-      title: "Expiration Date",
-      dataIndex: "ExpirationDate",
-      render: renderDate
+      title: "Certificate Name",
+      dataIndex: "CertificateName"
     },
     {
-      title: "Student ID",
-      dataIndex: "StudentSerialNum",
-      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
-    },
-    {
-      title: "Student Name",
-      dataIndex: "StudentName",
-      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
-    },
-    {
-      title: "Prefix",
-      dataIndex: "Prefix"
-    },
-    {
-      title: "Frist Name",
-      dataIndex: "FirstName"
-    },
-    {
-      title: "Last Name",
-      dataIndex: "LastName"
-    },
-    {
-      title: "Suffix",
-      dataIndex: "Suffix"
-    },
-    {
-      title: "Other Name",
-      dataIndex: "OtherName"
-    },
-    {
-      title: "Title",
-      dataIndex: "Title"
-    },
-    {
-      title: "Address",
-      dataIndex: "Address"
-    },
-    {
-      title: "Offering Title",
+      title: "Offering Name",
       dataIndex: "OfferingName"
-    },
-    {
-      title: "Program Title",
-      dataIndex: "ProgramName"
-    },
-    {
-      title: "Issuing Department",
-      dataIndex: "IssuingDepartment"
-    },
-    {
-      title: "Issuing School",
-      dataIndex: "IssuingSchool"
-    },
-    {
-      title: "Section Number",
-      dataIndex: "SectionNumber"
-    },
-    {
-      title: "Credit Hours",
-      dataIndex: "CreditHours"
-    },
-    {
-      title: "Clock Hours",
-      dataIndex: "ClockHours"
-    },
-    {
-      title: "CEU Hours",
-      dataIndex: "CEUHours"
-    },
-    {
-      title: "Load Hours",
-      dataIndex: "LoadHours"
-    },
-    {
-      title: "Instructors",
-      dataIndex: "Instructors"
-    },
-    {
-      title: "Alpha Value",
-      dataIndex: "AlphaValue"
-    },
-    {
-      title: "GAP Value",
-      dataIndex: "GPAValue"
-    },
-    {
-      title: "Completion Date",
-      dataIndex: "CompletionDate",
-      render: renderDate
     }
+
+    // {
+    //   title: "Valid",
+    //   dataIndex: "PublishOnWeb",
+    //   render: (text: any) => (text ? "Yes" : "No")
+    // },
+    // {
+    //   title: "Expiration Date",
+    //   dataIndex: "ExpirationDate",
+    //   render: renderDate
+    // },
+    // {
+    //   title: "Student ID",
+    //   dataIndex: "StudentSerialNum",
+    //   render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
+    // },
+    // {
+    //   title: "Prefix",
+    //   dataIndex: "Prefix"
+    // },
+    // {
+    //   title: "Frist Name",
+    //   dataIndex: "FirstName"
+    // },
+    // {
+    //   title: "Last Name",
+    //   dataIndex: "LastName"
+    // },
+    // {
+    //   title: "Suffix",
+    //   dataIndex: "Suffix"
+    // },
+    // {
+    //   title: "Other Name",
+    //   dataIndex: "OtherName"
+    // },
+    // {
+    //   title: "Title",
+    //   dataIndex: "Title"
+    // },
+    // {
+    //   title: "Address",
+    //   dataIndex: "Address"
+    // },
+    // {
+    //   title: "Program Title",
+    //   dataIndex: "ProgramName"
+    // },
+    // {
+    //   title: "Issuing Department",
+    //   dataIndex: "IssuingDepartment"
+    // },
+    // {
+    //   title: "Issuing School",
+    //   dataIndex: "IssuingSchool"
+    // },
+    // {
+    //   title: "Section Number",
+    //   dataIndex: "SectionNumber"
+    // },
+    // {
+    //   title: "Credit Hours",
+    //   dataIndex: "CreditHours"
+    // },
+    // {
+    //   title: "Clock Hours",
+    //   dataIndex: "ClockHours"
+    // },
+    // {
+    //   title: "CEU Hours",
+    //   dataIndex: "CEUHours"
+    // },
+    // {
+    //   title: "Load Hours",
+    //   dataIndex: "LoadHours"
+    // },
+    // {
+    //   title: "Instructors",
+    //   dataIndex: "Instructors"
+    // },
+    // {
+    //   title: "Alpha Value",
+    //   dataIndex: "AlphaValue"
+    // },
+    // {
+    //   title: "GAP Value",
+    //   dataIndex: "GPAValue"
+    // },
+    // {
+    //   title: "Completion Date",
+    //   dataIndex: "CompletionDate",
+    //   render: renderDate
+    // }
   ]
-  const responsiveColumnIndices: number[] = [
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26
-  ]
-  const expandableColumnIndices: number[] = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchCertificate }
 }

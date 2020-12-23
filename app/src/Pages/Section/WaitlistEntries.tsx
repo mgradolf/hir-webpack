@@ -5,6 +5,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
 import { RouteComponentProps } from "react-router-dom"
+import { REFRESH_SECTION_WAITLIST_ENTRIES_PAGE } from "~/utils/EventBus"
 
 export default function WaitlistEntryPage(props: RouteComponentProps<{ sectionID: string }>) {
   const SectionID = Number(props.match.params.sectionID)
@@ -43,6 +44,7 @@ export default function WaitlistEntryPage(props: RouteComponentProps<{ sectionID
           </>
         ]}
         tableProps={{
+          refreshEventName: REFRESH_SECTION_WAITLIST_ENTRIES_PAGE,
           ...getWaitlistEntriesTableColumns(false, (record) => {
             setShowCreateModal(true)
             setEntry(record)
