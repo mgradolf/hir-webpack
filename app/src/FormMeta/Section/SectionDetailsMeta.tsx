@@ -13,7 +13,10 @@ import {
   REFRESH_SECTION_NOTIFICATION_PAGE,
   REFRESH_SECTION_REGISTRATION_PAGE,
   REFRESH_SECTION_SEATGROUP_PAGE,
-  REFRESH_SECTION_PRODUCT_PAGE
+  REFRESH_SECTION_PRODUCT_PAGE,
+  REFRESH_SECTION_REQUEST_PAGE,
+  REFRESH_SECTION_WAITLIST_ENTRIES_PAGE,
+  REFRESH_SECTION_ORDER_PAGE
 } from "~/utils/EventBus"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
@@ -29,6 +32,12 @@ import SectionQuestionPage from "~/Pages/Section/QuestionPage"
 import SectionTagPage from "~/Pages/Section/TagPage"
 import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
 import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
+import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
+import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
+import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
+import SectionNoShowPage from "~/Pages/Section/NoShowPage"
+import SectionCommentPage from "~/Pages/Section/Comment/CommentPage"
+import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
@@ -117,6 +126,22 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     )
   }
 
+  const WaitlistEntryFormModalOpenButton = (props: { SectionID: number }) => {
+    const [showModal, setShowModal] = useState(false)
+    return (
+      <>
+        {setShowModal && (
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
+            + Add Waitlist Entry
+          </Button>
+        )}
+        {showModal && (
+          <WaitlistEntryCreateEditFormModal SectionID={props.SectionID} closeModal={() => setShowModal(false)} />
+        )}
+      </>
+    )
+  }
+
   const summaryMeta: IDetailsSummary = {
     summary: [sectionInfo, enrollmentInfo, gradeInfo]
   }
@@ -193,6 +218,41 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     }
   }
 
+  const orderMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getOrderTableColumns(),
+      searchParams: { SectionIDs: [section.SectionID] },
+      refreshEventName: REFRESH_SECTION_ORDER_PAGE
+    }
+  }
+
+  const requestMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getRequestTableColumns(),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_SECTION_REQUEST_PAGE
+    }
+  }
+
+  const waitlistEntriesMeta: IDetailsTableTabProp = {
+    blocks: [<WaitlistEntryFormModalOpenButton SectionID={section.SectionID} />],
+    tableProps: {
+      ...getWaitlistEntriesTableColumns(),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_SECTION_WAITLIST_ENTRIES_PAGE
+    }
+  }
+
+  const noShowMeta: IDetailsCustomTabProp = {
+    component: SectionNoShowPage,
+    props: { SectionID: section.SectionID }
+  }
+
+  const commentMeta: IDetailsCustomTabProp = {
+    component: SectionCommentPage,
+    props: { sectionID: section.SectionID }
+  }
+
   return {
     pageTitle: `Section - ${section.OfferingName}`,
     tabs: [
@@ -250,6 +310,31 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabTitle: "Registrations",
         tabType: "table",
         tabMeta: registrationMeta
+      },
+      {
+        tabTitle: "Order Items",
+        tabType: "table",
+        tabMeta: orderMeta
+      },
+      {
+        tabTitle: "Requests",
+        tabType: "table",
+        tabMeta: requestMeta
+      },
+      {
+        tabTitle: "Waitlist Entries",
+        tabType: "table",
+        tabMeta: waitlistEntriesMeta
+      },
+      {
+        tabTitle: "Comments",
+        tabType: "custom",
+        tabMeta: commentMeta
+      },
+      {
+        tabTitle: "No Shows",
+        tabType: "custom",
+        tabMeta: noShowMeta
       }
     ]
   }

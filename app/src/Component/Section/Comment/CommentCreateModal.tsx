@@ -11,7 +11,7 @@ import EnrollmentCommentCreateForm from "~/Component/Section/Comment/EnrollmentC
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
 import { AppState } from "~/Store"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_SECTION_COMMENT_PAGE } from "~/utils/EventBus"
 
 interface ICommentCreateModal {
   SectionID: any
@@ -89,7 +89,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     closeModal: () => {
-      eventBus.publish(REFRESH_PAGE)
+      eventBus.publish(REFRESH_SECTION_COMMENT_PAGE)
       return dispatch(showSectionCommmentModal(false))
     },
     redirect: (url: string) => dispatch(redirect(url))
