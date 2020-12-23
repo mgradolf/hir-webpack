@@ -5,8 +5,12 @@ export function findRegistrations(Params: { [key: string]: any }): Promise<IApiR
   return RegistrationService[config.Actions.findRegistrations](Params)
 }
 
-export function findRegistrationsWebadmin(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return RegistrationService[config.Actions.findRegistrationsWebadmin](Params)
+export function findRegistrationsWebAdmin(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.findRegistrationsWebAdmin](Params)
+}
+
+export function findRegistrationDetail(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.findRegistrationDetail](Params)
 }
 
 export function getCreditMemoData(Params: { [key: string]: any }): Promise<IApiResponse> {
