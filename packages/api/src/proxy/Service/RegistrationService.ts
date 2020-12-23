@@ -6,6 +6,8 @@ export const config = {
   Module: "hir",
   Actions: {
     findRegistrations: "findRegistrations",
+    findRegistrationsWebAdmin: "findRegistrationsWebAdmin",
+    findRegistrationDetail: "findRegistrationDetail",
     getCreditMemoData: "getCreditMemoData",
     findGradeScoreDefinition: "findGradeScoreDefinition",
     dropWithdrawRegistration: "dropWithdrawRegistration",

@@ -54,9 +54,6 @@ export const getWaitlistEntriesTableColumns = (
     { title: "Priority", dataIndex: "Priority" },
     { title: "CreationTime", dataIndex: "CreationTime", render: renderDate },
     { title: "ExpirationTime", dataIndex: "RequestExpirationTime", render: renderDate },
-    { title: "Start Date", dataIndex: "startDate", render: renderDate },
-    { title: "End Date", dataIndex: "endDate", render: renderDate },
-    { title: "Current Status", dataIndex: "currentStatus", render: renderDate },
     { title: "Source", dataIndex: "Source" },
     {
       ...(!isModal &&
@@ -93,7 +90,7 @@ export const getWaitlistEntriesTableColumns = (
     }
   ]
   const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = [3, 6, 7]
 
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findWaitListEntries }
 }

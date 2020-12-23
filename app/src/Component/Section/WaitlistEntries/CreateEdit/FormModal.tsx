@@ -6,7 +6,7 @@ import DropDown from "~/Component/Common/Form/DropDown"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { DATE_FORMAT, DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
 import { FormPersonLookupButton } from "~/Component/Common/Form/FormLookups/FormPersonLookup"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_SECTION_WAITLIST_ENTRIES_PAGE } from "~/utils/EventBus"
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import FormError from "~/Component/Common/FormError"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
@@ -106,7 +106,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
                 saveWaitListEntry(Params).then((x) => {
                   setApiCallInProgress(false)
                   if (x.success) {
-                    eventBus.publish(REFRESH_PAGE)
+                    eventBus.publish(REFRESH_SECTION_WAITLIST_ENTRIES_PAGE)
                     props.closeModal()
                   } else setErrorMessages(x.error)
                 })
