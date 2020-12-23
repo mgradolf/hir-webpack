@@ -4,7 +4,7 @@ import { CardContainer, CardContents } from "~/Component/Common/Page/DetailsPage
 
 export const DetailsCardContainer = (props: { card: CardContainer; cardActions?: JSX.Element[] }) => {
   return (
-    <Card title={props.card.title} extra={props.cardActions}>
+    <Card title={props.card.title} extra={props.card.cardActions ? props.card.cardActions : props.cardActions}>
       <table className="dorakata-table">
         <tbody>
           {Array.isArray(props.card.contents)

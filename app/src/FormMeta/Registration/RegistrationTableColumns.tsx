@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { findRegistrationsWebadmin } from "~/ApiServices/Service/RegistrationService"
+import { findRegistrationsWebAdmin } from "~/ApiServices/Service/RegistrationService"
 import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { ReadOutlined } from "@ant-design/icons"
@@ -95,5 +95,5 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     // }
   ]
 
-  return { columns, searchFunc: findRegistrationsWebadmin }
+  return { columns, searchFunc: findRegistrationsWebAdmin }
 }
