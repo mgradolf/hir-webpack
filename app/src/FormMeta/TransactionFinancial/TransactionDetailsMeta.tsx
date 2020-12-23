@@ -9,7 +9,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      { label: "Deposit ID (for deposit centric view only)", value: transaction.DepositID },
+      // { label: "Deposit ID (for deposit centric view only)", value: transaction.DepositID },
       {
         label: "Account Owner",
         value: transaction.PersonName,
@@ -28,7 +28,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
       { label: "Withdrawal", value: transaction.Debit },
       { label: "GL", value: transaction.GLAccountName },
       { label: "Department", value: transaction.Department },
-      { label: "Balance", value: transaction.Balance },
+      // { label: "Balance", value: transaction.Balance },
       {
         label: "Order ID",
         value: transaction.OrderID,

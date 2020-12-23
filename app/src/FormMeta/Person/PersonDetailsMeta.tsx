@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
 import { findPersonEducationHist, getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
@@ -12,10 +13,11 @@ import { getRegistrationTableColumns } from "~/FormMeta/Registration/Registratio
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
-import { Link } from "react-router-dom"
 import { searchOnlineClasses, searchStudentSchedule } from "~/ApiServices/Service/StudentService"
 import { searchInstructorOfferings, searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFinancialsByTarget } from "~/ApiServices/BizApi/financial/financialIF"
+import { getActivityAcademicTableColumn } from "~/FormMeta/ActivityAcademic/getActivityAcademicTableColumn"
+import { getActivityEnrollmentTableColumns } from "~/FormMeta/ActivityEnrollment/ActivityEnrollmentTableColumns"
 
 export const getPersonDetailsMeta = (
   personInfos: { [key: string]: any }[],
@@ -204,14 +206,14 @@ export const getPersonDetailsMeta = (
     }
   })
 
-  entityType === "Student" &&
+  student &&
     tabMetas.push({
       tabTitle: "Registrations",
       tabType: "table",
       tabMeta: {
         tableProps: {
           ...getRegistrationTableColumns(false),
-          searchParams: { StudentID: entityID },
+          searchParams: { StudentID: student.StudentID },
           refreshEventName: "REFRESH_REGISTRATION_TAB"
         }
       }
@@ -253,7 +255,7 @@ export const getPersonDetailsMeta = (
     tabMeta: [],
     multipleTabMetas: []
   }
-  entityType === "Student" &&
+  student &&
     schedule.multipleTabMetas &&
     schedule.multipleTabMetas.push({
       tabTitle: "Student Schedule",
@@ -274,12 +276,12 @@ export const getPersonDetailsMeta = (
           searchFunc: (Params: any) => searchStudentSchedule({ StudentID: Params.StudentID }),
           responsiveColumnIndices: [],
           expandableColumnIndices: [],
-          searchParams: { StudentID: entityID },
+          searchParams: { StudentID: student.StudentID },
           refreshEventName: "REFRESH_STUDENT_SCHEDULE_TAB"
         }
       }
     })
-  entityType === "Student" &&
+  student &&
     schedule.multipleTabMetas &&
     schedule.multipleTabMetas.push({
       tabTitle: "Online Classes",
@@ -303,12 +305,12 @@ export const getPersonDetailsMeta = (
           searchFunc: (Params: any) => searchOnlineClasses({ StudentID: Params.StudentID }),
           responsiveColumnIndices: [],
           expandableColumnIndices: [],
-          searchParams: { StudentID: entityID },
+          searchParams: { StudentID: student.StudentID },
           refreshEventName: "REFRESH_HOLD_TAB"
         }
       }
     })
-  entityType === "Faculty" &&
+  instructor &&
     schedule.multipleTabMetas &&
     schedule.multipleTabMetas.push({
       tabTitle: "Faculty Schedule",
@@ -332,7 +334,7 @@ export const getPersonDetailsMeta = (
     })
   entityType !== "Person" && tabMetas.push(schedule)
 
-  entityType === "Student" &&
+  student &&
     tabMetas.push({
       tabTitle: "Hold",
       tabType: "table",
@@ -349,13 +351,13 @@ export const getPersonDetailsMeta = (
           searchFunc: (Params: any) => findStudentHold(Params.StudentID),
           responsiveColumnIndices: [],
           expandableColumnIndices: [],
-          searchParams: { StudentID: entityID },
+          searchParams: { StudentID: student.StudentID },
           refreshEventName: "REFRESH_HOLD_TAB"
         }
       }
     })
 
-  entityType === "Faculty" &&
+  instructor &&
     tabMetas.push({
       tabTitle: "Instructor Contracts",
       tabType: "table",
@@ -397,7 +399,7 @@ export const getPersonDetailsMeta = (
       }
     })
 
-  entityType === "Faculty" &&
+  instructor &&
     tabMetas.push({
       tabTitle: "Qualified Offerings",
       tabType: "table",
@@ -448,7 +450,7 @@ export const getPersonDetailsMeta = (
         }
       }
     })
-  entityType === "Faculty" &&
+  instructor &&
     tabMetas.push({
       tabTitle: "Instructor Fees",
       tabType: "table",
@@ -472,7 +474,7 @@ export const getPersonDetailsMeta = (
           searchFunc: (Params: any) => getFinancialsByTarget(3, 2),
           responsiveColumnIndices: [],
           expandableColumnIndices: [],
-          searchParams: { FacultyID: entityID, FinancialTypeID: 2 },
+          searchParams: { FacultyID: instructor.FacultyID, FinancialTypeID: 2 },
           refreshEventName: "REFRESH_FACULTY_OFFERINGS_TAB"
         }
       }
@@ -513,6 +515,29 @@ export const getPersonDetailsMeta = (
       }
     }
   })
+  tabMetas.push({
+    tabTitle: "Activity Log",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getActivityAcademicTableColumn(false),
+        searchParams: { PersonID: person.PersonID },
+        refreshEventName: "REFRESH_ACTITVITY_LOG_TAB"
+      }
+    }
+  })
+  student &&
+    tabMetas.push({
+      tabTitle: "Enrollment Log",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          ...getActivityEnrollmentTableColumns(false),
+          searchParams: { StudentID: student.StudentID },
+          refreshEventName: "REFRESH_ENROLLMMENT_LOG_TAB"
+        }
+      }
+    })
 
   return {
     pageTitle: person.FormattedName,

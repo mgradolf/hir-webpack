@@ -4,7 +4,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
 import { getOrderLinesTableColumns } from "~/FormMeta/OrderLine/OrderLinesTableColumns"
 import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
@@ -21,37 +21,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       { label: "Order Created On", value: renderDate(order.OrderDate) },
       { label: "Status", value: order.OrderStatus },
       { label: "Completed On", value: renderDate(order.CompletedDate) },
-      { label: "Source", value: order.Source }
-    ]
-  }
-
-  const billingIngo: CardContainer = {
-    title: `Billing Info`,
-    contents: [
-      {
-        label: "Name",
-        value: order.PersonName,
-        render: (record) => <Link to={`/person/${record?.Person?.PersonID}`}>{record?.Person?.PersonDescriptor}</Link>
-      },
-      {
-        label: "Account Name",
-        value: { name: order.AccountName, id: order.AccountID },
-        render: (record) => <Link to={`/account/${record.id}`}>{record.name}</Link>
-      },
-      { label: "Business Name", value: order.BusinessName },
-      { label: "Address", value: order.BillToAddress },
-      { label: "Address1", value: order.BillToAddress1 },
-      { label: "Address2", value: order.BillToAddress2 },
-      { label: "Address3", value: order.BillToAddress3 },
-      { label: "City", value: order.BillToCity },
-      { label: "Country", value: order.BillToCountry },
-      { label: "Regions", value: order.BillToRegions }
-    ]
-  }
-
-  const financial: CardContainer = {
-    title: `Financials`,
-    contents: [
+      { label: "Source", value: order.Source },
       { label: "Total Items", value: order.TotalItems },
       { label: "Total Order Amount", value: order.TotalAmount },
       { label: "Credits/Discounts", value: order.CreditAmount },
@@ -61,12 +31,60 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       { label: "Discount", value: order.DiscountAmount },
       { label: "Amount Paid", value: order.AmountPaid },
       { label: "Extended Amount", value: order.ExtendedAmount },
-      { label: "HasPO", value: order.HasPO }
+      { label: "PO", value: order.HasPO }
+    ]
+  }
+
+  const billingIngo: CardContainer = {
+    title: `Billing Information`,
+    contents: [
+      {
+        label: "Account Name",
+        value: { name: order.AccountName, id: order.AccountID },
+        render: (record) => <Link to={`/account/${record.id}`}>{record.name}</Link>
+      },
+      {
+        label: "Name",
+        value: order?.Person,
+        render: (record) => <Link to={`/person/${record?.PersonID}`}>{record?.PersonDescriptor}</Link>
+      },
+      { label: "Business Name", value: order.BusinessName },
+      {
+        label: "Emails",
+        value: order?.Emails,
+        render: (emails: string[]) => (
+          <ul>
+            {emails?.map((x, i) => (
+              <li key={i}>{renderEmail(x)}</li>
+            ))}
+          </ul>
+        )
+      },
+      {
+        label: "Telephones",
+        value: order?.Telephones,
+        render: (Telephones: string[]) => (
+          <ul>
+            {Telephones?.map((x, i) => (
+              <li key={i}>{x}</li>
+            ))}
+          </ul>
+        )
+      },
+      { label: "Business Name", value: order.BusinessName },
+      { label: "Address", value: order.BillToAddress },
+      { label: "Address1", value: order.BillToAddress1 },
+      { label: "Address2", value: order.BillToAddress2 },
+      { label: "Address3", value: order.BillToAddress3 },
+      { label: "City", value: order.BillToCity },
+      { label: "Zip Code", value: order.BillToPostalCode },
+      { label: "State", value: order.BillToRegions },
+      { label: "Country", value: order.BillToCountry }
     ]
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [{ groupedContents: [summary, billingIngo] }, financial]
+    summary: [summary, billingIngo]
   }
 
   const orderItemsMeta: IDetailsTableTabProp = {

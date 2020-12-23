@@ -3,7 +3,7 @@ import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/S
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
-export const getSectionEnrollmentActivitySearchMeta: IFilterField[] = [
+export const ActivityEnrollmentSearchMeta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionIDs",

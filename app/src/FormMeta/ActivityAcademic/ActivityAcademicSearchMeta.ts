@@ -2,7 +2,7 @@ import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/Sear
 import { DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 
-export const getSectionAcademicActivitySearchMeta: IFilterField[] = [
+export const ActivityAcademicSearchMeta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionIDs",

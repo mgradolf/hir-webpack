@@ -2,7 +2,7 @@ import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 
-export const getSectionAcademicActivitySearchMeta: IFilterField[] = [
+export const ActivityOrderSearchMeta: IFilterField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionIDs",
