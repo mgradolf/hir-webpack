@@ -4,7 +4,7 @@ import { Button, Dropdown, Menu } from "antd"
 import Notification from "~/utils/notification"
 import { sendRegistrationConfirmationEmail } from "~/ApiServices/Service/MailService"
 import { REGISTRATION_EMAIL_CONFIRMATION_SUCCESS } from "~/utils/Constants"
-import RegistrationUpdateFormModal from "./RegistrationUpdateFormModal"
+import RegistrationUpdateFormModal from "~/Component/Registration/RegistrationUpdateFormModal"
 
 interface IRegistrationDetailsMenuProp {
   dataLoaded: { [key: string]: any }

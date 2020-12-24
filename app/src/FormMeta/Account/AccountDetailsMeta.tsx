@@ -1,6 +1,6 @@
 import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/getAccountAffiliationTableColumn"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
@@ -97,7 +97,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabMeta: {
       tableProps: {
         ...getOrderItemTableColumns(false),
-        searchParams: { AccountID: account.AccountID },
+        searchParams: { OrganizationID: account.AccountID },
         refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
       }
     }

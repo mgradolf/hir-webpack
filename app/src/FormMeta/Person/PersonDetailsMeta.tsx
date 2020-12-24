@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
 import { findPersonEducationHist, getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderDateTime, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
@@ -148,7 +148,7 @@ export const getPersonDetailsMeta = (
   instructorInfo && summaryMeta.summary.push(instructorInfo)
   studentInfo && summaryMeta.summary.push(studentInfo)
 
-  tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
+  tabMetas.push({ tabTitle: "Profile", tabType: "summary", tabMeta: summaryMeta })
 
   const login: CardContainer = {
     contents: [

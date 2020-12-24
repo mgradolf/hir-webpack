@@ -41,7 +41,7 @@ export default function DetailsTableTab(props: IDetailsTableTabProp) {
         <Col className="gutter-row" xs={24} sm={24} md={{ span: 24, offset: 0 }}>
           <ResponsiveTable
             {...props.tableProps}
-            refreshEventName={props.tableProps.refreshEventName}
+            refreshEventName={props?.tableProps?.refreshEventName}
             dataLoaded={(Params: any[]) => setRowData(Params)}
           />
         </Col>
