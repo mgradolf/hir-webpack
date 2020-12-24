@@ -66,7 +66,7 @@ import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import ProgramApplicationPage from "~/Pages/Program/ProgramApplicationPage"
 
 import RegistrationPage from "~/Pages/Registration/RegistrationPage"
-import RegistrationDetailsPage from "~/Pages/Registration/RegistrationDetails"
+import RegistrationDetailsPage from "~/Pages/Registration/Details"
 
 import WaitlistEntriesPage from "~/Pages/WaitlistEntry/WaitlistEntryPage"
 import WaitlistEntryDetailsPage from "~/Pages/WaitlistEntry/WaitlistEntryDetailsPage"

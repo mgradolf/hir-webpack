@@ -5,6 +5,7 @@ import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
+import { REFRESH_REGISTRATION_CERTIFICATE_PAGE } from "~/utils/EventBus"
 
 interface ICertificateFormProps {
   initialFormValue: { [key: string]: any }
@@ -47,7 +48,12 @@ export default function IssueCertificateForm(props: ICertificateFormProps) {
           )}
         </Col>
       </Row>
-      <ResponsiveTable {...getCertificateTableColumns(true)} loading={loading} dataSource={certificateItems} />
+      <ResponsiveTable
+        {...getCertificateTableColumns(true)}
+        refreshEventName={REFRESH_REGISTRATION_CERTIFICATE_PAGE}
+        loading={loading}
+        dataSource={certificateItems}
+      />
     </>
   )
 }

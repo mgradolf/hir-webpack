@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { Form, Button, Input, Select, Switch, DatePicker, Spin, Card } from "antd"
+import { Form, Button, Input, Select, Switch, DatePicker, Spin, Card, Divider } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
-import { DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
+import { DATE_TIME_FORMAT, QUESTION_EVENT_TYPE_REGISTRATION, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
 import { editRegistration } from "~/ApiServices/Service/RegistrationService"
 import { IRegistrationFieldNames } from "~/Component/Registration/Interfaces"
+import { eventBus, REFRESH_REGISTRATION_DETAIL_PAGE } from "~/utils/EventBus"
+import { searchQuestionResponse, saveTagAnswers } from "~/ApiServices/Service/QuestionService"
 import "~/Sass/utils.scss"
 import moment from "moment"
 
@@ -30,8 +32,7 @@ const fieldNames: IRegistrationFieldNames = {
 }
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 8 }
+  labelCol: { span: 10 }
 }
 
 export default function RegistrationUpdateForm(props: IRegistrationUpdateFormProps) {
@@ -40,6 +41,7 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
   const [gradeScaleItems, setGradeScaleItems] = useState<Array<any>>([])
   const [transcriptItems, setTranscriptItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [answerQuestions, setAnswerQuestions] = useState<Array<any>>([])
 
   const creationTime = props.initialFormValue.CreationTime
   const terminationTime = props.initialFormValue.TerminationTime
@@ -58,6 +60,23 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
         setTranscriptItems(result.data)
       }
     })()
+    ;(async function () {
+      setLoading(true)
+      const result = await searchQuestionResponse({
+        EventID: QUESTION_EVENT_TYPE_REGISTRATION,
+        SectionIDs: [props.initialFormValue.SectionID],
+        StudentIDs: [props.initialFormValue.StudentID]
+      })
+
+      if (result && result.success) {
+        setAnswerQuestions(result.data)
+        result.data.forEach((object: any) => {
+          props.initialFormValue[`${object.TagQuestionID}_${object.PersonID}`] = object.AnswerText
+        })
+      }
+      setLoading(false)
+    })()
+    // eslint-disable-next-line
   }, [form])
 
   const onFormSubmission = async () => {
@@ -69,8 +88,40 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
     setErrorMessages([])
     const response = await editRegistration(params)
     if (response && response.success) {
-      console.log("Successfully updated......")
-      window.location.reload()
+      if (answerQuestions.length !== 0) {
+        const answerList: Array<any> = []
+        const objectKeys = Object.keys(params)
+        objectKeys.forEach((key) => {
+          if (key.includes("_")) {
+            const divideIDs: Array<any> = key.split("_")
+            let answerText = ""
+            if (params[key] !== undefined) {
+              answerText = params[key]
+            } else {
+              answerText = props.initialFormValue[key]
+            }
+
+            answerList.push({
+              SectionID: Number(props.initialFormValue.SectionID),
+              PersonID: Number(divideIDs[1]),
+              TagQuestionID: Number(divideIDs[0]),
+              AnswerText: answerText
+            })
+          }
+        })
+
+        console.log("Answers: ", answerList)
+        const answerResponse = await saveTagAnswers({
+          Answers: answerList
+        })
+        if (answerResponse && answerResponse.success) {
+          eventBus.publish(REFRESH_REGISTRATION_DETAIL_PAGE)
+          props.handleCancel()
+        }
+      } else {
+        eventBus.publish(REFRESH_REGISTRATION_DETAIL_PAGE)
+        props.handleCancel()
+      }
     } else {
       setErrorMessages(response.error)
       console.log(response.error)
@@ -98,7 +149,11 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
   return (
     <Card title={`Update Registration`} actions={actions}>
       <Spin size="large" spinning={loading}>
-        <Form form={form} initialValues={props.initialFormValue}>
+        <Form
+          form={form}
+          style={{ height: "50vh", overflowY: "scroll", padding: "10px" }}
+          initialValues={props.initialFormValue}
+        >
           <FormError errorMessages={errorMessages} />
 
           <Form.Item className="hidden" name={fieldNames.StudentID}>
@@ -212,6 +267,44 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
           >
             <Input aria-label="Expected Attendance" />
           </Form.Item>
+
+          {answerQuestions.length !== 0 && <Divider orientation="left">Question Responses</Divider>}
+          {answerQuestions.map((questionObj, index) => {
+            const possibleOptions: Array<any> = questionObj.PossibleOptions
+            if (possibleOptions !== null) {
+              return (
+                <Form.Item
+                  key={index}
+                  label={questionObj.Question}
+                  {...layout}
+                  name={`${questionObj.TagQuestionID}_${questionObj.PersonID}`}
+                >
+                  <Select aria-label={questionObj.Question} defaultValue={questionObj.AnswerText}>
+                    <>
+                      {possibleOptions.map((x) => {
+                        return (
+                          <Select.Option key={`${x.TagQuestionID}_${x.Option}`} value={x.Option}>
+                            {x.Option}
+                          </Select.Option>
+                        )
+                      })}
+                    </>
+                  </Select>
+                </Form.Item>
+              )
+            } else {
+              return (
+                <Form.Item
+                  key={index}
+                  label={questionObj.Question}
+                  {...layout}
+                  name={`${questionObj.TagQuestionID}_${questionObj.PersonID}`}
+                >
+                  <Input aria-label={questionObj.Question} defaultValue={questionObj.AnswerText} />
+                </Form.Item>
+              )
+            }
+          })}
         </Form>
       </Spin>
     </Card>
