@@ -1,5 +1,5 @@
 import React from "react"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchTransactions } from "~/ApiServices/Service/TransactionService"
 import { Link } from "react-router-dom"
@@ -7,11 +7,9 @@ import { Link } from "react-router-dom"
 export const getTransactionFinancialTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Transaction ID",
-      dataIndex: "TransactionID",
-      render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/transaction/${record.TransactionID}`}>{text}</Link>
+      render: (text: any, record: any) => (isModal ? text : renderDetailsLink(`/transaction/${record.TransactionID}`))
     },
+    { title: "Deposit ID", dataIndex: "DepositTransactionID" },
     { title: "Date", dataIndex: "TransactionDate", render: renderDate },
     {
       title: "Account Owner",
@@ -27,10 +25,9 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
     { title: "TransactionType", dataIndex: "TransactionType" },
     { title: "Description", dataIndex: "Description" },
     { title: "Reference No", dataIndex: "ReferenceNo" },
-    { title: "GL", dataIndex: "GLAccountName" },
     { title: "Deposit", dataIndex: "Credit" },
-    { title: "Withdrawl", dataIndex: "Debit" },
-    { title: "Balance", dataIndex: "Balance" }
+    { title: "GL", dataIndex: "GLAccountName" },
+    { title: "Withdrawl", dataIndex: "Debit" }
   ]
 
   const responsiveColumnIndices: number[] = []

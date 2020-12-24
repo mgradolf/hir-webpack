@@ -3,13 +3,12 @@ import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
-import { getTransactionFinancialTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialTableColumns"
+import { getTransactionFinancialDepositeTrackingTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialDepositeTrackingTableColumns"
 
 export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      // { label: "Deposit ID (for deposit centric view only)", value: transaction.DepositID },
       {
         label: "Account Owner",
         value: transaction.PersonName,
@@ -54,7 +53,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
     tabType: "table",
     tabMeta: {
       tableProps: {
-        ...getTransactionFinancialTableColumns(),
+        ...getTransactionFinancialDepositeTrackingTableColumns(),
         searchParams: { IsDepositeView: true, DepositID: transaction.DepositTransactionID },
         refreshEventName: "REFRESH_DEPOSIT_TRACKING__TAB",
         pagination: false
