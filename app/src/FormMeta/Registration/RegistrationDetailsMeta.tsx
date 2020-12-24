@@ -1,12 +1,27 @@
 import { Button } from "antd"
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { CardContents, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetailsMenu"
+import RegistrationGradeFormModal from "~/Component/Registration/RegistrationGradeFormModal"
+import { REFRESH_REGISTRATION_CERTIFICATE_PAGE } from "~/utils/EventBus"
+import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 
-export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): CardContainer[] => {
-  const info: CardContainer = {
+export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {
+  const getQuestionResponses = () => {
+    const questionList: Array<CardContents> = []
+    registration.QuestionResponses.forEach((element: any) => {
+      questionList.push({ label: element.Question, value: element.AnswerText })
+    })
+    return questionList
+  }
+
+  const summary: CardContainer = {
     title: `${registration.SectionNumber}`,
     cardActions: [<RegistrationDetailsMenu dataLoaded={registration} />],
     contents: [
@@ -28,14 +43,30 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       { label: "Withdrawal Date", value: registration.WithdrawalDate, render: renderDate },
       { label: "Graded Date", value: registration.GradedDate, render: renderDate },
       { label: "Grade Scale", value: registration.GradeScaleType },
-      { label: "Expected Attendance", value: registration.AttendanceExpected }
-      //TODO: Registration question load here.....
+      { label: "Expected Attendance", value: registration.AttendanceExpected },
+      ...getQuestionResponses()
     ]
+  }
+
+  const RegistrationGradeFormModalOpenButton = (props: { registration: { [key: string]: any } }) => {
+    const [showModal, setShowModal] = useState(false)
+    return (
+      <>
+        {setShowModal && (
+          <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+            Edit
+          </Button>
+        )}
+        {showModal && (
+          <RegistrationGradeFormModal initialFormValue={registration} closeModal={() => setShowModal(false)} />
+        )}
+      </>
+    )
   }
 
   const gradeInfo: CardContainer = {
     title: "Grade Info",
-    cardActions: [<Button type="primary">Edit</Button>],
+    cardActions: [<RegistrationGradeFormModalOpenButton registration={registration} />],
     contents: [
       { label: "Credit", value: registration.GPAValue },
       { label: "Final Grade", value: registration.AlphaValue },
@@ -53,5 +84,57 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     ]
   }
 
-  return [info, gradeInfo, orderInfo]
+  const summaryMeta: IDetailsSummary = {
+    summary: [summary, gradeInfo, orderInfo]
+  }
+
+  const CertificateFormModalOpenButton = (props: { initialData: { [key: string]: any } }) => {
+    const [showModal, setShowModal] = useState(false)
+    props.initialData["IsProgram"] = false
+
+    return (
+      <>
+        {setShowModal && (
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
+            + Issue Certificate
+          </Button>
+        )}
+        {showModal && (
+          <CertificateFormModal
+            isProgram={false}
+            closeModal={() => setShowModal(false)}
+            initialFormValue={props.initialData}
+          />
+        )}
+      </>
+    )
+  }
+
+  const certificateMeta: IDetailsTableTabProp = {
+    blocks: [<CertificateFormModalOpenButton initialData={registration} />],
+    tableProps: {
+      pagination: false,
+      ...getCertificateTableColumns(true),
+      searchParams: { SectionID: registration.SectionID, StudentID: registration.StudentID },
+      refreshEventName: REFRESH_REGISTRATION_CERTIFICATE_PAGE
+    }
+  }
+
+  const tabMetas: IDetailsTabMeta[] = [
+    {
+      tabTitle: "Summary",
+      tabType: "summary",
+      tabMeta: summaryMeta
+    },
+    {
+      tabTitle: "Certificates",
+      tabType: "table",
+      tabMeta: certificateMeta
+    }
+  ]
+
+  return {
+    pageTitle: `${registration.StudentName}`,
+    tabs: tabMetas
+  }
 }
