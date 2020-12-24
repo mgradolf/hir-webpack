@@ -4,7 +4,7 @@ import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
 import { searchOnlineClasses, searchStudentSchedule } from "~/ApiServices/Service/StudentService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, sortByTime } from "~/Component/Common/ResponsiveTable"
 import { getActivityAcademicTableColumn } from "~/FormMeta/ActivityAcademic/getActivityAcademicTableColumn"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication/ProgramApplicationTableColumns"
@@ -38,14 +38,30 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
 
   tabMetas.push({
-    tabTitle: "Student Schedule",
+    tabTitle: "Schedule",
     tabType: "table",
     tabMeta: {
       tableProps: {
         columns: [
-          { title: "Date", dataIndex: "EndDate", render: renderDate },
-          { title: "Time", dataIndex: "StartTime" },
-          { title: "Offering Name", dataIndex: "OfferingName" },
+          {
+            title: "From Date",
+            dataIndex: "StartDate",
+            render: renderDate,
+            sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
+          },
+          { title: "From Time", dataIndex: "StartTime" },
+          {
+            title: "To Date",
+            dataIndex: "EndDate",
+            render: renderDate,
+            sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
+          },
+          { title: "To Time", dataIndex: "EndTime" },
+          {
+            title: "Offering Name",
+            dataIndex: "OfferingName",
+            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+          },
           {
             title: "Section Number",
             dataIndex: "SectionNumber",
@@ -53,7 +69,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
           },
           { title: "Location", dataIndex: "Location" }
         ],
-        searchFunc: (Params: any) => searchStudentSchedule({ StudentID: Params.StudentID }),
+        searchFunc: searchStudentSchedule,
         responsiveColumnIndices: [],
         expandableColumnIndices: [],
         searchParams: { StudentID: student.StudentID },
@@ -68,20 +84,30 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabMeta: {
       tableProps: {
         columns: [
-          { title: "StartDate", dataIndex: "StartDate", render: renderDate },
-          { title: "EndDate", dataIndex: "EndDate", render: renderDate },
           {
-            title: "Offering Code",
-            dataIndex: "OfferingCode",
-            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+            title: "StartDate",
+            dataIndex: "StartDate",
+            render: renderDate,
+            sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
+          },
+          {
+            title: "EndDate",
+            dataIndex: "EndDate",
+            render: renderDate,
+            sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
           },
           {
             title: "Section Number",
             dataIndex: "SectionNumber",
             render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+          },
+          {
+            title: "Offering Code",
+            dataIndex: "OfferingCode",
+            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
           }
         ],
-        searchFunc: (Params: any) => searchOnlineClasses({ StudentID: Params.StudentID }),
+        searchFunc: searchOnlineClasses,
         responsiveColumnIndices: [],
         expandableColumnIndices: [],
         searchParams: { StudentID: student.StudentID },
@@ -157,16 +183,17 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
       tableProps: {
         columns: [
           { title: "Hold Date", dataIndex: "EndDate", render: renderDate },
+          { title: "Hold Type", dataIndex: "HoldType" },
           { title: "Hold Reason", dataIndex: "HoldReason" },
           { title: "Hold By", dataIndex: "HoldBy" },
           { title: "Release Date", dataIndex: "ReleaseDate", render: renderDate },
           { title: "Release Reason", dataIndex: "ReleaseReason" },
           { title: "Release By", dataIndex: "ReleasedBy" }
         ],
-        searchFunc: (Params: any) => findStudentHold(Params.StudentID),
+        searchFunc: findStudentHold,
         responsiveColumnIndices: [],
         expandableColumnIndices: [],
-        searchParams: { StudentID: student.StudentID },
+        searchParams: student.StudentID,
         refreshEventName: "REFRESH_HOLD_TAB"
       }
     }

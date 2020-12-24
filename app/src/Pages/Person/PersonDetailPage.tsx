@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getPersonDetails } from "~/ApiServices/Service/PersonService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getPersonDetailsMeta } from "~/FormMeta/Person/PersonDetailsMeta/PersonDetailsMeta2"
+import { getPersonDetailsMeta } from "~/FormMeta/Person/PersonDetailsMeta/PersonDetailsMeta"
 
 export default function PersonDetailsPage(
   props: RouteComponentProps<{ personID?: string; facultyID?: string; studentID?: string }>

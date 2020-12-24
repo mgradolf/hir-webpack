@@ -1,9 +1,11 @@
+import React from "react"
+import { Link } from "react-router-dom"
 import { getFinancialsByTarget } from "~/ApiServices/BizApi/financial/financialIF"
 import { searchInstructorOfferings, searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDateTime } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderDateTime, renderEmail, sortByTime } from "~/Component/Common/ResponsiveTable"
 
 export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -30,11 +32,24 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       tableProps: {
         columns: [
-          { title: "Start Date", dataIndex: "EndDate", render: renderDateTime },
-          { title: "End Date", dataIndex: "EndDate", render: renderDateTime },
-          // { title: "Start Time", dataIndex: "HoldReason" },
-          // { title: "End Time", dataIndex: "HoldReason" },
-          { title: "Item", dataIndex: "Name" }
+          {
+            title: "Start Date",
+            dataIndex: "StartDate",
+            render: renderDateTime,
+            sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
+          },
+          // {
+          //   title: "Start Time",
+          //   dataIndex: "StartTime"
+          // },
+          {
+            title: "End Date",
+            dataIndex: "EndDate",
+            render: renderDateTime,
+            sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
+          },
+          // { title: "End Time", dataIndex: "EndTime" },
+          { title: "Schedule Item", dataIndex: "Name" }
         ],
         searchFunc: getFacultySchedule,
         responsiveColumnIndices: [],
@@ -51,19 +66,10 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       tableProps: {
         columns: [
-          { title: "ApplyToID", dataIndex: "ApplyToID" },
-          { title: "Description", dataIndex: "Description" },
-          { title: "FinancialBasisTypeID", dataIndex: "FinancialBasisTypeID" },
-          { title: "FinancialCategoryTypeID", dataIndex: "FinancialCategoryTypeID" },
-          { title: "FinancialID", dataIndex: "FinancialID" },
-          { title: "FinancialTypeID", dataIndex: "FinancialTypeID" },
-          { title: "GLAccountID", dataIndex: "GLAccountID" },
-          { title: "IsActive", dataIndex: "IsActive" },
-          { title: "IsCharge", dataIndex: "IsCharge" },
-          { title: "IsOptional", dataIndex: "IsOptional" },
-          { title: "IsTaxable", dataIndex: "IsTaxable" },
-          { title: "ItemUnitAmount", dataIndex: "ItemUnitAmount" },
-          { title: "Weight", dataIndex: "Weight" }
+          { title: "Is Charge", dataIndex: "IsCharge", render: renderBoolean },
+          { title: "Amount", dataIndex: "ItemUnitAmount" },
+          { title: "GL Account", dataIndex: "GLAccountID" },
+          { title: "Active", dataIndex: "IsActive", render: renderBoolean }
         ],
         searchFunc: (Params: any) => getFinancialsByTarget(instructor.FacultyID, 2),
         responsiveColumnIndices: [],
@@ -80,41 +86,13 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       tableProps: {
         columns: [
-          { title: "OrganizationName", dataIndex: "OrganizationName" },
-          { title: "CreationDate", dataIndex: "CreationDate" },
-          { title: "StartTermName", dataIndex: "StartTermName" },
-          { title: "OfferingDescriptor", dataIndex: "OfferingDescriptor" },
-          { title: "ModifiedDate", dataIndex: "ModifiedDate" },
-          { title: "ModifiedBy", dataIndex: "ModifiedBy" },
-          { title: "oca", dataIndex: "oca" },
-          { title: "StatusCode", dataIndex: "StatusCode" },
-          { title: "URL", dataIndex: "URL" },
-          { title: "OfferingStatusReleaseID", dataIndex: "OfferingStatusReleaseID" },
-          { title: "OfferingStatusCodeID", dataIndex: "OfferingStatusCodeID" },
-          { title: "EffectiveTerminationDate", dataIndex: "EffectiveTerminationDate" },
-          { title: "OfferingCode", dataIndex: "OfferingCode" },
-          { title: "PaymentGatewayAccountName", dataIndex: "PaymentGatewayAccountName" },
-          { title: "EndTermID", dataIndex: "EndTermID" },
-          { title: "HasApprovalProcess", dataIndex: "HasApprovalProcess" },
-          { title: "OfferingTypeID", dataIndex: "OfferingTypeID" },
-          { title: "RecurrenceRule", dataIndex: "RecurrenceRule" },
-          { title: "EndTermName", dataIndex: "EndTermName" },
-          { title: "OfferingUsageType", dataIndex: "OfferingUsageType" },
-          { title: "TerminationDate", dataIndex: "TerminationDate" },
-          { title: "StartTermID", dataIndex: "StartTermID" },
-          { title: "SectionTypeName", dataIndex: "SectionTypeName" },
-          { title: "OrganizationID", dataIndex: "OrganizationID" },
-          { title: "PaymentGatewayAccountID", dataIndex: "PaymentGatewayAccountID" },
-          { title: "OfferingTypeName", dataIndex: "OfferingTypeName" },
-          { title: "CourseID", dataIndex: "CourseID" },
-          { title: "EffectiveCreationDate", dataIndex: "EffectiveCreationDate" },
-          { title: "DefaultSectionTypeID", dataIndex: "DefaultSectionTypeID" },
-          { title: "OfferingDescription", dataIndex: "OfferingDescription" },
-          { title: "IsQuickAdmit", dataIndex: "IsQuickAdmit" },
-          { title: "ModifiedByUserID", dataIndex: "ModifiedByUserID" },
-          { title: "OfferingName", dataIndex: "OfferingName" },
-          { title: "OfferingID", dataIndex: "OfferingID" },
-          { title: "SubmitInquiryToUserID", dataIndex: "SubmitInquiryToUserID" }
+          {
+            title: "OfferingName",
+            dataIndex: "OfferingName",
+            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+          },
+          { title: "Status", dataIndex: "StatusCode" },
+          { title: "Department Name", dataIndex: "OrganizationName" }
         ],
         searchFunc: searchInstructorOfferings,
         responsiveColumnIndices: [],
@@ -131,31 +109,22 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       tableProps: {
         columns: [
-          { title: "CurrentEnrollment", dataIndex: "CurrentEnrollment" },
-          { title: "MaxEnrollment", dataIndex: "MaxEnrollment" },
-          { title: "SectionNumber", dataIndex: "SectionNumber" },
-          { title: "PostalCode", dataIndex: "PostalCode" },
-          { title: "SectionStatusCodeName", dataIndex: "SectionStatusCodeName" },
-          { title: "TelephoneNumber", dataIndex: "TelephoneNumber" },
-          { title: "Key_Section", dataIndex: "Key_Section" },
-          { title: "StartDate", dataIndex: "StartDate" },
-          { title: "MinEnrollment", dataIndex: "MinEnrollment" },
-          { title: "PersonID", dataIndex: "PersonID" },
-          { title: "OfferingCode", dataIndex: "OfferingCode" },
-          { title: "SectionID", dataIndex: "SectionID" },
-          { title: "DaysOfWeek", dataIndex: "DaysOfWeek" },
-          { title: "Locality", dataIndex: "Locality" },
-          { title: "FirstName", dataIndex: "FirstName" },
-          { title: "Amount", dataIndex: "Amount" },
-          { title: "Title", dataIndex: "Title" },
-          { title: "ERPID", dataIndex: "ERPID" },
-          { title: "EndDate", dataIndex: "EndDate" },
-          { title: "EmailAddress", dataIndex: "EmailAddress" },
-          { title: "AddressLine1", dataIndex: "AddressLine1" },
-          { title: "MeetsOn", dataIndex: "MeetsOn" },
-          { title: "LastName", dataIndex: "LastName" },
-          { title: "OfferingName", dataIndex: "OfferingName" },
-          { title: "FacultyID", dataIndex: "FacultyID" }
+          {
+            title: "Name",
+            dataIndex: "FirstName",
+            render: (text: any, record: any) => (
+              <Link to={`/person/${record.PersonID}`}>{text + " " + record.LastName}</Link>
+            )
+          },
+          { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
+          {
+            title: "Section Number",
+            dataIndex: "SectionNumber",
+            render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+          },
+          { title: "Status", dataIndex: "SectionStatusCodeName" },
+          { title: "StartDate", dataIndex: "StartDate", render: renderDate },
+          { title: "EndDate", dataIndex: "EndDate", render: renderDate }
         ],
         searchFunc: searchSectionInstructor,
         responsiveColumnIndices: [],
