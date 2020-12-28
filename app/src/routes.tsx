@@ -72,6 +72,7 @@ import WaitlistEntriesPage from "~/Pages/WaitlistEntry/WaitlistEntryPage"
 import WaitlistEntryDetailsPage from "~/Pages/WaitlistEntry/WaitlistEntryDetailsPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
 import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
+import EnrollmentHistoryPage from "~/Pages/Discovery/Search/Activity/EnrollmentHistoryPage"
 import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
 
 import ReportPage from "~/Pages/Report/ReportPage"
@@ -192,6 +193,7 @@ export const AppRoutes: RouteProps[] = [
 
   { path: "/search/activity/academic-log", component: AcademicPage },
   { path: "/search/activity/enrollment-log", component: EnrollmentPage },
+  { path: "/search/activity/enrollment-history", component: EnrollmentHistoryPage },
   { path: "/search/activity/order-log", component: OrderLogPage },
 
   { path: "/report", component: ReportPage },

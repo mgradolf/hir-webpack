@@ -1,17 +1,17 @@
 import React from "react"
-import { ActivityAcademicSearchMeta } from "~/FormMeta/ActivityAcademic/ActivityAcademicSearchMeta"
+import { AcademicActivitySearchMeta } from "~/FormMeta/Academic/AcademicActivitySearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getActivityAcademicTableColumn } from "~/FormMeta/ActivityAcademic/getActivityAcademicTableColumn"
+import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
 
 export default function AcademicLogPage() {
   return (
     <SearchPage
       title="Academic Log"
       initialFilter={{}}
-      meta={ActivityAcademicSearchMeta}
+      meta={AcademicActivitySearchMeta}
       hideSearchField={false}
       tableProps={{
-        ...getActivityAcademicTableColumn(false)
+        ...getAcademicActivityLogTableColumns(false)
       }}
     ></SearchPage>
   )
