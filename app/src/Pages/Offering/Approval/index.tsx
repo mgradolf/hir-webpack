@@ -4,7 +4,7 @@ import moment from "moment"
 import { RouteComponentProps } from "react-router"
 import { Row, Col, Typography } from "antd"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
+import { getOfferngApprovalHist, searchOffering } from "~/ApiServices/Service/OfferingService"
 import styles from "~/Pages/Offering/Approval/Approval.module.scss"
 
 import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
@@ -39,6 +39,7 @@ function OfferingApprovalPage(props: RouteComponentProps<{ offeringID: string }>
 
   const offeringID = props.match.params.offeringID
   const [loading, setLoading] = useState<boolean>(false)
+  const [statusCode, setStatusCode] = useState<string>()
   const [offeringApprovalHistory, setOfferingApprovalHistory] = useState<Array<any>>([])
 
   const expandableRowRender = (data: { [key: string]: any }, display: boolean): JSX.Element => {
@@ -65,6 +66,15 @@ function OfferingApprovalPage(props: RouteComponentProps<{ offeringID: string }>
   }
 
   useEffect(() => {
+    ;(async function () {
+      setLoading(true)
+      const result = await searchOffering({ OfferingID: offeringID })
+      if (result && result.success) {
+        setStatusCode(result.data.StatusCode)
+      }
+      setLoading(false)
+    })()
+
     const loadOfferingApprovalHistory = async function () {
       setLoading(true)
 
@@ -94,7 +104,7 @@ function OfferingApprovalPage(props: RouteComponentProps<{ offeringID: string }>
           <Title level={3}>Manage Offering Approval</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <OfferingApprovalModalOpenButton offeringId={parseInt(offeringID)} />
+          {statusCode && <OfferingApprovalModalOpenButton offeringId={parseInt(offeringID)} statusCode={statusCode} />}
         </Col>
       </Row>
 

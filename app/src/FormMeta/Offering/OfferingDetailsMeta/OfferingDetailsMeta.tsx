@@ -14,6 +14,7 @@ import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingF
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 import { getOfferingCatalogTableColumns } from "~/FormMeta/Offering/OfferingCatalogTableColumns"
 import {
+  REFRESH_OFFERING_APPROVAL_PAGE,
   REFRESH_OFFERING_CATALOG_PAGE,
   REFRESH_OFFERING_FINANCIAL_PAGE,
   REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
@@ -22,6 +23,9 @@ import {
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import RequisitePage from "~/Pages/Offering/Requisite/RequisitePage"
 import TagPage from "~/Pages/Offering/Tag/TagPage"
+import { getOfferingApprovalTableColumns } from "~/FormMeta/OfferingApproval/ApprovalTableColumns"
+import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/OfferingApprovalModalOpenButton"
+import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -127,6 +131,16 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     }
   }
 
+  const approvalMeta: IDetailsTableTabProp = {
+    blocks: [<OfferingApprovalModalOpenButton offeringId={offering.OfferingID} statusCode={offering.StatusCode} />],
+    tableProps: {
+      pagination: false,
+      ...getOfferingApprovalTableColumns(offering.OfferingID),
+      searchParams: { OfferingID: offering.OfferingID },
+      refreshEventName: REFRESH_OFFERING_APPROVAL_PAGE
+    }
+  }
+
   const tabMetas: IDetailsTabMeta[] = [
     {
       tabTitle: "Summary",
@@ -164,6 +178,14 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       tabMeta: sectionMeta
     }
   ]
+
+  if (offering.HasApprovalProcess) {
+    tabMetas.push({
+      tabTitle: "Approvals",
+      tabType: "table",
+      tabMeta: approvalMeta
+    })
+  }
 
   return {
     pageTitle: `Offering Code - ${offering.OfferingCode}`,
