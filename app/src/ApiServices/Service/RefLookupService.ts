@@ -326,3 +326,9 @@ export function getCatalogTypes(): Promise<IApiResponse> {
     LookUpName: "CatalogType"
   })
 }
+
+export function getDiscountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DiscountType"
+  })
+}

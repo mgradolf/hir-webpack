@@ -15,7 +15,9 @@ const blockedPages: string[] = [
   "Payments",
   "Repository",
   "Response",
-  "Certificate"
+  "Certificate",
+  "Discount programs",
+  "Transaction"
 ]
 const names: { [key: string]: string } = {
   Offering: "OfferingCode",

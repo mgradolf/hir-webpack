@@ -5,7 +5,8 @@ export const config = {
   Service: "com.jenzabar.financial.server.bizapi.payment.PaymentIF",
   Module: "hir",
   Actions: {
-    searchPayment: "searchPayment"
+    searchPayment: "searchPayment",
+    searchCreditMemo: "searchCreditMemo"
   }
 }
 

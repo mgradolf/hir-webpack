@@ -1,40 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { Row, Spin, Tabs, Typography } from "antd"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
 import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
-
-export const tabTypes = {
-  summary: "summary",
-  table: "table",
-  searchtable: "searchtable",
-  custom: "custom"
-}
-
-type TabType = "summary" | "table" | "searchtable" | "custom"
-export interface IDetailsTabMeta {
-  tabType: TabType
-  tabTitle: string
-  tabMeta: any
-}
-
-export interface IDetailsMeta {
-  pageTitle?: string
-  tabs: IDetailsTabMeta[]
-}
-
-export interface IDetailsPage {
-  getMeta: (Params: any) => IDetailsMeta
-  getDetails: () => Promise<IApiResponse>
-  entityType?: string
-  entityID?: number
-  titleKey?: string
-  actions?: JSX.Element[]
-}
+import { IDetailsPage, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
+import { DetailsPageSubTabSwitch } from "~/Component/Common/Page/DetailsPage2/DetailsTabSwitch"
 
 export function DetailsPage(props: IDetailsPage) {
   const [loading, setLoading] = useState(false)
@@ -49,8 +22,9 @@ export function DetailsPage(props: IDetailsPage) {
       if (x.success && !x.data) {
         // setError({getErrorMessages: () => [{message: "Not Found"}]})
       } else if (x.success && x.data) {
-        setMeta(props.getMeta(x.data).tabs)
-        setTitle(props.getMeta(x.data).pageTitle)
+        const { tabs, pageTitle } = props.getMeta(x.data, props.entityType, props.entityID)
+        setMeta(tabs)
+        setTitle(pageTitle)
       } else setError(x.error)
     })
   }
@@ -85,25 +59,25 @@ export function DetailsPage(props: IDetailsPage) {
                 case "summary":
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsSummary {...x.tabMeta} />
+                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsSummary {...x.tabMeta} />} />
                     </Tabs.TabPane>
                   )
                 case "searchtable":
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsSearchTab {...x.tabMeta} />
+                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsSearchTab {...x.tabMeta} />} />
                     </Tabs.TabPane>
                   )
                 case "table":
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsTableTab {...x.tabMeta} />
+                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsTableTab {...x.tabMeta} />} />
                     </Tabs.TabPane>
                   )
                 case "custom":
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsCustomTab {...x.tabMeta} />
+                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsCustomTab {...x.tabMeta} />} />
                     </Tabs.TabPane>
                   )
 

@@ -69,7 +69,7 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-    fieldName: "OrganizationID",
+    fieldName: "DepartmentID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",

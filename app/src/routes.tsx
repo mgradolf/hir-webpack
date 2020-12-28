@@ -25,9 +25,9 @@ import SectionRegistrationPage from "~/Pages/Section/Registration"
 import SectionTagPage from "~/Pages/Section/Tag"
 import SectionProductPage from "~/Pages/Section/Product/ProductPage"
 import SectionWaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
-import SectionAcademicLogPage from "~/Pages/Section/AcademicLog"
-import SectionEnrollmentLogPage from "~/Pages/Section/EnrollmentLog"
-import SectionOrderLogPage from "~/Pages/Section/OrderLog"
+import SectionAcademicLogPage from "~/Pages/Section/SectionAcademicLog"
+import SectionEnrollmentLogPage from "~/Pages/Section/SectionEnrollmentLog"
+import SectionOrderLogPage from "~/Pages/Section/SectionOrderLog"
 import RequestDetailsPage from "~/Pages/Request/RequestDetailsPage"
 import SectionOrderManagementPage from "~/Pages/Section/Financial/Orders"
 import SectionOrderItemsPage from "~/Pages/Section/Financial/OrderItems"
@@ -84,6 +84,10 @@ import QuestionTaggingPage from "~/Pages/Question/QuestionTaggingPage"
 import FinancialOrderPagePage from "~/Pages/Financials/OrderPage"
 import FinancialOrderItemPage from "~/Pages/Financials/OrderItemPage"
 import FinancialPaymentPage from "~/Pages/Financials/PaymentPage"
+import FinancialDiscountProgramPage from "~/Pages/Financials/DiscountProgramPage"
+import FinancialDiscountProgramDetailsPage from "~/Pages/Financials/DiscountProgramDetailsPage"
+import FinancialTransactionPage from "~/Pages/Financials/TransactionPage"
+import FinancialTransactionDetailsPage from "~/Pages/Financials/TransactionDetailsPage"
 import ChartPage from "~/Pages/Chart/ChartPage"
 import ChartDetailsPage from "~/Pages/Chart/ChartDetailsPage"
 import ProgramProgramPage from "~/Pages/Manage/Program/ProgramPage"
@@ -148,6 +152,10 @@ export const AppRoutes: RouteProps[] = [
   { path: "/order", component: FinancialOrderPagePage },
   { path: "/order/:orderID", component: OrderDetailsPage },
   { path: "/order/payments/:paymentID", component: PaymentDetails },
+  { path: "/discount-programs", component: FinancialDiscountProgramPage },
+  { path: "/discount-programs/:discountProgramID", component: FinancialDiscountProgramDetailsPage },
+  { path: "/transaction", component: FinancialTransactionPage },
+  { path: "/transaction/:depositID", component: FinancialTransactionDetailsPage },
 
   { path: "/product", component: ProductPage },
   { path: "/product/:productID", component: ProductDetailsPage },

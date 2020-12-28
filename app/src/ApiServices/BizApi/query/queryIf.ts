@@ -40,3 +40,7 @@ export function analyzeRegistrationActivityByDate(
     to
   ])
 }
+
+export function findEnrollmentHistory(Params: any) {
+  return QueryIf[config.Actions.findEnrollmentHistory]([Params])
+}

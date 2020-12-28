@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
@@ -8,7 +8,7 @@ import OfferingEditLink from "~/Component/Offering/CreateEdit/OfferingEditLink"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { Button } from "antd"
-import { getFinancialTableColumns } from "~/FormMeta/Financial/FinancialTableColumns"
+import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
 import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
@@ -86,7 +86,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     blocks: [<FinancialFormModalOpenButton OfferingID={offering.OfferingID} />],
     tableProps: {
       pagination: false,
-      ...getFinancialTableColumns(offering.OfferingID),
+      ...getOfferingFinancialTableColumns(offering.OfferingID),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE
     }

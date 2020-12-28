@@ -48,7 +48,7 @@ export const getInstructorTableColumns = (isModal = false): ITableConfigProp => 
     // { title: "Other Name", dataIndex: "OtherName" }
   ]
 
-  const responsiveColumnIndices: number[] = [4, 5, 7, 8, 9, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
-  const expandableColumnIndices: number[] = [9, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchFaculties }
 }

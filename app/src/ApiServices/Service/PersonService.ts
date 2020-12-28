@@ -40,3 +40,7 @@ export function getPersonDisabilities(Params: { [key: string]: any }): Promise<I
 export function savePersonDisabilities(Params: { [key: string]: any }): Promise<IApiResponse> {
   return PersonService[config.Actions.savePersonDisabilities](Params)
 }
+
+export function getFacultySchedule(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return PersonService[config.Actions.getFacultySchedule](Params)
+}

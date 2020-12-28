@@ -5,23 +5,23 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 export const getOrderLinesTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Line ID",
-      dataIndex: "OrderLineID"
+      title: "Item",
+      dataIndex: "ItemDescription"
+    },
+    {
+      title: "GL Account",
+      dataIndex: "GLAccountName"
+    },
+    {
+      title: "Charge Name",
+      dataIndex: "FinancialDescription"
     },
     {
       title: "Quantity",
       dataIndex: "Quantity"
     },
     {
-      title: "Item Description",
-      dataIndex: "ItemDescription"
-    },
-    {
-      title: "Details",
-      dataIndex: "FinancialDescription"
-    },
-    {
-      title: "Unit Price",
+      title: "Unit Amount",
       dataIndex: "UnitPrice"
     },
     {

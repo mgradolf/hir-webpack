@@ -6,3 +6,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 export function searchPayments(Params: { [key: string]: any }): Promise<IApiResponse> {
   return PaymentIF[config.Actions.searchPayment]([Params])
 }
+
+export function searchCreditMemo(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return PaymentIF[config.Actions.searchCreditMemo]([Params])
+}

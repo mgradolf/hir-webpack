@@ -1,6 +1,6 @@
 import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/getAccountAffiliationTableColumn"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
@@ -11,6 +11,7 @@ import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
 import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { Link } from "react-router-dom"
+import { getTransactionFinancialTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialTableColumns"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -96,7 +97,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabMeta: {
       tableProps: {
         ...getOrderItemTableColumns(false),
-        searchParams: { AccountID: account.AccountID },
+        searchParams: { OrganizationID: account.AccountID },
         refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
       }
     }
@@ -109,6 +110,17 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         ...getPaymentTableColumns(false),
         searchParams: { AccountID: account.AccountID },
         refreshEventName: "REFRESH_PAYMENTS_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Transactions",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getTransactionFinancialTableColumns(false),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: "REFRESH_TRANSACTION_TAB"
       }
     }
   })

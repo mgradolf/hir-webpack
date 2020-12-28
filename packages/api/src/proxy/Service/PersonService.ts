@@ -14,7 +14,8 @@ export const config = {
     createPersonEducationHistory: "createPersonEducationHistory",
     findPersonEducationHist: "findPersonEducationHist",
     getPersonDisabilities: "getPersonDisabilities",
-    savePersonDisabilities: "savePersonDisabilities"
+    savePersonDisabilities: "savePersonDisabilities",
+    getFacultySchedule: "getFacultySchedule"
   }
 }
 

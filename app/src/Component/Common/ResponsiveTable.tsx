@@ -32,12 +32,20 @@ export const renderBoolean = (text: any) => {
     return text ? "Yes" : "No"
   } else return ""
 }
+
 export const renderWeek = (text: any[], record: any) => {
   const weeks: string[] = ["Monday", "TuesDay", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   return text && Array.isArray(text) && weeks.filter((x, i) => text.includes(i + 1))
 }
 
 export const sortByBoolean = (a: boolean, b: boolean) => (a === b ? 0 : a ? -1 : 1)
+export const sortByString = (a: string, b: string) => a.length - b.length
+export const sortByTime = (a?: string, b?: string) => {
+  const aa = a ? new Date(a).getTime() : 0
+  const bb = b ? new Date(b).getTime() : 0
+
+  return aa === bb ? 0 : aa ? -1 : 1
+}
 
 export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType

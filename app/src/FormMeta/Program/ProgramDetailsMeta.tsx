@@ -1,5 +1,5 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 
