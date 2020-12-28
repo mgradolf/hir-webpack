@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Button, Dropdown, Menu } from "antd"
-
 import Notification from "~/utils/notification"
 import { sendRegistrationConfirmationEmail } from "~/ApiServices/Service/MailService"
 import { REGISTRATION_EMAIL_CONFIRMATION_SUCCESS } from "~/utils/Constants"
 import RegistrationUpdateFormModal from "~/Component/Registration/RegistrationUpdateFormModal"
+import RegistrationActionFormModal from "~/Component/Registration/RegistrationActionFormModal"
 
 interface IRegistrationDetailsMenuProp {
   dataLoaded: { [key: string]: any }
@@ -12,7 +12,8 @@ interface IRegistrationDetailsMenuProp {
 
 export default function RegistrationDetailsMenu(props: IRegistrationDetailsMenuProp) {
   const [loading, setLoading] = useState<boolean>(false)
-  const [isUpdateRegistration, setIsUpdateRegistration] = useState<boolean>(false)
+  const [showRegistrationDetails, setShowRegistrationDetails] = useState<boolean>(false)
+  const [showRegistrationActions, setShowRegistrationActions] = useState<boolean>(false)
 
   const sendEmailConfirmation = async (StudentID: number, SeatGroupID: number) => {
     if (props.dataLoaded) {
@@ -33,18 +34,26 @@ export default function RegistrationDetailsMenu(props: IRegistrationDetailsMenuP
     return (
       <Menu>
         <Menu.Item>
-          <Button type="link" onClick={() => setIsUpdateRegistration(true)}>
+          <Button type="link" onClick={() => setShowRegistrationDetails(true)}>
             Edit
           </Button>
-          {isUpdateRegistration && (
+          {showRegistrationDetails && (
             <RegistrationUpdateFormModal
               initialFormValue={dataInfo}
-              closeModal={() => setIsUpdateRegistration(false)}
+              closeModal={() => setShowRegistrationDetails(false)}
             />
           )}
         </Menu.Item>
         <Menu.Item>
-          <Button type="link">Drop/Withdraw/Delete</Button>
+          <Button type="link" onClick={() => setShowRegistrationActions(true)}>
+            Drop/Withdraw/Delete
+          </Button>
+          {showRegistrationActions && (
+            <RegistrationActionFormModal
+              initialFormValue={dataInfo}
+              closeModal={() => setShowRegistrationActions(false)}
+            />
+          )}
         </Menu.Item>
         <Menu.Item>
           <Button

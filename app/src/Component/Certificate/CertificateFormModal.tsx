@@ -9,6 +9,7 @@ import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
 import CertificateForm from "~/Component/Certificate/CertificateForm"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
+import { eventBus, REFRESH_REGISTRATION_CERTIFICATE_PAGE } from "~/utils/EventBus"
 
 interface ICertificateFormProps {
   isProgram?: boolean
@@ -71,6 +72,8 @@ export default function CertificateFormModal(props: ICertificateFormProps) {
     const response = await issueCertificate(params)
     if (response && response.success) {
       Notification(ISSUE_CERTIFICATE_SAVE_SUCCESS)
+      eventBus.publish(REFRESH_REGISTRATION_CERTIFICATE_PAGE)
+      handleCancel()
     } else {
       setErrorMessages(response.error)
       console.log(response.error)
