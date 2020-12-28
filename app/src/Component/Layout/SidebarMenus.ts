@@ -118,6 +118,7 @@ export const sidebarMenus: ISidebarMenu[] = [
             submenu: [
               { title: "Student Academic", url: "/search/activity/academic-log", submenu: [] },
               { title: "Student Enrollment", url: "/search/activity/enrollment-log", submenu: [] },
+              { title: "Enrollment History", url: "/search/activity/enrollment-history", submenu: [] },
               { title: "Order Activity", url: "/search/activity/order-log", submenu: [] }
             ]
           },

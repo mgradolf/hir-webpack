@@ -12,7 +12,7 @@ export const getEnrollmentActivityLogTableColumns = (isModal = false): ITableCon
         title: "",
         dataIndex: "",
         render: (text: any, record: any) => (
-          <Link to={`/enrollment_activity_log/${record.EnrollmentActivityLogID}`}>
+          <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>
             <ReadOutlined />
           </Link>
         )

@@ -1,16 +1,16 @@
 import React from "react"
-import { ActivityEnrollmentSearchMeta } from "~/FormMeta/ActivityEnrollment/ActivityEnrollmentSearchMeta"
+import { EnrollmentsActivitySearchMeta } from "~/FormMeta/Enrollment/EnrollmentActivitySearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getActivityEnrollmentTableColumns } from "~/FormMeta/ActivityEnrollment/ActivityEnrollmentTableColumns"
+import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/Enrollment/EnrollmentActivityTableColumns"
 
-export default function AcademicLogPage() {
+export default function EnrollmentLogPage() {
   return (
     <SearchPage
       title="Enrollment Activity"
       initialFilter={{}}
-      meta={ActivityEnrollmentSearchMeta}
+      meta={EnrollmentsActivitySearchMeta}
       hideSearchField={false}
-      tableProps={{ ...getActivityEnrollmentTableColumns() }}
+      tableProps={{ ...getEnrollmentActivityLogTableColumns() }}
     ></SearchPage>
   )
 }

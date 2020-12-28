@@ -12,7 +12,7 @@ export const getAcademicActivityLogTableColumns = (isModal = false): ITableConfi
         title: "",
         dataIndex: "",
         render: (text: any, record: any) => (
-          <Link to={`/academic_activity_log/${record.AcademicActivityLogID}`}>
+          <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>
             <ReadOutlined />
           </Link>
         )
