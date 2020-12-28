@@ -9,7 +9,7 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
     {
       render: (text: any, record: any) => (isModal ? text : renderDetailsLink(`/transaction/${record.TransactionID}`))
     },
-    { title: "Deposit ID", dataIndex: "DepositTransactionID" },
+    // { title: "Deposit ID", dataIndex: "DepositTransactionID" },
     { title: "Date", dataIndex: "TransactionDate", render: renderDate },
     {
       title: "Account Owner",
@@ -25,8 +25,8 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
     { title: "TransactionType", dataIndex: "TransactionType" },
     { title: "Description", dataIndex: "Description" },
     { title: "Reference No", dataIndex: "ReferenceNo" },
-    { title: "Deposit", dataIndex: "Credit" },
     { title: "GL", dataIndex: "GLAccountName" },
+    { title: "Deposit", dataIndex: "Credit" },
     { title: "Withdrawl", dataIndex: "Debit" }
   ]
 

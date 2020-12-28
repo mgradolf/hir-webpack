@@ -5,27 +5,48 @@ import {
   getPaymentTypes,
   getSourceModule
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
 
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-// import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
+import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
 
 export const PaymentSearchMeta: IFilterField[] = [
+  // {
+  //   label: "Payer",
+  //   fieldName: "PersonID",
+  //   customFilterComponent: SearchPersonLookupButton
+  // },
   {
-    label: "Payer",
-    fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    label: "Person Selector",
+    fieldName: "",
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Payer",
+          valueField: "FirstName",
+          fieldName: "PayerName",
+          component: SearchPersonLookupButton
+        },
+        {
+          label: "Student",
+          valueField: "StudentName",
+          fieldName: "FirstName",
+          component: SearchStudentLookupButton
+        }
+      ]
+    }
   },
   {
-    label: "Creation Date",
+    label: "Payment Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "CreateDateFrom",
     valueKey: "CreateDateFrom",
     ariaLabel: "Creation Date From",
@@ -35,10 +56,43 @@ export const PaymentSearchMeta: IFilterField[] = [
     ariaLabel2: "Creation Date To"
   },
   {
-    label: "Check",
-    inputType: TEXT,
-    fieldName: "checkNumber",
-    ariaLabel: "checkNumber"
+    label: "Check/ Reference",
+    fieldName: "",
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Check",
+          valueField: "checkNumber",
+          fieldName: "checkNumber",
+          component: SearchInputType
+        },
+        {
+          label: "Reference",
+          valueField: "TransactionNumber",
+          fieldName: "TransactionNumber",
+          component: SearchInputType
+        }
+      ]
+    }
+  },
+  // {
+  //   label: "Check",
+  //   inputType: TEXT,
+  //   fieldName: "checkNumber",
+  //   ariaLabel: "checkNumber"
+  // },
+  // {
+  //   label: "Reference",
+  //   inputType: TEXT,
+  //   fieldName: "TransactionNumber",
+  //   ariaLabel: "TransactionNumber"
+  // },
+  {
+    label: "Payment ID",
+    inputType: NUMBER,
+    fieldName: "PaymentID",
+    ariaLabel: "PaymentID"
   },
   {
     label: "Order ID",
@@ -47,10 +101,19 @@ export const PaymentSearchMeta: IFilterField[] = [
     ariaLabel: "OrderID"
   },
   {
-    label: "Reference",
-    inputType: TEXT,
-    fieldName: "TransactionNumber",
-    ariaLabel: "TransactionNumber"
+    label: "Account Lookup",
+    fieldName: "AccountID",
+    customFilterComponent: SearchAccountLookup
+  },
+  {
+    label: "Student",
+    fieldName: "StudentID",
+    customFilterComponent: SearchStudentLookupButton
+  },
+  {
+    label: "Offering",
+    fieldName: "OfferingID",
+    customFilterComponent: SearchOfferingLookupButton
   },
   {
     label: "Section",
@@ -58,48 +121,29 @@ export const PaymentSearchMeta: IFilterField[] = [
     customFilterComponent: SearchSectionLookupButton
   },
   {
-    label: "Offering",
-    fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
-  },
-
-  {
-    label: "Student",
-    fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
-  },
-  {
-    label: "Total Amount",
+    label: "Payment Amount",
     fieldName: "TotalAmountFrom",
     fieldName2: "TotalAmountTo",
     customFilterComponent: TotalAmountRange
   },
   {
-    label: "Payment ID",
-    inputType: NUMBER,
-
-    fieldName: "PaymentID",
-    ariaLabel: "PaymentID"
-  },
-  {
-    label: "Payment Types",
-    inputType: DROPDOWN,
-
-    fieldName: "PaymentTypeID",
-    ariaLabel: "Payment Types",
-    refLookupService: getPaymentTypes,
-    displayKey: "PaymentAcceptedName",
-    valueKey: "PaymentTypeID"
-  },
-  {
     label: "Base Paymment Type",
     inputType: DROPDOWN,
-
     fieldName: "BasePaymentTypeID",
     ariaLabel: "Base Paymment Type",
     refLookupService: getBasePaymentTypes,
     displayKey: "Name",
     valueKey: "ID"
+  },
+
+  {
+    label: "Payment Types",
+    inputType: DROPDOWN,
+    fieldName: "PaymentTypeID",
+    ariaLabel: "Payment Types",
+    refLookupService: getPaymentTypes,
+    displayKey: "PaymentAcceptedName",
+    valueKey: "PaymentTypeID"
   },
   {
     label: "Source",
@@ -130,31 +174,5 @@ export const PaymentSearchMeta: IFilterField[] = [
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
-  },
-  {
-    label: "Account Lookup",
-    fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
   }
-  // {
-  //   label: "Person Selector",
-  //   fieldName: "",
-  //   customFilterComponent: SearchLookupSelector,
-  //   extraProps: {
-  //     selectorKeys: [
-  //       {
-  //         label: "Payer",
-  //         valueField: "FirstName",
-  //         fieldName: "PayerName",
-  //         component: SearchPersonLookupButton
-  //       },
-  //       {
-  //         label: "Student First Name",
-  //         valueField: "StudentName",
-  //         fieldName: "FirstName",
-  //         component: SearchStudentLookupButton
-  //       }
-  //     ]
-  //   }
-  // }
 ]
