@@ -9,7 +9,7 @@ import OfferingFinancialPage from "~/Pages/Manage/Courses/Offering/Financial/Fin
 import OfferingCatalogPage from "~/Pages/Manage/Courses/Offering/Catalog"
 import OfferingRequisitePage from "~/Pages/Manage/Courses/Offering/Requisite"
 import OfferingApprovalPage from "~/Pages/Manage/Courses/Offering/Approval"
-import OfferingTaggPage from "~/Pages/Manage/Courses/Offering/Tag"
+import OfferingTaggPage from "~/Pages/Manage/Courses/Offering/TagPage"
 import OfferingQualifiedInstructorPage from "~/Pages/Manage/Courses/Offering/QualifiedInstructor"
 import OfferingSectionPage from "~/Pages/Manage/Courses/Offering/Section"
 
@@ -22,7 +22,8 @@ import SectionBudgetPage from "~/Pages/Manage/Courses/Section/Budget/BudgetPage"
 import SectionNoticePage from "~/Pages/Manage/Courses/Section/Notice/NoticePage"
 import SectionDiscountPage from "~/Pages/Manage/Courses/Section/Discount/DiscountPage"
 import SectionRegistrationPage from "~/Pages/Manage/Courses/Section/Registration"
-import SectionTagPage from "~/Pages/Manage/Courses/Section/Tag"
+import SectionTagPage from "~/Pages/Manage/Courses/Section/TagPage"
+
 import SectionProductPage from "~/Pages/Manage/Courses/Section/Product/ProductPage"
 import SectionWaitlistEntriesPage from "~/Pages/Manage/Courses/Section/WaitlistEntries"
 import SectionAcademicLogPage from "~/Pages/Manage/Courses/Section/SectionAcademicLog"

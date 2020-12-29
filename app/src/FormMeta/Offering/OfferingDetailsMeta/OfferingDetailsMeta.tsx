@@ -22,7 +22,7 @@ import {
 } from "~/utils/EventBus"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import RequisitePage from "~/Pages/Manage/Courses/Offering/Requisite/RequisitePage"
-import TagPage from "~/Pages/Manage/Courses/Offering/Tag/TagPage"
+import TagPage from "~/Pages/Manage/Courses/Offering/TagPage"
 import { getOfferingApprovalTableColumns } from "~/FormMeta/OfferingApproval/ApprovalTableColumns"
 import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/OfferingApprovalModalOpenButton"
 import "~/Sass/utils.scss"

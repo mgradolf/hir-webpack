@@ -80,6 +80,8 @@ export function ResponsiveTable(props: IDataTableProps) {
   const firstRender = useFirstRender()
 
   const loadDataFromSearchFunc = () => {
+    console.log(searchParams, searchFunc)
+
     if (loading) {
       return
     } else if (otherTableProps.dataSource) {

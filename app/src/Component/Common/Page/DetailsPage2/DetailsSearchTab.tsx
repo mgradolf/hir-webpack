@@ -1,7 +1,5 @@
 import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
-import { FilterOutlined } from "@ant-design/icons"
-import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
 import SearchFilters from "~/Component/Common/SearchFilters"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
@@ -25,14 +23,13 @@ export interface IDetailsSearchTabProp {
 }
 
 export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
-  const [filterCount, setFilterCount] = useState(0)
   const [rowData, setRowData] = useState<Array<any>>([])
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(
     props.initialFilter || props.defaultFilter || {}
   )
-  const [showFilter, setShowFilter] = useState(false)
   const [help, setHelp] = useState(false)
 
+  console.log(props)
   return (
     <>
       <Row>
@@ -52,54 +49,29 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
       </Row>
 
-      {props.searchMeta && (
-        <Row justify="start" gutter={[8, 8]}>
-          <Col>
-            <span>
-              <FilterOutlined />
-              <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
-            </span>
-          </Col>
-        </Row>
-      )}
       <Row justify="end" gutter={[8, 8]}>
-        {props.searchMeta && (
-          <Col>
-            {!showFilter && (
-              <Button type="primary" onClick={() => setShowFilter(true)}>
-                Filters
-              </Button>
-            )}
-          </Col>
-        )}
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
         {props.blockComponents && props.blockComponents.map((x, i) => <x.component {...x.props} rowData={rowData} />)}
       </Row>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        {props.searchMeta && (
-          <SearchFilters
-            title={""}
-            isModalView={false}
-            visible={showFilter}
-            hideFilters={() => setShowFilter(false)}
-            meta={props.searchMeta}
-            initialFilter={searchParams}
-            onApplyChanges={(newFilterValues, appliedFilterCount) => {
-              setSearchParams({ ...props.defaultFilter, ...newFilterValues })
-              setFilterCount(appliedFilterCount)
-              setShowFilter(false)
-            }}
-          />
-        )}
-        <Col
-          className={`gutter-row ${styles.offeringDetails}`}
-          xs={24}
-          sm={24}
-          md={{ span: showFilter ? 17 : 24, offset: showFilter ? 1 : 0 }}
-        >
+      {props.searchMeta && (
+        <SearchFilters
+          title={""}
+          isModalView={true}
+          isCheckeble={false}
+          visible={true}
+          meta={props.searchMeta}
+          initialFilter={searchParams}
+          onApplyChanges={(newFilterValues, appliedFilterCount) => {
+            setSearchParams({ ...props.defaultFilter, ...newFilterValues })
+            console.log(newFilterValues)
+          }}
+        />
+      )}
+      <Row>
+        <Col span={24}>
           <ResponsiveTable
             {...props.tableProps}
-            searchParams={searchParams}
+            searchParams={{ ...searchParams, ...props?.tableProps?.searchParams }}
             refreshEventName={props.title + Date.now().toString()}
             dataLoaded={(Params: any[]) => setRowData(Params)}
           />
