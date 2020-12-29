@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Button, Card, Form, Select } from "antd"
 import TextArea from "antd/lib/input/TextArea"
-import { findEnrollmentStudentHistory, saveEnrollmentComment } from "~/ApiServices/Service/SectionService"
+import { addEnrollmentComment } from "~/ApiServices/Service/CommentService"
+import { eventBus, REFRESH_REGISTRATION_COMMENT_PAGE } from "~/utils/EventBus"
 
 interface IEnrollmentCommentCreateForm {
-  SectionID: number
+  SectionID?: number
+  StudentID?: number
   commentCatagories: any[]
-  onCancel: () => void
   onClose?: () => void
   setApiCallInProgress: (flag: boolean) => void
 }
 export default function EnrollmentCommentCreateForm(props: IEnrollmentCommentCreateForm) {
-  const [students, setStudents] = useState<any[]>([])
-  useEffect(() => {
-    findEnrollmentStudentHistory({ SectionID: props.SectionID }).then((x) => {
-      if (x.success) setStudents(x.data)
-    })
-  }, [props.SectionID])
   const [formInstance] = Form.useForm()
+
   const submit = () => {
     props.setApiCallInProgress(true)
-    saveEnrollmentComment({ ...formInstance.getFieldsValue(), SectionID: props.SectionID }).then((x) => {
+    addEnrollmentComment({
+      ...formInstance.getFieldsValue(),
+      SectionID: props.SectionID,
+      StudentID: props.StudentID
+    }).then((x) => {
       if (x.success) {
+        eventBus.publish(REFRESH_REGISTRATION_COMMENT_PAGE)
         props.onClose && props.onClose()
       }
       props.setApiCallInProgress(false)
     })
   }
+
   return (
     <Card
       title="Create Enrollment Comment"
-      actions={[<Button onClick={props.onCancel}>Cancel</Button>, <Button onClick={submit}>Select</Button>]}
+      actions={[<Button onClick={props.onClose}>Cancel</Button>, <Button onClick={submit}>Submit</Button>]}
     >
       <Form form={formInstance}>
         <Form.Item label="Category" name="CommentCategoryID" labelCol={{ span: 6 }}>
@@ -38,15 +40,6 @@ export default function EnrollmentCommentCreateForm(props: IEnrollmentCommentCre
             {props.commentCatagories.map((x, i) => (
               <Select.Option key={i} value={x.ID}>
                 {x.Name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item label="Students" name="StudentIDs" labelCol={{ span: 6 }}>
-          <Select mode="multiple">
-            {students.map((x, i) => (
-              <Select.Option key={i} value={x.StudentID}>
-                {x.FirstName} {x.LastName}, ID: {x.StudentID}, Status: {x.Status}
               </Select.Option>
             ))}
           </Select>

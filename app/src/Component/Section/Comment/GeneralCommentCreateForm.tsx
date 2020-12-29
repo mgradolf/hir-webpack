@@ -1,30 +1,60 @@
 import React from "react"
 import { Button, Card, Form, Select } from "antd"
 import TextArea from "antd/lib/input/TextArea"
-import { saveGeneralComment } from "~/ApiServices/Service/SectionService"
+import { addSectionComment, addStudentComment, addFacultyComment } from "~/ApiServices/Service/CommentService"
+import { eventBus, REFRESH_SECTION_GENERAL_COMMENT_PAGE, REFRESH_STUDENT_COMMENT_PAGE, REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
 
 interface IGeneralCommentCreateForm {
-  SectionID: number
+  SectionID?: number
+  StudentID?: number
+  FacultyID?: number
   commentCatagories: any[]
-  onCancel: () => void
   onClose?: () => void
   setApiCallInProgress: (flag: boolean) => void
 }
 export default function GeneralCommentCreateForm(props: IGeneralCommentCreateForm) {
   const [formInstance] = Form.useForm()
+
   const submit = () => {
     props.setApiCallInProgress(true)
-    saveGeneralComment({ ...formInstance.getFieldsValue(), SectionID: props.SectionID }).then((x) => {
-      if (x.success) {
-        props.onClose && props.onClose()
-      }
-      props.setApiCallInProgress(false)
-    })
+
+    let params = { ...formInstance.getFieldsValue() }
+    if (props.SectionID) {
+      params["SectionID"] = props.SectionID
+      addSectionComment(params).then((x) => {
+        if (x.success) {
+          eventBus.publish(REFRESH_SECTION_GENERAL_COMMENT_PAGE)
+          props.onClose && props.onClose()
+        }
+        props.setApiCallInProgress(false)
+      })
+    }
+    else if (props.StudentID) {
+      params["StudentID"] = props.StudentID
+      addStudentComment(params).then((x) => {
+        if (x.success) {
+          eventBus.publish(REFRESH_STUDENT_COMMENT_PAGE)
+          props.onClose && props.onClose()
+        }
+        props.setApiCallInProgress(false)
+      })
+    }
+    else if (props.FacultyID) {
+      params["FacultyID"] = props.FacultyID
+      addFacultyComment(params).then((x) => {
+        if (x.success) {
+          eventBus.publish(REFRESH_INSTRUCTOR_COMMENT_PAGE)
+          props.onClose && props.onClose()
+        }
+        props.setApiCallInProgress(false)
+      })
+    }
   }
+
   return (
     <Card
       title="Create General Comment"
-      actions={[<Button onClick={props.onCancel}>Cancel</Button>, <Button onClick={submit}>Select</Button>]}
+      actions={[<Button onClick={props.onClose}>Cancel</Button>, <Button onClick={submit}>Submit</Button>]}
     >
       <Form form={formInstance}>
         <Form.Item label="Category" name="CommentCategoryID" labelCol={{ span: 6 }}>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Button, Card, Form, Select } from "antd"
 import TextArea from "antd/lib/input/TextArea"
-import { findFaculty, saveFacultyComment } from "~/ApiServices/Service/SectionService"
+import { findFaculty } from "~/ApiServices/Service/SectionService"
+import { addSectionFacultyComment } from "~/ApiServices/Service/CommentService"
+import { eventBus, REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
 
 interface IInstructorCommentCreateForm {
-  SectionID: number
+  SectionID?: number
   commentCatagories: any[]
-  onCancel: () => void
   onClose?: () => void
   setApiCallInProgress: (flag: boolean) => void
 }
@@ -18,19 +19,22 @@ export default function InstructorCommentCreateForm(props: IInstructorCommentCre
     })
   }, [props.SectionID])
   const [formInstance] = Form.useForm()
+
   const submit = () => {
     props.setApiCallInProgress(true)
-    saveFacultyComment({ ...formInstance.getFieldsValue(), SectionID: props.SectionID }).then((x) => {
+    addSectionFacultyComment({ ...formInstance.getFieldsValue(), SectionID: props.SectionID }).then((x) => {
       if (x.success) {
+        eventBus.publish(REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE)
         props.onClose && props.onClose()
       }
       props.setApiCallInProgress(false)
     })
   }
+
   return (
     <Card
       title="Create Instructor Comment"
-      actions={[<Button onClick={props.onCancel}>Cancel</Button>, <Button onClick={submit}>Select</Button>]}
+      actions={[<Button onClick={props.onClose}>Cancel</Button>, <Button onClick={submit}>Submit</Button>]}
     >
       <Form form={formInstance}>
         <Form.Item label="Category" name="CommentCategoryID" labelCol={{ span: 6 }}>
@@ -42,8 +46,8 @@ export default function InstructorCommentCreateForm(props: IInstructorCommentCre
             ))}
           </Select>
         </Form.Item>
-        <Form.Item label="Instructor" name="FacultyIDs" labelCol={{ span: 6 }}>
-          <Select mode="multiple">
+        <Form.Item label="Instructor" name="FacultyID" labelCol={{ span: 6 }}>
+          <Select>
             {faulties.map((x, i) => (
               <Select.Option key={i} value={x.FacultyID}>
                 {x.FirstName} {x.LastName}, ID: {x.FacultyID}, Role: {x.FacultyRoleInSection}
