@@ -16,7 +16,9 @@ import {
   REFRESH_SECTION_PRODUCT_PAGE,
   REFRESH_SECTION_REQUEST_PAGE,
   REFRESH_SECTION_WAITLIST_ENTRIES_PAGE,
-  REFRESH_SECTION_ORDER_PAGE
+  REFRESH_SECTION_ORDER_PAGE,
+  REFRESH_SECTION_GENERAL_COMMENT_PAGE,
+  REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
 } from "~/utils/EventBus"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
@@ -36,8 +38,11 @@ import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
-import SectionCommentPage from "~/Pages/Manage/Courses/Section/Comment/CommentPage"
 import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
+import { getGeneralCommentTableColumns } from "~/FormMeta/SectionComment/GeneralCommentTableColumns"
+import { getInstructorCommentTableColumns } from "~/FormMeta/SectionComment/InstructorCommentTableColumns"
+import { COMMENT_TYPES } from "~/utils/Constants"
+import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
@@ -248,11 +253,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     props: { SectionID: section.SectionID }
   }
 
-  const commentMeta: IDetailsCustomTabProp = {
-    component: SectionCommentPage,
-    props: { sectionID: section.SectionID }
-  }
-
   return {
     pageTitle: `Section - ${section.OfferingName}`,
     tabs: [
@@ -328,8 +328,34 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       },
       {
         tabTitle: "Comments",
-        tabType: "custom",
-        tabMeta: commentMeta
+        tabType: "table",
+        tabMeta: [],
+        multipleTabMetas: [{
+          tabTitle: "General",
+          tabType: "table",
+          tabMeta: {
+            blocks: [<CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.GENERAL} />],
+            tableProps: {
+              pagination: false,
+              ...getGeneralCommentTableColumns(),
+              searchParams: { SectionID: section.SectionID },
+              refreshEventName: REFRESH_SECTION_GENERAL_COMMENT_PAGE
+            }
+          }
+        },
+        {
+          tabTitle: "Instructor",
+          tabType: "table",
+          tabMeta: {
+            blocks: [<CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.INSTRUCTOR} />],
+            tableProps: {
+              pagination: false,
+              ...getInstructorCommentTableColumns(),
+              searchParams: { SectionID: section.SectionID },
+              refreshEventName: REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
+            }
+          }
+        }]
       },
       {
         tabTitle: "No Shows",
