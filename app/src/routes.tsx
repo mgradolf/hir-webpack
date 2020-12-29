@@ -4,92 +4,93 @@ import AboutPage from "~/Pages/AboutPage"
 import AdminPage from "~/Pages/AdminPage"
 
 // import { OfferingPage } from "~/Pages/Offering/index"
-import OfferingDetailsPage from "~/Pages/Offering/Details"
-import OfferingFinancialPage from "~/Pages/Offering/Financial/FinancialPage"
-import OfferingCatalogPage from "~/Pages/Offering/Catalog"
-import OfferingRequisitePage from "~/Pages/Offering/Requisite"
-import OfferingApprovalPage from "~/Pages/Offering/Approval"
-import OfferingTaggPage from "~/Pages/Offering/Tag"
-import OfferingQualifiedInstructorPage from "~/Pages/Offering/QualifiedInstructor"
-import OfferingSectionPage from "~/Pages/Offering/Section"
+import OfferingDetailsPage from "~/Pages/Manage/Courses/Offering/Details"
+import OfferingFinancialPage from "~/Pages/Manage/Courses/Offering/Financial/FinancialPage"
+import OfferingCatalogPage from "~/Pages/Manage/Courses/Offering/Catalog"
+import OfferingRequisitePage from "~/Pages/Manage/Courses/Offering/Requisite"
+import OfferingApprovalPage from "~/Pages/Manage/Courses/Offering/Approval"
+import OfferingTaggPage from "~/Pages/Manage/Courses/Offering/Tag"
+import OfferingQualifiedInstructorPage from "~/Pages/Manage/Courses/Offering/QualifiedInstructor"
+import OfferingSectionPage from "~/Pages/Manage/Courses/Offering/Section"
 
-import SectionPage from "~/Pages/Section"
-import SectionDetailsPage from "~/Pages/Section/Details"
-import SectionSeatgroupPage from "~/Pages/Section/SeatGroup/SeatgroupPage"
-import SectionCatalogPage from "~/Pages/Section/Catalog"
-import SectionSchedulePage from "~/Pages/Section/Schedule"
-import SectionBudgetPage from "~/Pages/Section/Budget/BudgetPage"
-import SectionNoticePage from "~/Pages/Section/Notice/NoticePage"
-import SectionDiscountPage from "~/Pages/Section/Discount/DiscountPage"
-import SectionRegistrationPage from "~/Pages/Section/Registration"
-import SectionTagPage from "~/Pages/Section/Tag"
-import SectionProductPage from "~/Pages/Section/Product/ProductPage"
-import SectionWaitlistEntriesPage from "~/Pages/Section/WaitlistEntries"
-import SectionAcademicLogPage from "~/Pages/Section/SectionAcademicLog"
-import SectionEnrollmentLogPage from "~/Pages/Section/SectionEnrollmentLog"
-import SectionOrderLogPage from "~/Pages/Section/SectionOrderLog"
-import RequestDetailsPage from "~/Pages/Request/RequestDetailsPage"
-import SectionOrderManagementPage from "~/Pages/Section/Financial/Orders"
-import SectionOrderItemsPage from "~/Pages/Section/Financial/OrderItems"
-import SectionOrderPaymentsPage from "~/Pages/Section/Financial/Payments"
-import PaymentDetails from "~/Pages/Section/Financial/PaymentDetails"
-import OrderDetailsPage from "~/Pages/Financials/OrderDetailsPage"
-import SectionOrderDetails from "~/Pages/Section/Financial/OrderDetails"
-import SectionCommentPage from "~/Pages/Section/Comment"
-import SectionNoShowPage from "~/Pages/Section/NoShow"
-import SectionRequestPage from "~/Pages/Request/RequestPage"
-import SectionQuestionPage from "~/Pages/Section/Question"
+import SectionPage from "~/Pages/Manage/Courses/Section"
+import SectionDetailsPage from "~/Pages/Manage/Courses/Section/Details"
+import SectionSeatgroupPage from "~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupPage"
+import SectionCatalogPage from "~/Pages/Manage/Courses/Section/Catalog"
+import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule"
+import SectionBudgetPage from "~/Pages/Manage/Courses/Section/Budget/BudgetPage"
+import SectionNoticePage from "~/Pages/Manage/Courses/Section/Notice/NoticePage"
+import SectionDiscountPage from "~/Pages/Manage/Courses/Section/Discount/DiscountPage"
+import SectionRegistrationPage from "~/Pages/Manage/Courses/Section/Registration"
+import SectionTagPage from "~/Pages/Manage/Courses/Section/Tag"
+import SectionProductPage from "~/Pages/Manage/Courses/Section/Product/ProductPage"
+import SectionWaitlistEntriesPage from "~/Pages/Manage/Courses/Section/WaitlistEntries"
+import SectionAcademicLogPage from "~/Pages/Manage/Courses/Section/SectionAcademicLog"
+import SectionEnrollmentLogPage from "~/Pages/Manage/Courses/Section/SectionEnrollmentLog"
+import SectionOrderLogPage from "~/Pages/Manage/Courses/Section/SectionOrderLog"
+import SectionOrderManagementPage from "~/Pages/Manage/Courses/Section/Financial/Orders"
+import SectionOrderItemsPage from "~/Pages/Manage/Courses/Section/Financial/OrderItems"
+import SectionOrderPaymentsPage from "~/Pages/Manage/Courses/Section/Financial/Payments"
+import PaymentDetails from "~/Pages/Manage/Courses/Section/Financial/PaymentDetails"
+import SectionOrderDetails from "~/Pages/Manage/Courses/Section/Financial/OrderDetails"
+import SectionCommentPage from "~/Pages/Manage/Courses/Section/Comment"
+import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShow"
+import SectionRequestPage from "~/Pages/Manage/Courses/Section/RequestPage"
+import SectionQuestionPage from "~/Pages/Manage/Courses/Section/Question"
 
-import RequestPage from "~/Pages/RequestPage"
+import RequestPage from "~/Pages/Manage/Request/RequestPage"
+import RequestDetailsPage from "~/Pages/Manage/Request/RequestDetailsPage"
 
-import CourseCertificatePage from "~/Pages/Certificate/CourseCertificatePage"
+import CourseCertificatePage from "~/Pages/Manage/Courses/Certificate/CourseCertificatePage"
 import { ProgramCertificatePage } from "~/Pages/Manage/Program/CertificatePage"
-import CertificateDetailPage from "~/Pages/Certificate/CertificateDetailPage"
+import CertificateDetailPage from "~/Pages/Manage/Courses/Certificate/CertificateDetailPage"
 
-import PersonPage from "~/Pages/Person/PersonPage"
-import PersonDetailPage from "~/Pages/Person/PersonDetailPage"
+import PersonPage from "~/Pages/Manage/People/Person/PersonPage"
+import PersonDetailPage from "~/Pages/Manage/People/Person/PersonDetailPage"
 
-import StudentPage from "~/Pages/Student/StudentPage"
+import StudentPage from "~/Pages/Manage/People/Student/StudentPage"
 
-import InstructorPage from "~/Pages/Instructor/InstructorPage"
+import InstructorPage from "~/Pages/Manage/People/Instructor/InstructorPage"
 
-import AccountPage from "~/Pages/Account/AccountPage"
-import AccountDetailsPage from "~/Pages/Account/AccountDetails"
+import AccountPage from "~/Pages/Manage/People/Account/AccountPage"
+import AccountDetailsPage from "~/Pages/Manage/People/Account/AccountDetails"
 
-import ProductPage from "~/Pages/Product/ProductPage"
-import ProductDetailsPage from "~/Pages/Product/ProductDetails"
+import ProductPage from "~/Pages/Manage/Product/ProductPage"
+import ProductDetailsPage from "~/Pages/Manage/Product/ProductDetails"
 
-import { CatalogPage } from "~/Pages/Catalog/CatalogPage"
-import { CatalogDetailsPage } from "~/Pages/Catalog/CatalogDetailsPage"
+import { CatalogPage } from "~/Pages/Manage/Catalog/CatalogPage"
+import { CatalogDetailsPage } from "~/Pages/Manage/Catalog/CatalogDetailsPage"
 
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import ProgramApplicationPage from "~/Pages/Program/ProgramApplicationPage"
 
-import RegistrationPage from "~/Pages/Registration/RegistrationPage"
-import RegistrationDetailsPage from "~/Pages/Registration/Details"
+import RegistrationPage from "~/Pages/Manage/Courses/Registration/RegistrationPage"
+import RegistrationDetailsPage from "~/Pages/Manage/Courses/Registration/Details"
 
-import WaitlistEntriesPage from "~/Pages/WaitlistEntry/WaitlistEntryPage"
-import WaitlistEntryDetailsPage from "~/Pages/WaitlistEntry/WaitlistEntryDetailsPage"
+import WaitlistEntriesPage from "~/Pages/Manage/Courses/WaitlistEntry/WaitlistEntryPage"
+import WaitlistEntryDetailsPage from "~/Pages/Manage/Courses/WaitlistEntry/WaitlistEntryDetailsPage"
 import AcademicPage from "~/Pages/Discovery/Search/Activity/AcademicPage"
 import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
 import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
 
-import ReportPage from "~/Pages/Report/ReportPage"
-import IndividualReportPage from "~/Pages/Report/IndividualReportPage"
-import FinancialReportPurchaseOrder from "~/Pages/Report/Financial/PurchaseOrder"
+import ReportPage from "~/Pages/Discovery/Report/ReportPage"
+import IndividualReportPage from "~/Pages/Discovery/Report/IndividualReportPage"
+import FinancialReportPurchaseOrder from "~/Pages/Discovery/Report/Financial/PurchaseOrder"
 
-import QuestionPage from "~/Pages/Question/QuestionPage"
-import QuestionTaggingPage from "~/Pages/Question/QuestionTaggingPage"
+import QuestionPage from "~/Pages/Manage/Question/QuestionPage"
+import QuestionTaggingPage from "~/Pages/Manage/Question/QuestionTaggingPage"
 
-import FinancialOrderPagePage from "~/Pages/Financials/OrderPage"
-import FinancialOrderItemPage from "~/Pages/Financials/OrderItemPage"
-import FinancialPaymentPage from "~/Pages/Financials/PaymentPage"
-import FinancialDiscountProgramPage from "~/Pages/Financials/DiscountProgramPage"
-import FinancialDiscountProgramDetailsPage from "~/Pages/Financials/DiscountProgramDetailsPage"
-import FinancialTransactionPage from "~/Pages/Financials/TransactionPage"
-import FinancialTransactionDetailsPage from "~/Pages/Financials/TransactionDetailsPage"
-import ChartPage from "~/Pages/Chart/ChartPage"
-import ChartDetailsPage from "~/Pages/Chart/ChartDetailsPage"
+import FinancialOrderPagePage from "~/Pages/Manage/Financials/OrderPage"
+import OrderDetailsPage from "~/Pages/Manage/Financials/OrderDetailsPage"
+import FinancialOrderItemPage from "~/Pages/Manage/Financials/OrderItemPage"
+import FinancialPaymentPage from "~/Pages/Manage/Financials/PaymentPage"
+import FinancialDiscountProgramPage from "~/Pages/Manage/Financials/DiscountProgramPage"
+import FinancialDiscountProgramDetailsPage from "~/Pages/Manage/Financials/DiscountProgramDetailsPage"
+import FinancialTransactionPage from "~/Pages/Manage/Financials/TransactionPage"
+import FinancialTransactionDetailsPage from "~/Pages/Manage/Financials/TransactionDetailsPage"
+
+import ChartPage from "~/Pages/Discovery/Chart/ChartPage"
+import ChartDetailsPage from "~/Pages/Discovery/Chart/ChartDetailsPage"
 import ProgramProgramPage from "~/Pages/Manage/Program/ProgramPage"
 import { ProgramDetailsPage } from "~/Pages/Manage/Program/ProgramDetailsPage"
 import { ProgramOfferingPage } from "~/Pages/Manage/Program/OfferingPage"
@@ -107,7 +108,9 @@ export const AppRoutes: RouteProps[] = [
 
   {
     path: "/offering",
-    component: React.lazy(() => import("~/Pages/Offering/index").then((x) => ({ default: x.OfferingPage })))
+    component: React.lazy(() =>
+      import("~/Pages/Manage/Courses/Offering/index").then((x) => ({ default: x.OfferingPage }))
+    )
   },
   { path: "/offering/:offeringID", component: OfferingDetailsPage },
   { path: "/offering/:offeringID/financial", component: OfferingFinancialPage },
@@ -152,8 +155,10 @@ export const AppRoutes: RouteProps[] = [
   { path: "/order", component: FinancialOrderPagePage },
   { path: "/order/:orderID", component: OrderDetailsPage },
   { path: "/order/payments/:paymentID", component: PaymentDetails },
+
   { path: "/discount-programs", component: FinancialDiscountProgramPage },
   { path: "/discount-programs/:discountProgramID", component: FinancialDiscountProgramDetailsPage },
+
   { path: "/transaction", component: FinancialTransactionPage },
   { path: "/transaction/:depositID", component: FinancialTransactionDetailsPage },
 
@@ -174,10 +179,8 @@ export const AppRoutes: RouteProps[] = [
 
   { path: "/person", component: PersonPage },
   { path: "/person/:personID", component: PersonDetailPage },
-
   { path: "/student", component: StudentPage },
   { path: "/person/student/:studentID", component: PersonDetailPage },
-
   { path: "/instructor", component: InstructorPage },
   { path: "/person/faculty/:facultyID", component: PersonDetailPage },
 
@@ -187,8 +190,14 @@ export const AppRoutes: RouteProps[] = [
   { path: "/waitlist", component: WaitlistEntriesPage },
   { path: "/waitlist/:waitListEntryID", component: WaitlistEntryDetailsPage },
 
+  { path: "/program/offering", component: ProgramOfferingPage },
+  { path: "/program/offering/:programOfferingID", component: ProgramOfferingDetailsPage },
   { path: "/program/enrollment", component: ProgramEnrollmentPage },
   { path: "/program/application", component: ProgramApplicationPage },
+  { path: "/program/certificate", component: ProgramCertificatePage },
+  { path: "/program/certificate/:studentCertificateID", component: CertificateDetailPage },
+  { path: "/program/program", component: ProgramProgramPage },
+  { path: "/program/:programID", component: ProgramDetailsPage },
 
   { path: "/search/activity/academic-log", component: AcademicPage },
   { path: "/search/activity/enrollment-log", component: EnrollmentPage },
@@ -203,13 +212,6 @@ export const AppRoutes: RouteProps[] = [
 
   { path: "/course/certificate", component: CourseCertificatePage },
   { path: "/course/certificate/:studentCertificateID", component: CertificateDetailPage },
-
-  { path: "/program/certificate", component: ProgramCertificatePage },
-  { path: "/program/certificate/:studentCertificateID", component: CertificateDetailPage },
-  { path: "/program/program", component: ProgramProgramPage },
-  { path: "/program/:programID", component: ProgramDetailsPage },
-  { path: "/program/offering", component: ProgramOfferingPage },
-  { path: "/program/offering/:programOfferingID", component: ProgramOfferingDetailsPage },
 
   { path: "/marketing-codes/repository", component: MarketingCodeRepositoryPage },
   { path: "/marketing-codes/repository/:marketingCodeID", component: MarketingCodeRepositoryDetailsPage },

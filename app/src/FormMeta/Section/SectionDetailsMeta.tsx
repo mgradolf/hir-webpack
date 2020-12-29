@@ -6,7 +6,7 @@ import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSum
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import SectionEditLink from "~/Component/Section/CreateEdit/SectionEditLink"
-import SectionSchedulePage from "~/Pages/Section/Schedule/SchedulePage"
+import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
 import {
   REFRESH_SECTION_BUDGET_PAGE,
   REFRESH_SECTION_DISCOUNT_PAGE,
@@ -27,16 +27,16 @@ import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormM
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
 import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
 import CreateNewDiscount from "~/Component/Section/Discount/DiscountFormModal"
-import SectionCatalogPage from "~/Pages/Section/Catalog/CatalogPage"
-import SectionQuestionPage from "~/Pages/Section/QuestionPage"
-import SectionTagPage from "~/Pages/Section/TagPage"
+import SectionCatalogPage from "~/Pages/Manage/Courses/Section/Catalog/CatalogPage"
+import SectionQuestionPage from "~/Pages/Manage/Courses/Section/QuestionPage"
+import SectionTagPage from "~/Pages/Manage/Courses/Section/TagPage"
 import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
 import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
-import SectionNoShowPage from "~/Pages/Section/NoShowPage"
-import SectionCommentPage from "~/Pages/Section/Comment/CommentPage"
+import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
+import SectionCommentPage from "~/Pages/Manage/Courses/Section/Comment/CommentPage"
 import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {

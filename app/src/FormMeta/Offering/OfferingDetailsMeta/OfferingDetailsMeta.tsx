@@ -20,8 +20,8 @@ import {
   REFRESH_SECTION_PAGE
 } from "~/utils/EventBus"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
-import RequisitePage from "~/Pages/Offering/Requisite/RequisitePage"
-import TagPage from "~/Pages/Offering/Tag/TagPage"
+import RequisitePage from "~/Pages/Manage/Courses/Offering/Requisite/RequisitePage"
+import TagPage from "~/Pages/Manage/Courses/Offering/Tag/TagPage"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {

@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showRequestResolutionModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select, Divider, DatePicker, Switch } from "antd"
-import { IParamsToBeDispatched } from "~/Pages/Request/RequestDetailsPage"
+import { IParamsToBeDispatched } from "~/Pages/Manage/Request/RequestDetailsPage"
 import { eventBus, EVENT_REQUEST_QUESTION_ANSWER, EVENT_REQUEST_RESOLUTION } from "~/utils/EventBus"
 import {
   REQUEST_PROCESS_ACTION_NAME,
