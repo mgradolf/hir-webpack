@@ -70,7 +70,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
           <ResponsiveTable
             {...props.tableProps}
             searchParams={{ ...searchParams, ...props?.tableProps?.searchParams }}
-            refreshEventName={props.title + Date.now().toString()}
+            refreshEventName={props?.tableProps?.refreshEventName || "REFRESH_" + Date.now().toString()}
             dataLoaded={(Params: any[]) => setRowData(Params)}
           />
         </Col>

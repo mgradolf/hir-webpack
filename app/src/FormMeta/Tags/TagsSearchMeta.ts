@@ -1,13 +1,7 @@
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
-import {
-  BOOLEAN,
-  IFilterFieldObject,
-  MULTI_SELECT_DROPDOWN,
-  NUMBER,
-  TEXT
-} from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, IFilterField, MULTI_SELECT_DROPDOWN, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 
-export const getTagsSearchMeta = (EntityType: string, EntityID: number): IFilterFieldObject[] => [
+export const getTagsSearchMeta = (EntityType: string, EntityID: number): IFilterField[] => [
   {
     label: "Tag Type",
     inputType: MULTI_SELECT_DROPDOWN,
@@ -24,7 +18,9 @@ export const getTagsSearchMeta = (EntityType: string, EntityID: number): IFilter
   {
     label: "Selected",
     inputType: BOOLEAN,
-    fieldName: "IsSelected"
+    fieldName: "IsSelected",
+    defaultValue: true,
+    hidden: true
   },
   {
     label: "Entity Type",

@@ -60,6 +60,7 @@ class PageEventBus {
   }
 
   publish(listenerName: string, params?: any) {
+    console.log(this.eventListeners)
     if (this.eventListeners[listenerName]) {
       this.eventListeners[listenerName](params)
     }
