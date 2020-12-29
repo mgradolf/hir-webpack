@@ -9,11 +9,13 @@ import {
   DATE_PICKER,
   DATE_PICKERS,
   DROPDOWN,
+  MULTI_SELECT_DROPDOWN,
   NUMBER,
   TEXT,
   BOOLEAN
 } from "~/Component/Common/SearchFilters/common"
 import { DropDownInputType } from "~/Component/Common/SearchFilters/SearchDropDown"
+import { MultiSelectDropDownInputType } from "~/Component/Common/SearchFilters/SearchMultiSelectDropDown"
 import { DatePickerInputType } from "~/Component/Common/SearchFilters/SearchDatePicker"
 import { DatePickersInputType } from "~/Component/Common/SearchFilters/SearchDatePickers"
 import { BooleanInputType } from "~/Component/Common/SearchFilters/SearchBooleanInput"
@@ -62,8 +64,9 @@ export default function ({
   }
 
   const clearParams = () => {
-    formInstance.resetFields()
+    Object.keys(formInstance.getFieldsValue()).forEach((key) => formInstance.setFieldsValue({ [key]: undefined }))
     setClearTrigger(!clearTrigger)
+
     const _meta = props.meta.map((x) => {
       x.defaultValue = undefined
       x.defaultValue2 = undefined
@@ -191,6 +194,17 @@ const SearchFormFields = (props: {
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
                   <DropDownInputType
+                    {...field}
+                    key={i}
+                    isCheckeble={props.isCheckeble}
+                    formInstance={props.formInstance}
+                  />
+                </Col>
+              )
+            case MULTI_SELECT_DROPDOWN:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <MultiSelectDropDownInputType
                     {...field}
                     key={i}
                     isCheckeble={props.isCheckeble}

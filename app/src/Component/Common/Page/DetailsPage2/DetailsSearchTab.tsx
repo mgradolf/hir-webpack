@@ -28,8 +28,6 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
     props.initialFilter || props.defaultFilter || {}
   )
   const [help, setHelp] = useState(false)
-
-  console.log(props)
   return (
     <>
       <Row>

@@ -8,6 +8,7 @@ import { FormInstance } from "antd/lib/form"
 
 export const TEXT = "TEXT"
 export const DROPDOWN = "DROPDOWN"
+export const MULTI_SELECT_DROPDOWN = "MULTI_SELECT_DROPDOWN"
 export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
@@ -16,6 +17,7 @@ export const BOOLEAN = "BOOLEAN"
 export type IFilterFieldType =
   | typeof TEXT
   | typeof DROPDOWN
+  | typeof MULTI_SELECT_DROPDOWN
   | typeof DATE_PICKER
   | typeof DATE_PICKERS
   | typeof NUMBER

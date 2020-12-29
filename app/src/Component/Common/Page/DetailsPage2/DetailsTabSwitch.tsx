@@ -12,7 +12,6 @@ export interface IDetailsPageSubTab {
 }
 
 export function DetailsPageSubTabSwitch(props: { meta?: IDetailsTabMeta[]; child: any }) {
-  console.log("props.multipleTabMetas : ", props.meta)
   return (
     <>
       {props.meta && props.meta.length > 0 ? (
