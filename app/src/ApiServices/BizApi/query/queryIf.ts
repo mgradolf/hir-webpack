@@ -34,3 +34,13 @@ export function analyzeRegistrationActivityByDate(
 export function findEnrollmentHistory(Params: any) {
   return QueryIf[config.Actions.findEnrollmentHistory]([Params])
 }
+
+export function searchPaymentDetailsByPaymentID(Params: any): Promise<IApiResponse> {
+  const methodToCall = config.Actions.executeDomainListWithoutPagination
+  return QueryIf[methodToCall]([
+    "financial.payment.search.searchPaymentDetailsByPaymentID",
+    {
+      PaymentID: Params.PaymentID
+    }
+  ])
+}
