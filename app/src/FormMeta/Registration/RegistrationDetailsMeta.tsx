@@ -9,8 +9,16 @@ import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/Detai
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetailsMenu"
 import RegistrationGradeFormModal from "~/Component/Registration/RegistrationGradeFormModal"
-import { REFRESH_REGISTRATION_CERTIFICATE_PAGE } from "~/utils/EventBus"
+import {
+  REFRESH_REGISTRATION_CERTIFICATE_PAGE,
+  REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE,
+  REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE,
+  REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE
+} from "~/utils/EventBus"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
+import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTableColumns"
+import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
+import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/Enrollment/EnrollmentActivityTableColumns"
 
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {
   const getQuestionResponses = () => {
@@ -88,6 +96,33 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     summary: [summary, gradeInfo, orderInfo]
   }
 
+  const enrollmentMeta: IDetailsTableTabProp = {
+    tableProps: {
+      pagination: false,
+      ...getEnrollmentTableColumns(),
+      searchParams: { SectionID: registration.SectionID, StudentID: registration.StudentID },
+      refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE
+    }
+  }
+
+  const academicActivityMeta: IDetailsTableTabProp = {
+    tableProps: {
+      pagination: false,
+      ...getAcademicActivityLogTableColumns(),
+      searchParams: { SectionIDs: [registration.SectionID], StudentIDs: [registration.StudentID] },
+      refreshEventName: REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE
+    }
+  }
+
+  const enrollmentActivityMeta: IDetailsTableTabProp = {
+    tableProps: {
+      pagination: false,
+      ...getEnrollmentActivityLogTableColumns(),
+      searchParams: { SectionIDs: [registration.SectionID], StudentID: registration.StudentID },
+      refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE
+    }
+  }
+
   const CertificateFormModalOpenButton = (props: { initialData: { [key: string]: any } }) => {
     const [showModal, setShowModal] = useState(false)
     props.initialData["IsProgram"] = false
@@ -125,6 +160,21 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       tabTitle: "Summary",
       tabType: "summary",
       tabMeta: summaryMeta
+    },
+    {
+      tabTitle: "Enrollment History",
+      tabType: "table",
+      tabMeta: enrollmentMeta
+    },
+    {
+      tabTitle: "Academic Log",
+      tabType: "table",
+      tabMeta: academicActivityMeta
+    },
+    {
+      tabTitle: "Enrollment Log",
+      tabType: "table",
+      tabMeta: enrollmentActivityMeta
     },
     {
       tabTitle: "Certificates",

@@ -1,31 +1,27 @@
 import * as React from "react"
 import { Form, Typography } from "antd"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
 import ApprovalForm from "~/Component/Offering/Approval/ApprovalForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showOfferingApprovalModal } from "~/Store/ModalState"
 
 interface IOfferingApprovalProps {
   offeringID: number
-  closeOfferingApprovalModal?: () => void
+  closeModal?: () => void
 }
 
-function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingApprovalProps) {
+export default function OfferingApprovalFormModal({ closeModal, offeringID }: IOfferingApprovalProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
-    if (closeOfferingApprovalModal) {
-      closeOfferingApprovalModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       apiCallInProgress={apiCallInProgress}
       children={
@@ -50,9 +46,3 @@ function OfferingApproval({ closeOfferingApprovalModal, offeringID }: IOfferingA
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeOfferingApprovalModal: () => dispatch(showOfferingApprovalModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(OfferingApproval)

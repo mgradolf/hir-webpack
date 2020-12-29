@@ -163,7 +163,11 @@ export default function RegistrationGradeForm(props: IRegistrationGradeFormProps
   return (
     <Card title={"Update Grades"} actions={actions}>
       <Spin size="large" spinning={loading}>
-        <Form form={form} initialValues={props.initialFormValue}>
+        <Form
+          form={form}
+          style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
+          initialValues={props.initialFormValue}
+        >
           <FormError errorMessages={errorMessages} />
 
           <Form.Item className="hidden" name={fieldNames.StudentID}>

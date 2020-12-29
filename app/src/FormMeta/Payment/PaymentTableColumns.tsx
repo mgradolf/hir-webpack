@@ -29,11 +29,11 @@ export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITa
       dataIndex: "PersonName",
       render: (text, record) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
     },
-    { title: "Total Amount", dataIndex: "TotalPaymentAmount" },
+    { title: "Total Payment", dataIndex: "TotalPaymentAmount" },
     { title: "Payment Type", dataIndex: "Type" },
     { title: "Check/ Reference", dataIndex: "CheckNumber" },
     {
-      title: "Creation Date",
+      title: "Payment Date",
       dataIndex: "CreateDate",
       render: renderDate
     }

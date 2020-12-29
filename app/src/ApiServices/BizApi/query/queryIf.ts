@@ -1,6 +1,16 @@
 import QueryIf, { config } from "@packages/api/lib/proxy/BizApi/query/queryIf"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function findEnrollmentHistory(
+  Params: { [key: string]: any },
+  from?: number,
+  to?: number
+): Promise<IApiResponse> {
+  const methodToCall =
+    from && to ? config.Actions.executeDomainListWithPagination : config.Actions.executeDomainListWithoutPagination
+  return QueryIf[methodToCall](["jxntm.student.findEnrollmentHistory", Params, from, to])
+}
+
 export function analyzeOrdersByDate(Params: { [key: string]: any }, from?: number, to?: number): Promise<IApiResponse> {
   const methodToCall =
     from && to ? config.Actions.executeDomainListWithPagination : config.Actions.executeDomainListWithoutPagination
@@ -31,9 +41,9 @@ export function analyzeRegistrationActivityByDate(
   ])
 }
 
-export function findEnrollmentHistory(Params: any) {
-  return QueryIf[config.Actions.findEnrollmentHistory]([Params])
-}
+// export function findEnrollmentHistory(Params: any) {
+//   return QueryIf[config.Actions.findEnrollmentHistory]([Params])
+// }
 
 export function searchPaymentDetailsByPaymentID(Params: any): Promise<IApiResponse> {
   const methodToCall = config.Actions.executeDomainListWithoutPagination
