@@ -1,6 +1,10 @@
 import SectionService, { config } from "@packages/api/lib/proxy/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function addSectionDiscount(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addSectionDiscount](Params)
+}
+
 export function getSectionDetails(SectionID: number): Promise<IApiResponse> {
   return SectionService[config.Actions.getSectionDetails]({
     SectionID

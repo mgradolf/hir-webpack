@@ -16,7 +16,7 @@ export function SectionRemoveButton(props: { Section: { [key: string]: any }; Of
         danger
         loading={removeApiCallInProgress}
         disabled={removeApiCallInProgress}
-        style={{ marginRight: "10px" }}
+        style={{ marginLeft: "5px" }}
         onClick={() => {
           setRemoveApiCallInProgress(true)
           removeSectionById(props.Section.SectionID)

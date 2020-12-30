@@ -7,7 +7,7 @@ interface IOfferingRemoveLinkProp {
 export default function OfferingRemoveLink(props: IOfferingRemoveLinkProp) {
   return (
     <>
-      <Button danger style={{ marginLeft: "5px" }}>
+      <Button danger type="primary" style={{ marginLeft: "5px" }}>
         Remove
       </Button>
     </>

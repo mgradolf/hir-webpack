@@ -13,7 +13,7 @@ export default function SectionEditLink(props: ISectionEditLinkProp) {
     <>
       <Button
         style={props.style}
-        type={props.PrimaryType ? "primary" : "link"}
+        type={props.PrimaryType ? "ghost" : "link"}
         onClick={() => {
           setOpenModal(true)
         }}

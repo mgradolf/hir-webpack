@@ -28,7 +28,6 @@ import { getSectionSeatgroupTableColumns } from "~/FormMeta/SectionSeatgroup/Sea
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
 import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
-import CreateNewDiscount from "~/Component/Section/Discount/DiscountFormModal"
 import SectionCatalogPage from "~/Pages/Manage/Courses/Section/Catalog/CatalogPage"
 import SectionQuestionPage from "~/Pages/Manage/Courses/Section/QuestionPage"
 import SectionTagPage from "~/Pages/Manage/Courses/Section/TagPage"
@@ -43,10 +42,12 @@ import { getGeneralCommentTableColumns } from "~/FormMeta/SectionComment/General
 import { getInstructorCommentTableColumns } from "~/FormMeta/SectionComment/InstructorCommentTableColumns"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
+import { AddDiscountButton } from "~/Component/Discount/AddDiscountButton"
+import { SectionRemoveButton } from "~/Component/Section/CreateEdit/SectionRemoveButton"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
-    cardActions: [<SectionEditLink section={section} PrimaryType={true} />],
+    cardActions: [<SectionEditLink section={section} PrimaryType={true} />, <SectionRemoveButton Section={section} />],
     contents: [
       { label: "Description", value: section.Description, render: undefined },
       { label: "Status", value: section.StatusCode, render: undefined },
@@ -117,20 +118,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     )
   }
 
-  const DiscountFormModalOpenButton = (props: { SectionID: number }) => {
-    const [showModal, setShowModal] = useState(false)
-    return (
-      <>
-        {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Add Discount Program
-          </Button>
-        )}
-        {showModal && <CreateNewDiscount sectionId={props.SectionID} closeModal={() => setShowModal(false)} />}
-      </>
-    )
-  }
-
   const WaitlistEntryFormModalOpenButton = (props: { SectionID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
@@ -175,7 +162,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const discountMeta: IDetailsTableTabProp = {
-    blocks: [<DiscountFormModalOpenButton SectionID={section.SectionID} />],
+    blocks: [<AddDiscountButton sectionId={section.SectionID} />],
     tableProps: {
       ...getSectionDiscountTableColumns(),
       searchParams: { SectionID: section.SectionID },

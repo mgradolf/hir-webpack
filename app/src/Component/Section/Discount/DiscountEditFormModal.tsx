@@ -1,10 +1,7 @@
 import * as React from "react"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
 import DiscountEditForm from "~/Component/Section/Discount/DiscountEditForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showUpdateDiscountModal } from "~/Store/ModalState"
 import { getSectionDiscounts } from "~/ApiServices/Service/SectionService"
 import { Form } from "antd"
 import { IDiscountFieldNames } from "~/Component/Section/Interfaces"
@@ -12,7 +9,7 @@ import { IDiscountFieldNames } from "~/Component/Section/Interfaces"
 interface IDiscountEditProps {
   sectionDiscountId: number
   sectionId: number
-  closeUpdateDiscountModal?: () => void
+  closeModal?: () => void
 }
 
 const fieldNames: IDiscountFieldNames = {
@@ -37,15 +34,15 @@ const fieldNames: IDiscountFieldNames = {
   promoCode: "promoCode"
 }
 
-function DiscountUpdate({ closeUpdateDiscountModal, sectionDiscountId, sectionId }: IDiscountEditProps) {
+export default function DiscountUpdate({ closeModal, sectionDiscountId, sectionId }: IDiscountEditProps) {
   const [formInstance] = Form.useForm()
   const [discountLoading, setDiscountLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({ IsActive: true, IsPromotedForMarketing: true })
 
   const handleCancel = () => {
-    if (closeUpdateDiscountModal) {
-      closeUpdateDiscountModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
@@ -53,7 +50,7 @@ function DiscountUpdate({ closeUpdateDiscountModal, sectionDiscountId, sectionId
     if (sectionDiscountId) {
       ;(async () => {
         setDiscountLoading(true)
-        const response = await getSectionDiscounts({ SectionDiscountID: sectionDiscountId })
+        const response = await getSectionDiscounts({ SectionID: sectionId, SectionDiscountID: sectionDiscountId })
         if (response && response.success && response.data) {
           formInstance.setFieldsValue(response.data[0])
           if (response.data[0].DiscountServiceParams !== undefined) {
@@ -62,19 +59,18 @@ function DiscountUpdate({ closeUpdateDiscountModal, sectionDiscountId, sectionId
             formInstance.setFieldsValue(discountServiceParams)
           }
         } else {
-          if (closeUpdateDiscountModal) {
-            closeUpdateDiscountModal()
+          if (closeModal) {
+            closeModal()
           }
         }
         setDiscountLoading(false)
       })()
     }
     // eslint-disable-next-line
-  }, [closeUpdateDiscountModal, sectionDiscountId])
+  }, [sectionDiscountId])
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={discountLoading}
       apiCallInProgress={apiCallInProgress}
@@ -93,9 +89,3 @@ function DiscountUpdate({ closeUpdateDiscountModal, sectionDiscountId, sectionId
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeUpdateDiscountModal: () => dispatch(showUpdateDiscountModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(DiscountUpdate)

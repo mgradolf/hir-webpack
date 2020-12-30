@@ -28,6 +28,7 @@ export default function CommentRemoveLink(props: ICommentRemoveLinkProp) {
   return (
     <Button
       danger
+      type="primary"
       onClick={async () => {
         if (props.EnrollmentCommentID) {
           const response = await deleteEnrollmentComment({ EnrollmentCommentID: props.EnrollmentCommentID })

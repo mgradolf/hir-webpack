@@ -5,6 +5,7 @@ export const config = {
   Service: "SectionService",
   Module: "hir",
   Actions: {
+    addSectionDiscount: "addSectionDiscount",
     getSectionDetails: "getSectionDetails",
     getSectionStatistics: "getSectionStatistics",
     findAffiliatedOrgsForSeatGroup: "findAffiliatedOrgsForSeatGroup",

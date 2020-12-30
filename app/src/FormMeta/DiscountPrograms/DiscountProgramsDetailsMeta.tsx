@@ -3,6 +3,8 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { putSpaceBetweenCapitalLetters } from "~/utils/util"
 import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
+import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
+import { REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
 
 export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -39,6 +41,18 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
     tabType: "summary",
     tabMeta: {
       summary: [summary, discountType]
+    }
+  })
+
+  meta.push({
+    tabTitle: "Sections",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getSectionDiscountTableColumns(),
+        searchParams: { DiscountProgramID: discountProgram.DiscountProgramID },
+        refreshEventName: REFRESH_SECTION_DISCOUNT_PAGE
+      }
     }
   })
 
