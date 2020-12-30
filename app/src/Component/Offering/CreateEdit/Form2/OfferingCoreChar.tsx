@@ -127,12 +127,9 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
         {...layout}
       >
         <Switch
+          disabled
           aria-label="Has Approval Process"
           defaultChecked={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
-          disabled={!!props.formInstance.getFieldValue(props.fieldNames.HasApprovalProcess)}
-          onChange={(checked) => {
-            props.formInstance.setFieldsValue({ [props.fieldNames.HasApprovalProcess]: checked })
-          }}
         />
       </Form.Item>
       <Form.Item label="Inquiry recipient" name={props.fieldNames.SubmitInquiryToUserID} {...layout}>

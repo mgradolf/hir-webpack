@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from "react"
-import { Dispatch } from "redux"
-import { connect } from "react-redux"
-import { showSectionCommmentModal } from "~/Store/ModalState"
-import { redirect } from "~/Store/ConnectedRoute"
-import Modal from "~/Component/Common/Modal"
-import CommentTypeSelectForm from "~/Component/Section/Comment/CommentTypeSelectForm"
+import Modal from "~/Component/Common/Modal/index2"
 import GeneralCommentCreateForm from "~/Component/Section/Comment/GeneralCommentCreateForm"
 import InstructorCommentCreateForm from "~/Component/Section/Comment/InstructorCommentCreateForm"
 import EnrollmentCommentCreateForm from "~/Component/Section/Comment/EnrollmentCommentCreateForm"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
-import { AppState } from "~/Store"
-import { eventBus, REFRESH_SECTION_COMMENT_PAGE } from "~/utils/EventBus"
 
 interface ICommentCreateModal {
-  SectionID: any
-  redirect?: (url: string) => void
+  SectionID?: number
+  StudentID?: number
+  FacultyID?: number
+  CommentType: string
   closeModal?: () => void
 }
 
-function CommentCreateModal(props: ICommentCreateModal) {
+export default function CommentCreateModal(props: ICommentCreateModal) {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [selectedType, setselectedType] = useState("")
   const [commentCatagories, setCommentCatagories] = useState<any[]>([])
-  const onSelect = (commentType: string) => {
-    setselectedType(commentType)
-  }
 
   useEffect(() => {
     getCommentCategories().then((x) => {
@@ -34,25 +25,24 @@ function CommentCreateModal(props: ICommentCreateModal) {
       }
     })
   }, [])
+
   return (
     <Modal
-      showModal={true}
-      closeModal={props.closeModal}
-      closable={true}
       width="800px"
       apiCallInProgress={apiCallInProgress}
       children={
         <>
-          {selectedType === "" && <CommentTypeSelectForm closeModal={props.closeModal} onSelect={onSelect} />}
-          {selectedType === COMMENT_TYPES.GENERAL && (
+          {props.CommentType === COMMENT_TYPES.GENERAL && (
             <GeneralCommentCreateForm
               SectionID={props.SectionID}
+              StudentID={props.StudentID}
+              FacultyID={props.FacultyID}
               onClose={props.closeModal}
               commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
             />
           )}
-          {selectedType === COMMENT_TYPES.INSTRUCTOR && (
+          {props.CommentType === COMMENT_TYPES.INSTRUCTOR && (
             <InstructorCommentCreateForm
               SectionID={props.SectionID}
               onClose={props.closeModal}
@@ -60,9 +50,10 @@ function CommentCreateModal(props: ICommentCreateModal) {
               setApiCallInProgress={setApiCallInProgress}
             />
           )}
-          {selectedType === COMMENT_TYPES.ENROLLMENT && (
+          {props.CommentType === COMMENT_TYPES.ENROLLMENT && (
             <EnrollmentCommentCreateForm
               SectionID={props.SectionID}
+              StudentID={props.StudentID}
               onClose={props.closeModal}
               commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
@@ -73,21 +64,3 @@ function CommentCreateModal(props: ICommentCreateModal) {
     ></Modal>
   )
 }
-
-const mapStateToProps = (state: AppState) => {
-  return {
-    SectionID: state.modalState.sectionCommentModal.config.SectionID
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeModal: () => {
-      eventBus.publish(REFRESH_SECTION_COMMENT_PAGE)
-      return dispatch(showSectionCommmentModal(false))
-    },
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommentCreateModal)

@@ -11,6 +11,10 @@ import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication
 import { getProgramEnrollmentTableColumns } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentTableColumns"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
+import { getStudentCommentTableColumns } from "~/FormMeta/StudentComment/CommentTableColumns"
+import { REFRESH_STUDENT_COMMENT_PAGE } from "~/utils/EventBus"
+import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
+import { COMMENT_TYPES } from "~/utils/Constants"
 
 export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -222,5 +226,19 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
         }
       }
     })
+
+  tabMetas.push({
+    tabTitle: "Comments",
+    tabType: "table",
+    tabMeta: {
+      blocks: [<CommentCreateModalOpenButton StudentID={student.StudentID} CommentType={COMMENT_TYPES.GENERAL} />],
+      tableProps: {
+        pagination: false,
+        ...getStudentCommentTableColumns(),
+        searchParams: { StudentID: student.StudentID },
+        refreshEventName: REFRESH_STUDENT_COMMENT_PAGE
+      }
+    }
+  })
   return tabMetas
 }

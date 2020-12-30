@@ -16,7 +16,9 @@ import {
   REFRESH_SECTION_PRODUCT_PAGE,
   REFRESH_SECTION_REQUEST_PAGE,
   REFRESH_SECTION_WAITLIST_ENTRIES_PAGE,
-  REFRESH_SECTION_ORDER_PAGE
+  REFRESH_SECTION_ORDER_PAGE,
+  REFRESH_SECTION_GENERAL_COMMENT_PAGE,
+  REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
 } from "~/utils/EventBus"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
@@ -26,7 +28,6 @@ import { getSectionSeatgroupTableColumns } from "~/FormMeta/SectionSeatgroup/Sea
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
 import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
-import CreateNewDiscount from "~/Component/Section/Discount/DiscountFormModal"
 import SectionCatalogPage from "~/Pages/Manage/Courses/Section/Catalog/CatalogPage"
 import SectionQuestionPage from "~/Pages/Manage/Courses/Section/QuestionPage"
 import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
@@ -35,13 +36,18 @@ import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
-import SectionCommentPage from "~/Pages/Manage/Courses/Section/Comment/CommentPage"
 import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
+import { getGeneralCommentTableColumns } from "~/FormMeta/SectionComment/GeneralCommentTableColumns"
+import { getInstructorCommentTableColumns } from "~/FormMeta/SectionComment/InstructorCommentTableColumns"
+import { COMMENT_TYPES } from "~/utils/Constants"
+import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
+import { AddDiscountButton } from "~/Component/Discount/AddDiscountButton"
+import { SectionRemoveButton } from "~/Component/Section/CreateEdit/SectionRemoveButton"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
-    cardActions: [<SectionEditLink section={section} PrimaryType={true} />],
+    cardActions: [<SectionEditLink section={section} PrimaryType={true} />, <SectionRemoveButton Section={section} />],
     contents: [
       { label: "Description", value: section.Description, render: undefined },
       { label: "Status", value: section.StatusCode, render: undefined },
@@ -112,20 +118,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     )
   }
 
-  const DiscountFormModalOpenButton = (props: { SectionID: number }) => {
-    const [showModal, setShowModal] = useState(false)
-    return (
-      <>
-        {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Add Discount Program
-          </Button>
-        )}
-        {showModal && <CreateNewDiscount sectionId={props.SectionID} closeModal={() => setShowModal(false)} />}
-      </>
-    )
-  }
-
   const WaitlistEntryFormModalOpenButton = (props: { SectionID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
@@ -170,7 +162,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const discountMeta: IDetailsTableTabProp = {
-    blocks: [<DiscountFormModalOpenButton SectionID={section.SectionID} />],
+    blocks: [<AddDiscountButton sectionId={section.SectionID} />],
     tableProps: {
       ...getSectionDiscountTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -246,11 +238,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const noShowMeta: IDetailsCustomTabProp = {
     component: SectionNoShowPage,
     props: { SectionID: section.SectionID }
-  }
-
-  const commentMeta: IDetailsCustomTabProp = {
-    component: SectionCommentPage,
-    props: { sectionID: section.SectionID }
   }
 
   return {
@@ -334,8 +321,40 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       },
       {
         tabTitle: "Comments",
-        tabType: "custom",
-        tabMeta: commentMeta
+        tabType: "table",
+        tabMeta: [],
+        multipleTabMetas: [
+          {
+            tabTitle: "General",
+            tabType: "table",
+            tabMeta: {
+              blocks: [
+                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.GENERAL} />
+              ],
+              tableProps: {
+                pagination: false,
+                ...getGeneralCommentTableColumns(),
+                searchParams: { SectionID: section.SectionID },
+                refreshEventName: REFRESH_SECTION_GENERAL_COMMENT_PAGE
+              }
+            }
+          },
+          {
+            tabTitle: "Instructor",
+            tabType: "table",
+            tabMeta: {
+              blocks: [
+                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.INSTRUCTOR} />
+              ],
+              tableProps: {
+                pagination: false,
+                ...getInstructorCommentTableColumns(),
+                searchParams: { SectionID: section.SectionID },
+                refreshEventName: REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
+              }
+            }
+          }
+        ]
       },
       {
         tabTitle: "No Shows",

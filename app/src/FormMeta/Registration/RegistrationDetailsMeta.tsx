@@ -10,6 +10,7 @@ import { renderDate } from "~/Component/Common/ResponsiveTable"
 import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetailsMenu"
 import RegistrationGradeFormModal from "~/Component/Registration/RegistrationGradeFormModal"
 import {
+  REFRESH_REGISTRATION_COMMENT_PAGE,
   REFRESH_REGISTRATION_CERTIFICATE_PAGE,
   REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE,
   REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE,
@@ -18,7 +19,10 @@ import {
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTableColumns"
 import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
-import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/Enrollment/EnrollmentActivityTableColumns"
+import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
+import { getRegistrationCommentTableColumns } from "~/FormMeta/RegistrationComment/CommentTableColumns"
+import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
+import { COMMENT_TYPES } from "~/utils/Constants"
 
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {
   const getQuestionResponses = () => {
@@ -155,6 +159,22 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     }
   }
 
+  const commentMeta: IDetailsTableTabProp = {
+    blocks: [
+      <CommentCreateModalOpenButton
+        SectionID={registration.SectionID}
+        StudentID={registration.StudentID}
+        CommentType={COMMENT_TYPES.ENROLLMENT}
+      />
+    ],
+    tableProps: {
+      pagination: false,
+      ...getRegistrationCommentTableColumns(),
+      searchParams: { SectionID: registration.SectionID, StudentID: registration.StudentID },
+      refreshEventName: REFRESH_REGISTRATION_COMMENT_PAGE
+    }
+  }
+
   const tabMetas: IDetailsTabMeta[] = [
     {
       tabTitle: "Summary",
@@ -180,6 +200,11 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       tabTitle: "Certificates",
       tabType: "table",
       tabMeta: certificateMeta
+    },
+    {
+      tabTitle: "Comments",
+      tabType: "table",
+      tabMeta: commentMeta
     }
   ]
 

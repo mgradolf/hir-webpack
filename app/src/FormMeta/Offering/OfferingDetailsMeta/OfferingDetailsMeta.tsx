@@ -24,12 +24,16 @@ import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/Deta
 import RequisitePage from "~/Pages/Manage/Courses/Offering/Requisite/RequisitePage"
 import { getOfferingApprovalTableColumns } from "~/FormMeta/OfferingApproval/ApprovalTableColumns"
 import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/OfferingApprovalModalOpenButton"
+import OfferingRemoveLink from "~/Component/Offering/CreateEdit/OfferingRemoveLink"
 import "~/Sass/utils.scss"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
-    cardActions: [<OfferingEditLink OfferingId={offering.OfferingID} />],
+    cardActions: [
+      <OfferingEditLink OfferingId={offering.OfferingID} />,
+      <OfferingRemoveLink OfferingId={offering.OfferingID} />
+    ],
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },
       { label: "Offering Type", value: offering.OfferingTypeName, render: undefined },

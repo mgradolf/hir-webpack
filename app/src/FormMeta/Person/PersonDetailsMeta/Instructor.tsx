@@ -3,9 +3,13 @@ import { Link } from "react-router-dom"
 import { getFinancialsByTarget } from "~/ApiServices/BizApi/financial/financialIF"
 import { searchInstructorOfferings, searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
+import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderDateTime, renderEmail, sortByTime } from "~/Component/Common/ResponsiveTable"
+import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
+import { COMMENT_TYPES } from "~/utils/Constants"
+import { REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
 
 export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -131,6 +135,20 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
         expandableColumnIndices: [],
         searchParams: { FacultyID: instructor.FacultyID },
         refreshEventName: "REFRESH_FACULTY_CONTACT_TAB"
+      }
+    }
+  })
+
+  tabMetas.push({
+    tabTitle: "Comments",
+    tabType: "table",
+    tabMeta: {
+      blocks: [<CommentCreateModalOpenButton FacultyID={instructor.FacultyID} CommentType={COMMENT_TYPES.GENERAL} />],
+      tableProps: {
+        pagination: false,
+        ...getFacultyCommentTableColumns(),
+        searchParams: { FacultyID: instructor.FacultyID },
+        refreshEventName: REFRESH_INSTRUCTOR_COMMENT_PAGE
       }
     }
   })
