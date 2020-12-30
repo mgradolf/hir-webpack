@@ -2,6 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { getMarketingCodeResponseTableColumns } from "~/FormMeta/MarketingCodeResponse/MarketingCodeResponseTableColumns"
+import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 
 export const getMarketingCodeRepositoryDetailsMeta = (MarketingCode: { [key: string]: any }): IDetailsMeta => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -31,6 +32,16 @@ export const getMarketingCodeRepositoryDetailsMeta = (MarketingCode: { [key: str
         searchParams: { MarketingCodeID: MarketingCode.MarketingCodeID }
       }
     }
+  })
+
+  tabMetas.push({
+    tabTitle: "Tags",
+    tabType: "summary",
+    tabMeta: [],
+    multipleTabMetas: getTagsTabPageDetailsMeta({
+      EntityType: "MarketingCode",
+      EntityID: MarketingCode.MarketingCodeID
+    }).tabs
   })
 
   return {

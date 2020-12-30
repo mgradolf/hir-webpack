@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { Button } from "antd"
 import { addTagIntoEntity } from "~/ApiServices/Service/TagService"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
-import { getTagsSearchMeta } from "./TagsSearchMeta"
-import { getTagsTableColumns } from "./TagsTableColumns"
+import { getTagsSearchMeta } from "~/FormMeta/Tags/TagsSearchMeta"
+import { getTagsTableColumns } from "~/FormMeta/Tags/TagsTableColumns"
 import { eventBus } from "~/utils/EventBus"
 
 export const TagAddButton = (props: { tag: { [key: string]: any }; eventName: string }) => {

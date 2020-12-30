@@ -3,7 +3,7 @@ import { getParentTagsTableColumns, getTagsTableColumns } from "~/FormMeta/Tags/
 import { getParentTags } from "~/ApiServices/Service/TagService"
 import { getTagsSearchMeta } from "~/FormMeta/Tags/TagsSearchMeta"
 import React from "react"
-import { TagAddButton } from "./TagAddButton"
+import { TagAddButton } from "~/FormMeta/Tags/TagAddButton"
 
 export const getTagsTabPageDetailsMeta = (Params: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
