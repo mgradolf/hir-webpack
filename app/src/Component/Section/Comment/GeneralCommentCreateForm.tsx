@@ -2,7 +2,12 @@ import React from "react"
 import { Button, Card, Form, Select } from "antd"
 import TextArea from "antd/lib/input/TextArea"
 import { addSectionComment, addStudentComment, addFacultyComment } from "~/ApiServices/Service/CommentService"
-import { eventBus, REFRESH_SECTION_GENERAL_COMMENT_PAGE, REFRESH_STUDENT_COMMENT_PAGE, REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
+import {
+  eventBus,
+  REFRESH_SECTION_GENERAL_COMMENT_PAGE,
+  REFRESH_STUDENT_COMMENT_PAGE,
+  REFRESH_INSTRUCTOR_COMMENT_PAGE
+} from "~/utils/EventBus"
 
 interface IGeneralCommentCreateForm {
   SectionID?: number
@@ -18,7 +23,7 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
   const submit = () => {
     props.setApiCallInProgress(true)
 
-    let params = { ...formInstance.getFieldsValue() }
+    const params = { ...formInstance.getFieldsValue() }
     if (props.SectionID) {
       params["SectionID"] = props.SectionID
       addSectionComment(params).then((x) => {
@@ -28,8 +33,7 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
         }
         props.setApiCallInProgress(false)
       })
-    }
-    else if (props.StudentID) {
+    } else if (props.StudentID) {
       params["StudentID"] = props.StudentID
       addStudentComment(params).then((x) => {
         if (x.success) {
@@ -38,8 +42,7 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
         }
         props.setApiCallInProgress(false)
       })
-    }
-    else if (props.FacultyID) {
+    } else if (props.FacultyID) {
       params["FacultyID"] = props.FacultyID
       addFacultyComment(params).then((x) => {
         if (x.success) {

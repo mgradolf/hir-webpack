@@ -41,7 +41,6 @@ export function findSectionFacultyComments(Params: { [key: string]: any }): Prom
   return CommentService[config.Actions.findSectionFacultyComments](Params)
 }
 
-
 export function deleteStudentComment(Params: { [key: string]: any }): Promise<IApiResponse> {
   return CommentService[config.Actions.deleteStudentComment](Params)
 }
@@ -61,4 +60,3 @@ export function deleteSectionComment(Params: { [key: string]: any }): Promise<IA
 export function deleteSectionFacultyComment(Params: { [key: string]: any }): Promise<IApiResponse> {
   return CommentService[config.Actions.deleteSectionFacultyComment](Params)
 }
-

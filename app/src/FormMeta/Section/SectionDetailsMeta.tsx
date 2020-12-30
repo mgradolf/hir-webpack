@@ -330,32 +330,38 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabTitle: "Comments",
         tabType: "table",
         tabMeta: [],
-        multipleTabMetas: [{
-          tabTitle: "General",
-          tabType: "table",
-          tabMeta: {
-            blocks: [<CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.GENERAL} />],
-            tableProps: {
-              pagination: false,
-              ...getGeneralCommentTableColumns(),
-              searchParams: { SectionID: section.SectionID },
-              refreshEventName: REFRESH_SECTION_GENERAL_COMMENT_PAGE
+        multipleTabMetas: [
+          {
+            tabTitle: "General",
+            tabType: "table",
+            tabMeta: {
+              blocks: [
+                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.GENERAL} />
+              ],
+              tableProps: {
+                pagination: false,
+                ...getGeneralCommentTableColumns(),
+                searchParams: { SectionID: section.SectionID },
+                refreshEventName: REFRESH_SECTION_GENERAL_COMMENT_PAGE
+              }
+            }
+          },
+          {
+            tabTitle: "Instructor",
+            tabType: "table",
+            tabMeta: {
+              blocks: [
+                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.INSTRUCTOR} />
+              ],
+              tableProps: {
+                pagination: false,
+                ...getInstructorCommentTableColumns(),
+                searchParams: { SectionID: section.SectionID },
+                refreshEventName: REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
+              }
             }
           }
-        },
-        {
-          tabTitle: "Instructor",
-          tabType: "table",
-          tabMeta: {
-            blocks: [<CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.INSTRUCTOR} />],
-            tableProps: {
-              pagination: false,
-              ...getInstructorCommentTableColumns(),
-              searchParams: { SectionID: section.SectionID },
-              refreshEventName: REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
-            }
-          }
-        }]
+        ]
       },
       {
         tabTitle: "No Shows",

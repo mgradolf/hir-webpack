@@ -160,7 +160,13 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
   }
 
   const commentMeta: IDetailsTableTabProp = {
-    blocks: [<CommentCreateModalOpenButton SectionID={registration.SectionID} StudentID={registration.StudentID} CommentType={COMMENT_TYPES.ENROLLMENT} />],
+    blocks: [
+      <CommentCreateModalOpenButton
+        SectionID={registration.SectionID}
+        StudentID={registration.StudentID}
+        CommentType={COMMENT_TYPES.ENROLLMENT}
+      />
+    ],
     tableProps: {
       pagination: false,
       ...getRegistrationCommentTableColumns(),
