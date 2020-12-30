@@ -48,7 +48,7 @@ const QuestionSearchFiltersMeta: IFilterField[] = [
     valueKey: "ID"
   }
 ]
-export default function QuestionPage() {
+export default function QuestionRepository() {
   // const rowSelection: TableRowSelection<any> = {
   //   onChange: (selectedRowKeys: any, selectedRows: any) => {
   //     console.log(selectedRows)

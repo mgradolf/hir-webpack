@@ -60,7 +60,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Repository", url: "/question", submenu: [] },
           { title: "Tagging", url: "/question/tagging", submenu: [] },
-          { title: "Responses", url: "", submenu: [] }
+          { title: "Responses", url: "/question/response", submenu: [] }
         ]
       },
       {

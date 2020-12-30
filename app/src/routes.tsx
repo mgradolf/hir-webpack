@@ -79,8 +79,9 @@ import ReportPage from "~/Pages/Discovery/Report/ReportPage"
 import IndividualReportPage from "~/Pages/Discovery/Report/IndividualReportPage"
 import FinancialReportPurchaseOrder from "~/Pages/Discovery/Report/Financial/PurchaseOrder"
 
-import QuestionPage from "~/Pages/Manage/Question/QuestionPage"
+import QuestionPage from "~/Pages/Manage/Question/QuestionRepository"
 import QuestionTaggingPage from "~/Pages/Manage/Question/QuestionTaggingPage"
+import QuestionResponsePage from "~/Pages/Manage/Question/QuestionResponsePage"
 
 import FinancialOrderPagePage from "~/Pages/Manage/Financials/OrderPage"
 import OrderDetailsPage from "~/Pages/Manage/Financials/OrderDetailsPage"
@@ -172,6 +173,7 @@ export const AppRoutes: RouteProps[] = [
 
   { path: "/question", component: QuestionPage },
   { path: "/question/tagging", component: QuestionTaggingPage },
+  { path: "/question/response", component: QuestionResponsePage },
 
   { path: "/request", component: RequestPage },
   { path: "/request/:requestID", component: RequestDetailsPage },
