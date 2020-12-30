@@ -1,7 +1,7 @@
 import React from "react"
 import { findSectionComments } from "~/ApiServices/Service/CommentService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import EnrollmentCommentRemoveLink from "~/Component/Comment/CommentRemoveLink"
+import CommentRemoveLink from "~/Component/Comment/CommentRemoveLink"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getGeneralCommentTableColumns = (isModal = false): ITableConfigProp => {
@@ -26,7 +26,7 @@ export const getGeneralCommentTableColumns = (isModal = false): ITableConfigProp
     {
       title: "Action",
       key: "action",
-      render: (record: any) => <EnrollmentCommentRemoveLink EnrollmentCommentID={record.EnrollmentCommentID} />
+      render: (record: any) => <CommentRemoveLink SectionCommentID={record.SectionCommentID} />
     }
   ]
 
