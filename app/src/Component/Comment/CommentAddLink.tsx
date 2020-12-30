@@ -14,11 +14,7 @@ export default function CommentCreateModalOpenButton(props: ICommentCreateProp) 
 
   return (
     <>
-      <Button
-        type="primary"
-        style={{ float: "right" }}
-        onClick={() => setShowModal(true)}
-      >
+      <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
         + Add Comment
       </Button>
       {showModal && (
