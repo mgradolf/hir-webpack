@@ -1,3 +1,4 @@
+import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -5,6 +6,7 @@ import { putSpaceBetweenCapitalLetters } from "~/utils/util"
 import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
 import { REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
+import SectionAddButton from "~/Component/Section/SectionAddButton"
 
 export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -48,6 +50,7 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
     tabTitle: "Sections",
     tabType: "table",
     tabMeta: {
+      blocks: [<SectionAddButton DiscountProgramID={discountProgram.DiscountProgramID} />],
       tableProps: {
         ...getSectionDiscountTableColumns(),
         searchParams: { DiscountProgramID: discountProgram.DiscountProgramID },

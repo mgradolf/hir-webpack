@@ -1,9 +1,13 @@
+import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
+import SectionAddButton from "~/Component/Section/SectionAddButton"
 import { getProductFinancialsTableColumns } from "~/FormMeta/ProductFinancialsTableColumns/ProductFinancialsTableColumns"
+import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
+import { REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
 
 export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -28,6 +32,18 @@ export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetails
       searchParams: { ProductID: Product.ProductID }
     }
   }
+
+  const relatedSectionMeta: IDetailsTableTabProp = {
+    blocks: [<SectionAddButton ProductId={Product.ProductID} />],
+    title: "Related Sections",
+    tableProps: {
+      pagination: false,
+      ...getSectionProductTableColumns(),
+      searchParams: { ProductID: Product.ProductID },
+      refreshEventName: REFRESH_SECTION_PRODUCT_PAGE
+    }
+  }
+
   return {
     pageTitle: `Product - ${Product.ProductName}`,
     tabs: [
@@ -35,6 +51,11 @@ export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetails
         tabTitle: "Summary",
         tabType: "summary",
         tabMeta: summaryMeta
+      },
+      {
+        tabTitle: "Related Sections",
+        tabType: "table",
+        tabMeta: relatedSectionMeta
       },
       {
         tabTitle: "Financials",

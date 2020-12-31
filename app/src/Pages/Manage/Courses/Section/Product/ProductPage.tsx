@@ -12,7 +12,7 @@ export default function SectionProductPage(props: RouteComponentProps<{ sectionI
     <StandardPage
       blocks={[<ProductAddButton SectionId={SectionID} />]}
       title="Manage Section Products"
-      tableProps={{ ...getSectionProductTableColumns(SectionID), refreshEventName: REFRESH_SECTION_PRODUCT_PAGE }}
+      tableProps={{ ...getSectionProductTableColumns(), refreshEventName: REFRESH_SECTION_PRODUCT_PAGE }}
       initialFilter={{ SectionID: SectionID }}
     />
   )

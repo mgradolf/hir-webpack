@@ -1,3 +1,5 @@
+import React from "react"
+import { Link } from "react-router-dom"
 import { getMeetings } from "~/ApiServices/Service/SectionService"
 import { renderDate, renderTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
@@ -33,7 +35,8 @@ export const getSectionScheduleTableColumns = (sectionID: number): ITableConfigP
     },
     {
       title: "Instructor",
-      dataIndex: "InstructorSummary"
+      dataIndex: "InstructorSummary",
+      render: (text: any, record: any) => <Link to={`/person/faculty/${record.FacultyID}`}>{text}</Link>
     },
     {
       title: "Notes",

@@ -18,7 +18,10 @@ import {
   REFRESH_SECTION_WAITLIST_ENTRIES_PAGE,
   REFRESH_SECTION_ORDER_PAGE,
   REFRESH_SECTION_GENERAL_COMMENT_PAGE,
-  REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
+  REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE,
+  REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE,
+  REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE,
+  REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE
 } from "~/utils/EventBus"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
@@ -37,13 +40,16 @@ import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
-import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
 import { getGeneralCommentTableColumns } from "~/FormMeta/SectionComment/GeneralCommentTableColumns"
 import { getInstructorCommentTableColumns } from "~/FormMeta/SectionComment/InstructorCommentTableColumns"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { AddDiscountButton } from "~/Component/Discount/AddDiscountButton"
 import { SectionRemoveButton } from "~/Component/Section/CreateEdit/SectionRemoveButton"
+import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTableColumns"
+import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
+import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
+import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
@@ -196,7 +202,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const productMeta: IDetailsTableTabProp = {
     blocks: [<ProductAddButton SectionId={section.SectionID} />],
     tableProps: {
-      ...getSectionProductTableColumns(section.SectionID),
+      ...getSectionProductTableColumns(),
       searchParams: { SectionID: section.SectionID },
       refreshEventName: REFRESH_SECTION_PRODUCT_PAGE
     }
@@ -210,10 +216,10 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     }
   }
 
-  const orderMeta: IDetailsTableTabProp = {
+  const orderItemMeta: IDetailsTableTabProp = {
     tableProps: {
-      ...getOrderTableColumns(),
-      searchParams: { SectionIDs: [section.SectionID] },
+      ...getOrderItemTableColumns(false, section.SectionID),
+      searchParams: { SectionID: section.SectionID },
       refreshEventName: REFRESH_SECTION_ORDER_PAGE
     }
   }
@@ -238,6 +244,30 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const noShowMeta: IDetailsCustomTabProp = {
     component: SectionNoShowPage,
     props: { SectionID: section.SectionID }
+  }
+
+  const enrollmentMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getEnrollmentTableColumns(),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE
+    }
+  }
+
+  const academicActivityMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getAcademicActivityLogTableColumns(),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE
+    }
+  }
+
+  const enrollmentActivityMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getEnrollmentActivityLogTableColumns(),
+      searchParams: { SectionID: section.SectionID },
+      refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE
+    }
   }
 
   return {
@@ -296,12 +326,41 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       {
         tabTitle: "Registrations",
         tabType: "table",
-        tabMeta: registrationMeta
+        tabMeta: [],
+        multipleTabMetas: [
+          {
+            tabTitle: "Roster",
+            tabType: "table",
+            tabMeta: registrationMeta
+          },
+          {
+            tabTitle: "History",
+            tabType: "table",
+            tabMeta: enrollmentMeta
+          }
+        ]
+      },
+      {
+        tabTitle: "Logs",
+        tabType: "table",
+        tabMeta: [],
+        multipleTabMetas: [
+          {
+            tabTitle: "Enrollment",
+            tabType: "table",
+            tabMeta: enrollmentActivityMeta
+          },
+          {
+            tabTitle: "Academic",
+            tabType: "table",
+            tabMeta: academicActivityMeta
+          }
+        ]
       },
       {
         tabTitle: "Order Items",
         tabType: "table",
-        tabMeta: orderMeta
+        tabMeta: orderItemMeta
       },
       {
         tabTitle: "Requests",

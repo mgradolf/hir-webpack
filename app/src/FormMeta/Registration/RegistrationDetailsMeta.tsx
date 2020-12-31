@@ -187,16 +187,6 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       tabMeta: enrollmentMeta
     },
     {
-      tabTitle: "Academic Log",
-      tabType: "table",
-      tabMeta: academicActivityMeta
-    },
-    {
-      tabTitle: "Enrollment Log",
-      tabType: "table",
-      tabMeta: enrollmentActivityMeta
-    },
-    {
       tabTitle: "Certificates",
       tabType: "table",
       tabMeta: certificateMeta
@@ -205,6 +195,23 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       tabTitle: "Comments",
       tabType: "table",
       tabMeta: commentMeta
+    },
+    {
+      tabTitle: "Logs",
+      tabType: "table",
+      tabMeta: [],
+      multipleTabMetas: [
+        {
+          tabTitle: "Enrollment",
+          tabType: "table",
+          tabMeta: enrollmentActivityMeta
+        },
+        {
+          tabTitle: "Academic",
+          tabType: "table",
+          tabMeta: academicActivityMeta
+        }
+      ]
     }
   ]
 
