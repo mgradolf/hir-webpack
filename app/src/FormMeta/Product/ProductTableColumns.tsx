@@ -6,14 +6,13 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getProductTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    { title: "Product Category", dataIndex: "ProductCategoryName" },
     {
       title: "Product Name",
       dataIndex: "ProductName",
       render: (text: any, record: any) =>
         !isModal ? <Link to={`/product/${record.ProductID}`}>{text}</Link> : { text }
     },
-    // { title: "SKU Number", dataIndex: "ProductSKUNumber" },
+    { title: "Product Category", dataIndex: "ProductCategoryName" },
     { title: "Inventory Units", dataIndex: "ProductInventoryUnits" },
     // { title: "Delivery Mode", dataIndex: "ProductDeliveryModeName" },
     // { title: "Product Type", dataIndex: "ProductTypeName" },

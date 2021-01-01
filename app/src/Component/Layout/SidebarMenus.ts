@@ -10,16 +10,17 @@ export const sidebarMenus: ISidebarMenu[] = [
     url: "",
     submenu: [
       {
-        title: "People",
+        title: "Constituents",
         url: "",
         submenu: [
           { title: "Persons", url: "/person", submenu: [] },
           { title: "Students", url: "/student", submenu: [] },
           { title: "Instructors", url: "/instructor", submenu: [] },
+          { title: "Accounts", url: "/account", submenu: [] },
           { title: "Forget Me Requests", url: "", submenu: [] }
         ]
       },
-      { title: "Accounts", url: "/account", submenu: [] },
+      // { title: "Accounts", url: "/account", submenu: [] },
       {
         title: "Courses",
         url: "",
@@ -49,8 +50,8 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Order", url: "/order", submenu: [] },
           { title: "Order Items", url: "/order/items", submenu: [] },
           { title: "Payments", url: "/order/payments", submenu: [] },
-          { title: "Transactions", url: "/transaction", submenu: [] },
-          { title: "Discount Programs", url: "/discount-programs", submenu: [] }
+          { title: "Transactions", url: "/transaction", submenu: [] }
+          // { title: "Discount Programs", url: "/discount-programs", submenu: [] }
         ]
       },
       { title: "Requests", url: "/request", submenu: [] },
@@ -64,10 +65,12 @@ export const sidebarMenus: ISidebarMenu[] = [
         ]
       },
       {
-        title: "Marketing Codes",
+        title: "Marketing",
         url: "",
         submenu: [
-          { title: "Repository", url: "/marketing-codes/repository", submenu: [] },
+          { title: "Catalogs", url: "/catalog", submenu: [] },
+          { title: "Discount Programs", url: "/discount-programs", submenu: [] },
+          { title: "Codes", url: "/marketing-codes/repository", submenu: [] },
           { title: "Response", url: "/marketing-codes/response", submenu: [] }
         ]
       },

@@ -10,7 +10,8 @@ interface IProducutRemoveLinkProp {
 function ProductRemoveLink(props: IProducutRemoveLinkProp) {
   return (
     <Button
-      type="link"
+      danger
+      type="primary"
       onClick={async () => {
         const response = await deleteSectionProduct([props.sectionId, [props.productId]])
         if (response.success) {

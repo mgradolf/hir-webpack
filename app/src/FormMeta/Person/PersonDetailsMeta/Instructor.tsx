@@ -6,7 +6,7 @@ import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDate, renderDateTime, renderEmail, sortByTime } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
 import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
@@ -70,10 +70,11 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       tableProps: {
         columns: [
-          { title: "Is Charge", dataIndex: "IsCharge", render: renderBoolean },
+          { title: "Description", dataIndex: "Description" },
           { title: "Amount", dataIndex: "ItemUnitAmount" },
-          { title: "GL Account", dataIndex: "GLAccountID" },
-          { title: "Active", dataIndex: "IsActive", render: renderBoolean }
+          { title: "GL Account", dataIndex: "GLAccountName" },
+          { title: "Active", dataIndex: "IsActive", render: renderBoolean },
+          { title: "Category", dataIndex: "FinancialCategoryTypeName" }
         ],
         searchFunc: (Params: any) => getFinancialsByTarget(instructor.FacultyID, 2),
         responsiveColumnIndices: [],
@@ -120,7 +121,6 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
               <Link to={`/person/${record.PersonID}`}>{text + " " + record.LastName}</Link>
             )
           },
-          { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
           {
             title: "Section Number",
             dataIndex: "SectionNumber",
@@ -128,7 +128,10 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
           },
           { title: "Status", dataIndex: "SectionStatusCodeName" },
           { title: "StartDate", dataIndex: "StartDate", render: renderDate },
-          { title: "EndDate", dataIndex: "EndDate", render: renderDate }
+          { title: "EndDate", dataIndex: "EndDate", render: renderDate },
+          { title: "Current Enrollment", dataIndex: "CurrentEnrollment" },
+          { title: "Max Enrollment", dataIndex: "MaxEnrollment" },
+          { title: "Pay Rate", dataIndex: "Amount" }
         ],
         searchFunc: searchSectionInstructor,
         responsiveColumnIndices: [],

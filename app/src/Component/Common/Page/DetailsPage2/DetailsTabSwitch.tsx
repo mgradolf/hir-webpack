@@ -33,7 +33,7 @@ export function DetailsPageSubTabSwitch(props: { meta?: IDetailsTabMeta[]; child
               case "table":
                 return (
                   <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                    <DetailsTableTab {...x.tabMeta} />
+                    <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsTableTab {...x.tabMeta} />} />
                   </Tabs.TabPane>
                 )
               case "custom":
