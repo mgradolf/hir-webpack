@@ -28,9 +28,7 @@ export const getCatalogContentTableColumns = (isModal = false): ITableConfigProp
     {
       ...(!isModal && {
         title: "Action",
-        dataIndex: "isChecked",
-        key: "isChecked",
-        render: (text: any, record: any) => <CatalogContentRemoveButton tag={record} />
+        render: (text: any, record: any) => <CatalogContentRemoveButton catalog={record} />
       })
     }
   ]
