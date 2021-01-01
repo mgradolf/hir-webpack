@@ -3,6 +3,7 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { getTags } from "~/ApiServices/Service/TagService"
 import React from "react"
 import { TagRemoveButton } from "~/FormMeta/Tags/TagRemoveButton"
+import { Link } from "react-router-dom"
 
 export const getTagsTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -12,7 +13,8 @@ export const getTagsTableColumns = (isModal = false): ITableConfigProp => {
     },
     {
       title: "Tag",
-      dataIndex: "Name"
+      dataIndex: "Name",
+      render: (text: any, record: any) => <Link to={`/tags/${record.TagID}`}>{text}</Link>
     },
     {
       ...(!isModal && {

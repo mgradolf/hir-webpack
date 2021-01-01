@@ -34,3 +34,7 @@ export function getParentTags(Params: { [key: string]: any }): Promise<IApiRespo
 export function removeTagFromEntity(Params: { [key: string]: any }): Promise<IApiResponse> {
   return TagService[config.Actions.removeTagFromEntity](Params)
 }
+
+export function findTagContent(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return TagService[config.Actions.findTagContent](Params)
+}

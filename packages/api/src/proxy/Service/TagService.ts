@@ -8,7 +8,8 @@ export const config = {
     getTags: "getTags",
     getParentTags: "getParentTags",
     addTagIntoEntity: "addTagIntoEntity",
-    removeTagFromEntity: "removeTagFromEntity"
+    removeTagFromEntity: "removeTagFromEntity",
+    findTagContent: "findTagContent"
   }
 }
 

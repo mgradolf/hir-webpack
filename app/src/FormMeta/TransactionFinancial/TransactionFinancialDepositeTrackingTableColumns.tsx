@@ -10,7 +10,13 @@ export const getTransactionFinancialDepositeTrackingTableColumns = (isModal = fa
       title: "Transaction ID",
       dataIndex: "TransactionID",
       render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/transaction/${record.TransactionID}`}>{text}</Link>
+        isModal ? (
+          text
+        ) : (
+          <Link to={`/transaction/${record.DepositTransactionID ? record.DepositTransactionID : record.TransactionID}`}>
+            {text}
+          </Link>
+        )
     },
     { title: "Date", dataIndex: "TransactionDate", render: renderDate },
     { title: "Transaction Type", dataIndex: "TransactionType" },

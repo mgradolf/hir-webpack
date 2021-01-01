@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button } from "antd"
 import { addTagIntoEntity } from "~/ApiServices/Service/TagService"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
-import { getTagsSearchMeta } from "~/FormMeta/Tags/TagsSearchMeta"
+import { TagsSearchMeta } from "~/FormMeta/Tags/TagsSearchMeta"
 import { getTagsTableColumns } from "~/FormMeta/Tags/TagsTableColumns"
 import { eventBus } from "~/utils/EventBus"
 
@@ -30,7 +30,7 @@ export const TagAddButton = (props: { tag: { [key: string]: any }; eventName: st
         <LookupModal
           title="Select Tags"
           isArray={true}
-          meta={getTagsSearchMeta(props.tag.EntityType, props.tag.EntityID)}
+          meta={TagsSearchMeta}
           {...getTagsTableColumns(true)}
           defaultFilter={{ EntityType: props.tag.EntityType, EntityID: props.tag.EntityID, IsSelected: false }}
           closeModal={(Params: any) => {

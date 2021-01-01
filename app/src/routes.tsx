@@ -103,6 +103,8 @@ import MarketingCodeRepositoryDetailsPage from "~/Pages/Manage/MarketingCodes/Re
 import { MarketingCodeResponsePage } from "~/Pages/Manage/MarketingCodes/ResponsePage"
 import MarketingCodeResponseDetailsPage from "~/Pages/Manage/MarketingCodes/ResponseDetails"
 import React from "react"
+import TagsPage from "~/Pages/Manage/Tags/TagsPage"
+import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -170,6 +172,9 @@ export const AppRoutes: RouteProps[] = [
 
   { path: "/catalog", component: CatalogPage },
   { path: "/catalog/:catalogID", component: CatalogDetailsPage },
+
+  { path: "/tags", component: TagsPage },
+  { path: "/tags/:tagID", component: TagsDetailsPage },
 
   { path: "/question", component: QuestionPage },
   { path: "/question/tagging", component: QuestionTaggingPage },

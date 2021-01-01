@@ -1,7 +1,7 @@
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { getParentTagsTableColumns, getTagsTableColumns } from "~/FormMeta/Tags/TagsTableColumns"
 import { getParentTags } from "~/ApiServices/Service/TagService"
-import { getTagsSearchMeta } from "~/FormMeta/Tags/TagsSearchMeta"
+import { TagsSearchMeta } from "~/FormMeta/Tags/TagsSearchMeta"
 import React from "react"
 import { TagAddButton } from "~/FormMeta/Tags/TagAddButton"
 
@@ -13,7 +13,7 @@ export const getTagsTabPageDetailsMeta = (Params: { [key: string]: any }): IDeta
     tabTitle: `${EntityType} Tags`,
     tabType: "searchtable",
     tabMeta: {
-      searchMeta: getTagsSearchMeta(EntityType, EntityID),
+      searchMeta: TagsSearchMeta,
       blocks: [<TagAddButton tag={Params} eventName="REFRESH_CATALOGS_TAB" />],
       tableProps: {
         ...getTagsTableColumns(false),

@@ -39,7 +39,7 @@ export const renderWeek = (text: any[], record: any) => {
 }
 
 export const sortByBoolean = (a: boolean, b: boolean) => (a === b ? 0 : a ? -1 : 1)
-export const sortByString = (a: string, b: string) => a.length - b.length
+export const sortByString = (a: string, b: string) => a.localeCompare(b)
 export const sortByTime = (a?: string, b?: string) => {
   const aa = a ? new Date(a).getTime() : 0
   const bb = b ? new Date(b).getTime() : 0
