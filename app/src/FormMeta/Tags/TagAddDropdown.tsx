@@ -70,7 +70,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
   return (
     <>
       <Dropdown.Button overlay={menus} type="primary" style={props.style}>
-        + Add Tag With
+        + Add Content
       </Dropdown.Button>
       {showLookupModal && (
         <LookupModal

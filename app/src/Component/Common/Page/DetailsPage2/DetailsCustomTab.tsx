@@ -6,5 +6,5 @@ export interface IDetailsCustomTabProp {
 }
 
 export default function DetailsCustomTab(props: IDetailsCustomTabProp) {
-  return <props.component {...props.props} />
+  return <>{props.component && <props.component {...props.props} />}</>
 }

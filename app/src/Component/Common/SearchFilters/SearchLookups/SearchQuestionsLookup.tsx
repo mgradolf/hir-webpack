@@ -2,8 +2,8 @@ import * as React from "react"
 import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
-import { QuestionSearchMeta } from "~/FormMeta/Question/QuestionSearchMeta"
-import { getQuestionTableColumn } from "~/FormMeta/Question/QuestionTableColumn"
+import { QuestionRepositorySearchMeta } from "~/FormMeta/QuestionRepository/QuestionRepositorySearchMeta"
+import { getQuestionRepositoryTableColumn } from "~/FormMeta/QuestionRepository/QuestionRepositoryTableColumn"
 
 interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
   valueField?: string
@@ -13,9 +13,9 @@ export function SearchQuestionLookup(props: ISearchLookupOpenButton) {
     <SearchLookupOpenButton
       lookupModalTitle="Select Question"
       displayField="Name"
-      meta={QuestionSearchMeta}
+      meta={QuestionRepositorySearchMeta}
       {...props}
-      {...getQuestionTableColumn(true)}
+      {...getQuestionRepositoryTableColumn(true)}
       valueField={"PreferenceDefID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>

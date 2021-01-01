@@ -1,7 +1,7 @@
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
-export const QuestionSearchMeta: IFilterField[] = [
+export const QuestionRepositorySearchMeta: IFilterField[] = [
   {
     label: "Question",
     inputType: TEXT,

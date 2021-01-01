@@ -79,7 +79,7 @@ import ReportPage from "~/Pages/Discovery/Report/ReportPage"
 import IndividualReportPage from "~/Pages/Discovery/Report/IndividualReportPage"
 import FinancialReportPurchaseOrder from "~/Pages/Discovery/Report/Financial/PurchaseOrder"
 
-import QuestionPage from "~/Pages/Manage/Question/QuestionRepository"
+import QuestionPage from "~/Pages/Manage/Question/QuestionRepositoryPage"
 import QuestionTaggingPage from "~/Pages/Manage/Question/QuestionTaggingPage"
 import QuestionResponsePage from "~/Pages/Manage/Question/QuestionResponsePage"
 
@@ -105,6 +105,7 @@ import MarketingCodeResponseDetailsPage from "~/Pages/Manage/MarketingCodes/Resp
 import React from "react"
 import TagsPage from "~/Pages/Manage/Tags/TagsPage"
 import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
+import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -177,6 +178,7 @@ export const AppRoutes: RouteProps[] = [
   { path: "/tags/:tagID", component: TagsDetailsPage },
 
   { path: "/question", component: QuestionPage },
+  { path: "/question/:PreferenceDefID", component: QuestionRepositoryDetailsPage },
   { path: "/question/tagging", component: QuestionTaggingPage },
   { path: "/question/response", component: QuestionResponsePage },
 

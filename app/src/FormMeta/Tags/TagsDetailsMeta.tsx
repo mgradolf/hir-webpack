@@ -3,9 +3,11 @@ import { Link } from "react-router-dom"
 import { findTagContent } from "~/ApiServices/Service/TagService"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
+import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { renderBoolean, sortByString } from "~/Component/Common/ResponsiveTable"
 import { TagAddDropdown } from "~/FormMeta/Tags/TagAddDropdown"
 import { TagRemoveButton } from "~/FormMeta/Tags/TagRemoveButton"
+import QuestionTaggingPage from "~/Pages/Manage/Question/QuestionTaggingPage"
 
 export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
@@ -22,7 +24,6 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
-      actions: [<TagAddDropdown TagID={Tag.TagID} />],
       summary: [summary]
     }
   })
@@ -31,24 +32,26 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
     tabTitle: "Content",
     tabType: "table",
     tabMeta: {
+      blocks: [<TagAddDropdown TagID={Tag.TagID} />],
       tableProps: {
         columns: [
-          {
-            title: "Name",
-            dataIndex: "ContentName",
-            sorter: (a: any, b: any) => sortByString(a.ContentName, b.ContentName)
-          },
           {
             title: "Type",
             dataIndex: "ContentType",
             sorter: (a: any, b: any) => sortByString(a.ContentType, b.ContentType)
           },
           {
-            title: "Code",
-            dataIndex: "ContentCode",
-            sorter: (a: any, b: any) => sortByString(a.ContentCode, b.ContentCode),
+            title: "Name",
+            dataIndex: "ContentName",
+            sorter: (a: any, b: any) => sortByString(a.ContentName, b.ContentName),
             render: (text: any, record: any) => <Link to={`/${record.ContentType}/${record.ContentID}`}>{text}</Link>
           },
+          // {
+          //   title: "Code",
+          //   dataIndex: "ContentCode",
+          //   sorter: (a: any, b: any) => sortByString(a.ContentCode, b.ContentCode),
+          //   render: (text: any, record: any) => <Link to={`/${record.ContentType}/${record.ContentID}`}>{text}</Link>
+          // },
           {
             title: "Action",
             render: (text: any, record: any) => (
@@ -56,7 +59,7 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
                 tag={{
                   EntityType: record.ContentType,
                   EntityID: record.ContentID,
-                  TagId: record.TagID,
+                  TagID: record.TagID,
                   IsActive: true
                 }}
               />
@@ -67,6 +70,16 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
         searchParams: { TagID: Tag.TagID }
       }
     }
+  })
+
+  const scheduleMeta: IDetailsCustomTabProp = {
+    component: QuestionTaggingPage,
+    props: {}
+  }
+  tabMeta.push({
+    tabTitle: "Event Questions",
+    tabType: "custom",
+    tabMeta: scheduleMeta
   })
 
   return {

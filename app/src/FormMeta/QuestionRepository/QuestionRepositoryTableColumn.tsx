@@ -1,12 +1,15 @@
+import React from "react"
+import { Link } from "react-router-dom"
 import { searchQuestions } from "~/ApiServices/Service/QuestionService"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
-export const getQuestionTableColumn = (isModal = false): ITableConfigProp => {
+export const getQuestionRepositoryTableColumn = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Question",
-      dataIndex: "Name"
+      dataIndex: "Name",
+      render: (text, record) => (isModal ? text : <Link to={`/question/${record.PreferenceDefID}`}>{text}</Link>)
     },
     {
       title: "Display Question As",
