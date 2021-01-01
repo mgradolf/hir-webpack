@@ -42,6 +42,40 @@ export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetails
     }
   })
 
+  if (Catalog.SortType === 2) {
+    tabMeta.push({
+      tabTitle: "Sorting Preview",
+      tabType: "table",
+      tabMeta: undefined,
+      multipleTabMetas: [
+        {
+          tabTitle: "Offering",
+          tabType: "custom",
+          tabMeta: {
+            component: undefined,
+            props: { CatalogID: Catalog.CatalogID }
+          }
+        },
+        {
+          tabTitle: "Section",
+          tabType: "custom",
+          tabMeta: {
+            component: undefined,
+            props: { CatalogID: Catalog.CatalogID }
+          }
+        },
+        {
+          tabTitle: "Program",
+          tabType: "custom",
+          tabMeta: {
+            component: undefined,
+            props: { CatalogID: Catalog.CatalogID }
+          }
+        }
+      ]
+    })
+  }
+
   return {
     pageTitle: `Catalog - ${Catalog.Name}`,
     tabs: tabMeta

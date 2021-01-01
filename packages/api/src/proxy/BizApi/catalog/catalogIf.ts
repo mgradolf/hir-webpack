@@ -7,7 +7,10 @@ export const config = {
   Actions: {
     findCatalogs: "findCatalogs",
     updateBulkContent: "updateBulkContent",
-    searchCatalog: "searchCatalog"
+    searchCatalog: "searchCatalog",
+    getWebCatalogOfferings: "getWebCatalogOfferings",
+    getWebCatalogSections: "getWebCatalogSections",
+    getWebCatalogPrograms: "getWebCatalogPrograms"
   }
 }
 
