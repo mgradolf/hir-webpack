@@ -6,7 +6,13 @@ export const config = {
   Module: "hir",
   Actions: {
     searchCatalogs: "searchCatalogs",
-    getCatalogContent: "getCatalogContent"
+    getCatalogContent: "getCatalogContent",
+    addSectionToCatalog: "addSectionToCatalog",
+    addOfferingToCatalog: "addOfferingToCatalog",
+    addProgramToCatalog: "addProgramToCatalog",
+    removeSectionFromCatalog: "removeSectionFromCatalog",
+    removeOfferingFromCatalog: "removeOfferingFromCatalog",
+    removeProgramFromCatalog: "removeProgramFromCatalog"
   }
 }
 

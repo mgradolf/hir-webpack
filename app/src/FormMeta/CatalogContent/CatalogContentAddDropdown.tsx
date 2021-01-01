@@ -4,21 +4,19 @@ import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
-import { getMarketingCodeRepositoryTableColumns } from "~/FormMeta/MarketingCodeRepository/MarketingCodeRepositoryTableColumns"
 import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
 import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
 import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
-import { MarketingCodeRepositorySearchMeta } from "~/FormMeta/MarketingCodeRepository/MarketingCodeRepositorySearchMeta"
-import { addTagIntoEntity } from "~/ApiServices/Service/TagService"
+import { addOfferingToCatalog, addProgramToCatalog, addSectionToCatalog } from "~/ApiServices/Service/CatalogService"
 import { eventBus } from "~/utils/EventBus"
 
 interface IScheduleUpdateMenuProp {
-  TagID: number
+  CatalogID: number
   eventName: string
   style?: React.CSSProperties
 }
 
-export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
+export function CatalogContentAddDropdown(props: IScheduleUpdateMenuProp) {
   const [entityType, setEntityType] = useState<any>(undefined)
   const [showLookupModal, setShowLookupModal] = useState(false)
 
@@ -27,6 +25,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
       type: "Offering",
       meta: OfferingSearchMeta,
       searchFunc: getOfferingTableColumns().searchFunc,
+      addToCatalogFunc: addOfferingToCatalog,
       columns: getOfferingTableColumns().columns,
       key: "OfferingID"
     },
@@ -34,6 +33,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
       type: "Section",
       meta: SectionSearchMeta,
       searchFunc: getSectionTableColumns().searchFunc,
+      addToCatalogFunc: addSectionToCatalog,
       columns: getSectionTableColumns().columns,
       key: "SectionID"
     },
@@ -41,15 +41,9 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
       type: "Program",
       meta: ProgramSearchMeta,
       searchFunc: getProgramTableColumns().searchFunc,
+      addToCatalogFunc: addProgramToCatalog,
       columns: getProgramTableColumns().columns,
       key: "ProgramID"
-    },
-    {
-      type: "MarketingCode",
-      meta: MarketingCodeRepositorySearchMeta,
-      searchFunc: getMarketingCodeRepositoryTableColumns().searchFunc,
-      columns: getMarketingCodeRepositoryTableColumns().columns,
-      key: "MarketingCodeID"
     }
   ]
 
@@ -80,10 +74,9 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
           closeModal={(items) => {
             if (items && items.length > 0) {
               const promises = items?.map((x) => {
-                return addTagIntoEntity({
-                  EntityType: entityType.type,
-                  EntityID: x[entityType.key],
-                  TagID: props.TagID
+                return entityType.addToCatalogFunc({
+                  [entityType.key]: x[entityType.key],
+                  CatalogID: props.CatalogID
                 })
               })
 

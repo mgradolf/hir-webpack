@@ -7,7 +7,7 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Catalog Name",
+      title: "Name",
       dataIndex: "Name",
       render: (text: any, record: any) => <Link to={`/catalog/${record.CatalogID}`}>{text}</Link>
     },

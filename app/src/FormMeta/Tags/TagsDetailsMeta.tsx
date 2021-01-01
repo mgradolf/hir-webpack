@@ -32,7 +32,7 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
     tabTitle: "Content",
     tabType: "table",
     tabMeta: {
-      blocks: [<TagAddDropdown TagID={Tag.TagID} />],
+      blocks: [<TagAddDropdown TagID={Tag.TagID} eventName="REFRESH_TAGS_CONTENT_TABLE" />],
       tableProps: {
         columns: [
           {
@@ -46,12 +46,6 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
             sorter: (a: any, b: any) => sortByString(a.ContentName, b.ContentName),
             render: (text: any, record: any) => <Link to={`/${record.ContentType}/${record.ContentID}`}>{text}</Link>
           },
-          // {
-          //   title: "Code",
-          //   dataIndex: "ContentCode",
-          //   sorter: (a: any, b: any) => sortByString(a.ContentCode, b.ContentCode),
-          //   render: (text: any, record: any) => <Link to={`/${record.ContentType}/${record.ContentID}`}>{text}</Link>
-          // },
           {
             title: "Action",
             render: (text: any, record: any) => (
@@ -67,7 +61,8 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
           }
         ],
         searchFunc: findTagContent,
-        searchParams: { TagID: Tag.TagID }
+        searchParams: { TagID: Tag.TagID },
+        refreshEventName: "REFRESH_TAGS_CONTENT_TABLE"
       }
     }
   })
