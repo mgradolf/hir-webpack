@@ -5,14 +5,14 @@ import { searchOnlineClasses, searchStudentSchedule } from "~/ApiServices/Servic
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, sortByTime } from "~/Component/Common/ResponsiveTable"
-import { getActivityAcademicTableColumn } from "~/FormMeta/ActivityAcademic/getActivityAcademicTableColumn"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication/ProgramApplicationTableColumns"
 import { getProgramEnrollmentTableColumns } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentTableColumns"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { getStudentCommentTableColumns } from "~/FormMeta/StudentComment/CommentTableColumns"
-import { REFRESH_STUDENT_COMMENT_PAGE } from "~/utils/EventBus"
+import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTableColumns"
+import { REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE, REFRESH_STUDENT_COMMENT_PAGE } from "~/utils/EventBus"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
 
@@ -44,128 +44,161 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Schedule",
     tabType: "table",
-    tabMeta: {
-      tableProps: {
-        columns: [
-          {
-            title: "From Date",
-            dataIndex: "StartDate",
-            render: renderDate,
-            sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
-          },
-          { title: "From Time", dataIndex: "StartTime" },
-          {
-            title: "To Date",
-            dataIndex: "EndDate",
-            render: renderDate,
-            sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
-          },
-          { title: "To Time", dataIndex: "EndTime" },
-          {
-            title: "Offering Name",
-            dataIndex: "OfferingName",
-            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
-          },
-          {
-            title: "Section Number",
-            dataIndex: "SectionNumber",
-            render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
-          },
-          { title: "Location", dataIndex: "Location" }
-        ],
-        searchFunc: searchStudentSchedule,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
-        searchParams: { StudentID: student.StudentID },
-        refreshEventName: "REFRESH_STUDENT_SCHEDULE_TAB"
-      }
-    }
-  })
-
-  tabMetas.push({
-    tabTitle: "Online Classes",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        columns: [
-          {
-            title: "StartDate",
-            dataIndex: "StartDate",
-            render: renderDate,
-            sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
-          },
-          {
-            title: "EndDate",
-            dataIndex: "EndDate",
-            render: renderDate,
-            sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
-          },
-          {
-            title: "Section Number",
-            dataIndex: "SectionNumber",
-            render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
-          },
-          {
-            title: "Offering Code",
-            dataIndex: "OfferingCode",
-            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+    tabMeta: [],
+    multipleTabMetas: [
+      {
+        tabTitle: "On Site",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            columns: [
+              {
+                title: "From Date",
+                dataIndex: "StartDate",
+                render: renderDate,
+                sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
+              },
+              { title: "From Time", dataIndex: "StartTime" },
+              {
+                title: "To Date",
+                dataIndex: "EndDate",
+                render: renderDate,
+                sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
+              },
+              { title: "To Time", dataIndex: "EndTime" },
+              {
+                title: "Offering Name",
+                dataIndex: "OfferingName",
+                render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+              },
+              {
+                title: "Section Number",
+                dataIndex: "SectionNumber",
+                render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+              },
+              { title: "Location", dataIndex: "Location" }
+            ],
+            searchFunc: searchStudentSchedule,
+            responsiveColumnIndices: [],
+            expandableColumnIndices: [],
+            searchParams: { StudentID: student.StudentID },
+            refreshEventName: "REFRESH_STUDENT_SCHEDULE_TAB"
           }
-        ],
-        searchFunc: searchOnlineClasses,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
-        searchParams: { StudentID: student.StudentID },
-        refreshEventName: "REFRESH_HOLD_TAB"
+        }
+      },
+      {
+        tabTitle: "Online",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            columns: [
+              {
+                title: "StartDate",
+                dataIndex: "StartDate",
+                render: renderDate,
+                sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
+              },
+              {
+                title: "EndDate",
+                dataIndex: "EndDate",
+                render: renderDate,
+                sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
+              },
+              {
+                title: "Section Number",
+                dataIndex: "SectionNumber",
+                render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+              },
+              {
+                title: "Offering Code",
+                dataIndex: "OfferingCode",
+                render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+              }
+            ],
+            searchFunc: searchOnlineClasses,
+            responsiveColumnIndices: [],
+            expandableColumnIndices: [],
+            searchParams: { StudentID: student.StudentID },
+            refreshEventName: "REFRESH_HOLD_TAB"
+          }
+        }
       }
-    }
+    ]
   })
 
   tabMetas.push({
     tabTitle: "Registrations",
     tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getRegistrationTableColumns(false),
-        searchParams: { StudentID: student.StudentID },
-        refreshEventName: "REFRESH_REGISTRATION_TAB"
+    tabMeta: [],
+    multipleTabMetas: [
+      {
+        tabTitle: "Roster",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getRegistrationTableColumns(false),
+            searchParams: { StudentID: student.StudentID },
+            refreshEventName: "REFRESH_REGISTRATION_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "History",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            pagination: false,
+            ...getEnrollmentTableColumns(),
+            searchParams: { StudentID: student.StudentID },
+            refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE
+          }
+        }
+      },
+      {
+        tabTitle: "Waitlist",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getWaitlistEntriesTableColumns(false),
+            searchParams: {
+              RequesterRecipientPersonID1: person.PersonID,
+              RequesterRecipientPersonID2: person.PersonID
+            },
+            refreshEventName: "REFRESH_PERSON_TAB"
+          }
+        }
       }
-    }
+    ]
   })
 
   tabMetas.push({
-    tabTitle: "Waitlist",
+    tabTitle: "Programs",
     tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getWaitlistEntriesTableColumns(false),
-        searchParams: { RequesterRecipientPersonID1: person.PersonID, RequesterRecipientPersonID2: person.PersonID },
-        refreshEventName: "REFRESH_PERSON_TAB"
+    tabMeta: [],
+    multipleTabMetas: [
+      {
+        tabTitle: "Applications",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getProgramApplicationTableColumns(false),
+            searchParams: { PersonID: person.PersonID },
+            refreshEventName: "REFRESH_APPLICATION_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Enrollments",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getProgramEnrollmentTableColumns(false),
+            searchParams: { PersonID: person.PersonID },
+            refreshEventName: "REFRESH_ENROLLMMENT_TAB"
+          }
+        }
       }
-    }
-  })
-
-  tabMetas.push({
-    tabTitle: "Program Applications",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getProgramApplicationTableColumns(false),
-        searchParams: { PersonID: person.PersonID },
-        refreshEventName: "REFRESH_APPLICATION_TAB"
-      }
-    }
-  })
-
-  tabMetas.push({
-    tabTitle: "Program Enrollments",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getProgramEnrollmentTableColumns(false),
-        searchParams: { PersonID: person.PersonID },
-        refreshEventName: "REFRESH_ENROLLMMENT_TAB"
-      }
-    }
+    ]
   })
 
   tabMetas.push({
@@ -202,30 +235,6 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
       }
     }
   })
-
-  tabMetas.push({
-    tabTitle: "Activity Log",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getActivityAcademicTableColumn(false),
-        searchParams: { StudentID: student.StudentID },
-        refreshEventName: "REFRESH_ACTITVITY_LOG_TAB"
-      }
-    }
-  })
-  student &&
-    tabMetas.push({
-      tabTitle: "Enrollment Log",
-      tabType: "table",
-      tabMeta: {
-        tableProps: {
-          ...getProgramEnrollmentTableColumns(false),
-          searchParams: { StudentID: student.StudentID },
-          refreshEventName: "REFRESH_ENROLLMMENT_LOG_TAB"
-        }
-      }
-    })
 
   tabMetas.push({
     tabTitle: "Comments",

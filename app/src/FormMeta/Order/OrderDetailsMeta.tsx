@@ -13,6 +13,8 @@ import { getRegistrationTableColumns } from "~/FormMeta/Registration/Registratio
 import { getMarketingCodeResponseTableColumns } from "~/FormMeta/MarketingCodeResponse/MarketingCodeResponseTableColumns"
 import { getOrderPurchasedTableColumns } from "~/FormMeta/OrderPurchased/OrderPurchasedTableColumns"
 import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
+import { getActivityOrderSearchTableColumns } from "~/FormMeta/ActivityOrder/ActivityOrderSearchTableColumns"
+import { REFRESH_ORDER_ACTIVITY_PAGE } from "~/utils/EventBus"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -165,12 +167,36 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       { tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta },
       { tabTitle: "Items", tabType: "table", tabMeta: orderItemsMeta },
       { tabTitle: "Charges", tabType: "table", tabMeta: orderLinesMeta },
-      { tabTitle: "Credits", tabType: "table", tabMeta: orderCreditsMeta },
+      // { tabTitle: "Credits", tabType: "table", tabMeta: orderCreditsMeta },
       { tabTitle: "Payments", tabType: "table", tabMeta: orderPaymentsMeta },
       { tabTitle: "Returns", tabType: "table", tabMeta: orderReturnsMeta },
       { tabTitle: "Registrations", tabType: "table", tabMeta: orderRegistrationsMeta },
       { tabTitle: "Marketing Responses", tabType: "table", tabMeta: orderMarketingCodeMeta },
-      { tabTitle: "Purchase Order", tabType: "table", tabMeta: orderPurchasedCodeMeta }
+      { tabTitle: "Purchase Order", tabType: "table", tabMeta: orderPurchasedCodeMeta },
+      {
+        tabTitle: "Logs",
+        tabType: "table",
+        tabMeta: [],
+        multipleTabMetas: [
+          {
+            tabTitle: "Orders",
+            tabType: "table",
+            tabMeta: {
+              tableProps: {
+                pagination: false,
+                ...getActivityOrderSearchTableColumns(),
+                searchParams: { OrderID: order.OrderID },
+                refreshEventName: REFRESH_ORDER_ACTIVITY_PAGE
+              }
+            }
+          },
+          {
+            tabTitle: "Credits",
+            tabType: "table",
+            tabMeta: orderCreditsMeta
+          }
+        ]
+      }
     ]
   }
 }
