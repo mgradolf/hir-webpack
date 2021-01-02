@@ -9,7 +9,7 @@ import OfferingFinancialPage from "~/Pages/Manage/Courses/Offering/Financial/Fin
 import OfferingCatalogPage from "~/Pages/Manage/Courses/Offering/Catalog"
 import OfferingRequisitePage from "~/Pages/Manage/Courses/Offering/Requisite"
 import OfferingApprovalPage from "~/Pages/Manage/Courses/Offering/Approval"
-import OfferingTaggPage from "~/Pages/Manage/Courses/Offering/Tag"
+import OfferingTaggPage from "~/Pages/Manage/Courses/Offering/TagPage"
 import OfferingQualifiedInstructorPage from "~/Pages/Manage/Courses/Offering/QualifiedInstructor"
 import OfferingSectionPage from "~/Pages/Manage/Courses/Offering/Section"
 
@@ -22,7 +22,8 @@ import SectionBudgetPage from "~/Pages/Manage/Courses/Section/Budget/BudgetPage"
 import SectionNoticePage from "~/Pages/Manage/Courses/Section/Notice/NoticePage"
 import SectionDiscountPage from "~/Pages/Manage/Courses/Section/Discount/DiscountPage"
 import SectionRegistrationPage from "~/Pages/Manage/Courses/Section/Registration"
-import SectionTagPage from "~/Pages/Manage/Courses/Section/Tag"
+import SectionTagPage from "~/Pages/Manage/Courses/Section/TagPage"
+
 import SectionProductPage from "~/Pages/Manage/Courses/Section/Product/ProductPage"
 import SectionWaitlistEntriesPage from "~/Pages/Manage/Courses/Section/WaitlistEntries"
 import SectionAcademicLogPage from "~/Pages/Manage/Courses/Section/SectionAcademicLog"
@@ -78,8 +79,9 @@ import ReportPage from "~/Pages/Discovery/Report/ReportPage"
 import IndividualReportPage from "~/Pages/Discovery/Report/IndividualReportPage"
 import FinancialReportPurchaseOrder from "~/Pages/Discovery/Report/Financial/PurchaseOrder"
 
-import QuestionPage from "~/Pages/Manage/Question/QuestionPage"
+import QuestionPage from "~/Pages/Manage/Question/QuestionRepositoryPage"
 import QuestionTaggingPage from "~/Pages/Manage/Question/QuestionTaggingPage"
+import QuestionResponsePage from "~/Pages/Manage/Question/QuestionResponsePage"
 
 import FinancialOrderPagePage from "~/Pages/Manage/Financials/OrderPage"
 import OrderDetailsPage from "~/Pages/Manage/Financials/OrderDetailsPage"
@@ -101,6 +103,9 @@ import MarketingCodeRepositoryDetailsPage from "~/Pages/Manage/MarketingCodes/Re
 import { MarketingCodeResponsePage } from "~/Pages/Manage/MarketingCodes/ResponsePage"
 import MarketingCodeResponseDetailsPage from "~/Pages/Manage/MarketingCodes/ResponseDetails"
 import React from "react"
+import TagsPage from "~/Pages/Manage/Tags/TagsPage"
+import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
+import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -169,8 +174,13 @@ export const AppRoutes: RouteProps[] = [
   { path: "/catalog", component: CatalogPage },
   { path: "/catalog/:catalogID", component: CatalogDetailsPage },
 
+  { path: "/tags", component: TagsPage },
+  { path: "/tags/:tagID", component: TagsDetailsPage },
+
   { path: "/question", component: QuestionPage },
+  { path: "/question/:PreferenceDefID", component: QuestionRepositoryDetailsPage },
   { path: "/question/tagging", component: QuestionTaggingPage },
+  { path: "/question/response", component: QuestionResponsePage },
 
   { path: "/request", component: RequestPage },
   { path: "/request/:requestID", component: RequestDetailsPage },

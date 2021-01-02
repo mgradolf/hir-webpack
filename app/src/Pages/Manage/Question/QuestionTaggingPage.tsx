@@ -9,8 +9,8 @@ import QuestionFindButton from "~/Component/Question/Search/QuestionFindButton"
 import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 import { Form } from "antd"
 
-export default function QuestionPage(props: RouteComponentProps<{ offeringID?: string; sectionID?: string }>) {
-  const sectionID = Number(props.match.params.sectionID)
+export default function QuestionTaggingPage(props?: RouteComponentProps<{ offeringID?: string; sectionID?: string }>) {
+  const sectionID = Number(props?.match?.params?.sectionID)
   const [allQuestions, setAllQuestions] = useState<Array<any>>([])
   const [allQuestionGroup, setAllQuestionGroup] = useState([])
   const [filters, setFilters] = useState<{ [key: string]: any }>()
@@ -57,6 +57,8 @@ export default function QuestionPage(props: RouteComponentProps<{ offeringID?: s
           <QuestionCreateButton SectionID={sectionID} {...filters} />
           <QuestionFindButton SectionID={sectionID} {...filters} />
         </div>
+        {/* {sectionID && (
+        )} */}
       </Form>
       <QuestionTable
         loading={apiCallInProgress}

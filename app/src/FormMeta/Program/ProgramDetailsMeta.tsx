@@ -2,6 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
+import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -46,6 +47,12 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         tabTitle: "Summary",
         tabType: "summary",
         tabMeta: summaryMeta
+      },
+      {
+        tabTitle: "Tags",
+        tabType: "summary",
+        tabMeta: [],
+        multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Program", EntityID: program.ProgramID }).tabs
       }
     ]
   }

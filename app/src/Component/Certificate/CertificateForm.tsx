@@ -84,8 +84,6 @@ export default function CertificateForm(props: ICertificateFormProps) {
 
   const issueDateHandler = (date: any) => {
     const selectedDate = date.toDate()
-    console.log("Selected date: ", selectedDate)
-    console.log("validity month: ", validityMonths)
 
     if (validityMonths !== null) {
       props.formInstance.setFieldsValue({

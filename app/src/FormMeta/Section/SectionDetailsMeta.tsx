@@ -33,13 +33,13 @@ import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/Disco
 import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
 import SectionCatalogPage from "~/Pages/Manage/Courses/Section/Catalog/CatalogPage"
 import SectionQuestionPage from "~/Pages/Manage/Courses/Section/QuestionPage"
-import SectionTagPage from "~/Pages/Manage/Courses/Section/TagPage"
 import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
 import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
+import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 import { getGeneralCommentTableColumns } from "~/FormMeta/SectionComment/GeneralCommentTableColumns"
 import { getInstructorCommentTableColumns } from "~/FormMeta/SectionComment/InstructorCommentTableColumns"
 import { COMMENT_TYPES } from "~/utils/Constants"
@@ -186,10 +186,10 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     props: { sectionID: section.SectionID }
   }
 
-  const tagMeta: IDetailsCustomTabProp = {
-    component: SectionTagPage,
-    props: { sectionID: section.SectionID }
-  }
+  // const tagMeta: IDetailsCustomTabProp = {
+  //   component: SectionTagPage,
+  //   props: { sectionID: section.SectionID }
+  // }
 
   const notificationMeta: IDetailsTableTabProp = {
     tableProps: {
@@ -310,8 +310,9 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       },
       {
         tabTitle: "Tags",
-        tabType: "custom",
-        tabMeta: tagMeta
+        tabType: "summary",
+        tabMeta: [],
+        multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Section", EntityID: section.SectionID }).tabs
       },
       {
         tabTitle: "Notifications",

@@ -22,11 +22,11 @@ import {
 } from "~/utils/EventBus"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import RequisitePage from "~/Pages/Manage/Courses/Offering/Requisite/RequisitePage"
-import TagPage from "~/Pages/Manage/Courses/Offering/Tag/TagPage"
 import { getOfferingApprovalTableColumns } from "~/FormMeta/OfferingApproval/ApprovalTableColumns"
 import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/OfferingApprovalModalOpenButton"
 import OfferingRemoveLink from "~/Component/Offering/CreateEdit/OfferingRemoveLink"
 import "~/Sass/utils.scss"
+import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -101,10 +101,10 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     props: { offeringID: offering.OfferingID }
   }
 
-  const tagMeta: IDetailsCustomTabProp = {
-    component: TagPage,
-    props: { offeringID: offering.OfferingID }
-  }
+  // const tagMeta: IDetailsCustomTabProp = {
+  //   component: TagPage,
+  //   props: { offeringID: offering.OfferingID }
+  // }
 
   const qualifiedInstructorMeta: IDetailsTableTabProp = {
     blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
@@ -166,10 +166,16 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       tabType: "table",
       tabMeta: qualifiedInstructorMeta
     },
+    // {
+    //   tabTitle: "Tags",
+    //   tabType: "custom",
+    //   tabMeta: tagMeta
+    // },
     {
       tabTitle: "Tags",
-      tabType: "custom",
-      tabMeta: tagMeta
+      tabType: "summary",
+      tabMeta: [],
+      multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Offering", EntityID: offering.OfferingID }).tabs
     },
     {
       tabTitle: "Catalogs",
