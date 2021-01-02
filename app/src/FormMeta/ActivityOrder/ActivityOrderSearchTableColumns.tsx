@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { getOrderActivity } from "~/ApiServices/Service/ActivityService"
+import { findOrderActivity } from "~/ApiServices/BizApi/query/queryIf"
 import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
@@ -82,5 +82,5 @@ export const getActivityOrderSearchTableColumns = (isModal = false): ITableConfi
     //   width: 100
     // }
   ]
-  return { columns, searchFunc: getOrderActivity, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findOrderActivity, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }
