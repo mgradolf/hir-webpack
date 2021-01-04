@@ -182,7 +182,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
         tabMeta: {
           tableProps: {
             ...getProgramApplicationTableColumns(false),
-            searchParams: { PersonID: person.PersonID },
+            searchParams: { StudentID: student.StudentID },
             refreshEventName: "REFRESH_APPLICATION_TAB"
           }
         }
@@ -207,7 +207,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabMeta: {
       tableProps: {
         ...getCertificateTableColumns(false),
-        searchParams: { PersonID: person.PersonID },
+        searchParams: { StudentID: student.StudentID },
         refreshEventName: "REFRESH_CERTIFICATE_TAB"
       }
     }

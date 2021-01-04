@@ -265,7 +265,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const enrollmentActivityMeta: IDetailsTableTabProp = {
     tableProps: {
       ...getEnrollmentActivityLogTableColumns(),
-      searchParams: { SectionID: section.SectionID },
+      searchParams: { SectionIDs: [section.SectionID] },
       refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE
     }
   }
