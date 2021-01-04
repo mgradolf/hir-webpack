@@ -8,16 +8,22 @@ import {
   getWebCatalogSections
 } from "~/ApiServices/BizApi/catalog/catalogIf"
 import {
+  removeOfferingFromCatalog,
+  removeProgramFromCatalog,
+  removeSectionFromCatalog,
   swapOfferingsInCatalog,
   swapProgramsInCatalog,
   swapSectionsInCatalog
 } from "~/ApiServices/Service/CatalogService"
+
+import { ArrowUpOutlined, ArrowDownOutlined, DeleteOutlined } from "@ant-design/icons"
 
 interface ISortingTableComponent {
   CatalogID: number
   propKey: string
   searchFunc: (Params: any) => Promise<IApiResponse>
   swapFunc: (Params: any) => Promise<IApiResponse>
+  removeFunc: (Params: any) => Promise<IApiResponse>
   columns: TableColumnType
   trigger?: any
 }
@@ -67,10 +73,31 @@ const SortingTableComponent = (props: ISortingTableComponent) => {
           title: "Actions",
           render: (text, record) => {
             return (
-              <>
-                <Button onClick={() => moveUpOrDown(record, true)}>Move Up</Button>
-                <Button onClick={() => moveUpOrDown(record, false)}>Move Down</Button>
-              </>
+              <div style={{ display: "flex" }}>
+                <Button onClick={() => moveUpOrDown(record, true)}>
+                  <ArrowUpOutlined />
+                </Button>
+                <Button onClick={() => moveUpOrDown(record, false)}>
+                  <ArrowDownOutlined />
+                </Button>
+                <Button
+                  danger
+                  onClick={() => {
+                    setLoading(true)
+                    props
+                      .removeFunc({
+                        CatalogId: props.CatalogID,
+                        [props.propKey]: record[props.propKey]
+                      })
+                      .then((x) => {
+                        if (x.success) setTrigger(!trigger)
+                        else setLoading(false)
+                      })
+                  }}
+                >
+                  <DeleteOutlined color="red" />
+                </Button>
+              </div>
             )
           }
         }
@@ -90,6 +117,7 @@ export const CatalogOfferingSortingTableComponent = (props: { CatalogID: number 
       propKey="OfferingID"
       searchFunc={getWebCatalogOfferings}
       swapFunc={swapOfferingsInCatalog}
+      removeFunc={removeOfferingFromCatalog}
       columns={[
         { title: "Course", dataIndex: "Name" },
         { title: "Description", dataIndex: "Description" }
@@ -127,6 +155,7 @@ export const CatalogSectionSortingTableComponent = (props: { CatalogID: number }
           propKey="SectionID"
           searchFunc={(CatalogID: any) => getWebCatalogSections(CatalogID, selectedOfferingID)}
           swapFunc={swapSectionsInCatalog}
+          removeFunc={removeSectionFromCatalog}
           columns={[
             { title: "Section", dataIndex: "SectionNumber" },
             { title: "Start Date", dataIndex: "StartDateFormatted" },
@@ -148,6 +177,7 @@ export const CatalogProgramSortingTableComponent = (props: { CatalogID: number }
       propKey="ProgramID"
       searchFunc={getWebCatalogPrograms}
       swapFunc={swapProgramsInCatalog}
+      removeFunc={removeProgramFromCatalog}
       columns={[
         { title: "Program", dataIndex: "Name" },
         { title: "Description", dataIndex: "Description" }
