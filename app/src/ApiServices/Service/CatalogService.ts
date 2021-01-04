@@ -32,3 +32,15 @@ export function removeOfferingFromCatalog(Params: { [key: string]: any }): Promi
 export function removeProgramFromCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
   return CatalogService[config.Actions.removeProgramFromCatalog](Params)
 }
+
+export function swapProgramsInCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return CatalogService[config.Actions.swapProgramsInCatalog](Params)
+}
+
+export function swapSectionsInCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return CatalogService[config.Actions.swapSectionsInCatalog](Params)
+}
+
+export function swapOfferingsInCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return CatalogService[config.Actions.swapOfferingsInCatalog](Params)
+}

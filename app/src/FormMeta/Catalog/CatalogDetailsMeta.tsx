@@ -4,6 +4,11 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { getCatalogContentTableColumns } from "~/FormMeta/CatalogContent/getCatalogContentTableColumns"
 import { CatalogContentAddDropdown } from "~/FormMeta/CatalogContent/CatalogContentAddDropdown"
+import {
+  CatalogOfferingSortingTableComponent,
+  CatalogProgramSortingTableComponent,
+  CatalogSectionSortingTableComponent
+} from "~/FormMeta/Catalog/CatalogSortingTableComponent"
 
 export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
@@ -52,7 +57,7 @@ export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetails
           tabTitle: "Offering",
           tabType: "custom",
           tabMeta: {
-            component: undefined,
+            component: CatalogOfferingSortingTableComponent,
             props: { CatalogID: Catalog.CatalogID }
           }
         },
@@ -60,7 +65,7 @@ export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetails
           tabTitle: "Section",
           tabType: "custom",
           tabMeta: {
-            component: undefined,
+            component: CatalogSectionSortingTableComponent,
             props: { CatalogID: Catalog.CatalogID }
           }
         },
@@ -68,7 +73,7 @@ export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetails
           tabTitle: "Program",
           tabType: "custom",
           tabMeta: {
-            component: undefined,
+            component: CatalogProgramSortingTableComponent,
             props: { CatalogID: Catalog.CatalogID }
           }
         }

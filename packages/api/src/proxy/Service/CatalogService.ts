@@ -12,7 +12,10 @@ export const config = {
     addProgramToCatalog: "addProgramToCatalog",
     removeSectionFromCatalog: "removeSectionFromCatalog",
     removeOfferingFromCatalog: "removeOfferingFromCatalog",
-    removeProgramFromCatalog: "removeProgramFromCatalog"
+    removeProgramFromCatalog: "removeProgramFromCatalog",
+    swapOfferingsInCatalog: "swapOfferingsInCatalog",
+    swapSectionsInCatalog: "swapSectionsInCatalog",
+    swapProgramsInCatalog: "swapProgramsInCatalog"
   }
 }
 
