@@ -11,6 +11,12 @@ export function findEnrollmentHistory(
   return QueryIf[methodToCall](["jxntm.student.findEnrollmentHistory", Params, from, to])
 }
 
+export function findOrderActivity(Params: { [key: string]: any }, from?: number, to?: number): Promise<IApiResponse> {
+  const methodToCall =
+    from && to ? config.Actions.executeDomainListWithPagination : config.Actions.executeDomainListWithoutPagination
+  return QueryIf[methodToCall](["financial.order.findOrderActivity", Params, from, to])
+}
+
 export function analyzeOrdersByDate(Params: { [key: string]: any }, from?: number, to?: number): Promise<IApiResponse> {
   const methodToCall =
     from && to ? config.Actions.executeDomainListWithPagination : config.Actions.executeDomainListWithoutPagination

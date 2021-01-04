@@ -12,7 +12,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
       initialFilter={{}}
       meta={ActivityOrderSearchMeta}
       hideSearchField={false}
-      defaultFilter={{ SectionID }}
+      defaultFilter={{ SectionIDs: [SectionID] }}
       tableProps={{
         ...getActivityOrderSearchTableColumns()
       }}
