@@ -107,6 +107,8 @@ import React from "react"
 import TagsPage from "~/Pages/Manage/Tags/TagsPage"
 import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
 import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
+import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestsPage"
+import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -230,5 +232,8 @@ export const AppRoutes: RouteProps[] = [
   { path: "/marketing-codes/repository", component: MarketingCodeRepositoryPage },
   { path: "/marketing-codes/repository/:marketingCodeID", component: MarketingCodeRepositoryDetailsPage },
   { path: "/marketing-codes/response", component: MarketingCodeResponsePage },
-  { path: "/marketing-codes/response/:orderItemID/:marketingCodeID", component: MarketingCodeResponseDetailsPage }
+  { path: "/marketing-codes/response/:orderItemID/:marketingCodeID", component: MarketingCodeResponseDetailsPage },
+
+  { path: "/forget-me-request", component: ForgetMeRequestsPage },
+  { path: "/forget-me-request/:AnonymizationRequestID", component: ForgetMeRequestDetailsPage }
 ]

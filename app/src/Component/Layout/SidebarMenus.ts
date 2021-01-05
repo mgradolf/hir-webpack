@@ -17,7 +17,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Students", url: "/student", submenu: [] },
           { title: "Instructors", url: "/instructor", submenu: [] },
           { title: "Accounts", url: "/account", submenu: [] },
-          { title: "Forget Me Requests", url: "", submenu: [] }
+          { title: "Forget Me Requests", url: "/forget-me-request", submenu: [] }
         ]
       },
       // { title: "Accounts", url: "/account", submenu: [] },
