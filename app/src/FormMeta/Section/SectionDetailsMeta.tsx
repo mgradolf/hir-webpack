@@ -27,7 +27,7 @@ import { getRegistrationTableColumns } from "~/FormMeta/Registration/Registratio
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
 import { Button } from "antd"
 import CreateNewBudget from "~/Component/Section/Budget/BudgetFormModal"
-import { getSectionSeatgroupTableColumns } from "~/FormMeta/SectionSeatgroup/SeatgroupTableColumns"
+import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
 import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
@@ -161,7 +161,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const seatgroupMeta: IDetailsTableTabProp = {
     blocks: [<SeatgroupFormModalOpenButton SectionID={section.SectionID} />],
     tableProps: {
-      ...getSectionSeatgroupTableColumns(),
+      ...getSeatgroupTableColumns(),
       searchParams: { SectionID: section.SectionID },
       refreshEventName: REFRESH_SECTION_SEATGROUP_PAGE
     }
@@ -185,11 +185,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     component: SectionQuestionPage,
     props: { sectionID: section.SectionID }
   }
-
-  // const tagMeta: IDetailsCustomTabProp = {
-  //   component: SectionTagPage,
-  //   props: { sectionID: section.SectionID }
-  // }
 
   const notificationMeta: IDetailsTableTabProp = {
     tableProps: {
@@ -338,6 +333,11 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
             tabTitle: "History",
             tabType: "table",
             tabMeta: enrollmentMeta
+          },
+          {
+            tabTitle: "Waitlist Entries",
+            tabType: "table",
+            tabMeta: waitlistEntriesMeta
           }
         ]
       },
@@ -367,11 +367,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabTitle: "Requests",
         tabType: "table",
         tabMeta: requestMeta
-      },
-      {
-        tabTitle: "Waitlist Entries",
-        tabType: "table",
-        tabMeta: waitlistEntriesMeta
       },
       {
         tabTitle: "Comments",

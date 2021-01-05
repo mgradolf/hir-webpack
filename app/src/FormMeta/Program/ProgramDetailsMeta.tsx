@@ -1,8 +1,11 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
+import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
+import { REFRESH_PROGRAM_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -36,6 +39,14 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
     ]
   }
 
+  const seatgroupMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getSeatgroupTableColumns(),
+      searchParams: { ProgramID: program.ProgramID },
+      refreshEventName: REFRESH_PROGRAM_SEATGROUP_PAGE
+    }
+  }
+
   const summaryMeta: IDetailsSummary = {
     summary: [info, application, enrollment]
   }
@@ -47,6 +58,11 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         tabTitle: "Summary",
         tabType: "summary",
         tabMeta: summaryMeta
+      },
+      {
+        tabTitle: "Seat Groups",
+        tabType: "table",
+        tabMeta: seatgroupMeta
       },
       {
         tabTitle: "Tags",

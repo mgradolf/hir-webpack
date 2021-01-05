@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
-import { getSectionSeatgroupTableColumns } from "~/FormMeta/SectionSeatgroup/SeatgroupTableColumns"
+import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
 import StandardPage from "~/Component/Common/Page/StandardPage"
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 
@@ -20,7 +20,7 @@ export default function SeatgroupPage(props: RouteComponentProps<{ sectionID?: s
         </>
       ]}
       title="Manage Seat Groups"
-      tableProps={{ ...getSectionSeatgroupTableColumns() }}
+      tableProps={{ ...getSeatgroupTableColumns() }}
       initialFilter={{ SectionID: SectionID }}
     />
   )

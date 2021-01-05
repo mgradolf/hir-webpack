@@ -3,10 +3,9 @@ import { Form, Card, Button, Input, Select, Switch } from "antd"
 import { getDueDatePolicy } from "~/ApiServices/Service/RefLookupService"
 import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
-import { FormProgramLookupButton } from "~/Component/Common/Form/FormLookups/FormProgramLookup"
 import "~/Sass/utils.scss"
 
 interface ISeatGroupCreateFormProps {
@@ -25,6 +24,7 @@ interface ISeatGroupCreateFormProps {
 const layout = {
   labelCol: { span: 6 }
 }
+
 export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   const [dueDatePolicy, setDueDatePolicy] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
@@ -61,6 +61,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
+      eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
       eventBus.publish(REFRESH_PAGE)
       props.handleCancel()
     } else {
@@ -113,7 +114,6 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
         <Form.Item name={props.fieldNames.IsOptional} label="Waitlist Enabled" {...layout} valuePropName="checked">
           <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
         </Form.Item>
-        {!props.isDefault && <FormProgramLookupButton formInstance={props.formInstance} zIndex={true} />}
       </Form>
     </Card>
   )

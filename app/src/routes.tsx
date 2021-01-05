@@ -106,6 +106,7 @@ import React from "react"
 import TagsPage from "~/Pages/Manage/Tags/TagsPage"
 import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
 import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
+import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -228,5 +229,7 @@ export const AppRoutes: RouteProps[] = [
   { path: "/marketing-codes/repository", component: MarketingCodeRepositoryPage },
   { path: "/marketing-codes/repository/:marketingCodeID", component: MarketingCodeRepositoryDetailsPage },
   { path: "/marketing-codes/response", component: MarketingCodeResponsePage },
-  { path: "/marketing-codes/response/:orderItemID/:marketingCodeID", component: MarketingCodeResponseDetailsPage }
+  { path: "/marketing-codes/response/:orderItemID/:marketingCodeID", component: MarketingCodeResponseDetailsPage },
+
+  { path: "/seatgroup/:seatGroupID", component: SeatGroupDetailsPage }
 ]

@@ -1,12 +1,10 @@
 import React from "react"
-import { Button, Dropdown } from "antd"
-import BudgetMenu from "~/Component/Section/Budget/BudgetMenu"
+import { Switch } from "antd"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
-import { DownOutlined } from "@ant-design/icons"
 
-export const getSectionFinancialTableColumns = (): ITableConfigProp => {
+export const getSeatgroupFinancialTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Type",
@@ -33,33 +31,9 @@ export const getSectionFinancialTableColumns = (): ITableConfigProp => {
       dataIndex: "ItemUnitAmount"
     },
     {
-      title: "Quantity",
-      dataIndex: "ItemQty"
-    },
-    {
-      title: "Item Code",
-      dataIndex: "ItemCode"
-    },
-    {
       title: "Action",
-      key: "action",
-      render: (record: any) => (
-        <Dropdown
-          overlay={
-            <BudgetMenu
-              sectionId={record.SectionID}
-              financialId={record.FinancialID}
-              seatGroups={record.SeatGroups}
-              sectionFinancialId={record.SectionFinancialID}
-            />
-          }
-          trigger={["click"]}
-        >
-          <Button type="primary">
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
-      )
+      dataIndex: "IsApplicable",
+      render: (text: any, record: any) => <Switch checked={!!text} />
     }
   ]
 
