@@ -1,15 +1,8 @@
 import React from "react"
-import { Dropdown, Menu, Space } from "antd"
 import { Link } from "react-router-dom"
-import { getOrderItems } from "~/ApiServices/Service/OrderService"
+import { searchPaymentDetailsByPaymentID } from "~/ApiServices/BizApi/query/queryIf"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import {
-  ApplyDiscountModalOpenButton,
-  IssueCreditModalOpenButton,
-  ViewReturnItemModalOpenButton
-} from "~/FormMeta/OrderItem/OrderItemModals"
-import { DownOutlined } from "@ant-design/icons"
 
 export const getPaymentAllocationsTableColumns = (isModal = false, SectionID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -31,57 +24,28 @@ export const getPaymentAllocationsTableColumns = (isModal = false, SectionID?: n
       render: renderDate
     },
     {
-      title: "Purchaser",
-      dataIndex: "PurchaserName"
+      title: "Item Description",
+      dataIndex: "ItemDescription"
     },
     {
-      title: "Item",
-      dataIndex: "ItemName"
+      title: "GL",
+      dataIndex: "GLAccountName"
     },
     {
-      title: "Quantity",
-      dataIndex: "Quantity"
+      title: "Description",
+      dataIndex: "FinancialDescription"
     },
     {
-      title: "Balance",
-      dataIndex: "Balance"
+      title: "Charge Amount",
+      dataIndex: "RefundAmount"
     },
     {
-      title: "Due Date",
-      dataIndex: "PaymentDueDate",
-      render: renderDate
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (record: any) => (
-        <Space size="middle">
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item key="0">
-                  <ViewReturnItemModalOpenButton OrderID={record.OrderID} OrderItemID={record.OrderItemID} />
-                </Menu.Item>
-                <Menu.Item key="1">
-                  <IssueCreditModalOpenButton OrderID={record.OrderID} OrderItemID={record.OrderItemID} />
-                </Menu.Item>
-                <Menu.Item key="2">
-                  <ApplyDiscountModalOpenButton OrderID={record.OrderID} OrderItemID={record.OrderItemID} />
-                </Menu.Item>
-              </Menu>
-            }
-            trigger={["click"]}
-          >
-            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              Actions <DownOutlined />
-            </a>
-          </Dropdown>
-        </Space>
-      )
+      title: "Allocated Amount",
+      dataIndex: "PaymentLineAmount"
     }
   ]
 
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getOrderItems }
+  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPaymentDetailsByPaymentID }
 }

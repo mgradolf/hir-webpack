@@ -49,6 +49,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Order", url: "/order", submenu: [] },
           { title: "Order Items", url: "/order/items", submenu: [] },
+          { title: "Order Credits", url: "/order/credits", submenu: [] },
           { title: "Payments", url: "/order/payments", submenu: [] },
           { title: "Transactions", url: "/transaction", submenu: [] }
           // { title: "Discount Programs", url: "/discount-programs", submenu: [] }
@@ -76,7 +77,6 @@ export const sidebarMenus: ISidebarMenu[] = [
       },
       { title: "Products", url: "/product", submenu: [] },
       { title: "Tags", url: "/tags", submenu: [] },
-      { title: "Catalogs", url: "/catalog", submenu: [] },
       { title: "Batches", url: "", submenu: [] }
     ]
   },
