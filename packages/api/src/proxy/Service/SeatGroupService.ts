@@ -7,6 +7,8 @@ export const config: Iconfig = {
   Actions: {
     addAccount: "addAccount",
     removeAccount: "removeAccount",
+    addFinancial: "addFinancial",
+    removeFinancial: "removeFinancial",
     attachProgram: "attachProgram",
     detachProgram: "detachProgram",
     findSeatGroups: "findSeatGroups",

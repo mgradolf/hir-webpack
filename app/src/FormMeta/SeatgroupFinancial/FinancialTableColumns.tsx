@@ -2,9 +2,23 @@ import React from "react"
 import { Switch } from "antd"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
+import { getSectionFinancialsCombined } from "~/ApiServices/Service/SectionService"
+import { addFinancial, removeFinancial } from "~/ApiServices/Service/SeatGroupService"
+import { eventBus, REFRESH_SEATGROUP_FINANCIAL_PAGE } from "~/utils/EventBus"
 
-export const getSeatgroupFinancialTableColumns = (): ITableConfigProp => {
+export const getSeatgroupFinancialTableColumns = (SeatGroupID: number, SectionID: number): ITableConfigProp => {
+  const financialAction = (IsPublished: boolean, SectionFinancialID: number) => {
+    if (IsPublished) {
+      addFinancial({ SeatGroupID, SectionFinancialID }).then((x) => {
+        if (x.success) eventBus.publish(REFRESH_SEATGROUP_FINANCIAL_PAGE)
+      })
+    } else {
+      removeFinancial({ SeatGroupID, SectionFinancialID }).then((x) => {
+        if (x.success) eventBus.publish(REFRESH_SEATGROUP_FINANCIAL_PAGE)
+      })
+    }
+  }
+
   const columns: TableColumnType = [
     {
       title: "Type",
@@ -32,12 +46,19 @@ export const getSeatgroupFinancialTableColumns = (): ITableConfigProp => {
     },
     {
       title: "Action",
-      dataIndex: "IsApplicable",
-      render: (text: any, record: any) => <Switch checked={!!text} />
+      dataIndex: "IsPublished",
+      render: (text: any, record: any) => (
+        <Switch checked={!!text} onChange={(e) => financialAction(e, record.SectionFinancialID)} />
+      )
     }
   ]
 
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getSectionFinancials }
+  return {
+    columns,
+    responsiveColumnIndices,
+    expandableColumnIndices,
+    searchFunc: () => getSectionFinancialsCombined(SeatGroupID, SectionID)
+  }
 }

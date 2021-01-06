@@ -8,6 +8,13 @@ export function removeAccount(Params: { [key: string]: any }): Promise<IApiRespo
   return SeatGroupService[config.Actions.removeAccount](Params)
 }
 
+export function addFinancial(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SeatGroupService[config.Actions.addFinancial](Params)
+}
+export function removeFinancial(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SeatGroupService[config.Actions.removeFinancial](Params)
+}
+
 export function attachProgram(Params: { [key: string]: any }): Promise<IApiResponse> {
   return SeatGroupService[config.Actions.attachProgram](Params)
 }

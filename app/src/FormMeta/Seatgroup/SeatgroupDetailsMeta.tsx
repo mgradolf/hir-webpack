@@ -11,6 +11,7 @@ import SeatGroupRemoveLink from "~/Component/Section/SeatGroup/SeatGroupRemoveLi
 import { getSeatgroupFinancialTableColumns } from "~/FormMeta/SeatgroupFinancial/FinancialTableColumns"
 import { REFRESH_SEATGROUP_FINANCIAL_PAGE, REFRESH_SEATGROUP_RELATED_ACCOUNT_PAGE } from "~/utils/EventBus"
 import { getSeatgroupRelatedAccountTableColumns } from "~/FormMeta/SeatgroupRelatedAccount/RelatedAccountTableColumns"
+import SeatGroupProgramButton from "~/Component/Section/SeatGroup/SeatGroupProgramButton"
 
 export const getSeatgroupDetailsMeta = (seatgroup: { [key: string]: any }): IDetailsMeta => {
   const seatgroupInfo: CardContainer = {
@@ -38,7 +39,16 @@ export const getSeatgroupDetailsMeta = (seatgroup: { [key: string]: any }): IDet
       { label: "Due Date Policy", value: seatgroup.DueDatePolicy, render: undefined },
       { label: "Package Name", value: seatgroup.PackageName, render: undefined },
       { label: "Opportunity", value: seatgroup.Opportunity, render: undefined },
-      { label: "Program Name", value: <Link to={`/program/${seatgroup.ProgramID}`}>{seatgroup.ProgramName}</Link> }
+      {
+        label: "Program Name",
+        value: (
+          <SeatGroupProgramButton
+            SeatGroupID={seatgroup.SeatGroupID}
+            ProgramID={seatgroup.ProgramID}
+            ProgramName={seatgroup.ProgramName}
+          />
+        )
+      }
     ]
   }
 
@@ -48,7 +58,7 @@ export const getSeatgroupDetailsMeta = (seatgroup: { [key: string]: any }): IDet
 
   const financialMeta: IDetailsTableTabProp = {
     tableProps: {
-      ...getSeatgroupFinancialTableColumns(),
+      ...getSeatgroupFinancialTableColumns(seatgroup.SeatGroupID, seatgroup.SectionID),
       searchParams: { SectionID: seatgroup.SectionID, SeatGroupID: seatgroup.SeatGroupID },
       refreshEventName: REFRESH_SEATGROUP_FINANCIAL_PAGE
     }
