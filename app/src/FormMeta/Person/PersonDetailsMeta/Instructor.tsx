@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { getFinancialsByTarget } from "~/ApiServices/BizApi/financial/financialIF"
 import { searchInstructorOfferings, searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
@@ -8,8 +7,9 @@ import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
 import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
-import { COMMENT_TYPES } from "~/utils/Constants"
-import { REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
+import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
+import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID } from "~/utils/Constants"
+import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
 
 export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -69,18 +69,9 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabType: "table",
     tabMeta: {
       tableProps: {
-        columns: [
-          { title: "Description", dataIndex: "Description" },
-          { title: "Amount", dataIndex: "ItemUnitAmount" },
-          { title: "GL Account", dataIndex: "GLAccountName" },
-          { title: "Active", dataIndex: "IsActive", render: renderBoolean },
-          { title: "Category", dataIndex: "FinancialCategoryTypeName" }
-        ],
-        searchFunc: (Params: any) => getFinancialsByTarget(instructor.FacultyID, 2),
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
-        searchParams: { FacultyID: instructor.FacultyID, FinancialTypeID: 2 },
-        refreshEventName: "REFRESH_FACULTY_OFFERINGS_TAB"
+        ...getOfferingFinancialTableColumns(instructor.FacultyID, FINANCIAL_FACULTY_TYPE_ID),
+        searchParams: { FacultyID: instructor.FacultyID },
+        refreshEventName: REFRESH_FACULTY_OFFERINGS_TAB
       }
     }
   })

@@ -1,18 +1,19 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
-import FinancialForm from "~/Component/Offering/Financial/FinancialForm"
+import FinancialForm from "~/Component/Financial/FinancialForm"
 import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
-import { IOfferingFinancialFieldNames } from "~/Component/Offering/Interfaces"
+import { IFinancialFieldNames } from "~/Component/Financial/Interfaces"
 
-interface ICreateNewOfferingProps {
-  offeringFinancialId?: number
-  offeringID: number
+interface ICreateNewFinancialProps {
+  financialID?: number
+  financialType: string
+  applyToID: number
   closeModal?: () => void
 }
 
-const fieldNames: IOfferingFinancialFieldNames = {
+const fieldNames: IFinancialFieldNames = {
   IsCharge: "IsCharge",
   FinancialBasisTypeID: "FinancialBasisTypeID",
   Description: "Description",
@@ -29,11 +30,12 @@ const fieldNames: IOfferingFinancialFieldNames = {
   IsTaxable: "IsTaxable"
 }
 
-export default function CreateNewOfferingFinancial({
-  offeringFinancialId,
+export default function CreateNewFinancial({
+  financialID,
   closeModal,
-  offeringID
-}: ICreateNewOfferingProps) {
+  applyToID,
+  financialType
+}: ICreateNewFinancialProps) {
   const [formInstance] = Form.useForm()
   const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -46,10 +48,10 @@ export default function CreateNewOfferingFinancial({
   }
 
   useEffect(() => {
-    if (offeringFinancialId) {
+    if (financialID) {
       ;(async () => {
         setofferingFinancialLoading(true)
-        const response = await getOfferingFinancialById(offeringFinancialId)
+        const response = await getOfferingFinancialById(financialID)
         if (response && response.success) {
           formInstance.setFieldsValue(response.data)
         } else {
@@ -60,7 +62,7 @@ export default function CreateNewOfferingFinancial({
         setofferingFinancialLoading(false)
       })()
     }
-  }, [offeringFinancialId, closeModal, formInstance])
+  }, [financialID, closeModal, formInstance])
 
   return (
     <Modal
@@ -70,8 +72,9 @@ export default function CreateNewOfferingFinancial({
       children={
         <>
           <FinancialForm
-            offeringID={offeringID}
-            financialID={offeringFinancialId}
+            applyToID={applyToID}
+            financialType={financialType}
+            financialID={financialID}
             handleCancel={handleCancel}
             setApiCallInProgress={setApiCallInProgress}
             initialFormValue={initialFormValue}

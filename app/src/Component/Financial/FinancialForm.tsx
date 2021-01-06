@@ -7,14 +7,15 @@ import {
   getFinancialType
 } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
-import { updateOfferingFinancial, createOfferingFinancial } from "~/ApiServices/Service/OfferingService"
+import { createFinancial, updateFinancial } from "~/ApiServices/Service/FinancialService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_OFFERING_FINANCIAL_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 
-interface IOfferingCreateForm2Props {
-  offeringID: number
+interface ICreateFormProps {
+  applyToID: number
+  financialType: string
   financialID?: number
   initialFormValue: { [key: string]: any }
   handleCancel: () => void
@@ -26,7 +27,7 @@ interface IOfferingCreateForm2Props {
 const layout = {
   labelCol: { span: 6 }
 }
-export default function FinancialForm(props: IOfferingCreateForm2Props) {
+export default function FinancialForm(props: ICreateFormProps) {
   const [financialCategoryTypes, setFinancialCategoryTypes] = useState<Array<any>>([])
   const [financialBasisTypes, setFinancialBasisTypes] = useState<Array<any>>([])
   const [glAccountTypes, setGlAccountTypes] = useState<Array<any>>([])
@@ -34,7 +35,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
-    props.formInstance.setFieldsValue({ [props.fieldNames.ApplyToID]: props.offeringID })
+    props.formInstance.setFieldsValue({ [props.fieldNames.ApplyToID]: props.applyToID })
     props.formInstance.setFieldsValue({ [props.fieldNames.FinancialTypeID]: financialTypeId })
     ;(async () => {
       const response = await getFinancialCategoryType()
@@ -57,7 +58,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
     ;(async () => {
       const response = await getFinancialType()
       if (response && response.success && response.data && Array.isArray(response.data)) {
-        setfinancialTypeId(response.data.find((x) => x.Name === "Offering").ID)
+        setfinancialTypeId(response.data.find((x: any) => x.Name === props.financialType).ID)
       }
     })()
   }, [props, financialTypeId])
@@ -67,7 +68,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
     const params = props.formInstance.getFieldsValue()
 
     type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
-    const serviceMethoToCall: serviceMethodType = props.financialID ? updateOfferingFinancial : createOfferingFinancial
+    const serviceMethoToCall: serviceMethodType = props.financialID ? updateFinancial : createFinancial
 
     props.setApiCallInProgress(true)
     setErrorMessages([])
@@ -101,7 +102,7 @@ export default function FinancialForm(props: IOfferingCreateForm2Props) {
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.ApplyToID}>
-          <Input aria-label="Offering ID" value={props.offeringID} />
+          <Input aria-label="Offering ID" value={props.applyToID} />
         </Form.Item>
 
         <Form.Item label="Category" name={props.fieldNames.FinancialCategoryTypeID} {...layout}>

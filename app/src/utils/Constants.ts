@@ -112,6 +112,15 @@ export const DISCOUNT_AMOUNT = {
 
 export const FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID = 1
 
+export const FINANCIAL_OFFERING_TYPE_ID = 1
+export const FINANCIAL_FACULTY_TYPE_ID = 2
+
+export const FINANCIAL_TYPE_OFFERING = "Offering"
+export const FINANCIAL_TYPE_RESOURCE = "Resource"
+export const FINANCIAL_TYPE_INSTRUCTOR = "Instructor"
+export const FINANCIAL_TYPE_FACULTY = "Faculty"
+export const FINANCIAL_TYPE_MARKETING_PROGRAM = "Marketing Program"
+
 export const DISCOUNT_APPLY_TO_ALL_TYPE_ID = 1
 export const DISCOUNT_MANUALLY_APPLIED_TO_ENROLLMENT_TYPE_ID = 2
 export const DISCOUNT_AGE_RANGE_TYPE_ID = 3
