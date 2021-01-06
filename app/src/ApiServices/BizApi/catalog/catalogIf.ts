@@ -15,3 +15,15 @@ export function updateBulkContent(Params: { [key: string]: any }): Promise<IApiR
 export function searchCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
   return CatalogIf[config.Actions.searchCatalog]([Params])
 }
+
+export function getWebCatalogOfferings(Params: any): Promise<IApiResponse> {
+  return CatalogIf[config.Actions.getWebCatalogOfferings]([Params])
+}
+
+export function getWebCatalogSections(...Params: any): Promise<IApiResponse> {
+  return CatalogIf[config.Actions.getWebCatalogSections](Params)
+}
+
+export function getWebCatalogPrograms(Params: any): Promise<IApiResponse> {
+  return CatalogIf[config.Actions.getWebCatalogPrograms]([Params])
+}

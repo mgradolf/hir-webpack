@@ -1,15 +1,16 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchCatalogs } from "~/ApiServices/Service/CatalogService"
-import { renderBoolean, renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, sortByString, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Catalog Name",
+      title: "Name",
       dataIndex: "Name",
-      render: (text: any, record: any) => <Link to={`/catalog/${record.CatalogID}`}>{text}</Link>
+      render: (text: any, record: any) => <Link to={`/catalog/${record.CatalogID}`}>{text}</Link>,
+      sorter: (a, b) => sortByString(a.Name, b.Name)
     },
     {
       title: "Start Date",
@@ -36,7 +37,8 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
     },
     {
       title: "Sort Type",
-      dataIndex: "SortTypeName"
+      dataIndex: "SortTypeName",
+      sorter: (a, b) => sortByString(a.SortTypeName, b.SortTypeName)
     }
   ]
   return { columns, searchFunc: searchCatalogs, responsiveColumnIndices: [], expandableColumnIndices: [] }

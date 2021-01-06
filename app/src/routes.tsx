@@ -59,8 +59,8 @@ import AccountDetailsPage from "~/Pages/Manage/People/Account/AccountDetails"
 import ProductPage from "~/Pages/Manage/Product/ProductPage"
 import ProductDetailsPage from "~/Pages/Manage/Product/ProductDetails"
 
-import { CatalogPage } from "~/Pages/Manage/Catalog/CatalogPage"
-import { CatalogDetailsPage } from "~/Pages/Manage/Catalog/CatalogDetailsPage"
+import { CatalogPage } from "~/Pages/Manage/MarketingCodes/Catalog/CatalogPage"
+import { CatalogDetailsPage } from "~/Pages/Manage/MarketingCodes/Catalog/CatalogDetailsPage"
 
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import ProgramApplicationPage from "~/Pages/Program/ProgramApplicationPage"
@@ -86,6 +86,7 @@ import QuestionResponsePage from "~/Pages/Manage/Question/QuestionResponsePage"
 import FinancialOrderPagePage from "~/Pages/Manage/Financials/OrderPage"
 import OrderDetailsPage from "~/Pages/Manage/Financials/OrderDetailsPage"
 import FinancialOrderItemPage from "~/Pages/Manage/Financials/OrderItemPage"
+import FinancialOrderCreditsPage from "~/Pages/Manage/Financials/OrderCreditsPage"
 import FinancialPaymentPage from "~/Pages/Manage/Financials/PaymentPage"
 import FinancialDiscountProgramPage from "~/Pages/Manage/Financials/DiscountProgramPage"
 import FinancialDiscountProgramDetailsPage from "~/Pages/Manage/Financials/DiscountProgramDetailsPage"
@@ -107,6 +108,10 @@ import TagsPage from "~/Pages/Manage/Tags/TagsPage"
 import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
 import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
 import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
+import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestsPage"
+import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
+import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
+import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -158,6 +163,7 @@ export const AppRoutes: RouteProps[] = [
   { path: "/section/:secitonID/request/:requestID", component: RequestDetailsPage },
 
   { path: "/order/items", component: FinancialOrderItemPage },
+  { path: "/order/credits", component: FinancialOrderCreditsPage },
   { path: "/order/payments", component: FinancialPaymentPage },
   { path: "/order", component: FinancialOrderPagePage },
   { path: "/order/:orderID", component: OrderDetailsPage },
@@ -231,5 +237,10 @@ export const AppRoutes: RouteProps[] = [
   { path: "/marketing-codes/response", component: MarketingCodeResponsePage },
   { path: "/marketing-codes/response/:orderItemID/:marketingCodeID", component: MarketingCodeResponseDetailsPage },
 
-  { path: "/seatgroup/:seatGroupID", component: SeatGroupDetailsPage }
+  { path: "/seatgroup/:seatGroupID", component: SeatGroupDetailsPage },
+  { path: "/forget-me-request", component: ForgetMeRequestsPage },
+  { path: "/forget-me-request/:AnonymizationRequestID", component: ForgetMeRequestDetailsPage },
+
+  { path: "/batch", component: BatchPage },
+  { path: "/batch/:BatchImportID", component: BatchDetailsPage }
 ]

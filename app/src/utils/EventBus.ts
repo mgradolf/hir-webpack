@@ -85,7 +85,7 @@ class PageEventBus {
   publishSimilarEvents(listenerNamePattern: RegExp) {
     const keys = Object.keys(this.eventListeners)
     keys.forEach((key) => {
-      if (listenerNamePattern.test(key)) {
+      if (listenerNamePattern.test(key) && typeof this.eventListeners[key] === "function") {
         this.eventListeners[key]()
       }
     })

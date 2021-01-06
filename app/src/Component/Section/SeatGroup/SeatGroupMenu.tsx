@@ -1,7 +1,7 @@
 import React from "react"
 import { Menu } from "antd"
 import SeatGroupRemoveLink from "~/Component/Section/SeatGroup/SeatGroupRemoveLink"
-import SeatGroupEditLink from "./SeatGroupEditLink"
+import SeatGroupEditLink from "~/Component/Section/SeatGroup/SeatGroupEditLink"
 
 interface ISeatGroupMenu {
   additionalData: { [key: string]: any }
