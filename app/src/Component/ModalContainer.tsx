@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import OfflineAlert from "~/Component/Alerts/Offline"
 import LoginModal from "~/Component/Login/LoginModal"
 import CreateNewOfferingModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
-import OfferingFinancialFormModal from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApprovalFormModal"
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
@@ -43,12 +42,6 @@ function ModalContainer(modalState: IModalState) {
       {modalState.loginModal.value && <LoginModal />}
       {modalState.createOfferingModal.value && (
         <CreateNewOfferingModal offeringId={modalState.createOfferingModal.config.OfferingId} />
-      )}
-      {modalState.createOfferingFinancialModal.value && (
-        <OfferingFinancialFormModal
-          offeringFinancialId={modalState.createOfferingFinancialModal.config.financialId}
-          offeringID={modalState.createOfferingFinancialModal.config.offeringId}
-        />
       )}
       {modalState.offeringApprovalModal.value && (
         <OfferingApprovalFormModal offeringID={modalState.offeringApprovalModal.config.offeringId} />

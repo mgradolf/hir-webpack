@@ -10,7 +10,6 @@ import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { Button } from "antd"
 import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
-import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 import { getOfferingCatalogTableColumns } from "~/FormMeta/Offering/OfferingCatalogTableColumns"
 import {
@@ -27,6 +26,8 @@ import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/Offer
 import OfferingRemoveLink from "~/Component/Offering/CreateEdit/OfferingRemoveLink"
 import "~/Sass/utils.scss"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
+import { FINANCIAL_OFFERING_TYPE_ID, FINANCIAL_TYPE_OFFERING } from "~/utils/Constants"
+import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -76,11 +77,15 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       <>
         {setShowModal && (
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Offering Financial
+            + Create Financial
           </Button>
         )}
         {showModal && (
-          <CreateNewOfferingFinancial offeringID={props.OfferingID} closeModal={() => setShowModal(false)} />
+          <CreateNewFinancial
+            applyToID={props.OfferingID}
+            financialType={FINANCIAL_TYPE_OFFERING}
+            closeModal={() => setShowModal(false)}
+          />
         )}
       </>
     )
@@ -90,7 +95,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     blocks: [<FinancialFormModalOpenButton OfferingID={offering.OfferingID} />],
     tableProps: {
       pagination: false,
-      ...getOfferingFinancialTableColumns(offering.OfferingID),
+      ...getOfferingFinancialTableColumns(offering.OfferingID, FINANCIAL_OFFERING_TYPE_ID),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE
     }
@@ -100,11 +105,6 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     component: RequisitePage,
     props: { offeringID: offering.OfferingID }
   }
-
-  // const tagMeta: IDetailsCustomTabProp = {
-  //   component: TagPage,
-  //   props: { offeringID: offering.OfferingID }
-  // }
 
   const qualifiedInstructorMeta: IDetailsTableTabProp = {
     blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
@@ -166,11 +166,6 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       tabType: "table",
       tabMeta: qualifiedInstructorMeta
     },
-    // {
-    //   tabTitle: "Tags",
-    //   tabType: "custom",
-    //   tabMeta: tagMeta
-    // },
     {
       tabTitle: "Tags",
       tabType: "summary",
