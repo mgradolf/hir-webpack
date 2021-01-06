@@ -111,6 +111,7 @@ import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeReques
 import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
 import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
 import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
+import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -240,5 +241,7 @@ export const AppRoutes: RouteProps[] = [
   { path: "/forget-me-request/:AnonymizationRequestID", component: ForgetMeRequestDetailsPage },
 
   { path: "/batch", component: BatchPage },
-  { path: "/batch/:BatchImportID", component: BatchDetailsPage }
+  { path: "/batch/:BatchImportID", component: BatchDetailsPage },
+
+  { path: "/seatgroup/:seatGroupID", component: SeatGroupDetailsPage }
 ]

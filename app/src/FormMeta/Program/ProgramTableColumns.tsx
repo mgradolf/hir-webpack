@@ -19,7 +19,7 @@ export const getProgramTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Certificate Name", dataIndex: "CertificateName" }
   ]
 
-  const responsiveColumnIndices = [1, 3, 4, 5, 6]
-  const expandableColumnIndices = [6, 7]
+  const responsiveColumnIndices: [] = []
+  const expandableColumnIndices: [] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPrograms }
 }

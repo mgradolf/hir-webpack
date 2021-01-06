@@ -7,7 +7,8 @@ export const config = {
   Actions: {
     getStudentAcademicActivity: "getStudentAcademicActivity",
     getStudentEnrollmentActivity: "getStudentEnrollmentActivity",
-    getOrderActivity: "getOrderActivity"
+    getOrderActivity: "getOrderActivity",
+    getCreditMemoActivity: "getCreditMemoActivity"
   }
 }
 

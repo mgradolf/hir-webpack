@@ -64,6 +64,34 @@ export function getSectionFinancials(Params: { [key: string]: any }): Promise<IA
   return SectionService[config.Actions.getSectionFinancials](Params)
 }
 
+export function getSectionFinancialsCombined(SeatGroupID?: number, SectionID?: number): Promise<IApiResponse> {
+  return Promise.all([getSectionFinancials({ SectionID, SeatGroupID }), getSectionFinancials({ SectionID })]).then(
+    (responses) => {
+      const response1 = responses[0]
+      const response2 = responses[1]
+      if (response1.success && response2.success) {
+        Object.keys(response2.data).forEach((sectionFinancial: any) => {
+          response2.data[sectionFinancial]["IsPublished"] = false
+          Object.keys(response1.data).forEach((seatGroupFinancial: any) => {
+            if (
+              response2.data[sectionFinancial].SectionFinancialID ===
+              response1.data[seatGroupFinancial].SectionFinancialID
+            ) {
+              response2.data[sectionFinancial]["IsPublished"] = true
+              return false
+            }
+          })
+        })
+        return response2
+      } else if (response2.success) {
+        return response2
+      } else {
+        return response1
+      }
+    }
+  )
+}
+
 export function getAvailableOfferingFinancials(SectionID: number): Promise<IApiResponse> {
   return SectionService[config.Actions.getAvailableOfferingFinancials]({
     SectionID

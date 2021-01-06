@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -10,8 +11,9 @@ import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableCo
 import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
 import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
-import { Link } from "react-router-dom"
 import { getTransactionFinancialTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialTableColumns"
+import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
+import { REFRESH_ACCOUNT_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -44,17 +46,21 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Contacts",
     tabType: "table",
     tabMeta: {
-      // searchMeta: [
-      //   {
-      //     label: "Is Active",
-      //     fieldName: "IsActive",
-      //     inputType: BOOLEAN
-      //   }
-      // ],
       tableProps: {
         ...getAccountAffiliationTableColumn(),
         searchParams: { AccountID: account.AccountID },
         refreshEventName: "REFRESH_CONTACT_TAB"
+      }
+    }
+  })
+  meta.push({
+    tabTitle: "Seat Groups",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getSeatgroupTableColumns(),
+        searchParams: { AccountID: account.AccountID },
+        refreshEventName: REFRESH_ACCOUNT_SEATGROUP_PAGE
       }
     }
   })

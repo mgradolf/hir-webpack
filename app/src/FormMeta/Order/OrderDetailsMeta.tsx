@@ -14,7 +14,8 @@ import { getMarketingCodeResponseTableColumns } from "~/FormMeta/MarketingCodeRe
 import { getOrderPurchasedTableColumns } from "~/FormMeta/OrderPurchased/OrderPurchasedTableColumns"
 import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
 import { getActivityOrderSearchTableColumns } from "~/FormMeta/ActivityOrder/ActivityOrderSearchTableColumns"
-import { REFRESH_ORDER_ACTIVITY_PAGE } from "~/utils/EventBus"
+import { REFRESH_ORDER_ACTIVITY_PAGE, REFRESH_ORDER_CREDIT_ACTIVITY_PAGE } from "~/utils/EventBus"
+import { getActivityOrderCreditSearchTableColumns } from "~/FormMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -167,7 +168,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       { tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta },
       { tabTitle: "Items", tabType: "table", tabMeta: orderItemsMeta },
       { tabTitle: "Charges", tabType: "table", tabMeta: orderLinesMeta },
-      // { tabTitle: "Credits", tabType: "table", tabMeta: orderCreditsMeta },
+      { tabTitle: "Credits", tabType: "table", tabMeta: orderCreditsMeta },
       { tabTitle: "Payments", tabType: "table", tabMeta: orderPaymentsMeta },
       { tabTitle: "Returns", tabType: "table", tabMeta: orderReturnsMeta },
       { tabTitle: "Registrations", tabType: "table", tabMeta: orderRegistrationsMeta },
@@ -193,7 +194,14 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
           {
             tabTitle: "Credits",
             tabType: "table",
-            tabMeta: orderCreditsMeta
+            tabMeta: {
+              tableProps: {
+                pagination: false,
+                ...getActivityOrderCreditSearchTableColumns(),
+                searchParams: { OrderID: order.OrderID },
+                refreshEventName: REFRESH_ORDER_CREDIT_ACTIVITY_PAGE
+              }
+            }
           }
         ]
       }

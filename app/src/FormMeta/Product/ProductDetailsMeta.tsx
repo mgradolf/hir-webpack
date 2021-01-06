@@ -26,7 +26,7 @@ export const getProductDetailsMeta = (Product: { [key: string]: any }): IDetails
   }
 
   const productFinancialMeta: IDetailsTableTabProp = {
-    title: "Contacts",
+    title: "Financials",
     tableProps: {
       ...getProductFinancialsTableColumns(),
       searchParams: { ProductID: Product.ProductID }

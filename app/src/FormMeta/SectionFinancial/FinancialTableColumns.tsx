@@ -55,7 +55,7 @@ export const getSectionFinancialTableColumns = (): ITableConfigProp => {
           }
           trigger={["click"]}
         >
-          <Button type="primary" onClick={(e) => e.preventDefault()}>
+          <Button type="primary">
             Go To <DownOutlined />
           </Button>
         </Dropdown>
