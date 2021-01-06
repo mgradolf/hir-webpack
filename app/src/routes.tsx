@@ -59,8 +59,8 @@ import AccountDetailsPage from "~/Pages/Manage/People/Account/AccountDetails"
 import ProductPage from "~/Pages/Manage/Product/ProductPage"
 import ProductDetailsPage from "~/Pages/Manage/Product/ProductDetails"
 
-import { CatalogPage } from "~/Pages/Manage/Catalog/CatalogPage"
-import { CatalogDetailsPage } from "~/Pages/Manage/Catalog/CatalogDetailsPage"
+import { CatalogPage } from "~/Pages/Manage/MarketingCodes/Catalog/CatalogPage"
+import { CatalogDetailsPage } from "~/Pages/Manage/MarketingCodes/Catalog/CatalogDetailsPage"
 
 import ProgramEnrollmentPage from "~/Pages/Program/ProgramEnrollmentPage"
 import ProgramApplicationPage from "~/Pages/Program/ProgramApplicationPage"
@@ -109,6 +109,8 @@ import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
 import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
 import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestsPage"
 import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
+import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
+import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -235,5 +237,8 @@ export const AppRoutes: RouteProps[] = [
   { path: "/marketing-codes/response/:orderItemID/:marketingCodeID", component: MarketingCodeResponseDetailsPage },
 
   { path: "/forget-me-request", component: ForgetMeRequestsPage },
-  { path: "/forget-me-request/:AnonymizationRequestID", component: ForgetMeRequestDetailsPage }
+  { path: "/forget-me-request/:AnonymizationRequestID", component: ForgetMeRequestDetailsPage },
+
+  { path: "/batch", component: BatchPage },
+  { path: "/batch/:BatchImportID", component: BatchDetailsPage }
 ]

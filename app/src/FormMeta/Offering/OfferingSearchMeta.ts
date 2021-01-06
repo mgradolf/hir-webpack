@@ -34,7 +34,6 @@ export const OfferingSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromFinalEnrollmentDate",
     valueKey: "FromFinalEnrollmentDate",
-
     displayKey2: "To",
     fieldName2: "ToFinalEnrollmentDate",
     valueKey2: "ToFinalEnrollmentDate"
@@ -81,7 +80,6 @@ export const OfferingSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromTerminationDate",
     valueKey: "FromTerminationDate",
-
     displayKey2: "To",
     fieldName2: "ToTerminationDate",
     valueKey2: "ToTerminationDate"

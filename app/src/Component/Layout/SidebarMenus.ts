@@ -77,7 +77,7 @@ export const sidebarMenus: ISidebarMenu[] = [
       },
       { title: "Products", url: "/product", submenu: [] },
       { title: "Tags", url: "/tags", submenu: [] },
-      { title: "Batches", url: "", submenu: [] }
+      { title: "Batches", url: "/batch", submenu: [] }
     ]
   },
   {
