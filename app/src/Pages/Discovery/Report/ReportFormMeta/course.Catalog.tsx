@@ -1,11 +1,11 @@
-import { IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { SearchCatalogLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchCatalogLookup"
 
 const meta: IFilterField[] = [
   {
-    label: "School Name",
-    inputType: TEXT,
-    ariaLabel: "school name",
-    fieldName: "SchoolName"
+    label: "Catalog",
+    fieldName: "CatalogID",
+    customFilterComponent: SearchCatalogLookup
   }
 ]
 
