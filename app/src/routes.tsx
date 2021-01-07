@@ -112,8 +112,8 @@ import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeReques
 import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
 import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
 import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
-import { OranizationsPage } from "./Pages/SetupOrganization/Organizations/OranizationsPage"
-import { OranizationsDetailsPage } from "./Pages/SetupOrganization/Organizations/OranizationsDetailsPage"
+import { OranizationsPage } from "~/Pages/SetupOrganization/Organizations/OranizationsPage"
+import { OranizationsDetailsPage } from "~/Pages/SetupOrganization/Organizations/OranizationsDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },

@@ -1,32 +1,28 @@
-import { DATE_PICKER, DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
+import { getOrganizationTypes } from "~/ApiServices/Service/RefLookupService"
+import { DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 
 export const OrganizationSearchMeta: IFilterField[] = [
   {
+    label: "Type",
+    inputType: DROPDOWN,
+    fieldName: "OrganizationTypeID",
+    refLookupService: getOrganizationTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
     label: "Name",
-    inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Name"
+    inputType: DROPDOWN,
+    fieldName: "OrganizationID",
+    refLookupService: getOrganizationByType,
+    displayKey: "Name",
+    valueKey: "OrganizationID"
   },
   {
-    label: "Start Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "StartDate",
-    valueKey: "StartDate",
-    displayKey2: "To",
-    fieldName2: "EndDate",
-    valueKey2: "EndDate"
-  },
-  {
-    label: "PO Number",
-    inputType: TEXT,
-    fieldName: "PONumber",
-    ariaLabel: "PO Number"
-  },
-  {
-    label: "PO Date",
-    inputType: DATE_PICKER,
-    fieldName: "PODate",
-    ariaLabel: "PO Date"
+    label: "Principal Contact",
+    fieldName: "PersonID",
+    customFilterComponent: SearchPersonLookupButton
   }
 ]

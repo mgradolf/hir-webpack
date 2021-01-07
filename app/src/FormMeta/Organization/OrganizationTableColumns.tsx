@@ -1,18 +1,39 @@
-import { findPackages } from "~/ApiServices/Service/PackageService"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import React from "react"
+import { Link } from "react-router-dom"
+import { findOrganizations } from "~/ApiServices/BizApi/query/queryIf"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+import { ReadOutlined } from "@ant-design/icons"
 
 export const getOrganizationTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    { title: "Package Name", dataIndex: "Name", render: undefined },
-    { title: "Account", dataIndex: "AccountName", render: undefined },
-    { title: "Start Date", dataIndex: "StartDate", render: renderDate },
-    { title: "End Date", dataIndex: "EndDate", render: renderDate },
-    { title: "PO Number", dataIndex: "PONumber", render: undefined },
-    { title: "PO Date", dataIndex: "PODate", render: renderDate }
+    {
+      ...(!isModal && {
+        title: "",
+        dataIndex: "",
+        render: (text: any, record: any) => (
+          <Link to={`/organization/${record.OrganizationID}`}>
+            <ReadOutlined />
+          </Link>
+        )
+      })
+    },
+    {
+      title: "Principal Contact",
+      dataIndex: "PrincipalContactName",
+      render: (text: any, record: any) =>
+        isModal ? text : <Link to={`/person/${record.PrincipalContactPersonID}`}>{text}</Link>
+    },
+    {
+      title: "Parent Organization",
+      dataIndex: "ParentOrgName",
+      render: (text: any, record: any) =>
+        isModal ? text : <Link to={`/organization/${record.ParentOrganizationID}`}>{text}</Link>
+    },
+    { title: "Payment Gateway Account", dataIndex: "PaymentGatewayAccount" }
   ]
 
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findPackages }
+  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findOrganizations }
 }

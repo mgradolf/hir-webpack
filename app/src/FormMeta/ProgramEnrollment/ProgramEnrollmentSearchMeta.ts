@@ -1,6 +1,6 @@
+import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getProgramEnrollmentStatusCodes } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { getOrganizationByType } from "~/ApiServices/BizApi/organization/orgIF"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const ProgramEnrollmentSearchMeta: IFilterField[] = [

@@ -36,7 +36,7 @@ export function DetailsPage(props: IDetailsPage) {
       eventBus.unsubscribe(REFRESH_PAGE)
     }
     // eslint-disable-next-line
-  }, [])
+  }, [props.entityID])
 
   return (
     <>
