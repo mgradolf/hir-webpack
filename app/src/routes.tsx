@@ -112,6 +112,8 @@ import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeReques
 import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
 import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
 import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
+import { OranizationsPage } from "./Pages/SetupOrganization/Organizations/OranizationsPage"
+import { OranizationsDetailsPage } from "./Pages/SetupOrganization/Organizations/OranizationsDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -185,9 +187,9 @@ export const AppRoutes: RouteProps[] = [
   { path: "/tags/:tagID", component: TagsDetailsPage },
 
   { path: "/question", component: QuestionPage },
+  { path: "/question/response", component: QuestionResponsePage },
   { path: "/question/:PreferenceDefID", component: QuestionRepositoryDetailsPage },
   { path: "/question/tagging", component: QuestionTaggingPage },
-  { path: "/question/response", component: QuestionResponsePage },
 
   { path: "/request", component: RequestPage },
   { path: "/request/:requestID", component: RequestDetailsPage },
@@ -242,5 +244,8 @@ export const AppRoutes: RouteProps[] = [
   { path: "/forget-me-request/:AnonymizationRequestID", component: ForgetMeRequestDetailsPage },
 
   { path: "/batch", component: BatchPage },
-  { path: "/batch/:BatchImportID", component: BatchDetailsPage }
+  { path: "/batch/:BatchImportID", component: BatchDetailsPage },
+
+  { path: "/organization", component: OranizationsPage },
+  { path: "/organization/:OrganizationID", component: OranizationsDetailsPage }
 ]

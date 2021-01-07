@@ -176,6 +176,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Organization",
         url: "",
         submenu: [
+          { title: "Organizations", url: "/organization", submenu: [] },
           { title: "Setup", url: "", submenu: [] },
           { title: "Calender", url: "", submenu: [] }
         ]

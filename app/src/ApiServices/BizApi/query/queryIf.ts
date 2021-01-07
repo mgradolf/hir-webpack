@@ -60,3 +60,7 @@ export function searchPaymentDetailsByPaymentID(Params: any): Promise<IApiRespon
     }
   ])
 }
+
+export function findOrganizations(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.organization.findOrganizations", Params, 0, 99999])
+}
