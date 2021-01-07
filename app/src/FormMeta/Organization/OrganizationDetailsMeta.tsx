@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
+import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 export const getOrganizationDetailsMeta = (organization: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
@@ -29,6 +30,14 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
     tabMeta: {
       summary: [summary]
     }
+  })
+
+  tabMeta.push({
+    tabTitle: "Tags",
+    tabType: "summary",
+    tabMeta: [],
+    multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Organization", EntityID: organization.OrganizationID })
+      .tabs
   })
 
   return {
