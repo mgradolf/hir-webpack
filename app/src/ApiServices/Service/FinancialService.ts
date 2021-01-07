@@ -21,6 +21,10 @@ export function searchResourceItem(Params: { [key: string]: any }): Promise<IApi
   return FinancialService[config.Actions.searchResourceItem](Params)
 }
 
+export function searchMarketingProgram(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return FinancialService[config.Actions.searchMarketingProgram](Params)
+}
+
 export function searchDiscountProgram(Params: { [key: string]: any }): Promise<IApiResponse> {
   return FinancialService[config.Actions.searchDiscountProgram](Params)
 }

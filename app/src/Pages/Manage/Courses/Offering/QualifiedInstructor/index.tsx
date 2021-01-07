@@ -88,7 +88,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
           <Title level={3}>Manage Offering Instructors</Title>
         </Col>
         <Col className={`gutter-row ${styles.textAlignRight}`} xs={24} sm={24} md={12}>
-          <AddInstructorButton offeringID={parseInt(offeringID)} rowData={instructorIDs} />
+          <AddInstructorButton OfferingID={parseInt(offeringID)} />
         </Col>
       </Row>
 

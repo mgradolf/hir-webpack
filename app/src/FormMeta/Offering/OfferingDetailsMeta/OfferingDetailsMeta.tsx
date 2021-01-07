@@ -110,7 +110,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
     tableProps: {
       pagination: false,
-      ...getQualifiedInstructorTableColumns(offering.OfferingID),
+      ...getQualifiedInstructorTableColumns(),
       searchParams: { OfferingID: offering.OfferingID },
       refreshEventName: REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE
     }

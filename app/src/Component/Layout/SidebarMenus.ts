@@ -71,10 +71,12 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Catalogs", url: "/catalog", submenu: [] },
           { title: "Discount Programs", url: "/discount-programs", submenu: [] },
+          { title: "Programs", url: "/marketing-programs", submenu: [] },
           { title: "Codes", url: "/marketing-codes/repository", submenu: [] },
           { title: "Response", url: "/marketing-codes/response", submenu: [] }
         ]
       },
+      { title: "Resources", url: "/resource", submenu: [] },
       { title: "Products", url: "/product", submenu: [] },
       { title: "Tags", url: "/tags", submenu: [] },
       { title: "Batches", url: "/batch", submenu: [] }

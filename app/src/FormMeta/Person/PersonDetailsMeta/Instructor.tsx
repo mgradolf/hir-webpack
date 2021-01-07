@@ -1,12 +1,14 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { searchInstructorOfferings, searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
+import { searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
+import OfferingAddButton from "~/Component/Offering/OfferingAddButton"
 import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
+import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
 import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID } from "~/utils/Constants"
 import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
@@ -80,21 +82,12 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Qualified Offerings",
     tabType: "table",
     tabMeta: {
+      blocks: [<OfferingAddButton FacultyId={instructor.FacultyID} />],
       tableProps: {
-        columns: [
-          {
-            title: "OfferingName",
-            dataIndex: "OfferingName",
-            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
-          },
-          { title: "Status", dataIndex: "StatusCode" },
-          { title: "Department Name", dataIndex: "OrganizationName" }
-        ],
-        searchFunc: searchInstructorOfferings,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
+        pagination: false,
+        ...getQualifiedInstructorTableColumns(),
         searchParams: { FacultyID: instructor.FacultyID },
-        refreshEventName: "REFRESH_FACULTY_OFFERINGS_TAB"
+        refreshEventName: REFRESH_FACULTY_OFFERINGS_TAB
       }
     }
   })

@@ -4,12 +4,10 @@ import { getInstructorTableColumns } from "~/FormMeta/Instructor/InstructorTable
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 
 interface IInstructorProps {
-  offeringID: number
-  rowData: Array<any>
   onClose: (items?: any[]) => void
 }
 
-export function AddInstructorModal({ offeringID, rowData, onClose }: IInstructorProps) {
+export function AddInstructorModal({ onClose }: IInstructorProps) {
   return (
     <LookupModal
       meta={InstructorSearchMeta}
