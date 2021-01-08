@@ -5,6 +5,10 @@ export const config = {
   Service: "SectionService",
   Module: "hir",
   Actions: {
+    addOfferingFinancials: "addOfferingFinancials",
+    addInstructorFinancials: "addInstructorFinancials",
+    addMarketingProgramFinancials: "addMarketingProgramFinancials",
+    addResourceFinancials: "addResourceFinancials",
     addSectionDiscount: "addSectionDiscount",
     getSectionDetails: "getSectionDetails",
     getSectionStatistics: "getSectionStatistics",

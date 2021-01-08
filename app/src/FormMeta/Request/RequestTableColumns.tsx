@@ -1,21 +1,27 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 
 export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    {
-      ...(!isModal && {
-        render: (text: any, record: any) => renderDetailsLink(`/request/${record.RequestID}`)
-      })
-    },
+    // {
+    //   ...(!isModal && {
+    //     render: (text: any, record: any) => renderDetailsLink(`/request/${record.RequestID}`)
+    //   })
+    // },
     {
       title: "Request ID",
       dataIndex: "RequestID",
       key: "RequestID",
       render: (text: any, record: any) => <Link to={`/request/${record.RequestID}`}>{text}</Link>
+    },
+    {
+      title: "Purchaser",
+      dataIndex: "PurchaserPersonName",
+      render: (text: any, record: any) => <Link to={`/person/${record.PurchaserPersonID}`}>{text}</Link>,
+      key: "PurchaserPersonName"
     },
     {
       title: "Creation Time",
@@ -45,12 +51,6 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
       key: "Source"
     },
     {
-      title: "Purchaser",
-      dataIndex: "PurchaserPersonName",
-      render: (text: any, record: any) => <Link to={`/person/${record.PurchaserPersonID}`}>{text}</Link>,
-      key: "PurchaserPersonName"
-    },
-    {
       title: "Account",
       dataIndex: "AccountName",
       render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>,
@@ -72,8 +72,8 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
     // }
   ]
 
-  const responsiveColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
-  const expandableColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
+  const responsiveColumnIndices: number[] = []
+  const expandableColumnIndices: number[] = []
   return {
     columns,
     responsiveColumnIndices,

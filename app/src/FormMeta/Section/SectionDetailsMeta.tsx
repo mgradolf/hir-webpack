@@ -26,7 +26,6 @@ import {
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
 import { Button } from "antd"
-import CreateNewBudget from "~/Component/Section/Budget/BudgetFormModal"
 import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
@@ -50,6 +49,7 @@ import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTable
 import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
 import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
 import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
+import FinancialMenu from "~/FormMeta/Financial/FinancialMenu"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
@@ -96,20 +96,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     ]
   }
 
-  const FinancialFormModalOpenButton = (props: { SectionID: number }) => {
-    const [showModal, setShowModal] = useState(false)
-    return (
-      <>
-        {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Budget Financials
-          </Button>
-        )}
-        {showModal && <CreateNewBudget sectionId={props.SectionID} closeModal={() => setShowModal(false)} />}
-      </>
-    )
-  }
-
   const SeatgroupFormModalOpenButton = (props: { SectionID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
@@ -150,7 +136,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const financialMeta: IDetailsTableTabProp = {
-    blocks: [<FinancialFormModalOpenButton SectionID={section.SectionID} />],
+    blocks: [<FinancialMenu dataLoaded={section} />],
     tableProps: {
       ...getSectionFinancialTableColumns(),
       searchParams: { SectionID: section.SectionID },

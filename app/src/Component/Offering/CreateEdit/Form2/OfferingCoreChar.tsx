@@ -53,7 +53,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
           case status.Open:
           case status.Closed:
             setDisableStatus(false)
-            response.data = response.data.filter((x) => {
+            response.data = response.data.filter((x: any) => {
               switch (x.StatusID) {
                 case status.Preliminary:
                 case status.Open:

@@ -10,6 +10,7 @@ export const config = {
     deleteFinancial: "deleteFinancial",
     searchFinancials: "searchFinancials",
     searchResourceItem: "searchResourceItem",
+    searchMarketingProgram: "searchMarketingProgram",
     searchDiscountProgram: "searchDiscountProgram"
   }
 }

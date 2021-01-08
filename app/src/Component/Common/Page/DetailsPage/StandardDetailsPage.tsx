@@ -53,7 +53,7 @@ export function StandardDetailsPage(props: IStandardDetailsPage) {
           <Spin size="large" />
         </Row>
       )}
-      {!loading && error && <p>Not Found</p>}
+      {!loading && error && <p>Something went wrong!</p>}
       {!loading && !error && toRender}
     </>
   )

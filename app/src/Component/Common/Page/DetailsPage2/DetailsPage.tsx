@@ -19,9 +19,7 @@ export function DetailsPage(props: IDetailsPage) {
     setError(undefined)
     props.getDetails().then((x) => {
       setLoading(false)
-      if (x.success && !x.data) {
-        // setError({getErrorMessages: () => [{message: "Not Found"}]})
-      } else if (x.success && x.data) {
+      if (x.success && x.data) {
         const { tabs, pageTitle } = props.getMeta(x.data, props.entityType, props.entityID)
         setMeta(tabs)
         setTitle(pageTitle)
@@ -36,7 +34,7 @@ export function DetailsPage(props: IDetailsPage) {
       eventBus.unsubscribe(REFRESH_PAGE)
     }
     // eslint-disable-next-line
-  }, [])
+  }, [props.entityID])
 
   return (
     <>
@@ -45,7 +43,7 @@ export function DetailsPage(props: IDetailsPage) {
           <Spin size="large" />
         </Row>
       )}
-      {!loading && error && <p>Not Found</p>}
+      {!loading && error && <p>Something went wrong!</p>}
       {!loading && !error && meta.length > 0 && (
         <div className="site-layout-content">
           {title && (

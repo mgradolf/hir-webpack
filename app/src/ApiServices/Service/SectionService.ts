@@ -1,6 +1,22 @@
 import SectionService, { config } from "@packages/api/lib/proxy/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function addOfferingFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addOfferingFinancials](Params)
+}
+
+export function addInstructorFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addInstructorFinancials](Params)
+}
+
+export function addMarketingProgramFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addMarketingProgramFinancials](Params)
+}
+
+export function addResourceFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addResourceFinancials](Params)
+}
+
 export function addSectionDiscount(Params: { [key: string]: any }): Promise<IApiResponse> {
   return SectionService[config.Actions.addSectionDiscount](Params)
 }

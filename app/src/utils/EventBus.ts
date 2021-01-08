@@ -55,6 +55,8 @@ export const EVENT_REQUEST_QUESTION_ANSWER = "EVENT_REQUEST_QUESTION_ANSWER"
 export const EVENT_PERSON_SELECTED_FOR_WAITLIST_ENTRY_CREATION = "EVENT_PERSON_SELECTED_FOR_WAITLIST_ENTRY_CREATION"
 
 export const REFRESH_FACULTY_OFFERINGS_TAB = "REFRESH_FACULTY_OFFERINGS_TAB"
+export const REFRESH_RESOURCE_OFFERINGS_TAB = "REFRESH_RESOURCE_OFFERINGS_TAB"
+export const REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB = "REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB"
 
 export const EVENT_REQUEST_RETRY = "EVENT_REQEUST_RETRY"
 export const EVENT_REQUEST_MAKE_PAYMENT = "EVENT_REQEUST_MAKE_PAYMENT"
@@ -78,7 +80,6 @@ class PageEventBus {
   }
 
   publish(listenerName: string, params?: any) {
-    console.log(this.eventListeners)
     if (this.eventListeners[listenerName]) {
       this.eventListeners[listenerName](params)
     }

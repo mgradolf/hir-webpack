@@ -57,7 +57,7 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
     tabMeta: {
       tableProps: {
         ...getTransactionFinancialDepositeTrackingTableColumns(),
-        searchParams: { IsDepositeView: true, PaymentID: payment.PaymentID },
+        searchParams: { IsDepositeView: true, DepositID: payment.DepositID },
         refreshEventName: "REFRESH_DEPOSIT_TRACKING__TAB",
         pagination: false
       }

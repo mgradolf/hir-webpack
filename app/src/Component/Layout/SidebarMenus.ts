@@ -71,10 +71,12 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Catalogs", url: "/catalog", submenu: [] },
           { title: "Discount Programs", url: "/discount-programs", submenu: [] },
+          { title: "Programs", url: "/marketing-programs", submenu: [] },
           { title: "Codes", url: "/marketing-codes/repository", submenu: [] },
           { title: "Response", url: "/marketing-codes/response", submenu: [] }
         ]
       },
+      { title: "Resources", url: "/resource", submenu: [] },
       { title: "Products", url: "/product", submenu: [] },
       { title: "Tags", url: "/tags", submenu: [] },
       { title: "Batches", url: "/batch", submenu: [] }
@@ -168,20 +170,21 @@ export const sidebarMenus: ISidebarMenu[] = [
         ]
       },
       { title: "Certificates", url: "", submenu: [] },
-      { title: "Marketing Programs", url: "", submenu: [] },
-      { title: "Resources", url: "", submenu: [] },
+      // { title: "Marketing Programs", url: "", submenu: [] },
+      // { title: "Resources", url: "", submenu: [] },
       { title: "Grade Score Definitions", url: "", submenu: [] },
       { title: "Reference Data", url: "", submenu: [] },
       {
         title: "Organization",
         url: "",
         submenu: [
+          { title: "Organizations", url: "/organization", submenu: [] },
           { title: "Setup", url: "", submenu: [] },
           { title: "Calender", url: "", submenu: [] }
         ]
       },
       { title: "Configuration Management", url: "", submenu: [] },
-      { title: "Users", url: "", submenu: [] }
+      { title: "Users", url: "/user", submenu: [] }
     ]
   }
 ]

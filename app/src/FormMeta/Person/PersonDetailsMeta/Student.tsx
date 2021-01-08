@@ -182,7 +182,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
         tabMeta: {
           tableProps: {
             ...getProgramApplicationTableColumns(false),
-            searchParams: { StudentID: student.StudentID },
+            searchParams: { studentID: student.StudentID },
             refreshEventName: "REFRESH_APPLICATION_TAB"
           }
         }
@@ -193,7 +193,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
         tabMeta: {
           tableProps: {
             ...getProgramEnrollmentTableColumns(false),
-            searchParams: { PersonID: person.PersonID },
+            searchParams: { studentID: student.StudentID },
             refreshEventName: "REFRESH_ENROLLMMENT_TAB"
           }
         }
@@ -214,7 +214,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   })
 
   tabMetas.push({
-    tabTitle: "Hold",
+    tabTitle: "Holds",
     tabType: "table",
     tabMeta: {
       tableProps: {

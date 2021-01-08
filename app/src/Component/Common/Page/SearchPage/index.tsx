@@ -4,6 +4,7 @@ import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import SearchListWithHiddenSearchForm from "~/Component/Common/Page/SearchPage/SearchListWithHiddenSearchForm"
 import SearchListWithVisibleSearchForm from "~/Component/Common/Page/SearchPage/SearchListWithVisibleSearchForm"
 import { RouteComponentProps, useLocation } from "react-router-dom"
+import SearchListWithoutSearchForm from "~/Component/Common/Page/SearchPage/SearchListWithoutSearchForm"
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)
@@ -22,6 +23,9 @@ interface IPage extends Partial<RouteComponentProps> {
 export function SearchPage(props: IPage) {
   const hideSearchFieldByUrlParam = useQuery().get("hide-search") === "true"
   const { hideSearchField, ...propsToPass } = props
+  if (!props.meta) {
+    return <SearchListWithoutSearchForm {...propsToPass} />
+  }
   if (props.meta && (hideSearchFieldByUrlParam || props.hideSearchField)) {
     return <SearchListWithHiddenSearchForm {...propsToPass} />
   }

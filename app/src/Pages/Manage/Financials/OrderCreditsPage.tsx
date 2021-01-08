@@ -6,7 +6,7 @@ import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCredit
 export default function OrderCreditsPage() {
   return (
     <SearchPage
-      title="Order"
+      title="Credits"
       meta={OrderCreditsSearchMeta}
       hideSearchField={false}
       tableProps={getOrderCreditsTableColumns()}

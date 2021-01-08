@@ -30,7 +30,7 @@ export default function SeatGroupAffiliatedOrganization({
         setSectionSeatGroupLoading(true)
         const response = await findAvailableAffiliatedOrgs({ SeatGroupID: seatgroupId })
         if (response && response.success && Array.isArray(response.data)) {
-          response.data.map((x) => {
+          response.data.map((x: any) => {
             affiliatedOrganization.push({
               key: x.AccountID,
               title: x.AccountDescriptor
@@ -48,7 +48,7 @@ export default function SeatGroupAffiliatedOrganization({
       ;(async () => {
         const response = await findAffiliatedOrgsForSeatGroup(seatgroupId)
         if (response && response.success && Array.isArray(response.data)) {
-          response.data.map((x) => {
+          response.data.map((x: any) => {
             affiliatedOrganization.push({
               key: x.AccountID,
               title: x.AccountDescriptor
@@ -56,7 +56,7 @@ export default function SeatGroupAffiliatedOrganization({
             return affiliatedOrganization
           })
           setTargetKeys(
-            response.data.map((x) => {
+            response.data.map((x: any) => {
               return x.AccountID
             })
           )
