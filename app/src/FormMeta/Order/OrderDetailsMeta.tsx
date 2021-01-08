@@ -55,13 +55,14 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       {
         label: "Emails",
         value: order?.Emails,
-        render: (emails: string[]) => (
-          <ul>
-            {emails?.map((x, i) => (
-              <li key={i}>{renderEmail(x)}</li>
-            ))}
-          </ul>
-        )
+        render: (value) => (value && value.length > 0 ? renderEmail(value[0]) : "")
+        //  (emails: string[]) => (
+        //   <ul>
+        //     {emails?.map((x, i) => (
+        //       <li key={i}>{renderEmail(x)}</li>
+        //     ))}
+        //   </ul>
+        // )
       },
       {
         label: "Telephones",
@@ -80,8 +81,8 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       { label: "Address2", value: order.BillToAddress2 },
       { label: "Address3", value: order.BillToAddress3 },
       { label: "City", value: order.BillToCity },
+      { label: "State", value: order.BillToRegion },
       { label: "Zip Code", value: order.BillToPostalCode },
-      { label: "State", value: order.BillToRegions },
       { label: "Country", value: order.BillToCountry }
     ]
   }

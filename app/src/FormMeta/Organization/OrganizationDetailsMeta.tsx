@@ -2,12 +2,15 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
+import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
+import SectionQuestionPage from "~/Pages/Manage/Courses/Section/QuestionPage"
 export const getOrganizationDetailsMeta = (organization: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
-  const summary: CardContainer = {
+  const Organization: CardContainer = {
+    title: "Organization",
     contents: [
-      { label: "Name", value: organization.Name },
+      { label: "Organization Type", value: organization.OrganizationType },
       { label: "Short Name", value: organization.ShortName },
       { label: "Informal Name", value: organization.InformalName },
       { label: "Description", value: organization.Description },
@@ -17,10 +20,23 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
         render: (text: any) => <Link to={`/organization/${organization.ParentOrganizationId}`}>{text}</Link>
       },
       { label: "FEID", value: organization.FEID },
-      { label: "Selected Gateway", value: organization.PaymentGatewayAccount },
       { label: "Employee Count", value: organization.EmployeeCount },
-      { label: "School Code", value: organization.SchoolCodeID },
-      { label: "School Name", value: organization.SchoolName }
+      {
+        label: "School Name",
+        value: organization.SchoolName,
+        render: (name) => <Link to={`/school/${organization.SchoolCodeID}`}>{name}</Link>
+      },
+      { label: "Selected Gateway", value: organization.PaymentGatewayAccount }
+    ]
+  }
+
+  const WebConfig: CardContainer = {
+    title: "Web Configuration",
+    contents: [
+      { label: "Title", value: organization.WebTitle },
+      { label: "Logo", value: organization.WebLogo },
+      { label: "Published", value: organization.WebPublish, render: renderBoolean },
+      { label: "Url", value: organization.WebLink, render: (link) => <a href={link}>{link}</a> }
     ]
   }
 
@@ -28,7 +44,7 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
-      summary: [summary]
+      summary: [Organization, WebConfig]
     }
   })
 
@@ -38,6 +54,15 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
     tabMeta: [],
     multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Organization", EntityID: organization.OrganizationID })
       .tabs
+  })
+
+  tabMeta.push({
+    tabTitle: "Questions",
+    tabType: "custom",
+    tabMeta: {
+      component: SectionQuestionPage,
+      props: {}
+    }
   })
 
   return {

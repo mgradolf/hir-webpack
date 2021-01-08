@@ -3,34 +3,29 @@ import { Link } from "react-router-dom"
 import { findOrganizations } from "~/ApiServices/BizApi/query/queryIf"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import { ReadOutlined } from "@ant-design/icons"
 
 export const getOrganizationTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      ...(!isModal && {
-        title: "",
-        dataIndex: "",
-        render: (text: any, record: any) => (
-          <Link to={`/organization/${record.OrganizationID}`}>
-            <ReadOutlined />
-          </Link>
-        )
-      })
+      title: "Organization Type",
+      dataIndex: "OrganizationType"
     },
     {
-      title: "Principal Contact",
-      dataIndex: "PrincipalContactName",
+      title: "Name",
+      dataIndex: "Name",
       render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/person/${record.PrincipalContactPersonID}`}>{text}</Link>
+        isModal ? text : <Link to={`/organization/${record.OrganizationID}`}>{text}</Link>
+    },
+    {
+      title: "Short Name",
+      dataIndex: "ShortName"
     },
     {
       title: "Parent Organization",
       dataIndex: "ParentOrgName",
       render: (text: any, record: any) =>
         isModal ? text : <Link to={`/organization/${record.ParentOrganizationID}`}>{text}</Link>
-    },
-    { title: "Payment Gateway Account", dataIndex: "PaymentGatewayAccount" }
+    }
   ]
 
   const responsiveColumnIndices: number[] = []

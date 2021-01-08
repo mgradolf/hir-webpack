@@ -1,4 +1,4 @@
-import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupService"
+import { getCountries } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const studentSearchMeta: IFilterFieldObject[] = [
@@ -42,35 +42,31 @@ export const studentSearchMeta: IFilterFieldObject[] = [
     fieldName: "OtherName",
     ariaLabel: "Other Name"
   },
-  {
-    label: "Account Role",
-    inputType: DROPDOWN,
-
-    fieldName: "RoleName",
-    ariaLabel: "Account Role",
-    refLookupService: getAccountTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Account Name",
-    inputType: TEXT,
-
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
-  },
+  // {
+  //   label: "Account Role",
+  //   inputType: DROPDOWN,
+  //   fieldName: "RoleName",
+  //   ariaLabel: "Account Role",
+  //   refLookupService: getAccountTypes,
+  //   displayKey: "Name",
+  //   valueKey: "ID"
+  // },
+  // {
+  //   label: "Account Name",
+  //   inputType: TEXT,
+  //   fieldName: "AccountName",
+  //   ariaLabel: "Account Name"
+  // },
 
   {
     label: "Address",
     inputType: TEXT,
-
     fieldName: "Address",
     ariaLabel: "Address"
   },
   {
     label: "City",
     inputType: TEXT,
-
     fieldName: "City",
     ariaLabel: "City"
   },

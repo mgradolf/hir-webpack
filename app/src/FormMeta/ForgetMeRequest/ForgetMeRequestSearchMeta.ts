@@ -1,47 +1,58 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { getSectionRosterStatusCode } from "~/ApiServices/Service/RefLookupService"
+import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 
 export const ForgetMeRequestSearchMeta: IFilterField[] = [
   {
-    label: "Section",
-    fieldName: "SectionIDs",
-    customFilterComponent: SearchSectionLookupButton,
-    extraProps: {
-      isArray: true
-    }
-  },
-  {
-    label: "Student",
-    fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
-  },
-  {
-    label: "Activity By",
+    label: "First Name",
     inputType: TEXT,
-    fieldName: "UserID",
-    ariaLabel: "Activity By User ID"
+    fieldName: "FirstName"
+  },
+  {
+    label: "Last Name",
+    inputType: TEXT,
+    fieldName: "LastName"
+  },
+  {
+    label: "Source",
+    inputType: DROPDOWN,
+    fieldName: "SourceID",
+    refLookupService: getSourceModule,
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
     label: "Activity Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    fieldName: "FromDate",
-    valueKey: "FromDate",
-    ariaLabel: "From",
+    fieldName: "RequestDateFrom",
+    valueKey: "RequestDateFrom",
     displayKey2: "To",
-    fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    fieldName2: "RequestDateTo",
+    valueKey2: "RequestDateTo"
   },
   {
-    label: "Enrollment Status",
-    inputType: DROPDOWN,
-    fieldName: "SectionRosterStatusCodeID",
-    ariaLabel: "Enrollment Status",
-    refLookupService: getSectionRosterStatusCode,
-    displayKey: "Name",
-    valueKey: "ID"
+    label: "Processing Date",
+    inputType: DATE_PICKERS,
+    displayKey: "From",
+    fieldName: "ProcessingDateFrom",
+    valueKey: "ProcessingDateFrom",
+    displayKey2: "To",
+    fieldName2: "ProcessingDateTo",
+    valueKey2: "ProcessingDateTo"
+  },
+  {
+    label: "Cancelled",
+    inputType: BOOLEAN,
+    fieldName: "IsCancelled"
+  },
+  {
+    label: "Processed",
+    inputType: BOOLEAN,
+    fieldName: "IsProcessed"
+  },
+  {
+    label: "Approved",
+    inputType: BOOLEAN,
+    fieldName: "IsApproved"
   }
 ]

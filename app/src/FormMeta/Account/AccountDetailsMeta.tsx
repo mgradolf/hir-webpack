@@ -87,48 +87,55 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     }
   })
   meta.push({
-    tabTitle: "Orders",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getOrderTableColumns(false),
-        searchParams: { AccountID: account.AccountID },
-        refreshEventName: "REFRESH_ORDERS_TAB"
+    tabTitle: "Financials",
+    tabType: "summary",
+    tabMeta: undefined,
+    multipleTabMetas: [
+      {
+        tabTitle: "Orders",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getOrderTableColumns(false),
+            searchParams: { AccountID: account.AccountID },
+            refreshEventName: "REFRESH_ORDERS_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Order Items",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getOrderItemTableColumns(false),
+            searchParams: { OrganizationID: account.AccountID },
+            refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Payments",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getPaymentTableColumns(false),
+            searchParams: { AccountID: account.AccountID },
+            refreshEventName: "REFRESH_PAYMENTS_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Transactions",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getTransactionFinancialTableColumns(false),
+            searchParams: { AccountID: account.AccountID },
+            refreshEventName: "REFRESH_TRANSACTION_TAB"
+          }
+        }
       }
-    }
-  })
-  meta.push({
-    tabTitle: "Order Items",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getOrderItemTableColumns(false),
-        searchParams: { OrganizationID: account.AccountID },
-        refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
-      }
-    }
-  })
-  meta.push({
-    tabTitle: "Payments",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getPaymentTableColumns(false),
-        searchParams: { AccountID: account.AccountID },
-        refreshEventName: "REFRESH_PAYMENTS_TAB"
-      }
-    }
-  })
-  meta.push({
-    tabTitle: "Transactions",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getTransactionFinancialTableColumns(false),
-        searchParams: { AccountID: account.AccountID },
-        refreshEventName: "REFRESH_TRANSACTION_TAB"
-      }
-    }
+    ]
   })
   meta.push({
     tabTitle: "Catalogs",

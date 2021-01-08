@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { ReadOutlined } from "@ant-design/icons"
 import { getAnonymizeRequests } from "~/ApiServices/Service/AnonymizationRequestService"
@@ -24,7 +24,7 @@ export const getForgetMeRequestTableColumns = (isModal = false): ITableConfigPro
     { title: "Request Date", dataIndex: "RequestDate", render: renderDate },
     { title: "Request Source", dataIndex: "SourceName" },
     { title: "Request By", dataIndex: "StaffUserName" },
-    { title: "Processed", dataIndex: "IsProcessed" },
+    { title: "Processed", dataIndex: "IsProcessed", render: renderBoolean },
     { title: "Processing Date", dataIndex: "ProcessingDate", render: renderDate }
   ]
 
