@@ -1,4 +1,5 @@
-import React from "react"
+import { Button } from "antd"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
@@ -6,11 +7,12 @@ import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
+import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
 import OfferingAddButton from "~/Component/Offering/OfferingAddButton"
 import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
 import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
-import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID } from "~/utils/Constants"
+import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
 import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
 
 export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta[] => {
@@ -31,6 +33,26 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     summary: [instructorInfo]
   }
 
+  const FinancialFormModalOpenButton = (props: { FacultyID: number }) => {
+    const [showModal, setShowModal] = useState(false)
+    return (
+      <>
+        {setShowModal && (
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
+            + Create Financial
+          </Button>
+        )}
+        {showModal && (
+          <CreateNewFinancial
+            applyToID={props.FacultyID}
+            financialType={FINANCIAL_TYPE_FACULTY}
+            closeModal={() => setShowModal(false)}
+          />
+        )}
+      </>
+    )
+  }
+
   tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
   tabMetas.push({
     tabTitle: "Faculty Schedule",
@@ -44,17 +66,12 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
             render: renderDateTime,
             sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
           },
-          // {
-          //   title: "Start Time",
-          //   dataIndex: "StartTime"
-          // },
           {
             title: "End Date",
             dataIndex: "EndDate",
             render: renderDateTime,
             sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
           },
-          // { title: "End Time", dataIndex: "EndTime" },
           { title: "Schedule Item", dataIndex: "Name" }
         ],
         searchFunc: getFacultySchedule,
@@ -70,6 +87,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Instructor Fees",
     tabType: "table",
     tabMeta: {
+      blocks: [<FinancialFormModalOpenButton FacultyID={instructor.FacultyID} />],
       tableProps: {
         ...getOfferingFinancialTableColumns(instructor.FacultyID, FINANCIAL_FACULTY_TYPE_ID),
         searchParams: { FacultyID: instructor.FacultyID },

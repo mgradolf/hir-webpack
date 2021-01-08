@@ -170,8 +170,8 @@ export const sidebarMenus: ISidebarMenu[] = [
         ]
       },
       { title: "Certificates", url: "", submenu: [] },
-      { title: "Marketing Programs", url: "", submenu: [] },
-      { title: "Resources", url: "", submenu: [] },
+      // { title: "Marketing Programs", url: "", submenu: [] },
+      // { title: "Resources", url: "", submenu: [] },
       { title: "Grade Score Definitions", url: "", submenu: [] },
       { title: "Reference Data", url: "", submenu: [] },
       {

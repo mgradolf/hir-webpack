@@ -1,6 +1,6 @@
 import React from "react"
 import StandardPage from "~/Component/Common/Page/StandardPage"
-import { getResourceFinancialTableColumns } from "~/FormMeta/Resource/ResourceTableColumns"
+import { getResourceTableColumns } from "~/FormMeta/Resource/ResourceTableColumns"
 
 export default function ResourcePage() {
   return (
@@ -8,7 +8,7 @@ export default function ResourcePage() {
       title="Manage Resources"
       defaultFilter={{}}
       tableProps={{
-        ...getResourceFinancialTableColumns()
+        ...getResourceTableColumns()
       }}
     />
   )

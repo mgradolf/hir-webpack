@@ -4,7 +4,7 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchResourceItem } from "~/ApiServices/Service/FinancialService"
 import { Link } from "react-router-dom"
 
-export const getResourceFinancialTableColumns = (): ITableConfigProp => {
+export const getResourceTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Name",
