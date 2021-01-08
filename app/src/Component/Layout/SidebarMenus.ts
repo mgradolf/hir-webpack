@@ -184,7 +184,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         ]
       },
       { title: "Configuration Management", url: "", submenu: [] },
-      { title: "Users", url: "", submenu: [] }
+      { title: "Users", url: "/user", submenu: [] }
     ]
   }
 ]
