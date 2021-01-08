@@ -112,12 +112,14 @@ import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeReques
 import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
 import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
 import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
-import { OranizationsPage } from "~/Pages/SetupOrganization/Organizations/OranizationsPage"
-import { OranizationsDetailsPage } from "~/Pages/SetupOrganization/Organizations/OranizationsDetailsPage"
+import { OranizationsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsPage"
+import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsDetailsPage"
 import ResourcePage from "~/Pages/Manage/Resource/ResourcePage"
 import MarketingProgramPage from "~/Pages/Manage/MarketingCodes/ProgramPage"
 import ResourceDetailsPage from "~/Pages/Manage/Resource/ResourceDetails"
 import MarketingProgramDetailsPage from "~/Pages/Manage/MarketingCodes/ProgramDetails"
+import { UsersPage } from "~/Pages/SetupAdministration/Users/UsersPage"
+import { UsersDetailsPage } from "~/Pages/SetupAdministration/Users/PsersDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -257,5 +259,8 @@ export const AppRoutes: RouteProps[] = [
   { path: "/batch/:BatchImportID", component: BatchDetailsPage },
 
   { path: "/organization", component: OranizationsPage },
-  { path: "/organization/:OrganizationID", component: OranizationsDetailsPage }
+  { path: "/organization/:OrganizationID", component: OranizationsDetailsPage },
+
+  { path: "/user", component: UsersPage },
+  { path: "/user/:UserID", component: UsersDetailsPage }
 ]

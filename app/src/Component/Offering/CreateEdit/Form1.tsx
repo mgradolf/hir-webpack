@@ -33,7 +33,7 @@ export default function CreateForm1(props: IOfferingCreateForm1Props) {
       const response = await getOfferingTypes()
       if (response && response.success && Array.isArray(response.data)) {
         setofferingTypes(
-          response.data.map((x) => {
+          response.data.map((x: any) => {
             if (x.OfferingTypeID === DEFAULT_OFFERING_TYPE_ID) {
               x.OfferingStatusCodeID = 0
             }

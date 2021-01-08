@@ -5,6 +5,7 @@ import {
   SearchFieldWrapper
 } from "~/Component/Common/SearchFilters/common"
 import { Select } from "antd"
+import { eventBus } from "~/utils/EventBus"
 
 export function DropDownInputType(
   props: IFilterGenericComponentProps<IFilterFieldObject> & { onChangeCallback?: (params: any) => void }
@@ -13,7 +14,8 @@ export function DropDownInputType(
   const [loading, setLoading] = useState(false)
 
   const { refLookupService, displayKey, valueKey } = props
-  useEffect(() => {
+
+  const loadOptions = () => {
     if (props.options?.length) {
       setOptions(
         props.options?.map((x) => {
@@ -36,7 +38,18 @@ export function DropDownInputType(
         setLoading(false)
       })
     }
-  }, [refLookupService, displayKey, valueKey, props.options])
+  }
+  useEffect(() => {
+    const eventName = `REFRESH_SEARCH_DROPDOWN_${
+      (refLookupService || new Date().getTime())?.toString() + displayKey + valueKey
+    }`
+    eventBus.subscribe(eventName, loadOptions)
+    eventBus.publish(eventName)
+    return () => {
+      eventBus.unsubscribe(eventName)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <SearchFieldWrapper {...props}>
