@@ -3,17 +3,29 @@ import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchF
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 
 const meta: IFilterField[] = [
   {
-    label: "Offering",
-    fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
-  },
-  {
-    label: "Section",
-    fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    label: "Person Selector",
+    fieldName: "",
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Offering",
+          fieldName: "Offering",
+          valueField: "FormattedName",
+          component: SearchOfferingLookupButton
+        },
+        {
+          label: "Section",
+          fieldName: "SectionID",
+          valueField: "FormattedName",
+          component: SearchSectionLookupButton
+        }
+      ]
+    }
   },
   {
     label: "Student",
@@ -37,9 +49,3 @@ const meta: IFilterField[] = [
 ]
 
 export default meta
-
-// SectionID/OfferingID = section
-// 				StudentID = student
-// 				FromRegistrationDate = Registration from
-// 				ToRegistrationDate = Registration To
-// 				OrganizationID	= Department
