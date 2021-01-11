@@ -8,7 +8,8 @@ export const config = {
     executeDomainListWithoutPagination: "executeDomainListWithoutPagination",
     executeDomainListWithPagination: "executeDomainListWithPagination",
     findEnrollmentHistory: "findEnrollmentHistory",
-    executeDomainList: "executeDomainList"
+    executeDomainList: "executeDomainList",
+    executeDomainObject: "executeDomainObject"
   }
 }
 
