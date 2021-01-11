@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
-import FinancialRemoveLink from "~/Component/Offering/Financial/FinancialRemoveLink"
-import CreateNewOfferingFinancial from "~/Component/Offering/Financial/OfferingFinancialFormModal"
+import FinancialRemoveLink from "~/Component/Financial/FinancialRemoveLink"
+import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
 
 interface IFinancialMenu {
-  offeringId: number
+  applyToID: number
   financialId: number
+  financialType: string
 }
 
 export default function FinancialMenu(props: IFinancialMenu) {
@@ -23,15 +24,16 @@ export default function FinancialMenu(props: IFinancialMenu) {
           Edit
         </Button>
         {showUpdateModal && (
-          <CreateNewOfferingFinancial
-            offeringID={props.offeringId}
-            offeringFinancialId={props.financialId}
+          <CreateNewFinancial
+            applyToID={props.applyToID}
+            financialType={props.financialType}
+            financialID={props.financialId}
             closeModal={() => setShowUpdateModal(false)}
           />
         )}
       </Menu.Item>
       <Menu.Item key="1">
-        <FinancialRemoveLink offeringId={props.offeringId} financialId={props.financialId} />
+        <FinancialRemoveLink financialId={props.financialId} />
       </Menu.Item>
     </Menu>
   )

@@ -5,6 +5,8 @@ export const config = {
   Service: "instructorService",
   Module: "hir",
   Actions: {
+    addInstructorToOffering: "addInstructorToOffering",
+    removeInstructorFromOffering: "removeInstructorFromOffering",
     searchSectionInstructor: "searchSectionInstructor",
     searchInstructorOfferings: "searchInstructorOfferings"
   }

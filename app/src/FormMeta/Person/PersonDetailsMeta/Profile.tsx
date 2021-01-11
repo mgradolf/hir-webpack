@@ -5,7 +5,11 @@ import { findPersonEducationHist } from "~/ApiServices/Service/PersonService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
+import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
+import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
+import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
+import { getTransactionFinancialTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialTableColumns"
 
 export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -103,7 +107,7 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
   const contactMeta: IDetailsSummary = {
     summary: [address, { groupedContents: [email, phone] }]
   }
-  tabMetas.push({ tabTitle: "Contact", tabType: "summary", tabMeta: contactMeta })
+  tabMetas.push({ tabTitle: "Contacts", tabType: "summary", tabMeta: contactMeta })
 
   const login: CardContainer = {
     contents: [
@@ -137,6 +141,58 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
         refreshEventName: "REFRESH_CONTACT_TAB"
       }
     }
+  })
+
+  tabMetas.push({
+    tabTitle: "Financials",
+    tabType: "table",
+    tabMeta: undefined,
+    multipleTabMetas: [
+      {
+        tabTitle: "Orders",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getOrderTableColumns(false),
+            searchParams: { PersonID: person.PersonID },
+            refreshEventName: "REFRESH_ORDERS_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Order Items",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getOrderItemTableColumns(false),
+            searchParams: { PersonID: person.PersonID },
+            refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Payments",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getPaymentTableColumns(false),
+            searchParams: { PersonID: person.PersonID },
+            refreshEventName: "REFRESH_PAYMENTS_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Transactions",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getTransactionFinancialTableColumns(false),
+            searchParams: { PersonID: person.PersonID },
+            refreshEventName: "REFRESH_TRANSACTION_TAB"
+          }
+        }
+      }
+    ]
   })
 
   tabMetas.push({

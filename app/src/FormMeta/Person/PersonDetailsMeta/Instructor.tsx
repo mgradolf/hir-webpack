@@ -1,15 +1,19 @@
-import React from "react"
+import { Button } from "antd"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { getFinancialsByTarget } from "~/ApiServices/BizApi/financial/financialIF"
-import { searchInstructorOfferings, searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
+import { searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
+import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
+import OfferingAddButton from "~/Component/Offering/OfferingAddButton"
 import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
-import { COMMENT_TYPES } from "~/utils/Constants"
-import { REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
+import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
+import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
+import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
+import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
 
 export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -29,6 +33,26 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     summary: [instructorInfo]
   }
 
+  const FinancialFormModalOpenButton = (props: { FacultyID: number }) => {
+    const [showModal, setShowModal] = useState(false)
+    return (
+      <>
+        {setShowModal && (
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
+            + Create Financial
+          </Button>
+        )}
+        {showModal && (
+          <CreateNewFinancial
+            applyToID={props.FacultyID}
+            financialType={FINANCIAL_TYPE_FACULTY}
+            closeModal={() => setShowModal(false)}
+          />
+        )}
+      </>
+    )
+  }
+
   tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
   tabMetas.push({
     tabTitle: "Faculty Schedule",
@@ -42,17 +66,12 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
             render: renderDateTime,
             sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
           },
-          // {
-          //   title: "Start Time",
-          //   dataIndex: "StartTime"
-          // },
           {
             title: "End Date",
             dataIndex: "EndDate",
             render: renderDateTime,
             sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
           },
-          // { title: "End Time", dataIndex: "EndTime" },
           { title: "Schedule Item", dataIndex: "Name" }
         ],
         searchFunc: getFacultySchedule,
@@ -68,19 +87,11 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Instructor Fees",
     tabType: "table",
     tabMeta: {
+      blocks: [<FinancialFormModalOpenButton FacultyID={instructor.FacultyID} />],
       tableProps: {
-        columns: [
-          { title: "Description", dataIndex: "Description" },
-          { title: "Amount", dataIndex: "ItemUnitAmount" },
-          { title: "GL Account", dataIndex: "GLAccountName" },
-          { title: "Active", dataIndex: "IsActive", render: renderBoolean },
-          { title: "Category", dataIndex: "FinancialCategoryTypeName" }
-        ],
-        searchFunc: (Params: any) => getFinancialsByTarget(instructor.FacultyID, 2),
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
-        searchParams: { FacultyID: instructor.FacultyID, FinancialTypeID: 2 },
-        refreshEventName: "REFRESH_FACULTY_OFFERINGS_TAB"
+        ...getOfferingFinancialTableColumns(instructor.FacultyID, FINANCIAL_FACULTY_TYPE_ID),
+        searchParams: { FacultyID: instructor.FacultyID },
+        refreshEventName: REFRESH_FACULTY_OFFERINGS_TAB
       }
     }
   })
@@ -89,21 +100,12 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Qualified Offerings",
     tabType: "table",
     tabMeta: {
+      blocks: [<OfferingAddButton FacultyId={instructor.FacultyID} />],
       tableProps: {
-        columns: [
-          {
-            title: "OfferingName",
-            dataIndex: "OfferingName",
-            render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
-          },
-          { title: "Status", dataIndex: "StatusCode" },
-          { title: "Department Name", dataIndex: "OrganizationName" }
-        ],
-        searchFunc: searchInstructorOfferings,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
+        pagination: false,
+        ...getQualifiedInstructorTableColumns(),
         searchParams: { FacultyID: instructor.FacultyID },
-        refreshEventName: "REFRESH_FACULTY_OFFERINGS_TAB"
+        refreshEventName: REFRESH_FACULTY_OFFERINGS_TAB
       }
     }
   })

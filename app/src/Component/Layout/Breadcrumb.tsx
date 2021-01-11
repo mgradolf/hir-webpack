@@ -20,9 +20,11 @@ const blockedPages: string[] = [
   "Transaction",
   "Tags",
   "Question",
+  "Seatgroup",
   "Forget me request",
   "Batch",
-  "Seatgroup"
+  "Resource",
+  "Marketing programs"
 ]
 const names: { [key: string]: string } = {
   Offering: "OfferingCode",

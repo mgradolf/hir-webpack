@@ -332,3 +332,9 @@ export function getDiscountTypes(): Promise<IApiResponse> {
     LookUpName: "DiscountType"
   })
 }
+
+export function getOrganizationTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "OrganizationType"
+  })
+}

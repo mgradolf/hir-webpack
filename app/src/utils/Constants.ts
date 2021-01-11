@@ -112,6 +112,17 @@ export const DISCOUNT_AMOUNT = {
 
 export const FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID = 1
 
+export const FINANCIAL_OFFERING_TYPE_ID = 1
+export const FINANCIAL_FACULTY_TYPE_ID = 2
+export const FINANCIAL_MARKETING_PROGRAM_TYPE_ID = 3
+export const FINANCIAL_RESOURCE_TYPE_ID = 4
+
+export const FINANCIAL_TYPE_OFFERING = "Offering"
+export const FINANCIAL_TYPE_RESOURCE = "Resource"
+export const FINANCIAL_TYPE_INSTRUCTOR = "Instructor"
+export const FINANCIAL_TYPE_FACULTY = "Faculty"
+export const FINANCIAL_TYPE_MARKETING_PROGRAM = "Marketing Program"
+
 export const DISCOUNT_APPLY_TO_ALL_TYPE_ID = 1
 export const DISCOUNT_MANUALLY_APPLIED_TO_ENROLLMENT_TYPE_ID = 2
 export const DISCOUNT_AGE_RANGE_TYPE_ID = 3
@@ -150,5 +161,7 @@ export const CEU_HOURS = "CEUHours"
 export const REGISTRATION_EMAIL_CONFIRMATION_SUCCESS = "Successfully send email!"
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
 export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
+
+export const SAVE_SUCCESSFULLY = "Successfully saved!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000

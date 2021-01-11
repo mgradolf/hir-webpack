@@ -25,7 +25,7 @@ export const ProgramOfferingSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "departmentID",
-    refLookupService: () => getOrganizationByType([1000]),
+    refLookupService: getOrganizationByType,
     displayKey: "Name",
     valueKey: "ID"
   }

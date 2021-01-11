@@ -45,7 +45,7 @@ export const getSeatgroupFinancialTableColumns = (SeatGroupID: number, SectionID
       dataIndex: "ItemUnitAmount"
     },
     {
-      title: "Action",
+      title: "Selected",
       dataIndex: "IsPublished",
       render: (text: any, record: any) => (
         <Switch checked={!!text} onChange={(e) => financialAction(e, record.SectionFinancialID)} />

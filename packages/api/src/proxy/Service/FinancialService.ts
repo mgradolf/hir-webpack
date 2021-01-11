@@ -5,6 +5,12 @@ export const config = {
   Service: "FinancialService",
   Module: "hir",
   Actions: {
+    createFinancial: "createFinancial",
+    updateFinancial: "updateFinancial",
+    deleteFinancial: "deleteFinancial",
+    searchFinancials: "searchFinancials",
+    searchResourceItem: "searchResourceItem",
+    searchMarketingProgram: "searchMarketingProgram",
     searchDiscountProgram: "searchDiscountProgram"
   }
 }

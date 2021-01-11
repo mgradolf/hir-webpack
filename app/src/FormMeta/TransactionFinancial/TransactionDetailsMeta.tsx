@@ -54,7 +54,10 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
     tabMeta: {
       tableProps: {
         ...getTransactionFinancialDepositeTrackingTableColumns(),
-        searchParams: { IsDepositeView: true, DepositID: transaction.DepositTransactionID },
+        searchParams: {
+          IsDepositeView: true,
+          DepositID: transaction.DepositTransactionID ? transaction.DepositTransactionID : transaction.TransactionID
+        }, // transaction.DepositTransactionID },
         refreshEventName: "REFRESH_DEPOSIT_TRACKING__TAB",
         pagination: false
       }

@@ -10,7 +10,7 @@ import OfferingCatalogPage from "~/Pages/Manage/Courses/Offering/Catalog"
 import OfferingRequisitePage from "~/Pages/Manage/Courses/Offering/Requisite"
 import OfferingApprovalPage from "~/Pages/Manage/Courses/Offering/Approval"
 import OfferingTaggPage from "~/Pages/Manage/Courses/Offering/TagPage"
-import OfferingQualifiedInstructorPage from "~/Pages/Manage/Courses/Offering/QualifiedInstructor"
+import OfferingQualifiedInstructorPage from "~/Pages/Manage/Courses/Offering/QualifiedInstructor/QualifiedInstructorPage"
 import OfferingSectionPage from "~/Pages/Manage/Courses/Offering/Section"
 
 import SectionPage from "~/Pages/Manage/Courses/Section"
@@ -112,6 +112,14 @@ import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMe
 import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
 import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
 import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
+import ResourcePage from "~/Pages/Manage/Resource/ResourcePage"
+import ResourceDetailsPage from "~/Pages/Manage/Resource/ResourceDetails"
+import { OranizationsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsPage"
+import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsDetailsPage"
+import MarketingProgramPage from "~/Pages/Manage/MarketingCodes/ProgramPage"
+import MarketingProgramDetailsPage from "~/Pages/Manage/MarketingCodes/ProgramDetails"
+import { UsersPage } from "~/Pages/SetupAdministration/Users/UsersPage"
+import { UsersDetailsPage } from "~/Pages/SetupAdministration/Users/PsersDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -175,6 +183,9 @@ export const AppRoutes: RouteProps[] = [
   { path: "/transaction", component: FinancialTransactionPage },
   { path: "/transaction/:depositID", component: FinancialTransactionDetailsPage },
 
+  { path: "/resource", component: ResourcePage },
+  { path: "/resource/:resourceID", component: ResourceDetailsPage },
+
   { path: "/product", component: ProductPage },
   { path: "/product/:productID", component: ProductDetailsPage },
 
@@ -185,9 +196,9 @@ export const AppRoutes: RouteProps[] = [
   { path: "/tags/:tagID", component: TagsDetailsPage },
 
   { path: "/question", component: QuestionPage },
+  { path: "/question/response", component: QuestionResponsePage },
   { path: "/question/:PreferenceDefID", component: QuestionRepositoryDetailsPage },
   { path: "/question/tagging", component: QuestionTaggingPage },
-  { path: "/question/response", component: QuestionResponsePage },
 
   { path: "/request", component: RequestPage },
   { path: "/request/:requestID", component: RequestDetailsPage },
@@ -237,11 +248,19 @@ export const AppRoutes: RouteProps[] = [
   { path: "/marketing-codes/response", component: MarketingCodeResponsePage },
   { path: "/marketing-codes/response/:orderItemID/:marketingCodeID", component: MarketingCodeResponseDetailsPage },
 
+  { path: "/marketing-programs", component: MarketingProgramPage },
+  { path: "/marketing-programs/:marketingProgramID", component: MarketingProgramDetailsPage },
+
+  { path: "/seatgroup/:seatGroupID", component: SeatGroupDetailsPage },
   { path: "/forget-me-request", component: ForgetMeRequestsPage },
   { path: "/forget-me-request/:AnonymizationRequestID", component: ForgetMeRequestDetailsPage },
 
   { path: "/batch", component: BatchPage },
   { path: "/batch/:BatchImportID", component: BatchDetailsPage },
 
-  { path: "/seatgroup/:seatGroupID", component: SeatGroupDetailsPage }
+  { path: "/organization", component: OranizationsPage },
+  { path: "/organization/:OrganizationID", component: OranizationsDetailsPage },
+
+  { path: "/user", component: UsersPage },
+  { path: "/user/:UserID", component: UsersDetailsPage }
 ]
