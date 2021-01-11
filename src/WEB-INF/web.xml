@@ -7,12 +7,10 @@
         <servlet-name>error-html</servlet-name>
         <jsp-file>error.jsp</jsp-file>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>error-html</servlet-name>
         <url-pattern>/error.html</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.action</url-pattern>

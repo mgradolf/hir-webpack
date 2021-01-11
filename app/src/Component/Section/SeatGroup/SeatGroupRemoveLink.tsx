@@ -5,11 +5,14 @@ import { Button } from "antd"
 
 interface ISeatGroupRemoveLinkProp {
   seatgroupId: number
+  PrimaryType?: boolean | false
 }
-function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
+
+export default function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
   return (
     <Button
-      type="link"
+      danger={props.PrimaryType ? true : false}
+      type={props.PrimaryType ? "primary" : "link"}
       onClick={async () => {
         const response = await removeSeatGroup(props.seatgroupId)
         if (response.success) {
@@ -21,5 +24,3 @@ function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
     </Button>
   )
 }
-
-export default SeatGroupRemoveLink

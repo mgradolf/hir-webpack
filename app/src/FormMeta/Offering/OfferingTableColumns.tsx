@@ -20,6 +20,11 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
       sorter: (a: any, b: any) => a.OfferingName.length - b.OfferingName.length
     },
     {
+      title: "Status",
+      dataIndex: "StatusCode",
+      sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
+    },
+    {
       title: "Creation Date",
       dataIndex: "CreationDate",
       render: renderDate
@@ -30,23 +35,25 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
       render: renderDate
     },
     {
-      title: "Description",
-      dataIndex: "OfferingDescription",
-      sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
+      title: "Department",
+      dataIndex: "OrganizationName"
     },
-    {
-      title: "Status",
-      dataIndex: "StatusCode",
-      sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
-    },
-    {
-      title: "Offering Type",
-      dataIndex: "OfferingTypeName"
-    },
-    {
-      title: "Def Section",
-      dataIndex: "SectionTypeName"
-    },
+
+    // {
+    //   title: "Description",
+    //   dataIndex: "OfferingDescription",
+    //   sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
+    // },
+
+    // {
+    //   title: "Offering Type",
+    //   dataIndex: "OfferingTypeName"
+    // },
+    // {
+    //   title: "Def Section",
+    //   dataIndex: "SectionTypeName"
+    // },
+
     {
       ...(!isModal && {
         title: "Action",
@@ -59,7 +66,6 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = [5]
-  const expandableColumnIndices: number[] = [5]
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchOffering }
+  // const responsiveColumnIndices: number[] = [2, 3, 4, 5]
+  return { columns, searchFunc: searchOffering }
 }

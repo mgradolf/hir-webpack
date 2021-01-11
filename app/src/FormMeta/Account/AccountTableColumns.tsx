@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getAccountTableColumns = (isModal = false): ITableConfigProp => {
@@ -9,14 +9,18 @@ export const getAccountTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Account Name",
       dataIndex: "AccountName",
-      render: (text: any, record: any) => (isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     },
-    { title: "Account Type", dataIndex: "AccountTypeName" },
-    { title: "Account Name", dataIndex: "AccountName" },
-    { title: "Primary Contact", dataIndex: "ContactName" },
+    {
+      title: "Primary Contact",
+      dataIndex: "ContactName",
+      render: (text: any, record: any) =>
+        isModal || !text ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>
+    },
     { title: "Phone", dataIndex: "TelephoneNumber" },
-    { title: "Email", dataIndex: "EmailAddress" },
-    { title: "Address", dataIndex: "BillingAddress" }
+    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
+    { title: "Account Type", dataIndex: "AccountTypeName" }
+    // { title: "Address", dataIndex: "BillingAddress" }
   ]
   return { columns, searchFunc: findAccountForLookUp, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

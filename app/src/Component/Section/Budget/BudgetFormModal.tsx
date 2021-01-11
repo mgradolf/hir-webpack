@@ -1,13 +1,9 @@
 import * as React from "react"
 import { Form } from "antd"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
 import CreateForm1 from "~/Component/Section/Budget/Form1"
 import CreateForm2 from "~/Component/Section/Budget/Form2"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showCreateBudgetModal } from "~/Store/ModalState"
-import { redirect } from "~/Store/ConnectedRoute"
 import { IBudgetFieldNames } from "~/Component/Section/Interfaces"
 
 const filedNames: IBudgetFieldNames = {
@@ -26,11 +22,10 @@ const filedNames: IBudgetFieldNames = {
 
 interface ICreateNewBudgetProps {
   sectionId: number
-  redirect?: (url: string) => void
-  closeCreateBudgetModal?: () => void
+  closeModal?: () => void
 }
 
-function CreateNewBudget(props: ICreateNewBudgetProps) {
+export default function CreateNewBudget(props: ICreateNewBudgetProps) {
   const [formInstance] = Form.useForm()
   const [selectedBudgetType, setSelectedBudgetType] = useState(String)
   const [firstFormVisible, setFirstFormVisible] = useState(true)
@@ -38,8 +33,8 @@ function CreateNewBudget(props: ICreateNewBudgetProps) {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 
   const handleCancel = () => {
-    if (props.closeCreateBudgetModal) {
-      props.closeCreateBudgetModal()
+    if (props.closeModal) {
+      props.closeModal()
     }
     goBackToBudgetTypeForm()
   }
@@ -57,7 +52,6 @@ function CreateNewBudget(props: ICreateNewBudgetProps) {
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={!(firstFormVisible || secondFormVisible)}
       apiCallInProgress={apiCallInProgress}
@@ -70,6 +64,7 @@ function CreateNewBudget(props: ICreateNewBudgetProps) {
               budgetType={selectedBudgetType}
               fieldNames={filedNames}
               formInstance={formInstance}
+              closeModal={props.closeModal}
               goBackToFirstForm={goBackToBudgetTypeForm}
               setApiCallInProgress={setApiCallInProgress}
             />
@@ -79,12 +74,3 @@ function CreateNewBudget(props: ICreateNewBudgetProps) {
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeCreateBudgetModal: () => dispatch(showCreateBudgetModal(false)),
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
-
-export default connect(undefined, mapDispatchToProps)(CreateNewBudget)

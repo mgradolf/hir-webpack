@@ -6,19 +6,19 @@ import DropDown from "~/Component/Common/Form/DropDown"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { DATE_FORMAT, DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
 import { FormPersonLookupButton } from "~/Component/Common/Form/FormLookups/FormPersonLookup"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_SECTION_WAITLIST_ENTRIES_PAGE } from "~/utils/EventBus"
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import FormError from "~/Component/Common/FormError"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 import { FormSectionLookupButton } from "~/Component/Common/Form/FormLookups/FormSectionLookup"
-import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { getEntityById, getSectionById } from "~/ApiServices/Service/EntityService"
 
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
   SectionID?: number
-  setShowCreateModal: (flag: boolean) => void
+  closeModal: () => void
 }
 
 interface IFormFields {
@@ -51,12 +51,7 @@ const fieldNames: IFormFields = {
   IsActive: "IsActive"
 }
 
-interface IParamsToBeDispatched {
-  NameToDisplay: string
-  Params: { [key: string]: string }
-}
-
-export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEditFormModal) {
+export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEditFormModal) {
   const [formInstance] = Form.useForm()
   const [Section, setSection] = useState<{ [key: string]: any }>()
   const [showAdministrators, setShowAdministrators] = useState(false)
@@ -99,7 +94,7 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
         <Card
           title={props.WaitListEntry ? "Edit Waitlist Enntry" : "Create New Waitlist Entry"}
           actions={[
-            <Button onClick={() => props.setShowCreateModal(false)}>Cancel</Button>,
+            <Button onClick={() => props.closeModal()}>Cancel</Button>,
             <Button
               onClick={() => {
                 setApiCallInProgress(true)
@@ -111,8 +106,8 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
                 saveWaitListEntry(Params).then((x) => {
                   setApiCallInProgress(false)
                   if (x.success) {
-                    eventBus.publish(REFRESH_PAGE)
-                    props.setShowCreateModal(false)
+                    eventBus.publish(REFRESH_SECTION_WAITLIST_ENTRIES_PAGE)
+                    props.closeModal()
                   } else setErrorMessages(x.error)
                 })
               }}
@@ -132,7 +127,22 @@ export default function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCr
                 </ul>
               }
             ></FormError>
-            {!Section && <FormSectionLookupButton formInstance={formInstance} />}
+
+            <FormSectionLookupButton
+              formInstance={formInstance}
+              onCloseModal={(items?: any[]) => {
+                if (Array.isArray(items) && items.length > 0) setSection(items[0])
+              }}
+              {...(props.SectionID && {
+                entityLookupFunc: () => {
+                  console.log(props.SectionID)
+                  return getSectionById(props.SectionID || 0).then((x) => {
+                    return x.data
+                  })
+                }
+              })}
+            />
+
             {Section && (
               <DropDown
                 label="Seat Group"

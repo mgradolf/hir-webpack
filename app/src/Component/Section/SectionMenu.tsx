@@ -5,7 +5,7 @@ interface ISectionMenu {
   section: { [key: string]: any }
 }
 
-export default function SectionMenu(props: ISectionMenu) {
+export function SectionMenu(props: ISectionMenu) {
   const menus: IMenu[] = [
     {
       title: "Basic",
@@ -24,16 +24,16 @@ export default function SectionMenu(props: ISectionMenu) {
         { title: "Products", url: `/section/${props.section.SectionID}/product` },
         { title: "Waitlist Entries", url: `/section/${props.section.SectionID}/waitlist` },
         { title: "Comment", url: `/section/${props.section.SectionID}/comment` },
-        { title: "No Show", url: `/section/${props.section.SectionID}/no-show` }
+        { title: "No Shows", url: `/section/${props.section.SectionID}/no-show` }
       ]
     },
     {
       title: "Financial",
       url: "#",
       items: [
+        { title: "Payments", url: `/section/${props.section.SectionID}/order/payments` },
         { title: "Orders", url: `/section/${props.section.SectionID}/order` },
-        { title: "Items", url: `/section/${props.section.SectionID}/order/items` },
-        { title: "Payments", url: `/section/${props.section.SectionID}/order/payments` }
+        { title: "Items", url: `/section/${props.section.SectionID}/order/items` }
       ]
     },
     {

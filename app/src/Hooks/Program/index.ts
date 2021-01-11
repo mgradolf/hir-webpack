@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { searchPrograms } from "~/ApiServices/BizApi/program/programIF"
-import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 
 export interface IProgramFilterValues {
   programCode: string
@@ -14,10 +13,10 @@ export interface IProgramFilterValues {
 const INITIAL_FILTER_VALUES: IProgramFilterValues = {
   programCode: "*",
   departmentID: "",
-  name: "*",
+  name: "",
   programStatusCodeID: "",
-  programOfferingName: "*",
-  programOfferingCode: "*"
+  programOfferingName: "",
+  programOfferingCode: ""
 }
 
 export function useSearchFilterState() {
@@ -30,7 +29,7 @@ export function useSearchProgram(filterData: IProgramFilterValues | null): [bool
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    const loadPrograms = async function () {
+    ;(async function () {
       if (filterData !== null) {
         setLoading(true)
         const params: { [key: string]: any } = filterData
@@ -49,19 +48,14 @@ export function useSearchProgram(filterData: IProgramFilterValues | null): [bool
             params[key] = Number(params[key])
           }
         })
-        const result = await searchPrograms([params])
+        const result = await searchPrograms(params)
 
         if (result && result.success) {
           setProgramItems(result.data)
         }
         setLoading(false)
       }
-    }
-    eventBus.subscribe(REFRESH_SECTION_SEATGROUP_PAGE, loadPrograms)
-    eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_SECTION_SEATGROUP_PAGE)
-    }
+    })()
   }, [filterData])
 
   return [loading, programItems]

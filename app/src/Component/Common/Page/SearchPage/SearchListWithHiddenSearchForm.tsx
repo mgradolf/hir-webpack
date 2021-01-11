@@ -13,12 +13,15 @@ export interface ISearchListWithHiddenSearchFormProp {
   meta?: IFilterField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
+  defaultFilter?: { [key: string]: string }
   helpKey?: string
 }
 
 export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
   const [filterCount, setFilterCount] = useState(0)
-  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(props.initialFilter || {})
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(
+    props.initialFilter || props.defaultFilter || {}
+  )
   const [showFilter, setShowFilter] = useState(false)
   const [help, setHelp] = useState(false)
 
@@ -65,7 +68,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             meta={props.meta}
             initialFilter={searchParams}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
-              setSearchParams(newFilterValues)
+              setSearchParams({ ...props.defaultFilter, ...newFilterValues })
               setFilterCount(appliedFilterCount)
               setShowFilter(false)
             }}

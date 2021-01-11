@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import OfflineAlert from "~/Component/Alerts/Offline"
 import LoginModal from "~/Component/Login/LoginModal"
 import CreateNewOfferingModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
-import OfferingFinancialFormModal from "~/Component/Offering/Financial/OfferingFinancialFormModal"
 import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApprovalFormModal"
 import OfferingRequisiteGroupFormModal from "~/Component/Offering/Requisite/RequisiteFormModal"
 import AddOfferingFromRequisiteGroupModal from "~/Component/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
@@ -16,7 +15,6 @@ import ScheduleFormModal from "~/Component/Section/Schedule/ScheduleFormModal"
 import ScheduleLocationFromModal from "~/Component/Section/Schedule/ScheduleLocationFormModal"
 import ScheduleInstructorFromModal from "~/Component/Section/Schedule/ScheduleInstructorFormModal"
 import AddProgramModal from "~/Component/Program/AddProgramModal"
-import RoomFinderModal from "./Section/RoomFinder/RoomFinderModal"
 import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import BudgetEditFormModal from "~/Component/Section/Budget/BudgetEditFormModal"
 import DiscountFomrModal from "~/Component/Section/Discount/DiscountFormModal"
@@ -24,7 +22,6 @@ import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditForm
 import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
 import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
-import AddProductFromProductModal from "~/Component/Section/Product/AddProductFromProductModal"
 import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
 
 import { REQUEST_RESOLUTION_NAMES } from "~/utils/Constants"
@@ -32,10 +29,11 @@ import AnswerQuestionsModal from "~/Component/Section/Request/Resolutions/Answer
 import EditBlockerModal from "~/Component/Section/Request/Resolutions/EditBlockerModal"
 import PostPaymentModal from "~/Component/Section/Request/Resolutions/PostPaymentModal"
 import SpecifyRecipientModal from "~/Component/Section/Request/Resolutions/SpecifyRecipientModal"
-import StudentFinderModal from "./Student/StudentFinderModal"
-import ErrorDetailsModal from "./Section/Request/Resolutions/ErrorDetailsModal"
+import StudentFinderModal from "~/Component/Student/StudentFinderModal"
+import ErrorDetailsModal from "~/Component/Section/Request/Resolutions/ErrorDetailsModal"
 import CommentCreateModal from "~/Component/Section/Comment/CommentCreateModal"
 import AddContactModal from "~/Component/Student/AddContactModal"
+import ScheduleNoteFormModal from "~/Component/Section/Schedule/ScheduleNoteFormModal"
 
 function ModalContainer(modalState: IModalState) {
   return (
@@ -44,12 +42,6 @@ function ModalContainer(modalState: IModalState) {
       {modalState.loginModal.value && <LoginModal />}
       {modalState.createOfferingModal.value && (
         <CreateNewOfferingModal offeringId={modalState.createOfferingModal.config.OfferingId} />
-      )}
-      {modalState.createOfferingFinancialModal.value && (
-        <OfferingFinancialFormModal
-          offeringFinancialId={modalState.createOfferingFinancialModal.config.financialId}
-          offeringID={modalState.createOfferingFinancialModal.config.offeringId}
-        />
       )}
       {modalState.offeringApprovalModal.value && (
         <OfferingApprovalFormModal offeringID={modalState.offeringApprovalModal.config.offeringId} />
@@ -94,6 +86,9 @@ function ModalContainer(modalState: IModalState) {
           sectionId={modalState.updateSectionScheduleInstructorModal.config.sectionId}
         />
       )}
+      {modalState.updateSectionScheduleNoteModal.value && (
+        <ScheduleNoteFormModal scheduleIds={modalState.updateSectionScheduleNoteModal.config.scheduleIds} />
+      )}
       {modalState.addProgramModal.value && <AddProgramModal />}
       {modalState.createBudgetModal.value && (
         <BudgetFormModal sectionId={modalState.createBudgetModal.config.sectionId} />
@@ -116,17 +111,11 @@ function ModalContainer(modalState: IModalState) {
       )}
       {modalState.questionCreateModal.value && <QuestionCreateModal />}
       {modalState.questionFindModal.value && <QuestionFindModal />}
-      {modalState.roomFinderModal.value && (
-        <RoomFinderModal onSelectRoom={modalState.roomFinderModal.config.onSelectRoomCallback} />
-      )}
       {modalState.updateNoticeModal.value && (
         <NoticeEditFormModal
           sectionId={modalState.updateNoticeModal.config.sectionId}
           sectionNoticeTypeId={modalState.updateNoticeModal.config.sectionNoticeTypeId}
         />
-      )}
-      {modalState.addSectionProductModal.value && (
-        <AddProductFromProductModal sectionId={modalState.addSectionProductModal.config.sectionId} />
       )}
       {modalState.requestViewResponseModal.value && (
         <ViewResponseModal requestJson={modalState.requestViewResponseModal.config.requestJson} />

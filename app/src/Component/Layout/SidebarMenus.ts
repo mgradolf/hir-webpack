@@ -4,48 +4,23 @@ export interface ISidebarMenu {
   submenu: ISidebarMenu[]
 }
 
-// export const sidebarMenus: ISidebarMenu[] = [
-//   { title: "Offerings", url: "/offering", submenu: [] },
-//   { title: "Sections", url: "/section", submenu: [] },
-//   {
-//     title: "Financials",
-//     url: "",
-//     submenu: [
-//       { title: "Orders", url: "/order", submenu: [] },
-//       { title: "Items", url: "/order/items", submenu: [] },
-//       { title: "Payments", url: "/order/payments", submenu: [] }
-//     ]
-//   },
-//   { title: "Waitlist", url: "/waitlist", submenu: [] },
-//   { title: "Catalog", url: "/catalog", submenu: [] },
-//   { title: "Product", url: "/product", submenu: [] },
-//   {
-//     title: "Question",
-//     url: "",
-//     submenu: [
-//       { title: "Bank", url: "/question", submenu: [] },
-//       { title: "Tagging", url: "/question/tagging", submenu: [] }
-//     ]
-//   },
-//   { title: "Requests", url: "/requests", submenu: [] }
-// ]
-
 export const sidebarMenus: ISidebarMenu[] = [
   {
     title: "Manage",
     url: "",
     submenu: [
       {
-        title: "People",
+        title: "Constituents",
         url: "",
         submenu: [
           { title: "Persons", url: "/person", submenu: [] },
-          { title: "Students", url: "", submenu: [] },
+          { title: "Students", url: "/student", submenu: [] },
           { title: "Instructors", url: "/instructor", submenu: [] },
-          { title: "Forget Me Requests", url: "", submenu: [] }
+          { title: "Accounts", url: "/account", submenu: [] },
+          { title: "Forget Me Requests", url: "/forget-me-request", submenu: [] }
         ]
       },
-      { title: "Accounts", url: "/account", submenu: [] },
+      // { title: "Accounts", url: "/account", submenu: [] },
       {
         title: "Courses",
         url: "",
@@ -53,6 +28,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Offerings ", url: "/offering", submenu: [] },
           { title: "Sections", url: "/section", submenu: [] },
           { title: "Registrations", url: "/registration", submenu: [] },
+          { title: "Certificates", url: "/course/certificate", submenu: [] },
           { title: "Waitlist Entries", url: "/waitlist", submenu: [] }
         ]
       },
@@ -60,45 +36,51 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Programs",
         url: "",
         submenu: [
-          { title: "Offerings", url: "", submenu: [] },
-          { title: "Programs", url: "", submenu: [] },
-          { title: "Applications", url: "", submenu: [] },
+          { title: "Offerings", url: "/program/offering", submenu: [] },
+          { title: "Programs", url: "/program/program", submenu: [] },
+          { title: "Applications", url: "/program/application", submenu: [] },
+          { title: "Certificates", url: "/program/certificate", submenu: [] },
           { title: "Enrollments", url: "/program/enrollment", submenu: [] }
         ]
       },
-      { title: "Students Certificate", url: "", submenu: [] },
       {
         title: "Financials",
         url: "",
         submenu: [
           { title: "Order", url: "/order", submenu: [] },
           { title: "Order Items", url: "/order/items", submenu: [] },
+          { title: "Order Credits", url: "/order/credits", submenu: [] },
           { title: "Payments", url: "/order/payments", submenu: [] },
-          { title: "Transactions", url: "", submenu: [] },
-          { title: "Discount Programs", url: "", submenu: [] }
+          { title: "Transactions", url: "/transaction", submenu: [] }
+          // { title: "Discount Programs", url: "/discount-programs", submenu: [] }
         ]
       },
-      { title: "Requests", url: "/requests", submenu: [] },
+      { title: "Requests", url: "/request", submenu: [] },
       {
         title: "Questions",
         url: "",
         submenu: [
           { title: "Repository", url: "/question", submenu: [] },
           { title: "Tagging", url: "/question/tagging", submenu: [] },
-          { title: "Responses", url: "", submenu: [] }
+          { title: "Responses", url: "/question/response", submenu: [] }
         ]
       },
       {
-        title: "Marketing Codes",
+        title: "Marketing",
         url: "",
         submenu: [
-          { title: "Repository", url: "", submenu: [] },
-          { title: "Response", url: "", submenu: [] }
+          { title: "Catalogs", url: "/catalog", submenu: [] },
+          { title: "Discount Programs", url: "/discount-programs", submenu: [] },
+          { title: "Programs", url: "/marketing-programs", submenu: [] },
+          { title: "Codes", url: "/marketing-codes/repository", submenu: [] },
+          { title: "Response", url: "/marketing-codes/response", submenu: [] }
         ]
       },
+      { title: "Resources", url: "/resource", submenu: [] },
       { title: "Products", url: "/product", submenu: [] },
-      { title: "Catalogs", url: "/catalog", submenu: [] },
-      { title: "Batches", url: "", submenu: [] }
+      { title: "Packages", url: "/package", submenu: [] },
+      { title: "Tags", url: "/tags", submenu: [] },
+      { title: "Batches", url: "/batch", submenu: [] }
     ]
   },
   {
@@ -143,7 +125,8 @@ export const sidebarMenus: ISidebarMenu[] = [
             submenu: [
               { title: "Student Academic", url: "/search/activity/academic-log", submenu: [] },
               { title: "Student Enrollment", url: "/search/activity/enrollment-log", submenu: [] },
-              { title: "Other Activity", url: "/search/activity/order-log", submenu: [] }
+              { title: "Enrollment History", url: "/search/activity/enrollment-history", submenu: [] },
+              { title: "Order Activity", url: "/search/activity/order-log", submenu: [] }
             ]
           },
           {
@@ -188,20 +171,21 @@ export const sidebarMenus: ISidebarMenu[] = [
         ]
       },
       { title: "Certificates", url: "", submenu: [] },
-      { title: "Marketing Programs", url: "", submenu: [] },
-      { title: "Resources", url: "", submenu: [] },
+      // { title: "Marketing Programs", url: "", submenu: [] },
+      // { title: "Resources", url: "", submenu: [] },
       { title: "Grade Score Definitions", url: "", submenu: [] },
       { title: "Reference Data", url: "", submenu: [] },
       {
         title: "Organization",
         url: "",
         submenu: [
+          { title: "Organizations", url: "/organization", submenu: [] },
           { title: "Setup", url: "", submenu: [] },
           { title: "Calender", url: "", submenu: [] }
         ]
       },
       { title: "Configuration Management", url: "", submenu: [] },
-      { title: "Users", url: "", submenu: [] }
+      { title: "Users", url: "/user", submenu: [] }
     ]
   }
 ]

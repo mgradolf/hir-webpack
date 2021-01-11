@@ -1,7 +1,13 @@
-import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupService"
+import { getCountries } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const studentSearchMeta: IFilterFieldObject[] = [
+  {
+    label: "Last Name",
+    inputType: TEXT,
+    fieldName: "LastName",
+    ariaLabel: "Last Name"
+  },
   {
     label: "First Name",
     inputType: TEXT,
@@ -10,82 +16,72 @@ export const studentSearchMeta: IFilterFieldObject[] = [
     ariaLabel: "First Name"
   },
   {
-    label: "Last Name",
+    label: "Email",
     inputType: TEXT,
-    defaultValue: "",
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
+
+    fieldName: "EmailAddress",
+    ariaLabel: "Email"
+  },
+  {
+    label: "Telephone",
+    inputType: TEXT,
+    fieldName: "TelephoneNumber",
+    ariaLabel: "Phone"
   },
   {
     label: "Middle Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "MiddleName",
     ariaLabel: "Middle Name"
   },
   {
     label: "Other Name",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "OtherName",
     ariaLabel: "Other Name"
   },
+  // {
+  //   label: "Account Role",
+  //   inputType: DROPDOWN,
+  //   fieldName: "RoleName",
+  //   ariaLabel: "Account Role",
+  //   refLookupService: getAccountTypes,
+  //   displayKey: "Name",
+  //   valueKey: "ID"
+  // },
+  // {
+  //   label: "Account Name",
+  //   inputType: TEXT,
+  //   fieldName: "AccountName",
+  //   ariaLabel: "Account Name"
+  // },
+
   {
     label: "Address",
     inputType: TEXT,
-    defaultValue: "",
     fieldName: "Address",
     ariaLabel: "Address"
   },
   {
     label: "City",
     inputType: TEXT,
-    defaultValue: "",
     fieldName: "City",
     ariaLabel: "City"
   },
   {
     label: "Postal Code",
     inputType: TEXT,
-    defaultValue: "",
+
     fieldName: "PostalCode",
     ariaLabel: "Postal Code"
   },
-  {
-    label: "Email",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "EmailAddress",
-    ariaLabel: "Email"
-  },
-  {
-    label: "Phone",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "TelephoneNumber",
-    ariaLabel: "Phone"
-  },
-  {
-    label: "Account Name",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
-  },
-  {
-    label: "Account Role",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "RoleName",
-    ariaLabel: "Account Role",
-    refLookupService: getAccountTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
+
   {
     label: "Country",
     inputType: DROPDOWN,
-    defaultValue: "",
+
     fieldName: "CountryCodeID",
     ariaLabel: "Country Select",
     refLookupService: getCountries,

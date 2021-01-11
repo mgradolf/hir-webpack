@@ -78,7 +78,8 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
         setSectionFinancialItems(response.data)
       }
     })()
-  }, [props])
+    // eslint-disable-next-line
+  }, [])
 
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
@@ -95,7 +96,6 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      props.formInstance.resetFields()
       eventBus.publish(REFRESH_SECTION_DISCOUNT_PAGE)
       props.handleCancel()
     } else {

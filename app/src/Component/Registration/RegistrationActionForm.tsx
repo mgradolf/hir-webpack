@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Redirect } from "react-router-dom"
-import { Form, Button, Input, Select, Switch, DatePicker, Table, Spin } from "antd"
+import { Form, Input, Select, Switch, DatePicker, Table, Spin, Button, Card } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
@@ -23,17 +23,23 @@ import moment from "moment"
 
 interface IRegistrationFormProps {
   initialFormValue: { [key: string]: any }
-  fieldNames: IRegistrationActionFieldNames
+  closeModal?: () => void
+  handleCancel: () => void
+}
+
+const fieldNames: IRegistrationActionFieldNames = {
+  SectionID: "SectionID",
+  StudentID: "StudentID",
+  SeatGroupID: "SeatGroupID",
+  EffectiveDate: "EffectiveDate",
+  IsRefund: "IsRefund",
+  CreditMemoData: "CreditMemoData",
+  GradeScaleTypeID: "GradeScaleTypeID",
+  GradeScoreDefinitionID: "GradeScoreDefinitionID"
 }
 
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 6 }
-}
-
-const btnLayout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 8 }
+  labelCol: { span: 8 }
 }
 
 export default function RegistrationActionForm(props: IRegistrationFormProps) {
@@ -179,127 +185,119 @@ export default function RegistrationActionForm(props: IRegistrationFormProps) {
     setShowRefundItems(isRefund)
   }
 
+  const actions = []
+  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
+  actions.push(<Button onClick={onFormSubmission}>Update</Button>)
+
   return (
-    <Spin size="large" spinning={loading}>
-      <Form form={form} initialValues={props.initialFormValue}>
-        <FormError errorMessages={errorMessages} />
+    <Card title={"Registration Drop/Withdraw/Delete"} actions={actions}>
+      <Spin size="large" spinning={loading}>
+        <Form form={form} initialValues={props.initialFormValue}>
+          <FormError errorMessages={errorMessages} />
 
-        <Form.Item className="hidden" name={props.fieldNames.StudentID}>
-          <Input aria-label="Student ID" />
-        </Form.Item>
-        <Form.Item className="hidden" name={props.fieldNames.SectionID}>
-          <Input aria-label="Section ID" />
-        </Form.Item>
-        <Form.Item className="hidden" name={props.fieldNames.SeatGroupID}>
-          <Input aria-label="SeatGroup ID" />
-        </Form.Item>
+          <Form.Item className="hidden" name={fieldNames.StudentID}>
+            <Input aria-label="Student ID" />
+          </Form.Item>
+          <Form.Item className="hidden" name={fieldNames.SectionID}>
+            <Input aria-label="Section ID" />
+          </Form.Item>
+          <Form.Item className="hidden" name={fieldNames.SeatGroupID}>
+            <Input aria-label="SeatGroup ID" />
+          </Form.Item>
 
-        <Form.Item label="Student" {...layout}>
-          <Input disabled value={props.initialFormValue.StudentName} />
-        </Form.Item>
+          <Form.Item label="Student" {...layout}>
+            <Input disabled value={props.initialFormValue.StudentName} />
+          </Form.Item>
 
-        <Form.Item label="Offering" {...layout}>
-          <Input disabled value={props.initialFormValue.SectionNumber} />
-        </Form.Item>
+          <Form.Item label="Offering" {...layout}>
+            <Input disabled value={props.initialFormValue.SectionNumber} />
+          </Form.Item>
 
-        <Form.Item label="Final Enrollment Date" {...layout}>
-          <Input
-            disabled
-            value={moment(props.initialFormValue.FinalEnrollmentDate, REQUEST_DATE_TIME_FORMAT).format(DATE_FORMAT)}
-          />
-        </Form.Item>
-
-        <Form.Item label="Action" rules={[{ required: true, message: "Please select your answer!" }]} {...layout}>
-          <Select aria-label="Actions" value={actionName} onChange={actionHandler}>
-            <Select.Option key="1" value="Drop">
-              Drop
-            </Select.Option>
-            <Select.Option key="2" value="Withdraw">
-              Withdraw
-            </Select.Option>
-            <Select.Option key="3" value="Delete">
-              Delete
-            </Select.Option>
-          </Select>
-        </Form.Item>
-
-        {showEffectiveDate && (
-          <Form.Item
-            label="Effective Date"
-            rules={[{ required: true, message: "Please pick the date!" }]}
-            {...layout}
-            name={props.fieldNames.EffectiveDate}
-          >
-            <DatePicker
-              aria-label="Pick Effective Date"
-              onChange={effectiveDateHandler}
-              placeholder={DATE_TIME_FORMAT}
-              format={DATE_TIME_FORMAT}
+          <Form.Item label="Final Enrollment Date" {...layout}>
+            <Input
+              disabled
+              value={moment(props.initialFormValue.FinalEnrollmentDate, REQUEST_DATE_TIME_FORMAT).format(DATE_FORMAT)}
             />
           </Form.Item>
-        )}
 
-        {showGradeScale && (
+          <Form.Item label="Action" rules={[{ required: true, message: "Please select your answer!" }]} {...layout}>
+            <Select aria-label="Actions" value={actionName} onChange={actionHandler}>
+              <Select.Option key="1" value="Drop">
+                Drop
+              </Select.Option>
+              <Select.Option key="2" value="Withdraw">
+                Withdraw
+              </Select.Option>
+              <Select.Option key="3" value="Delete">
+                Delete
+              </Select.Option>
+            </Select>
+          </Form.Item>
+
+          {showEffectiveDate && (
+            <Form.Item
+              label="Effective Date"
+              rules={[{ required: true, message: "Please pick the date!" }]}
+              {...layout}
+              name={fieldNames.EffectiveDate}
+            >
+              <DatePicker
+                aria-label="Pick Effective Date"
+                onChange={effectiveDateHandler}
+                placeholder={DATE_TIME_FORMAT}
+                format={DATE_TIME_FORMAT}
+              />
+            </Form.Item>
+          )}
+
+          {showGradeScale && (
+            <Form.Item
+              label="Grade Scale"
+              rules={[{ required: true, message: "Please select your answer!" }]}
+              {...layout}
+              name={fieldNames.GradeScaleTypeID}
+            >
+              <Select onChange={gradeScaleHandler} aria-label="Grade Scale">
+                {gradeScaleItems.map((x) => {
+                  return (
+                    <Select.Option key={x.ID} value={x.ID}>
+                      {x.Name}
+                    </Select.Option>
+                  )
+                })}
+              </Select>
+            </Form.Item>
+          )}
+
+          {showGradeScale && (
+            <Form.Item label="Final Grade" {...layout} name={fieldNames.GradeScoreDefinitionID}>
+              <Select aria-label="Final Grade">
+                {gradeScoreDefinitionItems.map((x) => {
+                  return (
+                    <Select.Option key={x.GradeScoreDefinitionID} value={x.GradeScoreDefinitionID}>
+                      {x.GradeClassificationType}
+                    </Select.Option>
+                  )
+                })}
+              </Select>
+            </Form.Item>
+          )}
+
           <Form.Item
-            label="Grade Scale"
-            rules={[{ required: true, message: "Please select your answer!" }]}
+            label="Return seat and issue credit"
             {...layout}
-            name={props.fieldNames.GradeScaleTypeID}
+            valuePropName="checked"
+            name={fieldNames.IsRefund}
           >
-            <Select onChange={gradeScaleHandler} aria-label="Grade Scale">
-              {gradeScaleItems.map((x) => {
-                return (
-                  <Select.Option key={x.ID} value={x.ID}>
-                    {x.Name}
-                  </Select.Option>
-                )
-              })}
-            </Select>
+            <Switch onChange={refundHandler} aria-label="Return seat and issue credit" />
           </Form.Item>
-        )}
 
-        {showGradeScale && (
-          <Form.Item label="Final Grade" {...layout} name={props.fieldNames.GradeScoreDefinitionID}>
-            <Select aria-label="Final Grade">
-              {gradeScoreDefinitionItems.map((x) => {
-                return (
-                  <Select.Option key={x.GradeScoreDefinitionID} value={x.GradeScoreDefinitionID}>
-                    {x.GradeClassificationType}
-                  </Select.Option>
-                )
-              })}
-            </Select>
-          </Form.Item>
-        )}
-
-        <Form.Item
-          label="Return seat and issue credit"
-          {...layout}
-          valuePropName="checked"
-          name={props.fieldNames.IsRefund}
-        >
-          <Switch onChange={refundHandler} aria-label="Return seat and issue credit" />
-        </Form.Item>
-
-        {showRefundItems && (
-          <Table
-            className="credit-memo-data-table"
-            rowKey="OrderLineID"
-            bordered
-            dataSource={creditMemoItems}
-            pagination={false}
-            columns={columns}
-          />
-        )}
-
-        <Form.Item {...btnLayout}>
-          <Button type="primary" style={{ marginTop: "20px", float: "right" }} onClick={onFormSubmission}>
-            Update
-          </Button>
-        </Form.Item>
-
-        {redirectAfterRemoveURL !== "" && <Redirect to={redirectAfterRemoveURL} />}
-      </Form>
-    </Spin>
+          {showRefundItems && (
+            <Table rowKey="OrderLineID" bordered dataSource={creditMemoItems} pagination={false} columns={columns} />
+          )}
+          {redirectAfterRemoveURL !== "" && <Redirect to={redirectAfterRemoveURL} />}
+        </Form>
+      </Spin>
+    </Card>
   )
 }

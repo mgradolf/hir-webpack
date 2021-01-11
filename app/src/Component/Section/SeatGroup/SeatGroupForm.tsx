@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Switch } from "antd"
 import { getDueDatePolicy } from "~/ApiServices/Service/RefLookupService"
-import "~/Sass/utils.scss"
 import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
-import ProgramFormField from "~/Component/Program/ProgramFormField"
+import "~/Sass/utils.scss"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
@@ -25,6 +24,7 @@ interface ISeatGroupCreateFormProps {
 const layout = {
   labelCol: { span: 6 }
 }
+
 export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   const [dueDatePolicy, setDueDatePolicy] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
@@ -41,11 +41,16 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
         setDueDatePolicy(response.data)
       }
     })()
-  }, [props])
+    // eslint-disable-next-line
+  }, [])
 
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
+
+    Object.keys(params).forEach((key) => {
+      if (params[key] === undefined) delete params[key]
+    })
 
     type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
     const serviceMethoToCall: serviceMethodType = props.seatgroupId ? updateSeatGroup : createSeatGroup
@@ -56,8 +61,8 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      props.formInstance.resetFields()
       eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
+      eventBus.publish(REFRESH_PAGE)
       props.handleCancel()
     } else {
       setErrorMessages(response.error)
@@ -109,15 +114,6 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
         <Form.Item name={props.fieldNames.IsOptional} label="Waitlist Enabled" {...layout} valuePropName="checked">
           <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
         </Form.Item>
-        {!props.isDefault && (
-          <Form.Item name={props.fieldNames.ProgramID} label="Program" {...layout}>
-            <ProgramFormField
-              formInstance={props.formInstance}
-              valueKey={props.fieldNames.ProgramID}
-              displayKey={props.fieldNames.ProgramCode}
-            />
-          </Form.Item>
-        )}
       </Form>
     </Card>
   )

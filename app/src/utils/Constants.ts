@@ -6,6 +6,12 @@ export const DATE_TIME_FORMAT = "MM/DD/YYYY hh:mm A"
 export const REQUEST_DATE_TIME_FORMAT = "YYYY-MM-DD hh:mm A"
 export const DATE_TIME = ""
 
+export const SECTION_STATUS_CODE = {
+  PRELIMINARY: 0,
+  COMPLETED: 4,
+  CANCELLED: 1000
+}
+
 export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
   ACCOUNT: "Account",
   PURCHASER: "Purchaser",
@@ -99,7 +105,23 @@ export const COMMENT_TYPES = {
   ENROLLMENT: "Enrollment"
 }
 
+export const DISCOUNT_AMOUNT = {
+  DISCOUNT_DOLLAR_AMOUNT_TYPE_ID: "$",
+  DISCOUNT_PERCENTAGE_AMOUNT_TYPE_ID: "%"
+}
+
 export const FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID = 1
+
+export const FINANCIAL_OFFERING_TYPE_ID = 1
+export const FINANCIAL_FACULTY_TYPE_ID = 2
+export const FINANCIAL_MARKETING_PROGRAM_TYPE_ID = 3
+export const FINANCIAL_RESOURCE_TYPE_ID = 4
+
+export const FINANCIAL_TYPE_OFFERING = "Offering"
+export const FINANCIAL_TYPE_RESOURCE = "Resource"
+export const FINANCIAL_TYPE_INSTRUCTOR = "Instructor"
+export const FINANCIAL_TYPE_FACULTY = "Faculty"
+export const FINANCIAL_TYPE_MARKETING_PROGRAM = "Marketing Program"
 
 export const DISCOUNT_APPLY_TO_ALL_TYPE_ID = 1
 export const DISCOUNT_MANUALLY_APPLIED_TO_ENROLLMENT_TYPE_ID = 2
@@ -127,12 +149,6 @@ export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
 
 export const ADMIN_SOURCE_NAME = "Admin"
 
-export const PARAM_TYPE_REQUEST = "Request"
-export const PARAM_TYPE_REQUESTS = "Requests"
-
-export const PARAM_TYPE_REGISTRATION = "Registration"
-export const PARAM_TYPE_REGISTRATIONS = "Registrations"
-
 export const ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE = 1
 export const GRADE_CLASSIFICATION_TYPE_WITHDRAW = 2
 
@@ -142,5 +158,10 @@ export const QUESTION_EVENT_TYPE_PROFILE = 2
 export const CREDIT_HOURS = "CreditHours"
 export const CEU_HOURS = "CEUHours"
 
+export const REGISTRATION_EMAIL_CONFIRMATION_SUCCESS = "Successfully send email!"
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
 export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
+
+export const SAVE_SUCCESSFULLY = "Successfully saved!"
+
+export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000

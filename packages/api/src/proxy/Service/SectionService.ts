@@ -5,6 +5,13 @@ export const config = {
   Service: "SectionService",
   Module: "hir",
   Actions: {
+    addOfferingFinancials: "addOfferingFinancials",
+    addInstructorFinancials: "addInstructorFinancials",
+    addMarketingProgramFinancials: "addMarketingProgramFinancials",
+    addResourceFinancials: "addResourceFinancials",
+    addSectionDiscount: "addSectionDiscount",
+    getSectionDetails: "getSectionDetails",
+    getSectionStatistics: "getSectionStatistics",
     findAffiliatedOrgsForSeatGroup: "findAffiliatedOrgsForSeatGroup",
     getPaymentGatewayAccount: "getPaymentGatewayAccount",
     getSeatGroupsBySection: "getSeatGroupsBySection",
@@ -46,7 +53,9 @@ export const config = {
     findFacultyComments: "findFacultyComments",
     findEnrollmentCommentHistory: "findEnrollmentCommentHistory",
     findFaculty: "findFaculty",
-    findEnrollmentStudentHistory: "findEnrollmentStudentHistory"
+    findEnrollmentStudentHistory: "findEnrollmentStudentHistory",
+    scheduleInstructor: "scheduleInstructor",
+    saveMeetingInformations: "saveMeetingInformations"
   }
 }
 

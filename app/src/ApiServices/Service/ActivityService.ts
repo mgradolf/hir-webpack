@@ -12,3 +12,7 @@ export function getStudentEnrollmentActivity(Params: { [key: string]: any }): Pr
 export function getOrderActivity(Params: { [key: string]: any }): Promise<IApiResponse> {
   return ActivityService[config.Actions.getOrderActivity](Params)
 }
+
+export function getCreditMemoActivity(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return ActivityService[config.Actions.getCreditMemoActivity](Params)
+}

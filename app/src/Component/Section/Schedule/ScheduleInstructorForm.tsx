@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Switch, Select } from "antd"
 import { findQualifiedInstructors } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import "~/Sass/utils.scss"
+import { scheduleInstructor } from "~/ApiServices/Service/SectionService"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleInstructorFieldNames } from "~/Component/Section/Interfaces"
+import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 
 interface IScheduleInstructorFormProps {
   sectionId: number
@@ -36,30 +39,30 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
   }, [props])
 
   const onFormSubmission = async () => {
-    // setErrorMessages([])
-    // await props.formInstance.validateFields()
-    // const params = props.formInstance.getFieldsValue() as { [key in keyof IScheduleLocationFieldNames]: any }
-    // if (params.RoomID === "") {
-    //   delete params.RoomID
-    // }
-    // if (params.BuildingID === "") {
-    //   delete params.BuildingID
-    // }
-    // type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
-    // const serviceMethoToCall: serviceMethodType = saveLocations
-    // props.setApiCallInProgress(true)
-    // setErrorMessages([])
-    // const response = await serviceMethoToCall(params)
-    // props.setApiCallInProgress(false)
-    // if (response && response.success) {
-    //   props.formInstance.resetFields()
-    //   eventBus.publish(REFRESH_SECTION_SCHEDULE_PAGE)
-    //   props.handleCancel()
-    // } else {
-    //   setErrorMessages(response.error)
-    //   console.log(response.error)
-    //   console.log(errorMessages)
-    // }
+    setErrorMessages([])
+    await props.formInstance.validateFields()
+    const params = props.formInstance.getFieldsValue()
+
+    const personID = params["PersonIDs"]
+    params["PersonIDs"] = [personID]
+    console.log("params: ", params)
+
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
+    const serviceMethoToCall: serviceMethodType = scheduleInstructor
+
+    props.setApiCallInProgress(true)
+    setErrorMessages([])
+    const response = await serviceMethoToCall(params)
+    props.setApiCallInProgress(false)
+
+    if (response && response.success) {
+      eventBus.publish(REFRESH_SECTION_SCHEDULE_PAGE)
+      props.handleCancel()
+    } else {
+      setErrorMessages(response.error)
+      console.log(response.error)
+      console.log(errorMessages)
+    }
   }
 
   const actions = []

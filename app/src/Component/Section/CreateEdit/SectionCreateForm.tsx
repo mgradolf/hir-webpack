@@ -47,7 +47,7 @@ export default function SectionCreateForm(props: ISectionCreateFormProps) {
       .then((response) => {
         if (response && response.success && Array.isArray(response.data)) {
           setSectionTypes(
-            response.data.map((x) => {
+            response.data.map((x: any) => {
               if (x.SectionTypeID === DEFAULT_SECTION_TYPE_ID) {
                 x.OfferingStatusCodeID = 0
               }

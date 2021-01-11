@@ -8,32 +8,42 @@ import { FormInstance } from "antd/lib/form"
 
 export const TEXT = "TEXT"
 export const DROPDOWN = "DROPDOWN"
+export const MULTI_SELECT_DROPDOWN = "MULTI_SELECT_DROPDOWN"
 export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
+export const BOOLEAN = "BOOLEAN"
 
-export type IFilterFieldType = typeof TEXT | typeof DROPDOWN | typeof DATE_PICKER | typeof DATE_PICKERS | typeof NUMBER
+export type IFilterFieldType =
+  | typeof TEXT
+  | typeof DROPDOWN
+  | typeof MULTI_SELECT_DROPDOWN
+  | typeof DATE_PICKER
+  | typeof DATE_PICKERS
+  | typeof NUMBER
+  | typeof BOOLEAN
 
 export interface IFilterFieldObject {
   label: string
   inputType: IFilterFieldType
   hidden?: boolean
-  defaultValue?: any
   placeholder?: string
   disabled?: boolean
 
   fieldName: string
+  defaultValue?: any
   displayKey?: string
   valueKey?: string
-  ariaLabel: string
+  ariaLabel?: string
 
   fieldName2?: string
+  defaultValue2?: any
   ariaLabel2?: string
   displayKey2?: string
   valueKey2?: string
 
   fullWidth?: boolean
-
+  extraProps?: { [key: string]: any }
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
   requestService?: () => Promise<IApiResponse>
@@ -42,8 +52,12 @@ export interface IFilterFieldObject {
 export interface IFilterFieldComponent {
   label: string
   fieldName: string
+  valueField?: string
+  defaultValue?: any
   label2?: string
   fieldName2?: string
+  valueField2?: string
+  defaultValue2?: any
   customFilterComponent: React.FunctionComponent<any>
   fullWidth?: boolean
   extraProps?: { [key: string]: any }
@@ -59,12 +73,14 @@ export type IFilterGenericComponentProps<Field> = Field extends IFilterFieldObje
   ? IFilterFieldObject & {
       isCheckeble?: boolean
       formInstance: FormInstance
+      clearTrigger?: boolean
     }
   : IFilterFieldComponent & {
       isCheckeble?: boolean
       value: { [key: string]: string | number }
       filterValueChanged: (newValues: { [key: string]: string | number | boolean }) => void
       formInstance: FormInstance
+      clearTrigger: boolean
     }
 
 const layout = {
@@ -107,17 +123,23 @@ export function SearchFieldWrapper(
         <Checkbox onChange={toggleCheckboxHandler}>{props.label}</Checkbox>
       </LabelCol>
       <InputCol className={checked ? styles.offeringFilterField : "hidden"}>
-        <Form.Item name={props.fieldName}>{props.children}</Form.Item>
+        <Form.Item
+          name={props.fieldName}
+          {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
+        >
+          {props.children}
+        </Form.Item>
       </InputCol>
     </Row>
   ) : (
     <Form.Item
       colon={false}
       label={props.label}
-      name={props.fieldName}
+      {...(props.fieldName !== "" && { name: props.fieldName })}
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 12 }}
+      wrapperCol={{ span: 24 }}
       {...(props.hidden && { className: "hidden" })}
+      {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
     >
       {props.children}
     </Form.Item>

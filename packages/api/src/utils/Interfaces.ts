@@ -22,5 +22,6 @@ export interface IApiResponse {
 
 export const RESPONSE_TYPE = {
   EXCEL: "__downloadDataAsEXCEL",
-  CSV: "__downloadDataAsCSV"
+  CSV: "__downloadDataAsCSV",
+  PDF: "__downloadDataAsPDF"
 }

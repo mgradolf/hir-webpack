@@ -4,18 +4,23 @@ import { FormLookupOpenButton } from "~/Component/Common/Form/FormLookupOpenButt
 import { FormInstance } from "antd/lib/form"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 
-export function FormSectionLookupButton(props: { formInstance: FormInstance; onCloseModal?: (Section: any) => void }) {
+export function FormSectionLookupButton(props: {
+  entityLookupFunc?: () => Promise<{ [key: string]: any }>
+  formInstance: FormInstance
+  onCloseModal?: (Section: any) => void
+}) {
   return (
     <FormLookupOpenButton
       lookupModalTitle="Select Section"
       valueField="SectionID"
-      displayField="SortName"
+      displayField="SectionNumber"
       fieldName="SectionID"
       label="Section"
-      formInstance={props.formInstance}
       {...getSectionTableColumns(true)}
       meta={SectionSearchMeta}
+      formInstance={props.formInstance}
       onCloseModal={props.onCloseModal}
+      entityLookupFunc={props.entityLookupFunc}
     />
   )
 }

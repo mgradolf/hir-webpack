@@ -1,5 +1,5 @@
 import React from "react"
-import { Row, Col, Typography, Button } from "antd"
+import { Row, Col, Button } from "antd"
 import { connect } from "react-redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/Store/ModalState"
 import { Dispatch } from "redux"
@@ -17,12 +17,9 @@ function CreateActionButton(props: ICreateActionButtonProp) {
       props.openAddOfferingRequisiteGroupModal(props.offeringId, props.requisiteGroupId)
   }
   return (
-    <Row style={{ paddingTop: "5px" }}>
-      <Col span={12}>
-        <Typography.Text style={{ fontWeight: "bold", fontSize: "16px" }}>Group Details</Typography.Text>
-      </Col>
+    <Row>
       {props.hasRequisiteGroup && (
-        <Col span={12} style={{ textAlign: "right" }}>
+        <Col span={24} style={{ textAlign: "right" }}>
           <Button type="primary" onClick={onClick}>
             + Add Offering
           </Button>

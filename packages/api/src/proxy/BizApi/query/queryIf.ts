@@ -6,7 +6,10 @@ export const config = {
   Module: "hir",
   Actions: {
     executeDomainListWithoutPagination: "executeDomainListWithoutPagination",
-    executeDomainListWithPagination: "executeDomainListWithPagination"
+    executeDomainListWithPagination: "executeDomainListWithPagination",
+    findEnrollmentHistory: "findEnrollmentHistory",
+    executeDomainList: "executeDomainList",
+    executeDomainObject: "executeDomainObject"
   }
 }
 

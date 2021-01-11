@@ -29,3 +29,44 @@
 .credit-memo-data-table {
   width: 60%;
 }
+
+.issue-certificate-data-table {
+  width: 80%;
+}
+
+// dorakata-table css
+.dorakata-table {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+}
+
+.dorakata-table td {
+  padding: 8px;
+}
+
+.dorakata-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.dorakata-table tr:hover {
+  background-color: #ddd;
+}
+
+.dorakata-table th {
+  background-color: #4caf50;
+  border: 1px solid #ddd;
+  color: #f2f2f2;
+  padding: 8px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: left;
+}
+
+.ant-form-item-label {
+  label {
+    height: 40px !important;
+    white-space: normal;
+  }
+}

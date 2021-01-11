@@ -5,22 +5,46 @@ import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 import { IApiResponse, RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import moment from "moment"
 import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
-import { DownOutlined } from "@ant-design/icons"
+import { ReadOutlined, DownloadOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
+import { useFirstRender } from "~/Hooks/useFirstRender"
 
 export type TableColumnType = ColumnsType<{ [key: string]: any }>
 
 // TODO: Currently we have generic responsive support for
 // only one set of breakpoints, we need support for multiple set of
 // breakpoints
+export const renderDetailsLink = (url: string): JSX.Element => {
+  return (
+    <Link to={url}>
+      <ReadOutlined />
+    </Link>
+  )
+}
+export const renderEmail = (text: any): JSX.Element => (text !== null ? <a href={`mailto:${text}`}>{text}</a> : <></>)
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
-export const renderBoolean = (text: any) => (text ? "Yes" : "No")
+export const renderBoolean = (text: any) => {
+  if (typeof text === "boolean") {
+    return text ? "Yes" : "No"
+  } else return ""
+}
+
 export const renderWeek = (text: any[], record: any) => {
   const weeks: string[] = ["Monday", "TuesDay", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   return text && Array.isArray(text) && weeks.filter((x, i) => text.includes(i + 1))
+}
+
+export const sortByBoolean = (a: boolean, b: boolean) => (a === b ? 0 : a ? -1 : 1)
+export const sortByString = (a: string, b: string) => a.localeCompare(b)
+export const sortByTime = (a?: string, b?: string) => {
+  const aa = a ? new Date(a).getTime() : 0
+  const bb = b ? new Date(b).getTime() : 0
+
+  return aa === bb ? 0 : aa ? -1 : 1
 }
 
 export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
@@ -33,6 +57,7 @@ export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
   breakpoints?: Breakpoint[]
   isModal?: boolean
+  refreshEventName?: string
   rowKey?: string
 }
 
@@ -50,8 +75,9 @@ export function ResponsiveTable(props: IDataTableProps) {
   } = props
 
   const [loading, setLoading] = useState(false)
-  const [mobileView, setMobileView] = useState<any>(undefined)
+  const [mobileView, setMobileView] = useState<boolean>(false)
   const [downloading, setDownloading] = useState(false)
+  const firstRender = useFirstRender()
 
   const loadDataFromSearchFunc = () => {
     if (loading) {
@@ -80,21 +106,25 @@ export function ResponsiveTable(props: IDataTableProps) {
     }
   }
   useEffect(() => {
-    loadDataFromSearchFunc()
+    if (!firstRender) loadDataFromSearchFunc()
     // eslint-disable-next-line
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    eventBus.subscribe(REFRESH_PAGE, loadDataFromSearchFunc)
-    eventBus.publish(REFRESH_PAGE)
+    const eventName = isModal ? REFRESH_MODAl : props.refreshEventName ? props.refreshEventName : REFRESH_PAGE
+    console.log(eventName, props.refreshEventName)
+
+    eventBus.subscribe(eventName, loadDataFromSearchFunc)
+    eventBus.publish(eventName)
     return () => {
-      eventBus.unsubscribe(REFRESH_PAGE)
+      eventBus.unsubscribe(eventName)
     }
+
     // eslint-disable-next-line
   }, [])
 
   useDeviceViews((deviceViews: IDeviceView) => {
-    setMobileView(deviceViews.mobile || deviceViews.tab)
+    setMobileView(deviceViews.mobile)
   })
 
   const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
@@ -104,13 +134,21 @@ export function ResponsiveTable(props: IDataTableProps) {
         {expandableColumnIndices
           .filter((index) => index <= _columns.length)
           .map((index, i) => {
-            const title = _columns[index - 1].title
-            const text = record[_columns[index - 1].dataIndex]
+            const _index = index - 1
+            const title = _columns[_index].title
+            const text = record[_columns[_index].dataIndex]
             return (
-              <li key={i}>
-                <span>{title} : </span>
-                <span> {text}</span>
-              </li>
+              <React.Fragment key={i}>
+                {title && text && (
+                  <li>
+                    <span>{title} : </span>
+                    <span>
+                      {" "}
+                      {_columns[_index] && _columns[_index].render ? _columns[_index].render(text, record) : text}
+                    </span>
+                  </li>
+                )}
+              </React.Fragment>
             )
           })}
       </>
@@ -123,19 +161,23 @@ export function ResponsiveTable(props: IDataTableProps) {
               return !expandableColumnIndices?.includes(index) || index <= _columns.length
             })
             .map((index, i) => {
-              const title = _columns[index - 1].title
-              let text: any = record[_columns[index - 1].dataIndex]
+              const _index = index - 1
+              const title = _columns[_index].title
+              let text: any = record[_columns[_index].dataIndex]
               if (Array.isArray(text)) text = text.toString()
               else if (typeof text === "boolean") text = renderBoolean(text)
               return (
-                <>
+                <React.Fragment key={i}>
                   {title && text && (
-                    <li key={i + 10000}>
+                    <li>
                       <span>{title} : </span>
-                      <span>{text}</span>
+                      <span>
+                        {" "}
+                        {_columns[_index] && _columns[_index].render ? _columns[_index].render(text, record) : text}
+                      </span>
                     </li>
                   )}
-                </>
+                </React.Fragment>
               )
             })}
         </>
@@ -153,12 +195,13 @@ export function ResponsiveTable(props: IDataTableProps) {
   const setTableProps = (data?: any) => {
     const _conditionalProps: TableProps<{ [key: string]: string }> = {
       columns: columns
-        .filter((x, i) => !expandableColumnIndices?.includes(i + 1))
-        .map((col, index) =>
-          responsiveColumnIndices && responsiveColumnIndices.includes(index)
-            ? { ...col, responsive: ["md", "lg", "xl", "xxl"] }
-            : col
-        ),
+        .filter((x, i) => {
+          const include = !expandableColumnIndices?.includes(i + 1)
+          return include
+        })
+        .filter((x, i) => {
+          return !(mobileView && responsiveColumnIndices?.includes(i + 1))
+        }),
       ...otherTableProps
     }
 
@@ -173,15 +216,19 @@ export function ResponsiveTable(props: IDataTableProps) {
         (responsiveColumnIndices && responsiveColumnIndices?.length > 0)
       )
     ) {
-      _conditionalProps.expandedRowRender = (record: any) => expandableRowRender(record, mobileView)
+      _conditionalProps.expandedRowRender = (record: any) => {
+        return expandableRowRender(record, mobileView)
+      }
     }
-    _conditionalProps.scroll = { ...(isModal && { y: 300 }), x: columns.length * 80 }
+    _conditionalProps.scroll = { x: columns.length }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
     _conditionalProps.pagination =
-      props.pagination && typeof props.pagination === "boolean" && !props.pagination
+      typeof props.pagination === "boolean" && !props.pagination
         ? props.pagination
-        : { position: ["topLeft"], pageSize: 20 }
+        : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
+        ? { position: ["topLeft"], pageSize: 20, simple: true }
+        : false
     setConditionalProps(_conditionalProps)
   }
 
@@ -225,12 +272,13 @@ export function ResponsiveTable(props: IDataTableProps) {
             <Button
               loading={downloading}
               disabled={downloading}
-              style={{ position: "absolute", zIndex: 100, right: "15px", top: "15px", border: "1px solid" }}
-              type="link"
+              style={{ position: "absolute", zIndex: 100, right: "25px", top: "15px", border: "1px solid" }}
+              type="default"
+              // style={{ float: "right", right: "15px", top: "15px", border: "1px solid" }}
+              // type="link"
               onClick={(e) => e.preventDefault()}
-            >
-              Download <DownOutlined />
-            </Button>
+              icon={<DownloadOutlined />}
+            />
           </Dropdown>
         )}
       <Table {...conditionalProps} loading={otherTableProps.loading || loading} />

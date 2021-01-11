@@ -1,6 +1,38 @@
 import SectionService, { config } from "@packages/api/lib/proxy/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function addOfferingFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addOfferingFinancials](Params)
+}
+
+export function addInstructorFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addInstructorFinancials](Params)
+}
+
+export function addMarketingProgramFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addMarketingProgramFinancials](Params)
+}
+
+export function addResourceFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addResourceFinancials](Params)
+}
+
+export function addSectionDiscount(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.addSectionDiscount](Params)
+}
+
+export function getSectionDetails(SectionID: number): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionDetails]({
+    SectionID
+  })
+}
+
+export function getSectionStatistics(SectionID: number): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionStatistics]({
+    SectionID
+  })
+}
+
 export function findAffiliatedOrgsForSeatGroup(SeatGroupID: number): Promise<IApiResponse> {
   return SectionService[config.Actions.findAffiliatedOrgsForSeatGroup]({
     SeatGroupID
@@ -46,6 +78,34 @@ export function saveFinancials(Params: { [key: string]: any }) {
 
 export function getSectionFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
   return SectionService[config.Actions.getSectionFinancials](Params)
+}
+
+export function getSectionFinancialsCombined(SeatGroupID?: number, SectionID?: number): Promise<IApiResponse> {
+  return Promise.all([getSectionFinancials({ SectionID, SeatGroupID }), getSectionFinancials({ SectionID })]).then(
+    (responses) => {
+      const response1 = responses[0]
+      const response2 = responses[1]
+      if (response1.success && response2.success) {
+        Object.keys(response2.data).forEach((sectionFinancial: any) => {
+          response2.data[sectionFinancial]["IsPublished"] = false
+          Object.keys(response1.data).forEach((seatGroupFinancial: any) => {
+            if (
+              response2.data[sectionFinancial].SectionFinancialID ===
+              response1.data[seatGroupFinancial].SectionFinancialID
+            ) {
+              response2.data[sectionFinancial]["IsPublished"] = true
+              return false
+            }
+          })
+        })
+        return response2
+      } else if (response2.success) {
+        return response2
+      } else {
+        return response1
+      }
+    }
+  )
 }
 
 export function getAvailableOfferingFinancials(SectionID: number): Promise<IApiResponse> {
@@ -156,4 +216,12 @@ export function findFaculty(Params: { [key: string]: any }) {
 
 export function findEnrollmentStudentHistory(Params: { [key: string]: any }) {
   return SectionService[config.Actions.findEnrollmentStudentHistory](Params)
+}
+
+export function scheduleInstructor(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.scheduleInstructor](Params)
+}
+
+export function saveMeetingInformations(Params: { [key: string]: any }) {
+  return SectionService[config.Actions.saveMeetingInformations](Params)
 }

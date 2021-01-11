@@ -1,55 +1,24 @@
-import React, { useState, useEffect } from "react"
-
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showOfferingApprovalModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
-import { searchOffering } from "~/ApiServices/Service/OfferingService"
-import styles from "~/Component/Offering/Approval/ApprovalModal.module.scss"
+import OfferingApprovalFormModal from "~/Component/Offering/Approval/OfferingApprovalFormModal"
 
 interface ICreateActionButtonProp {
   offeringId: number
-  openOfferingApprovalModal?: (offeringId: number) => void
+  statusCode: string
+  closeModal?: () => void
 }
-function ApprovalActionButton(props: ICreateActionButtonProp) {
-  const [offeringDetails, setOfferingDetails] = useState<Array<any>>([])
 
-  useEffect(() => {
-    ;(async function () {
-      const result = await searchOffering({ OfferingID: Number(props.offeringId) })
+export default function OfferingApprovalModalOpenButton(props: ICreateActionButtonProp) {
+  const [showModal, setShowModal] = useState(false)
 
-      if (result && result.success) {
-        setOfferingDetails(result.data)
-      }
-    })()
-  }, [props.offeringId])
-
-  const onClick = () => {
-    if (props.openOfferingApprovalModal) props.openOfferingApprovalModal(props.offeringId)
-  }
   return (
     <>
-      {offeringDetails.length &&
-        offeringDetails.map((offering) => {
-          return (
-            <Button
-              key={offering.OfferingCode + 1}
-              type="primary"
-              className={offering.StatusCode === "Open" ? "hidden" : styles.show}
-              onClick={onClick}
-            >
-              Manage Approval
-            </Button>
-          )
-        })}
+      {props.statusCode !== "Open" && (
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          Manage Approval
+        </Button>
+      )}
+      {showModal && <OfferingApprovalFormModal offeringID={props.offeringId} closeModal={() => setShowModal(false)} />}
     </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openOfferingApprovalModal: (offeringId: number) => dispatch(showOfferingApprovalModal(true, { offeringId }))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(ApprovalActionButton)

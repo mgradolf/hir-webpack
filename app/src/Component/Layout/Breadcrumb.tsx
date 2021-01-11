@@ -4,12 +4,35 @@ import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
-import {
-  PARAM_TYPE_REGISTRATION,
-  PARAM_TYPE_REGISTRATIONS,
-  PARAM_TYPE_REQUEST,
-  PARAM_TYPE_REQUESTS
-} from "~/utils/Constants"
+
+const blockedPages: string[] = [
+  "Request",
+  "Requests",
+  "Registration",
+  "Registrations",
+  "Order",
+  "Waitlist",
+  "Payments",
+  "Repository",
+  "Response",
+  "Certificate",
+  "Discount programs",
+  "Transaction",
+  "Tags",
+  "Question",
+  "Seatgroup",
+  "Forget me request",
+  "Batch",
+  "Resource",
+  "Marketing programs",
+  "Package"
+]
+const names: { [key: string]: string } = {
+  Offering: "OfferingCode",
+  Section: "SectionNumber",
+  Person: "FirstName",
+  Student: "FirstName"
+}
 
 function transformRouteToLabel(route: string | number): string | number {
   if (typeof route === "number") return route
@@ -22,19 +45,15 @@ interface IBreadcrumbPath {
 }
 
 const cache: any = {}
-const transformIdToName = async (paths: Array<any>): Promise<Array<any>> => {
+const transformIdToName = async (paths: Array<IBreadcrumbPath>): Promise<Array<any>> => {
   let previousPath: any = {}
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
-      if (
-        previousPath.label !== PARAM_TYPE_REQUEST &&
-        previousPath.label !== PARAM_TYPE_REQUESTS &&
-        previousPath.label !== PARAM_TYPE_REGISTRATION &&
-        previousPath.label !== PARAM_TYPE_REGISTRATIONS
-      ) {
+      if (!blockedPages.includes(previousPath.label) && isNaN(Number(previousPath.label))) {
         const result: any = await getEntityById(previousPath.label, x.label)
         if (result.success && result.data) {
-          x.label = result.data.Name || result.data.SectionNumber
+          const key = names[previousPath.label]
+          x.label = result.data[key] || result.data.Name
           cache[x.path] = x
         }
       }

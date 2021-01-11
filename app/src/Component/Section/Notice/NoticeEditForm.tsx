@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Switch, Divider } from "antd"
 import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_SECTION_NOTIFICATION_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/FormError"
 import { saveSectionNotification } from "~/ApiServices/Service/SectionService"
@@ -22,11 +22,18 @@ const layout = {
 }
 
 export default function NoticeEditForm(props: INoticeEditFormProps) {
-  console.log("Section id: ", props.sectionId)
   const [fromUserItems, setFromUserItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [disableFieldMap] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
+    const disableFields: Array<any> = props.formInstance.getFieldValue(props.fieldNames.DisableFields)
+    if (disableFields !== undefined && disableFields !== null && Object.keys(disableFields).length > 0) {
+      disableFields.forEach((element) => {
+        disableFieldMap[element] = true
+      })
+    }
+
     props.formInstance.setFieldsValue({ [props.fieldNames.SectionID]: props.sectionId })
     ;(async () => {
       const response = await getAllUsers()
@@ -34,12 +41,16 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
         setFromUserItems(response.data)
       }
     })()
-  }, [props])
+    // eslint-disable-next-line
+  }, [])
 
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
+    Object.keys(params).forEach((key) => {
+      if (params[key] === undefined) params[key] = null
+    })
     console.log("Params: ", params)
 
     type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
@@ -51,8 +62,7 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      props.formInstance.resetFields()
-      eventBus.publish(REFRESH_SECTION_NOTIFICATION_PAGE)
+      eventBus.publish(REFRESH_PAGE)
       props.handleCancel()
     } else {
       setErrorMessages(response.error)
@@ -79,7 +89,12 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
         </Form.Item>
 
         <Form.Item label="From User" {...layout} name={props.fieldNames.FromUserID}>
-          <Select aria-label="From User">
+          <Select
+            aria-label="From User"
+            disabled={disableFieldMap[props.fieldNames.FromUserID]}
+            placeholder="Select users"
+            allowClear
+          >
             {fromUserItems.map((x) => {
               return (
                 <Select.Option key={x.UserID} value={x.UserID}>
@@ -91,13 +106,18 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
         </Form.Item>
 
         <Form.Item label="OR From Email" {...layout} name={props.fieldNames.FromEmailAddress}>
-          <Input aria-label="From Email" />
+          <Input aria-label="From Email" disabled={disableFieldMap[props.fieldNames.FromEmailAddress]} />
         </Form.Item>
 
         <Divider />
 
         <Form.Item label="To Users" {...layout} name={props.fieldNames.ToUserIDs}>
-          <Select mode="multiple" placeholder="Select users" optionLabelProp="label">
+          <Select
+            mode="multiple"
+            disabled={disableFieldMap[props.fieldNames.ToUserIDs]}
+            placeholder="Select users"
+            allowClear
+          >
             {fromUserItems.map((x) => {
               return (
                 <Select.Option key={x.UserID} value={x.UserID}>
@@ -109,7 +129,7 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
         </Form.Item>
 
         <Form.Item label="OR To Email" {...layout} name={props.fieldNames.ToEmailAddress}>
-          <Input aria-label="To Email" />
+          <Input aria-label="To Email" disabled={disableFieldMap[props.fieldNames.ToEmailAddress]} />
         </Form.Item>
 
         <Divider />

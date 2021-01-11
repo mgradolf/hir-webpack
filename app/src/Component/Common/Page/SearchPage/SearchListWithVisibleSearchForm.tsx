@@ -10,6 +10,7 @@ export interface ISearchListWithVisibleSearchFormProp {
   meta?: IFilterField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
+  defaultFilter?: { [key: string]: string }
   helpKey?: string
 }
 
@@ -41,7 +42,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
           meta={props.meta}
           initialFilter={props.initialFilter || {}}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            setSearchParams(newFilterValues)
+            setSearchParams({ ...props.defaultFilter, ...newFilterValues })
             console.log(newFilterValues)
           }}
         />

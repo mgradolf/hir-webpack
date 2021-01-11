@@ -3,7 +3,7 @@ import {
   REGISTRATION_VERIFICATION_DETAILS,
   REGISTRATION_VERIFICATION_NAME,
   REGISTRATION_VERIFICATION_REQUEST_NAME
-} from "./Constants"
+} from "~/utils//Constants"
 
 export default (registrationCheckKey: string, responseData: any): { [key: string]: any } => {
   if (registrationCheckKey === REGISTRATION_VERIFICATION.PREREQUISITE_CHECK) {

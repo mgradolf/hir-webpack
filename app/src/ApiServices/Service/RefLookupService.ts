@@ -207,6 +207,18 @@ export function getProgramStatusCodes(): Promise<IApiResponse> {
   })
 }
 
+export function getProgramApplicationStatusCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProgramAppStatusCode"
+  })
+}
+
+export function getProgramEnrollmentStatusCodes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProgramEnrollStatusCode"
+  })
+}
+
 export function getSectionNotices(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "SectionNoticeType"
@@ -282,5 +294,47 @@ export function getTranscriptTypes(): Promise<IApiResponse> {
 export function getCommentCategories(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "CommentCategory"
+  })
+}
+
+export function getMeetingInformationTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MeetingInformationType"
+  })
+}
+
+export function getProductTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProductType"
+  })
+}
+
+export function getProductDefinitions(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ProductDefinition"
+  })
+}
+
+export function getDeliveryModes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DeliveryMode"
+  })
+}
+
+export function getCatalogTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CatalogType"
+  })
+}
+
+export function getDiscountTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DiscountType"
+  })
+}
+
+export function getOrganizationTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "OrganizationType"
   })
 }

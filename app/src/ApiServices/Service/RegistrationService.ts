@@ -5,6 +5,14 @@ export function findRegistrations(Params: { [key: string]: any }): Promise<IApiR
   return RegistrationService[config.Actions.findRegistrations](Params)
 }
 
+export function findRegistrationsWebAdmin(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.findRegistrationsWebAdmin](Params)
+}
+
+export function findRegistrationDetail(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.findRegistrationDetail](Params)
+}
+
 export function getCreditMemoData(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.getCreditMemoData](Params)
 }
@@ -59,4 +67,12 @@ export function checkCertificate(Params: { [key: string]: any }): Promise<IApiRe
 
 export function issueCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RegistrationService[config.Actions.issueCertificate](Params)
+}
+
+export function searchCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.searchCertificate](Params)
+}
+
+export function previewCertificate(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RegistrationService[config.Actions.previewCertificate](Params)
 }

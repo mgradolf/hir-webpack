@@ -1,5 +1,5 @@
 import * as React from "react"
-import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchFilterMeta"
+import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
 import { FormLookupOpenButton } from "~/Component/Common/Form/FormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"

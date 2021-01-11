@@ -1,13 +1,11 @@
 import React, { useState } from "react"
 import { Button } from "antd"
+import { addInstructorToOffering } from "~/ApiServices/Service/InstructorService"
+import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 import { AddInstructorModal } from "~/Component/Offering/QualifiedInstructor/AddInstructorModal"
-import { onlyUnique } from "~/utils/util"
-import { updateInstructors } from "~/ApiServices/Service/OfferingService"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 interface ICreateActionButtonProp {
-  offeringID: number
-  rowData: Array<any>
+  OfferingID: number
 }
 
 export function AddInstructorButton(props: ICreateActionButtonProp) {
@@ -17,13 +15,13 @@ export function AddInstructorButton(props: ICreateActionButtonProp) {
   }
   const onClose = (selectedItems?: any[]) => {
     if (selectedItems) {
-      const selectedInstructorIds = selectedItems.map((instructor) => instructor.FacultyID)
-      let uniqueRowData = [...props.rowData, ...selectedInstructorIds]
-
-      uniqueRowData = uniqueRowData.filter(onlyUnique)
-      updateInstructors(props.offeringID, uniqueRowData)
-        .then(() => eventBus.publish(REFRESH_PAGE))
-        .finally(() => setOpenModal(false))
+      selectedItems.map((x) => {
+        addInstructorToOffering({ FacultyID: x.FacultyID, OfferingID: props.OfferingID }).then((x) => {
+          if (x.success) eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
+        })
+        return true
+      })
+      setOpenModal(false)
     } else {
       setOpenModal(false)
     }

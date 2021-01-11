@@ -2,24 +2,16 @@ import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import RoomFilter from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFilter"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-// import RoomFinderField from "~/FormMeta/Section/SectionSearchCustomFilters/RoomFinderField"
+import { SearchRoomLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchRoomLookup"
+import { SiteBuildingRoomFilter } from "~/FormMeta/Section/SectionSearchCustomFilters/SiteBuildingRoomFilter"
 
 export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
-    defaultValue: "",
     fieldName: "OfferingCode",
     ariaLabel: "Offering Code"
-  },
-  {
-    label: "Offering Name",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "OfferingName",
-    ariaLabel: "Offering Name"
   },
   {
     label: "Section Number",
@@ -29,24 +21,9 @@ export const SectionSearchMeta: IFilterField[] = [
     ariaLabel: "Section Number"
   },
   {
-    label: "Instructor first name",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "SectionFacultyFirstName",
-    ariaLabel: "Instructor first name"
-  },
-  {
-    label: "Instructor last name",
-    inputType: TEXT,
-    defaultValue: "",
-    fieldName: "SectionFacultyLastName",
-    ariaLabel: "Instructor last name"
-  },
-  {
     label: "Start Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
     fieldName: "FromStartDate",
     valueKey: "FromStartDate",
     ariaLabel: "Start Date From",
@@ -56,56 +33,23 @@ export const SectionSearchMeta: IFilterField[] = [
     ariaLabel2: "Start Date To"
   },
   {
-    label: "Creation Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    defaultValue: "",
-    fieldName: "FromCreationDate",
-    valueKey: "FromCreationDate",
-    ariaLabel: "Creation Date From",
-    displayKey2: "To",
-    valueKey2: "ToCreationDate",
-    fieldName2: "ToCreationDate",
-    ariaLabel2: "Creation Date To"
-  },
-  {
-    label: "Termination Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "FromTerminationDate",
-    valueKey: "FromTerminationDate",
-    defaultValue: "",
-    ariaLabel: "Termination Date From",
-    displayKey2: "To",
-    fieldName2: "ToTerminationDate",
-    valueKey2: "ToTerminationDate",
-    ariaLabel2: "Termination Date To"
-  },
-  {
-    label: "Is QuickAdmit",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "IsQuickAdmit",
-    ariaLabel: "Is Quick Admit",
-    options: [
-      { label: "Yes", value: "true" },
-      { label: "No", value: "false" }
-    ]
-  },
-  {
     label: "Status",
     inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "StatusID",
+    fieldName: "SectionStatusCodeID",
     ariaLabel: "Offering Status Select",
     refLookupService: getSectionStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
   },
   {
+    label: "Offering Name",
+    inputType: TEXT,
+    fieldName: "OfferingName",
+    ariaLabel: "Offering Name"
+  },
+  {
     label: "Department",
     inputType: DROPDOWN,
-    defaultValue: "",
     fieldName: "OrganizationID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,
@@ -113,9 +57,39 @@ export const SectionSearchMeta: IFilterField[] = [
     valueKey: "OrganizationID"
   },
   {
+    label: "Instructor Last Name",
+    inputType: TEXT,
+    fieldName: "SectionFacultyLastName",
+    ariaLabel: "Instructor last name"
+  },
+  {
+    label: "Instructor First Name",
+    inputType: TEXT,
+    fieldName: "SectionFacultyFirstName",
+    ariaLabel: "Instructor first name"
+  },
+  {
+    label: "Meeting Type",
+    inputType: DROPDOWN,
+    fieldName: "MeetingType",
+    ariaLabel: "Meeting Type",
+    refLookupService: findMeetingTypes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Room",
+    fieldName: "RoomID",
+    customFilterComponent: SearchRoomLookup
+  },
+  {
+    label: "Room",
+    fieldName: "RoomID",
+    customFilterComponent: SiteBuildingRoomFilter
+  },
+  {
     label: "Meets On",
     inputType: DROPDOWN,
-    defaultValue: "",
     fieldName: "MeetsOn",
     ariaLabel: "Meets on Weekdays",
     options: [
@@ -129,38 +103,51 @@ export const SectionSearchMeta: IFilterField[] = [
     ]
   },
   {
-    label: "Meeting Type",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "MeetingType",
-    ariaLabel: "Meeting Type",
-    refLookupService: findMeetingTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Coordinator",
-    inputType: DROPDOWN,
-    defaultValue: "",
-    fieldName: "Coordinator",
-    ariaLabel: "Coordinator Select",
-    refLookupService: () => getUsersByRole({ Role: "coordinator" }),
-    displayKey: "FormattedName",
-    valueKey: "UserLogin"
-  },
-  {
     label: "Search Tag Hierarchy",
     fieldName: "searchTagHeirarchy",
     customFilterComponent: TagFilter
   },
   {
-    label: "Select Site",
-    fieldName: "SiteID",
-    customFilterComponent: RoomFilter
+    label: "Coordinator",
+    inputType: DROPDOWN,
+    fieldName: "Coordinator",
+    ariaLabel: "Coordinator Select",
+    refLookupService: () => getUsersByRole({ Role: "coordinator" }),
+    displayKey: "FormattedName",
+    valueKey: "UserLogin"
   }
   // {
-  //   label: "Selecte Roomm",
-  //   fieldName: "SiteID",
-  //   customFilterComponent: RoomFinderField
+  //   label: "Creation Date",
+  //   inputType: DATE_PICKERS,
+  //   displayKey: "From",
+  //   fieldName: "FromCreationDate",
+  //   valueKey: "FromCreationDate",
+  //   ariaLabel: "Creation Date From",
+  //   displayKey2: "To",
+  //   valueKey2: "ToCreationDate",
+  //   fieldName2: "ToCreationDate",
+  //   ariaLabel2: "Creation Date To"
+  // },
+  // {
+  //   label: "Termination Date",
+  //   inputType: DATE_PICKERS,
+  //   displayKey: "From",
+  //   fieldName: "FromTerminationDate",
+  //   valueKey: "FromTerminationDate",
+  //   ariaLabel: "Termination Date From",
+  //   displayKey2: "To",
+  //   fieldName2: "ToTerminationDate",
+  //   valueKey2: "ToTerminationDate",
+  //   ariaLabel2: "Termination Date To"
+  // },
+  // {
+  //   label: "Is QuickAdmit",
+  //   inputType: DROPDOWN,
+  //   fieldName: "IsQuickAdmit",
+  //   ariaLabel: "Is Quick Admit",
+  //   options: [
+  //     { label: "Yes", value: "true" },
+  //     { label: "No", value: "false" }
+  //   ]
   // }
 ]

@@ -1,38 +1,23 @@
 import React from "react"
 import { Menu } from "antd"
-
-import SeatGroupEditLink from "~/Component/Section/SeatGroup/SeatGroupEditLink"
 import SeatGroupRemoveLink from "~/Component/Section/SeatGroup/SeatGroupRemoveLink"
-import SeatGroupAffiliateLink from "~/Component/Section/SeatGroup/SeatGroupAffiliateLink"
+import SeatGroupEditLink from "~/Component/Section/SeatGroup/SeatGroupEditLink"
 
 interface ISeatGroupMenu {
-  sectionId: number
-  seatgroupId: number
-  programId?: number
-  programCode?: string
-  isDefault: boolean
+  additionalData: { [key: string]: any }
 }
 
 export default function SeatGroupMenu(props: ISeatGroupMenu) {
+  const seatGroupID = props.additionalData.SeatGroupID
+
   return (
     <Menu>
       <Menu.Item key="0">
-        <SeatGroupEditLink
-          sectionId={props.sectionId}
-          seatgroupId={props.seatgroupId}
-          programId={props.programId}
-          programCode={props.programCode}
-          isDefault={props.isDefault}
-        />
+        <SeatGroupEditLink additionalData={props.additionalData} />
       </Menu.Item>
       <Menu.Item key="1">
-        <SeatGroupRemoveLink seatgroupId={props.seatgroupId} />
+        <SeatGroupRemoveLink seatgroupId={seatGroupID} />
       </Menu.Item>
-      {!props.isDefault && (
-        <Menu.Item key="2">
-          <SeatGroupAffiliateLink seatgroupId={props.seatgroupId} />
-        </Menu.Item>
-      )}
     </Menu>
   )
 }

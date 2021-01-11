@@ -1,20 +1,22 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { findRegistrations } from "~/ApiServices/Service/RegistrationService"
-import { renderBoolean, renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { findRegistrationsWebAdmin } from "~/ApiServices/Service/RegistrationService"
+import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+import { ReadOutlined } from "@ant-design/icons"
 
 export const getRegistrationTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Order ID",
-      dataIndex: "OrderID",
-      render: (text: any, record: any) => (isModal ? { text } : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
-    },
-    {
-      title: "Order Date",
-      dataIndex: "CreateDate",
-      render: renderDate
+      ...(!isModal && {
+        title: "",
+        dataIndex: "",
+        render: (text: any, record: any) => (
+          <Link to={`/section/${record.SectionID}/registration/${record.StudentID}`}>
+            <ReadOutlined />
+          </Link>
+        )
+      })
     },
     {
       title: "Section Number",
@@ -23,15 +25,9 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     },
     {
       title: "Offering Name",
-      dataIndex: "OfferingName"
-    },
-    {
-      title: "Purchaser",
-      dataIndex: "PurchaserName"
-    },
-    {
-      title: "Account",
-      dataIndex: "AccountName"
+      dataIndex: "OfferingName",
+      render: (text: any, record: any) =>
+        isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
       title: "Student",
@@ -41,39 +37,63 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     },
     {
       title: "Email",
-      dataIndex: "EmailAddress"
+      dataIndex: "EmailAddress",
+      render: renderEmail
     },
     {
-      title: "Completion Date",
-      dataIndex: "CompletionDate",
-      render: renderDate
+      title: "Registration Status",
+      dataIndex: "EnrollmentStatus",
+      render: undefined
     },
     {
-      title: "Grade",
-      dataIndex: "GradeScaleType"
+      title: "Order ID",
+      dataIndex: "OrderID",
+      render: (text: any, record: any) => (isModal ? { text } : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
     },
     {
-      title: "Certificate Issued",
-      dataIndex: "CertificateIssued",
-      render: renderBoolean
-    },
-    {
-      title: "Package",
-      dataIndex: "PackageName"
-    },
-    {
-      title: "Package Start Date",
-      dataIndex: "PackageStartDate",
-      render: renderDate
-    },
-    {
-      title: "Package End Date",
-      dataIndex: "PackageEndDate",
-      render: renderDate
+      title: "Account",
+      dataIndex: "AccountName",
+      render: (text: any, record: any) => (isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     }
+
+    // {
+    //   title: "Order Date",
+    //   dataIndex: "CreateDate",
+    //   render: renderDate
+    // },
+    // {
+    //   title: "Purchaser",
+    //   dataIndex: "PurchaserName"
+    // },
+    // {
+    //   title: "Completion Date",
+    //   dataIndex: "CompletionDate",
+    //   render: renderDate
+    // },
+    // {
+    //   title: "Grade",
+    //   dataIndex: "GradeScaleType"
+    // },
+    // {
+    //   title: "Certificate Issued",
+    //   dataIndex: "CertificateIssued",
+    //   render: renderBoolean
+    // },
+    // {
+    //   title: "Package",
+    //   dataIndex: "PackageName"
+    // },
+    // {
+    //   title: "Package Start Date",
+    //   dataIndex: "PackageStartDate",
+    //   render: renderDate
+    // },
+    // {
+    //   title: "Package End Date",
+    //   dataIndex: "PackageEndDate",
+    //   render: renderDate
+    // }
   ]
 
-  const responsiveColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
-  const expandableColumnIndices: number[] = [8, 9, 10, 11, 12, 13, 14]
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findRegistrations }
+  return { columns, searchFunc: findRegistrationsWebAdmin }
 }

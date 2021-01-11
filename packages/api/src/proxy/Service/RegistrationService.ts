@@ -6,6 +6,8 @@ export const config = {
   Module: "hir",
   Actions: {
     findRegistrations: "findRegistrations",
+    findRegistrationsWebAdmin: "findRegistrationsWebAdmin",
+    findRegistrationDetail: "findRegistrationDetail",
     getCreditMemoData: "getCreditMemoData",
     findGradeScoreDefinition: "findGradeScoreDefinition",
     dropWithdrawRegistration: "dropWithdrawRegistration",
@@ -19,7 +21,9 @@ export const config = {
     bulkDeleteRegistration: "bulkDeleteRegistration",
     validateRegistration: "validateRegistration",
     checkCertificate: "checkCertificate",
-    issueCertificate: "issueCertificate"
+    issueCertificate: "issueCertificate",
+    searchCertificate: "searchCertificate",
+    previewCertificate: "previewCertificate"
   }
 }
 export default ApiMethodFactory(config)

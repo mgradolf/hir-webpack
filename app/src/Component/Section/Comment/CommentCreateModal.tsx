@@ -11,7 +11,7 @@ import EnrollmentCommentCreateForm from "~/Component/Section/Comment/EnrollmentC
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
 import { AppState } from "~/Store"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_SECTION_COMMENT_PAGE } from "~/utils/EventBus"
 
 interface ICommentCreateModal {
   SectionID: any
@@ -25,9 +25,6 @@ function CommentCreateModal(props: ICommentCreateModal) {
   const [commentCatagories, setCommentCatagories] = useState<any[]>([])
   const onSelect = (commentType: string) => {
     setselectedType(commentType)
-  }
-  const onCancel = () => {
-    setselectedType("")
   }
 
   useEffect(() => {
@@ -51,7 +48,6 @@ function CommentCreateModal(props: ICommentCreateModal) {
             <GeneralCommentCreateForm
               SectionID={props.SectionID}
               onClose={props.closeModal}
-              onCancel={onCancel}
               commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
             />
@@ -60,7 +56,6 @@ function CommentCreateModal(props: ICommentCreateModal) {
             <InstructorCommentCreateForm
               SectionID={props.SectionID}
               onClose={props.closeModal}
-              onCancel={onCancel}
               commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
             />
@@ -69,7 +64,6 @@ function CommentCreateModal(props: ICommentCreateModal) {
             <EnrollmentCommentCreateForm
               SectionID={props.SectionID}
               onClose={props.closeModal}
-              onCancel={onCancel}
               commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
             />
@@ -89,7 +83,7 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     closeModal: () => {
-      eventBus.publish(REFRESH_PAGE)
+      eventBus.publish(REFRESH_SECTION_COMMENT_PAGE)
       return dispatch(showSectionCommmentModal(false))
     },
     redirect: (url: string) => dispatch(redirect(url))

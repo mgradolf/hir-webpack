@@ -1,51 +1,43 @@
-import React from "react"
-import { connect } from "react-redux"
-import { showCreateSectionSeatGroupModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import React, { useState } from "react"
 import { Button } from "antd"
+import UpdateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 
 interface ISeatGroupEditLinkProp {
-  sectionId: number
-  seatgroupId?: number
-  programId?: number
-  programCode?: string
-  isDefault?: boolean
-  openSeatGroupModal: (
-    sectionId: number,
-    seatgroupId?: number,
-    programId?: number,
-    programCode?: string,
-    isDefault?: boolean
-  ) => void
+  additionalData: { [key: string]: any }
+  GhostType?: boolean | false
+  style?: React.CSSProperties
 }
-function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
-  const { sectionId, seatgroupId, programId, programCode, isDefault } = props
+
+export default function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
+
+  const sectionID = props.additionalData.SectionID
+  const isDefault = props.additionalData.IsDefault
+  const seatGroupID = props.additionalData.SeatGroupID
+  const programID = props.additionalData.ProgramID
+  const programCode = props.additionalData.ProgramCode
+
   return (
-    <Button
-      type="link"
-      onClick={() => {
-        props.openSeatGroupModal(sectionId, seatgroupId, programId, programCode, isDefault)
-      }}
-    >
-      Edit
-    </Button>
+    <>
+      <Button
+        type={props.GhostType ? "ghost" : "link"}
+        style={props.style}
+        onClick={() => {
+          setShowUpdateModal(true)
+        }}
+      >
+        Edit
+      </Button>
+      {showUpdateModal && (
+        <UpdateSeatGroup
+          sectionId={sectionID}
+          isDefault={isDefault}
+          seatgroupId={seatGroupID}
+          programId={programID}
+          programCode={programCode}
+          closeModal={() => setShowUpdateModal(false)}
+        />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openSeatGroupModal: (
-      sectionId: number,
-      seatgroupId?: number,
-      programId?: number,
-      programCode?: string,
-      isDefault?: boolean
-    ) => {
-      return dispatch(
-        showCreateSectionSeatGroupModal(true, { sectionId, seatgroupId, programId, programCode, isDefault })
-      )
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(SeatGroupEditLink)

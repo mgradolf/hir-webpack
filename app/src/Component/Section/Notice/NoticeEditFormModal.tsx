@@ -1,10 +1,7 @@
-import * as React from "react"
-import Modal from "~/Component/Common/Modal"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
+import Modal from "~/Component/Common/Modal/index2"
+
 import NoticeEditForm from "~/Component/Section/Notice/NoticeEditForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showUpdateNoticeModal } from "~/Store/ModalState"
 import { getSectionNotifications } from "~/ApiServices/Service/SectionService"
 import { Form } from "antd"
 import { INoticeFieldNames } from "~/Component/Section/Interfaces"
@@ -12,7 +9,7 @@ import { INoticeFieldNames } from "~/Component/Section/Interfaces"
 interface INoticetEditProps {
   sectionId: number
   sectionNoticeTypeId: number
-  closeUpdateNoticeModal?: () => void
+  closeModal?: () => void
 }
 
 const fieldNames: INoticeFieldNames = {
@@ -29,15 +26,15 @@ const fieldNames: INoticeFieldNames = {
   IsActive: "IsActive"
 }
 
-function NoticeUpdate({ closeUpdateNoticeModal, sectionNoticeTypeId, sectionId }: INoticetEditProps) {
+export default function NoticeUpdate({ closeModal, sectionNoticeTypeId, sectionId }: INoticetEditProps) {
   const [formInstance] = Form.useForm()
   const [noticeLoading, setNoticeLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({})
 
   const handleCancel = () => {
-    if (closeUpdateNoticeModal) {
-      closeUpdateNoticeModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
@@ -51,20 +48,22 @@ function NoticeUpdate({ closeUpdateNoticeModal, sectionNoticeTypeId, sectionId }
         })
         if (response && response.success && response.data) {
           formInstance.setFieldsValue(response.data[0])
+          if (response.data[0].ToUserIDs === null) {
+            formInstance.setFieldsValue({ ToUserIDs: [] })
+          }
         } else {
-          if (closeUpdateNoticeModal) {
-            closeUpdateNoticeModal()
+          if (closeModal) {
+            closeModal()
           }
         }
         setNoticeLoading(false)
       })()
     }
     // eslint-disable-next-line
-  }, [closeUpdateNoticeModal, sectionNoticeTypeId, sectionId])
+  }, [closeModal, sectionNoticeTypeId, sectionId])
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={noticeLoading}
       apiCallInProgress={apiCallInProgress}
@@ -83,9 +82,3 @@ function NoticeUpdate({ closeUpdateNoticeModal, sectionNoticeTypeId, sectionId }
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeUpdateNoticeModal: () => dispatch(showUpdateNoticeModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(NoticeUpdate)

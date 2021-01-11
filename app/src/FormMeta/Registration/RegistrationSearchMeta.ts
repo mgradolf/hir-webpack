@@ -1,7 +1,9 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { SearchPackageLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPackageLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 
 export const RegistrationSearchMeta: IFilterField[] = [
   {
@@ -10,25 +12,20 @@ export const RegistrationSearchMeta: IFilterField[] = [
     customFilterComponent: SearchSectionLookupButton
   },
   {
+    label: "Student",
+    fieldName: "StudentID",
+    customFilterComponent: SearchStudentLookupButton
+  },
+  {
     label: "Purchaser",
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton
   },
   {
-    label: "Student",
-    fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookup
-  },
-  {
-    label: "Account",
-    fieldName: "AccountID",
-    customFilterComponent: SearchStudentLookup
-  },
-  {
     label: "Start Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "StartDateFrom",
     valueKey: "StartDateFrom",
     ariaLabel: "Start Date From",
@@ -38,10 +35,26 @@ export const RegistrationSearchMeta: IFilterField[] = [
     ariaLabel2: "Start Date To"
   },
   {
+    label: "Order ID",
+    inputType: NUMBER,
+    fieldName: "OrderID",
+    ariaLabel: "Order ID"
+  },
+  {
+    label: "Account",
+    fieldName: "AccountID",
+    customFilterComponent: SearchAccountLookup
+  },
+  {
+    label: "Package",
+    fieldName: "PackageID",
+    customFilterComponent: SearchPackageLookupButton
+  },
+  {
     label: "Create Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    defaultValue: "",
+
     fieldName: "CreatedFromDate",
     valueKey: "CreatedFromDate",
     ariaLabel: "Start Date From",

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react"
-import { Button, Form, Input, Row, Col } from "antd"
+import { Form, Input, Row, Col } from "antd"
 import {
   IFilterField,
   IFilterFieldComponent,
-  IFilterGenericComponentProps
+  IFilterGenericComponentProps,
+  SearchComponentWrapper
 } from "~/Component/Common/SearchFilters/common"
-import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { useFirstRender } from "~/Hooks/useFirstRender"
+import { DeleteOutlined, SearchOutlined } from "@ant-design/icons"
 
-export interface SearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
+export interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
   entityLookupFunc?: () => Promise<{ [key: string]: any }>
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
   lookupModalTitle: string
@@ -18,17 +21,29 @@ export interface SearchLookupOpenButton extends IFilterGenericComponentProps<IFi
   displayField: string
   columns: TableColumnType
   meta: IFilterField[]
+  responsiveColumnIndices?: number[]
+  expandableColumnIndices?: number[]
 }
 
-export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
+export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
   const [showModal, setShowModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>()
+  const firstRender = useFirstRender()
 
   useEffect(() => {
     if (props.entityLookupFunc) {
-      props.entityLookupFunc().then((item) => setSelectedItem(item))
+      props.entityLookupFunc().then((item) => {
+        console.log("item ", item)
+        setSelectedItem(item[props.displayField])
+      })
     }
-  }, [props])
+    // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    !firstRender && setSelectedItem(undefined)
+    // eslint-disable-next-line
+  }, [props.clearTrigger])
 
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
@@ -47,21 +62,30 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
     setShowModal(false)
   }
 
-  return (
+  const toRender = (
     <>
       <Form.Item className="hidden" name={props.fieldName}>
         <Input />
       </Form.Item>
       <Form.Item colon={false} label={props.label} labelCol={{ span: 8 }}>
         <Row>
-          <Col span={12}>
-            <Input value={selectedItem} readOnly />
+          <Col span={24}>
+            <Input
+              value={selectedItem}
+              readOnly
+              addonBefore={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
+              addonAfter={
+                <DeleteOutlined
+                  color="red"
+                  onClick={() => {
+                    setSelectedItem(undefined)
+                    props.formInstance.setFieldsValue({ [props.fieldName]: "" })
+                  }}
+                />
+              }
+            />
           </Col>
-          <Col span={4}>
-            <Button onClick={() => setShowModal(true)} disabled={props.disabled}>
-              Lookup
-            </Button>
-          </Col>
+          {/* <Col span={4}></Col>   */}
         </Row>
         {showModal && (
           <LookupModal
@@ -71,9 +95,12 @@ export function SearchLookupOpenButton(props: SearchLookupOpenButton) {
             searchFunc={props.searchFunc}
             columns={props.columns}
             meta={props.meta}
+            responsiveColumnIndices={props.responsiveColumnIndices}
+            expandableColumnIndices={props.expandableColumnIndices}
           />
         )}
       </Form.Item>
     </>
   )
+  return props.isCheckeble ? <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper> : toRender
 }

@@ -6,7 +6,7 @@ import SearchFilters from "~/Component/Common/SearchFilters"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SimpleBarChart } from "~/Component/Common/Charts/SimpleBarChart"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IChartConfig } from "~/Pages/Chart/ChartMeta/IChartConfig"
+import { IChartConfig } from "~/Pages/Discovery/Chart/ChartMeta/IChartConfig"
 
 export interface IStandardReportPage {
   config: IChartConfig

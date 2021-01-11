@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Button, Form, Input, Row, Col } from "antd"
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { LookupModal } from "~/Component/Common/Lookups/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { FormInstance } from "antd/lib/form"
@@ -19,16 +19,18 @@ export interface IFormLookupOpenButton {
   columns: TableColumnType
   meta: IFilterField[]
   isArray?: boolean
+  zIndex?: boolean
   formInstance: FormInstance
 }
 
 export function FormLookupOpenButton(props: IFormLookupOpenButton) {
+  const defaultDisplayFieldValue = props.formInstance.getFieldValue(props.displayField)
   const [showModal, setShowModal] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<any>()
+  const [selectedItem, setSelectedItem] = useState<any>(defaultDisplayFieldValue)
 
   useEffect(() => {
     if (props.entityLookupFunc) {
-      props.entityLookupFunc().then((item) => setSelectedItem(item))
+      props.entityLookupFunc().then((item) => setSelectedItem(item[props.displayField]))
     }
   }, [props])
 
@@ -52,6 +54,11 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
     setShowModal(false)
   }
 
+  const clearSelection = () => {
+    props.formInstance.setFieldsValue({ [props.fieldName]: null })
+    setSelectedItem("")
+  }
+
   return (
     <>
       <Form.Item className="hidden" name={props.fieldName}>
@@ -67,6 +74,11 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
               Lookup
             </Button>
           </Col>
+          <Col span={4}>
+            <Button danger onClick={clearSelection} disabled={props.disabled}>
+              Clear
+            </Button>
+          </Col>
         </Row>
         {showModal && (
           <LookupModal
@@ -76,6 +88,7 @@ export function FormLookupOpenButton(props: IFormLookupOpenButton) {
             searchFunc={props.searchFunc}
             columns={props.columns}
             meta={props.meta}
+            zIndex={props.zIndex}
           />
         )}
       </Form.Item>

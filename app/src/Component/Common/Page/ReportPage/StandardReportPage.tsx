@@ -24,6 +24,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
       if (params[key]) urlParams += `${key}=${params[key]}&`
     }
     urlParams += "token=" + getToken()
+    console.log(urlParams)
     setdownloadUrl(urlParams)
     // window.open(urlParams, "_blank")
   }

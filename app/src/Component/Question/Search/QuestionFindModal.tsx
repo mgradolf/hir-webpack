@@ -38,7 +38,7 @@ function QuestionFindModal(props: IQuestionModal) {
             return {
               EventID: props.EventID,
               TagID: props.TagID,
-              PreferenceDefID: x["PreferenceDef.PreferenceDefID"]
+              PreferenceDefID: x.PreferenceDefID
             }
           })
         }).then((x) => {
@@ -63,7 +63,7 @@ function QuestionFindModal(props: IQuestionModal) {
       closable={true}
       closeModal={props.closeModal}
       children={
-        <Card title="Offering Approval" actions={actions}>
+        <Card title="Select Question" actions={actions}>
           <div style={{ overflowY: "scroll", padding: "10px", height: "65vh" }}>
             <FormError errorMessages={errorMessages}></FormError>
             <QuestionSearch

@@ -1,21 +1,29 @@
 import * as React from "react"
 import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
 import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
-import { searchStudents } from "~/ApiServices/BizApi/student/studentIf"
 import { getStudentTableColumns } from "~/FormMeta/Student/StudentTableColumns"
 import { studentSearchMeta } from "~/FormMeta/Student/StudentSearchMeta"
+import { searchStudents } from "~/ApiServices/BizApi/student/studentIf"
 
-export function SearchStudentLookup(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+interface ISearchStudentLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
+  valueField?: string
+}
+export function SearchStudentLookupButton(props: ISearchStudentLookup) {
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Student"
-      valueField="StudentID"
       displayField="FirstName"
       meta={studentSearchMeta}
       {...props}
-      formInstance={props.formInstance}
-      searchFunc={searchStudents}
-      columns={getStudentTableColumns(true)}
+      {...getStudentTableColumns(true)}
+      valueField={props.valueField || "StudentID"}
+      {...(props.defaultValue && {
+        entityLookupFunc: () =>
+          searchStudents({ StudentID: props.defaultValue }).then((x) => {
+            if (x.success) return x.data[0]
+            else return undefined
+          })
+      })}
     />
   )
 }

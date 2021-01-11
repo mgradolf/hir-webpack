@@ -14,7 +14,7 @@ export default function CommentTypeSelectForm(props: ICommmentTypeSelectForm) {
       actions={[
         <Button onClick={props.closeModal}>Cancel</Button>,
         <Button onClick={() => props.onSelect(selectedCommentType)} disabled={selectedCommentType === ""}>
-          Select
+          Submit
         </Button>
       ]}
     >
