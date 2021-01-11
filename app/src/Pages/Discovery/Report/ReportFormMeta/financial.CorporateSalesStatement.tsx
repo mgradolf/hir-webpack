@@ -3,15 +3,15 @@ import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLook
 
 const meta: IFilterField[] = [
   {
-    label: "AccountID",
-    fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
-  },
-  {
-    label: "Final Enrollment Date",
+    label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
     inputType: DATE_PICKERS
+  },
+  {
+    label: "Account",
+    fieldName: "AccountID",
+    customFilterComponent: SearchAccountLookup
   },
   {
     label: "Sort By",
@@ -29,8 +29,8 @@ const meta: IFilterField[] = [
     inputType: DROPDOWN,
     fieldName: "SortOrder",
     options: [
-      { label: "ascending", value: "Asc" },
-      { label: "descending", value: "Desc" }
+      { label: "Ascending", value: "Asc" },
+      { label: "Descending", value: "Desc" }
     ]
   }
 ]

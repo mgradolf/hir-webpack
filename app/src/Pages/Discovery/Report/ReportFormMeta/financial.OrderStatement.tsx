@@ -1,5 +1,6 @@
-import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
+import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 
 const meta: IFilterField[] = [
@@ -15,9 +16,17 @@ const meta: IFilterField[] = [
     customFilterComponent: SearchPersonLookupButton
   },
   {
-    label: "OrderID",
-    inputType: NUMBER,
-    fieldName: "OrderID"
+    label: "Source",
+    inputType: DROPDOWN,
+    fieldName: "SourceID",
+    refLookupService: getSourceModule,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Account",
+    fieldName: "AffiliateOrganizationID",
+    customFilterComponent: SearchAccountLookup
   },
   {
     label: "Department",
@@ -26,14 +35,12 @@ const meta: IFilterField[] = [
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
+  },
+  {
+    label: "OrderID",
+    inputType: NUMBER,
+    fieldName: "OrderID"
   }
 ]
 
 export default meta
-
-// OrderDateFrom
-// OrderDateTo
-// AffiliateOrganizationID
-// OrganizationID
-// PersonID
-// OrderID
