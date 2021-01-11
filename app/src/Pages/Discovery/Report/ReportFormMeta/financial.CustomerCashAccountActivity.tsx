@@ -1,4 +1,5 @@
 import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 
 const meta: IFilterField[] = [
@@ -6,6 +7,11 @@ const meta: IFilterField[] = [
     label: "Account Owner",
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton
+  },
+  {
+    label: "Account",
+    fieldName: "AffiliateOrganizationID",
+    customFilterComponent: SearchAccountLookup
   },
   {
     label: "Select Date",

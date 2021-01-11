@@ -12,9 +12,9 @@ const meta: IFilterField[] = [
     inputType: DROPDOWN,
     fieldName: "SortByColumn",
     options: [
-      { label: "Order Number", value: "true" },
-      { label: "Last Name", value: "false" },
-      { label: "Order Date", value: "false" }
+      { label: "Order Number", value: "SortOrderID" },
+      { label: "Last Name", value: "SortLastName" },
+      { label: "Order Date", value: "SortOrderDate" }
     ]
   },
   {
@@ -22,8 +22,8 @@ const meta: IFilterField[] = [
     inputType: DROPDOWN,
     fieldName: "SortOrder",
     options: [
-      { label: "Ascending", value: "true" },
-      { label: "Descending", value: "false" }
+      { label: "Ascending", value: "Asc" },
+      { label: "Descending", value: "Desc" }
     ]
   }
 ]

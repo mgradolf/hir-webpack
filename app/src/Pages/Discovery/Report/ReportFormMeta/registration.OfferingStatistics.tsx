@@ -3,7 +3,7 @@ import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/Sea
 
 const meta: IFilterField[] = [
   {
-    label: "Offering Lookup",
+    label: "Offering",
     fieldName: "OfferingID",
     customFilterComponent: SearchOfferingLookupButton
   }
