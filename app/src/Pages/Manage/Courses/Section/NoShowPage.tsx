@@ -27,8 +27,7 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
     },
     getCheckboxProps: (record: { StudentFirstName: string }) => ({
       name: record.StudentFirstName
-    }),
-    columnTitle: "Select"
+    })
   }
 
   return (

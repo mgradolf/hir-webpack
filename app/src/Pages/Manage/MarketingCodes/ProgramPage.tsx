@@ -5,7 +5,7 @@ import { getMarketingProgramTableColumns } from "~/FormMeta/MarketingProgram/Mar
 export default function MarketingProgramPage() {
   return (
     <StandardPage
-      title="Manage Marketing Programs"
+      title="Marketing Programs"
       defaultFilter={{}}
       tableProps={{
         ...getMarketingProgramTableColumns()

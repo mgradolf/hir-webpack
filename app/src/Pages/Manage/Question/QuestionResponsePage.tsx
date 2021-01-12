@@ -8,6 +8,7 @@ export default function QuestionResponsePage() {
     <SearchPage
       title="Question Response"
       meta={QuestionResponseSearchMeta}
+      initialFilter={{ EventID: 2 }}
       hideSearchField={false}
       tableProps={{
         ...getQuestionResponseTableColumns()
