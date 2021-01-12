@@ -1,5 +1,5 @@
 import React from "react"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, sortByNumber, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchTransactions } from "~/ApiServices/Service/TransactionService"
 import { Link } from "react-router-dom"
@@ -16,7 +16,9 @@ export const getTransactionFinancialDepositeTrackingTableColumns = (isModal = fa
           <Link to={`/transaction/${record.DepositTransactionID ? record.DepositTransactionID : record.TransactionID}`}>
             {text}
           </Link>
-        )
+        ),
+      sorter: (a: any, b: any) => sortByNumber(a, b),
+      sortOrder: "ascend"
     },
     { title: "Date", dataIndex: "TransactionDate", render: renderDate },
     { title: "Transaction Type", dataIndex: "TransactionType" },

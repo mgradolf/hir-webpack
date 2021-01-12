@@ -107,19 +107,21 @@ import React from "react"
 import TagsPage from "~/Pages/Manage/Tags/TagsPage"
 import { TagsDetailsPage } from "~/Pages/Manage/Tags/TagsDetailsPage"
 import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
-import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
 import { ForgetMeRequestsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestsPage"
 import { ForgetMeRequestDetailsPage } from "~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"
 import { BatchPage } from "~/Pages/Manage/Batch/BatchPage"
 import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
+import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
+import ResourcePage from "~/Pages/Manage/Resource/ResourcePage"
+import ResourceDetailsPage from "~/Pages/Manage/Resource/ResourceDetails"
 import { OranizationsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsPage"
 import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsDetailsPage"
-import ResourcePage from "~/Pages/Manage/Resource/ResourcePage"
 import MarketingProgramPage from "~/Pages/Manage/MarketingCodes/ProgramPage"
-import ResourceDetailsPage from "~/Pages/Manage/Resource/ResourceDetails"
 import MarketingProgramDetailsPage from "~/Pages/Manage/MarketingCodes/ProgramDetails"
 import { UsersPage } from "~/Pages/SetupAdministration/Users/UsersPage"
 import { UsersDetailsPage } from "~/Pages/SetupAdministration/Users/PsersDetailsPage"
+import PackagePage from "~/Pages/Manage/Package/PackagePage"
+import PackageDetailsPage from "~/Pages/Manage/Package/PackageDetails"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -188,6 +190,9 @@ export const AppRoutes: RouteProps[] = [
 
   { path: "/product", component: ProductPage },
   { path: "/product/:productID", component: ProductDetailsPage },
+
+  { path: "/package", component: PackagePage },
+  { path: "/package/:packageID", component: PackageDetailsPage },
 
   { path: "/catalog", component: CatalogPage },
   { path: "/catalog/:catalogID", component: CatalogDetailsPage },

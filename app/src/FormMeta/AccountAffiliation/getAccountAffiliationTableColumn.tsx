@@ -6,6 +6,7 @@ import {
   renderDate,
   renderEmail,
   sortByBoolean,
+  sortByString,
   TableColumnType
 } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
@@ -15,7 +16,8 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
     {
       title: "Last Name",
       dataIndex: "LastName",
-      render: (text, record) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
+      render: (text, record) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>),
+      sorter: (a: any, b: any) => sortByString(a?.LastName[0], b?.LastName[0])
     },
     {
       title: "First Name",

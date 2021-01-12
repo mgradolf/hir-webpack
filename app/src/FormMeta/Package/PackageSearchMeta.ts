@@ -1,11 +1,11 @@
 import { DATE_PICKER, DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 
 export const PackageSearchMeta: IFilterField[] = [
   {
-    label: "Name",
-    inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Name"
+    label: "Account",
+    fieldName: "AccountID",
+    customFilterComponent: SearchAccountLookup
   },
   {
     label: "Start Date",
@@ -28,5 +28,11 @@ export const PackageSearchMeta: IFilterField[] = [
     inputType: DATE_PICKER,
     fieldName: "PODate",
     ariaLabel: "PO Date"
+  },
+  {
+    label: "Name",
+    inputType: TEXT,
+    fieldName: "Name",
+    ariaLabel: "Name"
   }
 ]
