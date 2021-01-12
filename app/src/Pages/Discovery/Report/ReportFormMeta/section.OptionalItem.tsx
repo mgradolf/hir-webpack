@@ -16,13 +16,13 @@ const meta: IFilterField[] = [
         {
           label: "Section",
           fieldName: "SectionID",
-          valueField: "FormattedName",
+          valueField: "SectionID",
           component: SearchSectionLookupButton
         },
         {
           label: "Offering",
           fieldName: "OfferingID",
-          valueField: "FormattedName",
+          valueField: "OfferingID",
           component: SearchOfferingLookupButton
         }
       ]
@@ -47,6 +47,3 @@ const meta: IFilterField[] = [
 ]
 
 export default meta
-
-// ResourceID
-// ProductID
