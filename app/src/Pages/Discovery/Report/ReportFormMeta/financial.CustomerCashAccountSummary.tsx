@@ -4,7 +4,7 @@ import { IFilterField } from "~/Component/Common/SearchFilters/common"
 const meta: IFilterField[] = [
   {
     label: "Account",
-    fieldName: "AccountID",
+    fieldName: "AffiliateOrganizationID",
     customFilterComponent: SearchAccountLookup
   }
 ]
