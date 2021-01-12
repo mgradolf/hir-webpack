@@ -14,14 +14,14 @@ const meta: IFilterField[] = [
       selectorKeys: [
         {
           label: "Offering",
-          fieldName: "Offering",
-          valueField: "FormattedName",
+          fieldName: "OfferingID",
+          valueField: "OfferingID",
           component: SearchOfferingLookupButton
         },
         {
           label: "Section",
           fieldName: "SectionID",
-          valueField: "FormattedName",
+          valueField: "SectionID",
           component: SearchSectionLookupButton
         }
       ]
