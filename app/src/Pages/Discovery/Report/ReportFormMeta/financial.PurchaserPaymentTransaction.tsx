@@ -24,11 +24,8 @@ const meta: IFilterField[] = [
   }
 ]
 
+export const mapping: { [key: string]: any } = {
+  OrderDateFrom_DisplayOnly: "OrderDateFrom",
+  OrderDateTo_DisplayOnly: "OrderDateTo"
+}
 export default meta
-
-// PersonID
-// OrderDateFrom
-// OrderDateFrom_DisplayOnly
-// OrderDateTo
-// OrderDateTo_DisplayOnly
-// PaymentGatewayAccountID

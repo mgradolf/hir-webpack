@@ -44,9 +44,3 @@ const meta: IFilterField[] = [
 ]
 
 export default meta
-
-// SectionID
-// OfferingID
-// StudentID
-// CreditAmount
-// DiscountAmount
