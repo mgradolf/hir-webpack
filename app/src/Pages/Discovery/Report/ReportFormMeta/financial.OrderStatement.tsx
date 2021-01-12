@@ -43,13 +43,9 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
+export const mapping: { [key: string]: any } = {
+  OrderDateFrom: "OrderDateFrom_DisplayOnly",
+  OrderDateTo: "OrderDateTo_DisplayOnly"
+}
 
-// OrderDateFrom
-// OrderDateFrom_DisplayOnly
-// OrderDateTo
-// OrderDateTo_DisplayOnly
-// AffiliateOrganizationID
-// OrganizationID
-// PersonID
-// OrderID
+export default meta
