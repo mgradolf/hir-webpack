@@ -107,7 +107,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const qualifiedInstructorMeta: IDetailsTableTabProp = {
-    blockComponents: [{ component: AddInstructorButton, props: { offeringID: offering.OfferingID } }],
+    blockComponents: [{ component: AddInstructorButton, props: { OfferingID: offering.OfferingID } }],
     tableProps: {
       pagination: false,
       ...getQualifiedInstructorTableColumns(),

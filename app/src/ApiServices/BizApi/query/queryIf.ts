@@ -17,6 +17,11 @@ export function findOrderActivity(Params: { [key: string]: any }, from?: number,
   return QueryIf[methodToCall](["financial.order.findOrderActivity", Params, from, to])
 }
 
+export function findPackageDetails(Params: { [key: string]: any }): Promise<IApiResponse> {
+  const methodToCall = config.Actions.executeDomainObject
+  return QueryIf[methodToCall](["jxntm.packages.findPackageDetails", Params])
+}
+
 export function analyzeOrdersByDate(Params: { [key: string]: any }, from?: number, to?: number): Promise<IApiResponse> {
   const methodToCall =
     from && to ? config.Actions.executeDomainListWithPagination : config.Actions.executeDomainListWithoutPagination
