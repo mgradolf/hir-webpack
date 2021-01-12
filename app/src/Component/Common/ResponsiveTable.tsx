@@ -23,6 +23,8 @@ export const renderDetailsLink = (url: string): JSX.Element => {
     </Link>
   )
 }
+
+export const renderDecimal = (text: any) => Number(text).toFixed(2)
 export const renderEmail = (text: any): JSX.Element => (text !== null ? <a href={`mailto:${text}`}>{text}</a> : <></>)
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
@@ -46,7 +48,9 @@ export const sortByTime = (a?: string, b?: string) => {
 
   return aa === bb ? 0 : aa ? -1 : 1
 }
-
+export const sortByNumber = (a?: number, b?: number) => {
+  return (a || 0) > (b || 0) ? -1 : 1
+}
 export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
   searchParams?: any

@@ -265,20 +265,38 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabMeta: scheduleMeta
       },
       {
-        tabTitle: "Financials",
-        tabType: "table",
-        tabMeta: financialMeta
+        tabTitle: "Budget",
+        tabType: "summary",
+        tabMeta: [],
+        multipleTabMetas: [
+          {
+            tabTitle: "Financials",
+            tabType: "table",
+            tabMeta: financialMeta
+          },
+          {
+            tabTitle: "Discounts",
+            tabType: "table",
+            tabMeta: discountMeta
+          },
+          {
+            tabTitle: "Products",
+            tabType: "table",
+            tabMeta: productMeta
+          },
+          {
+            tabTitle: "Order Items",
+            tabType: "table",
+            tabMeta: orderItemMeta
+          }
+        ]
       },
       {
         tabTitle: "Seat Groups",
         tabType: "table",
         tabMeta: seatgroupMeta
       },
-      {
-        tabTitle: "Discounts",
-        tabType: "table",
-        tabMeta: discountMeta
-      },
+
       {
         tabTitle: "Catalogs",
         tabType: "custom",
@@ -300,11 +318,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabType: "table",
         tabMeta: notificationMeta
       },
-      {
-        tabTitle: "Products",
-        tabType: "table",
-        tabMeta: productMeta
-      },
+
       {
         tabTitle: "Registrations",
         tabType: "table",
@@ -324,30 +338,23 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
             tabTitle: "Waitlist Entries",
             tabType: "table",
             tabMeta: waitlistEntriesMeta
-          }
-        ]
-      },
-      {
-        tabTitle: "Logs",
-        tabType: "table",
-        tabMeta: [],
-        multipleTabMetas: [
+          },
           {
-            tabTitle: "Enrollment",
-            tabType: "table",
-            tabMeta: enrollmentActivityMeta
+            tabTitle: "No Shows",
+            tabType: "custom",
+            tabMeta: noShowMeta
           },
           {
             tabTitle: "Academic",
             tabType: "table",
             tabMeta: academicActivityMeta
+          },
+          {
+            tabTitle: "Enrollment",
+            tabType: "table",
+            tabMeta: enrollmentActivityMeta
           }
         ]
-      },
-      {
-        tabTitle: "Order Items",
-        tabType: "table",
-        tabMeta: orderItemMeta
       },
       {
         tabTitle: "Requests",
@@ -390,11 +397,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
             }
           }
         ]
-      },
-      {
-        tabTitle: "No Shows",
-        tabType: "custom",
-        tabMeta: noShowMeta
       }
     ]
   }
