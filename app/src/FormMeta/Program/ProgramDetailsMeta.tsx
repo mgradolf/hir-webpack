@@ -23,7 +23,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   }
 
   const application: CardContainer = {
-    title: "Applicationn",
+    title: "Application",
     contents: [
       { label: "Application Required", value: "" },
       { label: "Start Date", value: program.ApplicationStartDate, render: renderDate },

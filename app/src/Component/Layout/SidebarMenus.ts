@@ -48,10 +48,10 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Order", url: "/order", submenu: [] },
           { title: "Order Items", url: "/order/items", submenu: [] },
-          { title: "Order Credits", url: "/order/credits", submenu: [] },
+          { title: "Credits", url: "/order/credits", submenu: [] },
           { title: "Payments", url: "/order/payments", submenu: [] },
           { title: "Transactions", url: "/transaction", submenu: [] }
-          // { title: "Discount Programs", url: "/discount-programs", submenu: [] }
+          // { title: "Discount Programs", url: "/discount-program", submenu: [] }
         ]
       },
       { title: "Requests", url: "/request", submenu: [] },
@@ -60,7 +60,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Repository", url: "/question", submenu: [] },
-          { title: "Tagging", url: "/question/tagging", submenu: [] },
+          // { title: "Tagging", url: "/question/tagging", submenu: [] },
           { title: "Responses", url: "/question/response", submenu: [] }
         ]
       },
@@ -69,7 +69,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Catalogs", url: "/catalog", submenu: [] },
-          { title: "Discount Programs", url: "/discount-programs", submenu: [] },
+          { title: "Discount Programs", url: "/discount-program", submenu: [] },
           { title: "Programs", url: "/marketing-programs", submenu: [] },
           { title: "Codes", url: "/marketing-codes/repository", submenu: [] },
           { title: "Response", url: "/marketing-codes/response", submenu: [] }
@@ -118,16 +118,16 @@ export const sidebarMenus: ISidebarMenu[] = [
               { title: "Agent Enrollment Revenue", url: "", submenu: [] }
             ]
           },
-          {
-            title: "Activity",
-            url: "",
-            submenu: [
-              { title: "Student Academic", url: "/search/activity/academic-log", submenu: [] },
-              { title: "Student Enrollment", url: "/search/activity/enrollment-log", submenu: [] },
-              { title: "Enrollment History", url: "/search/activity/enrollment-history", submenu: [] },
-              { title: "Order Activity", url: "/search/activity/order-log", submenu: [] }
-            ]
-          },
+          // {
+          //   title: "Activity",
+          //   url: "",
+          //   submenu: [
+          //     { title: "Student Academic", url: "/search/activity/academic-log", submenu: [] },
+          //     { title: "Student Enrollment", url: "/search/activity/enrollment-log", submenu: [] },
+          //     { title: "Enrollment History", url: "/search/activity/enrollment-history", submenu: [] },
+          //     { title: "Order Activity", url: "/search/activity/order-log", submenu: [] }
+          //   ]
+          // },
           {
             title: "System",
             url: "",

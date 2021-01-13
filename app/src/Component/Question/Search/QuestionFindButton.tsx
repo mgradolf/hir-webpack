@@ -1,41 +1,26 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showQuestionFindModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import { QuestionFindModal } from "~/Component/Question/Search/QuestionFindModal"
 
 interface IQuestionFindButtonProp {
-  openQuestionFindModal?: (config: any) => void
-  SectionID: number
   EventID?: number
-  TagTypeID?: number
   TagID?: number
 }
-function QuestionFindButton(props: IQuestionFindButtonProp) {
+export function QuestionFindButton(props: IQuestionFindButtonProp) {
+  const [showModal, setShowModal] = useState(false)
   return (
-    <Button
-      type="primary"
-      style={{ marginRight: "10px" }}
-      disabled={!props.EventID || !props.TagID}
-      onClick={() => {
-        props.openQuestionFindModal &&
-          props.openQuestionFindModal({
-            SectionID: props.SectionID,
-            EventID: props.EventID,
-            TagTypeID: props.TagTypeID,
-            TagID: props.TagID
-          })
-      }}
-    >
-      + Find Question
-    </Button>
+    <>
+      <Button
+        type="primary"
+        style={{ marginRight: "10px" }}
+        disabled={!props.EventID || !props.TagID}
+        onClick={() => setShowModal(true)}
+      >
+        + Find Question
+      </Button>
+      {showModal && (
+        <QuestionFindModal TagID={props.TagID} EventID={props.EventID} closeModal={() => setShowModal(false)} />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openQuestionFindModal: (config: any) => dispatch(showQuestionFindModal(true, config))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(QuestionFindButton)

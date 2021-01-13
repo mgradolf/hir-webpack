@@ -11,8 +11,7 @@ export default function RegistrationPage() {
       meta={RegistrationSearchMeta}
       hideSearchField={false}
       tableProps={{
-        ...getRegistrationTableColumns(),
-        bordered: true
+        ...getRegistrationTableColumns()
       }}
     ></SearchPage>
   )

@@ -15,7 +15,6 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
             )
     },
     // { title: "Deposit ID", dataIndex: "DepositTransactionID" },
-    { title: "Date", dataIndex: "TransactionDate", render: renderDate },
     {
       title: "Account Owner",
       dataIndex: "PersonName",
@@ -26,11 +25,22 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
       dataIndex: "AffiliatedOrg",
       render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     },
-    { title: "Department", dataIndex: "Department" },
+    { title: "Tansaction Date", dataIndex: "TransactionDate", render: renderDate },
     { title: "TransactionType", dataIndex: "TransactionType" },
-    { title: "Description", dataIndex: "Description" },
     { title: "Reference No", dataIndex: "ReferenceNo" },
+    { title: "Description", dataIndex: "Description" },
     { title: "GL", dataIndex: "GLAccountName" },
+    { title: "Department", dataIndex: "Department" },
+    {
+      title: "Order",
+      dataIndex: "OrderID",
+      render: (text: any, record: any) => <Link to={`/order/${record.OrderID}`}>{text}</Link>
+    },
+    {
+      title: "Payment",
+      dataIndex: "PaymentID",
+      render: (text: any, record: any) => <Link to={`/payment/${record.PaymentID}`}>{text}</Link>
+    },
     { title: "Deposit", dataIndex: "Credit" },
     { title: "Withdrawl", dataIndex: "Debit" }
   ]

@@ -15,6 +15,7 @@ export const QuestionResponseSearchMeta: IFilterField[] = [
     label: "Event",
     inputType: DROPDOWN,
     fieldName: "EventID",
+    defaultValue: 2,
     refLookupService: getQuestionEvents,
     displayKey: "Name",
     valueKey: "ID"

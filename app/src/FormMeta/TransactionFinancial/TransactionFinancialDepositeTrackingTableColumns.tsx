@@ -17,15 +17,14 @@ export const getTransactionFinancialDepositeTrackingTableColumns = (isModal = fa
             {text}
           </Link>
         ),
-      sorter: (a: any, b: any) => sortByNumber(a, b),
-      sortOrder: "ascend"
+      sorter: (a: any, b: any) => sortByNumber(a, b)
     },
     { title: "Date", dataIndex: "TransactionDate", render: renderDate },
     { title: "Transaction Type", dataIndex: "TransactionType" },
     { title: "Description", dataIndex: "Description" },
-    { title: "Deposit", dataIndex: "Credit" },
-    { title: "Withdrawl", dataIndex: "Debit" },
-    { title: "Balance", dataIndex: "Balance" }
+    { title: "Deposit", dataIndex: "Credit", sorter: (a: any, b: any) => sortByNumber(a, b) },
+    { title: "Withdrawl", dataIndex: "Debit", sorter: (a: any, b: any) => sortByNumber(a, b) },
+    { title: "Balance", dataIndex: "Balance", sorter: (a: any, b: any) => sortByNumber(a, b) }
     // {
     //   title: "Account Owner",
     //   dataIndex: "PersonName",

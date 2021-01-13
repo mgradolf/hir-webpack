@@ -12,7 +12,7 @@ export const BatchSearchMeta: IFilterField[] = [
         if (x.success) x.data = x.data.BatchTypes
         return x
       }),
-    displayKey: "FullName",
+    displayKey: "Name",
     valueKey: "FullName"
   },
   // {

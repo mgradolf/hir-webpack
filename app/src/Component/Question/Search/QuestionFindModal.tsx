@@ -1,10 +1,5 @@
 import React, { useState } from "react"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { AppState } from "~/Store"
-import { redirect } from "~/Store/ConnectedRoute"
-import { showQuestionFindModal } from "~/Store/ModalState"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import QuestionSearch from "~/Component/Question/Search/QuestionSearch"
 import QuestionSearchResultTable from "~/Component/Question/Search/QuestionSearchResultTable"
 import { addTagQuestions, searchQuestions } from "~/ApiServices/Service/QuestionService"
@@ -15,13 +10,11 @@ import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 
 interface IQuestionModal {
   closeModal?: () => void
-  SectionID?: number
   EventID?: number
-  TagTypeID?: number
   TagID?: number
 }
 
-function QuestionFindModal(props: IQuestionModal) {
+export function QuestionFindModal(props: IQuestionModal) {
   const [searchResult, setSearchResult] = useState<Array<any>>([])
   const [apiCallInProgress, setapiCallInProgress] = useState(false)
   const [selectedQuestions, setSelectedQuestions] = useState<Array<any>>([])
@@ -57,11 +50,8 @@ function QuestionFindModal(props: IQuestionModal) {
   )
   return (
     <Modal
-      showModal={true}
       width="800px"
       loading={false}
-      closable={true}
-      closeModal={props.closeModal}
       children={
         <Card title="Select Question" actions={actions}>
           <div style={{ overflowY: "scroll", padding: "10px", height: "65vh" }}>
@@ -98,20 +88,3 @@ function QuestionFindModal(props: IQuestionModal) {
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeModal: () => dispatch(showQuestionFindModal(false)),
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
-
-const mapStateToProps = (state: AppState) => {
-  return {
-    SectionID: state.modalState.questionFindModal.config.SectionID,
-    EventID: state.modalState.questionFindModal.config.EventID,
-    TagTypeID: state.modalState.questionFindModal.config.TagTypeID,
-    TagID: state.modalState.questionFindModal.config.TagID
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionFindModal)

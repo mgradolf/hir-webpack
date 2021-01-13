@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { AppState } from "~/Store"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { removeSpaceBetweenCapitalLetters } from "~/utils/util"
 
 const blockedPages: string[] = [
   "Request",
@@ -16,7 +17,6 @@ const blockedPages: string[] = [
   "Repository",
   "Response",
   "Certificate",
-  "Discount programs",
   "Transaction",
   "Tags",
   "Question",
@@ -50,7 +50,7 @@ const transformIdToName = async (paths: Array<IBreadcrumbPath>): Promise<Array<a
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
       if (!blockedPages.includes(previousPath.label) && isNaN(Number(previousPath.label))) {
-        const result: any = await getEntityById(previousPath.label, x.label)
+        const result: any = await getEntityById(removeSpaceBetweenCapitalLetters(previousPath.label), x.label)
         if (result.success && result.data) {
           const key = names[previousPath.label]
           x.label = result.data[key] || result.data.Name
