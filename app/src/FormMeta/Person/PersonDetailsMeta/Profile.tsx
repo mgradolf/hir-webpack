@@ -107,7 +107,7 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
   const contactMeta: IDetailsSummary = {
     summary: [address, { groupedContents: [email, phone] }]
   }
-  tabMetas.push({ tabTitle: "Contacts", tabType: "summary", tabMeta: contactMeta })
+  tabMetas.push({ tabTitle: "Contact Info", tabType: "summary", tabMeta: contactMeta })
 
   const login: CardContainer = {
     contents: [

@@ -3,7 +3,7 @@ import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/Sear
 
 const meta: IFilterField[] = [
   {
-    label: "Section Lookup",
+    label: "Section",
     fieldName: "SectionID",
     customFilterComponent: SearchSectionLookupButton,
     extraProps: {

@@ -16,8 +16,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Persons", url: "/person", submenu: [] },
           { title: "Students", url: "/student", submenu: [] },
           { title: "Instructors", url: "/instructor", submenu: [] },
-          { title: "Accounts", url: "/account", submenu: [] },
-          { title: "Forget Me Requests", url: "/forget-me-request", submenu: [] }
+          { title: "Accounts", url: "/account", submenu: [] }
         ]
       },
       // { title: "Accounts", url: "/account", submenu: [] },
@@ -154,6 +153,7 @@ export const sidebarMenus: ISidebarMenu[] = [
     title: "Setup/Administration",
     url: "",
     submenu: [
+      { title: "Forget Me Requests", url: "/forget-me-request", submenu: [] },
       {
         title: "Course",
         url: "",
