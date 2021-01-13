@@ -8,7 +8,6 @@ import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/Respo
 import { getOrderTableColumns } from "~/FormMeta/Order/OrderTableColumns"
 import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
 import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
-import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { getTransactionFinancialTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialTableColumns"
 
 export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[] => {
@@ -221,18 +220,6 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
         searchParams: { PersonID: person.PersonID },
         refreshEventName: "REFRESH_CONTACT_TAB",
         pagination: false
-      }
-    }
-  })
-
-  tabMetas.push({
-    tabTitle: "Requests",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getRequestTableColumns(false),
-        searchParams: { PersonID: person.PersonID },
-        refreshEventName: "REFRESH_REQUEST_TAB"
       }
     }
   })

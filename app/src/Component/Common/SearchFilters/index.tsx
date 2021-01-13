@@ -29,10 +29,10 @@ interface IFilterColumnProps {
   meta: IFilterField[]
   visible: boolean
   title: string
-  hideFilters?: () => void
-  onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
-  initialFilter?: { [key: string]: any }
   isModalView: boolean
+  onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
+  hideFilters?: () => void
+  initialFilter?: { [key: string]: any }
   isCheckeble?: boolean
   showClearbutton?: boolean
   applyButtonLabel?: string

@@ -14,7 +14,7 @@ export const ProgramOfferingSearchMeta: IFilterField[] = [
     fieldName: "programOfferingStatusCodeID",
     refLookupService: getOfferingStatusTypes,
     displayKey: "Name",
-    valueKey: "ID"
+    valueKey: "StatusID"
   },
   {
     label: "Program Offering Name",

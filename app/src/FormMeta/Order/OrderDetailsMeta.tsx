@@ -4,7 +4,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDecimal, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableColumns"
 import { getOrderLinesTableColumns } from "~/FormMeta/OrderLine/OrderLinesTableColumns"
 import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
@@ -26,14 +26,14 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       { label: "Completed On", value: renderDate(order.CompletedDate) },
       { label: "Source", value: order.Source },
       { label: "Total Items", value: order.TotalItems },
-      { label: "Total Order Amount", value: order.TotalAmount },
-      { label: "Credits/Discounts", value: order.CreditAmount },
-      { label: "Cash Credit", value: order.RefundAmount },
+      { label: "Total Order Amount", value: order.TotalAmount, render: renderDecimal },
+      { label: "Credits/Discounts", value: order.CreditAmount, render: renderDecimal },
+      { label: "Cash Credit", value: order.RefundAmount, render: renderDecimal },
       { label: "Payment Due Date", value: order.PaymentDueDate, render: renderDate },
-      { label: "Total Amount Due", value: order.Balance },
-      { label: "Discount", value: order.DiscountAmount },
-      { label: "Amount Paid", value: order.AmountPaid },
-      { label: "Extended Amount", value: order.ExtendedAmount },
+      { label: "Total Amount Due", value: order.Balance, render: renderDecimal },
+      { label: "Discount", value: order.DiscountAmount, render: renderDecimal },
+      { label: "Amount Paid", value: order.AmountPaid, render: renderDecimal },
+      { label: "Extended Amount", value: order.ExtendedAmount, render: renderDecimal },
       { label: "PO", value: order.HasPO }
     ]
   }

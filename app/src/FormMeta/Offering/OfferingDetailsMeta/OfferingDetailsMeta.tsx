@@ -28,6 +28,8 @@ import "~/Sass/utils.scss"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 import { FINANCIAL_OFFERING_TYPE_ID, FINANCIAL_TYPE_OFFERING } from "~/utils/Constants"
 import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
+import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
+import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -171,6 +173,21 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       tabType: "summary",
       tabMeta: [],
       multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Offering", EntityID: offering.OfferingID }).tabs
+    },
+    {
+      tabTitle: "Tagged Questions",
+      tabType: "searchtable",
+      tabMeta: {
+        searchMeta: QuestionTaggingSearchMeta,
+        defaultFilter: { OfferingID: offering.OfferingID },
+        initialFilter: { EventID: 2 },
+        tableProps: {
+          pagination: false,
+          ...getQuestionTaggingTableColumns(true),
+          searchParams: { OfferingID: offering.OfferingID },
+          refreshEventName: "REFRESH_OFFERING_TAGGED_QUESTION"
+        }
+      }
     },
     {
       tabTitle: "Catalogs",

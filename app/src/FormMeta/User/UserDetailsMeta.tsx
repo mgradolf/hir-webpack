@@ -2,6 +2,10 @@ import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderEmail } from "~/Component/Common/ResponsiveTable"
+import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
+import { getActivityOrderSearchTableColumns } from "~/FormMeta/ActivityOrder/ActivityOrderSearchTableColumns"
+import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTableColumns"
+import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
 export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
@@ -31,6 +35,60 @@ export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta =
     tabMeta: {
       summary: [summary]
     }
+  })
+
+  tabMeta.push({
+    tabTitle: "Logs",
+    tabType: "summary",
+    tabMeta: [],
+    multipleTabMetas: [
+      {
+        tabTitle: "Academic",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getAcademicActivityLogTableColumns(),
+            searchParams: { UserID: user.UserID },
+            refreshEventName: "REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE"
+          }
+        }
+      },
+      {
+        tabTitle: "Enrollment",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getEnrollmentActivityLogTableColumns(),
+            searchParams: { UserID: user.UserID },
+            refreshEventName: "REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE"
+          }
+        }
+      },
+
+      {
+        tabTitle: "History",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getEnrollmentTableColumns(),
+            searchParams: { UserID: user.UserID },
+            refreshEventName: "REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE"
+          }
+        }
+      },
+      {
+        tabTitle: "Orders",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            pagination: false,
+            ...getActivityOrderSearchTableColumns(),
+            searchParams: { UserID: user.UserID },
+            refreshEventName: "REFRESH_ORDER_ACTIVITY_PAGE"
+          }
+        }
+      }
+    ]
   })
 
   return {

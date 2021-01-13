@@ -1,11 +1,11 @@
+import React from "react"
+import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getTransactionFinancialDepositeTrackingTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialDepositeTrackingTableColumns"
 import { getPaymentAllocationsTableColumns } from "~/FormMeta/OrderItem/PaymentAllocationsTableColumns"
-import React from "react"
-import { Link } from "react-router-dom"
 
 export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -40,13 +40,13 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
   })
 
   meta.push({
-    tabTitle: "Allocations",
+    tabTitle: "Registrations",
     tabType: "table",
     tabMeta: {
       tableProps: {
-        ...getPaymentAllocationsTableColumns(false),
+        ...getRegistrationTableColumns(false),
         searchParams: { PaymentID: payment.PaymentID },
-        refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
+        refreshEventName: "REFRESH_REGISTRATION_TAB"
       }
     }
   })
@@ -65,13 +65,13 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
   })
 
   meta.push({
-    tabTitle: "Registrations",
+    tabTitle: "Allocations",
     tabType: "table",
     tabMeta: {
       tableProps: {
-        ...getRegistrationTableColumns(false),
+        ...getPaymentAllocationsTableColumns(false),
         searchParams: { PaymentID: payment.PaymentID },
-        refreshEventName: "REFRESH_REGISTRATION_TAB"
+        refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
       }
     }
   })

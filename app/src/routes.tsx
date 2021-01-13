@@ -37,8 +37,6 @@ import SectionOrderDetails from "~/Pages/Manage/Courses/Section/Financial/OrderD
 import SectionCommentPage from "~/Pages/Manage/Courses/Section/Comment"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShow"
 import SectionRequestPage from "~/Pages/Manage/Courses/Section/RequestPage"
-import SectionQuestionPage from "~/Pages/Manage/Courses/Section/Question"
-
 import RequestPage from "~/Pages/Manage/Request/RequestPage"
 import RequestDetailsPage from "~/Pages/Manage/Request/RequestDetailsPage"
 
@@ -80,7 +78,6 @@ import IndividualReportPage from "~/Pages/Discovery/Report/IndividualReportPage"
 import FinancialReportPurchaseOrder from "~/Pages/Discovery/Report/Financial/PurchaseOrder"
 
 import QuestionPage from "~/Pages/Manage/Question/QuestionRepositoryPage"
-import QuestionTaggingPage from "~/Pages/Manage/Question/QuestionTaggingPage"
 import QuestionResponsePage from "~/Pages/Manage/Question/QuestionResponsePage"
 
 import FinancialOrderPagePage from "~/Pages/Manage/Financials/OrderPage"
@@ -151,7 +148,6 @@ export const AppRoutes: RouteProps[] = [
   { path: "/section/:sectionID/budget", component: SectionBudgetPage },
   { path: "/section/:sectionID/discount", component: SectionDiscountPage },
   { path: "/section/:sectionID/notification", component: SectionNoticePage },
-  { path: "/section/:sectionID/question", component: SectionQuestionPage },
   { path: "/section/:sectionID/tag", component: SectionTagPage },
   { path: "/section/:sectionID/registration/:studentID", component: RegistrationDetailsPage },
   { path: "/section/:sectionID/registration", component: SectionRegistrationPage },
@@ -179,8 +175,8 @@ export const AppRoutes: RouteProps[] = [
   { path: "/order/:orderID", component: OrderDetailsPage },
   { path: "/order/payments/:paymentID", component: PaymentDetails },
 
-  { path: "/discount-programs", component: FinancialDiscountProgramPage },
-  { path: "/discount-programs/:discountProgramID", component: FinancialDiscountProgramDetailsPage },
+  { path: "/discount-program", component: FinancialDiscountProgramPage },
+  { path: "/discount-program/:discountProgramID", component: FinancialDiscountProgramDetailsPage },
 
   { path: "/transaction", component: FinancialTransactionPage },
   { path: "/transaction/:depositID", component: FinancialTransactionDetailsPage },
@@ -203,7 +199,6 @@ export const AppRoutes: RouteProps[] = [
   { path: "/question", component: QuestionPage },
   { path: "/question/response", component: QuestionResponsePage },
   { path: "/question/:PreferenceDefID", component: QuestionRepositoryDetailsPage },
-  { path: "/question/tagging", component: QuestionTaggingPage },
 
   { path: "/request", component: RequestPage },
   { path: "/request/:requestID", component: RequestDetailsPage },

@@ -19,8 +19,6 @@ import BudgetFormModal from "~/Component/Section/Budget/BudgetFormModal"
 import BudgetEditFormModal from "~/Component/Section/Budget/BudgetEditFormModal"
 import DiscountFomrModal from "~/Component/Section/Discount/DiscountFormModal"
 import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditFormModal"
-import QuestionCreateModal from "~/Component/Question/Create/QuestionCreateModal"
-import QuestionFindModal from "~/Component/Question/Search/QuestionFindModal"
 import NoticeEditFormModal from "~/Component/Section/Notice/NoticeEditFormModal"
 import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
 
@@ -109,8 +107,6 @@ function ModalContainer(modalState: IModalState) {
           sectionId={modalState.updateDiscountModal.config.sectionId}
         />
       )}
-      {modalState.questionCreateModal.value && <QuestionCreateModal />}
-      {modalState.questionFindModal.value && <QuestionFindModal />}
       {modalState.updateNoticeModal.value && (
         <NoticeEditFormModal
           sectionId={modalState.updateNoticeModal.config.sectionId}

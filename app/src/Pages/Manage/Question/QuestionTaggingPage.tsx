@@ -1,76 +1,27 @@
-import React, { useEffect, useState } from "react"
-import { RouteComponentProps } from "react-router-dom"
-import { getTagQuestions, updateTagQuestion } from "~/ApiServices/Service/QuestionService"
-import { getQuestionGroup } from "~/ApiServices/Service/RefLookupService"
-import QuestionSearchByEventTag from "~/Component/Question/QuestionSearchByEventTag"
-import QuestionCreateButton from "~/Component/Question/Create/QuestionCreateButton"
-import QuestionTable from "~/Component/Question/QuestionTable"
-import QuestionFindButton from "~/Component/Question/Search/QuestionFindButton"
-import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
-import { Form } from "antd"
+import React, { useState } from "react"
+import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
+import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
+import { QuestionCreateButton } from "~/Component/Question/Create/QuestionCreateButton"
+import { QuestionFindButton } from "~/Component/Question/Search/QuestionFindButton"
 
-export default function QuestionTaggingPage(props?: RouteComponentProps<{ offeringID?: string; sectionID?: string }>) {
-  const sectionID = Number(props?.match?.params?.sectionID)
-  const [allQuestions, setAllQuestions] = useState<Array<any>>([])
-  const [allQuestionGroup, setAllQuestionGroup] = useState([])
-  const [filters, setFilters] = useState<{ [key: string]: any }>()
-  const [apiCallInProgress, setApiCallInProgress] = useState(false)
-
-  useEffect(() => {
-    getQuestionGroup().then((x) => {
-      if (x.success) {
-        setAllQuestionGroup(x.data)
-      }
-    })
-  }, [])
-  useEffect(() => {
-    const loadQuestions = () => {
-      setApiCallInProgress(true)
-      if (filters) {
-        getTagQuestions(filters)
-          .then((x) => {
-            if (x.success) setAllQuestions(x.data)
-          })
-          .finally(() => {
-            setApiCallInProgress(false)
-          })
-      }
-    }
-    eventBus.subscribe(REFRESH_QUESTION_PAGE, loadQuestions)
-    eventBus.publish(REFRESH_QUESTION_PAGE)
-    return () => eventBus.unsubscribe(REFRESH_QUESTION_PAGE)
-  }, [filters])
-
+export function QuestionTaggingPage(props: { TagID: number }) {
+  const [params, setParams] = useState<any>({})
   return (
-    <>
-      <Form
-        hideRequiredMark
-        layout="horizontal"
-        style={{ background: "#fff", borderRadius: "4px", marginBottom: "1rem", padding: "1rem" }}
-      >
-        <QuestionSearchByEventTag
-          setFilters={(Params: any) => {
-            setFilters(Params)
-          }}
-        />
-        <div style={{ zIndex: 10, textAlignLast: "end" }}>
-          <QuestionCreateButton SectionID={sectionID} {...filters} />
-          <QuestionFindButton SectionID={sectionID} {...filters} />
-        </div>
-        {/* {sectionID && (
-        )} */}
-      </Form>
-      <QuestionTable
-        loading={apiCallInProgress}
-        allQuestions={allQuestions}
-        allQuestionGroup={allQuestionGroup}
-        updateQuestion={(Params: { [key: string]: any }) => {
-          updateTagQuestion(Params).then((x) => {
-            if (x.success) {
-            }
-          })
-        }}
-      />
-    </>
+    <SearchPage
+      title="Accounts"
+      meta={QuestionTaggingSearchMeta}
+      hideSearchField={false}
+      initialFilter={{ TagID: props.TagID, EventID: 2 }}
+      blocks={[
+        <QuestionCreateButton TagID={props.TagID} EventID={params.EventID || 2} />,
+        <QuestionFindButton TagID={props.TagID} EventID={params.EventID || 2} />
+      ]}
+      updatedParams={(params) => setParams(params)}
+      tableProps={{
+        refreshEventName: "REFRESH_TAG__QUESTIONS",
+        ...getQuestionTaggingTableColumns()
+      }}
+    ></SearchPage>
   )
 }

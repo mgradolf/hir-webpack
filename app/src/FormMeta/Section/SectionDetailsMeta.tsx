@@ -7,22 +7,6 @@ import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/Detai
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import SectionEditLink from "~/Component/Section/CreateEdit/SectionEditLink"
 import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
-import {
-  REFRESH_SECTION_BUDGET_PAGE,
-  REFRESH_SECTION_DISCOUNT_PAGE,
-  REFRESH_SECTION_NOTIFICATION_PAGE,
-  REFRESH_SECTION_REGISTRATION_PAGE,
-  REFRESH_SECTION_SEATGROUP_PAGE,
-  REFRESH_SECTION_PRODUCT_PAGE,
-  REFRESH_SECTION_REQUEST_PAGE,
-  REFRESH_SECTION_WAITLIST_ENTRIES_PAGE,
-  REFRESH_SECTION_ORDER_PAGE,
-  REFRESH_SECTION_GENERAL_COMMENT_PAGE,
-  REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE,
-  REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE,
-  REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE,
-  REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE
-} from "~/utils/EventBus"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
 import { Button } from "antd"
@@ -31,7 +15,6 @@ import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormM
 import { getSectionDiscountTableColumns } from "~/FormMeta/SectionDiscount/DiscountTableColumns"
 import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
 import SectionCatalogPage from "~/Pages/Manage/Courses/Section/Catalog/CatalogPage"
-import SectionQuestionPage from "~/Pages/Manage/Courses/Section/QuestionPage"
 import { getSectionProductTableColumns } from "~/FormMeta/SectionProduct/ProductTableColumns"
 import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
@@ -50,6 +33,8 @@ import { getOrderItemTableColumns } from "~/FormMeta/OrderItem/OrderItemsTableCo
 import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
 import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
 import FinancialMenu from "~/FormMeta/Financial/FinancialMenu"
+import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
+import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
@@ -140,7 +125,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getSectionFinancialTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_BUDGET_PAGE
+      refreshEventName: "REFRESH_SECTION_BUDGET_PAGE_1"
     }
   }
 
@@ -149,7 +134,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getSeatgroupTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_SEATGROUP_PAGE
+      refreshEventName: "REFRESH_SECTION_SEATGROUP_PAGE_1"
     }
   }
 
@@ -158,7 +143,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getSectionDiscountTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_DISCOUNT_PAGE
+      refreshEventName: "REFRESH_SECTION_DISCOUNT_PAGE_1"
     }
   }
 
@@ -167,16 +152,11 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     props: { sectionID: section.SectionID }
   }
 
-  const questionMeta: IDetailsCustomTabProp = {
-    component: SectionQuestionPage,
-    props: { sectionID: section.SectionID }
-  }
-
   const notificationMeta: IDetailsTableTabProp = {
     tableProps: {
       ...getNoticeTableColumns(section.SectionID),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_NOTIFICATION_PAGE
+      refreshEventName: "REFRESH_SECTION_NOTIFICATION_PAGE_1"
     }
   }
 
@@ -185,7 +165,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getSectionProductTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_PRODUCT_PAGE
+      refreshEventName: "REFRESH_SECTION_PRODUCT_PAGE_1"
     }
   }
 
@@ -193,7 +173,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getRegistrationTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_REGISTRATION_PAGE
+      refreshEventName: "REFRESH_SECTION_REGISTRATION_PAGE_1"
     }
   }
 
@@ -201,7 +181,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getOrderItemTableColumns(false, section.SectionID),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_ORDER_PAGE
+      refreshEventName: "REFRESH_SECTION_ORDER_PAGE_1"
     }
   }
 
@@ -209,7 +189,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getRequestTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_REQUEST_PAGE
+      refreshEventName: "REFRESH_SECTION_REQUEST_PAGE_1"
     }
   }
 
@@ -218,7 +198,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getWaitlistEntriesTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_SECTION_WAITLIST_ENTRIES_PAGE
+      refreshEventName: "REFRESH_SECTION_WAITLIST_ENTRIES_PAGE_1"
     }
   }
 
@@ -231,7 +211,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getEnrollmentTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE
+      refreshEventName: "REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE_1"
     }
   }
 
@@ -239,7 +219,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getAcademicActivityLogTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE
+      refreshEventName: "REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE_1"
     }
   }
 
@@ -247,7 +227,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getEnrollmentActivityLogTableColumns(),
       searchParams: { SectionIDs: [section.SectionID] },
-      refreshEventName: REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE
+      refreshEventName: "REFRESH_REGISTRATION_ENROLLMENT_ACTIVITY_PAGE_1"
     }
   }
 
@@ -303,15 +283,25 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabMeta: catalogMeta
       },
       {
-        tabTitle: "Questions",
-        tabType: "custom",
-        tabMeta: questionMeta
-      },
-      {
         tabTitle: "Tags",
         tabType: "summary",
         tabMeta: [],
         multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Section", EntityID: section.SectionID }).tabs
+      },
+      {
+        tabTitle: "Tagged Questions",
+        tabType: "searchtable",
+        tabMeta: {
+          searchMeta: QuestionTaggingSearchMeta,
+          defaultFilter: { SectionID: section.SectionID },
+          initialFilter: { EventID: 2 },
+          tableProps: {
+            pagination: false,
+            ...getQuestionTaggingTableColumns(true),
+            searchParams: { SectionID: section.SectionID },
+            refreshEventName: "REFRESH_SECTION_TAGGED_QUESTION"
+          }
+        }
       },
       {
         tabTitle: "Notifications",
@@ -377,7 +367,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
                 pagination: false,
                 ...getGeneralCommentTableColumns(),
                 searchParams: { SectionID: section.SectionID },
-                refreshEventName: REFRESH_SECTION_GENERAL_COMMENT_PAGE
+                refreshEventName: "REFRESH_SECTION_GENERAL_COMMENT_PAGE"
               }
             }
           },
@@ -392,7 +382,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
                 pagination: false,
                 ...getInstructorCommentTableColumns(),
                 searchParams: { SectionID: section.SectionID },
-                refreshEventName: REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE
+                refreshEventName: "REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE"
               }
             }
           }

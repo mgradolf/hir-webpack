@@ -4,7 +4,8 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
-import SectionQuestionPage from "~/Pages/Manage/Courses/Section/QuestionPage"
+import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
+import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
 export const getOrganizationDetailsMeta = (organization: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const Organization: CardContainer = {
@@ -57,11 +58,18 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
   })
 
   tabMeta.push({
-    tabTitle: "Questions",
-    tabType: "custom",
+    tabTitle: "Tagged Questions",
+    tabType: "searchtable",
     tabMeta: {
-      component: SectionQuestionPage,
-      props: {}
+      searchMeta: QuestionTaggingSearchMeta,
+      defaultFilter: { OrganizationID: organization.OrganizationID },
+      initialFilter: { EventID: 2 },
+      tableProps: {
+        pagination: false,
+        ...getQuestionTaggingTableColumns(true),
+        searchParams: { OrganizationID: organization.OrganizationID },
+        refreshEventName: "REFRESH_ORGANIZATION_TAGGED_QUESTION"
+      }
     }
   })
 

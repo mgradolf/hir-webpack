@@ -3,7 +3,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 export function getTags(Params: { [key: string]: any }): Promise<IApiResponse> {
   return TagService[config.Actions.getTags](Params).then((x) => {
-    if (x.success) {
+    if (x.success && Array.isArray(x.data)) {
       x.data = x.data.map((a: any) => {
         a.EntityID = Params.EntityID
         a.EntityType = Params.EntityType
@@ -20,7 +20,7 @@ export function addTagIntoEntity(Params: { [key: string]: any }): Promise<IApiRe
 
 export function getParentTags(Params: { [key: string]: any }): Promise<IApiResponse> {
   return TagService[config.Actions.getParentTags](Params).then((x) => {
-    if (x.success) {
+    if (x.success && Array.isArray(x.data)) {
       x.data = x.data.map((a: any) => {
         a.EntityID = Params.EntityID
         a.EntityType = Params.EntityType

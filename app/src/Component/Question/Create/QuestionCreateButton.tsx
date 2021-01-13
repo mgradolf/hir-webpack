@@ -1,41 +1,29 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showQuestionCreateModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import { QuestionCreateModal } from "~/Component/Question/Create/QuestionCreateModal"
 
 interface IQuestionCreateButtonProp {
-  openQuestionCreateModal?: (config: IQuestionCreateButtonProp) => void
-  SectionID: number
   EventID?: number
-  TagTypeID?: number
   TagID?: number
 }
-function QuestionCreateButton(props: IQuestionCreateButtonProp) {
+
+export function QuestionCreateButton(props: IQuestionCreateButtonProp) {
+  const [showModal, setShowModal] = useState(false)
   return (
-    <Button
-      type="primary"
-      style={{ marginRight: "10px" }}
-      disabled={!props.EventID || !props.TagID}
-      onClick={() => {
-        props.openQuestionCreateModal &&
-          props.openQuestionCreateModal({
-            SectionID: props.SectionID,
-            EventID: props.EventID,
-            TagTypeID: props.TagTypeID,
-            TagID: props.TagID
-          })
-      }}
-    >
-      + Create Question
-    </Button>
+    <>
+      <Button
+        type="primary"
+        style={{ marginRight: "10px" }}
+        disabled={!props.EventID || !props.TagID}
+        onClick={() => {
+          setShowModal(true)
+        }}
+      >
+        + Add Question
+      </Button>
+      {showModal && (
+        <QuestionCreateModal EventID={props.EventID} TagID={props.TagID} closeModal={() => setShowModal(false)} />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openQuestionCreateModal: (config: IQuestionCreateButtonProp) => dispatch(showQuestionCreateModal(true, config))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(QuestionCreateButton)

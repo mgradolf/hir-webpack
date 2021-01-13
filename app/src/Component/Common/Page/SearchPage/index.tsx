@@ -19,6 +19,7 @@ interface IPage extends Partial<RouteComponentProps> {
   initialFilter?: any
   defaultFilter?: any
   helpKey?: string
+  updatedParams?: (params?: any) => void
 }
 export function SearchPage(props: IPage) {
   const hideSearchFieldByUrlParam = useQuery().get("hide-search") === "true"
