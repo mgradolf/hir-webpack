@@ -69,7 +69,6 @@ function StudentFinderModal(props: IStudentFinderProps) {
               id="studentList"
               dataSource={students}
               loading={loading}
-              isModal
               rowSelection={rowSelection}
             />
           </Col>
