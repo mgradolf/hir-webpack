@@ -1,28 +1,24 @@
 import * as React from "react"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { Card, Button, Typography } from "antd"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showRequestViewResponseModal } from "~/Store/ModalState"
-import { redirect } from "~/Store/ConnectedRoute"
 import Form from "antd/lib/form/Form"
 
 interface IViewResponseProps {
   requestJson: any
-  closeViewResponseModal?: () => void
+  closeModal?: () => void
 }
 
-function ViewResponse(props: IViewResponseProps) {
+export default function ViewResponseModal(props: IViewResponseProps) {
+
   const handleCancel = () => {
-    if (props.closeViewResponseModal) {
-      props.closeViewResponseModal()
+    if (props.closeModal) {
+      props.closeModal()
     }
   }
 
   return (
     <Modal
-      showModal={true}
-      width="600px"
+      width="800px"
       children={
         <>
           <Card
@@ -37,7 +33,7 @@ function ViewResponse(props: IViewResponseProps) {
               </Button>
             ]}
           >
-            <Form style={{ height: "40vh", overflowY: "scroll", padding: "10px" }}>
+            <Form style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
               <Typography.Text>{props.requestJson}</Typography.Text>
             </Form>
           </Card>
@@ -46,12 +42,3 @@ function ViewResponse(props: IViewResponseProps) {
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    closeViewResponseModal: () => dispatch(showRequestViewResponseModal(false)),
-    redirect: (url: string) => dispatch(redirect(url))
-  }
-}
-
-export default connect(undefined, mapDispatchToProps)(ViewResponse)

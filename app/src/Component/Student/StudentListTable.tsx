@@ -82,6 +82,7 @@ function StudentListTable(props: ITableWrapperProps) {
     <ResponsiveTable
       id={props.id}
       columns={columns}
+      isModal={true}
       dataSource={props.dataSource}
       loading={props.loading}
       bordered

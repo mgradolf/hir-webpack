@@ -9,16 +9,13 @@ const meta: IFilterField[] = [
   {
     label: "Payment Due Date",
     inputType: DATE_PICKERS,
-
-    fieldName: "PaymentDueDate",
-
-    fieldName2: "PaymentDueDate1"
+    fieldName: "PaymentDueDate"
   }
 ]
 
-export default meta
+export const mapping: { [key: string]: any } = {
+  OrganizationName: "OrganizationName1",
+  PaymentDueDate: "PaymentDueDate1"
+}
 
-// OrganizationName
-// OrganizationName1
-// PaymentDueDate
-// PaymentDueDate1
+export default meta

@@ -6,11 +6,6 @@ import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 
 export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    // {
-    //   ...(!isModal && {
-    //     render: (text: any, record: any) => renderDetailsLink(`/request/${record.RequestID}`)
-    //   })
-    // },
     {
       title: "Request ID",
       dataIndex: "RequestID",
@@ -61,15 +56,6 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
       dataIndex: "RequesterStaffUserName",
       key: "RequesterStaffUserName"
     }
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (record: any) => (
-    //     <Space size="middle">
-    //       <Link to={`/request/${record.RequestID}`}>View Details</Link>
-    //     </Space>
-    //   )
-    // }
   ]
 
   const responsiveColumnIndices: number[] = []
