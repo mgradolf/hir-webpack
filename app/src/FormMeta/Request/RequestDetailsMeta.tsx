@@ -52,12 +52,12 @@ export const getRequestDetailsMeta = (Request: { [key: string]: any }): IDetails
         tabMeta: summaryMeta
       },
       {
-        tabTitle: "Request Actions",
+        tabTitle: "Details",
         tabType: "custom",
         tabMeta: requestActionMeta
       },
       {
-        tabTitle: "Request Activity",
+        tabTitle: "Logs",
         tabType: "custom",
         tabMeta: requestActivityMeta
       }
