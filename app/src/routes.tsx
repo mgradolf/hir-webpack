@@ -175,8 +175,8 @@ export const AppRoutes: RouteProps[] = [
   { path: "/order/:orderID", component: OrderDetailsPage },
   { path: "/order/payments/:paymentID", component: PaymentDetails },
 
-  { path: "/discount-programs", component: FinancialDiscountProgramPage },
-  { path: "/discount-programs/:discountProgramID", component: FinancialDiscountProgramDetailsPage },
+  { path: "/discount-program", component: FinancialDiscountProgramPage },
+  { path: "/discount-program/:discountProgramID", component: FinancialDiscountProgramDetailsPage },
 
   { path: "/transaction", component: FinancialTransactionPage },
   { path: "/transaction/:depositID", component: FinancialTransactionDetailsPage },

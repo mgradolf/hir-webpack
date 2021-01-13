@@ -5,48 +5,41 @@ export const studentSearchMeta: IFilterFieldObject[] = [
   {
     label: "Last Name",
     inputType: TEXT,
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
+    fieldName: "LastName"
   },
   {
     label: "First Name",
     inputType: TEXT,
     defaultValue: "*",
-    fieldName: "FirstName",
-    ariaLabel: "First Name"
+    fieldName: "FirstName"
   },
   {
     label: "Email",
     inputType: TEXT,
 
-    fieldName: "EmailAddress",
-    ariaLabel: "Email"
+    fieldName: "EmailAddress"
   },
   {
     label: "Telephone",
     inputType: TEXT,
-    fieldName: "TelephoneNumber",
-    ariaLabel: "Phone"
+    fieldName: "TelephoneNumber"
   },
   {
     label: "Middle Name",
     inputType: TEXT,
 
-    fieldName: "MiddleName",
-    ariaLabel: "Middle Name"
+    fieldName: "MiddleName"
   },
   {
     label: "Other Name",
     inputType: TEXT,
 
-    fieldName: "OtherName",
-    ariaLabel: "Other Name"
+    fieldName: "OtherName"
   },
   // {
   //   label: "Account Role",
   //   inputType: DROPDOWN,
   //   fieldName: "RoleName",
-  //   ariaLabel: "Account Role",
   //   refLookupService: getAccountTypes,
   //   displayKey: "Name",
   //   valueKey: "ID"
@@ -55,35 +48,28 @@ export const studentSearchMeta: IFilterFieldObject[] = [
   //   label: "Account Name",
   //   inputType: TEXT,
   //   fieldName: "AccountName",
-  //   ariaLabel: "Account Name"
   // },
 
   {
     label: "Address",
     inputType: TEXT,
-    fieldName: "Address",
-    ariaLabel: "Address"
+    fieldName: "AddressLine"
   },
   {
     label: "City",
     inputType: TEXT,
-    fieldName: "City",
-    ariaLabel: "City"
+    fieldName: "Locality"
   },
   {
     label: "Postal Code",
     inputType: TEXT,
-
-    fieldName: "PostalCode",
-    ariaLabel: "Postal Code"
+    fieldName: "PostalCode"
   },
 
   {
     label: "Country",
     inputType: DROPDOWN,
-
     fieldName: "CountryCodeID",
-    ariaLabel: "Country Select",
     refLookupService: getCountries,
     displayKey: "Description",
     valueKey: "ID"

@@ -49,7 +49,7 @@ export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetails
 
   if (Catalog.SortType === 2) {
     tabMeta.push({
-      tabTitle: "Sorting Preview",
+      tabTitle: "Web Preview",
       tabType: "table",
       tabMeta: undefined,
       multipleTabMetas: [

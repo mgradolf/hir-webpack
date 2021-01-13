@@ -1,7 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
 import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp => {
@@ -10,14 +8,12 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
     {
       title: "Certificate Number",
       dataIndex: "CertificateNumber",
-      render: (text: any, record: any) => (
-        <Link to={`/${route}/certificate/${record.StudentCertificateID}`}>{text}</Link>
-      )
+      render: (text: any, record: any) => renderLink(`/${route}/certificate/${record.StudentCertificateID}`, text)
     },
     {
       title: "Student Name",
       dataIndex: "StudentName",
-      render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
+      render: (text, record) => renderLink(`/person/student/${record.StudentID}`, text)
     },
     {
       title: "Issue Date",
@@ -30,7 +26,8 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
     },
     {
       title: "Offering Name",
-      dataIndex: "OfferingName"
+      dataIndex: "OfferingName",
+      render: (text, record) => renderLink(`/offering/${record.OfferingID}`, text)
     }
 
     // {

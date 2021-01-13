@@ -10,7 +10,7 @@ export const getDiscountProgramsTableColumns = (isModal = false): ITableConfigPr
       title: "Name",
       dataIndex: "Name",
       render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/discount-programs/${record.DiscountProgramID}`}>{text}</Link>
+        isModal ? text : <Link to={`/discount-program/${record.DiscountProgramID}`}>{text}</Link>
     },
     {
       title: "Discount Program Type",

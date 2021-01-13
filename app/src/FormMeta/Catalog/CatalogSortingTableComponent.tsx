@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Button, Select, Typography } from "antd"
-import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderLink, ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import {
   getWebCatalogOfferings,
   getWebCatalogPrograms,
@@ -119,7 +119,11 @@ export const CatalogOfferingSortingTableComponent = (props: { CatalogID: number 
       swapFunc={swapOfferingsInCatalog}
       removeFunc={removeOfferingFromCatalog}
       columns={[
-        { title: "Course", dataIndex: "Name" },
+        {
+          title: "Course",
+          dataIndex: "Name",
+          render: (text, record) => renderLink(`/offering/${record.OfferingID}`, text)
+        },
         { title: "Description", dataIndex: "Description" }
       ]}
     />
@@ -157,7 +161,11 @@ export const CatalogSectionSortingTableComponent = (props: { CatalogID: number }
           swapFunc={swapSectionsInCatalog}
           removeFunc={removeSectionFromCatalog}
           columns={[
-            { title: "Section", dataIndex: "SectionNumber" },
+            {
+              title: "Section",
+              dataIndex: "SectionNumber",
+              render: (text, record) => renderLink(`/section/${record.SectionID}`, text)
+            },
             { title: "Start Date", dataIndex: "StartDateFormatted" },
             // { title: "Location", dataIndex: "SiteName", render },
             // { title: "Cost", dataIndex: "Name" },
@@ -179,7 +187,11 @@ export const CatalogProgramSortingTableComponent = (props: { CatalogID: number }
       swapFunc={swapProgramsInCatalog}
       removeFunc={removeProgramFromCatalog}
       columns={[
-        { title: "Program", dataIndex: "Name" },
+        {
+          title: "Program",
+          dataIndex: "Name",
+          render: (text, record) => renderLink(`/program/${record.ProgramID}`, text)
+        },
         { title: "Description", dataIndex: "Description" }
       ]}
     />

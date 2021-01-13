@@ -26,7 +26,7 @@ export function SearchLookupSelector(props: IFilterGenericComponentProps<IFilter
 
   const toRender = selectorKeys ? (
     <Row>
-      <Col span={8} {...(mobileView && { xs: { span: 8, offset: 0 } })}>
+      <Col span={6} {...(mobileView ? { xs: { span: 8, offset: 0 } } : { offset: 2 })}>
         <Select
           style={{ width: "100%" }}
           defaultValue={selectorKeys[0].label || ""}

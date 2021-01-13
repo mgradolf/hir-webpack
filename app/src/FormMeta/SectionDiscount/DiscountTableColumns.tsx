@@ -14,7 +14,7 @@ export const getSectionDiscountTableColumns = (isModal = false): ITableConfigPro
       title: "Discount Program",
       dataIndex: "DiscountProgramName",
       render: (text: any, record: any) =>
-        isModal ? { text } : <Link to={`/discount-programs/${record.DiscountProgramID}`}>{text}</Link>
+        isModal ? { text } : <Link to={`/discount-program/${record.DiscountProgramID}`}>{text}</Link>
     },
     {
       title: "Section",

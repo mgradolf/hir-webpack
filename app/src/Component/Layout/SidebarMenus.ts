@@ -51,7 +51,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Credits", url: "/order/credits", submenu: [] },
           { title: "Payments", url: "/order/payments", submenu: [] },
           { title: "Transactions", url: "/transaction", submenu: [] }
-          // { title: "Discount Programs", url: "/discount-programs", submenu: [] }
+          // { title: "Discount Programs", url: "/discount-program", submenu: [] }
         ]
       },
       { title: "Requests", url: "/request", submenu: [] },
@@ -69,7 +69,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Catalogs", url: "/catalog", submenu: [] },
-          { title: "Discount Programs", url: "/discount-programs", submenu: [] },
+          { title: "Discount Programs", url: "/discount-program", submenu: [] },
           { title: "Programs", url: "/marketing-programs", submenu: [] },
           { title: "Codes", url: "/marketing-codes/repository", submenu: [] },
           { title: "Response", url: "/marketing-codes/response", submenu: [] }
