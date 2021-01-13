@@ -12,6 +12,7 @@ export interface IStandardReportPage {
   description?: string
   meta?: IFilterField[]
   initialFilter: { [key: string]: string }
+  mapping?: { [key: string]: string }
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
@@ -22,6 +23,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
       if (params[key]) urlParams += `${key}=${params[key]}&`
+      if (props.mapping && props.mapping[key]) urlParams += `${props.mapping[key]}=${params[key]}&`
     }
     urlParams += "token=" + getToken()
     console.log(urlParams)

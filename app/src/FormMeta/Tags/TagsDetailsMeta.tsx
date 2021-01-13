@@ -13,7 +13,7 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
   const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      // { label: "Name", value: Tag.Name },
+      { label: "Tag Type", value: Tag.TagType },
       { label: "Description", value: Tag.Description },
       { label: "Active", value: Tag.IsActive, render: renderBoolean },
       { label: "Sort Position", value: Tag.SortTypeName }
@@ -78,7 +78,7 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
   })
 
   return {
-    pageTitle: `Tag - ${Tag.Name}`,
+    pageTitle: `${Tag.TagType} - ${Tag.Name}`,
     tabs: tabMeta
   }
 }

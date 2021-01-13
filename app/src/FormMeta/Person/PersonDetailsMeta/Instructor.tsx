@@ -55,7 +55,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
 
   tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
   tabMetas.push({
-    tabTitle: "Faculty Schedule",
+    tabTitle: "Schedule",
     tabType: "table",
     tabMeta: {
       tableProps: {
@@ -84,7 +84,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
   })
 
   tabMetas.push({
-    tabTitle: "Instructor Fees",
+    tabTitle: "Financials",
     tabType: "table",
     tabMeta: {
       blocks: [<FinancialFormModalOpenButton FacultyID={instructor.FacultyID} />],
