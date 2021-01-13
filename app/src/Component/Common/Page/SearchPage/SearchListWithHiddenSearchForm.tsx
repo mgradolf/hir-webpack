@@ -19,9 +19,7 @@ export interface ISearchListWithHiddenSearchFormProp {
 
 export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
   const [filterCount, setFilterCount] = useState(0)
-  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(
-    props.initialFilter || props.defaultFilter || {}
-  )
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
   const [showFilter, setShowFilter] = useState(false)
   const [help, setHelp] = useState(false)
 
@@ -66,7 +64,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             visible={showFilter}
             hideFilters={() => setShowFilter(false)}
             meta={props.meta}
-            initialFilter={searchParams}
+            initialFilter={{ ...props.initialFilter, ...props.defaultFilter } || {}}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               setSearchParams({ ...props.defaultFilter, ...newFilterValues })
               setFilterCount(appliedFilterCount)

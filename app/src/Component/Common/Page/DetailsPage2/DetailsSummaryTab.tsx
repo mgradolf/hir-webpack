@@ -17,7 +17,10 @@ export type CardContainer = {
 
 const DetailsCardContainer = (props: { card: CardContainer }) => {
   return (
-    <Card title={props.card.title} extra={props.card.cardActions}>
+    <Card title={props.card.title}>
+      <Row justify="end" gutter={[8, 8]}>
+        {props.card.cardActions && props.card.cardActions.map((x, i) => <Col key={i}>{x}</Col>)}
+      </Row>
       <table className="dorakata-table">
         <tbody>
           {Array.isArray(props.card.contents)
@@ -58,7 +61,9 @@ export const DetailsSummary = (props: IDetailsSummary) => {
               {Array.isArray(x.contents) ? (
                 <DetailsCardContainer card={x} />
               ) : Array.isArray(x.groupedContents) ? (
-                x.groupedContents.map((y: CardContainer, j: number) => <DetailsCardContainer key={j} card={y} />)
+                x.groupedContents.map((y: CardContainer, j: number) => (
+                  <DetailsCardContainer key={`${i}${j * 100}`} card={y} />
+                ))
               ) : null}
             </Col>
           ))}

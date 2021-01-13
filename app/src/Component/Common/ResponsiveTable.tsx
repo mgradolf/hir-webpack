@@ -25,7 +25,8 @@ export const renderDetailsLink = (url: string): JSX.Element => {
 }
 export const renderLink = (url: string, text: string, isModal?: boolean) =>
   !isModal ? <Link to={url}>{text}</Link> : <span>{`${text}`}</span>
-export const renderDecimal = (text: any) => Number(text).toFixed(2)
+export const renderDecimal = (text: any) =>
+  typeof text === "number" && !isNaN(Number(text)) ? Number(text).toFixed(2) : text
 export const renderEmail = (text: any): JSX.Element => (text !== null ? <a href={`mailto:${text}`}>{text}</a> : <></>)
 export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")

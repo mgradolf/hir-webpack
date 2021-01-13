@@ -21,8 +21,6 @@ const SHOW_CREATE_BUDGET_MODAL = "SHOW_CREATE_BUDGET_MODAL"
 const SHOW_UPDATE_BUDGET_MODAL = "SHOW_UPDATE_BUDGET_MODAL"
 const SHOW_CREATE_DISCOUNT_MODAL = "SHOW_CREATE_DISCOUNT_MODAL"
 const SHOW_UPDATE_DISCOUNT_MODAL = "SHOW_UPDATE_DISCOUNT_MODAL"
-const SHOW_QUESTION_CREATE_MODAL = "SHOW_QUESTION_CREATE_MODAL"
-const SHOW_QUESTION_FIND_MODAL = "SHOW_QUESTION_FIND_MODAL"
 const SHOW_STUDENT_FINDER_MODAL = "SHOW_STUDENT_FINDER_MODAL"
 const SHOW_UPDATE_NOTICE_MODAL = "SHOW_UPDATE_NOTICE_MODAL"
 const SHOW_PERSON_LOOKUP_MODAL = "SHOW_PERSON_LOOKUP_MODAL"
@@ -65,8 +63,6 @@ export interface IModalState {
   updateBudgetModal: ModalConfig
   createDiscountModal: ModalConfig
   updateDiscountModal: ModalConfig
-  questionCreateModal: ModalConfig
-  questionFindModal: ModalConfig
   studentFinderModal: ModalConfig
   updateNoticeModal: ModalConfig
   personLookupModal: ModalConfig
@@ -145,14 +141,6 @@ const INITIAL_MODAL_STATE: IModalState = {
     config: null
   },
   addProgramModal: {
-    value: false,
-    config: null
-  },
-  questionCreateModal: {
-    value: false,
-    config: null
-  },
-  questionFindModal: {
     value: false,
     config: null
   },
@@ -370,22 +358,6 @@ export const showAddProgramModal = (value: boolean, config = {}): IAction => ({
   payload: { value, config }
 })
 
-interface IQuestionModal {
-  SectionID?: number
-  EventID?: number
-  TagTypeID?: number
-  TagID?: number
-}
-export const showQuestionCreateModal = (value: boolean, config?: IQuestionModal): IAction => ({
-  type: SHOW_QUESTION_CREATE_MODAL,
-  payload: { value, config }
-})
-
-export const showQuestionFindModal = (value: boolean, config?: IQuestionModal): IAction => ({
-  type: SHOW_QUESTION_FIND_MODAL,
-  payload: { value, config }
-})
-
 interface IStudentFinderModal {
   AccountID?: number
   onSelectStudentCallback: (studentInfo: IStudent) => void
@@ -538,10 +510,6 @@ export const modalStateReducer = (state: IModalState = INITIAL_MODAL_STATE, acti
       return { ...state, createDiscountModal: action.payload }
     case SHOW_UPDATE_DISCOUNT_MODAL:
       return { ...state, updateDiscountModal: action.payload }
-    case SHOW_QUESTION_CREATE_MODAL:
-      return { ...state, questionCreateModal: action.payload }
-    case SHOW_QUESTION_FIND_MODAL:
-      return { ...state, questionFindModal: action.payload }
     case SHOW_STUDENT_FINDER_MODAL:
       return { ...state, studentFinderModal: action.payload }
     case SHOW_UPDATE_NOTICE_MODAL:

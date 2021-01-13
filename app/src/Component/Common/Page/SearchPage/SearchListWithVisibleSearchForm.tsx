@@ -12,6 +12,7 @@ export interface ISearchListWithVisibleSearchFormProp {
   initialFilter?: { [key: string]: string }
   defaultFilter?: { [key: string]: string }
   helpKey?: string
+  updatedParams?: (params?: any) => void
 }
 
 export default function SearchListWithVisibleSearchForm(props: ISearchListWithVisibleSearchFormProp) {
@@ -40,10 +41,10 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
           isCheckeble={false}
           visible={true}
           meta={props.meta}
-          initialFilter={props.initialFilter || {}}
+          initialFilter={{ ...props.initialFilter, ...props.defaultFilter } || {}}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             setSearchParams({ ...props.defaultFilter, ...newFilterValues })
-            console.log(newFilterValues)
+            props.updatedParams && props.updatedParams({ ...props.defaultFilter, ...newFilterValues })
           }}
         />
       )}

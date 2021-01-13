@@ -7,7 +7,7 @@ import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/Deta
 import { renderBoolean, sortByString } from "~/Component/Common/ResponsiveTable"
 import { TagAddDropdown } from "~/FormMeta/Tags/TagAddDropdown"
 import { TagRemoveButton } from "~/FormMeta/Tags/TagRemoveButton"
-import QuestionTaggingPage from "~/Pages/Manage/Question/QuestionTaggingPage"
+import { QuestionTaggingPage } from "~/Pages/Manage/Question/QuestionTaggingPage"
 
 export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
@@ -69,7 +69,7 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
 
   const scheduleMeta: IDetailsCustomTabProp = {
     component: QuestionTaggingPage,
-    props: {}
+    props: { TagID: Tag.TagID }
   }
   tabMeta.push({
     tabTitle: "Event Questions",

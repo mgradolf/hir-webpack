@@ -236,6 +236,7 @@ function QuestionTable(props: IQuestionTable) {
   return (
     <ResponsiveTable
       bordered
+      refreshEventName="QUESTION_TABLE"
       loading={props.loading}
       rowKey="TagQuestionID"
       columns={columns}
