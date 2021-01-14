@@ -35,4 +35,12 @@
 
     </zip>
   </target>
+
+  <target name="install.modules">
+    <artifact:pom id="module.pom"  file="${basedir}/script/pom.xml"/>
+    <artifact:dependencies pomRefId="module.pom" scopes="provided, compile" filesetId="module.pom.files"/>
+    <unjar dest="${basedir}">
+      <fileset refid="module.pom.files"/>
+    </unjar>
+  </target>  
 </project>
