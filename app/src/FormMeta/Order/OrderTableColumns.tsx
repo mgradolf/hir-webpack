@@ -7,6 +7,28 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 export const getOrderTableColumns = (isModal = false, OfferingID?: number, SectionID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
     {
+      title: "",
+      dataIndex: "OrderID",
+      render: (text: any, record: any) => {
+        return isModal ? (
+          { text }
+        ) : SectionID ? (
+          <Link to={`/section/${SectionID}/order/${record.OrderID}`}>
+                <ReadOutlined />
+          </Link>
+        ) : (
+          <Link to={`/order/${record.OrderID}`}>
+                <ReadOutlined />
+          </Link>
+        )
+    },
+    {
+      title: "Order Date",
+      dataIndex: "CreateDate",
+      render: renderDate,
+      width: 100
+    },
+    {
       title: "Order ID",
       dataIndex: "OrderID",
       width: 100,
@@ -21,13 +43,7 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       }
     },
     {
-      title: "Creation Date",
-      dataIndex: "CreateDate",
-      render: renderDate,
-      width: 100
-    },
-    {
-      title: "Buyer Name",
+      title: "Purchaser",
       dataIndex: "BuyerName",
       width: 100,
       render: (text: any, record: any) => {
@@ -35,12 +51,17 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       }
     },
     {
-      title: "Total Order Amount",
+      title: "Account",
+      dataIndex: "AccountName",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
+    },    
+    {
+      title: "Order Amount",
       dataIndex: "TotalAmount",
       width: 100
     },
     {
-      title: "Amount Paid",
+      title: "Paid",
       dataIndex: "AmountPaid",
       width: 100
     },
@@ -48,55 +69,8 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       title: "Balance",
       dataIndex: "Balance",
       width: 100
-    },
-    {
-      title: "PO outstanding",
-      dataIndex: "HasPO",
-      width: 100
-    },
-    {
-      title: "Order Items",
-      dataIndex: "TotalItems",
-      width: 100
     }
-    // {
-    //   title: "Order Status",
-    //   dataIndex: "OrderStatus",
-    //   width: 100
-    // },
-    // {
-    //   title: "Completed Date",
-    //   dataIndex: "CompletedDate",
-    //   render: renderDate,
-    //   width: 100
-    // },
-
-    // {
-    //   title: "Credit Amount",
-    //   dataIndex: "CreditAmount",
-    //   width: 100
-    // },
-
-    // {
-    //   title: "Cash Credit",
-    //   dataIndex: "CreditAmount",
-    //   width: 100
-    // },
-
-    // {
-    //   title: "Payment Due Date",
-    //   dataIndex: "PaymentDueDate",
-    //   render: renderDate,
-    //   width: 100
-    // },
-
-    // {
-    //   title: "Source",
-    //   dataIndex: "Source",
-    //   width: 100
-    // }
   ]
-
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchOrders }

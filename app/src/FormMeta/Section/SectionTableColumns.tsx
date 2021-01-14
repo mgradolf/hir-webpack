@@ -61,43 +61,6 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
       render: (locations: Array<string | null> | null) => {
         return Array.isArray(locations) && locations.map((x: any, i: number) => (x ? <span key={i}>{x}</span> : null))
       }
-    },
-
-    // {
-    //   title: "Creation Date",
-    //   dataIndex: "CreationDate",
-    //   render: renderDate
-    // },
-    // {
-    //   title: "Termination Date",
-    //   dataIndex: "TerminationDate",
-    //   render: renderDate
-    // },
-    // {
-    //   title: "Meets On",
-    //   dataIndex: "MeetsOn ",
-
-    //   render: renderWeek
-    // },
-    // {
-    //   title: "Meeting Types",
-    //   dataIndex: "MeetingTypes",
-    //   render: (meetingTypes: Array<string | null> | null) => {
-    //     return (
-    //       Array.isArray(meetingTypes) && meetingTypes.map((x: any, i: number) => (x ? <span key={i}>{x}</span> : null))
-    //     )
-    //   }
-    // },
-
-    {
-      ...(!isModal && {
-        title: "Action",
-        render: (record: any) => (
-          <Space size="middle">
-            <SectionMenu section={record} />
-          </Space>
-        )
-      })
     }
   ]
 
