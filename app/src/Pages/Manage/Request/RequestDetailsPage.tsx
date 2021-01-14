@@ -23,10 +23,5 @@ export default function RequestDetailsPage(props: RouteComponentProps<{ requestI
     })
   }
 
-  return (
-    <DetailsPage
-      getMeta={getRequestDetailsMeta}
-      getDetails={getRequestDetails}
-    />
-  )
+  return <DetailsPage getMeta={getRequestDetailsMeta} getDetails={getRequestDetails} />
 }

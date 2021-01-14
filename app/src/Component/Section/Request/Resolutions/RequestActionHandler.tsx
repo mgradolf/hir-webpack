@@ -8,7 +8,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 interface IExpirationProps {
-  requestJson: {[key: string]: any}
+  requestJson: { [key: string]: any }
 }
 
 export default function RequestActionHandler(props: IExpirationProps) {
@@ -53,7 +53,12 @@ export default function RequestActionHandler(props: IExpirationProps) {
         </Button>
       )}
       {props.requestJson.CancelStatus && (
-        <Button loading={loading} style={{ marginLeft: "10px", marginRight: "10px" }} type="primary" onClick={() => applyAction("cancel")}>
+        <Button
+          loading={loading}
+          style={{ marginLeft: "10px", marginRight: "10px" }}
+          type="primary"
+          onClick={() => applyAction("cancel")}
+        >
           Cancel
         </Button>
       )}

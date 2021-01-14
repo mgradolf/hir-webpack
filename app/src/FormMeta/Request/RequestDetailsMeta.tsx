@@ -11,7 +11,6 @@ import ViewResponseModalOpenButton from "~/Component/Section/Request/ViewRespons
 import RequestActionHandler from "~/Component/Section/Request/Resolutions/RequestActionHandler"
 
 export const getRequestDetailsMeta = (Request: { [key: string]: any }): IDetailsMeta => {
-
   const summary: CardContainer = {
     title: "Basic Info",
     cardActions: [

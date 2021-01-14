@@ -29,10 +29,6 @@ export function RequestActivityTable(props: ITableWrapperProps) {
   ]
 
   return (
-    <ResponsiveTable
-      columns={columns}
-      dataSource={props.dataSource}
-      refreshEventName={REFRESH_REQUEST_ACTIVITY_TAB}
-    />
+    <ResponsiveTable columns={columns} dataSource={props.dataSource} refreshEventName={REFRESH_REQUEST_ACTIVITY_TAB} />
   )
 }
