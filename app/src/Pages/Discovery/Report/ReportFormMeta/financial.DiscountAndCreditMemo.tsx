@@ -1,4 +1,4 @@
-import { IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
@@ -30,16 +30,6 @@ const meta: IFilterField[] = [
     label: "Student",
     fieldName: "StudentID",
     customFilterComponent: SearchStudentLookupButton
-  },
-  {
-    label: "Credit Amount",
-    inputType: NUMBER,
-    fieldName: "CreditAmount"
-  },
-  {
-    label: "Discount Amount",
-    inputType: NUMBER,
-    fieldName: "DiscountAmount"
   }
 ]
 

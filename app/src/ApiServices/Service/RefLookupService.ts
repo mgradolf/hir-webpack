@@ -338,3 +338,9 @@ export function getOrganizationTypes(): Promise<IApiResponse> {
     LookUpName: "OrganizationType"
   })
 }
+
+export function getMembershipProgramTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MembershipProgram"
+  })
+}

@@ -23,11 +23,6 @@ const meta: IFilterField[] = [
     valueKey: "OrganizationID"
   },
   {
-    label: "Created By",
-    inputType: TEXT,
-    fieldName: "CreatedBy"
-  },
-  {
     label: "User Name",
     inputType: TEXT,
     fieldName: "UserName"

@@ -1,4 +1,4 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
@@ -30,13 +30,16 @@ const meta: IFilterField[] = [
     fieldName: "FromRegistrationDate",
     fieldName2: "ToRegistrationDate",
     inputType: DATE_PICKERS
+  },
+  {
+    label: "Show Program Sections",
+    inputType: DROPDOWN,
+    fieldName: "SectionUsageType",
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ]
   }
 ]
 
 export default meta
-
-// SectionID
-// OfferingID
-// SectionUsageType
-// FromRegistrationDate
-// ToRegistrationDate
