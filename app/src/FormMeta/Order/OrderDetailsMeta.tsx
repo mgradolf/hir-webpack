@@ -172,9 +172,9 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       { tabTitle: "Credits", tabType: "table", tabMeta: orderCreditsMeta },
       { tabTitle: "Payments", tabType: "table", tabMeta: orderPaymentsMeta },
       { tabTitle: "Returns", tabType: "table", tabMeta: orderReturnsMeta },
+      { tabTitle: "Purchase Orders", tabType: "table", tabMeta: orderPurchasedCodeMeta },
       { tabTitle: "Registrations", tabType: "table", tabMeta: orderRegistrationsMeta },
       { tabTitle: "Marketing Responses", tabType: "table", tabMeta: orderMarketingCodeMeta },
-      { tabTitle: "Purchase Order", tabType: "table", tabMeta: orderPurchasedCodeMeta },
       {
         tabTitle: "Logs",
         tabType: "table",
