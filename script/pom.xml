@@ -32,5 +32,5 @@
       <url>${read-repo-url}</url>
       <layout>default</layout>
     </repository>
-  </repositories>  
+  </repositories>
 </project>

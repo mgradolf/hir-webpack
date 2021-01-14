@@ -31,16 +31,6 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
     { title: "Description", dataIndex: "Description" },
     { title: "GL", dataIndex: "GLAccountName" },
     { title: "Department", dataIndex: "Department" },
-    {
-      title: "Order",
-      dataIndex: "OrderID",
-      render: (text: any, record: any) => <Link to={`/order/${record.OrderID}`}>{text}</Link>
-    },
-    {
-      title: "Payment",
-      dataIndex: "PaymentID",
-      render: (text: any, record: any) => <Link to={`/payment/${record.PaymentID}`}>{text}</Link>
-    },
     { title: "Deposit", dataIndex: "Credit" },
     { title: "Withdrawl", dataIndex: "Debit" }
   ]

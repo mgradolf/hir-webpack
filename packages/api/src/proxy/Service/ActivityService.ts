@@ -8,7 +8,8 @@ export const config = {
     getStudentAcademicActivity: "getStudentAcademicActivity",
     getStudentEnrollmentActivity: "getStudentEnrollmentActivity",
     getOrderActivity: "getOrderActivity",
-    getCreditMemoActivity: "getCreditMemoActivity"
+    getCreditMemoActivity: "getCreditMemoActivity",
+    getPaymentActivity: "getPaymentActivity"
   }
 }
 

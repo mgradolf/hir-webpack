@@ -6,6 +6,7 @@ import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
 import { getTransactionFinancialDepositeTrackingTableColumns } from "~/FormMeta/TransactionFinancial/TransactionFinancialDepositeTrackingTableColumns"
 import { getPaymentAllocationsTableColumns } from "~/FormMeta/OrderItem/PaymentAllocationsTableColumns"
+import { getPaymentActivityTableColumns } from "~/FormMeta/PaymentActivity/PaymentActivityTableColumns"
 
 export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -72,6 +73,18 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
         ...getPaymentAllocationsTableColumns(false),
         searchParams: { PaymentID: payment.PaymentID },
         refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
+      }
+    }
+  })
+
+  meta.push({
+    tabTitle: "Log",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getPaymentActivityTableColumns(),
+        searchParams: { PaymentID: payment.PaymentID },
+        refreshEventName: "REFRESH_PAYMENT_LOG"
       }
     }
   })

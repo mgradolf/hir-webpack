@@ -42,5 +42,5 @@
     <unjar dest="${basedir}">
       <fileset refid="module.pom.files"/>
     </unjar>
-  </target>  
+  </target>
 </project>

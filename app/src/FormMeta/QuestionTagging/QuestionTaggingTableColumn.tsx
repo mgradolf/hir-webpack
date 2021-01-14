@@ -42,14 +42,14 @@ interface IQuestionTable {
   allQuestionGroup: Array<{ [key: string]: any }>
 }
 
-export const getQuestionTaggingTableColumns = (showTagColumn?: boolean): ITableConfigProp => {
+export const getQuestionTaggingTableColumns = (isTab?: boolean): ITableConfigProp => {
   let allQuestionGroup: any[] = []
   getQuestionGroup().then((x) => {
     if (x.success) allQuestionGroup = x.data
   })
   const columns: TableColumnType = [
     {
-      ...(showTagColumn && {
+      ...(isTab && {
         title: "Tag",
         dataIndex: "TagName",
         render: (text, record) => renderLink(`/tag/${record.TagID}`, text)
@@ -60,7 +60,9 @@ export const getQuestionTaggingTableColumns = (showTagColumn?: boolean): ITableC
       dataIndex: "QuestionGroupID",
       width: 170,
       render: (value: any, record: any) => {
-        return (
+        return isTab ? (
+          record.QuestionGroupName
+        ) : (
           <Select
             dropdownMatchSelectWidth={true}
             dropdownStyle={{ width: "170px", maxWidth: "170px" }}
@@ -94,55 +96,69 @@ export const getQuestionTaggingTableColumns = (showTagColumn?: boolean): ITableC
       title: "Required",
       dataIndex: "IsRequired",
       width: 100,
-      render: (value: boolean, record: any) => (
-        <QuestionCheckBox defaultChecked={value} fieldName="IsRequired" TagQuestionID={record.TagQuestionID} />
-      )
+      render: (value: boolean, record: any) =>
+        isTab ? (
+          record.IsRequiredDisplay
+        ) : (
+          <QuestionCheckBox defaultChecked={value} fieldName="IsRequired" TagQuestionID={record.TagQuestionID} />
+        )
     },
     {
       title: "Editable",
       dataIndex: "IsEditable",
       width: 100,
-      render: (value: boolean, record: any) => (
-        <QuestionCheckBox defaultChecked={value} fieldName="IsEditable" TagQuestionID={record.TagQuestionID} />
-      )
+      render: (value: boolean, record: any) =>
+        isTab ? (
+          record.IsEditableDisplay
+        ) : (
+          <QuestionCheckBox defaultChecked={value} fieldName="IsEditable" TagQuestionID={record.TagQuestionID} />
+        )
     },
     {
       title: "Published",
       dataIndex: "IsPublished",
       width: 100,
-      render: (value: boolean, record: any) => (
-        <QuestionCheckBox defaultChecked={value} fieldName="IsPublished" TagQuestionID={record.TagQuestionID} />
-      )
+      render: (value: boolean, record: any) =>
+        isTab ? (
+          record.IsPublishedDisplay
+        ) : (
+          <QuestionCheckBox defaultChecked={value} fieldName="IsPublished" TagQuestionID={record.TagQuestionID} />
+        )
     },
     {
       title: "Active",
       dataIndex: "IsActive",
       width: 100,
-      render: (value: boolean, record: any) => (
-        <QuestionCheckBox defaultChecked={value} fieldName="IsActive" TagQuestionID={record.TagQuestionID} />
-      )
+      render: (value: boolean, record: any) =>
+        isTab ? (
+          record.IsActiveDisplay
+        ) : (
+          <QuestionCheckBox defaultChecked={value} fieldName="IsActive" TagQuestionID={record.TagQuestionID} />
+        )
     },
     {
-      render: (value: any, data: any) => (
-        <Button
-          type="primary"
-          danger
-          onClick={() => {
-            removeTagQuestions({ TagQuestionIDs: [data.TagQuestionID] }).then((x) => {
-              if (!x.success && x.error) {
-                const errors: Array<ISimplifiedApiErrorMessage> = x.error
-                errors.forEach((error) => {
-                  // props.showGLobalApiError && props.showGLobalApiError(error.message)
-                })
-              } else if (x.success) {
-                eventBus.publish(REFRESH_QUESTION_PAGE)
-              }
-            })
-          }}
-        >
-          Remove
-        </Button>
-      )
+      ...(!isTab && {
+        render: (value: any, data: any) => (
+          <Button
+            type="primary"
+            danger
+            onClick={() => {
+              removeTagQuestions({ TagQuestionIDs: [data.TagQuestionID] }).then((x) => {
+                if (!x.success && x.error) {
+                  const errors: Array<ISimplifiedApiErrorMessage> = x.error
+                  errors.forEach((error) => {
+                    // props.showGLobalApiError && props.showGLobalApiError(error.message)
+                  })
+                } else if (x.success) {
+                  eventBus.publish(REFRESH_QUESTION_PAGE)
+                }
+              })
+            }}
+          >
+            Remove
+          </Button>
+        )
+      })
     }
   ]
 
