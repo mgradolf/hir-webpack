@@ -19,7 +19,7 @@ export function QuestionCreateButton(props: IQuestionCreateButtonProp) {
           setShowModal(true)
         }}
       >
-        + Add Question
+        + New Question
       </Button>
       {showModal && (
         <QuestionCreateModal EventID={props.EventID} TagID={props.TagID} closeModal={() => setShowModal(false)} />

@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchCatalogs } from "~/ApiServices/Service/CatalogService"
-import { renderBoolean, renderDate, sortByString, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, sortByString, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
@@ -23,9 +23,9 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
       render: renderDate
     },
     {
-      title: "Active",
-      dataIndex: "IsActive",
-      render: renderBoolean
+      title: "Status",
+      dataIndex: "Status"
+      // render: renderBoolean
     },
     {
       title: "Type",
