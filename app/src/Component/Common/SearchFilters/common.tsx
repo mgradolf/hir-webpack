@@ -46,7 +46,6 @@ export interface IFilterFieldObject {
   extraProps?: { [key: string]: any }
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
-  requestService?: () => Promise<IApiResponse>
 }
 
 export interface IFilterFieldComponent {
