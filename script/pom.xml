@@ -7,4 +7,30 @@
   <version>${pom.build.version}</version>
   <name>Higher Reach Web Admin</name>
   <packaging>war</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>webadmin</groupId>
+      <artifactId>node_modules</artifactId>
+      <version>0.1</version>
+       <type>zip</type>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+      <id>local-repo</id>
+      <name>nexus release</name>
+      <url>${read-repo-url}</url>
+      <layout>default</layout>
+    </repository>
+  </repositories>  
 </project>
