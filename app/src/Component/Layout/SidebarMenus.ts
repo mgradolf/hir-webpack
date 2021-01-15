@@ -89,14 +89,15 @@ export const sidebarMenus: ISidebarMenu[] = [
       { title: "Reports", url: "/report", submenu: [] },
       { title: "Charts", url: "/chart", submenu: [] },
       { title: "Mail Merge", url: "", submenu: [] },
-      {
-        title: "Analysis",
-        url: "",
-        submenu: [
-          { title: "Discount Analyzer", url: "", submenu: [] },
-          { title: "Master P & L Calculator", url: "", submenu: [] }
-        ]
-      },
+      { title: "Master P & L Calculator", url: "", submenu: [] },
+      // {
+      //   title: "Analysis",
+      //   url: "",
+      //   submenu: [
+      //     { title: "Discount Analyzer", url: "", submenu: [] },
+      //     { title: "Master P & L Calculator", url: "", submenu: [] }
+      //   ]
+      // },
       {
         title: "Search",
         url: "",
@@ -109,15 +110,15 @@ export const sidebarMenus: ISidebarMenu[] = [
               { title: "Section Schedule and Location", url: "", submenu: [] }
             ]
           },
-          {
-            title: "Financial",
-            url: "",
-            submenu: [
-              { title: "Credits", url: "", submenu: [] },
-              { title: "Payment Dues", url: "", submenu: [] },
-              { title: "Agent Enrollment Revenue", url: "", submenu: [] }
-            ]
-          },
+          // {
+          //   title: "Financial",
+          //   url: "",
+          //   submenu: [
+          //     { title: "Credits", url: "", submenu: [] },
+          //     { title: "Payment Dues", url: "", submenu: [] },
+          //     { title: "Agent Enrollment Revenue", url: "", submenu: [] }
+          //   ]
+          // },
           // {
           //   title: "Activity",
           //   url: "",
@@ -175,15 +176,17 @@ export const sidebarMenus: ISidebarMenu[] = [
       // { title: "Resources", url: "", submenu: [] },
       { title: "Grade Score Definitions", url: "", submenu: [] },
       { title: "Reference Data", url: "", submenu: [] },
-      {
-        title: "Organization",
-        url: "",
-        submenu: [
-          { title: "Organizations", url: "/organization", submenu: [] },
-          { title: "Setup", url: "", submenu: [] },
-          { title: "Calender", url: "", submenu: [] }
-        ]
-      },
+      { title: "Organizations", url: "/organization", submenu: [] },
+
+      // {
+      //   title: "Organization",
+      //   url: "",
+      //   submenu: [
+      //     { title: "Organizations", url: "/organization", submenu: [] },
+      //     { title: "Setup", url: "", submenu: [] },
+      //     { title: "Calender", url: "", submenu: [] }
+      //   ]
+      // },
       { title: "Configuration Management", url: "", submenu: [] },
       { title: "Users", url: "/user", submenu: [] }
     ]

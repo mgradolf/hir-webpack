@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITableConfigProp => {
@@ -10,19 +10,13 @@ export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITa
       title: "",
       dataIndex: "PaymentID",
       render: (text: any, record: any) =>
-        isModal ? (
-          text
-        ) : (
-          <Link
-            to={
+        isModal
+          ? text
+          : renderDetailsLink(
               SectionID
                 ? `/section/${SectionID}/order/payments/${record.PaymentID}`
                 : `/order/payments/${record.PaymentID}`
-            }
-          >
-            <ReadOutlined />
-          </Link>
-        )
+            )
     },
     {
       title: "Payment Date",
@@ -56,7 +50,7 @@ export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITa
       title: "Account",
       dataIndex: "AccountName",
       render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
-    },        
+    },
     { title: "Payment Type", dataIndex: "PaymentAcceptedName" },
     { title: "Amount", dataIndex: "TotalPaymentAmount" },
     { title: "Check/ Reference", dataIndex: "TransactionNumber" }

@@ -12,7 +12,7 @@ export default function TagsPage() {
   })
   return (
     <SearchPage
-      title="Tags"
+      title="Manage Tags"
       meta={meta}
       hideSearchField={false}
       tableProps={{

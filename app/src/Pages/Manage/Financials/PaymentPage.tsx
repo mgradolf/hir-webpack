@@ -6,7 +6,7 @@ import { PaymentSearchMeta } from "~/FormMeta/Payment/PaymentSearchMeta"
 export default function Payments() {
   return (
     <SearchPage
-      title="Payments"
+      title="Manage Payments"
       meta={PaymentSearchMeta}
       hideSearchField={false}
       tableProps={getPaymentTableColumns(false)}

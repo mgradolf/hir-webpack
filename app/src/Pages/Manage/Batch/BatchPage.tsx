@@ -6,7 +6,7 @@ import { getBatchTableColumns } from "~/FormMeta/Batch/BatchTableColumns"
 export function BatchPage() {
   return (
     <SearchPage
-      title="Batch"
+      title="Manage Batch"
       meta={BatchSearchMeta}
       hideSearchField={false}
       tableProps={{

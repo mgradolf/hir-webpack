@@ -6,7 +6,7 @@ import { getCatalogTableColumns } from "~/FormMeta/Catalog/CatalogTableColumns"
 export function CatalogPage() {
   return (
     <SearchPage
-      title="Catalogs"
+      title="Manage Catalogs"
       meta={CatalogSearchMeta}
       hideSearchField={false}
       tableProps={{

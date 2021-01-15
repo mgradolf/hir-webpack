@@ -9,7 +9,7 @@ export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: 
 
   return (
     <SearchPage
-      title="Section Academic Log"
+      title="Manage Section Academic Log"
       initialFilter={{}}
       meta={ActivityAcademicSearchMeta}
       hideSearchField={false}

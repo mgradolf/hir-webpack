@@ -1,5 +1,5 @@
 import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
-import { renderDate, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDetailsLink, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp => {
@@ -7,10 +7,8 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
   const columns: TableColumnType = [
     {
       title: "",
-      dataIndex: "CertificateNumber",      
-      render: (text: any, record: any) => <Link to={`/${route}/certificate/${record.StudentCertificateID}`}>
-      <ReadOutlined />
-      </Link>
+      dataIndex: "CertificateNumber",
+      render: (text: any, record: any) => renderDetailsLink(`/${route}/certificate/${record.StudentCertificateID}`)
     },
     {
       title: "Issue Date",

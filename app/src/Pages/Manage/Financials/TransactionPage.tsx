@@ -6,7 +6,7 @@ import { TransactionSearchMeta } from "~/FormMeta/TransactionFinancial/Transacti
 export default function TransactionPage() {
   return (
     <SearchPage
-      title="Transactions"
+      title="Manage Transactions"
       meta={TransactionSearchMeta}
       hideSearchField={false}
       defaultFilter={{ IsDepositView: false }}
