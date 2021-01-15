@@ -6,7 +6,7 @@ import { getProductTableColumns } from "~/FormMeta/Product/ProductTableColumns"
 export default function PersonTable() {
   return (
     <SearchPage
-      title="Products"
+      title="Manage Products"
       meta={ProductSearchMeta}
       hideSearchField={false}
       tableProps={{

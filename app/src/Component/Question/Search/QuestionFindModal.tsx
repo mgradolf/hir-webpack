@@ -5,7 +5,7 @@ import QuestionSearchResultTable from "~/Component/Question/Search/QuestionSearc
 import { addTagQuestions, searchQuestions } from "~/ApiServices/Service/QuestionService"
 import { Button, Card } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 
 interface IQuestionModal {

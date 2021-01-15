@@ -8,7 +8,7 @@ export default function Request(props: RouteComponentProps<{ sectionID?: string 
   const SectionID = Number(props?.match?.params?.sectionID)
   return (
     <SearchPage
-      title="Requests"
+      title="Manage Requests"
       meta={RequestSearchMeta}
       hideSearchField={true}
       defaultFilter={{ SectionID }}

@@ -44,6 +44,11 @@ const meta: IFilterField[] = [
     fieldName: "ProductID",
     customFilterComponent: SearchProducttLookup
   }
+  // {
+  //   label: "Resources",
+  //   fieldName: "ResourceID",
+  //   customFilterComponent: searchResourceItem
+  // }
 ]
 
 export default meta

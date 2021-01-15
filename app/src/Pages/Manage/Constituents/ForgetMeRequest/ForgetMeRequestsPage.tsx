@@ -6,7 +6,7 @@ import { getForgetMeRequestTableColumns } from "~/FormMeta/ForgetMeRequest/Forge
 export const ForgetMeRequestsPage = () => {
   return (
     <SearchPage
-      title="Forget Me Requests"
+      title="Manage Forget Me Requests"
       meta={ForgetMeRequestSearchMeta}
       hideSearchField={false}
       tableProps={{

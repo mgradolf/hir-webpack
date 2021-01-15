@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchOrders } from "~/ApiServices/Service/OrderService"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOrderTableColumns = (isModal = false, OfferingID?: number, SectionID?: number): ITableConfigProp => {
@@ -9,18 +9,10 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
     {
       title: "",
       dataIndex: "OrderID",
-      render: (text: any, record: any) => {
-        return isModal ? (
-          { text }
-        ) : SectionID ? (
-          <Link to={`/section/${SectionID}/order/${record.OrderID}`}>
-                <ReadOutlined />
-          </Link>
-        ) : (
-          <Link to={`/order/${record.OrderID}`}>
-                <ReadOutlined />
-          </Link>
-        )
+      render: (text: any, record: any) =>
+        isModal
+          ? { text }
+          : renderDetailsLink(SectionID ? `/section/${SectionID}/order/${record.OrderID}` : `/order/${record.OrderID}`)
     },
     {
       title: "Order Date",
@@ -54,7 +46,7 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       title: "Account",
       dataIndex: "AccountName",
       render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
-    },    
+    },
     {
       title: "Order Amount",
       dataIndex: "TotalAmount",

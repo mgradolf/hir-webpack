@@ -7,7 +7,8 @@ export const config = {
   Actions: {
     findAllUsers: "findAllUsers",
     findUser: "findUser",
-    saveUser: "saveUser"
+    saveUser: "saveUser",
+    findAllUserRoles: "findAllUserRoles"
   }
 }
 

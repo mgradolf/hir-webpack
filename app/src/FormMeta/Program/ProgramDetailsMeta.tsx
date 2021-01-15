@@ -5,7 +5,15 @@ import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/Detai
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
-import { REFRESH_PROGRAM_SEATGROUP_PAGE } from "~/utils/EventBus"
+import { getProgramCatalogTableColumns } from "~/FormMeta/Program/ProgramCatalogTableColumns"
+import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication/ProgramApplicationTableColumns"
+import { getProgramEnrollmentTableColumns } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentTableColumns"
+import {
+  REFRESH_PROGRAM_SEATGROUP_PAGE,
+  REFRESH_PROGRAM_CATALOG_PAGE,
+  REFRESH_PROGRAM_APPLICATION_PAGE,
+  REFRESH_PROGRAM_ENROLLMENT_PAGE
+} from "~/utils/EventBus"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -30,6 +38,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
       { label: "End Date", value: program.ApplicationEndDate, render: renderDate }
     ]
   }
+
   const enrollment: CardContainer = {
     title: "Enrollment",
     contents: [
@@ -37,6 +46,30 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
       { label: "End Date", value: program.EnrollmentEndDate, render: renderDate },
       { label: "Seat Capacity", value: program.SeatCapacity }
     ]
+  }
+
+  const catalogMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getProgramCatalogTableColumns(program.ProgramID),
+      searchParams: { ProgramID: program.ProgramID },
+      refreshEventName: REFRESH_PROGRAM_CATALOG_PAGE
+    }
+  }
+
+  const applicationMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getProgramApplicationTableColumns(),
+      searchParams: { ProgramID: program.ProgramID },
+      refreshEventName: REFRESH_PROGRAM_APPLICATION_PAGE
+    }
+  }
+
+  const enrollmentMeta: IDetailsTableTabProp = {
+    tableProps: {
+      ...getProgramEnrollmentTableColumns(),
+      searchParams: { ProgramID: program.ProgramID },
+      refreshEventName: REFRESH_PROGRAM_ENROLLMENT_PAGE
+    }
   }
 
   const seatgroupMeta: IDetailsTableTabProp = {
@@ -60,9 +93,24 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         tabMeta: summaryMeta
       },
       {
+        tabTitle: "Catalogs",
+        tabType: "table",
+        tabMeta: catalogMeta
+      },
+      {
         tabTitle: "Seat Groups",
         tabType: "table",
         tabMeta: seatgroupMeta
+      },
+      {
+        tabTitle: "Applications",
+        tabType: "table",
+        tabMeta: applicationMeta
+      },
+      {
+        tabTitle: "Enrollments",
+        tabType: "table",
+        tabMeta: enrollmentMeta
       },
       {
         tabTitle: "Tags",

@@ -1,4 +1,4 @@
-import { DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 const meta: IFilterField[] = [
   {
@@ -7,15 +7,14 @@ const meta: IFilterField[] = [
     fieldName: "OrganizationName"
   },
   {
-    label: "Payment Due Date",
-    inputType: DATE_PICKERS,
-    fieldName: "PaymentDueDate"
+    label: "Show Only Overdue Purchase Orders",
+    fieldName: "onlyOutstanding",
+    inputType: BOOLEAN
   }
 ]
 
 export const mapping: { [key: string]: any } = {
-  OrganizationName: "OrganizationName1",
-  PaymentDueDate: "PaymentDueDate1"
+  OrganizationName: "OrganizationName1"
 }
 
 export default meta

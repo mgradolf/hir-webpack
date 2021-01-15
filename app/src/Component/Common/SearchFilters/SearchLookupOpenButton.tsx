@@ -47,6 +47,7 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
 
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
+      console.log("Extra props", props)
       if (props.extraProps && props.extraProps.isArray) {
         setSelectedItem(items.map((x) => x[props.displayField]).toString())
         props.formInstance.setFieldsValue({

@@ -9,7 +9,7 @@ import OfferingDefaultSection from "~/Component/Offering/CreateEdit/Form2/Offeri
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import "~/Sass/global/index.scss"
 import { redirect } from "~/Store/ConnectedRoute"
 

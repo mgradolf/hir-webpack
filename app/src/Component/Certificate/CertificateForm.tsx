@@ -1,7 +1,7 @@
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { Form, Input, DatePicker, Select } from "antd"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import DropDown from "~/Component/Common/Form/DropDown"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"

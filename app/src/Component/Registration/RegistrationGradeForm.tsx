@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Form, Button, Input, Select, DatePicker, Spin, Card } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import { CEU_HOURS, CREDIT_HOURS, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
 import { getGradeScaleType } from "~/ApiServices/Service/RefLookupService"
 import {

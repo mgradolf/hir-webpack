@@ -6,7 +6,7 @@ import { getAccountTableColumns } from "~/FormMeta/Account/AccountTableColumns"
 export default function AccountPage() {
   return (
     <SearchPage
-      title="Accounts"
+      title="Manage Accounts"
       meta={AccountSearchMeta}
       hideSearchField={false}
       tableProps={{

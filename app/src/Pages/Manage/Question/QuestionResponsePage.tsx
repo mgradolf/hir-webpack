@@ -6,7 +6,7 @@ import { getQuestionResponseTableColumns } from "~/FormMeta/QuestionResponse/Que
 export default function QuestionResponsePage() {
   return (
     <SearchPage
-      title="Question Response"
+      title="Manage Question Response"
       meta={QuestionResponseSearchMeta}
       initialFilter={{ EventID: 2 }}
       hideSearchField={false}

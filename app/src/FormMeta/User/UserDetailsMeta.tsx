@@ -7,10 +7,12 @@ import { getActivityOrderSearchTableColumns } from "~/FormMeta/ActivityOrder/Act
 import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
 import { getActivityOrderCreditSearchTableColumns } from "~/FormMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
 import { getPaymentActivityTableColumns } from "~/FormMeta/PaymentActivity/PaymentActivityTableColumns"
+import { UserCreateEditButton } from "~/FormMeta/User/UserFormMeta"
 
 export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
+    cardActions: [<UserCreateEditButton Params={user} />],
     contents: [
       { label: "Login Name", value: user.UserID },
       { label: "First Name", value: user.FirstName },

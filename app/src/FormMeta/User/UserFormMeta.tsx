@@ -1,30 +1,36 @@
 import React, { useState } from "react"
 import { FormModal } from "~/Component/Common/Modal/FormModal"
 import { Button } from "antd"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { saveUser } from "~/ApiServices/Service/UserService"
+import { IFilterField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/SearchFilters/common"
+import { findAllUserRoles, saveUser } from "~/ApiServices/Service/UserService"
 
 export const UserSearchMeta: IFilterField[] = [
-  { label: "UserID", inputType: "TEXT", fieldName: "UserID" }, //:"test123",
-  { label: "FirstName", inputType: "TEXT", fieldName: "FirstName" }, //:"t1",
-  { label: "LastName", inputType: "TEXT", fieldName: "LastName" }, //: "l1",
-  { label: "MiddleName", inputType: "TEXT", fieldName: "MiddleName" }, //: "",
-  { label: "Email", inputType: "TEXT", fieldName: "Email" }, //: "iftear@gmail.com",
-  { label: "Password", inputType: "TEXT", fieldName: "Password" }, //:"123",
-  { label: "Roles", inputType: "TEXT", fieldName: "Roles" } //: [
-  // "everybody"
-  // ]
+  { label: "UserID", inputType: TEXT, fieldName: "UserID" },
+  { label: "FirstName", inputType: TEXT, fieldName: "FirstName" },
+  { label: "LastName", inputType: TEXT, fieldName: "LastName" },
+  { label: "MiddleName", inputType: TEXT, fieldName: "MiddleName" },
+  { label: "Email", inputType: TEXT, fieldName: "Email" },
+  { label: "Password", inputType: TEXT, fieldName: "Password" },
+  {
+    label: "Roles",
+    inputType: MULTI_SELECT_DROPDOWN,
+    fieldName: "Roles",
+    refLookupService: findAllUserRoles,
+    displayKey: "RoleName",
+    valueKey: "RoleName"
+  }
 ]
 
-export const UserCreateButton = () => {
+export const UserCreateEditButton = (props: { Params?: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button onClick={() => setShowModal(true)}>+ Create User</Button>
+      <Button onClick={() => setShowModal(true)}>{props.Params ? "Edit User" : "+ Create User"}</Button>
       {showModal && (
         <FormModal
-          title="Create User"
+          title={props.Params ? "Edit User" : "Create User"}
           meta={UserSearchMeta}
+          initialFilter={props.Params}
           formSubmitApi={saveUser}
           closeModal={() => setShowModal(false)}
         />

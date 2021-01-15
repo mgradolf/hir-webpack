@@ -8,7 +8,7 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
   const SectionID = Number(props.match.params.sectionID)
   return (
     <SearchPage
-      title="Enrollment Activity"
+      title="Manage nrollment Activity"
       initialFilter={{}}
       meta={ActivityEnrollmentSearchMeta}
       hideSearchField={false}

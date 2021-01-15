@@ -1,5 +1,5 @@
-import { getBasePaymentTypes, getPaymentGatewayAccounts } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { getBasePaymentTypes, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
+import { DATE_PICKERS, DROPDOWN, IFilterField, MULTI_SELECT_DROPDOWN } from "~/Component/Common/SearchFilters/common"
 
 const meta: IFilterField[] = [
   {
@@ -23,13 +23,15 @@ const meta: IFilterField[] = [
     refLookupService: getPaymentGatewayAccounts,
     displayKey: "Name",
     valueKey: "ID"
+  },
+  {
+    label: "Deposit Type",
+    inputType: MULTI_SELECT_DROPDOWN,
+    fieldName: "PaymentTypeID",
+    refLookupService: getPaymentTypes,
+    displayKey: "PaymentSchemaName",
+    valueKey: "PaymentTypeID"
   }
 ]
 
 export default meta
-
-// BasePaymentTypeID
-// CreateDateFrom
-// CreateDateTo
-// PaymentTypeID
-// PaymentGatewayAccountID

@@ -8,7 +8,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
   const SectionID = Number(props.match.params.sectionID)
   return (
     <SearchPage
-      title="Section Order Activity"
+      title="Manage Section Order Activity"
       initialFilter={{}}
       meta={ActivityOrderSearchMeta}
       hideSearchField={false}
