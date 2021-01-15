@@ -86,7 +86,7 @@ export const REGISTRATION_VERIFICATION_REQUEST_NAME = {
 
 export const ORDER_MANAGEMENT_PERSON_LOOKUP_TYPES = {
   BUYER: {
-    name: "Buyer",
+    name: "Purchaser",
     key: "PersonID"
   },
   STUDENT: {
