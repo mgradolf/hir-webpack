@@ -5,7 +5,10 @@ const meta: IFilterField[] = [
   {
     label: "Faculty",
     fieldName: "FacultyID",
-    customFilterComponent: SearchInstructorLookupButton
+    customFilterComponent: SearchInstructorLookupButton,
+    extraProps: {
+      isArray: true
+    }
   }
 ]
 
