@@ -18,33 +18,33 @@ export const getMarketingCodeResponseTableColumns = (isModal = false): ITableCon
         )
     },
     {
+      title: "Order Date",
+      dataIndex: "OrderDate",
+      render: renderDate
+    },
+    {
       title: "Marketing Code",
       dataIndex: "MarketingCode",
       render: (text: any, record: any) =>
         isModal ? text : <Link to={`/marketing-codes/repository/${record.MarketingCodeID}`}>{text}</Link>
     },
     {
-      title: "Item Description",
+      title: "Description",
       dataIndex: "ItemDescription"
     },
     {
-      title: "Purchaser Name",
+      title: "Purchaser",
       dataIndex: "PurchaserName",
       render: (text: any, record: any) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
+    },
+    {
+      title: "Category",
+      dataIndex: "CategoryName"
     },
     {
       title: "Order ID",
       dataIndex: "OrderID",
       render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
-    },
-    {
-      title: "Order Date",
-      dataIndex: "OrderDate",
-      render: renderDate
-    },
-    {
-      title: "Category",
-      dataIndex: "CategoryName"
     }
   ]
 

@@ -9,7 +9,6 @@ interface IViewResponseProps {
 }
 
 export default function ViewResponseModal(props: IViewResponseProps) {
-
   const handleCancel = () => {
     if (props.closeModal) {
       props.closeModal()

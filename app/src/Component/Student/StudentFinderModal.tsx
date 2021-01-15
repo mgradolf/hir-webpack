@@ -65,12 +65,7 @@ function StudentFinderModal(props: IStudentFinderProps) {
       <Card title="Select Student" actions={cardActions}>
         {students.length > 0 && (
           <Col style={{ height: "65vh", overflowY: "scroll" }}>
-            <StudentListTable
-              id="studentList"
-              dataSource={students}
-              loading={loading}
-              rowSelection={rowSelection}
-            />
+            <StudentListTable id="studentList" dataSource={students} loading={loading} rowSelection={rowSelection} />
           </Col>
         )}
       </Card>

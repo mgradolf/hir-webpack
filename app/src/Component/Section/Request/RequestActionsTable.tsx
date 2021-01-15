@@ -15,9 +15,16 @@ import {
 } from "~/utils/Constants"
 import { DownOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
-import { REFRESH_PAGE, REFRESH_REQUEST_ACTION_TAB } from "~/utils/EventBus"
+import {
+  REFRESH_PAGE,
+  REFRESH_REQUEST_ACTION_TAB,
+  eventBus,
+  EVENT_REQUEST_RESOLUTION,
+  EVENT_REQUEST_RETRY,
+  EVENT_REQUEST_MAKE_PAYMENT
+} from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { eventBus, EVENT_REQUEST_RESOLUTION, EVENT_REQUEST_RETRY, EVENT_REQUEST_MAKE_PAYMENT } from "~/utils/EventBus"
+
 import { IParamsToBeDispatched } from "~/Pages/Manage/Request/RequestDetailsPage"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 

@@ -7,10 +7,18 @@ import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Request ID",
+      title: "",
       dataIndex: "RequestID",
       key: "RequestID",
-      render: (text: any, record: any) => <Link to={`/request/${record.RequestID}`}>{text}</Link>
+      render: (text: any, record: any) => <Link to={`/request/${record.RequestID}`}>
+        <ReadOutlined />
+      </Link>
+    },
+    {
+      title: "Request Date",
+      dataIndex: "CreateDate",
+      key: "CreateDate",
+      render: renderDate
     },
     {
       title: "Purchaser",
@@ -19,13 +27,13 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
       key: "PurchaserPersonName"
     },
     {
-      title: "Creation Time",
-      dataIndex: "CreateDate",
-      key: "CreateDate",
-      render: renderDate
+      title: "Account",
+      dataIndex: "AccountName",
+      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>,
+      key: "AccountName"
     },
     {
-      title: "RequestType",
+      title: "Request Type",
       dataIndex: "RequestType",
       key: "RequestType"
     },
@@ -35,26 +43,9 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
       key: "State"
     },
     {
-      title: "Expiration",
-      dataIndex: "ExpirationDate",
-      key: "ExpirationDate",
-      render: renderDate
-    },
-    {
       title: "Source",
       dataIndex: "Source",
       key: "Source"
-    },
-    {
-      title: "Account",
-      dataIndex: "AccountName",
-      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>,
-      key: "AccountName"
-    },
-    {
-      title: "Staff",
-      dataIndex: "RequesterStaffUserName",
-      key: "RequesterStaffUserName"
     }
   ]
 

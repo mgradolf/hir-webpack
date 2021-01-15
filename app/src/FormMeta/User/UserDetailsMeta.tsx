@@ -4,8 +4,10 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { renderEmail } from "~/Component/Common/ResponsiveTable"
 import { getAcademicActivityLogTableColumns } from "~/FormMeta/Academic/AcademicActivityTableColumns"
 import { getActivityOrderSearchTableColumns } from "~/FormMeta/ActivityOrder/ActivityOrderSearchTableColumns"
-import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTableColumns"
 import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
+import { getActivityOrderCreditSearchTableColumns } from "~/FormMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
+import { getPaymentActivityTableColumns } from "~/FormMeta/PaymentActivity/PaymentActivityTableColumns"
+
 export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
@@ -64,18 +66,6 @@ export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta =
           }
         }
       },
-
-      {
-        tabTitle: "History",
-        tabType: "table",
-        tabMeta: {
-          tableProps: {
-            ...getEnrollmentTableColumns(),
-            searchParams: { UserID: user.UserID },
-            refreshEventName: "REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE"
-          }
-        }
-      },
       {
         tabTitle: "Orders",
         tabType: "table",
@@ -85,6 +75,28 @@ export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta =
             ...getActivityOrderSearchTableColumns(),
             searchParams: { UserID: user.UserID },
             refreshEventName: "REFRESH_ORDER_ACTIVITY_PAGE"
+          }
+        }
+      },
+      {
+        tabTitle: "Credits",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getActivityOrderCreditSearchTableColumns(),
+            searchParams: { UserID: user.UserID },
+            refreshEventName: "REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE"
+          }
+        }
+      },
+      {
+        tabTitle: "Payments",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getPaymentActivityTableColumns(),
+            searchParams: { UserID: user.UserID },
+            refreshEventName: "REFRESH_PAYMENT_LOG"
           }
         }
       }

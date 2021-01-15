@@ -34,6 +34,8 @@ export const getQualifiedInstructorTableColumns = (): ITableConfigProp => {
       sorter: (a: any, b: any) => a.name.length - b.name.length
     },
     { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
+    { title: "Status", dataIndex: "OfferingStatus", render: renderEmail },
+    { title: "Department", dataIndex: "OrganizationName", render: renderEmail },
     {
       title: "Action",
       key: "action",

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import ViewResponseModal from "./ViewResponseModal"
+import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
 
 interface IViewResponseProp {
   requestJson: any
@@ -11,15 +11,10 @@ export default function ViewResponseActionButton(props: IViewResponseProp) {
 
   return (
     <>
-      <Button
-        type="primary"
-        onClick={() => (setOpenModal && setOpenModal(true))}
-      >
+      <Button type="primary" onClick={() => setOpenModal && setOpenModal(true)}>
         View Response
       </Button>
-      {openModal &&
-        <ViewResponseModal requestJson={props.requestJson} closeModal={() => setOpenModal(false)} />
-      }
+      {openModal && <ViewResponseModal requestJson={props.requestJson} closeModal={() => setOpenModal(false)} />}
     </>
   )
 }

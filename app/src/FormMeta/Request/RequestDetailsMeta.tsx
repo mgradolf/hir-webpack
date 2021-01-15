@@ -11,9 +11,8 @@ import ViewResponseModalOpenButton from "~/Component/Section/Request/ViewRespons
 import RequestActionHandler from "~/Component/Section/Request/Resolutions/RequestActionHandler"
 
 export const getRequestDetailsMeta = (Request: { [key: string]: any }): IDetailsMeta => {
-
   const summary: CardContainer = {
-    title: "Basic Info",
+    title: "Basic Information",
     cardActions: [
       <RequestActionHandler requestJson={Request} />,
       <ViewResponseModalOpenButton requestJson={Request.RequestJSON} />
@@ -25,7 +24,8 @@ export const getRequestDetailsMeta = (Request: { [key: string]: any }): IDetails
       { label: "Purchaser", value: Request.PurchaserPersonName },
       { label: "Created", value: Request.CreateDate, render: renderDate },
       { label: "Source", value: Request.Source },
-      { label: "Expires", value: <RequestExpirationHandler Request={Request} /> }
+      { label: "Expires", value: <RequestExpirationHandler Request={Request} /> },
+      { label: "Staff", value: Request.RequesterStaffUserName }      
     ]
   }
 

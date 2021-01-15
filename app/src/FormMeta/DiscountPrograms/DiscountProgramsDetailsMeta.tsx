@@ -32,10 +32,14 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
 
   discountType.contents = [
     { label: "Discount Type", value: discountProgram.DiscountType },
-    ...Object.keys(discountProgram?.DiscountServiceParams).map((key) => ({
-      label: putSpaceBetweenCapitalLetters(key),
-      value: discountProgram?.DiscountServiceParams[key]
-    }))
+    ...Object.keys(discountProgram?.DiscountServiceParams)
+      .sort()
+      .map((key) => {
+        return {
+          label: putSpaceBetweenCapitalLetters(key),
+          value: discountProgram?.DiscountServiceParams[key]
+        }
+      })
   ]
 
   meta.push({

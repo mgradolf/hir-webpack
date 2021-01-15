@@ -6,7 +6,7 @@ import { ACTION_REQUIRED_REQUEST_STATE_ID, DATE_TIME_FORMAT, REQUEST_DATE_TIME_F
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
 interface IExpirationProps {
-  Request: {[key: string]: any}
+  Request: { [key: string]: any }
 }
 
 export default function RequestExpirationHandler(props: IExpirationProps) {
@@ -42,7 +42,7 @@ export default function RequestExpirationHandler(props: IExpirationProps) {
 
   return (
     <>
-      {props.Request.ExpirationDate &&
+      {props.Request.ExpirationDate && (
         <DatePicker
           disabled={props.Request.StateID !== ACTION_REQUIRED_REQUEST_STATE_ID}
           aria-label="Pick Expiration Date"
@@ -51,12 +51,18 @@ export default function RequestExpirationHandler(props: IExpirationProps) {
           onChange={expirationDateHandler}
           defaultValue={moment(props.Request.ExpirationDate, REQUEST_DATE_TIME_FORMAT)}
         />
-      }
-      {props.Request.ExpirationDate &&
-        <Button style={{marginLeft: "16px"}} loading={loading} disabled={expirationDateUpdate} onClick={updateExpirationDate} type="primary">
+      )}
+      {props.Request.ExpirationDate && (
+        <Button
+          style={{ marginLeft: "16px" }}
+          loading={loading}
+          disabled={expirationDateUpdate}
+          onClick={updateExpirationDate}
+          type="primary"
+        >
           Update
         </Button>
-      }
+      )}
     </>
   )
 }
