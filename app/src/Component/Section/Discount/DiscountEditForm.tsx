@@ -5,7 +5,7 @@ import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import { getSectionFinancials, saveSectionDiscount } from "~/ApiServices/Service/SectionService"
 import {
   FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID,

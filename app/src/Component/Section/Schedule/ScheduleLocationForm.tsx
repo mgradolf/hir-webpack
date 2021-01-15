@@ -7,7 +7,7 @@ import {
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import "~/Sass/utils.scss"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"

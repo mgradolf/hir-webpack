@@ -7,14 +7,21 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Credit ID",
+      title: "",
       dataIndex: "CreditMemoID",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>
+        <ReadOutlined />
+      </Link>)
     },
     {
       title: "Credit Date",
       dataIndex: "CreditMemoDate",
       render: renderDate
+    },
+    {
+      title: "Credit ID",
+      dataIndex: "CreditMemoID",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
     },
     {
       title: "Item",

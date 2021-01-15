@@ -6,7 +6,9 @@ export const config = {
   Module: "hir",
   Actions: {
     findAllUsers: "findAllUsers",
-    findUser: "findUser"
+    findUser: "findUser",
+    saveUser: "saveUser",
+    findAllUserRoles: "findAllUserRoles"
   }
 }
 

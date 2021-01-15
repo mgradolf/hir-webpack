@@ -116,7 +116,7 @@ import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Organizatio
 import MarketingProgramPage from "~/Pages/Manage/MarketingCodes/ProgramPage"
 import MarketingProgramDetailsPage from "~/Pages/Manage/MarketingCodes/ProgramDetails"
 import { UsersPage } from "~/Pages/SetupAdministration/Users/UsersPage"
-import { UsersDetailsPage } from "~/Pages/SetupAdministration/Users/PsersDetailsPage"
+import { UsersDetailsPage } from "~/Pages/SetupAdministration/Users/UsersDetailsPage"
 import PackagePage from "~/Pages/Manage/Package/PackagePage"
 import PackageDetailsPage from "~/Pages/Manage/Package/PackageDetails"
 

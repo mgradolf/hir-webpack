@@ -16,7 +16,7 @@ export function QuestionFindButton(props: IQuestionFindButtonProp) {
         disabled={!props.EventID || !props.TagID}
         onClick={() => setShowModal(true)}
       >
-        + Find Question
+        + Add Question
       </Button>
       {showModal && (
         <QuestionFindModal TagID={props.TagID} EventID={props.EventID} closeModal={() => setShowModal(false)} />

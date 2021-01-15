@@ -13,6 +13,27 @@ import { DownOutlined } from "@ant-design/icons"
 
 export const getOrderItemTableColumns = (isModal = false, SectionID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
+      {
+      title: "",
+      dataIndex: "OrderID",
+      render: (text: any, record: any) => {
+        return isModal ? (
+          { text }
+        ) : SectionID ? (
+          <Link to={`/section/${SectionID}/order/${record.OrderID}`}>
+                <ReadOutlined />
+          </Link>
+        ) : (
+          <Link to={`/order/${record.OrderID}`}>
+                <ReadOutlined />
+          </Link>
+        )
+    },
+    {
+      title: "Order Date",
+      dataIndex: "OrderDate",
+      render: renderDate
+    },
     {
       title: "Order ID",
       dataIndex: "OrderID",
@@ -26,21 +47,24 @@ export const getOrderItemTableColumns = (isModal = false, SectionID?: number): I
         )
     },
     {
-      title: "Order Date",
-      dataIndex: "OrderDate",
-      render: renderDate
+      title: "Purchaser",
+      dataIndex: "PurchaserName",
+      render: (text: any, record: any) => {
+        return isModal ? { text } : <Link to={`/person/${record?.Person?.PersonID}`}>{text}</Link>
+      }
     },
     {
-      title: "Purchaser",
-      dataIndex: "PurchaserName"
+      title: "Account",
+      dataIndex: "AccountName",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
+    },        
+    {
+      title: "Quantity",
+      dataIndex: "Quantity"
     },
     {
       title: "Item",
       dataIndex: "ItemName"
-    },
-    {
-      title: "Quantity",
-      dataIndex: "Quantity"
     },
     {
       title: "Balance",

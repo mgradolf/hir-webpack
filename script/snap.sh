@@ -1,3 +1,4 @@
+# yarn run i
 yarn build
 ant snapshot
 
