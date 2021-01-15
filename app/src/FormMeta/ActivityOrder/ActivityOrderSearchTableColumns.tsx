@@ -35,7 +35,7 @@ export const getActivityOrderSearchTableColumns = (isModal = false): ITableConfi
       render: (text: any, record: any) => <Link to={`/order/${record.OrderID}`}>{text}</Link>
     },
     {
-      title: "Buyer Name",
+      title: "Purchaser",
       dataIndex: "PersonName",
       render: (text: any, record: any) => {
         return <Link to={`/person/${record.PersonID}`}>{text}</Link>
