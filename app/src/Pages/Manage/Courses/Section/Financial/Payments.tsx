@@ -8,7 +8,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
   const SectionID = Number(props.match.params.sectionID)
   return (
     <SearchPage
-      title="Payments"
+      title="Manage Payments"
       meta={PaymentSearchMeta}
       hideSearchField={true}
       defaultFilter={{ SectionID }}

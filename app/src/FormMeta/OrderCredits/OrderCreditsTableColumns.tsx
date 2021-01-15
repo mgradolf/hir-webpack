@@ -1,7 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
 import { searchCreditMemo } from "~/ApiServices/BizApi/payment/paymentIF"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDetailsLink, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp => {
@@ -9,9 +7,7 @@ export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp =
     {
       title: "",
       dataIndex: "CreditMemoID",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>
-        <ReadOutlined />
-      </Link>)
+      render: (text: any, record: any) => (isModal ? text : renderDetailsLink(`/order/${record.OrderID}`))
     },
     {
       title: "Credit Date",
@@ -21,7 +17,7 @@ export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp =
     {
       title: "Credit ID",
       dataIndex: "CreditMemoID",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
+      render: (text: any, record: any) => (isModal ? text : renderLink(`/order/${record.OrderID}`, text))
     },
     {
       title: "Item",
@@ -39,7 +35,7 @@ export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp =
       title: "Discount Program",
       dataIndex: "DiscountProgramName",
       render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/discount-program/${record.DiscountProgramID}`}>{text}</Link>
+        isModal ? text : renderLink(`/discount-program/${record.DiscountProgramID}`, text)
     },
     {
       title: "Charged Amount",

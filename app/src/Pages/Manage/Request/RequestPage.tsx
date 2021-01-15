@@ -6,7 +6,7 @@ import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 export default function RequestTable() {
   return (
     <SearchPage
-      title="Requests"
+      title="Manage Requests"
       meta={RequestSearchMeta}
       hideSearchField={false}
       tableProps={getRequestTableColumns()}

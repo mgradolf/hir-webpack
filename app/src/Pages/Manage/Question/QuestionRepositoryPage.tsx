@@ -6,7 +6,7 @@ import { getQuestionRepositoryTableColumn } from "~/FormMeta/QuestionRepository/
 export default function QuestionRepository() {
   return (
     <SearchPage
-      title="Questions"
+      title="Manage Questions"
       meta={QuestionRepositorySearchMeta}
       hideSearchField={false}
       tableProps={{

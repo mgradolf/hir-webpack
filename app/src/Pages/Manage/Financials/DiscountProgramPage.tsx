@@ -6,7 +6,7 @@ import { getDiscountProgramsTableColumns } from "~/FormMeta/DiscountPrograms/Dis
 export default function DiscountProgramPage() {
   return (
     <SearchPage
-      title="Discount Programs"
+      title="Manage Discount Programs"
       meta={DiscountProgramsSearchMeta}
       hideSearchField={false}
       tableProps={getDiscountProgramsTableColumns()}

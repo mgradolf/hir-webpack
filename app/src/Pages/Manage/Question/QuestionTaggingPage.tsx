@@ -9,7 +9,7 @@ export function QuestionTaggingPage(props: { TagID: number }) {
   const [params, setParams] = useState<any>({})
   return (
     <SearchPage
-      title="Accounts"
+      title="Manage Accounts"
       meta={QuestionTaggingSearchMeta}
       hideSearchField={false}
       initialFilter={{ TagID: props.TagID, EventID: 2 }}

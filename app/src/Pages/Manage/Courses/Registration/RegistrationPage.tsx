@@ -6,7 +6,7 @@ import { getRegistrationTableColumns } from "~/FormMeta/Registration/Registratio
 export default function RegistrationPage() {
   return (
     <SearchPage
-      title="Registrations"
+      title="Manage Registrations"
       initialFilter={{}}
       meta={RegistrationSearchMeta}
       hideSearchField={false}

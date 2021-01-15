@@ -1,6 +1,4 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDetailsLink, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 
@@ -10,9 +8,7 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
       title: "",
       dataIndex: "RequestID",
       key: "RequestID",
-      render: (text: any, record: any) => <Link to={`/request/${record.RequestID}`}>
-        <ReadOutlined />
-      </Link>
+      render: (text: any, record: any) => renderDetailsLink(`/request/${record.RequestID}`)
     },
     {
       title: "Request Date",
@@ -23,13 +19,13 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Purchaser",
       dataIndex: "PurchaserPersonName",
-      render: (text: any, record: any) => <Link to={`/person/${record.PurchaserPersonID}`}>{text}</Link>,
+      render: (text: any, record: any) => renderLink(`/person/${record.PurchaserPersonID}`, text),
       key: "PurchaserPersonName"
     },
     {
       title: "Account",
       dataIndex: "AccountName",
-      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>,
+      render: (text: any, record: any) => renderLink(`/account/${record.AccountID}`, text),
       key: "AccountName"
     },
     {
