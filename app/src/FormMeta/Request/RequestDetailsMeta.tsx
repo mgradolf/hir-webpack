@@ -25,7 +25,7 @@ export const getRequestDetailsMeta = (Request: { [key: string]: any }): IDetails
       { label: "Created", value: Request.CreateDate, render: renderDate },
       { label: "Source", value: Request.Source },
       { label: "Expires", value: <RequestExpirationHandler Request={Request} /> },
-      { label: "Staff", value: Request.RequesterStaffUserName }      
+      { label: "Staff", value: Request.RequesterStaffUserName }
     ]
   }
 

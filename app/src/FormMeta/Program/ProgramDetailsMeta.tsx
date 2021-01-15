@@ -16,7 +16,6 @@ import {
 } from "~/utils/EventBus"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
-
   const info: CardContainer = {
     contents: [
       { label: "Name", value: program.Name },

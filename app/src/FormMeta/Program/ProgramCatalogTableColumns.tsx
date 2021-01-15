@@ -6,7 +6,6 @@ import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getProgramCatalogTableColumns = (ProgramID: number): ITableConfigProp => {
-
   const columns: TableColumnType = [
     {
       title: "Catalog Name",
@@ -30,9 +29,7 @@ export const getProgramCatalogTableColumns = (ProgramID: number): ITableConfigPr
     {
       title: "Published",
       dataIndex: "isPublished",
-      render: (text: any, record: any) => (
-        <Switch checked={!!text} />
-      )
+      render: (text: any, record: any) => <Switch checked={!!text} />
     }
   ]
   return {

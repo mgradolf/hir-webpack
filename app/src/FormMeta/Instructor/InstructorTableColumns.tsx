@@ -10,9 +10,7 @@ export const getInstructorTableColumns = (isModal = false): ITableConfigProp => 
     {
       title: "Name",
       dataIndex: "FacultySerialNum",
-      render: (text: any, record: any) => (
-        <Link to={`/person/faculty/${record.FacultyID}`}>`${record.SortName}`</Link>
-      ),
+      render: (text: any, record: any) => <Link to={`/person/faculty/${record.FacultyID}`}>`${record.SortName}`</Link>,
       sorter: (a: any, b: any) => a.FacultySerialNum.length - b.FacultySerialNum.length
     },
     { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
