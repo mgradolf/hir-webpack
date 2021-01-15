@@ -16,7 +16,7 @@ export const OrderSearchMeta: IFilterField[] = [
     extraProps: {
       selectorKeys: [
         {
-          label: "Buyer Name",
+          label: "Purchaser",
           fieldName: "BuyerName",
           valueField: "FormattedName",
           component: SearchPersonLookupButton

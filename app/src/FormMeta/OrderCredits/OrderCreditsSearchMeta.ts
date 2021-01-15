@@ -8,7 +8,7 @@ import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLook
 
 export const OrderCreditsSearchMeta: IFilterField[] = [
   {
-    label: "Buyer Name",
+    label: "Purchaser",
     fieldName: "BuyerName",
     valueField: "FormattedName",
     customFilterComponent: SearchPersonLookupButton

@@ -10,14 +10,14 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
   const summary: CardContainer = {
     contents: [
       {
-        label: "Account Owner",
+        label: "Purchaser",
         value: transaction.PersonName,
         render: (text: any) => <Link to={`/person/${transaction.PersonID}`}>{text}</Link>
       },
       {
-        label: "Account Name",
+        label: "Account",
         value: transaction.AffiliatedOrg,
-        render: (text: any) => <Link to={`/person/${transaction.AccountID}`}>{text}</Link>
+        render: (text: any) => <Link to={`/account/${transaction.AccountID}`}>{text}</Link>
       },
       { label: "Transaction Date", value: transaction.TransactionDate, render: renderDate },
       { label: "Transaction Type", value: transaction.TransactionType },

@@ -14,7 +14,7 @@ export const TransactionSearchMeta: IFilterField[] = [
     extraProps: {
       selectorKeys: [
         {
-          label: "Account Owner",
+          label: "Purchaser",
           fieldName: "PersonID",
           valueField: "PersonID",
           component: SearchPersonLookupButton

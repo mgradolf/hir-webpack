@@ -14,25 +14,22 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
               `/transaction/${record.DepositTransactionID ? record.DepositTransactionID : record.TransactionID}`
             )
     },
-    // { title: "Deposit ID", dataIndex: "DepositTransactionID" },
+    { title: "Date", dataIndex: "TransactionDate", render: renderDate },
     {
-      title: "Account Owner",
+      title: "Purchaser",
       dataIndex: "PersonName",
       render: (text: any, record: any) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
     },
     {
-      title: "Account Name",
+      title: "Account",
       dataIndex: "AffiliatedOrg",
       render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     },
-    { title: "Tansaction Date", dataIndex: "TransactionDate", render: renderDate },
-    { title: "TransactionType", dataIndex: "TransactionType" },
+    { title: "Transaction Type", dataIndex: "TransactionType" },
     { title: "Reference No", dataIndex: "ReferenceNo" },
     { title: "Description", dataIndex: "Description" },
-    { title: "GL", dataIndex: "GLAccountName" },
-    { title: "Department", dataIndex: "Department" },
     { title: "Deposit", dataIndex: "Credit" },
-    { title: "Withdrawl", dataIndex: "Debit" }
+    { title: "Withdraw", dataIndex: "Debit" }
   ]
 
   const responsiveColumnIndices: number[] = []
