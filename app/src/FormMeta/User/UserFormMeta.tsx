@@ -21,15 +21,16 @@ export const UserSearchMeta: IFilterField[] = [
   }
 ]
 
-export const UserCreateButton = () => {
+export const UserCreateEditButton = (props: { Params?: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button onClick={() => setShowModal(true)}>+ Create User</Button>
+      <Button onClick={() => setShowModal(true)}>{props.Params ? "Edit User" : "+ Create User"}</Button>
       {showModal && (
         <FormModal
-          title="Create User"
+          title={props.Params ? "Edit User" : "Create User"}
           meta={UserSearchMeta}
+          initialFilter={props.Params}
           formSubmitApi={saveUser}
           closeModal={() => setShowModal(false)}
         />
