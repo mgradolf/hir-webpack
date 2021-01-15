@@ -25,72 +25,25 @@ export const getWaitlistEntriesTableColumns = (
       })
     },
     {
-      title: "SectionNumber",
+      title: "Section Number",
       dataIndex: "SectionNumber",
       render: (text: any, record: any) => (isModal ? { text } : <Link to={`/section/${record.SectionID}`}>{text}</Link>)
     },
-    { title: "SeatGroupName", dataIndex: "SeatGroupName" },
     {
-      title: "AccountName",
-      dataIndex: "AccountName",
+      title: "Student",
+      dataIndex: "StudentName",
       render: (text: any, record: any) =>
-        isModal ? (
-          { text }
-        ) : (
-          <Link to={`/account/${record.AccountID}`}>
-            <div style={{ width: "100px" }}>{record.AccountName}</div>
-          </Link>
-        )
+        isModal ? { text } : <Link to={`/student/${record.StudentID}`}>{text}</Link>
     },
-    {
-      title: "PurchaserName",
-      dataIndex: "PurchaserName",
-      render: (text: any, record: any) =>
-        isModal ? { text } : <Link to={`/person/${record.PurchaserID}`}>{record.PurchaserName}</Link>
-    },
-    { title: "StudentName", dataIndex: "StudentName" },
     { title: "Email", dataIndex: "StudentEmailAddress", render: renderEmail },
     { title: "Request State", dataIndex: "RequestState" },
     { title: "Priority", dataIndex: "Priority" },
-    { title: "CreationTime", dataIndex: "CreationTime", render: renderDate },
-    { title: "ExpirationTime", dataIndex: "RequestExpirationTime", render: renderDate },
-    { title: "Source", dataIndex: "Source" },
-    {
-      ...(!isModal &&
-        setShowCreateModal && {
-          title: "Action",
-          render: (text: any, record: any) => {
-            return (
-              <>
-                <Button
-                  style={{ marginRight: "10px" }}
-                  type="primary"
-                  onClick={() => {
-                    setShowCreateModal(record)
-                  }}
-                  disabled={!!record.RequestState}
-                >
-                  Edit
-                </Button>
-                <Button
-                  danger
-                  onClick={() => {
-                    deleteWaitListEntry({ WaitListEntryID: record.WaitListEntryID }).then((x) => {
-                      if (x.success) eventBus.publish(REFRESH_PAGE)
-                    })
-                  }}
-                  disabled={!!record.RequestState}
-                >
-                  Remove
-                </Button>
-              </>
-            )
-          }
-        })
-    }
+    { title: "Creation Time", dataIndex: "CreationTime", render: renderDateTime },
+    { title: "Expiration Date", dataIndex: "RequestExpirationTime", render: renderDate },
+    { title: "Source", dataIndex: "Source" }
   ]
   const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = [3, 6, 7]
+  const expandableColumnIndices: number[] = []
 
   return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findWaitListEntries }
 }

@@ -23,12 +23,12 @@ export const getQualifiedInstructorTableColumns = (): ITableConfigProp => {
       render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
-      title: "Offering Name",
+      title: "Offering",
       dataIndex: "OfferingName",
       render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
-      title: "Instructor Name",
+      title: "Instructor",
       dataIndex: "FacultyName",
       render: (text: any, record: any) => <Link to={`/person/faculty/${record.FacultyID}`}>{text}</Link>,
       sorter: (a: any, b: any) => a.name.length - b.name.length

@@ -5,7 +5,7 @@ import { searchNoShowProcessings } from "~/ApiServices/Service/RegistrationServi
 export const getSectionNoShowTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Student Name",
+      title: "Student",
       dataIndex: "StudentFirstName",
       render: (text, record) => renderLink(`/person/student/${record.StudentID}`, text)
     },

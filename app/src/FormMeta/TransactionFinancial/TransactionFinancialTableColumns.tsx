@@ -29,7 +29,7 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
     { title: "Reference No", dataIndex: "ReferenceNo" },
     { title: "Description", dataIndex: "Description" },
     { title: "Deposit", dataIndex: "Credit" },
-    { title: "Withdraw", dataIndex: "Debit" }
+    { title: "Withdrawal", dataIndex: "Debit" }
   ]
 
   const responsiveColumnIndices: number[] = []

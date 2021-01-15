@@ -69,12 +69,12 @@ function PostPaymentModal(props: IPostPaymentModal) {
         >
           <Divider orientation="left">Payer Information</Divider>
           <Form.Item
-            label="Payer Name"
+            label="Payer"
             rules={[{ required: true, message: "Please input your answer!" }]}
             {...layout}
             name="PayerName"
           >
-            <Input aria-label="Payer Name" />
+            <Input aria-label="Payer" />
           </Form.Item>
           <Form.Item
             label="Billing Email"

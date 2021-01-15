@@ -25,16 +25,16 @@ export const RequestSearchMeta: IFilterField[] = [
     customFilterComponent: SearchSectionLookupButton
   },
   {
-    label: "Creation Date",
+    label: "Request Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
     fieldName: "CreatedFromDate",
     valueKey: "CreatedFromDate",
-    ariaLabel: "Creation Date From",
+    ariaLabel: "Request Date From",
     displayKey2: "To",
     valueKey2: "CreatedToDate",
     fieldName2: "CreatedToDate",
-    ariaLabel2: "Creation Date To"
+    ariaLabel2: "Request Date To"
   },
   {
     label: "Request Type",
