@@ -10,3 +10,6 @@ export function findUser(Params: any): Promise<IApiResponse> {
 export function saveUser(Params: any): Promise<IApiResponse> {
   return UserService[config.Actions.saveUser](Params)
 }
+export function findAllUserRoles(): Promise<IApiResponse> {
+  return UserService[config.Actions.findAllUserRoles]({})
+}

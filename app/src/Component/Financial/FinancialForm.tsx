@@ -17,7 +17,7 @@ import {
   REFRESH_RESOURCE_OFFERINGS_TAB
 } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 
 interface ICreateFormProps {
   applyToID: number

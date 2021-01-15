@@ -5,7 +5,7 @@ import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGrou
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import "~/Sass/utils.scss"
 
 interface ISeatGroupCreateFormProps {

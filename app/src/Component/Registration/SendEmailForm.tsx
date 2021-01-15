@@ -3,7 +3,7 @@ import { Card, Button, Input } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IEmailSendFieldNames } from "~/Component/Registration/Interfaces"
 import { sendEmail } from "~/ApiServices/Service/MailService"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import { getLoggedInUser } from "~/ApiServices/Service/HRUserService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 

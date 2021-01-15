@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom"
 import { Form, Input, Select, Switch, DatePicker, Table, Spin, Button, Card } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/FormError"
+import FormError from "~/Component/Common/Form/FormError"
 import {
   DATE_FORMAT,
   DATE_TIME_FORMAT,
