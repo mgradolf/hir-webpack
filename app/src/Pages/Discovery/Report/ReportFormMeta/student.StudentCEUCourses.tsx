@@ -15,7 +15,7 @@ const meta: IFilterField[] = [
     inputType: DATE_PICKERS
   },
   {
-    label: "Department",
+    label: "Transcript Type",
     inputType: DROPDOWN,
     fieldName: "TranscriptTypeID",
     refLookupService: getTranscriptTypes,
@@ -25,9 +25,3 @@ const meta: IFilterField[] = [
 ]
 
 export default meta
-
-// SchoolAddress
-// TranscriptTypeID
-// StudentID
-// StatusDateFrom
-// StatusDateTo

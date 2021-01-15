@@ -1,4 +1,5 @@
-import { BOOLEAN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { getDeliveryModes } from "~/ApiServices/Service/RefLookupService"
+import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 const meta: IFilterField[] = [
   {
@@ -30,16 +31,20 @@ const meta: IFilterField[] = [
     label: "Is Active",
     fieldName: "IsActive",
     inputType: BOOLEAN
+  },
+  {
+    label: "Ethnicity",
+    inputType: DROPDOWN,
+    fieldName: "ProductDeliveryMode",
+    refLookupService: getDeliveryModes,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Show Product Require Reorder",
+    fieldName: "OnlyShortProducts",
+    inputType: BOOLEAN
   }
 ]
 
 export default meta
-
-// ProductTypeName
-// ProductCategoryName
-// ProductName
-// ProductSellerName
-// ProductFulfillerName
-// IsActive
-// ProductDeliveryMode
-// OnlyShortProducts
