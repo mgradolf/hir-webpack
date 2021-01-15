@@ -6,6 +6,14 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOrderPurchasedTableColumns = (isModal = false, SectionID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
+    { title: "Payment Received", dataIndex: "IsPaymentReceived", render: renderBoolean },
+    {
+      title: "Payment Due Date",
+      dataIndex: "PaymentDueDate",
+      render: renderDate
+    },
+    { title: "PO Number", dataIndex: "PONumber" },
+    { title: "Amount", dataIndex: "POAmount" },
     {
       title: "Order ID",
       dataIndex: "OrderID",
@@ -17,21 +25,7 @@ export const getOrderPurchasedTableColumns = (isModal = false, SectionID?: numbe
         ) : (
           <Link to={`/order/${record.OrderID}`}>{text}</Link>
         )
-    },
-    { title: "PO Number", dataIndex: "PONumber" },
-    {
-      title: "Payment Due Date",
-      dataIndex: "PaymentDueDate",
-      render: renderDate
-    },
-    { title: "Issuing Organization", dataIndex: "AccountName" },
-    {
-      title: "Contact Person",
-      dataIndex: "ContactPerson",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
-    },
-    { title: "Amount", dataIndex: "POAmount" },
-    { title: "Payment Received", dataIndex: "IsPaymentReceived", render: renderBoolean }
+    }    
   ]
 
   const responsiveColumnIndices: number[] = []
