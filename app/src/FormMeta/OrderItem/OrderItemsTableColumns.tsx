@@ -42,7 +42,7 @@ export const getOrderItemTableColumns = (isModal = false, SectionID?: number): I
       title: "Purchaser",
       dataIndex: "PurchaserName",
       render: (text: any, record: any) => {
-        return isModal ? { text } : <Link to={`/person/${record?.Person?.PersonID}`}>{text}</Link>
+        return isModal ? { text } : <Link to={`/person/${record?.PersonID}`}>{text}</Link>
       }
     },
     {
