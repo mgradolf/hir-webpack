@@ -115,7 +115,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Job Schedule", url: "", submenu: [] },
           { title: "Student Email Notification", url: "", submenu: [] }
         ]
-      } ,     
+      },
       {
         title: "Data",
         url: "",
@@ -123,13 +123,13 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Offering Type", url: "", submenu: [] },
           { title: "Section Type", url: "", submenu: [] },
           { title: "Building", url: "", submenu: [] },
-          { title: "Site", url: "", submenu: [] }
+          { title: "Site", url: "", submenu: [] },
           { title: "Grade Score Definitions", url: "", submenu: [] },
           { title: "Reference Data", url: "", submenu: [] },
           { title: "Organizations", url: "/organization", submenu: [] },
-          { title: "Certificates", url: "", submenu: [] },
+          { title: "Certificates", url: "", submenu: [] }
         ]
-      } ,     
+      },
       { title: "Users", url: "/user", submenu: [] },
       { title: "Forget Me Requests", url: "/forget-me-request", submenu: [] },
       { title: "Configuration Management", url: "", submenu: [] },
