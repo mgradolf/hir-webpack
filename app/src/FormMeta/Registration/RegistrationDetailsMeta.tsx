@@ -38,7 +38,7 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     cardActions: [<RegistrationDetailsMenu dataLoaded={registration} />],
     contents: [
       {
-        label: "Offering Name",
+        label: "Offering",
         value: <Link to={`/offering/${registration.OfferingID}`}>{registration.OfferingName}</Link>
       },
       {
@@ -46,7 +46,7 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
         value: <Link to={`/section/${registration.SectionID}`}>{registration.SectionNumber}</Link>
       },
       {
-        label: "Student Name",
+        label: "Student",
         value: <Link to={`/person/student/${registration.StudentID}`}>{registration.StudentName}</Link>
       },
       { label: "Student ID", value: registration.StudentSerialNumber },

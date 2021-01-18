@@ -37,7 +37,7 @@ export const ProgramApplicationSearchMeta: IFilterField[] = [
     valueKey: "OrganizationID"
   },
   {
-    label: "Student Name",
+    label: "Student",
     fieldName: "studentID",
     customFilterComponent: SearchStudentLookupButton
   }
