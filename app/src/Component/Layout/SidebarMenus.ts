@@ -53,6 +53,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         ]
       },
       { title: "Requests", url: "/request", submenu: [] },
+      { title: "Membership", url: "/membership", submenu: [] },
       {
         title: "Questions",
         url: "",
@@ -137,7 +138,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Audits",
         url: "",
         submenu: [
-          { title: "Gateway Activity", url: "", submenu: [] },
+          { title: "Gateway Activity", url: "/gateway-activity", submenu: [] },
           { title: "System Schedule", url: "", submenu: [] }
         ]
       }

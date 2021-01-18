@@ -1,31 +1,22 @@
-import React from "react"
-import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDateTime, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-//TODO: Update the API end point 
-import { findSystemSchedules } from "~/ApiServices/Service/FinancialService"
-import { Link } from "react-router-dom"
+import { findSystemSchedules } from "~/ApiServices/BizApi/query/queryIf"
 
 export const getActivitySystemScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
-      dataIndex: "TimerID",
-      render: (text: any, record: any) => (
-        <Link to={`/systemschedule/${record.TimerID}`}>
-          <ReadOutlined />
-        </Link>
-      )
-    },  
+      render: (text: any, record: any) => renderDetailsLink(`/systemschedule/${record.TimerID}`)
+    },
     {
       title: "Schedule Time",
       dataIndex: "NextScheduledTime",
       render: renderDateTime,
       width: 100
-    },  
+    },
     {
       title: "Service Name",
       dataIndex: "ServiceName"
-    },  
+    },
     {
       title: "Completed",
       dataIndex: "IsCompleted",

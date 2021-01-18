@@ -69,3 +69,23 @@ export function searchPaymentDetailsByPaymentID(Params: any): Promise<IApiRespon
 export function findOrganizations(Params: { [key: string]: any }): Promise<IApiResponse> {
   return QueryIf[config.Actions.executeDomainList](["jxntm.organization.findOrganizations", Params, 0, 99999])
 }
+
+export function findOrganizationCalendar(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.organization.findOrganizationCalendar", Params, 0, 99999])
+}
+
+export function findSystemSchedules(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.system.findSystemSchedules", Params, 0, 99999])
+}
+
+export function findGradeScoreDefinitions(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.course.findGradeScoreDefinitions", Params, 0, 99999])
+}
+
+export function findJobSchedules(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.organization.findJobSchedules", Params, 0, 99999])
+}
+
+export function findSystemConfiguration(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.system.findSystemConfiguration", Params, 0, 99999])
+}

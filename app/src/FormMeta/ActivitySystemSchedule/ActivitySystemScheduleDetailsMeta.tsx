@@ -1,6 +1,6 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDateTime } from "~/Component/Common/ResponsiveTable"
 
 export const getActivitySystemScheduleDetailsMeta = (activity: { [key: string]: any }): IDetailsMeta => {
   console.log(activity)

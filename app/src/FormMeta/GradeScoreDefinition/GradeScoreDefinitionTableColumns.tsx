@@ -1,21 +1,12 @@
-import React from "react"
-import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { findGradeScoreDefinitions } from "~/ApiServices/BizApi/query/queryIf"
+import { renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-//TODO: Update the API end point 
-import { findGradeScoreDefinitions } from "~/ApiServices/Service/FinancialService"
-import { Link } from "react-router-dom"
 
 export const getGradeScoreDefinitionTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
-      dataIndex: "GradeScoreDefinitionID",
-      render: (text: any, record: any) => (
-        <Link to={`/gradescoredefinition/${record.GradeScoreDefinitionID}`}>
-          <ReadOutlined />
-        </Link>
-      )
-    },  
+      render: (text: any, record: any) => renderDetailsLink(`/gradescoredefinition/${record.GradeScoreDefinitionID}`)
+    },
     {
       title: "Grade Scale",
       dataIndex: "GradeScaleType"

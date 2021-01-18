@@ -1,4 +1,3 @@
-import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import {
   getEthnicityTypes,
   getGenderTypes,
@@ -7,6 +6,7 @@ import {
   getOrganizations
 } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DATE_PICKER, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
 export const InstructorSearchMeta: IFilterField[] = [
@@ -125,19 +125,15 @@ export const InstructorSearchMeta: IFilterField[] = [
   },
   {
     label: "Qualified to Teach Offering",
-    inputType: DROPDOWN, // TODO: Should be a search field
     fieldName: "CanTeachOfferingID",
-    ariaLabel: "Qualified to Teach Offering",
-    refLookupService: () => searchOffering({ OfferingCode: "*" }), // To be changed after search handler implementation
+    customFilterComponent: SearchOfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
   },
   {
     label: "Taught Offering",
-    inputType: DROPDOWN, // TODO: Should be a search field
     fieldName: "TaughtOfferingID",
-    ariaLabel: "Taught Offering",
-    refLookupService: () => searchOffering({ OfferingCode: "*" }), // To be changed after search handler implementation
+    customFilterComponent: SearchOfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
   },
@@ -167,37 +163,4 @@ export const InstructorSearchMeta: IFilterField[] = [
     fieldName: "GovID",
     ariaLabel: "Gov ID"
   }
-  // {
-  //   label: "Region",
-  //   inputType: DROPDOWN,
-  //   fieldName: "RegionCodeID",
-  //   ariaLabel: "Region Select",
-  //   refLookupService: getRegionCodes,
-  //   displayKey: "Description",
-  //   valueKey: "ID"
-  // },
-
-  // {
-  //   label: "Country",
-  //   inputType: DROPDOWN,
-  //   fieldName: "CountryCodeID",
-  //   ariaLabel: "Country Select",
-  //   refLookupService: getCountries,
-  //   displayKey: "Description",
-  //   valueKey: "ID"
-  // },
-
-  // {
-  //   label: "Postal Code",
-  //   inputType: TEXT,
-  //   fieldName: "PostalCode",
-  //   ariaLabel: "Postal Code"
-  // },
-
-  // {
-  //   label: "Instructor ID",
-  //   inputType: TEXT,
-  //   fieldName: "FacultySerialNum",
-  //   ariaLabel: "Instructor ID"
-  // },
 ]

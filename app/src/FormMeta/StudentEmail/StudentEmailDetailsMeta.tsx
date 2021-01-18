@@ -1,6 +1,6 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderEmail } from "~/Component/Common/ResponsiveTable"
 
 //TODO: API findStudentNotice
 export const getStudentEmailDetailsMeta = (activity: { [key: string]: any }): IDetailsMeta => {
@@ -11,7 +11,7 @@ export const getStudentEmailDetailsMeta = (activity: { [key: string]: any }): ID
     contents: [
       { label: "Notification Description", value: activity.StudentNoticeDesc },
       { label: "From User", value: activity.FromUserID },
-      { label: "From Email", value: activity.FromEmailAddress },
+      { label: "From Email", value: activity.FromEmailAddress, render: renderEmail },
       { label: "Subject", value: activity.Subject },
       { label: "Message", value: activity.Message },
       { label: "Mime Type", value: activity.MimeType },

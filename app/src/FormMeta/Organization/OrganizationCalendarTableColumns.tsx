@@ -1,8 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
-//TODO: API fix
 import { findOrganizationCalendar } from "~/ApiServices/BizApi/query/queryIf"
-import { TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOrganizationCalendarTableColumns = (isModal = false): ITableConfigProp => {

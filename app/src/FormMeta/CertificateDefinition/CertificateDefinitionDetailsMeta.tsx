@@ -1,5 +1,5 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
-import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 
 export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]: any }): CardContainer[] => {
   const certificateInfo: CardContainer = {

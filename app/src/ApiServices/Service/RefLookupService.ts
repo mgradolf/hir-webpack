@@ -344,3 +344,9 @@ export function getMembershipProgramTypes(): Promise<IApiResponse> {
     LookUpName: "MembershipProgram"
   })
 }
+
+export function getCertificateCategoryType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CertificateCategoryType"
+  })
+}

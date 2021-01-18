@@ -262,5 +262,14 @@ export const AppRoutes: RouteProps[] = [
   { path: "/organization/:OrganizationID", component: OranizationsDetailsPage },
 
   { path: "/user", component: UsersPage },
-  { path: "/user/:UserID", component: UsersDetailsPage }
+  { path: "/user/:UserID", component: UsersDetailsPage },
+
+  {
+    path: "/gateway-activity",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityPage"))
+  },
+  {
+    path: "/gateway-activity/:PaymentGatewayActivityID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
+  }
 ]

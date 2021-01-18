@@ -1,16 +1,13 @@
-import React from "react"
-import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-//TODO: Update the API end point 
-import { findJobSchedules } from "~/ApiServices/Service/FinancialService"
-import { Link } from "react-router-dom"
+import { findJobSchedules } from "~/ApiServices/BizApi/query/queryIf"
 
 export const getJobScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Job Name",
       dataIndex: "ScheduleName"
-    },  
+    },
     {
       title: "Service",
       dataIndex: "ServiceName"

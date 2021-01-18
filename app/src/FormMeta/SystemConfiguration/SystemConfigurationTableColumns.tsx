@@ -1,16 +1,13 @@
-import React from "react"
-import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-//TODO: Update the API end point 
-import { findSystemConfiguration } from "~/ApiServices/Service/FinancialService"
-import { Link } from "react-router-dom"
+import { findSystemConfiguration } from "~/ApiServices/BizApi/query/queryIf"
 
 export const getSystemConfigurationTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Group Name",
       dataIndex: "GroupName"
-    },  
+    },
     {
       title: "Name",
       dataIndex: "Name"

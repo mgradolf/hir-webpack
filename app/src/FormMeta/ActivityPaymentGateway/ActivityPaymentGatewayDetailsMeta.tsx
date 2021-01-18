@@ -1,6 +1,6 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderDate, renderDateTime } from "~/Component/Common/ResponsiveTable"
 
 export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: any }): IDetailsMeta => {
   console.log(activity)
@@ -15,7 +15,7 @@ export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: 
       { label: "Response Time", value: activity.State, render: renderDateTime },
       { label: "Transaction Number", value: activity.TransactionNo },
       { label: "Transaction Date", value: activity.TransactionDate, render: renderDate },
-      { label: "Transaction Status", value: activity.TransactionStatus },     
+      { label: "Transaction Status", value: activity.TransactionStatus },
       { label: "Auth Code", value: activity.AuthorizationCode },
       { label: "Payment Type", value: activity.PaymentType },
       { label: "CC Type", value: activity.CreditCardType },
@@ -38,7 +38,7 @@ export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: 
     }
   })
 
-//TODO: add tab for error info
+  //TODO: add tab for error info
   return {
     pageTitle: `Activity ID - ${activity.PaymentGatewayAccountID}`,
     tabs: meta

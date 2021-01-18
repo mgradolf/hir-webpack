@@ -1,31 +1,38 @@
-//TODO: Fix API
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { getCertificateCategoryType, getOrganizations } from "~/ApiServices/Service/RefLookupService"
+import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const CertificateDefinitionSearchMeta: IFilterField[] = [
   {
     label: "Certificate Name",
-    fieldName: "certificateName"
+    fieldName: "certificateName",
+    inputType: TEXT
   },
   {
-  //TODO: Department dropdown
     label: "Department",
-    fieldName: "organizationID"
+    fieldName: "organizationID",
+    inputType: DROPDOWN,
+    refLookupService: getOrganizations,
+    displayKey: "Name",
+    valueKey: "OrganizationID"
   },
   {
-  //TODO: active dropdown
     label: "Active",
-    fieldName: "isActive"
-  },  
-  {
-  //TODO: true = Program, false = Offering
-    label: "Certificate Type",
-    fieldName: "isProgramCertificate"
+    fieldName: "isActive",
+    inputType: BOOLEAN
   },
-  //TODO: ref table CertificateCategoryType
+  {
+    label: "Certificate Type",
+    fieldName: "isProgramCertificate",
+    inputType: DROPDOWN,
+    options: [
+      { label: "Program", value: true },
+      { label: "Offering", value: false }
+    ]
+  },
   {
     label: "Certificate Category",
     fieldName: "certificateCategoryTypeID",
-    customFilterComponent: SearchOfferingLookupButton
+    inputType: DROPDOWN,
+    refLookupService: getCertificateCategoryType
   }
 ]
-

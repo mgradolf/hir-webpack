@@ -1,21 +1,16 @@
 import React from "react"
-import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDateTime, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-//TODO: Update the API end point 
-import { findPaymentGatewayActivities } from "~/ApiServices/Service/FinancialService"
 import { Link } from "react-router-dom"
+import { findPaymentGatewayActivities } from "~/ApiServices/Service/PaymentGatewayService"
 
 export const getActivityPaymentGatewayTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "",
       dataIndex: "PaymentGatewayActivityID",
-      render: (text: any, record: any) => (
-        <Link to={`/paymentgatewayactivity/${record.PaymentGatewayActivityID}`}>
-          <ReadOutlined />
-        </Link>
-      )
-    },  
+      render: (text: any, record: any) => renderDetailsLink(`/gateway-activity/${record.PaymentGatewayActivityID}`)
+    },
     {
       title: "Activity Time",
       dataIndex: "RequestDate",
