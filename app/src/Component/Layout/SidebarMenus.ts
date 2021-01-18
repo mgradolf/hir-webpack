@@ -121,10 +121,10 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Data",
         url: "",
         submenu: [
-          { title: "Offering Type", url: "", submenu: [] },
-          { title: "Section Type", url: "", submenu: [] },
-          { title: "Building", url: "", submenu: [] },
-          { title: "Site", url: "", submenu: [] },
+          { title: "Offering Type", url: "/offering-type", submenu: [] },
+          { title: "Section Type", url: "/section-type", submenu: [] },
+          { title: "Building", url: "/building", submenu: [] },
+          { title: "Site", url: "/site", submenu: [] },
           { title: "Grade Score Definitions", url: "/data/grade-score-definition", submenu: [] },
           { title: "Reference Data", url: "", submenu: [] },
           { title: "Organizations", url: "/data/organization", submenu: [] },
@@ -133,7 +133,7 @@ export const sidebarMenus: ISidebarMenu[] = [
       },
       { title: "Users", url: "/user", submenu: [] },
       { title: "Forget Me Requests", url: "/forget-me-request", submenu: [] },
-      { title: "Configuration Management", url: "", submenu: [] },
+      { title: "Configuration Management", url: "/configuration-management", submenu: [] },
       {
         title: "Audits",
         url: "",
