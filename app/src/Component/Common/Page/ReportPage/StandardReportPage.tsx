@@ -11,7 +11,8 @@ export interface IStandardReportPage {
   reportName: string
   description?: string
   meta?: IFilterField[]
-  initialFilter: { [key: string]: string }
+  initialFilter?: { [key: string]: string }
+  defaultFilter?: { [key: string]: string }
   mapping?: { [key: string]: string }
 }
 
@@ -53,7 +54,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
             meta={props.meta}
             initialFilter={props.initialFilter}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
-              openReportInNewTab(newFilterValues)
+              openReportInNewTab({ ...props.defaultFilter, ...newFilterValues })
               setFilterCount(appliedFilterCount)
             }}
           />

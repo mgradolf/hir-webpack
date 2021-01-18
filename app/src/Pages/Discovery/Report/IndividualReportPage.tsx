@@ -54,6 +54,7 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
   const ReportName = props.match.params.reportName
   const [report, setReport] = useState<{ [key: string]: any }>({})
   const [reportMeta, setReportMeta] = useState<IFilterField[]>([])
+  const [defaultFilters, setDefaultFilters] = useState<{ [key: string]: any }>({})
   const [reportMapping, setReportMapping] = useState<{ [key: string]: any }>({})
   const [loading, setLoading] = useState(false)
 
@@ -61,13 +62,21 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
     setLoading(true)
     let preDefinedMeta: any
     let preDefinedMapping: any
+    let preDefinedFilters: any
     try {
       preDefinedMeta = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`)
     } catch (error) {}
+
     try {
       preDefinedMapping = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.mapping)
       setReportMapping(preDefinedMapping)
     } catch (error) {}
+
+    try {
+      preDefinedFilters = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.filters)
+      setDefaultFilters(preDefinedFilters)
+    } catch (error) {}
+
     const result = await getReportByReportName({ ReportName })
     if (result.success) {
       setReport(result.data)
@@ -107,6 +116,7 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
         description={report.ReportDescription}
         meta={reportMeta}
         initialFilter={{ ReportName }}
+        defaultFilter={defaultFilters}
         mapping={reportMapping}
       />
     )

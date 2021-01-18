@@ -114,7 +114,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Data Import Service (DIS)", url: "", submenu: [] },
           { title: "Job Schedule", url: "/job-schedule", submenu: [] },
-          { title: "Student Email Notification", url: "", submenu: [] }
+          { title: "Student Email Notification", url: "/student-email-notification", submenu: [] }
         ]
       },
       {
