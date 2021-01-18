@@ -1,8 +1,10 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 
-export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]: any }): CardContainer[] => {
-  const certificateInfo: CardContainer = {
+export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]: any }): IDetailsMeta => {
+  const meta: IDetailsTabMeta[] = []
+  const summary: CardContainer = {
     title: certificate.Name,
     contents: [
       { label: "Certificate Type", value: certificate.CertificateType, render: undefined },
@@ -18,5 +20,12 @@ export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]
       //TODO: add table for static params
     ]
   }
-  return [certificateInfo]
+  meta.push({
+    tabTitle: "Summary",
+    tabType: "summary",
+    tabMeta: {
+      summary: [summary]
+    }
+  })
+  return { tabs: meta }
 }

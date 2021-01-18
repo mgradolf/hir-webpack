@@ -7,7 +7,7 @@ export const getCertificateDefinitionTableColumns = (): ITableConfigProp => {
     {
       title: "",
       dataIndex: "CertificateNumber",
-      render: (text: any, record: any) => renderDetailsLink(`/certificate/${record.StudentCertificateID}`)
+      render: (text: any, record: any) => renderDetailsLink(`/data/certificate/${record.StudentCertificateID}`)
     },
     {
       title: "Certificate Name",

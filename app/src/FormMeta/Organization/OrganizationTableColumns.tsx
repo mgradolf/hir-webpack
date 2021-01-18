@@ -14,7 +14,7 @@ export const getOrganizationTableColumns = (isModal = false): ITableConfigProp =
       title: "Name",
       dataIndex: "Name",
       render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/organization/${record.OrganizationID}`}>{text}</Link>
+        isModal ? text : <Link to={`/data/organization/${record.OrganizationID}`}>{text}</Link>
     },
     {
       title: "Short Name",
@@ -24,7 +24,7 @@ export const getOrganizationTableColumns = (isModal = false): ITableConfigProp =
       title: "Parent Organization",
       dataIndex: "ParentOrgName",
       render: (text: any, record: any) =>
-        isModal ? text : <Link to={`/organization/${record.ParentOrganizationId}`}>{text}</Link>
+        isModal ? text : <Link to={`/data/organization/${record.ParentOrganizationId}`}>{text}</Link>
     }
   ]
 

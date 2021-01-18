@@ -111,8 +111,8 @@ import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
 import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
 import ResourcePage from "~/Pages/Manage/Resource/ResourcePage"
 import ResourceDetailsPage from "~/Pages/Manage/Resource/ResourceDetails"
-import { OranizationsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsPage"
-import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsDetailsPage"
+import { OranizationsPage } from "~/Pages/SetupAdministration/Data/Organizations/OranizationsPage"
+import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Data/Organizations/OranizationsDetailsPage"
 import MarketingProgramPage from "~/Pages/Manage/MarketingCodes/ProgramPage"
 import MarketingProgramDetailsPage from "~/Pages/Manage/MarketingCodes/ProgramDetails"
 import { UsersPage } from "~/Pages/SetupAdministration/Users/UsersPage"
@@ -258,8 +258,8 @@ export const AppRoutes: RouteProps[] = [
   { path: "/batch", component: BatchPage },
   { path: "/batch/:BatchImportID", component: BatchDetailsPage },
 
-  { path: "/organization", component: OranizationsPage },
-  { path: "/organization/:OrganizationID", component: OranizationsDetailsPage },
+  { path: "/data/organization", component: OranizationsPage },
+  { path: "/data/organization/:OrganizationID", component: OranizationsDetailsPage },
 
   { path: "/user", component: UsersPage },
   { path: "/user/:UserID", component: UsersDetailsPage },
@@ -279,5 +279,29 @@ export const AppRoutes: RouteProps[] = [
   {
     path: "/system-schedule/:TimerID",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
+  },
+  {
+    path: "/data/certificate",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesPage"))
+  },
+  {
+    path: "/data/certificate/:StudentCertificateID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesDetailsPage"))
+  },
+  {
+    path: "/data/grade-score-definition",
+    component: React.lazy(() =>
+      import("~/Pages/SetupAdministration/Data/GradeScoreDefinitions/GradeScoreDefinitionsPage")
+    )
+  },
+  {
+    path: "/data/grade-score-definition/:GradeScoreDefinitionID",
+    component: React.lazy(() =>
+      import("~/Pages/SetupAdministration/Data/GradeScoreDefinitions/GradeScoreDefinitionsDetailsPage")
+    )
+  },
+  {
+    path: "/job-schedule",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Tools/JobSchedules/JobSchedulesPage"))
   }
 ]

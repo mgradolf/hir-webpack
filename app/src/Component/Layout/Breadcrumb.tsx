@@ -26,8 +26,10 @@ const blockedPages: string[] = [
   "Resource",
   "Marketing programs",
   "Package",
-  "Gateway activity"
+  "Gateway activity",
+  "Grade score definition"
 ]
+
 const names: { [key: string]: string } = {
   Offering: "OfferingCode",
   Section: "SectionNumber",

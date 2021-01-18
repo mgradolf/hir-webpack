@@ -113,7 +113,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Data Import Service (DIS)", url: "", submenu: [] },
-          { title: "Job Schedule", url: "", submenu: [] },
+          { title: "Job Schedule", url: "/job-schedule", submenu: [] },
           { title: "Student Email Notification", url: "", submenu: [] }
         ]
       },
@@ -125,10 +125,10 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Section Type", url: "", submenu: [] },
           { title: "Building", url: "", submenu: [] },
           { title: "Site", url: "", submenu: [] },
-          { title: "Grade Score Definitions", url: "", submenu: [] },
+          { title: "Grade Score Definitions", url: "/data/grade-score-definition", submenu: [] },
           { title: "Reference Data", url: "", submenu: [] },
-          { title: "Organizations", url: "/organization", submenu: [] },
-          { title: "Certificates", url: "", submenu: [] }
+          { title: "Organizations", url: "/data/organization", submenu: [] },
+          { title: "Certificates", url: "/data/certificate", submenu: [] }
         ]
       },
       { title: "Users", url: "/user", submenu: [] },
