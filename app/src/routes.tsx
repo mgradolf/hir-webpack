@@ -271,5 +271,13 @@ export const AppRoutes: RouteProps[] = [
   {
     path: "/gateway-activity/:PaymentGatewayActivityID",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
+  },
+  {
+    path: "/system-schedule",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityPage"))
+  },
+  {
+    path: "/system-schedule/:TimerID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
   }
 ]

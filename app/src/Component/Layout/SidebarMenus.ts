@@ -139,7 +139,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Gateway Activity", url: "/gateway-activity", submenu: [] },
-          { title: "System Schedule", url: "", submenu: [] }
+          { title: "System Schedule", url: "/system-schedule", submenu: [] }
         ]
       }
     ]
