@@ -5,7 +5,8 @@ export const config = {
   Service: "com.jenzabar.jxntm.server.bizapi.student.StudentIF",
   Module: "hir",
   Actions: {
-    searchStudents: "searchStudents"
+    searchStudents: "searchStudents",
+    findAllStudentNotice: "findAllStudentNotice"
   }
 }
 

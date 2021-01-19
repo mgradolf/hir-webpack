@@ -19,7 +19,7 @@ export const getActivityEnrollmentTableColumns = (isModal = false): ITableConfig
       width: 100
     },
     {
-      title: "Student Name",
+      title: "Student",
       dataIndex: "SortName",
       render: (text: any, record: any) => <Link to={`/person/student/${record.StudentID}`}>{text}</Link>,
       width: 100

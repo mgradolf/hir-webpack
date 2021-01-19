@@ -24,13 +24,13 @@ export const getEnrollmentTableColumns = (isModal = false): ITableConfigProp => 
       render: (text: any, record: any) => (isModal ? { text } : <Link to={`/section/${record.SectionID}`}>{text}</Link>)
     },
     {
-      title: "Offering Name",
+      title: "Offering",
       dataIndex: "OfferingName",
       render: (text: any, record: any) =>
         isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
-      title: "Student Name",
+      title: "Student",
       dataIndex: "StudentName",
       render: (text: any, record: any) =>
         isModal ? { text } : <Link to={`/person/student/${record.StudentID}`}>{text}</Link>

@@ -19,12 +19,12 @@ export const getProgramEnrollmentTableColumns = (isModal = false): ITableConfigP
       })
     },
     {
-      title: "Program Name",
+      title: "Program",
       dataIndex: "ProgramName",
       render: (text, record) => (isModal ? text : <Link to={`/program/${record.ProgramID}`}>{text}</Link>)
     },
     {
-      title: "Student Name",
+      title: "Student",
       dataIndex: "StudentName",
       render: (text, record) => (isModal ? text : <Link to={`/person/student/${record.StudentID}`}>{text}</Link>)
     },

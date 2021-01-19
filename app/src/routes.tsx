@@ -44,15 +44,15 @@ import CourseCertificatePage from "~/Pages/Manage/Courses/Certificate/CourseCert
 import { ProgramCertificatePage } from "~/Pages/Manage/Program/CertificatePage"
 import CertificateDetailPage from "~/Pages/Manage/Courses/Certificate/CertificateDetailPage"
 
-import PersonPage from "~/Pages/Manage/People/Person/PersonPage"
-import PersonDetailPage from "~/Pages/Manage/People/Person/PersonDetailPage"
+import PersonPage from "~/Pages/Manage/Constituents/Person/PersonPage"
+import PersonDetailPage from "~/Pages/Manage/Constituents/Person/PersonDetailPage"
 
-import StudentPage from "~/Pages/Manage/People/Student/StudentPage"
+import StudentPage from "~/Pages/Manage/Constituents/Student/StudentPage"
 
-import InstructorPage from "~/Pages/Manage/People/Instructor/InstructorPage"
+import InstructorPage from "~/Pages/Manage/Constituents/Instructor/InstructorPage"
 
-import AccountPage from "~/Pages/Manage/People/Account/AccountPage"
-import AccountDetailsPage from "~/Pages/Manage/People/Account/AccountDetails"
+import AccountPage from "~/Pages/Manage/Constituents/Account/AccountPage"
+import AccountDetailsPage from "~/Pages/Manage/Constituents/Account/AccountDetails"
 
 import ProductPage from "~/Pages/Manage/Product/ProductPage"
 import ProductDetailsPage from "~/Pages/Manage/Product/ProductDetails"
@@ -111,8 +111,8 @@ import BatchDetailsPage from "~/Pages/Manage/Batch/BatchDetailsPage"
 import SeatGroupDetailsPage from "~/Pages/Manage/SeatgroupDetails"
 import ResourcePage from "~/Pages/Manage/Resource/ResourcePage"
 import ResourceDetailsPage from "~/Pages/Manage/Resource/ResourceDetails"
-import { OranizationsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsPage"
-import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Organizations/OranizationsDetailsPage"
+import { OranizationsPage } from "~/Pages/SetupAdministration/Data/Organizations/OranizationsPage"
+import { OranizationsDetailsPage } from "~/Pages/SetupAdministration/Data/Organizations/OranizationsDetailsPage"
 import MarketingProgramPage from "~/Pages/Manage/MarketingCodes/ProgramPage"
 import MarketingProgramDetailsPage from "~/Pages/Manage/MarketingCodes/ProgramDetails"
 import { UsersPage } from "~/Pages/SetupAdministration/Users/UsersPage"
@@ -261,9 +261,101 @@ export const AppRoutes: RouteProps[] = [
   { path: "/batch", component: BatchPage },
   { path: "/batch/:BatchImportID", component: BatchDetailsPage },
 
-  { path: "/organization", component: OranizationsPage },
-  { path: "/organization/:OrganizationID", component: OranizationsDetailsPage },
+  { path: "/data/organization", component: OranizationsPage },
+  { path: "/data/organization/:OrganizationID", component: OranizationsDetailsPage },
 
   { path: "/user", component: UsersPage },
-  { path: "/user/:UserID", component: UsersDetailsPage }
+  { path: "/user/:UserID", component: UsersDetailsPage },
+
+  {
+    path: "/gateway-activity",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityPage"))
+  },
+  {
+    path: "/gateway-activity/:PaymentGatewayActivityID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
+  },
+  {
+    path: "/system-schedule",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityPage"))
+  },
+  {
+    path: "/system-schedule/:TimerID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
+  },
+  {
+    path: "/data/certificate",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesPage"))
+  },
+  {
+    path: "/data/certificate/:StudentCertificateID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesDetailsPage"))
+  },
+  {
+    path: "/data/grade-score-definition",
+    component: React.lazy(() =>
+      import("~/Pages/SetupAdministration/Data/GradeScoreDefinitions/GradeScoreDefinitionsPage")
+    )
+  },
+  {
+    path: "/data/grade-score-definition/:GradeScoreDefinitionID",
+    component: React.lazy(() =>
+      import("~/Pages/SetupAdministration/Data/GradeScoreDefinitions/GradeScoreDefinitionsDetailsPage")
+    )
+  },
+  {
+    path: "/job-schedule",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Tools/JobSchedules/JobSchedulesPage"))
+  },
+  {
+    path: "/configuration-management",
+    component: React.lazy(() =>
+      import("~/Pages/SetupAdministration/ConfigurationManagement/ConfigurationManagementPage")
+    )
+  },
+
+  {
+    path: "/offering-type",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/OfferingType/OfferingTypePage"))
+  },
+  {
+    path: "/offering-type/:OfferingTypeID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/OfferingType/OfferingTypeDetailsPage"))
+  },
+
+  {
+    path: "/section-type",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/SectionType/SectionTypePage"))
+  },
+  {
+    path: "/section-type/:SectionTypeID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/SectionType/SectionTypeDetailsPage"))
+  },
+
+  {
+    path: "/building",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/BuildingPage"))
+  },
+  {
+    path: "/building/:BuildingID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/BuildingDetailsPage"))
+  },
+
+  {
+    path: "/site",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Site/SitePage"))
+  },
+  {
+    path: "/site/:SiteID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Site/SiteDetailsPage"))
+  },
+
+  {
+    path: "/membership",
+    component: React.lazy(() => import("~/Pages/Manage/Memberships/MembershipPage"))
+  },
+  {
+    path: "/membership/:MembershipID",
+    component: React.lazy(() => import("~/Pages/Manage/Memberships/MembershipsDetailsPage"))
+  }
 ]

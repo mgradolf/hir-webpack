@@ -6,6 +6,8 @@ import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
+import { getOrganizationCalendarTableColumns } from "~/FormMeta/Organization/OrganizationCalendarTableColumns"
+
 export const getOrganizationDetailsMeta = (organization: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const Organization: CardContainer = {
@@ -18,7 +20,7 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
       {
         label: "Parent Org",
         value: organization.ParentOrgName,
-        render: (text: any) => <Link to={`/organization/${organization.ParentOrganizationId}`}>{text}</Link>
+        render: (text: any) => <Link to={`/data/organization/${organization.ParentOrganizationId}`}>{text}</Link>
       },
       { label: "FEID", value: organization.FEID },
       { label: "Employee Count", value: organization.EmployeeCount },
@@ -69,6 +71,19 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
         ...getQuestionTaggingTableColumns(true),
         searchParams: { OrganizationID: organization.OrganizationID },
         refreshEventName: "REFRESH_ORGANIZATION_TAGGED_QUESTION"
+      }
+    }
+  })
+
+  tabMeta.push({
+    tabTitle: "Calender",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        pagination: false,
+        ...getOrganizationCalendarTableColumns(true),
+        searchParams: { OrganizationID: organization.OrganizationID },
+        refreshEventName: "REFRESH_ORGANIZATION_CALENDER"
       }
     }
   })

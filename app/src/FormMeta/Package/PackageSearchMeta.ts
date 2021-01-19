@@ -18,6 +18,12 @@ export const PackageSearchMeta: IFilterField[] = [
     valueKey2: "EndDate"
   },
   {
+    label: "Name",
+    inputType: TEXT,
+    fieldName: "Name",
+    ariaLabel: "Name"
+  },
+  {
     label: "PO Number",
     inputType: TEXT,
     fieldName: "PONumber",
@@ -28,11 +34,5 @@ export const PackageSearchMeta: IFilterField[] = [
     inputType: DATE_PICKER,
     fieldName: "PODate",
     ariaLabel: "PO Date"
-  },
-  {
-    label: "Name",
-    inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Name"
   }
 ]

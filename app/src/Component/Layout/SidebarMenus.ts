@@ -19,7 +19,6 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Accounts", url: "/account", submenu: [] }
         ]
       },
-      // { title: "Accounts", url: "/account", submenu: [] },
       {
         title: "Courses",
         url: "",
@@ -51,16 +50,15 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Credits", url: "/order/credits", submenu: [] },
           { title: "Payments", url: "/order/payments", submenu: [] },
           { title: "Transactions", url: "/transaction", submenu: [] }
-          // { title: "Discount Programs", url: "/discount-program", submenu: [] }
         ]
       },
       { title: "Requests", url: "/request", submenu: [] },
+      { title: "Membership", url: "/membership", submenu: [] },
       {
         title: "Questions",
         url: "",
         submenu: [
           { title: "Repository", url: "/question", submenu: [] },
-          // { title: "Tagging", url: "/question/tagging", submenu: [] },
           { title: "Responses", url: "/question/response", submenu: [] }
         ]
       },
@@ -88,16 +86,8 @@ export const sidebarMenus: ISidebarMenu[] = [
     submenu: [
       { title: "Reports", url: "/report", submenu: [] },
       { title: "Charts", url: "/chart", submenu: [] },
-      { title: "Mail Merge", url: "", submenu: [] },
+      { title: "Queries", url: "", submenu: [] },
       { title: "Master P & L Calculator", url: "", submenu: [] },
-      // {
-      //   title: "Analysis",
-      //   url: "",
-      //   submenu: [
-      //     { title: "Discount Analyzer", url: "", submenu: [] },
-      //     { title: "Master P & L Calculator", url: "", submenu: [] }
-      //   ]
-      // },
       {
         title: "Search",
         url: "",
@@ -109,86 +99,49 @@ export const sidebarMenus: ISidebarMenu[] = [
               { title: "Section Instructors", url: "", submenu: [] },
               { title: "Section Schedule and Location", url: "", submenu: [] }
             ]
-          },
-          // {
-          //   title: "Financial",
-          //   url: "",
-          //   submenu: [
-          //     { title: "Credits", url: "", submenu: [] },
-          //     { title: "Payment Dues", url: "", submenu: [] },
-          //     { title: "Agent Enrollment Revenue", url: "", submenu: [] }
-          //   ]
-          // },
-          // {
-          //   title: "Activity",
-          //   url: "",
-          //   submenu: [
-          //     { title: "Student Academic", url: "/search/activity/academic-log", submenu: [] },
-          //     { title: "Student Enrollment", url: "/search/activity/enrollment-log", submenu: [] },
-          //     { title: "Enrollment History", url: "/search/activity/enrollment-history", submenu: [] },
-          //     { title: "Order Activity", url: "/search/activity/order-log", submenu: [] }
-          //   ]
-          // },
-          {
-            title: "System",
-            url: "",
-            submenu: [
-              { title: "Gateway Activity", url: "", submenu: [] },
-              { title: "System Schedule", url: "", submenu: [] }
-            ]
           }
         ]
       }
     ]
   },
   {
-    title: "Tools",
+    title: "Administration",
     url: "",
     submenu: [
-      { title: "Data Import Service (DIS)", url: "", submenu: [] },
-      { title: "Job Schedule", url: "", submenu: [] },
-      { title: "Student Email Notification", url: "", submenu: [] }
-    ]
-  },
-  {
-    title: "Setup/Administration",
-    url: "",
-    submenu: [
+      {
+        title: "Tools",
+        url: "",
+        submenu: [
+          { title: "Data Import Service (DIS)", url: "", submenu: [] },
+          { title: "Job Schedule", url: "/job-schedule", submenu: [] },
+          { title: "Student Email Notification", url: "/student-email-notification", submenu: [] }
+        ]
+      },
+      {
+        title: "Data",
+        url: "",
+        submenu: [
+          { title: "Offering Type", url: "/offering-type", submenu: [] },
+          { title: "Section Type", url: "/section-type", submenu: [] },
+          { title: "Building", url: "/building", submenu: [] },
+          { title: "Site", url: "/site", submenu: [] },
+          { title: "Grade Score Definitions", url: "/data/grade-score-definition", submenu: [] },
+          { title: "Reference Data", url: "", submenu: [] },
+          { title: "Organizations", url: "/data/organization", submenu: [] },
+          { title: "Certificates", url: "/data/certificate", submenu: [] }
+        ]
+      },
+      { title: "Users", url: "/user", submenu: [] },
       { title: "Forget Me Requests", url: "/forget-me-request", submenu: [] },
+      { title: "Configuration Management", url: "/configuration-management", submenu: [] },
       {
-        title: "Course",
+        title: "Audits",
         url: "",
         submenu: [
-          { title: "Offering Type", url: "", submenu: [] },
-          { title: "Section Type", url: "", submenu: [] }
+          { title: "Gateway Activity", url: "/gateway-activity", submenu: [] },
+          { title: "System Schedule", url: "/system-schedule", submenu: [] }
         ]
-      },
-      {
-        title: "Locations",
-        url: "",
-        submenu: [
-          { title: "Building", url: "", submenu: [] },
-          { title: "Site", url: "", submenu: [] }
-        ]
-      },
-      { title: "Certificates", url: "", submenu: [] },
-      // { title: "Marketing Programs", url: "", submenu: [] },
-      // { title: "Resources", url: "", submenu: [] },
-      { title: "Grade Score Definitions", url: "", submenu: [] },
-      { title: "Reference Data", url: "", submenu: [] },
-      { title: "Organizations", url: "/organization", submenu: [] },
-
-      // {
-      //   title: "Organization",
-      //   url: "",
-      //   submenu: [
-      //     { title: "Organizations", url: "/organization", submenu: [] },
-      //     { title: "Setup", url: "", submenu: [] },
-      //     { title: "Calender", url: "", submenu: [] }
-      //   ]
-      // },
-      { title: "Configuration Management", url: "", submenu: [] },
-      { title: "Users", url: "/user", submenu: [] }
+      }
     ]
   }
 ]

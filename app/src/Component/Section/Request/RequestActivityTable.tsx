@@ -23,7 +23,7 @@ export function RequestActivityTable(props: ITableWrapperProps) {
       dataIndex: "ActivityBy"
     },
     {
-      title: "ActivityDescription",
+      title: "Description",
       dataIndex: "ActivityDescription"
     }
   ]

@@ -26,8 +26,11 @@ const blockedPages: string[] = [
   "Resource",
   "Marketing programs",
   "Package",
-  "Enrollment"
+  "Enrollment",
+  "Gateway activity",
+  "Grade score definition"
 ]
+
 const names: { [key: string]: string } = {
   Offering: "OfferingCode",
   Section: "SectionNumber",
@@ -50,6 +53,7 @@ const transformIdToName = async (paths: Array<IBreadcrumbPath>): Promise<Array<a
   let previousPath: any = {}
   for (const x of paths) {
     if (typeof x.label === "number" && !cache[x.path]) {
+      console.log(previousPath.label)
       if (!blockedPages.includes(previousPath.label) && isNaN(Number(previousPath.label))) {
         const result: any = await getEntityById(removeSpaceBetweenCapitalLetters(previousPath.label), x.label)
         if (result.success && result.data) {

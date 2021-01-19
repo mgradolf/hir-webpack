@@ -36,7 +36,7 @@ export const getActivityAcademicTableColumn = (isModal = false): ITableConfigPro
       width: 100
     },
     {
-      title: "Student Name",
+      title: "Student",
       dataIndex: "SortName",
       render: (text: any, record: any) => {
         return <Link to={`/person/student/${record.StudentID}`}>{text}</Link>

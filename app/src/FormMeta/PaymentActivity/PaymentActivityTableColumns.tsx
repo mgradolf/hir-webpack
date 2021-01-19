@@ -35,7 +35,7 @@ export const getPaymentActivityTableColumns = (isModal = false, SectionID?: numb
       render: (text: any, record: any) => <Link to={`/order/payments/${record.PaymentID}`}>{text}</Link>
     },
     {
-      title: "Payer Name",
+      title: "Payer",
       dataIndex: "PersonName",
       render: (text: any, record: any) => {
         return <Link to={`/person/${record.PersonID}`}>{text}</Link>

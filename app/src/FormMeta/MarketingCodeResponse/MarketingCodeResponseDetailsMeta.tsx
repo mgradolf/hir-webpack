@@ -23,13 +23,13 @@ export const getMarketingCodeResponseDetailsMeta = (response: { [key: string]: a
       },
       { label: "Order Date", value: response.OrderDate, render: renderDate },
       {
-        label: "Purchaser Name",
+        label: "Purchaser",
         value: response.PurchaserName,
         render: (text) => <Link to={`/person/${response.PersonID}`}>{response.PurchaserName}</Link>
       },
       { label: "Item Description", value: response.ItemDescription },
       {
-        label: "Account Name",
+        label: "Account",
         value: response.AccountName,
         render: (text) => <Link to={`/account/${response.AccountID}`}>{response.AccountName}</Link>
       },

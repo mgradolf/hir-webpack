@@ -34,8 +34,8 @@ export default function SectionCommentPage(props: { sectionID: number }) {
       dataIndex: "FormattedName"
     }
   ]
-  const instructorColumns: TableColumnType = [...genralColumns, { title: "Faculty Name", dataIndex: "FacultyName" }]
-  const enrollmentColumns: TableColumnType = [...genralColumns, { title: "Student Name", dataIndex: "StudentName" }]
+  const instructorColumns: TableColumnType = [...genralColumns, { title: "Faculty", dataIndex: "FacultyName" }]
+  const enrollmentColumns: TableColumnType = [...genralColumns, { title: "Student", dataIndex: "StudentName" }]
 
   useEffect(() => {
     eventBus.subscribe(REFRESH_SECTION_COMMENT_PAGE, () => {

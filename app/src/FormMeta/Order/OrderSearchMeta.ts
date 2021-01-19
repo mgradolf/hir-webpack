@@ -22,7 +22,7 @@ export const OrderSearchMeta: IFilterField[] = [
           component: SearchPersonLookupButton
         },
         {
-          label: "Student Name",
+          label: "Student",
           fieldName: "StudentName",
           valueField: "FormattedName",
           component: SearchStudentLookupButton

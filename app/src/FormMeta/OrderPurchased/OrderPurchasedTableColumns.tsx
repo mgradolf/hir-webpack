@@ -25,7 +25,7 @@ export const getOrderPurchasedTableColumns = (isModal = false, SectionID?: numbe
         ) : (
           <Link to={`/order/${record.OrderID}`}>{text}</Link>
         )
-    }    
+    }
   ]
 
   const responsiveColumnIndices: number[] = []

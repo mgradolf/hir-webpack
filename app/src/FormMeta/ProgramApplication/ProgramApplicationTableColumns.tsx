@@ -7,9 +7,9 @@ import { searchProgramApplication } from "~/ApiServices/BizApi/program/programAp
 export const getProgramApplicationTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     { title: "Program Code", dataIndex: "ProgramCode" },
-    { title: "Program Name", dataIndex: "ProgramName" },
+    { title: "Program", dataIndex: "ProgramName" },
     { title: "Department", dataIndex: "DepartmentName" },
-    { title: "Student Name", dataIndex: "StudentName" },
+    { title: "Student", dataIndex: "StudentName" },
     { title: "Enrollment Date ", dataIndex: "EnrollmentDate", render: renderDate },
     { title: "Email", dataIndex: "Email", render: renderEmail },
     { title: "Status", dataIndex: "StatusName" },

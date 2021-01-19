@@ -22,7 +22,7 @@ export const getEnrollmentActivityLogTableColumns = (isModal = false): ITableCon
     { title: "Activity Type", dataIndex: "ActivityOperation", render: undefined },
     { title: "Activity By", dataIndex: "ActivityModifiedByName", render: undefined },
     {
-      title: "Student Name",
+      title: "Student",
       dataIndex: "SortName",
       render: (text: any, record: any) =>
         isModal ? { text } : <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
@@ -33,7 +33,7 @@ export const getEnrollmentActivityLogTableColumns = (isModal = false): ITableCon
       render: (text: any, record: any) => (isModal ? { text } : <Link to={`/section/${record.SectionID}`}>{text}</Link>)
     },
     // {
-    //   title: "Offering Name",
+    //   title: "Offering",
     //   dataIndex: "OfferingName",
     //   render: (text: any, record: any) =>
     //     isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
