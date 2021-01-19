@@ -23,7 +23,7 @@ const meta: IFilterField[] = [
     valueKey: "OrganizationID"
   },
   {
-    label: "User Name",
+    label: "User",
     inputType: TEXT,
     fieldName: "UserName"
   },
@@ -46,13 +46,3 @@ const meta: IFilterField[] = [
 ]
 
 export default meta
-
-//  BeginDate
-//  EndDate
-//  OrganizationID
-//  OrganizationName
-//  OrganizationName
-//  CreatedBy
-//  UserName
-//  PaymentGatewayAccountID
-//  PaymentTypeID
