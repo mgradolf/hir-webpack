@@ -33,7 +33,7 @@ const meta: IFilterField[] = [
     customFilterComponent: SearchStudentLookupButton
   },
   {
-    label: "Person",
+    label: "Purchaser",
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton
   }

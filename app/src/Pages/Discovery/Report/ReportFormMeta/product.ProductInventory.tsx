@@ -18,22 +18,26 @@ const meta: IFilterField[] = [
     fieldName: "ProductTypeName"
   },
   {
-    label: "Product Fulfiller",
+    label: "Fulfiller",
     inputType: TEXT,
     fieldName: "ProductFulfillerName"
   },
   {
-    label: "Product Seller",
+    label: "Seller",
     inputType: TEXT,
     fieldName: "ProductSellerName"
   },
   {
-    label: "Is Active",
+    label: "Active",
+    inputType: DROPDOWN,
     fieldName: "IsActive",
-    inputType: BOOLEAN
+    options: [
+      { label: "Active", value: "active" },
+      { label: "Inactive", value: "inactive" }
+    ]
   },
   {
-    label: "Ethnicity",
+    label: "Delivery Mode",
     inputType: DROPDOWN,
     fieldName: "ProductDeliveryMode",
     refLookupService: getDeliveryModes,

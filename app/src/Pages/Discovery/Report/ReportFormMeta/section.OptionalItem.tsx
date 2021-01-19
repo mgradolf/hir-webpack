@@ -40,7 +40,7 @@ const meta: IFilterField[] = [
     inputType: DATE_PICKERS
   },
   {
-    label: "Product",
+    label: "Purchaser",
     fieldName: "ProductID",
     customFilterComponent: SearchProducttLookup
   }

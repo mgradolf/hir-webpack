@@ -1,5 +1,5 @@
 import { getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKER, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 
 const meta: IFilterField[] = [
@@ -19,17 +19,13 @@ const meta: IFilterField[] = [
   {
     label: "Creation Date",
     fieldName: "creationDate",
-    inputType: DATE_PICKERS
+    inputType: DATE_PICKER
   },
   {
     label: "Termination Date",
-    fieldName: "terminationDate",
-    inputType: DATE_PICKERS
+    inputType: DATE_PICKER,
+    fieldName: "creationDate"
   }
 ]
 
 export default meta
-
-// OfferingID
-// SectionStatusCodeID
-// CREATION_DATE = creationDate

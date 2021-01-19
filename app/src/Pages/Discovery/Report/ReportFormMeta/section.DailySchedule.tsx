@@ -1,12 +1,15 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKER, IFilterField } from "~/Component/Common/SearchFilters/common"
 
 const meta: IFilterField[] = [
   {
     label: "Schedule For",
     fieldName: "date_start",
-    fieldName2: "date_end",
-    inputType: DATE_PICKERS
+    inputType: DATE_PICKER
   }
 ]
+
+export const mapping: { [key: string]: any } = {
+  date_start: "date_end"
+}
 
 export default meta

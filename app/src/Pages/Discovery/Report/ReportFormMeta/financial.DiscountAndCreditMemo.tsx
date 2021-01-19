@@ -34,3 +34,8 @@ const meta: IFilterField[] = [
 ]
 
 export default meta
+
+export const filters = {
+  CreditAmount: 0,
+  DiscountAmount: 0
+}

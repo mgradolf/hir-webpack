@@ -1,12 +1,6 @@
 import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 
 const meta: IFilterField[] = [
-  {
-    label: "AccountID",
-    fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
-  },
   {
     label: "Final Enrollment Date",
     fieldName: "OrderDateFrom",
