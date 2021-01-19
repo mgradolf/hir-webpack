@@ -26,6 +26,29 @@ export default function SectionCatalogPage(props: { sectionID: number; title?: s
 
   const columns = [
     {
+      title: "Catalog Name",
+      dataIndex: "catalogName",
+      render: (text: any, record: any) => <Link to={`/catalog/${record.catalogID}`}>{record.catalogName}</Link>,
+      key: "catalogName"
+    },
+    {
+      title: "Start Date",
+      dataIndex: "startDate",
+      key: "startDate",
+      render: renderDate
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      key: "endDate",
+      render: renderDate
+    },
+    {
+      title: "Current Status",
+      dataIndex: "currentStatus",
+      key: "currentStatus"
+    },
+    {
       title: "Published",
       dataIndex: "isPublished",
       key: "catalogName",
@@ -52,29 +75,6 @@ export default function SectionCatalogPage(props: { sectionID: number; title?: s
           ></Switch>
         )
       }
-    },
-    {
-      title: "Catalog Name",
-      dataIndex: "catalogName",
-      render: (text: any, record: any) => <Link to={`/catalog/${record.catalogID}`}>{record.catalogName}</Link>,
-      key: "catalogName"
-    },
-    {
-      title: "Start Date",
-      dataIndex: "startDate",
-      key: "startDate",
-      render: renderDate
-    },
-    {
-      title: "End Date",
-      dataIndex: "endDate",
-      key: "endDate",
-      render: renderDate
-    },
-    {
-      title: "Current Status",
-      dataIndex: "currentStatus",
-      key: "currentStatus"
     }
   ]
 
@@ -95,10 +95,7 @@ export default function SectionCatalogPage(props: { sectionID: number; title?: s
             columns={columns}
             dataSource={sectionCatalogs}
             loading={loading}
-            bordered
-            pagination={{ position: ["topLeft"], pageSize: 20 }}
-            scroll={{ y: 600 }}
-            rowKey="catalogID"
+            pagination={false}
           />
         </Col>
       </Row>

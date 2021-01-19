@@ -5,6 +5,7 @@ export const config = {
   Service: "com.jenzabar.jxntm.server.bizapi.program.ProgramApplicationIF",
   Module: "hir",
   Actions: {
+    getProgramAppDetails: "getProgramAppDetails",
     searchProgramApplication: "searchProgramApplication"
   }
 }

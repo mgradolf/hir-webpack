@@ -3,11 +3,21 @@ import { Link } from "react-router-dom"
 import { renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchEnrollment } from "~/ApiServices/BizApi/program/programEnrollmentIF"
+import { ReadOutlined } from "@ant-design/icons"
 
 export const getProgramEnrollmentTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    // { title: "Program Code", dataIndex: "ProgramCode" },
-    // { title: "Department", dataIndex: "DepartmentName" },
+    {
+      ...(!isModal && {
+        title: "",
+        dataIndex: "",
+        render: (text: any, record: any) => (
+          <Link to={`/program/enrollment/${record.ProgramEnrollmentID}`}>
+            <ReadOutlined />
+          </Link>
+        )
+      })
+    },
     {
       title: "Program",
       dataIndex: "ProgramName",

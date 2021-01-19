@@ -5,7 +5,9 @@ export const config = {
   Service: "com.jenzabar.jxntm.server.bizapi.program.ProgramEnrollmentIF",
   Module: "hir",
   Actions: {
-    searchEnrollment: "searchEnrollment"
+    searchEnrollment: "searchEnrollment",
+    trackingProgress: "trackingProgress",
+    changeEnrollmentStatusWithEvent: "changeEnrollmentStatusWithEvent"
   }
 }
 

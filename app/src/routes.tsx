@@ -119,6 +119,8 @@ import { UsersPage } from "~/Pages/SetupAdministration/Users/UsersPage"
 import { UsersDetailsPage } from "~/Pages/SetupAdministration/Users/UsersDetailsPage"
 import PackagePage from "~/Pages/Manage/Package/PackagePage"
 import PackageDetailsPage from "~/Pages/Manage/Package/PackageDetails"
+import { ProgramEnrollmentDetailsPage } from "~/Pages/Manage/Program/EnrollmentDetailsPage"
+import { ProgramApplicationDetailsPage } from "~/Pages/Manage/Program/ApplicationDetailsPage"
 
 export const AppRoutes: RouteProps[] = [
   { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
@@ -222,11 +224,13 @@ export const AppRoutes: RouteProps[] = [
   { path: "/program/offering", component: ProgramOfferingPage },
   { path: "/program/offering/:programOfferingID", component: ProgramOfferingDetailsPage },
   { path: "/program/enrollment", component: ProgramEnrollmentPage },
+  { path: "/program/enrollment/:programEnrollmentID", component: ProgramEnrollmentDetailsPage },
   { path: "/program/application", component: ProgramApplicationPage },
   { path: "/program/certificate", component: ProgramCertificatePage },
   { path: "/program/certificate/:studentCertificateID", component: CertificateDetailPage },
   { path: "/program/program", component: ProgramProgramPage },
   { path: "/program/:programID", component: ProgramDetailsPage },
+  { path: "/program/:programID/student/:studentID/application", component: ProgramApplicationDetailsPage },
 
   { path: "/search/activity/academic-log", component: AcademicPage },
   { path: "/search/activity/enrollment-log", component: EnrollmentPage },

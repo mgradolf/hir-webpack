@@ -27,4 +27,5 @@ export interface IDetailsPage {
   entityID?: number
   titleKey?: string
   actions?: JSX.Element[]
+  refreshEventName?: string
 }
