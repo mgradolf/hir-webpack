@@ -1,48 +1,57 @@
 import { renderDate, renderDetailsLink, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import { getLiteRequests } from "~/ApiServices/Service/RequestService"
+//TODO: API fix 
+import { getMembershipCollection } from "~/ApiServices/Service/RequestService"
 
 export const getMembershipTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "",
-      dataIndex: "RequestID",
-      key: "RequestID",
-      render: (text: any, record: any) => renderDetailsLink(`/request/${record.RequestID}`)
+      dataIndex: "MembershipID",
+      key: "MembershipID",
+      render: (text: any, record: any) => renderDetailsLink(`/membership/${record.MembershipID}`)
     },
     {
-      title: "Request Date",
-      dataIndex: "CreateDate",
-      key: "CreateDate",
+      title: "Member Since",
+      dataIndex: "MemberSince",
+      key: "MemberSince",
       render: renderDate
     },
     {
-      title: "Purchaser",
-      dataIndex: "PurchaserPersonName",
-      render: (text: any, record: any) => renderLink(`/person/${record.PurchaserPersonID}`, text),
-      key: "PurchaserPersonName"
+      title: "Member",
+      dataIndex: "PersonName",
+      render: (text: any, record: any) => renderLink(`/person/${record.PersonID}`, text),
+      key: "PersonName"
     },
     {
-      title: "Account",
-      dataIndex: "AccountName",
-      render: (text: any, record: any) => renderLink(`/account/${record.AccountID}`, text),
-      key: "AccountName"
+      title: "Email",
+      dataIndex: "EmailAddress",
+      render: renderEmail,
+      key: "EmailAddress"
     },
     {
-      title: "Request Type",
-      dataIndex: "RequestType",
-      key: "RequestType"
+      title: "Membership Program",
+      dataIndex: "MembershipProgramName",
+      render: (text: any, record: any) => renderLink(`/membershipprogram/${record.MembershipProgramID}`, text),      
+      key: "MembershipProgramName"
     },
     {
-      title: "Request Status",
-      dataIndex: "State",
-      key: "State"
+      title: "Level",
+      dataIndex: "MembershipDefinitionName",
+      key: "MembershipDefinitionName"
     },
     {
-      title: "Source",
-      dataIndex: "Source",
-      key: "Source"
-    }
+      title: "Active",
+      dataIndex: "IsActive",
+      key: "IsActive",
+      render:renderBoolean
+    },
+    {
+      title: "Renewed",
+      dataIndex: "IsRenewed",
+      key: "IsRenewed",
+      render:renderBoolean
+    }    
   ]
 
   const responsiveColumnIndices: number[] = []
@@ -51,13 +60,6 @@ export const getMembershipTableColumns = (isModal = false): ITableConfigProp => 
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: (Params: { [key: string]: any }) =>
-      getLiteRequests(Params).then((x: any) => {
-        if (x.success) {
-          x.data = x?.data?.Requests
-        }
-
-        return x
-      })
+    searchFunc: getMembershipCollection
   }
 }

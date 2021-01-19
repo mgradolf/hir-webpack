@@ -1,25 +1,22 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
-import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
+//TODO: fix api
+import { findOfferingTypes } from "~/ApiServices/BizApi/account/accountIF"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOfferingTypeTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Account",
-      dataIndex: "AccountName",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
-    },
-    {
-      title: "Primary Contact",
-      dataIndex: "ContactName",
       render: (text: any, record: any) =>
-        isModal || !text ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>
-    },
-    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
-    { title: "Telephone", dataIndex: "TelephoneNumber" },
-    { title: "Account Type", dataIndex: "AccountTypeName" }
+          <Link to={`/offering-type/${record.OfferingTypeID}`}>
+            <ReadOutlined />
+          </Link>
+    },  
+    { title: "Offering Type", dataIndex: "OfferingTypeName"   },
+    { title: "Offering Name", dataIndex: "Name" },
+    { title: "Offering Code", dataIndex: "OfferingCode" },
+    { title: "Department", dataIndex: "OrganizationName" },
+    { title: "Quick Admit", dataIndex: "IsQuickAdmit" , render:renderBoolean}
   ]
-  return { columns, searchFunc: findAccountForLookUp, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findOfferingTypes, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

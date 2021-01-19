@@ -8,11 +8,18 @@ export const getBuildingTypeDetailsMeta = (account: { [key: string]: any }): IDe
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      { label: "Building Number", value: account.BuildingNumber },
+      { label: "Room Number", value: account.RoomNumber },
+      { label: "Room Type", value: account.RoomUseType },
+      { label: "Mail Stop", value: account.MailStop },
+      { label: "Building", value: account.BuildingName,      
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/building/${record.BuildingID}`}>{text}</Link>) 
+      },
       { label: "Site", value: account.SiteName,      
       render: (text: any, record: any) => (isModal ? text : <Link to={`/site/${record.SiteID}`}>{text}</Link>) 
       },
-      { label: "Number of Floor", value: account.Floors },
+      { label: "Floor", value: account.BuildingFloor },
+      { label: "Capacity", value: account.Capacity },
+      { label: "Accessible", value: account.IsHandicapAccess, render: renderBoolean }
       { label: "Active", value: account.IsActive, render: renderBoolean }
     ]
   }

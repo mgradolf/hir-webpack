@@ -3,25 +3,25 @@ import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
-import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/getAccountAffiliationTableColumn"
 
 export const getOfferingTypeDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      // { label: "Account Name", value: account.AccountName },
-      { label: "Account Type", value: account.AccountTypeName },
-      {
-        label: "Primary Contact",
-        value: account.ContactName,
-        render: (text) => <Link to={`/person/${account.PersonID}`}>{text}</Link>
-      },
-      { label: "Tax ID", value: account.TaxID },
-      { label: "Public", value: account.IsPublic, render: renderBoolean },
-      { label: "Allow to Pay Later", value: account.AllowPayLateDescription },
-      { label: "Approval Required", value: account.IsApprovalRequired, render: renderBoolean },
-      { label: "Default Waitlist Priority", value: account.DefaultWaitlistPriority || 5 },
-      { label: "Payment Term", value: account.PaymentTerm }
+      { label: "Type Description", value: account.OfferingTypeDescription },
+      { label: "Offering Name", value: account.Name },
+      { label: "Offering Code", value: account.OfferingCode },
+      { label: "Offering Description", value: account.Description  },
+      { label: "Department", value: account.OrganizationName },
+      { label: "Inquiry Recipient", value: account.SubmitInquiryToUserID },
+      { label: "Quick Admit", value: account.IsQuickAdmit, render: renderBoolean },
+      { label: "Add Approval Process", value: account.HasApprovalProcess, render: renderBoolean },
+      { label: "Default Creation By Offering", value: account.InitOfferingCreationDates, render:renderBoolean },
+      { label: "Default Creation Term", value: account.CreationTermType },
+      { label: "Default Creation Time", value: account.CreationDate },
+      { label: "Default Termination Term", value: account.TerminationTermType },
+      { label: "Default Termination Time", value: account.TerminationDate },
+      { label: "URL", value: account.URL }
     ]
   }
 
@@ -32,20 +32,11 @@ export const getOfferingTypeDetailsMeta = (account: { [key: string]: any }): IDe
       summary: [summary]
     }
   })
-  meta.push({
-    tabTitle: "Contacts",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getAccountAffiliationTableColumn(),
-        searchParams: { AccountID: account.AccountID },
-        refreshEventName: "REFRESH_CONTACT_TAB"
-      }
-    }
-  })
+
+//TODO: add section types as tab
 
   return {
-    pageTitle: `Account Name - ${account.AccountName}`,
+    pageTitle: `${account.OfferingTypeName}`,
     tabs: meta
   }
 }
