@@ -25,8 +25,12 @@ export default function StandardReportPage(props: IStandardReportPage) {
     for (const key in params) {
       if (Array.isArray(params[key]) && params[key].length > 0) {
         urlParams += `${key}=[${params[key]}]&`
-      } else if (params[key]) urlParams += `${key}=${params[key]}&`
-      if (props.mapping && props.mapping[key]) urlParams += `${props.mapping[key]}=${params[key]}&`
+      } else if (params[key] !== null || params[key] !== undefined) {
+        urlParams += `${key}=${params[key]}&`
+      }
+      if (props.mapping && props.mapping[key]) {
+        urlParams += `${props.mapping[key]}=${params[key]}&`
+      }
     }
     urlParams += "token=" + getToken()
     console.log(urlParams)
@@ -55,8 +59,10 @@ export default function StandardReportPage(props: IStandardReportPage) {
             visible={true}
             meta={props.meta}
             initialFilter={props.initialFilter}
+            defaultFilter={props.defaultFilter}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
-              openReportInNewTab({ ...props.defaultFilter, ...newFilterValues })
+              openReportInNewTab(newFilterValues)
+              console.log("default filter, ", newFilterValues)
               setFilterCount(appliedFilterCount)
             }}
           />

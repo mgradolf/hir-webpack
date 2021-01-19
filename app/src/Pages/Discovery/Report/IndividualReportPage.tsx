@@ -81,7 +81,6 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
     if (result.success) {
       setReport(result.data)
       if (preDefinedMeta && Array.isArray(preDefinedMeta.default) && preDefinedMeta.default.length > 0) {
-        console.log("preDefinedMeta ", preDefinedMeta.default)
         setReportMeta(preDefinedMeta.default)
       } else {
         const metas: IFilterField[] = generateIfilterFieldObject(result.data.Params)

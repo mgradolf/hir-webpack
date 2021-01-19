@@ -33,6 +33,7 @@ interface IFilterColumnProps {
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   hideFilters?: () => void
   initialFilter?: { [key: string]: any }
+  defaultFilter?: { [key: string]: any }
   isCheckeble?: boolean
   showClearbutton?: boolean
   applyButtonLabel?: string
@@ -52,9 +53,10 @@ export default function ({
   const [meta, setMeta] = useState<IFilterField[]>([])
 
   const applyChanges = (queryParams?: { [key: string]: any }) => {
-    const params: { [key: string]: any } = queryParams || formInstance.getFieldsValue()
+    let params: { [key: string]: any } = queryParams || formInstance.getFieldsValue()
+    params = { ...params, ...props.defaultFilter }
     for (const key in params) {
-      if (key === "" || !params[key] || key.includes("____")) delete params[key]
+      if (key === "" || params[key] === undefined || params[key] === null || key.includes("____")) delete params[key]
     }
     const filterCount = Object.keys(params).length
     props.onApplyChanges(params, filterCount)
@@ -84,11 +86,9 @@ export default function ({
       const _meta = props.meta.map((x) => {
         x.defaultValue = queryParams[x.fieldName]
         x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined
-        console.log(x.extraProps)
         if (x.extraProps && Array.isArray(x.extraProps.selectorKeys)) {
           x.extraProps.selectorKeys = x.extraProps.selectorKeys.map((y) => {
             y.defaultValue = queryParams[y.fieldName]
-            console.log("y ", y, "  queryParams", queryParams)
             return y
           })
         }
