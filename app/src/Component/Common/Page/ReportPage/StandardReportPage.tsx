@@ -23,7 +23,9 @@ export default function StandardReportPage(props: IStandardReportPage) {
   const openReportInNewTab = (params: { [key: string]: any }) => {
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
-      if (params[key]) urlParams += `${key}=${params[key]}&`
+      if (Array.isArray(params[key]) && params[key].length > 0) {
+        urlParams += `${key}=[${params[key]}]&`
+      } else if (params[key]) urlParams += `${key}=${params[key]}&`
       if (props.mapping && props.mapping[key]) urlParams += `${props.mapping[key]}=${params[key]}&`
     }
     urlParams += "token=" + getToken()
