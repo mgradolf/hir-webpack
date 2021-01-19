@@ -28,10 +28,12 @@ export function DetailsPage(props: IDetailsPage) {
   }
 
   useEffect(() => {
-    eventBus.subscribe(REFRESH_PAGE, loadDetails)
-    eventBus.publish(REFRESH_PAGE, loadDetails)
+    const eventName = props.refreshEventName ? props.refreshEventName : REFRESH_PAGE
+
+    eventBus.subscribe(eventName, loadDetails)
+    eventBus.publish(eventName, loadDetails)
     return () => {
-      eventBus.unsubscribe(REFRESH_PAGE)
+      eventBus.unsubscribe(eventName)
     }
     // eslint-disable-next-line
   }, [props.entityID])

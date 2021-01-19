@@ -48,7 +48,7 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
   }
 
   return {
-    pageTitle: `Program Code - ${programEnrollment.ProgramCode}`,
+    pageTitle: `${programEnrollment.ProgramCode} - ${programEnrollment.StudentName}`,
     tabs: [
       {
         tabTitle: "Summary",
