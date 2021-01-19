@@ -29,7 +29,8 @@ const blockedPages: string[] = [
   "Enrollment",
   "Gateway activity",
   "Grade score definition",
-  "Student"
+  "Student",
+  "Student email notification"
 ]
 
 const names: { [key: string]: string } = {

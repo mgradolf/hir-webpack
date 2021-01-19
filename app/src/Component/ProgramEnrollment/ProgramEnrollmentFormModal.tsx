@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { searchEnrollment } from "~/ApiServices/BizApi/program/programEnrollmentIF"
 import { Form } from "antd"
 import { IEnrollmentFieldNames } from "~/Component/ProgramEnrollment/Interfaces"
-import ProgramEnrollmentForm from "./ProgramEnrollmentForm"
+import ProgramEnrollmentForm from "~/Component/ProgramEnrollment/ProgramEnrollmentForm"
 
 interface IUpdateProgramEnrollmentProps {
   enrollmentID: number
@@ -18,10 +18,7 @@ const fieldNames: IEnrollmentFieldNames = {
   ProgramEnrollmentID: "ProgramEnrollmentID"
 }
 
-export default function UpdateProgramEnrollment({
-  enrollmentID,
-  closeModal
-}: IUpdateProgramEnrollmentProps) {
+export default function UpdateProgramEnrollment({ enrollmentID, closeModal }: IUpdateProgramEnrollmentProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({})

@@ -1,13 +1,11 @@
-import { searchCertificateDefinitions } from "~/ApiServices/BizApi/certificate/certificateIF"
+import { searchCertificate } from "~/ApiServices/BizApi/certificate/certificateIF"
 import { renderBoolean, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getCertificateDefinitionTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
-      dataIndex: "CertificateNumber",
-      render: (text: any, record: any) => renderDetailsLink(`/data/certificate/${record.StudentCertificateID}`)
+      render: (text: any, record: any) => renderDetailsLink(`/data/certificate/${record.CertificateID}`)
     },
     {
       title: "Certificate Name",
@@ -37,6 +35,6 @@ export const getCertificateDefinitionTableColumns = (): ITableConfigProp => {
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: (Params: { [key: string]: any }) => searchCertificateDefinitions([Params])
+    searchFunc: (Params: { [key: string]: any }) => searchCertificate([Params])
   }
 }

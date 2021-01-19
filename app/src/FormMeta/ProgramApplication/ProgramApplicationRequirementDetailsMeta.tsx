@@ -5,8 +5,9 @@ import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/Detai
 import { getRequirementGroupDetailsTableColumns } from "~/FormMeta/ProgramEnrollment/RequirementGroupDetailsTableColumns"
 import { REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_DETAILS_PAGE } from "~/utils/EventBus"
 
-export const getProgramApplicationRequirementDetailsMeta = (programEnrollment: { [key: string]: any }): IDetailsMeta => {
-
+export const getProgramApplicationRequirementDetailsMeta = (programEnrollment: {
+  [key: string]: any
+}): IDetailsMeta => {
   const info: CardContainer = {
     contents: [
       { label: "Requirement Group", value: programEnrollment.Name },

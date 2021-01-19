@@ -278,11 +278,11 @@ export const AppRoutes: RouteProps[] = [
   },
   {
     path: "/system-schedule",
-    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityPage"))
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/SystemSchedule/SystemSchedulePage"))
   },
   {
     path: "/system-schedule/:TimerID",
-    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/SystemSchedule/SystemScheduleDetailsPage"))
   },
   {
     path: "/data/certificate",
@@ -358,5 +358,17 @@ export const AppRoutes: RouteProps[] = [
   {
     path: "/membership/:MembershipID",
     component: React.lazy(() => import("~/Pages/Manage/Memberships/MembershipsDetailsPage"))
+  },
+  {
+    path: "/student-email-notification",
+    component: React.lazy(() =>
+      import("~/Pages/SetupAdministration/Tools/StudentEmailNotification/StudentEmailNotificationPage")
+    )
+  },
+  {
+    path: "/student-email-notification/:StudentNoticeID",
+    component: React.lazy(() =>
+      import("~/Pages/SetupAdministration/Tools/StudentEmailNotification/StudentEmailNotificationDetailsPage")
+    )
   }
 ]

@@ -1,6 +1,6 @@
+import { findJobSchedules } from "~/ApiServices/BizApi/jobScheduler/jobSchedulerIF"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import { findJobSchedules } from "~/ApiServices/BizApi/query/queryIf"
 
 export const getJobScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [

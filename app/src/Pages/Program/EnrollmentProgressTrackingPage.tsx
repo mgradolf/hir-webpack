@@ -11,13 +11,13 @@ interface IRequisitePageProp {
 }
 
 export default function EnrollmentProgressTrackingPage(props: IRequisitePageProp) {
-  const [itemDetails, setItemDetails] = useState<{[key: string]: any}>({})
+  const [itemDetails, setItemDetails] = useState<{ [key: string]: any }>({})
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     ;(async () => {
       setLoading(true)
-      const response = await trackingProgress([ props.programID, props.studentID ])
+      const response = await trackingProgress([props.programID, props.studentID])
       if (response && response.success) {
         setItemDetails(response.data)
       }
@@ -26,7 +26,7 @@ export default function EnrollmentProgressTrackingPage(props: IRequisitePageProp
   }, [props])
 
   const getProgressTrackingDetails = (ProgramReqGroupID: number) => {
-    return Promise.all([trackingProgress([ props.programID, props.studentID ])]).then((responses) => {
+    return Promise.all([trackingProgress([props.programID, props.studentID])]).then((responses) => {
       const response = responses[0]
       if (response.success) {
         response.data.ProgramRequirementGroups.map((x: any) => {
@@ -45,17 +45,17 @@ export default function EnrollmentProgressTrackingPage(props: IRequisitePageProp
 
   return (
     <>
-      {loading &&
+      {loading && (
         <Row justify="center" align="middle">
           <Spin size="large" />
         </Row>
-      }
+      )}
       {!loading && Object.keys(itemDetails).length > 0 && (
         <Collapse>
           {itemDetails.ProgramRequirementGroups.map((x: any, index: any) => (
             <Collapse.Panel header={x.Name} key={index + 1}>
               <DetailsPage
-                refreshEventName={`${REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_PAGE}_${index+1}`}
+                refreshEventName={`${REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_PAGE}_${index + 1}`}
                 getMeta={getProgressTrackingDetailsMeta}
                 getDetails={() => getProgressTrackingDetails(x.ProgramReqGroupID)}
               />

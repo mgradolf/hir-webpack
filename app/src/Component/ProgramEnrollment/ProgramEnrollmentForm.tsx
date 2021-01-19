@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select } from "antd"
-import {
-  getProgramEnrollmentStatusCodes
-} from "~/ApiServices/Service/RefLookupService"
+import { getProgramEnrollmentStatusCodes } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
 import { changeEnrollmentStatusWithEvent } from "~/ApiServices/BizApi/program/programEnrollmentIF"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import {
-  eventBus,
-  REFRESH_PAGE
-} from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/Form/FormError"
 
@@ -27,7 +22,7 @@ const layout = {
 }
 export default function ProgramEnrollmentForm(props: IEnrollmentFormProps) {
   const [statusTypes, setStatusTypes] = useState<Array<any>>([])
-  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([]);
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
     props.formInstance.setFieldsValue({ [props.fieldNames.ProgramEnrollmentID]: props.enrollmentID })

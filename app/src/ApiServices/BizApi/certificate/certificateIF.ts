@@ -9,6 +9,6 @@ export function getApplicableProgramCertificate(Params: Array<any>): Promise<IAp
   return CertificateIf[config.Actions.getApplicableProgramCertificate](Params)
 }
 
-export function searchCertificateDefinitions(Params: Array<any>): Promise<IApiResponse> {
-  return CertificateIf[config.Actions.searchCertificateDefinitions](Params)
+export function searchCertificate(Params: Array<any>): Promise<IApiResponse> {
+  return CertificateIf[config.Actions.searchCertificate](Params)
 }

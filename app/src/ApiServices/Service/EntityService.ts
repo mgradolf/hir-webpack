@@ -80,3 +80,10 @@ export function getSectionFinancialById(EntityID: number): Promise<IApiResponse>
     EntityID
   })
 }
+
+export function getStudentNoticeById(EntityID: number): Promise<IApiResponse> {
+  return EntityService[config.Actions.getEntity]({
+    EntityType: "StudentNotice",
+    EntityID
+  })
+}

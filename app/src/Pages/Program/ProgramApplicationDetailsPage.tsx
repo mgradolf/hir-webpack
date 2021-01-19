@@ -13,13 +13,13 @@ const layout = {
 }
 
 export default function ProgramApplicationTabDetailsPage(props: IRequisitePageProp) {
-  const [itemDetails, setItemDetails] = useState<{[key: string]: any}>({})
+  const [itemDetails, setItemDetails] = useState<{ [key: string]: any }>({})
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     ;(async () => {
       setLoading(true)
-      const response = await getProgramAppDetails([ props.programID, props.studentID ])
+      const response = await getProgramAppDetails([props.programID, props.studentID])
       if (response && response.success) {
         setItemDetails(response.data)
       }
@@ -29,11 +29,11 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
 
   return (
     <>
-      {loading &&
+      {loading && (
         <Row justify="center" align="middle">
           <Spin size="large" />
         </Row>
-      }
+      )}
       {!loading && Object.keys(itemDetails).length > 0 && (
         <Collapse>
           {itemDetails.AdmissionReqGroups.map((x: any, index: any) => (
