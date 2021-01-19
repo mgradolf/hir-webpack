@@ -1,69 +1,61 @@
-import { getRequestType, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { getEnumValues } from "~/ApiServices/Service/RequestService"
 import { DROPDOWN, IFilterField, DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import RequestSearchCustomLookupFilter from "~/FormMeta/Request/RequestSearchCustomLookupFilter"
 
 export const MembershipSearchMeta: IFilterField[] = [
   {
-    label: "Request Status",
-    inputType: DROPDOWN,
-    fieldName: "StateID",
-    ariaLabel: "Request Status",
-    refLookupService: getEnumValues,
-    displayKey: "Name",
-    valueKey: "ID"
+    label: "Person",
+    fieldName: "PersonID",
+    customFilterComponent: SearchPersonLookupButton
+  },
+  //TODO: need to pass 2 keys when this option is selected EmailAddress2
+  {
+    label: "Email",
+    inputType: TEXT,
+    fieldName: "EmailAddress",
+    ariaLabel: "Email"
+  },
+  //TODO: need to pass 2 keys when this option is selected PersonName2
+  {
+    label: "Name",
+    inputType: TEXT,
+    fieldName: "PersonName",
+    ariaLabel: "Name"
   },
   {
-    label: "Account & Person",
-    fieldName: "",
-    customFilterComponent: RequestSearchCustomLookupFilter
-  },
-  {
-    label: "Section",
-    fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
-  },
-  {
-    label: "Request Date",
+    label: "Expiration",
     inputType: DATE_PICKERS,
     displayKey: "From",
-    fieldName: "CreatedFromDate",
-    valueKey: "CreatedFromDate",
-    ariaLabel: "Request Date From",
+    fieldName: "TermExpirationDate",
+    valueKey: "TermExpirationDate",
+    ariaLabel: "Expiration Date From",
     displayKey2: "To",
-    valueKey2: "CreatedToDate",
-    fieldName2: "CreatedToDate",
-    ariaLabel2: "Request Date To"
+    valueKey2: "TermExpirationDate1",
+    fieldName2: "TermExpirationDate1",
+    ariaLabel2: "Expiration Date To"
   },
   {
-    label: "Request Type",
-    inputType: DROPDOWN,
-    fieldName: "RequestTypeID",
-    ariaLabel: "Request Type",
-    refLookupService: getRequestType,
-    displayKey: "Name",
-    valueKey: "ID"
+    label: "Member Since",
+    inputType: DATE_PICKERS,
+    displayKey: "From",
+    fieldName: "MemberSince",
+    valueKey: "MemberSince",
+    ariaLabel: "Member Since From",
+    displayKey2: "To",
+    valueKey2: "MemberSince1",
+    fieldName2: "MemberSince1",
+    ariaLabel2: "Member Since To"
   },
   {
-    label: "Reservation Token",
-    inputType: TEXT,
-    fieldName: "ReservationToken",
-    ariaLabel: "ReservationToken"
-  },
-  {
-    label: "Source",
-    inputType: DROPDOWN,
-    fieldName: "sourceID",
-    ariaLabel: "Source",
-    refLookupService: getSourceModule,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Staff",
-    inputType: TEXT,
-    fieldName: "RequesterStaffUserName",
-    ariaLabel: "Staff"
+    label: "Renewal Period Starts",
+    inputType: DATE_PICKERS,
+    displayKey: "From",
+    fieldName: "TermRenewalBeginDate",
+    valueKey: "TermRenewalBeginDate",
+    ariaLabel: "Renewal Period Starts From",
+    displayKey2: "To",
+    valueKey2: "TermRenewalBeginDate1",
+    fieldName2: "TermRenewalBeginDate1",
+    ariaLabel2: "Renewal Period Starts To"
   }
+  //TODO: need to add couple of filters later 
 ]
