@@ -3,28 +3,33 @@ import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
-import { getAccountAffiliationTableColumn } from "~/FormMeta/AccountAffiliation/getAccountAffiliationTableColumn"
 
 export const getSectionTypeDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      // { label: "Account Name", value: account.AccountName },
-      { label: "Account Type", value: account.AccountTypeName },
-      {
-        label: "Primary Contact",
-        value: account.ContactName,
-        render: (text) => <Link to={`/person/${account.PersonID}`}>{text}</Link>
-      },
-      { label: "Tax ID", value: account.TaxID },
-      { label: "Public", value: account.IsPublic, render: renderBoolean },
-      { label: "Allow to Pay Later", value: account.AllowPayLateDescription },
-      { label: "Approval Required", value: account.IsApprovalRequired, render: renderBoolean },
-      { label: "Default Waitlist Priority", value: account.DefaultWaitlistPriority || 5 },
-      { label: "Payment Term", value: account.PaymentTerm }
+      { label: "Type Name", value: account.SectionTypeName },
+      { label: "Type Description", value: account.SectionTypeDescription },
+      { label: "Section Description", value: account.Description},
+      { label: "Default Creation By Section", value: account.InitSectionCreationDates, render:renderBoolean },
+      { label: "Default Creation Term", value: account.CreationTermType },
+      { label: "Default Creation Time", value: account.CreationDate },
+      { label: "Default Termination Term", value: account.TerminationTermType },
+      { label: "Default Termination Time", value: account.TerminationDate },
+      { label: "Min Enrollment", value: account.MinEnrollment },
+      { label: "Max Enrollment", value: account.MaxEnrollment},
+      { label: "Credit Type", value: account.CreditType },
+      { label: "Grade Scale Type", value: account.GradeScaleType },
+      { label: "Fiscal Period", value: account.FiscalPeriod },
+      { label: "URL", value: account.URL },
+      { label: "Email", value: account.Email },
+      { label: "Distance Learning", value: account.IsDistanceLearning, render:renderBoolean },
+      { label: "Default Room", value: account.RoomName },
+      { label: "Default Inquiry Recipient", value: account.SubmitInquiryToUserID }     
     ]
   }
 
+//TODO: add tab for "Email Notifications"
   meta.push({
     tabTitle: "Summary",
     tabType: "summary",
@@ -32,20 +37,8 @@ export const getSectionTypeDetailsMeta = (account: { [key: string]: any }): IDet
       summary: [summary]
     }
   })
-  meta.push({
-    tabTitle: "Contacts",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getAccountAffiliationTableColumn(),
-        searchParams: { AccountID: account.AccountID },
-        refreshEventName: "REFRESH_CONTACT_TAB"
-      }
-    }
-  })
-
   return {
-    pageTitle: `Account Name - ${account.AccountName}`,
+    pageTitle: `${account.SectionTypeName}`,
     tabs: meta
   }
 }

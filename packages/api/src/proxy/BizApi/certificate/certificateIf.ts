@@ -7,7 +7,7 @@ export const config = {
   Actions: {
     getApplicableSectionCertificate: "getApplicableSectionCertificate",
     getApplicableProgramCertificate: "getApplicableProgramCertificate",
-    searchCertificateDefinitions: "searchCertificateDefinitions"
+    searchCertificate: "searchCertificate"
   }
 }
 

@@ -16,10 +16,9 @@ export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]
       { label: "Template Name", value: certificate.TemplateFileName, render: undefined },
       { label: "Valid Months", value: certificate.ValidityMonths, render: undefined },
       { label: "Description ", value: certificate.Description, render: undefined }
-
-      //TODO: add table for static params
     ]
   }
+  //TODO: add table for static params
   meta.push({
     tabTitle: "Summary",
     tabType: "summary",

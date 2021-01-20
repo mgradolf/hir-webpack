@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { searchEnrollment } from "~/ApiServices/BizApi/program/programEnrollmentIF"
 import { Form } from "antd"
 import { IEnrollmentFieldNames } from "~/Component/ProgramEnrollment/Interfaces"
-import ProgramEnrollmentForm from "./ProgramEnrollmentForm"
+import ProgramEnrollmentForm from "~/Component/ProgramEnrollment/ProgramEnrollmentForm"
 
 interface IUpdateProgramEnrollmentProps {
   enrollmentID: number

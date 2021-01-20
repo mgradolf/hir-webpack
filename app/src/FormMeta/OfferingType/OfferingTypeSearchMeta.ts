@@ -3,34 +3,36 @@ import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/c
 
 export const OfferingTypeSearchMeta: IFilterField[] = [
   {
-    label: "Account Type",
+    label: "Type Name",
+    inputType: TEXT,
+
+    fieldName: "OfferingTypeName",
+    ariaLabel: "Type Name"
+  },
+  {
+    label: "Offering Name",
+    inputType: TEXT,
+
+    fieldName: "Name",
+    ariaLabel: "Offering Name"
+  },
+  {
+    label: "Offering Code",
+    inputType: TEXT,
+
+    fieldName: "OfferingCode",
+    ariaLabel: "Offering Code"
+  },
+  //TODO: department dropdown
+
+  {
+    label: "Department",
     inputType: DROPDOWN,
 
-    fieldName: "AccountTypeID",
-    ariaLabel: "Account Type Select",
+    fieldName: "OrganizationID",
+    ariaLabel: "Department",
     refLookupService: getAccountTypes,
     displayKey: "Name",
     valueKey: "ID"
-  },
-  {
-    label: "Account Name",
-    inputType: TEXT,
-
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
-  },
-  {
-    label: "Contact Last Name",
-    inputType: TEXT,
-
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
-  },
-  {
-    label: "Contact First Name",
-    inputType: TEXT,
-
-    fieldName: "FirstName",
-    ariaLabel: "First Name"
   }
 ]

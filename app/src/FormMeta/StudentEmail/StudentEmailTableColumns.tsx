@@ -5,7 +5,7 @@ import { findAllStudentNotice } from "~/ApiServices/BizApi/student/studentIf"
 export const getStudentEmailTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      render: (text: any, record: any) => renderDetailsLink(`/studentemail/${record.StudentNoticeID}`)
+      render: (text: any, record: any) => renderDetailsLink(`/student-email-notification/${record.StudentNoticeID}`)
     },
     {
       title: "Notification Name",

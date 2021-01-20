@@ -1,10 +1,10 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { findUser } from "~/ApiServices/Service/UserService"
+import { getStudentNoticeById } from "~/ApiServices/Service/EntityService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getUserDetailsMeta } from "~/FormMeta/User/UserDetailsMeta"
+import { getStudentEmailDetailsMeta } from "~/FormMeta/StudentEmail/StudentEmailDetailsMeta"
 
-export function StudentEmailNotificationDetailsPage(props: RouteComponentProps<{ UserID: string }>) {
-  const UserID = props?.match?.params?.UserID
-  return <DetailsPage getMeta={getUserDetailsMeta} getDetails={() => findUser({ UserID })} />
+export default function StudentEmailNotificationDetailsPage(props: RouteComponentProps<{ StudentNoticeID: string }>) {
+  const StudentNoticeID = Number(props?.match?.params?.StudentNoticeID)
+  return <DetailsPage getMeta={getStudentEmailDetailsMeta} getDetails={() => getStudentNoticeById(StudentNoticeID)} />
 }

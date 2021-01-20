@@ -2,7 +2,6 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean, renderEmail } from "~/Component/Common/ResponsiveTable"
 
-//TODO: API findStudentNotice
 export const getStudentEmailDetailsMeta = (activity: { [key: string]: any }): IDetailsMeta => {
   console.log(activity)
 

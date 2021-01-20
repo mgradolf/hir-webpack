@@ -1,25 +1,21 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
+//TODO: fix API
+import { findBuildings } from "~/ApiServices/BizApi/account/accountIF"
 import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getBuildingTypeTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Account",
-      dataIndex: "AccountName",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
+      title: "Building Number",
+      dataIndex: "BuildingNumber",
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/building/${record.BuildingID}`}>{text}</Link>)
     },
-    {
-      title: "Primary Contact",
-      dataIndex: "ContactName",
-      render: (text: any, record: any) =>
-        isModal || !text ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>
-    },
-    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
-    { title: "Telephone", dataIndex: "TelephoneNumber" },
-    { title: "Account Type", dataIndex: "AccountTypeName" }
+    { title: "Building Name", dataIndex: "Name" },
+    { title: "Site", dataIndex: "SiteName" ,
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/site/${record.SiteID}`}>{text}</Link>)
+    }
   ]
-  return { columns, searchFunc: findAccountForLookUp, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findBuildings, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

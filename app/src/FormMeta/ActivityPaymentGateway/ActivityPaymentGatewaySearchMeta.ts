@@ -4,7 +4,6 @@ export const ActivityPaymentGatewaySearchMeta: IFilterField[] = [
   {
     label: "Service Name",
     inputType: TEXT,
-
     fieldName: "ServiceName",
     ariaLabel: "Service Name"
   },

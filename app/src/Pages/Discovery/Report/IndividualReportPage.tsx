@@ -60,28 +60,28 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
 
   const loadReportMeta = async () => {
     setLoading(true)
-    let preDefinedMeta: any
-    let preDefinedMapping: any
-    let preDefinedFilters: any
+    let __reportMeta: any
+    let __reportMapping: any
+    let __defaultFilters: any
     try {
-      preDefinedMeta = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`)
+      __reportMeta = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`)
     } catch (error) {}
 
     try {
-      preDefinedMapping = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.mapping)
-      setReportMapping(preDefinedMapping)
+      __reportMapping = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.mapping)
+      setReportMapping(__reportMapping)
     } catch (error) {}
 
     try {
-      preDefinedFilters = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.filters)
-      setDefaultFilters(preDefinedFilters)
+      __defaultFilters = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.filters)
+      setDefaultFilters(__defaultFilters)
     } catch (error) {}
 
     const result = await getReportByReportName({ ReportName })
     if (result.success) {
       setReport(result.data)
-      if (preDefinedMeta && Array.isArray(preDefinedMeta.default) && preDefinedMeta.default.length > 0) {
-        setReportMeta(preDefinedMeta.default)
+      if (__reportMeta && Array.isArray(__reportMeta.default) && __reportMeta.default.length > 0) {
+        setReportMeta(__reportMeta.default)
       } else {
         const metas: IFilterField[] = generateIfilterFieldObject(result.data.Params)
         setReportMeta(metas)

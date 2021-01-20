@@ -3,34 +3,17 @@ import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/c
 
 export const BuildingTypeSearchMeta: IFilterField[] = [
   {
-    label: "Account Type",
-    inputType: DROPDOWN,
-
-    fieldName: "AccountTypeID",
-    ariaLabel: "Account Type Select",
-    refLookupService: getAccountTypes,
-    displayKey: "Name",
-    valueKey: "ID"
-  },
-  {
-    label: "Account Name",
+    label: "Building Name",
     inputType: TEXT,
 
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
+    fieldName: "BuildingName",
+    ariaLabel: "Building Name"
   },
   {
-    label: "Contact Last Name",
+    label: "Site Name",
     inputType: TEXT,
 
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
-  },
-  {
-    label: "Contact First Name",
-    inputType: TEXT,
-
-    fieldName: "FirstName",
-    ariaLabel: "First Name"
+    fieldName: "SiteName",
+    ariaLabel: "Site Name"
   }
 ]
