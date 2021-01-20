@@ -1,4 +1,5 @@
 import { BOOLEAN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -13,8 +14,11 @@ const meta: IFilterField[] = [
   }
 ]
 
-export const mapping: { [key: string]: any } = {
-  OrganizationName: "OrganizationName1"
+const reportMeta: IReportMeta = {
+  meta,
+  mapping: {
+    OrganizationName: "OrganizationName1"
+  }
 }
 
-export default meta
+export default reportMeta

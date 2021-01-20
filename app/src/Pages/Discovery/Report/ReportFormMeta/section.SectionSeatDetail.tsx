@@ -3,6 +3,7 @@ import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchF
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -50,12 +51,8 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
+const reportMeta: IReportMeta = {
+  meta
+}
 
-// SectionID
-// OfferingID
-// OrganizationID
-// SectionStatusCodeID
-// OfferingStatusCodeID
-// FromEnrollDate
-// ToEnrollDate
+export default reportMeta

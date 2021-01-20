@@ -1,4 +1,5 @@
 import { DATE_PICKER, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -8,8 +9,14 @@ const meta: IFilterField[] = [
   }
 ]
 
-export const mapping: { [key: string]: any } = {
-  date_start: "date_end"
+const reportMeta: IReportMeta = {
+  meta,
+  defaultFilter: {
+    BalanceMoreThan: 0
+  },
+  mapping: {
+    date_start: "date_end"
+  }
 }
 
-export default meta
+export default reportMeta

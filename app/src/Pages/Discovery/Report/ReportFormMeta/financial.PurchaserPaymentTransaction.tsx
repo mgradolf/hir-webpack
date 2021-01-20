@@ -1,6 +1,7 @@
 import { getPaymentGatewayAccounts } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -24,8 +25,12 @@ const meta: IFilterField[] = [
   }
 ]
 
-export const mapping: { [key: string]: any } = {
-  OrderDateFrom: "OrderDateFrom_DisplayOnly",
-  OrderDateTo: "OrderDateTo_DisplayOnly"
+const reportMeta: IReportMeta = {
+  meta,
+  mapping: {
+    OrderDateFrom: "OrderDateFrom_DisplayOnly",
+    OrderDateTo: "OrderDateTo_DisplayOnly"
+  }
 }
-export default meta
+
+export default reportMeta
