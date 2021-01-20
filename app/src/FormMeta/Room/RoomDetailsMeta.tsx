@@ -1,26 +1,28 @@
-import React from "react"
-import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { renderBoolean } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderLink } from "~/Component/Common/ResponsiveTable"
 
-export const getBuildingTypeDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
+export const getBuildingTypeDetailsMeta = (building: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      { label: "Room Number", value: account.RoomNumber },
-      { label: "Room Type", value: account.RoomUseType },
-      { label: "Mail Stop", value: account.MailStop },
-      { label: "Building", value: account.BuildingName,      
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/building/${record.BuildingID}`}>{text}</Link>) 
+      { label: "Room Number", value: building.RoomNumber },
+      { label: "Room Type", value: building.RoomUseType },
+      { label: "Mail Stop", value: building.MailStop },
+      {
+        label: "Building",
+        value: building.BuildingName,
+        render: (text: any) => renderLink(`/building/${building.BuildingID}`, building.BuildingName)
       },
-      { label: "Site", value: account.SiteName,      
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/site/${record.SiteID}`}>{text}</Link>) 
+      {
+        label: "Site",
+        value: building.SiteName,
+        render: (text: any) => renderLink(`/site/${building.SiteID}`, building.SiteName)
       },
-      { label: "Floor", value: account.BuildingFloor },
-      { label: "Capacity", value: account.Capacity },
-      { label: "Accessible", value: account.IsHandicapAccess, render: renderBoolean }
-      { label: "Active", value: account.IsActive, render: renderBoolean }
+      { label: "Floor", value: building.BuildingFloor },
+      { label: "Capacity", value: building.Capacity },
+      { label: "Accessible", value: building.IsHandicapAccess, render: renderBoolean },
+      { label: "Active", value: building.IsActive, render: renderBoolean }
     ]
   }
 
@@ -34,7 +36,7 @@ export const getBuildingTypeDetailsMeta = (account: { [key: string]: any }): IDe
 
   //TODO: add tab for rooms
   return {
-    pageTitle: `${account.Name}`,
+    pageTitle: `${building.Name}`,
     tabs: meta
   }
 }

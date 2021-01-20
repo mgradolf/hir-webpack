@@ -82,10 +82,22 @@ export function findGradeScoreDefinitions(Params: { [key: string]: any }): Promi
   return QueryIf[config.Actions.executeDomainList](["jxntm.course.findGradeScoreDefinitions", Params, 0, 99999])
 }
 
-// export function findJobSchedules(Params: { [key: string]: any }): Promise<IApiResponse> {
-//   return QueryIf[config.Actions.executeDomainList](["jxntm.organization.findJobSchedules", Params, 0, 99999])
-// }
+export function findBuildings(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.location.findBuildings", Params, 0, 99999])
+}
+
+export function findSites(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.location.findSites", Params, 0, 99999])
+}
 
 export function findSystemConfiguration(Params: { [key: string]: any }): Promise<IApiResponse> {
   return QueryIf[config.Actions.executeDomainList](["jxntm.system.findSystemConfiguration", Params, 0, 99999])
+}
+
+export function findOfferingTypes(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.course.findOfferingTypes", Params, 0, 99999])
+}
+
+export function findSectionTypes(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.course.findSectionTypes", Params, 0, 99999])
 }

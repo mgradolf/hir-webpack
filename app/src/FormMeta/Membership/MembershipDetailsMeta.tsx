@@ -1,26 +1,30 @@
-import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
+import { getMembershipBeneficiariesTableColumns } from "./MembershipBeneficiariesTableColumns"
+import { getMembershipTermsTableColumns } from "./MembershipTermsTableColumns"
 
 export const getMembershipDetailsMeta = (record: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
     title: "Summary",
     contents: [
-      { label: "Member", value: record.PersonName, 
-        render: (text: any, record: any) => renderLink(`/person/${record.PersonID}`, text),
+      {
+        label: "Member",
+        value: record.PersonName,
+        render: (text: any) => renderLink(`/person/${record.PersonID}`, text)
       },
-      { label: "Membership Program", value: record.MembershipProgramName,
-        render: (text: any, record: any) => renderLink(`/membershipprogram/${record.MembershipProgramID}`, text),      
+      {
+        label: "Membership Program",
+        value: record.MembershipProgramName,
+        render: (text: any) => renderLink(`/membershipprogram/${record.MembershipProgramID}`, text)
       },
       { label: "Level", value: record.MembershipDefinitionName },
       { label: "Member Since", value: record.MemberSince, render: renderDate },
       { label: "Expiration Date", value: record.MktExpirationDate, render: renderDate },
       { label: "Renewal Period Starts", value: record.MktRenewalBeginDate, render: renderDate },
-      { label: "Renewal Period Ends", value: record.RenewalTermExpirationDate, render: renderDate },      
-      { label: "Active", value: record.IsActive, render:renderBoolean }
+      { label: "Renewal Period Ends", value: record.RenewalTermExpirationDate, render: renderDate },
+      { label: "Active", value: record.IsActive, render: renderBoolean }
     ]
   }
 
@@ -28,7 +32,6 @@ export const getMembershipDetailsMeta = (record: { [key: string]: any }): IDetai
     summary: [summary]
   }
 
-//TODO: add 2 tabs for beneficiaries table and membership terms table
   return {
     pageTitle: "Membership Details",
     tabs: [
@@ -36,6 +39,28 @@ export const getMembershipDetailsMeta = (record: { [key: string]: any }): IDetai
         tabTitle: "Summary",
         tabType: "summary",
         tabMeta: summaryMeta
+      },
+      {
+        tabTitle: "Membership Beneficiaries",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getMembershipBeneficiariesTableColumns(),
+            searchParams: { MembershipTermID: record.MembershipTermID, PersonID: record.PersonID },
+            refreshEventName: "REFRESH_MEMBERSHIP_BENIFICIARIES_TAB"
+          }
+        }
+      },
+      {
+        tabTitle: "Membership Terms",
+        tabType: "table",
+        tabMeta: {
+          tableProps: {
+            ...getMembershipTermsTableColumns(),
+            searchParams: { MembershipID: record.MembershipID },
+            refreshEventName: "REFRESH_MEMEBERSHIP_TERMS_TAB"
+          }
+        }
       }
     ]
   }

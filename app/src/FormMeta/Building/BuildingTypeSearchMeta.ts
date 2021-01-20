@@ -1,5 +1,4 @@
-import { getAccountTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const BuildingTypeSearchMeta: IFilterField[] = [
   {
