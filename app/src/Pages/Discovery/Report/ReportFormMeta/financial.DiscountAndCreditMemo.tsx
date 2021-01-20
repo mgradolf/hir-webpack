@@ -3,6 +3,7 @@ import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/Sea
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -33,9 +34,12 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
-
-export const filters = {
-  CreditAmount: 0,
-  DiscountAmount: 0
+const reportMeta: IReportMeta = {
+  meta,
+  defaultFilter: {
+    CreditAmount: 0,
+    DiscountAmount: 0
+  }
 }
+
+export default reportMeta

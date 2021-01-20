@@ -45,15 +45,35 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Financials",
         url: "",
         submenu: [
-          { title: "Order", url: "/order", submenu: [] },
+          { title: "Orders", url: "/order", submenu: [] },
           { title: "Order Items", url: "/order/items", submenu: [] },
           { title: "Credits", url: "/order/credits", submenu: [] },
           { title: "Payments", url: "/order/payments", submenu: [] },
           { title: "Transactions", url: "/transaction", submenu: [] }
         ]
       },
+      {
+        title: "Other Products",
+        url: "",
+        submenu: [
+          { title: "Resources", url: "/resource", submenu: [] },
+          { title: "Products", url: "/product", submenu: [] },
+          { title: "Packages", url: "/package", submenu: [] },
+          { title: "Memberships", url: "/membership", submenu: [] }
+        ]
+      },
+      {
+        title: "Promotions",
+        url: "",
+        submenu: [
+          { title: "Catalogs", url: "/catalog", submenu: [] },
+          { title: "Discount Programs", url: "/discount-program", submenu: [] },
+          { title: "Marketing Programs", url: "/marketing-programs", submenu: [] },
+          { title: "Marketing Codes", url: "/marketing-codes/repository", submenu: [] },
+          { title: "Promotion Response", url: "/marketing-codes/response", submenu: [] }
+        ]
+      },
       { title: "Requests", url: "/request", submenu: [] },
-      { title: "Membership", url: "/membership", submenu: [] },
       {
         title: "Questions",
         url: "",
@@ -61,47 +81,19 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Repository", url: "/question", submenu: [] },
           { title: "Responses", url: "/question/response", submenu: [] }
         ]
-      },
-      {
-        title: "Marketing",
-        url: "",
-        submenu: [
-          { title: "Catalogs", url: "/catalog", submenu: [] },
-          { title: "Discount Programs", url: "/discount-program", submenu: [] },
-          { title: "Programs", url: "/marketing-programs", submenu: [] },
-          { title: "Codes", url: "/marketing-codes/repository", submenu: [] },
-          { title: "Response", url: "/marketing-codes/response", submenu: [] }
-        ]
-      },
-      { title: "Resources", url: "/resource", submenu: [] },
-      { title: "Products", url: "/product", submenu: [] },
-      { title: "Packages", url: "/package", submenu: [] },
-      { title: "Tags", url: "/tags", submenu: [] },
-      { title: "Batches", url: "/batch", submenu: [] }
+      }
     ]
   },
   {
-    title: "Discovery",
+    title: "Reporting",
     url: "",
     submenu: [
       { title: "Reports", url: "/report", submenu: [] },
       { title: "Charts", url: "/chart", submenu: [] },
       { title: "Queries", url: "", submenu: [] },
       { title: "Master P & L Calculator", url: "", submenu: [] },
-      {
-        title: "Search",
-        url: "",
-        submenu: [
-          {
-            title: "Sections",
-            url: "",
-            submenu: [
-              { title: "Section Instructors", url: "", submenu: [] },
-              { title: "Section Schedule and Location", url: "", submenu: [] }
-            ]
-          }
-        ]
-      }
+      { title: "Section Instructors", url: "", submenu: [] },
+      { title: "Section Schedule and Location", url: "", submenu: [] }
     ]
   },
   {
@@ -113,22 +105,24 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Data Import Service (DIS)", url: "", submenu: [] },
-          { title: "Job Schedule", url: "/job-schedule", submenu: [] },
-          { title: "Student Email Notification", url: "/student-email-notification", submenu: [] }
+          { title: "Job Schedules", url: "/job-schedule", submenu: [] },
+          { title: "Student Email Notifications", url: "/student-email-notification", submenu: [] },
+          { title: "Batches", url: "/batch", submenu: [] }
         ]
       },
       {
         title: "Data",
         url: "",
         submenu: [
-          { title: "Offering Type", url: "/offering-type", submenu: [] },
-          { title: "Section Type", url: "/section-type", submenu: [] },
-          { title: "Building", url: "/building", submenu: [] },
-          { title: "Site", url: "/site", submenu: [] },
+          { title: "Offering Types", url: "/offering-type", submenu: [] },
+          { title: "Section Types", url: "/section-type", submenu: [] },
+          { title: "Buildings", url: "/building", submenu: [] },
+          { title: "Sites", url: "/site", submenu: [] },
           { title: "Grade Score Definitions", url: "/data/grade-score-definition", submenu: [] },
           { title: "Reference Data", url: "", submenu: [] },
           { title: "Organizations", url: "/data/organization", submenu: [] },
-          { title: "Certificates", url: "/data/certificate", submenu: [] }
+          { title: "Certificates", url: "/data/certificate", submenu: [] },
+          { title: "Tags", url: "/tags", submenu: [] }
         ]
       },
       { title: "Users", url: "/user", submenu: [] },

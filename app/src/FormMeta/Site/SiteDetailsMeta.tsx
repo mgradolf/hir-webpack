@@ -1,16 +1,17 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
+import { getBuildingTypeTableColumns } from "~/FormMeta/Building/BuildingTypeTableColumns"
 
-export const getSiteDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
+export const getSiteDetailsMeta = (record: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      { label: "Site Code", value: account.SiteCode },
-      { label: "Parent Organization", value: account.OrganizationName },
-      { label: "Directions", value: account.Attribute1 },
-      { label: "Parking", value: account.Attribute2 },
-      { label: "Active", value: account.IsActive, render: renderBoolean }
+      { label: "Site Code", value: record.SiteCode },
+      { label: "Parent Organization", value: record.OrganizationName },
+      { label: "Directions", value: record.Attribute1 },
+      { label: "Parking", value: record.Attribute2 },
+      { label: "Active", value: record.IsActive, render: renderBoolean }
     ]
   }
 
@@ -21,8 +22,20 @@ export const getSiteDetailsMeta = (account: { [key: string]: any }): IDetailsMet
       summary: [summary]
     }
   })
+
+  meta.push({
+    tabTitle: "Buildings",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getBuildingTypeTableColumns(),
+        searchParams: { SiteID: record.SiteID },
+        refreshEventName: "REFRESH_CONTACT_TAB"
+      }
+    }
+  })
   return {
-    pageTitle: `${account.Name}`,
+    pageTitle: `${record.Name}`,
     tabs: meta
   }
 }

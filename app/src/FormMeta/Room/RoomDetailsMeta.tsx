@@ -2,7 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean, renderLink } from "~/Component/Common/ResponsiveTable"
 
-export const getBuildingTypeDetailsMeta = (building: { [key: string]: any }): IDetailsMeta => {
+export const getRoomDetailsMeta = (building: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
@@ -34,7 +34,6 @@ export const getBuildingTypeDetailsMeta = (building: { [key: string]: any }): ID
     }
   })
 
-  //TODO: add tab for rooms
   return {
     pageTitle: `${building.Name}`,
     tabs: meta

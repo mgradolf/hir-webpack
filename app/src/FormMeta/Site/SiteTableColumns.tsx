@@ -16,6 +16,6 @@ export const getSiteTableColumns = (isModal = false): ITableConfigProp => {
       render: (text: any, record: any) => renderLink(`/organization/${record.OrganizationID}`, text, isModal)
     }
   ]
-  //TODO: add tab for Buildings
+
   return { columns, searchFunc: findSites, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

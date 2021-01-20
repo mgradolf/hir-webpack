@@ -1,5 +1,6 @@
 import { IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -9,4 +10,8 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
+const reportMeta: IReportMeta = {
+  meta
+}
+
+export default reportMeta

@@ -289,7 +289,7 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesPage"))
   },
   {
-    path: "/data/certificate/:StudentCertificateID",
+    path: "/data/certificate/:CertificateID",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesDetailsPage"))
   },
   {
