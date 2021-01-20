@@ -1,5 +1,3 @@
-import React from "react"
-import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -11,12 +9,12 @@ export const getOfferingTypeDetailsMeta = (account: { [key: string]: any }): IDe
       { label: "Type Description", value: account.OfferingTypeDescription },
       { label: "Offering Name", value: account.Name },
       { label: "Offering Code", value: account.OfferingCode },
-      { label: "Offering Description", value: account.Description  },
+      { label: "Offering Description", value: account.Description },
       { label: "Department", value: account.OrganizationName },
       { label: "Inquiry Recipient", value: account.SubmitInquiryToUserID },
       { label: "Quick Admit", value: account.IsQuickAdmit, render: renderBoolean },
       { label: "Add Approval Process", value: account.HasApprovalProcess, render: renderBoolean },
-      { label: "Default Creation By Offering", value: account.InitOfferingCreationDates, render:renderBoolean },
+      { label: "Default Creation By Offering", value: account.InitOfferingCreationDates, render: renderBoolean },
       { label: "Default Creation Term", value: account.CreationTermType },
       { label: "Default Creation Time", value: account.CreationDate },
       { label: "Default Termination Term", value: account.TerminationTermType },
@@ -33,7 +31,7 @@ export const getOfferingTypeDetailsMeta = (account: { [key: string]: any }): IDe
     }
   })
 
-//TODO: add section types as tab
+  //TODO: add section types as tab
 
   return {
     pageTitle: `${account.OfferingTypeName}`,

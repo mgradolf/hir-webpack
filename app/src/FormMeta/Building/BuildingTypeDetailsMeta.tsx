@@ -1,16 +1,16 @@
-import React from "react"
-import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { renderBoolean } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderLink } from "~/Component/Common/ResponsiveTable"
 
 export const getBuildingTypeDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
       { label: "Building Number", value: account.BuildingNumber },
-      { label: "Site", value: account.SiteName,      
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/site/${record.SiteID}`}>{text}</Link>) 
+      {
+        label: "Site",
+        value: account.SiteName,
+        render: (value) => renderLink(`/site/${account.SiteID}`, account.SiteName)
       },
       { label: "Number of Floor", value: account.Floors },
       { label: "Active", value: account.IsActive, render: renderBoolean }

@@ -29,7 +29,6 @@ const QuestionSearchFiltersMeta: IFilterField[] = [
   {
     label: "Department",
     inputType: DROPDOWN,
-
     fieldName: "OrganizationID",
     ariaLabel: "Department Select",
     refLookupService: getOrganizations,

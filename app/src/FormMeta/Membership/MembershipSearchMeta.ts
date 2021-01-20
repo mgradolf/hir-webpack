@@ -1,5 +1,8 @@
-import { DROPDOWN, IFilterField, DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { IFilterField, DATE_PICKERS, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { BooleanInputType } from "~/Component/Common/SearchFilters/SearchBooleanInput"
+import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 
 export const MembershipSearchMeta: IFilterField[] = [
   {
@@ -7,19 +10,45 @@ export const MembershipSearchMeta: IFilterField[] = [
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton
   },
-  //TODO: need to pass 2 keys when this option is selected EmailAddress2
   {
-    label: "Email",
-    inputType: TEXT,
-    fieldName: "EmailAddress",
-    ariaLabel: "Email"
+    label: "Lookup",
+    fieldName: "",
+    fullWidth: true,
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Email",
+          fieldName: "EmailAddress",
+          component: SearchInputType
+        },
+        {
+          label: "Email 2",
+          fieldName: "EmailAddress2",
+          component: SearchInputType
+        }
+      ]
+    }
   },
-  //TODO: need to pass 2 keys when this option is selected PersonName2
   {
-    label: "Name",
-    inputType: TEXT,
-    fieldName: "PersonName",
-    ariaLabel: "Name"
+    label: "Lookup",
+    fieldName: "",
+    fullWidth: true,
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Person Name",
+          fieldName: "PersonName",
+          component: SearchInputType
+        },
+        {
+          label: "Email 2",
+          fieldName: "PersonName2",
+          component: SearchInputType
+        }
+      ]
+    }
   },
   {
     label: "Expiration",
@@ -56,6 +85,40 @@ export const MembershipSearchMeta: IFilterField[] = [
     valueKey2: "TermRenewalBeginDate1",
     fieldName2: "TermRenewalBeginDate1",
     ariaLabel2: "Renewal Period Starts To"
+  },
+  {
+    label: "Membership ID",
+    fieldName: "MembershipID",
+    inputType: NUMBER
+  },
+  {
+    label: "Membership Program ID",
+    fieldName: "MembershipProgramID",
+    inputType: NUMBER
+  },
+  {
+    label: "Membership Definition ID",
+    fieldName: "MembershipDefinitionID",
+    inputType: NUMBER
+  },
+  {
+    label: "Lookup",
+    fieldName: "",
+    fullWidth: true,
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "IsRenewed",
+          fieldName: "IsRenewed",
+          component: BooleanInputType
+        },
+        {
+          label: "IsRenewed 2",
+          fieldName: "IsRenewed2",
+          component: BooleanInputType
+        }
+      ]
+    }
   }
-  //TODO: need to add couple of filters later 
 ]

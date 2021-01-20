@@ -1,7 +1,13 @@
-import { renderDate, renderDetailsLink, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { getMembershipCollection } from "~/ApiServices/Service/MembershipService"
+import {
+  renderBoolean,
+  renderDate,
+  renderDetailsLink,
+  renderEmail,
+  renderLink,
+  TableColumnType
+} from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-//TODO: API fix 
-import { getMembershipCollection } from "~/ApiServices/Service/RequestService"
 
 export const getMembershipTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -32,7 +38,7 @@ export const getMembershipTableColumns = (isModal = false): ITableConfigProp => 
     {
       title: "Membership Program",
       dataIndex: "MembershipProgramName",
-      render: (text: any, record: any) => renderLink(`/membershipprogram/${record.MembershipProgramID}`, text),      
+      render: (text: any, record: any) => renderLink(`/membershipprogram/${record.MembershipProgramID}`, text),
       key: "MembershipProgramName"
     },
     {
@@ -44,14 +50,14 @@ export const getMembershipTableColumns = (isModal = false): ITableConfigProp => 
       title: "Active",
       dataIndex: "IsActive",
       key: "IsActive",
-      render:renderBoolean
+      render: renderBoolean
     },
     {
       title: "Renewed",
       dataIndex: "IsRenewed",
       key: "IsRenewed",
-      render:renderBoolean
-    }    
+      render: renderBoolean
+    }
   ]
 
   const responsiveColumnIndices: number[] = []

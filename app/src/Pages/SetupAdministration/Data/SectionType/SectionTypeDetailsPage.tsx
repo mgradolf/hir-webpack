@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getSectionTypeDetailsMeta } from "~/FormMeta/SectionType/SectionTypeDetailsMeta"
-import { getSectionTypeTypeTableColumns } from "~/FormMeta/SectionType/SectionTypeTypeTableColumns"
+import { getSectionTypeTableColumns } from "~/FormMeta/SectionType/SectionTypeTypeTableColumns"
 
 export default function SectionTypeDetailsPage(props: RouteComponentProps<{ SectiontypeID: string }>) {
   const SectiontypeID = Number(props?.match?.params?.SectiontypeID)
@@ -10,7 +10,7 @@ export default function SectionTypeDetailsPage(props: RouteComponentProps<{ Sect
     <DetailsPage
       getMeta={getSectionTypeDetailsMeta}
       getDetails={() =>
-        getSectionTypeTypeTableColumns()
+        getSectionTypeTableColumns()
           .searchFunc({ SectiontypeID })
           .then((x) => {
             if (x.success) x.data = x.data[0]

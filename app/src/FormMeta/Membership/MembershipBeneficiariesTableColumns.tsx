@@ -1,7 +1,6 @@
-import { renderDate, renderDetailsLink, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { findMembershipBeneficiaries } from "~/ApiServices/BizApi/membership/membershipIF"
+import { renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-//TODO: API fix 
-import { findMembershipBeneficiaries } from "~/ApiServices/Service/RequestService"
 
 export const getMembershipBeneficiariesTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -24,6 +23,7 @@ export const getMembershipBeneficiariesTableColumns = (isModal = false): ITableC
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: findMembershipBeneficiaries
+    searchFunc: (Params: { [key: string]: any }) =>
+      findMembershipBeneficiaries([Params.MembershipTermID, Params.PersonID])
   }
 }

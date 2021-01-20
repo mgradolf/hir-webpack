@@ -1,8 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
-//TODO: fix API
-import { findSites } from "~/ApiServices/BizApi/account/accountIF"
-import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { findSites } from "~/ApiServices/BizApi/query/queryIf"
+import { renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getSiteTableColumns = (isModal = false): ITableConfigProp => {
@@ -10,11 +7,13 @@ export const getSiteTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Site Code",
       dataIndex: "SiteCode",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/site/${record.SiteID}`}>{text}</Link>)
+      render: (text: any, record: any) => renderLink(`/site/${record.SiteID}`, text, isModal)
     },
     { title: "Site Name", dataIndex: "Name" },
-    { title: "Parent Organization", dataIndex: "OrganizationName" 
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/organization/${record.OrganizationID}`}>{text}</Link>)
+    {
+      title: "Parent Organization",
+      dataIndex: "OrganizationName",
+      render: (text: any, record: any) => renderLink(`/organization/${record.OrganizationID}`, text, isModal)
     }
   ]
   //TODO: add tab for Buildings
