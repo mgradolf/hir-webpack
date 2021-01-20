@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react"
 import StandardReportPage from "~/Component/Common/Page/ReportPage/StandardReportPage"
-import {
-  DATE_PICKER,
-  // DATE_PICKERS,
-  IFilterField,
-  IFilterFieldType,
-  NUMBER,
-  TEXT
-} from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKER, IFilterField, IFilterFieldType, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import { RouteComponentProps } from "react-router-dom"
 import { getReportByReportName } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Row, Spin } from "antd"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterField[] => {
   const metas: IFilterField[] = []
@@ -60,37 +55,32 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
 
   const loadReportMeta = async () => {
     setLoading(true)
-    let __reportMeta: any
-    let __reportMapping: any
-    let __defaultFilters: any
-    try {
-      __reportMeta = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`)
-    } catch (error) {}
-
-    try {
-      __reportMapping = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.mapping)
-      setReportMapping(__reportMapping)
-    } catch (error) {}
-
-    try {
-      __defaultFilters = await import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`).then((x) => x.filters)
-      setDefaultFilters(__defaultFilters)
-    } catch (error) {}
-
-    const result = await getReportByReportName({ ReportName })
-    if (result.success) {
-      setReport(result.data)
-      if (__reportMeta && Array.isArray(__reportMeta.default) && __reportMeta.default.length > 0) {
-        setReportMeta(__reportMeta.default)
-      } else {
-        const metas: IFilterField[] = generateIfilterFieldObject(result.data.Params)
-        setReportMeta(metas)
-      }
-    }
-    setTimeout(() => {
-      console.log(reportMeta)
-    }, 0)
-    setLoading(false)
+    Promise.all([
+      import(`~/Pages/Discovery/Report/ReportFormMeta/${ReportName}`),
+      getReportByReportName({ ReportName })
+    ])
+      .then((results) => {
+        const fileResponse: IReportMeta = results[0]?.default
+        const apiResponse: IApiResponse = results[1]
+        if (apiResponse.success) {
+          setReport(apiResponse.data)
+          if (
+            fileResponse &&
+            Array.isArray(fileResponse.meta) &&
+            (fileResponse.meta.length > 0 || Object.keys(fileResponse.defaultFilter).length > 0)
+          ) {
+            setReportMeta(fileResponse.meta)
+            setReportMapping(fileResponse.mapping)
+            setDefaultFilters(fileResponse.defaultFilter)
+          } else {
+            const metas: IFilterField[] = generateIfilterFieldObject(apiResponse.data.Params)
+            setReportMeta(metas)
+          }
+        }
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
   useEffect(() => {
     eventBus.subscribe(REFRESH_PAGE, loadReportMeta)

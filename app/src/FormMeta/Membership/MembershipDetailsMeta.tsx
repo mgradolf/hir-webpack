@@ -2,8 +2,8 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
-import { getMembershipBeneficiariesTableColumns } from "./MembershipBeneficiariesTableColumns"
-import { getMembershipTermsTableColumns } from "./MembershipTermsTableColumns"
+import { getMembershipBeneficiariesTableColumns } from "~/FormMeta/Membership/MembershipBeneficiariesTableColumns"
+import { getMembershipTermsTableColumns } from "~/FormMeta/Membership/MembershipTermsTableColumns"
 
 export const getMembershipDetailsMeta = (record: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
