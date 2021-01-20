@@ -18,14 +18,13 @@ export const getForgetMeRequestTableColumns = (isModal = false): ITableConfigPro
         )
       })
     },
-    { title: "First Name", dataIndex: "FirstName" },
-    { title: "Last Name", dataIndex: "LastName" },
-    { title: "Email Address", dataIndex: "EmailAddress", render: renderEmail },
     { title: "Request Date", dataIndex: "RequestDate", render: renderDate },
-    { title: "Request Source", dataIndex: "SourceName" },
-    { title: "Request By", dataIndex: "StaffUserName" },
+    { title: "Person", dataIndex: "SortName", 
+      render: (text: any, record: any) => renderDetailsLink(`/person/${record.PersonID}`)
+    },
+    { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
     { title: "Processed", dataIndex: "IsProcessed", render: renderBoolean },
-    { title: "Processing Date", dataIndex: "ProcessingDate", render: renderDate }
+    { title: "Processed Date", dataIndex: "ProcessingDate", render: renderDate }
   ]
 
   const responsiveColumnIndices: number[] = []

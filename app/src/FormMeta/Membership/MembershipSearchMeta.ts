@@ -31,26 +31,6 @@ export const MembershipSearchMeta: IFilterField[] = [
     }
   },
   {
-    label: "Lookup",
-    fieldName: "",
-    fullWidth: true,
-    customFilterComponent: SearchLookupSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "Person Name",
-          fieldName: "PersonName",
-          component: SearchInputType
-        },
-        {
-          label: "Email 2",
-          fieldName: "PersonName2",
-          component: SearchInputType
-        }
-      ]
-    }
-  },
-  {
     label: "Expiration",
     inputType: DATE_PICKERS,
     displayKey: "From",

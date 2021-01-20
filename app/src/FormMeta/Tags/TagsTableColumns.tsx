@@ -8,13 +8,13 @@ import { Link } from "react-router-dom"
 export const getTagsTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Tag Type",
-      dataIndex: "TagType"
-    },
-    {
       title: "Tag Name",
       dataIndex: "Name",
       render: (text: any, record: any) => <Link to={`/tags/${record.TagID}`}>{text}</Link>
+    },
+    {
+      title: "Tag Type",
+      dataIndex: "TagType"
     },
     {
       ...(!isModal && {

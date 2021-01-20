@@ -154,7 +154,7 @@ export default function RequestActionsTable(props: ITableWrapperProps) {
       key: "Description"
     },
     {
-      title: "Recipient",
+      title: "Student",
       dataIndex: "RecipientPersonName",
       key: "RecipientPersonName"
     },

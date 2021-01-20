@@ -6,7 +6,7 @@ import { getMarketingCodeResponseTableColumns } from "~/FormMeta/MarketingCodeRe
 export function MarketingCodeResponsePage() {
   return (
     <SearchPage
-      title="Manage Marketing Code Responses"
+      title="Manage Promotion Responses"
       meta={MarketingCodeResponseSearchMeta}
       tableProps={{
         ...getMarketingCodeResponseTableColumns()

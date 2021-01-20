@@ -45,7 +45,7 @@ export const getMarketingCodeRepositoryDetailsMeta = (MarketingCode: { [key: str
   })
 
   return {
-    pageTitle: `Marketing Code - ${MarketingCode.Name}`,
+    pageTitle: `Promotion Code - ${MarketingCode.Name}`,
     tabs: tabMetas
   }
 }

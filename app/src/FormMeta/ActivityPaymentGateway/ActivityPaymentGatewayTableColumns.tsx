@@ -23,21 +23,20 @@ export const getActivityPaymentGatewayTableColumns = (): ITableConfigProp => {
       render: (text: any, record: any) => <Link to={`/person/${record.PersonID}`}>{text}</Link>
     },
     {
-      title: "Activity State",
-      dataIndex: "ActivityState"
-    },
-    {
-      title: "Request ID",
-      dataIndex: "IsActive",
-      render: (text: any, record: any) => <Link to={`/request/${record.RequestID}`}>{text}</Link>
-    },
-    {
-      title: "Request State",
-      dataIndex: "RequestState"
-    },
-    {
       title: "Transaction Number",
       dataIndex: "TransactionNo"
+    },
+    {
+      title: "CC Type",
+      dataIndex: "CreditCardType"
+    },
+    {
+      title: "Amount",
+      dataIndex: "RequestAmount"
+    },
+    {
+      title: "Authorization",
+      dataIndex: "AuthorizationCode"
     }
   ]
 

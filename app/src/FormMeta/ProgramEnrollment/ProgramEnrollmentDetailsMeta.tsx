@@ -58,10 +58,6 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
     summary: [info]
   }
 
-  const progressTrackingMeta: IDetailsCustomTabProp = {
-    component: EnrollmentProgressTrackingPage,
-    props: { programID: programEnrollment.ProgramID, studentID: programEnrollment.StudentID }
-  }
 
   const groupMeta: IDetailsTableTabProp = {
     tableProps: {
@@ -89,11 +85,6 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
       },
       {
         tabTitle: "Progress Tracking",
-        tabType: "custom",
-        tabMeta: progressTrackingMeta
-      },
-      {
-        tabTitle: "Progress Tracking New",
         tabType: "custom",
         tabMeta: [],
         multipleTabMetas: [
