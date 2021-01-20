@@ -8,22 +8,19 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { eventBus, REFRESH_PROGRAM_CATALOG_PAGE } from "~/utils/EventBus"
 
 export const getProgramCatalogTableColumns = (ProgramID: number): ITableConfigProp => {
-
   const catalogPublished = (event: any, catalogID: any) => {
     if (event) {
-      addProgramToCatalog({ ProgramID, CatalogID: catalogID })
-        .then((response) => {
-          if (response && response.success) {
-            eventBus.publish(REFRESH_PROGRAM_CATALOG_PAGE)
-          }
-        })
+      addProgramToCatalog({ ProgramID, CatalogID: catalogID }).then((response) => {
+        if (response && response.success) {
+          eventBus.publish(REFRESH_PROGRAM_CATALOG_PAGE)
+        }
+      })
     } else {
-      removeProgramFromCatalog({ ProgramID, CatalogID: catalogID })
-        .then((response) => {
-          if (response && response.success) {
-            eventBus.publish(REFRESH_PROGRAM_CATALOG_PAGE)
-          }
-        })
+      removeProgramFromCatalog({ ProgramID, CatalogID: catalogID }).then((response) => {
+        if (response && response.success) {
+          eventBus.publish(REFRESH_PROGRAM_CATALOG_PAGE)
+        }
+      })
     }
   }
 

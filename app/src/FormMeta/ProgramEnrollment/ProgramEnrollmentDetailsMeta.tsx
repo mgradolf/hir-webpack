@@ -19,7 +19,9 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
             Edit
           </Button>
         )}
-        {showModal && <UpdateProgramEnrollment enrollmentID={props.enrollmentID} closeModal={() => setShowModal(false)} />}
+        {showModal && (
+          <UpdateProgramEnrollment enrollmentID={props.enrollmentID} closeModal={() => setShowModal(false)} />
+        )}
       </>
     )
   }
@@ -29,7 +31,10 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
     contents: [
       { label: "Enrollment Date", value: programEnrollment.EnrollmentDate, render: renderDate },
       { label: "Status", value: programEnrollment.StatusName },
-      { label: "Student", value: <Link to={`/person/student/${programEnrollment.StudentID}`}>{programEnrollment.StudentName}</Link> },
+      {
+        label: "Student",
+        value: <Link to={`/person/student/${programEnrollment.StudentID}`}>{programEnrollment.StudentName}</Link>
+      },
       { label: "Email", value: programEnrollment.Email, render: renderEmail },
       { label: "Certificate Issued", value: programEnrollment.FinalStatusDate, render: renderDate },
       { label: "Order ID", value: <Link to={`/order/${programEnrollment.OrderID}`}>{programEnrollment.OrderID}</Link> },

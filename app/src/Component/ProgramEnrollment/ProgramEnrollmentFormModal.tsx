@@ -18,10 +18,7 @@ const fieldNames: IEnrollmentFieldNames = {
   ProgramEnrollmentID: "ProgramEnrollmentID"
 }
 
-export default function UpdateProgramEnrollment({
-  enrollmentID,
-  closeModal
-}: IUpdateProgramEnrollmentProps) {
+export default function UpdateProgramEnrollment({ enrollmentID, closeModal }: IUpdateProgramEnrollmentProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({})

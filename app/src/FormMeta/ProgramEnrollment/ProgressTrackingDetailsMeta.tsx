@@ -6,7 +6,6 @@ import { getRequirementGroupDetailsTableColumns } from "~/FormMeta/ProgramEnroll
 import { REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_DETAILS_PAGE } from "~/utils/EventBus"
 
 export const getProgressTrackingDetailsMeta = (programEnrollment: { [key: string]: any }): IDetailsMeta => {
-
   const info: CardContainer = {
     contents: [
       { label: "Requirement Group", value: programEnrollment.Name },

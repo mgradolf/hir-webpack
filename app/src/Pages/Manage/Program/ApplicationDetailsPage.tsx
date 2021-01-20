@@ -4,7 +4,7 @@ import { getProgramAppDetails } from "~/ApiServices/BizApi/program/programApplic
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getProgramApplicationDetailsMeta } from "~/FormMeta/ProgramApplication/ProgramApplicationDetailsMeta"
 
-export function ProgramApplicationDetailsPage(props: RouteComponentProps<{ programID?: string, studentID?: string }>) {
+export function ProgramApplicationDetailsPage(props: RouteComponentProps<{ programID?: string; studentID?: string }>) {
   const programID = Number(props?.match?.params?.programID)
   const studentID = Number(props?.match?.params?.studentID)
 
@@ -12,7 +12,7 @@ export function ProgramApplicationDetailsPage(props: RouteComponentProps<{ progr
     <DetailsPage
       getMeta={getProgramApplicationDetailsMeta}
       getDetails={() =>
-        getProgramAppDetails([ programID, studentID ]).then((x) => {
+        getProgramAppDetails([programID, studentID]).then((x) => {
           if (x.success) {
             return x
           }

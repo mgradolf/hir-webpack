@@ -8,12 +8,15 @@ import { renderDate } from "~/Component/Common/ResponsiveTable"
 import ProgramApplicationTabDetailsPage from "~/Pages/Program/ProgramApplicationDetailsPage"
 
 export const getProgramApplicationDetailsMeta = (programApplication: { [key: string]: any }): IDetailsMeta => {
-
   const info: CardContainer = {
     cardActions: [
       <Button type="primary">Accept</Button>,
-      <Button danger type="ghost">Reject</Button>,
-      <Button danger type="primary">Declined</Button>,
+      <Button danger type="ghost">
+        Reject
+      </Button>,
+      <Button danger type="primary">
+        Declined
+      </Button>
     ],
     contents: [
       { label: "Application Date", value: programApplication.ApplicationDate, render: renderDate },
