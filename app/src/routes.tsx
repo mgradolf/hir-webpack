@@ -341,7 +341,10 @@ export const AppRoutes: RouteProps[] = [
     path: "/building/:BuildingID",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/BuildingDetailsPage"))
   },
-
+  {
+    path: "/room/:RoomID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/RoomDetailsPage"))
+  },
   {
     path: "/site",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Site/SitePage"))

@@ -5,7 +5,7 @@ import { findSystemSchedules } from "~/ApiServices/BizApi/query/queryIf"
 export const getActivitySystemScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      render: (text: any, record: any) => renderDetailsLink(`/systemschedule/${record.TimerID}`)
+      render: (text: any, record: any) => renderDetailsLink(`/system-schedule/${record.TimerID}`)
     },
     {
       title: "Schedule Time",
