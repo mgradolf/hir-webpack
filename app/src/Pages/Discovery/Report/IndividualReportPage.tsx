@@ -67,11 +67,12 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
           if (
             fileResponse &&
             Array.isArray(fileResponse.meta) &&
-            (fileResponse.meta.length > 0 || Object.keys(fileResponse.defaultFilter).length > 0)
+            (fileResponse.meta.length > 0 ||
+              (fileResponse.defaultFilter && Object.keys(fileResponse.defaultFilter).length > 0))
           ) {
             setReportMeta(fileResponse.meta)
-            setReportMapping(fileResponse.mapping)
-            setDefaultFilters(fileResponse.defaultFilter)
+            setReportMapping(fileResponse.mapping || {})
+            setDefaultFilters(fileResponse.defaultFilter || {})
           } else {
             const metas: IFilterField[] = generateIfilterFieldObject(apiResponse.data.Params)
             setReportMeta(metas)

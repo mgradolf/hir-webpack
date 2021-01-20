@@ -1,5 +1,6 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -26,9 +27,8 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
+const reportMeta: IReportMeta = {
+  meta
+}
 
-// sourceAll
-// date_start
-// date_end
-// OrganizationID
+export default reportMeta

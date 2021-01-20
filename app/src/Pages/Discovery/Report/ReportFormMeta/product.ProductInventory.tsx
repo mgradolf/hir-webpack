@@ -1,5 +1,6 @@
 import { getDeliveryModes } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -51,4 +52,8 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
+const reportMeta: IReportMeta = {
+  meta
+}
+
+export default reportMeta

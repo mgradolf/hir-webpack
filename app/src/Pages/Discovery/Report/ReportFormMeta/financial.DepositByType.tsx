@@ -1,5 +1,6 @@
 import { getBasePaymentTypes, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, MULTI_SELECT_DROPDOWN } from "~/Component/Common/SearchFilters/common"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -34,4 +35,8 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
+const reportMeta: IReportMeta = {
+  meta
+}
+
+export default reportMeta

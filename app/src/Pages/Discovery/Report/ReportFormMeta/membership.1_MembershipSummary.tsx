@@ -1,5 +1,6 @@
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -17,9 +18,13 @@ const meta: IFilterField[] = [
     valueKey: "ID"
   }
 ]
-export const mapping: { [key: string]: any } = {
-  StartDate: "DisplayStartDate",
-  EndDate: "DisplayEndDate"
+
+const reportMeta: IReportMeta = {
+  meta,
+  mapping: {
+    StartDate: "DisplayStartDate",
+    EndDate: "DisplayEndDate"
+  }
 }
 
-export default meta
+export default reportMeta

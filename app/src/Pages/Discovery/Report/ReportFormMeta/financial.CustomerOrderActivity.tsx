@@ -1,5 +1,6 @@
 import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
 const meta: IFilterField[] = [
   {
@@ -15,13 +16,8 @@ const meta: IFilterField[] = [
   }
 ]
 
-export default meta
+const reportMeta: IReportMeta = {
+  meta
+}
 
-// PersonID
-// PersonAddress
-// PersonName
-// AffiliatedOrg
-// CashAccountBalance
-// TotalOutstandingBalance
-// OrderDateFrom
-// OrderDateTo
+export default reportMeta
