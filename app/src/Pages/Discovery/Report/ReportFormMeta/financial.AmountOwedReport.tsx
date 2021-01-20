@@ -4,7 +4,6 @@ import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/Sea
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
-// import { IReportMeta } from "../IReportMeta"
 
 const meta: IFilterField[] = [
   {

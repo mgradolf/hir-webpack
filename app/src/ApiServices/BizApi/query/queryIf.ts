@@ -101,3 +101,7 @@ export function findOfferingTypes(Params: { [key: string]: any }): Promise<IApiR
 export function findSectionTypes(Params: { [key: string]: any }): Promise<IApiResponse> {
   return QueryIf[config.Actions.executeDomainList](["jxntm.course.findSectionTypes", Params, 0, 99999])
 }
+
+export function searchCertificateParams(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.certificate.searchCertificateParams", Params, 0, 99999])
+}

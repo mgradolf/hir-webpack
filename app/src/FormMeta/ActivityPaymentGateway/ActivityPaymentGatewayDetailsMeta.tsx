@@ -3,8 +3,6 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { renderDate, renderDateTime } from "~/Component/Common/ResponsiveTable"
 
 export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: any }): IDetailsMeta => {
-  console.log(activity)
-
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
