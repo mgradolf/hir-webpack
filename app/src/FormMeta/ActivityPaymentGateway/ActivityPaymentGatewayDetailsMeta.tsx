@@ -36,6 +36,21 @@ export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: 
     }
   })
 
+  meta.push({
+    tabTitle: "Data Logs",
+    tabType: "summary",
+    tabMeta: {
+      summary: [
+        {
+          contents: [
+            { label: "Request Log", value: JSON.stringify(activity.RequestData) },
+            { label: "Response Log", value: JSON.stringify(activity.RawResponseData) }
+          ]
+        }
+      ]
+    }
+  })
+
   //TODO: add tab for error info
   return {
     pageTitle: `Activity ID - ${activity.PaymentGatewayAccountID}`,
