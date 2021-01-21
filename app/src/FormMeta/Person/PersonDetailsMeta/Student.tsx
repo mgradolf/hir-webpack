@@ -67,14 +67,14 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
               },
               { title: "To Time", dataIndex: "EndTime" },
               {
-                title: "Offering Name",
-                dataIndex: "OfferingName",
-                render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
-              },
-              {
-                title: "Section Number",
+                title: "Section",
                 dataIndex: "SectionNumber",
                 render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+              },
+              {
+                title: "Offering",
+                dataIndex: "OfferingName",
+                render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
               },
               { title: "Location", dataIndex: "Location" }
             ],
@@ -105,13 +105,13 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
                 sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
               },
               {
-                title: "Section Number",
+                title: "Section",
                 dataIndex: "SectionNumber",
                 render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
               },
               {
-                title: "Offering Code",
-                dataIndex: "OfferingCode",
+                title: "Offering",
+                dataIndex: "OfferingName",
                 render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
               }
             ],

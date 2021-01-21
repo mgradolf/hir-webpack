@@ -27,15 +27,5 @@ export const OfferingTypeSearchMeta: IFilterField[] = [
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
-  },
-  {
-    label: "Department",
-    inputType: DROPDOWN,
-
-    fieldName: "OrganizationID",
-    ariaLabel: "Department",
-    refLookupService: getAccountTypes,
-    displayKey: "Name",
-    valueKey: "ID"
   }
 ]
