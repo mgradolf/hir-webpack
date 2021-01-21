@@ -31,7 +31,8 @@ const blockedPages: string[] = [
   "Grade score definition",
   "Student",
   "Student email notification",
-  "System schedule"
+  "System schedule",
+  "Membership"
 ]
 
 const names: { [key: string]: string } = {
