@@ -32,7 +32,7 @@ export const getBuildingDetailsMeta = (building: { [key: string]: any }): IDetai
     tabMeta: {
       tableProps: {
         ...getRoomTableColumns(),
-        searchParams: { BuildingID: building.buildingID },
+        searchParams: { BuildingID: building.BuildingID },
         refreshEventName: "REFRESH_CONTACT_TAB"
       }
     }
