@@ -10,17 +10,19 @@ import { renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 import UpdateProgramEnrollment from "~/Component/ProgramEnrollment/ProgramEnrollmentFormModal"
 import EnrollmentProgressTrackingPage from "~/Pages/Program/EnrollmentProgressTrackingPage"
 import { getRequirementGroupDetailsTableColumns } from "~/FormMeta/ProgramEnrollment/RequirementGroupDetailsTableColumns"
-import { REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_DETAILS_PAGE, REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_PAGE } from "~/utils/EventBus"
+import {
+  REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_DETAILS_PAGE,
+  REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_PAGE
+} from "~/utils/EventBus"
 import { getRequirementGroupTableColumns } from "~/FormMeta/ProgramEnrollment/RequirementGroupTableColumns"
 
 export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: string]: any }): IDetailsMeta => {
-
   const EnrollmentFormModalOpenButton = (props: { enrollmentID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{float: "right"}} onClick={() => setShowModal && setShowModal(true)}>
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
             Change
           </Button>
         )}
@@ -36,11 +38,12 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
       { label: "Enrollment Date", value: programEnrollment.EnrollmentDate, render: renderDate },
       {
         label: "Status",
-        value:
+        value: (
           <>
             <Typography.Text>{programEnrollment.StatusName}</Typography.Text>
             <EnrollmentFormModalOpenButton enrollmentID={programEnrollment.ProgramEnrollmentID} />
           </>
+        )
       },
       {
         label: "Student",

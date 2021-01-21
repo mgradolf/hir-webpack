@@ -1,7 +1,7 @@
 import { Button, Card, Col, Form, Input, Row, Select, Spin, Upload } from "antd"
 import React, { useState, useEffect } from "react"
 import { getProgramAppDetails } from "~/ApiServices/BizApi/program/programApplicationIF"
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from "@ant-design/icons"
 
 interface IRequisitePageProp {
   programID: number
@@ -49,18 +49,18 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
 
   const fileList: any = [
     {
-      uid: '-1',
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      uid: "-1",
+      name: "xxx.png",
+      status: "done",
+      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      thumbUrl: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
     },
     {
-      uid: '-2',
-      name: 'yyy.png',
-      status: 'error',
-    },
-  ];
+      uid: "-2",
+      name: "yyy.png",
+      status: "error"
+    }
+  ]
 
   return (
     <>
@@ -72,14 +72,21 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
       {!loading && Object.keys(itemDetails).length > 0 && (
         <Row>
           {admissionReqsList.map((x: any, index: any) => (
-            <Col key={index+1} xs={24} sm={24} md={12}>
+            <Col key={index + 1} xs={24} sm={24} md={12}>
               <Card
                 title={x.Name}
                 actions={[
-                  <Button type="primary" style={{marginRight: "10px"}}>Accept</Button>,
-                  <Button type="ghost" style={{marginRight: "10px"}}>Resubmit</Button>,
-                  <Button type="primary" danger style={{marginRight: "10px"}}>Reject</Button>
-                ]}>
+                  <Button type="primary" style={{ marginRight: "10px" }}>
+                    Accept
+                  </Button>,
+                  <Button type="ghost" style={{ marginRight: "10px" }}>
+                    Resubmit
+                  </Button>,
+                  <Button type="primary" danger style={{ marginRight: "10px" }}>
+                    Reject
+                  </Button>
+                ]}
+              >
                 <Form>
                   <Form.Item label={"Question"} {...layout}>
                     <Input aria-label="Question" disabled value={x.PreferenceDefName} />
@@ -90,20 +97,18 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                   </Form.Item>
 
                   <Form.Item label={"Answer"} {...layout}>
-                    {x.PreferenceDefChoices &&
+                    {x.PreferenceDefChoices && (
                       <Select aria-label="Select Asnwer">
                         {x.PreferenceDefChoices.map((x: any, index: any) => {
-                            return (
-                              <Select.Option key={`${index+1}`} value={x.Value}>
-                                {x.Value}
-                              </Select.Option>
-                            )
-                          })}
+                          return (
+                            <Select.Option key={`${index + 1}`} value={x.Value}>
+                              {x.Value}
+                            </Select.Option>
+                          )
+                        })}
                       </Select>
-                    }
-                    {!x.PreferenceDefChoices &&
-                      <Input aria-label="Answer" />
-                    }
+                    )}
+                    {!x.PreferenceDefChoices && <Input aria-label="Answer" />}
                   </Form.Item>
                   <Form.Item label="Attachments" {...layout}>
                     <Upload
@@ -116,7 +121,9 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                     </Upload>
                   </Form.Item>
 
-                  <Button type="primary" style={{ marginRight: "10px"}}>Save</Button>
+                  <Button type="primary" style={{ marginRight: "10px" }}>
+                    Save
+                  </Button>
 
                   <Form.Item label={"Current Status"} {...layout}>
                     <Input aria-label="Status" disabled value={x.Answer && x.Answer.StatusName} />

@@ -11,8 +11,9 @@ export function ProgramEnrollmentDetailsPage(props: RouteComponentProps<{ progra
     <DetailsPage
       getMeta={getProgramEnrollmentDetailsMeta}
       getDetails={() => {
-          let result: IApiResponse
-          return Promise.all([searchEnrollment({ enrollmentID: programEnrollmentID })]).then((responses) => {
+        let result: IApiResponse
+        return Promise.all([searchEnrollment({ enrollmentID: programEnrollmentID })])
+          .then((responses) => {
             result = responses[0]
             if (result.success) {
               result.data = {
@@ -23,7 +24,7 @@ export function ProgramEnrollmentDetailsPage(props: RouteComponentProps<{ progra
           })
           .then((enrollmentDetails) => {
             if (enrollmentDetails.success) {
-              let requirementList: Array<any> = []
+              const requirementList: Array<any> = []
               const requirements = enrollmentDetails.data.ProgramRequirementGroups
               // eslint-disable-next-line
               requirements.map((requirement: any) => {
@@ -37,8 +38,7 @@ export function ProgramEnrollmentDetailsPage(props: RouteComponentProps<{ progra
             }
             return result
           })
-        }
-      }
+      }}
     />
   )
 }
