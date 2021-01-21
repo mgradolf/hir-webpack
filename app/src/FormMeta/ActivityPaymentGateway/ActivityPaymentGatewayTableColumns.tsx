@@ -41,7 +41,5 @@ export const getActivityPaymentGatewayTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findPaymentGatewayActivities }
+  return { columns, searchFunc: findPaymentGatewayActivities }
 }

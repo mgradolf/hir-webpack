@@ -1,3 +1,4 @@
+import { searchCertificateParams } from "~/ApiServices/BizApi/query/queryIf"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -18,12 +19,26 @@ export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]
       { label: "Description ", value: certificate.Description, render: undefined }
     ]
   }
-  //TODO: add table for static params
   meta.push({
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
       summary: [summary]
+    }
+  })
+  meta.push({
+    tabTitle: "Static parameter/value",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        columns: [
+          { title: "Parameter Name", dataIndex: "Name" },
+          { title: "Parameter Value", dataIndex: "Value" }
+        ],
+        searchFunc: searchCertificateParams,
+        searchParams: { certificateID: certificate.CertificateID },
+        refreshEventName: "REFRESH_CONTACT_TAB"
+      }
     }
   })
   return { tabs: meta }

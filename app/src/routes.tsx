@@ -289,7 +289,7 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesPage"))
   },
   {
-    path: "/data/certificate/:StudentCertificateID",
+    path: "/data/certificate/:CertificateID",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesDetailsPage"))
   },
   {
@@ -341,7 +341,10 @@ export const AppRoutes: RouteProps[] = [
     path: "/building/:BuildingID",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/BuildingDetailsPage"))
   },
-
+  {
+    path: "/room/:RoomID",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/RoomDetailsPage"))
+  },
   {
     path: "/site",
     component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Site/SitePage"))

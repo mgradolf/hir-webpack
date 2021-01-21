@@ -3,8 +3,6 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { renderDate, renderDateTime } from "~/Component/Common/ResponsiveTable"
 
 export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: any }): IDetailsMeta => {
-  console.log(activity)
-
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
@@ -35,6 +33,21 @@ export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: 
     tabType: "summary",
     tabMeta: {
       summary: [summary]
+    }
+  })
+
+  meta.push({
+    tabTitle: "Data Logs",
+    tabType: "summary",
+    tabMeta: {
+      summary: [
+        {
+          contents: [
+            { label: "Request Log", value: JSON.stringify(activity.RequestData) },
+            { label: "Response Log", value: JSON.stringify(activity.RawResponseData) }
+          ]
+        }
+      ]
     }
   })
 

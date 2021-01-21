@@ -1,31 +1,59 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
+import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { SearchRequestLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchRequestLookup"
 
 export const ActivityPaymentGatewaySearchMeta: IFilterField[] = [
   {
-    label: "Service Name",
-    inputType: TEXT,
-    fieldName: "ServiceName",
-    ariaLabel: "Service Name"
+    label: "Payment GatewayActivity ID",
+    inputType: NUMBER,
+    fieldName: "PaymentGatewayActivityID"
   },
   {
-    label: "Completed",
-    inputType: DROPDOWN,
-    fieldName: "ActivityStatusID",
-    options: [
-      { label: "Completed", value: "CompletedOnly" },
-      { label: "Incomplete", value: "IncompleteOnly" }
-    ]
+    label: "Activity Status ID",
+    inputType: NUMBER,
+    fieldName: "ActivityStatusID"
   },
   {
-    label: "Schedule",
+    label: "Request Date",
     inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "ScheduledTimeFrom",
-    valueKey: "ScheduledTimeFrom",
-    ariaLabel: "From",
-    displayKey2: "To",
-    fieldName2: "ScheduledTimeTo",
-    valueKey2: "ScheduledTimeTo",
-    ariaLabel2: "To"
+    fieldName: "RequestDateFrom",
+    fieldName2: "RequestDateTo"
+  },
+  {
+    label: "Transaction No",
+    inputType: NUMBER,
+    fieldName: "TransactionNo"
+  },
+  {
+    label: "Transaction No",
+    inputType: NUMBER,
+    fieldName: "TransactionNo"
+  },
+  {
+    label: "Person",
+    fieldName: "PersonID",
+    customFilterComponent: SearchPersonLookupButton
+  },
+  {
+    label: "Source",
+    inputType: DROPDOWN,
+    fieldName: "SourceID",
+    refLookupService: getSourceModule,
+    displayKey: "Name",
+    valueKey: "ID"
+  },
+  {
+    label: "Transaction No",
+    inputType: NUMBER,
+    fieldName: "TransactionNo"
+  },
+  {
+    label: "RequestID",
+    fieldName: "RequestIDs",
+    customFilterComponent: SearchRequestLookup,
+    extraProps: {
+      isArray: true
+    }
   }
 ]

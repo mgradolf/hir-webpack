@@ -52,7 +52,7 @@ export const getQuestionTaggingTableColumns = (isTab?: boolean): ITableConfigPro
       ...(isTab && {
         title: "Tag",
         dataIndex: "TagName",
-        render: (text, record) => renderLink(`/tag/${record.TagID}`, text)
+        render: (text, record) => renderLink(`/tags/${record.TagID}`, text)
       })
     },
     {

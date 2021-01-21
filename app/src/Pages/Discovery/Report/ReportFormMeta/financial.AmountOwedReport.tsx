@@ -6,55 +6,6 @@ import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/Sear
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-// const meta: IFilterField[] = [
-//   {
-//     label: "Person Selector",
-//     fieldName: "",
-//     customFilterComponent: SearchLookupSelector,
-//     extraProps: {
-//       selectorKeys: [
-//         {
-//           label: "Offering",
-//           fieldName: "OfferingID",
-//           valueField: "OfferingID",
-//           component: SearchOfferingLookupButton
-//         },
-//         {
-//           label: "Section",
-//           fieldName: "SectionID",
-//           valueField: "SectionID",
-//           component: SearchSectionLookupButton
-//         }
-//       ]
-//     }
-//   },
-//   {
-//     label: "Student",
-//     fieldName: "StudentID",
-//     customFilterComponent: SearchStudentLookupButton
-//   },
-//   {
-//     label: "Registration Date",
-//     fieldName: "FromRegistrationDate",
-//     fieldName2: "ToRegistrationDate",
-//     inputType: DATE_PICKERS
-//   },
-//   {
-//     label: "Department",
-//     inputType: DROPDOWN,
-//     fieldName: "OrganizationID",
-//     refLookupService: getOrganizations,
-//     displayKey: "Name",
-//     valueKey: "OrganizationID"
-//   }
-// ]
-
-// export default meta
-
-// export const filters = {
-//   BalanceMoreThan: 0
-// }
-
 const meta: IFilterField[] = [
   {
     label: "Person Selector",
