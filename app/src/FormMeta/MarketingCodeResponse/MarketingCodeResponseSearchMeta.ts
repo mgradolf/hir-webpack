@@ -10,7 +10,7 @@ import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSel
 
 export const MarketingCodeResponseSearchMeta: IFilterField[] = [
   {
-    label: "Marketing Code",
+    label: "Promotion Code",
     inputType: DROPDOWN,
     fieldName: "MarketingCodeID",
     customFilterComponent: SearchMarketingCodeLookup

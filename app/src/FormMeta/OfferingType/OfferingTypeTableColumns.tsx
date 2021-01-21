@@ -9,9 +9,7 @@ export const getOfferingTypeTableColumns = (isModal = false): ITableConfigProp =
     },
     { title: "Offering Type", dataIndex: "OfferingTypeName" },
     { title: "Offering Name", dataIndex: "Name" },
-    { title: "Offering Code", dataIndex: "OfferingCode" },
-    { title: "Department", dataIndex: "OrganizationName" },
-    { title: "Quick Admit", dataIndex: "IsQuickAdmit", render: renderBoolean }
+    { title: "Department", dataIndex: "OrganizationName" }
   ]
   return { columns, searchFunc: findOfferingTypes, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

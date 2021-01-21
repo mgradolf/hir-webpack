@@ -7,7 +7,7 @@ import { MarketingCodeRepositorySearchMeta } from "~/FormMeta/MarketingCodeRepos
 export function SearchMarketingCodeLookup(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
   return (
     <SearchLookupOpenButton
-      lookupModalTitle="Select Marketing Code"
+      lookupModalTitle="Select Promotion Code"
       valueField="MarketingCodeID"
       displayField="Name"
       meta={MarketingCodeRepositorySearchMeta}

@@ -14,12 +14,12 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
     },
     {
       title: "Start Date",
-      dataIndex: "startDate",
+      dataIndex: "StartDate",
       render: renderDate
     },
     {
       title: "End Date",
-      dataIndex: "endDate",
+      dataIndex: "EndDate",
       render: renderDate
     },
     {

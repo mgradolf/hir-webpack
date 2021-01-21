@@ -23,7 +23,7 @@ export const getMarketingCodeResponseTableColumns = (isModal = false): ITableCon
       render: renderDate
     },
     {
-      title: "Marketing Code",
+      title: "Promotion Code",
       dataIndex: "MarketingCode",
       render: (text: any, record: any) =>
         isModal ? text : <Link to={`/marketing-codes/repository/${record.MarketingCodeID}`}>{text}</Link>

@@ -7,10 +7,6 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 export const getOrganizationTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Organization Type",
-      dataIndex: "OrganizationType"
-    },
-    {
       title: "Name",
       dataIndex: "Name",
       render: (text: any, record: any) =>
@@ -19,6 +15,10 @@ export const getOrganizationTableColumns = (isModal = false): ITableConfigProp =
     {
       title: "Short Name",
       dataIndex: "ShortName"
+    },
+    {
+      title: "Organization Type",
+      dataIndex: "OrganizationType"
     },
     {
       title: "Parent Organization",

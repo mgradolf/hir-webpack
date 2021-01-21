@@ -69,7 +69,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Catalogs", url: "/catalog", submenu: [] },
           { title: "Discount Programs", url: "/discount-program", submenu: [] },
           { title: "Marketing Programs", url: "/marketing-programs", submenu: [] },
-          { title: "Marketing Codes", url: "/marketing-codes/repository", submenu: [] },
+          { title: "Promotion Codes", url: "/marketing-codes/repository", submenu: [] },
           { title: "Promotion Response", url: "/marketing-codes/response", submenu: [] }
         ]
       },
@@ -116,7 +116,6 @@ export const sidebarMenus: ISidebarMenu[] = [
         submenu: [
           { title: "Offering Types", url: "/offering-type", submenu: [] },
           { title: "Section Types", url: "/section-type", submenu: [] },
-          { title: "Buildings", url: "/building", submenu: [] },
           { title: "Sites", url: "/site", submenu: [] },
           { title: "Grade Score Definitions", url: "/data/grade-score-definition", submenu: [] },
           { title: "Reference Data", url: "", submenu: [] },

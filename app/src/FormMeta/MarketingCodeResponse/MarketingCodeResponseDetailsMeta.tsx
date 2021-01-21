@@ -8,13 +8,13 @@ export const getMarketingCodeResponseDetailsMeta = (response: { [key: string]: a
     title: response.MarketingCode,
     contents: [
       {
-        label: "Marketing Code",
+        label: "Promotion Code",
         value: response.MarketingCode,
         render: (text) => (
           <Link to={`/marketing-codes/repository/${response.MarketingCodeID}`}>{response.MarketingCode}</Link>
         )
       },
-      { label: "Marketing Code Description", value: response.Description },
+      { label: "Promotion Code Description", value: response.Description },
       { label: "Category", value: response.CategoryName },
       {
         label: "Order ID",

@@ -19,7 +19,7 @@ export const getBatchTableColumns = (isModal = false): ITableConfigProp => {
       })
     },
     {
-      title: "Batch Date",
+      title: "Date",
       dataIndex: "CreatedDate",
       render: renderDate
     },
@@ -27,10 +27,7 @@ export const getBatchTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Status", dataIndex: "State" },
     { title: "Uploaded", render: (text, record) => record?.BatchDetails?.TotalUploaded },
     { title: "Processed", render: (text, record) => record?.BatchDetails?.TotalProcessed },
-    { title: "Failed", render: (text, record) => record?.BatchDetails?.TotalFailed },
-    { title: "Source", dataIndex: "SourceName" },
-    { title: "File", dataIndex: "FileName" },
-    { title: "Uploaded By", dataIndex: "CreatedBy" }
+    { title: "Failed", render: (text, record) => record?.BatchDetails?.TotalFailed }
   ]
   return { columns, searchFunc: findBatches, responsiveColumnIndices: [], expandableColumnIndices: [] }
 }

@@ -104,7 +104,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
         tabMeta: orderItemsMeta
       },
       {
-        tabTitle: "Sections",
+        tabTitle: "Seat Groups",
         tabType: "table",
         tabMeta: seatgroupMeta
       },
