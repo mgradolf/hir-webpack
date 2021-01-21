@@ -29,6 +29,7 @@ export interface IFilterFieldObject {
   hidden?: boolean
   placeholder?: string
   disabled?: boolean
+  required?: boolean
 
   fieldName: string
   defaultValue?: any
@@ -59,6 +60,7 @@ export interface IFilterFieldComponent {
   defaultValue2?: any
   customFilterComponent: React.FunctionComponent<any>
   fullWidth?: boolean
+  required?: boolean
   extraProps?: { [key: string]: any }
 }
 
@@ -137,6 +139,7 @@ export function SearchFieldWrapper(
       {...(props.fieldName !== "" && { name: props.fieldName })}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 24 }}
+      required={props.required}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
     >
@@ -168,6 +171,7 @@ export function SearchComponentWrapper(
       name={props.fieldName}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 12 }}
+      required={props.required}
     >
       {props.children}
     </Form.Item>

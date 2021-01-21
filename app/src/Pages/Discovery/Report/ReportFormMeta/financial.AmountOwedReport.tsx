@@ -86,7 +86,8 @@ const meta: IFilterField[] = [
     label: "Registration Date",
     fieldName: "FromRegistrationDate",
     fieldName2: "ToRegistrationDate",
-    inputType: DATE_PICKERS
+    inputType: DATE_PICKERS,
+    required: true
   },
   {
     label: "Department",
