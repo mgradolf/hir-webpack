@@ -1,5 +1,5 @@
 import { findOfferingTypes } from "~/ApiServices/BizApi/query/queryIf"
-import { renderBoolean, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOfferingTypeTableColumns = (isModal = false): ITableConfigProp => {

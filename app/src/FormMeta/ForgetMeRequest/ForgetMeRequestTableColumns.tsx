@@ -1,6 +1,12 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { renderBoolean, renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import {
+  renderBoolean,
+  renderDate,
+  renderDetailsLink,
+  renderEmail,
+  TableColumnType
+} from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { ReadOutlined } from "@ant-design/icons"
 import { getAnonymizeRequests } from "~/ApiServices/Service/AnonymizationRequestService"
@@ -19,7 +25,9 @@ export const getForgetMeRequestTableColumns = (isModal = false): ITableConfigPro
       })
     },
     { title: "Request Date", dataIndex: "RequestDate", render: renderDate },
-    { title: "Person", dataIndex: "SortName", 
+    {
+      title: "Person",
+      dataIndex: "SortName",
       render: (text: any, record: any) => renderDetailsLink(`/person/${record.PersonID}`)
     },
     { title: "Email", dataIndex: "EmailAddress", render: renderEmail },

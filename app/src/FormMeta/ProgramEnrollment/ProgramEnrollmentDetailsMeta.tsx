@@ -1,14 +1,12 @@
-import { Button, Typography } from "antd"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import { Button, Typography } from "antd"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 import UpdateProgramEnrollment from "~/Component/ProgramEnrollment/ProgramEnrollmentFormModal"
-import EnrollmentProgressTrackingPage from "~/Pages/Program/EnrollmentProgressTrackingPage"
 import { getRequirementGroupDetailsTableColumns } from "~/FormMeta/ProgramEnrollment/RequirementGroupDetailsTableColumns"
 import {
   REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_DETAILS_PAGE,
@@ -60,7 +58,6 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
   const summaryMeta: IDetailsSummary = {
     summary: [info]
   }
-
 
   const groupMeta: IDetailsTableTabProp = {
     tableProps: {

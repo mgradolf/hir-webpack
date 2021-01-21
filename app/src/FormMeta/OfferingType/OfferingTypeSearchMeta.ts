@@ -1,4 +1,4 @@
-import { getAccountTypes, getOrganizations } from "~/ApiServices/Service/RefLookupService"
+import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const OfferingTypeSearchMeta: IFilterField[] = [

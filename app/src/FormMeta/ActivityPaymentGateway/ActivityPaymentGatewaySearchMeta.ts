@@ -1,7 +1,6 @@
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchRequestLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchRequestLookup"
 
 export const ActivityPaymentGatewaySearchMeta: IFilterField[] = [
   {
