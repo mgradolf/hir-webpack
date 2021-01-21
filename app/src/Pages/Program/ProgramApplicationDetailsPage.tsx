@@ -17,7 +17,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
   const [itemDetails, setItemDetails] = useState<{ [key: string]: any }>({})
   const [admissionReqsList, setAdmissionReqList] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
-  // const [fileList, setFileList] = useState<Array<{[key:string]:any}>>([{}])
+  const [fileMap, setFileMap] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
     ;(async () => {
@@ -28,39 +28,33 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
         const admissionReqList = response.data.AdmissionReqGroups
         setAdmissionReqList(admissionReqList[0].AdmissionReqs)
 
-        // const answers = admissionReqList[0].AdmissionReqs.Answer
-        // if (answers !== null) {
-        //   const attachments = answers.Attachments
-        //   let files: Array<any> = []
-        //   if (attachments !== null) {
-        //     attachments.map((x: any, index: any) => {
-        //       files.push({
-        //         uid: index + 1,
-        //         name: x.Name,
-        //         url: ''
-        //       })
-        //     });
-        //   }
-        // }
+        const requirements = admissionReqList[0].AdmissionReqs
+        if (requirements != null) {
+          const files: { [key: string]: any } = {}
+          requirements.forEach((requirement: any) => {
+            const answers = requirement.Answer
+            const fileList: Array<any> = []
+            if (answers != null) {
+              const attachments = answers.Attachments
+              if (attachments != null) {
+                attachments.forEach((x: any, index: any) => {
+                  fileList.push({
+                    uid: index + 1,
+                    name: x.Name,
+                    url: "",
+                    status: "done"
+                  })
+                })
+              }
+            }
+            files[requirement.ProgramAdmReqID] = fileList
+          })
+          setFileMap(files)
+        }
       }
       setLoading(false)
     })()
   }, [props])
-
-  const fileList: any = [
-    {
-      uid: "-1",
-      name: "xxx.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      thumbUrl: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-    },
-    {
-      uid: "-2",
-      name: "yyy.png",
-      status: "error"
-    }
-  ]
 
   return (
     <>
@@ -72,69 +66,83 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
       {!loading && Object.keys(itemDetails).length > 0 && (
         <Row>
           {admissionReqsList.map((x: any, index: any) => (
-            <Col key={index + 1} xs={24} sm={24} md={12}>
+            <Col style={{ marginBottom: "16px" }} key={index + 1} xs={24} sm={24} md={24}>
               <Card
                 title={x.Name}
                 actions={[
-                  <Button type="primary" style={{ marginRight: "10px" }}>
-                    Accept
-                  </Button>,
-                  <Button type="ghost" style={{ marginRight: "10px" }}>
-                    Resubmit
-                  </Button>,
-                  <Button type="primary" danger style={{ marginRight: "10px" }}>
+                  <Button type="primary">Accept</Button>,
+                  <Button type="primary">Resubmit</Button>,
+                  <Button type="primary" danger>
                     Reject
-                  </Button>
+                  </Button>,
+                  <Button type="primary">Add Note</Button>
                 ]}
               >
                 <Form>
-                  <Form.Item label={"Question"} {...layout}>
-                    <Input aria-label="Question" disabled value={x.PreferenceDefName} />
-                  </Form.Item>
+                  <Row>
+                    <Col xs={24} sm={12} md={12}>
+                      <Form.Item label={"Question"} {...layout}>
+                        <Input aria-label="Question" disabled value={x.PreferenceDefName} />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} sm={12} md={12}>
+                      <Form.Item label={"Current Status"} {...layout}>
+                        <Input aria-label="Status" disabled value={x.Answer && x.Answer.StatusName} />
+                      </Form.Item>
+                    </Col>
 
-                  <Form.Item label={"Expected Answer"} {...layout}>
-                    <Input disabled aria-label="Expected answer" />
-                  </Form.Item>
+                    <Col xs={24} sm={12} md={12}>
+                      <Form.Item label={"Expected Answer"} {...layout}>
+                        <Input disabled aria-label="Expected answer" />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} sm={12} md={12}>
+                      <Form.Item label="Notes" {...layout}>
+                        <Input.TextArea disabled rows={3}></Input.TextArea>
+                      </Form.Item>
+                    </Col>
 
-                  <Form.Item label={"Answer"} {...layout}>
-                    {x.PreferenceDefChoices && (
-                      <Select aria-label="Select Asnwer">
-                        {x.PreferenceDefChoices.map((x: any, index: any) => {
-                          return (
-                            <Select.Option key={`${index + 1}`} value={x.Value}>
-                              {x.Value}
-                            </Select.Option>
-                          )
-                        })}
-                      </Select>
-                    )}
-                    {!x.PreferenceDefChoices && <Input aria-label="Answer" />}
-                  </Form.Item>
-                  <Form.Item label="Attachments" {...layout}>
-                    <Upload
-                      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                      listType="picture"
-                      defaultFileList={[...fileList]}
-                      className="upload-list-inline"
-                    >
-                      <Button icon={<UploadOutlined />}>Upload</Button>
-                    </Upload>
-                  </Form.Item>
+                    <Col xs={24} sm={12} md={12}>
+                      <Form.Item label={"Answer"} {...layout}>
+                        {x.PreferenceDefChoices && (
+                          <Select aria-label="Select Asnwer">
+                            {x.PreferenceDefChoices.map((x: any, index: any) => {
+                              return (
+                                <Select.Option key={`${index + 1}`} value={x.Value}>
+                                  {x.Value}
+                                </Select.Option>
+                              )
+                            })}
+                          </Select>
+                        )}
+                        {!x.PreferenceDefChoices && <Input aria-label="Answer" />}
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} sm={12} md={12}>
+                      <Form.Item label="Reason" {...layout}>
+                        <Input.TextArea disabled rows={3}></Input.TextArea>
+                      </Form.Item>
+                    </Col>
 
-                  <Button type="primary" style={{ marginRight: "10px" }}>
-                    Save
-                  </Button>
+                    <Col xs={24} sm={12} md={12}>
+                      {x.NeedProof && (
+                        <Form.Item label="Attachments" {...layout}>
+                          <Upload {...props} fileList={fileMap[x.ProgramAdmReqID]}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                          </Upload>
+                        </Form.Item>
+                      )}
+                    </Col>
+                    <Col xs={24} sm={12} md={12}></Col>
 
-                  <Form.Item label={"Current Status"} {...layout}>
-                    <Input aria-label="Status" disabled value={x.Answer && x.Answer.StatusName} />
-                  </Form.Item>
-
-                  <Form.Item label="Notes" {...layout}>
-                    <Input.TextArea disabled rows={4}></Input.TextArea>
-                  </Form.Item>
-                  <Form.Item label="Reason" {...layout}>
-                    <Input.TextArea disabled rows={4}></Input.TextArea>
-                  </Form.Item>
+                    <Col xs={24} sm={12} md={12}>
+                      <Form.Item {...layout}>
+                        <Button type="primary" style={{ float: "right" }}>
+                          Save
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
                 </Form>
               </Card>
             </Col>
