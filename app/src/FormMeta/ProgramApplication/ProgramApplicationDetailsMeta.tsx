@@ -16,6 +16,9 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
       </Button>,
       <Button danger type="primary">
         Declined
+      </Button>,
+      <Button type="primary">
+        Add Note
       </Button>
     ],
     contents: [
