@@ -9,7 +9,8 @@ export const config = {
     getStudentEnrollmentActivity: "getStudentEnrollmentActivity",
     getOrderActivity: "getOrderActivity",
     getCreditMemoActivity: "getCreditMemoActivity",
-    getPaymentActivity: "getPaymentActivity"
+    getPaymentActivity: "getPaymentActivity",
+    getSystemSchedules: "getSystemSchedules"
   }
 }
 

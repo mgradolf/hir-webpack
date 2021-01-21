@@ -1,6 +1,6 @@
 import { renderBoolean, renderDateTime, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
-import { findSystemSchedules } from "~/ApiServices/BizApi/query/queryIf"
+import { getSystemSchedules } from "~/ApiServices/Service/ActivityService"
 
 export const getActivitySystemScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -26,5 +26,5 @@ export const getActivitySystemScheduleTableColumns = (): ITableConfigProp => {
 
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findSystemSchedules }
+  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getSystemSchedules }
 }

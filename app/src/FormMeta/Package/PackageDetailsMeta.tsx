@@ -71,7 +71,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
 
   const seatgroupMeta: IDetailsTableTabProp = {
     tableProps: {
-      ...getSeatgroupTableColumns(),
+      ...getSeatgroupTableColumns(false, true),
       searchParams: { PackageID: Package.PackageID },
       refreshEventName: REFRESH_PACKAGE_SEATGROUP_PAGE
     }

@@ -20,3 +20,7 @@ export function getCreditMemoActivity(Params: { [key: string]: any }): Promise<I
 export function getPaymentActivity(Params: { [key: string]: any }): Promise<IApiResponse> {
   return ActivityService[config.Actions.getPaymentActivity](Params)
 }
+
+export function getSystemSchedules(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return ActivityService[config.Actions.getSystemSchedules](Params)
+}

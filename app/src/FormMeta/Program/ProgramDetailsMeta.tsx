@@ -59,7 +59,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   const applicationMeta: IDetailsTableTabProp = {
     tableProps: {
       ...getProgramApplicationTableColumns(),
-      searchParams: { ProgramID: program.ProgramID },
+      searchParams: { programID: program.ProgramID },
       refreshEventName: REFRESH_PROGRAM_APPLICATION_PAGE
     }
   }
@@ -67,7 +67,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   const enrollmentMeta: IDetailsTableTabProp = {
     tableProps: {
       ...getProgramEnrollmentTableColumns(),
-      searchParams: { ProgramID: program.ProgramID },
+      searchParams: { programID: program.ProgramID },
       refreshEventName: REFRESH_PROGRAM_ENROLLMENT_PAGE
     }
   }

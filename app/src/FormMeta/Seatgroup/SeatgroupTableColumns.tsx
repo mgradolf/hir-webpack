@@ -7,7 +7,7 @@ import { Button, Dropdown } from "antd"
 import { DownOutlined } from "@ant-design/icons"
 import SeatGroupMenu from "~/Component/Section/SeatGroup/SeatGroupMenu"
 
-export const getSeatgroupTableColumns = (isModal = false): ITableConfigProp => {
+export const getSeatgroupTableColumns = (isModal = false, isPackagePage?: boolean): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Name",
@@ -28,6 +28,7 @@ export const getSeatgroupTableColumns = (isModal = false): ITableConfigProp => {
       render: (text: any, record: any) =>
         isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
+    { ...(isPackagePage && { title: "Invitation Code", dataIndex: "InvitationCode" }) },
     {
       title: "Action",
       key: "action",
