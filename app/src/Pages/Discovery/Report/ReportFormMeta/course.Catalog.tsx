@@ -6,6 +6,7 @@ const meta: IFilterField[] = [
   {
     label: "Catalog",
     fieldName: "CatalogID",
+
     customFilterComponent: SearchCatalogLookup
   }
 ]

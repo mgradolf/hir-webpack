@@ -6,6 +6,7 @@ const meta: IFilterField[] = [
   {
     label: "Selected Program",
     fieldName: "ProgramID",
+
     customFilterComponent: SearchProgramLookupButton
   }
 ]

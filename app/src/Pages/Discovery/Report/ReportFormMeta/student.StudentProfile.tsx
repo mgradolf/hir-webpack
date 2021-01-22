@@ -6,6 +6,7 @@ const meta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
+
     customFilterComponent: SearchStudentLookupButton
   }
 ]

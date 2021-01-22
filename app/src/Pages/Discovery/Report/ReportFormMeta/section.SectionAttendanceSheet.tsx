@@ -6,12 +6,14 @@ const meta: IFilterField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
+
     customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Schedule Date",
     fieldName: "DateRangeStart",
     fieldName2: "DateRangeEnd",
+
     inputType: DATE_PICKERS
   }
 ]

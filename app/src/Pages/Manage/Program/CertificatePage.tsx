@@ -5,7 +5,7 @@ import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
 import { ProgramCertificateSearchMeta } from "~/FormMeta/Certificate/CertificateSearchMeta"
 import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
 
-export function ProgramCertificatePage() {
+export default function () {
   const [showModal, setShowModal] = useState(false)
   return (
     <SearchPage

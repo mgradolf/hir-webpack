@@ -7,6 +7,7 @@ import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 const meta: IFilterField[] = [
   {
     label: "Order Date",
+
     inputType: DATE_PICKERS,
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo"
@@ -33,6 +34,7 @@ const meta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "OrganizationID",
+
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"

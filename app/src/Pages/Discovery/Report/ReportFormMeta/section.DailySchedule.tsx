@@ -5,6 +5,7 @@ const meta: IFilterField[] = [
   {
     label: "Schedule For",
     fieldName: "date_start",
+
     inputType: DATE_PICKER
   }
 ]

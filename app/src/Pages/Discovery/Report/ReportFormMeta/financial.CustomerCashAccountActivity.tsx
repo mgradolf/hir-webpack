@@ -7,6 +7,7 @@ const meta: IFilterField[] = [
   {
     label: "Account Owner",
     fieldName: "PersonID",
+
     customFilterComponent: SearchPersonLookupButton
   },
   {

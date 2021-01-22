@@ -7,11 +7,13 @@ const meta: IFilterField[] = [
     label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
+
     inputType: DATE_PICKERS
   },
   {
     label: "Account",
     fieldName: "AccountID",
+
     customFilterComponent: SearchAccountLookup
   },
   {

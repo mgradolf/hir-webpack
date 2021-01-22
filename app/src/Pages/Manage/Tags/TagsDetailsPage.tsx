@@ -4,7 +4,7 @@ import { getTags } from "~/ApiServices/Service/TagService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getTagDetailsMeta } from "~/FormMeta/Tags/TagsDetailsMeta"
 
-export const TagsDetailsPage = (props: RouteComponentProps<{ tagID: string }>) => {
+export default (props: RouteComponentProps<{ tagID: string }>) => {
   const TagID = Number(props.match.params.tagID)
   return (
     <DetailsPage

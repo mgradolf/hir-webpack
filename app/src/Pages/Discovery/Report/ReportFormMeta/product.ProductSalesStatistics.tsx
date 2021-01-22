@@ -6,6 +6,7 @@ const meta: IFilterField[] = [
     label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
+
     inputType: DATE_PICKERS
   }
 ]

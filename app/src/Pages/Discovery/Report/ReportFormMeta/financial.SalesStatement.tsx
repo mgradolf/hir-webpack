@@ -4,6 +4,7 @@ import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 const meta: IFilterField[] = [
   {
     label: "Final Enrollment Date",
+
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
     inputType: DATE_PICKERS

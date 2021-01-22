@@ -3,7 +3,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { MarketingCodeRepositorySearchMeta } from "~/FormMeta/MarketingCodeRepository/MarketingCodeRepositorySearchMeta"
 import { getMarketingCodeRepositoryTableColumns } from "~/FormMeta/MarketingCodeRepository/MarketingCodeRepositoryTableColumns"
 
-export function MarketingCodeRepositoryPage() {
+export default function () {
   return (
     <SearchPage
       title="Manage Marketing Code Repositories"

@@ -7,10 +7,12 @@ const meta: IFilterField[] = [
   {
     label: "Payer",
     fieldName: "PersonID",
+
     customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Order Date",
+
     inputType: DATE_PICKERS,
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo"

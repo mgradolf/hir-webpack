@@ -3,7 +3,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { UserCreateEditButton } from "~/FormMeta/User/UserFormMeta"
 import { getUserTableColumns } from "~/FormMeta/User/UserTableColumns"
 
-export const UsersPage = () => {
+export default function () {
   return (
     <SearchPage
       title="Users"

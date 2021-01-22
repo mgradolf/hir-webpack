@@ -6,6 +6,7 @@ const meta: IFilterField[] = [
   {
     label: "Offering",
     fieldName: "OfferingID",
+
     customFilterComponent: SearchOfferingLookupButton
   }
 ]

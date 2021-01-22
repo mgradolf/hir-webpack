@@ -13,6 +13,7 @@ const meta: IFilterField[] = [
     label: "Select Date",
     fieldName: "BeginDate",
     fieldName2: "EndDate",
+
     inputType: DATE_PICKERS
   },
   {

@@ -6,6 +6,7 @@ const meta: IFilterField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
+
     customFilterComponent: SearchSectionLookupButton
   }
 ]

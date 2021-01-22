@@ -7,6 +7,7 @@ const meta: IFilterField[] = [
     label: "Registration Date",
     fieldName: "date_start",
     fieldName2: "date_end",
+
     inputType: DATE_PICKERS
   },
   {
@@ -19,6 +20,7 @@ const meta: IFilterField[] = [
   },
   {
     label: "Registration Source",
+
     inputType: DROPDOWN,
     fieldName: "sourceAll",
     refLookupService: getSourceModule,
