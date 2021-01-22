@@ -12,6 +12,7 @@ const meta: IField[] = [
   },
   {
     label: "Meeting Date",
+
     fieldName: "FromMeetinglDate",
     fieldName2: "ToMeetingDate",
     inputType: DATE_PICKERS

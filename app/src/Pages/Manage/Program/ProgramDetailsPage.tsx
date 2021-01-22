@@ -4,7 +4,7 @@ import { searchPrograms } from "~/ApiServices/BizApi/program/programIF"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getProgramDetailsMeta } from "~/FormMeta/Program/ProgramDetailsMeta"
 
-export function ProgramDetailsPage(props: RouteComponentProps<{ programID?: string }>) {
+export default function (props: RouteComponentProps<{ programID?: string }>) {
   const programID = Number(props?.match?.params?.programID)
   return (
     <DetailsPage

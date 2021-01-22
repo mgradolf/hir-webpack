@@ -4,7 +4,7 @@ import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistI
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getWaitlistEntriesDetailsMeta } from "~/FormMeta/WaitlistEntries/WaitlistEntriesDetailsMeta"
 
-export default function WaitlistEntryDetailsPage(props: RouteComponentProps<{ waitListEntryID: string }>) {
+export default function (props: RouteComponentProps<{ waitListEntryID: string }>) {
   const WaitListEntryID = Number(props?.match?.params?.waitListEntryID)
   return (
     <DetailsPage

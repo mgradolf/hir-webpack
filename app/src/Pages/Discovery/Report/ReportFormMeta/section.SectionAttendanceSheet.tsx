@@ -14,6 +14,7 @@ const meta: IField[] = [
     label: "Schedule Date",
     fieldName: "DateRangeStart",
     fieldName2: "DateRangeEnd",
+
     inputType: DATE_PICKERS
   }
 ]

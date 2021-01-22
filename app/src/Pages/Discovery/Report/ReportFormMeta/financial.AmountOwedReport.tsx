@@ -18,7 +18,6 @@ const meta: IField[] = [
           label: "Offering",
           fieldName: "OfferingID",
           valueField: "OfferingID",
-          required: true,
           component: SearchOfferingLookupButton
         },
         {

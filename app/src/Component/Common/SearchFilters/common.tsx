@@ -29,6 +29,7 @@ export interface IFilterFieldObject {
   hidden?: boolean
   placeholder?: string
   disabled?: boolean
+  required?: boolean
 
   fieldName: string
   defaultValue?: any
@@ -41,7 +42,7 @@ export interface IFilterFieldObject {
   ariaLabel2?: string
   displayKey2?: string
   valueKey2?: string
-  required?: boolean
+
   extraProps?: { [key: string]: any }
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>

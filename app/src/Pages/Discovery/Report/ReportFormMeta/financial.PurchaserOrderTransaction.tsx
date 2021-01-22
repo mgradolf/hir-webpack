@@ -14,6 +14,7 @@ import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 const meta: IField[] = [
   {
     label: "Order Date",
+
     inputType: DATE_PICKERS,
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo"

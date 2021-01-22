@@ -5,7 +5,7 @@ import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/Standar
 import { getCertificateDetailsMeta } from "~/FormMeta/Certificate/CertificateDetailsMeta"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
 
-export default function CertificateDetailsPage(props: RouteComponentProps<{ studentCertificateID?: string }>) {
+export default function (props: RouteComponentProps<{ studentCertificateID?: string }>) {
   const [certificateDetails, setCertificateDetails] = useState<{ [key: string]: any }>({})
   const [downloadUrl, setDownloadUrl] = useState<string>()
   const studentCertificateID = Number(props?.match?.params?.studentCertificateID)

@@ -3,7 +3,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { ProgramOfferingSearchMeta } from "~/FormMeta/ProgramOffering/ProgramOfferingSearchMeta"
 import { getProgramOfferingTableColumns } from "~/FormMeta/ProgramOffering/ProgramOfferingTableColumns"
 
-export function ProgramOfferingPage() {
+export default function () {
   return (
     <SearchPage
       title="Manage Program Offerings"

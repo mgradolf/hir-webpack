@@ -5,6 +5,7 @@ import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 const meta: IField[] = [
   {
     label: "Faculty",
+
     fieldName: "FacultyID",
     customFilterComponent: SearchInstructorLookupButton,
     inputType: CUSTOM_FIELD,
