@@ -10,10 +10,10 @@ export const ActivitySystemScheduleSearchMeta: IFilterField[] = [
   {
     label: "Completed",
     inputType: DROPDOWN,
-    fieldName: "ActivityStatusID",
+    fieldName: "Completed",
     options: [
-      { label: "Completed", value: "CompletedOnly" },
-      { label: "Incomplete", value: "IncompleteOnly" }
+      { label: "Yes", value: "CompletedOnly" },
+      { label: "No", value: "IncompleteOnly" }
     ]
   },
   {
