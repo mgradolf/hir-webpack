@@ -38,7 +38,7 @@ export const getOfferingTypeDetailsMeta = (offering: { [key: string]: any }): ID
     tabMeta: {
       tableProps: {
         ...getSectionTypeTableColumns(),
-        searchParams: { Offering: offering.OfferingID },
+        searchParams: { OfferingTypeID: offering.OfferingTypeID },
         refreshEventName: "REFRESH_CONTACT_TAB"
       }
     }

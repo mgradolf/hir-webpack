@@ -1,5 +1,5 @@
 import { findRooms } from "~/ApiServices/BizApi/query/queryIf"
-import { renderBoolean, renderDetailsLink, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getRoomTableColumns = (isModal = false): ITableConfigProp => {
@@ -7,7 +7,7 @@ export const getRoomTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Room Number",
       dataIndex: "RoomNumber",
-      render: (text: any, record: any) => renderDetailsLink(`/room/${record.RoomID}`)
+      render: (text: any, record: any) => renderLink(`/room/${record.RoomID}`, text)
     },
     {
       title: "Room Name",
