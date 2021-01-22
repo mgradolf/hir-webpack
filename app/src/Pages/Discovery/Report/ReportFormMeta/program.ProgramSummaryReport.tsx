@@ -1,12 +1,13 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Selected Program",
     fieldName: "ProgramID",
-    customFilterComponent: SearchProgramLookupButton
+    customFilterComponent: SearchProgramLookupButton,
+    inputType: CUSTOM_FIELD
   }
 ]
 

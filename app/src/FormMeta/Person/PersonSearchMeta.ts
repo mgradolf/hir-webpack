@@ -139,8 +139,7 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "State/Province",
     fieldName: "RegionCodeID",
-    customFilterComponent: SearchRegion,
-    fullWidth: true
+    customFilterComponent: SearchRegion
   },
   {
     label: "Account Role",

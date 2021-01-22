@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react"
+import React, { useState } from "react"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Col, Row, Checkbox, Form } from "antd"
 import { ColProps } from "antd/lib/col"
@@ -41,8 +41,7 @@ export interface IFilterFieldObject {
   ariaLabel2?: string
   displayKey2?: string
   valueKey2?: string
-
-  fullWidth?: boolean
+  required?: boolean
   extraProps?: { [key: string]: any }
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
@@ -58,7 +57,7 @@ export interface IFilterFieldComponent {
   valueField2?: string
   defaultValue2?: any
   customFilterComponent: React.FunctionComponent<any>
-  fullWidth?: boolean
+  required?: boolean
   extraProps?: { [key: string]: any }
 }
 
@@ -124,6 +123,7 @@ export function SearchFieldWrapper(
       <InputCol className={checked ? styles.offeringFilterField : "hidden"}>
         <Form.Item
           name={props.fieldName}
+          required={props.required}
           {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
         >
           {props.children}
@@ -137,6 +137,7 @@ export function SearchFieldWrapper(
       {...(props.fieldName !== "" && { name: props.fieldName })}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 24 }}
+      required={props.required}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
     >
@@ -168,6 +169,7 @@ export function SearchComponentWrapper(
       name={props.fieldName}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 12 }}
+      required={props.required}
     >
       {props.children}
     </Form.Item>

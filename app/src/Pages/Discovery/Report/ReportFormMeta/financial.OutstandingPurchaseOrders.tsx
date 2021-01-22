@@ -1,7 +1,7 @@
-import { BOOLEAN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, IField, TEXT } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Organization Name",
     inputType: TEXT,

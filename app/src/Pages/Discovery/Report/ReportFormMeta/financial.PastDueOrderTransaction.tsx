@@ -1,7 +1,7 @@
-import { BOOLEAN, DATE_PICKERS, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DATE_PICKERS, IField, NUMBER } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "NumDays",
     inputType: NUMBER,

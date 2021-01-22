@@ -1,5 +1,5 @@
-// import { searchResourceItem } from "~/ApiServices/Service/FinancialService"
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
+
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchProducttLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchProductLookup"
@@ -7,11 +7,12 @@ import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/Sear
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
     customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
     extraProps: {
       selectorKeys: [
         {
@@ -32,7 +33,8 @@ const meta: IFilterField[] = [
   {
     label: "Person",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: SearchPersonLookupButton,
+    inputType: CUSTOM_FIELD
   },
   {
     label: "Section Date",
@@ -43,13 +45,9 @@ const meta: IFilterField[] = [
   {
     label: "Purchaser",
     fieldName: "ProductID",
-    customFilterComponent: SearchProducttLookup
+    customFilterComponent: SearchProducttLookup,
+    inputType: CUSTOM_FIELD
   }
-  // {
-  //   label: "Resources",
-  //   fieldName: "ResourceID",
-  //   customFilterComponent: searchResourceItem
-  // }
 ]
 
 const reportMeta: IReportMeta = {

@@ -1,23 +1,22 @@
-import { Col, Row, Typography } from "antd"
+import { Row, Typography } from "antd"
 import React, { useState } from "react"
-import { FilterOutlined } from "@ant-design/icons"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import SearchFilters from "~/Component/Common/SearchFilters"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import SearchFilters from "~/Component/Common/SearchFilters/SearchForm"
+import { IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
 
 export interface IStandardReportPage {
   title: string
   reportName: string
   description?: string
-  meta?: IFilterField[]
+  meta?: IField[]
   initialFilter?: { [key: string]: string }
   defaultFilter?: { [key: string]: string }
   mapping?: { [key: string]: string }
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
-  const [filterCount, setFilterCount] = useState(0)
+  // const [filterCount, setFilterCount] = useState(0)
   const [downloadUrl, setdownloadUrl] = useState<string>()
 
   const openReportInNewTab = (params: { [key: string]: any }) => {
@@ -42,28 +41,24 @@ export default function StandardReportPage(props: IStandardReportPage) {
       <Row>
         <Typography.Title level={3}>{props.title}</Typography.Title>
       </Row>
-      <Row justify="start" gutter={[8, 8]}>
+      {/* <Row justify="start" gutter={[8, 8]}>
         <Col>
           <span>
             <FilterOutlined />
             <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
           </span>
         </Col>
-      </Row>
+      </Row> */}
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
           <SearchFilters
-            title={""}
-            isModalView={true}
-            isCheckeble={false}
-            visible={true}
             meta={props.meta}
             initialFilter={props.initialFilter}
             defaultFilter={props.defaultFilter}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               openReportInNewTab(newFilterValues)
               console.log("default filter, ", newFilterValues)
-              setFilterCount(appliedFilterCount)
+              // setFilterCount(appliedFilterCount)
             }}
           />
         )}

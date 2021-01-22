@@ -1,7 +1,7 @@
-import { DATE_PICKER, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKER, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Roster For",
     fieldName: "date_start",

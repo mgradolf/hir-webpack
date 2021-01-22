@@ -1,12 +1,13 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SearchSectionLookupButton,
+    inputType: CUSTOM_FIELD
   }
 ]
 

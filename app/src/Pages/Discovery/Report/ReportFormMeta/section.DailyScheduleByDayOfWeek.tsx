@@ -1,5 +1,5 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 
-const meta: IFilterField[] = []
+const meta: IField[] = []
 
 export default meta

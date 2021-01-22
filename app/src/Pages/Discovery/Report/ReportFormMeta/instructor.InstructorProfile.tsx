@@ -1,12 +1,13 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { SearchInstructorLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchInstructorLookup"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Faculty",
     fieldName: "FacultyID",
     customFilterComponent: SearchInstructorLookupButton,
+    inputType: CUSTOM_FIELD,
     extraProps: {
       isArray: true
     }

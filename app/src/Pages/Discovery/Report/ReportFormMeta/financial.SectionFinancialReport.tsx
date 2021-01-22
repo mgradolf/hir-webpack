@@ -1,4 +1,4 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
@@ -6,11 +6,12 @@ import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/Sear
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
     customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
     extraProps: {
       selectorKeys: [
         {
@@ -31,12 +32,14 @@ const meta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: SearchStudentLookupButton,
+    inputType: CUSTOM_FIELD
   },
   {
     label: "Purchaser",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: SearchPersonLookupButton,
+    inputType: CUSTOM_FIELD
   }
 ]
 

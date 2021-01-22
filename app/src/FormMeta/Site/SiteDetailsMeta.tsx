@@ -2,6 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { getBuildingTypeTableColumns } from "~/FormMeta/Building/BuildingTypeTableColumns"
+import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
 
 export const getSiteDetailsMeta = (record: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -32,6 +33,15 @@ export const getSiteDetailsMeta = (record: { [key: string]: any }): IDetailsMeta
         searchParams: { SiteID: record.SiteID },
         refreshEventName: "REFRESH_CONTACT_TAB"
       }
+    }
+  })
+
+  meta.push({
+    tabTitle: "Schedules",
+    tabType: "custom",
+    tabMeta: {
+      component: SectionSchedulePage,
+      props: { SiteID: record.SiteID }
     }
   })
   return {

@@ -1,7 +1,7 @@
 import { getTranscriptTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Select Date",
     fieldName: "StartDate",

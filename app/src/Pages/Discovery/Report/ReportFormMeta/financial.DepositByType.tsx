@@ -1,8 +1,13 @@
 import { getBasePaymentTypes, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, MULTI_SELECT_DROPDOWN } from "~/Component/Common/SearchFilters/common"
+import {
+  DATE_PICKERS,
+  DROPDOWN,
+  MULTI_SELECT_DROPDOWN,
+  IField
+} from "~/Component/Common/SearchFilters/SearchForm/common"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Payment Base Type",
     inputType: DROPDOWN,

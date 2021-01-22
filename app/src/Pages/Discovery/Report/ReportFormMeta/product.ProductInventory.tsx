@@ -1,8 +1,8 @@
 import { getDeliveryModes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { BOOLEAN, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Product Name",
     inputType: TEXT,

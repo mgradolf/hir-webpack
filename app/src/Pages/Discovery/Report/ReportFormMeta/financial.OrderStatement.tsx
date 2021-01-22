@@ -1,10 +1,17 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import {
+  DATE_PICKERS,
+  DROPDOWN,
+  NUMBER,
+  CUSTOM_FIELD,
+  IField
+} from "~/Component/Common/SearchFilters/SearchForm/common"
+
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Order Date",
     inputType: DATE_PICKERS,
@@ -14,7 +21,8 @@ const meta: IFilterField[] = [
   {
     label: "Purchaser",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: SearchPersonLookupButton,
+    inputType: CUSTOM_FIELD
   },
   {
     label: "Source",
@@ -27,7 +35,8 @@ const meta: IFilterField[] = [
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: SearchAccountLookup,
+    inputType: CUSTOM_FIELD
   },
   {
     label: "Department",

@@ -2,13 +2,14 @@ import { getOrganizations, getPaymentGatewayAccounts, getPaymentTypes } from "~/
 import {
   DATE_PICKERS,
   DROPDOWN,
-  IFilterField,
   MULTI_SELECT_DROPDOWN,
-  TEXT
-} from "~/Component/Common/SearchFilters/common"
+  TEXT,
+  IField
+} from "~/Component/Common/SearchFilters/SearchForm/common"
+
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Select Date",
     fieldName: "BeginDate",

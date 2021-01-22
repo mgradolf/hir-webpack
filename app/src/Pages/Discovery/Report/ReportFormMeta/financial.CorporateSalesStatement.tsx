@@ -1,8 +1,9 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
+
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Order Date",
     fieldName: "OrderDateFrom",
@@ -12,7 +13,8 @@ const meta: IFilterField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: SearchAccountLookup,
+    inputType: CUSTOM_FIELD
   },
   {
     label: "Sort By",

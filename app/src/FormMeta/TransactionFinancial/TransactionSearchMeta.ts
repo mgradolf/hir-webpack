@@ -39,7 +39,6 @@ export const TransactionSearchMeta: IFilterField[] = [
   {
     label: "Transaction Type",
     fieldName: "TransactionTypeID ",
-    // fullWidth: true,
     customFilterComponent: SearchTransactionType
   },
   {

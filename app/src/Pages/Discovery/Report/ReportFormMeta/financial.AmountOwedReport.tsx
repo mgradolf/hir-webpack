@@ -1,22 +1,24 @@
 import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
-    label: "Person Selector",
+    label: "Offering or Section",
     fieldName: "",
     customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
     extraProps: {
       selectorKeys: [
         {
           label: "Offering",
           fieldName: "OfferingID",
           valueField: "OfferingID",
+          required: true,
           component: SearchOfferingLookupButton
         },
         {
@@ -31,7 +33,8 @@ const meta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: SearchStudentLookupButton,
+    inputType: CUSTOM_FIELD
   },
   {
     label: "Registration Date",
@@ -45,7 +48,8 @@ const meta: IFilterField[] = [
     fieldName: "OrganizationID",
     refLookupService: getOrganizations,
     displayKey: "Name",
-    valueKey: "OrganizationID"
+    valueKey: "OrganizationID",
+    rules: [{ required: true, message: "Department field is Required" }]
   }
 ]
 

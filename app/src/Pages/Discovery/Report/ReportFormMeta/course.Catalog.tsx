@@ -1,12 +1,13 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { SearchCatalogLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchCatalogLookup"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Catalog",
     fieldName: "CatalogID",
-    customFilterComponent: SearchCatalogLookup
+    customFilterComponent: SearchCatalogLookup,
+    inputType: CUSTOM_FIELD
   }
 ]
 

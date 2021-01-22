@@ -26,7 +26,6 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
   {
     label: "Lookup",
     fieldName: "",
-    fullWidth: true,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [

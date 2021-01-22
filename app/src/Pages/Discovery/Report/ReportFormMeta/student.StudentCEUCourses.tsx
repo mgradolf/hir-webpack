@@ -1,13 +1,15 @@
 import { getTranscriptTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/SearchFilters/SearchForm/common"
+
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
 import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: SearchStudentLookupButton,
+    inputType: CUSTOM_FIELD
   },
   {
     label: "Status Date",
