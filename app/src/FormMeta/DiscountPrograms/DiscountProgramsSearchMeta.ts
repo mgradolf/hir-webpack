@@ -1,5 +1,5 @@
 import { getDiscountTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const DiscountProgramsSearchMeta: IFilterField[] = [
   {
@@ -18,12 +18,20 @@ export const DiscountProgramsSearchMeta: IFilterField[] = [
   },
   {
     label: "Promoted For Marketing",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsPromotedForMarketing"
   },
   {
     label: "Active",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsActive"
   }
 ]

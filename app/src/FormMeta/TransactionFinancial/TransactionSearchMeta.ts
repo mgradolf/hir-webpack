@@ -1,4 +1,4 @@
-import { BOOLEAN, DATE_PICKERS, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
@@ -82,7 +82,11 @@ export const TransactionSearchMeta: IFilterField[] = [
 
   {
     label: "Deposits with Balance",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "DepositWithBalanceOnly"
   }
 ]

@@ -6,7 +6,7 @@ import {
   getSectionTypes,
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchInstructorLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchInstructorLookup"
 
 export const OfferingSearchMeta: IFilterField[] = [
@@ -61,7 +61,11 @@ export const OfferingSearchMeta: IFilterField[] = [
   },
   {
     label: "QuickAdmit",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsQuickAdmit"
   },
   {
@@ -102,7 +106,11 @@ export const OfferingSearchMeta: IFilterField[] = [
   },
   {
     label: "Show Program Offering",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "ShowPrgramOffering"
   },
   {
@@ -112,7 +120,11 @@ export const OfferingSearchMeta: IFilterField[] = [
   },
   {
     label: "Is Search Tag Hierarchy",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsSearhTagHierarchy"
   },
   {

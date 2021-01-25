@@ -1,11 +1,5 @@
-import {
-  // getDeliveryModes,
-  getProductCategoryTypes
-  // getProductDefinitions,
-  // getProductTypes
-} from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-// import { SearchSellerFulfillerLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSellerFulFillerLookup"
+import { getProductCategoryTypes } from "~/ApiServices/Service/RefLookupService"
+import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const ProductSearchMeta: IFilterField[] = [
   {
@@ -23,35 +17,24 @@ export const ProductSearchMeta: IFilterField[] = [
     fieldName: "ProductName",
     ariaLabel: "Product Name"
   },
-  // {
-  //   label: "Product Type",
-  //   fieldName: "ProductTypeName",
-  //   refLookupService: getProductTypes,
-  //   inputType: DROPDOWN,
-  //   displayKey: "Name",
-  //   valueKey: "ProductTypeID"
-  // }, //: "*",
-  // {
-  //   label: "Definition Name",
-  //   fieldName: "ProductDefinitionName",
-  //   inputType: DROPDOWN,
-  //   refLookupService: getProductDefinitions,
-  //   displayKey: "Name",
-  //   valueKey: "ProductDefinitionID"
-  // }, //: "*",
-  // { label: "SKU", fieldName: "ProductSKUNumber", inputType: TEXT }, //: "*",
-  // { label: "Seller", fieldName: "ProductSellerID", customFilterComponent: SearchSellerFulfillerLookupButton }, //: 1,
-  // { label: "Fulfiller", fieldName: "ProductFulfillerID", customFilterComponent: SearchSellerFulfillerLookupButton }, //: 1,
-  // {
-  //   label: "Delivery Mode",
-  //   fieldName: "ProductDeliveryModeID",
-  //   inputType: DROPDOWN,
-  //   refLookupService: getDeliveryModes,
-  //   displayKey: "Name",
-  //   valueKey: "ID"
-  // }, //: 1,
-  { label: "Optional Item", fieldName: "ProductOptionalItem", inputType: BOOLEAN }, //: true,
-  { label: "Active", fieldName: "ProductIsActive", inputType: BOOLEAN }, //: true,
+  {
+    label: "Optional Item",
+    fieldName: "ProductOptionalItem",
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ]
+  },
+  {
+    label: "Active",
+    fieldName: "ProductIsActive",
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ]
+  },
   { label: "Inventory Units", fieldName: "ProductInventoryUnits", inputType: NUMBER } //: 99999979,
 ]
 

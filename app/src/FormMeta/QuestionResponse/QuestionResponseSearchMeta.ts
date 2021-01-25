@@ -5,7 +5,7 @@ import {
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { getTags } from "~/ApiServices/Service/TagService"
-import { BOOLEAN, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
 import { SearchQuestionLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchQuestionsLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
 import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
@@ -78,12 +78,20 @@ export const QuestionResponseSearchMeta: IFilterField[] = [
   },
   {
     label: "Is Answered",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsAnswered"
   },
   {
     label: "Is Published",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsPublished"
   }
 ]

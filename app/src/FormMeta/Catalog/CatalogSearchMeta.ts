@@ -1,5 +1,5 @@
 import { getCatalogTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
@@ -28,7 +28,11 @@ export const CatalogSearchMeta: IFilterField[] = [
   {
     label: "Is Active",
     fieldName: "IsActive",
-    inputType: BOOLEAN
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ]
   },
   {
     label: "Offering",

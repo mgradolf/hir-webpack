@@ -1,7 +1,7 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean, renderLink } from "~/Component/Common/ResponsiveTable"
-import { getSectionScheduleTableColumns } from "~/FormMeta/SectionSchedule/ScheduleTableColumns"
+import { getInstructorScheduleTableColumns } from "~/FormMeta/InstructorSchedule/ScheduleTableColumns"
 
 export const getRoomDetailsMeta = (room: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -40,7 +40,7 @@ export const getRoomDetailsMeta = (room: { [key: string]: any }): IDetailsMeta =
     tabType: "table",
     tabMeta: {
       tableProps: {
-        ...getSectionScheduleTableColumns(),
+        ...getInstructorScheduleTableColumns(),
         searchParams: { RoomID: room.RoomID },
         refreshEventName: "REFRESH_SCHEDULE_TAB"
       }

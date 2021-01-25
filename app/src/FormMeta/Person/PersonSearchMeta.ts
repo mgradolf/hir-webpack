@@ -4,7 +4,7 @@ import {
   getEthnicityTypes,
   getGenderTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
 import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
@@ -132,7 +132,11 @@ export const PersonSearchMeta: IFilterField[] = [
   },
   {
     label: "Deceased",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsDeceased",
     ariaLabel: "Deceased"
   },
