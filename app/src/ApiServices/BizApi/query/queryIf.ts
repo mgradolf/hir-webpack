@@ -82,6 +82,9 @@ export function findGradeScoreDefinitions(Params: { [key: string]: any }): Promi
   return QueryIf[config.Actions.executeDomainList](["jxntm.course.findGradeScoreDefinitions", Params, 0, 99999])
 }
 
+export function findRooms(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.location.findRooms", Params, 0, 99999])
+}
 export function findBuildings(Params: { [key: string]: any }): Promise<IApiResponse> {
   return QueryIf[config.Actions.executeDomainList](["jxntm.location.findBuildings", Params, 0, 99999])
 }

@@ -22,5 +22,11 @@ export function getPaymentActivity(Params: { [key: string]: any }): Promise<IApi
 }
 
 export function getSystemSchedules(Params: { [key: string]: any }): Promise<IApiResponse> {
+  if (Params["Completed"] === "CompletedOnly") {
+    Params["CompletedOnly"] = 0
+  } else if (Params["Completed"] === "IncompleteOnly") {
+    Params["IncompleteOnly"] = 0
+  }
+  delete Params["Completed"]
   return ActivityService[config.Actions.getSystemSchedules](Params)
 }

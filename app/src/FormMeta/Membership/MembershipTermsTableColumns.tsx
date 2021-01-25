@@ -8,7 +8,7 @@ export const getMembershipTermsTableColumns = (isModal = false): ITableConfigPro
       title: "Membership Program",
       dataIndex: "MembershipProgramName",
       key: "MembershipProgramName",
-      render: (text: any, record: any) => renderLink(`/membershipprogram/${record.MembershipProgramID}`, text)
+      render: (text: any, record: any) => renderLink(`/membership-program/${record.MembershipProgramID}`, text)
     },
     {
       title: "Term Start",

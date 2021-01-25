@@ -1,8 +1,6 @@
-import { IFilterField, DATE_PICKERS, NUMBER } from "~/Component/Common/SearchFilters/common"
-import { BooleanInputType } from "~/Component/Common/SearchFilters/SearchBooleanInput"
-import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
+import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
+import { IFilterField, DATE_PICKERS, DROPDOWN, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 
 export const MembershipSearchMeta: IFilterField[] = [
   {
@@ -11,24 +9,9 @@ export const MembershipSearchMeta: IFilterField[] = [
     customFilterComponent: SearchPersonLookupButton
   },
   {
-    label: "Lookup",
-    fieldName: "",
-    fullWidth: true,
-    customFilterComponent: SearchLookupSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "Email",
-          fieldName: "EmailAddress",
-          component: SearchInputType
-        },
-        {
-          label: "Email 2",
-          fieldName: "EmailAddress2",
-          component: SearchInputType
-        }
-      ]
-    }
+    label: "Email",
+    fieldName: "EmailAddress",
+    inputType: TEXT
   },
   {
     label: "Expiration",
@@ -67,38 +50,25 @@ export const MembershipSearchMeta: IFilterField[] = [
     ariaLabel2: "Renewal Period Starts To"
   },
   {
-    label: "Membership ID",
-    fieldName: "MembershipID",
-    inputType: NUMBER
-  },
-  {
-    label: "Membership Program ID",
+    label: "Membership Program",
+    inputType: DROPDOWN,
     fieldName: "MembershipProgramID",
-    inputType: NUMBER
+    refLookupService: getMembershipProgramTypes,
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
-    label: "Membership Definition ID",
-    fieldName: "MembershipDefinitionID",
-    inputType: NUMBER
-  },
-  {
-    label: "Lookup",
-    fieldName: "",
-    fullWidth: true,
-    customFilterComponent: SearchLookupSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "IsRenewed",
-          fieldName: "IsRenewed",
-          component: BooleanInputType
-        },
-        {
-          label: "IsRenewed 2",
-          fieldName: "IsRenewed2",
-          component: BooleanInputType
-        }
-      ]
-    }
+    label: "Renewed",
+    inputType: DROPDOWN,
+    fieldName: "IsRenewed",
+    options: [
+      { label: "Yes", value: "Yes" },
+      { label: "No", value: "No" }
+    ]
   }
+  // {
+  //   label: "Membership Definition ID",
+  //   fieldName: "MembershipDefinitionID",
+  //   inputType: NUMBER
+  // }
 ]
