@@ -1,5 +1,5 @@
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const QuestionRepositorySearchMeta: IFilterField[] = [
   {
@@ -25,7 +25,11 @@ export const QuestionRepositorySearchMeta: IFilterField[] = [
   },
   {
     label: "Is Active",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsActive"
   }
 ]

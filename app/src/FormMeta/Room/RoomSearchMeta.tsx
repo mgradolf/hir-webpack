@@ -1,5 +1,5 @@
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
 import RoomFilter from "~/FormMeta/Room/RoomFilter"
 
 export const RoomeSearchMeta: IFilterField[] = [
@@ -42,7 +42,11 @@ export const RoomeSearchMeta: IFilterField[] = [
   },
   {
     fieldName: "Accessible",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
 
     ariaLabel: "Accessible",
     label: "Accessible"

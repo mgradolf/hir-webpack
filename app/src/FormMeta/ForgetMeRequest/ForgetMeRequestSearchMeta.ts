@@ -1,4 +1,4 @@
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 
 export const ForgetMeRequestSearchMeta: IFilterField[] = [
@@ -42,17 +42,29 @@ export const ForgetMeRequestSearchMeta: IFilterField[] = [
   },
   {
     label: "Cancelled",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsCancelled"
   },
   {
     label: "Processed",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsProcessed"
   },
   {
     label: "Approved",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsApproved"
   }
 ]
