@@ -1,7 +1,6 @@
 import React from "react"
-import { SearchFieldWrapper } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { SearchFieldWrapper, IGeneratedField } from "~/Component/Common/SearchFilters/SearchForm/common"
 import { Input } from "antd"
-import { IGeneratedField } from "./common"
 
 export function SearchInputType(props: IGeneratedField) {
   return (

@@ -1,12 +1,8 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Form } from "antd"
 import { FormInstance, Rule } from "antd/lib/form"
-// import { Col, Row, Checkbox, Form } from "antd"
-// import { ColProps } from "antd/lib/col"
-// import { CheckboxChangeEvent } from "antd/lib/checkbox"
-// import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
-// import { FormInstance } from "antd/lib/form"
+import { ValidateStatus } from "antd/lib/form/FormItem"
 
 export const TEXT = "TEXT"
 export const DROPDOWN = "DROPDOWN"
@@ -51,6 +47,8 @@ export interface IField {
   refLookupService?: () => Promise<IApiResponse>
   customFilterComponent?: React.FunctionComponent<any>
   rules?: Rule[]
+  validateStatus?: ValidateStatus
+  help?: string
 }
 
 export interface IGeneratedField extends IField {
@@ -69,6 +67,8 @@ export function SearchFieldWrapper(props: IField & { children?: React.ReactNode 
       {...(props.fieldName !== "" && { name: props.fieldName })}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
+      validateStatus={props.validateStatus}
+      help={props.help}
     >
       {props.children}
     </Form.Item>
@@ -80,6 +80,9 @@ export function SearchComponentWrapper(
     children?: React.ReactNode
   }
 ) {
+  useEffect(() => {
+    console.log(props)
+  }, [props])
   return (
     <Form.Item
       colon={false}
@@ -88,6 +91,8 @@ export function SearchComponentWrapper(
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 12 }}
       rules={props.rules}
+      validateStatus={props.validateStatus}
+      help={props.help}
     >
       {props.children}
     </Form.Item>

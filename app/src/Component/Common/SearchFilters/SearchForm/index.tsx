@@ -44,10 +44,39 @@ export default function ({
   const [clearTrigger, setClearTrigger] = useState(false)
   const [meta, setMeta] = useState<IField[]>([])
 
+  const validationPassed = (values: { [key: string]: any }): boolean => {
+    let validationPassed = true
+    const __meta = meta.map((x) => {
+      const rules: Array<{ [key: string]: any }> = x.rules as Array<{ [key: string]: any }>
+      const rulesExist = !!(rules && rules.length > 0)
+      const certainInputType: boolean = x.inputType === CUSTOM_FIELD || x.inputType === DATE_PICKERS
+      if (!rulesExist || !certainInputType) return x
+
+      const rulesRequired = !!rules?.find((rule: any) => rule && rule.required)
+      const fieldValue: boolean = values[x.fieldName] === undefined || values[x.fieldName] === null
+      const fieldValue2: boolean = values[x.fieldName] === undefined || values[x.fieldName] === null
+      if (certainInputType && rulesExist && rulesRequired) {
+        if (fieldValue || fieldValue2) {
+          x.validateStatus = "error"
+          x.help = rules?.filter((rule: any) => rule.required)[0]?.message
+          validationPassed = false
+        } else {
+          x.validateStatus = ""
+          x.help = ""
+        }
+      }
+      return x
+    })
+    setMeta(__meta)
+    return validationPassed
+  }
+
   const applyChanges = (queryParams?: { [key: string]: any }) => {
     formInstance
       .validateFields()
       .then((validatedValues) => {
+        if (!validationPassed(validatedValues)) return
+        console.log(validatedValues)
         const params: { [key: string]: any } = queryParams || validatedValues
         const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFilter }
         for (const key in mergedParams) {
@@ -147,82 +176,87 @@ const SearchFormFields = (props: {
   formInstance: FormInstance
   clearTrigger?: boolean
   showLess: boolean
-}) => (
-  <Row>
-    {props.meta
-      .filter((field, index) => {
-        if (props.showLess && index < 4) return true
-        return !props.showLess
-      })
-      .map((field, i) => {
-        switch (field.inputType) {
-          case TEXT:
-          case NUMBER:
-            return (
-              <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                <SearchInputType {...field} key={i} formInstance={props.formInstance} />
-              </Col>
-            )
-          case BOOLEAN:
-            return (
-              <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                <BooleanInputType {...field} key={i} formInstance={props.formInstance} />
-              </Col>
-            )
-          case DROPDOWN:
-            return (
-              <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                <DropDownInputType {...field} key={i} formInstance={props.formInstance} />
-              </Col>
-            )
-          case MULTI_SELECT_DROPDOWN:
-            return (
-              <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                <MultiSelectDropDownInputType {...field} key={i} formInstance={props.formInstance} />
-              </Col>
-            )
-          case DATE_PICKER:
-            return (
-              <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                <DatePickerInputType
-                  {...field}
-                  key={i}
-                  formInstance={props.formInstance}
-                  clearTrigger={props.clearTrigger}
-                />
-              </Col>
-            )
-          case DATE_PICKERS:
-            return (
-              <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                <DatePickersInputType
-                  {...field}
-                  key={i}
-                  formInstance={props.formInstance}
-                  clearTrigger={props.clearTrigger}
-                />
-              </Col>
-            )
-          case CUSTOM_FIELD:
-            if (field.customFilterComponent) {
+}) => {
+  useEffect(() => {
+    console.log("SearchFormFields ", props.meta)
+  }, [props.meta])
+  return (
+    <Row>
+      {props.meta
+        .filter((field, index) => {
+          if (props.showLess && index < 4) return true
+          return !props.showLess
+        })
+        .map((field, i) => {
+          switch (field.inputType) {
+            case TEXT:
+            case NUMBER:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                  <field.customFilterComponent
-                    {...{
-                      ...field,
-                      key: i,
-                      formInstance: props.formInstance,
-                      clearTrigger: props.clearTrigger
-                    }}
+                  <SearchInputType {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case BOOLEAN:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <BooleanInputType {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case DROPDOWN:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <DropDownInputType {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case MULTI_SELECT_DROPDOWN:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <MultiSelectDropDownInputType {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case DATE_PICKER:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <DatePickerInputType
+                    {...field}
+                    key={i}
+                    formInstance={props.formInstance}
+                    clearTrigger={props.clearTrigger}
                   />
                 </Col>
               )
-            }
-            break
-          default:
-            break
-        }
-        return null
-      })}
-  </Row>
-)
+            case DATE_PICKERS:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <DatePickersInputType
+                    {...field}
+                    key={i}
+                    formInstance={props.formInstance}
+                    clearTrigger={props.clearTrigger}
+                  />
+                </Col>
+              )
+            case CUSTOM_FIELD:
+              if (field.customFilterComponent) {
+                return (
+                  <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                    <field.customFilterComponent
+                      {...{
+                        ...field,
+                        key: i,
+                        formInstance: props.formInstance,
+                        clearTrigger: props.clearTrigger
+                      }}
+                    />
+                  </Col>
+                )
+              }
+              break
+            default:
+              break
+          }
+          return null
+        })}
+    </Row>
+  )
+}

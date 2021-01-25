@@ -6,7 +6,6 @@ import { getAccountTableColumns } from "~/FormMeta/Account/AccountTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function SearchAccountLookup(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
-  console.log("account ", props)
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Account"
