@@ -4,7 +4,7 @@ import { getMeetings } from "~/ApiServices/Service/SectionService"
 import { renderDate, renderTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
-export const getSectionScheduleTableColumns = (sectionID: number): ITableConfigProp => {
+export const getSectionScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Day",
@@ -46,5 +46,5 @@ export const getSectionScheduleTableColumns = (sectionID: number): ITableConfigP
 
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: () => getMeetings(sectionID) }
+  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getMeetings }
 }

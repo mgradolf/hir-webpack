@@ -46,10 +46,8 @@ export function saveAffiliatedOrg(SeatGroupID: number, AffiliateAccountIDs: numb
   })
 }
 
-export function getMeetings(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getMeetings]({
-    SectionID
-  })
+export function getMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.getMeetings](Params)
 }
 
 export function createMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
