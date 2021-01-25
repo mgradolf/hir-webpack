@@ -2,14 +2,14 @@ import { Button } from "antd"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
-import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDate, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
 import OfferingAddButton from "~/Component/Offering/OfferingAddButton"
 import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
+import { getInstructorScheduleTableColumns } from "~/FormMeta/InstructorSchedule/ScheduleTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
 import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
@@ -59,24 +59,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabType: "table",
     tabMeta: {
       tableProps: {
-        columns: [
-          {
-            title: "Start Date",
-            dataIndex: "StartDate",
-            render: renderDateTime,
-            sorter: (a: any, b: any) => sortByTime(a.StartDate, b.StartDate)
-          },
-          {
-            title: "End Date",
-            dataIndex: "EndDate",
-            render: renderDateTime,
-            sorter: (a: any, b: any) => sortByTime(a.EndDate, b.EndDate)
-          },
-          { title: "Schedule Item", dataIndex: "Name" }
-        ],
-        searchFunc: getFacultySchedule,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
+        ...getInstructorScheduleTableColumns(),
         searchParams: { PersonID: person.PersonID },
         refreshEventName: "REFRESH_FACULTY_SCHEDULE_TAB"
       }
