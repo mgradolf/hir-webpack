@@ -14,6 +14,7 @@ const meta: IField[] = [
     label: "Schedule Date",
     fieldName: "DateRangeStart",
     fieldName2: "DateRangeEnd",
+    rules: [{ required: true, message: "Date field is Required" }],
 
     inputType: DATE_PICKERS
   }
