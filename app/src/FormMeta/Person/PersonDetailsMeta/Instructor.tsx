@@ -1,15 +1,14 @@
 import { Button } from "antd"
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
-import { searchSectionInstructor } from "~/ApiServices/Service/InstructorService"
 import { getFacultySchedule } from "~/ApiServices/Service/PersonService"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDate, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDateTime, sortByTime } from "~/Component/Common/ResponsiveTable"
 import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
 import OfferingAddButton from "~/Component/Offering/OfferingAddButton"
 import { getFacultyCommentTableColumns } from "~/FormMeta/InstructorComment/CommentTableColumns"
+import { getInstructorContractsTableColumns } from "~/FormMeta/InstructorContracts/InstructorContractsTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/FormMeta/Offering/QualifiedInstructorTableColumns"
 import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
@@ -115,29 +114,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabType: "table",
     tabMeta: {
       tableProps: {
-        columns: [
-          {
-            title: "Name",
-            dataIndex: "FirstName",
-            render: (text: any, record: any) => (
-              <Link to={`/person/${record.PersonID}`}>{text + " " + record.LastName}</Link>
-            )
-          },
-          {
-            title: "Section Number",
-            dataIndex: "SectionNumber",
-            render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
-          },
-          { title: "Status", dataIndex: "SectionStatusCodeName" },
-          { title: "StartDate", dataIndex: "StartDate", render: renderDate },
-          { title: "EndDate", dataIndex: "EndDate", render: renderDate },
-          { title: "Current Enrollment", dataIndex: "CurrentEnrollment" },
-          { title: "Max Enrollment", dataIndex: "MaxEnrollment" },
-          { title: "Pay Rate", dataIndex: "Amount" }
-        ],
-        searchFunc: searchSectionInstructor,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
+        ...getInstructorContractsTableColumns(),
         searchParams: { FacultyID: instructor.FacultyID },
         refreshEventName: "REFRESH_FACULTY_CONTACT_TAB"
       }

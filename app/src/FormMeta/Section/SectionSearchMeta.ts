@@ -116,38 +116,4 @@ export const SectionSearchMeta: IFilterField[] = [
     displayKey: "FormattedName",
     valueKey: "UserLogin"
   }
-  // {
-  //   label: "Creation Date",
-  //   inputType: DATE_PICKERS,
-  //   displayKey: "From",
-  //   fieldName: "FromCreationDate",
-  //   valueKey: "FromCreationDate",
-  //   ariaLabel: "Creation Date From",
-  //   displayKey2: "To",
-  //   valueKey2: "ToCreationDate",
-  //   fieldName2: "ToCreationDate",
-  //   ariaLabel2: "Creation Date To"
-  // },
-  // {
-  //   label: "Termination Date",
-  //   inputType: DATE_PICKERS,
-  //   displayKey: "From",
-  //   fieldName: "FromTerminationDate",
-  //   valueKey: "FromTerminationDate",
-  //   ariaLabel: "Termination Date From",
-  //   displayKey2: "To",
-  //   fieldName2: "ToTerminationDate",
-  //   valueKey2: "ToTerminationDate",
-  //   ariaLabel2: "Termination Date To"
-  // },
-  // {
-  //   label: "Is QuickAdmit",
-  //   inputType: DROPDOWN,
-  //   fieldName: "IsQuickAdmit",
-  //   ariaLabel: "Is Quick Admit",
-  //   options: [
-  //     { label: "Yes", value: "true" },
-  //     { label: "No", value: "false" }
-  //   ]
-  // }
 ]

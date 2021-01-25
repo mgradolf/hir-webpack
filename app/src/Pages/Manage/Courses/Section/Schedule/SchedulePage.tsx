@@ -50,7 +50,7 @@ export default function SectionSchedulePage(props: { sectionID: number; title?: 
             refreshEventName={REFRESH_SECTION_SCHEDULE_PAGE}
             loading={loading}
             searchParams={{ SectionID: props.sectionID }}
-            {...getSectionScheduleTableColumns(props.sectionID)}
+            {...getSectionScheduleTableColumns()}
             rowKey="ScheduleID"
             rowSelection={rowSelection}
           />

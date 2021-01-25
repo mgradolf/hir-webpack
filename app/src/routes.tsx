@@ -1,3 +1,4 @@
+import React from "react"
 import { RouteProps } from "react-router-dom"
 // import HomePage from "~/Pages/HomePage"
 // import AboutPage from "~/Pages/AboutPage"
@@ -100,7 +101,6 @@ import { RouteProps } from "react-router-dom"
 // import MarketingCodeRepositoryDetailsPage from "~/Pages/Manage/MarketingCodes/RepositoryDetails"
 // import MarketingCodeResponsePage from "~/Pages/Manage/MarketingCodes/ResponsePage"
 // import MarketingCodeResponseDetailsPage from "~/Pages/Manage/MarketingCodes/ResponseDetails"
-import React from "react"
 // import TagsPage from "~/Pages/Manage/Tags/TagsPage"
 // import TagsDetailsPage from "~/Pages/Manage/Tags/TagsDetailsPage"
 // import QuestionRepositoryDetailsPage from "~/Pages/Manage/Question/QuestionRepositoryDetailsPage"
@@ -384,15 +384,15 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/Discovery/Search/Activity/OrderActivityPage"))
   },
 
-  { path: "/report", component: React.lazy(() => import("~/Pages/Discovery/Report/ReportPage")) },
-  { path: "/report/:reportName", component: React.lazy(() => import("~/Pages/Discovery/Report/IndividualReportPage")) },
+  { path: "/report", component: React.lazy(() => import("~/Pages/Reporting/Report/ReportPage")) },
+  { path: "/report/:reportName", component: React.lazy(() => import("~/Pages/Reporting/Report/IndividualReportPage")) },
   {
     path: "/report/financial/purchase-order",
-    component: React.lazy(() => import("~/Pages/Discovery/Report/Financial/PurchaseOrder"))
+    component: React.lazy(() => import("~/Pages/Reporting/Report/Financial/PurchaseOrder"))
   },
 
-  { path: "/chart", component: React.lazy(() => import("~/Pages/Discovery/Chart/ChartPage")) },
-  { path: "/chart/:chartName", component: React.lazy(() => import("~/Pages/Discovery/Chart/ChartDetailsPage")) },
+  { path: "/chart", component: React.lazy(() => import("~/Pages/Reporting/Chart/ChartPage")) },
+  { path: "/chart/:chartName", component: React.lazy(() => import("~/Pages/Reporting/Chart/ChartDetailsPage")) },
 
   {
     path: "/course/certificate",
@@ -556,5 +556,9 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() =>
       import("~/Pages/SetupAdministration/Tools/StudentEmailNotification/StudentEmailNotificationDetailsPage")
     )
+  },
+  {
+    path: "/section-instructors",
+    component: React.lazy(() => import("~/Pages/Reporting/SectionInstructors/SectionInstructorsPage"))
   }
 ]
