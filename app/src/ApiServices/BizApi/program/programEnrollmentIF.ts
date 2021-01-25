@@ -9,6 +9,6 @@ export function trackingProgress(Params: Array<any>): Promise<IApiResponse> {
   return ProgramEnrollmentIf[config.Actions.trackingProgress](Params)
 }
 
-export function changeEnrollmentStatusWithEvent(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return ProgramEnrollmentIf[config.Actions.changeEnrollmentStatusWithEvent]([Params])
+export function changeEnrollmentStatusWithEvent(Params: Array<any>): Promise<IApiResponse> {
+  return ProgramEnrollmentIf[config.Actions.changeEnrollmentStatusWithEvent](Params)
 }

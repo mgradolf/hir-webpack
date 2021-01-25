@@ -5,8 +5,14 @@ export const config = {
   Service: "com.jenzabar.jxntm.server.bizapi.program.ProgramApplicationIF",
   Module: "hir",
   Actions: {
+    saveApplicationAnswer: "saveApplicationAnswer",
     getProgramAppDetails: "getProgramAppDetails",
-    searchProgramApplication: "searchProgramApplication"
+    searchProgramApplication: "searchProgramApplication",
+    addApplicationComment: "addApplicationComment",
+    addProgramAdmReqComment: "addProgramAdmReqComment",
+    resubmitProgramAdmReq: "resubmitProgramAdmReq",
+    changeProgramAdmReqStatus: "changeProgramAdmReqStatus",
+    changeApplicationStatusWithEvent: "changeApplicationStatusWithEvent"
   }
 }
 

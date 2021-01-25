@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select } from "antd"
 import { getProgramEnrollmentStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import "~/Sass/utils.scss"
 import { changeEnrollmentStatusWithEvent } from "~/ApiServices/BizApi/program/programEnrollmentIF"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/Form/FormError"
+import "~/Sass/utils.scss"
 
 interface IEnrollmentFormProps {
   enrollmentID: number
@@ -38,12 +38,12 @@ export default function ProgramEnrollmentForm(props: IEnrollmentFormProps) {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
-    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
+    type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
     const serviceMethoToCall: serviceMethodType = changeEnrollmentStatusWithEvent
 
     props.setApiCallInProgress(true)
     setErrorMessages([])
-    const response = await serviceMethoToCall(params)
+    const response = await serviceMethoToCall([params["ProgramEnrollmentID"], params["StatusID"], params["CommentText"]])
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
