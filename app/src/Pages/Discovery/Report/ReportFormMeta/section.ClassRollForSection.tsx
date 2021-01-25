@@ -15,6 +15,7 @@ const meta: IField[] = [
 
     fieldName: "FromMeetinglDate",
     fieldName2: "ToMeetingDate",
+    rules: [{ required: true, message: "Date field is Required" }],
     inputType: DATE_PICKERS
   }
 ]

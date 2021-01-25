@@ -12,6 +12,7 @@ const meta: IField[] = [
   },
   {
     label: "Meeting Date",
+    rules: [{ required: true, message: "Date field is Required" }],
 
     fieldName: "FromMeetinglDate",
     fieldName2: "ToMeetingDate",

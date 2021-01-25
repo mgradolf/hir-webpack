@@ -4,6 +4,7 @@ import { IReportMeta } from "~/Pages/Discovery/Report/IReportMeta"
 const meta: IField[] = [
   {
     label: "Final Enrollment Date",
+    rules: [{ required: true, message: "Date field is Required" }],
 
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",

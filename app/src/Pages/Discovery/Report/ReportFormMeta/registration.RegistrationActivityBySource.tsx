@@ -7,6 +7,7 @@ const meta: IField[] = [
     label: "Registration Date",
     fieldName: "date_start",
     fieldName2: "date_end",
+    rules: [{ required: true, message: "Date field is Required" }],
 
     inputType: DATE_PICKERS
   },
@@ -20,6 +21,7 @@ const meta: IField[] = [
   },
   {
     label: "Registration Source",
+    rules: [{ required: true, message: "Source field is Required" }],
 
     inputType: DROPDOWN,
     fieldName: "sourceAll",
