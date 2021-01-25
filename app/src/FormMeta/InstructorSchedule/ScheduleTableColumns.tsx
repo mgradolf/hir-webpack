@@ -4,12 +4,8 @@ import { getMeetings } from "~/ApiServices/Service/SectionService"
 import { renderDate, renderTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
-export const getSectionScheduleTableColumns = (): ITableConfigProp => {
+export const getInstructorScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
-    // {
-    //   title: "Day",
-    //   dataIndex: "DayOfWeek"
-    // },
     {
       title: "Date",
       dataIndex: "MeetingDate",
@@ -28,6 +24,16 @@ export const getSectionScheduleTableColumns = (): ITableConfigProp => {
     {
       title: "Meeting Type",
       dataIndex: "MeetingTypeName"
+    },
+    {
+      title: "Section Number",
+      dataIndex: "SectionNumber",
+      render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
+    },
+    {
+      title: "Offering Name",
+      dataIndex: "OfferingName",
+      render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
     {
       title: "Location",
@@ -58,10 +64,6 @@ export const getSectionScheduleTableColumns = (): ITableConfigProp => {
         </ul>
       )
     }
-    // {
-    //   title: "Notes",
-    //   dataIndex: "InformationSummary"
-    // }
   ]
 
   const responsiveColumnIndices: number[] = []

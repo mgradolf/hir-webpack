@@ -28,7 +28,12 @@ export function ProgramEnrollmentDetailsPage(props: RouteComponentProps<{ progra
               const requirements = enrollmentDetails.data.ProgramRequirementGroups
               // eslint-disable-next-line
               requirements.map((requirement: any) => {
-                requirementList.push(...requirement.Offerings)
+                const offerings = requirement.Offerings
+                // eslint-disable-next-line
+                offerings.map((offering: any) => {
+                  offering["RequirementGroupName"] = requirement.Name
+                  requirementList.push(offering)
+                })
               })
               result.data = {
                 ...result.data,

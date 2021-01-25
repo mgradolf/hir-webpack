@@ -15,6 +15,7 @@ const fieldNames: IEnrollmentFieldNames = {
   StatusID: "StatusID",
   StatusName: "StatusName",
   CommentText: "CommentText",
+  MeetRequirement: "MeetRequirement",
   ProgramEnrollmentID: "ProgramEnrollmentID"
 }
 
