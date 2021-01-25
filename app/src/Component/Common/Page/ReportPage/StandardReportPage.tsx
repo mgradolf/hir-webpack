@@ -16,9 +16,7 @@ export interface IStandardReportPage {
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
-  // const [filterCount, setFilterCount] = useState(0)
   const [downloadUrl, setdownloadUrl] = useState<string>()
-
   const openReportInNewTab = (params: { [key: string]: any }) => {
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
@@ -34,21 +32,12 @@ export default function StandardReportPage(props: IStandardReportPage) {
     urlParams += "token=" + getToken()
     console.log(urlParams)
     setdownloadUrl(urlParams)
-    // window.open(urlParams, "_blank")
   }
   return (
     <div className="site-layout-content">
       <Row>
         <Typography.Title level={3}>{props.title}</Typography.Title>
       </Row>
-      {/* <Row justify="start" gutter={[8, 8]}>
-        <Col>
-          <span>
-            <FilterOutlined />
-            <span> {filterCount === 0 ? "No" : filterCount} filters applied</span>
-          </span>
-        </Col>
-      </Row> */}
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
           <SearchFilters
@@ -57,8 +46,6 @@ export default function StandardReportPage(props: IStandardReportPage) {
             defaultFilter={props.defaultFilter}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               openReportInNewTab(newFilterValues)
-              console.log("default filter, ", newFilterValues)
-              // setFilterCount(appliedFilterCount)
             }}
           />
         )}
