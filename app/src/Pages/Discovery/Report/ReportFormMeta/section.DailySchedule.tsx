@@ -5,6 +5,7 @@ const meta: IField[] = [
   {
     label: "Schedule For",
     fieldName: "date_start",
+    rules: [{ required: true, message: "Date field is Required" }],
 
     inputType: DATE_PICKER
   }

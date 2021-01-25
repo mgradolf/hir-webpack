@@ -8,7 +8,7 @@ const meta: IField[] = [
     label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
-
+    rules: [{ required: true, message: "Date field is Required" }],
     inputType: DATE_PICKERS
   },
   {

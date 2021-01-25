@@ -20,7 +20,7 @@ const meta: IField[] = [
   {
     label: "Select Date",
     inputType: DATE_PICKERS,
-
+    rules: [{ required: true, message: "Date field is Required" }],
     displayKey: "From",
     fieldName: "TxDateFrom",
     valueKey: "FromDate",
