@@ -4,8 +4,7 @@ export const ActivitySystemScheduleSearchMeta: IFilterField[] = [
   {
     label: "Service Name",
     inputType: TEXT,
-    fieldName: "ServiceName",
-    ariaLabel: "Service Name"
+    fieldName: "ServiceName"
   },
   {
     label: "Completed",
@@ -22,10 +21,8 @@ export const ActivitySystemScheduleSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "ScheduledTimeFrom",
     valueKey: "ScheduledTimeFrom",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ScheduledTimeTo",
-    valueKey2: "ScheduledTimeTo",
-    ariaLabel2: "To"
+    valueKey2: "ScheduledTimeTo"
   }
 ]

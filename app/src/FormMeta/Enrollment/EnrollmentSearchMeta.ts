@@ -18,7 +18,6 @@ export const EnrollmentSearchMeta: IFilterField[] = [
     label: "Enrollment Status",
     inputType: DROPDOWN,
     fieldName: "SectionRosterStatusCodeID",
-    ariaLabel: "Enrollment Status",
     refLookupService: getSectionRosterStatusCode,
     displayKey: "Name",
     valueKey: "ID"
@@ -29,10 +28,8 @@ export const EnrollmentSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromStatusDate",
     valueKey: "FromStatusDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToStatusDate",
-    valueKey2: "ToStatusDate",
-    ariaLabel2: "To"
+    valueKey2: "ToStatusDate"
   }
 ]

@@ -6,7 +6,6 @@ import {
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import { DROPDOWN, IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { DropDownInputType } from "~/Component/Common/SearchFilters/SearchDropDown"
-// import SearchDropDown from "~/Component/Common/SearchFilters/SearchDropDown"
 
 export const SiteBuildingRoomFilter = (props: IFilterGenericComponentProps<IFilterFieldComponent>) => {
   const [sites, setSites] = useState<any[]>([])

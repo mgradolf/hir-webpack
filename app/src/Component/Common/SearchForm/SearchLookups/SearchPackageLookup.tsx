@@ -1,11 +1,11 @@
 import * as React from "react"
 import { PackageSearchMeta } from "~/FormMeta/Package/PackageSearchMeta"
-import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchForm/SearchLookupOpenButton"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
 import { findPackages } from "~/ApiServices/Service/PackageService"
 
-interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
+interface ISearchLookupOpenButton extends IGeneratedField {
   valueField?: string
 }
 export function SearchPackageLookupButton(props: ISearchLookupOpenButton) {
@@ -13,7 +13,7 @@ export function SearchPackageLookupButton(props: ISearchLookupOpenButton) {
     <SearchLookupOpenButton
       lookupModalTitle="Select Package"
       displayField="Name"
-      meta={PackageSearchMeta}
+      meta={PackageSearchMeta as IField[]}
       {...props}
       {...getPackageTableColumns(true)}
       valueField={props.valueField || "PackageID"}

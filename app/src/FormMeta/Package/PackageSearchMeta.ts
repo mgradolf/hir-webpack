@@ -20,19 +20,16 @@ export const PackageSearchMeta: IFilterField[] = [
   {
     label: "Name",
     inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Name"
+    fieldName: "Name"
   },
   {
     label: "PO Number",
     inputType: TEXT,
-    fieldName: "PONumber",
-    ariaLabel: "PO Number"
+    fieldName: "PONumber"
   },
   {
     label: "PO Date",
     inputType: DATE_PICKER,
-    fieldName: "PODate",
-    ariaLabel: "PO Date"
+    fieldName: "PODate"
   }
 ]

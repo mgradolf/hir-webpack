@@ -15,8 +15,6 @@ export const getDiscountProgramsTableColumns = (isModal = false): ITableConfigPr
     {
       title: "Discount Program Type",
       dataIndex: "DiscountType"
-      // render: (text: any, record: any) =>
-      //   isModal || !text ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>
     },
     { title: "Amount Type", dataIndex: "DiscountAmountType" },
     { title: "Is Active?", dataIndex: "IsActive", render: renderBoolean },

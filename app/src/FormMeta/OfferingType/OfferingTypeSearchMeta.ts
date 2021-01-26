@@ -5,20 +5,17 @@ export const OfferingTypeSearchMeta: IFilterField[] = [
   {
     label: "Type Name",
     inputType: TEXT,
-    fieldName: "OfferingTypeName",
-    ariaLabel: "Type Name"
+    fieldName: "OfferingTypeName"
   },
   {
     label: "Offering Name",
     inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Offering Name"
+    fieldName: "Name"
   },
   {
     label: "Offering Code",
     inputType: TEXT,
-    fieldName: "OfferingCode",
-    ariaLabel: "Offering Code"
+    fieldName: "OfferingCode"
   },
   {
     label: "Department",

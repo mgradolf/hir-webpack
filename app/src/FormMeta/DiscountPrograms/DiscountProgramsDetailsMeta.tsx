@@ -12,7 +12,6 @@ export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]:
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      // {label: "Name", value:discountProgram.Name},
       { label: "Description", value: discountProgram.Description },
       { label: "Discount Type", value: discountProgram.DiscountType },
       { label: "Discount Group", value: discountProgram.DiscountGroup },

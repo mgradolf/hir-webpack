@@ -1,11 +1,11 @@
 import * as React from "react"
-import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchForm/SearchLookupOpenButton"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
 import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
-interface ISearchProgramLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
+interface ISearchProgramLookup extends IGeneratedField {
   valueField?: string
 }
 export function SearchProgramLookupButton(props: ISearchProgramLookup) {
@@ -13,7 +13,7 @@ export function SearchProgramLookupButton(props: ISearchProgramLookup) {
     <SearchLookupOpenButton
       lookupModalTitle="Select Program"
       displayField="ProgramCode"
-      meta={ProgramSearchMeta}
+      meta={ProgramSearchMeta as IField[]}
       {...props}
       {...getProgramTableColumns(true)}
       valueField={props.valueField || "ProgramID"}

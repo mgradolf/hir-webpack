@@ -35,7 +35,6 @@ export const InstructorContractsSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "orgID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
@@ -44,7 +43,6 @@ export const InstructorContractsSearchMeta: IFilterField[] = [
     label: "Status",
     inputType: DROPDOWN,
     fieldName: "statusID",
-    ariaLabel: "Offering Status Select",
     refLookupService: getSectionStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -53,7 +51,6 @@ export const InstructorContractsSearchMeta: IFilterField[] = [
     label: "Coordinator",
     inputType: DROPDOWN,
     fieldName: "coordName",
-    ariaLabel: "Coordinator Select",
     refLookupService: () => getUsersByRole({ Role: "coordinator" }),
     displayKey: "FormattedName",
     valueKey: "UserLogin"

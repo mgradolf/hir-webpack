@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { SearchFieldWrapper, IGeneratedField } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/SearchForm/common"
 import { Select } from "antd"
-import { eventBus } from "~/utils/EventBus"
 
-export function DropDownInputType(props: IGeneratedField & { onChangeCallback?: (params: any) => void }) {
+export function MultiSelectDropDownInputType(props: IGeneratedField & { onChangeCallback?: (params: any) => void }) {
   const [options, setOptions] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
 
   const { refLookupService, displayKey, valueKey } = props
-
-  const loadOptions = () => {
+  useEffect(() => {
     if (props.options?.length) {
       setOptions(
         props.options?.map((x) => {
@@ -32,22 +30,12 @@ export function DropDownInputType(props: IGeneratedField & { onChangeCallback?: 
         setLoading(false)
       })
     }
-  }
-  useEffect(() => {
-    const eventName = `REFRESH_SEARCH_DROPDOWN_${
-      (refLookupService || new Date().getTime())?.toString() + displayKey + valueKey
-    }`
-    eventBus.subscribe(eventName, loadOptions)
-    eventBus.publish(eventName)
-    return () => {
-      eventBus.unsubscribe(eventName)
-    }
-    // eslint-disable-next-line
-  }, [])
+  }, [refLookupService, displayKey, valueKey, props.options])
 
   return (
     <SearchFieldWrapper {...props}>
       <Select
+        mode="multiple"
         allowClear={true}
         loading={loading}
         aria-label={props.ariaLabel}

@@ -22,8 +22,7 @@ export const AcademicActivitySearchMeta: IFilterField[] = [
   {
     label: "Activity By",
     inputType: TEXT,
-    fieldName: "UserID",
-    ariaLabel: "Activity By User ID"
+    fieldName: "UserID"
   },
   {
     label: "Activity Date",
@@ -31,10 +30,8 @@ export const AcademicActivitySearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    valueKey2: "ToDate"
   }
 ]

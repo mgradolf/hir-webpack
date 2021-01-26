@@ -41,8 +41,7 @@ export const PersonSearchMeta: IFilterField[] = [
     label: "First Name",
     inputType: TEXT,
     defaultValue: "*",
-    fieldName: "FirstName",
-    ariaLabel: "First Name"
+    fieldName: "FirstName"
   },
   {
     label: "Contact Selector",
@@ -95,28 +94,22 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "ERP",
     inputType: TEXT,
-
-    fieldName: "ERPID",
-    ariaLabel: "ERP Code"
+    fieldName: "ERPID"
   },
   {
     label: "SSN",
     inputType: TEXT,
-
-    fieldName: "GovID",
-    ariaLabel: "SSN"
+    fieldName: "GovID"
   },
   {
     label: "Birth Date",
     inputType: DATE_PICKER,
-    fieldName: "BirthDate",
-    ariaLabel: "Birth Date"
+    fieldName: "BirthDate"
   },
   {
     label: "Gender",
     inputType: DROPDOWN,
     fieldName: "GenderTypeID",
-    ariaLabel: "Gender",
     refLookupService: getGenderTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -125,7 +118,6 @@ export const PersonSearchMeta: IFilterField[] = [
     label: "Ethnicity",
     inputType: DROPDOWN,
     fieldName: "EthnicityTypeID",
-    ariaLabel: "Ethnicity",
     refLookupService: getEthnicityTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -137,8 +129,7 @@ export const PersonSearchMeta: IFilterField[] = [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
     ],
-    fieldName: "IsDeceased",
-    ariaLabel: "Deceased"
+    fieldName: "IsDeceased"
   },
   {
     label: "State/Province",
@@ -149,7 +140,6 @@ export const PersonSearchMeta: IFilterField[] = [
     label: "Account Role",
     inputType: DROPDOWN,
     fieldName: "RoleName",
-    ariaLabel: "Account Role",
     refLookupService: getAffiliationRoleType,
     displayKey: "Name",
     valueKey: "ID"
@@ -158,7 +148,6 @@ export const PersonSearchMeta: IFilterField[] = [
     label: "Account Type",
     inputType: DROPDOWN,
     fieldName: "AccountTypeID",
-    ariaLabel: "Account Type",
     refLookupService: getAccountTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -166,7 +155,6 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "Account Name",
     inputType: TEXT,
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
+    fieldName: "AccountName"
   }
 ]

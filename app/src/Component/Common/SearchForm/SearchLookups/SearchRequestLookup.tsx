@@ -1,10 +1,10 @@
 import * as React from "react"
-import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchForm/SearchLookupOpenButton"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
 import { RequestSearchMeta } from "~/FormMeta/Request/RequestSearchMeta"
 
-export function SearchRequestLookup(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export function SearchRequestLookup(props: IGeneratedField) {
   console.log("account ", props)
   return (
     <SearchLookupOpenButton
@@ -12,7 +12,7 @@ export function SearchRequestLookup(props: IFilterGenericComponentProps<IFilterF
       valueField={props.valueField || "RequestID"}
       displayField={"RequestID"}
       {...getRequestTableColumns(true)}
-      meta={RequestSearchMeta}
+      meta={RequestSearchMeta as IField[]}
       {...props}
       // {...(props.defaultValue && {
       //   entityLookupFunc: () =>

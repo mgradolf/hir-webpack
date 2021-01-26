@@ -9,7 +9,6 @@ export const RequestSearchMeta: IFilterField[] = [
     label: "Request Status",
     inputType: DROPDOWN,
     fieldName: "StateID",
-    ariaLabel: "Request Status",
     refLookupService: getEnumValues,
     displayKey: "Name",
     valueKey: "ID"
@@ -30,17 +29,14 @@ export const RequestSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "CreatedFromDate",
     valueKey: "CreatedFromDate",
-    ariaLabel: "Request Date From",
     displayKey2: "To",
     valueKey2: "CreatedToDate",
-    fieldName2: "CreatedToDate",
-    ariaLabel2: "Request Date To"
+    fieldName2: "CreatedToDate"
   },
   {
     label: "Request Type",
     inputType: DROPDOWN,
     fieldName: "RequestTypeID",
-    ariaLabel: "Request Type",
     refLookupService: getRequestType,
     displayKey: "Name",
     valueKey: "ID"
@@ -48,14 +44,12 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Reservation Token",
     inputType: TEXT,
-    fieldName: "ReservationToken",
-    ariaLabel: "ReservationToken"
+    fieldName: "ReservationToken"
   },
   {
     label: "Source",
     inputType: DROPDOWN,
     fieldName: "sourceID",
-    ariaLabel: "Source",
     refLookupService: getSourceModule,
     displayKey: "Name",
     valueKey: "ID"
@@ -63,7 +57,6 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Staff",
     inputType: TEXT,
-    fieldName: "RequesterStaffUserName",
-    ariaLabel: "Staff"
+    fieldName: "RequesterStaffUserName"
   }
 ]

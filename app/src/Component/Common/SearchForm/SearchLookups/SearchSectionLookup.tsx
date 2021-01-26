@@ -1,17 +1,17 @@
 import * as React from "react"
 import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
-import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchForm/SearchLookupOpenButton"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
-export function SearchSectionLookupButton(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export function SearchSectionLookupButton(props: IGeneratedField) {
   return (
     <SearchLookupOpenButton
       lookupModalTitle="Select Section"
       valueField="SectionID"
       displayField="SectionNumber"
-      meta={SectionSearchMeta}
+      meta={SectionSearchMeta as IField[]}
       {...props}
       formInstance={props.formInstance}
       {...getSectionTableColumns(true)}

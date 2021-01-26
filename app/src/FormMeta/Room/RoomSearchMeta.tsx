@@ -12,9 +12,7 @@ export const RoomeSearchMeta: IFilterField[] = [
   {
     label: "Room Type",
     inputType: DROPDOWN,
-
     fieldName: "RoomUseTypeID",
-    ariaLabel: "Room Type Select",
     refLookupService: getRoomTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -22,22 +20,16 @@ export const RoomeSearchMeta: IFilterField[] = [
   {
     fieldName: "Floor",
     inputType: NUMBER,
-
-    ariaLabel: "Floor",
     label: "Floor"
   },
   {
     fieldName: "MinCapacity",
     inputType: NUMBER,
-
-    ariaLabel: "Minimum Capacity",
     label: "Minimum Capacity"
   },
   {
     fieldName: "MaxCapacity",
     inputType: NUMBER,
-
-    ariaLabel: "Maximum Capacity",
     label: "Maximum Capacity"
   },
   {
@@ -47,8 +39,6 @@ export const RoomeSearchMeta: IFilterField[] = [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
     ],
-
-    ariaLabel: "Accessible",
     label: "Accessible"
   }
 ]

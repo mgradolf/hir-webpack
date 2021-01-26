@@ -8,8 +8,7 @@ export const ProgramEnrollmentSearchMeta: IFilterField[] = [
     label: "Program Name",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "programName",
-    ariaLabel: "Program Name"
+    fieldName: "programName"
   },
   {
     label: "Student",
@@ -20,7 +19,6 @@ export const ProgramEnrollmentSearchMeta: IFilterField[] = [
     label: "Status",
     inputType: DROPDOWN,
     fieldName: "applicationStatus",
-    ariaLabel: "Program Status Select",
     refLookupService: getProgramEnrollmentStatusCodes,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -29,7 +27,6 @@ export const ProgramEnrollmentSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "departmentID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizationByType,
     displayKey: "Description",
     valueKey: "OrganizationID"
@@ -38,7 +35,6 @@ export const ProgramEnrollmentSearchMeta: IFilterField[] = [
     label: "Program Code",
     inputType: TEXT,
     defaultValue: "*",
-    fieldName: "programCode",
-    ariaLabel: "Program Code"
+    fieldName: "programCode"
   }
 ]

@@ -9,18 +9,14 @@ export const getSectionNoShowTableColumns = (): ITableConfigProp => {
       dataIndex: "StudentFirstName",
       render: (text, record) => renderLink(`/person/student/${record.StudentID}`, text)
     },
-    // { title: "Last Name", dataIndex: "StudentLastName" },
+
     { title: "Order ID", dataIndex: "OrderID" },
     {
       title: "Order Date",
       dataIndex: "OrderDate",
       render: renderDate
     },
-    // {
-    //   title: "Section Number",
-    //   dataIndex: "SectionNumber",
-    //   render: (text, record) => renderLink(`/section/${record.SectionID}`, text)
-    // },
+
     { title: "Quantity", dataIndex: "Quantity" },
     { title: "Total Amount", dataIndex: "TotalAmount" }
   ]

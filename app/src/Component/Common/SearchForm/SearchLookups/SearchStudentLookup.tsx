@@ -1,11 +1,11 @@
 import * as React from "react"
-import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchForm/SearchLookupOpenButton"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { getStudentTableColumns } from "~/FormMeta/Student/StudentTableColumns"
 import { studentSearchMeta } from "~/FormMeta/Student/StudentSearchMeta"
 import { searchStudents } from "~/ApiServices/BizApi/student/studentIf"
 
-interface ISearchStudentLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
+interface ISearchStudentLookup extends IGeneratedField {
   valueField?: string
 }
 export function SearchStudentLookupButton(props: ISearchStudentLookup) {
@@ -13,7 +13,7 @@ export function SearchStudentLookupButton(props: ISearchStudentLookup) {
     <SearchLookupOpenButton
       lookupModalTitle="Select Student"
       displayField="FirstName"
-      meta={studentSearchMeta}
+      meta={studentSearchMeta as IField[]}
       {...props}
       {...getStudentTableColumns(true)}
       valueField={props.valueField || "StudentID"}

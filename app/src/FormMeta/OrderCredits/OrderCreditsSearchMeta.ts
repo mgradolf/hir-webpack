@@ -30,8 +30,7 @@ export const OrderCreditsSearchMeta: IFilterField[] = [
   {
     label: "Order ID",
     inputType: NUMBER,
-    fieldName: "OrderID",
-    ariaLabel: "OrderID"
+    fieldName: "OrderID"
   },
   {
     label: "Credit Date",

@@ -1,9 +1,5 @@
 import React, { useState } from "react"
-import {
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
 import { Row, Select, Col } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 
@@ -14,7 +10,7 @@ interface ISelector {
   defaultValue?: any
   component: (props?: any) => JSX.Element
 }
-export function SearchLookupSelector(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export function SearchLookupSelector(props: IGeneratedField) {
   const selectorKeys =
     Array.isArray(props?.extraProps?.selectorKeys) && (props?.extraProps?.selectorKeys as ISelector[])
   const [selectedKey, setSelectedKey] = useState(Array.isArray(selectorKeys) && selectorKeys[0].fieldName)
@@ -61,5 +57,5 @@ export function SearchLookupSelector(props: IFilterGenericComponentProps<IFilter
       })}
     </Row>
   ) : null
-  return props.isCheckeble ? <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper> : toRender
+  return <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper>
 }

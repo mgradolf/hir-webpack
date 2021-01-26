@@ -4,7 +4,6 @@ export const MarketingProgramSearchMeta: IFilterField[] = [
   {
     label: "Market Source",
     inputType: TEXT,
-    fieldName: "MarketSource",
-    ariaLabel: "Name"
+    fieldName: "MarketSource"
   }
 ]

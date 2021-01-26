@@ -1,4 +1,4 @@
-import styles from "~/Component/Common/SearchFilters/SearchFilters.module.scss"
+import styles from "~/Component/Common/SearchForm/SearchFilters.module.scss"
 import { Button, Col, Form, Row } from "antd"
 import React, { useEffect, useState } from "react"
 import {
@@ -11,13 +11,13 @@ import {
   BOOLEAN,
   IField,
   CUSTOM_FIELD
-} from "~/Component/Common/SearchFilters/SearchForm/common"
-import { SearchInputType } from "~/Component/Common/SearchFilters/SearchForm/SearchInput"
-import { DropDownInputType } from "~/Component/Common/SearchFilters/SearchForm/SearchDropDown"
-import { MultiSelectDropDownInputType } from "~/Component/Common/SearchFilters/SearchForm/SearchMultiSelectDropDown"
-import { DatePickerInputType } from "~/Component/Common/SearchFilters/SearchForm/SearchDatePicker"
-import { DatePickersInputType } from "~/Component/Common/SearchFilters/SearchForm/SearchDatePickers"
-import { BooleanInputType } from "~/Component/Common/SearchFilters/SearchForm/SearchBooleanInput"
+} from "~/Component/Common/SearchForm/common"
+import { SearchInputType } from "~/Component/Common/SearchForm/SearchInput"
+import { DropDownInputType } from "~/Component/Common/SearchForm/SearchDropDown"
+import { MultiSelectDropDownInputType } from "~/Component/Common/SearchForm/SearchMultiSelectDropDown"
+import { DatePickerInputType } from "~/Component/Common/SearchForm/SearchDatePicker"
+import { DatePickersInputType } from "~/Component/Common/SearchForm/SearchDatePickers"
+import { BooleanInputType } from "~/Component/Common/SearchForm/SearchBooleanInput"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
@@ -65,6 +65,13 @@ export default function ({
           x.help = ""
         }
       }
+      console.log(
+        "x || rulesExist || certainInputType || rulesRequired",
+        x,
+        rulesExist,
+        certainInputType,
+        rulesRequired
+      )
       return x
     })
     setMeta(__meta)

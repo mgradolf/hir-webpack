@@ -51,7 +51,6 @@ export const getActivityPaymentGatewayDetailsMeta = (activity: { [key: string]: 
     }
   })
 
-  //TODO: add tab for error info
   return {
     pageTitle: `Activity ID - ${activity.PaymentGatewayAccountID}`,
     tabs: meta

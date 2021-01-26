@@ -5,7 +5,6 @@ import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getSectionTableColumns = (isModal = false, OfferingID?: number): ITableConfigProp => {
-  // const responsiveColumnIndices = [2, 3, 4, 5, 6, 7]
   const columns: TableColumnType = [
     {
       title: "Section Number",
@@ -55,7 +54,6 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
     {
       title: "Locations",
       dataIndex: "Locations",
-
       render: (locations: Array<string | null> | null) => {
         return Array.isArray(locations) && locations.map((x: any, i: number) => (x ? <span key={i}>{x}</span> : null))
       }

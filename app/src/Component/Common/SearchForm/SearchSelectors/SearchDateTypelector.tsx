@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
 import { Row, Select, Col, Form, DatePicker, Input } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 import { DATE_FORMAT } from "~/utils/Constants"
+import { IGeneratedField } from "~/Component/Common/SearchForm/common"
 
-export function SearchDateTypeSelector(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export function SearchDateTypeSelector(props: IGeneratedField) {
   const [selectedKey, setSelectedKey] = useState(props?.extraProps?.selectorKeys[0].key1)
   const [selectedKey2, setSelectedKey2] = useState(props?.extraProps?.selectorKeys[0].key2)
   const [mobileView, setMobileView] = useState(false)
@@ -12,9 +12,7 @@ export function SearchDateTypeSelector(props: IFilterGenericComponentProps<IFilt
     setMobileView(deviceViews.mobile)
   })
 
-  return props.isCheckeble ? (
-    <Row></Row>
-  ) : (
+  return (
     <Form.Item>
       <Row>
         <Col span={6} offset={3} {...(mobileView && { xs: { span: 8, offset: 0 } })}>

@@ -40,7 +40,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },
       { label: "Offering Type", value: offering.OfferingTypeName, render: undefined },
-      // { label: "Coordinator(s)", value: offering.coordinators, render: undefined },
+
       { label: "Description", value: offering.OfferingDescription, render: undefined },
       { label: "URL", value: offering.URL, render: undefined },
       { label: "Creation Date", value: offering.CreationDate, render: renderDate },

@@ -17,11 +17,6 @@ import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/Sea
 import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
 
 export const PaymentSearchMeta: IFilterField[] = [
-  // {
-  //   label: "Payer",
-  //   fieldName: "PersonID",
-  //   customFilterComponent: SearchPersonLookupButton
-  // },
   {
     label: "Person Selector",
     fieldName: "",
@@ -49,11 +44,9 @@ export const PaymentSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "CreateDateFrom",
     valueKey: "CreateDateFrom",
-    ariaLabel: "Creation Date From",
     displayKey2: "To",
     valueKey2: "CreateDateTo",
-    fieldName2: "CreateDateTo",
-    ariaLabel2: "Creation Date To"
+    fieldName2: "CreateDateTo"
   },
   {
     label: "Check/ Reference",
@@ -76,29 +69,16 @@ export const PaymentSearchMeta: IFilterField[] = [
       ]
     }
   },
-  // {
-  //   label: "Check",
-  //   inputType: TEXT,
-  //   fieldName: "checkNumber",
-  //   ariaLabel: "checkNumber"
-  // },
-  // {
-  //   label: "Reference",
-  //   inputType: TEXT,
-  //   fieldName: "TransactionNumber",
-  //   ariaLabel: "TransactionNumber"
-  // },
+
   {
     label: "Payment ID",
     inputType: NUMBER,
-    fieldName: "PaymentID",
-    ariaLabel: "PaymentID"
+    fieldName: "PaymentID"
   },
   {
     label: "Order ID",
     inputType: NUMBER,
-    fieldName: "OrderID",
-    ariaLabel: "OrderID"
+    fieldName: "OrderID"
   },
   {
     label: "Account Lookup",
@@ -130,7 +110,6 @@ export const PaymentSearchMeta: IFilterField[] = [
     label: "Base Paymment Type",
     inputType: DROPDOWN,
     fieldName: "BasePaymentTypeID",
-    ariaLabel: "Base Paymment Type",
     refLookupService: getBasePaymentTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -140,7 +119,6 @@ export const PaymentSearchMeta: IFilterField[] = [
     label: "Payment Types",
     inputType: DROPDOWN,
     fieldName: "PaymentTypeID",
-    ariaLabel: "Payment Types",
     refLookupService: getPaymentTypes,
     displayKey: "PaymentAcceptedName",
     valueKey: "PaymentTypeID"
@@ -148,9 +126,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Source",
     inputType: DROPDOWN,
-
     fieldName: "SourceID",
-    ariaLabel: "Source",
     refLookupService: getSourceModule,
     displayKey: "Name",
     valueKey: "ID"
@@ -158,9 +134,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Gateway",
     inputType: DROPDOWN,
-
     fieldName: "PaymentGatewayAccountID",
-    ariaLabel: "Gateway",
     refLookupService: getPaymentGatewayAccounts,
     displayKey: "Name",
     valueKey: "ID"
@@ -168,9 +142,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Payment Status",
     inputType: DROPDOWN,
-
     fieldName: "PaymentStatusID",
-    ariaLabel: "Payment Status",
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"

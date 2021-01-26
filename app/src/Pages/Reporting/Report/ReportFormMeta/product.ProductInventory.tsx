@@ -1,5 +1,5 @@
 import { getDeliveryModes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { BOOLEAN, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [

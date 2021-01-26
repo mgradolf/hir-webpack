@@ -1,4 +1,4 @@
-import { DATE_PICKERS, IField, TEXT } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { DATE_PICKERS, IField, TEXT } from "~/Component/Common/SearchForm/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/SearchForm/common"
 import { DatePicker, Input, Form } from "antd"
 import { DATE_FORMAT } from "~/utils/Constants"
 import moment from "moment"

@@ -25,20 +25,16 @@ export const RegistrationSearchMeta: IFilterField[] = [
     label: "Start Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "StartDateFrom",
     valueKey: "StartDateFrom",
-    ariaLabel: "Start Date From",
     displayKey2: "To",
     valueKey2: "StartDateTo",
-    fieldName2: "StartDateTo",
-    ariaLabel2: "Start Date To"
+    fieldName2: "StartDateTo"
   },
   {
     label: "Order ID",
     inputType: NUMBER,
-    fieldName: "OrderID",
-    ariaLabel: "Order ID"
+    fieldName: "OrderID"
   },
   {
     label: "Account",
@@ -54,13 +50,10 @@ export const RegistrationSearchMeta: IFilterField[] = [
     label: "Create Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "CreatedFromDate",
     valueKey: "CreatedFromDate",
-    ariaLabel: "Start Date From",
     displayKey2: "To",
     valueKey2: "CreatedToDate",
-    fieldName2: "CreatedToDate",
-    ariaLabel2: "Start Date To"
+    fieldName2: "CreatedToDate"
   }
 ]

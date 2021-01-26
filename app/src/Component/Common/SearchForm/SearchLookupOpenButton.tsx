@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Form, Input, Row, Col } from "antd"
-import {
-  IFilterField,
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { IField, IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
+import { LookupModal } from "~/Component/Common/SearchForm/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { useFirstRender } from "~/Hooks/useFirstRender"
 import { DeleteOutlined, SearchOutlined } from "@ant-design/icons"
 
-export interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
+export interface ISearchLookupOpenButton extends IGeneratedField {
   entityLookupFunc?: () => Promise<{ [key: string]: any }>
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
   lookupModalTitle: string
@@ -20,7 +15,7 @@ export interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IF
   valueField: string
   displayField: string
   columns: TableColumnType
-  meta: IFilterField[]
+  meta: IField[]
   responsiveColumnIndices?: number[]
   expandableColumnIndices?: number[]
 }
@@ -68,7 +63,14 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
       <Form.Item className="hidden" name={props.fieldName}>
         <Input />
       </Form.Item>
-      <Form.Item colon={false} label={props.label} labelCol={{ span: 8 }}>
+      <Form.Item
+        colon={false}
+        label={props.label}
+        labelCol={{ span: 8 }}
+        rules={props.rules}
+        validateStatus={props.validateStatus}
+        help={props.help}
+      >
         <Row>
           <Col span={24}>
             <Input
@@ -103,5 +105,5 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
       </Form.Item>
     </>
   )
-  return props.isCheckeble ? <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper> : toRender
+  return <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper>
 }

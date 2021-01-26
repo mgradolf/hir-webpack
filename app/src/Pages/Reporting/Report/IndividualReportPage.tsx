@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import StandardReportPage from "~/Component/Common/Page/ReportPage/StandardReportPage"
-import { DATE_PICKER, IField, IFilterFieldType, NUMBER, TEXT } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { DATE_PICKER, IField, IFilterFieldType, NUMBER, TEXT } from "~/Component/Common/SearchForm/common"
 import { RouteComponentProps } from "react-router-dom"
 import { getReportByReportName } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"

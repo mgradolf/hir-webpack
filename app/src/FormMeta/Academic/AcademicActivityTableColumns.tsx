@@ -31,20 +31,7 @@ export const getAcademicActivityLogTableColumns = (isModal = false): ITableConfi
       title: "Section Number",
       dataIndex: "SectionNumber",
       render: (text: any, record: any) => (isModal ? { text } : <Link to={`/section/${record.SectionID}`}>{text}</Link>)
-    },
-    // {
-    //   title: "Offering",
-    //   dataIndex: "OfferingName",
-    //   render: (text: any, record: any) =>
-    //     isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
-    // },
-
-    { title: "Enrollment Status", dataIndex: "EnrollmentStatus", render: undefined }
-    // { title: "Grade Scale", dataIndex: "GradeScaleType", render: undefined },
-    // { title: "Credit Hours", dataIndex: "CreditHours", render: undefined },
-    // { title: "Transcript Credit", dataIndex: "TranscriptCreditType", render: undefined },
-    // { title: "CEUs", dataIndex: "CEUHours", render: undefined },
-    // { title: "Final Grade", dataIndex: "AlphaValue", render: undefined }
+    }
   ]
 
   const responsiveColumnIndices: number[] = []

@@ -56,13 +56,6 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
         label: "Emails",
         value: order?.Emails,
         render: (value) => (value && value.length > 0 ? renderEmail(value[0]) : "")
-        //  (emails: string[]) => (
-        //   <ul>
-        //     {emails?.map((x, i) => (
-        //       <li key={i}>{renderEmail(x)}</li>
-        //     ))}
-        //   </ul>
-        // )
       },
       {
         label: "Telephones",

@@ -1,10 +1,5 @@
 import { getBasePaymentTypes, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
-import {
-  DATE_PICKERS,
-  DROPDOWN,
-  MULTI_SELECT_DROPDOWN,
-  IField
-} from "~/Component/Common/SearchFilters/SearchForm/common"
+import { DATE_PICKERS, DROPDOWN, MULTI_SELECT_DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [

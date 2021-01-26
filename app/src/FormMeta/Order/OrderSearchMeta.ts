@@ -39,8 +39,7 @@ export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Order ID",
     inputType: NUMBER,
-    fieldName: "OrderID",
-    ariaLabel: "OrderID"
+    fieldName: "OrderID"
   },
   {
     label: "Date Type Select",
@@ -82,14 +81,12 @@ export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Product Name",
     inputType: TEXT,
-    fieldName: "ProductName",
-    ariaLabel: "ProductName"
+    fieldName: "ProductName"
   },
   {
     label: "Source",
     inputType: DROPDOWN,
     fieldName: "SourceID",
-    ariaLabel: "Source",
     refLookupService: getSourceModule,
     displayKey: "Name",
     valueKey: "ID"
@@ -98,7 +95,6 @@ export const OrderSearchMeta: IFilterField[] = [
     label: "Order Status",
     inputType: DROPDOWN,
     fieldName: "OrderStatusID",
-    ariaLabel: "Order Status",
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"

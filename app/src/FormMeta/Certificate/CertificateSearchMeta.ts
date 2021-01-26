@@ -24,27 +24,21 @@ export const CourseCertificateSearchMeta: IFilterField[] = [
     label: "Issue Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "IssueDateFrom",
     valueKey: "IssueDateFrom",
-    ariaLabel: "Issue Date From",
     displayKey2: "To",
     valueKey2: "IssueDateTo",
-    fieldName2: "IssueDateTo",
-    ariaLabel2: "Issue Date To"
+    fieldName2: "IssueDateTo"
   },
   {
     label: "Expiration Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "ExpiryDateFrom",
     valueKey: "ExpiryDateFrom",
-    ariaLabel: "Expiration Date From",
     displayKey2: "To",
     valueKey2: "ExpiryDateTo",
-    fieldName2: "ExpiryDateTo",
-    ariaLabel2: "Expiration Date To"
+    fieldName2: "ExpiryDateTo"
   }
 ]
 
@@ -63,26 +57,20 @@ export const ProgramCertificateSearchMeta: IFilterField[] = [
     label: "Issue Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "IssueDateFrom",
     valueKey: "IssueDateFrom",
-    ariaLabel: "Issue Date From",
     displayKey2: "To",
     valueKey2: "IssueDateTo",
-    fieldName2: "IssueDateTo",
-    ariaLabel2: "Issue Date To"
+    fieldName2: "IssueDateTo"
   },
   {
     label: "Expiration Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "ExpiryDateFrom",
     valueKey: "ExpiryDateFrom",
-    ariaLabel: "Expiration Date From",
     displayKey2: "To",
     valueKey2: "ExpiryDateTo",
-    fieldName2: "ExpiryDateTo",
-    ariaLabel2: "Expiration Date To"
+    fieldName2: "ExpiryDateTo"
   }
 ]

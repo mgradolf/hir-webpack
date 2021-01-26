@@ -19,7 +19,6 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      // { label: "Account Name", value: account.AccountName },
       { label: "Account Type", value: account.AccountTypeName },
       {
         label: "Primary Contact",

@@ -15,14 +15,7 @@ export const BatchSearchMeta: IFilterField[] = [
     displayKey: "Name",
     valueKey: "FullName"
   },
-  // {
-  //   label: "Status",
-  //   inputType: DROPDOWN,
-  //   fieldName: "StatusID",
-  //   refLookupService: getBatchTypes,
-  //   displayKey: "FullName",
-  //   valueKey: "FullName"
-  // },
+
   {
     label: "Source",
     inputType: DROPDOWN,
@@ -34,9 +27,7 @@ export const BatchSearchMeta: IFilterField[] = [
   {
     label: "Account Name",
     inputType: TEXT,
-
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
+    fieldName: "AccountName"
   },
   {
     label: "Uploaded By",

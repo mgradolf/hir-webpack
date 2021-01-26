@@ -146,9 +146,7 @@ export const getQuestionTaggingTableColumns = (isTab?: boolean): ITableConfigPro
               removeTagQuestions({ TagQuestionIDs: [data.TagQuestionID] }).then((x) => {
                 if (!x.success && x.error) {
                   const errors: Array<ISimplifiedApiErrorMessage> = x.error
-                  errors.forEach((error) => {
-                    // props.showGLobalApiError && props.showGLobalApiError(error.message)
-                  })
+                  errors.forEach((error) => console.log(error))
                 } else if (x.success) {
                   eventBus.publish(REFRESH_QUESTION_PAGE)
                 }

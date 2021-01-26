@@ -1,4 +1,4 @@
-import { IField, TEXT } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { IField, TEXT } from "~/Component/Common/SearchForm/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [

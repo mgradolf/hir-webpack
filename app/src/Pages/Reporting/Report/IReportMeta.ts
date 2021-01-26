@@ -1,4 +1,4 @@
-import { IField } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { IField } from "~/Component/Common/SearchForm/common"
 
 export interface IReportMeta {
   meta: IField[]

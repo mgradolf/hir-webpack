@@ -6,36 +6,30 @@ export const ProgramSearchMeta: IFilterField[] = [
     label: "Program Code",
     inputType: TEXT,
     defaultValue: "*",
-    fieldName: "programCode",
-    ariaLabel: "Program Code"
+    fieldName: "programCode"
   },
   {
     label: "Program Name",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "name",
-    ariaLabel: "Program Name"
+    fieldName: "name"
   },
   {
     label: "Program Offering Code",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "programOfferingCode",
-    ariaLabel: "Program Offering Code"
+    fieldName: "programOfferingCode"
   },
   {
     label: "Program Offering Name",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "programOfferingName",
-    ariaLabel: "Program Offering Name"
+    fieldName: "programOfferingName"
   },
   {
     label: "Status",
     inputType: DROPDOWN,
-
     fieldName: "programStatusCodeID",
-    ariaLabel: "Program Status Select",
     refLookupService: getProgramStatusCodes,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -44,7 +38,6 @@ export const ProgramSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "departmentID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Description",
     valueKey: "OrganizationID"

@@ -14,22 +14,17 @@ export const ActivityAcademicSearchMeta: IFilterField[] = [
   {
     label: "Modified By User ID",
     inputType: TEXT,
-
-    fieldName: "UserID",
-    ariaLabel: "Modified By User ID"
+    fieldName: "UserID"
   },
   {
     label: "Activity Date Range",
     inputType: DATE_PICKERS,
-
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    valueKey2: "ToDate"
   },
   {
     label: "Student Lookup",

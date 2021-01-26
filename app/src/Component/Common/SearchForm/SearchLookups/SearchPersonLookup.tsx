@@ -1,11 +1,11 @@
 import * as React from "react"
 import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
-import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchForm/SearchLookupOpenButton"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
-interface ISearchLookupOpenButton extends IFilterGenericComponentProps<IFilterFieldComponent> {
+interface ISearchLookupOpenButton extends IGeneratedField {
   valueField?: string
 }
 export function SearchPersonLookupButton(props: ISearchLookupOpenButton) {
@@ -13,7 +13,7 @@ export function SearchPersonLookupButton(props: ISearchLookupOpenButton) {
     <SearchLookupOpenButton
       lookupModalTitle="Select Person"
       displayField="FirstName"
-      meta={PersonSearchMeta}
+      meta={PersonSearchMeta as IField[]}
       {...props}
       {...getPersonTableColumns(true)}
       valueField={props.valueField || "PersonID"}

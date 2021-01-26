@@ -15,9 +15,7 @@ export const ActivityEnrollmentSearchMeta: IFilterField[] = [
   {
     label: "Modified By User",
     inputType: TEXT,
-
-    fieldName: "UserID",
-    ariaLabel: "User ID"
+    fieldName: "UserID"
   },
   {
     label: "Student Lookup",
@@ -30,9 +28,7 @@ export const ActivityEnrollmentSearchMeta: IFilterField[] = [
   {
     label: "Enrollment Status",
     inputType: DROPDOWN,
-
     fieldName: "SectionRosterStatusCodeID",
-    ariaLabel: "Enrollment Status",
     refLookupService: getSectionRosterStatusCode,
     displayKey: "Name",
     valueKey: "ID"
@@ -40,22 +36,17 @@ export const ActivityEnrollmentSearchMeta: IFilterField[] = [
   {
     label: "Activity Date Range",
     inputType: DATE_PICKERS,
-
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    valueKey2: "ToDate"
   },
   {
     label: "Registration Source",
     inputType: DROPDOWN,
-
     fieldName: "SourceID",
-    ariaLabel: "Registration Source",
     refLookupService: getSourceModule,
     displayKey: "Name",
     valueKey: "ID"

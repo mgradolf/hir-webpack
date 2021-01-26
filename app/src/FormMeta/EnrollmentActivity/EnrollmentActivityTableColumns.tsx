@@ -31,15 +31,7 @@ export const getEnrollmentActivityLogTableColumns = (isModal = false): ITableCon
       title: "Section Number",
       dataIndex: "SectionNumber",
       render: (text: any, record: any) => (isModal ? { text } : <Link to={`/section/${record.SectionID}`}>{text}</Link>)
-    },
-    // {
-    //   title: "Offering",
-    //   dataIndex: "OfferingName",
-    //   render: (text: any, record: any) =>
-    //     isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
-    // },
-
-    { title: "Enrollment Status", dataIndex: "SectionRosterStatusCodeName", render: undefined }
+    }
   ]
 
   const responsiveColumnIndices: number[] = []

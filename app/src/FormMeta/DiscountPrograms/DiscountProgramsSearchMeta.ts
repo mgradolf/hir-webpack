@@ -6,7 +6,6 @@ export const DiscountProgramsSearchMeta: IFilterField[] = [
     label: "Discount Program Type",
     inputType: DROPDOWN,
     fieldName: "DiscountTypeID",
-    ariaLabel: "Account Type Select",
     refLookupService: getDiscountTypes,
     displayKey: "Name",
     valueKey: "ID"

@@ -14,16 +14,12 @@ export const ActivityOrderSearchMeta: IFilterField[] = [
   {
     label: "User ID",
     inputType: TEXT,
-
-    fieldName: "UserID",
-    ariaLabel: "User ID"
+    fieldName: "UserID"
   },
   {
     label: "Order Status",
     inputType: DROPDOWN,
-
     fieldName: "OrderStatusID",
-    ariaLabel: "Order Status",
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -31,14 +27,11 @@ export const ActivityOrderSearchMeta: IFilterField[] = [
   {
     label: "Order Activity",
     inputType: DATE_PICKERS,
-
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    valueKey2: "ToDate"
   }
 ]

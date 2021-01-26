@@ -4,8 +4,6 @@ export const SectionTypeSearchMeta: IFilterField[] = [
   {
     label: "Type Name",
     inputType: TEXT,
-
-    fieldName: "SectionTypeName",
-    ariaLabel: "Type Name"
+    fieldName: "SectionTypeName"
   }
 ]

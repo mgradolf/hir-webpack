@@ -4,7 +4,6 @@ export const ResourceSearchMeta: IFilterField[] = [
   {
     label: "Name",
     inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Name"
+    fieldName: "Name"
   }
 ]

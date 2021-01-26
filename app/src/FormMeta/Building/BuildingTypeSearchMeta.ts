@@ -4,15 +4,11 @@ export const BuildingTypeSearchMeta: IFilterField[] = [
   {
     label: "Building Name",
     inputType: TEXT,
-
-    fieldName: "BuildingName",
-    ariaLabel: "Building Name"
+    fieldName: "BuildingName"
   },
   {
     label: "Site Name",
     inputType: TEXT,
-
-    fieldName: "SiteName",
-    ariaLabel: "Site Name"
+    fieldName: "SiteName"
   }
 ]

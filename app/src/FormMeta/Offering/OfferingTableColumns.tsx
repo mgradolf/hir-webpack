@@ -38,22 +38,6 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
       title: "Department",
       dataIndex: "OrganizationName"
     },
-
-    // {
-    //   title: "Description",
-    //   dataIndex: "OfferingDescription",
-    //   sorter: (a: any, b: any) => a.StatusCode.length - b.StatusCode.length
-    // },
-
-    // {
-    //   title: "Offering Type",
-    //   dataIndex: "OfferingTypeName"
-    // },
-    // {
-    //   title: "Def Section",
-    //   dataIndex: "SectionTypeName"
-    // },
-
     {
       ...(!isModal && {
         title: "Action",
@@ -66,6 +50,5 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
     }
   ]
 
-  // const responsiveColumnIndices: number[] = [2, 3, 4, 5]
   return { columns, searchFunc: searchOffering }
 }

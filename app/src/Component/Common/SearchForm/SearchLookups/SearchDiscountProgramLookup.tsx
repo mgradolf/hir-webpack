@@ -1,10 +1,10 @@
 import * as React from "react"
-import { SearchLookupOpenButton } from "~/Component/Common/SearchFilters/SearchLookupOpenButton"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { SearchLookupOpenButton } from "~/Component/Common/SearchForm/SearchLookupOpenButton"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { getDiscountProgramsTableColumns } from "~/FormMeta/DiscountPrograms/DiscountProgramsTableColumns"
 import { DiscountProgramsSearchMeta } from "~/FormMeta/DiscountPrograms/DiscountProgramsSearchMeta"
 
-interface ISearchDiscountProgramLookup extends IFilterGenericComponentProps<IFilterFieldComponent> {
+interface ISearchDiscountProgramLookup extends IGeneratedField {
   valueField?: string
 }
 export function SearchDiscountProgramLookup(props: ISearchDiscountProgramLookup) {
@@ -12,7 +12,7 @@ export function SearchDiscountProgramLookup(props: ISearchDiscountProgramLookup)
     <SearchLookupOpenButton
       lookupModalTitle="Select Discount Program"
       displayField="Name"
-      meta={DiscountProgramsSearchMeta}
+      meta={DiscountProgramsSearchMeta as IField[]}
       {...props}
       {...getDiscountProgramsTableColumns(true)}
       valueField={props.valueField || "DiscountProgramID"}

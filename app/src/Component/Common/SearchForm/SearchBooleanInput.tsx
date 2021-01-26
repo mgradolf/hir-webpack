@@ -1,5 +1,5 @@
 import React from "react"
-import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/SearchFilters/SearchForm/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/SearchForm/common"
 import { Checkbox } from "antd"
 
 export function BooleanInputType(props: IGeneratedField) {
