@@ -17,7 +17,11 @@ const fieldNames: IApplicationNoteFieldNames = {
   ProgramAdmReqID: "ProgramAdmReqID"
 }
 
-export default function ProgramApplicationNoteFormModal({ ProgramAppID, ProgramAdmReqID, closeModal }: IProgramApplicationNoteProps) {
+export default function ProgramApplicationNoteFormModal({
+  ProgramAppID,
+  ProgramAdmReqID,
+  closeModal
+}: IProgramApplicationNoteProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 

@@ -1,5 +1,5 @@
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, IFilterField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IFilterField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const TagsSearchMeta: IFilterField[] = [
   {
@@ -17,7 +17,11 @@ export const TagsSearchMeta: IFilterField[] = [
   },
   {
     label: "Active",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsActive",
     defaultValue: true
   }

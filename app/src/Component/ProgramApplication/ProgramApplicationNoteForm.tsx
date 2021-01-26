@@ -67,7 +67,10 @@ export default function ProgramApplicationNoteForm(props: IApplicationNoteFormPr
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.ProgramAdmReqID}>
-          <Input aria-label="Program Admission Requirement ID" value={props.ProgramAdmReqID ? props.ProgramAdmReqID : undefined} />
+          <Input
+            aria-label="Program Admission Requirement ID"
+            value={props.ProgramAdmReqID ? props.ProgramAdmReqID : undefined}
+          />
         </Form.Item>
 
         <Form.Item label="Comment" {...layout} name={props.fieldNames.CommentText} required>

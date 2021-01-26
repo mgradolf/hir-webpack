@@ -1,6 +1,6 @@
 import { getMarketingCodeRelatedTagTypes } from "~/ApiServices/BizApi/marketingCode/marketingCodeIf"
 import { getMarketingCategory } from "~/ApiServices/Service/MarketingService"
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const MarketingCodeRepositorySearchMeta: IFilterField[] = [
   {
@@ -41,7 +41,11 @@ export const MarketingCodeRepositorySearchMeta: IFilterField[] = [
   },
   {
     label: "Active",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsActive"
   }
 ]

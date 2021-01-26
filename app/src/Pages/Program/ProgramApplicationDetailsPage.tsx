@@ -3,11 +3,7 @@ import React, { useState, useEffect } from "react"
 import { getProgramAppDetails, saveApplicationAnswer } from "~/ApiServices/BizApi/program/programApplicationIF"
 import { UploadOutlined } from "@ant-design/icons"
 import ProgramApplicationStatusFormModal from "~/Component/ProgramApplication/ProgramApplicationStatusFormModal"
-import {
-  PROGRAM_APP_REQ_ACCPETED,
-  PROGRAM_APP_REQ_REJECTED,
-  PROGRAM_APP_REQ_RESUBMIT
-} from "~/utils/Constants"
+import { PROGRAM_APP_REQ_ACCPETED, PROGRAM_APP_REQ_REJECTED, PROGRAM_APP_REQ_RESUBMIT } from "~/utils/Constants"
 import ProgramApplicationNoteFormModal from "~/Component/ProgramApplication/ProgramApplicationNoteFormModal"
 import ProgramApplicationResubmitFormModal from "~/Component/ProgramApplication/ProgramApplicationResubmitFormModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -33,7 +29,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
   const [admissionReqsList, setAdmissionReqList] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [fileMap, setFileMap] = useState<{ [key: string]: any }>({})
-  let answerMap: {[key: string]: any} = {}
+  const answerMap: { [key: string]: any } = {}
 
   useEffect(() => {
     ;(async () => {
@@ -82,9 +78,9 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
 
   const saveApplicationAnswers = async (ProgramAdmReqID: number) => {
     type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
-    let serviceMethoToCall: serviceMethodType = saveApplicationAnswer
+    const serviceMethoToCall: serviceMethodType = saveApplicationAnswer
 
-    let answer = answerMap[ProgramAdmReqID] === undefined ? "" : answerMap[ProgramAdmReqID]
+    const answer = answerMap[ProgramAdmReqID] === undefined ? "" : answerMap[ProgramAdmReqID]
     let param: Array<any> = []
     param = [itemDetails.ProgramAppID, ProgramAdmReqID, answer]
 
@@ -96,7 +92,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
     }
   }
 
-  const AcceptFormModalOpenButton = (props: { ProgramAdmReqID: number, CurrentStatusID: number | -1 }) => {
+  const AcceptFormModalOpenButton = (props: { ProgramAdmReqID: number; CurrentStatusID: number | -1 }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
@@ -110,19 +106,19 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
             Accept
           </Button>
         )}
-        {showModal &&
+        {showModal && (
           <ProgramApplicationStatusFormModal
             ProgramAppID={itemDetails.ProgramAppID}
             ProgramAdmReqID={props.ProgramAdmReqID}
             StatusID={PROGRAM_APP_REQ_ACCPETED}
             closeModal={() => setShowModal(false)}
           />
-        }
+        )}
       </>
     )
   }
 
-  const ResubmitFormModalOpenButton = (props: { ProgramAdmReqID: number, CurrentStatusID: number | -1 }) => {
+  const ResubmitFormModalOpenButton = (props: { ProgramAdmReqID: number; CurrentStatusID: number | -1 }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
@@ -140,18 +136,18 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
             Resubmit
           </Button>
         )}
-        {showModal &&
+        {showModal && (
           <ProgramApplicationResubmitFormModal
             ProgramAppID={itemDetails.ProgramAppID}
             ProgramAdmReqID={props.ProgramAdmReqID}
             closeModal={() => setShowModal(false)}
           />
-        }
+        )}
       </>
     )
   }
 
-  const RejectFormModalOpenButton = (props: { ProgramAdmReqID: number, CurrentStatusID: number | -1 }) => {
+  const RejectFormModalOpenButton = (props: { ProgramAdmReqID: number; CurrentStatusID: number | -1 }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
@@ -161,22 +157,21 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
             type="primary"
             style={{marginRight: "10px"}}
             disabled={
-              props.CurrentStatusID === PROGRAM_APP_REQ_REJECTED ||
-              props.CurrentStatusID === PROGRAM_APP_REQ_RESUBMIT
+              props.CurrentStatusID === PROGRAM_APP_REQ_REJECTED || props.CurrentStatusID === PROGRAM_APP_REQ_RESUBMIT
             }
             onClick={() => setShowModal && setShowModal(true)}
           >
             Reject
           </Button>
         )}
-        {showModal &&
+        {showModal && (
           <ProgramApplicationStatusFormModal
             ProgramAppID={itemDetails.ProgramAppID}
             ProgramAdmReqID={props.ProgramAdmReqID}
             StatusID={PROGRAM_APP_REQ_REJECTED}
             closeModal={() => setShowModal(false)}
           />
-        }
+        )}
       </>
     )
   }
@@ -194,13 +189,13 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
             Add Note
           </Button>
         )}
-        {showModal &&
+        {showModal && (
           <ProgramApplicationNoteFormModal
             ProgramAppID={itemDetails.ProgramAppID}
             ProgramAdmReqID={props.ProgramAdmReqID}
             closeModal={() => setShowModal(false)}
           />
-        }
+        )}
       </>
     )
   }
@@ -233,7 +228,10 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
 
                       <Form.Item label={"Answer"} {...layout}>
                         {x.PreferenceDefChoices && (
-                          <Select aria-label="Select Asnwer" onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)}>
+                          <Select
+                            aria-label="Select Asnwer"
+                            onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)}
+                          >
                             {x.PreferenceDefChoices.map((x: any, index: any) => {
                               return (
                                 <Select.Option key={`${index + 1}`} value={x.Value}>
@@ -243,7 +241,9 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                             })}
                           </Select>
                         )}
-                        {!x.PreferenceDefChoices && <Input aria-label="Answer" onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)} />}
+                        {!x.PreferenceDefChoices && (
+                          <Input aria-label="Answer" onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)} />
+                        )}
                       </Form.Item>
 
                       {x.NeedProof && (

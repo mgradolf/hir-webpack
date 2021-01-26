@@ -43,7 +43,11 @@ export default function ProgramEnrollmentForm(props: IEnrollmentFormProps) {
 
     props.setApiCallInProgress(true)
     setErrorMessages([])
-    const response = await serviceMethoToCall([params["ProgramEnrollmentID"], params["StatusID"], params["CommentText"]])
+    const response = await serviceMethoToCall([
+      params["ProgramEnrollmentID"],
+      params["StatusID"],
+      params["CommentText"]
+    ])
     props.setApiCallInProgress(false)
 
     if (response && response.success) {

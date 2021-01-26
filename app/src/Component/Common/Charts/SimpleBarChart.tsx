@@ -2,7 +2,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Row, Spin } from "antd"
 import React, { useEffect, useState } from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts"
-import { IChartConfig } from "~/Pages/Discovery/Chart/ChartMeta/IChartConfig"
+import { IChartConfig } from "~/Pages/Reporting/Chart/ChartMeta/IChartConfig"
 
 interface ISimpleBarChart {
   config: IChartConfig

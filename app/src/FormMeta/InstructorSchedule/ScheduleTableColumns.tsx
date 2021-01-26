@@ -38,20 +38,31 @@ export const getInstructorScheduleTableColumns = (): ITableConfigProp => {
     {
       title: "Location",
       dataIndex: "LocationSummary",
-      render: (text: any, record: any) => (
-        record.Locations != null && record.Locations[0].RoomID != null ? <Link to={`/room/${record.Locations[0].RoomID}`}>{text}</Link>
-          : record.Locations[0].BuildingID != null ? <Link to={`/building/${record.Locations[0].BuildingID}`}>{text}</Link>
-            : record.Locations[0].SiteID != null ? <Link to={`/site/${record.Locations[0].SiteID}`}>{text}</Link> : ""
-      )
+      render: (text: any, record: any) =>
+        record.Locations != null && record.Locations[0].RoomID != null ? (
+          <Link to={`/room/${record.Locations[0].RoomID}`}>{text}</Link>
+        ) : record.Locations[0].BuildingID != null ? (
+          <Link to={`/building/${record.Locations[0].BuildingID}`}>{text}</Link>
+        ) : record.Locations[0].SiteID != null ? (
+          <Link to={`/site/${record.Locations[0].SiteID}`}>{text}</Link>
+        ) : (
+          ""
+        )
     },
     {
       title: "Instructor",
       dataIndex: "InstructorSummary",
-      render: (text: any, record: any) => <ul>
-        {record.Instructors.map((x: any) => {
-          return <li><Link to={`/person/faculty/${x.FacultyID}`}>{x.Instructor}</Link></li>
-        })}
-      </ul>
+      render: (text: any, record: any) => (
+        <ul>
+          {record.Instructors.map((x: any) => {
+            return (
+              <li>
+                <Link to={`/person/faculty/${x.FacultyID}`}>{x.Instructor}</Link>
+              </li>
+            )
+          })}
+        </ul>
+      )
     }
   ]
 

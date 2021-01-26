@@ -28,7 +28,7 @@ export default function ProgramApplicatioResubmitForm(props: IApplicationResubmi
     const params = props.formInstance.getFieldsValue()
 
     type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
-    let serviceMethoToCall: serviceMethodType = resubmitProgramAdmReq
+    const serviceMethoToCall: serviceMethodType = resubmitProgramAdmReq
 
     let param: Array<any> = []
     param = [props.ProgramAppID, props.ProgramAdmReqID, params["CommentText"], params["ReasonText"]]
@@ -61,7 +61,10 @@ export default function ProgramApplicatioResubmitForm(props: IApplicationResubmi
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.ProgramAdmReqID}>
-          <Input aria-label="Program Admission Requirement ID" value={props.ProgramAdmReqID ? props.ProgramAdmReqID : undefined} />
+          <Input
+            aria-label="Program Admission Requirement ID"
+            value={props.ProgramAdmReqID ? props.ProgramAdmReqID : undefined}
+          />
         </Form.Item>
 
         <Form.Item label="Reason" {...layout} name={props.fieldNames.ReasonText} required>

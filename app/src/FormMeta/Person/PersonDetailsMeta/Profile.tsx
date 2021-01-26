@@ -198,13 +198,6 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
     tabTitle: "Account Relations",
     tabType: "table",
     tabMeta: {
-      // searchMeta: [
-      //   {
-      //     label: "Is Active",
-      //     fieldName: "IsActive",
-      //     inputType: BOOLEAN
-      //   }
-      // ],
       tableProps: {
         columns: [
           {

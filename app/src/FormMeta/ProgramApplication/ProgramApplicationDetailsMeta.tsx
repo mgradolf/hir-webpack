@@ -16,7 +16,7 @@ import ProgramApplicationTabDetailsPage from "~/Pages/Program/ProgramApplication
 import ProgramApplicationNoteFormModal from "~/Component/ProgramApplication/ProgramApplicationNoteFormModal"
 
 export const getProgramApplicationDetailsMeta = (programApplication: { [key: string]: any }): IDetailsMeta => {
-  const AcceptFormModalOpenButton = (props: { ProgramAppID: number, CurrentStatusID: number }) => {
+  const AcceptFormModalOpenButton = (props: { ProgramAppID: number; CurrentStatusID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
@@ -32,18 +32,18 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
             Accept
           </Button>
         )}
-        {showModal &&
+        {showModal && (
           <ProgramApplicationStatusFormModal
             ProgramAppID={props.ProgramAppID}
             StatusID={PROGRAM_APPLICATION_APPROVED}
             closeModal={() => setShowModal(false)}
           />
-        }
+        )}
       </>
     )
   }
 
-  const RejectFormModalOpenButton = (props: { ProgramAppID: number, CurrentStatusID: number }) => {
+  const RejectFormModalOpenButton = (props: { ProgramAppID: number; CurrentStatusID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
@@ -59,18 +59,18 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
             Reject
           </Button>
         )}
-        {showModal &&
+        {showModal && (
           <ProgramApplicationStatusFormModal
             ProgramAppID={props.ProgramAppID}
             StatusID={PROGRAM_APPLICATION_REJECTED}
             closeModal={() => setShowModal(false)}
           />
-        }
+        )}
       </>
     )
   }
 
-  const DeclinedFormModalOpenButton = (props: { ProgramAppID: number, CurrentStatusID: number }) => {
+  const DeclinedFormModalOpenButton = (props: { ProgramAppID: number; CurrentStatusID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
@@ -87,13 +87,13 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
             Declined
           </Button>
         )}
-        {showModal &&
+        {showModal && (
           <ProgramApplicationStatusFormModal
             ProgramAppID={props.ProgramAppID}
             StatusID={PROGRAM_APPLICATION_DECLINED}
             closeModal={() => setShowModal(false)}
           />
-        }
+        )}
       </>
     )
   }
@@ -103,19 +103,13 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
     return (
       <>
         {setShowModal && (
-          <Button
-            type="primary"
-            onClick={() => setShowModal && setShowModal(true)}
-          >
+          <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
             Add Note
           </Button>
         )}
-        {showModal &&
-          <ProgramApplicationNoteFormModal
-            ProgramAppID={props.ProgramAppID}
-            closeModal={() => setShowModal(false)}
-          />
-        }
+        {showModal && (
+          <ProgramApplicationNoteFormModal ProgramAppID={props.ProgramAppID} closeModal={() => setShowModal(false)} />
+        )}
       </>
     )
   }
@@ -134,9 +128,7 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
         CurrentStatusID={programApplication.StatusID}
         ProgramAppID={programApplication.ProgramAppID}
       />,
-      <NoteFormModalOpenButton
-        ProgramAppID={programApplication.ProgramAppID}
-      />
+      <NoteFormModalOpenButton ProgramAppID={programApplication.ProgramAppID} />
     ],
     contents: [
       { label: "Application Date", value: programApplication.ApplicationDate, render: renderDate },

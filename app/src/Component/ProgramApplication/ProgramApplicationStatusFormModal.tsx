@@ -19,7 +19,12 @@ const fieldNames: IApplicationStatusFieldNames = {
   ProgramAdmReqID: "ProgramAdmReqID"
 }
 
-export default function ProgramApplicationStatusFormModal({ ProgramAppID, ProgramAdmReqID, StatusID, closeModal }: IProgramApplicationStatusProps) {
+export default function ProgramApplicationStatusFormModal({
+  ProgramAppID,
+  ProgramAdmReqID,
+  StatusID,
+  closeModal
+}: IProgramApplicationStatusProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 

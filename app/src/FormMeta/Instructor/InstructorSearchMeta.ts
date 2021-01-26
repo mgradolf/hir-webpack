@@ -5,7 +5,7 @@ import {
   getInstructorTypes,
   getOrganizations
 } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKER, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKER, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
 import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
@@ -113,13 +113,21 @@ export const InstructorSearchMeta: IFilterField[] = [
   },
   {
     label: "Able To Teach",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsAbleToTeach",
     ariaLabel: "Able To Teach"
   },
   {
     label: "Is Active",
-    inputType: BOOLEAN,
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ],
     fieldName: "IsActive",
     ariaLabel: "Is Active"
   },

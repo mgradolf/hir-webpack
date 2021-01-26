@@ -3,7 +3,7 @@ import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
 import { Form } from "antd"
 import { IApplicationResubmitFieldNames } from "~/Component/ProgramApplication/Interfaces"
-import ProgramApplicatioResubmitForm from "./ProgramApplicationResubmitForm"
+import ProgramApplicatioResubmitForm from "~/Component/ProgramApplication/ProgramApplicationResubmitForm"
 
 interface IProgramApplicationResubmitProps {
   ProgramAppID: number
@@ -18,7 +18,11 @@ const fieldNames: IApplicationResubmitFieldNames = {
   ProgramAdmReqID: "ProgramAdmReqID"
 }
 
-export default function ProgramApplicationResubmitFormModal({ ProgramAppID, ProgramAdmReqID, closeModal }: IProgramApplicationResubmitProps) {
+export default function ProgramApplicationResubmitFormModal({
+  ProgramAppID,
+  ProgramAdmReqID,
+  closeModal
+}: IProgramApplicationResubmitProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 

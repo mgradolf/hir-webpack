@@ -2,6 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean, renderLink } from "~/Component/Common/ResponsiveTable"
 import { getRoomTableColumns } from "~/FormMeta/Room/RoomTableColumns"
+import { getInstructorScheduleTableColumns } from "~/FormMeta/InstructorSchedule/ScheduleTableColumns"
 
 export const getBuildingDetailsMeta = (building: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -37,6 +38,19 @@ export const getBuildingDetailsMeta = (building: { [key: string]: any }): IDetai
       }
     }
   })
+
+  meta.push({
+    tabTitle: "Schedule",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getInstructorScheduleTableColumns(),
+        searchParams: { BuildingID: building.BuildingID },
+        refreshEventName: "REFRESH_SCHEDULE_TAB"
+      }
+    }
+  })
+
   return {
     pageTitle: `Building Name - ${building.Name}`,
     tabs: meta

@@ -1,5 +1,5 @@
 import { getCertificateCategoryType, getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
 
 export const CertificateDefinitionSearchMeta: IFilterField[] = [
   {
@@ -18,7 +18,11 @@ export const CertificateDefinitionSearchMeta: IFilterField[] = [
   {
     label: "Active",
     fieldName: "isActive",
-    inputType: BOOLEAN
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: "true" },
+      { label: "No", value: "false" }
+    ]
   },
   {
     label: "Certificate Type",

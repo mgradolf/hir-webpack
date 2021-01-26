@@ -73,9 +73,9 @@ import EnrollmentPage from "~/Pages/Discovery/Search/Activity/EnrollmentPage"
 import EnrollmentHistoryPage from "~/Pages/Discovery/Search/Activity/EnrollmentHistoryPage"
 import OrderLogPage from "~/Pages/Discovery/Search/Activity/OrderActivityPage"
 
-import ReportPage from "~/Pages/Discovery/Report/ReportPage"
-import IndividualReportPage from "~/Pages/Discovery/Report/IndividualReportPage"
-import FinancialReportPurchaseOrder from "~/Pages/Discovery/Report/Financial/PurchaseOrder"
+import ReportPage from "~/Pages/Reporting/Report/ReportPage"
+import IndividualReportPage from "~/Pages/Reporting/Report/IndividualReportPage"
+import FinancialReportPurchaseOrder from "~/Pages/Reporting/Report/Financial/PurchaseOrder"
 
 import QuestionPage from "~/Pages/Manage/Question/QuestionRepositoryPage"
 import QuestionResponsePage from "~/Pages/Manage/Question/QuestionResponsePage"
@@ -90,8 +90,8 @@ import FinancialDiscountProgramDetailsPage from "~/Pages/Manage/Financials/Disco
 import FinancialTransactionPage from "~/Pages/Manage/Financials/TransactionPage"
 import FinancialTransactionDetailsPage from "~/Pages/Manage/Financials/TransactionDetailsPage"
 
-import ChartPage from "~/Pages/Discovery/Chart/ChartPage"
-import ChartDetailsPage from "~/Pages/Discovery/Chart/ChartDetailsPage"
+import ChartPage from "~/Pages/Reporting/Chart/ChartPage"
+import ChartDetailsPage from "~/Pages/Reporting/Chart/ChartDetailsPage"
 import ProgramProgramPage from "~/Pages/Manage/Program/ProgramPage"
 import { ProgramDetailsPage } from "~/Pages/Manage/Program/ProgramDetailsPage"
 import { ProgramOfferingPage } from "~/Pages/Manage/Program/OfferingPage"
@@ -373,5 +373,9 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() =>
       import("~/Pages/SetupAdministration/Tools/StudentEmailNotification/StudentEmailNotificationDetailsPage")
     )
+  },
+  {
+    path: "/section-instructors",
+    component: React.lazy(() => import("~/Pages/Reporting/SectionInstructors/SectionInstructorsPage"))
   }
 ]

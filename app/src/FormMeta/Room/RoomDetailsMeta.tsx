@@ -1,28 +1,29 @@
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean, renderLink } from "~/Component/Common/ResponsiveTable"
+import { getInstructorScheduleTableColumns } from "~/FormMeta/InstructorSchedule/ScheduleTableColumns"
 
-export const getRoomDetailsMeta = (building: { [key: string]: any }): IDetailsMeta => {
+export const getRoomDetailsMeta = (room: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     contents: [
-      { label: "Room Number", value: building.RoomNumber },
-      { label: "Room Type", value: building.RoomUseType },
-      { label: "Mail Stop", value: building.MailStop },
+      { label: "Room Number", value: room.RoomNumber },
+      { label: "Room Type", value: room.RoomUseType },
+      { label: "Mail Stop", value: room.MailStop },
       {
-        label: "Building",
-        value: building.BuildingName,
-        render: (text: any) => renderLink(`/building/${building.BuildingID}`, building.BuildingName)
+        label: "room",
+        value: room.roomName,
+        render: (text: any) => renderLink(`/room/${room.roomID}`, room.roomName)
       },
       {
         label: "Site",
-        value: building.SiteName,
-        render: (text: any) => renderLink(`/site/${building.SiteID}`, building.SiteName)
+        value: room.SiteName,
+        render: (text: any) => renderLink(`/site/${room.SiteID}`, room.SiteName)
       },
-      { label: "Floor", value: building.BuildingFloor },
-      { label: "Capacity", value: building.Capacity },
-      { label: "Accessible", value: building.IsHandicapAccess, render: renderBoolean },
-      { label: "Active", value: building.IsActive, render: renderBoolean }
+      { label: "Floor", value: room.roomFloor },
+      { label: "Capacity", value: room.Capacity },
+      { label: "Accessible", value: room.IsHandicapAccess, render: renderBoolean },
+      { label: "Active", value: room.IsActive, render: renderBoolean }
     ]
   }
 
@@ -34,8 +35,19 @@ export const getRoomDetailsMeta = (building: { [key: string]: any }): IDetailsMe
     }
   })
 
+  meta.push({
+    tabTitle: "Schedule",
+    tabType: "table",
+    tabMeta: {
+      tableProps: {
+        ...getInstructorScheduleTableColumns(),
+        searchParams: { RoomID: room.RoomID },
+        refreshEventName: "REFRESH_SCHEDULE_TAB"
+      }
+    }
+  })
   return {
-    pageTitle: `${building.Name}`,
+    pageTitle: `${room.Name}`,
     tabs: meta
   }
 }

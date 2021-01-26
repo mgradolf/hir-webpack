@@ -31,7 +31,7 @@ export default function ProgramApplicationStatusForm(props: IApplicationStatusFo
     let response: IApiResponse
     if (props.ProgramAdmReqID) {
       type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
-      let serviceMethoToCall: serviceMethodType = changeProgramAdmReqStatus
+      const serviceMethoToCall: serviceMethodType = changeProgramAdmReqStatus
 
       let param: Array<any> = []
       param = [props.ProgramAppID, props.ProgramAdmReqID, params["StatusID"], params["CommentText"]]
@@ -41,8 +41,8 @@ export default function ProgramApplicationStatusForm(props: IApplicationStatusFo
       response = await serviceMethoToCall(param)
       props.setApiCallInProgress(false)
     } else {
-      type serviceMethodType = (params: {[key: string]: any}) => Promise<IApiResponse>
-      let serviceMethoToCall: serviceMethodType = changeApplicationStatusWithEvent
+      type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
+      const serviceMethoToCall: serviceMethodType = changeApplicationStatusWithEvent
 
       params["ProgramAppID"] = props.ProgramAppID
       props.setApiCallInProgress(true)
@@ -74,7 +74,10 @@ export default function ProgramApplicationStatusForm(props: IApplicationStatusFo
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.ProgramAdmReqID}>
-          <Input aria-label="Program Admission Requirement ID" value={props.ProgramAdmReqID ? props.ProgramAdmReqID : undefined} />
+          <Input
+            aria-label="Program Admission Requirement ID"
+            value={props.ProgramAdmReqID ? props.ProgramAdmReqID : undefined}
+          />
         </Form.Item>
 
         <Form.Item className="hidden" name={props.fieldNames.StatusID}>
