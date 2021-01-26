@@ -8,6 +8,7 @@ import ProgramApplicationNoteFormModal from "~/Component/ProgramApplication/Prog
 import ProgramApplicationResubmitFormModal from "~/Component/ProgramApplication/ProgramApplicationResubmitFormModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import "~/Sass/utils.scss"
 
 interface IRequisitePageProp {
   programID: number
@@ -17,6 +18,10 @@ interface IRequisitePageProp {
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 14 }
+}
+
+const btnLayout = {
+  wrapperCol: { span: 20 }
 }
 
 export default function ProgramApplicationTabDetailsPage(props: IRequisitePageProp) {
@@ -94,6 +99,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
         {setShowModal && (
           <Button
             type="primary"
+            style={{marginRight: "10px"}}
             disabled={props.CurrentStatusID === PROGRAM_APP_REQ_ACCPETED}
             onClick={() => setShowModal && setShowModal(true)}
           >
@@ -119,6 +125,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
         {setShowModal && (
           <Button
             type="primary"
+            style={{marginRight: "10px"}}
             disabled={
               props.CurrentStatusID === PROGRAM_APP_REQ_RESUBMIT ||
               props.CurrentStatusID === PROGRAM_APP_REQ_ACCPETED ||
@@ -148,6 +155,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
           <Button
             danger
             type="primary"
+            style={{marginRight: "10px"}}
             disabled={
               props.CurrentStatusID === PROGRAM_APP_REQ_REJECTED || props.CurrentStatusID === PROGRAM_APP_REQ_RESUBMIT
             }
@@ -173,7 +181,11 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
     return (
       <>
         {setShowModal && (
-          <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          <Button
+            type="primary"
+            className="programApplicationAddNoteBtn"
+            onClick={() => setShowModal && setShowModal(true)}
+          >
             Add Note
           </Button>
         )}
@@ -198,50 +210,22 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
       {!loading && Object.keys(itemDetails).length > 0 && (
         <Row>
           {admissionReqsList.map((x: any, index: any) => (
+            <>
             <Col style={{ marginBottom: "16px" }} key={index + 1} xs={24} sm={24} md={24}>
               <Card
                 title={x.Name}
-                actions={[
-                  <AcceptFormModalOpenButton
-                    CurrentStatusID={x.Answer && x.Answer.StatusID}
-                    ProgramAdmReqID={x.ProgramAdmReqID}
-                  />,
-                  <ResubmitFormModalOpenButton
-                    CurrentStatusID={x.Answer && x.Answer.StatusID}
-                    ProgramAdmReqID={x.ProgramAdmReqID}
-                  />,
-                  <RejectFormModalOpenButton
-                    CurrentStatusID={x.Answer && x.Answer.StatusID}
-                    ProgramAdmReqID={x.ProgramAdmReqID}
-                  />,
-                  <NoteFormModalOpenButton ProgramAdmReqID={x.ProgramAdmReqID} />
-                ]}
               >
-                <Form>
-                  <Row>
-                    <Col xs={24} sm={12} md={12}>
+                <Row>
+                  <Col xs={24} sm={24} md={12}>
+                    <Form>
                       <Form.Item label={"Question"} {...layout}>
                         <Input aria-label="Question" disabled value={x.PreferenceDefName} />
                       </Form.Item>
-                    </Col>
-                    <Col xs={24} sm={12} md={12}>
-                      <Form.Item label={"Current Status"} {...layout}>
-                        <Input aria-label="Status" disabled value={x.Answer && x.Answer.StatusName} />
-                      </Form.Item>
-                    </Col>
 
-                    <Col xs={24} sm={12} md={12}>
                       <Form.Item label={"Expected Answer"} {...layout}>
                         <Input disabled aria-label="Expected answer" />
                       </Form.Item>
-                    </Col>
-                    <Col xs={24} sm={12} md={12}>
-                      <Form.Item label="Notes" {...layout}>
-                        <Input.TextArea disabled rows={3} value={x.Answer && x.Answer.CommentText}></Input.TextArea>
-                      </Form.Item>
-                    </Col>
 
-                    <Col xs={24} sm={12} md={12}>
                       <Form.Item label={"Answer"} {...layout}>
                         {x.PreferenceDefChoices && (
                           <Select
@@ -261,14 +245,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                           <Input aria-label="Answer" onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)} />
                         )}
                       </Form.Item>
-                    </Col>
-                    <Col xs={24} sm={12} md={12}>
-                      <Form.Item label="Reason" {...layout}>
-                        <Input.TextArea disabled rows={3} value={x.Answer && x.Answer.StatusReason}></Input.TextArea>
-                      </Form.Item>
-                    </Col>
 
-                    <Col xs={24} sm={12} md={12}>
                       {x.NeedProof && (
                         <Form.Item label="Attachments" {...layout}>
                           <Upload {...props} fileList={fileMap[x.ProgramAdmReqID]}>
@@ -276,24 +253,45 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                           </Upload>
                         </Form.Item>
                       )}
-                    </Col>
-                    <Col xs={24} sm={12} md={12}></Col>
 
-                    <Col xs={24} sm={12} md={12}>
-                      <Form.Item {...layout}>
-                        <Button
-                          type="primary"
-                          style={{ float: "right" }}
-                          onClick={() => saveApplicationAnswers(x.ProgramAdmReqID)}
-                        >
-                          Save
-                        </Button>
+                      <Form.Item {...btnLayout} style={{textAlign: "right"}}>
+                          <Button type="primary" onClick={() => saveApplicationAnswers(x.ProgramAdmReqID)}>Save</Button>
                       </Form.Item>
-                    </Col>
-                  </Row>
-                </Form>
+                    </Form>
+                  </Col>
+                  <Col xs={24} sm={24} md={12}>
+                    <Form>
+                      <Form.Item label={"Current Status"} {...layout}>
+                        <Input aria-label="Status" disabled value={x.Answer && x.Answer.StatusName} />
+                      </Form.Item>
+
+                      <Form.Item label="Notes" {...layout}>
+                        <Input.TextArea
+                          disabled rows={3}
+                          value={x.Answer && x.Answer.CommentText}
+                        />
+                      </Form.Item>
+
+                      <Form.Item label="Reason" {...layout}>
+                        <Input.TextArea
+                          disabled rows={3}
+                          value={x.Answer && x.Answer.StatusReason}
+                        />
+                      </Form.Item>
+
+                      <Form.Item {...btnLayout} style={{textAlign: "right"}}>
+                        <AcceptFormModalOpenButton CurrentStatusID={x.Answer && x.Answer.StatusID} ProgramAdmReqID={x.ProgramAdmReqID} />
+                        <ResubmitFormModalOpenButton CurrentStatusID={x.Answer && x.Answer.StatusID} ProgramAdmReqID={x.ProgramAdmReqID} />
+                        <RejectFormModalOpenButton CurrentStatusID={x.Answer && x.Answer.StatusID} ProgramAdmReqID={x.ProgramAdmReqID} />
+                        <NoteFormModalOpenButton ProgramAdmReqID={x.ProgramAdmReqID} />
+                      </Form.Item>
+
+                    </Form>
+                  </Col>
+                </Row>
               </Card>
             </Col>
+          </>
           ))}
         </Row>
       )}
