@@ -266,11 +266,17 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                       </Form.Item>
 
                       <Form.Item label="Notes" {...layout}>
-                        <Input.TextArea disabled rows={3} value={x.Answer && x.Answer.CommentText}></Input.TextArea>
+                        <Input.TextArea
+                          disabled rows={3}
+                          value={x.Answer && x.Answer.CommentText}
+                        />
                       </Form.Item>
 
                       <Form.Item label="Reason" {...layout}>
-                        <Input.TextArea disabled rows={3} value={x.Answer && x.Answer.StatusReason}></Input.TextArea>
+                        <Input.TextArea
+                          disabled rows={3}
+                          value={x.Answer && x.Answer.StatusReason}
+                        />
                       </Form.Item>
 
                       <Form.Item {...btnLayout} style={{textAlign: "right"}}>

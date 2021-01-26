@@ -114,6 +114,20 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
     )
   }
 
+  const getCommentText = (Comments: string) => {
+    if (Comments.includes("\n")) {
+      return Comments.split("\n").map((comment: any) => {
+        return (
+          <span>
+            {comment}
+            <br />
+          </span>
+        )
+      })
+    }
+    return Comments
+  }
+
   const info: CardContainer = {
     cardActions: [
       <AcceptFormModalOpenButton
@@ -133,7 +147,10 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
     contents: [
       { label: "Application Date", value: programApplication.ApplicationDate, render: renderDate },
       { label: "Application Status", value: programApplication.StatusName },
-      { label: "Notes", value: programApplication.CommentText }
+      {
+        label: "Notes",
+        value: getCommentText(programApplication.CommentText)
+      }
     ]
   }
 
