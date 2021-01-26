@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { Form, Input, Row, Col } from "antd"
-import { IField, IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
+import { Form, Input } from "antd"
+import { IField, IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { LookupModal } from "~/Component/Common/SearchForm/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
@@ -65,31 +65,32 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
       </Form.Item>
       <Form.Item
         colon={false}
-        label={props.label}
         labelCol={{ span: 8 }}
+        wrapperCol={{ span: 24 }}
+        name={props.fieldName}
         rules={props.rules}
+        label={props.label}
         validateStatus={props.validateStatus}
         help={props.help}
       >
-        <Row>
-          <Col span={24}>
-            <Input
-              value={selectedItem}
-              readOnly
-              addonBefore={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
-              addonAfter={
-                <DeleteOutlined
-                  color="red"
-                  onClick={() => {
-                    setSelectedItem(undefined)
-                    props.formInstance.setFieldsValue({ [props.fieldName]: "" })
-                  }}
-                />
-              }
+        {/* <Row>
+          <Col span={24}> */}
+        <Input
+          value={selectedItem}
+          readOnly
+          addonBefore={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
+          addonAfter={
+            <DeleteOutlined
+              color="red"
+              onClick={() => {
+                setSelectedItem(undefined)
+                props.formInstance.setFieldsValue({ [props.fieldName]: "" })
+              }}
             />
-          </Col>
-          {/* <Col span={4}></Col>   */}
-        </Row>
+          }
+        />
+        {/* </Col>
+        </Row> */}
         {showModal && (
           <LookupModal
             title={props.lookupModalTitle}
@@ -105,5 +106,6 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
       </Form.Item>
     </>
   )
-  return <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper>
+  // return <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper>
+  return toRender
 }

@@ -58,16 +58,20 @@ export interface IGeneratedField extends IField {
 }
 
 export function SearchFieldWrapper(props: IField & { children?: React.ReactNode }) {
+  const _rules: Array<{ [key: string]: any }> = props.rules as Array<{ [key: string]: any }>
+  const rulesRequired = !!_rules?.find((rule: any) => rule && rule.required)
+
   return (
     <Form.Item
       colon={false}
       label={props.label}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 24 }}
-      rules={props.rules}
       {...(props.fieldName !== "" && { name: props.fieldName })}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
+      required={rulesRequired}
+      rules={props.rules}
       validateStatus={props.validateStatus}
       help={props.help}
     >
@@ -88,9 +92,9 @@ export function SearchComponentWrapper(
     <Form.Item
       colon={false}
       label={props.label}
-      name={props.fieldName}
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 12 }}
+      wrapperCol={{ span: 24 }}
+      name={props.fieldName}
       rules={props.rules}
       validateStatus={props.validateStatus}
       help={props.help}
