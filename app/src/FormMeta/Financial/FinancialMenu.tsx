@@ -92,7 +92,12 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
           <Button type="link" onClick={() => setShowInstructor(true)}>
             Instructor
           </Button>
-          {showInstructor && <AddInstructorModal CanTeachOfferingID={props.dataLoaded.OfferingID} onClose={onCloseInstructorFinancials} />}
+          {showInstructor && (
+            <AddInstructorModal
+              CanTeachOfferingID={props.dataLoaded.OfferingID}
+              onClose={onCloseInstructorFinancials}
+            />
+          )}
         </Menu.Item>
         <Menu.Item>
           <Button type="link" onClick={() => setShowResource(true)}>
