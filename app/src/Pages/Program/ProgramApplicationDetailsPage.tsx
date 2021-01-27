@@ -8,6 +8,7 @@ import ProgramApplicationNoteFormModal from "~/Component/ProgramApplication/Prog
 import ProgramApplicationResubmitFormModal from "~/Component/ProgramApplication/ProgramApplicationResubmitFormModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { getToken } from "@packages/api/lib/utils/TokenStore"
 import "~/Sass/utils.scss"
 
 interface IRequisitePageProp {
@@ -50,10 +51,11 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
               const attachments = answers.Attachments
               if (attachments != null) {
                 attachments.forEach((x: any, index: any) => {
+                  let urlParams = `/api/document?DocumentID=${x.DocumentID}&DownloadType=attachment&token=` + getToken()
                   fileList.push({
                     uid: index + 1,
                     name: x.Name,
-                    url: "",
+                    url: urlParams,
                     status: "done"
                   })
                 })

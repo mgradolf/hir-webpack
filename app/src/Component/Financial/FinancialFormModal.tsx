@@ -5,6 +5,7 @@ import FinancialForm from "~/Component/Financial/FinancialForm"
 import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
 import { IFinancialFieldNames } from "~/Component/Financial/Interfaces"
+import { FINANCIAL_TYPE_MARKETING_PROGRAM } from "~/utils/Constants"
 
 interface ICreateNewFinancialProps {
   financialID?: number
@@ -36,10 +37,14 @@ export default function CreateNewFinancial({
   applyToID,
   financialType
 }: ICreateNewFinancialProps) {
+  let initialParam: {[key: string]: any} = { ItemUnitAmount : 0 }
+  if (financialType === FINANCIAL_TYPE_MARKETING_PROGRAM) {
+    initialParam["IsCharge"] = false
+  }
   const [formInstance] = Form.useForm()
   const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [initialFormValue] = useState<{ [key: string]: any }>({ ItemUnitAmount: 0 })
+  const [initialFormValue] = useState<{ [key: string]: any }>(initialParam)
 
   const handleCancel = () => {
     if (closeModal) {

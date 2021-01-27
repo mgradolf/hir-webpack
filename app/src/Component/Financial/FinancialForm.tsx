@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Radio, Switch } from "antd"
+import { Form, Card, Button, Input, Select, Radio, Switch, InputNumber } from "antd"
 import {
   getGLAccountTypes,
   getFinancialCategoryType,
@@ -31,7 +31,8 @@ interface ICreateFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 6 },
+  wrapperCol: { span: 12 }
 }
 export default function FinancialForm(props: ICreateFormProps) {
   const [financialCategoryTypes, setFinancialCategoryTypes] = useState<Array<any>>([])
@@ -99,7 +100,7 @@ export default function FinancialForm(props: ICreateFormProps) {
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
-    <Card title={props.financialID ? `Edit Offering financial` : "Create new offering financial"} actions={actions}>
+    <Card title={props.financialID ? `Edit ${props.financialType} Financial` : `Create New ${props.financialType} Financial`} actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
@@ -114,7 +115,17 @@ export default function FinancialForm(props: ICreateFormProps) {
           <Input aria-label="Offering ID" value={props.applyToID} />
         </Form.Item>
 
-        <Form.Item label="Category" name={props.fieldNames.FinancialCategoryTypeID} {...layout}>
+        <Form.Item
+          label="Category"
+          name={props.fieldNames.FinancialCategoryTypeID}
+          {...layout}
+          rules={[
+            {
+              required: true,
+              message: "Please select category type!"
+            }
+          ]}
+        >
           <Select aria-label="Category Select">
             {financialCategoryTypes.map((x) => {
               return (
@@ -126,7 +137,17 @@ export default function FinancialForm(props: ICreateFormProps) {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Basis" {...layout} name={props.fieldNames.FinancialBasisTypeID}>
+        <Form.Item
+          label="Basis"
+          {...layout}
+          name={props.fieldNames.FinancialBasisTypeID}
+          rules={[
+            {
+              required: true,
+              message: "Please select financial basis type!"
+            }
+          ]}
+        >
           <Select aria-label="Basis Select">
             {financialBasisTypes.map((x) => {
               return (
@@ -150,8 +171,24 @@ export default function FinancialForm(props: ICreateFormProps) {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Amount" {...layout} name={props.fieldNames.ItemUnitAmount}>
-          <Input aria-label="Amount" type="number" min={0} max={999999} />
+        <Form.Item
+          label="Amount"
+          {...layout}
+          name={props.fieldNames.ItemUnitAmount}
+          rules={[
+            {
+              required: true,
+              message: "Please enter an amount!"
+            }
+          ]}
+        >
+          <InputNumber
+            style={{width: "250px"}}
+            aria-label="Amount"
+            max={999999}
+            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            parser={value => value !== undefined ? value.replace(/\$\s?|(,*)/g, '') : ''}
+          />
         </Form.Item>
 
         <Form.Item label="Type" {...layout} name={props.fieldNames.IsCharge}>

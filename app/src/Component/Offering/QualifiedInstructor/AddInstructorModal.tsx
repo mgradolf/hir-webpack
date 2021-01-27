@@ -4,15 +4,15 @@ import { getInstructorTableColumns } from "~/FormMeta/Instructor/InstructorTable
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 
 interface IInstructorProps {
-  OfferingID?: number
+  CanTeachOfferingID?: number
   onClose: (items?: any[]) => void
 }
 
-export function AddInstructorModal({ onClose, OfferingID }: IInstructorProps) {
+export function AddInstructorModal({ onClose, CanTeachOfferingID }: IInstructorProps) {
   return (
     <LookupModal
       meta={InstructorSearchMeta}
-      defaultFilter={OfferingID ? { CanTeachOfferingID: OfferingID } : {}}
+      defaultFilter={CanTeachOfferingID ? { CanTeachOfferingID } : {}}
       {...getInstructorTableColumns(true)}
       title="Add Instructor"
       isArray={true}

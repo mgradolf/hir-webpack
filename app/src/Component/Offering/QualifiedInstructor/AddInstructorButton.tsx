@@ -6,6 +6,7 @@ import { AddInstructorModal } from "~/Component/Offering/QualifiedInstructor/Add
 
 interface ICreateActionButtonProp {
   OfferingID: number
+  CanTeachOfferingID?: number
 }
 
 export function AddInstructorButton(props: ICreateActionButtonProp) {

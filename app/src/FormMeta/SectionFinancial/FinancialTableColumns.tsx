@@ -30,7 +30,8 @@ export const getSectionFinancialTableColumns = (): ITableConfigProp => {
     },
     {
       title: "Amount",
-      dataIndex: "ItemUnitAmount"
+      dataIndex: "ItemUnitAmount",
+      render: (text: any) => `$ ${text}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     {
       title: "Quantity",

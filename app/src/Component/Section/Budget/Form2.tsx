@@ -11,7 +11,7 @@ import {
   getAvailableMarketingProgramsWithFinancials,
   saveFinancials
 } from "~/ApiServices/Service/SectionService"
-import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import FormError from "~/Component/Common/Form/FormError"
 import "~/Sass/global/index.scss"
@@ -21,6 +21,7 @@ import {
   BUDGET_FINANCIAL_TYPE_OFFERING,
   BUDGET_FINANCIAL_TYPE_RESOURCE
 } from "~/utils/Constants"
+import { REFRESH_SECTION_BUDGET_PAGE } from "~/FormMeta/Section/SectionDetailsMeta"
 
 interface IBudgetCreateForm2Props {
   sectionId: number

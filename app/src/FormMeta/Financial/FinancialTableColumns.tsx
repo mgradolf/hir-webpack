@@ -43,7 +43,8 @@ export const getFinancialTableColumns = (ApplyToID: number, FinancialTypeID: num
     },
     {
       title: "Amount",
-      dataIndex: "ItemUnitAmount"
+      dataIndex: "ItemUnitAmount",
+      render: (text: any) => `$ ${text}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     {
       title: "Type",

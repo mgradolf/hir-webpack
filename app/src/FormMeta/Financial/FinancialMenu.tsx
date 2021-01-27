@@ -6,10 +6,11 @@ import {
   addMarketingProgramFinancials,
   addResourceFinancials
 } from "~/ApiServices/Service/SectionService"
-import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { AddInstructorModal } from "~/Component/Offering/QualifiedInstructor/AddInstructorModal"
 import AddResourceModal from "~/Component/Resource/AddResourceModal"
 import AddMarketingProgramModal from "~/Component/MarketingProgram/AddMarketingProgramModal"
+import { REFRESH_SECTION_BUDGET_PAGE } from "~/FormMeta/Section/SectionDetailsMeta"
 
 interface IFinancialMenuProp {
   dataLoaded: { [key: string]: any }
@@ -20,6 +21,8 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
   const [showInstructor, setShowInstructor] = useState<boolean>(false)
   const [showResource, setShowResource] = useState<boolean>(false)
   const [showMarketingProgram, setShowMarketingProgram] = useState<boolean>(false)
+
+  console.log("Data info: ", props.dataLoaded)
 
   const addOfferingFinancial = async (SectionID: number) => {
     if (props.dataLoaded) {
@@ -89,7 +92,7 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
           <Button type="link" onClick={() => setShowInstructor(true)}>
             Instructor
           </Button>
-          {showInstructor && <AddInstructorModal {...props} onClose={onCloseInstructorFinancials} />}
+          {showInstructor && <AddInstructorModal CanTeachOfferingID={props.dataLoaded.OfferingID} onClose={onCloseInstructorFinancials} />}
         </Menu.Item>
         <Menu.Item>
           <Button type="link" onClick={() => setShowResource(true)}>
