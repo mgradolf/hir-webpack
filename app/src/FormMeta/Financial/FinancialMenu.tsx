@@ -22,6 +22,8 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
   const [showResource, setShowResource] = useState<boolean>(false)
   const [showMarketingProgram, setShowMarketingProgram] = useState<boolean>(false)
 
+  console.log("Data info: ", props.dataLoaded)
+
   const addOfferingFinancial = async (SectionID: number) => {
     if (props.dataLoaded) {
       setLoading(true)
@@ -90,7 +92,7 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
           <Button type="link" onClick={() => setShowInstructor(true)}>
             Instructor
           </Button>
-          {showInstructor && <AddInstructorModal {...props} onClose={onCloseInstructorFinancials} />}
+          {showInstructor && <AddInstructorModal CanTeachOfferingID={props.dataLoaded.OfferingID} onClose={onCloseInstructorFinancials} />}
         </Menu.Item>
         <Menu.Item>
           <Button type="link" onClick={() => setShowResource(true)}>

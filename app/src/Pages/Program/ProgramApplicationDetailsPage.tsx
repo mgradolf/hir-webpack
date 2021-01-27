@@ -51,7 +51,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
               const attachments = answers.Attachments
               if (attachments != null) {
                 attachments.forEach((x: any, index: any) => {
-                  let urlParams = `/api/document?DocumentID=${x.DocumentID}&token=` + getToken()
+                  let urlParams = `/api/document?DocumentID=${x.DocumentID}&DownloadType=attachment&token=` + getToken()
                   fileList.push({
                     uid: index + 1,
                     name: x.Name,
