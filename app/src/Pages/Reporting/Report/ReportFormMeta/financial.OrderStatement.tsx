@@ -8,7 +8,7 @@ import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 const meta: IField[] = [
   {
     label: "Order Date",
-    rules: [{ required: true, message: "Date field is Required" }],
+    rules: [{ required: true, message: "Order Date is Required" }],
     inputType: DATE_PICKERS,
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo"

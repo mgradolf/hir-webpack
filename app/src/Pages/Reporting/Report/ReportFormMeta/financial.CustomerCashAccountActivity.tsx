@@ -9,7 +9,6 @@ const meta: IField[] = [
     label: "Account Owner",
     fieldName: "PersonID",
     customFilterComponent: SearchPersonLookupButton,
-    rules: [{ required: true, message: "Account is Required" }],
     inputType: CUSTOM_FIELD
   },
   {

@@ -7,6 +7,7 @@ const meta: IField[] = [
   {
     label: "Person",
     fieldName: "PersonID",
+    rules: [{ required: true, message: "Person is Required" }],
     customFilterComponent: SearchPersonLookupButton,
     inputType: CUSTOM_FIELD
   },
@@ -14,7 +15,7 @@ const meta: IField[] = [
     label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
-    rules: [{ required: true, message: "Date field is Required" }],
+    rules: [{ required: true, message: "Order Date is Required" }],
     inputType: DATE_PICKERS
   }
 ]

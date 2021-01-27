@@ -6,6 +6,7 @@ const meta: IField[] = [
   {
     label: "Payment Base Type",
     inputType: DROPDOWN,
+    rules: [{ required: true, message: "Base Payment Type is Required" }],
     fieldName: "BasePaymentTypeID",
     refLookupService: getBasePaymentTypes,
     displayKey: "Name",
@@ -29,6 +30,7 @@ const meta: IField[] = [
     label: "Deposit Type",
     inputType: MULTI_SELECT_DROPDOWN,
     fieldName: "PaymentTypeID",
+    rules: [{ required: true, message: "Deposit Type is Required" }],
     refLookupService: getPaymentTypes,
     displayKey: "PaymentSchemaName",
     valueKey: "PaymentTypeID"
