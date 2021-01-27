@@ -9,8 +9,6 @@ const meta: IField[] = [
     label: "Select Date",
     fieldName: "StartDate",
     fieldName2: "EndDate",
-    rules: [{ required: true, message: "Date field is Required" }],
-
     inputType: DATE_PICKERS
   },
   {
