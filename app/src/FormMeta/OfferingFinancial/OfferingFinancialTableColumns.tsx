@@ -23,7 +23,8 @@ export const getOfferingFinancialTableColumns = (ApplyToID: number, FinancialTyp
     },
     {
       title: "Amount",
-      dataIndex: "ItemUnitAmount"
+      dataIndex: "ItemUnitAmount",
+      render: (text: any) => `$ ${text}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     {
       title: "Type",

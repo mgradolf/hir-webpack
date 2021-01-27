@@ -36,6 +36,8 @@ import FinancialMenu from "~/FormMeta/Financial/FinancialMenu"
 import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
 
+export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
+
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
     cardActions: [<SectionEditLink section={section} PrimaryType={true} />, <SectionRemoveButton Section={section} />],
@@ -125,7 +127,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     tableProps: {
       ...getSectionFinancialTableColumns(),
       searchParams: { SectionID: section.SectionID },
-      refreshEventName: "REFRESH_SECTION_BUDGET_PAGE_1"
+      refreshEventName: REFRESH_SECTION_BUDGET_PAGE
     }
   }
 

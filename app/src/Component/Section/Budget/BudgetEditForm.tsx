@@ -3,12 +3,13 @@ import { Form, Card, Button, Input, Select, Checkbox, Switch } from "antd"
 import { getGLAccountTypes } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_SECTION_BUDGET_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/Form/FormError"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { saveFinancial } from "~/ApiServices/Service/SectionService"
 import { BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM, BUDGET_FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
+import { REFRESH_SECTION_BUDGET_PAGE } from "~/FormMeta/Section/SectionDetailsMeta"
 
 interface IBudgetEditFormProps {
   financialType: string

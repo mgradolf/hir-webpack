@@ -71,6 +71,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       blocks: [<FinancialFormModalOpenButton FacultyID={instructor.FacultyID} />],
       tableProps: {
+        pagination: false,
         ...getOfferingFinancialTableColumns(instructor.FacultyID, FINANCIAL_FACULTY_TYPE_ID),
         searchParams: { FacultyID: instructor.FacultyID },
         refreshEventName: REFRESH_FACULTY_OFFERINGS_TAB
