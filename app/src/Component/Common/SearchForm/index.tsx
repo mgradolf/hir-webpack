@@ -79,10 +79,11 @@ export default function ({
   }
 
   const applyChanges = (queryParams?: { [key: string]: any }) => {
-    validationPassed(formInstance.getFieldsValue())
+    const validationFailed: boolean = validationPassed(formInstance.getFieldsValue())
     formInstance
       .validateFields()
       .then((validatedValues) => {
+        if (!validationFailed) return
         console.log(validatedValues)
         const params: { [key: string]: any } = queryParams || validatedValues
         const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFilter }
