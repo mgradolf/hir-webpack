@@ -30,6 +30,7 @@ const meta: IField[] = [
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
+    rules: [{ required: true, message: "Account is Required" }],
     customFilterComponent: SearchAccountLookup,
     inputType: CUSTOM_FIELD
   },
