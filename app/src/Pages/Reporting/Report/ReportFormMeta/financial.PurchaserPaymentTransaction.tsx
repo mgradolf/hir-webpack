@@ -8,6 +8,7 @@ const meta: IField[] = [
   {
     label: "Payer",
     fieldName: "PersonID",
+    rules: [{ required: true, message: "Payer is Required" }],
     customFilterComponent: SearchPersonLookupButton,
     inputType: CUSTOM_FIELD
   },

@@ -5,7 +5,7 @@ import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 const meta: IField[] = [
   {
     label: "Faculty",
-
+    rules: [{ required: true, message: "Faculty is Required" }],
     fieldName: "FacultyID",
     customFilterComponent: SearchInstructorLookupButton,
     inputType: CUSTOM_FIELD,
