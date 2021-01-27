@@ -8,22 +8,25 @@ import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
   {
-    label: "Offering or Section",
+    label: "",
     fieldName: "",
     customFilterComponent: SearchLookupSelector,
     inputType: CUSTOM_FIELD,
+    rules: [{ required: true, message: "Offering or Section is Required" }],
     extraProps: {
       selectorKeys: [
         {
           label: "Offering",
           fieldName: "OfferingID",
           valueField: "OfferingID",
+          displayField: "OfferingCode",
           component: SearchOfferingLookupButton
         },
         {
           label: "Section",
           fieldName: "SectionID",
           valueField: "SectionID",
+          displayField: "SectionNumber",
           component: SearchSectionLookupButton
         }
       ]
@@ -33,13 +36,15 @@ const meta: IField[] = [
     label: "Student",
     fieldName: "StudentID",
     customFilterComponent: SearchStudentLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    rules: [{ required: true, message: "Student is Required" }]
   },
   {
     label: "Registration Date",
     fieldName: "FromRegistrationDate",
     fieldName2: "ToRegistrationDate",
-    inputType: DATE_PICKERS
+    inputType: DATE_PICKERS,
+    rules: [{ required: true, message: "Registration start date or end date is Required" }]
   },
   {
     label: "Department",

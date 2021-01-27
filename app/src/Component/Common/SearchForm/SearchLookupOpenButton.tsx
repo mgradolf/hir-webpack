@@ -60,9 +60,6 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
 
   const toRender = (
     <>
-      <Form.Item className="hidden" name={props.fieldName}>
-        <Input />
-      </Form.Item>
       <Form.Item
         colon={false}
         labelCol={{ span: 8 }}
@@ -73,8 +70,6 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
         validateStatus={props.validateStatus}
         help={props.help}
       >
-        {/* <Row>
-          <Col span={24}> */}
         <Input
           value={selectedItem}
           readOnly
@@ -89,23 +84,20 @@ export function SearchLookupOpenButton(props: ISearchLookupOpenButton) {
             />
           }
         />
-        {/* </Col>
-        </Row> */}
-        {showModal && (
-          <LookupModal
-            title={props.lookupModalTitle}
-            {...(props.extraProps && props.extraProps.isArray && { isArray: props.extraProps.isArray })}
-            closeModal={closeModal}
-            searchFunc={props.searchFunc}
-            columns={props.columns}
-            meta={props.meta}
-            responsiveColumnIndices={props.responsiveColumnIndices}
-            expandableColumnIndices={props.expandableColumnIndices}
-          />
-        )}
       </Form.Item>
+      {showModal && (
+        <LookupModal
+          title={props.lookupModalTitle}
+          {...(props.extraProps && props.extraProps.isArray && { isArray: props.extraProps.isArray })}
+          closeModal={closeModal}
+          searchFunc={props.searchFunc}
+          columns={props.columns}
+          meta={props.meta}
+          responsiveColumnIndices={props.responsiveColumnIndices}
+          expandableColumnIndices={props.expandableColumnIndices}
+        />
+      )}
     </>
   )
-  // return <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper>
   return toRender
 }

@@ -44,6 +44,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
             meta={props.meta}
             initialFilter={props.initialFilter}
             defaultFilter={props.defaultFilter}
+            applyButtonLabel="Run Report"
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               openReportInNewTab(newFilterValues)
             }}

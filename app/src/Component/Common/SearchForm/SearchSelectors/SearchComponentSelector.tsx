@@ -1,7 +1,6 @@
 import React, { useState } from "react"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
+import { IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { Row, Select, Col } from "antd"
-import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 
 interface ISelector {
   label?: string
@@ -14,15 +13,16 @@ export function SearchLookupSelector(props: IGeneratedField) {
   const selectorKeys =
     Array.isArray(props?.extraProps?.selectorKeys) && (props?.extraProps?.selectorKeys as ISelector[])
   const [selectedKey, setSelectedKey] = useState(Array.isArray(selectorKeys) && selectorKeys[0].fieldName)
-  const [mobileView, setMobileView] = useState(false)
-
-  useDeviceViews((deviceViews: IDeviceView) => {
-    setMobileView(deviceViews.mobile)
-  })
+  const rulesRequired = !!props.rules?.find((rule: any) => rule && rule.required)
 
   const toRender = selectorKeys ? (
     <Row>
-      <Col span={6} {...(mobileView ? { xs: { span: 8, offset: 0 } } : { offset: 2 })}>
+      {rulesRequired && (
+        <Col span={1} xs={1} style={{ color: "#ff4d4f", fontSize: "14px", textAlignLast: "end", paddingRight: "3px" }}>
+          *
+        </Col>
+      )}
+      <Col span={rulesRequired ? 7 : 8}>
         <Select
           style={{ width: "100%" }}
           defaultValue={selectorKeys[0].label || ""}
@@ -49,6 +49,7 @@ export function SearchLookupSelector(props: IGeneratedField) {
                   fieldName={x.fieldName}
                   valueField={x.valueField}
                   defaultValue={x.defaultValue}
+                  // rules={[]}
                 />
               </Col>
             )}
@@ -57,5 +58,5 @@ export function SearchLookupSelector(props: IGeneratedField) {
       })}
     </Row>
   ) : null
-  return <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper>
+  return toRender
 }

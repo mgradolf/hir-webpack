@@ -44,19 +44,38 @@ export default function ({
   const [clearTrigger, setClearTrigger] = useState(false)
   const [meta, setMeta] = useState<IField[]>([])
 
-  const validationPassed = (values: { [key: string]: any }): boolean => {
+  const checkValidationOnCustomFormFields = (values: { [key: string]: any }): boolean => {
     let validationPassed = true
-    const __meta = meta.map((x) => {
+    const __meta = meta.map((x: IField) => {
       const rules: Array<{ [key: string]: any }> = x.rules as Array<{ [key: string]: any }>
       const rulesExist = !!(rules && rules.length > 0)
       const certainInputType: boolean = x.inputType === CUSTOM_FIELD || x.inputType === DATE_PICKERS
       if (!rulesExist || !certainInputType) return x
 
       const rulesRequired = !!rules?.find((rule: any) => rule && rule.required)
-      const fieldValue: boolean = values[x.fieldName] === undefined || values[x.fieldName] === null
-      const fieldValue2: boolean = values[x.fieldName] === undefined || values[x.fieldName] === null
       if (certainInputType && rulesExist && rulesRequired) {
-        if (fieldValue || fieldValue2) {
+        const validationForSelectorComponent =
+          x.fieldName === "" &&
+          x?.extraProps &&
+          Array.isArray(x?.extraProps?.selectorKeys) &&
+          x?.extraProps?.selectorKeys.length > 0 &&
+          x?.extraProps?.selectorKeys.filter(
+            (field: { [key: string]: any }) => !!values[field.fieldName] || !!values[field.fieldName2]
+          ).length === 0
+
+        const validationForOtherCustomComponent =
+          x.fieldName !== "" &&
+          (values[x.fieldName] === undefined ||
+            values[x.fieldName] === null ||
+            (!!x.fieldName2 && !!(values[x.fieldName2] === undefined || values[x.fieldName2] === null)))
+
+        console.log("validationForSelectorComponent ", validationForSelectorComponent)
+        console.log("validationForOtherCustomComponent ", validationForOtherCustomComponent)
+        if (validationForSelectorComponent) {
+          x.validateStatus = "error"
+          x.help = rules?.filter((rule: any) => rule.required)[0]?.message
+          validationPassed = false
+        } else if (validationForOtherCustomComponent) {
           x.validateStatus = "error"
           x.help = rules?.filter((rule: any) => rule.required)[0]?.message
           validationPassed = false
@@ -79,11 +98,12 @@ export default function ({
   }
 
   const applyChanges = (queryParams?: { [key: string]: any }) => {
-    const validationFailed: boolean = validationPassed(formInstance.getFieldsValue())
+    const isCustomFormFieldValuesValid: boolean = checkValidationOnCustomFormFields(formInstance.getFieldsValue())
     formInstance
       .validateFields()
       .then((validatedValues) => {
-        if (!validationFailed) return
+        console.log("validatedValues ", validatedValues)
+        if (!isCustomFormFieldValuesValid) return
         console.log(validatedValues)
         const params: { [key: string]: any } = queryParams || validatedValues
         const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFilter }

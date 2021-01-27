@@ -99,7 +99,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
         {setShowModal && (
           <Button
             type="primary"
-            style={{marginRight: "10px"}}
+            style={{ marginRight: "10px" }}
             disabled={props.CurrentStatusID === PROGRAM_APP_REQ_ACCPETED}
             onClick={() => setShowModal && setShowModal(true)}
           >
@@ -125,7 +125,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
         {setShowModal && (
           <Button
             type="primary"
-            style={{marginRight: "10px"}}
+            style={{ marginRight: "10px" }}
             disabled={
               props.CurrentStatusID === PROGRAM_APP_REQ_RESUBMIT ||
               props.CurrentStatusID === PROGRAM_APP_REQ_ACCPETED ||
@@ -155,7 +155,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
           <Button
             danger
             type="primary"
-            style={{marginRight: "10px"}}
+            style={{ marginRight: "10px" }}
             disabled={
               props.CurrentStatusID === PROGRAM_APP_REQ_REJECTED || props.CurrentStatusID === PROGRAM_APP_REQ_RESUBMIT
             }
@@ -211,87 +211,89 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
         <Row>
           {admissionReqsList.map((x: any, index: any) => (
             <>
-            <Col style={{ marginBottom: "16px" }} key={index + 1} xs={24} sm={24} md={24}>
-              <Card
-                title={x.Name}
-              >
-                <Row>
-                  <Col xs={24} sm={24} md={12}>
-                    <Form>
-                      <Form.Item label={"Question"} {...layout}>
-                        <Input aria-label="Question" disabled value={x.PreferenceDefName} />
-                      </Form.Item>
-
-                      <Form.Item label={"Expected Answer"} {...layout}>
-                        <Input disabled aria-label="Expected answer" />
-                      </Form.Item>
-
-                      <Form.Item label={"Answer"} {...layout}>
-                        {x.PreferenceDefChoices && (
-                          <Select
-                            aria-label="Select Asnwer"
-                            onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)}
-                          >
-                            {x.PreferenceDefChoices.map((x: any, index: any) => {
-                              return (
-                                <Select.Option key={`${index + 1}`} value={x.Value}>
-                                  {x.Value}
-                                </Select.Option>
-                              )
-                            })}
-                          </Select>
-                        )}
-                        {!x.PreferenceDefChoices && (
-                          <Input aria-label="Answer" onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)} />
-                        )}
-                      </Form.Item>
-
-                      {x.NeedProof && (
-                        <Form.Item label="Attachments" {...layout}>
-                          <Upload {...props} fileList={fileMap[x.ProgramAdmReqID]}>
-                            <Button icon={<UploadOutlined />}>Upload</Button>
-                          </Upload>
+              <Col style={{ marginBottom: "16px" }} key={index + 1} xs={24} sm={24} md={24}>
+                <Card title={x.Name}>
+                  <Row>
+                    <Col xs={24} sm={24} md={12}>
+                      <Form>
+                        <Form.Item label={"Question"} {...layout}>
+                          <Input aria-label="Question" disabled value={x.PreferenceDefName} />
                         </Form.Item>
-                      )}
 
-                      <Form.Item {...btnLayout} style={{textAlign: "right"}}>
-                          <Button type="primary" onClick={() => saveApplicationAnswers(x.ProgramAdmReqID)}>Save</Button>
-                      </Form.Item>
-                    </Form>
-                  </Col>
-                  <Col xs={24} sm={24} md={12}>
-                    <Form>
-                      <Form.Item label={"Current Status"} {...layout}>
-                        <Input aria-label="Status" disabled value={x.Answer && x.Answer.StatusName} />
-                      </Form.Item>
+                        <Form.Item label={"Expected Answer"} {...layout}>
+                          <Input disabled aria-label="Expected answer" />
+                        </Form.Item>
 
-                      <Form.Item label="Notes" {...layout}>
-                        <Input.TextArea
-                          disabled rows={3}
-                          value={x.Answer && x.Answer.CommentText}
-                        />
-                      </Form.Item>
+                        <Form.Item label={"Answer"} {...layout}>
+                          {x.PreferenceDefChoices && (
+                            <Select
+                              aria-label="Select Asnwer"
+                              onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)}
+                            >
+                              {x.PreferenceDefChoices.map((x: any, index: any) => {
+                                return (
+                                  <Select.Option key={`${index + 1}`} value={x.Value}>
+                                    {x.Value}
+                                  </Select.Option>
+                                )
+                              })}
+                            </Select>
+                          )}
+                          {!x.PreferenceDefChoices && (
+                            <Input aria-label="Answer" onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)} />
+                          )}
+                        </Form.Item>
 
-                      <Form.Item label="Reason" {...layout}>
-                        <Input.TextArea
-                          disabled rows={3}
-                          value={x.Answer && x.Answer.StatusReason}
-                        />
-                      </Form.Item>
+                        {x.NeedProof && (
+                          <Form.Item label="Attachments" {...layout}>
+                            <Upload {...props} fileList={fileMap[x.ProgramAdmReqID]}>
+                              <Button icon={<UploadOutlined />}>Upload</Button>
+                            </Upload>
+                          </Form.Item>
+                        )}
 
-                      <Form.Item {...btnLayout} style={{textAlign: "right"}}>
-                        <AcceptFormModalOpenButton CurrentStatusID={x.Answer && x.Answer.StatusID} ProgramAdmReqID={x.ProgramAdmReqID} />
-                        <ResubmitFormModalOpenButton CurrentStatusID={x.Answer && x.Answer.StatusID} ProgramAdmReqID={x.ProgramAdmReqID} />
-                        <RejectFormModalOpenButton CurrentStatusID={x.Answer && x.Answer.StatusID} ProgramAdmReqID={x.ProgramAdmReqID} />
-                        <NoteFormModalOpenButton ProgramAdmReqID={x.ProgramAdmReqID} />
-                      </Form.Item>
+                        <Form.Item {...btnLayout} style={{ textAlign: "right" }}>
+                          <Button type="primary" onClick={() => saveApplicationAnswers(x.ProgramAdmReqID)}>
+                            Save
+                          </Button>
+                        </Form.Item>
+                      </Form>
+                    </Col>
+                    <Col xs={24} sm={24} md={12}>
+                      <Form>
+                        <Form.Item label={"Current Status"} {...layout}>
+                          <Input aria-label="Status" disabled value={x.Answer && x.Answer.StatusName} />
+                        </Form.Item>
 
-                    </Form>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </>
+                        <Form.Item label="Notes" {...layout}>
+                          <Input.TextArea disabled rows={3} value={x.Answer && x.Answer.CommentText} />
+                        </Form.Item>
+
+                        <Form.Item label="Reason" {...layout}>
+                          <Input.TextArea disabled rows={3} value={x.Answer && x.Answer.StatusReason} />
+                        </Form.Item>
+
+                        <Form.Item {...btnLayout} style={{ textAlign: "right" }}>
+                          <AcceptFormModalOpenButton
+                            CurrentStatusID={x.Answer && x.Answer.StatusID}
+                            ProgramAdmReqID={x.ProgramAdmReqID}
+                          />
+                          <ResubmitFormModalOpenButton
+                            CurrentStatusID={x.Answer && x.Answer.StatusID}
+                            ProgramAdmReqID={x.ProgramAdmReqID}
+                          />
+                          <RejectFormModalOpenButton
+                            CurrentStatusID={x.Answer && x.Answer.StatusID}
+                            ProgramAdmReqID={x.ProgramAdmReqID}
+                          />
+                          <NoteFormModalOpenButton ProgramAdmReqID={x.ProgramAdmReqID} />
+                        </Form.Item>
+                      </Form>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </>
           ))}
         </Row>
       )}
