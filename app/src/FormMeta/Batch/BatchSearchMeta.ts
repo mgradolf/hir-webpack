@@ -4,7 +4,7 @@ import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/S
 
 export const BatchSearchMeta: IFilterField[] = [
   {
-    label: "Type*",
+    label: "Type",
     inputType: DROPDOWN,
     fieldName: "Type",
     refLookupService: () =>

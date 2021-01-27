@@ -56,6 +56,7 @@ export const getTagDetailsMeta = (Tag: { [key: string]: any }): IDetailsMeta => 
                   TagID: record.TagID,
                   IsActive: true
                 }}
+                eventName="REFRESH_TAGS_CONTENT_TABLE"
               />
             )
           }

@@ -38,25 +38,24 @@ export const getInstructorScheduleTableColumns = (): ITableConfigProp => {
     {
       title: "Location",
       dataIndex: "LocationSummary",
-      render: (text: any, record: any) =>
-        record.Locations != null && record.Locations[0].RoomID != null ? (
-          <Link to={`/room/${record.Locations[0].RoomID}`}>{text}</Link>
-        ) : record.Locations[0].BuildingID != null ? (
-          <Link to={`/building/${record.Locations[0].BuildingID}`}>{text}</Link>
-        ) : record.Locations[0].SiteID != null ? (
-          <Link to={`/site/${record.Locations[0].SiteID}`}>{text}</Link>
-        ) : (
-          ""
-        )
+      render: (text: any, record: any) => {
+        if (Array.isArray(record.Locations) && record.Locations.length > 0) {
+          if (record.Locations[0].RoomID) return <Link to={`/room/${record.Locations[0].RoomID}`}>{text}</Link>
+          else if (record.Locations[0].BuildingID)
+            return <Link to={`/building/${record.Locations[0].BuildingID}`}>{text}</Link>
+          else if (record.Locations[0].SiteID) return <Link to={`/site/${record.Locations[0].SiteID}`}>{text}</Link>
+        }
+        return null
+      }
     },
     {
       title: "Instructor",
       dataIndex: "InstructorSummary",
       render: (text: any, record: any) => (
         <ul>
-          {record.Instructors.map((x: any) => {
+          {record.Instructors.map((x: any, i: number) => {
             return (
-              <li>
+              <li key={i}>
                 <Link to={`/person/faculty/${x.FacultyID}`}>{x.Instructor}</Link>
               </li>
             )

@@ -11,6 +11,11 @@ export const getPackageTableColumns = (isModal = false): ITableConfigProp => {
       dataIndex: "Name",
       render: (text: any, record: any) => <Link to={`/package/${record.PackageID}`}>{text}</Link>
     },
+    {
+      title: "Account",
+      dataIndex: "AccountName",
+      render: (text: any, record: any) => <Link to={`/account/${record.AccountID}`}>{text}</Link>
+    },
     { title: "Start Date", dataIndex: "StartDate", render: renderDate },
     { title: "End Date", dataIndex: "EndDate", render: renderDate },
     { title: "Credit Units", dataIndex: "AllowedCredit", render: undefined }

@@ -28,13 +28,16 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
     { title: "Birth Date", dataIndex: "Birthday", render: renderDate },
     { title: "Role ", dataIndex: "AffiliationRoleTypeName" },
     { title: "Shared", dataIndex: "IsContactShared", render: renderBoolean },
-    { title: "Status", dataIndex: "AccountAffiliationStatusName" },
+    {
+      title: "Status",
+      dataIndex: "AccountAffiliationStatusName",
+      sorter: (a: any, b: any) => sortByString(a?.AccountAffiliationStatusName[0], b?.AccountAffiliationStatusName[0])
+    },
     {
       title: "Primary Contact",
       dataIndex: "PrimaryAccountAffiliation",
       render: renderBoolean,
-      sorter: (a: any, b: any) => sortByBoolean(a.PrimaryAccountAffiliation, b.PrimaryAccountAffiliation),
-      sortOrder: "ascend"
+      sorter: (a: any, b: any) => sortByBoolean(a.PrimaryAccountAffiliation, b.PrimaryAccountAffiliation)
     }
   ]
   return { columns, searchFunc: getAccountAffiliation, responsiveColumnIndices: [], expandableColumnIndices: [] }

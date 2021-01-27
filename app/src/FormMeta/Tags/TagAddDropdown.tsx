@@ -45,7 +45,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
       key: "ProgramID"
     },
     {
-      type: "MarketingCode",
+      type: "Marketing Code",
       meta: MarketingCodeRepositorySearchMeta,
       searchFunc: getMarketingCodeRepositoryTableColumns().searchFunc,
       columns: getMarketingCodeRepositoryTableColumns().columns,
@@ -72,7 +72,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
   return (
     <>
       <Dropdown.Button overlay={menus} type="primary" style={props.style}>
-        + Add Content
+        Select
       </Dropdown.Button>
       {showLookupModal && (
         <LookupModal
@@ -87,12 +87,13 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
                 })
               })
 
-              if (promises)
+              if (promises) {
                 Promise.all(promises).finally(() => {
                   eventBus.publish(props.eventName)
                   setShowLookupModal(false)
                   setEntityType(undefined)
                 })
+              }
             } else {
               setShowLookupModal(false)
             }

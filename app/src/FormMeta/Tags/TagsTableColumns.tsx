@@ -5,7 +5,7 @@ import React from "react"
 import { TagRemoveButton } from "~/FormMeta/Tags/TagRemoveButton"
 import { Link } from "react-router-dom"
 
-export const getTagsTableColumns = (isModal = false): ITableConfigProp => {
+export const getTagsTableColumns = (isModal = false, eventName: string): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Tag Name",
@@ -21,7 +21,7 @@ export const getTagsTableColumns = (isModal = false): ITableConfigProp => {
         title: "Action",
         dataIndex: "isChecked",
         key: "isChecked",
-        render: (text: any, record: any) => <TagRemoveButton tag={record} />
+        render: (text: any, record: any) => <TagRemoveButton eventName={eventName} tag={record} />
       })
     }
   ]

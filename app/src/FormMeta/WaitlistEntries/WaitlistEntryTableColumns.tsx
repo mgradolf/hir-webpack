@@ -17,7 +17,7 @@ export const getWaitlistEntriesTableColumns = (
         title: "",
         dataIndex: "",
         render: (text: any, record: any) => (
-          <Link to={`/section/${record.SectionID}/waitlist/${record.WaitListEntryID}`}>
+          <Link to={`/waitlist/${record.WaitListEntryID}`}>
             <ReadOutlined />
           </Link>
         )

@@ -52,17 +52,18 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       }
     }
   })
-  meta.push({
-    tabTitle: "Seat Groups",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getSeatgroupTableColumns(),
-        searchParams: { AccountID: account.AccountID },
-        refreshEventName: REFRESH_ACCOUNT_SEATGROUP_PAGE
+  account.AccountTypeID !== 1000 &&
+    meta.push({
+      tabTitle: "Seat Groups",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          ...getSeatgroupTableColumns(),
+          searchParams: { AccountID: account.AccountID },
+          refreshEventName: REFRESH_ACCOUNT_SEATGROUP_PAGE
+        }
       }
-    }
-  })
+    })
   meta.push({
     tabTitle: "Registrations",
     tabType: "table",
@@ -147,17 +148,19 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       }
     }
   })
-  meta.push({
-    tabTitle: "Packages",
-    tabType: "table",
-    tabMeta: {
-      tableProps: {
-        ...getPackageTableColumns(false),
-        searchParams: { AccountID: account.AccountID },
-        refreshEventName: "REFRESH_PACKAGES_TAB"
+
+  account.AccountTypeID !== 1000 &&
+    meta.push({
+      tabTitle: "Packages",
+      tabType: "table",
+      tabMeta: {
+        tableProps: {
+          ...getPackageTableColumns(false),
+          searchParams: { AccountID: account.AccountID },
+          refreshEventName: "REFRESH_PACKAGES_TAB"
+        }
       }
-    }
-  })
+    })
 
   return {
     pageTitle: `Account Name - ${account.AccountName}`,

@@ -25,7 +25,7 @@ export const getQuestionRepositoryDetailsMeta = (question: { [key: string]: any 
   })
 
   meta.push({
-    tabTitle: "Tagged Questions",
+    tabTitle: "Tagging",
     tabType: "searchtable",
     tabMeta: {
       searchMeta: QuestionTaggingSearchMeta,

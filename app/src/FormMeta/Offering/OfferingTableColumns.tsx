@@ -1,9 +1,7 @@
-import { Space } from "antd"
 import React from "react"
 import { Link } from "react-router-dom"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import OfferingMenu from "~/Component/Offering/OfferingMenu"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
@@ -37,16 +35,6 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Department",
       dataIndex: "OrganizationName"
-    },
-    {
-      ...(!isModal && {
-        title: "Action",
-        render: (record: any) => (
-          <Space size="middle">
-            <OfferingMenu offering={record} />
-          </Space>
-        )
-      })
     }
   ]
 

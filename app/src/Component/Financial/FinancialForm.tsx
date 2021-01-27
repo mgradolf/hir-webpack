@@ -100,7 +100,12 @@ export default function FinancialForm(props: ICreateFormProps) {
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
-    <Card title={props.financialID ? `Edit ${props.financialType} Financial` : `Create New ${props.financialType} Financial`} actions={actions}>
+    <Card
+      title={
+        props.financialID ? `Edit ${props.financialType} Financial` : `Create New ${props.financialType} Financial`
+      }
+      actions={actions}
+    >
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <FormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
@@ -183,11 +188,11 @@ export default function FinancialForm(props: ICreateFormProps) {
           ]}
         >
           <InputNumber
-            style={{width: "250px"}}
+            style={{ width: "250px" }}
             aria-label="Amount"
             max={999999}
-            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={value => value !== undefined ? value.replace(/\$\s?|(,*)/g, '') : ''}
+            formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            parser={(value) => (value !== undefined ? value.replace(/\$\s?|(,*)/g, "") : "")}
           />
         </Form.Item>
 
@@ -198,7 +203,7 @@ export default function FinancialForm(props: ICreateFormProps) {
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item name={props.fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
+        {/* <Form.Item name={props.fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
           <Switch
             aria-label="Is Item Optional"
             defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsOptional)}
@@ -209,14 +214,14 @@ export default function FinancialForm(props: ICreateFormProps) {
             aria-label="Is Taxable"
             defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsTaxable)}
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item name={props.fieldNames.IsActive} label="Active" {...layout} valuePropName="checked">
           <Switch aria-label="Is Active" defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)} />
         </Form.Item>
 
-        <Form.Item label="Weight" {...layout} name={props.fieldNames.Weight}>
+        {/* <Form.Item label="Weight" {...layout} name={props.fieldNames.Weight}>
           <Input aria-label="Weight" type="number" min={0} />
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </Card>
   )

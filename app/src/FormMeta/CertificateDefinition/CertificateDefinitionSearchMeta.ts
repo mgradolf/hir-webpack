@@ -36,6 +36,8 @@ export const CertificateDefinitionSearchMeta: IFilterField[] = [
   {
     label: "Certificate Category",
     fieldName: "certificateCategoryTypeID",
+    displayKey: "Name",
+    valueKey: "ID",
     inputType: DROPDOWN,
     refLookupService: getCertificateCategoryType
   }

@@ -36,6 +36,6 @@ export const getStudentEmailTableColumns = (): ITableConfigProp => {
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: (Params: { [key: string]: any }) => findAllStudentNotice([Params])
+    searchFunc: findAllStudentNotice
   }
 }

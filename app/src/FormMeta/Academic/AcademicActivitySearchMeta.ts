@@ -5,7 +5,7 @@ import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/Sear
 export const AcademicActivitySearchMeta: IFilterField[] = [
   {
     label: "Section",
-    fieldName: "SectionIDs",
+    fieldName: "SectionID",
     customFilterComponent: SearchSectionLookupButton,
     extraProps: {
       isArray: true

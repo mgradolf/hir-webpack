@@ -139,40 +139,43 @@ export default function RequestActionsTable(props: ITableWrapperProps) {
     PaymentTypeName: requestData.PaymentTypeName,
     PaymentTypeID: requestData.PaymentTypeID,
     PaymentAmount: requestData.TotalPaymentAmount,
-    PaymentGatewayAccountID: requestData.Allocation[0].PaymentGatewayAccountID
+    PaymentGatewayAccountID:
+      Array.isArray(requestData?.Allocation) &&
+      requestData?.Allocation.length > 0 &&
+      requestData?.Allocation[0].PaymentGatewayAccountID
   }
 
   const columns: TableColumnType = [
     {
       title: "Processing",
       dataIndex: "TaskType",
-      key: "TaskType"
+      key: "Key"
     },
     {
       title: "Description",
       dataIndex: "Description",
-      key: "Description"
+      key: "Key"
     },
     {
       title: "Student",
       dataIndex: "RecipientPersonName",
-      key: "RecipientPersonName"
+      key: "Key"
     },
     {
       title: "Issues",
       dataIndex: "Issues",
-      key: "Issues",
+      key: "Key",
       render: (issues: any) => (issues != null ? issues.length : 0)
     },
     {
       title: "Status",
-      key: "State",
+      key: "Key",
       render: (record: any) =>
         record.Issues !== null && record.Issues.length > 0 ? record.Issues[0].Description : record.State
     },
     {
       title: "Action",
-      key: "action",
+      key: "Key",
       render: (record: any) => (
         <Space size="middle">
           {record.StateID === PROCESSED_REQUEST_STATE_ID && record.TaskType === REQUEST_TASK_TYPE_NAME.ORDER && (

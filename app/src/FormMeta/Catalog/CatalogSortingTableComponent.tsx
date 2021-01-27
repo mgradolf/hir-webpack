@@ -86,7 +86,7 @@ const SortingTableComponent = (props: ISortingTableComponent) => {
                     setLoading(true)
                     props
                       .removeFunc({
-                        CatalogId: props.CatalogID,
+                        CatalogID: props.CatalogID,
                         [props.propKey]: record[props.propKey]
                       })
                       .then((x) => {

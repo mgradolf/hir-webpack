@@ -16,7 +16,7 @@ export default function TagsPage() {
       meta={meta}
       hideSearchField={false}
       tableProps={{
-        ...getTagsTableColumns(true)
+        ...getTagsTableColumns(true, "")
       }}
     ></SearchPage>
   )
