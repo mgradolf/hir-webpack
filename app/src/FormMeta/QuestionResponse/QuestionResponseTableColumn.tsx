@@ -12,6 +12,11 @@ export const getQuestionResponseTableColumns = (isModal = false): ITableConfigPr
       render: (text: any, record: any) => renderLink(`/person/student/${record.StudentID}`, text, isModal)
     },
     {
+      title: "Section",
+      dataIndex: "Sections",
+      render: (text: any, record: any) => renderLink(`/section/${record.SectionID}`, text, isModal)
+    },
+    {
       title: "Question",
       dataIndex: "Question",
       render: (text, record) => renderLink(`/question/${record.PreferenceDefID}`, text, isModal)
