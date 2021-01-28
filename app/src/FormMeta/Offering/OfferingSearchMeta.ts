@@ -6,8 +6,8 @@ import {
   getSectionTypes,
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/SearchForm/common"
-import { SearchInstructorLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchInstructorLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { SearchInstructorLookupButton } from "~/Component/Common/Form/SearchLookups/SearchInstructorLookup"
 
 export const OfferingSearchMeta: IField[] = [
   {

@@ -1,9 +1,9 @@
 import { getCatalogTypes } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchProgramLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
+import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
+import { SearchProgramLookupButton } from "~/Component/Common/Form/SearchLookups/SearchProgramLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
 
 export const CatalogSearchMeta: IField[] = [
   {

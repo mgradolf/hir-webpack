@@ -1,10 +1,10 @@
 import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/SearchForm/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
-import { SearchDiscountProgramLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchDiscountProgramLookup"
-import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
+import { SearchDiscountProgramLookup } from "~/Component/Common/Form/SearchLookups/SearchDiscountProgramLookup"
+import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
 
 export const OrderCreditsSearchMeta: IField[] = [
   {

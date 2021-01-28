@@ -1,5 +1,5 @@
-import { CUSTOM_FIELD, IField } from "~/Component/Common/SearchForm/common"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchProgramLookup"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { SearchProgramLookupButton } from "~/Component/Common/Form/SearchLookups/SearchProgramLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [

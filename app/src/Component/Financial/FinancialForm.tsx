@@ -17,7 +17,7 @@ import {
   REFRESH_RESOURCE_OFFERINGS_TAB
 } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { FINANCIAL_BASIS_TYPE_PER_UNIT_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
 
 interface ICreateFormProps {

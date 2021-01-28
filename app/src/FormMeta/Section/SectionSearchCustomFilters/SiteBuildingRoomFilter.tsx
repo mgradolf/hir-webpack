@@ -4,8 +4,8 @@ import {
   findPossibleRooms,
   findPossibleSites
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import { DROPDOWN, IGeneratedField } from "~/Component/Common/SearchForm/common"
-import { DropDownInputType } from "~/Component/Common/SearchForm/SearchDropDown"
+import { DROPDOWN, IGeneratedField } from "~/Component/Common/Form/common"
+import { DropDownInputType } from "~/Component/Common/Form/SearchDropDown"
 
 export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
   const [sites, setSites] = useState<any[]>([])

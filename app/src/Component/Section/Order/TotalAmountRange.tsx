@@ -1,6 +1,6 @@
 import { Col, Form, Input, Row } from "antd"
 import React from "react"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
 
 export default function TotalAmountRange(props: IGeneratedField) {
   return (

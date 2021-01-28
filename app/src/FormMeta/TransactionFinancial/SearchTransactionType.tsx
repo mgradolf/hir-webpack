@@ -1,7 +1,7 @@
 import { Col, Row, Select } from "antd"
 import React, { useEffect, useState } from "react"
 import { getBaseTransactionTypes, getTransactionTypes } from "~/ApiServices/Service/TransactionService"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
 
 export function SearchTransactionType(props: IGeneratedField) {
   const [countries, setCountries] = useState<any[]>([])

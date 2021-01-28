@@ -5,16 +5,16 @@ import {
   getPaymentTypes,
   getSourceModule
 } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/SearchForm/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchComponentSelector"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
-import { SearchInputType } from "~/Component/Common/SearchForm/SearchInput"
+import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
+import { SearchLookupSelector } from "~/Component/Common/Form/SearchSelectors/SearchComponentSelector"
+import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
+import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
+import { SearchInputType } from "~/Component/Common/Form/SearchInput"
 
 export const PaymentSearchMeta: IField[] = [
   {

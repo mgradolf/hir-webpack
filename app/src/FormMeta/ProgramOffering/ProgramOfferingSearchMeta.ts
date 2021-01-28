@@ -1,6 +1,6 @@
 import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
 export const ProgramOfferingSearchMeta: IField[] = [
   {

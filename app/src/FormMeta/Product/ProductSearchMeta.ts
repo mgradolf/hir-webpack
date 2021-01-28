@@ -1,5 +1,5 @@
 import { getProductCategoryTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/SearchForm/common"
+import { DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 
 export const ProductSearchMeta: IField[] = [
   {

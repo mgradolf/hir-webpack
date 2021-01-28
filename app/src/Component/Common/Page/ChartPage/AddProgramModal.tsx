@@ -1,7 +1,7 @@
 import { Card, Col, Button } from "antd"
 import React, { useState, useCallback, useEffect } from "react"
 import Modal from "~/Component/Common/Modal"
-import ProgramSearchFilter from "~/Component/Common/SearchForm"
+import ProgramSearchFilter from "~/Component/Common/Form"
 import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
 import ProgramListTable from "~/Component/Program/ProgramListTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"

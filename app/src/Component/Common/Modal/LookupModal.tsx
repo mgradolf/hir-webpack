@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Card, Button } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
-import SearchFilters from "~/Component/Common/SearchForm"
+import SearchFilters from "~/Component/Common/Form"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IField } from "~/Component/Common/SearchForm/common"
+import { IField } from "~/Component/Common/Form/common"
 import zIndex from "~/utils/zIndex"
 
 interface ILookupModal {

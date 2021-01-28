@@ -5,10 +5,10 @@ import {
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { getTags } from "~/ApiServices/Service/TagService"
-import { CUSTOM_FIELD, DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
-import { SearchQuestionLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchQuestionsLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField } from "~/Component/Common/Form/common"
+import { SearchQuestionLookup } from "~/Component/Common/Form/SearchLookups/SearchQuestionsLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
 
 export const QuestionResponseSearchMeta: IField[] = [
   {

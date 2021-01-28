@@ -1,5 +1,5 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
+import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [

@@ -1,8 +1,8 @@
 import { Row, Typography } from "antd"
 import React, { useState } from "react"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import SearchFilters from "~/Component/Common/SearchForm"
-import { IField } from "~/Component/Common/SearchForm/common"
+import SearchFilters from "~/Component/Common/Form"
+import { IField } from "~/Component/Common/Form/common"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
 
 export interface IStandardReportPage {

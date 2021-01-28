@@ -1,4 +1,4 @@
-import { IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { IField, TEXT } from "~/Component/Common/Form/common"
 
 export const ResourceSearchMeta: IField[] = [
   {

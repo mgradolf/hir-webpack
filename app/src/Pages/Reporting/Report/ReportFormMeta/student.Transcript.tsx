@@ -1,5 +1,5 @@
 import { getTranscriptTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
+import { BOOLEAN, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 
 const meta: IField[] = [
   {

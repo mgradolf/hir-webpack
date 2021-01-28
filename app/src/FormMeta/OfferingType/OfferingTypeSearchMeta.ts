@@ -1,5 +1,5 @@
 import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
 export const OfferingTypeSearchMeta: IField[] = [
   {

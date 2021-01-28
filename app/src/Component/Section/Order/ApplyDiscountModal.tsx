@@ -4,10 +4,10 @@ import { Button, Card, Form, Input, Radio } from "antd"
 import { getAvailableDiscountByOrderItemID, grantDiscountProgram } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
-import DropDown from "~/Component/Common/Form/DropDown"
+import DropDown from "~/Component/Common/OldForm/OldDropDown"
 
 interface IApplyDiscountModal {
   OrderID: number

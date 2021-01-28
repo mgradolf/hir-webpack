@@ -1,6 +1,6 @@
 import React from "react"
 import { IDataTableProps } from "~/Component/Common/ResponsiveTable"
-import { IField } from "~/Component/Common/SearchForm/common"
+import { IField } from "~/Component/Common/Form/common"
 import SearchListWithHiddenSearchForm from "~/Component/Common/Page/SearchPage/SearchListWithHiddenSearchForm"
 import SearchListWithVisibleSearchForm from "~/Component/Common/Page/SearchPage/SearchListWithVisibleSearchForm"
 import { RouteComponentProps, useLocation } from "react-router-dom"

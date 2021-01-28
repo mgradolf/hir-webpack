@@ -9,7 +9,7 @@ import SectionDetailsCreationTime from "~/Component/Section/CreateEdit/SectionEd
 import SectionDetailsTerminationTime from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationTime"
 import SectionDetailsEnrollmentBillingDate from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsEnrollmentBillingDate"
 import { FormInstance } from "antd/lib/form"
-import { FormRoomLookupButton } from "~/Component/Common/Form/FormLookups/FormRoomLookup"
+import { FormRoomLookupButton } from "~/Component/Common/OldForm/OldFormLookups/FormRoomLookup"
 
 interface ISectionEditProps {
   Section: { [key: string]: string }

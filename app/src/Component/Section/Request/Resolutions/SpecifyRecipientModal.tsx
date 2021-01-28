@@ -14,7 +14,7 @@ import {
 } from "~/utils/Constants"
 import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
 import { useEffect } from "react"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
 import { validateRegistration } from "~/ApiServices/Service/RegistrationService"

@@ -4,9 +4,9 @@ import {
   getEthnicityTypes,
   getGenderTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
-import { SearchInputType } from "~/Component/Common/SearchForm/SearchInput"
-import { SearchLookupSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchComponentSelector"
+import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { SearchInputType } from "~/Component/Common/Form/SearchInput"
+import { SearchLookupSelector } from "~/Component/Common/Form/SearchSelectors/SearchComponentSelector"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
 export const PersonSearchMeta: IField[] = [

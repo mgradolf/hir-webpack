@@ -1,7 +1,7 @@
 import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import { IField } from "~/Component/Common/SearchForm/common"
+import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 

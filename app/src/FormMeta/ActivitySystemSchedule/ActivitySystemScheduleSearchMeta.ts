@@ -1,4 +1,4 @@
-import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
 export const ActivitySystemScheduleSearchMeta: IField[] = [
   {

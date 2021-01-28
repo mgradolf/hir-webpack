@@ -1,4 +1,4 @@
-import { BOOLEAN, DATE_PICKERS, IField, NUMBER } from "~/Component/Common/SearchForm/common"
+import { BOOLEAN, DATE_PICKERS, IField, NUMBER } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [

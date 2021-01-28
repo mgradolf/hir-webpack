@@ -1,6 +1,6 @@
 import React from "react"
-import QuestionSearchFilters from "~/Component/Common/SearchForm"
-import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import QuestionSearchFilters from "~/Component/Common/Form"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
 
 interface IQuestionSearch {

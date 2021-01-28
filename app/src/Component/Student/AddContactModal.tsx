@@ -6,7 +6,7 @@ import { showAddContactModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select, DatePicker, Switch, Divider } from "antd"
 import { ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE, DATE_FORMAT } from "~/utils/Constants"
 import { useEffect } from "react"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { saveAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import {

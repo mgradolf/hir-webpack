@@ -1,15 +1,15 @@
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { Form, Input, DatePicker, Select } from "antd"
-import FormError from "~/Component/Common/Form/FormError"
-import DropDown from "~/Component/Common/Form/DropDown"
+import FormError from "~/Component/Common/OldForm/FormError"
+import DropDown from "~/Component/Common/OldForm/OldDropDown"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
 import {
   getApplicableSectionCertificate,
   getApplicableProgramCertificate
 } from "~/ApiServices/BizApi/certificate/certificateIF"
-import { FormStudentLookupButton } from "~/Component/Common/Form/FormLookups/FormStudentLookup"
+import { FormStudentLookupButton } from "~/Component/Common/OldForm/OldFormLookups/FormStudentLookup"
 import "~/Sass/utils.scss"
 import { FormInstance } from "antd/lib/form"
 import { getCompletedProgram, getCompletedSection } from "~/ApiServices/BizApi/certificate/studentCertificateIF"

@@ -7,13 +7,13 @@ import {
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import "~/Sass/utils.scss"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { saveLocations } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
-import { FormRoomLookupButton } from "~/Component/Common/Form/FormLookups/FormRoomLookup"
+import { FormRoomLookupButton } from "~/Component/Common/OldForm/OldFormLookups/FormRoomLookup"
 
 const { Option } = Select
 

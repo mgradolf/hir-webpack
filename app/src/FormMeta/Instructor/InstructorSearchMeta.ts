@@ -5,8 +5,8 @@ import {
   getInstructorTypes,
   getOrganizations
 } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/SearchForm/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
+import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
 export const InstructorSearchMeta: IField[] = [

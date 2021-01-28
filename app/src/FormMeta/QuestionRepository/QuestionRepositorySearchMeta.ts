@@ -1,5 +1,5 @@
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
 export const QuestionRepositorySearchMeta: IField[] = [
   {

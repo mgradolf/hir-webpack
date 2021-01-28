@@ -1,6 +1,6 @@
 import React from "react"
 import StandardReportPage from "~/Component/Common/Page/ReportPage/StandardReportPage"
-import { DATE_PICKERS } from "~/Component/Common/SearchForm/common"
+import { DATE_PICKERS } from "~/Component/Common/Form/common"
 
 export default function PurchaseOrder() {
   return (

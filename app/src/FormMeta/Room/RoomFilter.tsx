@@ -2,7 +2,7 @@ import { Col, Select } from "antd"
 import React, { useState, useEffect } from "react"
 
 import { findPossibleBuildings, findPossibleSites } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
 const { Option } = Select
 
 export default function RoomFilter(props: IGeneratedField & { key: number }) {

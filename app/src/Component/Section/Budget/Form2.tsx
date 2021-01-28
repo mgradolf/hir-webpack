@@ -13,7 +13,7 @@ import {
 } from "~/ApiServices/Service/SectionService"
 import { eventBus } from "~/utils/EventBus"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import "~/Sass/global/index.scss"
 import {
   BUDGET_FINANCIAL_TYPE_INSTRUCTOR,

@@ -1,4 +1,4 @@
-import { IField } from "~/Component/Common/SearchForm/common"
+import { IField } from "~/Component/Common/Form/common"
 
 const meta: IField[] = []
 

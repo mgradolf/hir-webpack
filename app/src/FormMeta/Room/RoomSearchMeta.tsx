@@ -1,5 +1,5 @@
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER } from "~/Component/Common/SearchForm/common"
+import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 import RoomFilter from "~/FormMeta/Room/RoomFilter"
 
 export const RoomeSearchMeta: IField[] = [

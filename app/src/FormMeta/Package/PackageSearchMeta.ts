@@ -1,5 +1,5 @@
-import { CUSTOM_FIELD, DATE_PICKER, DATE_PICKERS, IField, TEXT } from "~/Component/Common/SearchForm/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
+import { CUSTOM_FIELD, DATE_PICKER, DATE_PICKERS, IField, TEXT } from "~/Component/Common/Form/common"
+import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
 
 export const PackageSearchMeta: IField[] = [
   {

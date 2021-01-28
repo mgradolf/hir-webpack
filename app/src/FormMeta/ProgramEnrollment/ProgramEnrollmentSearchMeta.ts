@@ -1,7 +1,7 @@
 import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getProgramEnrollmentStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
 
 export const ProgramEnrollmentSearchMeta: IField[] = [
   {

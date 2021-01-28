@@ -1,6 +1,6 @@
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
-import { IField, DATE_PICKERS, DROPDOWN, TEXT, CUSTOM_FIELD } from "~/Component/Common/SearchForm/common"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
+import { IField, DATE_PICKERS, DROPDOWN, TEXT, CUSTOM_FIELD } from "~/Component/Common/Form/common"
+import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
 
 export const MembershipSearchMeta: IField[] = [
   {

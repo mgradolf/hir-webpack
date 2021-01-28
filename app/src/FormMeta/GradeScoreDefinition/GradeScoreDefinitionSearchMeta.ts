@@ -1,4 +1,4 @@
-import { DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
+import { DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { getGradeScaleType } from "~/ApiServices/Service/RefLookupService"
 
 export const GradeScoreDefinitionSearchMeta: IField[] = [

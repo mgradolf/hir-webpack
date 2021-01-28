@@ -1,5 +1,5 @@
 import { getQuestionEvents } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
+import { DROPDOWN, IField } from "~/Component/Common/Form/common"
 
 export const QuestionTaggingSearchMeta: IField[] = [
   {

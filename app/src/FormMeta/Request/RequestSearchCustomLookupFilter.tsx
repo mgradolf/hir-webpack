@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { IGeneratedField } from "~/Component/Common/SearchForm/common"
+import { IGeneratedField } from "~/Component/Common/Form/common"
 import { Row, Input, Select, Button, Col, Form } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 import { REQUEST_LOOKUP_TYPES } from "~/utils/Constants"

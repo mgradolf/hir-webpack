@@ -1,7 +1,7 @@
 import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
-import SearchFilters from "~/Component/Common/SearchForm"
-import { IField } from "~/Component/Common/SearchForm/common"
+import SearchFilters from "~/Component/Common/Form"
+import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 

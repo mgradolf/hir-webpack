@@ -1,6 +1,6 @@
 import moment from "moment"
 import { analyzePaymentsByDate } from "~/ApiServices/BizApi/query/queryIf"
-import { DATE_PICKERS, IField } from "~/Component/Common/SearchForm/common"
+import { DATE_PICKERS, IField } from "~/Component/Common/Form/common"
 import { IChartConfig } from "~/Pages/Reporting/Chart/ChartMeta/IChartConfig"
 import { DATE_FORMAT } from "~/utils/Constants"
 

@@ -4,7 +4,7 @@ import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { saveSectionNotification } from "~/ApiServices/Service/SectionService"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 

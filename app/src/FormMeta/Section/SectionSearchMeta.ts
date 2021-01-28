@@ -1,9 +1,9 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-import { SearchRoomLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchRoomLookup"
+import { SearchRoomLookup } from "~/Component/Common/Form/SearchLookups/SearchRoomLookup"
 import { SiteBuildingRoomFilter } from "~/FormMeta/Section/SectionSearchCustomFilters/SiteBuildingRoomFilter"
 
 export const SectionSearchMeta: IField[] = [

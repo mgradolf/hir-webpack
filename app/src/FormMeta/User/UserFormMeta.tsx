@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { FormModal } from "~/Component/Common/Modal/FormModal"
 import { Button } from "antd"
-import { IField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/SearchForm/common"
+import { IField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/Form/common"
 import { findAllUserRoles, saveUser } from "~/ApiServices/Service/UserService"
 
 export const UserSearchMeta: IField[] = [

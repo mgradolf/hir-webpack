@@ -12,16 +12,16 @@ import {
   MULTI_SELECT_DROPDOWN,
   NUMBER,
   TEXT
-} from "~/Component/Common/SearchForm/common"
+} from "~/Component/Common/Form/common"
 import { Button, Card, Col, Form, Row } from "antd"
-import { SearchInputType } from "~/Component/Common/SearchForm/SearchInput"
-import { BooleanInputType } from "~/Component/Common/SearchForm/SearchBooleanInput"
-import { DropDownInputType } from "~/Component/Common/SearchForm/SearchDropDown"
-import { MultiSelectDropDownInputType } from "~/Component/Common/SearchForm/SearchMultiSelectDropDown"
-import { DatePickerInputType } from "~/Component/Common/SearchForm/SearchDatePicker"
-import { DatePickersInputType } from "~/Component/Common/SearchForm/SearchDatePickers"
+import { SearchInputType } from "~/Component/Common/Form/SearchInput"
+import { BooleanInputType } from "~/Component/Common/Form/SearchBooleanInput"
+import { DropDownInputType } from "~/Component/Common/Form/SearchDropDown"
+import { MultiSelectDropDownInputType } from "~/Component/Common/Form/SearchMultiSelectDropDown"
+import { DatePickerInputType } from "~/Component/Common/Form/SearchDatePicker"
+import { DatePickersInputType } from "~/Component/Common/Form/SearchDatePickers"
 import { eventBus } from "~/utils/EventBus"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 export const FormModal = (props: {

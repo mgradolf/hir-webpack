@@ -6,7 +6,7 @@ import { saveMeetings, createMeetings } from "~/ApiServices/Service/SectionServi
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import moment from "moment"
 import { DATE_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 

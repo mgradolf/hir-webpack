@@ -1,7 +1,7 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { IField } from "~/Component/Common/SearchForm/common"
+import { IField } from "~/Component/Common/Form/common"
 import StandardChartPage from "~/Component/Common/Page/ChartPage/StandardChartPage"
 import { IChartConfig } from "~/Pages/Reporting/Chart/ChartMeta/IChartConfig"
 

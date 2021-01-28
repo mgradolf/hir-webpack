@@ -7,7 +7,7 @@ import { showCopySectionModal } from "~/Store/ModalState"
 import Modal from "~/Component/Common/Modal"
 import { Button, Card, Form } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import { copySection } from "~/ApiServices/Service/SectionService"
 import SectionCopyForm from "~/Component/Section/Copy/SectionCopyForm"
 

@@ -1,5 +1,5 @@
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/SearchForm/common"
+import { DROPDOWN, IField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/Form/common"
 
 export const TagsSearchMeta: IField[] = [
   {

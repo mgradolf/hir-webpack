@@ -9,7 +9,7 @@ import {
   getAvailableDiscountPrograms
 } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
-import FormError from "~/Component/Common/Form/FormError"
+import FormError from "~/Component/Common/OldForm/FormError"
 import "~/Sass/global/index.scss"
 import { FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID } from "~/utils/Constants"
 

@@ -1,7 +1,7 @@
 import { Select, Col, Input } from "antd"
 import React, { useEffect, useState } from "react"
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
 
 const { Option } = Select
 const fieldNames = {
