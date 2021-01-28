@@ -139,7 +139,8 @@ export default function RequestActionsTable(props: ITableWrapperProps) {
     PaymentTypeName: requestData.PaymentTypeName,
     PaymentTypeID: requestData.PaymentTypeID,
     PaymentAmount: requestData.TotalPaymentAmount,
-    PaymentGatewayAccountID: requestData.Allocation[0].PaymentGatewayAccountID
+    PaymentGatewayAccountID: requestData.Allocation.length > 0 ?
+      requestData.Allocation[0].PaymentGatewayAccountID : undefined
   }
 
   const columns: TableColumnType = [
@@ -182,7 +183,8 @@ export default function RequestActionsTable(props: ITableWrapperProps) {
             <Link to={`/section/${record.TaskData.SectionID}/registration`}>View Records</Link>
           )}
           {record.StateID === PROCESSED_REQUEST_STATE_ID &&
-            record.TaskType === REQUEST_TASK_TYPE_NAME.EXTERNAL_GATEWAY_PAYMENT && (
+            (record.TaskType === REQUEST_TASK_TYPE_NAME.EXTERNAL_GATEWAY_PAYMENT
+              || record.TaskType === REQUEST_TASK_TYPE_NAME.MISCELLANEOUS_PAYMENT ) && (
               <Link to={`/order/payments/${record.ProcessResult.PaymentID}`}>View Records</Link>
             )}
           {record.StateID === PROCESSED_REQUEST_STATE_ID &&

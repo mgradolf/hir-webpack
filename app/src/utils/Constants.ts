@@ -44,11 +44,16 @@ export const REQUEST_PROCESS_ACTION_NAME = {
   SPECIFY_RECIPIENT: "setTaskRecipient"
 }
 
+export const REQUEST_TYPE_NAME = {
+  ORDER_ONLY: "Order Only"
+}
+
 export const REQUEST_TASK_TYPE_NAME = {
   ORDER: "Order",
   REGISTRATION: "Registration",
   PURCHASE_ORDER: "PurchaseOrder",
-  EXTERNAL_GATEWAY_PAYMENT: "ExternalGatewayPayment"
+  EXTERNAL_GATEWAY_PAYMENT: "ExternalGatewayPayment",
+  MISCELLANEOUS_PAYMENT: "MiscellaneousPayment"
 }
 
 export const REGISTRATION_VERIFICATION = {
