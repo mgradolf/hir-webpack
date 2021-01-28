@@ -5,7 +5,7 @@ import {
   findPossibleSites
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import { DROPDOWN, IGeneratedField } from "~/Component/Common/Form/common"
-import { DropDownInputType } from "~/Component/Common/Form/SearchDropDown"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 
 export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
   const [sites, setSites] = useState<any[]>([])
@@ -41,7 +41,7 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
   return (
     <>
       {sites.length > 0 && (
-        <DropDownInputType
+        <FormDropDown
           label="Sites"
           inputType={DROPDOWN}
           options={sites}
@@ -56,7 +56,7 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
         />
       )}
       {buildings.length > 0 && (
-        <DropDownInputType
+        <FormDropDown
           label="Building"
           inputType={DROPDOWN}
           options={buildings}
@@ -71,7 +71,7 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
         />
       )}
       {rooms.length > 0 && (
-        <DropDownInputType
+        <FormDropDown
           label="Room"
           inputType={DROPDOWN}
           options={rooms}

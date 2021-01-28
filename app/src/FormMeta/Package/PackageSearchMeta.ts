@@ -1,12 +1,12 @@
 import { CUSTOM_FIELD, DATE_PICKER, DATE_PICKERS, IField, TEXT } from "~/Component/Common/Form/common"
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 
 export const PackageSearchMeta: IField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: AccountLookup
   },
   {
     label: "Start Date",

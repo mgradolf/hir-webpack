@@ -1,9 +1,9 @@
 import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
-import { SearchLookupSelector } from "~/Component/Common/Form/SearchSelectors/SearchComponentSelector"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
@@ -11,7 +11,7 @@ const meta: IField[] = [
     label: "",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchLookupSelector,
+    customFilterComponent: FormFieldSelector,
     rules: [{ required: true, message: "Offering or Section is Required" }],
     extraProps: {
       selectorKeys: [
@@ -20,14 +20,14 @@ const meta: IField[] = [
           fieldName: "OfferingID",
           valueField: "OfferingID",
           displayField: "OfferingCode",
-          component: SearchOfferingLookupButton
+          component: OfferingLookupButton
         },
         {
           label: "Section",
           fieldName: "SectionID",
           valueField: "SectionID",
           displayField: "SectionNumber",
-          component: SearchSectionLookupButton
+          component: SectionLookup
         }
       ]
     }
@@ -36,7 +36,7 @@ const meta: IField[] = [
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton,
+    customFilterComponent: StudentLookup,
     rules: [{ required: true, message: "Student is Required" }]
   },
   {

@@ -17,7 +17,7 @@ import {
   REFRESH_RESOURCE_OFFERINGS_TAB
 } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FINANCIAL_BASIS_TYPE_PER_UNIT_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
 
 interface ICreateFormProps {
@@ -111,7 +111,7 @@ export default function FinancialForm(props: ICreateFormProps) {
       actions={actions}
     >
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
           <Input aria-label="Financial ID" value={props.financialID ? props.financialID : undefined} />
         </Form.Item>

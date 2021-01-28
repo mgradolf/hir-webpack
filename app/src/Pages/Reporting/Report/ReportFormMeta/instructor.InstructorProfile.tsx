@@ -1,5 +1,5 @@
 import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
-import { SearchInstructorLookupButton } from "~/Component/Common/Form/SearchLookups/SearchInstructorLookup"
+import { InstructorLookupButton } from "~/Component/Common/Form/FormLookupFields/InstructorLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
@@ -8,7 +8,7 @@ const meta: IField[] = [
     rules: [{ required: true, message: "Faculty is Required" }],
     fieldName: "FacultyID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchInstructorLookupButton,
+    customFilterComponent: InstructorLookupButton,
     extraProps: {
       isArray: true
     }

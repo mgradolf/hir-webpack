@@ -1,21 +1,21 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getOrganizations, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
-import { SearchInstructorLookupButton } from "~/Component/Common/Form/SearchLookups/SearchInstructorLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
+import { InstructorLookupButton } from "~/Component/Common/Form/FormLookupFields/InstructorLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
 export const InstructorContractsSearchMeta: IField[] = [
   {
     label: "Faculty",
     fieldName: "FacultyID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchInstructorLookupButton
+    customFilterComponent: InstructorLookupButton
   },
   {
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Offering Name",

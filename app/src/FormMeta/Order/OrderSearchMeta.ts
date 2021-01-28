@@ -1,38 +1,38 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
-import { SearchLookupSelector } from "~/Component/Common/Form/SearchSelectors/SearchComponentSelector"
-import { SearchDateTypeSelector } from "~/Component/Common/Form/SearchSelectors/SearchDateTypelector"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
+import { FormDateTypelector } from "~/Component/Common/Form/FormFieldSelectors/FormDateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
 export const OrderSearchMeta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchLookupSelector,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Purchaser",
           fieldName: "BuyerName",
           valueField: "FormattedName",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Student",
           fieldName: "StudentName",
           valueField: "FormattedName",
-          component: SearchStudentLookupButton
+          component: StudentLookup
         },
         {
           label: "Billed To Name",
           fieldName: "BilledPersonName",
           valueField: "FormattedName",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         }
       ]
     }
@@ -46,7 +46,7 @@ export const OrderSearchMeta: IField[] = [
     label: "Date Type Select",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchDateTypeSelector,
+    customFilterComponent: FormDateTypelector,
     extraProps: {
       selectorKeys: [
         {
@@ -67,14 +67,14 @@ export const OrderSearchMeta: IField[] = [
     fieldName: "SectionID",
     valueField: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
     valueField: "AccountID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: AccountLookup
   },
   {
     label: "Total Amount",

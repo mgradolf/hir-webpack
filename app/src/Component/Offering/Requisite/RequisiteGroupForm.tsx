@@ -3,7 +3,7 @@ import { Card, Button, Input, Select, Radio } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingRequisiteGroupFieldNames } from "~/Component/Offering/Interfaces"
 import { getPolicyTypes } from "~/ApiServices/Service/RefLookupService"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { updateRequisiteOfferingGroup, createRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -77,7 +77,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
   return (
     <Card title="Prerequisite Group Setup" actions={actions}>
       <Form initialValues={props.initialFormValue} form={props.formInstance} className="modal-form">
-        <FormError
+        <OldFormError
           errorMessages={errorMessages}
           genericInstructions={
             <ul>
@@ -86,7 +86,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
               </li>
             </ul>
           }
-        ></FormError>
+        ></OldFormError>
         <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.OfferingID}>
           <Input aria-label="Offering ID" value={props.offeringID ? props.offeringID : undefined} />
         </Form.Item>

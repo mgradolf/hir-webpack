@@ -1,6 +1,6 @@
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 import { getSectionRosterStatusCode } from "~/ApiServices/Service/RefLookupService"
 
 export const EnrollmentSearchMeta: IField[] = [
@@ -8,13 +8,13 @@ export const EnrollmentSearchMeta: IField[] = [
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: StudentLookup
   },
   {
     label: "Enrollment Status",

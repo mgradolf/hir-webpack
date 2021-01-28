@@ -5,7 +5,7 @@ import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGrou
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import "~/Sass/utils.scss"
 
 interface ISeatGroupCreateFormProps {
@@ -78,7 +78,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   return (
     <Card title={props.seatgroupId ? `Edit seat group` : "Create new seat group"} actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.SeatGroupID}>
           <Input value={props.seatgroupId ? props.seatgroupId : undefined} />
         </Form.Item>

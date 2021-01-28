@@ -1,6 +1,6 @@
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 
 export const ActivityPaymentGatewaySearchMeta: IField[] = [
   {
@@ -18,7 +18,7 @@ export const ActivityPaymentGatewaySearchMeta: IField[] = [
     label: "Payer",
     fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: PersonLookup
   },
   {
     label: "Source",

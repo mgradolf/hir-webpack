@@ -9,7 +9,7 @@ import {
   getAvailableDiscountPrograms
 } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import "~/Sass/global/index.scss"
 import { FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID } from "~/utils/Constants"
 
@@ -108,7 +108,7 @@ export default function CreateDiscountProgram(props: IDiscountCreateFormProps) {
   return (
     <Card title={`Add Discount Program`} actions={actions}>
       <Form form={props.formInstance} style={{ height: "40vh", overflowY: "scroll", padding: "10px" }}>
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
 
         <Form.Item label="Discount Program" {...layout}>
           <Select aria-label="Select Discount Program" onChange={onChangeDiscount}>

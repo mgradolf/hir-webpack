@@ -1,7 +1,7 @@
 import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
@@ -9,13 +9,13 @@ const meta: IField[] = [
     label: "Account Owner",
     fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: PersonLookup
   },
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: AccountLookup
   },
   {
     label: "Select Date",

@@ -14,7 +14,7 @@ import {
 } from "~/utils/Constants"
 import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
 import { useEffect } from "react"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
 import { validateRegistration } from "~/ApiServices/Service/RegistrationService"
@@ -234,7 +234,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
           form={form}
           style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
         >
-          <FormError errorMessages={errorMessages} />
+          <OldFormError errorMessages={errorMessages} />
 
           <Divider orientation="left">Student Registration</Divider>
           <StudentFinderFormField

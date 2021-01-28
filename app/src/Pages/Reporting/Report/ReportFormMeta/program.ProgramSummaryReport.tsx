@@ -1,5 +1,5 @@
 import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
-import { SearchProgramLookupButton } from "~/Component/Common/Form/SearchLookups/SearchProgramLookup"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
@@ -8,7 +8,7 @@ const meta: IField[] = [
     fieldName: "ProgramID",
     rules: [{ required: true, message: "Program is Required" }],
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchProgramLookupButton
+    customFilterComponent: ProgramLookup
   }
 ]
 

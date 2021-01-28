@@ -1,5 +1,5 @@
 import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
@@ -14,7 +14,7 @@ const meta: IField[] = [
     label: "Account",
     fieldName: "AccountID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchAccountLookup,
+    customFilterComponent: AccountLookup,
     rules: [{ required: true, message: "Account is Required" }]
   },
   {

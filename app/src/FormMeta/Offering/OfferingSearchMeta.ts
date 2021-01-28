@@ -7,7 +7,7 @@ import {
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
-import { SearchInstructorLookupButton } from "~/Component/Common/Form/SearchLookups/SearchInstructorLookup"
+import { InstructorLookupButton } from "~/Component/Common/Form/FormLookupFields/InstructorLookup"
 
 export const OfferingSearchMeta: IField[] = [
   {
@@ -42,7 +42,7 @@ export const OfferingSearchMeta: IField[] = [
     label: "Instructor",
     fieldName: "FacultyID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchInstructorLookupButton
+    customFilterComponent: InstructorLookupButton
   },
   {
     label: "Coordinator",

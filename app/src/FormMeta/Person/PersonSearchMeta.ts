@@ -5,8 +5,8 @@ import {
   getGenderTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
-import { SearchInputType } from "~/Component/Common/Form/SearchInput"
-import { SearchLookupSelector } from "~/Component/Common/Form/SearchSelectors/SearchComponentSelector"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
 export const PersonSearchMeta: IField[] = [
@@ -14,26 +14,26 @@ export const PersonSearchMeta: IField[] = [
     label: "Name Selector",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchLookupSelector,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Last Name",
           fieldName: "LastName",
           valueField: "LastName",
-          component: SearchInputType
+          component: FormInput
         },
         {
           label: "Maiden Name",
           fieldName: "MaidenName",
           valueField: "MaidenName",
-          component: SearchInputType
+          component: FormInput
         },
         {
           label: "Other Name",
           fieldName: "OtherName",
           valueField: "OtherName",
-          component: SearchInputType
+          component: FormInput
         }
       ]
     }
@@ -48,20 +48,20 @@ export const PersonSearchMeta: IField[] = [
     label: "Contact Selector",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchLookupSelector,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Email",
           fieldName: "EmailAddress",
           valueField: "EmailAddress",
-          component: SearchInputType
+          component: FormInput
         },
         {
           label: "Telephone",
           fieldName: "TelephoneNumber",
           valueField: "TelephoneNumber",
-          component: SearchInputType
+          component: FormInput
         }
       ]
     }
@@ -70,26 +70,26 @@ export const PersonSearchMeta: IField[] = [
     label: "Address Selector",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchLookupSelector,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Address",
           fieldName: "AddressLine",
           valueField: "Address",
-          component: SearchInputType
+          component: FormInput
         },
         {
           label: "City",
           fieldName: "Locality",
           valueField: "Locality",
-          component: SearchInputType
+          component: FormInput
         },
         {
           label: "Postal Code",
           fieldName: "PostalCode",
           valueField: "PostalCode",
-          component: SearchInputType
+          component: FormInput
         }
       ]
     }

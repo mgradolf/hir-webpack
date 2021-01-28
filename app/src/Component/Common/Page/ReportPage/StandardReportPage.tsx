@@ -1,7 +1,7 @@
 import { Row, Typography } from "antd"
 import React, { useState } from "react"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import SearchFilters from "~/Component/Common/Form"
+import { CustomForm } from "~/Component/Common/Form"
 import { IField } from "~/Component/Common/Form/common"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
 
@@ -40,7 +40,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
-          <SearchFilters
+          <CustomForm
             meta={props.meta}
             initialFilter={props.initialFilter}
             defaultFilter={props.defaultFilter}

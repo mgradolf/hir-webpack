@@ -1,6 +1,6 @@
 import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
@@ -9,7 +9,7 @@ const meta: IField[] = [
     fieldName: "PersonID",
     rules: [{ required: true, message: "Person is Required" }],
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: PersonLookup
   },
   {
     label: "Order Date",

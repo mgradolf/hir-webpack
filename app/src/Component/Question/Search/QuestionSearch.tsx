@@ -1,5 +1,5 @@
 import React from "react"
-import QuestionSearchFilters from "~/Component/Common/Form"
+import { CustomForm } from "~/Component/Common/Form"
 import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
 
@@ -49,7 +49,7 @@ const QuestionSearchFiltersMeta: IField[] = [
 
 export default function QuestionSearch(props: IQuestionSearch) {
   return (
-    <QuestionSearchFilters
+    <CustomForm
       initialFilter={{}}
       hideFilters={() => {
         console.log("do nothing")

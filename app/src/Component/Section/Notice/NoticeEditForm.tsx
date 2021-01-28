@@ -4,7 +4,7 @@ import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { saveSectionNotification } from "~/ApiServices/Service/SectionService"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 
@@ -78,7 +78,7 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
   return (
     <Card title={`Edit Email Notification`} actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
           <Input aria-label="Section ID" />

@@ -6,9 +6,9 @@ import {
 } from "~/ApiServices/Service/RefLookupService"
 import { getTags } from "~/ApiServices/Service/TagService"
 import { CUSTOM_FIELD, DROPDOWN, IField } from "~/Component/Common/Form/common"
-import { SearchQuestionLookup } from "~/Component/Common/Form/SearchLookups/SearchQuestionsLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { QuestionsLookup } from "~/Component/Common/Form/FormLookupFields/QuestionsLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
 export const QuestionResponseSearchMeta: IField[] = [
   {
@@ -40,7 +40,7 @@ export const QuestionResponseSearchMeta: IField[] = [
     label: "Sections",
     fieldName: "SectionIDs",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }
@@ -49,7 +49,7 @@ export const QuestionResponseSearchMeta: IField[] = [
     label: "Students",
     fieldName: "StudentsIDs",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton,
+    customFilterComponent: StudentLookup,
     extraProps: {
       isArray: true
     }
@@ -58,7 +58,7 @@ export const QuestionResponseSearchMeta: IField[] = [
     label: "Questions",
     fieldName: "PreferenceDefIDs",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchQuestionLookup,
+    customFilterComponent: QuestionsLookup,
     extraProps: {
       isArray: true
     }

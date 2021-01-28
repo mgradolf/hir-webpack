@@ -1,19 +1,19 @@
 import { getMarketingCategory } from "~/ApiServices/Service/MarketingService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
-import { SearchMarketingCodeLookup } from "~/Component/Common/Form/SearchLookups/SearchMarketingCodeLookup"
-import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/Form/SearchLookups/SearchProgramLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/Form/SearchSelectors/SearchComponentSelector"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { MarketingCodeLookup } from "~/Component/Common/Form/FormLookupFields/MarketingCodeLookup"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 
 export const MarketingCodeResponseSearchMeta: IField[] = [
   {
     label: "Promotion Code",
     fieldName: "MarketingCodeID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchMarketingCodeLookup
+    customFilterComponent: MarketingCodeLookup
   },
   {
     label: "Category",
@@ -27,26 +27,26 @@ export const MarketingCodeResponseSearchMeta: IField[] = [
     label: "Lookup",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchLookupSelector,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Section",
           fieldName: "SectionId",
           valueField: "SectionID",
-          component: SearchSectionLookupButton
+          component: SectionLookup
         },
         {
           label: "Offering",
           fieldName: "OfferingID",
           valueField: "OfferingID",
-          component: SearchOfferingLookupButton
+          component: OfferingLookupButton
         },
         {
           label: "Program",
           fieldName: "ProgramID",
           valueField: "ProgramID",
-          component: SearchProgramLookupButton
+          component: ProgramLookup
         }
       ]
     }
@@ -65,13 +65,13 @@ export const MarketingCodeResponseSearchMeta: IField[] = [
     label: "Purchaser",
     fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: PersonLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
     valueField: "AccountID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: AccountLookup
   }
 ]

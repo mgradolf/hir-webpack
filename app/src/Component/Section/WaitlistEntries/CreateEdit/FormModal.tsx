@@ -2,17 +2,17 @@ import { Button, Card, DatePicker, Form, Input, Radio, Switch } from "antd"
 import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import DropDown from "~/Component/Common/OldForm/OldDropDown"
+import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { DATE_FORMAT, DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
-import { FormPersonLookupButton } from "~/Component/Common/OldForm/OldFormLookups/FormPersonLookup"
+import { OldFormPersonLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormPersonLookup"
 import { eventBus, REFRESH_SECTION_WAITLIST_ENTRIES_PAGE } from "~/utils/EventBus"
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
-import { FormSectionLookupButton } from "~/Component/Common/OldForm/OldFormLookups/FormSectionLookup"
+import { OldFormSectionLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormSectionLookup"
 import { getEntityById, getSectionById } from "~/ApiServices/Service/EntityService"
 
 interface IWaitlistEntryCreateEditFormModal {
@@ -117,7 +117,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
           ]}
         >
           <Form form={formInstance} className="modal-form">
-            <FormError
+            <OldFormError
               errorMessages={errorMessages}
               genericInstructions={
                 <ul>
@@ -126,9 +126,9 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
                   </li>
                 </ul>
               }
-            ></FormError>
+            ></OldFormError>
 
-            <FormSectionLookupButton
+            <OldFormSectionLookup
               formInstance={formInstance}
               onCloseModal={(items?: any[]) => {
                 if (Array.isArray(items) && items.length > 0) setSection(items[0])
@@ -144,7 +144,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
             />
 
             {Section && (
-              <DropDown
+              <OldDropDown
                 label="Seat Group"
                 fieldName={fieldNames.SeatGroupID}
                 searchFunc={() => getSeatGroups({ SectionID: Section.SectionID })}
@@ -152,7 +152,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
                 valueField="SeatGroupID"
                 labelColumn={{ span: 6 }}
                 disabled={!!props.WaitListEntry || !Section}
-              ></DropDown>
+              ></OldDropDown>
             )}
             <Form.Item label="Managed By" labelCol={{ span: 6 }}>
               <Radio.Group
@@ -167,7 +167,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
               </Radio.Group>
             </Form.Item>
             {showAdministrators && (
-              <DropDown
+              <OldDropDown
                 disabled={!!props.WaitListEntry}
                 label="Select Admin"
                 fieldName={fieldNames.AdministratedByUID}
@@ -175,7 +175,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
                 displayField="FormattedName"
                 valueField="UserID"
                 labelColumn={{ span: 6 }}
-              ></DropDown>
+              ></OldDropDown>
             )}
             <Form.Item className="hidden" name={fieldNames.RequesterPersonID}>
               <Input />
@@ -186,7 +186,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
             <Form.Item className="hidden" name={fieldNames.AccountID}>
               <Input />
             </Form.Item>
-            <FormPersonLookupButton
+            <OldFormPersonLookup
               formInstance={formInstance}
               onCloseModal={(persons?: Array<{ [key: string]: string }>) => {
                 if (persons && persons.length > 0) {
@@ -239,7 +239,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
               />
             </Form.Item>
             <Form.Item>
-              <DropDown
+              <OldDropDown
                 label="Select Priority"
                 fieldName={fieldNames.Priority}
                 searchFunc={() =>
@@ -264,7 +264,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
                 displayField="id"
                 valueField="id"
                 labelColumn={{ span: 6 }}
-              ></DropDown>
+              ></OldDropDown>
             </Form.Item>
             <Form.Item className="hidden" name={fieldNames.RequestExpirationTime}>
               <Input />
@@ -280,7 +280,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
             <Form.Item name={fieldNames.IsActive} label="Is Active" valuePropName="checked" labelCol={{ span: 6 }}>
               <Switch aria-label="Is Active" defaultChecked={formInstance.getFieldValue(fieldNames.IsActive)} />
             </Form.Item>
-            <DropDown
+            <OldDropDown
               label="Source"
               fieldName={fieldNames.SourceID}
               searchFunc={getSourceModule}
@@ -288,7 +288,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
               valueField="ID"
               labelColumn={{ span: 6 }}
               disabled={true}
-            ></DropDown>
+            ></OldDropDown>
           </Form>
         </Card>
       }

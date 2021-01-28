@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Form, Button, Input, Select, Switch, DatePicker, Spin, Card, Divider } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { DATE_TIME_FORMAT, QUESTION_EVENT_TYPE_REGISTRATION, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
 import { editRegistration } from "~/ApiServices/Service/RegistrationService"
@@ -154,7 +154,7 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
           style={{ height: "50vh", overflowY: "scroll", padding: "10px" }}
           initialValues={props.initialFormValue}
         >
-          <FormError errorMessages={errorMessages} />
+          <OldFormError errorMessages={errorMessages} />
 
           <Form.Item className="hidden" name={fieldNames.StudentID}>
             <Input aria-label="Student ID" />

@@ -1,28 +1,28 @@
 import { CUSTOM_FIELD, DATE_PICKERS, IField, NUMBER } from "~/Component/Common/Form/common"
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
-import { SearchPackageLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPackageLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { SearchPackageLookupButton } from "~/Component/Common/Form/FormLookupFields/PackageLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
 export const RegistrationSearchMeta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: StudentLookup
   },
   {
     label: "Purchaser",
     fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: PersonLookup
   },
   {
     label: "Order Date",
@@ -43,7 +43,7 @@ export const RegistrationSearchMeta: IField[] = [
     label: "Account",
     fieldName: "AccountID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: AccountLookup
   },
   {
     label: "Package",

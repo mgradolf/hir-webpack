@@ -6,10 +6,10 @@ import { findOrderLineWiseBalance } from "~/ApiServices/BizApi/order/orderIf"
 import { DATE_FORMAT } from "~/utils/Constants"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
-import DropDown from "~/Component/Common/OldForm/OldDropDown"
+import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 
 interface IIssueCreditModal {
   OrderID: number
@@ -65,8 +65,8 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
             <Form form={formInstance}>
-              <FormError errorMessages={errorMessages} />
-              <DropDown
+              <OldFormError errorMessages={errorMessages} />
+              <OldDropDown
                 searchFunc={findOrderLineWiseBalance}
                 searchParams={[{ OrderID: props.OrderID }]}
                 label="Associated With"

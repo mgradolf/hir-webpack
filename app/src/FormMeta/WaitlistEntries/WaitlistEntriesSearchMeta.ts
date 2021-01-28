@@ -1,6 +1,6 @@
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import WaitlistSearchCustomLookupFilter from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
 
 export const WaitlistEntriesSearchMeta: IField[] = [
@@ -8,13 +8,13 @@ export const WaitlistEntriesSearchMeta: IField[] = [
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Offering",
     fieldName: "OfferingID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchOfferingLookupButton
+    customFilterComponent: OfferingLookupButton
   },
   {
     label: "Creation Date",

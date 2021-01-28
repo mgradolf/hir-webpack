@@ -7,7 +7,7 @@ import {
   getOfferngApprovalStateList,
   setApprovalStatus
 } from "~/ApiServices/Service/OfferingService"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
@@ -77,7 +77,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
   return (
     <Card title="Offering Approval" actions={actions}>
       <Form form={props.formInstance} className="modal-form">
-        <FormError
+        <OldFormError
           errorMessages={errorMessages}
           genericInstructions={
             <ul>
@@ -86,7 +86,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
               </li>
             </ul>
           }
-        ></FormError>
+        ></OldFormError>
         <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.OfferingID}>
           <Input value={props.offeringID ? props.offeringID : undefined} aria-label="Offering ID" />
         </Form.Item>

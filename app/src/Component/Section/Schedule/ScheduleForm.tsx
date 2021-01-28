@@ -6,7 +6,7 @@ import { saveMeetings, createMeetings } from "~/ApiServices/Service/SectionServi
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import moment from "moment"
 import { DATE_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 
@@ -106,7 +106,7 @@ export default function ScheduleForm(props: IScheduleCreateFormProps) {
   return (
     <Card title={props.scheduleIds ? `Update meeting` : "Create new meeting"} actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds ? props.scheduleIds : undefined} />
         </Form.Item>

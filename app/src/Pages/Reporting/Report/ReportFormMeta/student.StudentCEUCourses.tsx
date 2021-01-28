@@ -1,7 +1,7 @@
 import { getTranscriptTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
@@ -10,7 +10,7 @@ const meta: IField[] = [
     fieldName: "StudentID",
     rules: [{ required: true, message: "Student is Required" }],
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: StudentLookup
   },
   {
     label: "Status Date",

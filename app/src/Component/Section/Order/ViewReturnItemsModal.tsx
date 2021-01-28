@@ -5,7 +5,7 @@ import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { applyReturnItem, getCreditMemoDataByOrderItemID } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
 
@@ -73,7 +73,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
             <Form form={formInstance} initialValues={{ [fieldNames.ReturnQuantity]: 1 }}>
-              <FormError errorMessages={errorMessages} />
+              <OldFormError errorMessages={errorMessages} />
               <Form.Item name={fieldNames.ReturnQuantity} label="Return Quantity" labelCol={{ span: 6 }}>
                 <Input type="number" />
               </Form.Item>

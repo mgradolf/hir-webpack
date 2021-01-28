@@ -12,12 +12,12 @@ import {
   IField,
   CUSTOM_FIELD
 } from "~/Component/Common/Form/common"
-import { SearchInputType } from "~/Component/Common/Form/SearchInput"
-import { DropDownInputType } from "~/Component/Common/Form/SearchDropDown"
-import { MultiSelectDropDownInputType } from "~/Component/Common/Form/SearchMultiSelectDropDown"
-import { DatePickerInputType } from "~/Component/Common/Form/SearchDatePicker"
-import { DatePickersInputType } from "~/Component/Common/Form/SearchDatePickers"
-import { BooleanInputType } from "~/Component/Common/Form/SearchBooleanInput"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormMultiSelectDropDown } from "~/Component/Common/Form/FormMultiSelectDropDown"
+import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
+import { FormDatePickers } from "~/Component/Common/Form/FormDatePickers"
+import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
@@ -33,7 +33,7 @@ interface IFilterColumnProps {
   clearButtonLabel?: string
 }
 
-export default function ({
+export function CustomForm({
   showClearbutton = true,
   applyButtonLabel = "Search",
   clearButtonLabel = "Clear",
@@ -215,31 +215,31 @@ const SearchFormFields = (props: {
             case NUMBER:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                  <SearchInputType {...field} key={i} formInstance={props.formInstance} />
+                  <FormInput {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case BOOLEAN:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                  <BooleanInputType {...field} key={i} formInstance={props.formInstance} />
+                  <FormCheckbox {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case DROPDOWN:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                  <DropDownInputType {...field} key={i} formInstance={props.formInstance} />
+                  <FormDropDown {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case MULTI_SELECT_DROPDOWN:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                  <MultiSelectDropDownInputType {...field} key={i} formInstance={props.formInstance} />
+                  <FormMultiSelectDropDown {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case DATE_PICKER:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                  <DatePickerInputType
+                  <FormDatePicker
                     {...field}
                     key={i}
                     formInstance={props.formInstance}
@@ -250,7 +250,7 @@ const SearchFormFields = (props: {
             case DATE_PICKERS:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                  <DatePickersInputType
+                  <FormDatePickers
                     {...field}
                     key={i}
                     formInstance={props.formInstance}

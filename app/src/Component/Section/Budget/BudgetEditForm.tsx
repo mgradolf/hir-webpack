@@ -5,7 +5,7 @@ import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { saveFinancial } from "~/ApiServices/Service/SectionService"
 import { BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM, BUDGET_FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
@@ -97,7 +97,7 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
   return (
     <Card title={`Edit ${props.financialType} Financial`} actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
           <Input aria-label="Section ID" value={props.sectionId} />

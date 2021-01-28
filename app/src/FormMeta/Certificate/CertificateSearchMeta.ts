@@ -1,27 +1,27 @@
 import { CUSTOM_FIELD, DATE_PICKERS, IField } from "~/Component/Common/Form/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/Form/SearchLookups/SearchProgramLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
 export const CourseCertificateSearchMeta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: StudentLookup
   },
   {
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Offering",
     fieldName: "OfferingID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchOfferingLookupButton
+    customFilterComponent: OfferingLookupButton
   },
   {
     label: "Issue Date",
@@ -50,13 +50,13 @@ export const ProgramCertificateSearchMeta: IField[] = [
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton
+    customFilterComponent: StudentLookup
   },
   {
     label: "Program",
     fieldName: "ProgramID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchProgramLookupButton
+    customFilterComponent: ProgramLookup
   },
   {
     label: "Issue Date",

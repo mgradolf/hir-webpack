@@ -6,7 +6,7 @@ import {
   getOrganizations
 } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/Form/SearchLookups/SearchOfferingLookup"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
 export const InstructorSearchMeta: IField[] = [
@@ -119,7 +119,7 @@ export const InstructorSearchMeta: IField[] = [
     label: "Qualified to Teach Offering",
     fieldName: "CanTeachOfferingID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchOfferingLookupButton,
+    customFilterComponent: OfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
   },
@@ -127,7 +127,7 @@ export const InstructorSearchMeta: IField[] = [
     label: "Taught Offering",
     fieldName: "TaughtOfferingID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchOfferingLookupButton,
+    customFilterComponent: OfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
   },

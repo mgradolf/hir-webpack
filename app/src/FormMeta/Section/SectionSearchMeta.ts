@@ -3,7 +3,7 @@ import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/Re
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-import { SearchRoomLookup } from "~/Component/Common/Form/SearchLookups/SearchRoomLookup"
+import { RoomLookup } from "~/Component/Common/Form/FormLookupFields/RoomLookup"
 import { SiteBuildingRoomFilter } from "~/FormMeta/Section/SectionSearchCustomFilters/SiteBuildingRoomFilter"
 
 export const SectionSearchMeta: IField[] = [
@@ -71,7 +71,7 @@ export const SectionSearchMeta: IField[] = [
     label: "Room",
     fieldName: "RoomID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchRoomLookup
+    customFilterComponent: RoomLookup
   },
   {
     label: "Room",

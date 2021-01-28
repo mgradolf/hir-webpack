@@ -1,13 +1,13 @@
 import { CUSTOM_FIELD, DATE_PICKERS, IField, TEXT } from "~/Component/Common/Form/common"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
 export const AcademicActivitySearchMeta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }
@@ -16,7 +16,7 @@ export const AcademicActivitySearchMeta: IField[] = [
     label: "Student",
     fieldName: "StudentIDs",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton,
+    customFilterComponent: StudentLookup,
     extraProps: {
       isArray: true
     }

@@ -1,10 +1,10 @@
 import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
-import { SearchDiscountProgramLookup } from "~/Component/Common/Form/SearchLookups/SearchDiscountProgramLookup"
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { DiscountProgramLookup } from "~/Component/Common/Form/FormLookupFields/DiscountProgramLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 
 export const OrderCreditsSearchMeta: IField[] = [
   {
@@ -12,14 +12,14 @@ export const OrderCreditsSearchMeta: IField[] = [
     fieldName: "BuyerName",
     valueField: "FormattedName",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: PersonLookup
   },
   {
     label: "Section",
     fieldName: "SectionID",
     valueField: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Credit Status",
@@ -51,12 +51,12 @@ export const OrderCreditsSearchMeta: IField[] = [
     label: "Discount Program",
     fieldName: "DiscountProgramID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchDiscountProgramLookup
+    customFilterComponent: DiscountProgramLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchAccountLookup
+    customFilterComponent: AccountLookup
   }
 ]

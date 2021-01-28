@@ -1,10 +1,10 @@
 import { getRequestType, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getEnumValues } from "~/ApiServices/Service/RequestService"
 import { DROPDOWN, IField, DATE_PICKERS, TEXT, CUSTOM_FIELD } from "~/Component/Common/Form/common"
-import { SearchAccountLookup } from "~/Component/Common/Form/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/Form/SearchSelectors/SearchComponentSelector"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 
 export const RequestSearchMeta: IField[] = [
   {
@@ -19,32 +19,32 @@ export const RequestSearchMeta: IField[] = [
     label: "Account & Person Selector",
     fieldName: "",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchLookupSelector,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Account",
           fieldName: "AccountID",
           valueField: "AccountID",
-          component: SearchAccountLookup
+          component: AccountLookup
         },
         {
           label: "Purchaser",
           fieldName: "PurchaserPersonID",
           valueField: "PersonID",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Recipient",
           fieldName: "RecipientPersonID",
           valueField: "PersonID",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Any",
           fieldName: "PersonID",
           valueField: "PersonID",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         }
       ]
     }
@@ -53,7 +53,7 @@ export const RequestSearchMeta: IField[] = [
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton
+    customFilterComponent: SectionLookup
   },
   {
     label: "Request Date",

@@ -1,13 +1,13 @@
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
 import { IField, DATE_PICKERS, DROPDOWN, TEXT, CUSTOM_FIELD } from "~/Component/Common/Form/common"
-import { SearchPersonLookupButton } from "~/Component/Common/Form/SearchLookups/SearchPersonLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 
 export const MembershipSearchMeta: IField[] = [
   {
     label: "Person",
     fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchPersonLookupButton
+    customFilterComponent: PersonLookup
   },
   {
     label: "Email",

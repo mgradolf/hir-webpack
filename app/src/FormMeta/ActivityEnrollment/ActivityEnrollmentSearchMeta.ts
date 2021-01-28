@@ -1,14 +1,14 @@
 import { getSectionRosterStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
-import { SearchSectionLookupButton } from "~/Component/Common/Form/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/Form/SearchLookups/SearchStudentLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
 export const ActivityEnrollmentSearchMeta: IField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionIDs",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchSectionLookupButton,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }
@@ -22,7 +22,7 @@ export const ActivityEnrollmentSearchMeta: IField[] = [
     label: "Student Lookup",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchStudentLookupButton,
+    customFilterComponent: StudentLookup,
     extraProps: {
       isArray: true
     }

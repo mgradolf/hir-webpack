@@ -5,7 +5,7 @@ import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getSectionFinancials, saveSectionDiscount } from "~/ApiServices/Service/SectionService"
 import {
   FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID,
@@ -133,7 +133,7 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
   return (
     <Card title={`Edit Discount Program`} actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
           <Input aria-label="Section ID" value={props.sectionId} />

@@ -14,14 +14,14 @@ import {
   TEXT
 } from "~/Component/Common/Form/common"
 import { Button, Card, Col, Form, Row } from "antd"
-import { SearchInputType } from "~/Component/Common/Form/SearchInput"
-import { BooleanInputType } from "~/Component/Common/Form/SearchBooleanInput"
-import { DropDownInputType } from "~/Component/Common/Form/SearchDropDown"
-import { MultiSelectDropDownInputType } from "~/Component/Common/Form/SearchMultiSelectDropDown"
-import { DatePickerInputType } from "~/Component/Common/Form/SearchDatePicker"
-import { DatePickersInputType } from "~/Component/Common/Form/SearchDatePickers"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormMultiSelectDropDown } from "~/Component/Common/Form/FormMultiSelectDropDown"
+import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
+import { FormDatePickers } from "~/Component/Common/Form/FormDatePickers"
 import { eventBus } from "~/utils/EventBus"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 export const FormModal = (props: {
@@ -90,7 +90,7 @@ export const FormModal = (props: {
           initialValues={props.initialFilter}
           form={formInstance}
         >
-          <FormError errorMessages={error} />
+          <OldFormError errorMessages={error} />
           <Row>
             <>
               {props.meta.map((field, i) => {
@@ -99,47 +99,37 @@ export const FormModal = (props: {
                   case NUMBER:
                     return (
                       <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                        <SearchInputType {...field} key={i} formInstance={formInstance} />
+                        <FormInput {...field} key={i} formInstance={formInstance} />
                       </Col>
                     )
                   case BOOLEAN:
                     return (
                       <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                        <BooleanInputType {...field} key={i} formInstance={formInstance} />
+                        <FormCheckbox {...field} key={i} formInstance={formInstance} />
                       </Col>
                     )
                   case DROPDOWN:
                     return (
                       <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                        <DropDownInputType {...field} key={i} formInstance={formInstance} />
+                        <FormDropDown {...field} key={i} formInstance={formInstance} />
                       </Col>
                     )
                   case MULTI_SELECT_DROPDOWN:
                     return (
                       <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                        <MultiSelectDropDownInputType {...field} key={i} formInstance={formInstance} />
+                        <FormMultiSelectDropDown {...field} key={i} formInstance={formInstance} />
                       </Col>
                     )
                   case DATE_PICKER:
                     return (
                       <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                        <DatePickerInputType
-                          {...field}
-                          key={i}
-                          formInstance={formInstance}
-                          clearTrigger={clearTrigger}
-                        />
+                        <FormDatePicker {...field} key={i} formInstance={formInstance} clearTrigger={clearTrigger} />
                       </Col>
                     )
                   case DATE_PICKERS:
                     return (
                       <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                        <DatePickersInputType
-                          {...field}
-                          key={i}
-                          formInstance={formInstance}
-                          clearTrigger={clearTrigger}
-                        />
+                        <FormDatePickers {...field} key={i} formInstance={formInstance} clearTrigger={clearTrigger} />
                       </Col>
                     )
                   case CUSTOM_FIELD:

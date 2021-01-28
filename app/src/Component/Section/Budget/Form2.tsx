@@ -13,7 +13,7 @@ import {
 } from "~/ApiServices/Service/SectionService"
 import { eventBus } from "~/utils/EventBus"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import "~/Sass/global/index.scss"
 import {
   BUDGET_FINANCIAL_TYPE_INSTRUCTOR,
@@ -202,7 +202,7 @@ export default function CreateForm2(props: IBudgetCreateForm2Props) {
   return (
     <Card title={`Create new ${props.budgetType} Financial`} actions={actions}>
       <Form form={props.formInstance} style={{ height: "40vh", overflowY: "scroll", padding: "10px" }}>
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
           <Input aria-label="Section ID" />
         </Form.Item>

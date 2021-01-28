@@ -7,13 +7,13 @@ import {
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import "~/Sass/utils.scss"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/OldForm/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { saveLocations } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
-import { FormRoomLookupButton } from "~/Component/Common/OldForm/OldFormLookups/FormRoomLookup"
+import { OldFormRoomLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormRoomLookup"
 
 const { Option } = Select
 
@@ -133,7 +133,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
         onValuesChange={onValuesChange}
         className="modal-form"
       >
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds} />
         </Form.Item>
@@ -169,7 +169,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
           </Form.Item>
         )}
         <Divider orientation="left">Search room via room finder</Divider>
-        <FormRoomLookupButton
+        <OldFormRoomLookup
           formInstance={props.formInstance}
           // onSelectRoom={(room) => {
           //   setSelectedSiteID(room.SiteID)
