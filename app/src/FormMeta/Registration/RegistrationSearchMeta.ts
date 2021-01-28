@@ -22,7 +22,7 @@ export const RegistrationSearchMeta: IFilterField[] = [
     customFilterComponent: SearchPersonLookupButton
   },
   {
-    label: "Start Date",
+    label: "Order Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
     fieldName: "StartDateFrom",
@@ -45,15 +45,18 @@ export const RegistrationSearchMeta: IFilterField[] = [
     label: "Package",
     fieldName: "PackageID",
     customFilterComponent: SearchPackageLookupButton
-  },
-  {
-    label: "Create Date",
-    inputType: DATE_PICKERS,
-    displayKey: "From",
-    fieldName: "CreatedFromDate",
-    valueKey: "CreatedFromDate",
-    displayKey2: "To",
-    valueKey2: "CreatedToDate",
-    fieldName2: "CreatedToDate"
   }
+  // {
+  //   label: "Create Date",
+  //   inputType: DATE_PICKERS,
+  //   displayKey: "From",
+
+  //   fieldName: "CreatedFromDate",
+  //   valueKey: "CreatedFromDate",
+  //   ariaLabel: "Start Date From",
+  //   displayKey2: "To",
+  //   valueKey2: "CreatedToDate",
+  //   fieldName2: "CreatedToDate",
+  //   ariaLabel2: "Start Date To"
+  // }
 ]

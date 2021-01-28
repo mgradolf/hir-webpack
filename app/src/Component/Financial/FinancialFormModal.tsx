@@ -5,7 +5,7 @@ import FinancialForm from "~/Component/Financial/FinancialForm"
 import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
 import { IFinancialFieldNames } from "~/Component/Financial/Interfaces"
-import { FINANCIAL_TYPE_MARKETING_PROGRAM } from "~/utils/Constants"
+import { FINANCIAL_TYPE_FACULTY, FINANCIAL_TYPE_MARKETING_PROGRAM } from "~/utils/Constants"
 
 interface ICreateNewFinancialProps {
   financialID?: number
@@ -38,7 +38,7 @@ export default function CreateNewFinancial({
   financialType
 }: ICreateNewFinancialProps) {
   const initialParam: { [key: string]: any } = { ItemUnitAmount: 0, FinancialBasisTypeID: 1002 }
-  if (financialType === FINANCIAL_TYPE_MARKETING_PROGRAM) {
+  if (financialType === FINANCIAL_TYPE_MARKETING_PROGRAM || financialType === FINANCIAL_TYPE_FACULTY) {
     initialParam["IsCharge"] = false
   }
   const [formInstance] = Form.useForm()

@@ -18,6 +18,7 @@ import {
 } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import FormError from "~/Component/Common/Form/FormError"
+import { FINANCIAL_BASIS_TYPE_PER_UNIT_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
 
 interface ICreateFormProps {
   applyToID: number
@@ -53,6 +54,9 @@ export default function FinancialForm(props: ICreateFormProps) {
     ;(async () => {
       const response = await getFinancialBasisType()
       if (response && response.success && response.data) {
+        if (props.financialType === FINANCIAL_TYPE_FACULTY) {
+          response.data = response.data.filter((x: any) => x.ID === FINANCIAL_BASIS_TYPE_PER_UNIT_ID)
+        }
         setFinancialBasisTypes(response.data)
       }
     })()
@@ -197,7 +201,7 @@ export default function FinancialForm(props: ICreateFormProps) {
         </Form.Item>
 
         <Form.Item label="Type" {...layout} name={props.fieldNames.IsCharge}>
-          <Radio.Group aria-label="Type">
+          <Radio.Group aria-label="Type" disabled={props.initialFormValue.IsCharge !== undefined}>
             <Radio value={true}>Income</Radio>
             <Radio value={false}>Expense</Radio>
           </Radio.Group>

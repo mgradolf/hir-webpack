@@ -1,8 +1,10 @@
 import { getRequestType, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getEnumValues } from "~/ApiServices/Service/RequestService"
 import { DROPDOWN, IFilterField, DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
 import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import RequestSearchCustomLookupFilter from "~/FormMeta/Request/RequestSearchCustomLookupFilter"
+import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
 
 export const RequestSearchMeta: IFilterField[] = [
   {
@@ -14,9 +16,37 @@ export const RequestSearchMeta: IFilterField[] = [
     valueKey: "ID"
   },
   {
-    label: "Account & Person",
+    label: "Account & Person Selector",
     fieldName: "",
-    customFilterComponent: RequestSearchCustomLookupFilter
+    customFilterComponent: SearchLookupSelector,
+    extraProps: {
+      selectorKeys: [
+        {
+          label: "Account",
+          fieldName: "AccountID",
+          valueField: "AccountID",
+          component: SearchAccountLookup
+        },
+        {
+          label: "Purchaser",
+          fieldName: "PurchaserPersonID",
+          valueField: "PersonID",
+          component: SearchPersonLookupButton
+        },
+        {
+          label: "Recipient",
+          fieldName: "RecipientPersonID",
+          valueField: "PersonID",
+          component: SearchPersonLookupButton
+        },
+        {
+          label: "Any",
+          fieldName: "PersonID",
+          valueField: "PersonID",
+          component: SearchPersonLookupButton
+        }
+      ]
+    }
   },
   {
     label: "Section",

@@ -44,11 +44,16 @@ export const REQUEST_PROCESS_ACTION_NAME = {
   SPECIFY_RECIPIENT: "setTaskRecipient"
 }
 
+export const REQUEST_TYPE_NAME = {
+  ORDER_ONLY: "Order Only"
+}
+
 export const REQUEST_TASK_TYPE_NAME = {
   ORDER: "Order",
   REGISTRATION: "Registration",
   PURCHASE_ORDER: "PurchaseOrder",
-  EXTERNAL_GATEWAY_PAYMENT: "ExternalGatewayPayment"
+  EXTERNAL_GATEWAY_PAYMENT: "ExternalGatewayPayment",
+  MISCELLANEOUS_PAYMENT: "MiscellaneousPayment"
 }
 
 export const REGISTRATION_VERIFICATION = {
@@ -144,6 +149,8 @@ export const FINANCIAL_TYPE_RESOURCE = "Resource"
 export const FINANCIAL_TYPE_INSTRUCTOR = "Instructor"
 export const FINANCIAL_TYPE_FACULTY = "Faculty"
 export const FINANCIAL_TYPE_MARKETING_PROGRAM = "Marketing Program"
+
+export const FINANCIAL_BASIS_TYPE_PER_UNIT_ID = 1000
 
 export const DISCOUNT_APPLY_TO_ALL_TYPE_ID = 1
 export const DISCOUNT_MANUALLY_APPLIED_TO_ENROLLMENT_TYPE_ID = 2
