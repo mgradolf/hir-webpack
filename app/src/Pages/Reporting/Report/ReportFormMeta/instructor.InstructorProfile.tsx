@@ -7,8 +7,8 @@ const meta: IField[] = [
     label: "Faculty",
     rules: [{ required: true, message: "Faculty is Required" }],
     fieldName: "FacultyID",
-    customFilterComponent: SearchInstructorLookupButton,
     inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchInstructorLookupButton,
     extraProps: {
       isArray: true
     }

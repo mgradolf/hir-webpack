@@ -1,11 +1,12 @@
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
 
-export const ActivityAcademicSearchMeta: IFilterField[] = [
+export const ActivityAcademicSearchMeta: IField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton,
     extraProps: {
       isArray: true
@@ -29,6 +30,7 @@ export const ActivityAcademicSearchMeta: IFilterField[] = [
   {
     label: "Student Lookup",
     fieldName: "StudentIDs",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchStudentLookupButton,
     extraProps: {
       isArray: true

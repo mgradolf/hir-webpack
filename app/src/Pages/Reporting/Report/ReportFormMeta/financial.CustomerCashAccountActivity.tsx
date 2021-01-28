@@ -8,14 +8,14 @@ const meta: IField[] = [
   {
     label: "Account Owner",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
-    customFilterComponent: SearchAccountLookup,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchAccountLookup
   },
   {
     label: "Select Date",

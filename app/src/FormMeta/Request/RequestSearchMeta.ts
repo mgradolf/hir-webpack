@@ -1,12 +1,12 @@
 import { getRequestType, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getEnumValues } from "~/ApiServices/Service/RequestService"
-import { DROPDOWN, IFilterField, DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { DROPDOWN, IField, DATE_PICKERS, TEXT, CUSTOM_FIELD } from "~/Component/Common/SearchForm/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { SearchLookupSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchComponentSelector"
 
-export const RequestSearchMeta: IFilterField[] = [
+export const RequestSearchMeta: IField[] = [
   {
     label: "Request Status",
     inputType: DROPDOWN,
@@ -18,6 +18,7 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Account & Person Selector",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -51,6 +52,7 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton
   },
   {

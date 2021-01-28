@@ -1,7 +1,7 @@
-import { DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
 import { getGradeScaleType } from "~/ApiServices/Service/RefLookupService"
 
-export const GradeScoreDefinitionSearchMeta: IFilterField[] = [
+export const GradeScoreDefinitionSearchMeta: IField[] = [
   {
     label: "Grade Scale Type",
     inputType: DROPDOWN,

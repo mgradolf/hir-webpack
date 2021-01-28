@@ -1,12 +1,12 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-import { SearchRoomLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchRoomLookup"
+import { SearchRoomLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchRoomLookup"
 import { SiteBuildingRoomFilter } from "~/FormMeta/Section/SectionSearchCustomFilters/SiteBuildingRoomFilter"
 
-export const SectionSearchMeta: IFilterField[] = [
+export const SectionSearchMeta: IField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
@@ -70,11 +70,13 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Room",
     fieldName: "RoomID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchRoomLookup
   },
   {
     label: "Room",
     fieldName: "RoomID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SiteBuildingRoomFilter
   },
   {
@@ -94,6 +96,7 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Search Tag Hierarchy",
     fieldName: "searchTagHeirarchy",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: TagFilter
   },
   {

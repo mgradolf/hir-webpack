@@ -1,12 +1,8 @@
 import { Col, Form, Input, Row } from "antd"
 import React from "react"
-import {
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
 
-export default function TotalAmountRange(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export default function TotalAmountRange(props: IGeneratedField) {
   return (
     <>
       <Form.Item className="hidden" name={props.fieldName}>

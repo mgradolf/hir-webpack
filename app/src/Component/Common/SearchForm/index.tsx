@@ -162,13 +162,7 @@ export default function ({
 
   return (
     <Col className={`gutter-row ${styles.offeringFilter}`} xs={24} sm={24} md={24}>
-      <Form
-        // {...(props.isModalView && { style: { overflowY: "scroll", padding: "10px" } })}
-        layout="horizontal"
-        initialValues={props.initialFilter}
-        form={formInstance}
-        scrollToFirstError
-      >
+      <Form layout="horizontal" initialValues={props.initialFilter} form={formInstance} scrollToFirstError>
         <SearchFormFields
           meta={props.meta}
           formInstance={formInstance}

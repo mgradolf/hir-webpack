@@ -1,6 +1,6 @@
-import { IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const BuildingTypeSearchMeta: IFilterField[] = [
+export const BuildingTypeSearchMeta: IField[] = [
   {
     label: "Building Name",
     inputType: TEXT,

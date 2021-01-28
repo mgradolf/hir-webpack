@@ -1,23 +1,26 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, IField } from "~/Component/Common/SearchForm/common"
+import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { SearchProgramLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchProgramLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
 
-export const CourseCertificateSearchMeta: IFilterField[] = [
+export const CourseCertificateSearchMeta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Section",
     fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Offering",
     fieldName: "OfferingID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchOfferingLookupButton
   },
   {
@@ -42,15 +45,17 @@ export const CourseCertificateSearchMeta: IFilterField[] = [
   }
 ]
 
-export const ProgramCertificateSearchMeta: IFilterField[] = [
+export const ProgramCertificateSearchMeta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Program",
     fieldName: "ProgramID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchProgramLookupButton
   },
   {

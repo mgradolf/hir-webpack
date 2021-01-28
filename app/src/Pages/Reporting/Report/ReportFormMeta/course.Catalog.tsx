@@ -6,9 +6,9 @@ const meta: IField[] = [
   {
     label: "Catalog",
     fieldName: "CatalogID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchCatalogLookup,
-    rules: [{ required: true, message: "Catalog is Required" }],
-    inputType: CUSTOM_FIELD
+    rules: [{ required: true, message: "Catalog is Required" }]
   }
 ]
 

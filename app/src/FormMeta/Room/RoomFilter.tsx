@@ -2,14 +2,10 @@ import { Col, Select } from "antd"
 import React, { useState, useEffect } from "react"
 
 import { findPossibleBuildings, findPossibleSites } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import {
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
 const { Option } = Select
 
-export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFieldComponent> & { key: number }) {
+export default function RoomFilter(props: IGeneratedField & { key: number }) {
   const [sites, setSites] = useState<any[]>([])
   const [buildings, setBuildings] = useState<any[]>([])
 
@@ -24,7 +20,7 @@ export default function RoomFilter(props: IFilterGenericComponentProps<IFilterFi
     }
 
     loadSites()
-  }, [props.isCheckeble])
+  }, [])
 
   useEffect(() => {
     async function loadBuildings() {

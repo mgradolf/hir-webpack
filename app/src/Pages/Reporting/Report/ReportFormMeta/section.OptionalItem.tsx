@@ -11,8 +11,8 @@ const meta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
     inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
         {
@@ -33,8 +33,8 @@ const meta: IField[] = [
   {
     label: "Person",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Section Date",
@@ -45,8 +45,8 @@ const meta: IField[] = [
   {
     label: "Purchaser",
     fieldName: "ProductID",
-    customFilterComponent: SearchProducttLookup,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchProducttLookup
   }
 ]
 

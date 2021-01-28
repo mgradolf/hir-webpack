@@ -1,9 +1,9 @@
 import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getProgramApplicationStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
 
-export const ProgramApplicationSearchMeta: IFilterField[] = [
+export const ProgramApplicationSearchMeta: IField[] = [
   {
     label: "Program Code",
     inputType: TEXT,
@@ -35,6 +35,7 @@ export const ProgramApplicationSearchMeta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "studentID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchStudentLookupButton
   }
 ]

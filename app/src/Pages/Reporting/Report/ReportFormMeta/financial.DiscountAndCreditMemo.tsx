@@ -9,8 +9,8 @@ const meta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
     inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
         {
@@ -31,8 +31,8 @@ const meta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchStudentLookupButton
   }
 ]
 

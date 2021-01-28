@@ -1,10 +1,11 @@
-import { DATE_PICKER, DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { CUSTOM_FIELD, DATE_PICKER, DATE_PICKERS, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
 
-export const PackageSearchMeta: IFilterField[] = [
+export const PackageSearchMeta: IField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchAccountLookup
   },
   {

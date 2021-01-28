@@ -2,13 +2,9 @@ import { Col, Row, Select } from "antd"
 import React, { useEffect, useState } from "react"
 import { getRegions } from "~/ApiServices/Service/PersonService"
 import { getCountries } from "~/ApiServices/Service/RefLookupService"
-import {
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/SearchForm/common"
 
-export function SearchRegion(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export function SearchRegion(props: IGeneratedField) {
   const [countries, setCountries] = useState<any[]>([])
   const [regiondCodes, setRegiondCodes] = useState<any[]>([])
   const [selectedCountry, setSelectedCountry] = useState<any>()
@@ -37,7 +33,6 @@ export function SearchRegion(props: IFilterGenericComponentProps<IFilterFieldCom
             allowClear={true}
             loading={loading}
             aria-label="Country Code"
-            style={props.isCheckeble ? { width: 150 } : {}}
             onChange={(value: any) => setSelectedCountry(value)}
           >
             {countries &&
@@ -51,12 +46,7 @@ export function SearchRegion(props: IFilterGenericComponentProps<IFilterFieldCom
       </Col>
       <Col span={12}>
         <SearchComponentWrapper {...props}>
-          <Select
-            allowClear={true}
-            loading={loading}
-            aria-label="Region Code"
-            style={props.isCheckeble ? { width: 150 } : {}}
-          >
+          <Select allowClear={true} loading={loading} aria-label="Region Code">
             {regiondCodes &&
               regiondCodes.map(({ CountryCodeID, Description }, i) => (
                 <Select.Option value={CountryCodeID} key={`${CountryCodeID}_${i}`}>

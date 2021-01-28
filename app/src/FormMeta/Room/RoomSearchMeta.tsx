@@ -1,11 +1,12 @@
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER } from "~/Component/Common/SearchForm/common"
 import RoomFilter from "~/FormMeta/Room/RoomFilter"
 
-export const RoomeSearchMeta: IFilterField[] = [
+export const RoomeSearchMeta: IField[] = [
   {
     label: "Site",
     fieldName: "SiteID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: RoomFilter,
     extraProps: { hideRoomDropdown: true }
   },

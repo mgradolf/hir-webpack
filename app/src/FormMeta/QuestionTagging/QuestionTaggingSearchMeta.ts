@@ -1,7 +1,7 @@
 import { getQuestionEvents } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
 
-export const QuestionTaggingSearchMeta: IFilterField[] = [
+export const QuestionTaggingSearchMeta: IField[] = [
   {
     label: "Event",
     inputType: DROPDOWN,

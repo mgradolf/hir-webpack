@@ -5,11 +5,11 @@ import {
   getInstructorTypes,
   getOrganizations
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKER, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
+import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
-export const InstructorSearchMeta: IFilterField[] = [
+export const InstructorSearchMeta: IField[] = [
   {
     label: "Last Name",
     inputType: TEXT,
@@ -118,6 +118,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Qualified to Teach Offering",
     fieldName: "CanTeachOfferingID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchOfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
@@ -125,6 +126,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "Taught Offering",
     fieldName: "TaughtOfferingID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchOfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
@@ -145,6 +147,7 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "State/Province",
     fieldName: "RegionCodeID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchRegion
   },
   {

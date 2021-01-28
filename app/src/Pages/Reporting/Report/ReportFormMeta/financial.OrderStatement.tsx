@@ -16,8 +16,8 @@ const meta: IField[] = [
   {
     label: "Purchaser",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Source",
@@ -31,8 +31,8 @@ const meta: IField[] = [
     label: "Account",
     fieldName: "AffiliateOrganizationID",
     rules: [{ required: true, message: "Account is Required" }],
-    customFilterComponent: SearchAccountLookup,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchAccountLookup
   },
   {
     label: "Department",

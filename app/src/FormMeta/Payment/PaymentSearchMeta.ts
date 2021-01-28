@@ -5,21 +5,22 @@ import {
   getPaymentTypes,
   getSourceModule
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/SearchForm/common"
 
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
+import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
+import { SearchLookupSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchComponentSelector"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
+import { SearchInputType } from "~/Component/Common/SearchForm/SearchInput"
 
-export const PaymentSearchMeta: IFilterField[] = [
+export const PaymentSearchMeta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -51,6 +52,7 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Check/ Reference",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -83,27 +85,32 @@ export const PaymentSearchMeta: IFilterField[] = [
   {
     label: "Account Lookup",
     fieldName: "AccountID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchAccountLookup
   },
   {
     label: "Student",
     fieldName: "StudentID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Offering",
     fieldName: "OfferingID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchOfferingLookupButton
   },
   {
     label: "Section",
     fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Payment Amount",
     fieldName: "TotalAmountFrom",
     fieldName2: "TotalAmountTo",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: TotalAmountRange
   },
   {

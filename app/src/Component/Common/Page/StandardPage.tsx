@@ -1,14 +1,14 @@
 import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IField } from "~/Component/Common/SearchForm/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
 export interface IStandardPageProp {
   blocks?: JSX.Element[]
   title: string
-  meta?: IFilterField[]
+  meta?: IField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: any }
   defaultFilter?: { [key: string]: string }

@@ -1,8 +1,8 @@
 import { getBatchTypes } from "~/ApiServices/Service/BatchImportService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const BatchSearchMeta: IFilterField[] = [
+export const BatchSearchMeta: IField[] = [
   {
     label: "Type",
     inputType: DROPDOWN,

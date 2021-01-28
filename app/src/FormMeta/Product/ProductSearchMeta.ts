@@ -1,7 +1,7 @@
 import { getProductCategoryTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const ProductSearchMeta: IFilterField[] = [
+export const ProductSearchMeta: IField[] = [
   {
     label: "Product Category",
     inputType: DROPDOWN,

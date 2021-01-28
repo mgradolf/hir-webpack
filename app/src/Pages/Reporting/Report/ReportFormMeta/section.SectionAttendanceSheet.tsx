@@ -8,8 +8,8 @@ const meta: IField[] = [
     label: "Section",
     fieldName: "SectionID",
     rules: [{ required: true, message: "Section is Required" }],
-    customFilterComponent: SearchSectionLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Schedule Date",

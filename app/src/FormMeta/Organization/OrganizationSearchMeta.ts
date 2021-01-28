@@ -1,7 +1,7 @@
 import { getOrganizationTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const OrganizationSearchMeta: IFilterField[] = [
+export const OrganizationSearchMeta: IField[] = [
   {
     label: "Type",
     inputType: DROPDOWN,

@@ -7,8 +7,8 @@ const meta: IField[] = [
   {
     label: "Section Number",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Meeting Date",

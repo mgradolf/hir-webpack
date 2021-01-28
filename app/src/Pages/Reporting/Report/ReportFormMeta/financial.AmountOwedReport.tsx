@@ -10,8 +10,8 @@ const meta: IField[] = [
   {
     label: "",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
     inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchLookupSelector,
     rules: [{ required: true, message: "Offering or Section is Required" }],
     extraProps: {
       selectorKeys: [
@@ -35,8 +35,8 @@ const meta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton,
     inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchStudentLookupButton,
     rules: [{ required: true, message: "Student is Required" }]
   },
   {

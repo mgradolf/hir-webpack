@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Button, Form, Input, Row, Col } from "antd"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IField } from "~/Component/Common/SearchForm/common"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
@@ -17,7 +17,7 @@ export interface IFormLookupOpenButton {
   fieldName: string
   label: string
   columns: TableColumnType
-  meta: IFilterField[]
+  meta: IField[]
   isArray?: boolean
   zIndex?: boolean
   formInstance: FormInstance

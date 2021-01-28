@@ -1,11 +1,12 @@
 import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
 
-export const ActivityOrderSearchMeta: IFilterField[] = [
+export const ActivityOrderSearchMeta: IField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionIDs",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton,
     extraProps: {
       isArray: true

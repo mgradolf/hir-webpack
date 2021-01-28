@@ -1,24 +1,27 @@
-import { DATE_PICKERS, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPackageLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPackageLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, IField, NUMBER } from "~/Component/Common/SearchForm/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
+import { SearchPackageLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPackageLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
 
-export const RegistrationSearchMeta: IFilterField[] = [
+export const RegistrationSearchMeta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Student",
     fieldName: "StudentID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchStudentLookupButton
   },
   {
     label: "Purchaser",
     fieldName: "PersonID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchPersonLookupButton
   },
   {
@@ -39,11 +42,13 @@ export const RegistrationSearchMeta: IFilterField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchAccountLookup
   },
   {
     label: "Package",
     fieldName: "PackageID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchPackageLookupButton
   }
   // {

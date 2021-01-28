@@ -1,8 +1,8 @@
 import { TableRowSelection } from "antd/lib/table/interface"
 import React, { useState } from "react"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import SearchFilter from "~/Component/Common/SearchFilters"
-import { NUMBER } from "~/Component/Common/SearchFilters/common"
+import SearchFilter from "~/Component/Common/SearchForm"
+import { NUMBER } from "~/Component/Common/SearchForm/common"
 import { Button } from "antd"
 import NoShowDeleteModal from "~/Component/Section/NoShowDeleteModal"
 import { getSectionNoShowTableColumns } from "~/FormMeta/SectionNoShow/NoShowTableColumns"
@@ -48,10 +48,6 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
             ariaLabel: "OrderID"
           }
         ]}
-        isCheckeble={false}
-        isModalView={true}
-        visible={true}
-        title="Search No Show Items"
         hideFilters={() => {
           console.log("meo")
         }}

@@ -4,15 +4,16 @@ import {
   getEthnicityTypes,
   getGenderTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKER, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchInputType } from "~/Component/Common/SearchForm/SearchInput"
+import { SearchLookupSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchComponentSelector"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
-export const PersonSearchMeta: IFilterField[] = [
+export const PersonSearchMeta: IField[] = [
   {
     label: "Name Selector",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -46,6 +47,7 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "Contact Selector",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -67,6 +69,7 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "Address Selector",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -134,6 +137,7 @@ export const PersonSearchMeta: IFilterField[] = [
   {
     label: "State/Province",
     fieldName: "RegionCodeID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchRegion
   },
   {

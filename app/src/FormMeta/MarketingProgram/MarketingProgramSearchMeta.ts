@@ -1,6 +1,6 @@
-import { IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const MarketingProgramSearchMeta: IFilterField[] = [
+export const MarketingProgramSearchMeta: IField[] = [
   {
     label: "Market Source",
     inputType: TEXT,

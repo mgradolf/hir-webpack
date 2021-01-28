@@ -1,13 +1,13 @@
 import React from "react"
-import QuestionSearchFilters from "~/Component/Common/SearchFilters"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import QuestionSearchFilters from "~/Component/Common/SearchForm"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
 
 interface IQuestionSearch {
   onFormSubmission: (Params: any) => void
 }
 
-const QuestionSearchFiltersMeta: IFilterField[] = [
+const QuestionSearchFiltersMeta: IField[] = [
   {
     label: "Name",
     inputType: TEXT,
@@ -51,14 +51,10 @@ export default function QuestionSearch(props: IQuestionSearch) {
   return (
     <QuestionSearchFilters
       initialFilter={{}}
-      visible={true}
-      isCheckeble={false}
-      isModalView
       hideFilters={() => {
         console.log("do nothing")
       }}
       meta={QuestionSearchFiltersMeta}
-      title="Instructor Filter"
       onApplyChanges={(newFilterValues, newFilterCount) => {
         props.onFormSubmission(newFilterValues)
       }}

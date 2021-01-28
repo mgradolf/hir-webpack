@@ -1,8 +1,8 @@
 import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const ProgramOfferingSearchMeta: IFilterField[] = [
+export const ProgramOfferingSearchMeta: IField[] = [
   {
     label: "Program Offering Code",
     inputType: TEXT,

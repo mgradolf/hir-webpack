@@ -1,18 +1,18 @@
 import { getMarketingCategory } from "~/ApiServices/Service/MarketingService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchMarketingCodeLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchMarketingCodeLookup"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
+import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
+import { SearchMarketingCodeLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchMarketingCodeLookup"
+import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
+import { SearchProgramLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchProgramLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { SearchLookupSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchComponentSelector"
 
-export const MarketingCodeResponseSearchMeta: IFilterField[] = [
+export const MarketingCodeResponseSearchMeta: IField[] = [
   {
     label: "Promotion Code",
-    inputType: DROPDOWN,
     fieldName: "MarketingCodeID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchMarketingCodeLookup
   },
   {
@@ -26,6 +26,7 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
   {
     label: "Lookup",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -63,12 +64,14 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
   {
     label: "Purchaser",
     fieldName: "PersonID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Account",
     fieldName: "AccountID",
     valueField: "AccountID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchAccountLookup
   }
 ]

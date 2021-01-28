@@ -1,7 +1,7 @@
 import { getOrganizations, getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const ProgramSearchMeta: IFilterField[] = [
+export const ProgramSearchMeta: IField[] = [
   {
     label: "Program Code",
     inputType: TEXT,

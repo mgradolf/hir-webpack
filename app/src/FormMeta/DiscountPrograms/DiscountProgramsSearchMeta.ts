@@ -1,7 +1,7 @@
 import { getDiscountTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const DiscountProgramsSearchMeta: IFilterField[] = [
+export const DiscountProgramsSearchMeta: IField[] = [
   {
     label: "Discount Program Type",
     inputType: DROPDOWN,

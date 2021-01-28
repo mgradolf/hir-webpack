@@ -1,22 +1,24 @@
 import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/SearchForm/common"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchDiscountProgramLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchDiscountProgramLookup"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
+import { SearchDiscountProgramLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchDiscountProgramLookup"
+import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
 
-export const OrderCreditsSearchMeta: IFilterField[] = [
+export const OrderCreditsSearchMeta: IField[] = [
   {
     label: "Purchaser",
     fieldName: "BuyerName",
     valueField: "FormattedName",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Section",
     fieldName: "SectionID",
     valueField: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton
   },
   {
@@ -42,16 +44,19 @@ export const OrderCreditsSearchMeta: IFilterField[] = [
     label: "Total Amount",
     fieldName: "FromAmount",
     fieldName2: "ToAmount",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: TotalAmountRange
   },
   {
     label: "Discount Program",
     fieldName: "DiscountProgramID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchDiscountProgramLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchAccountLookup
   }
 ]

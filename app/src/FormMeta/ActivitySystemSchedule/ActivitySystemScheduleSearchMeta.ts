@@ -1,6 +1,6 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const ActivitySystemScheduleSearchMeta: IFilterField[] = [
+export const ActivitySystemScheduleSearchMeta: IField[] = [
   {
     label: "Service Name",
     inputType: TEXT,

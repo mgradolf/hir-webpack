@@ -1,17 +1,18 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
-import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
+import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchLookupSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchComponentSelector"
+import { SearchDateTypeSelector } from "~/Component/Common/SearchForm/SearchSelectors/SearchDateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { SearchAccountLookup } from "~/Component/Common/SearchForm/SearchLookups/SearchAccountLookup"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
 
-export const OrderSearchMeta: IFilterField[] = [
+export const OrderSearchMeta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchLookupSelector,
     extraProps: {
       selectorKeys: [
@@ -44,6 +45,7 @@ export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Date Type Select",
     fieldName: "",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchDateTypeSelector,
     extraProps: {
       selectorKeys: [
@@ -64,18 +66,21 @@ export const OrderSearchMeta: IFilterField[] = [
     label: "Section",
     fieldName: "SectionID",
     valueField: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Account",
     fieldName: "AccountID",
     valueField: "AccountID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchAccountLookup
   },
   {
     label: "Total Amount",
     fieldName: "TotalAmountFrom",
     fieldName2: "TotalAmountTo",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: TotalAmountRange
   },
   {

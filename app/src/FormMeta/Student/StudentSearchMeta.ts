@@ -1,7 +1,7 @@
 import { getCountries } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const studentSearchMeta: IFilterFieldObject[] = [
+export const studentSearchMeta: IField[] = [
   {
     label: "Last Name",
     inputType: TEXT,

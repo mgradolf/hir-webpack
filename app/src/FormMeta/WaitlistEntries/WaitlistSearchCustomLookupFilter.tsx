@@ -1,9 +1,5 @@
 import React, { useState } from "react"
-import {
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { Row, Input, Select, Button, Col, Form } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 import { WAITLIST_ENTRIES_LOOKUP_TYPES } from "~/utils/Constants"
@@ -20,7 +16,7 @@ const fieldNames = {
   RequesterRecipientPersonID2: "RequesterRecipientPersonID2",
   AccountID: "AccountID"
 }
-export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export default function WaitlistSearchCustomLookupFilter(props: IGeneratedField) {
   const [selectedValueToDisplay, setSelectedValueToDisplay] = useState("")
   const [seletectLookupType, setSeletectLookupType] = useState(WAITLIST_ENTRIES_LOOKUP_TYPES.ACCOUNT)
   const [openPersonLookupModal, setOpenPersonLookupModal] = useState(false)
@@ -187,5 +183,5 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
       </Form.Item>
     </>
   )
-  return props.isCheckeble ? <SearchComponentWrapper {...props}>{toRender}</SearchComponentWrapper> : toRender
+  return toRender
 }

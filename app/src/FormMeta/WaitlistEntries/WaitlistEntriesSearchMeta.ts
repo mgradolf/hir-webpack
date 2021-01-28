@@ -1,17 +1,19 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
+import { SearchOfferingLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchOfferingLookup"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
 import WaitlistSearchCustomLookupFilter from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
 
-export const WaitlistEntriesSearchMeta: IFilterField[] = [
+export const WaitlistEntriesSearchMeta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton
   },
   {
     label: "Offering",
     fieldName: "OfferingID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchOfferingLookupButton
   },
   {
@@ -46,6 +48,7 @@ export const WaitlistEntriesSearchMeta: IFilterField[] = [
   {
     label: "Account/Person",
     fieldName: "SiteID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: WaitlistSearchCustomLookupFilter
   }
 ]

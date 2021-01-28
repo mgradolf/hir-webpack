@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField } from "~/Component/Common/SearchForm/common"
 import { Row, Input, Select, Button, Col, Form } from "antd"
 import { IDeviceView, useDeviceViews } from "~/Hooks/useDeviceViews"
 import { REQUEST_LOOKUP_TYPES } from "~/utils/Constants"
@@ -15,7 +15,7 @@ const fieldNames = {
   RecipientPersonID: "RecipientPersonID",
   PersonID: "PersonID"
 }
-export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export default function WaitlistSearchCustomLookupFilter(props: IGeneratedField) {
   const [selectedValueToDisplay, setSelectedValueToDisplay] = useState("")
   const [seletectLookupType, setSeletectLookupType] = useState(REQUEST_LOOKUP_TYPES.ACCOUNT)
   const [openPersonLookupModal, setOpenPersonLookupModal] = useState(false)
@@ -30,9 +30,7 @@ export default function WaitlistSearchCustomLookupFilter(props: IFilterGenericCo
     else if (seletectLookupType !== "") setOpenPersonLookupModal(true)
   }
 
-  return props.isCheckeble ? (
-    <Row></Row>
-  ) : (
+  return (
     <>
       <Form.Item className="hidden" name={fieldNames.AccountID}>
         <Input />

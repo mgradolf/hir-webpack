@@ -22,8 +22,8 @@ const meta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionIDs",
-    customFilterComponent: SearchSectionLookupButton,
     inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchSectionLookupButton,
     extraProps: {
       isArray: true
     }

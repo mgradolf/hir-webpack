@@ -13,7 +13,7 @@ export const NUMBER = "NUMBER"
 export const BOOLEAN = "BOOLEAN"
 export const CUSTOM_FIELD = "CUSTOM_FIELD"
 
-export type IFilterFieldType =
+export type IFieldType =
   | typeof TEXT
   | typeof DROPDOWN
   | typeof MULTI_SELECT_DROPDOWN
@@ -25,7 +25,7 @@ export type IFilterFieldType =
 
 export interface IField {
   label: string
-  inputType: IFilterFieldType
+  inputType: IFieldType
   hidden?: boolean
   placeholder?: string
   disabled?: boolean

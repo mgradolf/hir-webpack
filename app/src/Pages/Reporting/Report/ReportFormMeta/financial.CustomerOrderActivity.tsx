@@ -8,8 +8,8 @@ const meta: IField[] = [
     label: "Person",
     fieldName: "PersonID",
     rules: [{ required: true, message: "Person is Required" }],
-    customFilterComponent: SearchPersonLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchPersonLookupButton
   },
   {
     label: "Order Date",

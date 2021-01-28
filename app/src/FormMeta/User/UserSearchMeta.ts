@@ -1,9 +1,9 @@
 import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getOrganizationTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField } from "~/Component/Common/SearchForm/common"
+import { SearchPersonLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchPersonLookup"
 
-export const UserSearchMeta: IFilterField[] = [
+export const UserSearchMeta: IField[] = [
   {
     label: "Type",
     inputType: DROPDOWN,
@@ -23,6 +23,7 @@ export const UserSearchMeta: IFilterField[] = [
   {
     label: "Principal Contact",
     fieldName: "PersonID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchPersonLookupButton
   }
 ]

@@ -13,8 +13,8 @@ const meta: IField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup,
     inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchAccountLookup,
     rules: [{ required: true, message: "Account is Required" }]
   },
   {

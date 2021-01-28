@@ -1,6 +1,6 @@
 import moment from "moment"
 import { analyzeRegistrationActivityByDate } from "~/ApiServices/BizApi/query/queryIf"
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, IField } from "~/Component/Common/SearchForm/common"
 import { IChartConfig } from "~/Pages/Reporting/Chart/ChartMeta/IChartConfig"
 import { DATE_FORMAT } from "~/utils/Constants"
 
@@ -21,7 +21,7 @@ export const config: IChartConfig = {
 
 export const searchFunc = () => analyzeRegistrationActivityByDate
 export const title = "Analyze Registration Activity By Date"
-export const meta: IFilterField[] = [
+export const meta: IField[] = [
   {
     label: "Activity Date",
     inputType: DATE_PICKERS,

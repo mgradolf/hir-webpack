@@ -4,10 +4,10 @@ import {
   findPossibleRooms,
   findPossibleSites
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import { DROPDOWN, IFilterFieldComponent, IFilterGenericComponentProps } from "~/Component/Common/SearchFilters/common"
-import { DropDownInputType } from "~/Component/Common/SearchFilters/SearchDropDown"
+import { DROPDOWN, IGeneratedField } from "~/Component/Common/SearchForm/common"
+import { DropDownInputType } from "~/Component/Common/SearchForm/SearchDropDown"
 
-export const SiteBuildingRoomFilter = (props: IFilterGenericComponentProps<IFilterFieldComponent>) => {
+export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
   const [sites, setSites] = useState<any[]>([])
   const [buildings, setBuildings] = useState<any[]>([])
   const [rooms, setRooms] = useState<any[]>([])

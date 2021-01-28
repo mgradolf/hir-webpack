@@ -7,8 +7,8 @@ const meta: IField[] = [
     label: "Student",
     fieldName: "StudentID",
     rules: [{ required: true, message: "Student is Required" }],
-    customFilterComponent: SearchStudentLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchStudentLookupButton
   }
 ]
 

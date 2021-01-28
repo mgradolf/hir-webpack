@@ -1,7 +1,7 @@
 import { getAccountTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
 
-export const AccountSearchMeta: IFilterField[] = [
+export const AccountSearchMeta: IField[] = [
   {
     label: "Account Type",
     inputType: DROPDOWN,

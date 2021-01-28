@@ -7,8 +7,8 @@ const meta: IField[] = [
     label: "Selected Program",
     fieldName: "ProgramID",
     rules: [{ required: true, message: "Program is Required" }],
-    customFilterComponent: SearchProgramLookupButton,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchProgramLookupButton
   }
 ]
 

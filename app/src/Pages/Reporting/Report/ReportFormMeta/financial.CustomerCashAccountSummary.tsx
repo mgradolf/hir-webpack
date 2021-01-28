@@ -6,8 +6,8 @@ const meta: IField[] = [
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
-    customFilterComponent: SearchAccountLookup,
-    inputType: CUSTOM_FIELD
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchAccountLookup
   }
 ]
 

@@ -1,12 +1,13 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/SearchForm/common"
+import { SearchSectionLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchSectionLookup"
+import { SearchStudentLookupButton } from "~/Component/Common/SearchForm/SearchLookups/SearchStudentLookup"
 import { getSectionRosterStatusCode } from "~/ApiServices/Service/RefLookupService"
 
-export const EnrollmentsActivitySearchMeta: IFilterField[] = [
+export const EnrollmentsActivitySearchMeta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionIDs",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchSectionLookupButton,
     extraProps: {
       isArray: true
@@ -15,6 +16,7 @@ export const EnrollmentsActivitySearchMeta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchStudentLookupButton
   },
   {
