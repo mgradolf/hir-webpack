@@ -8,6 +8,7 @@ const meta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
+    rules: [{ required: true, message: "Student is Required" }],
     customFilterComponent: SearchStudentLookupButton,
     inputType: CUSTOM_FIELD
   },
@@ -20,6 +21,7 @@ const meta: IField[] = [
   {
     label: "Transcript Type",
     inputType: DROPDOWN,
+    rules: [{ required: true, message: "Transcript Type is Required" }],
     fieldName: "TranscriptTypeID",
     refLookupService: getTranscriptTypes,
     displayKey: "Name",

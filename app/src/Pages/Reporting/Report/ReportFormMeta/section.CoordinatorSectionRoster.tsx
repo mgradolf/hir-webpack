@@ -5,12 +5,14 @@ const meta: IField[] = [
   {
     label: "Coordinator Name",
     inputType: TEXT,
+    rules: [{ required: true, message: "Coordinator Name is Required" }],
     fieldName: "CoordinatorName"
   },
   {
     label: "Section Date",
     fieldName: "SectionAStartDate",
     fieldName2: "SectionEndDate",
+    rules: [{ required: true, message: "Section Date is Required" }],
     inputType: DATE_PICKERS
   }
 ]
