@@ -13,8 +13,8 @@ export function deleteSection(Params: { [key: string]: any }): Promise<IApiRespo
   return CourseIf[config.Actions.deleteSection]([Params])
 }
 
-export function searchSection(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return CourseIf[config.Actions.searchSection]([Params])
+export function searchSection(Params: { [key: string]: any }, headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return CourseIf[config.Actions.searchSection]([Params], headers)
 }
 
 export function findSectionNotice(Params: { [key: string]: any }): Promise<IApiResponse> {

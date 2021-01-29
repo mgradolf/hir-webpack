@@ -12,8 +12,11 @@ export function updateOffering(Params: { [key: string]: any }): Promise<IApiResp
   return OfferingService[config.Actions.updateOffering](Params)
 }
 
-export function searchOffering(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.searchOffering](Params)
+export function searchOffering(
+  Params: { [key: string]: any },
+  headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.searchOffering](Params, headers)
 }
 
 export function addOrRemoveOfferingToCatalog(OfferingID: number, CatalogIDs: Array<number>): Promise<IApiResponse> {

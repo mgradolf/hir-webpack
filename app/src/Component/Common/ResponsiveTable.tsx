@@ -56,7 +56,7 @@ export const sortByNumber = (a?: number, b?: number) => {
 export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   columns: TableColumnType
   searchParams?: any
-  searchFunc?: (Params: any) => Promise<IApiResponse>
+  searchFunc?: (Params: any, headers?: { [key: string]: any }) => Promise<IApiResponse>
   dataLoaded?: (Params: any) => void
   expandableColumnIndices?: number[]
   responsiveColumnIndices?: number[]
@@ -239,13 +239,20 @@ export function ResponsiveTable(props: IDataTableProps) {
   }
 
   const downloadData = (fileType: string) => {
-    const params = {
-      ...(searchParams ? searchParams : {}),
-      [fileType]: true
+    let header = {}
+    switch (fileType) {
+      case RESPONSE_TYPE.EXCEL:
+        header = { ResponseType: "application/vnd.ms-excel" }
+        break
+      case RESPONSE_TYPE.CSV:
+        header = { ResponseType: "text/csv" }
+        break
     }
+
     setDownloading(true)
+    console.log("header in responsive table ", header)
     searchFunc &&
-      searchFunc(params).then((x) => {
+      searchFunc(searchParams, header).then((x) => {
         setDownloading(false)
       })
   }

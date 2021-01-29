@@ -13,15 +13,16 @@ function callServiceApi(
   Service: string,
   Action: string,
   Params: any,
-  Module?: any
+  Module?: any,
+  Headers?: any
 ): Promise<IApiResponse> {
   const config: ApiConfig = {
     baseURL,
     url: endPoint,
     method: "POST",
     headers: {
-      // "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`
+      Authorization: `Bearer ${getToken()}`,
+      ...Headers
     },
     data: {
       Module,
@@ -30,15 +31,7 @@ function callServiceApi(
       Params
     }
   }
-
-  if (
-    Params[RESPONSE_TYPE.EXCEL] ||
-    (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.EXCEL]) ||
-    Params[RESPONSE_TYPE.CSV] ||
-    (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.CSV])
-  ) {
-    return download(config)
-  } else if (Params[RESPONSE_TYPE.PDF] || (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])) {
+  if (Params[RESPONSE_TYPE.PDF] || (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])) {
     return preview(config)
   }
 
@@ -55,14 +48,16 @@ export interface Iconfig {
 }
 
 export interface ApiMethod {
-  [key: string]: (Params: Dictionary) => Promise<IApiResponse>
+  [key: string]: (Params: Dictionary, Headers?: Dictionary) => Promise<IApiResponse>
 }
 
 export default (config: Iconfig) => {
   const Actions: ApiMethod = {}
   Object.keys(config.Actions).forEach((Action) => {
-    Actions[Action] = (Params: { [key: string]: any | Array<any> }): Promise<IApiResponse> =>
-      callServiceApi(config.EndPoint, config.Service, Action, Params, config.Module)
+    Actions[Action] = (
+      Params: { [key: string]: any | Array<any> },
+      Headers?: { [key: string]: any }
+    ): Promise<IApiResponse> => callServiceApi(config.EndPoint, config.Service, Action, Params, config.Module, Headers)
   })
   return Actions
 }
