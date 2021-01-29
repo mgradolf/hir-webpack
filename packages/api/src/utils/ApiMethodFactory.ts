@@ -1,14 +1,29 @@
-import callApi from "./CallApi"
 import { getToken } from "./TokenStore"
 import { ApiConfig, IApiResponse, RESPONSE_TYPE } from "./Interfaces"
-import { download, preview } from "./DownloadData"
+import { preview } from "./DownloadData"
+import axios, { AxiosRequestConfig } from "axios"
+import { handleResponse } from "./HandleResponse"
+import apiErroreEventBus from "./GlobalHttpErrorEventBus"
+
+type Dictionary = { [key: string]: any }
+
+export interface Iconfig {
+  EndPoint: string
+  Service: string
+  Module: string
+  Actions: Dictionary
+}
+
+export interface ApiMethod {
+  [key: string]: (Params: Dictionary, Headers?: Dictionary) => Promise<IApiResponse>
+}
 
 export const baseURL =
   process.env.NODE_ENV === "development"
     ? process.env.REACT_APP_API_ROOT
     : `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
 
-function callServiceApi(
+async function callServiceApi(
   endPoint: string,
   Service: string,
   Action: string,
@@ -31,24 +46,25 @@ function callServiceApi(
       Params
     }
   }
+
   if (Params[RESPONSE_TYPE.PDF] || (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])) {
     return preview(config)
   }
 
-  return callApi(config)
-}
+  const requestConfig: AxiosRequestConfig = <AxiosRequestConfig>config
+  requestConfig.withCredentials = true
+  requestConfig.responseType =
+    Headers &&
+    Headers.ResponseType &&
+    (Headers.ResponseType === "application/vnd.ms-excel" || Headers.ResponseType === "text/csv")
+      ? "blob"
+      : "json"
 
-type Dictionary = { [key: string]: any }
-
-export interface Iconfig {
-  EndPoint: string
-  Service: string
-  Module: string
-  Actions: Dictionary
-}
-
-export interface ApiMethod {
-  [key: string]: (Params: Dictionary, Headers?: Dictionary) => Promise<IApiResponse>
+  const response: IApiResponse = await handleResponse(axios.request(requestConfig))
+  if (!response.success && response.error) {
+    apiErroreEventBus.publish(response.error)
+  }
+  return response
 }
 
 export default (config: Iconfig) => {
