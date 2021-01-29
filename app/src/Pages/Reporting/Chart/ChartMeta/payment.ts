@@ -1,6 +1,6 @@
 import moment from "moment"
 import { analyzePaymentsByDate } from "~/ApiServices/BizApi/query/queryIf"
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, IField } from "~/Component/Common/Form/common"
 import { IChartConfig } from "~/Pages/Reporting/Chart/ChartMeta/IChartConfig"
 import { DATE_FORMAT } from "~/utils/Constants"
 
@@ -19,7 +19,7 @@ export const config: IChartConfig = {
   yField: "Payment Amount"
 }
 export const searchFunc = () => analyzePaymentsByDate
-export const meta: IFilterField[] = [
+export const meta: IField[] = [
   {
     label: "Payment Date",
     inputType: DATE_PICKERS,

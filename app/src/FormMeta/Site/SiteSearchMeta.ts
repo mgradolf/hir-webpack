@@ -1,7 +1,7 @@
 import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const SiteSearchMeta: IFilterField[] = [
+export const SiteSearchMeta: IField[] = [
   {
     label: "Name",
     inputType: TEXT,
@@ -16,7 +16,6 @@ export const SiteSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "OrganizationID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"

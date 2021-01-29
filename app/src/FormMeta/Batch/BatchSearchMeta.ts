@@ -1,10 +1,10 @@
 import { getBatchTypes } from "~/ApiServices/Service/BatchImportService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const BatchSearchMeta: IFilterField[] = [
+export const BatchSearchMeta: IField[] = [
   {
-    label: "Type*",
+    label: "Type",
     inputType: DROPDOWN,
     fieldName: "Type",
     refLookupService: () =>
@@ -15,14 +15,7 @@ export const BatchSearchMeta: IFilterField[] = [
     displayKey: "Name",
     valueKey: "FullName"
   },
-  // {
-  //   label: "Status",
-  //   inputType: DROPDOWN,
-  //   fieldName: "StatusID",
-  //   refLookupService: getBatchTypes,
-  //   displayKey: "FullName",
-  //   valueKey: "FullName"
-  // },
+
   {
     label: "Source",
     inputType: DROPDOWN,
@@ -34,9 +27,7 @@ export const BatchSearchMeta: IFilterField[] = [
   {
     label: "Account Name",
     inputType: TEXT,
-
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
+    fieldName: "AccountName"
   },
   {
     label: "Uploaded By",

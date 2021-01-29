@@ -1,27 +1,29 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Section",
           fieldName: "SectionID",
           valueField: "SectionID",
-          component: SearchSectionLookupButton
+          component: SectionLookup
         },
         {
           label: "Offering",
           fieldName: "OfferingID",
           valueField: "OfferingID",
-          component: SearchOfferingLookupButton
+          component: OfferingLookupButton
         }
       ]
     }

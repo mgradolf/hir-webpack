@@ -1,11 +1,13 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
+    rules: [{ required: true, message: "Date field is Required" }],
+
     inputType: DATE_PICKERS
   }
 ]

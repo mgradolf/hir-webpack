@@ -6,10 +6,6 @@ import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
 export const getSectionScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
-    // {
-    //   title: "Day",
-    //   dataIndex: "DayOfWeek"
-    // },
     {
       title: "Date",
       dataIndex: "MeetingDate",
@@ -58,10 +54,6 @@ export const getSectionScheduleTableColumns = (): ITableConfigProp => {
         </ul>
       )
     }
-    // {
-    //   title: "Notes",
-    //   dataIndex: "InformationSummary"
-    // }
   ]
 
   const responsiveColumnIndices: number[] = []

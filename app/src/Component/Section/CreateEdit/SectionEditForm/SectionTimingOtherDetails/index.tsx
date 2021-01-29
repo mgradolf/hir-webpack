@@ -9,7 +9,7 @@ import SectionDetailsCreationTime from "~/Component/Section/CreateEdit/SectionEd
 import SectionDetailsTerminationTime from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationTime"
 import SectionDetailsEnrollmentBillingDate from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsEnrollmentBillingDate"
 import { FormInstance } from "antd/lib/form"
-import { FormRoomLookupButton } from "~/Component/Common/Form/FormLookups/FormRoomLookup"
+import { OldFormRoomLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormRoomLookup"
 
 interface ISectionEditProps {
   Section: { [key: string]: string }
@@ -144,7 +144,7 @@ export default function SectionDetails(props: ISectionEditProps) {
             })}
         </Select>
       </Form.Item>
-      <FormRoomLookupButton formInstance={props.formInstance} />
+      <OldFormRoomLookup formInstance={props.formInstance} />
     </>
   )
 }

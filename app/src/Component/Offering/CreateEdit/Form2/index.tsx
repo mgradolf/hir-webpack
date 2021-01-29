@@ -9,7 +9,7 @@ import OfferingDefaultSection from "~/Component/Offering/CreateEdit/Form2/Offeri
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { updateOffering, createOffering } from "~/ApiServices/Service/OfferingService"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import "~/Sass/global/index.scss"
 import { redirect } from "~/Store/ConnectedRoute"
 
@@ -72,7 +72,7 @@ export default function CreateForm2(props: IOfferingCreateForm2Props) {
       actions={actions}
     >
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError
+        <OldFormError
           errorMessages={errorMessages}
           genericInstructions={
             <ul>

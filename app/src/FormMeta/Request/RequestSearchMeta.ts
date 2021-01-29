@@ -1,17 +1,16 @@
 import { getRequestType, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getEnumValues } from "~/ApiServices/Service/RequestService"
-import { DROPDOWN, IFilterField, DATE_PICKERS, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { DROPDOWN, IField, DATE_PICKERS, TEXT, CUSTOM_FIELD } from "~/Component/Common/Form/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 
-export const RequestSearchMeta: IFilterField[] = [
+export const RequestSearchMeta: IField[] = [
   {
     label: "Request Status",
     inputType: DROPDOWN,
     fieldName: "StateID",
-    ariaLabel: "Request Status",
     refLookupService: getEnumValues,
     displayKey: "Name",
     valueKey: "ID"
@@ -19,32 +18,33 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Account & Person Selector",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Account",
           fieldName: "AccountID",
           valueField: "AccountID",
-          component: SearchAccountLookup
+          component: AccountLookup
         },
         {
           label: "Purchaser",
           fieldName: "PurchaserPersonID",
           valueField: "PersonID",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Recipient",
           fieldName: "RecipientPersonID",
           valueField: "PersonID",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Any",
           fieldName: "PersonID",
           valueField: "PersonID",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         }
       ]
     }
@@ -52,7 +52,8 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Request Date",
@@ -60,17 +61,14 @@ export const RequestSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "CreatedFromDate",
     valueKey: "CreatedFromDate",
-    ariaLabel: "Request Date From",
     displayKey2: "To",
     valueKey2: "CreatedToDate",
-    fieldName2: "CreatedToDate",
-    ariaLabel2: "Request Date To"
+    fieldName2: "CreatedToDate"
   },
   {
     label: "Request Type",
     inputType: DROPDOWN,
     fieldName: "RequestTypeID",
-    ariaLabel: "Request Type",
     refLookupService: getRequestType,
     displayKey: "Name",
     valueKey: "ID"
@@ -78,14 +76,12 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Reservation Token",
     inputType: TEXT,
-    fieldName: "ReservationToken",
-    ariaLabel: "ReservationToken"
+    fieldName: "ReservationToken"
   },
   {
     label: "Source",
     inputType: DROPDOWN,
     fieldName: "sourceID",
-    ariaLabel: "Source",
     refLookupService: getSourceModule,
     displayKey: "Name",
     valueKey: "ID"
@@ -93,7 +89,6 @@ export const RequestSearchMeta: IFilterField[] = [
   {
     label: "Staff",
     inputType: TEXT,
-    fieldName: "RequesterStaffUserName",
-    ariaLabel: "Staff"
+    fieldName: "RequesterStaffUserName"
   }
 ]

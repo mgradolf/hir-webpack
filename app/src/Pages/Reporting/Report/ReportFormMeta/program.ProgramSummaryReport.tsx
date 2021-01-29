@@ -1,12 +1,14 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Selected Program",
     fieldName: "ProgramID",
-    customFilterComponent: SearchProgramLookupButton
+    rules: [{ required: true, message: "Program is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: ProgramLookup
   }
 ]
 

@@ -1,7 +1,7 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 
-export const ForgetMeRequestSearchMeta: IFilterField[] = [
+export const ForgetMeRequestSearchMeta: IField[] = [
   {
     label: "First Name",
     inputType: TEXT,

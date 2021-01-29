@@ -86,7 +86,7 @@ const SortingTableComponent = (props: ISortingTableComponent) => {
                     setLoading(true)
                     props
                       .removeFunc({
-                        CatalogId: props.CatalogID,
+                        CatalogID: props.CatalogID,
                         [props.propKey]: record[props.propKey]
                       })
                       .then((x) => {
@@ -136,6 +136,7 @@ export const CatalogSectionSortingTableComponent = (props: { CatalogID: number }
     getWebCatalogOfferings(props.CatalogID).then((x) => {
       setOfferings(x.data)
     })
+    // eslint-disable-next-line
   }, [props.CatalogID])
   return (
     <>
@@ -167,9 +168,7 @@ export const CatalogSectionSortingTableComponent = (props: { CatalogID: number }
               render: (text, record) => renderLink(`/section/${record.SectionID}`, text)
             },
             { title: "Start Date", dataIndex: "StartDateFormatted" },
-            // { title: "Location", dataIndex: "SiteName", render },
-            // { title: "Cost", dataIndex: "Name" },
-            // { title: "Availability", dataIndex: "Description" }
+
             { title: "Description", dataIndex: "Description" }
           ]}
           trigger={selectedOfferingID}

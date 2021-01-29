@@ -1,7 +1,7 @@
 import { getCertificateCategoryType, getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const CertificateDefinitionSearchMeta: IFilterField[] = [
+export const CertificateDefinitionSearchMeta: IField[] = [
   {
     label: "Certificate Name",
     fieldName: "certificateName",
@@ -36,6 +36,8 @@ export const CertificateDefinitionSearchMeta: IFilterField[] = [
   {
     label: "Certificate Category",
     fieldName: "certificateCategoryTypeID",
+    displayKey: "Name",
+    valueKey: "ID",
     inputType: DROPDOWN,
     refLookupService: getCertificateCategoryType
   }

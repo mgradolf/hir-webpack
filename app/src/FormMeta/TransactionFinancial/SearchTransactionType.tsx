@@ -1,13 +1,9 @@
 import { Col, Row, Select } from "antd"
 import React, { useEffect, useState } from "react"
 import { getBaseTransactionTypes, getTransactionTypes } from "~/ApiServices/Service/TransactionService"
-import {
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
 
-export function SearchTransactionType(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export function SearchTransactionType(props: IGeneratedField) {
   const [countries, setCountries] = useState<any[]>([])
   const [regiondCodes, setRegiondCodes] = useState<any[]>([])
   const [selectedCountry, setSelectedCountry] = useState<any>()
@@ -39,12 +35,7 @@ export function SearchTransactionType(props: IFilterGenericComponentProps<IFilte
     >
       <Col span={24}>
         <SearchComponentWrapper {...props} fieldName="BaseTransactionTypeID" label="Base Transaction Type">
-          <Select
-            allowClear={true}
-            loading={loading}
-            style={props.isCheckeble ? { width: 150 } : {}}
-            onChange={(value: any) => setSelectedCountry(value)}
-          >
+          <Select allowClear={true} loading={loading} onChange={(value: any) => setSelectedCountry(value)}>
             {countries &&
               countries.map(({ Name, ID }, i) => (
                 <Select.Option value={ID} key={`${ID}_${i}`}>
@@ -56,7 +47,7 @@ export function SearchTransactionType(props: IFilterGenericComponentProps<IFilte
       </Col>
       <Col span={24}>
         <SearchComponentWrapper {...props}>
-          <Select allowClear={true} loading={loading} style={props.isCheckeble ? { width: 150 } : {}}>
+          <Select allowClear={true} loading={loading}>
             {regiondCodes &&
               regiondCodes.map(({ ID, Name }, i) => (
                 <Select.Option value={ID} key={`${ID}_${i}`}>

@@ -1,12 +1,11 @@
 import { getDiscountTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const DiscountProgramsSearchMeta: IFilterField[] = [
+export const DiscountProgramsSearchMeta: IField[] = [
   {
     label: "Discount Program Type",
     inputType: DROPDOWN,
     fieldName: "DiscountTypeID",
-    ariaLabel: "Account Type Select",
     refLookupService: getDiscountTypes,
     displayKey: "Name",
     valueKey: "ID"

@@ -278,7 +278,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabType: "table",
         tabMeta: seatgroupMeta
       },
-
       {
         tabTitle: "Catalogs",
         tabType: "custom",
@@ -310,7 +309,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabType: "table",
         tabMeta: notificationMeta
       },
-
       {
         tabTitle: "Registrations",
         tabType: "table",

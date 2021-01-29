@@ -1,6 +1,6 @@
-import { IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IField, TEXT } from "~/Component/Common/Form/common"
 
-export const SellerFulFillerSearchMeta: IFilterFieldObject[] = [
+export const SellerFulFillerSearchMeta: IField[] = [
   {
     label: "Name",
     inputType: TEXT,

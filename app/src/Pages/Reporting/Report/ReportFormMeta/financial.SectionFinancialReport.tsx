@@ -1,29 +1,30 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Section",
           fieldName: "SectionID",
           valueField: "SectionID",
-          component: SearchSectionLookupButton
+          component: SectionLookup
         },
         {
           label: "Offering",
           fieldName: "OfferingID",
           valueField: "OfferingID",
-          component: SearchOfferingLookupButton
+          component: OfferingLookupButton
         }
       ]
     }
@@ -31,12 +32,14 @@ const meta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   },
   {
     label: "Purchaser",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   }
 ]
 

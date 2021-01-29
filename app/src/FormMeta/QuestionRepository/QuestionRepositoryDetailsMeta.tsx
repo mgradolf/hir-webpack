@@ -3,7 +3,6 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
-// import { getTagsTabPageDetailsMeta } from "~/FormMeta/Tags/TagsTabPageDetailsMeta"
 
 export const getQuestionRepositoryDetailsMeta = (question: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -25,15 +24,8 @@ export const getQuestionRepositoryDetailsMeta = (question: { [key: string]: any 
     }
   })
 
-  // meta.push({
-  //   tabTitle: "Tags",
-  //   tabType: "summary",
-  //   tabMeta: [],
-  //   multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Question", EntityID: question.PreferenceDefID }).tabs
-  // })
-
   meta.push({
-    tabTitle: "Tagged Questions",
+    tabTitle: "Tagging",
     tabType: "searchtable",
     tabMeta: {
       searchMeta: QuestionTaggingSearchMeta,

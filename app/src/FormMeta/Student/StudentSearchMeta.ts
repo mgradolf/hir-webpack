@@ -1,7 +1,7 @@
 import { getCountries } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterFieldObject, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const studentSearchMeta: IFilterFieldObject[] = [
+export const studentSearchMeta: IField[] = [
   {
     label: "Last Name",
     inputType: TEXT,
@@ -16,7 +16,6 @@ export const studentSearchMeta: IFilterFieldObject[] = [
   {
     label: "Email",
     inputType: TEXT,
-
     fieldName: "EmailAddress"
   },
   {
@@ -27,28 +26,13 @@ export const studentSearchMeta: IFilterFieldObject[] = [
   {
     label: "Middle Name",
     inputType: TEXT,
-
     fieldName: "MiddleName"
   },
   {
     label: "Other Name",
     inputType: TEXT,
-
     fieldName: "OtherName"
   },
-  // {
-  //   label: "Account Role",
-  //   inputType: DROPDOWN,
-  //   fieldName: "RoleName",
-  //   refLookupService: getAccountTypes,
-  //   displayKey: "Name",
-  //   valueKey: "ID"
-  // },
-  // {
-  //   label: "Account Name",
-  //   inputType: TEXT,
-  //   fieldName: "AccountName",
-  // },
 
   {
     label: "Address",

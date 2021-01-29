@@ -5,53 +5,46 @@ import {
   getInstructorTypes,
   getOrganizations
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKER, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
+import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
 import { SearchRegion } from "~/FormMeta/Person/SearchRegion"
 
-export const InstructorSearchMeta: IFilterField[] = [
+export const InstructorSearchMeta: IField[] = [
   {
     label: "Last Name",
     inputType: TEXT,
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
+    fieldName: "LastName"
   },
   {
     label: "First Name",
     inputType: TEXT,
-    fieldName: "FirstName",
-    ariaLabel: "First Name"
+    fieldName: "FirstName"
   },
   {
     label: "Email",
     inputType: TEXT,
-    fieldName: "EmailAddress",
-    ariaLabel: "Email"
+    fieldName: "EmailAddress"
   },
   {
     label: "Telephone",
     inputType: TEXT,
-    fieldName: "TelephoneNumber",
-    ariaLabel: "Telephone Number"
+    fieldName: "TelephoneNumber"
   },
 
   {
     label: "Maiden Name",
     inputType: TEXT,
-    fieldName: "MaidenName",
-    ariaLabel: "Maiden Name"
+    fieldName: "MaidenName"
   },
   {
     label: "Other Name",
     inputType: TEXT,
-    fieldName: "OtherName",
-    ariaLabel: "Other Name"
+    fieldName: "OtherName"
   },
   {
     label: "Gender",
     inputType: DROPDOWN,
     fieldName: "GenderTypeID",
-    ariaLabel: "Gender Select",
     refLookupService: getGenderTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -60,7 +53,6 @@ export const InstructorSearchMeta: IFilterField[] = [
     label: "Ethnicity",
     inputType: DROPDOWN,
     fieldName: "EthnicityTypeID",
-    ariaLabel: "Ethnicity Select",
     refLookupService: getEthnicityTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -68,26 +60,22 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "SSN",
     inputType: TEXT,
-    fieldName: "SSN",
-    ariaLabel: "GovID"
+    fieldName: "SSN"
   },
   {
     label: "ERP",
     inputType: NUMBER,
-    fieldName: "ERPCode",
-    ariaLabel: "ERP Code"
+    fieldName: "ERPCode"
   },
   {
     label: "Birthday",
     inputType: DATE_PICKER,
-    fieldName: "Birthday",
-    ariaLabel: "Birthday"
+    fieldName: "Birthday"
   },
   {
     label: "Is Deceased",
     inputType: DROPDOWN,
     fieldName: "IsDeceased",
-    ariaLabel: "Is Deceased",
     options: [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
@@ -97,7 +85,6 @@ export const InstructorSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "OrganizationID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
@@ -106,7 +93,6 @@ export const InstructorSearchMeta: IFilterField[] = [
     label: "Instructor Type",
     inputType: DROPDOWN,
     fieldName: "InstructorTypeID",
-    ariaLabel: "Instructor Type Select",
     refLookupService: getInstructorTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -118,8 +104,7 @@ export const InstructorSearchMeta: IFilterField[] = [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
     ],
-    fieldName: "IsAbleToTeach",
-    ariaLabel: "Able To Teach"
+    fieldName: "IsAbleToTeach"
   },
   {
     label: "Is Active",
@@ -128,34 +113,33 @@ export const InstructorSearchMeta: IFilterField[] = [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
     ],
-    fieldName: "IsActive",
-    ariaLabel: "Is Active"
+    fieldName: "IsActive"
   },
   {
     label: "Qualified to Teach Offering",
     fieldName: "CanTeachOfferingID",
-    customFilterComponent: SearchOfferingLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: OfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
   },
   {
     label: "Taught Offering",
     fieldName: "TaughtOfferingID",
-    customFilterComponent: SearchOfferingLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: OfferingLookupButton,
     displayKey: "OfferingCode",
     valueKey: "OfferingID"
   },
   {
     label: "Last Taught Date",
     inputType: DATE_PICKER,
-    fieldName: "LastTaughtDate",
-    ariaLabel: "Last Taught Date"
+    fieldName: "LastTaughtDate"
   },
   {
     label: "Status",
     inputType: DROPDOWN,
     fieldName: "InstitutionStatusCodeID",
-    ariaLabel: "Status Select",
     refLookupService: getInstitutionStatusTypes,
     displayKey: "Description",
     valueKey: "ID"
@@ -163,12 +147,12 @@ export const InstructorSearchMeta: IFilterField[] = [
   {
     label: "State/Province",
     fieldName: "RegionCodeID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchRegion
   },
   {
     label: "SSN",
     inputType: TEXT,
-    fieldName: "GovID",
-    ariaLabel: "Gov ID"
+    fieldName: "GovID"
   }
 ]

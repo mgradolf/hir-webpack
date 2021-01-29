@@ -4,29 +4,29 @@ import Modal from "~/Component/Common/Modal/index2"
 import zIndex from "~/utils/zIndex"
 import {
   BOOLEAN,
+  CUSTOM_FIELD,
   DATE_PICKER,
   DATE_PICKERS,
   DROPDOWN,
-  IFilterField,
-  isFilterObject,
+  IField,
   MULTI_SELECT_DROPDOWN,
   NUMBER,
   TEXT
-} from "~/Component/Common/SearchFilters/common"
+} from "~/Component/Common/Form/common"
 import { Button, Card, Col, Form, Row } from "antd"
-import { SearchInputType } from "~/Component/Common/SearchFilters/SearchInput"
-import { BooleanInputType } from "~/Component/Common/SearchFilters/SearchBooleanInput"
-import { DropDownInputType } from "~/Component/Common/SearchFilters/SearchDropDown"
-import { MultiSelectDropDownInputType } from "~/Component/Common/SearchFilters/SearchMultiSelectDropDown"
-import { DatePickerInputType } from "~/Component/Common/SearchFilters/SearchDatePicker"
-import { DatePickersInputType } from "~/Component/Common/SearchFilters/SearchDatePickers"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormMultiSelectDropDown } from "~/Component/Common/Form/FormMultiSelectDropDown"
+import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
+import { FormDatePickers } from "~/Component/Common/Form/FormDatePickers"
 import { eventBus } from "~/utils/EventBus"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 export const FormModal = (props: {
   title: string
-  meta: IFilterField[]
+  meta: IField[]
   initialFilter?: { [key: string]: any }
   defaultFilter?: { [key: string]: any }
   formSubmitApi: (Params: any) => Promise<IApiResponse>
@@ -90,83 +90,64 @@ export const FormModal = (props: {
           initialValues={props.initialFilter}
           form={formInstance}
         >
-          <FormError errorMessages={error} />
+          <OldFormError errorMessages={error} />
           <Row>
             <>
               {props.meta.map((field, i) => {
-                if (isFilterObject(field)) {
-                  switch (field.inputType) {
-                    case TEXT:
-                    case NUMBER:
-                      return (
-                        <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                          <SearchInputType {...field} key={i} formInstance={formInstance} />
-                        </Col>
-                      )
-                    case BOOLEAN:
-                      return (
-                        <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                          <BooleanInputType {...field} key={i} formInstance={formInstance} />
-                        </Col>
-                      )
-                    case DROPDOWN:
-                      return (
-                        <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                          <DropDownInputType {...field} key={i} formInstance={formInstance} />
-                        </Col>
-                      )
-                    case MULTI_SELECT_DROPDOWN:
-                      return (
-                        <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                          <MultiSelectDropDownInputType {...field} key={i} formInstance={formInstance} />
-                        </Col>
-                      )
-                    case DATE_PICKER:
-                      return (
-                        <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                          <DatePickerInputType
-                            {...field}
-                            key={i}
-                            formInstance={formInstance}
-                            clearTrigger={clearTrigger}
-                          />
-                        </Col>
-                      )
-                    case DATE_PICKERS:
-                      return (
-                        <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
-                          <DatePickersInputType
-                            {...field}
-                            key={i}
-                            formInstance={formInstance}
-                            clearTrigger={clearTrigger}
-                          />
-                        </Col>
-                      )
-                    default:
-                      return null
-                  }
-                } else if (field.customFilterComponent) {
-                  return (
-                    <Col
-                      key={1000 + i}
-                      lg={field.fullWidth ? 24 : 12}
-                      md={field.fullWidth ? 24 : 12}
-                      sm={field.fullWidth ? 24 : 12}
-                      xs={field.fullWidth ? 24 : 24}
-                    >
-                      <field.customFilterComponent
-                        {...{
-                          ...field,
-                          key: i,
-                          formInstance: formInstance,
-                          clearTrigger: clearTrigger
-                        }}
-                      />
-                    </Col>
-                  )
+                switch (field.inputType) {
+                  case TEXT:
+                  case NUMBER:
+                    return (
+                      <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                        <FormInput {...field} key={i} formInstance={formInstance} />
+                      </Col>
+                    )
+                  case BOOLEAN:
+                    return (
+                      <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                        <FormCheckbox {...field} key={i} formInstance={formInstance} />
+                      </Col>
+                    )
+                  case DROPDOWN:
+                    return (
+                      <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                        <FormDropDown {...field} key={i} formInstance={formInstance} />
+                      </Col>
+                    )
+                  case MULTI_SELECT_DROPDOWN:
+                    return (
+                      <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                        <FormMultiSelectDropDown {...field} key={i} formInstance={formInstance} />
+                      </Col>
+                    )
+                  case DATE_PICKER:
+                    return (
+                      <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                        <FormDatePicker {...field} key={i} formInstance={formInstance} clearTrigger={clearTrigger} />
+                      </Col>
+                    )
+                  case DATE_PICKERS:
+                    return (
+                      <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                        <FormDatePickers {...field} key={i} formInstance={formInstance} clearTrigger={clearTrigger} />
+                      </Col>
+                    )
+                  case CUSTOM_FIELD:
+                    return field.customFilterComponent ? (
+                      <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                        <field.customFilterComponent
+                          {...{
+                            ...field,
+                            key: i,
+                            formInstance: formInstance,
+                            clearTrigger: clearTrigger
+                          }}
+                        />
+                      </Col>
+                    ) : null
+                  default:
+                    return null
                 }
-                return null
               })}
             </>
           </Row>

@@ -17,7 +17,7 @@ import {
   REFRESH_RESOURCE_OFFERINGS_TAB
 } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FINANCIAL_BASIS_TYPE_PER_UNIT_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
 
 interface ICreateFormProps {
@@ -104,9 +104,14 @@ export default function FinancialForm(props: ICreateFormProps) {
   actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
 
   return (
-    <Card title={props.financialID ? `Edit ${props.financialType} Financial` : `Create New ${props.financialType} Financial`} actions={actions}>
+    <Card
+      title={
+        props.financialID ? `Edit ${props.financialType} Financial` : `Create New ${props.financialType} Financial`
+      }
+      actions={actions}
+    >
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
           <Input aria-label="Financial ID" value={props.financialID ? props.financialID : undefined} />
         </Form.Item>
@@ -187,11 +192,11 @@ export default function FinancialForm(props: ICreateFormProps) {
           ]}
         >
           <InputNumber
-            style={{width: "250px"}}
+            style={{ width: "250px" }}
             aria-label="Amount"
             max={999999}
-            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={value => value !== undefined ? value.replace(/\$\s?|(,*)/g, '') : ''}
+            formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            parser={(value) => (value !== undefined ? value.replace(/\$\s?|(,*)/g, "") : "")}
           />
         </Form.Item>
 
@@ -202,33 +207,25 @@ export default function FinancialForm(props: ICreateFormProps) {
           </Radio.Group>
         </Form.Item>
 
-        {props.financialType !== FINANCIAL_TYPE_FACULTY &&
-          <Form.Item name={props.fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
-            <Switch
-              aria-label="Is Item Optional"
-              defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsOptional)}
-            />
-          </Form.Item>
-        }
-
-        {props.financialType !== FINANCIAL_TYPE_FACULTY &&
-          <Form.Item name={props.fieldNames.IsTaxable} label="Taxable" {...layout} valuePropName="checked">
-            <Switch
-              aria-label="Is Taxable"
-              defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsTaxable)}
-            />
-          </Form.Item>
-        }
-
+        {/* <Form.Item name={props.fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
+          <Switch
+            aria-label="Is Item Optional"
+            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsOptional)}
+          />
+        </Form.Item>
+        <Form.Item name={props.fieldNames.IsTaxable} label="Taxable" {...layout} valuePropName="checked">
+          <Switch
+            aria-label="Is Taxable"
+            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsTaxable)}
+          />
+        </Form.Item> */}
         <Form.Item name={props.fieldNames.IsActive} label="Active" {...layout} valuePropName="checked">
           <Switch aria-label="Is Active" defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)} />
         </Form.Item>
 
-        {props.financialType !== FINANCIAL_TYPE_FACULTY &&
-          <Form.Item label="Weight" {...layout} name={props.fieldNames.Weight}>
-            <Input aria-label="Weight" type="number" min={0} />
-          </Form.Item>
-        }
+        {/* <Form.Item label="Weight" {...layout} name={props.fieldNames.Weight}>
+          <Input aria-label="Weight" type="number" min={0} />
+        </Form.Item> */}
       </Form>
     </Card>
   )

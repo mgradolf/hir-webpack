@@ -1,12 +1,14 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { DATE_PICKERS, DROPDOWN, NUMBER, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Order Date",
+    rules: [{ required: true, message: "Order Date is Required" }],
     inputType: DATE_PICKERS,
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo"
@@ -14,7 +16,8 @@ const meta: IFilterField[] = [
   {
     label: "Purchaser",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Source",
@@ -27,7 +30,9 @@ const meta: IFilterField[] = [
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
-    customFilterComponent: SearchAccountLookup
+    rules: [{ required: true, message: "Account is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   },
   {
     label: "Department",

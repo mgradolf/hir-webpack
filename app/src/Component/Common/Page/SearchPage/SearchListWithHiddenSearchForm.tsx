@@ -2,15 +2,15 @@ import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
 import { FilterOutlined } from "@ant-design/icons"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import SearchFilters from "~/Component/Common/SearchFilters"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CustomForm } from "~/Component/Common/Form"
+import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
 export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]
   title: string
-  meta?: IFilterField[]
+  meta?: IField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
   defaultFilter?: { [key: string]: string }
@@ -58,10 +58,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
-          <SearchFilters
-            title={""}
-            isModalView={false}
-            visible={showFilter}
+          <CustomForm
             hideFilters={() => setShowFilter(false)}
             meta={props.meta}
             initialFilter={{ ...props.initialFilter, ...props.defaultFilter } || {}}

@@ -5,7 +5,7 @@ import { searchEnrollment, trackingProgress } from "~/ApiServices/BizApi/program
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getProgramEnrollmentDetailsMeta } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentDetailsMeta"
 
-export function ProgramEnrollmentDetailsPage(props: RouteComponentProps<{ programEnrollmentID?: string }>) {
+export default function (props: RouteComponentProps<{ programEnrollmentID?: string }>) {
   const programEnrollmentID = Number(props?.match?.params?.programEnrollmentID)
   return (
     <DetailsPage

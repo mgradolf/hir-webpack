@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Form, Button, Input, Select, DatePicker, Spin, Card } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { CEU_HOURS, CREDIT_HOURS, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
 import { getGradeScaleType } from "~/ApiServices/Service/RefLookupService"
 import {
@@ -168,7 +168,7 @@ export default function RegistrationGradeForm(props: IRegistrationGradeFormProps
           style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}
           initialValues={props.initialFormValue}
         >
-          <FormError errorMessages={errorMessages} />
+          <OldFormError errorMessages={errorMessages} />
 
           <Form.Item className="hidden" name={fieldNames.StudentID}>
             <Input aria-label="Student ID" />

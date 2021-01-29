@@ -1,12 +1,14 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton,
+    rules: [{ required: true, message: "Section is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }

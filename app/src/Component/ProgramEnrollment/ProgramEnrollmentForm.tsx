@@ -5,7 +5,7 @@ import { changeEnrollmentStatusWithEvent } from "~/ApiServices/BizApi/program/pr
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import "~/Sass/utils.scss"
 
 interface IEnrollmentFormProps {
@@ -67,7 +67,7 @@ export default function ProgramEnrollmentForm(props: IEnrollmentFormProps) {
   return (
     <Card title={`Update Program Enrollment`} actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ProgramEnrollmentID}>
           <Input aria-label="Enrollment ID" value={props.enrollmentID ? props.enrollmentID : undefined} />
         </Form.Item>

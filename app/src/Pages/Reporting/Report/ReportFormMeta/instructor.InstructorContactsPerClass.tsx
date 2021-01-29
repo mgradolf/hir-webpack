@@ -1,7 +1,7 @@
-import { IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IField, TEXT } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Instructor Name",
     inputType: TEXT,

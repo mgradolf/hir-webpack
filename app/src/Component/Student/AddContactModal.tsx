@@ -6,7 +6,7 @@ import { showAddContactModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select, DatePicker, Switch, Divider } from "antd"
 import { ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE, DATE_FORMAT } from "~/utils/Constants"
 import { useEffect } from "react"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { saveAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import {
@@ -124,7 +124,7 @@ function AddContactModal(props: IAddContactModal) {
         ]}
       >
         <Form initialValues={initialData} form={form} style={{ height: "65vh", overflowY: "scroll", padding: "10px" }}>
-          <FormError errorMessages={errorMessages} />
+          <OldFormError errorMessages={errorMessages} />
           <Divider orientation="left">Contact</Divider>
           <Form.Item label="Account ID" className="hidden" {...layout} name="AccountID">
             <Input />

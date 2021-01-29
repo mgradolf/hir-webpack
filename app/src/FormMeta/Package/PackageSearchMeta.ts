@@ -1,11 +1,12 @@
-import { DATE_PICKER, DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { CUSTOM_FIELD, DATE_PICKER, DATE_PICKERS, IField, TEXT } from "~/Component/Common/Form/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 
-export const PackageSearchMeta: IFilterField[] = [
+export const PackageSearchMeta: IField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   },
   {
     label: "Start Date",
@@ -20,19 +21,16 @@ export const PackageSearchMeta: IFilterField[] = [
   {
     label: "Name",
     inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Name"
+    fieldName: "Name"
   },
   {
     label: "PO Number",
     inputType: TEXT,
-    fieldName: "PONumber",
-    ariaLabel: "PO Number"
+    fieldName: "PONumber"
   },
   {
     label: "PO Date",
     inputType: DATE_PICKER,
-    fieldName: "PODate",
-    ariaLabel: "PO Date"
+    fieldName: "PODate"
   }
 ]

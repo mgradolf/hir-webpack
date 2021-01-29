@@ -1,3 +1,4 @@
+import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -9,7 +10,11 @@ export const getSiteDetailsMeta = (record: { [key: string]: any }): IDetailsMeta
   const summary: CardContainer = {
     contents: [
       { label: "Site Code", value: record.SiteCode },
-      { label: "Parent Organization", value: record.OrganizationName },
+      {
+        label: "Parent Organization",
+        value: record.OrganizationName,
+        render: (value) => <a href={`/webadmin/site/${record.OrganizationID}`}>{record.OrganizationName}</a>
+      },
       { label: "Directions", value: record.Attribute1 },
       { label: "Parking", value: record.Attribute2 },
       { label: "Active", value: record.IsActive, render: renderBoolean }

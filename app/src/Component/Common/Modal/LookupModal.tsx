@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Card, Button } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
-import SearchFilters from "~/Component/Common/SearchFilters"
+import { CustomForm } from "~/Component/Common/Form"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IField } from "~/Component/Common/Form/common"
 import zIndex from "~/utils/zIndex"
 
 interface ILookupModal {
@@ -15,7 +15,7 @@ interface ILookupModal {
   expandableColumnIndices?: number[]
   isArray?: boolean
   columns: TableColumnType
-  meta: IFilterField[]
+  meta: IField[]
   defaultFilter?: { [key: string]: any }
   zIndex?: boolean
 }
@@ -43,13 +43,9 @@ export function LookupModal(props: ILookupModal) {
         ]}
       >
         <div className="modal-card">
-          <SearchFilters
+          <CustomForm
             meta={props.meta}
-            isModalView={true}
-            isCheckeble={false}
             initialFilter={searchParams}
-            title={""}
-            visible
             hideFilters={() => {
               setSelectedItems([])
             }}

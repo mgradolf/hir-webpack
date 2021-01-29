@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom"
 import { Form, Input, Select, Switch, DatePicker, Table, Spin, Button, Card } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import {
   DATE_FORMAT,
   DATE_TIME_FORMAT,
@@ -193,7 +193,7 @@ export default function RegistrationActionForm(props: IRegistrationFormProps) {
     <Card title={"Registration Drop/Withdraw/Delete"} actions={actions}>
       <Spin size="large" spinning={loading}>
         <Form form={form} initialValues={props.initialFormValue}>
-          <FormError errorMessages={errorMessages} />
+          <OldFormError errorMessages={errorMessages} />
 
           <Form.Item className="hidden" name={fieldNames.StudentID}>
             <Input aria-label="Student ID" />

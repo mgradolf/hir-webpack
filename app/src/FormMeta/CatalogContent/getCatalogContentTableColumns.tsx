@@ -5,7 +5,7 @@ import { renderDate, sortByString, TableColumnType } from "~/Component/Common/Re
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { CatalogContentRemoveButton } from "~/FormMeta/CatalogContent/CatalogContentRemoveButton"
 
-export const getCatalogContentTableColumns = (isModal = false): ITableConfigProp => {
+export const getCatalogContentTableColumns = (isModal = false, eventName: string): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Type",
@@ -28,7 +28,7 @@ export const getCatalogContentTableColumns = (isModal = false): ITableConfigProp
     {
       ...(!isModal && {
         title: "Action",
-        render: (text: any, record: any) => <CatalogContentRemoveButton catalog={record} />
+        render: (text: any, record: any) => <CatalogContentRemoveButton catalog={record} eventName={eventName} />
       })
     }
   ]

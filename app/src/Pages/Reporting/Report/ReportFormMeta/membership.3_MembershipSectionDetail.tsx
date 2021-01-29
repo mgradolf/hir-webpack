@@ -1,9 +1,10 @@
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Select Date",
     fieldName: "StartDate",
@@ -21,7 +22,8 @@ const meta: IFilterField[] = [
   {
     label: "Section",
     fieldName: "SectionIDs",
-    customFilterComponent: SearchSectionLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }

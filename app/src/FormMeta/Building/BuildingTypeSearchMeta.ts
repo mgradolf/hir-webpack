@@ -1,18 +1,14 @@
-import { IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IField, TEXT } from "~/Component/Common/Form/common"
 
-export const BuildingTypeSearchMeta: IFilterField[] = [
+export const BuildingTypeSearchMeta: IField[] = [
   {
     label: "Building Name",
     inputType: TEXT,
-
-    fieldName: "BuildingName",
-    ariaLabel: "Building Name"
+    fieldName: "BuildingName"
   },
   {
     label: "Site Name",
     inputType: TEXT,
-
-    fieldName: "SiteName",
-    ariaLabel: "Site Name"
+    fieldName: "SiteName"
   }
 ]

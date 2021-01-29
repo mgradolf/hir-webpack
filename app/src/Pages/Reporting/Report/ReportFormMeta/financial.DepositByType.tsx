@@ -1,11 +1,12 @@
 import { getBasePaymentTypes, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, MULTI_SELECT_DROPDOWN } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, MULTI_SELECT_DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Payment Base Type",
     inputType: DROPDOWN,
+    rules: [{ required: true, message: "Base Payment Type is Required" }],
     fieldName: "BasePaymentTypeID",
     refLookupService: getBasePaymentTypes,
     displayKey: "Name",
@@ -29,6 +30,7 @@ const meta: IFilterField[] = [
     label: "Deposit Type",
     inputType: MULTI_SELECT_DROPDOWN,
     fieldName: "PaymentTypeID",
+    rules: [{ required: true, message: "Deposit Type is Required" }],
     refLookupService: getPaymentTypes,
     displayKey: "PaymentSchemaName",
     valueKey: "PaymentTypeID"

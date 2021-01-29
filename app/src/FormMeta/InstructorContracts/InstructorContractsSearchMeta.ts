@@ -1,19 +1,21 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getOrganizations, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchInstructorLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchInstructorLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { InstructorLookupButton } from "~/Component/Common/Form/FormLookupFields/InstructorLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
-export const InstructorContractsSearchMeta: IFilterField[] = [
+export const InstructorContractsSearchMeta: IField[] = [
   {
     label: "Faculty",
     fieldName: "FacultyID",
-    customFilterComponent: SearchInstructorLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: InstructorLookupButton
   },
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Offering Name",
@@ -35,7 +37,6 @@ export const InstructorContractsSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "orgID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
@@ -44,7 +45,6 @@ export const InstructorContractsSearchMeta: IFilterField[] = [
     label: "Status",
     inputType: DROPDOWN,
     fieldName: "statusID",
-    ariaLabel: "Offering Status Select",
     refLookupService: getSectionStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -53,7 +53,6 @@ export const InstructorContractsSearchMeta: IFilterField[] = [
     label: "Coordinator",
     inputType: DROPDOWN,
     fieldName: "coordName",
-    ariaLabel: "Coordinator Select",
     refLookupService: () => getUsersByRole({ Role: "coordinator" }),
     displayKey: "FormattedName",
     valueKey: "UserLogin"

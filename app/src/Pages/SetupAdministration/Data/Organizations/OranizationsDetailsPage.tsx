@@ -4,7 +4,7 @@ import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getOrganizationDetailsMeta } from "~/FormMeta/Organization/OrganizationDetailsMeta"
 import { getOrganizationTableColumns } from "~/FormMeta/Organization/OrganizationTableColumns"
 
-export function OranizationsDetailsPage(props: RouteComponentProps<{ OrganizationID?: string }>) {
+export default function (props: RouteComponentProps<{ OrganizationID?: string }>) {
   const OrganizationID = Number(props?.match?.params?.OrganizationID)
   return (
     <DetailsPage

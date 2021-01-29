@@ -40,7 +40,7 @@ export const getCatalogDetailsMeta = (Catalog: { [key: string]: any }): IDetails
     tabMeta: {
       blocks: [<CatalogContentAddDropdown CatalogID={Catalog.CatalogID} eventName="REFRESH_CATALOG_CONTENT_TABLE" />],
       tableProps: {
-        ...getCatalogContentTableColumns(),
+        ...getCatalogContentTableColumns(false, "REFRESH_CATALOG_CONTENT_TABLE"),
         searchParams: { CatalogID: Catalog.CatalogID },
         refreshEventName: "REFRESH_CATALOG_CONTENT_TABLE"
       }

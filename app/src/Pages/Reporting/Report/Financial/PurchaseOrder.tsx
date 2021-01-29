@@ -1,6 +1,6 @@
 import React from "react"
 import StandardReportPage from "~/Component/Common/Page/ReportPage/StandardReportPage"
-import { DATE_PICKERS } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS } from "~/Component/Common/Form/common"
 
 export default function PurchaseOrder() {
   return (
@@ -13,7 +13,6 @@ export default function PurchaseOrder() {
           fieldName: "OrderDateFrom",
           fieldName2: "OrderDateTo",
           ariaLabel: "ReportName",
-
           inputType: DATE_PICKERS
         }
       ]}

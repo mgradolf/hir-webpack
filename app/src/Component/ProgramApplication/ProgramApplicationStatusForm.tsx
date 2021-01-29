@@ -5,7 +5,7 @@ import { changeApplicationStatusWithEvent } from "~/ApiServices/Service/ProgramA
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import "~/Sass/utils.scss"
 
 interface IApplicationStatusFormProps {
@@ -68,7 +68,7 @@ export default function ProgramApplicationStatusForm(props: IApplicationStatusFo
   return (
     <Card title={`Comments`} actions={actions}>
       <Form form={props.formInstance} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ProgramAppID}>
           <Input aria-label="Program Application ID" value={props.ProgramAppID ? props.ProgramAppID : undefined} />
         </Form.Item>

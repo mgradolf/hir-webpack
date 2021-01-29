@@ -1,23 +1,26 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Account Owner",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   },
   {
     label: "Select Date",
     inputType: DATE_PICKERS,
-
+    rules: [{ required: true, message: "Date field is Required" }],
     displayKey: "From",
     fieldName: "TxDateFrom",
     valueKey: "FromDate",

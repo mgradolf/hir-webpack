@@ -3,7 +3,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { OrganizationSearchMeta } from "~/FormMeta/Organization/OrganizationSearchMeta"
 import { getOrganizationTableColumns } from "~/FormMeta/Organization/OrganizationTableColumns"
 
-export const OranizationsPage = () => {
+export default function () {
   return (
     <SearchPage
       title="Organization"

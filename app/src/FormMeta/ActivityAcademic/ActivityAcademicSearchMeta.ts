@@ -1,12 +1,13 @@
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, IField, TEXT } from "~/Component/Common/Form/common"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
-export const ActivityAcademicSearchMeta: IFilterField[] = [
+export const ActivityAcademicSearchMeta: IField[] = [
   {
     label: "Section Lookup",
-    fieldName: "SectionIDs",
-    customFilterComponent: SearchSectionLookupButton,
+    fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }
@@ -14,27 +15,23 @@ export const ActivityAcademicSearchMeta: IFilterField[] = [
   {
     label: "Modified By User ID",
     inputType: TEXT,
-
-    fieldName: "UserID",
-    ariaLabel: "Modified By User ID"
+    fieldName: "UserID"
   },
   {
     label: "Activity Date Range",
     inputType: DATE_PICKERS,
-
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    valueKey2: "ToDate"
   },
   {
     label: "Student Lookup",
     fieldName: "StudentIDs",
-    customFilterComponent: SearchStudentLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup,
     extraProps: {
       isArray: true
     }

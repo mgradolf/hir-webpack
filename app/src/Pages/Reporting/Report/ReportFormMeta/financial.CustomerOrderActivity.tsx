@@ -1,17 +1,21 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Person",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    rules: [{ required: true, message: "Person is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
+    rules: [{ required: true, message: "Order Date is Required" }],
     inputType: DATE_PICKERS
   }
 ]

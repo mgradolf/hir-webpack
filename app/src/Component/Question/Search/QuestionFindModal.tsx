@@ -5,7 +5,7 @@ import QuestionSearchResultTable from "~/Component/Question/Search/QuestionSearc
 import { addTagQuestions, searchQuestions } from "~/ApiServices/Service/QuestionService"
 import { Button, Card } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 
 interface IQuestionModal {
@@ -55,7 +55,7 @@ export function QuestionFindModal(props: IQuestionModal) {
       children={
         <Card title="Select Question" actions={actions}>
           <div style={{ overflowY: "scroll", padding: "10px", height: "65vh" }}>
-            <FormError errorMessages={errorMessages}></FormError>
+            <OldFormError errorMessages={errorMessages}></OldFormError>
             <QuestionSearch
               onFormSubmission={(Params: any) => {
                 setapiCallInProgress(true)

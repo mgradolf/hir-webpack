@@ -1,29 +1,30 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { SearchTransactionType } from "~/FormMeta/TransactionFinancial/SearchTransactionType"
 
-export const TransactionSearchMeta: IFilterField[] = [
+export const TransactionSearchMeta: IField[] = [
   {
     label: "Lookup",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Purchaser",
           fieldName: "PersonID",
           valueField: "PersonID",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Student",
           fieldName: "StudentID",
           valueField: "StudentID",
-          component: SearchStudentLookupButton
+          component: StudentLookup
         }
       ]
     }
@@ -39,7 +40,7 @@ export const TransactionSearchMeta: IFilterField[] = [
   {
     label: "Transaction Type",
     fieldName: "TransactionTypeID ",
-    // fullWidth: true,
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchTransactionType
   },
   {
@@ -51,7 +52,8 @@ export const TransactionSearchMeta: IFilterField[] = [
     label: "Account",
     fieldName: "AccountID",
     valueField: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   },
   {
     label: "GL Name",
@@ -67,7 +69,8 @@ export const TransactionSearchMeta: IFilterField[] = [
     label: "SectionID",
     fieldName: "SectionIDID",
     valueField: "SectionIDID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
 
   {

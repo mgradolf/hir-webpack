@@ -1,12 +1,13 @@
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Account",
     fieldName: "AffiliateOrganizationID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   }
 ]
 

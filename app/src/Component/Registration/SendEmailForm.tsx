@@ -3,7 +3,7 @@ import { Card, Button, Input } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IEmailSendFieldNames } from "~/Component/Registration/Interfaces"
 import { sendEmail } from "~/ApiServices/Service/MailService"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getLoggedInUser } from "~/ApiServices/Service/HRUserService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
@@ -65,7 +65,7 @@ export default function SendEmailForm(props: ISendEmailFormProps) {
   return (
     <Card title="New Email Message" actions={actions}>
       <Form form={props.formInstance} className="modal-form">
-        <FormError
+        <OldFormError
           errorMessages={errorMessages}
           genericInstructions={
             <ul>
@@ -74,7 +74,7 @@ export default function SendEmailForm(props: ISendEmailFormProps) {
               </li>
             </ul>
           }
-        ></FormError>
+        ></OldFormError>
 
         <Form.Item label="MimeType" className="hidden" {...layout} name={fieldNames.MimeType}>
           <Input aria-label="Mime type" value="text/html" />

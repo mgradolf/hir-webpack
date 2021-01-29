@@ -27,7 +27,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
       { label: "Withdrawal", value: transaction.Debit },
       { label: "GL", value: transaction.GLAccountName },
       { label: "Department", value: transaction.Department },
-      // { label: "Balance", value: transaction.Balance },
+
       {
         label: "Order ID",
         value: transaction.OrderID,
@@ -57,7 +57,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
         searchParams: {
           IsDepositeView: true,
           DepositID: transaction.DepositTransactionID ? transaction.DepositTransactionID : transaction.TransactionID
-        }, // transaction.DepositTransactionID },
+        },
         refreshEventName: "REFRESH_DEPOSIT_TRACKING__TAB",
         pagination: false
       }

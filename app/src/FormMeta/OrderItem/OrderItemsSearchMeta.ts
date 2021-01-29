@@ -1,30 +1,31 @@
 import { getOPCStatusCode, getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { FormDateTypelector } from "~/Component/Common/Form/FormFieldSelectors/FormDateTypelector"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 
-export const OrderItemsFiltersMeta: IFilterField[] = [
+export const OrderItemsFiltersMeta: IField[] = [
   {
     label: "Person Lookup",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Purchaser",
           fieldName: "PayerName",
           valueField: "FirstName",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Student",
           fieldName: "StudentName",
           valueField: "FirstName",
-          component: SearchStudentLookupButton
+          component: StudentLookup
         }
       ]
     }
@@ -32,14 +33,13 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Order ID",
     inputType: NUMBER,
-
-    fieldName: "OrderID",
-    ariaLabel: "OrderID"
+    fieldName: "OrderID"
   },
   {
     label: "Date Type Select",
     fieldName: "",
-    customFilterComponent: SearchDateTypeSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormDateTypelector,
     extraProps: {
       selectorKeys: [
         {
@@ -58,19 +58,20 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Account",
     fieldName: "AccountName",
     valueField: "AccountName",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   },
   {
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "DepartmentID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
@@ -78,14 +79,12 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Product Name",
     inputType: TEXT,
-    fieldName: "ProductName",
-    ariaLabel: "ProductName"
+    fieldName: "ProductName"
   },
   {
     label: "Source",
     inputType: DROPDOWN,
     fieldName: "SourceID",
-    ariaLabel: "Source",
     refLookupService: getSourceModule,
     displayKey: "Name",
     valueKey: "ID"
@@ -93,9 +92,7 @@ export const OrderItemsFiltersMeta: IFilterField[] = [
   {
     label: "Order Status",
     inputType: DROPDOWN,
-
     fieldName: "OrderStatusID",
-    ariaLabel: "Order Status",
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"

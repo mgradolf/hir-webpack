@@ -1,8 +1,8 @@
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Select Date",
     fieldName: "StartDate",
@@ -11,6 +11,7 @@ const meta: IFilterField[] = [
   },
   {
     label: "Membership Program",
+    rules: [{ required: true, message: "This field is Required" }],
     inputType: DROPDOWN,
     fieldName: "ID",
     refLookupService: getMembershipProgramTypes,

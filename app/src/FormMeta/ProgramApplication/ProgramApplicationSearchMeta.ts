@@ -1,28 +1,25 @@
 import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getProgramApplicationStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
-export const ProgramApplicationSearchMeta: IFilterField[] = [
+export const ProgramApplicationSearchMeta: IField[] = [
   {
     label: "Program Code",
     inputType: TEXT,
     defaultValue: "*",
-    fieldName: "programCode",
-    ariaLabel: "Program Code"
+    fieldName: "programCode"
   },
   {
     label: "Program Name",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "programName",
-    ariaLabel: "Program Name"
+    fieldName: "programName"
   },
   {
     label: "Status",
     inputType: DROPDOWN,
     fieldName: "applicationStatus",
-    ariaLabel: "Program Status Select",
     refLookupService: getProgramApplicationStatusCodes,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -31,7 +28,6 @@ export const ProgramApplicationSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "departmentID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizationByType,
     displayKey: "Description",
     valueKey: "OrganizationID"
@@ -39,6 +35,7 @@ export const ProgramApplicationSearchMeta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "studentID",
-    customFilterComponent: SearchStudentLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   }
 ]

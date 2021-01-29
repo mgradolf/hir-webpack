@@ -7,7 +7,7 @@ import { showCopySectionModal } from "~/Store/ModalState"
 import Modal from "~/Component/Common/Modal"
 import { Button, Card, Form } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { copySection } from "~/ApiServices/Service/SectionService"
 import SectionCopyForm from "~/Component/Section/Copy/SectionCopyForm"
 
@@ -53,7 +53,7 @@ function SectionCopyModal(props: IQuestionModal) {
       children={
         <Card title={`Copy Section ${props.SectionNumber}`} actions={actions}>
           <Form form={formInstance} style={{ overflowY: "scroll", padding: "10px", height: "65vh" }}>
-            <FormError errorMessages={errorMessages}></FormError>
+            <OldFormError errorMessages={errorMessages}></OldFormError>
             <SectionCopyForm formInstance={formInstance} SectionID={props.SectionID}></SectionCopyForm>
           </Form>
         </Card>

@@ -4,10 +4,10 @@ import { Button, Card, Form, Input, Radio } from "antd"
 import { getAvailableDiscountByOrderItemID, grantDiscountProgram } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
-import DropDown from "~/Component/Common/Form/DropDown"
+import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 
 interface IApplyDiscountModal {
   OrderID: number
@@ -71,8 +71,8 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
             {" "}
             <OrderDetailForModal OrderID={props.OrderID} />
             <Form form={formInstance}>
-              <FormError errorMessages={errorMessages} />
-              <DropDown
+              <OldFormError errorMessages={errorMessages} />
+              <OldDropDown
                 fieldName={fieldNames.SectionDiscountID}
                 searchFunc={getAvailableDiscountByOrderItemID}
                 searchParams={{ OrderItemID: props.OrderItemID }}

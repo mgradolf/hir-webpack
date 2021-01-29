@@ -4,7 +4,7 @@ import { getAnonymizeRequests } from "~/ApiServices/Service/AnonymizationRequest
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getForgetMeRequestDetailsMeta } from "~/FormMeta/ForgetMeRequest/ForgetMeRequestDetailsMeta"
 
-export const ForgetMeRequestDetailsPage = (props: RouteComponentProps<{ AnonymizationRequestID: string }>) => {
+export default function (props: RouteComponentProps<{ AnonymizationRequestID: string }>) {
   const AnonymizationRequestID = Number(props?.match?.params?.AnonymizationRequestID)
   return (
     <DetailsPage

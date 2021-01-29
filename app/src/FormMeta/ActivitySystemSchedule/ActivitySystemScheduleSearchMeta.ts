@@ -1,11 +1,10 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const ActivitySystemScheduleSearchMeta: IFilterField[] = [
+export const ActivitySystemScheduleSearchMeta: IField[] = [
   {
     label: "Service Name",
     inputType: TEXT,
-    fieldName: "ServiceName",
-    ariaLabel: "Service Name"
+    fieldName: "ServiceName"
   },
   {
     label: "Completed",
@@ -22,10 +21,8 @@ export const ActivitySystemScheduleSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "ScheduledTimeFrom",
     valueKey: "ScheduledTimeFrom",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ScheduledTimeTo",
-    valueKey2: "ScheduledTimeTo",
-    ariaLabel2: "To"
+    valueKey2: "ScheduledTimeTo"
   }
 ]

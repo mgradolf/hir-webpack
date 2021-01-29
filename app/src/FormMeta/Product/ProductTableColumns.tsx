@@ -14,13 +14,8 @@ export const getProductTableColumns = (isModal = false): ITableConfigProp => {
     },
     { title: "Product Category", dataIndex: "ProductCategoryName" },
     { title: "Inventory Units", dataIndex: "ProductInventoryUnits" },
-    // { title: "Delivery Mode", dataIndex: "ProductDeliveryModeName" },
-    // { title: "Product Type", dataIndex: "ProductTypeName" },
-    // { title: "Product Definition ", dataIndex: "ProductDefinitionName" },
-    // { title: "Seller", dataIndex: "ProductSellerName" },
-    // { title: "Fulfiller", dataIndex: "ProductFulfillerName" },
+
     { title: "Active", dataIndex: "ProductIsActive", render: renderBoolean }
-    // { title: "Optional Item", dataIndex: "OptionalItem", render: renderBoolean }
   ]
 
   const responsiveColumnIndices: number[] = []

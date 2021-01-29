@@ -5,12 +5,12 @@ import {
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
 import { getTags } from "~/ApiServices/Service/TagService"
-import { DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchQuestionLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchQuestionsLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField } from "~/Component/Common/Form/common"
+import { QuestionsLookup } from "~/Component/Common/Form/FormLookupFields/QuestionsLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
-export const QuestionResponseSearchMeta: IFilterField[] = [
+export const QuestionResponseSearchMeta: IField[] = [
   {
     label: "Event",
     inputType: DROPDOWN,
@@ -39,7 +39,8 @@ export const QuestionResponseSearchMeta: IFilterField[] = [
   {
     label: "Sections",
     fieldName: "SectionIDs",
-    customFilterComponent: SearchSectionLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }
@@ -47,7 +48,8 @@ export const QuestionResponseSearchMeta: IFilterField[] = [
   {
     label: "Students",
     fieldName: "StudentsIDs",
-    customFilterComponent: SearchStudentLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup,
     extraProps: {
       isArray: true
     }
@@ -55,7 +57,8 @@ export const QuestionResponseSearchMeta: IFilterField[] = [
   {
     label: "Questions",
     fieldName: "PreferenceDefIDs",
-    customFilterComponent: SearchQuestionLookup,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: QuestionsLookup,
     extraProps: {
       isArray: true
     }

@@ -1,55 +1,56 @@
-import { DATE_PICKERS, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPackageLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPackageLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, IField, NUMBER } from "~/Component/Common/Form/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { SearchPackageLookupButton } from "~/Component/Common/Form/FormLookupFields/PackageLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
-export const RegistrationSearchMeta: IFilterField[] = [
+export const RegistrationSearchMeta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   },
   {
     label: "Purchaser",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Order Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "StartDateFrom",
     valueKey: "StartDateFrom",
-    ariaLabel: "Start Date From",
     displayKey2: "To",
     valueKey2: "StartDateTo",
-    fieldName2: "StartDateTo",
-    ariaLabel2: "Start Date To"
+    fieldName2: "StartDateTo"
   },
   {
     label: "Order ID",
     inputType: NUMBER,
-    fieldName: "OrderID",
-    ariaLabel: "Order ID"
+    fieldName: "OrderID"
   },
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   },
   {
     label: "Package",
     fieldName: "PackageID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SearchPackageLookupButton
-  },
+  }
   // {
   //   label: "Create Date",
   //   inputType: DATE_PICKERS,

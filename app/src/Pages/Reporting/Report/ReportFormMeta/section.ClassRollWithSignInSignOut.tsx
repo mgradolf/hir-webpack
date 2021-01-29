@@ -1,15 +1,19 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Section Number",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Meeting Date",
+    rules: [{ required: true, message: "Date field is Required" }],
+
     fieldName: "FromMeetinglDate",
     fieldName2: "ToMeetingDate",
     inputType: DATE_PICKERS

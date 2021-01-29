@@ -1,18 +1,21 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Order Date",
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
+    rules: [{ required: true, message: "Order Date is Required" }],
     inputType: DATE_PICKERS
   },
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup,
+    rules: [{ required: true, message: "Account is Required" }]
   },
   {
     label: "Sort By",

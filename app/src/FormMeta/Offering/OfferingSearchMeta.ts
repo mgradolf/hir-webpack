@@ -6,10 +6,10 @@ import {
   getSectionTypes,
   getTagTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchInstructorLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchInstructorLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { InstructorLookupButton } from "~/Component/Common/Form/FormLookupFields/InstructorLookup"
 
-export const OfferingSearchMeta: IFilterField[] = [
+export const OfferingSearchMeta: IField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
@@ -41,7 +41,8 @@ export const OfferingSearchMeta: IFilterField[] = [
   {
     label: "Instructor",
     fieldName: "FacultyID",
-    customFilterComponent: SearchInstructorLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: InstructorLookupButton
   },
   {
     label: "Coordinator",

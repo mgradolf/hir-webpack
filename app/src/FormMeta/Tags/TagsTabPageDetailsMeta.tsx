@@ -14,7 +14,7 @@ export const getTagsTabPageDetailsMeta = (Params: { [key: string]: any }): IDeta
     tabMeta: {
       blocks: [<TagAddButton tag={Params} eventName="REFRESH_CATALOGS_TAB" />],
       tableProps: {
-        ...getTagsTableColumns(false),
+        ...getTagsTableColumns(false, "REFRESH_CATALOGS_TAB"),
         searchParams: { EntityType, EntityID, IsSelected: true },
         refreshEventName: "REFRESH_CATALOGS_TAB"
       }

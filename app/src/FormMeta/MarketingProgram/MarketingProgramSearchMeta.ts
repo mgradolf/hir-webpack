@@ -1,10 +1,9 @@
-import { IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IField, TEXT } from "~/Component/Common/Form/common"
 
-export const MarketingProgramSearchMeta: IFilterField[] = [
+export const MarketingProgramSearchMeta: IField[] = [
   {
     label: "Market Source",
     inputType: TEXT,
-    fieldName: "MarketSource",
-    ariaLabel: "Name"
+    fieldName: "MarketSource"
   }
 ]

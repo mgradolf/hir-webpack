@@ -1,19 +1,19 @@
 import { getMarketingCategory } from "~/ApiServices/Service/MarketingService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchMarketingCodeLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchMarketingCodeLookup"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { MarketingCodeLookup } from "~/Component/Common/Form/FormLookupFields/MarketingCodeLookup"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 
-export const MarketingCodeResponseSearchMeta: IFilterField[] = [
+export const MarketingCodeResponseSearchMeta: IField[] = [
   {
     label: "Promotion Code",
-    inputType: DROPDOWN,
     fieldName: "MarketingCodeID",
-    customFilterComponent: SearchMarketingCodeLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: MarketingCodeLookup
   },
   {
     label: "Category",
@@ -26,27 +26,27 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
   {
     label: "Lookup",
     fieldName: "",
-    fullWidth: true,
-    customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Section",
           fieldName: "SectionId",
           valueField: "SectionID",
-          component: SearchSectionLookupButton
+          component: SectionLookup
         },
         {
           label: "Offering",
           fieldName: "OfferingID",
           valueField: "OfferingID",
-          component: SearchOfferingLookupButton
+          component: OfferingLookupButton
         },
         {
           label: "Program",
           fieldName: "ProgramID",
           valueField: "ProgramID",
-          component: SearchProgramLookupButton
+          component: ProgramLookup
         }
       ]
     }
@@ -64,12 +64,14 @@ export const MarketingCodeResponseSearchMeta: IFilterField[] = [
   {
     label: "Purchaser",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
     valueField: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   }
 ]

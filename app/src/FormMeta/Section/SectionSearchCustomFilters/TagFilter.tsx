@@ -1,11 +1,7 @@
 import { Select, Col, Input } from "antd"
 import React, { useEffect, useState } from "react"
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
-import {
-  IFilterFieldComponent,
-  IFilterGenericComponentProps,
-  SearchComponentWrapper
-} from "~/Component/Common/SearchFilters/common"
+import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
 
 const { Option } = Select
 const fieldNames = {
@@ -14,7 +10,7 @@ const fieldNames = {
   tagType: "TagTypeID",
   tagName: "TagName"
 }
-export default function TagFilter(props: IFilterGenericComponentProps<IFilterFieldComponent>) {
+export default function TagFilter(props: IGeneratedField) {
   const [tagTypes, setTagTypes] = useState<any[]>([])
   const [isSearchTagHierarcy, setIsSearchTagHierarchy] = useState<boolean>(false)
 

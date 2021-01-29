@@ -1,88 +1,81 @@
-import { DATE_PICKERS, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, IField } from "~/Component/Common/Form/common"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
-export const CourseCertificateSearchMeta: IFilterField[] = [
+export const CourseCertificateSearchMeta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   },
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Offering",
     fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: OfferingLookupButton
   },
   {
     label: "Issue Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "IssueDateFrom",
     valueKey: "IssueDateFrom",
-    ariaLabel: "Issue Date From",
     displayKey2: "To",
     valueKey2: "IssueDateTo",
-    fieldName2: "IssueDateTo",
-    ariaLabel2: "Issue Date To"
+    fieldName2: "IssueDateTo"
   },
   {
     label: "Expiration Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "ExpiryDateFrom",
     valueKey: "ExpiryDateFrom",
-    ariaLabel: "Expiration Date From",
     displayKey2: "To",
     valueKey2: "ExpiryDateTo",
-    fieldName2: "ExpiryDateTo",
-    ariaLabel2: "Expiration Date To"
+    fieldName2: "ExpiryDateTo"
   }
 ]
 
-export const ProgramCertificateSearchMeta: IFilterField[] = [
+export const ProgramCertificateSearchMeta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   },
   {
     label: "Program",
     fieldName: "ProgramID",
-    customFilterComponent: SearchProgramLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: ProgramLookup
   },
   {
     label: "Issue Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "IssueDateFrom",
     valueKey: "IssueDateFrom",
-    ariaLabel: "Issue Date From",
     displayKey2: "To",
     valueKey2: "IssueDateTo",
-    fieldName2: "IssueDateTo",
-    ariaLabel2: "Issue Date To"
+    fieldName2: "IssueDateTo"
   },
   {
     label: "Expiration Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "ExpiryDateFrom",
     valueKey: "ExpiryDateFrom",
-    ariaLabel: "Expiration Date From",
     displayKey2: "To",
     valueKey2: "ExpiryDateTo",
-    fieldName2: "ExpiryDateTo",
-    ariaLabel2: "Expiration Date To"
+    fieldName2: "ExpiryDateTo"
   }
 ]

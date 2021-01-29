@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import StandardReportPage from "~/Component/Common/Page/ReportPage/StandardReportPage"
-import { DATE_PICKER, IFilterField, IFilterFieldType, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKER, IField, IFieldType, NUMBER, TEXT } from "~/Component/Common/Form/common"
 import { RouteComponentProps } from "react-router-dom"
 import { getReportByReportName } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
@@ -8,8 +8,8 @@ import { Row, Spin } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterField[] => {
-  const metas: IFilterField[] = []
+const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IField[] => {
+  const metas: IField[] = []
   Params.forEach((param: any) => {
     if (
       param.Name === "pUserName" ||
@@ -18,11 +18,11 @@ const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterFi
       param.Name === "SchoolName"
     )
       return
-    const meta: IFilterField = {
+    const meta: IField = {
       label: param.Name,
       fieldName: param.Name,
       ariaLabel: param.Name,
-      inputType: ((): IFilterFieldType => {
+      inputType: ((): IFieldType => {
         switch (param.JavaType) {
           case "Integer":
           case "Double":
@@ -48,7 +48,7 @@ const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IFilterFi
 export default function IndividualReportPage(props: RouteComponentProps<{ reportName: string }>) {
   const ReportName = props.match.params.reportName
   const [report, setReport] = useState<{ [key: string]: any }>({})
-  const [reportMeta, setReportMeta] = useState<IFilterField[]>([])
+  const [reportMeta, setReportMeta] = useState<IField[]>([])
   const [defaultFilters, setDefaultFilters] = useState<{ [key: string]: any }>({})
   const [reportMapping, setReportMapping] = useState<{ [key: string]: any }>({})
   const [loading, setLoading] = useState(false)
@@ -74,7 +74,7 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
             setReportMapping(fileResponse.mapping || {})
             setDefaultFilters(fileResponse.defaultFilter || {})
           } else {
-            const metas: IFilterField[] = generateIfilterFieldObject(apiResponse.data.Params)
+            const metas: IField[] = generateIfilterFieldObject(apiResponse.data.Params)
             setReportMeta(metas)
           }
         }

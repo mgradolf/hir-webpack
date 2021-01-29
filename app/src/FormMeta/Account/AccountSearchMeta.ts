@@ -1,13 +1,11 @@
 import { getAccountTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const AccountSearchMeta: IFilterField[] = [
+export const AccountSearchMeta: IField[] = [
   {
     label: "Account Type",
     inputType: DROPDOWN,
-
     fieldName: "AccountTypeID",
-    ariaLabel: "Account Type Select",
     refLookupService: getAccountTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -15,22 +13,16 @@ export const AccountSearchMeta: IFilterField[] = [
   {
     label: "Account Name",
     inputType: TEXT,
-
-    fieldName: "AccountName",
-    ariaLabel: "Account Name"
+    fieldName: "AccountName"
   },
   {
     label: "Contact Last Name",
     inputType: TEXT,
-
-    fieldName: "LastName",
-    ariaLabel: "Last Name"
+    fieldName: "LastName"
   },
   {
     label: "Contact First Name",
     inputType: TEXT,
-
-    fieldName: "FirstName",
-    ariaLabel: "First Name"
+    fieldName: "FirstName"
   }
 ]

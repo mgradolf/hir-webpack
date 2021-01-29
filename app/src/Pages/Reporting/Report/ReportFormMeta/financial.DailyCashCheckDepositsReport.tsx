@@ -1,18 +1,13 @@
 import { getOrganizations, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
-import {
-  DATE_PICKERS,
-  DROPDOWN,
-  IFilterField,
-  MULTI_SELECT_DROPDOWN,
-  TEXT
-} from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, MULTI_SELECT_DROPDOWN, TEXT, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Select Date",
     fieldName: "BeginDate",
     fieldName2: "EndDate",
+    rules: [{ required: true, message: "Date field is Required" }],
     inputType: DATE_PICKERS
   },
   {

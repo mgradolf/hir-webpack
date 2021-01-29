@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { Button, Card, Checkbox, Form, Input, Select } from "antd"
 import { FormInstance } from "antd/lib/form"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
 import TextArea from "antd/lib/input/TextArea"
 import QuestionSelectionOptionForm from "~/Component/Question/Create/QuestionSelectionOptionForm"
@@ -68,7 +68,7 @@ export default function QuestionCreateForm(props: IQuestionCreateForm) {
   return (
     <Card title="Create Question" actions={actions}>
       <Form form={props.formInstance} className="modal-form">
-        <FormError
+        <OldFormError
           errorMessages={props.errorMessages}
           genericInstructions={
             <ul>
@@ -77,7 +77,7 @@ export default function QuestionCreateForm(props: IQuestionCreateForm) {
               </li>
             </ul>
           }
-        ></FormError>
+        ></OldFormError>
         <Form.Item label="Organization" name={fieldNames.OrganizationID} {...layout}>
           <Select aria-label="Organization">
             {allOrganizations.map((x, i) => (

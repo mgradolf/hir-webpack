@@ -1,11 +1,11 @@
 import { getCatalogTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchProgramLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchProgramLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
-export const CatalogSearchMeta: IFilterField[] = [
+export const CatalogSearchMeta: IField[] = [
   {
     label: "Name",
     fieldName: "Name",
@@ -37,22 +37,26 @@ export const CatalogSearchMeta: IFilterField[] = [
   {
     label: "Offering",
     fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: OfferingLookupButton
   },
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Program",
     fieldName: "ProgramID",
-    customFilterComponent: SearchProgramLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: ProgramLookup,
     valueKey: "ProgramID"
   },
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   }
 ]

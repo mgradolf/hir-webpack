@@ -1,12 +1,14 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Offering",
     fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: OfferingLookupButton,
+    rules: [{ required: true, message: "Offering is Required" }]
   }
 ]
 

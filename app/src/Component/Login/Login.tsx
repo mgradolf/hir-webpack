@@ -9,7 +9,7 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { AppState } from "~/Store"
 import { push } from "connected-react-router"
-import TextInput from "~/Component/Common/Form/TextInput"
+import TextInput from "~/Component/Common/OldForm/OldTextInput"
 
 interface ILoginProps {
   globalErrorMessage?: null | string

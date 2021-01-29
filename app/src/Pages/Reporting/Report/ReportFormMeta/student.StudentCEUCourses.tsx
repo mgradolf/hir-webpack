@@ -1,13 +1,16 @@
 import { getTranscriptTypes } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    rules: [{ required: true, message: "Student is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   },
   {
     label: "Status Date",
@@ -18,6 +21,7 @@ const meta: IFilterField[] = [
   {
     label: "Transcript Type",
     inputType: DROPDOWN,
+    rules: [{ required: true, message: "Transcript Type is Required" }],
     fieldName: "TranscriptTypeID",
     refLookupService: getTranscriptTypes,
     displayKey: "Name",

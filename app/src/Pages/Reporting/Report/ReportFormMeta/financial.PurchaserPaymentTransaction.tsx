@@ -1,16 +1,20 @@
 import { getPaymentGatewayAccounts } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Payer",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    rules: [{ required: true, message: "Payer is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Order Date",
+    rules: [{ required: true, message: "Date field is Required" }],
     inputType: DATE_PICKERS,
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo"

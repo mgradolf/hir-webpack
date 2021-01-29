@@ -1,13 +1,13 @@
 import React, { useState } from "react"
 import { Button, Col, Row, Typography } from "antd"
-import SearchFilters from "~/Component/Common/SearchFilters"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CustomForm } from "~/Component/Common/Form"
+import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 export interface ISearchListWithVisibleSearchFormProp {
   title: string
   blocks?: JSX.Element[]
-  meta?: IFilterField[]
+  meta?: IField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
   defaultFilter?: { [key: string]: string }
@@ -35,11 +35,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
         {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
       </Row>
       {props.meta && (
-        <SearchFilters
-          title={""}
-          isModalView={true}
-          isCheckeble={false}
-          visible={true}
+        <CustomForm
           meta={props.meta}
           initialFilter={{ ...props.initialFilter, ...props.defaultFilter } || {}}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {

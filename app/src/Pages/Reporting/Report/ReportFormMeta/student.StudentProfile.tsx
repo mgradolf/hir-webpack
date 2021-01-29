@@ -1,12 +1,14 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    rules: [{ required: true, message: "Student is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   }
 ]
 

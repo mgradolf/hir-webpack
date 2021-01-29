@@ -25,7 +25,6 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Status",
       dataIndex: "Status"
-      // render: renderBoolean
     },
     {
       title: "Type",

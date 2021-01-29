@@ -1,10 +1,9 @@
-// import { Button } from "antd"
 import React from "react"
 import { Link } from "react-router-dom"
 import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistIF"
-// import { deleteWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
+
 import { renderDate, renderDateTime, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
-// import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { ReadOutlined } from "@ant-design/icons"
 
@@ -18,7 +17,7 @@ export const getWaitlistEntriesTableColumns = (
         title: "",
         dataIndex: "",
         render: (text: any, record: any) => (
-          <Link to={`/section/${record.SectionID}/waitlist/${record.WaitListEntryID}`}>
+          <Link to={`/waitlist/${record.WaitListEntryID}`}>
             <ReadOutlined />
           </Link>
         )

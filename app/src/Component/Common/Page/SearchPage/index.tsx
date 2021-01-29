@@ -1,6 +1,6 @@
 import React from "react"
 import { IDataTableProps } from "~/Component/Common/ResponsiveTable"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IField } from "~/Component/Common/Form/common"
 import SearchListWithHiddenSearchForm from "~/Component/Common/Page/SearchPage/SearchListWithHiddenSearchForm"
 import SearchListWithVisibleSearchForm from "~/Component/Common/Page/SearchPage/SearchListWithVisibleSearchForm"
 import { RouteComponentProps, useLocation } from "react-router-dom"
@@ -14,7 +14,7 @@ interface IPage extends Partial<RouteComponentProps> {
   hideSearchField?: boolean
   blocks?: JSX.Element[]
   title: string
-  meta?: IFilterField[]
+  meta?: IField[]
   tableProps: IDataTableProps
   initialFilter?: any
   defaultFilter?: any

@@ -106,7 +106,6 @@ export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta =
   })
 
   return {
-    // pageTitle: `${user.Name}`,
     tabs: tabMeta
   }
 }

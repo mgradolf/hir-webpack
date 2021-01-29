@@ -3,7 +3,7 @@ import Modal from "~/Component/Common/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/Store/ModalState"
-import SearchFilters from "~/Component/Common/SearchFilters"
+import { CustomForm } from "~/Component/Common/Form"
 import { Row, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
@@ -62,12 +62,9 @@ function AddOfferingFromRequisiteGroupModal({
       <div style={{ padding: "10px", height: "65vh" }}>
         {(modalSelectedPage === ModalPages.FilterPage && (
           <Row justify="center">
-            <SearchFilters
+            <CustomForm
               meta={OfferingSearchMeta}
-              isModalView={true}
               initialFilter={{}}
-              title={""}
-              visible
               hideFilters={() => {
                 closeAddOfferingFromRequisiteGroupModal()
                 setSelectedOfferings([])

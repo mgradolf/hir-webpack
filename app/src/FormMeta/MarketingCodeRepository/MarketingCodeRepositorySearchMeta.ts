@@ -1,8 +1,8 @@
 import { getMarketingCodeRelatedTagTypes } from "~/ApiServices/BizApi/marketingCode/marketingCodeIf"
 import { getMarketingCategory } from "~/ApiServices/Service/MarketingService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const MarketingCodeRepositorySearchMeta: IFilterField[] = [
+export const MarketingCodeRepositorySearchMeta: IField[] = [
   {
     label: "Code",
     inputType: TEXT,

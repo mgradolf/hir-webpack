@@ -5,7 +5,7 @@ import "~/Sass/utils.scss"
 import { scheduleInstructor } from "~/ApiServices/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import FormError from "~/Component/Common/Form/FormError"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleInstructorFieldNames } from "~/Component/Section/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
@@ -72,7 +72,7 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
   return (
     <Card title="Update Instructor" actions={actions}>
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
-        <FormError errorMessages={errorMessages} />
+        <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds} />
         </Form.Item>

@@ -1,12 +1,14 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchCatalogLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchCatalogLookup"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { CatalogLookup } from "~/Component/Common/Form/FormLookupFields/CatalogLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Catalog",
     fieldName: "CatalogID",
-    customFilterComponent: SearchCatalogLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: CatalogLookup,
+    rules: [{ required: true, message: "Catalog is Required" }]
   }
 ]
 

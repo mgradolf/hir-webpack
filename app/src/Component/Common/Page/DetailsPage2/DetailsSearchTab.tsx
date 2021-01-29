@@ -1,7 +1,7 @@
 import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
-import SearchFilters from "~/Component/Common/SearchFilters"
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { CustomForm } from "~/Component/Common/Form"
+import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
@@ -15,7 +15,7 @@ export interface IDetailsSearchTabProp {
   blocks?: JSX.Element[]
   blockComponents?: IBlockComponentProp[]
   title?: string
-  searchMeta?: IFilterField[]
+  searchMeta?: IField[]
   tableProps: IDataTableProps
   initialFilter?: { [key: string]: string }
   defaultFilter?: { [key: string]: string }
@@ -52,11 +52,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         {props.blockComponents && props.blockComponents.map((x, i) => <x.component {...x.props} rowData={rowData} />)}
       </Row>
       {props.searchMeta && (
-        <SearchFilters
-          title={""}
-          isModalView={true}
-          isCheckeble={false}
-          visible={true}
+        <CustomForm
           meta={props.searchMeta}
           initialFilter={searchParams}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {

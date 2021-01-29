@@ -1,7 +1,7 @@
-import { IFilterField } from "~/Component/Common/SearchFilters/common"
+import { IField } from "~/Component/Common/Form/common"
 
 export interface IReportMeta {
-  meta: IFilterField[]
+  meta: IField[]
   defaultFilter?: { [key: string]: any }
   mapping?: { [key: string]: any }
 }

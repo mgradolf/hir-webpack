@@ -1,9 +1,11 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Final Enrollment Date",
+    rules: [{ required: true, message: "Date field is Required" }],
+
     fieldName: "OrderDateFrom",
     fieldName2: "OrderDateTo",
     inputType: DATE_PICKERS

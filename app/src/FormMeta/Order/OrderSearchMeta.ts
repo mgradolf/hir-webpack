@@ -1,37 +1,38 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchLookupSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchComponentSelector"
-import { SearchDateTypeSelector } from "~/Component/Common/SearchFilters/SearchSelectors/SearchDateTypelector"
+import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
+import { FormDateTypelector } from "~/Component/Common/Form/FormFieldSelectors/FormDateTypelector"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
-export const OrderSearchMeta: IFilterField[] = [
+export const OrderSearchMeta: IField[] = [
   {
     label: "Person Selector",
     fieldName: "",
-    customFilterComponent: SearchLookupSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormFieldSelector,
     extraProps: {
       selectorKeys: [
         {
           label: "Purchaser",
           fieldName: "BuyerName",
           valueField: "FormattedName",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         },
         {
           label: "Student",
           fieldName: "StudentName",
           valueField: "FormattedName",
-          component: SearchStudentLookupButton
+          component: StudentLookup
         },
         {
           label: "Billed To Name",
           fieldName: "BilledPersonName",
           valueField: "FormattedName",
-          component: SearchPersonLookupButton
+          component: PersonLookup
         }
       ]
     }
@@ -39,13 +40,13 @@ export const OrderSearchMeta: IFilterField[] = [
   {
     label: "Order ID",
     inputType: NUMBER,
-    fieldName: "OrderID",
-    ariaLabel: "OrderID"
+    fieldName: "OrderID"
   },
   {
     label: "Date Type Select",
     fieldName: "",
-    customFilterComponent: SearchDateTypeSelector,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: FormDateTypelector,
     extraProps: {
       selectorKeys: [
         {
@@ -65,31 +66,32 @@ export const OrderSearchMeta: IFilterField[] = [
     label: "Section",
     fieldName: "SectionID",
     valueField: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
     valueField: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   },
   {
     label: "Total Amount",
     fieldName: "TotalAmountFrom",
     fieldName2: "TotalAmountTo",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: TotalAmountRange
   },
   {
     label: "Product Name",
     inputType: TEXT,
-    fieldName: "ProductName",
-    ariaLabel: "ProductName"
+    fieldName: "ProductName"
   },
   {
     label: "Source",
     inputType: DROPDOWN,
     fieldName: "SourceID",
-    ariaLabel: "Source",
     refLookupService: getSourceModule,
     displayKey: "Name",
     valueKey: "ID"
@@ -98,7 +100,6 @@ export const OrderSearchMeta: IFilterField[] = [
     label: "Order Status",
     inputType: DROPDOWN,
     fieldName: "OrderStatusID",
-    ariaLabel: "Order Status",
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"

@@ -1,15 +1,15 @@
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import { Form, Input, DatePicker, Select } from "antd"
-import FormError from "~/Component/Common/Form/FormError"
-import DropDown from "~/Component/Common/Form/DropDown"
+import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
+import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
 import {
   getApplicableSectionCertificate,
   getApplicableProgramCertificate
 } from "~/ApiServices/BizApi/certificate/certificateIF"
-import { FormStudentLookupButton } from "~/Component/Common/Form/FormLookups/FormStudentLookup"
+import { OldFormStudentLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormStudentLookup"
 import "~/Sass/utils.scss"
 import { FormInstance } from "antd/lib/form"
 import { getCompletedProgram, getCompletedSection } from "~/ApiServices/BizApi/certificate/studentCertificateIF"
@@ -110,7 +110,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
 
   return (
     <Form form={props.formInstance} initialValues={props.initialFormValue}>
-      <FormError errorMessages={props.errorMessages} />
+      <OldFormError errorMessages={props.errorMessages} />
 
       <Form.Item className="hidden" name={props.fieldNames.IsProgram}>
         <Input aria-label="Certificate type" />
@@ -140,10 +140,10 @@ export default function CertificateForm(props: ICertificateFormProps) {
         </>
       )}
 
-      {!fromRegistation && <FormStudentLookupButton formInstance={props.formInstance} onCloseModal={onCloseModal} />}
+      {!fromRegistation && <OldFormStudentLookup formInstance={props.formInstance} onCloseModal={onCloseModal} />}
 
       {!isProgram && !fromRegistation && (
-        <DropDown
+        <OldDropDown
           onChange={selectSectionHandler}
           label="Section"
           fieldName={props.fieldNames.SectionID}
@@ -152,11 +152,11 @@ export default function CertificateForm(props: ICertificateFormProps) {
           valueField="SectionID"
           labelColumn={{ span: 6 }}
           disabled={false}
-        ></DropDown>
+        ></OldDropDown>
       )}
 
       {isProgram && !fromRegistation && (
-        <DropDown
+        <OldDropDown
           onChange={selectProgramHandler}
           label="Program"
           fieldName={props.fieldNames.ProgramID}
@@ -165,7 +165,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
           valueField="ProgramID"
           labelColumn={{ span: 6 }}
           disabled={false}
-        ></DropDown>
+        ></OldDropDown>
       )}
 
       <Form.Item

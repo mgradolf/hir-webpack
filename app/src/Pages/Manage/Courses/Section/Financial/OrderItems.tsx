@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
-import OrderItemsSearchFilters from "~/Component/Common/SearchFilters"
+import { CustomForm } from "~/Component/Common/Form"
 import { OrderItemsFiltersMeta } from "~/FormMeta/OrderItem/OrderItemsSearchMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
@@ -19,12 +19,8 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
   const [showApplyDiscountModal, setShowApplyDiscountModal] = useState(false)
   return (
     <div className="site-layout-content">
-      <OrderItemsSearchFilters
+      <CustomForm
         meta={OrderItemsFiltersMeta}
-        isCheckeble={false}
-        isModalView={true}
-        visible={true}
-        title="Search Order Items"
         hideFilters={() => {
           console.log("meo")
         }}

@@ -1,23 +1,25 @@
 import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
-import { SearchDiscountProgramLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchDiscountProgramLookup"
-import { SearchAccountLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchAccountLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+import { DiscountProgramLookup } from "~/Component/Common/Form/FormLookupFields/DiscountProgramLookup"
+import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 
-export const OrderCreditsSearchMeta: IFilterField[] = [
+export const OrderCreditsSearchMeta: IField[] = [
   {
     label: "Purchaser",
     fieldName: "BuyerName",
     valueField: "FormattedName",
-    customFilterComponent: SearchPersonLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Section",
     fieldName: "SectionID",
     valueField: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Credit Status",
@@ -30,8 +32,7 @@ export const OrderCreditsSearchMeta: IFilterField[] = [
   {
     label: "Order ID",
     inputType: NUMBER,
-    fieldName: "OrderID",
-    ariaLabel: "OrderID"
+    fieldName: "OrderID"
   },
   {
     label: "Credit Date",
@@ -43,16 +44,19 @@ export const OrderCreditsSearchMeta: IFilterField[] = [
     label: "Total Amount",
     fieldName: "FromAmount",
     fieldName2: "ToAmount",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: TotalAmountRange
   },
   {
     label: "Discount Program",
     fieldName: "DiscountProgramID",
-    customFilterComponent: SearchDiscountProgramLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: DiscountProgramLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
-    customFilterComponent: SearchAccountLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: AccountLookup
   }
 ]

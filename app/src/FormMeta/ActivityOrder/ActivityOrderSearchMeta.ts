@@ -1,12 +1,13 @@
 import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
-export const ActivityOrderSearchMeta: IFilterField[] = [
+export const ActivityOrderSearchMeta: IField[] = [
   {
     label: "Section Lookup",
     fieldName: "SectionIDs",
-    customFilterComponent: SearchSectionLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }
@@ -14,16 +15,12 @@ export const ActivityOrderSearchMeta: IFilterField[] = [
   {
     label: "User ID",
     inputType: TEXT,
-
-    fieldName: "UserID",
-    ariaLabel: "User ID"
+    fieldName: "UserID"
   },
   {
     label: "Order Status",
     inputType: DROPDOWN,
-
     fieldName: "OrderStatusID",
-    ariaLabel: "Order Status",
     refLookupService: getOPCStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -31,14 +28,11 @@ export const ActivityOrderSearchMeta: IFilterField[] = [
   {
     label: "Order Activity",
     inputType: DATE_PICKERS,
-
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    valueKey2: "ToDate"
   }
 ]

@@ -25,19 +25,6 @@ export const getTransactionFinancialDepositeTrackingTableColumns = (isModal = fa
     { title: "Deposit", dataIndex: "Credit", sorter: (a: any, b: any) => sortByNumber(a, b) },
     { title: "Withdrawl", dataIndex: "Debit", sorter: (a: any, b: any) => sortByNumber(a, b) },
     { title: "Balance", dataIndex: "Balance", sorter: (a: any, b: any) => sortByNumber(a, b) }
-    // {
-    //   title: "Account Owner",
-    //   dataIndex: "PersonName",
-    //   render: (text: any, record: any) => (isModal ? text : <Link to={`/person/${record.PersonID}`}>{text}</Link>)
-    // },
-    // {
-    //   title: "Account Name",
-    //   dataIndex: "AffiliatedOrg",
-    //   render: (text: any, record: any) => (isModal ? text : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
-    // },
-    // { title: "Department", dataIndex: "Department" },
-    // { title: "Reference No", dataIndex: "ReferenceNo" },
-    // { title: "GL", dataIndex: "GLAccountName" },
   ]
 
   const responsiveColumnIndices: number[] = []

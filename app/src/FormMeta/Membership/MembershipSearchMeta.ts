@@ -1,12 +1,13 @@
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
-import { IFilterField, DATE_PICKERS, DROPDOWN, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchPersonLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchPersonLookup"
+import { IField, DATE_PICKERS, DROPDOWN, TEXT, CUSTOM_FIELD } from "~/Component/Common/Form/common"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 
-export const MembershipSearchMeta: IFilterField[] = [
+export const MembershipSearchMeta: IField[] = [
   {
     label: "Person",
     fieldName: "PersonID",
-    customFilterComponent: SearchPersonLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Email",
@@ -19,11 +20,9 @@ export const MembershipSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "TermExpirationDate",
     valueKey: "TermExpirationDate",
-    ariaLabel: "Expiration Date From",
     displayKey2: "To",
     valueKey2: "TermExpirationDate1",
-    fieldName2: "TermExpirationDate1",
-    ariaLabel2: "Expiration Date To"
+    fieldName2: "TermExpirationDate1"
   },
   {
     label: "Member Since",
@@ -31,11 +30,9 @@ export const MembershipSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "MemberSince",
     valueKey: "MemberSince",
-    ariaLabel: "Member Since From",
     displayKey2: "To",
     valueKey2: "MemberSince1",
-    fieldName2: "MemberSince1",
-    ariaLabel2: "Member Since To"
+    fieldName2: "MemberSince1"
   },
   {
     label: "Renewal Period Starts",
@@ -43,11 +40,9 @@ export const MembershipSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "TermRenewalBeginDate",
     valueKey: "TermRenewalBeginDate",
-    ariaLabel: "Renewal Period Starts From",
     displayKey2: "To",
     valueKey2: "TermRenewalBeginDate1",
-    fieldName2: "TermRenewalBeginDate1",
-    ariaLabel2: "Renewal Period Starts To"
+    fieldName2: "TermRenewalBeginDate1"
   },
   {
     label: "Membership Program",
@@ -66,9 +61,4 @@ export const MembershipSearchMeta: IFilterField[] = [
       { label: "No", value: "No" }
     ]
   }
-  // {
-  //   label: "Membership Definition ID",
-  //   fieldName: "MembershipDefinitionID",
-  //   inputType: NUMBER
-  // }
 ]

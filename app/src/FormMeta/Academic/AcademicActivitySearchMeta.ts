@@ -1,12 +1,13 @@
-import { DATE_PICKERS, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, IField, TEXT } from "~/Component/Common/Form/common"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
-export const AcademicActivitySearchMeta: IFilterField[] = [
+export const AcademicActivitySearchMeta: IField[] = [
   {
     label: "Section",
-    fieldName: "SectionIDs",
-    customFilterComponent: SearchSectionLookupButton,
+    fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup,
     extraProps: {
       isArray: true
     }
@@ -14,7 +15,8 @@ export const AcademicActivitySearchMeta: IFilterField[] = [
   {
     label: "Student",
     fieldName: "StudentIDs",
-    customFilterComponent: SearchStudentLookupButton,
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup,
     extraProps: {
       isArray: true
     }
@@ -22,8 +24,7 @@ export const AcademicActivitySearchMeta: IFilterField[] = [
   {
     label: "Activity By",
     inputType: TEXT,
-    fieldName: "UserID",
-    ariaLabel: "Activity By User ID"
+    fieldName: "UserID"
   },
   {
     label: "Activity Date",
@@ -31,10 +32,8 @@ export const AcademicActivitySearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromDate",
     valueKey: "FromDate",
-    ariaLabel: "From",
     displayKey2: "To",
     fieldName2: "ToDate",
-    valueKey2: "ToDate",
-    ariaLabel2: "To"
+    valueKey2: "ToDate"
   }
 ]

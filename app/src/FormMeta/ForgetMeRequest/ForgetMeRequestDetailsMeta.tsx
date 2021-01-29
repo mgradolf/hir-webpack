@@ -1,4 +1,3 @@
-// import React from "react"
 import React from "react"
 import { Link } from "react-router-dom"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"

@@ -1,26 +1,25 @@
 import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
 import { getProgramEnrollmentStatusCodes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
-import { SearchStudentLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchStudentLookup"
+import { CUSTOM_FIELD, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 
-export const ProgramEnrollmentSearchMeta: IFilterField[] = [
+export const ProgramEnrollmentSearchMeta: IField[] = [
   {
     label: "Program Name",
     inputType: TEXT,
     defaultValue: "",
-    fieldName: "programName",
-    ariaLabel: "Program Name"
+    fieldName: "programName"
   },
   {
     label: "Student",
     fieldName: "StudentID",
-    customFilterComponent: SearchStudentLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   },
   {
     label: "Status",
     inputType: DROPDOWN,
     fieldName: "applicationStatus",
-    ariaLabel: "Program Status Select",
     refLookupService: getProgramEnrollmentStatusCodes,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -29,7 +28,6 @@ export const ProgramEnrollmentSearchMeta: IFilterField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "departmentID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizationByType,
     displayKey: "Description",
     valueKey: "OrganizationID"
@@ -38,7 +36,6 @@ export const ProgramEnrollmentSearchMeta: IFilterField[] = [
     label: "Program Code",
     inputType: TEXT,
     defaultValue: "*",
-    fieldName: "programCode",
-    ariaLabel: "Program Code"
+    fieldName: "programCode"
   }
 ]

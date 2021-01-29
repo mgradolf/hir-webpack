@@ -1,31 +1,30 @@
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
-import { SearchOfferingLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchOfferingLookup"
-import { SearchSectionLookupButton } from "~/Component/Common/SearchFilters/SearchLookups/SearchSectionLookup"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import WaitlistSearchCustomLookupFilter from "~/FormMeta/WaitlistEntries/WaitlistSearchCustomLookupFilter"
 
-export const WaitlistEntriesSearchMeta: IFilterField[] = [
+export const WaitlistEntriesSearchMeta: IField[] = [
   {
     label: "Section",
     fieldName: "SectionID",
-    customFilterComponent: SearchSectionLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Offering",
     fieldName: "OfferingID",
-    customFilterComponent: SearchOfferingLookupButton
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: OfferingLookupButton
   },
   {
     label: "Creation Date",
     inputType: DATE_PICKERS,
     displayKey: "From",
-
     fieldName: "CreationTimeFrom",
     valueKey: "CreationTimeFrom",
-    ariaLabel: "Creation Date From",
     displayKey2: "To",
     valueKey2: "CreationTimeTo",
-    fieldName2: "CreationTimeTo",
-    ariaLabel2: "Creation Date To"
+    fieldName2: "CreationTimeTo"
   },
   {
     label: "Expiration Date",
@@ -33,19 +32,14 @@ export const WaitlistEntriesSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "RequestExpirationTimeFromExclusive",
     valueKey: "RequestExpirationTimeFromExclusive",
-
-    ariaLabel: "Expiration Date From",
     displayKey2: "To",
     fieldName2: "RequestExpirationTimeToExclusive",
-    valueKey2: "RequestExpirationTimeToExclusive",
-    ariaLabel2: "Expiration Date To"
+    valueKey2: "RequestExpirationTimeToExclusive"
   },
   {
     label: "Active",
     inputType: DROPDOWN,
-
     fieldName: "IsActive",
-    ariaLabel: "Is Active",
     options: [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
@@ -54,6 +48,7 @@ export const WaitlistEntriesSearchMeta: IFilterField[] = [
   {
     label: "Account/Person",
     fieldName: "SiteID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: WaitlistSearchCustomLookupFilter
   }
 ]

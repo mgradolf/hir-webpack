@@ -92,8 +92,8 @@ export const sidebarMenus: ISidebarMenu[] = [
       { title: "Charts", url: "/chart", submenu: [] },
       { title: "Queries", url: "", submenu: [] },
       { title: "Master P & L Calculator", url: "", submenu: [] },
-      { title: "Section Instructors", url: "/section-instructors", submenu: [] },
-      { title: "Section Schedule and Location", url: "", submenu: [] }
+      { title: "Section Instructors", url: "/section-instructors", submenu: [] }
+      // { title: "Section Schedule and Location", url: "", submenu: [] }
     ]
   },
   {
@@ -104,8 +104,8 @@ export const sidebarMenus: ISidebarMenu[] = [
         title: "Tools",
         url: "",
         submenu: [
-          { title: "Data Import Service (DIS)", url: "", submenu: [] },
-          { title: "Job Schedules", url: "/job-schedule", submenu: [] },
+          // { title: "Data Import Service (DIS)", url: "", submenu: [] },
+          { title: "Job Schedules", url: "/job-schedules", submenu: [] },
           { title: "Student Email Notifications", url: "/student-email-notification", submenu: [] },
           { title: "Batches", url: "/batch", submenu: [] }
         ]
@@ -132,7 +132,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Gateway Activity", url: "/gateway-activity", submenu: [] },
-          { title: "System Schedule", url: "/system-schedule", submenu: [] }
+          { title: "System Schedules", url: "/system-schedule", submenu: [] }
         ]
       }
     ]

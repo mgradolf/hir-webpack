@@ -55,44 +55,6 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
       dataIndex: "AccountName",
       render: (text: any, record: any) => (isModal ? { text } : <Link to={`/account/${record.AccountID}`}>{text}</Link>)
     }
-
-    // {
-    //   title: "Order Date",
-    //   dataIndex: "CreateDate",
-    //   render: renderDate
-    // },
-    // {
-    //   title: "Purchaser",
-    //   dataIndex: "PurchaserName"
-    // },
-    // {
-    //   title: "Completion Date",
-    //   dataIndex: "CompletionDate",
-    //   render: renderDate
-    // },
-    // {
-    //   title: "Grade",
-    //   dataIndex: "GradeScaleType"
-    // },
-    // {
-    //   title: "Certificate Issued",
-    //   dataIndex: "CertificateIssued",
-    //   render: renderBoolean
-    // },
-    // {
-    //   title: "Package",
-    //   dataIndex: "PackageName"
-    // },
-    // {
-    //   title: "Package Start Date",
-    //   dataIndex: "PackageStartDate",
-    //   render: renderDate
-    // },
-    // {
-    //   title: "Package End Date",
-    //   dataIndex: "PackageEndDate",
-    //   render: renderDate
-    // }
   ]
 
   return { columns, searchFunc: findRegistrationsWebAdmin }

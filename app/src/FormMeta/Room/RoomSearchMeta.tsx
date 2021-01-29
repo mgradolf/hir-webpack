@@ -1,20 +1,19 @@
 import { getRoomTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 import RoomFilter from "~/FormMeta/Room/RoomFilter"
 
-export const RoomeSearchMeta: IFilterField[] = [
+export const RoomeSearchMeta: IField[] = [
   {
     label: "Site",
     fieldName: "SiteID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: RoomFilter,
     extraProps: { hideRoomDropdown: true }
   },
   {
     label: "Room Type",
     inputType: DROPDOWN,
-
     fieldName: "RoomUseTypeID",
-    ariaLabel: "Room Type Select",
     refLookupService: getRoomTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -22,22 +21,16 @@ export const RoomeSearchMeta: IFilterField[] = [
   {
     fieldName: "Floor",
     inputType: NUMBER,
-
-    ariaLabel: "Floor",
     label: "Floor"
   },
   {
     fieldName: "MinCapacity",
     inputType: NUMBER,
-
-    ariaLabel: "Minimum Capacity",
     label: "Minimum Capacity"
   },
   {
     fieldName: "MaxCapacity",
     inputType: NUMBER,
-
-    ariaLabel: "Maximum Capacity",
     label: "Maximum Capacity"
   },
   {
@@ -47,8 +40,6 @@ export const RoomeSearchMeta: IFilterField[] = [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
     ],
-
-    ariaLabel: "Accessible",
     label: "Accessible"
   }
 ]

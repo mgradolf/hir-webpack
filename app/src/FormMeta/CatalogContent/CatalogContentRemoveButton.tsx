@@ -6,8 +6,9 @@ import {
   removeProgramFromCatalog,
   removeSectionFromCatalog
 } from "~/ApiServices/Service/CatalogService"
+import { eventBus } from "~/utils/EventBus"
 
-export const CatalogContentRemoveButton = (props: { catalog: { [key: string]: any } }) => {
+export const CatalogContentRemoveButton = (props: { catalog: { [key: string]: any }; eventName: string }) => {
   const [loading, setLoading] = useState(false)
   const [buttonLabel, setButtonLabel] = useState("Remove")
   const addRemoveTagToOffering = async (Params: { [key: string]: any }): Promise<IApiResponse> => {
@@ -17,11 +18,11 @@ export const CatalogContentRemoveButton = (props: { catalog: { [key: string]: an
       config.methodToCall = removeProgramFromCatalog
       config.key = "ProgramID"
     } else if (Params.contentType === "Offering") {
-      config.methodToCall = removeSectionFromCatalog
-      config.key = "SectionID"
-    } else {
       config.methodToCall = removeOfferingFromCatalog
       config.key = "OfferingID"
+    } else {
+      config.methodToCall = removeSectionFromCatalog
+      config.key = "SectionID"
     }
 
     const response = await config.methodToCall({
@@ -30,6 +31,7 @@ export const CatalogContentRemoveButton = (props: { catalog: { [key: string]: an
     })
     if (response.success) {
       setButtonLabel("Removed")
+      eventBus.publish(props.eventName)
     }
     setLoading(false)
     return response

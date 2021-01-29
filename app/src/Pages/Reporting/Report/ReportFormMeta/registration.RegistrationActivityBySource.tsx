@@ -1,12 +1,14 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField } from "~/Component/Common/SearchFilters/common"
+import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IFilterField[] = [
+const meta: IField[] = [
   {
     label: "Registration Date",
     fieldName: "date_start",
     fieldName2: "date_end",
+    rules: [{ required: true, message: "Date field is Required" }],
+
     inputType: DATE_PICKERS
   },
   {
@@ -19,6 +21,8 @@ const meta: IFilterField[] = [
   },
   {
     label: "Registration Source",
+    rules: [{ required: true, message: "Source field is Required" }],
+
     inputType: DROPDOWN,
     fieldName: "sourceAll",
     refLookupService: getSourceModule,

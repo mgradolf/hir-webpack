@@ -66,7 +66,7 @@ export function CatalogContentAddDropdown(props: IScheduleUpdateMenuProp) {
   return (
     <>
       <Dropdown.Button overlay={menus} type="primary" style={props.style}>
-        + Add Content
+        + Select Content
       </Dropdown.Button>
       {showLookupModal && (
         <LookupModal

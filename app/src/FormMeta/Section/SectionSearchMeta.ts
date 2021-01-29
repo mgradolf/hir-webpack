@@ -1,24 +1,22 @@
 import { getUsersByRole } from "~/ApiServices/Service/HRUserService"
 import { getSectionStatusCode, getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKERS, DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { findMeetingTypes } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import TagFilter from "~/FormMeta/Section/SectionSearchCustomFilters/TagFilter"
-import { SearchRoomLookup } from "~/Component/Common/SearchFilters/SearchLookups/SearchRoomLookup"
+import { RoomLookup } from "~/Component/Common/Form/FormLookupFields/RoomLookup"
 import { SiteBuildingRoomFilter } from "~/FormMeta/Section/SectionSearchCustomFilters/SiteBuildingRoomFilter"
 
-export const SectionSearchMeta: IFilterField[] = [
+export const SectionSearchMeta: IField[] = [
   {
     label: "Offering Code",
     inputType: TEXT,
-    fieldName: "OfferingCode",
-    ariaLabel: "Offering Code"
+    fieldName: "OfferingCode"
   },
   {
     label: "Section Number",
     inputType: TEXT,
     defaultValue: "*",
-    fieldName: "SectionNumber",
-    ariaLabel: "Section Number"
+    fieldName: "SectionNumber"
   },
   {
     label: "Start Date",
@@ -26,17 +24,14 @@ export const SectionSearchMeta: IFilterField[] = [
     displayKey: "From",
     fieldName: "FromStartDate",
     valueKey: "FromStartDate",
-    ariaLabel: "Start Date From",
     displayKey2: "To",
     valueKey2: "ToStartDate",
-    fieldName2: "ToStartDate",
-    ariaLabel2: "Start Date To"
+    fieldName2: "ToStartDate"
   },
   {
     label: "Status",
     inputType: DROPDOWN,
     fieldName: "SectionStatusCodeID",
-    ariaLabel: "Offering Status Select",
     refLookupService: getSectionStatusCode,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -44,14 +39,12 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Offering Name",
     inputType: TEXT,
-    fieldName: "OfferingName",
-    ariaLabel: "Offering Name"
+    fieldName: "OfferingName"
   },
   {
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "OrganizationID",
-    ariaLabel: "Department Select",
     refLookupService: getOrganizations,
     displayKey: "Name",
     valueKey: "OrganizationID"
@@ -59,20 +52,17 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Instructor Last Name",
     inputType: TEXT,
-    fieldName: "SectionFacultyLastName",
-    ariaLabel: "Instructor last name"
+    fieldName: "SectionFacultyLastName"
   },
   {
     label: "Instructor First Name",
     inputType: TEXT,
-    fieldName: "SectionFacultyFirstName",
-    ariaLabel: "Instructor first name"
+    fieldName: "SectionFacultyFirstName"
   },
   {
     label: "Meeting Type",
     inputType: DROPDOWN,
     fieldName: "MeetingType",
-    ariaLabel: "Meeting Type",
     refLookupService: findMeetingTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -80,18 +70,19 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Room",
     fieldName: "RoomID",
-    customFilterComponent: SearchRoomLookup
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: RoomLookup
   },
   {
     label: "Room",
     fieldName: "RoomID",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: SiteBuildingRoomFilter
   },
   {
     label: "Meets On",
     inputType: DROPDOWN,
     fieldName: "MeetsOn",
-    ariaLabel: "Meets on Weekdays",
     options: [
       { label: "Monday", value: "1" },
       { label: "Tuesday", value: "2" },
@@ -105,13 +96,13 @@ export const SectionSearchMeta: IFilterField[] = [
   {
     label: "Search Tag Hierarchy",
     fieldName: "searchTagHeirarchy",
+    inputType: CUSTOM_FIELD,
     customFilterComponent: TagFilter
   },
   {
     label: "Coordinator",
     inputType: DROPDOWN,
     fieldName: "Coordinator",
-    ariaLabel: "Coordinator Select",
     refLookupService: () => getUsersByRole({ Role: "coordinator" }),
     displayKey: "FormattedName",
     valueKey: "UserLogin"

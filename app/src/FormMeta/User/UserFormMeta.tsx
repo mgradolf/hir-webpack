@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { FormModal } from "~/Component/Common/Modal/FormModal"
 import { Button } from "antd"
-import { IFilterField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/SearchFilters/common"
+import { IField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/Form/common"
 import { findAllUserRoles, saveUser } from "~/ApiServices/Service/UserService"
 
-export const UserSearchMeta: IFilterField[] = [
+export const UserSearchMeta: IField[] = [
   { label: "UserID", inputType: TEXT, fieldName: "UserID" },
   { label: "FirstName", inputType: TEXT, fieldName: "FirstName" },
   { label: "LastName", inputType: TEXT, fieldName: "LastName" },

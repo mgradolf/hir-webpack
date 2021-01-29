@@ -1,24 +1,21 @@
 import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
-export const OfferingTypeSearchMeta: IFilterField[] = [
+export const OfferingTypeSearchMeta: IField[] = [
   {
     label: "Type Name",
     inputType: TEXT,
-    fieldName: "OfferingTypeName",
-    ariaLabel: "Type Name"
+    fieldName: "OfferingTypeName"
   },
   {
     label: "Offering Name",
     inputType: TEXT,
-    fieldName: "Name",
-    ariaLabel: "Offering Name"
+    fieldName: "Name"
   },
   {
     label: "Offering Code",
     inputType: TEXT,
-    fieldName: "OfferingCode",
-    ariaLabel: "Offering Code"
+    fieldName: "OfferingCode"
   },
   {
     label: "Department",

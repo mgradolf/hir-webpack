@@ -1,12 +1,11 @@
 import { getProductCategoryTypes } from "~/ApiServices/Service/RefLookupService"
-import { DROPDOWN, IFilterField, NUMBER, TEXT } from "~/Component/Common/SearchFilters/common"
+import { DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 
-export const ProductSearchMeta: IFilterField[] = [
+export const ProductSearchMeta: IField[] = [
   {
     label: "Product Category",
     inputType: DROPDOWN,
     fieldName: "ProductCategoryID",
-    ariaLabel: "Product Category Select",
     refLookupService: getProductCategoryTypes,
     displayKey: "Name",
     valueKey: "ID"
@@ -14,8 +13,7 @@ export const ProductSearchMeta: IFilterField[] = [
   {
     label: "Product Name",
     inputType: TEXT,
-    fieldName: "ProductName",
-    ariaLabel: "Product Name"
+    fieldName: "ProductName"
   },
   {
     label: "Optional Item",
@@ -35,7 +33,7 @@ export const ProductSearchMeta: IFilterField[] = [
       { label: "No", value: "false" }
     ]
   },
-  { label: "Inventory Units", fieldName: "ProductInventoryUnits", inputType: NUMBER } //: 99999979,
+  { label: "Inventory Units", fieldName: "ProductInventoryUnits", inputType: NUMBER }
 ]
 
 /*
