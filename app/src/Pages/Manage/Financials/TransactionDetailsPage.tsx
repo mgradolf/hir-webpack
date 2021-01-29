@@ -10,7 +10,7 @@ export default function TransactionDetailsPage(props: RouteComponentProps<{ depo
     <DetailsPage
       getMeta={getTransactionDetailsMeta}
       getDetails={() =>
-        searchTransactions({ TransactionID: DepositID, IsDepositView: false }).then((x) => {
+        searchTransactions({ TransactionID: DepositID, IsDepositeView: false }).then((x) => {
           if (x.success) x.data = x.data[0]
           return x
         })
