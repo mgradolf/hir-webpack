@@ -78,14 +78,14 @@ export const RequestSearchMeta: IField[] = [
   {
     label: "Product",
     fieldName: "ProductID",
-    valueField: "ProductID",
+    valueField: "ProductName",
     inputType: CUSTOM_FIELD,
     customFilterComponent: ProductLookup
   },
   {
     label: "Program",
     fieldName: "ProgramID",
-    valueField: "ProgramID",
+    valueField: "Name",
     inputType: CUSTOM_FIELD,
     customFilterComponent: ProgramLookup
   },
