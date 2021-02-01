@@ -1,5 +1,5 @@
 import React from "react"
-import { Dropdown, Menu, Space } from "antd"
+import { Dropdown, Menu, Space, Button } from "antd"
 import { Link } from "react-router-dom"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
@@ -88,9 +88,9 @@ export const getOrderItemTableColumns = (isModal = false, SectionID?: number): I
             }
             trigger={["click"]}
           >
-            <a href="/" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-              Actions <DownOutlined />
-            </a>
+            <Button type="primary" onClick={(e) => e.preventDefault()}>
+              Go To <DownOutlined />
+            </Button>
           </Dropdown>
         </Space>
       )
