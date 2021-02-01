@@ -31,6 +31,8 @@ interface IFilterColumnProps {
   showClearbutton?: boolean
   applyButtonLabel?: string
   clearButtonLabel?: string
+  closeModal?: () => void
+  stopProducingQueryParams?: boolean
 }
 
 export function CustomForm({
@@ -114,8 +116,10 @@ export function CustomForm({
         const filterCount = Object.keys(mergedParams).length
         props.onApplyChanges(mergedParams, filterCount)
 
-        const _queryString = objectToQueryString(Object.keys(params).length > 0 ? params : null)
-        window.history && window.history.pushState({}, "", _queryString)
+        if (!props.stopProducingQueryParams) {
+          const _queryString = objectToQueryString(Object.keys(params).length > 0 ? params : null)
+          window.history && window.history.pushState({}, "", _queryString)
+        }
       })
       .catch((validationError) => {
         console.log("validationError ", validationError)
@@ -137,7 +141,7 @@ export function CustomForm({
   useEffect(() => {
     const queryParams: { [key: string]: any } = querystringToObject()
     const updateMeta = queryParams && Object.keys(queryParams).length > 0
-    if (updateMeta) {
+    if (updateMeta && !props.stopProducingQueryParams) {
       setShowLess(false)
       formInstance.setFieldsValue(queryParams)
       const _meta = props.meta.map((x) => {
@@ -171,9 +175,16 @@ export function CustomForm({
         />
       </Form>
       <Row justify="end" gutter={[8, 8]}>
-        {meta.length > 4 && (
+        {!props.closeModal && meta.length > 4 && (
           <Col>
             <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
+          </Col>
+        )}
+        {props.closeModal && (
+          <Col>
+            <Button type="ghost" aria-label="Cancel" danger onClick={() => props.closeModal && props.closeModal()}>
+              Cancel
+            </Button>
           </Col>
         )}
         {showClearbutton && (
