@@ -33,7 +33,7 @@ export default function SendEmailForm(props: ISendEmailFormProps) {
 
   useEffect(() => {
     ;(async () => {
-      const response = await getLoggedInUser()
+      const response = await getLoggedInUser({})
       if (response && response.success) {
         props.formInstance.setFieldsValue({
           [fieldNames.FromEmailAddress]: response.data.EmailAddress
