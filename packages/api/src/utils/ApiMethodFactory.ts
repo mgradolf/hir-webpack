@@ -47,6 +47,11 @@ async function callServiceApi(
     }
   }
 
+  if (Params.Headers) {
+    config.data.Headers = Params.Headers
+    delete Params.Headers
+  }
+
   if (Params[RESPONSE_TYPE.PDF] || (Array.isArray(Params) && Params[0] && Params[0][RESPONSE_TYPE.PDF])) {
     return preview(config)
   }
