@@ -14,6 +14,7 @@ export async function login(UserName: string, UserPassword: string): Promise<IAp
       "Content-Type": "application/x-www-form-urlencoded"
     }
   }
+  requestConfig.withCredentials = true
   const response: IApiResponse = await handleResponse(axios.request(requestConfig))
   if (response && response.success) {
     setTokens(response.data["token"])
