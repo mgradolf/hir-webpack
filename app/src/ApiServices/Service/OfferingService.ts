@@ -12,23 +12,14 @@ export function updateOffering(Params: { [key: string]: any }): Promise<IApiResp
   return OfferingService[config.Actions.updateOffering](Params)
 }
 
-export function searchOffering(
-  Params: { [key: string]: any },
-  headers?: { [key: string]: any }
-): Promise<IApiResponse> {
-  return OfferingService[config.Actions.searchOffering](Params, headers)
+export function searchOffering(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.searchOffering](Params)
 }
 
-export function addOrRemoveOfferingToCatalog(OfferingID: number, CatalogIDs: Array<number>): Promise<IApiResponse> {
-  return OfferingService[config.Actions.addOrRemoveOfferingToCatalog]({
-    OfferingID,
-    CatalogIDs
-  })
+export function addOrRemoveOfferingToCatalog(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.addOrRemoveOfferingToCatalog](Params)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering financial section                         */
-/* -------------------------------------------------------------------------- */
 export function createOfferingFinancial(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OfferingService[config.Actions.createOfferingFinancial](Params)
 }
@@ -37,57 +28,48 @@ export function updateOfferingFinancial(Params: { [key: string]: any }): Promise
   return OfferingService[config.Actions.updateOfferingFinancial](Params)
 }
 
-export function searchOfferingFinancial(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.searchOfferingFinancial]({ OfferingID })
+export function searchOfferingFinancial(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.searchOfferingFinancial](Params)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering approval section                         */
-/* -------------------------------------------------------------------------- */
-export function getOfferngApprovalHist(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferngApprovalHist]({ OfferingID })
+export function getOfferngApprovalHist(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getOfferngApprovalHist](Params)
 }
 
 export function setApprovalStatus(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OfferingService[config.Actions.setApprovalStatus](Params)
 }
 
-export function getOfferngApprovalStateList(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferngApprovalStateList]({ OfferingID })
+export function getOfferngApprovalStateList(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getOfferngApprovalStateList](Params)
 }
 
-export function getOfferingApprovalSendToList(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferingApprovalSendToList]({ OfferingID })
+export function getOfferingApprovalSendToList(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getOfferingApprovalSendToList](Params)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering requisite management section              */
-/* -------------------------------------------------------------------------- */
-export function getRequisiteOfferingGroup(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getRequisiteOfferingGroup]({ OfferingID })
+export function getRequisiteOfferingGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getRequisiteOfferingGroup](Params)
 }
-export function getGroupOfferings(RequisiteOfferingGroupID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getGroupOfferings]({ RequisiteOfferingGroupID })
+
+export function getGroupOfferings(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getGroupOfferings](Params)
 }
+
 export function createRequisiteOfferingGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OfferingService[config.Actions.createRequisiteOfferingGroup](Params)
 }
+
 export function updateRequisiteOfferingGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
   return OfferingService[config.Actions.updateRequisiteOfferingGroup](Params)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering qualified instructor section              */
-/* -------------------------------------------------------------------------- */
-export function getQualifiedInstructors(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getQualifiedInstructors]({ OfferingID })
+export function getQualifiedInstructors(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getQualifiedInstructors](Params)
 }
 
-export function updateInstructors(OfferingID: number, InstructorIDs: Array<number>): Promise<IApiResponse> {
-  return OfferingService[config.Actions.updateInstructors]({
-    OfferingID,
-    InstructorIDs
-  })
+export function updateInstructors(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return OfferingService[config.Actions.updateInstructors](Params)
 }
 
 export function createSection(Params: { [key: string]: string }): Promise<IApiResponse> {

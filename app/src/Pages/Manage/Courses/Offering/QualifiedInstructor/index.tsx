@@ -19,7 +19,7 @@ function OfferingQualifiedInstructorPage(props: RouteComponentProps<{ offeringID
     setLoading(true)
     const IDs = instructorIDs.filter((x) => x !== instructorID)
     console.log(IDs, instructorIDs, instructorID)
-    updateInstructors(Number(offeringID), IDs)
+    updateInstructors({ OfferingID: Number(offeringID), InstructorIDs: IDs })
       .then((result) => {
         if (result && result.success) {
           eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
