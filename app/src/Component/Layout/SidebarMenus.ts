@@ -118,7 +118,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Section Types", url: "/section-type", submenu: [] },
           { title: "Sites", url: "/site", submenu: [] },
           { title: "Grade Score Definitions", url: "/data/grade-score-definition", submenu: [] },
-          { title: "Reference Data", url: "", submenu: [] },
+          { title: "Reference Data", url: "/reference-data", submenu: [] },
           { title: "Organizations", url: "/data/organization", submenu: [] },
           { title: "Certificates", url: "/data/certificate", submenu: [] },
           { title: "Tags", url: "/tags", submenu: [] }

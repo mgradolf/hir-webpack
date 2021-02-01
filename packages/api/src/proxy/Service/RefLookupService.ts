@@ -5,7 +5,11 @@ export const config = {
   Service: "RefLookupService",
   Module: "hir",
   Actions: {
-    getList: "getList"
+    getList: "getList",
+    createRefRecord: "createRefRecord",
+    getRefRecord: "getRefRecord",
+    removeRefRecord: "removeRefRecord",
+    updateRefRecord: "updateRefRecord"
   }
 }
 export default ApiMethodFactory(config)
