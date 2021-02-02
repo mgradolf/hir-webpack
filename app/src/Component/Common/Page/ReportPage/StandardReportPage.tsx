@@ -12,7 +12,7 @@ export interface IStandardReportPage {
   meta?: IField[]
   initialFilter?: { [key: string]: string }
   defaultFilter?: { [key: string]: string }
-  mapping?: { [key: string]: string }
+  mapping?: { [key: string]: any }
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
@@ -25,8 +25,14 @@ export default function StandardReportPage(props: IStandardReportPage) {
       } else if (params[key] !== null || params[key] !== undefined) {
         urlParams += `${key}=${params[key]}&`
       }
-      if (props.mapping && props.mapping[key]) {
-        urlParams += `${props.mapping[key]}=${params[key]}&`
+      if (props.mapping) {
+        if (Array.isArray(props.mapping[key]) && props.mapping[key].length > 0) {
+          for (const mappingKey of props.mapping[key]) {
+            urlParams += `${mappingKey}=${params[key]}&`
+          }
+        } else if (props.mapping[key]) {
+          urlParams += `${props.mapping[key]}=${params[key]}&`
+        }
       }
     }
     urlParams += "token=" + getToken()

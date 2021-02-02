@@ -1,5 +1,6 @@
 import { IField, TEXT } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { generateMMDDYY } from "~/utils/MMDDYYGenerator"
 
 const meta: IField[] = [
   {
@@ -8,39 +9,20 @@ const meta: IField[] = [
     fieldName: "InstructorParam"
   },
   {
-    label: "Room Name",
+    label: "Location",
     inputType: TEXT,
     fieldName: "RoomNameParam"
-  },
-  {
-    label: "Room Number",
-    inputType: TEXT,
-    fieldName: "RoomNumberParam"
-  },
-  {
-    label: "Building Name",
-    inputType: TEXT,
-    fieldName: "BuildingNameParam"
-  },
-  {
-    label: "Building Number",
-    inputType: TEXT,
-    fieldName: "BuildingNumberParam"
-  },
-  {
-    label: "Site Name",
-    inputType: TEXT,
-    fieldName: "SiteNameParam"
-  },
-  {
-    label: "Other Location",
-    inputType: TEXT,
-    fieldName: "OtherLocation"
   }
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  mapping: {
+    RoomNameParam: ["RoomNumberParam", "BuildingNameParam", "BuildingNumberParam", "SiteNameParam", "OtherLocation"]
+  },
+  defaultFilter: {
+    CurrentDate: generateMMDDYY(new Date())
+  }
 }
 
 export default reportMeta
