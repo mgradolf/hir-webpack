@@ -41,6 +41,6 @@ export const getMembershipTermsTableColumns = (isModal = false): ITableConfigPro
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: (Params: { [key: string]: any }) => findMebershipTerms([Params.MembershipID])
+    searchFunc: (Params: { [key: string]: any }) => findMebershipTerms({ MembershipID: Params.MembershipID })
   }
 }
