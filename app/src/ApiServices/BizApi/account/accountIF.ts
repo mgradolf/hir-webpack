@@ -1,8 +1,6 @@
 import AccountIf, { config } from "@packages/api/lib/proxy/BizApi/account/accountIf"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-/* -------------------------------------------------------------------------- */
-/*                              offering requisite section                              */
-/* -------------------------------------------------------------------------- */
+
 export function findAccountForLookUp(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
