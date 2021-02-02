@@ -147,7 +147,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
           onChange={selectSectionHandler}
           label="Section"
           fieldName={props.fieldNames.SectionID}
-          searchFunc={() => getCompletedSection([studentID])}
+          searchFunc={() => getCompletedSection({ StudentID: studentID })}
           displayField="SectionNumber"
           valueField="SectionID"
           labelColumn={{ span: 6 }}
@@ -160,7 +160,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
           onChange={selectProgramHandler}
           label="Program"
           fieldName={props.fieldNames.ProgramID}
-          searchFunc={() => getCompletedProgram([studentID])}
+          searchFunc={() => getCompletedProgram({ StudentID: studentID })}
           displayField="ProgramCode"
           valueField="ProgramID"
           labelColumn={{ span: 6 }}
