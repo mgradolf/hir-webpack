@@ -1,6 +1,6 @@
 import { IField, TEXT } from "~/Component/Common/Form/common"
 
-export const ReferenceGenericSearchMeta: IField[] = [
+export const FormMeta: IField[] = [
   {
     label: "Name",
     fieldName: "Name",

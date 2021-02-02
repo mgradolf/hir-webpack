@@ -317,9 +317,9 @@ export const ReferenceList: IReferenceList[] = [
     custom: false
   },
   {
-    Title: "accounttransactiontype",
-    Value: "accounttransactiontype",
-    Description: "accounttransactiontype is custom a reflookup for ...",
+    Title: "AccountTransactionType",
+    Value: "AccountTransactionType",
+    Description: "AccountTransactionType is custom a reflookup for ...",
     custom: true
   },
   {

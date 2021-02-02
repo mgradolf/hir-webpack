@@ -12,12 +12,17 @@ export function AddRefButton(props: { LookUpName: string; refreshEventName: stri
   useEffect(() => {
     const __reference = ReferenceList.find((x) => x.Value === props.LookUpName)
     if (__reference) {
-      if (!__reference?.custom) {
+      if (__reference?.custom) {
+        import(`~/FormMeta/ReferenceData/ReferenceCustomFormMeta/${props.LookUpName}`).then((x) => {
+          setFormMeta(x.FormMeta)
+        })
+      } else {
         import("~/FormMeta/ReferenceData/ReferenceGeneric/ReferenceGenericFormMeta").then((x) => {
-          setFormMeta(x.ReferenceGenericFormMeta)
+          setFormMeta(x.FormMeta)
         })
       }
     }
+
     // eslint-disable-next-line
   }, [])
   return (
@@ -53,11 +58,14 @@ export function UpdateRefButton(props: {
   const [formMeta, setFormMeta] = useState<IField[]>([])
   useEffect(() => {
     const __reference = ReferenceList.find((x) => x.Value === props.LookUpName)
-    console.log("__reference update ", __reference)
     if (__reference) {
-      if (!__reference?.custom) {
+      if (__reference?.custom) {
+        import(`~/FormMeta/ReferenceData/ReferenceCustomFormMeta/${props.LookUpName}`).then((x) => {
+          setFormMeta(x.FormMeta)
+        })
+      } else {
         import("~/FormMeta/ReferenceData/ReferenceGeneric/ReferenceGenericFormMeta").then((x) => {
-          setFormMeta(x.ReferenceGenericFormMeta)
+          setFormMeta(x.FormMeta)
         })
       }
     }

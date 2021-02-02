@@ -1,6 +1,6 @@
 import { BOOLEAN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 
-export const ReferenceGenericFormMeta: IField[] = [
+export const FormMeta: IField[] = [
   {
     label: "Name",
     fieldName: "Name",
