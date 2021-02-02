@@ -1,6 +1,5 @@
 import { Collapse, Row, Spin } from "antd"
 import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { getReportList } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
@@ -40,14 +39,26 @@ export default function ReportPage() {
     <Collapse>
       {Object.keys(reports).map((key, i) => (
         <Collapse.Panel header={key} key={i}>
-          <ul>
-            {reports[key].map((report: any, j: number) => (
-              <li key={j + 10000}>
-                <Link to={`/report/${report.ReportName}`}>{report.ReportLabel || report.ReportName} </Link>
-                <p dangerouslySetInnerHTML={{ __html: report.ReportDescription }}></p>
-              </li>
-            ))}
-          </ul>
+          <table className="dorakata-table">
+            <thead>
+              <tr>
+                <th>Report Name</th>
+                <th></th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reports[key].map((report: any, i: number) => (
+                <tr key={i}>
+                  <td>{report.ReportLabel || report.ReportName}</td>
+                  <td style={{ width: "30px" }}></td>
+                  <td>
+                    <p dangerouslySetInnerHTML={{ __html: report.ReportDescription }}></p>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </Collapse.Panel>
       ))}
     </Collapse>
