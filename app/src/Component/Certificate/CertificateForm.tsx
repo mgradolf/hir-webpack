@@ -41,7 +41,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
     ;(async function () {
       if (sectionID) {
         props.setApiCallInProgress(true)
-        const result = await getApplicableSectionCertificate([sectionID])
+        const result = await getApplicableSectionCertificate({ SectionID: sectionID })
         if (result && result.success) {
           setCertificateItems(result.data)
         }
@@ -50,7 +50,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
 
       if (programID) {
         props.setApiCallInProgress(true)
-        const result = await getApplicableProgramCertificate([programID])
+        const result = await getApplicableProgramCertificate({ ProgramID: programID })
         if (result && result.success) {
           setCertificateItems(result.data)
         }

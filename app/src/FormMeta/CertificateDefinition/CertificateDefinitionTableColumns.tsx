@@ -35,6 +35,6 @@ export const getCertificateDefinitionTableColumns = (): ITableConfigProp => {
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: (Params: { [key: string]: any }) => searchCertificate([Params])
+    searchFunc: searchCertificate
   }
 }
