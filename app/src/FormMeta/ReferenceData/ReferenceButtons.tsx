@@ -4,9 +4,9 @@ import { FormModal } from "~/Component/Common/Form/FormModal"
 import { ReferenceList } from "~/FormMeta/ReferenceData/ReferenceList"
 import { IField } from "~/Component/Common/Form/common"
 import { createRefRecord, removeRefRecord, updateRefRecord } from "~/ApiServices/Service/RefLookupService"
-// import { eventBus } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 
-export function AddRefButton(props: { LookUpName: string }) {
+export function AddRefButton(props: { LookUpName: string; refreshEventName: string }) {
   const [showModal, setShowModal] = useState(false)
   const [formMeta, setFormMeta] = useState<IField[]>([])
   useEffect(() => {
@@ -33,6 +33,9 @@ export function AddRefButton(props: { LookUpName: string }) {
             createRefRecord({
               LookUpName: props.LookUpName,
               Content
+            }).then((x) => {
+              if (x.success) eventBus.publish(props.refreshEventName)
+              return x
             })
           }
           closeModal={() => setShowModal(false)}
@@ -41,7 +44,11 @@ export function AddRefButton(props: { LookUpName: string }) {
     </>
   )
 }
-export function UpdateRefButton(props: { LookUpName: string; reference: { [key: string]: any } }) {
+export function UpdateRefButton(props: {
+  LookUpName: string
+  reference: { [key: string]: any }
+  refreshEventName: string
+}) {
   const [showModal, setShowModal] = useState(false)
   const [formMeta, setFormMeta] = useState<IField[]>([])
   useEffect(() => {
@@ -70,6 +77,9 @@ export function UpdateRefButton(props: { LookUpName: string; reference: { [key: 
             updateRefRecord({
               LookUpName: props.LookUpName,
               Content: { ...Content, ID: props.reference.ID }
+            }).then((x) => {
+              if (x.success) eventBus.publish(props.refreshEventName)
+              return x
             })
           }
           closeModal={() => setShowModal(false)}
@@ -78,7 +88,7 @@ export function UpdateRefButton(props: { LookUpName: string; reference: { [key: 
     </>
   )
 }
-export function RemoveRefButton(props: { LookUpName: string; ID: number }) {
+export function RemoveRefButton(props: { LookUpName: string; ID: number; refreshEventName: string }) {
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(false)
   return (
@@ -93,6 +103,7 @@ export function RemoveRefButton(props: { LookUpName: string; ID: number }) {
           setLoading(false)
           if (x.success) {
             setDisabled(true)
+            eventBus.publish(props.refreshEventName)
           }
         })
       }}

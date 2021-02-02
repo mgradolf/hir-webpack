@@ -7,6 +7,7 @@ import { ReferenceList } from "~/FormMeta/ReferenceData/ReferenceList"
 
 export default function ReferenceDataListPage(props: RouteComponentProps<{ refName: string }>) {
   const refName = props?.match?.params?.refName
+  const refreshEventName = `REFRESH_${refName}`
   const [reference, setReference] = useState<any>()
   useEffect(() => {
     const __reference = ReferenceList.find((x) => x.Value === refName)
@@ -18,10 +19,10 @@ export default function ReferenceDataListPage(props: RouteComponentProps<{ refNa
       {reference && (
         <SearchPage
           title={reference?.Title || ""}
-          tableProps={getReferenceGenericTableColumn(refName)}
+          tableProps={getReferenceGenericTableColumn(refName, refreshEventName)}
           defaultFilter={{ LookUpName: refName }}
           initialFilter={{}}
-          blocks={[<AddRefButton LookUpName={refName} />]}
+          blocks={[<AddRefButton LookUpName={refName} refreshEventName={refreshEventName} />]}
         />
       )}
     </>

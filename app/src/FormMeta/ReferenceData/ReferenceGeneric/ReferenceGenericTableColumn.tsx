@@ -4,7 +4,7 @@ import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTab
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { UpdateRefButton, RemoveRefButton } from "~/FormMeta/ReferenceData/ReferenceButtons"
 
-export const getReferenceGenericTableColumn = (refName: string): ITableConfigProp => {
+export const getReferenceGenericTableColumn = (refName: string, refreshEventName: string): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "ID",
@@ -22,11 +22,11 @@ export const getReferenceGenericTableColumn = (refName: string): ITableConfigPro
       dataIndex: "ID",
       render: (ID: any, record: any) => (
         <>
-          <UpdateRefButton LookUpName={refName} reference={record} />
-          <RemoveRefButton LookUpName={refName} ID={ID} />
+          <UpdateRefButton LookUpName={refName} reference={record} refreshEventName={refreshEventName} />
+          <RemoveRefButton LookUpName={refName} ID={ID} refreshEventName={refreshEventName} />
         </>
       )
     }
   ]
-  return { columns, searchFunc: getRefList }
+  return { columns, searchFunc: getRefList, refreshEventName }
 }
