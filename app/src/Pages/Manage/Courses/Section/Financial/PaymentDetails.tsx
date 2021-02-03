@@ -11,13 +11,15 @@ export default function PaymentDetailsPage(props: RouteComponentProps<{ paymentI
     <DetailsPage
       getMeta={getPaymentDetailsMeta}
       getDetails={() =>
-        Promise.all([searchPaymentDetailsByPaymentID({ PaymentID }), searchPayments({ PaymentID })]).then((x) => {
-          if (x[0].success) {
-            x[0].data = { ...x[0].data[0], ...x[1].data[0] }
+        Promise.all([searchPaymentDetailsByPaymentID({ PaymentID }), searchPayments({ PaymentID: PaymentID })]).then(
+          (x) => {
+            if (x[0].success) {
+              x[0].data = { ...x[0].data[0], ...x[1].data[0] }
+            }
+            console.log("payment details ", x[0])
+            return x[0]
           }
-          console.log("payment details ", x[0])
-          return x[0]
-        })
+        )
       }
     />
   )

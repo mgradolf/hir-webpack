@@ -15,7 +15,7 @@ export const UserSearchMeta: IField[] = [
     label: "Roles",
     inputType: MULTI_SELECT_DROPDOWN,
     fieldName: "Roles",
-    refLookupService: findAllUserRoles,
+    refLookupService: () => findAllUserRoles({}),
     displayKey: "RoleName",
     valueKey: "RoleName"
   }

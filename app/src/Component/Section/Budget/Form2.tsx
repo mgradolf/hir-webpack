@@ -167,7 +167,7 @@ export default function CreateForm2(props: IBudgetCreateForm2Props) {
     })()
     if (props.budgetType === BUDGET_FINANCIAL_TYPE_OFFERING) {
       ;(async () => {
-        const response = await getAvailableOfferingFinancials(props.sectionId)
+        const response = await getAvailableOfferingFinancials({ SectionID: props.sectionId })
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
         }
@@ -175,7 +175,7 @@ export default function CreateForm2(props: IBudgetCreateForm2Props) {
     }
     if (props.budgetType === BUDGET_FINANCIAL_TYPE_INSTRUCTOR) {
       ;(async () => {
-        const response = await getAvailableFacultyWithFinancials(props.sectionId)
+        const response = await getAvailableFacultyWithFinancials({ SectionID: props.sectionId })
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
         }
@@ -183,7 +183,7 @@ export default function CreateForm2(props: IBudgetCreateForm2Props) {
     }
     if (props.budgetType === BUDGET_FINANCIAL_TYPE_RESOURCE) {
       ;(async () => {
-        const response = await getAvailableResourcesWithFinancials(props.sectionId)
+        const response = await getAvailableResourcesWithFinancials({ SectionID: props.sectionId })
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
         }
@@ -191,7 +191,7 @@ export default function CreateForm2(props: IBudgetCreateForm2Props) {
     }
     if (props.budgetType === BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM) {
       ;(async () => {
-        const response = await getAvailableMarketingProgramsWithFinancials(props.sectionId)
+        const response = await getAvailableMarketingProgramsWithFinancials({ SectionID: props.sectionId })
         if (response && response.success && response.data) {
           setAvailableFinancial(response.data)
         }

@@ -8,7 +8,7 @@ export const BatchSearchMeta: IField[] = [
     inputType: DROPDOWN,
     fieldName: "Type",
     refLookupService: () =>
-      getBatchTypes().then((x) => {
+      getBatchTypes({}).then((x) => {
         if (x.success) x.data = x.data.BatchTypes
         return x
       }),

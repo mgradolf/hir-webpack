@@ -14,7 +14,7 @@ export default function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
       danger={props.PrimaryType ? true : false}
       type={props.PrimaryType ? "primary" : "link"}
       onClick={async () => {
-        const response = await removeSeatGroup(props.seatgroupId)
+        const response = await removeSeatGroup({ SeatGroupID: props.seatgroupId })
         if (response.success) {
           eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
         }

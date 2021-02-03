@@ -9,7 +9,7 @@ export default function ReportPage() {
   const [loading, setLoading] = useState(false)
   const loadReportList = () => {
     setLoading(true)
-    getReportList().then((x) => {
+    getReportList({}).then((x) => {
       if (x.success && x.data && Array.isArray(x.data.Reports)) {
         const ReportsWithFolderNameAsKeys: { [key: string]: any[] } = {}
         x.data.Reports.forEach((y: any) => {

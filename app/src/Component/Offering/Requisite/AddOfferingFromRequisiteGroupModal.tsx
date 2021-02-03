@@ -47,7 +47,10 @@ function AddOfferingFromRequisiteGroupModal({
 
   function handleSelect() {
     const selectedOfferingIds = selectedOfferings.map((offering) => offering.OfferingID)
-    addOfferingIntoRequisiteGroup([selectedOfferingIds, requisiteGroupID]).then((x) => {
+    addOfferingIntoRequisiteGroup({
+      SelectedOfferingIds: selectedOfferingIds,
+      RequisiteGroupID: requisiteGroupID
+    }).then((x) => {
       if (x.success) {
         closeAddOfferingFromRequisiteGroupModal()
         eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)

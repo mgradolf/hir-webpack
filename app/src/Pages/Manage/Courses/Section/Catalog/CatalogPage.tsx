@@ -68,7 +68,7 @@ export default function SectionCatalogPage(props: { sectionID: number; title?: s
                 }
               })
 
-              updateBulkContent(["Section", SectionID, catalogs]).then((response) => {
+              updateBulkContent({ Entity: "Section", EntityID: SectionID, Contents: catalogs }).then((response) => {
                 eventBus.publish(REFRESH_SECTION_CATALOG_PAGE)
               })
             }}
