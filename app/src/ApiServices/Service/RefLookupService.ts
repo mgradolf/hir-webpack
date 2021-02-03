@@ -1,6 +1,22 @@
 import RefLookupService, { config } from "@packages/api/lib/proxy/Service/RefLookupService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function getRefList(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList](Params)
+}
+export function createRefRecord(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.createRefRecord](Params)
+}
+export function getRefRecord(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getRefRecord](Params)
+}
+export function updateRefRecord(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.updateRefRecord](Params)
+}
+export function removeRefRecord(Params: { [key: string]: any }): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.removeRefRecord](Params)
+}
+
 export function getOfferingTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "OfferingType"

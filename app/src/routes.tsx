@@ -439,5 +439,13 @@ export const AppRoutes: RouteProps[] = [
   {
     path: "/section-instructors",
     component: React.lazy(() => import("~/Pages/Reporting/SectionInstructors/SectionInstructorsPage"))
+  },
+  {
+    path: "/reference-data",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/ReferenceData/ReferenceDataListPage"))
+  },
+  {
+    path: "/reference-data/:refName",
+    component: React.lazy(() => import("~/Pages/SetupAdministration/Data/ReferenceData/ReferenceDataPage"))
   }
 ]

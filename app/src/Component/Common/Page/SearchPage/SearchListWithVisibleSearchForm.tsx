@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Col, Row, Typography } from "antd"
 import { CustomForm } from "~/Component/Common/Form"
 import { IField } from "~/Component/Common/Form/common"
@@ -19,6 +19,10 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
   const [help, setHelp] = useState(false)
 
+  useEffect(() => {
+    if (props.initialFilter) setSearchParams(props.initialFilter)
+    // eslint-disable-next-line
+  }, [])
   return (
     <div className="site-layout-content">
       <Row>

@@ -31,6 +31,8 @@ interface IFilterColumnProps {
   showClearbutton?: boolean
   applyButtonLabel?: string
   clearButtonLabel?: string
+  closeModal?: () => void
+  stopProducingQueryParams?: boolean
 }
 
 export function CustomForm({
@@ -69,8 +71,8 @@ export function CustomForm({
             values[x.fieldName] === null ||
             (!!x.fieldName2 && !!(values[x.fieldName2] === undefined || values[x.fieldName2] === null)))
 
-        console.log("validationForSelectorComponent ", validationForSelectorComponent)
-        console.log("validationForOtherCustomComponent ", validationForOtherCustomComponent)
+        // console.log("validationForSelectorComponent ", validationForSelectorComponent)
+        // console.log("validationForOtherCustomComponent ", validationForOtherCustomComponent)
         if (validationForSelectorComponent) {
           x.validateStatus = "error"
           x.help = rules?.filter((rule: any) => rule.required)[0]?.message
@@ -84,13 +86,13 @@ export function CustomForm({
           x.help = ""
         }
       }
-      console.log(
-        "x || rulesExist || certainInputType || rulesRequired",
-        x,
-        rulesExist,
-        certainInputType,
-        rulesRequired
-      )
+      // console.log(
+      //   "x || rulesExist || certainInputType || rulesRequired",
+      //   x,
+      //   rulesExist,
+      //   certainInputType,
+      //   rulesRequired
+      // )
       return x
     })
     setMeta(__meta)
@@ -102,9 +104,9 @@ export function CustomForm({
     formInstance
       .validateFields()
       .then((validatedValues) => {
-        console.log("validatedValues ", validatedValues)
+        // console.log("validatedValues ", validatedValues)
         if (!isCustomFormFieldValuesValid) return
-        console.log(validatedValues)
+        // console.log(validatedValues)
         const params: { [key: string]: any } = queryParams || validatedValues
         const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFilter }
         for (const key in mergedParams) {
@@ -114,8 +116,10 @@ export function CustomForm({
         const filterCount = Object.keys(mergedParams).length
         props.onApplyChanges(mergedParams, filterCount)
 
-        const _queryString = objectToQueryString(Object.keys(params).length > 0 ? params : null)
-        window.history && window.history.pushState({}, "", _queryString)
+        if (!props.stopProducingQueryParams) {
+          const _queryString = objectToQueryString(Object.keys(params).length > 0 ? params : null)
+          window.history && window.history.pushState({}, "", _queryString)
+        }
       })
       .catch((validationError) => {
         console.log("validationError ", validationError)
@@ -137,7 +141,7 @@ export function CustomForm({
   useEffect(() => {
     const queryParams: { [key: string]: any } = querystringToObject()
     const updateMeta = queryParams && Object.keys(queryParams).length > 0
-    if (updateMeta) {
+    if (updateMeta && !props.stopProducingQueryParams) {
       setShowLess(false)
       formInstance.setFieldsValue(queryParams)
       const _meta = props.meta.map((x) => {
@@ -154,6 +158,7 @@ export function CustomForm({
       setMeta(_meta)
       applyChanges(queryParams)
     } else {
+      if (props.closeModal) setShowLess(false)
       setMeta(props.meta)
     }
 
@@ -171,9 +176,16 @@ export function CustomForm({
         />
       </Form>
       <Row justify="end" gutter={[8, 8]}>
-        {meta.length > 4 && (
+        {!props.closeModal && meta.length > 4 && (
           <Col>
             <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
+          </Col>
+        )}
+        {props.closeModal && (
+          <Col>
+            <Button type="ghost" aria-label="Cancel" danger onClick={() => props.closeModal && props.closeModal()}>
+              Cancel
+            </Button>
           </Col>
         )}
         {showClearbutton && (
@@ -199,9 +211,6 @@ const SearchFormFields = (props: {
   clearTrigger?: boolean
   showLess: boolean
 }) => {
-  useEffect(() => {
-    console.log("SearchFormFields ", props.meta)
-  }, [props.meta])
   return (
     <Row>
       {props.meta
