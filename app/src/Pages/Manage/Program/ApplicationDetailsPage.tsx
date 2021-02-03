@@ -5,14 +5,14 @@ import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getProgramApplicationDetailsMeta } from "~/FormMeta/ProgramApplication/ProgramApplicationDetailsMeta"
 
 export default function (props: RouteComponentProps<{ programID?: string; studentID?: string }>) {
-  const programID = Number(props?.match?.params?.programID)
-  const studentID = Number(props?.match?.params?.studentID)
+  const ProgramID = Number(props?.match?.params?.programID)
+  const StudentID = Number(props?.match?.params?.studentID)
 
   return (
     <DetailsPage
       getMeta={getProgramApplicationDetailsMeta}
       getDetails={() =>
-        getProgramAppDetails([programID, studentID]).then((x) => {
+        getProgramAppDetails({ ProgramID, StudentID }).then((x) => {
           if (x.success) {
             return x
           }
