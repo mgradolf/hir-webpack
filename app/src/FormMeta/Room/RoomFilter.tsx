@@ -13,7 +13,7 @@ export default function RoomFilter(props: IGeneratedField & { key: number }) {
 
   useEffect(() => {
     async function loadSites() {
-      const res = await findPossibleSites()
+      const res = await findPossibleSites({})
       if (Array.isArray(res.data)) {
         setSites(res.data)
       }
@@ -25,7 +25,7 @@ export default function RoomFilter(props: IGeneratedField & { key: number }) {
   useEffect(() => {
     async function loadBuildings() {
       console.log("siteId ", siteId)
-      const res = await findPossibleBuildings(siteId)
+      const res = await findPossibleBuildings({ SiteId: siteId })
       if (Array.isArray(res.data)) {
         setBuildings(res.data)
       }
