@@ -22,21 +22,24 @@ export interface ILookupOpenButton extends IGeneratedField {
 
 export function LookupOpenButton(props: ILookupOpenButton) {
   const [showModal, setShowModal] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<any>()
+  const [selectedName, setSelectedName] = useState<any>()
   const firstRender = useFirstRender()
+
+  const _rules: Array<{ [key: string]: any }> = props.rules as Array<{ [key: string]: any }>
+  const rulesRequired = !!_rules?.find((rule: any) => rule && rule.required)
 
   useEffect(() => {
     if (props.entityLookupFunc) {
       props.entityLookupFunc().then((item) => {
         console.log("item ", item)
-        setSelectedItem(item[props.displayField])
+        setSelectedName(item[props.displayField])
       })
     }
     // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-    !firstRender && setSelectedItem(undefined)
+    !firstRender && setSelectedName(undefined)
     // eslint-disable-next-line
   }, [props.clearTrigger])
 
@@ -44,12 +47,12 @@ export function LookupOpenButton(props: ILookupOpenButton) {
     if (items && items.length > 0) {
       console.log("Extra props", props)
       if (props.extraProps && props.extraProps.isArray) {
-        setSelectedItem(items.map((x) => x[props.displayField]).toString())
+        setSelectedName(items.map((x) => x[props.displayField]).toString())
         props.formInstance.setFieldsValue({
           [props.fieldName]: items.map((x) => x[props.valueField])
         })
       } else {
-        setSelectedItem(items[0][props.displayField])
+        setSelectedName(items[0][props.displayField])
         props.formInstance.setFieldsValue({
           [props.fieldName]: items[0][props.valueField]
         })
@@ -60,26 +63,28 @@ export function LookupOpenButton(props: ILookupOpenButton) {
 
   const toRender = (
     <>
+      <Form.Item name={props.fieldName} hidden={true}>
+        <Input />
+      </Form.Item>
       <Form.Item
         colon={false}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 24 }}
-        name={props.fieldName}
-        rules={props.rules}
         label={props.label}
         validateStatus={props.validateStatus}
         help={props.help}
+        required={rulesRequired}
       >
         <Input
-          value={selectedItem}
+          value={selectedName}
           readOnly
           addonBefore={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
           addonAfter={
             <DeleteOutlined
               color="red"
               onClick={() => {
-                setSelectedItem(undefined)
-                props.formInstance.setFieldsValue({ [props.fieldName]: "" })
+                setSelectedName(undefined)
+                props.formInstance.setFieldsValue({ [props.fieldName]: undefined })
               }}
             />
           }

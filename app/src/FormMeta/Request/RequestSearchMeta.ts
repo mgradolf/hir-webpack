@@ -5,6 +5,8 @@ import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountL
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
+import { ProductLookup } from "~/Component/Common/Form/FormLookupFields/ProductLookup"
+import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
 
 export const RequestSearchMeta: IField[] = [
   {
@@ -72,6 +74,20 @@ export const RequestSearchMeta: IField[] = [
     refLookupService: getRequestType,
     displayKey: "Name",
     valueKey: "ID"
+  },
+  {
+    label: "Product",
+    fieldName: "ProductID",
+    valueField: "ProductName",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: ProductLookup
+  },
+  {
+    label: "Program",
+    fieldName: "ProgramID",
+    valueField: "Name",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: ProgramLookup
   },
   {
     label: "Reservation Token",

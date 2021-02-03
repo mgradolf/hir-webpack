@@ -9,7 +9,7 @@ export default function TransactionPage() {
       title="Manage Transactions"
       meta={TransactionSearchMeta}
       hideSearchField={false}
-      defaultFilter={{ IsDepositView: false }}
+      defaultFilter={{ IsDepositeView: false }}
       tableProps={getTransactionFinancialTableColumns()}
     />
   )

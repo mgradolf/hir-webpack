@@ -9,8 +9,7 @@ export const getProductTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Product Name",
       dataIndex: "ProductName",
-      render: (text: any, record: any) =>
-        !isModal ? <Link to={`/product/${record.ProductID}`}>{text}</Link> : { text }
+      render: (text: any, record: any) => (!isModal ? <Link to={`/product/${record.ProductID}`}>{text}</Link> : text)
     },
     { title: "Product Category", dataIndex: "ProductCategoryName" },
     { title: "Inventory Units", dataIndex: "ProductInventoryUnits" },

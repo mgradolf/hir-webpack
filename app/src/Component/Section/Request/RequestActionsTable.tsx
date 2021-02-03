@@ -200,7 +200,7 @@ export default function RequestActionsTable(props: ITableWrapperProps) {
                 overlay={<RequestDetailsMenu taskJson={record} extraDataSource={extraDataSource} />}
                 trigger={["click"]}
               >
-                <Button type="link" onClick={(e) => e.preventDefault()}>
+                <Button type="primary" onClick={(e) => e.preventDefault()}>
                   Actions <DownOutlined />
                 </Button>
               </Dropdown>
