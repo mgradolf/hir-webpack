@@ -1,5 +1,6 @@
 import { Collapse, Row, Spin } from "antd"
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { getReportList } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 
@@ -50,7 +51,9 @@ export default function ReportPage() {
             <tbody>
               {reports[key].map((report: any, i: number) => (
                 <tr key={i}>
-                  <td>{report.ReportLabel || report.ReportName}</td>
+                  <td>
+                    <Link to={`/report/${report.ReportName}`}>{report.ReportLabel || report.ReportName}</Link>
+                  </td>
                   <td style={{ width: "30px" }}></td>
                   <td>
                     <p dangerouslySetInnerHTML={{ __html: report.ReportDescription }}></p>
