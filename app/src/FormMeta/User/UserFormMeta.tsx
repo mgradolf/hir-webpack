@@ -1,8 +1,5 @@
-import React, { useState } from "react"
-import { FormModal } from "~/Component/Common/Modal/FormModal"
-import { Button } from "antd"
 import { IField, MULTI_SELECT_DROPDOWN, TEXT } from "~/Component/Common/Form/common"
-import { findAllUserRoles, saveUser } from "~/ApiServices/Service/UserService"
+import { findAllUserRoles } from "~/ApiServices/Service/UserService"
 
 export const UserSearchMeta: IField[] = [
   { label: "UserID", inputType: TEXT, fieldName: "UserID" },
@@ -20,21 +17,3 @@ export const UserSearchMeta: IField[] = [
     valueKey: "RoleName"
   }
 ]
-
-export const UserCreateEditButton = (props: { Params?: { [key: string]: any } }) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      <Button onClick={() => setShowModal(true)}>{props.Params ? "Edit User" : "+ Create User"}</Button>
-      {showModal && (
-        <FormModal
-          title={props.Params ? "Edit User" : "Create User"}
-          meta={UserSearchMeta}
-          initialFilter={props.Params}
-          formSubmitApi={saveUser}
-          closeModal={() => setShowModal(false)}
-        />
-      )}
-    </>
-  )
-}

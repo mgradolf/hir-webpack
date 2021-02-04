@@ -9,7 +9,7 @@ export default function ProgramEnrollment() {
       title="Manage Program Enrollments"
       meta={ProgramEnrollmentSearchMeta}
       hideSearchField={false}
-      defaultFilter={{}}
+      defaultFormValue={{}}
       tableProps={getProgramEnrollmentTableColumns()}
     ></SearchPage>
   )

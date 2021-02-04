@@ -12,7 +12,7 @@ export interface IStandardReportPage {
   config: IChartConfig
   meta?: IField[]
   searchFunc: (Params: { [key: string]: any }, from?: number, to?: number) => Promise<IApiResponse>
-  initialFilter: { [key: string]: string }
+  initialFormValue: { [key: string]: string }
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
@@ -36,7 +36,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
         {props.meta && (
           <CustomForm
             meta={props.meta}
-            initialFilter={props.initialFilter}
+            initialFormValue={props.initialFormValue}
             applyButtonLabel="Render Chart"
             clearButtonLabel="Clear Chart"
             onApplyChanges={(newFilterValues, appliedFilterCount) => {

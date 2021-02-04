@@ -10,13 +10,13 @@ export interface IStandardPageProp {
   title: string
   meta?: IField[]
   tableProps: IDataTableProps
-  initialFilter?: { [key: string]: any }
-  defaultFilter?: { [key: string]: string }
+  initialFormValue?: { [key: string]: any }
+  defaultFormValue?: { [key: string]: string }
   helpKey?: string
 }
 
 export default function StandardPage(props: IStandardPageProp) {
-  const [searchParams] = useState<{ [key: string]: any }>(props.initialFilter || props.defaultFilter || {})
+  const [searchParams] = useState<{ [key: string]: any }>(props.initialFormValue || props.defaultFormValue || {})
   const [help, setHelp] = useState(false)
 
   return (

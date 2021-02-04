@@ -26,8 +26,8 @@ interface IFilterColumnProps {
   meta: IField[]
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   hideFilters?: () => void
-  initialFilter?: { [key: string]: any }
-  defaultFilter?: { [key: string]: any }
+  initialFormValue?: { [key: string]: any }
+  defaultFormValue?: { [key: string]: any }
   showClearbutton?: boolean
   applyButtonLabel?: string
   clearButtonLabel?: string
@@ -108,7 +108,7 @@ export function CustomForm({
         if (!isCustomFormFieldValuesValid) return
         // console.log(validatedValues)
         const params: { [key: string]: any } = queryParams || validatedValues
-        const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFilter }
+        const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFormValue }
         for (const key in mergedParams) {
           if (key === "" || mergedParams[key] === undefined || mergedParams[key] === null || key.includes("____"))
             delete mergedParams[key]
@@ -167,7 +167,7 @@ export function CustomForm({
 
   return (
     <Col className={`gutter-row ${styles.offeringFilter}`} xs={24} sm={24} md={24}>
-      <Form layout="horizontal" initialValues={props.initialFilter} form={formInstance} scrollToFirstError>
+      <Form layout="horizontal" initialValues={props.initialFormValue} form={formInstance} scrollToFirstError>
         <SearchFormFields
           meta={props.meta}
           formInstance={formInstance}

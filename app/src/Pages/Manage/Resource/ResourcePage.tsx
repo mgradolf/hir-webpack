@@ -6,7 +6,7 @@ export default function ResourcePage() {
   return (
     <StandardPage
       title="Manage Resources"
-      defaultFilter={{}}
+      defaultFormValue={{}}
       tableProps={{
         ...getResourceTableColumns()
       }}

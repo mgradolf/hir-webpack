@@ -10,8 +10,8 @@ export interface IStandardReportPage {
   reportName: string
   description?: string
   meta?: IField[]
-  initialFilter?: { [key: string]: string }
-  defaultFilter?: { [key: string]: string }
+  initialFormValue?: { [key: string]: string }
+  defaultFormValue?: { [key: string]: string }
   mapping?: { [key: string]: any }
 }
 
@@ -48,8 +48,8 @@ export default function StandardReportPage(props: IStandardReportPage) {
         {props.meta && (
           <CustomForm
             meta={props.meta}
-            initialFilter={props.initialFilter}
-            defaultFilter={props.defaultFilter}
+            initialFormValue={props.initialFormValue}
+            defaultFormValue={props.defaultFormValue}
             applyButtonLabel="Run Report"
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               openReportInNewTab(newFilterValues)

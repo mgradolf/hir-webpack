@@ -20,8 +20,8 @@ export default function ReferenceDataListPage(props: RouteComponentProps<{ refNa
         <SearchPage
           title={reference?.Title || ""}
           tableProps={getReferenceGenericTableColumn(refName, refreshEventName)}
-          defaultFilter={{ LookUpName: refName }}
-          initialFilter={{}}
+          defaultFormValue={{ LookUpName: refName }}
+          initialFormValue={{}}
           blocks={[<AddRefButton LookUpName={refName} refreshEventName={refreshEventName} />]}
         />
       )}

@@ -27,7 +27,7 @@ export default function WaitlistEntryPage(props: RouteComponentProps<{ sectionID
       )}
       <SearchPage
         title="Waitlist Entries"
-        defaultFilter={{ SectionID }}
+        defaultFormValue={{ SectionID }}
         meta={othermetas}
         hideSearchField={true}
         blocks={[

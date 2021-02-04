@@ -67,7 +67,7 @@ function AddOfferingFromRequisiteGroupModal({
           <Row justify="center">
             <CustomForm
               meta={OfferingSearchMeta}
-              initialFilter={{}}
+              initialFormValue={{}}
               hideFilters={() => {
                 closeAddOfferingFromRequisiteGroupModal()
                 setSelectedOfferings([])

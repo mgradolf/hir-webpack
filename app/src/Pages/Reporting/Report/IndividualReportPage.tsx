@@ -49,7 +49,7 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
   const ReportName = props.match.params.reportName
   const [report, setReport] = useState<{ [key: string]: any }>({})
   const [reportMeta, setReportMeta] = useState<IField[]>([])
-  const [defaultFilters, setDefaultFilters] = useState<{ [key: string]: any }>({})
+  const [defaultFormValues, setDefaultFilters] = useState<{ [key: string]: any }>({})
   const [reportMapping, setReportMapping] = useState<{ [key: string]: any }>({})
   const [loading, setLoading] = useState(false)
 
@@ -68,11 +68,11 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
             fileResponse &&
             Array.isArray(fileResponse.meta) &&
             (fileResponse.meta.length > 0 ||
-              (fileResponse.defaultFilter && Object.keys(fileResponse.defaultFilter).length > 0))
+              (fileResponse.defaultFormValue && Object.keys(fileResponse.defaultFormValue).length > 0))
           ) {
             setReportMeta(fileResponse.meta)
             setReportMapping(fileResponse.mapping || {})
-            setDefaultFilters(fileResponse.defaultFilter || {})
+            setDefaultFilters(fileResponse.defaultFormValue || {})
           } else {
             const metas: IField[] = generateIfilterFieldObject(apiResponse.data.Params)
             setReportMeta(metas)
@@ -105,8 +105,8 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
         reportName={ReportName}
         description={report.ReportDescription}
         meta={reportMeta}
-        initialFilter={{ ReportName }}
-        defaultFilter={defaultFilters}
+        initialFormValue={{ ReportName }}
+        defaultFormValue={defaultFormValues}
         mapping={reportMapping}
       />
     )

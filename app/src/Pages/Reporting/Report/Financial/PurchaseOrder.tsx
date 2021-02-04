@@ -16,7 +16,7 @@ export default function PurchaseOrder() {
           inputType: DATE_PICKERS
         }
       ]}
-      initialFilter={{ ReportName: "financial.PurchaserOrderTransaction" }}
+      initialFormValue={{ ReportName: "financial.PurchaserOrderTransaction" }}
     />
   )
 }

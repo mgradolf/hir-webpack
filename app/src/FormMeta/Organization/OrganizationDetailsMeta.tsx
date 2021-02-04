@@ -64,8 +64,8 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
     tabType: "searchtable",
     tabMeta: {
       searchMeta: QuestionTaggingSearchMeta,
-      defaultFilter: { OrganizationID: organization.OrganizationID },
-      initialFilter: { EventID: 2 },
+      defaultFormValue: { OrganizationID: organization.OrganizationID },
+      initialFormValue: { EventID: 2 },
       tableProps: {
         pagination: false,
         ...getQuestionTaggingTableColumns(true),

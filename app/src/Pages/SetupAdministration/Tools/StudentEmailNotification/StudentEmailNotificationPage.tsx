@@ -6,7 +6,7 @@ export default function StudentEmailNotificationPage() {
   return (
     <SearchPage
       title="Student Email Notification"
-      defaultFilter={{}}
+      defaultFormValue={{}}
       tableProps={{
         ...getStudentEmailTableColumns()
       }}

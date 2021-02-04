@@ -22,7 +22,7 @@ const meta: IField[] = [
 
 const reportMeta: IReportMeta = {
   meta,
-  defaultFilter: {
+  defaultFormValue: {
     BalanceMoreThan: 0,
     current_date: generateMMDDYY(new Date())
   }

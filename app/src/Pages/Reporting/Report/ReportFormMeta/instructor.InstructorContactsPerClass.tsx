@@ -20,7 +20,7 @@ const reportMeta: IReportMeta = {
   mapping: {
     RoomNameParam: ["RoomNumberParam", "BuildingNameParam", "BuildingNumberParam", "SiteNameParam", "OtherLocation"]
   },
-  defaultFilter: {
+  defaultFormValue: {
     CurrentDate: generateMMDDYY(new Date())
   }
 }

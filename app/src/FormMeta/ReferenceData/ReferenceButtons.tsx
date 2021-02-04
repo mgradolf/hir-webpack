@@ -80,7 +80,7 @@ export function UpdateRefButton(props: {
         <FormModal
           title={`Update existing entry on ${props.LookUpName}`}
           meta={formMeta}
-          initialFilter={props.reference}
+          initialFormValue={props.reference}
           formSubmitApi={(Content) =>
             updateRefRecord({
               LookUpName: props.LookUpName,

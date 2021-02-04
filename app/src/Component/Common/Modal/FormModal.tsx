@@ -27,8 +27,8 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 export const FormModal = (props: {
   title: string
   meta: IField[]
-  initialFilter?: { [key: string]: any }
-  defaultFilter?: { [key: string]: any }
+  initialFormValue?: { [key: string]: any }
+  defaultFormValue?: { [key: string]: any }
   formSubmitApi: (Params: any) => Promise<IApiResponse>
   closeModal: () => void
   refreshEventAfterFormSubmission?: string
@@ -87,7 +87,7 @@ export const FormModal = (props: {
           hideRequiredMark
           style={{ height: "65vh", overflow: "scroll", padding: "10px", backgroundColor: "#FFF" }}
           layout="horizontal"
-          initialValues={props.initialFilter}
+          initialValues={props.initialFormValue}
           form={formInstance}
         >
           <OldFormError errorMessages={error} />

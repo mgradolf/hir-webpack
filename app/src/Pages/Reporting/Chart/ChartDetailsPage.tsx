@@ -24,7 +24,7 @@ export default function ChartDetailsPage(props: RouteComponentProps<{ chartName:
 
   let toRender = <p>Chart is Not Implemented</p>
   if (searchFunc && meta && chartConfig) {
-    toRender = <StandardChartPage searchFunc={searchFunc} meta={meta} config={chartConfig} initialFilter={{}} />
+    toRender = <StandardChartPage searchFunc={searchFunc} meta={meta} config={chartConfig} initialFormValue={{}} />
   }
   return toRender
 }

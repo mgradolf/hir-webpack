@@ -21,7 +21,7 @@ export default function SeatgroupPage(props: RouteComponentProps<{ sectionID?: s
       ]}
       title="Manage Seat Groups"
       tableProps={{ ...getSeatgroupTableColumns() }}
-      initialFilter={{ SectionID: SectionID }}
+      initialFormValue={{ SectionID: SectionID }}
     />
   )
 }

@@ -18,7 +18,7 @@ export default function () {
         </>
       ]}
       title="Manage Certificates"
-      initialFilter={{}}
+      initialFormValue={{}}
       meta={ProgramCertificateSearchMeta}
       hideSearchField={false}
       tableProps={{
