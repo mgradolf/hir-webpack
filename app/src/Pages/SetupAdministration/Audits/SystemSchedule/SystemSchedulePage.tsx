@@ -6,7 +6,7 @@ import { getActivitySystemScheduleTableColumns } from "~/FormMeta/ActivitySystem
 export default function SystemSchedulePage() {
   return (
     <SearchPage
-      title="System Schedule"
+      title="System Schedules"
       meta={ActivitySystemScheduleSearchMeta}
       hideSearchField={false}
       tableProps={{
