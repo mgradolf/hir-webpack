@@ -78,7 +78,7 @@ function OfferingApprovalPage(props: RouteComponentProps<{ offeringID: string }>
     const loadOfferingApprovalHistory = async function () {
       setLoading(true)
 
-      const result = await getOfferngApprovalHist(Number(offeringID))
+      const result = await getOfferngApprovalHist({ OfferingID: Number(offeringID) })
 
       if (result && result.success) {
         setLoading(false)

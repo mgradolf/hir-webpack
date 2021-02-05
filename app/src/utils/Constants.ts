@@ -194,3 +194,6 @@ export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
 export const SAVE_SUCCESSFULLY = "Successfully saved!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
+
+export const MAX_PAGE_SIZE = 1000
+export const MIN_START_POSITION_SIZE = 0

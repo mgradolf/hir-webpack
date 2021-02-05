@@ -9,7 +9,7 @@ export default function ReportPage() {
   const [loading, setLoading] = useState(false)
   const loadReportList = () => {
     setLoading(true)
-    getReportList().then((x) => {
+    getReportList({}).then((x) => {
       if (x.success && x.data && Array.isArray(x.data.Reports)) {
         const ReportsWithFolderNameAsKeys: { [key: string]: any[] } = {}
         x.data.Reports.forEach((y: any) => {
@@ -40,14 +40,28 @@ export default function ReportPage() {
     <Collapse>
       {Object.keys(reports).map((key, i) => (
         <Collapse.Panel header={key} key={i}>
-          <ul>
-            {reports[key].map((report: any, j: number) => (
-              <li key={j + 10000}>
-                <Link to={`/report/${report.ReportName}`}>{report.ReportLabel || report.ReportName} </Link>
-                <p dangerouslySetInnerHTML={{ __html: report.ReportDescription }}></p>
-              </li>
-            ))}
-          </ul>
+          <table className="dorakata-table">
+            <thead>
+              <tr>
+                <th>Report Name</th>
+                <th></th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reports[key].map((report: any, i: number) => (
+                <tr key={i}>
+                  <td>
+                    <Link to={`/report/${report.ReportName}`}>{report.ReportLabel || report.ReportName}</Link>
+                  </td>
+                  <td style={{ width: "30px" }}></td>
+                  <td>
+                    <p dangerouslySetInnerHTML={{ __html: report.ReportDescription }}></p>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </Collapse.Panel>
       ))}
     </Collapse>

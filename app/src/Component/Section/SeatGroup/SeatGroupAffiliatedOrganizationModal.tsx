@@ -46,7 +46,7 @@ export default function SeatGroupAffiliatedOrganization({
         setSectionSeatGroupLoading(false)
       })()
       ;(async () => {
-        const response = await findAffiliatedOrgsForSeatGroup(seatgroupId)
+        const response = await findAffiliatedOrgsForSeatGroup({ SeatGroupID: seatgroupId })
         if (response && response.success && Array.isArray(response.data)) {
           response.data.map((x: any) => {
             affiliatedOrganization.push({

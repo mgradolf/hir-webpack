@@ -68,7 +68,7 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
               <OldFormError errorMessages={errorMessages} />
               <OldDropDown
                 searchFunc={findOrderLineWiseBalance}
-                searchParams={[{ OrderID: props.OrderID }]}
+                searchParams={{ OrderID: props.OrderID }}
                 label="Associated With"
                 fieldName={fieldNames.OrderLineID}
                 displayField="Description"

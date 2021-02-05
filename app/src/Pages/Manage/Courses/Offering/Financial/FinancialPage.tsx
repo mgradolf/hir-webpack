@@ -32,7 +32,7 @@ export default function FinancialPage(props: RouteComponentProps<{ offeringID?: 
         ...getOfferingFinancialTableColumns(OfferingID, FINANCIAL_OFFERING_TYPE_ID),
         refreshEventName: REFRESH_OFFERING_FINANCIAL_PAGE
       }}
-      initialFilter={{ OfferingID: OfferingID }}
+      initialFormValue={{ OfferingID: OfferingID }}
     />
   )
 }

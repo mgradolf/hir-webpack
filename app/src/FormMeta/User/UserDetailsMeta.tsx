@@ -7,12 +7,22 @@ import { getActivityOrderSearchTableColumns } from "~/FormMeta/ActivityOrder/Act
 import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
 import { getActivityOrderCreditSearchTableColumns } from "~/FormMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
 import { getPaymentActivityTableColumns } from "~/FormMeta/PaymentActivity/PaymentActivityTableColumns"
-import { UserCreateEditButton } from "~/FormMeta/User/UserFormMeta"
+import { UserSearchMeta } from "~/FormMeta/User/UserFormMeta"
+import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
+import { saveUser } from "~/ApiServices/Service/UserService"
 
 export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
-    cardActions: [<UserCreateEditButton Params={user} />],
+    cardActions: [
+      <FormModalOpenButton
+        buttonLabel={user ? "Edit User" : "+ Create User"}
+        formTitle={user ? "Edit User" : "Create User"}
+        initialFormValue={user}
+        formMeta={UserSearchMeta}
+        formSubmitApi={saveUser}
+      />
+    ],
     contents: [
       { label: "Login Name", value: user.UserID },
       { label: "First Name", value: user.FirstName },

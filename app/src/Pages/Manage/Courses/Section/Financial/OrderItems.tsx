@@ -29,7 +29,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           console.log(newValues)
           setSearchParams(newValues)
         }}
-        initialFilter={{}}
+        initialFormValue={{}}
       />
       {showViewReturnItemModal && (
         <ViewReturnItemsModal

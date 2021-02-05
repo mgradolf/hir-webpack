@@ -89,7 +89,7 @@ export default function CreateDiscountProgram(props: IDiscountCreateFormProps) {
 
   useEffect(() => {
     ;(async () => {
-      const response = await getAvailableDiscountPrograms(props.sectionId)
+      const response = await getAvailableDiscountPrograms({ SectionID: props.sectionId })
       if (response && response.success && response.data) {
         setSectionDiscountItems(response.data)
       }

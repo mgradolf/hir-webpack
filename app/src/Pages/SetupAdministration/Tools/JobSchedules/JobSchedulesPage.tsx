@@ -6,7 +6,7 @@ export default function JobSchedulesPage() {
   return (
     <SearchPage
       title="Job Schedules"
-      defaultFilter={{}}
+      defaultFormValue={{}}
       tableProps={{
         ...getJobScheduleTableColumns()
       }}

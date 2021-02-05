@@ -38,7 +38,7 @@ const meta: IField[] = [
 
 const reportMeta: IReportMeta = {
   meta,
-  defaultFilter: {
+  defaultFormValue: {
     CreditAmount: 0,
     DiscountAmount: 0
   }

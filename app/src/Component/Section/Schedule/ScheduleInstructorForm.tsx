@@ -29,7 +29,7 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
 
   useEffect(() => {
     ;(async () => {
-      const response = await findQualifiedInstructors([props.sectionId])
+      const response = await findQualifiedInstructors({ SectionId: props.sectionId })
       if (response && response.success && response.data) {
         setInstructorItems(response.data)
       } else {

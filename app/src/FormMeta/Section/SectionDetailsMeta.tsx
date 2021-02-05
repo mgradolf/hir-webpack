@@ -294,8 +294,8 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabType: "searchtable",
         tabMeta: {
           searchMeta: QuestionTaggingSearchMeta,
-          defaultFilter: { SectionID: section.SectionID },
-          initialFilter: { EventID: 2 },
+          defaultFormValue: { SectionID: section.SectionID },
+          initialFormValue: { EventID: 2 },
           tableProps: {
             pagination: false,
             ...getQuestionTaggingTableColumns(true),

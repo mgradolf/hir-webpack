@@ -6,7 +6,7 @@ export default function MarketingProgramPage() {
   return (
     <StandardPage
       title="Marketing Programs"
-      defaultFilter={{}}
+      defaultFormValue={{}}
       tableProps={{
         ...getMarketingProgramTableColumns()
       }}

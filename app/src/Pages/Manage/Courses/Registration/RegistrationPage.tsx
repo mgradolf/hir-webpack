@@ -7,7 +7,7 @@ export default function RegistrationPage() {
   return (
     <SearchPage
       title="Manage Registrations"
-      initialFilter={{}}
+      initialFormValue={{}}
       meta={RegistrationSearchMeta}
       hideSearchField={false}
       tableProps={{

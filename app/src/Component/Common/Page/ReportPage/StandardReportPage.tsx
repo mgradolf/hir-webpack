@@ -10,9 +10,9 @@ export interface IStandardReportPage {
   reportName: string
   description?: string
   meta?: IField[]
-  initialFilter?: { [key: string]: string }
-  defaultFilter?: { [key: string]: string }
-  mapping?: { [key: string]: string }
+  initialFormValue?: { [key: string]: string }
+  defaultFormValue?: { [key: string]: string }
+  mapping?: { [key: string]: any }
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
@@ -25,8 +25,14 @@ export default function StandardReportPage(props: IStandardReportPage) {
       } else if (params[key] !== null || params[key] !== undefined) {
         urlParams += `${key}=${params[key]}&`
       }
-      if (props.mapping && props.mapping[key]) {
-        urlParams += `${props.mapping[key]}=${params[key]}&`
+      if (props.mapping) {
+        if (Array.isArray(props.mapping[key]) && props.mapping[key].length > 0) {
+          for (const mappingKey of props.mapping[key]) {
+            urlParams += `${mappingKey}=${params[key]}&`
+          }
+        } else if (props.mapping[key]) {
+          urlParams += `${props.mapping[key]}=${params[key]}&`
+        }
       }
     }
     urlParams += "token=" + getToken()
@@ -42,8 +48,8 @@ export default function StandardReportPage(props: IStandardReportPage) {
         {props.meta && (
           <CustomForm
             meta={props.meta}
-            initialFilter={props.initialFilter}
-            defaultFilter={props.defaultFilter}
+            initialFormValue={props.initialFormValue}
+            defaultFormValue={props.defaultFormValue}
             applyButtonLabel="Run Report"
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               openReportInNewTab(newFilterValues)

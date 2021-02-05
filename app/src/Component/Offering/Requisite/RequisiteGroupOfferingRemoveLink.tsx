@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, Popconfirm } from "antd"
-import { removeOfferingFromRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
+import { deleteOfferingFromGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 
 interface IRequisiteOfferingRemoveLinkProp {
@@ -11,7 +11,10 @@ interface IRequisiteOfferingRemoveLinkProp {
 function RequisiteOfferingRemoveLink(props: IRequisiteOfferingRemoveLinkProp) {
   const removeRequisiteGroupOffering = async () => {
     if (props.requisiteGroupId !== undefined) {
-      const response = await removeOfferingFromRequisiteGroup([[props.offeringId], props.requisiteGroupId])
+      const response = await deleteOfferingFromGroup({
+        OfferingID: props.offeringId,
+        RequisiteGroupId: props.requisiteGroupId
+      })
       if (response.success) {
         eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
       }

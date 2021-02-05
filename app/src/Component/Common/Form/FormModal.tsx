@@ -12,8 +12,8 @@ import { CustomForm } from "~/Component/Common/Form"
 export const FormModal = (props: {
   title: string
   meta: IField[]
-  initialFilter?: { [key: string]: any }
-  defaultFilter?: { [key: string]: any }
+  initialFormValue?: { [key: string]: any }
+  defaultFormValue?: { [key: string]: any }
   formSubmitApi: (Params: any) => Promise<IApiResponse>
   closeModal: () => void
   refreshEventAfterFormSubmission?: string
@@ -54,7 +54,7 @@ export const FormModal = (props: {
         <CustomForm
           meta={props.meta}
           closeModal={props.closeModal}
-          initialFilter={props.initialFilter}
+          initialFormValue={props.initialFormValue}
           applyButtonLabel="Submit"
           stopProducingQueryParams={true}
           onApplyChanges={(newValues: { [key: string]: any }) => {

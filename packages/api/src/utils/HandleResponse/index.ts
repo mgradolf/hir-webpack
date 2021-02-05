@@ -33,6 +33,16 @@ const handleError = (error: AxiosError): IApiResponse => {
 export const handleResponse = (promise: Promise<any>): Promise<IApiResponse> => {
   return promise
     .then((response: AxiosResponse<any>) => {
+      if (response.headers && response.headers["content-type"]) {
+        switch (response.headers["content-type"]) {
+          case "text/csv":
+            saveAs(response.data, `report-${new Date().toISOString()}.csv`)
+            return { data: response, success: true, code: 200, error: null }
+          case "application/vnd.ms-excel":
+            saveAs(response.data, `report-${new Date().toISOString()}.xls`)
+            return { data: response, success: true, code: 200, error: null }
+        }
+      }
       const result = <IApiResponse>response.data
       if (!result.success) {
         result.code = 404

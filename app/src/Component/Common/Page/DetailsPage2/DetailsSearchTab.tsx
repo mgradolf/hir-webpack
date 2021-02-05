@@ -17,15 +17,15 @@ export interface IDetailsSearchTabProp {
   title?: string
   searchMeta?: IField[]
   tableProps: IDataTableProps
-  initialFilter?: { [key: string]: string }
-  defaultFilter?: { [key: string]: string }
+  initialFormValue?: { [key: string]: string }
+  defaultFormValue?: { [key: string]: string }
   helpKey?: string
 }
 
 export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
   const [rowData, setRowData] = useState<Array<any>>([])
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(
-    props.initialFilter || props.defaultFilter || {}
+    props.initialFormValue || props.defaultFormValue || {}
   )
   const [help, setHelp] = useState(false)
   return (
@@ -54,9 +54,9 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
       {props.searchMeta && (
         <CustomForm
           meta={props.searchMeta}
-          initialFilter={searchParams}
+          initialFormValue={searchParams}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            setSearchParams({ ...props.defaultFilter, ...newFilterValues })
+            setSearchParams({ ...props.defaultFormValue, ...newFilterValues })
             console.log(newFilterValues)
           }}
         />

@@ -8,7 +8,10 @@ export default function SectionDetailsPage(props: RouteComponentProps<{ sectionI
   const SectionID = Number(props?.match?.params?.sectionID)
 
   const getSectionDetailsInfo = () => {
-    return Promise.all([getSectionDetails(SectionID), getSectionStatistics(SectionID)]).then((responses) => {
+    return Promise.all([
+      getSectionDetails({ SectionID: SectionID }),
+      getSectionStatistics({ SectionID: SectionID })
+    ]).then((responses) => {
       const response1 = responses[0]
       const response2 = responses[1]
       if (response1.success && response2.success) {

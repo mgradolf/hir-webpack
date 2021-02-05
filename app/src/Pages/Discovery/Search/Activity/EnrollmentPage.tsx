@@ -7,7 +7,7 @@ export default function EnrollmentLogPage() {
   return (
     <SearchPage
       title="Enrollment Activity"
-      initialFilter={{}}
+      initialFormValue={{}}
       meta={EnrollmentsActivitySearchMeta}
       hideSearchField={false}
       tableProps={{ ...getEnrollmentActivityLogTableColumns() }}

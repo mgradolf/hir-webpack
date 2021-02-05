@@ -13,7 +13,7 @@ const meta: IField[] = [
 
 const reportMeta: IReportMeta = {
   meta,
-  defaultFilter: {
+  defaultFormValue: {
     BalanceMoreThan: 0
   }
 }

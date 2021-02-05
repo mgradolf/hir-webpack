@@ -16,7 +16,7 @@ interface ILookupModal {
   isArray?: boolean
   columns: TableColumnType
   meta: IField[]
-  defaultFilter?: { [key: string]: any }
+  defaultFormValue?: { [key: string]: any }
   zIndex?: boolean
 }
 
@@ -45,13 +45,13 @@ export function LookupModal(props: ILookupModal) {
         <div className="modal-card">
           <CustomForm
             meta={props.meta}
-            initialFilter={searchParams}
+            initialFormValue={searchParams}
             hideFilters={() => {
               setSelectedItems([])
             }}
             onApplyChanges={(newSearchParams, newSearchParamsCount) => {
-              console.log(props.defaultFilter, newSearchParams)
-              setSearchParams({ ...props.defaultFilter, ...newSearchParams })
+              console.log(props.defaultFormValue, newSearchParams)
+              setSearchParams({ ...props.defaultFormValue, ...newSearchParams })
             }}
           />
           <ResponsiveTable

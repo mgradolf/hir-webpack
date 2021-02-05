@@ -12,7 +12,7 @@ export function QuestionTaggingPage(props: { TagID: number }) {
       title="Manage Accounts"
       meta={QuestionTaggingSearchMeta}
       hideSearchField={false}
-      initialFilter={{ TagID: props.TagID, EventID: 2 }}
+      initialFormValue={{ TagID: props.TagID, EventID: 2 }}
       blocks={[
         <QuestionCreateButton TagID={props.TagID} EventID={params.EventID || 2} />,
         <QuestionFindButton TagID={props.TagID} EventID={params.EventID || 2} />

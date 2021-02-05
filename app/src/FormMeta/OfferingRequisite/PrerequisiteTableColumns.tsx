@@ -39,6 +39,6 @@ export const getOfferingPrerequisiteTableColumns = (requisiteGroupID: number): I
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: () => getGroupOfferings(requisiteGroupID)
+    searchFunc: () => getGroupOfferings({ RequisiteOfferingGroupID: requisiteGroupID })
   }
 }

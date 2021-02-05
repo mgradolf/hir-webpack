@@ -13,14 +13,14 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
   const [rooms, setRooms] = useState<any[]>([])
 
   useEffect(() => {
-    findPossibleSites().then((x) => {
+    findPossibleSites({}).then((x) => {
       if (x.success) setSites(x.data)
     })
   }, [])
 
   const loadBuildings = (SiteID: number) => {
     if (SiteID) {
-      findPossibleBuildings(SiteID).then((x) => {
+      findPossibleBuildings({ SiteID }).then((x) => {
         if (x.success) setBuildings(x.data)
       })
     } else {
@@ -31,7 +31,7 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
 
   const loadRooms = (BuildingID: number) => {
     if (BuildingID) {
-      findPossibleRooms(BuildingID).then((x) => {
+      findPossibleRooms({ BuildingID }).then((x) => {
         if (x.success) setRooms(x.data)
       })
     } else {

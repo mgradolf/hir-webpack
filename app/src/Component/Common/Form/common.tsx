@@ -11,6 +11,7 @@ export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
 export const BOOLEAN = "BOOLEAN"
+export const MULTI_SELECT_CHECKBOX = "MULTI_SELECT_CHECKBOX"
 export const CUSTOM_FIELD = "CUSTOM_FIELD"
 
 export type IFieldType =
@@ -21,6 +22,7 @@ export type IFieldType =
   | typeof DATE_PICKERS
   | typeof NUMBER
   | typeof BOOLEAN
+  | typeof MULTI_SELECT_CHECKBOX
   | typeof CUSTOM_FIELD
 
 export interface IField {

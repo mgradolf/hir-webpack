@@ -36,7 +36,7 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
 
     props.formInstance.setFieldsValue({ [props.fieldNames.SectionID]: props.sectionId })
     ;(async () => {
-      const response = await getAllUsers()
+      const response = await getAllUsers({})
       if (response && response.success && response.data) {
         setFromUserItems(response.data)
       }

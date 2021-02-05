@@ -35,7 +35,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
   useEffect(() => {
     ;(async () => {
       setLoading(true)
-      const response = await getProgramAppDetails([props.programID, props.studentID])
+      const response = await getProgramAppDetails({ ProgramID: props.programID, StudentID: props.studentID })
       if (response && response.success) {
         setItemDetails(response.data)
         const admissionReqList = response.data.AdmissionReqGroups

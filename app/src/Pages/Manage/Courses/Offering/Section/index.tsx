@@ -25,7 +25,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
       hideSearchField={true}
       title="Sections"
       meta={SectionSearchMeta}
-      defaultFilter={{ OfferingID }}
+      defaultFormValue={{ OfferingID }}
       tableProps={getSectionTableColumns()}
       helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
     ></SearchPage>

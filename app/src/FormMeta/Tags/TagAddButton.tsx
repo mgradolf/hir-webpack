@@ -32,7 +32,7 @@ export const TagAddButton = (props: { tag: { [key: string]: any }; eventName: st
           isArray={true}
           meta={TagsSearchMeta}
           {...getTagsTableColumns(true, "")}
-          defaultFilter={{ EntityType: props.tag.EntityType, EntityID: props.tag.EntityID, IsSelected: false }}
+          defaultFormValue={{ EntityType: props.tag.EntityType, EntityID: props.tag.EntityID, IsSelected: false }}
           closeModal={(Params: any) => {
             if (Params) addTag(Params)
             else setShowModal(false)

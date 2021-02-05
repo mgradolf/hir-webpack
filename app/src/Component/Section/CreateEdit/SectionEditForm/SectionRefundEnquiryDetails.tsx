@@ -38,7 +38,7 @@ export default function SectionRefundEnquiryDetails(props: ISectionEditProps) {
 
   const [allUsers, setAllUsers] = useState<Array<any>>([])
   useEffect(() => {
-    getAllUsers().then((response) => {
+    getAllUsers({}).then((response) => {
       if (response.success) setAllUsers(response.data)
     })
   }, [])

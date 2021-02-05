@@ -10,7 +10,7 @@ export default function NoticePage(props: RouteComponentProps<{ sectionID?: stri
     <StandardPage
       title="Manage Email Notification"
       tableProps={{ ...getNoticeTableColumns(SectionID) }}
-      initialFilter={{ SectionID: SectionID }}
+      initialFormValue={{ SectionID: SectionID }}
     />
   )
 }

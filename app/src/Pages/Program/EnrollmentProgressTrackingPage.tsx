@@ -17,7 +17,7 @@ export default function EnrollmentProgressTrackingPage(props: IRequisitePageProp
   useEffect(() => {
     ;(async () => {
       setLoading(true)
-      const response = await trackingProgress([props.programID, props.studentID])
+      const response = await trackingProgress({ ProgramID: props.programID, StudentID: props.studentID })
       if (response && response.success) {
         setItemDetails(response.data)
       }
@@ -26,21 +26,23 @@ export default function EnrollmentProgressTrackingPage(props: IRequisitePageProp
   }, [props])
 
   const getProgressTrackingDetails = (ProgramReqGroupID: number) => {
-    return Promise.all([trackingProgress([props.programID, props.studentID])]).then((responses) => {
-      const response = responses[0]
-      if (response.success) {
-        response.data.ProgramRequirementGroups.map((x: any) => {
-          if (x.ProgramReqGroupID === ProgramReqGroupID) {
-            response.data = {
-              ...x
+    return Promise.all([trackingProgress({ ProgramID: props.programID, StudentID: props.studentID })]).then(
+      (responses) => {
+        const response = responses[0]
+        if (response.success) {
+          response.data.ProgramRequirementGroups.map((x: any) => {
+            if (x.ProgramReqGroupID === ProgramReqGroupID) {
+              response.data = {
+                ...x
+              }
+              return response
             }
             return response
-          }
-          return response
-        })
+          })
+        }
+        return response
       }
-      return response
-    })
+    )
   }
 
   return (

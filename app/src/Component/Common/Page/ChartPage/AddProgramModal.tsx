@@ -69,7 +69,7 @@ function AddProgramModal() {
       <Card title="Select Program" actions={cardActions} style={{ maxHeight: "90vh", overflowY: "auto" }}>
         <CustomForm
           meta={ProgramSearchMeta}
-          initialFilter={(filterData === null ? initialData : (filterData as unknown)) as { [key: string]: any }}
+          initialFormValue={(filterData === null ? initialData : (filterData as unknown)) as { [key: string]: any }}
           hideFilters={() => {
             closeAddProgramModal()
             setSelectedProgram(null)

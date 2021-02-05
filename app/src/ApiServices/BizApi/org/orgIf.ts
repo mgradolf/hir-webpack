@@ -6,6 +6,9 @@ export function getOrganizationByType(): Promise<IApiResponse> {
   return OrgIf[config.Actions.getOrganizationByType]([ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION])
 }
 
-export function findSchoolCode(Params: any[]): Promise<IApiResponse> {
-  return OrgIf[config.Actions.findSchoolCode](Params)
+export function findSchoolCode(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OrgIf[config.Actions.findSchoolCode]([Params], Headers)
 }

@@ -24,6 +24,6 @@ export const getMembershipBeneficiariesTableColumns = (isModal = false): ITableC
     responsiveColumnIndices,
     expandableColumnIndices,
     searchFunc: (Params: { [key: string]: any }) =>
-      findMembershipBeneficiaries([Params.MembershipTermID, Params.PersonID])
+      findMembershipBeneficiaries({ MembershipTermID: Params.MembershipTermID, PersonID: Params.PersonID })
   }
 }

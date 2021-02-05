@@ -4,89 +4,125 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */
 
-export function createOffering(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.createOffering](Params)
+export function createOffering(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.createOffering](Params, Headers)
 }
 
-export function updateOffering(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.updateOffering](Params)
+export function updateOffering(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.updateOffering](Params, Headers)
 }
 
-export function searchOffering(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.searchOffering](Params)
+export function searchOffering(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.searchOffering](Params, Headers)
 }
 
-export function addOrRemoveOfferingToCatalog(OfferingID: number, CatalogIDs: Array<number>): Promise<IApiResponse> {
-  return OfferingService[config.Actions.addOrRemoveOfferingToCatalog]({
-    OfferingID,
-    CatalogIDs
-  })
+export function addOrRemoveOfferingToCatalog(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.addOrRemoveOfferingToCatalog](Params, Headers)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering financial section                         */
-/* -------------------------------------------------------------------------- */
-export function createOfferingFinancial(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.createOfferingFinancial](Params)
+export function createOfferingFinancial(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.createOfferingFinancial](Params, Headers)
 }
 
-export function updateOfferingFinancial(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.updateOfferingFinancial](Params)
+export function updateOfferingFinancial(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.updateOfferingFinancial](Params, Headers)
 }
 
-export function searchOfferingFinancial(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.searchOfferingFinancial]({ OfferingID })
+export function searchOfferingFinancial(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.searchOfferingFinancial](Params, Headers)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering approval section                         */
-/* -------------------------------------------------------------------------- */
-export function getOfferngApprovalHist(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferngApprovalHist]({ OfferingID })
+export function getOfferngApprovalHist(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getOfferngApprovalHist](Params, Headers)
 }
 
-export function setApprovalStatus(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.setApprovalStatus](Params)
+export function setApprovalStatus(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.setApprovalStatus](Params, Headers)
 }
 
-export function getOfferngApprovalStateList(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferngApprovalStateList]({ OfferingID })
+export function getOfferngApprovalStateList(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getOfferngApprovalStateList](Params, Headers)
 }
 
-export function getOfferingApprovalSendToList(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferingApprovalSendToList]({ OfferingID })
+export function getOfferingApprovalSendToList(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getOfferingApprovalSendToList](Params, Headers)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering requisite management section              */
-/* -------------------------------------------------------------------------- */
-export function getRequisiteOfferingGroup(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getRequisiteOfferingGroup]({ OfferingID })
-}
-export function getGroupOfferings(RequisiteOfferingGroupID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getGroupOfferings]({ RequisiteOfferingGroupID })
-}
-export function createRequisiteOfferingGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.createRequisiteOfferingGroup](Params)
-}
-export function updateRequisiteOfferingGroup(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.updateRequisiteOfferingGroup](Params)
+export function getRequisiteOfferingGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getRequisiteOfferingGroup](Params, Headers)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         offering qualified instructor section              */
-/* -------------------------------------------------------------------------- */
-export function getQualifiedInstructors(OfferingID: number): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getQualifiedInstructors]({ OfferingID })
+export function getGroupOfferings(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getGroupOfferings](Params, Headers)
 }
 
-export function updateInstructors(OfferingID: number, InstructorIDs: Array<number>): Promise<IApiResponse> {
-  return OfferingService[config.Actions.updateInstructors]({
-    OfferingID,
-    InstructorIDs
-  })
+export function createRequisiteOfferingGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.createRequisiteOfferingGroup](Params, Headers)
+}
+
+export function updateRequisiteOfferingGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.updateRequisiteOfferingGroup](Params, Headers)
+}
+
+export function getQualifiedInstructors(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.getQualifiedInstructors](Params, Headers)
+}
+
+export function updateInstructors(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.updateInstructors](Params, Headers)
 }
 
 export function createSection(Params: { [key: string]: string }): Promise<IApiResponse> {
-  return OfferingService[config.Actions.createSection](Params)
+  return OfferingService[config.Actions.createSection](Params, Headers)
 }

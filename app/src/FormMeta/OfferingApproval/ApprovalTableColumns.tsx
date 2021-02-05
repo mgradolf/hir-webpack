@@ -33,6 +33,6 @@ export const getOfferingApprovalTableColumns = (OfferingID: number): ITableConfi
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: () => getOfferngApprovalHist(OfferingID)
+    searchFunc: () => getOfferngApprovalHist({ OfferingID })
   }
 }
