@@ -129,12 +129,11 @@ export const ReferenceList: IReferenceList[] = [
     custom: true
   },
   {
-    Title: "Duedate Policy",
+    Title: "Payment Due date Policy",
     Value: "DueDatePolicy",
     Description: "duedatepolicy is custom a reflookup for ...",
     custom: true
   },
-  // Unavailable in admin
   { Title: "Duration Type", Value: "DurationType", Description: "DurationType is a reflookup for ...", custom: false },
   // Unavailable in admin
   { Title: "Email Address Types", Value: "EmailType", Description: "EmailType is a reflookup for ...", custom: false },
@@ -370,8 +369,12 @@ export const ReferenceList: IReferenceList[] = [
     Description: "refundpolicytype is a reflookup for ...",
     custom: false
   },
-  { Title: "Region Code", Value: "RegionCode", Description: "regioncode is custom a reflookup for ...", custom: true },
-  // Unavailable in admin
+  {
+    Title: "State/Province/Region Codes",
+    Value: "RegionCode",
+    Description: "regioncode is custom a reflookup for ...",
+    custom: true
+  },
   {
     Title: "Religion Types",
     Value: "ReligionType",
