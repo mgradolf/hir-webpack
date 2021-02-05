@@ -3,7 +3,7 @@ import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form
 
 export const FormMeta: IField[] = [
   {
-    label: "Name",
+    label: "RegionCode",
     fieldName: "Name",
     inputType: TEXT
   },
@@ -20,7 +20,7 @@ export const FormMeta: IField[] = [
   {
     label: "CountryCode",
     inputType: DROPDOWN,
-    fieldName: "CountryCode",
+    fieldName: "CountryCodeID",
     refLookupService: getCountries,
     displayKey: "Name",
     valueKey: "ID"

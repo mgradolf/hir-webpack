@@ -73,7 +73,7 @@ export const ReferenceList: IReferenceList[] = [
     Title: "Comment Category Codes",
     Value: "CommentCategory",
     Description: "CommentCategory is a reflookup for ...",
-    custom: true
+    custom: false
   },
   {
     Title: "Country Codes",

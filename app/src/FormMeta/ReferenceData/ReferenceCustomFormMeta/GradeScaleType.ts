@@ -1,3 +1,4 @@
+import { getGradeType } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 
 export const FormMeta: IField[] = [
@@ -13,8 +14,11 @@ export const FormMeta: IField[] = [
   },
   {
     label: "Grade Type",
+    inputType: DROPDOWN,
     fieldName: "GradeTypeID",
-    inputType: DROPDOWN
+    refLookupService: getGradeType,
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
     label: "SortPosition",

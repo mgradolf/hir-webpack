@@ -1,5 +1,5 @@
 import { getBasePaymentTypes, getGLAccountTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { BOOLEAN, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
 export const FormMeta: IField[] = [
   {
@@ -22,11 +22,6 @@ export const FormMeta: IField[] = [
     refLookupService: getBasePaymentTypes,
     displayKey: "Name",
     valueKey: "ID"
-  },
-  {
-    label: "Maximum Hours",
-    fieldName: "MaxHours",
-    inputType: NUMBER
   },
   {
     label: "Is Active",

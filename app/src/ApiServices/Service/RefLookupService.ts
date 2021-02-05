@@ -384,3 +384,9 @@ export function getTermType(): Promise<IApiResponse> {
     LookUpName: "TermType"
   })
 }
+
+export function getGradeType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GradeType"
+  })
+}
