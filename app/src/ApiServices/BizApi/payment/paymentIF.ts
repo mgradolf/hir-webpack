@@ -5,7 +5,7 @@ export function searchPayments(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return PaymentIF[config.Actions.searchPayment]([Params.PaymentID], Headers)
+  return PaymentIF[config.Actions.searchPayment]([Params], Headers)
 }
 
 export function searchCreditMemo(

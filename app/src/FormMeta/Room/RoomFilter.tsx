@@ -42,7 +42,7 @@ export default function RoomFilter(props: IGeneratedField & { key: number }) {
     setSiteId(value)
 
     props.formInstance.setFieldsValue({ SiteID: value })
-    props.formInstance.setFieldsValue({ BuildingID: "" })
+    props.formInstance.setFieldsValue({ BuildingID: undefined })
 
     console.log("handleSiteChange ", value)
   }

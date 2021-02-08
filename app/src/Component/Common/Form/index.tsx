@@ -68,18 +68,19 @@ export function CustomForm({
           ).length === 0
 
         const validationForOtherCustomComponent =
-          x.fieldName !== "" &&
-          (values[x.fieldName] === undefined ||
-            values[x.fieldName] === null ||
-            (!!x.fieldName2 && !!(values[x.fieldName2] === undefined || values[x.fieldName2] === null)))
+          x.fieldName !== "" && (values[x.fieldName] === undefined || values[x.fieldName] === null)
 
-        // console.log("validationForSelectorComponent ", validationForSelectorComponent)
-        // console.log("validationForOtherCustomComponent ", validationForOtherCustomComponent)
+        const validationForDatePickersComponent =
+          (!!x.fieldName &&
+            !!(values[x.fieldName] === undefined || values[x.fieldName] === null || values[x.fieldName] === "")) ||
+          (!!x.fieldName2 &&
+            !!(values[x.fieldName2] === undefined || values[x.fieldName2] === null || values[x.fieldName2] === ""))
+
         if (validationForSelectorComponent) {
           x.validateStatus = "error"
           x.help = rules?.filter((rule: any) => rule.required)[0]?.message
           validationPassed = false
-        } else if (validationForOtherCustomComponent) {
+        } else if (validationForOtherCustomComponent || validationForDatePickersComponent) {
           x.validateStatus = "error"
           x.help = rules?.filter((rule: any) => rule.required)[0]?.message
           validationPassed = false
