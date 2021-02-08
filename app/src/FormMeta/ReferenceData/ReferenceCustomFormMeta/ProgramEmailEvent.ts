@@ -1,5 +1,5 @@
 import { getSystemEvent } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT, TEXTAREA } from "~/Component/Common/Form/common"
 
 export const FormMeta: IField[] = [
   {
@@ -35,7 +35,7 @@ export const FormMeta: IField[] = [
   {
     label: "Default Message",
     fieldName: "DefaultMessage",
-    inputType: TEXT
+    inputType: TEXTAREA
   },
   {
     label: "System Event",

@@ -1,4 +1,4 @@
-import { BOOLEAN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { BOOLEAN, IField, NUMBER, TEXT, TEXTAREA } from "~/Component/Common/Form/common"
 
 export const FormMeta: IField[] = [
   {
@@ -34,6 +34,6 @@ export const FormMeta: IField[] = [
   {
     label: "Default Message",
     fieldName: "DefaultMessage",
-    inputType: TEXT
+    inputType: TEXTAREA
   }
 ]

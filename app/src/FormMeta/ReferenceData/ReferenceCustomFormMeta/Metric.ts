@@ -1,3 +1,4 @@
+import { getMetricType } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 
 export const FormMeta: IField[] = [
@@ -15,6 +16,14 @@ export const FormMeta: IField[] = [
     label: "Metric Type",
     fieldName: "MetricTypeID",
     inputType: DROPDOWN
+  },
+  {
+    label: "Metric Type",
+    inputType: DROPDOWN,
+    fieldName: "MetricTypeID",
+    refLookupService: getMetricType,
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
     label: "Is Active",

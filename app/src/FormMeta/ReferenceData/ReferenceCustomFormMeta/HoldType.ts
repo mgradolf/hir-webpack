@@ -19,12 +19,22 @@ export const FormMeta: IField[] = [
   {
     label: "Start Date Flag",
     fieldName: "StartDateFlag",
-    inputType: DROPDOWN
+    inputType: DROPDOWN,
+    options: [
+      { label: "Disabled", value: 1 },
+      { label: "Optional", value: 2 },
+      { label: "Mandatory", value: 3 }
+    ]
   },
   {
     label: "Release Date Flag",
     fieldName: "ReleaseDateFlag",
-    inputType: DROPDOWN
+    inputType: DROPDOWN,
+    options: [
+      { label: "Disabled", value: 1 },
+      { label: "Optional", value: 2 },
+      { label: "Mandatory", value: 3 }
+    ]
   },
   {
     label: "Is Active",
