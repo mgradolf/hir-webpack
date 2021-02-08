@@ -107,7 +107,8 @@ export const sidebarMenus: ISidebarMenu[] = [
           // { title: "Data Import Service (DIS)", url: "", submenu: [] },
           { title: "Job Schedules", url: "/job-schedules", submenu: [] },
           { title: "Student Email Notifications", url: "/student-email-notification", submenu: [] },
-          { title: "Batches", url: "/batch", submenu: [] }
+          { title: "Batches", url: "/batch", submenu: [] },
+          { title: "Mail Merge", url: "/mail-merge", submenu: [] }
         ]
       },
       {
