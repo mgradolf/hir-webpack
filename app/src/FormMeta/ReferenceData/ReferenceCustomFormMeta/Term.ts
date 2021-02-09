@@ -1,3 +1,4 @@
+import { findTermFeeProductsByCategoryID } from "~/ApiServices/BizApi/query/queryIf"
 import { getTermType } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 
@@ -29,6 +30,14 @@ export const FormMeta: IField[] = [
     refLookupService: getTermType,
     displayKey: "Name",
     valueKey: "ID"
+  },
+  {
+    label: "Term Fee",
+    inputType: DROPDOWN,
+    fieldName: "TermTypeID",
+    refLookupService: () => findTermFeeProductsByCategoryID({ ProductCategoryID: 6 }),
+    displayKey: "Name",
+    valueKey: "ProductID"
   },
   {
     label: "Is Active",
