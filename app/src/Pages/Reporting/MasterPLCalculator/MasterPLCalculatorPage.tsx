@@ -1,4 +1,4 @@
-import { Col, Row, Tabs, Typography } from "antd"
+import { Col, Descriptions, Row, Tabs, Typography } from "antd"
 import React, { useState } from "react"
 import { analyzeSections } from "~/ApiServices/Service/BudgetAnalysisService"
 import { CustomForm } from "~/Component/Common/Form"
@@ -38,22 +38,36 @@ export default function QueriesPage() {
         <Col span={24}>
           <Tabs defaultActiveKey="1" type="card" size="large">
             <Tabs.TabPane tab="Budget" key={1}>
+              <Descriptions style={{ background: "white", paddingTop: "10px", paddingLeft: "10px" }}>
+                <Descriptions.Item label="Income">{dataSource.TotalIncome}</Descriptions.Item>
+                <Descriptions.Item label="Expense">{dataSource.TotalExpense}</Descriptions.Item>
+                <Descriptions.Item label="P/L">{dataSource.ProfitLoss}</Descriptions.Item>
+                <Descriptions.Item label="Gross Margin">{dataSource.MarginPercent}</Descriptions.Item>
+              </Descriptions>
               <ResponsiveTable
                 loading={loading}
                 columns={MasterPLCalculatorBudgetTableColumns}
                 dataSource={dataSource.Financials || []}
                 refreshEventName={"REFRESH_BUDGET_TAB"}
+                pagination={false}
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Seat Groups" key={2}>
-              {dataSource && dataSource.SeatGroups && (
-                <ResponsiveTable
-                  loading={loading}
-                  columns={MasterPLCalculatorSeatGroupsTableColumns}
-                  dataSource={dataSource.SeatGroups}
-                  refreshEventName={"REFRESH_FINANCIAL_TAB"}
-                />
-              )}
+              <Descriptions style={{ background: "white", paddingTop: "10px", paddingLeft: "10px" }}>
+                <Descriptions.Item label="Total Reserved Enrollment">
+                  {dataSource.TotalEstimatedEnrollment}
+                </Descriptions.Item>
+                <Descriptions.Item label="Total Actual Enrollment">
+                  {dataSource.TotalActualEnrollment}
+                </Descriptions.Item>
+              </Descriptions>
+              <ResponsiveTable
+                loading={loading}
+                columns={MasterPLCalculatorSeatGroupsTableColumns}
+                dataSource={dataSource.SeatGroups}
+                refreshEventName={"REFRESH_FINANCIAL_TAB"}
+                pagination={false}
+              />
             </Tabs.TabPane>
           </Tabs>
         </Col>
