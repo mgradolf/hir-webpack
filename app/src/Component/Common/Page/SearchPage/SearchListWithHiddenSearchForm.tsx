@@ -12,8 +12,8 @@ export interface ISearchListWithHiddenSearchFormProp {
   title: string
   meta?: IField[]
   tableProps: IDataTableProps
-  initialFilter?: { [key: string]: string }
-  defaultFilter?: { [key: string]: string }
+  initialFormValue?: { [key: string]: string }
+  defaultFormValue?: { [key: string]: string }
   helpKey?: string
 }
 
@@ -61,9 +61,9 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
           <CustomForm
             hideFilters={() => setShowFilter(false)}
             meta={props.meta}
-            initialFilter={{ ...props.initialFilter, ...props.defaultFilter } || {}}
+            initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
-              setSearchParams({ ...props.defaultFilter, ...newFilterValues })
+              setSearchParams({ ...props.defaultFormValue, ...newFilterValues })
               setFilterCount(appliedFilterCount)
               setShowFilter(false)
             }}

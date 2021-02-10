@@ -9,10 +9,10 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
   return (
     <SearchPage
       title="Manage Section Order Activity"
-      initialFilter={{}}
+      initialFormValue={{}}
       meta={ActivityOrderSearchMeta}
       hideSearchField={false}
-      defaultFilter={{ SectionIDs: [SectionID] }}
+      defaultFormValue={{ SectionIDs: [SectionID] }}
       tableProps={{
         ...getActivityOrderSearchTableColumns()
       }}

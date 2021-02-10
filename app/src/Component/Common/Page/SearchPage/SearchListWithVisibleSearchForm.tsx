@@ -9,8 +9,8 @@ export interface ISearchListWithVisibleSearchFormProp {
   blocks?: JSX.Element[]
   meta?: IField[]
   tableProps: IDataTableProps
-  initialFilter?: { [key: string]: string }
-  defaultFilter?: { [key: string]: string }
+  initialFormValue?: { [key: string]: string }
+  defaultFormValue?: { [key: string]: string }
   helpKey?: string
   updatedParams?: (params?: any) => void
 }
@@ -20,7 +20,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
   const [help, setHelp] = useState(false)
 
   useEffect(() => {
-    if (props.initialFilter) setSearchParams(props.initialFilter)
+    if (props.initialFormValue) setSearchParams(props.initialFormValue)
     // eslint-disable-next-line
   }, [])
   return (
@@ -41,10 +41,10 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
       {props.meta && (
         <CustomForm
           meta={props.meta}
-          initialFilter={{ ...props.initialFilter, ...props.defaultFilter } || {}}
+          initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            setSearchParams({ ...props.defaultFilter, ...newFilterValues })
-            props.updatedParams && props.updatedParams({ ...props.defaultFilter, ...newFilterValues })
+            setSearchParams({ ...props.defaultFormValue, ...newFilterValues })
+            props.updatedParams && props.updatedParams({ ...props.defaultFormValue, ...newFilterValues })
           }}
         />
       )}

@@ -29,8 +29,8 @@ export const getQuestionRepositoryDetailsMeta = (question: { [key: string]: any 
     tabType: "searchtable",
     tabMeta: {
       searchMeta: QuestionTaggingSearchMeta,
-      defaultFilter: { PreferenceDefID: question.PreferenceDefID },
-      initialFilter: { EventID: 2 },
+      defaultFormValue: { PreferenceDefID: question.PreferenceDefID },
+      initialFormValue: { EventID: 2 },
       tableProps: {
         pagination: false,
         ...getQuestionTaggingTableColumns(true),

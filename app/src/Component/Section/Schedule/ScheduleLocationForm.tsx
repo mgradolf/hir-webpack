@@ -41,7 +41,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
 
   useEffect(() => {
     async function loadSites() {
-      const res = await findPossibleSites()
+      const res = await findPossibleSites({})
       if (Array.isArray(res.data)) {
         setSiteItems(res.data)
       }
@@ -52,7 +52,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
 
   useEffect(() => {
     async function loadBuildings(siteID: number) {
-      const res = await findPossibleBuildings([siteID])
+      const res = await findPossibleBuildings({ SiteID: siteID })
       if (Array.isArray(res.data)) {
         setBuildingItems(res.data)
       }
@@ -65,7 +65,7 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
 
   useEffect(() => {
     async function loadRooms(buildingID: number) {
-      const res = await findPossibleRooms([buildingID])
+      const res = await findPossibleRooms({ BuildingID: buildingID })
       if (Array.isArray(res.data)) {
         setRoomItems(res.data)
       }

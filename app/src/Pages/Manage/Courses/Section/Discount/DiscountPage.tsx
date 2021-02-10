@@ -13,7 +13,7 @@ export default function DiscountPage(props: RouteComponentProps<{ sectionID?: st
       blocks={[<AddDiscountButton sectionId={SectionID} />]}
       title="Manage Discount Programs"
       tableProps={{ ...getSectionDiscountTableColumns(), refreshEventName: REFRESH_SECTION_DISCOUNT_PAGE }}
-      initialFilter={{ SectionID: SectionID }}
+      initialFormValue={{ SectionID: SectionID }}
     />
   )
 }

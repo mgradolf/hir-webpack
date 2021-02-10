@@ -40,13 +40,13 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
   useEffect(() => {
     props.formInstance.setFieldsValue({ [fieldNames.OfferingID]: props.offeringID })
     ;(async () => {
-      const response = await getOfferngApprovalStateList(props.offeringID)
+      const response = await getOfferngApprovalStateList({ OfferingID: props.offeringID })
       if (response && response.success && response.data) {
         setApprovalStateList(response.data)
       }
     })()
     ;(async () => {
-      const response = await getOfferingApprovalSendToList(props.offeringID)
+      const response = await getOfferingApprovalSendToList({ OfferingID: props.offeringID })
       if (response && response.success && response.data) {
         setApprovalSendToList(response.data)
       }

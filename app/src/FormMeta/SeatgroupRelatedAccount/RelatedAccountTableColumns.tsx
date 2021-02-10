@@ -31,6 +31,6 @@ export const getSeatgroupRelatedAccountTableColumns = (SeatGroupID: number): ITa
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: () => findAffiliatedOrgsForSeatGroup(SeatGroupID)
+    searchFunc: () => findAffiliatedOrgsForSeatGroup({ SeatGroupID: SeatGroupID })
   }
 }

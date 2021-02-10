@@ -51,7 +51,7 @@ export default function SectionAddButton(props: ICreateActionButtonProp) {
           closeModal={closeModal}
           {...getSectionTableColumns(true)}
           meta={SectionSearchMeta}
-          defaultFilter={{}}
+          defaultFormValue={{}}
         />
       )}
     </>

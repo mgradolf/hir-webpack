@@ -13,7 +13,7 @@ export default function SectionProductPage(props: RouteComponentProps<{ sectionI
       blocks={[<ProductAddButton SectionId={SectionID} />]}
       title="Manage Section Products"
       tableProps={{ ...getSectionProductTableColumns(), refreshEventName: REFRESH_SECTION_PRODUCT_PAGE }}
-      initialFilter={{ SectionID: SectionID }}
+      initialFormValue={{ SectionID: SectionID }}
     />
   )
 }

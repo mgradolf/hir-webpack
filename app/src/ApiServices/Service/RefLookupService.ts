@@ -366,3 +366,27 @@ export function getCertificateCategoryType(): Promise<IApiResponse> {
     LookUpName: "CertificateCategoryType"
   })
 }
+
+export function getSystemEvent(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SystemEvent"
+  })
+}
+
+export function getReasonType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ReasonType"
+  })
+}
+
+export function getTermType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "TermType"
+  })
+}
+
+export function getGradeType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GradeType"
+  })
+}

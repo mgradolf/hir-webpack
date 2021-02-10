@@ -55,7 +55,7 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
           newValues.SectionID = props.SectionID
           setSearchParams(newValues)
         }}
-        initialFilter={{}}
+        initialFormValue={{}}
       />
       <Button
         style={{ float: "right", zIndex: 10 }}

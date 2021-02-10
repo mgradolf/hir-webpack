@@ -6,7 +6,7 @@ export default function ConfigurationManagementPage() {
   return (
     <SearchPage
       title="Configuration Management"
-      defaultFilter={{}}
+      defaultFormValue={{}}
       tableProps={{
         ...getSystemConfigurationTableColumns()
       }}

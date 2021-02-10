@@ -133,7 +133,7 @@ export const CatalogSectionSortingTableComponent = (props: { CatalogID: number }
   const [offerings, setOfferings] = useState<any[]>([])
   const [selectedOfferingID, setSelectedOfferingID] = useState<any>(undefined)
   useEffect(() => {
-    getWebCatalogOfferings(props.CatalogID).then((x) => {
+    getWebCatalogOfferings({ CatalogID: props.CatalogID }).then((x) => {
       setOfferings(x.data)
     })
     // eslint-disable-next-line
@@ -158,7 +158,9 @@ export const CatalogSectionSortingTableComponent = (props: { CatalogID: number }
         <SortingTableComponent
           CatalogID={props.CatalogID}
           propKey="SectionID"
-          searchFunc={(CatalogID: any) => getWebCatalogSections(CatalogID, selectedOfferingID)}
+          searchFunc={(CatalogID: any) =>
+            getWebCatalogSections({ CatalogID: CatalogID, SelectedOfferingID: selectedOfferingID })
+          }
           swapFunc={swapSectionsInCatalog}
           removeFunc={removeSectionFromCatalog}
           columns={[

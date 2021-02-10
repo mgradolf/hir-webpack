@@ -23,7 +23,7 @@ export default function BudgetPage(props: RouteComponentProps<{ sectionID?: stri
       tableProps={{
         ...getSectionFinancialTableColumns()
       }}
-      initialFilter={{ SectionID: SectionID }}
+      initialFormValue={{ SectionID: SectionID }}
     />
   )
 }

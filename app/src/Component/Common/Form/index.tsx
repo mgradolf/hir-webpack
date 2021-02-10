@@ -10,7 +10,8 @@ import {
   TEXT,
   BOOLEAN,
   IField,
-  CUSTOM_FIELD
+  CUSTOM_FIELD,
+  MULTI_SELECT_CHECKBOX
 } from "~/Component/Common/Form/common"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
@@ -21,13 +22,14 @@ import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
+import { FormMultipleCheckbox } from "./FormMultipleCheckbox"
 
 interface IFilterColumnProps {
   meta: IField[]
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   hideFilters?: () => void
-  initialFilter?: { [key: string]: any }
-  defaultFilter?: { [key: string]: any }
+  initialFormValue?: { [key: string]: any }
+  defaultFormValue?: { [key: string]: any }
   showClearbutton?: boolean
   applyButtonLabel?: string
   clearButtonLabel?: string
@@ -108,7 +110,7 @@ export function CustomForm({
         if (!isCustomFormFieldValuesValid) return
         // console.log(validatedValues)
         const params: { [key: string]: any } = queryParams || validatedValues
-        const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFilter }
+        const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFormValue }
         for (const key in mergedParams) {
           if (key === "" || mergedParams[key] === undefined || mergedParams[key] === null || key.includes("____"))
             delete mergedParams[key]
@@ -167,7 +169,16 @@ export function CustomForm({
 
   return (
     <Col className={`gutter-row ${styles.offeringFilter}`} xs={24} sm={24} md={24}>
-      <Form layout="horizontal" initialValues={props.initialFilter} form={formInstance} scrollToFirstError>
+      <Form
+        layout="horizontal"
+        initialValues={props.initialFormValue}
+        form={formInstance}
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
+      >
         <SearchFormFields
           meta={props.meta}
           formInstance={formInstance}
@@ -231,6 +242,12 @@ const SearchFormFields = (props: {
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
                   <FormCheckbox {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case MULTI_SELECT_CHECKBOX:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <FormMultipleCheckbox {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case DROPDOWN:

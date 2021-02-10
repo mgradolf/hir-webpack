@@ -8,7 +8,7 @@ export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]
   title: string
   tableProps: IDataTableProps
-  defaultFilter?: { [key: string]: string }
+  defaultFormValue?: { [key: string]: string }
   helpKey?: string
 }
 
@@ -34,7 +34,7 @@ export default function SearchListWithoutSearchForm(props: ISearchListWithHidden
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         <Col className={`gutter-row ${styles.offeringDetails}`} xs={24} sm={24} md={{ span: 24, offset: 0 }}>
-          <ResponsiveTable {...props.tableProps} searchParams={props.defaultFilter} />
+          <ResponsiveTable {...props.tableProps} searchParams={props.defaultFormValue} />
         </Col>
       </Row>
     </div>

@@ -78,7 +78,7 @@ function OfferingCatalogPage(props: RouteComponentProps<{ offeringID: string }>)
     }
 
     setLoading(true)
-    const result = await addOrRemoveOfferingToCatalog(Number(offeringID), publishedRowData)
+    const result = await addOrRemoveOfferingToCatalog({ OfferingID: Number(offeringID), CatalogIDs: publishedRowData })
 
     if (result && result.success) {
       setLoading(false)

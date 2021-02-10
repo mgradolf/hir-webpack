@@ -11,7 +11,7 @@ export default function Payments(props: RouteComponentProps<{ sectionID: string 
       title="Manage Payments"
       meta={PaymentSearchMeta}
       hideSearchField={true}
-      defaultFilter={{ SectionID }}
+      defaultFormValue={{ SectionID }}
       tableProps={getPaymentTableColumns(false)}
     ></SearchPage>
   )

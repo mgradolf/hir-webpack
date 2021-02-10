@@ -12,7 +12,7 @@ export function AddInstructorModal({ onClose, CanTeachOfferingID }: IInstructorP
   return (
     <LookupModal
       meta={InstructorSearchMeta}
-      defaultFilter={CanTeachOfferingID ? { CanTeachOfferingID } : {}}
+      defaultFormValue={CanTeachOfferingID ? { CanTeachOfferingID } : {}}
       {...getInstructorTableColumns(true)}
       title="Add Instructor"
       isArray={true}

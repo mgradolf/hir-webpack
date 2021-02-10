@@ -10,7 +10,7 @@ export default function ProgramApplication() {
       title="Manage Program Applications"
       meta={ProgramApplicationSearchMeta}
       hideSearchField={false}
-      defaultFilter={{}}
+      defaultFormValue={{}}
       tableProps={getProgramApplicationTableColumns()}
     ></SearchPage>
   )

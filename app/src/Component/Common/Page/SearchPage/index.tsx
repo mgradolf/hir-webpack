@@ -16,8 +16,8 @@ interface IPage extends Partial<RouteComponentProps> {
   title: string
   meta?: IField[]
   tableProps: IDataTableProps
-  initialFilter?: any
-  defaultFilter?: any
+  initialFormValue?: any
+  defaultFormValue?: any
   helpKey?: string
   updatedParams?: (params?: any) => void
 }

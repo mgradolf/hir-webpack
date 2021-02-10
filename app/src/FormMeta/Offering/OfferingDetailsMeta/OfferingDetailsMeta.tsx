@@ -179,8 +179,8 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       tabType: "searchtable",
       tabMeta: {
         searchMeta: QuestionTaggingSearchMeta,
-        defaultFilter: { OfferingID: offering.OfferingID },
-        initialFilter: { EventID: 2 },
+        defaultFormValue: { OfferingID: offering.OfferingID },
+        initialFormValue: { EventID: 2 },
         tableProps: {
           pagination: false,
           ...getQuestionTaggingTableColumns(true),

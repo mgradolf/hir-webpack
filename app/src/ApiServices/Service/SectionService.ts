@@ -1,81 +1,105 @@
 import SectionService, { config } from "@packages/api/lib/proxy/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
-export function addOfferingFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.addOfferingFinancials](Params)
+export function addOfferingFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.addOfferingFinancials](Params, Headers)
 }
 
-export function addInstructorFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.addInstructorFinancials](Params)
+export function addInstructorFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.addInstructorFinancials](Params, Headers)
 }
 
-export function addMarketingProgramFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.addMarketingProgramFinancials](Params)
+export function addMarketingProgramFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.addMarketingProgramFinancials](Params, Headers)
 }
 
-export function addResourceFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.addResourceFinancials](Params)
+export function addResourceFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.addResourceFinancials](Params, Headers)
 }
 
-export function addSectionDiscount(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.addSectionDiscount](Params)
+export function addSectionDiscount(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.addSectionDiscount](Params, Headers)
 }
 
-export function getSectionDetails(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getSectionDetails]({
-    SectionID
-  })
+export function getSectionDetails(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionDetails](Params, Headers)
 }
 
-export function getSectionStatistics(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getSectionStatistics]({
-    SectionID
-  })
+export function getSectionStatistics(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionStatistics](Params, Headers)
 }
 
-export function findAffiliatedOrgsForSeatGroup(SeatGroupID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.findAffiliatedOrgsForSeatGroup]({
-    SeatGroupID
-  })
+export function findAffiliatedOrgsForSeatGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.findAffiliatedOrgsForSeatGroup](Params, Headers)
 }
 
-export function saveAffiliatedOrg(SeatGroupID: number, AffiliateAccountIDs: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.saveAffiliatedOrg]({
-    SeatGroupID,
-    AffiliateAccountIDs
-  })
+// export function saveAffiliatedOrg(SeatGroupID: number, AffiliateAccountIDs: number): Promise<IApiResponse> {
+//   return SectionService[config.Actions.saveAffiliatedOrg]({
+//     SeatGroupID,
+//     AffiliateAccountIDs
+//   })
+// }
+
+export function getMeetings(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.getMeetings](Params, Headers)
 }
 
-export function getMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.getMeetings](Params)
+export function createMeetings(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.createMeetings](Params, Headers)
 }
 
-export function createMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.createMeetings](Params)
+export function saveMeetings(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return SectionService[config.Actions.saveMeetings](Params, Headers)
 }
 
-export function saveMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.saveMeetings](Params)
+export function updateSection(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.updateSection](Params, Headers)
 }
 
-export function updateSection(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.updateSection](Params)
+export function copySection(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.copySection](Params, Headers)
 }
 
-export function copySection(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.copySection](Params)
+export function saveFinancial(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveFinancial](Params, Headers)
 }
 
-export function saveFinancial(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveFinancial](Params)
+export function saveFinancials(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveFinancials](Params, Headers)
 }
 
-export function saveFinancials(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveFinancials](Params)
-}
-
-export function getSectionFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.getSectionFinancials](Params)
+export function getSectionFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionFinancials](Params, Headers)
 }
 
 export function getSectionFinancialsCombined(SeatGroupID?: number, SectionID?: number): Promise<IApiResponse> {
@@ -106,120 +130,152 @@ export function getSectionFinancialsCombined(SeatGroupID?: number, SectionID?: n
   )
 }
 
-export function getAvailableOfferingFinancials(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getAvailableOfferingFinancials]({
-    SectionID
-  })
+export function getAvailableOfferingFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getAvailableOfferingFinancials](Params, Headers)
 }
 
-export function getAvailableFacultyWithFinancials(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getAvailableFacultyWithFinancials]({
-    SectionID
-  })
+export function getAvailableFacultyWithFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getAvailableFacultyWithFinancials](Params, Headers)
 }
 
-export function saveSectionDiscount(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveSectionDiscount](Params)
+export function saveSectionDiscount(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveSectionDiscount](Params, Headers)
 }
 
-export function removeSectionDiscounts(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.removeSectionDiscounts](Params)
+export function removeSectionDiscounts(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeSectionDiscounts](Params, Headers)
 }
 
-export function getSectionDiscounts(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.getSectionDiscounts](Params)
+export function getSectionDiscounts(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionDiscounts](Params, Headers)
 }
 
-export function getAvailableDiscountPrograms(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getAvailableDiscountPrograms]({
-    SectionID
-  })
+export function getAvailableDiscountPrograms(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getAvailableDiscountPrograms](Params, Headers)
 }
 
-export function getAvailableResourcesWithFinancials(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getAvailableResourcesWithFinancials]({
-    SectionID
-  })
+export function getAvailableResourcesWithFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getAvailableResourcesWithFinancials](Params, Headers)
 }
 
-export function getAvailableMarketingProgramsWithFinancials(SectionID: number): Promise<IApiResponse> {
-  return SectionService[config.Actions.getAvailableMarketingProgramsWithFinancials]({
-    SectionID
-  })
+export function getAvailableMarketingProgramsWithFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getAvailableMarketingProgramsWithFinancials](Params, Headers)
 }
 
-export function saveSectionNotification(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.saveSectionNotification](Params)
+export function saveSectionNotification(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.saveSectionNotification](Params, Headers)
 }
 
-export function getSectionNotifications(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.getSectionNotifications](Params)
+export function getSectionNotifications(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.getSectionNotifications](Params, Headers)
 }
 
-export function removeFinancials(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.removeFinancials](Params)
+export function removeFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeFinancials](Params, Headers)
 }
 
-export function removeMeetings(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.removeMeetings](Params)
+export function removeMeetings(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeMeetings](Params, Headers)
 }
 
-export function removeLocations(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.removeLocations](Params)
+export function removeLocations(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeLocations](Params, Headers)
 }
 
-export function removeInstructors(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.removeInstructors](Params)
+export function removeInstructors(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeInstructors](Params, Headers)
 }
 
-export function removeMeetingInformations(Params: { [key: string]: any }): Promise<IApiResponse> {
-  return SectionService[config.Actions.removeMeetingInformations](Params)
+export function removeMeetingInformations(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return SectionService[config.Actions.removeMeetingInformations](Params, Headers)
 }
 
-// export function findRoom(Params: { [key: string]: any }) {
-//   return SectionService[config.Actions.findRoom](Params)
+// export function findRoom(Params: { [key: string]: any },Headers?: { [key: string]: any }) {
+//   return SectionService[config.Actions.findRoom](Params,Headers)
 // }
 
-export function saveLocations(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveLocations](Params)
+export function saveLocations(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveLocations](Params, Headers)
 }
 
-export function saveGeneralComment(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveGeneralComment](Params)
+export function saveGeneralComment(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveGeneralComment](Params, Headers)
 }
 
-export function saveFacultyComment(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveFacultyComment](Params)
+export function saveFacultyComment(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveFacultyComment](Params, Headers)
 }
 
-export function saveEnrollmentComment(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveEnrollmentComment](Params)
+export function saveEnrollmentComment(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveEnrollmentComment](Params, Headers)
 }
 
-export function findGeneralCommentHistory(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.findGeneralCommentHistory](Params)
+export function findGeneralCommentHistory(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.findGeneralCommentHistory](Params, Headers)
 }
 
-export function findFacultyComments(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.findFacultyComments](Params)
+export function findFacultyComments(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.findFacultyComments](Params, Headers)
 }
 
-export function findEnrollmentCommentHistory(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.findEnrollmentCommentHistory](Params)
+export function findEnrollmentCommentHistory(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.findEnrollmentCommentHistory](Params, Headers)
 }
 
-export function findFaculty(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.findFaculty](Params)
+export function findFaculty(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.findFaculty](Params, Headers)
 }
 
-export function findEnrollmentStudentHistory(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.findEnrollmentStudentHistory](Params)
+export function findEnrollmentStudentHistory(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.findEnrollmentStudentHistory](Params, Headers)
 }
 
-export function scheduleInstructor(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.scheduleInstructor](Params)
+export function scheduleInstructor(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.scheduleInstructor](Params, Headers)
 }
 
-export function saveMeetingInformations(Params: { [key: string]: any }) {
-  return SectionService[config.Actions.saveMeetingInformations](Params)
+export function saveMeetingInformations(Params: { [key: string]: any }, Headers?: { [key: string]: any }) {
+  return SectionService[config.Actions.saveMeetingInformations](Params, Headers)
 }

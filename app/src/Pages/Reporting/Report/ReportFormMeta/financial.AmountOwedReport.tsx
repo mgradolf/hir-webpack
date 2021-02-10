@@ -12,7 +12,6 @@ const meta: IField[] = [
     fieldName: "",
     inputType: CUSTOM_FIELD,
     customFilterComponent: FormFieldSelector,
-    rules: [{ required: true, message: "Offering or Section is Required" }],
     extraProps: {
       selectorKeys: [
         {
@@ -36,15 +35,13 @@ const meta: IField[] = [
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: StudentLookup,
-    rules: [{ required: true, message: "Student is Required" }]
+    customFilterComponent: StudentLookup
   },
   {
     label: "Registration Date",
     fieldName: "FromRegistrationDate",
     fieldName2: "ToRegistrationDate",
-    inputType: DATE_PICKERS,
-    rules: [{ required: true, message: "Registration start date or end date is Required" }]
+    inputType: DATE_PICKERS
   },
   {
     label: "Department",
@@ -52,14 +49,13 @@ const meta: IField[] = [
     fieldName: "OrganizationID",
     refLookupService: getOrganizations,
     displayKey: "Name",
-    valueKey: "OrganizationID",
-    rules: [{ required: true, message: "Department field is Required" }]
+    valueKey: "OrganizationID"
   }
 ]
 
 const reportMeta: IReportMeta = {
   meta,
-  defaultFilter: {
+  defaultFormValue: {
     BalanceMoreThan: 0
   },
   mapping: {

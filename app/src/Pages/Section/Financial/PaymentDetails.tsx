@@ -10,7 +10,7 @@ export default function PaymentDetailsPage(props: RouteComponentProps<{ paymentI
     <DetailsPage
       getMeta={getPaymentDetailsMeta}
       getDetails={() =>
-        searchPayments({ PaymentID }).then((x) => {
+        searchPayments({ PaymentID: PaymentID }).then((x) => {
           if (x.success) {
             x.data = x.data[0]
           }

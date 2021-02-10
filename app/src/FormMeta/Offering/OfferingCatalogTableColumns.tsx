@@ -29,7 +29,7 @@ export const getOfferingCatalogTableColumns = (OfferingID: number): ITableConfig
           result.splice(index, 1)
         }
 
-        addOrRemoveOfferingToCatalog(OfferingID, result).then((response) => {
+        addOrRemoveOfferingToCatalog({ OfferingID, CatalogIDs: result }).then((response) => {
           if (response && response.success) {
             eventBus.publish(REFRESH_OFFERING_CATALOG_PAGE)
           }

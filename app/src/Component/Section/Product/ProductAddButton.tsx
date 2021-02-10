@@ -45,7 +45,7 @@ export function ProductAddButton(props: ICreateActionButtonProp) {
           closeModal={closeModal}
           {...getProductTableColumns()}
           meta={modifiedMeta}
-          defaultFilter={{ ProductOptionalItem: true, ProductInventoryUnits: 1, ProductIsActive: true }}
+          defaultFormValue={{ ProductOptionalItem: true, ProductInventoryUnits: 1, ProductIsActive: true }}
         />
       )}
     </>

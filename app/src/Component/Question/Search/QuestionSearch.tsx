@@ -50,7 +50,7 @@ const QuestionSearchFiltersMeta: IField[] = [
 export default function QuestionSearch(props: IQuestionSearch) {
   return (
     <CustomForm
-      initialFilter={{}}
+      initialFormValue={{}}
       hideFilters={() => {
         console.log("do nothing")
       }}

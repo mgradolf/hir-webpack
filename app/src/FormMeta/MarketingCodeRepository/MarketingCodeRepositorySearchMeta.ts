@@ -34,7 +34,7 @@ export const MarketingCodeRepositorySearchMeta: IField[] = [
   {
     label: "Tag Type",
     inputType: DROPDOWN,
-    refLookupService: getMarketingCodeRelatedTagTypes,
+    refLookupService: () => getMarketingCodeRelatedTagTypes({}),
     fieldName: "TagTypeID",
     displayKey: "Name",
     valueKey: "ID"

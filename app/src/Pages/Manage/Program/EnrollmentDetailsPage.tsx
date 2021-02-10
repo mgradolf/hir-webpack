@@ -20,7 +20,7 @@ export default function (props: RouteComponentProps<{ programEnrollmentID?: stri
                 ...result.data[0]
               }
             }
-            return trackingProgress([result.data.ProgramID, result.data.StudentID])
+            return trackingProgress({ ProgramID: result.data.ProgramID, StudentID: result.data.StudentID })
           })
           .then((enrollmentDetails) => {
             if (enrollmentDetails.success) {

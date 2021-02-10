@@ -7,7 +7,7 @@ export default function AcademicLogPage() {
   return (
     <SearchPage
       title="Academic Log"
-      initialFilter={{}}
+      initialFormValue={{}}
       meta={AcademicActivitySearchMeta}
       hideSearchField={false}
       tableProps={{

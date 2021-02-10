@@ -20,7 +20,7 @@ export default function RequisitePage(props: IRequisitePageProp) {
 
   useEffect(() => {
     const loadOfferingRequisiteGroup = async function () {
-      const result = await getRequisiteOfferingGroup(props.offeringID)
+      const result = await getRequisiteOfferingGroup({ OfferingID: props.offeringID })
 
       if (result && result.success && Array.isArray(result.data) && result.data.length > 0) {
         setRequisiteGroupID(result.data[0].RequisiteOfferingGroupID)

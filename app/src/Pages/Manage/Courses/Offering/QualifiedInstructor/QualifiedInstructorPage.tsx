@@ -16,7 +16,7 @@ export default function QualifiedInstructorPage(props: RouteComponentProps<{ off
         ...getQualifiedInstructorTableColumns(),
         refreshEventName: REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE
       }}
-      initialFilter={{ OfferingID: OfferingID }}
+      initialFormValue={{ OfferingID: OfferingID }}
     />
   )
 }

@@ -80,7 +80,7 @@ export default function OfferingCoreChar(props: IOfferingCoreChar) {
       }
     })()
     ;(async () => {
-      const response = await getAllUsers()
+      const response = await getAllUsers({})
       if (response && response.data) {
         setUsers(response.data)
       }
