@@ -4,7 +4,6 @@ import zIndex from "~/utils/zIndex"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IField } from "~/Component/Common/Form/common"
 import { Card, Form } from "antd"
-import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { CustomForm } from "~/Component/Common/Form"
@@ -50,13 +49,13 @@ export const FormModal = (props: {
   return (
     <Modal width="1000px" zIndex={zIndex.defaultModal}>
       <Card title={props.title} loading={loading}>
-        <OldFormError errorMessages={error} />
         <CustomForm
           meta={props.meta}
           closeModal={props.closeModal}
           initialFormValue={props.initialFormValue}
           applyButtonLabel="Submit"
           stopProducingQueryParams={true}
+          errorMessages={error}
           onApplyChanges={(newValues: { [key: string]: any }) => {
             console.log("calling onApplyChanges ", newValues)
             submit(newValues)
