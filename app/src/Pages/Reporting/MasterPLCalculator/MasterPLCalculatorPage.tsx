@@ -42,6 +42,7 @@ export default function QueriesPage() {
                 loading={loading}
                 columns={MasterPLCalculatorBudgetTableColumns}
                 dataSource={dataSource.Financials || []}
+                refreshEventName={"REFRESH_BUDGET_TAB"}
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Seat Groups" key={2}>
@@ -50,6 +51,7 @@ export default function QueriesPage() {
                   loading={loading}
                   columns={MasterPLCalculatorSeatGroupsTableColumns}
                   dataSource={dataSource.SeatGroups}
+                  refreshEventName={"REFRESH_FINANCIAL_TAB"}
                 />
               )}
             </Tabs.TabPane>
