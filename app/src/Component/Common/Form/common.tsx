@@ -7,6 +7,7 @@ import { ValidateStatus } from "antd/lib/form/FormItem"
 export const TEXT = "TEXT"
 export const DROPDOWN = "DROPDOWN"
 export const MULTI_SELECT_DROPDOWN = "MULTI_SELECT_DROPDOWN"
+export const MULTI_RADIO = "MULTI_RADIO"
 export const DATE_PICKER = "DATE_PICKER"
 export const DATE_PICKERS = "DATE_PICKERS"
 export const NUMBER = "NUMBER"
@@ -24,6 +25,7 @@ export type IFieldType =
   | typeof BOOLEAN
   | typeof MULTI_SELECT_CHECKBOX
   | typeof CUSTOM_FIELD
+  | typeof MULTI_RADIO
 
 export interface IField {
   label: string

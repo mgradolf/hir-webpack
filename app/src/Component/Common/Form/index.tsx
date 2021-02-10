@@ -11,7 +11,8 @@ import {
   BOOLEAN,
   IField,
   CUSTOM_FIELD,
-  MULTI_SELECT_CHECKBOX
+  MULTI_SELECT_CHECKBOX,
+  MULTI_RADIO
 } from "~/Component/Common/Form/common"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
@@ -23,6 +24,7 @@ import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
 import { FormMultipleCheckbox } from "./FormMultipleCheckbox"
+import { FormMultipleRadio } from "./FormMultipleRadio"
 
 interface IFilterColumnProps {
   meta: IField[]
@@ -249,6 +251,12 @@ const SearchFormFields = (props: {
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
                   <FormMultipleCheckbox {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case MULTI_RADIO:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <FormMultipleRadio {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case DROPDOWN:

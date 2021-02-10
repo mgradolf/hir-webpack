@@ -91,7 +91,7 @@ export const sidebarMenus: ISidebarMenu[] = [
       { title: "Reports", url: "/report", submenu: [] },
       { title: "Charts", url: "/chart", submenu: [] },
       { title: "Queries", url: "/queries", submenu: [] },
-      { title: "Master P & L Calculator", url: "", submenu: [] },
+      { title: "Master P & L Calculator", url: "/plcalculator", submenu: [] },
       { title: "Section Instructors", url: "/section-instructors", submenu: [] }
       // { title: "Section Schedule and Location", url: "", submenu: [] }
     ]
