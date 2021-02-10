@@ -6,7 +6,7 @@ import { IField, TEXT } from "~/Component/Common/Form/common"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 
-export default function MailMergeDetailsPage(props: RouteComponentProps<{ queryName: string }>) {
+export default function QueriesDetailsPage(props: RouteComponentProps<{ queryName: string }>) {
   const QueryName = props?.match?.params?.queryName
   const [searchMeta, setSearchMeta] = useState<IField[]>([])
   const [tableProps, setTableProps] = useState<ITableConfigProp>({ searchFunc: findQueryResult, columns: [] })

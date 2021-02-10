@@ -437,12 +437,12 @@ export const AppRoutes: RouteProps[] = [
     )
   },
   {
-    path: "/mail-merge",
-    component: React.lazy(() => import("~/Pages/SetupAdministration/Tools/MailMerge/MailMergePage"))
+    path: "/queries",
+    component: React.lazy(() => import("~/Pages/Reporting/Queries/QueriesPage"))
   },
   {
-    path: "/mail-merge/:queryName",
-    component: React.lazy(() => import("~/Pages/SetupAdministration/Tools/MailMerge/MailMergeDetailsPage"))
+    path: "/queries/:queryName",
+    component: React.lazy(() => import("~/Pages/Reporting/Queries/QueriesDetailsPage"))
   },
   {
     path: "/section-instructors",
