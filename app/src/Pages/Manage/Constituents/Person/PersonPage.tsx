@@ -1,11 +1,23 @@
-import React from "react"
+import React, { useState } from "react"
 import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
+import { Button } from "antd"
+import PersonFormModal from "~/Component/Person/PersonFormModal"
 
 export default function PersonTable() {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <SearchPage
+      blocks={[
+        <>
+          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
+            + Create Person
+          </Button>
+          {showModal && <PersonFormModal closeModal={() => setShowModal(false)} />}
+        </>
+      ]}
       title="Manage Persons"
       meta={PersonSearchMeta}
       hideSearchField={false}

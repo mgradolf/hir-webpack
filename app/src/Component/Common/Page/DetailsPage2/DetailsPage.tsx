@@ -71,7 +71,11 @@ export function DetailsPage(props: IDetailsPage) {
                 case "table":
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsTableTab {...x.tabMeta} />} />
+                      <DetailsPageSubTabSwitch
+                        meta={x.multipleTabMetas}
+                        actions={x.actions}
+                        child={<DetailsTableTab {...x.tabMeta} />}
+                      />
                     </Tabs.TabPane>
                   )
                 case "custom":

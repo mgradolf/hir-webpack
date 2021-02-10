@@ -17,13 +17,11 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
     {
       title: "Order Date",
       dataIndex: "CreateDate",
-      render: renderDate,
-      width: 100
+      render: renderDate
     },
     {
       title: "Order ID",
       dataIndex: "OrderID",
-      width: 100,
       render: (text: any, record: any) => {
         return isModal ? (
           { text }
@@ -37,7 +35,6 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
     {
       title: "Purchaser",
       dataIndex: "BuyerName",
-      width: 100,
       render: (text: any, record: any) => {
         return isModal ? { text } : <Link to={`/person/${record?.Person?.PersonID}`}>{text}</Link>
       }
@@ -49,18 +46,15 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
     },
     {
       title: "Order Amount",
-      dataIndex: "TotalAmount",
-      width: 100
+      dataIndex: "TotalAmount"
     },
     {
       title: "Paid",
-      dataIndex: "AmountPaid",
-      width: 100
+      dataIndex: "AmountPaid"
     },
     {
       title: "Balance",
-      dataIndex: "Balance",
-      width: 100
+      dataIndex: "Balance"
     }
   ]
   const responsiveColumnIndices: number[] = []

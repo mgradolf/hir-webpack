@@ -13,6 +13,7 @@ export interface IDetailsTabMeta {
   tabTitle: string
   tabMeta: any
   multipleTabMetas?: IDetailsTabMeta[]
+  actions?: JSX.Element[]
 }
 
 export interface IDetailsMeta {

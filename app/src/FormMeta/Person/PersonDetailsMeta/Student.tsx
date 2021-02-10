@@ -15,12 +15,14 @@ import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTable
 import { REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE, REFRESH_STUDENT_COMMENT_PAGE } from "~/utils/EventBus"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
+import { Button } from "antd"
 
 export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
 
   const studentInfo: CardContainer = {
     title: "Student Info",
+    cardActions: [<Button type="ghost">Edit</Button>],
     contents: [
       { label: "Serial Num", value: student?.StudentSerialNumber },
       { label: "Organization", value: student?.Organization },
@@ -39,7 +41,11 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     summary: [studentInfo]
   }
 
-  tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
+  tabMetas.push({
+    tabTitle: "Summary",
+    tabType: "summary",
+    tabMeta: summaryMeta
+  })
 
   tabMetas.push({
     tabTitle: "Schedule",

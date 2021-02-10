@@ -9,7 +9,8 @@ export const config = {
     executeDomainListWithPagination: "executeDomainListWithPagination",
     findEnrollmentHistory: "findEnrollmentHistory",
     executeDomainList: "executeDomainList",
-    executeDomainObject: "executeDomainObject"
+    executeDomainObject: "executeDomainObject",
+    findPickList: "findPickList"
   }
 }
 

@@ -55,6 +55,7 @@ export const FormModal = (props: {
           meta={props.meta}
           closeModal={props.closeModal}
           initialFormValue={props.initialFormValue}
+          defaultFormValue={props.defaultFormValue}
           applyButtonLabel="Submit"
           stopProducingQueryParams={true}
           onApplyChanges={(newValues: { [key: string]: any }) => {

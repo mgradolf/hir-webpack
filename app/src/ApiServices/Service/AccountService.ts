@@ -20,3 +20,10 @@ export function saveAccountAffiliation(
 ): Promise<IApiResponse> {
   return AccountService[config.Actions.saveAccountAffiliation](Params, Headers)
 }
+
+export function pushAccountAffiliation(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountService[config.Actions.pushAccountAffiliation](Params, Headers)
+}

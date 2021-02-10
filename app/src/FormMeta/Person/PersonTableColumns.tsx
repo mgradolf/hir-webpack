@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { searchPersons } from "~/ApiServices/BizApi/person/persongIF"
+import { searchPersons } from "~/ApiServices/BizApi/person/personIF"
 import { renderDate, renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 

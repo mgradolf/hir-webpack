@@ -19,6 +19,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
 
   const instructorInfo: CardContainer = {
     title: "Instructor Info",
+    cardActions: [<Button type="ghost">Edit</Button>],
     contents: [
       { label: "Serial Num", value: instructor?.FacultySerialNum },
       { label: "Organization", value: instructor?.OrganizationName },

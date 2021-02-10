@@ -366,3 +366,51 @@ export function getCertificateCategoryType(): Promise<IApiResponse> {
     LookUpName: "CertificateCategoryType"
   })
 }
+
+export function getAddressType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AddressType"
+  })
+}
+
+export function getEmailType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "EmailType"
+  })
+}
+
+export function getTelephoneType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "TelephoneType"
+  })
+}
+
+export function getSecretQuestionType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SecretQuestionType"
+  })
+}
+
+export function getDisabilityType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DisabilityType"
+  })
+}
+
+export function getSchoolCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SchoolCode"
+  })
+}
+
+export function getCredentialType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CredentialType"
+  })
+}
+
+export function getExitReasons(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ExitReasonCode"
+  })
+}
