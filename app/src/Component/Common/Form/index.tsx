@@ -23,8 +23,10 @@ import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
-import { FormMultipleCheckbox } from "./FormMultipleCheckbox"
-import { FormMultipleRadio } from "./FormMultipleRadio"
+import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
+import { FormError } from "~/Component/Common/Form/FormError"
 
 interface IFilterColumnProps {
   meta: IField[]
@@ -37,6 +39,7 @@ interface IFilterColumnProps {
   clearButtonLabel?: string
   closeModal?: () => void
   stopProducingQueryParams?: boolean
+  errorMessages?: Array<ISimplifiedApiErrorMessage>
 }
 
 export function CustomForm({
@@ -182,6 +185,7 @@ export function CustomForm({
           overflowY: "scroll"
         }}
       >
+        <FormError errorMessages={props.errorMessages} />
         <SearchFormFields
           meta={props.meta}
           formInstance={formInstance}

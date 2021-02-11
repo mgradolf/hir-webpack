@@ -51,6 +51,7 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
   const [reportMeta, setReportMeta] = useState<IField[]>([])
   const [defaultFormValues, setDefaultFilters] = useState<{ [key: string]: any }>({})
   const [reportMapping, setReportMapping] = useState<{ [key: string]: any }>({})
+  const [atLeastOneRequiredfield, setAtLeastOneRequiredfield] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const loadReportMeta = async () => {
@@ -73,6 +74,7 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
             setReportMeta(fileResponse.meta)
             setReportMapping(fileResponse.mapping || {})
             setDefaultFilters(fileResponse.defaultFormValue || {})
+            setAtLeastOneRequiredfield(fileResponse.atLeastOneRequiredfield || false)
           } else {
             const metas: IField[] = generateIfilterFieldObject(apiResponse.data.Params)
             setReportMeta(metas)
@@ -108,6 +110,7 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
         initialFormValue={{ ReportName }}
         defaultFormValue={defaultFormValues}
         mapping={reportMapping}
+        atLeastOneRequiredfield={atLeastOneRequiredfield}
       />
     )
   else return <p>Could not find any report with "{ReportName}" title</p>
