@@ -1,6 +1,7 @@
 import { findTermFeeProductsByCategoryID } from "~/ApiServices/BizApi/query/queryIf"
 import { getTermType } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export const FormMeta: IField[] = [
   {
@@ -34,7 +35,7 @@ export const FormMeta: IField[] = [
   {
     label: "Term Fee",
     inputType: DROPDOWN,
-    fieldName: "TermTypeID",
+    fieldName: "TermFeeID",
     refLookupService: () => findTermFeeProductsByCategoryID({ ProductCategoryID: 6 }),
     displayKey: "Name",
     valueKey: "ProductID"
@@ -44,4 +45,18 @@ export const FormMeta: IField[] = [
     fieldName: "IsActive",
     inputType: BOOLEAN
   }
+]
+
+export const columns: TableColumnType = [
+  {
+    title: "ID",
+    dataIndex: "ID"
+  },
+  { title: "Name", dataIndex: "Name" },
+  { title: "Description", dataIndex: "Description" },
+  { title: "Term Type", dataIndex: "TermTypeID" },
+  { title: "Term Fee", dataIndex: "TermFeeID" },
+  { title: "Start Date", dataIndex: "StartDate" },
+  { title: "End Date", dataIndex: "EndDate" },
+  { title: "Is Active", dataIndex: "IsActive", render: renderBoolean }
 ]
