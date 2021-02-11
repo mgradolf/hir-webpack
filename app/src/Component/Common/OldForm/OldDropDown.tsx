@@ -24,7 +24,7 @@ export function OldDropDown(props: IDropDown) {
         setLoading(false)
         if (x.success && Array.isArray(x.data)) {
           setDataSource(
-            x.data.map((y, key) => {
+            x.data.map((y: any, key: number) => {
               return {
                 ...y,
                 key

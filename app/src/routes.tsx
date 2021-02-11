@@ -437,6 +437,18 @@ export const AppRoutes: RouteProps[] = [
     )
   },
   {
+    path: "/queries",
+    component: React.lazy(() => import("~/Pages/Reporting/Queries/QueriesPage"))
+  },
+  {
+    path: "/queries/:queryName",
+    component: React.lazy(() => import("~/Pages/Reporting/Queries/QueriesDetailsPage"))
+  },
+  {
+    path: "/plcalculator",
+    component: React.lazy(() => import("~/Pages/Reporting/MasterPLCalculator/MasterPLCalculatorPage"))
+  },
+  {
     path: "/section-instructors",
     component: React.lazy(() => import("~/Pages/Reporting/SectionInstructors/SectionInstructorsPage"))
   },

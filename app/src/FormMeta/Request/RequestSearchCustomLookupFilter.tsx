@@ -15,7 +15,7 @@ const fieldNames = {
   RecipientPersonID: "RecipientPersonID",
   PersonID: "PersonID"
 }
-export default function WaitlistSearchCustomLookupFilter(props: IGeneratedField) {
+export default function RequestSearchCustomLookupFilter(props: IGeneratedField) {
   const [selectedValueToDisplay, setSelectedValueToDisplay] = useState("")
   const [seletectLookupType, setSeletectLookupType] = useState(REQUEST_LOOKUP_TYPES.ACCOUNT)
   const [openPersonLookupModal, setOpenPersonLookupModal] = useState(false)

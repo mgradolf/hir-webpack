@@ -1,5 +1,6 @@
 import { getGLAccountTypes } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export const FormMeta: IField[] = [
   {
@@ -51,4 +52,18 @@ export const FormMeta: IField[] = [
       { label: "No", value: false }
     ]
   }
+]
+
+export const columns: TableColumnType = [
+  {
+    title: "ID",
+    dataIndex: "ID"
+  },
+  {
+    title: "Name",
+    dataIndex: "Name"
+  },
+  { title: "Description", dataIndex: "Description" },
+  { title: "Active", dataIndex: "IsActive", render: renderBoolean },
+  { title: "Sort Position", dataIndex: "SortPosition" }
 ]

@@ -12,8 +12,9 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
-import { OldFormSectionLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormSectionLookup"
-import { getEntityById, getSectionById } from "~/ApiServices/Service/EntityService"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+import { CUSTOM_FIELD } from "~/Component/Common/Form/common"
 
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
@@ -128,7 +129,7 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
               }
             ></OldFormError>
 
-            <OldFormSectionLookup
+            {/* <OldFormSectionLookup
               formInstance={formInstance}
               onCloseModal={(items?: any[]) => {
                 if (Array.isArray(items) && items.length > 0) setSection(items[0])
@@ -141,6 +142,13 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
                   })
                 }
               })}
+            /> */}
+            <SectionLookup
+              formInstance={formInstance}
+              label="Section"
+              inputType={CUSTOM_FIELD}
+              fieldName="SectionID"
+              defaultValue={props.SectionID}
             />
 
             {Section && (

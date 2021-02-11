@@ -12,7 +12,8 @@ import {
   IField,
   CUSTOM_FIELD,
   MULTI_SELECT_CHECKBOX,
-  TEXTAREA
+  TEXTAREA,
+  MULTI_RADIO
 } from "~/Component/Common/Form/common"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
@@ -23,8 +24,11 @@ import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
-import { FormMultipleCheckbox } from "./FormMultipleCheckbox"
 import { FormTextArea } from "./FormTextArea"
+import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
+import { FormError } from "~/Component/Common/Form/FormError"
 
 interface IFilterColumnProps {
   meta: IField[]
@@ -37,6 +41,7 @@ interface IFilterColumnProps {
   clearButtonLabel?: string
   closeModal?: () => void
   stopProducingQueryParams?: boolean
+  errorMessages?: Array<ISimplifiedApiErrorMessage>
 }
 
 export function CustomForm({
@@ -70,18 +75,19 @@ export function CustomForm({
           ).length === 0
 
         const validationForOtherCustomComponent =
-          x.fieldName !== "" &&
-          (values[x.fieldName] === undefined ||
-            values[x.fieldName] === null ||
-            (!!x.fieldName2 && !!(values[x.fieldName2] === undefined || values[x.fieldName2] === null)))
+          x.fieldName !== "" && (values[x.fieldName] === undefined || values[x.fieldName] === null)
 
-        // console.log("validationForSelectorComponent ", validationForSelectorComponent)
-        // console.log("validationForOtherCustomComponent ", validationForOtherCustomComponent)
+        const validationForDatePickersComponent =
+          (!!x.fieldName &&
+            !!(values[x.fieldName] === undefined || values[x.fieldName] === null || values[x.fieldName] === "")) ||
+          (!!x.fieldName2 &&
+            !!(values[x.fieldName2] === undefined || values[x.fieldName2] === null || values[x.fieldName2] === ""))
+
         if (validationForSelectorComponent) {
           x.validateStatus = "error"
           x.help = rules?.filter((rule: any) => rule.required)[0]?.message
           validationPassed = false
-        } else if (validationForOtherCustomComponent) {
+        } else if (validationForOtherCustomComponent || validationForDatePickersComponent) {
           x.validateStatus = "error"
           x.help = rules?.filter((rule: any) => rule.required)[0]?.message
           validationPassed = false
@@ -181,6 +187,7 @@ export function CustomForm({
           overflowY: "scroll"
         }}
       >
+        <FormError errorMessages={props.errorMessages} />
         <SearchFormFields
           meta={props.meta}
           formInstance={formInstance}
@@ -256,6 +263,12 @@ const SearchFormFields = (props: {
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
                   <FormMultipleCheckbox {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case MULTI_RADIO:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <FormMultipleRadio {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case DROPDOWN:

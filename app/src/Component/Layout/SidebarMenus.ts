@@ -90,8 +90,8 @@ export const sidebarMenus: ISidebarMenu[] = [
     submenu: [
       { title: "Reports", url: "/report", submenu: [] },
       { title: "Charts", url: "/chart", submenu: [] },
-      { title: "Queries", url: "", submenu: [] },
-      { title: "Master P & L Calculator", url: "", submenu: [] },
+      { title: "Queries", url: "/queries", submenu: [] },
+      { title: "Master P & L Calculator", url: "/plcalculator", submenu: [] },
       { title: "Section Instructors", url: "/section-instructors", submenu: [] }
       // { title: "Section Schedule and Location", url: "", submenu: [] }
     ]
@@ -108,6 +108,7 @@ export const sidebarMenus: ISidebarMenu[] = [
           { title: "Job Schedules", url: "/job-schedules", submenu: [] },
           { title: "Student Email Notifications", url: "/student-email-notification", submenu: [] },
           { title: "Batches", url: "/batch", submenu: [] }
+          // { title: "Mail Merge", url: "/mail-merge", submenu: [] }
         ]
       },
       {
