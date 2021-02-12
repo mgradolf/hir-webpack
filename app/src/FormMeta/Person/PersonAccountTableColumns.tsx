@@ -3,9 +3,9 @@ import { Button, Dropdown } from "antd"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { DownOutlined } from "@ant-design/icons"
-import PersonEduMenu from "~/Component/Person/PersonEduMenu"
 import { Link } from "react-router-dom"
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
+import PersonAccountMenu from "~/Component/Person/PersonAccountMenu"
 
 export const getPersonAccountTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -21,7 +21,7 @@ export const getPersonAccountTableColumns = (): ITableConfigProp => {
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown overlay={<PersonEduMenu PersonID={record.PersonID} initialData={record} />} trigger={["click"]}>
+        <Dropdown overlay={<PersonAccountMenu initialData={record} />} trigger={["click"]}>
           <Button type="primary" onClick={(e) => e.preventDefault()}>
             Go To <DownOutlined />
           </Button>

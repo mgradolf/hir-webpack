@@ -34,3 +34,10 @@ export function pushAccountAffiliation(
 ): Promise<IApiResponse> {
   return AccountService[config.Actions.pushAccountAffiliation](Params, Headers)
 }
+
+export function deleteAccountAffiliation(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountService[config.Actions.deleteAccountAffiliation](Params, Headers)
+}

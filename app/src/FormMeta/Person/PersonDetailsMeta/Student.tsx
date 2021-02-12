@@ -1,7 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
-import { searchOnlineClasses, searchStudentSchedule } from "~/ApiServices/Service/StudentService"
+import {
+  createUpdateStudentHold,
+  pushStudent,
+  searchOnlineClasses,
+  searchStudentSchedule
+} from "~/ApiServices/Service/StudentService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, sortByTime } from "~/Component/Common/ResponsiveTable"
@@ -12,17 +16,77 @@ import { getRegistrationTableColumns } from "~/FormMeta/Registration/Registratio
 import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { getStudentCommentTableColumns } from "~/FormMeta/StudentComment/CommentTableColumns"
 import { getEnrollmentTableColumns } from "~/FormMeta/Enrollment/EnrollmentTableColumns"
-import { REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE, REFRESH_STUDENT_COMMENT_PAGE } from "~/utils/EventBus"
+import {
+  REFRESH_PAGE,
+  REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE,
+  REFRESH_STUDENT_COMMENT_PAGE
+} from "~/utils/EventBus"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { Button } from "antd"
+import { FormModal } from "~/Component/Common/Form/FormModal2"
+import { StudentFormMeta } from "~/FormMeta/Student/StudentFormMeta"
+import { StudentHoldFormMeta } from "~/FormMeta/Student/StudentHoldFormMeta"
+import { getStudentHoldTableColumns } from "~/FormMeta/Student/StudentHoldTableColumns"
+
+const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any } }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
+          Edit
+        </Button>
+      )}
+      {showModal && (
+        <FormModal
+          meta={StudentFormMeta}
+          title={"Update Student"}
+          initialFormValue={props.studentData}
+          defaultFormValue={{
+            PersonID: props.studentData.PersonID,
+            StudentID: props.studentData.StudentID,
+            oca: props.studentData.oca
+          }}
+          formSubmitApi={pushStudent}
+          refreshEventAfterFormSubmission={REFRESH_PAGE}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
+  )
+}
+
+const HoldFormModalOpenButton = (props: { StudentID: number }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          + Apply Hold
+        </Button>
+      )}
+      {showModal && (
+        <FormModal
+          meta={StudentHoldFormMeta}
+          title={"Apply Hold"}
+          initialFormValue={{ StudentID: props.StudentID }}
+          defaultFormValue={{ StudentID: props.StudentID, HoldBy: "JoeAdmin" }}
+          formSubmitApi={createUpdateStudentHold}
+          refreshEventAfterFormSubmission={"REFRESH_HOLD_TAB"}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
+  )
+}
 
 export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
 
   const studentInfo: CardContainer = {
     title: "Student Info",
-    cardActions: [<Button type="ghost">Edit</Button>],
+    cardActions: [<StudentFormModalOpenButton studentData={student} />],
     contents: [
       { label: "Serial Num", value: student?.StudentSerialNumber },
       { label: "Organization", value: student?.Organization },
@@ -223,19 +287,10 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabTitle: "Holds",
     tabType: "table",
     tabMeta: {
+      blocks: [<HoldFormModalOpenButton StudentID={student.StudentID} />],
       tableProps: {
-        columns: [
-          { title: "Hold Date", dataIndex: "EndDate", render: renderDate },
-          { title: "Hold Type", dataIndex: "HoldType" },
-          { title: "Hold Reason", dataIndex: "HoldReason" },
-          { title: "Hold By", dataIndex: "HoldBy" },
-          { title: "Release Date", dataIndex: "ReleaseDate", render: renderDate },
-          { title: "Release Reason", dataIndex: "ReleaseReason" },
-          { title: "Release By", dataIndex: "ReleasedBy" }
-        ],
-        searchFunc: findStudentHold,
-        responsiveColumnIndices: [],
-        expandableColumnIndices: [],
+        pagination: false,
+        ...getStudentHoldTableColumns(),
         searchParams: student.StudentID,
         refreshEventName: "REFRESH_HOLD_TAB"
       }

@@ -24,6 +24,7 @@ export default function PersonAccountFormModal(props: IPersonAccountFormModalPro
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({
+    ...props.initialData,
     PersonID: props.initialData.PersonID,
     StatusID: ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE
   })

@@ -9,12 +9,12 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { createPersonRecordInRoles, getRegions } from "~/ApiServices/Service/PersonService"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
-import { MULTI_SELECT_CHECKBOX } from "~/Component/Common/Form/common"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import "~/Sass/global/index.scss"
 
 interface IPersonFormProps {
   editMode: boolean
+  title: string
   formInstance: FormInstance
   fieldNames: IPersonFieldNames
   initialFormValue: { [key: string]: any }
@@ -112,7 +112,7 @@ export default function PersonForm(props: IPersonFormProps) {
 
   return (
     <Card
-      title={props.editMode ? `Edit Person` : "Create New Person"}
+      title={props.editMode ? `Edit ${props.title}` : `Create New ${props.title}`}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>
@@ -143,7 +143,6 @@ export default function PersonForm(props: IPersonFormProps) {
             <FormMultipleCheckbox
               label={"Roles"}
               fieldName={props.fieldNames.Roles}
-              inputType={MULTI_SELECT_CHECKBOX}
               formInstance={props.formInstance}
               options={rolesOption}
             />

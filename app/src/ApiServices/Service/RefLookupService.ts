@@ -438,3 +438,27 @@ export function getGradeType(): Promise<IApiResponse> {
     LookUpName: "GradeType"
   })
 }
+
+export function getAcademicStandingType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AcademicStandingType"
+  })
+}
+
+export function getStudentStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "StudentStatusCode"
+  })
+}
+
+export function getHoldType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "HoldType"
+  })
+}
+
+export function getReason(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "Reason"
+  })
+}

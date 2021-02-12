@@ -5,7 +5,7 @@ import { IPersonFieldNames } from "~/Component/Person/Interfaces"
 import PersonForm from "~/Component/Person/CreateEdit/PersonForm"
 import { getPersonDetails } from "~/ApiServices/Service/PersonService"
 
-interface IPersonFormModalProps {
+interface IInstructorFormModalProps {
   PersonID?: number
   closeModal?: () => void
 }
@@ -26,11 +26,11 @@ const fieldNames: IPersonFieldNames = {
   CountryCodeID: "CountryCodeID"
 }
 
-export default function PersonFormModal(props: IPersonFormModalProps) {
+export default function InstructorFormModal(props: IInstructorFormModalProps) {
   const [formInstance] = Form.useForm()
   const [editMode, setEditMode] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({})
+  const [initialFormValue, setInitialFormValue] = useState<{ [key: string]: any }>({ Roles: [2] })
 
   useEffect(() => {
     ;(async () => {
@@ -55,7 +55,7 @@ export default function PersonFormModal(props: IPersonFormModalProps) {
   return (
     <Modal width="1000px" apiCallInProgress={apiCallInProgress}>
       <PersonForm
-        title={"Person"}
+        title={"Instructor"}
         editMode={editMode}
         fieldNames={fieldNames}
         initialFormValue={initialFormValue}

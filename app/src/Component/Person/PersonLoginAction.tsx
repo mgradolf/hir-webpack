@@ -78,7 +78,7 @@ export default function PersonLoginAction(props: IPersonLoginActionProp) {
         </Menu.Item>
         <Menu.Item>
           <Button
-            disabled={!props.initialData.LockedUntil}
+            disabled={props.initialData !== null ? !props.initialData.LockedUntil : true}
             type="link"
             loading={loading}
             onClick={() => unlockWebLogin(dataInfo.PersonID)}

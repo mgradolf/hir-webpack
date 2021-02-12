@@ -354,8 +354,16 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
       { label: "User Login", value: person?.Login?.UserLogin },
       { label: "Secret Question", value: person?.Login?.SecretQuestion },
       { label: "Secret Answer", value: person?.Login?.SecretAnswer },
-      { label: "Password Expiration", value: person?.Login?.ValidUntil, render: renderDate },
-      { label: "Locked Until", value: person?.Login?.LockedUntil, render: renderDate }
+      {
+        label: "Password Expiration",
+        value: person?.Login?.ValidUntil,
+        render: person?.Login?.ValidUntil ? renderDate : undefined
+      },
+      {
+        label: "Locked Until",
+        value: person?.Login?.LockedUntil,
+        render: person?.Login?.LockedUntil ? renderDate : undefined
+      }
     ]
   }
 

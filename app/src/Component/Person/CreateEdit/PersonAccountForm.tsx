@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Input, Select, Switch, Card, Divider, Row, Col, Button } from "antd"
+import { Form, Input, Select, Switch, Card, Divider, Row, Col, Button, Spin } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
@@ -9,7 +9,6 @@ import {
   getTaggedQuestionsByAffiliationRoleType
 } from "~/ApiServices/BizApi/account/accountIF"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
-import { CUSTOM_FIELD } from "~/Component/Common/Form/common"
 import { saveAccountRelation } from "~/ApiServices/Service/AccountService"
 import { eventBus } from "~/utils/EventBus"
 import "~/Sass/utils.scss"
@@ -28,22 +27,22 @@ const layout = {
 }
 
 export default function PersonAccountForm(props: IPersonAccountFormProps) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [roleTypeID, setRoleTypeID] = useState(Number)
   const [roleTypeItems, setRoleTypeItems] = useState<Array<any>>([])
   const [questionItems, setQuestionItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
+  const editMode: boolean = props.initialFormValue.AccountAffiliationID ? true : false
+
   useEffect(() => {
     ;(async function () {
-      setLoading(true)
       const result = await getAffiliationRoleTypes({ IsActive: true })
       if (result && result.success) {
         setRoleTypeItems(result.data)
       }
-      setLoading(false)
     })()
-  }, [props])
+  }, [])
 
   useEffect(() => {
     async function loadQuestions(roleTypeID: number) {
@@ -58,7 +57,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
     if (roleTypeID) {
       loadQuestions(roleTypeID)
     }
-  }, [roleTypeID])
+  }, [props, roleTypeID])
 
   const onFormSubmission = async () => {
     try {
@@ -75,10 +74,8 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
       })
       params["AnswerList"] = answerList
 
-      setLoading(true)
       setErrorMessages([])
       const response = await saveAccountRelation(params)
-      setLoading(false)
       if (response && response.success) {
         props.closeModal && props.closeModal()
         eventBus.publish("REFRESH_CONTACT_TAB")
@@ -98,8 +95,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
 
   return (
     <Card
-      loading={loading}
-      title={`Add Relation`}
+      title={editMode ? `Edit Relation` : `Add Relation`}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>
@@ -127,13 +123,23 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
         <OldFormError errorMessages={errorMessages} />
 
         <AccountLookup
+          labelColSpan={8}
+          wrapperColSpan={14}
           fieldName={props.fieldNames.AccountID}
           formInstance={props.formInstance}
           label={"Account"}
-          inputType={CUSTOM_FIELD}
         />
 
         <Form.Item label="Person ID" className="hidden" {...layout} name={props.fieldNames.PersonID}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Account Affilation ID"
+          className="hidden"
+          {...layout}
+          name={props.fieldNames.AccountAffiliationID}
+        >
           <Input />
         </Form.Item>
 
@@ -172,44 +178,46 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
         </Form.Item>
 
         <Divider orientation="left">Questions</Divider>
-        {questionItems.map((questionObj, index) => {
-          const possibleOptions: Array<any> = questionObj.PossibleOptions
-          if (possibleOptions !== null) {
-            return (
-              <Form.Item
-                key={index}
-                label={questionObj.Name}
-                {...layout}
-                rules={[{ required: questionObj.IsRequired, message: "Please select your answer!" }]}
-                name={`AnswerList_${questionObj.TagQuestionID}`}
-              >
-                <Select aria-label={questionObj.Name}>
-                  <>
-                    {possibleOptions.map((x) => {
-                      return (
-                        <Select.Option key={`${x.TagQuestionID}_${x.Option}`} value={x.Option}>
-                          {x.Option}
-                        </Select.Option>
-                      )
-                    })}
-                  </>
-                </Select>
-              </Form.Item>
-            )
-          } else {
-            return (
-              <Form.Item
-                key={index}
-                label={questionObj.Name}
-                rules={[{ required: questionObj.IsRequired, message: "Please input your answer!" }]}
-                {...layout}
-                name={`AnswerList_${questionObj.TagQuestionID}`}
-              >
-                <Input />
-              </Form.Item>
-            )
-          }
-        })}
+        <Spin spinning={loading} size="small">
+          {questionItems.map((questionObj, index) => {
+            const possibleOptions: Array<any> = questionObj.PossibleOptions
+            if (possibleOptions !== null) {
+              return (
+                <Form.Item
+                  key={index}
+                  label={questionObj.Name}
+                  {...layout}
+                  rules={[{ required: questionObj.IsRequired, message: "Please select your answer!" }]}
+                  name={`AnswerList_${questionObj.TagQuestionID}`}
+                >
+                  <Select aria-label={questionObj.Name}>
+                    <>
+                      {possibleOptions.map((x) => {
+                        return (
+                          <Select.Option key={`${x.TagQuestionID}_${x.Option}`} value={x.Option}>
+                            {x.Option}
+                          </Select.Option>
+                        )
+                      })}
+                    </>
+                  </Select>
+                </Form.Item>
+              )
+            } else {
+              return (
+                <Form.Item
+                  key={index}
+                  label={questionObj.Name}
+                  rules={[{ required: questionObj.IsRequired, message: "Please input your answer!" }]}
+                  {...layout}
+                  name={`AnswerList_${questionObj.TagQuestionID}`}
+                >
+                  <Input />
+                </Form.Item>
+              )
+            }
+          })}
+        </Spin>
       </Form>
     </Card>
   )
