@@ -1,6 +1,6 @@
-import { Button, Card, DatePicker, Form, Input, Radio, Switch } from "antd"
 import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
+import { Button, Card, DatePicker, Form, Input, Radio, Switch } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
@@ -14,7 +14,7 @@ import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
-import { CUSTOM_FIELD } from "~/Component/Common/Form/common"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 
 interface IWaitlistEntryCreateEditFormModal {
   WaitListEntry?: { [key: string]: any }
@@ -129,38 +129,23 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
               }
             ></OldFormError>
 
-            {/* <OldFormSectionLookup
-              formInstance={formInstance}
-              onCloseModal={(items?: any[]) => {
-                if (Array.isArray(items) && items.length > 0) setSection(items[0])
-              }}
-              {...(props.SectionID && {
-                entityLookupFunc: () => {
-                  console.log(props.SectionID)
-                  return getSectionById(props.SectionID || 0).then((x) => {
-                    return x.data
-                  })
-                }
-              })}
-            /> */}
             <SectionLookup
               formInstance={formInstance}
               label="Section"
-              inputType={CUSTOM_FIELD}
               fieldName="SectionID"
               defaultValue={props.SectionID}
             />
 
             {Section && (
-              <OldDropDown
+              <FormDropDown
                 label="Seat Group"
+                formInstance={formInstance}
                 fieldName={fieldNames.SeatGroupID}
-                searchFunc={() => getSeatGroups({ SectionID: Section.SectionID })}
-                displayField="Name"
+                refLookupService={() => getSeatGroups({ SectionID: Section.SectionID })}
+                displayKey="Name"
                 valueField="SeatGroupID"
-                labelColumn={{ span: 6 }}
                 disabled={!!props.WaitListEntry || !Section}
-              ></OldDropDown>
+              />
             )}
             <Form.Item label="Managed By" labelCol={{ span: 6 }}>
               <Radio.Group
@@ -175,15 +160,15 @@ export function WaitlistEntryCreateEditFormModal(props: IWaitlistEntryCreateEdit
               </Radio.Group>
             </Form.Item>
             {showAdministrators && (
-              <OldDropDown
-                disabled={!!props.WaitListEntry}
+              <FormDropDown
                 label="Select Admin"
+                formInstance={formInstance}
+                disabled={!!props.WaitListEntry}
                 fieldName={fieldNames.AdministratedByUID}
-                searchFunc={getAllUsers}
-                displayField="FormattedName"
+                refLookupService={() => getAllUsers({})}
+                displayKey="FormattedName"
                 valueField="UserID"
-                labelColumn={{ span: 6 }}
-              ></OldDropDown>
+              />
             )}
             <Form.Item className="hidden" name={fieldNames.RequesterPersonID}>
               <Input />

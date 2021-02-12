@@ -12,7 +12,7 @@ export function StudentLookup(props: IStudentLookup) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Student"
-      displayField="FirstName"
+      displayField="SortName"
       meta={studentSearchMeta as IField[]}
       {...props}
       {...getStudentTableColumns(true)}

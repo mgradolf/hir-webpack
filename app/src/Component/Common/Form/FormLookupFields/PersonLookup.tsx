@@ -12,7 +12,7 @@ export function PersonLookup(props: ILookupOpenButton) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Person"
-      displayField="FirstName"
+      displayField="SortName"
       meta={PersonSearchMeta as IField[]}
       {...props}
       {...getPersonTableColumns(true)}
