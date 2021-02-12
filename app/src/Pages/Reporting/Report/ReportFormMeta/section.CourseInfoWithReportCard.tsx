@@ -1,18 +1,20 @@
-import { DATE_PICKERS, IField } from "~/Component/Common/Form/common"
+import { DATE_PICKER, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
   {
     label: "Roster For",
     fieldName: "date_start",
-    fieldName2: "date_end",
     rules: [{ required: true, message: "Date Range is Required" }],
-    inputType: DATE_PICKERS
+    inputType: DATE_PICKER
   }
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  mapping: {
+    date_start: "date_end"
+  }
 }
 
 export default reportMeta

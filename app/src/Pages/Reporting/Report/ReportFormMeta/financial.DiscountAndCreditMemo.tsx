@@ -38,6 +38,7 @@ const meta: IField[] = [
 
 const reportMeta: IReportMeta = {
   meta,
+  atLeastOneRequiredfield: true,
   defaultFormValue: {
     CreditAmount: 0,
     DiscountAmount: 0
