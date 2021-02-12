@@ -10,7 +10,7 @@ import {
   pushPersonPhone
 } from "~/ApiServices/Service/PersonService"
 import { IField } from "~/Component/Common/Form/common"
-import { FormModal } from "~/Component/Common/Form/FormModal"
+import { FormModal } from "~/Component/Common/Form/FormModal2"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
@@ -33,6 +33,7 @@ import { PersonPhoneFormMeta } from "~/FormMeta/Person/Telephone/PersonPhoneForm
 import { PersonTypeFormMeta } from "~/FormMeta/Person/Basic/PersonTypeFormMeta"
 import { getPersonAccountTableColumns } from "~/FormMeta/Person/PersonAccountTableColumns"
 import { PersonPhoneUpdateFormMeta } from "~/FormMeta/Person/Telephone/PersonPhoneUpdateFormMeta"
+import PersonAccountFormModal from "~/Component/Person/PersonAccountFormModal"
 
 const BasicFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -87,9 +88,15 @@ const EducationHistoryFormModalOpenButton = (props: { personData: { [key: string
 }
 
 const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
+  const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button type="primary">+ Add Relation</Button>
+      {setShowModal && (
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          + Add Relation
+        </Button>
+      )}
+      {showModal && <PersonAccountFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
     </>
   )
 }
@@ -142,6 +149,7 @@ const ContactFormModalOpenButton = (props: {
         <FormModal
           meta={props.metaFileName}
           title={props.title}
+          isHorizontal={true}
           initialFormValue={props.initialData ? props.initialData : { IsConfidential: false }}
           defaultFormValue={{ PersonID: props.PersonID }}
           formSubmitApi={props.submitAPI}
@@ -341,12 +349,12 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
 
   const login: CardContainer = {
     title: "Login Info",
-    cardActions: [<PersonLoginAction initialData={person.Login ? person.Login : person} />],
+    cardActions: [<PersonLoginAction initialData={person.Login} />],
     contents: [
       { label: "User Login", value: person?.Login?.UserLogin },
       { label: "Secret Question", value: person?.Login?.SecretQuestion },
       { label: "Secret Answer", value: person?.Login?.SecretAnswer },
-      { label: "Password Expiration", value: person?.Login?.LockedUntil, render: renderDate },
+      { label: "Password Expiration", value: person?.Login?.ValidUntil, render: renderDate },
       { label: "Locked Until", value: person?.Login?.LockedUntil, render: renderDate }
     ]
   }

@@ -23,12 +23,15 @@ export function getAffiliationRoleTypes(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return AccountIf[config.Actions.getAffiliationRoleTypes]([Params], Headers)
+  return AccountIf[config.Actions.getAffiliationRoleTypes](
+    [Params.AccountTypeID, Params.SelfIdentifying, Params.IsActive],
+    Headers
+  )
 }
 
 export function getTaggedQuestionsByAffiliationRoleType(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return AccountIf[config.Actions.getTaggedQuestionsByAffiliationRoleType]([Params], Headers)
+  return AccountIf[config.Actions.getTaggedQuestionsByAffiliationRoleType]([Params.AffiliationRoleTypeID], Headers)
 }

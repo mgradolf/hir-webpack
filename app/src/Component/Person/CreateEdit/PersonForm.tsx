@@ -23,7 +23,8 @@ interface IPersonFormProps {
 }
 
 const layout = {
-  labelCol: { span: 8 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 const rolesOption = [

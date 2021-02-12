@@ -20,7 +20,8 @@ interface IPersonAddressFormProps {
 }
 
 const layout = {
-  labelCol: { span: 8 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 export default function PersonAddressForm(props: IPersonAddressFormProps) {

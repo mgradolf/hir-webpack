@@ -7,8 +7,8 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { pushPerson } from "~/ApiServices/Service/PersonService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { findPickList } from "~/ApiServices/BizApi/query/queryIf"
-import "~/Sass/global/index.scss"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import "~/Sass/global/index.scss"
 
 interface IPersonFormProps {
   formInstance: FormInstance
@@ -19,7 +19,8 @@ interface IPersonFormProps {
 }
 
 const layout = {
-  labelCol: { span: 8 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 export default function PersonBasicForm(props: IPersonFormProps) {

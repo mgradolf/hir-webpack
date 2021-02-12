@@ -74,9 +74,8 @@ function AddContactModal(props: IAddContactModal) {
   const onFormSubmission = async () => {
     try {
       await form.validateFields()
-      console.log("form: ", form.getFieldsValue())
-
       const params = form.getFieldsValue()
+
       const answerList: Array<any> = []
       Object.keys(params).map((key) => {
         if (key.includes("AnswerList")) {

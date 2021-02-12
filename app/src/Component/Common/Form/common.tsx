@@ -70,7 +70,7 @@ export function SearchFieldWrapper(props: IField & { children?: React.ReactNode 
       colon={false}
       label={props.label}
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 24 }}
+      wrapperCol={{ span: 14 }}
       {...(props.fieldName !== "" && { name: props.fieldName })}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
