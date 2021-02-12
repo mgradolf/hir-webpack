@@ -46,7 +46,8 @@ const meta: IField[] = [
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  atLeastOneRequiredfield: true
 }
 
 export default reportMeta

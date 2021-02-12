@@ -24,9 +24,14 @@ export const FormMeta: IField[] = [
     inputType: NUMBER
   },
   {
-    label: "Base Type",
+    label: "Base Type Code",
     fieldName: "BaseType",
-    inputType: NUMBER
+    inputType: DROPDOWN,
+    options: [
+      { label: "Deposit", value: 1 },
+      { label: "Withdraw", value: 2 },
+      { label: "Transfer", value: 3 }
+    ]
   },
   {
     label: "GL Account",
@@ -60,10 +65,16 @@ export const columns: TableColumnType = [
     dataIndex: "ID"
   },
   {
-    title: "Name",
-    dataIndex: "Name"
+    title: "GL Account",
+    dataIndex: "GLAccountID"
   },
+
+  { title: "Name", dataIndex: "Name" },
   { title: "Description", dataIndex: "Description" },
-  { title: "Active", dataIndex: "IsActive", render: renderBoolean },
-  { title: "Sort Position", dataIndex: "SortPosition" }
+
+  { title: "Sort Position", dataIndex: "SortPosition" },
+  { title: "Is Active", dataIndex: "IsActive", render: renderBoolean },
+  { title: "Base Type Code", dataIndex: "BaseType" },
+  { title: "Require Reference No", dataIndex: "RequireReferenceNo" },
+  { title: "Internal Only", dataIndex: "IsInternalOnly" }
 ]

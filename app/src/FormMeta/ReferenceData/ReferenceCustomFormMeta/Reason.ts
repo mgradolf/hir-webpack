@@ -1,5 +1,6 @@
 import { getReasonType } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export const FormMeta: IField[] = [
   {
@@ -30,4 +31,16 @@ export const FormMeta: IField[] = [
     fieldName: "IsActive",
     inputType: BOOLEAN
   }
+]
+
+export const columns: TableColumnType = [
+  {
+    title: "ID",
+    dataIndex: "ID"
+  },
+  { title: "Name", dataIndex: "Name" },
+  { title: "Description", dataIndex: "Description" },
+  { title: "Reason Type", dataIndex: "ReasonTypeID" },
+  { title: "Sort Position", dataIndex: "SortPosition" },
+  { title: "Is Active", dataIndex: "IsActive", render: renderBoolean }
 ]

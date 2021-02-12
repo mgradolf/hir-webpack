@@ -1,4 +1,5 @@
 import { BOOLEAN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export const FormMeta: IField[] = [
   {
@@ -21,4 +22,15 @@ export const FormMeta: IField[] = [
     fieldName: "SortPosition",
     inputType: NUMBER
   }
+]
+
+export const columns: TableColumnType = [
+  {
+    title: "ID",
+    dataIndex: "ID"
+  },
+  { title: "Name", dataIndex: "Name" },
+  { title: "Discount Service", dataIndex: "DiscountServiceName" },
+  { title: "Sort Position", dataIndex: "SortPosition" },
+  { title: "Is Active", dataIndex: "IsActive", render: renderBoolean }
 ]
