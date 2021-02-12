@@ -4,7 +4,7 @@ import {
   findPossibleRooms,
   findPossibleSites
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import { DROPDOWN, IGeneratedField } from "~/Component/Common/Form/common"
+import { IGeneratedField } from "~/Component/Common/Form/common"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 
 export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
@@ -43,7 +43,6 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
       {sites.length > 0 && (
         <FormDropDown
           label="Sites"
-          inputType={DROPDOWN}
           options={sites}
           fieldName="SiteID"
           displayKey="Name"
@@ -58,7 +57,6 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
       {buildings.length > 0 && (
         <FormDropDown
           label="Building"
-          inputType={DROPDOWN}
           options={buildings}
           fieldName="BuildingID"
           displayKey="Name"
@@ -73,7 +71,6 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
       {rooms.length > 0 && (
         <FormDropDown
           label="Room"
-          inputType={DROPDOWN}
           options={rooms}
           fieldName="RoomID"
           displayKey="Name"

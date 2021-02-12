@@ -27,6 +27,7 @@ import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckb
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { FormError } from "~/Component/Common/Form/FormError"
+import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 
 interface IFilterColumnProps {
   meta: IField[]
@@ -239,10 +240,15 @@ const SearchFormFields = (props: {
         .map((field, i) => {
           switch (field.inputType) {
             case TEXT:
-            case NUMBER:
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
                   <FormInput {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case NUMBER:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <FormNumberInput {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case BOOLEAN:
