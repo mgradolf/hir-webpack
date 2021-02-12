@@ -1,11 +1,11 @@
 import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
-
 import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { ProductLookup } from "~/Component/Common/Form/FormLookupFields/ProductLookup"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { ResourceLookup } from "~/Component/Common/Form/FormLookupFields/ResourceLookup"
 
 const meta: IField[] = [
   {
@@ -34,7 +34,16 @@ const meta: IField[] = [
     label: "Person",
     fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: PersonLookup
+    customFilterComponent: PersonLookup,
+    extraProps: {
+      isArray: true
+    }
+  },
+  {
+    label: "Resources",
+    fieldName: "ResourceID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: ResourceLookup
   },
   {
     label: "Section Date",
@@ -51,7 +60,8 @@ const meta: IField[] = [
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  atLeastOneRequiredfield: true
 }
 
 export default reportMeta

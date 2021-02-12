@@ -19,6 +19,7 @@ interface IPage extends Partial<RouteComponentProps> {
   initialFormValue?: any
   defaultFormValue?: any
   helpKey?: string
+  stopProducingQueryParams?: boolean
   updatedParams?: (params?: any) => void
 }
 export function SearchPage(props: IPage) {

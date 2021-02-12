@@ -31,7 +31,8 @@ export const getWaitlistEntriesTableColumns = (
     {
       title: "Student",
       dataIndex: "StudentName",
-      render: (text: any, record: any) => (isModal ? { text } : <Link to={`/student/${record.StudentID}`}>{text}</Link>)
+      render: (text: any, record: any) =>
+        isModal ? { text } : <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
     },
     { title: "Email", dataIndex: "StudentEmailAddress", render: renderEmail },
     { title: "Request State", dataIndex: "RequestState" },

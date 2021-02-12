@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
 import { FormModal } from "~/Component/Common/Form/FormModal"
-import { ReferenceList } from "~/FormMeta/ReferenceData/ReferenceList"
 import { IField } from "~/Component/Common/Form/common"
 import { createRefRecord, removeRefRecord, updateRefRecord } from "~/ApiServices/Service/RefLookupService"
 import { eventBus } from "~/utils/EventBus"
 
-export function AddRefButton(props: { LookUpName: string; refreshEventName: string }) {
+export function AddRefButton(props: { LookUpName: string; formMeta: IField[]; refreshEventName: string }) {
   const [showModal, setShowModal] = useState(false)
-  const [formMeta, setFormMeta] = useState<IField[]>([])
-  useEffect(() => {
-    const __reference = ReferenceList.find((x) => x.Value === props.LookUpName)
-    if (__reference) {
-      if (__reference?.custom) {
-        import(`~/FormMeta/ReferenceData/ReferenceCustomFormMeta/${props.LookUpName}`).then((x) => {
-          setFormMeta(x.FormMeta)
-        })
-      } else {
-        import("~/FormMeta/ReferenceData/ReferenceGeneric/ReferenceGenericFormMeta").then((x) => {
-          setFormMeta(x.FormMeta)
-        })
-      }
-    }
-
-    // eslint-disable-next-line
-  }, [])
   return (
     <>
       <Button type="primary" onClick={() => setShowModal(true)}>
@@ -33,7 +15,7 @@ export function AddRefButton(props: { LookUpName: string; refreshEventName: stri
       {showModal && (
         <FormModal
           title={`Add new entry on ${props.LookUpName}`}
-          meta={formMeta}
+          meta={props.formMeta}
           formSubmitApi={(Content) =>
             createRefRecord({
               LookUpName: props.LookUpName,
@@ -51,26 +33,11 @@ export function AddRefButton(props: { LookUpName: string; refreshEventName: stri
 }
 export function UpdateRefButton(props: {
   LookUpName: string
+  formMeta: IField[]
   reference: { [key: string]: any }
   refreshEventName: string
 }) {
   const [showModal, setShowModal] = useState(false)
-  const [formMeta, setFormMeta] = useState<IField[]>([])
-  useEffect(() => {
-    const __reference = ReferenceList.find((x) => x.Value === props.LookUpName)
-    if (__reference) {
-      if (__reference?.custom) {
-        import(`~/FormMeta/ReferenceData/ReferenceCustomFormMeta/${props.LookUpName}`).then((x) => {
-          setFormMeta(x.FormMeta)
-        })
-      } else {
-        import("~/FormMeta/ReferenceData/ReferenceGeneric/ReferenceGenericFormMeta").then((x) => {
-          setFormMeta(x.FormMeta)
-        })
-      }
-    }
-    // eslint-disable-next-line
-  }, [])
   return (
     <>
       <Button type="ghost" onClick={() => setShowModal(true)}>
@@ -79,7 +46,7 @@ export function UpdateRefButton(props: {
       {showModal && (
         <FormModal
           title={`Update existing entry on ${props.LookUpName}`}
-          meta={formMeta}
+          meta={props.formMeta}
           initialFormValue={props.reference}
           formSubmitApi={(Content) =>
             updateRefRecord({

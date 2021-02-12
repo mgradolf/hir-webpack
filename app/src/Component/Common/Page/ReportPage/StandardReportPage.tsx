@@ -4,6 +4,7 @@ import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
 import { CustomForm } from "~/Component/Common/Form"
 import { IField } from "~/Component/Common/Form/common"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 export interface IStandardReportPage {
   title: string
@@ -13,11 +14,18 @@ export interface IStandardReportPage {
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
   mapping?: { [key: string]: any }
+  atLeastOneRequiredfield?: boolean
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
   const [downloadUrl, setdownloadUrl] = useState<string>()
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const openReportInNewTab = (params: { [key: string]: any }) => {
+    setErrorMessages([])
+    if (props.atLeastOneRequiredfield && Object.keys(params).length === 0) {
+      setErrorMessages([{ message: "Minimum one search field is required!" }])
+      return
+    }
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
       if (Array.isArray(params[key]) && params[key].length > 0) {
@@ -51,6 +59,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
             initialFormValue={props.initialFormValue}
             defaultFormValue={props.defaultFormValue}
             applyButtonLabel="Run Report"
+            errorMessages={errorMessages}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               openReportInNewTab(newFilterValues)
             }}

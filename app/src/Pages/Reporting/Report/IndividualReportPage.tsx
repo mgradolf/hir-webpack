@@ -50,7 +50,9 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
   const [report, setReport] = useState<{ [key: string]: any }>({})
   const [reportMeta, setReportMeta] = useState<IField[]>([])
   const [defaultFormValues, setDefaultFilters] = useState<{ [key: string]: any }>({})
+  const [initialFormValues, setInitialFormValues] = useState<{ [key: string]: any }>({ ReportName })
   const [reportMapping, setReportMapping] = useState<{ [key: string]: any }>({})
+  const [atLeastOneRequiredfield, setAtLeastOneRequiredfield] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const loadReportMeta = async () => {
@@ -70,9 +72,13 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
             (fileResponse.meta.length > 0 ||
               (fileResponse.defaultFormValue && Object.keys(fileResponse.defaultFormValue).length > 0))
           ) {
+            console.log("fileResponse : ", fileResponse)
             setReportMeta(fileResponse.meta)
             setReportMapping(fileResponse.mapping || {})
             setDefaultFilters(fileResponse.defaultFormValue || {})
+            fileResponse.initialFormValue &&
+              setInitialFormValues({ ...initialFormValues, ...fileResponse.initialFormValue })
+            setAtLeastOneRequiredfield(fileResponse.atLeastOneRequiredfield || false)
           } else {
             const metas: IField[] = generateIfilterFieldObject(apiResponse.data.Params)
             setReportMeta(metas)
@@ -105,9 +111,10 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
         reportName={ReportName}
         description={report.ReportDescription}
         meta={reportMeta}
-        initialFormValue={{ ReportName }}
+        initialFormValue={initialFormValues}
         defaultFormValue={defaultFormValues}
         mapping={reportMapping}
+        atLeastOneRequiredfield={atLeastOneRequiredfield}
       />
     )
   else return <p>Could not find any report with "{ReportName}" title</p>

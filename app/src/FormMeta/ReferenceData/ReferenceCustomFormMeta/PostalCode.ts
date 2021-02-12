@@ -1,5 +1,6 @@
 import { getCountries, getRegionCodes } from "~/ApiServices/Service/RefLookupService"
 import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export const FormMeta: IField[] = [
   {
@@ -28,4 +29,11 @@ export const FormMeta: IField[] = [
     displayKey: "Name",
     valueKey: "ID"
   }
+]
+
+export const columns: TableColumnType = [
+  { title: "Postal Code", dataIndex: "PostalCode" },
+  { title: "City", dataIndex: "City" },
+  { title: "Region", dataIndex: "RegionCodeID" },
+  { title: "Country", dataIndex: "CountryCodeID" }
 ]

@@ -1,6 +1,7 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { generateMMDDYY } from "~/utils/MMDDYYGenerator"
 
 const meta: IField[] = [
   {
@@ -8,7 +9,6 @@ const meta: IField[] = [
     fieldName: "date_start",
     fieldName2: "date_end",
     rules: [{ required: true, message: "Date field is Required" }],
-
     inputType: DATE_PICKERS
   },
   {
@@ -21,8 +21,6 @@ const meta: IField[] = [
   },
   {
     label: "Registration Source",
-    rules: [{ required: true, message: "Source field is Required" }],
-
     inputType: DROPDOWN,
     fieldName: "sourceAll",
     refLookupService: getSourceModule,
@@ -32,7 +30,12 @@ const meta: IField[] = [
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  initialFormValue: {
+    date_start: generateMMDDYY(new Date()),
+    date_end: generateMMDDYY(new Date()),
+    sourceAll: 2
+  }
 }
 
 export default reportMeta
