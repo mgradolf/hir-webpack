@@ -8,7 +8,10 @@ const meta: IField[] = [
     fieldName: "CatalogID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: CatalogLookup,
-    rules: [{ required: true, message: "Catalog is Required" }]
+    rules: [{ required: true, message: "Catalog is Required" }],
+    extraProps: {
+      isArray: true
+    }
   }
 ]
 

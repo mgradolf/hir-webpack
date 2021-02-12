@@ -8,7 +8,10 @@ const meta: IField[] = [
     fieldName: "SectionID",
     rules: [{ required: true, message: "Section is Required" }],
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SectionLookup
+    customFilterComponent: SectionLookup,
+    extraProps: {
+      isArray: true
+    }
   }
 ]
 

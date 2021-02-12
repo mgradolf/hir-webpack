@@ -8,7 +8,10 @@ const meta: IField[] = [
     fieldName: "OfferingID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: OfferingLookupButton,
-    rules: [{ required: true, message: "Offering is Required" }]
+    rules: [{ required: true, message: "Offering is Required" }],
+    extraProps: {
+      isArray: true
+    }
   }
 ]
 

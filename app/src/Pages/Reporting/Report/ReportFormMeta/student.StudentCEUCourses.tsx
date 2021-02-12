@@ -10,7 +10,10 @@ const meta: IField[] = [
     fieldName: "StudentID",
     rules: [{ required: true, message: "Student is Required" }],
     inputType: CUSTOM_FIELD,
-    customFilterComponent: StudentLookup
+    customFilterComponent: StudentLookup,
+    extraProps: {
+      isArray: true
+    }
   },
   {
     label: "Status Date",
@@ -30,7 +33,10 @@ const meta: IField[] = [
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  initialFormValue: {
+    TranscriptTypeID: 5
+  }
 }
 
 export default reportMeta

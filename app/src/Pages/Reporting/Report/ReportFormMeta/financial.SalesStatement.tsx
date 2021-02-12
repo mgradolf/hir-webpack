@@ -37,6 +37,10 @@ const reportMeta: IReportMeta = {
   mapping: {
     OrderDateFrom: "OrderDateFrom_DisplayOnly",
     OrderDateTo: "OrderDateTo_DisplayOnly"
+  },
+  initialFormValue: {
+    SortByColumn: "SortAmount",
+    SortOrder: "Asc"
   }
 }
 

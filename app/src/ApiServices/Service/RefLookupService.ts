@@ -438,3 +438,9 @@ export function getGradeType(): Promise<IApiResponse> {
     LookUpName: "GradeType"
   })
 }
+
+export function getMetricType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MetricType"
+  })
+}

@@ -229,3 +229,18 @@ export function searchCertificateParams(
     Headers
   )
 }
+
+export function findTermFeeProductsByCategoryID(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "jxntm.registration.findTermFeeProductsByCategoryID",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}

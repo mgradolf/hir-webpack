@@ -22,7 +22,8 @@ const reportMeta: IReportMeta = {
   },
   defaultFormValue: {
     CurrentDate: generateMMDDYY(new Date())
-  }
+  },
+  atLeastOneRequiredfield: true
 }
 
 export default reportMeta
