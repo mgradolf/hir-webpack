@@ -1,8 +1,8 @@
 import * as React from "react"
-import { PackageSearchMeta } from "~/FormMeta/Package/PackageSearchMeta"
+import { PackageSearchMeta } from "~/TableSearchMeta/Package/PackageSearchMeta"
 import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
+import { getPackageTableColumns } from "~/TableSearchMeta/Package/PackageTableColumns"
 import { findPackages } from "~/ApiServices/Service/PackageService"
 
 interface ILookupOpenButton extends IGeneratedField {

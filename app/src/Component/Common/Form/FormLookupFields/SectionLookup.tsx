@@ -1,8 +1,8 @@
 import * as React from "react"
-import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
+import { SectionSearchMeta } from "~/TableSearchMeta/Section/SectionSearchMeta"
 import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
+import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function SectionLookup(props: IGeneratedField) {

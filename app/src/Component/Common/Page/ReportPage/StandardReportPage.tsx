@@ -1,11 +1,10 @@
 import { Row, Typography } from "antd"
 import React, { useState } from "react"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { Document as PDF, Page } from "react-pdf"
 
 export interface IStandardReportPage {
   title: string
@@ -21,7 +20,6 @@ export interface IStandardReportPage {
 export default function StandardReportPage(props: IStandardReportPage) {
   const [downloadUrl, setdownloadUrl] = useState<string>()
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [numberOfPages, setNumberOfPages] = useState(1)
   const openReportInNewTab = (params: { [key: string]: any }) => {
     setErrorMessages([])
     if (props.atLeastOneRequiredfield && Object.keys(params).length === 0) {
@@ -56,7 +54,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
-          <CustomForm
+          <MetaDrivenForm
             meta={props.meta}
             initialFormValue={props.initialFormValue}
             defaultFormValue={props.defaultFormValue}
@@ -68,27 +66,11 @@ export default function StandardReportPage(props: IStandardReportPage) {
           />
         )}
       </Row>
-
-      <Row align="middle" justify="center">
-        {downloadUrl && (
-          <PDF
-            error={<div>An error occurred! Please try again with different parameter(s)!</div>}
-            file={{
-              url: downloadUrl,
-              withCredentials: false
-            }}
-            onLoadSuccess={(result) => {
-              setNumberOfPages(result.numPages)
-              console.log("result ", result)
-            }}
-            onLoadError={(error) => {
-              console.log("error ", error)
-            }}
-          >
-            <Page pageNumber={numberOfPages}></Page>
-          </PDF>
-        )}
-      </Row>
+      {downloadUrl && (
+        <Row>
+          <iframe title={props.title} style={{ width: "100%", height: "100vh" }} src={downloadUrl} />
+        </Row>
+      )}
     </div>
   )
 }

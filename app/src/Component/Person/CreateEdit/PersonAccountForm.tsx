@@ -33,7 +33,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
   const [roleTypeItems, setRoleTypeItems] = useState<Array<any>>([])
   const [questionItems, setQuestionItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  let questionAnswers: { [key: string]: any } = {}
+  const questionAnswers: { [key: string]: any } = {}
 
   const editMode: boolean = props.initialFormValue.AccountAffiliationID ? true : false
 
@@ -63,10 +63,9 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
     async function loadAnswers(accountAffiliationID: number) {
       const res = await getQuestionAnswers({ AccountAffiliationID: accountAffiliationID })
       if (res.success) {
-        res.data.map((element: any) => {
+        res.data.forEach((element: any) => {
           questionAnswers[element["TagQuestionID"]] = element["Response"]
           props.formInstance.setFieldsValue({ [`AnswerList_${element.TagQuestionID}`]: element["Response"] })
-          return true
         })
       }
       setLoading(false)

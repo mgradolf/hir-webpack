@@ -1,8 +1,8 @@
 import * as React from "react"
 import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { RoomeSearchMeta } from "~/FormMeta/Room/RoomSearchMeta"
-import { getRoomTableColumns } from "~/FormMeta/Room/RoomTableColumns"
+import { RoomeSearchMeta } from "~/TableSearchMeta/Room/RoomSearchMeta"
+import { getRoomTableColumns } from "~/TableSearchMeta/Room/RoomTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function RoomLookup(props: IGeneratedField) {

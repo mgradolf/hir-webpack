@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
 import StandardPage from "~/Component/Common/Page/StandardPage"
-import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
+import { getSectionFinancialTableColumns } from "~/TableSearchMeta/SectionFinancial/FinancialTableColumns"
 import CreateNewBudget from "~/Component/Section/Budget/BudgetFormModal"
 
 export default function BudgetPage(props: RouteComponentProps<{ sectionID?: string }>) {

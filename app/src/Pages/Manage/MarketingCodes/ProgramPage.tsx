@@ -1,6 +1,6 @@
 import React from "react"
 import StandardPage from "~/Component/Common/Page/StandardPage"
-import { getMarketingProgramTableColumns } from "~/FormMeta/MarketingProgram/MarketingProgramTableColumns"
+import { getMarketingProgramTableColumns } from "~/TableSearchMeta/MarketingProgram/MarketingProgramTableColumns"
 
 export default function MarketingProgramPage() {
   return (

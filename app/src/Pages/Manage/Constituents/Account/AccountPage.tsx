@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { AccountSearchMeta } from "~/FormMeta/Account/AccountSearchMeta"
-import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getAccountTableColumns } from "~/FormMeta/Account/AccountTableColumns"
 import { Button } from "antd"
+import { AccountSearchMeta } from "~/TableSearchMeta/Account/AccountSearchMeta"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
+import { getAccountTableColumns } from "~/TableSearchMeta/Account/AccountTableColumns"
 import AccountFormModal from "~/Component/Account/AccountFormModal"
 
 export default function AccountPage() {

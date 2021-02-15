@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { CatalogSearchMeta } from "~/FormMeta/Catalog/CatalogSearchMeta"
-import { getCatalogTableColumns } from "~/FormMeta/Catalog/CatalogTableColumns"
+import { CatalogSearchMeta } from "~/TableSearchMeta/Catalog/CatalogSearchMeta"
+import { getCatalogTableColumns } from "~/TableSearchMeta/Catalog/CatalogTableColumns"
 
 export default () => {
   return (

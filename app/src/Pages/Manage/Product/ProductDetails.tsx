@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchProducts } from "~/ApiServices/Service/ProductService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getProductDetailsMeta } from "~/FormMeta/Product/ProductDetailsMeta"
+import { getProductDetailsMeta } from "~/TableSearchMeta/Product/ProductDetailsMeta"
 
 export default function ProductDetailsPage(props: RouteComponentProps<{ productID: string }>) {
   const ProductID = Number(props?.match?.params?.productID)

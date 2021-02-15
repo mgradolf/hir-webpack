@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
+import { PersonSearchMeta } from "~/TableSearchMeta/Person/PersonSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
+import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColumns"
 import { Button } from "antd"
-import PersonFormModal from "~/Component/Person/PersonFormModal"
+import PersonFormModal from "~/Component/Person/Forms/PersonFormModal"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)

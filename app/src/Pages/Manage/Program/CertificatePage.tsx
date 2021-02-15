@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
-import { ProgramCertificateSearchMeta } from "~/FormMeta/Certificate/CertificateSearchMeta"
-import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
+import { ProgramCertificateSearchMeta } from "~/TableSearchMeta/Certificate/CertificateSearchMeta"
+import { getCertificateTableColumns } from "~/TableSearchMeta/Certificate/CertificateTableColumns"
 
 export default function () {
   const [showModal, setShowModal] = useState(false)

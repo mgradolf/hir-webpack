@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { findSystemSchedules } from "~/ApiServices/BizApi/query/queryIf"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getActivitySystemScheduleDetailsMeta } from "~/FormMeta/ActivitySystemSchedule/ActivitySystemScheduleDetailsMeta"
+import { getActivitySystemScheduleDetailsMeta } from "~/TableSearchMeta/ActivitySystemSchedule/ActivitySystemScheduleDetailsMeta"
 
 export default function SystemScheduleDetailsPage(props: RouteComponentProps<{ TimerID: string }>) {
   const TimerID = Number(props?.match?.params?.TimerID)

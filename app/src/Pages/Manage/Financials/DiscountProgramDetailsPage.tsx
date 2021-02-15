@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchDiscountProgram } from "~/ApiServices/Service/FinancialService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getDiscountProgramsDetailsMeta } from "~/FormMeta/DiscountPrograms/DiscountProgramsDetailsMeta"
+import { getDiscountProgramsDetailsMeta } from "~/TableSearchMeta/DiscountPrograms/DiscountProgramsDetailsMeta"
 
 export default function OrderDetailsPage(props: RouteComponentProps<{ discountProgramID: string }>) {
   const DiscountProgramID = Number(props?.match?.params?.discountProgramID)

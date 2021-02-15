@@ -2,7 +2,7 @@ import { Form } from "antd"
 import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { IPersonFieldNames } from "~/Component/Person/Interfaces"
-import PersonForm from "~/Component/Person/CreateEdit/PersonForm"
+import PersonForm from "~/Component/Person/Forms/CreateEdit/PersonForm"
 import { getPersonDetails } from "~/ApiServices/Service/PersonService"
 
 interface IAccountFormModalProps {

@@ -1,8 +1,8 @@
 import * as React from "react"
 import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getStudentTableColumns } from "~/FormMeta/Student/StudentTableColumns"
-import { studentSearchMeta } from "~/FormMeta/Student/StudentSearchMeta"
+import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
+import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import { searchStudents } from "~/ApiServices/BizApi/student/studentIf"
 
 interface IStudentLookup extends IGeneratedField {

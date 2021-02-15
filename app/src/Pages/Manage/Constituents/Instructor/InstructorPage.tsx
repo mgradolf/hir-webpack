@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { InstructorSearchMeta } from "~/FormMeta/Instructor/InstructorSearchMeta"
-import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getInstructorTableColumns } from "~/FormMeta/Instructor/InstructorTableColumns"
 import { Button } from "antd"
+import { InstructorSearchMeta } from "~/TableSearchMeta/Instructor/InstructorSearchMeta"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
+import { getInstructorTableColumns } from "~/TableSearchMeta/Instructor/InstructorTableColumns"
 import InstructorFormModal from "~/Component/Instructor/InstructorFormModal"
 
 export default function InstructorPage() {

@@ -4,13 +4,13 @@ import Notification from "~/utils/notification"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { getOrCreateAccountForPurchaser, pushAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import { SAVE_SUCCESSFULLY, ACCOUNT_AFFILIATION_STATUS_ACTIVE, AFF_ROLE_PURCHASER } from "~/utils/Constants"
-import { AccountLinkModal } from "../Account/AccountLinkModal"
+import { AccountLinkModal } from "~/Component/Account/AccountLinkModal"
 
 interface IPersonAccountActionProp {
   initialData: { [key: string]: any }
 }
 
-export default function PersonAccountAction(props: IPersonAccountActionProp) {
+export function PersonAccountAction(props: IPersonAccountActionProp) {
   const [showLinkModal, setShowLinkModal] = useState(false)
 
   const isAccount: boolean = props.initialData?.AccountID !== undefined
@@ -29,7 +29,7 @@ export default function PersonAccountAction(props: IPersonAccountActionProp) {
 
   const onCloseAccountSelector = (selectedItems?: any[]) => {
     if (selectedItems) {
-      let account = selectedItems[0]
+      const account = selectedItems[0]
 
       pushAccountAffiliation({
         AccountID: account.AccountID,

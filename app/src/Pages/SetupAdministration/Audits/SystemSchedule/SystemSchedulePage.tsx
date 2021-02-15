@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ActivitySystemScheduleSearchMeta } from "~/FormMeta/ActivitySystemSchedule/ActivitySystemScheduleSearchMeta"
-import { getActivitySystemScheduleTableColumns } from "~/FormMeta/ActivitySystemSchedule/ActivitySystemScheduleTableColumns"
+import { ActivitySystemScheduleSearchMeta } from "~/TableSearchMeta/ActivitySystemSchedule/ActivitySystemScheduleSearchMeta"
+import { getActivitySystemScheduleTableColumns } from "~/TableSearchMeta/ActivitySystemSchedule/ActivitySystemScheduleTableColumns"
 
 export default function SystemSchedulePage() {
   return (

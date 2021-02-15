@@ -4,8 +4,8 @@ import { attachProgram, detachProgram } from "~/ApiServices/Service/SeatGroupSer
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Link } from "react-router-dom"
-import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
-import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
+import { getProgramTableColumns } from "~/TableSearchMeta/Program/ProgramTableColumns"
+import { ProgramSearchMeta } from "~/TableSearchMeta/Program/ProgramSearchMeta"
 
 interface ICreateActionButtonProp {
   SeatGroupID: number

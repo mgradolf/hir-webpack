@@ -1,7 +1,7 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { ActivityAcademicSearchMeta } from "~/FormMeta/ActivityAcademic/ActivityAcademicSearchMeta"
-import { getActivityAcademicTableColumn } from "~/FormMeta/ActivityAcademic/getActivityAcademicTableColumn"
+import { ActivityAcademicSearchMeta } from "~/TableSearchMeta/ActivityAcademic/ActivityAcademicSearchMeta"
+import { getActivityAcademicTableColumn } from "~/TableSearchMeta/ActivityAcademic/getActivityAcademicTableColumn"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 
 export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: string }>) {

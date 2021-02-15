@@ -1,8 +1,8 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getOrganizationDetailsMeta } from "~/FormMeta/Organization/OrganizationDetailsMeta"
-import { getOrganizationTableColumns } from "~/FormMeta/Organization/OrganizationTableColumns"
+import { getOrganizationDetailsMeta } from "~/TableSearchMeta/Organization/OrganizationDetailsMeta"
+import { getOrganizationTableColumns } from "~/TableSearchMeta/Organization/OrganizationTableColumns"
 
 export default function (props: RouteComponentProps<{ OrganizationID?: string }>) {
   const OrganizationID = Number(props?.match?.params?.OrganizationID)

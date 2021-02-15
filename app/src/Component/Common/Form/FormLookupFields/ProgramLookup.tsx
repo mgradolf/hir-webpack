@@ -1,8 +1,8 @@
 import * as React from "react"
 import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
-import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
+import { getProgramTableColumns } from "~/TableSearchMeta/Program/ProgramTableColumns"
+import { ProgramSearchMeta } from "~/TableSearchMeta/Program/ProgramSearchMeta"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface ISearchProgramLookup extends IGeneratedField {

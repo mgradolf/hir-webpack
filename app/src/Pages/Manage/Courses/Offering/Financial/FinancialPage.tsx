@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { getOfferingFinancialTableColumns } from "~/FormMeta/OfferingFinancial/OfferingFinancialTableColumns"
+import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import StandardPage from "~/Component/Common/Page/StandardPage"
 import { Button } from "antd"
 import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"

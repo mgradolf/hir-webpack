@@ -3,7 +3,7 @@ import PersonEmailService, { emailConfig } from "@packages/api/lib/proxy/Service
 import PersonPhoneService, { phoneConfig } from "@packages/api/lib/proxy/Service/PersonPhoneService"
 import PersonAddressService, { addressConfig } from "@packages/api/lib/proxy/Service/PersonAddressService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { getDisabilityType } from "./RefLookupService"
+import { getDisabilityType } from "~/ApiServices/Service/RefLookupService"
 
 export function createPersonRecordInRoles(
   Params: { [key: string]: any },

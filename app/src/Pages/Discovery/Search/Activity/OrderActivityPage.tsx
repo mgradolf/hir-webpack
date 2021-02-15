@@ -1,7 +1,7 @@
 import React from "react"
-import { ActivityOrderSearchMeta } from "~/FormMeta/ActivityOrder/ActivityOrderSearchMeta"
+import { ActivityOrderSearchMeta } from "~/TableSearchMeta/ActivityOrder/ActivityOrderSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getActivityOrderSearchTableColumns } from "~/FormMeta/ActivityOrder/ActivityOrderSearchTableColumns"
+import { getActivityOrderSearchTableColumns } from "~/TableSearchMeta/ActivityOrder/ActivityOrderSearchTableColumns"
 
 export default function AcademicLogPage() {
   return (

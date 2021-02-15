@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { GradeScoreDefinitionSearchMeta } from "~/FormMeta/GradeScoreDefinition/GradeScoreDefinitionSearchMeta"
-import { getGradeScoreDefinitionTableColumns } from "~/FormMeta/GradeScoreDefinition/GradeScoreDefinitionTableColumns"
+import { GradeScoreDefinitionSearchMeta } from "~/TableSearchMeta/GradeScoreDefinition/GradeScoreDefinitionSearchMeta"
+import { getGradeScoreDefinitionTableColumns } from "~/TableSearchMeta/GradeScoreDefinition/GradeScoreDefinitionTableColumns"
 
 export default function CertificatesPage() {
   return (

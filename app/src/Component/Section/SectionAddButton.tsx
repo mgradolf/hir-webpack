@@ -4,8 +4,8 @@ import { addSectionProduct } from "~/ApiServices/BizApi/product/productIf"
 import { addSectionDiscount } from "~/ApiServices/Service/SectionService"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE, REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
-import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
-import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
+import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
+import { SectionSearchMeta } from "~/TableSearchMeta/Section/SectionSearchMeta"
 
 interface ICreateActionButtonProp {
   ProductId?: number

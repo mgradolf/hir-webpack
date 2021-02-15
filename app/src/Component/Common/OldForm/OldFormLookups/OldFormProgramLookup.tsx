@@ -1,8 +1,8 @@
 import * as React from "react"
-import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
+import { ProgramSearchMeta } from "~/TableSearchMeta/Program/ProgramSearchMeta"
 import { OldFormLookupOpenButton } from "~/Component/Common/OldForm/OldFormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
-import { getProgramTableColumns } from "~/FormMeta/Program/ProgramTableColumns"
+import { getProgramTableColumns } from "~/TableSearchMeta/Program/ProgramTableColumns"
 
 export function OldFormProgramLookup(props: {
   formInstance: FormInstance

@@ -1,8 +1,8 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getCatalogDetailsMeta } from "~/FormMeta/Catalog/CatalogDetailsMeta"
-import { getCatalogTableColumns } from "~/FormMeta/Catalog/CatalogTableColumns"
+import { getCatalogDetailsMeta } from "~/TableSearchMeta/Catalog/CatalogDetailsMeta"
+import { getCatalogTableColumns } from "~/TableSearchMeta/Catalog/CatalogTableColumns"
 
 export default (props: RouteComponentProps<{ catalogID?: string }>) => {
   const CatalogID = Number(props?.match?.params?.catalogID)

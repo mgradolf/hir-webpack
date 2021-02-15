@@ -9,7 +9,6 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
-import { pdfjs } from "react-pdf"
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -138,5 +137,3 @@ export function unregister(): void {
       })
   }
 }
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`

@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getAnonymizeRequests } from "~/ApiServices/Service/AnonymizationRequestService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getForgetMeRequestDetailsMeta } from "~/FormMeta/ForgetMeRequest/ForgetMeRequestDetailsMeta"
+import { getForgetMeRequestDetailsMeta } from "~/TableSearchMeta/ForgetMeRequest/ForgetMeRequestDetailsMeta"
 
 export default function (props: RouteComponentProps<{ AnonymizationRequestID: string }>) {
   const AnonymizationRequestID = Number(props?.match?.params?.AnonymizationRequestID)

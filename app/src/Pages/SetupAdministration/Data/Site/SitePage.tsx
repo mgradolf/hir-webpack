@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getSiteTableColumns } from "~/FormMeta/Site/SiteTableColumns"
-import { SiteSearchMeta } from "~/FormMeta/Site/SiteSearchMeta"
+import { getSiteTableColumns } from "~/TableSearchMeta/Site/SiteTableColumns"
+import { SiteSearchMeta } from "~/TableSearchMeta/Site/SiteSearchMeta"
 
 export default function SitePage() {
   return (

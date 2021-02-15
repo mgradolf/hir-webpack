@@ -1,8 +1,8 @@
 import { Card, Col, Button } from "antd"
 import React, { useState, useCallback, useEffect } from "react"
 import Modal from "~/Component/Common/Modal"
-import { CustomForm } from "~/Component/Common/Form"
-import { ProgramSearchMeta } from "~/FormMeta/Program/ProgramSearchMeta"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
+import { ProgramSearchMeta } from "~/TableSearchMeta/Program/ProgramSearchMeta"
 import ProgramListTable from "~/Component/Program/ProgramListTable"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
 import { IProgramFilterValues, useSearchFilterState, useSearchProgram } from "~/Hooks/Program"
@@ -67,7 +67,7 @@ function AddProgramModal() {
   return (
     <Modal showModal={true} width="800px" zIndex={zIndex.defaultModal + 1}>
       <Card title="Select Program" actions={cardActions} style={{ maxHeight: "90vh", overflowY: "auto" }}>
-        <CustomForm
+        <MetaDrivenForm
           meta={ProgramSearchMeta}
           initialFormValue={(filterData === null ? initialData : (filterData as unknown)) as { [key: string]: any }}
           hideFilters={() => {

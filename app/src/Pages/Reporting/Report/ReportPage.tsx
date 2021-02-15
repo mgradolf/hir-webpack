@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ReportListSearchMeta } from "~/FormMeta/Report/ReportListSearchMeta"
-import { getReportListTableColumns } from "~/FormMeta/Report/ReportListTableColumns"
+import { ReportListSearchMeta } from "~/TableSearchMeta/Report/ReportListSearchMeta"
+import { getReportListTableColumns } from "~/TableSearchMeta/Report/ReportListTableColumns"
 
 export default function ReportPage() {
   return (

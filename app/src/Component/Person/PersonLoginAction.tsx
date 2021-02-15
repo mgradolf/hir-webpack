@@ -2,8 +2,9 @@ import React, { useState } from "react"
 import { Button, Dropdown, Menu, Row } from "antd"
 import Notification from "~/utils/notification"
 import { INVITE_TO_SETUP_WEB_LOGIN, INVITE_TO_RESET_PASSWORD, UNLOCK_WEB_LOGIN } from "~/utils/Constants"
+// import { FormModal } from "~/Component/Common/Form/FormModal"
 import { FormModal } from "~/Component/Common/Form/FormModal2"
-import { PersonLoginFormMeta } from "~/FormMeta/Person/PersonLoginFormMeta"
+import { PersonLoginFormMeta } from "~/Component/Person/FormMeta/PersonLoginFormMeta"
 import {
   sendPasswordResetEmail,
   unlockPersonLogin,
@@ -16,7 +17,7 @@ interface IPersonLoginActionProp {
   initialData: { [key: string]: any }
 }
 
-export default function PersonLoginAction(props: IPersonLoginActionProp) {
+export function PersonLoginAction(props: IPersonLoginActionProp) {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const isLogin: boolean = props.initialData !== null

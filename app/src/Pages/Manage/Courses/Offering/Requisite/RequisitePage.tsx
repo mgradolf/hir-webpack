@@ -6,7 +6,7 @@ import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Offering/Requi
 import PrerequisiteGroups from "~/Component/Offering/Requisite/PrerequisiteGroups"
 import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import styles from "~/Pages/Manage/Courses/Offering/Requisite/Requisite.module.scss"
-import { getOfferingPrerequisiteTableColumns } from "~/FormMeta/OfferingRequisite/PrerequisiteTableColumns"
+import { getOfferingPrerequisiteTableColumns } from "~/TableSearchMeta/OfferingRequisite/PrerequisiteTableColumns"
 
 interface IRequisitePageProp {
   offeringID: number
