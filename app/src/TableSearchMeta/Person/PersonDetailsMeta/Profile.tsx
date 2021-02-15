@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import { Button } from "antd"
+import React from "react"
 import {
   createPersonEducationHistory,
   deletePersonEmail,
@@ -15,7 +14,7 @@ import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsP
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { AddressFormModalOpenButton } from "~/Component/Person/Forms/PersonAddressFormModal"
 import { BasicFormModalOpenButton } from "~/Component/Person/Forms/PersonBasicFormModal"
-import PersonLoginAction from "~/Component/Person/PersonLoginAction"
+import { PersonLoginAction } from "~/Component/Person/PersonLoginAction"
 import { getOrderTableColumns } from "~/TableSearchMeta/Order/OrderTableColumns"
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getPaymentTableColumns } from "~/TableSearchMeta/Payment/PaymentTableColumns"
@@ -24,10 +23,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { getPersonDisabilitiesTableColumns } from "~/TableSearchMeta/Person/PersonDisabilitiesTableColumns"
 import { getPersonEduTableColumns } from "~/TableSearchMeta/Person/PersonEduTableColumns"
 import { getPersonAccountTableColumns } from "~/TableSearchMeta/Person/PersonAccountTableColumns"
-
-import PersonAccountFormModal from "~/Component/Person/PersonAccountFormModal"
-import PersonAccountAction from "~/Component/Person/PersonAccountAction"
-
+import { PersonAccountAction } from "~/Component/Person/PersonAccountAction"
 import { PersonDegreeFormMeta } from "~/Component/Person/FormMeta/PersonDegreeFormMeta"
 import { PersonCharacterFormMeta } from "~/Component/Person/FormMeta/Basic/PersonCharacterFormMeta"
 import { PersonEmailFormMeta } from "~/Component/Person/FormMeta/EmailAddress/PersonEmailFormMeta"
@@ -37,20 +33,7 @@ import { PersonPhoneFormMeta } from "~/Component/Person/FormMeta/Telephone/Perso
 import { PersonTypeFormMeta } from "~/Component/Person/FormMeta/Basic/PersonTypeFormMeta"
 import { PersonPhoneUpdateFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneUpdateFormMeta"
 import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
-
-const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          + Add Relation
-        </Button>
-      )}
-      {showModal && <PersonAccountFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
-    </>
-  )
-}
+import { AccountRelationFormModalOpenButton } from "~/Component/Person/PersonAccountFormModal"
 
 export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []

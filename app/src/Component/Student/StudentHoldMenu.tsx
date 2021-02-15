@@ -1,15 +1,15 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
 import { FormModal } from "~/Component/Common/Form/FormModal2"
-import { StudentHoldFormMeta } from "./Forms/StudentHoldFormMeta"
+import { StudentHoldFormMeta } from "~/Component/Student/Forms/StudentHoldFormMeta"
 import { createUpdateStudentHold, releaseStudentHold } from "~/ApiServices/Service/StudentService"
-import { StudentReleaseFormMeta } from "./Forms/StudentReleaseFormMeta"
+import { StudentReleaseFormMeta } from "~/Component/Student/Forms/StudentReleaseFormMeta"
 
 interface IStudentHoldMenu {
   initialData: { [key: string]: any }
 }
 
-export default function StudentHoldMenu(props: IStudentHoldMenu) {
+export function StudentHoldMenu(props: IStudentHoldMenu) {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
   const [showReleaseModal, setShowReleaseModal] = useState(false)
 

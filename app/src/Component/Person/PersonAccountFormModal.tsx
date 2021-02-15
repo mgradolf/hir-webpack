@@ -1,4 +1,4 @@
-import { Form } from "antd"
+import { Button, Form } from "antd"
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { IPersonAccountFieldNames } from "~/Component/Person/Interfaces"
@@ -21,7 +21,7 @@ const fieldNames: IPersonAccountFieldNames = {
   AsnwerList: "AnswerList"
 }
 
-export default function PersonAccountFormModal(props: IPersonAccountFormModalProps) {
+export function PersonAccountFormModal(props: IPersonAccountFormModalProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({
@@ -40,5 +40,19 @@ export default function PersonAccountFormModal(props: IPersonAccountFormModalPro
         closeModal={props.closeModal}
       />
     </Modal>
+  )
+}
+
+export const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          + Add Relation
+        </Button>
+      )}
+      {showModal && <PersonAccountFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
+    </>
   )
 }

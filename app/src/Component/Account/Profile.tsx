@@ -15,7 +15,7 @@ import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsP
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { AddressFormModalOpenButton } from "~/Component/Person/Forms/PersonAddressFormModal"
 import { BasicFormModalOpenButton } from "~/Component/Person/Forms/PersonBasicFormModal"
-import PersonLoginAction from "~/Component/Person/PersonLoginAction"
+import { PersonLoginAction } from "~/Component/Person/PersonLoginAction"
 import { getOrderTableColumns } from "~/TableSearchMeta/Order/OrderTableColumns"
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getPaymentTableColumns } from "~/TableSearchMeta/Payment/PaymentTableColumns"
@@ -25,8 +25,8 @@ import { getPersonDisabilitiesTableColumns } from "~/TableSearchMeta/Person/Pers
 import { getPersonEduTableColumns } from "~/TableSearchMeta/Person/PersonEduTableColumns"
 import { getPersonAccountTableColumns } from "~/TableSearchMeta/Person/PersonAccountTableColumns"
 
-import PersonAccountFormModal from "~/Component/Person/PersonAccountFormModal"
-import PersonAccountAction from "~/Component/Person/PersonAccountAction"
+import { PersonAccountFormModal } from "~/Component/Person/PersonAccountFormModal"
+import { PersonAccountAction } from "~/Component/Person/PersonAccountAction"
 
 import { PersonDegreeFormMeta } from "~/Component/Person/FormMeta/PersonDegreeFormMeta"
 import { PersonCharacterFormMeta } from "~/Component/Person/FormMeta/Basic/PersonCharacterFormMeta"

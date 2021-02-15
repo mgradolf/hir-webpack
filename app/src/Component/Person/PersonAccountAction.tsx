@@ -10,7 +10,7 @@ interface IPersonAccountActionProp {
   initialData: { [key: string]: any }
 }
 
-export default function PersonAccountAction(props: IPersonAccountActionProp) {
+export function PersonAccountAction(props: IPersonAccountActionProp) {
   const [showLinkModal, setShowLinkModal] = useState(false)
 
   const isAccount: boolean = props.initialData?.AccountID !== undefined

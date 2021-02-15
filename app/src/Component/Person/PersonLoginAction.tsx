@@ -17,7 +17,7 @@ interface IPersonLoginActionProp {
   initialData: { [key: string]: any }
 }
 
-export default function PersonLoginAction(props: IPersonLoginActionProp) {
+export function PersonLoginAction(props: IPersonLoginActionProp) {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const isLogin: boolean = props.initialData !== null
