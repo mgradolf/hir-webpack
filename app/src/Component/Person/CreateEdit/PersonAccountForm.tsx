@@ -6,6 +6,7 @@ import { FormInstance } from "antd/lib/form"
 import { IPersonAccountFieldNames } from "~/Component/Person/Interfaces"
 import {
   getAffiliationRoleTypes,
+  getQuestionAnswers,
   getTaggedQuestionsByAffiliationRoleType
 } from "~/ApiServices/BizApi/account/accountIF"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
@@ -32,6 +33,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
   const [roleTypeItems, setRoleTypeItems] = useState<Array<any>>([])
   const [questionItems, setQuestionItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  let questionAnswers: { [key: string]: any } = {}
 
   const editMode: boolean = props.initialFormValue.AccountAffiliationID ? true : false
 
@@ -50,12 +52,29 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
       const res = await getTaggedQuestionsByAffiliationRoleType({ AffiliationRoleTypeID: roleTypeID })
       if (res.success && Array.isArray(res.data)) {
         setQuestionItems(res.data)
+        if (props.initialFormValue.AccountAffiliationID) {
+          loadAnswers(props.initialFormValue.AccountAffiliationID)
+        } else {
+          setLoading(false)
+        }
+      }
+    }
+
+    async function loadAnswers(accountAffiliationID: number) {
+      const res = await getQuestionAnswers({ AccountAffiliationID: accountAffiliationID })
+      if (res.success) {
+        res.data.map((element: any) => {
+          questionAnswers[element["TagQuestionID"]] = element["Response"]
+          props.formInstance.setFieldsValue({ [`AnswerList_${element.TagQuestionID}`]: element["Response"] })
+        })
       }
       setLoading(false)
     }
 
     if (roleTypeID) {
       loadQuestions(roleTypeID)
+    } else if (props.initialFormValue.AffiliationRoleTypeID) {
+      loadQuestions(props.initialFormValue.AffiliationRoleTypeID)
     }
   }, [props, roleTypeID])
 

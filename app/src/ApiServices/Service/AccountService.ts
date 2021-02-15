@@ -45,3 +45,10 @@ export function deleteAccountAffiliation(
 ): Promise<IApiResponse> {
   return AccountService[config.Actions.deleteAccountAffiliation](Params, Headers)
 }
+
+export function getOrCreateAccountForPurchaser(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountService[config.Actions.getOrCreateAccountForPurchaser](Params, Headers)
+}

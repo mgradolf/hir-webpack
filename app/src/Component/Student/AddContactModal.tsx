@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddContactModal } from "~/Store/ModalState"
 import { Card, Button, Form, Input, Select, DatePicker, Switch, Divider } from "antd"
-import { ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE, DATE_FORMAT } from "~/utils/Constants"
+import { ACCOUNT_AFFILIATION_STATUS_ACTIVE, DATE_FORMAT } from "~/utils/Constants"
 import { useEffect } from "react"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -40,7 +40,7 @@ function AddContactModal(props: IAddContactModal) {
 
   const initialData = {
     AccountID: props.AccountID,
-    StatusID: ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE,
+    StatusID: ACCOUNT_AFFILIATION_STATUS_ACTIVE,
     IsContactShared: false,
     Birthday: form.getFieldValue("Birthday") ? moment(form.getFieldValue("Birthday"), DATE_FORMAT) : undefined
   }

@@ -243,7 +243,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
 
   const personalInfo4: CardContainer = {
     title: "Purchaser Account",
-    cardActions: [<PersonAccountAction initialData={account} />],
+    cardActions: [<PersonAccountAction initialData={{ ...account, ...person }} />],
     contents: [
       {
         label: "Name",

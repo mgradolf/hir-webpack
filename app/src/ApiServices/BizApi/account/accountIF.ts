@@ -19,6 +19,13 @@ export function findAccount(Params: { [key: string]: any }, Headers?: { [key: st
   return AccountIf[config.Actions.findAccount]([Params], Headers)
 }
 
+export function getQuestionAnswers(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountIf[config.Actions.getQuestionAnswers]([Params.AccountAffiliationID], Headers)
+}
+
 export function getAffiliationRoleTypes(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

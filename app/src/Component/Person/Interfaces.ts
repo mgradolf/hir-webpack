@@ -42,6 +42,7 @@ export interface IPersonAddressFieldNames {
 export interface IPersonAccountFieldNames {
   AccountAffiliationID: any
   AccountID: any
+  AccountName: any
   PersonID: any
   StatusID: any
   AffiliationRoleTypeID: any
