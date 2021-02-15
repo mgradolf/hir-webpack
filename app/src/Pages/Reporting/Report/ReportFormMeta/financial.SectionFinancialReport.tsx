@@ -33,13 +33,19 @@ const meta: IField[] = [
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: StudentLookup
+    customFilterComponent: StudentLookup,
+    extraProps: {
+      isArray: true
+    }
   },
   {
     label: "Purchaser",
     fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: PersonLookup
+    customFilterComponent: PersonLookup,
+    extraProps: {
+      isArray: true
+    }
   }
 ]
 
