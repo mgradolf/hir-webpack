@@ -195,6 +195,8 @@ export const INVITE_TO_RESET_PASSWORD = "Invite to reset password done!"
 export const UNLOCK_WEB_LOGIN = "Unlock person login done!"
 
 export const SAVE_SUCCESSFULLY = "Successfully saved!"
+export const DELETE_SUCCESSFULLY = "Successfully deleted!"
+export const REQUEST_SUCCESSFULLY = "Successfully requested!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
 
@@ -209,3 +211,8 @@ export const ACCOUNT_AFFILIATION_STATUS_ACTIVE = 1
 export const ACCOUNT_AFFILIATION_STATUS_INACTIVE = 2
 export const ACCOUNT_AFFILIATION_STATUS_PENDING = 3
 export const ACCOUNT_AFFILIATION_STATUS_REJECTED = 4
+
+export const CURRENT_ORG_ID = 1
+
+export const PT_FULLTIME_STATUS = 0
+export const PT_PARTTIME_STATUS = 1000

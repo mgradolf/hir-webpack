@@ -66,6 +66,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
         res.data.map((element: any) => {
           questionAnswers[element["TagQuestionID"]] = element["Response"]
           props.formInstance.setFieldsValue({ [`AnswerList_${element.TagQuestionID}`]: element["Response"] })
+          return true
         })
       }
       setLoading(false)
@@ -76,7 +77,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
     } else if (props.initialFormValue.AffiliationRoleTypeID) {
       loadQuestions(props.initialFormValue.AffiliationRoleTypeID)
     }
-  }, [props, roleTypeID])
+  }, [props, roleTypeID, questionAnswers])
 
   const onFormSubmission = async () => {
     try {

@@ -1,5 +1,5 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { Button, Row } from "antd"
+import { Button } from "antd"
 import React, { useState } from "react"
 import {
   createPersonEducationHistory,

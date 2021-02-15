@@ -11,6 +11,7 @@ export const config = {
     getPersonLogin: "getPersonLogin",
     getRegions: "getRegions",
     pushPerson: "pushPerson",
+    removePerson: "removePerson",
     getDegreeProgram: "getDegreeProgram",
     removePersonEducationHistory: "removePersonEducationHistory",
     updatePersonEducationHistory: "updatePersonEducationHistory",

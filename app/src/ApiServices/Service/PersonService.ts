@@ -50,6 +50,10 @@ export function pushPerson(Params: { [key: string]: any }, Headers?: { [key: str
   return PersonService[config.Actions.pushPerson](Params, Headers)
 }
 
+export function removePerson(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return PersonService[config.Actions.removePerson](Params, Headers)
+}
+
 export function pushPersonEmail(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
