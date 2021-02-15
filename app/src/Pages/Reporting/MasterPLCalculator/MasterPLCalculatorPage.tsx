@@ -1,7 +1,7 @@
 import { Col, Descriptions, Row, Tabs, Typography } from "antd"
 import React, { useState } from "react"
 import { analyzeSections } from "~/ApiServices/Service/BudgetAnalysisService"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { MasterPLCalculatorSearchMeta } from "~/TableSearchMeta/MasterPLCalculator/MasterPLCalculatorSearchMeta"
 import {
@@ -27,7 +27,7 @@ export default function QueriesPage() {
         </Col>
       </Row>
 
-      <CustomForm
+      <MetaDrivenForm
         meta={MasterPLCalculatorSearchMeta}
         stopProducingQueryParams={true}
         initialFormValue={{ IsActual: true }}

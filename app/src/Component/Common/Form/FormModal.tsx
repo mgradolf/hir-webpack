@@ -6,7 +6,7 @@ import { IField } from "~/Component/Common/Form/common"
 import { Card, Form } from "antd"
 import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 
 export const FormModal = (props: {
   title: string
@@ -49,7 +49,7 @@ export const FormModal = (props: {
   return (
     <Modal width="1000px" zIndex={zIndex.defaultModal}>
       <Card title={props.title} loading={loading}>
-        <CustomForm
+        <MetaDrivenForm
           meta={props.meta}
           closeModal={props.closeModal}
           initialFormValue={props.initialFormValue}

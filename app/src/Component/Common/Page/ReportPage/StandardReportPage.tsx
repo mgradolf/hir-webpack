@@ -1,7 +1,7 @@
 import { Row, Typography } from "antd"
 import React, { useState } from "react"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -54,7 +54,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
-          <CustomForm
+          <MetaDrivenForm
             meta={props.meta}
             initialFormValue={props.initialFormValue}
             defaultFormValue={props.defaultFormValue}

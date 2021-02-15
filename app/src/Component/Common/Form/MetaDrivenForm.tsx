@@ -45,7 +45,7 @@ interface IFilterColumnProps {
   errorMessages?: Array<ISimplifiedApiErrorMessage>
 }
 
-export function CustomForm({
+export function MetaDrivenForm({
   showClearbutton = true,
   applyButtonLabel = "Search",
   clearButtonLabel = "Clear",

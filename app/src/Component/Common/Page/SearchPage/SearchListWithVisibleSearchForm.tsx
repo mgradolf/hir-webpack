@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Button, Col, Row, Typography } from "antd"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
@@ -40,7 +40,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
         {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
       </Row>
       {props.meta && (
-        <CustomForm
+        <MetaDrivenForm
           meta={props.meta}
           stopProducingQueryParams={props.stopProducingQueryParams}
           initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}

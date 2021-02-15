@@ -1,6 +1,6 @@
 import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
@@ -52,7 +52,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         {props.blockComponents && props.blockComponents.map((x, i) => <x.component {...x.props} rowData={rowData} />)}
       </Row>
       {props.searchMeta && (
-        <CustomForm
+        <MetaDrivenForm
           meta={props.searchMeta}
           initialFormValue={searchParams}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {

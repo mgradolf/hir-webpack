@@ -1,7 +1,7 @@
 import { TableRowSelection } from "antd/lib/table/interface"
 import React, { useState } from "react"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { NUMBER } from "~/Component/Common/Form/common"
 import { Button } from "antd"
 import NoShowDeleteModal from "~/Component/Section/NoShowDeleteModal"
@@ -38,7 +38,7 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
         selectedRows={selectedRows}
         SectionID={props.SectionID}
       />
-      <CustomForm
+      <MetaDrivenForm
         meta={[
           {
             label: "Order ID",
