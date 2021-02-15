@@ -1,9 +1,9 @@
 import React from "react"
+import { Button, Dropdown, Menu } from "antd"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { getProfileMeta } from "~/TableSearchMeta/Person/PersonDetailsMeta/Profile"
 import { getStudentMeta } from "~/TableSearchMeta/Person/PersonDetailsMeta/Student"
 import { getInstructorMeta } from "~/TableSearchMeta/Person/PersonDetailsMeta/Instructor"
-import { Button, Dropdown, Menu } from "antd"
 import { pushStudent } from "~/ApiServices/Service/StudentService"
 import {
   CURRENT_ORG_ID,
