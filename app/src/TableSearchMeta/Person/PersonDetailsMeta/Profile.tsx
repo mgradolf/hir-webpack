@@ -1,6 +1,5 @@
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import React from "react"
 import { Button } from "antd"
-import React, { useState } from "react"
 import {
   createPersonEducationHistory,
   deletePersonEmail,
@@ -9,82 +8,31 @@ import {
   pushPersonEmail,
   pushPersonPhone
 } from "~/ApiServices/Service/PersonService"
-import { IField } from "~/Component/Common/Form/common"
 import { FormModal } from "~/Component/Common/Form/FormModal"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
-import PersonAddressFormModal from "~/Component/Person/PersonAddressFormModal"
-import PersonBasicFormModal from "~/Component/Person/PersonBasicFormModal"
+import { AddressFormModalOpenButton } from "~/Component/Person/Forms/PersonAddressFormModal"
+import { BasicFormModalOpenButton } from "~/Component/Person/Forms/PersonBasicFormModal"
 import PersonLoginAction from "~/Component/Person/PersonLoginAction"
 import { getOrderTableColumns } from "~/TableSearchMeta/Order/OrderTableColumns"
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getPaymentTableColumns } from "~/TableSearchMeta/Payment/PaymentTableColumns"
 import { getTransactionFinancialTableColumns } from "~/TableSearchMeta/TransactionFinancial/TransactionFinancialTableColumns"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
-import { PersonCharacterFormMeta } from "~/TableSearchMeta/Person/Basic/PersonCharacterFormMeta"
-import { PersonDegreeFormMeta } from "~/TableSearchMeta/Person/PersonDegreeFormMeta"
 import { getPersonDisabilitiesTableColumns } from "~/TableSearchMeta/Person/PersonDisabilitiesTableColumns"
 import { getPersonEduTableColumns } from "~/TableSearchMeta/Person/PersonEduTableColumns"
-import { PersonEmailFormMeta } from "~/TableSearchMeta/Person/EmailAddress/PersonEmailFormMeta"
-import { PersonEmailUpdateFormMeta } from "~/TableSearchMeta/Person/EmailAddress/PersonEmailUpdateFormMeta"
-import { PersonGovFormMeta } from "~/TableSearchMeta/Person/Basic/PersonGovFormMeta"
-import { PersonPhoneFormMeta } from "~/TableSearchMeta/Person/Telephone/PersonPhoneFormMeta"
-import { PersonTypeFormMeta } from "~/TableSearchMeta/Person/Basic/PersonTypeFormMeta"
 import { getPersonAccountTableColumns } from "~/TableSearchMeta/Person/PersonAccountTableColumns"
-import { PersonPhoneUpdateFormMeta } from "~/TableSearchMeta/Person/Telephone/PersonPhoneUpdateFormMeta"
 
-const BasicFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      {setShowModal && (
-        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
-          Edit
-        </Button>
-      )}
-      {showModal && <PersonBasicFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
-    </>
-  )
-}
-
-const AddressFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          Add
-        </Button>
-      )}
-      {showModal && <PersonAddressFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
-    </>
-  )
-}
-
-const EducationHistoryFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          + Add Degree
-        </Button>
-      )}
-      {showModal && (
-        <FormModal
-          meta={PersonDegreeFormMeta}
-          title={"Add Degree"}
-          initialFormValue={props.personData}
-          defaultFormValue={{ PersonID: props.personData.PersonID }}
-          formSubmitApi={createPersonEducationHistory}
-          refreshEventAfterFormSubmission={"REFRESH_EDUCATION_HISTORY_TAB"}
-          closeModal={() => setShowModal(false)}
-        />
-      )}
-    </>
-  )
-}
+import { PersonDegreeFormMeta } from "~/Component/Person/FormMeta/PersonDegreeFormMeta"
+import { PersonCharacterFormMeta } from "~/Component/Person/FormMeta/Basic/PersonCharacterFormMeta"
+import { PersonEmailFormMeta } from "~/Component/Person/FormMeta/EmailAddress/PersonEmailFormMeta"
+import { PersonEmailUpdateFormMeta } from "~/Component/Person/FormMeta/EmailAddress/PersonEmailUpdateFormMeta"
+import { PersonGovFormMeta } from "~/Component/Person/FormMeta/Basic/PersonGovFormMeta"
+import { PersonPhoneFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneFormMeta"
+import { PersonTypeFormMeta } from "~/Component/Person/FormMeta/Basic/PersonTypeFormMeta"
+import { PersonPhoneUpdateFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneUpdateFormMeta"
+import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
 
 const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
   return (
@@ -94,68 +42,8 @@ const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]
   )
 }
 
-const UpdateFormModalOpenButton = (props: {
-  personData: { [key: string]: any }
-  title: string
-  metaFile: IField[]
-  submitAPI: (Params: any) => Promise<IApiResponse>
-}) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      {setShowModal && (
-        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
-          Edit
-        </Button>
-      )}
-      {showModal && (
-        <FormModal
-          meta={props.metaFile}
-          title={props.title}
-          initialFormValue={props.personData}
-          defaultFormValue={{ PersonID: props.personData.PersonID }}
-          formSubmitApi={props.submitAPI}
-          refreshEventAfterFormSubmission={REFRESH_PAGE}
-          closeModal={() => setShowModal(false)}
-        ></FormModal>
-      )}
-    </>
-  )
-}
-
-const ContactFormModalOpenButton = (props: {
-  metaFileName: IField[]
-  title: string
-  PersonID: number
-  initialData?: { [key: string]: any }
-  submitAPI: (Params: any) => Promise<IApiResponse>
-}) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          Add
-        </Button>
-      )}
-      {showModal && (
-        <FormModal
-          meta={props.metaFileName}
-          title={props.title}
-          initialFormValue={props.initialData ? props.initialData : { IsConfidential: false }}
-          defaultFormValue={{ PersonID: props.PersonID }}
-          formSubmitApi={props.submitAPI}
-          refreshEventAfterFormSubmission={REFRESH_PAGE}
-          closeModal={() => setShowModal(false)}
-        ></FormModal>
-      )}
-    </>
-  )
-}
-
 export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
-
   const personalInfo: CardContainer = {
     title: "Basic Info",
     cardActions: [<BasicFormModalOpenButton personData={person} />],
@@ -172,11 +60,14 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
   const personalInfo1: CardContainer = {
     title: "Gov Info",
     cardActions: [
-      <UpdateFormModalOpenButton
-        title={"Update Person Gov Info"}
-        metaFile={PersonGovFormMeta}
-        personData={person}
-        submitAPI={pushPerson}
+      <FormModalOpenButton
+        formTitle="Update Person Gov Info"
+        formMeta={PersonGovFormMeta}
+        formSubmitApi={pushPerson}
+        initialFormValue={person}
+        buttonLabel="Edit"
+        defaultFormValue={{ PersonID: person.PersonID }}
+        refreshEventName={REFRESH_PAGE}
       />
     ],
     contents: [
@@ -188,11 +79,14 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
   const personalInfo2: CardContainer = {
     title: "General Info",
     cardActions: [
-      <UpdateFormModalOpenButton
-        title={"Update Person General Info"}
-        metaFile={PersonTypeFormMeta}
-        personData={person}
-        submitAPI={pushPerson}
+      <FormModalOpenButton
+        formTitle="Update Person General Info"
+        formMeta={PersonTypeFormMeta}
+        formSubmitApi={pushPerson}
+        initialFormValue={person}
+        buttonLabel="Edit"
+        defaultFormValue={{ PersonID: person.PersonID }}
+        refreshEventName={REFRESH_PAGE}
       />
     ],
     contents: [
@@ -208,11 +102,14 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
   const personalInfo3: CardContainer = {
     title: "Characteristics Info",
     cardActions: [
-      <UpdateFormModalOpenButton
-        title={"Update Person Charanteritics Info"}
-        metaFile={PersonCharacterFormMeta}
-        personData={person}
-        submitAPI={pushPerson}
+      <FormModalOpenButton
+        formTitle="Update Person Charanteritics Info"
+        formMeta={PersonCharacterFormMeta}
+        formSubmitApi={pushPerson}
+        initialFormValue={person}
+        buttonLabel="Edit"
+        defaultFormValue={{ PersonID: person.PersonID }}
+        refreshEventName={REFRESH_PAGE}
       />
     ],
     contents: [
@@ -259,11 +156,13 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
   const phone: CardContainer = {
     title: "Telephone",
     cardActions: [
-      <ContactFormModalOpenButton
-        title={"Add Phone"}
-        metaFileName={PersonPhoneFormMeta}
-        PersonID={person.PersonID}
-        submitAPI={pushPersonPhone}
+      <FormModalOpenButton
+        formTitle="Add Phone"
+        formMeta={PersonPhoneFormMeta}
+        formSubmitApi={pushPersonPhone}
+        buttonLabel="Add"
+        defaultFormValue={{ PersonID: person.PersonID }}
+        refreshEventName={REFRESH_PAGE}
       />
     ],
     contents: Array.isArray(person.Telephones)
@@ -300,11 +199,13 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
   const email: CardContainer = {
     title: "Email",
     cardActions: [
-      <ContactFormModalOpenButton
-        title={"Add Email Address"}
-        metaFileName={PersonEmailFormMeta}
-        PersonID={person.PersonID}
-        submitAPI={pushPersonEmail}
+      <FormModalOpenButton
+        formTitle="Add Email Address"
+        formMeta={PersonEmailFormMeta}
+        formSubmitApi={pushPersonEmail}
+        buttonLabel="Add"
+        defaultFormValue={{ PersonID: person.PersonID }}
+        refreshEventName={REFRESH_PAGE}
       />
     ],
     contents: Array.isArray(person.Emails)
@@ -380,7 +281,21 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
     tabTitle: "Education History",
     tabType: "table",
     tabMeta: {
-      blocks: [<EducationHistoryFormModalOpenButton personData={person} />],
+      // blocks: [<EducationHistoryFormModalOpenButton personData={person} />],
+      blocks: [
+        <FormModalOpenButton
+          formTitle="Add Degree"
+          buttonLabel="Add Degree"
+          buttonProps={{
+            type: "primary"
+          }}
+          initialFormValue={person}
+          defaultFormValue={{ PersonID: person.PersonID }}
+          formSubmitApi={createPersonEducationHistory}
+          formMeta={PersonDegreeFormMeta}
+          refreshEventName={"REFRESH_EDUCATION_HISTORY_TAB"}
+        />
+      ],
       tableProps: {
         pagination: false,
         ...getPersonEduTableColumns(),

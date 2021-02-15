@@ -4,7 +4,7 @@ import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableCo
 import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import { Button } from "antd"
 import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonFormMeta } from "~/TableSearchMeta/Person/Basic/PersonFormMeta"
+import { PersonFormMeta } from "~/Component/Person/FormMeta/Basic/PersonFormMeta"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)

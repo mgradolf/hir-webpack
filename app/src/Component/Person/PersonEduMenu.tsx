@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button, Menu } from "antd"
 import { eventBus } from "~/utils/EventBus"
 import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonDegreeFormMeta } from "~/TableSearchMeta/Person/PersonDegreeFormMeta"
+import { PersonDegreeFormMeta } from "~/Component/Person/FormMeta/PersonDegreeFormMeta"
 import { removePersonEducationHistory, updatePersonEducationHistory } from "~/ApiServices/Service/PersonService"
 
 interface IPersonEduMenu {

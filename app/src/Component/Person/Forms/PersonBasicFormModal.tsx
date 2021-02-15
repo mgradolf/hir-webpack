@@ -1,8 +1,8 @@
-import { Form } from "antd"
+import { Button, Form } from "antd"
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { IPersonBasicFieldNames } from "~/Component/Person/Interfaces"
-import PersonBasicForm from "~/Component/Person/CreateEdit/PersonBasicForm"
+import PersonBasicForm from "~/Component/Person/Forms/CreateEdit/PersonBasicForm"
 
 interface IPersonBasicFormModalProps {
   initialData: { [key: string]: any }
@@ -20,7 +20,7 @@ const fieldNames: IPersonBasicFieldNames = {
   OtherName: "OtherName"
 }
 
-export default function PersonBasicFormModal(props: IPersonBasicFormModalProps) {
+function PersonBasicFormModal(props: IPersonBasicFormModalProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>(props.initialData)
@@ -35,5 +35,19 @@ export default function PersonBasicFormModal(props: IPersonBasicFormModalProps) 
         closeModal={props.closeModal}
       />
     </Modal>
+  )
+}
+
+export const BasicFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
+          Edit
+        </Button>
+      )}
+      {showModal && <PersonBasicFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
+    </>
   )
 }

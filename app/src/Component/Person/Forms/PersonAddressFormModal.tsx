@@ -1,8 +1,8 @@
-import { Form } from "antd"
+import { Button, Form } from "antd"
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { IPersonAddressFieldNames } from "~/Component/Person/Interfaces"
-import PersonAddressForm from "~/Component/Person/CreateEdit/PersonAddressForm"
+import PersonAddressForm from "~/Component/Person/Forms/CreateEdit/PersonAddressForm"
 
 interface IPersonAddressFormModalProps {
   initialData: { [key: string]: any }
@@ -23,7 +23,7 @@ const fieldNames: IPersonAddressFieldNames = {
   IsConfidential: "IsConfidential"
 }
 
-export default function PersonAddressFormModal(props: IPersonAddressFormModalProps) {
+function PersonAddressFormModal(props: IPersonAddressFormModalProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>(props.initialData)
@@ -38,5 +38,19 @@ export default function PersonAddressFormModal(props: IPersonAddressFormModalPro
         closeModal={props.closeModal}
       />
     </Modal>
+  )
+}
+
+export const AddressFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          Add
+        </Button>
+      )}
+      {showModal && <PersonAddressFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
+    </>
   )
 }

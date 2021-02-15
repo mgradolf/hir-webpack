@@ -4,7 +4,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getInstructorTableColumns } from "~/TableSearchMeta/Instructor/InstructorTableColumns"
 import { Button } from "antd"
 import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonFormMeta } from "~/TableSearchMeta/Person/Basic/PersonFormMeta"
+import { PersonFormMeta } from "~/Component/Person/FormMeta/Basic/PersonFormMeta"
 
 export default function InstructorPage() {
   const [showModal, setShowModal] = useState(false)
