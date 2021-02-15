@@ -1,5 +1,5 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { Button } from "antd"
+import { Button, Row } from "antd"
 import React, { useState } from "react"
 import {
   createPersonEducationHistory,
@@ -34,6 +34,7 @@ import { PersonTypeFormMeta } from "~/FormMeta/Person/Basic/PersonTypeFormMeta"
 import { getPersonAccountTableColumns } from "~/FormMeta/Person/PersonAccountTableColumns"
 import { PersonPhoneUpdateFormMeta } from "~/FormMeta/Person/Telephone/PersonPhoneUpdateFormMeta"
 import PersonAccountFormModal from "~/Component/Person/PersonAccountFormModal"
+import PersonAccountAction from "~/Component/Person/PersonAccountAction"
 
 const BasicFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -165,7 +166,7 @@ const setShowModal = () => {
   console.log("modal set false!")
 }
 
-export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[] => {
+export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
 
   const personalInfo: CardContainer = {
@@ -217,6 +218,7 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
       { label: "Religion", value: person.ReligionTypeName, render: undefined }
     ]
   }
+
   const personalInfo3: CardContainer = {
     title: "Characteristics Info",
     cardActions: [
@@ -239,8 +241,24 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
     ]
   }
 
+  const personalInfo4: CardContainer = {
+    title: "Purchaser Account",
+    cardActions: [<PersonAccountAction initialData={account} />],
+    contents: [
+      {
+        label: "Name",
+        value: account?.AccountName,
+        render: undefined
+      },
+      { label: "Email Address", value: account?.EmailAddress, render: renderEmail }
+    ]
+  }
+
   const summaryMeta: IDetailsSummary = {
-    summary: [{ groupedContents: [personalInfo, personalInfo1] }, { groupedContents: [personalInfo2, personalInfo3] }]
+    summary: [
+      { groupedContents: [personalInfo, personalInfo1, personalInfo4] },
+      { groupedContents: [personalInfo2, personalInfo3] }
+    ]
   }
   tabMetas.push({ tabTitle: "Demographic", tabType: "summary", tabMeta: summaryMeta })
 

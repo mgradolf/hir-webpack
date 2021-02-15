@@ -22,12 +22,6 @@ const getMenu = (personInfos: { [key: string]: any }) => {
         </Button>
       </Menu.Item>
       <Menu.Item>
-        <Button type="link">Create an account</Button>
-      </Menu.Item>
-      <Menu.Item>
-        <Button type="link">Link to an account</Button>
-      </Menu.Item>
-      <Menu.Item>
         <Button type="link">Forget me request</Button>
       </Menu.Item>
       <Menu.Item>
@@ -42,6 +36,7 @@ const getMenu = (personInfos: { [key: string]: any }) => {
 export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDetailsMeta => {
   const tabMetas: IDetailsTabMeta[] = []
   const person: { [key: string]: any } = personInfos[0]
+  const account: { [key: string]: any } = personInfos[1].Account
   const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
   const student: { [key: string]: any } | undefined = personInfos[1].Student
   const disabilities: { [key: string]: any } | undefined = personInfos[1].PersonDisabilites
@@ -50,7 +45,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
     tabTitle: "Profile",
     tabType: "table",
     tabMeta: [],
-    multipleTabMetas: getProfileMeta(person, disabilities),
+    multipleTabMetas: getProfileMeta(person, disabilities, account),
     actions: [
       <Dropdown.Button key="Person_Actions" overlay={getMenu(personInfos)} type="primary">
         ...Actions

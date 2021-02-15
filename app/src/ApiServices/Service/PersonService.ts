@@ -19,7 +19,7 @@ export function getPersonDetails(
   return PersonService[config.Actions.getPersonDetails](Params, Headers).then((x) => {
     if (x.success && Array.isArray(x.data)) {
       if (x.data[0].Ethnicity) {
-        let ethnicityIDs: Array<any> = []
+        const ethnicityIDs: Array<any> = []
         x.data[0].Ethnicity.map((ethnicity: any) => {
           ethnicityIDs.push(ethnicity.EthnicityTypeID)
           return ethnicityIDs

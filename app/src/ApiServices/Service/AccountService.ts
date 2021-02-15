@@ -28,6 +28,10 @@ export function saveAccountRelation(
   return AccountService[config.Actions.saveAccountRelation](Params, Headers)
 }
 
+export function pushAccount(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return AccountService[config.Actions.pushAccount](Params, Headers)
+}
+
 export function pushAccountAffiliation(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

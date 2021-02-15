@@ -249,10 +249,10 @@ const SearchFormFields = (props: {
           return !props.showLess
         })
         .map((field, i) => {
-          let lg = props.isHorizontal ? 24 : 12
-          let md = props.isHorizontal ? 24 : 12
-          let sm = props.isHorizontal ? 24 : 12
-          let xs = 24
+          const lg = props.isHorizontal ? 24 : 12
+          const md = props.isHorizontal ? 24 : 12
+          const sm = props.isHorizontal ? 24 : 12
+          const xs = 24
 
           switch (field.inputType) {
             case TEXT:
