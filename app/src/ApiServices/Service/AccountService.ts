@@ -21,9 +21,34 @@ export function saveAccountAffiliation(
   return AccountService[config.Actions.saveAccountAffiliation](Params, Headers)
 }
 
+export function saveAccountRelation(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountService[config.Actions.saveAccountRelation](Params, Headers)
+}
+
+export function pushAccount(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return AccountService[config.Actions.pushAccount](Params, Headers)
+}
+
 export function pushAccountAffiliation(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
   return AccountService[config.Actions.pushAccountAffiliation](Params, Headers)
+}
+
+export function deleteAccountAffiliation(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountService[config.Actions.deleteAccountAffiliation](Params, Headers)
+}
+
+export function getOrCreateAccountForPurchaser(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountService[config.Actions.getOrCreateAccountForPurchaser](Params, Headers)
 }

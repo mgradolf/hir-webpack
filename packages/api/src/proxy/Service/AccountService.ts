@@ -8,7 +8,11 @@ export const config = {
     getAccountAffiliation: "getAccountAffiliation",
     getAccountByPurchaserID: "getAccountByPurchaserID",
     saveAccountAffiliation: "saveAccountAffiliation",
-    pushAccountAffiliation: "pushAccountAffiliation"
+    saveAccountRelation: "saveAccountRelation",
+    pushAccount: "pushAccount",
+    pushAccountAffiliation: "pushAccountAffiliation",
+    deleteAccountAffiliation: "deleteAccountAffiliation",
+    getOrCreateAccountForPurchaser: "getOrCreateAccountForPurchaser"
   }
 }
 

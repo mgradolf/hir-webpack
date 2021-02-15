@@ -56,6 +56,8 @@ export interface IField {
   rules?: Rule[]
   validateStatus?: ValidateStatus
   help?: string
+  labelColSpan?: number
+  wrapperColSpan?: number
 }
 
 export interface IGeneratedField extends Omit<IField, "inputType"> {
@@ -72,7 +74,7 @@ export function SearchFieldWrapper(props: IGeneratedField & { children?: React.R
       colon={false}
       label={props.label}
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 24 }}
+      wrapperCol={{ span: 14 }}
       {...(props.fieldName !== "" && { name: props.fieldName })}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}

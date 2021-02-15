@@ -14,6 +14,7 @@ import "~/Sass/global/index.scss"
 
 interface IPersonFormProps {
   editMode: boolean
+  title: string
   formInstance: FormInstance
   fieldNames: IPersonFieldNames
   initialFormValue: { [key: string]: any }
@@ -22,7 +23,8 @@ interface IPersonFormProps {
 }
 
 const layout = {
-  labelCol: { span: 8 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 const rolesOption = [
@@ -110,7 +112,7 @@ export default function PersonForm(props: IPersonFormProps) {
 
   return (
     <Card
-      title={props.editMode ? `Edit Person` : "Create New Person"}
+      title={props.editMode ? `Edit ${props.title}` : `Create New ${props.title}`}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>
@@ -141,7 +143,6 @@ export default function PersonForm(props: IPersonFormProps) {
             <FormMultipleCheckbox
               label={"Roles"}
               fieldName={props.fieldNames.Roles}
-              // inputType={MULTI_SELECT_CHECKBOX}
               formInstance={props.formInstance}
               options={rolesOption}
             />

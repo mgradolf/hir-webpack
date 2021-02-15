@@ -38,3 +38,14 @@ export interface IPersonAddressFieldNames {
   CountryCodeID: any
   IsConfidential: any
 }
+
+export interface IPersonAccountFieldNames {
+  AccountAffiliationID: any
+  AccountID: any
+  AccountName: any
+  PersonID: any
+  StatusID: any
+  AffiliationRoleTypeID: any
+  IsContactShared: any
+  AsnwerList: any
+}

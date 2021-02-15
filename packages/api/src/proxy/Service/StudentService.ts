@@ -5,6 +5,10 @@ export const config = {
   Service: "studentService",
   Module: "hir",
   Actions: {
+    pushStudent: "pushStudent",
+    removeStudent: "removeStudent",
+    createUpdateStudentHold: "createUpdateStudentHold",
+    releaseStudentHold: "releaseStudentHold",
     searchStudentSchedule: "searchStudentSchedule",
     searchOnlineClasses: "searchOnlineClasses"
   }

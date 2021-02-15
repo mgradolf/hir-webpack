@@ -1,6 +1,20 @@
 import InstructorService, { config } from "@packages/api/lib/proxy/Service/InstructorService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function pushInstructor(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return InstructorService[config.Actions.pushInstructor](Params, Headers)
+}
+
+export function removeInstructor(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return InstructorService[config.Actions.removeInstructor](Params, Headers)
+}
+
 export function addInstructorToOffering(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

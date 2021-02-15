@@ -8,6 +8,7 @@ export const config = {
     findAccountForLookUp: "findAccountForLookUp",
     findAccountAffiliation: "findAccountAffiliation",
     findAccount: "findAccount",
+    getQuestionAnswers: "getQuestionAnswers",
     getAffiliationRoleTypes: "getAffiliationRoleTypes",
     getTaggedQuestionsByAffiliationRoleType: "getTaggedQuestionsByAffiliationRoleType"
   }

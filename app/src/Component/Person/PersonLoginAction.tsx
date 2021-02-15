@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import { Button, Dropdown, Menu, Row } from "antd"
 import Notification from "~/utils/notification"
 import { INVITE_TO_SETUP_WEB_LOGIN, INVITE_TO_RESET_PASSWORD, UNLOCK_WEB_LOGIN } from "~/utils/Constants"
-import { FormModal } from "~/Component/Common/Form/FormModal"
+// import { FormModal } from "~/Component/Common/Form/FormModal"
+import { FormModal } from "~/Component/Common/Form/FormModal2"
 import { PersonLoginFormMeta } from "~/Component/Person/FormMeta/PersonLoginFormMeta"
 import {
   sendPasswordResetEmail,
@@ -19,6 +20,7 @@ interface IPersonLoginActionProp {
 export default function PersonLoginAction(props: IPersonLoginActionProp) {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const isLogin: boolean = props.initialData !== null
 
   const inviteToSetupWebLogin = async (PersonID: number) => {
     if (props.initialData) {
@@ -76,7 +78,12 @@ export default function PersonLoginAction(props: IPersonLoginActionProp) {
           </Button>
         </Menu.Item>
         <Menu.Item>
-          <Button type="link" loading={loading} onClick={() => unlockWebLogin(dataInfo.PersonID)}>
+          <Button
+            disabled={props.initialData !== null ? !props.initialData.LockedUntil : true}
+            type="link"
+            loading={loading}
+            onClick={() => unlockWebLogin(dataInfo.PersonID)}
+          >
             Unlock
           </Button>
         </Menu.Item>
@@ -87,13 +94,19 @@ export default function PersonLoginAction(props: IPersonLoginActionProp) {
   return (
     <Row>
       {setShowModal && (
-        <Button type="ghost" style={{ marginRight: "10px" }} onClick={() => setShowModal && setShowModal(true)}>
+        <Button
+          disabled={!isLogin}
+          type="ghost"
+          style={{ marginRight: "10px" }}
+          onClick={() => setShowModal && setShowModal(true)}
+        >
           Edit
         </Button>
       )}
       {showModal && (
         <FormModal
           meta={PersonLoginFormMeta}
+          isHorizontal={true}
           title={"Update Person Login Info"}
           initialFormValue={props.initialData}
           defaultFormValue={{ PersonID: props.initialData.PersonID }}
@@ -102,7 +115,7 @@ export default function PersonLoginAction(props: IPersonLoginActionProp) {
           closeModal={() => setShowModal(false)}
         ></FormModal>
       )}
-      <Dropdown.Button overlay={getMenu(props.initialData)} type="primary">
+      <Dropdown.Button disabled={!isLogin} overlay={getMenu(props.initialData)} type="primary">
         Actions
       </Dropdown.Button>
     </Row>

@@ -1,10 +1,9 @@
 import React, { useState } from "react"
+import { Button } from "antd"
 import { InstructorSearchMeta } from "~/TableSearchMeta/Instructor/InstructorSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getInstructorTableColumns } from "~/TableSearchMeta/Instructor/InstructorTableColumns"
-import { Button } from "antd"
-import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonFormMeta } from "~/Component/Person/FormMeta/Basic/PersonFormMeta"
+import InstructorFormModal from "~/Component/Instructor/InstructorFormModal"
 
 export default function InstructorPage() {
   const [showModal, setShowModal] = useState(false)
@@ -15,17 +14,7 @@ export default function InstructorPage() {
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
             + Create Instructor
           </Button>
-          {showModal && (
-            <FormModal
-              meta={PersonFormMeta}
-              title={"Create Instructor"}
-              initialFormValue={{ RoleName: ["2"] }}
-              formSubmitApi={(params: any) => {
-                return Promise.resolve({ code: 200, data: [], error: false, success: true })
-              }}
-              closeModal={() => setShowModal(false)}
-            ></FormModal>
-          )}
+          {showModal && <InstructorFormModal closeModal={() => setShowModal(false)} />}
         </>
       ]}
       title="Manage Instructors"

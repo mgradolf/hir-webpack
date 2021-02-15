@@ -12,14 +12,45 @@ import { getInstructorScheduleTableColumns } from "~/TableSearchMeta/InstructorS
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
 import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
-import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE } from "~/utils/EventBus"
+import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
+import { FormModal } from "~/Component/Common/Form/FormModal2"
+import { pushInstructor } from "~/ApiServices/Service/InstructorService"
+import { InstructorFormMeta } from "~/Component/Instructor/InstructorFormMeta"
+
+const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: any } }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
+          Edit
+        </Button>
+      )}
+      {showModal && (
+        <FormModal
+          meta={InstructorFormMeta}
+          title={"Update Instructor"}
+          initialFormValue={props.facultyData}
+          defaultFormValue={{
+            PersonID: props.facultyData.PersonID,
+            FacultyID: props.facultyData.FacultyID,
+            oca: props.facultyData.oca
+          }}
+          formSubmitApi={pushInstructor}
+          refreshEventAfterFormSubmission={REFRESH_PAGE}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
+  )
+}
 
 export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
 
   const instructorInfo: CardContainer = {
     title: "Instructor Info",
-    cardActions: [<Button type="ghost">Edit</Button>],
+    cardActions: [<InstructorFormModalOpenButton facultyData={instructor} />],
     contents: [
       { label: "Serial Num", value: instructor?.FacultySerialNum },
       { label: "Organization", value: instructor?.OrganizationName },

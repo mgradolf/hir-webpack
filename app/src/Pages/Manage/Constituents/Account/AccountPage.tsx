@@ -1,10 +1,9 @@
 import React, { useState } from "react"
+import { Button } from "antd"
 import { AccountSearchMeta } from "~/TableSearchMeta/Account/AccountSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getAccountTableColumns } from "~/TableSearchMeta/Account/AccountTableColumns"
-import { Button } from "antd"
-import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonFormMeta } from "~/Component/Person/FormMeta/Basic/PersonFormMeta"
+import AccountFormModal from "~/Component/Account/AccountFormModal"
 
 export default function AccountPage() {
   const [showModal, setShowModal] = useState(false)
@@ -15,17 +14,7 @@ export default function AccountPage() {
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
             + Create Account
           </Button>
-          {showModal && (
-            <FormModal
-              meta={PersonFormMeta}
-              title={"Create Account"}
-              initialFormValue={{ RoleName: ["3"] }}
-              formSubmitApi={(params: any) => {
-                return Promise.resolve({ code: 200, data: [], error: false, success: true })
-              }}
-              closeModal={() => setShowModal(false)}
-            ></FormModal>
-          )}
+          {showModal && <AccountFormModal closeModal={() => setShowModal(false)} />}
         </>
       ]}
       title="Manage Accounts"

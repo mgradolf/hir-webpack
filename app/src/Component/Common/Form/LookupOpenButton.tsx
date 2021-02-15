@@ -68,8 +68,8 @@ export function LookupOpenButton(props: ILookupOpenButton) {
       </Form.Item>
       <Form.Item
         colon={false}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 24 }}
+        labelCol={{ span: props.labelColSpan ? props.labelColSpan : 8 }}
+        wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 24 }}
         label={props.label}
         validateStatus={props.validateStatus}
         help={props.help}
