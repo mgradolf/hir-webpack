@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
+import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
 import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
-import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
+import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
 
 export function OfferingPage() {
   const [showModal, setShowModal] = useState(false)

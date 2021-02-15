@@ -1,8 +1,8 @@
 import * as React from "react"
 import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getRequestTableColumns } from "~/FormMeta/Request/RequestTableColumns"
-import { RequestSearchMeta } from "~/FormMeta/Request/RequestSearchMeta"
+import { getRequestTableColumns } from "~/TableSearchMeta/Request/RequestTableColumns"
+import { RequestSearchMeta } from "~/TableSearchMeta/Request/RequestSearchMeta"
 
 export function RequestLookup(props: IGeneratedField) {
   console.log("account ", props)

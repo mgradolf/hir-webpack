@@ -1,6 +1,6 @@
 import * as React from "react"
-import { InstructorSearchMeta } from "~/FormMeta/Instructor/InstructorSearchMeta"
-import { getInstructorTableColumns } from "~/FormMeta/Instructor/InstructorTableColumns"
+import { InstructorSearchMeta } from "~/TableSearchMeta/Instructor/InstructorSearchMeta"
+import { getInstructorTableColumns } from "~/TableSearchMeta/Instructor/InstructorTableColumns"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal"
 
 interface IInstructorProps {

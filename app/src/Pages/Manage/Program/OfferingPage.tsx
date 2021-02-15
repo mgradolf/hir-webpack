@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ProgramOfferingSearchMeta } from "~/FormMeta/ProgramOffering/ProgramOfferingSearchMeta"
-import { getProgramOfferingTableColumns } from "~/FormMeta/ProgramOffering/ProgramOfferingTableColumns"
+import { ProgramOfferingSearchMeta } from "~/TableSearchMeta/ProgramOffering/ProgramOfferingSearchMeta"
+import { getProgramOfferingTableColumns } from "~/TableSearchMeta/ProgramOffering/ProgramOfferingTableColumns"
 
 export default function () {
   return (

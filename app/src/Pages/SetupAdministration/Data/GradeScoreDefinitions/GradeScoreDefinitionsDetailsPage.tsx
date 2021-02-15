@@ -1,8 +1,8 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getGradeScoreDefinitionDetailsMeta } from "~/FormMeta/GradeScoreDefinition/GradeScoreDefinitionDetailsMeta"
-import { getGradeScoreDefinitionTableColumns } from "~/FormMeta/GradeScoreDefinition/GradeScoreDefinitionTableColumns"
+import { getGradeScoreDefinitionDetailsMeta } from "~/TableSearchMeta/GradeScoreDefinition/GradeScoreDefinitionDetailsMeta"
+import { getGradeScoreDefinitionTableColumns } from "~/TableSearchMeta/GradeScoreDefinition/GradeScoreDefinitionTableColumns"
 
 export default function CertificatesDetailsPage(props: RouteComponentProps<{ GradeScoreDefinitionID?: string }>) {
   const GradeScoreDefinitionID = Number(props?.match?.params?.GradeScoreDefinitionID)

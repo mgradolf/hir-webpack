@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchProgramOffering } from "~/ApiServices/BizApi/program/programIF"
 import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
-import { getProgramOfferingDetailsMeta } from "~/FormMeta/ProgramOffering/ProgramOfferingDetailsMeta"
+import { getProgramOfferingDetailsMeta } from "~/TableSearchMeta/ProgramOffering/ProgramOfferingDetailsMeta"
 
 export default function (props: RouteComponentProps<{ programOfferingID?: string }>) {
   const programOfferingID = Number(props?.match?.params?.programOfferingID)

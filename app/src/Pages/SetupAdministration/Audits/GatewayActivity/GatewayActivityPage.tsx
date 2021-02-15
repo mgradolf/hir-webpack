@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ActivityPaymentGatewaySearchMeta } from "~/FormMeta/ActivityPaymentGateway/ActivityPaymentGatewaySearchMeta"
-import { getActivityPaymentGatewayTableColumns } from "~/FormMeta/ActivityPaymentGateway/ActivityPaymentGatewayTableColumns"
+import { ActivityPaymentGatewaySearchMeta } from "~/TableSearchMeta/ActivityPaymentGateway/ActivityPaymentGatewaySearchMeta"
+import { getActivityPaymentGatewayTableColumns } from "~/TableSearchMeta/ActivityPaymentGateway/ActivityPaymentGatewayTableColumns"
 
 export default function GatewayActivityPage() {
   return (

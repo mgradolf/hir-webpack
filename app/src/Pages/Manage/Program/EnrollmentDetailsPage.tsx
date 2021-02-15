@@ -3,7 +3,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchEnrollment, trackingProgress } from "~/ApiServices/BizApi/program/programEnrollmentIF"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getProgramEnrollmentDetailsMeta } from "~/FormMeta/ProgramEnrollment/ProgramEnrollmentDetailsMeta"
+import { getProgramEnrollmentDetailsMeta } from "~/TableSearchMeta/ProgramEnrollment/ProgramEnrollmentDetailsMeta"
 
 export default function (props: RouteComponentProps<{ programEnrollmentID?: string }>) {
   const programEnrollmentID = Number(props?.match?.params?.programEnrollmentID)

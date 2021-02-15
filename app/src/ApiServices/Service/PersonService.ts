@@ -3,7 +3,7 @@ import PersonEmailService, { emailConfig } from "@packages/api/lib/proxy/Service
 import PersonPhoneService, { phoneConfig } from "@packages/api/lib/proxy/Service/PersonPhoneService"
 import PersonAddressService, { addressConfig } from "@packages/api/lib/proxy/Service/PersonAddressService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { getDisabilityType } from "./RefLookupService"
+import { getDisabilityType } from "~/ApiServices/Service/RefLookupService"
 
 export function createPersonRecordInRoles(
   Params: { [key: string]: any },
@@ -19,7 +19,7 @@ export function getPersonDetails(
   return PersonService[config.Actions.getPersonDetails](Params, Headers).then((x) => {
     if (x.success && Array.isArray(x.data)) {
       if (x.data[0].Ethnicity) {
-        let ethnicityIDs: Array<any> = []
+        const ethnicityIDs: Array<any> = []
         x.data[0].Ethnicity.map((ethnicity: any) => {
           ethnicityIDs.push(ethnicity.EthnicityTypeID)
           return ethnicityIDs

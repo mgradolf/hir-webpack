@@ -1,6 +1,6 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getStudentEmailTableColumns } from "~/FormMeta/StudentEmail/StudentEmailTableColumns"
+import { getStudentEmailTableColumns } from "~/TableSearchMeta/StudentEmail/StudentEmailTableColumns"
 
 export default function StudentEmailNotificationPage() {
   return (

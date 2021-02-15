@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
-import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
+import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
 import StandardPage from "~/Component/Common/Page/StandardPage"
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 

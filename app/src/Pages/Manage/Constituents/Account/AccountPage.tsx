@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { AccountSearchMeta } from "~/FormMeta/Account/AccountSearchMeta"
+import { AccountSearchMeta } from "~/TableSearchMeta/Account/AccountSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getAccountTableColumns } from "~/FormMeta/Account/AccountTableColumns"
+import { getAccountTableColumns } from "~/TableSearchMeta/Account/AccountTableColumns"
 import { Button } from "antd"
 import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonFormMeta } from "~/FormMeta/Person/Basic/PersonFormMeta"
+import { PersonFormMeta } from "~/TableSearchMeta/Person/Basic/PersonFormMeta"
 
 export default function AccountPage() {
   const [showModal, setShowModal] = useState(false)

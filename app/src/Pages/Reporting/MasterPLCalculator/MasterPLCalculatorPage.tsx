@@ -3,11 +3,11 @@ import React, { useState } from "react"
 import { analyzeSections } from "~/ApiServices/Service/BudgetAnalysisService"
 import { CustomForm } from "~/Component/Common/Form"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { MasterPLCalculatorSearchMeta } from "~/FormMeta/MasterPLCalculator/MasterPLCalculatorSearchMeta"
+import { MasterPLCalculatorSearchMeta } from "~/TableSearchMeta/MasterPLCalculator/MasterPLCalculatorSearchMeta"
 import {
   MasterPLCalculatorBudgetTableColumns,
   MasterPLCalculatorSeatGroupsTableColumns
-} from "~/FormMeta/MasterPLCalculator/MasterPLCalculatorTableColumns"
+} from "~/TableSearchMeta/MasterPLCalculator/MasterPLCalculatorTableColumns"
 
 export default function QueriesPage() {
   const [dataSource, setDataSource] = useState<{ [key: string]: any }>({})

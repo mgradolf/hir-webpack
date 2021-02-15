@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchResourceItem } from "~/ApiServices/Service/FinancialService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getResourceDetailsMeta } from "~/FormMeta/Resource/ResourceDetailsMeta"
+import { getResourceDetailsMeta } from "~/TableSearchMeta/Resource/ResourceDetailsMeta"
 
 export default function ResourceDetailsPage(props: RouteComponentProps<{ resourceID: string }>) {
   const ResourceID = Number(props?.match?.params?.resourceID)

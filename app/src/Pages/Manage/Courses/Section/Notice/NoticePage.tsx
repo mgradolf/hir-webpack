@@ -1,6 +1,6 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { getNoticeTableColumns } from "~/FormMeta/Notice/NoticeTableColumns"
+import { getNoticeTableColumns } from "~/TableSearchMeta/Notice/NoticeTableColumns"
 import StandardPage from "~/Component/Common/Page/StandardPage"
 
 export default function NoticePage(props: RouteComponentProps<{ sectionID?: string }>) {

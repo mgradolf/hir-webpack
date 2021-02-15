@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { findBatches } from "~/ApiServices/Service/BatchService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getBatchDetailsMeta } from "~/FormMeta/Batch/BatchDetailsMeta"
+import { getBatchDetailsMeta } from "~/TableSearchMeta/Batch/BatchDetailsMeta"
 
 export default function BatchDetailsPage(props: RouteComponentProps<{ BatchImportID: string }>) {
   const BatchImportID = Number(props?.match?.params?.BatchImportID)

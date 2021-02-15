@@ -1,8 +1,8 @@
 import { FormInstance } from "antd/lib/form"
 import * as React from "react"
 import { OldFormLookupOpenButton } from "~/Component/Common/OldForm/OldFormLookupOpenButton"
-import { RoomeSearchMeta } from "~/FormMeta/Room/RoomSearchMeta"
-import { getRoomTableColumns } from "~/FormMeta/Room/RoomTableColumns"
+import { RoomeSearchMeta } from "~/TableSearchMeta/Room/RoomSearchMeta"
+import { getRoomTableColumns } from "~/TableSearchMeta/Room/RoomTableColumns"
 
 export function OldFormRoomLookup(props: { formInstance: FormInstance; onCloseModal?: (Section: any) => void }) {
   return (

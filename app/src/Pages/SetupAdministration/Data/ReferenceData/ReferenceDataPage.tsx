@@ -4,9 +4,9 @@ import { getRefList } from "~/ApiServices/Service/RefLookupService"
 import { IField } from "~/Component/Common/Form/common"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
-import { AddRefButton, RemoveRefButton, UpdateRefButton } from "~/FormMeta/ReferenceData/ReferenceButtons"
-import { genericColumns } from "~/FormMeta/ReferenceData/ReferenceGeneric/ReferenceGenericTableColumn"
-import { ReferenceList } from "~/FormMeta/ReferenceData/ReferenceList"
+import { AddRefButton, RemoveRefButton, UpdateRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButtons"
+import { genericColumns } from "~/TableSearchMeta/ReferenceData/ReferenceGeneric/ReferenceGenericTableColumn"
+import { ReferenceList } from "~/TableSearchMeta/ReferenceData/ReferenceList"
 
 export default function ReferenceDataListPage(props: RouteComponentProps<{ refName: string }>) {
   const refName = props?.match?.params?.refName
@@ -36,12 +36,12 @@ export default function ReferenceDataListPage(props: RouteComponentProps<{ refNa
     if (__reference) setReference(__reference)
     if (__reference) {
       if (__reference?.custom) {
-        import(`~/FormMeta/ReferenceData/ReferenceCustomFormMeta/${refName}`).then((x) => {
+        import(`~/TableSearchMeta/ReferenceData/ReferenceCustomFormMeta/${refName}`).then((x) => {
           setFormMeta(x.FormMeta)
           setColumns([...x.columns, getActionColumn(x.FormMeta, refName, refreshEventName)])
         })
       } else {
-        import("~/FormMeta/ReferenceData/ReferenceGeneric/ReferenceGenericFormMeta").then((x) => {
+        import("~/TableSearchMeta/ReferenceData/ReferenceGeneric/ReferenceGenericFormMeta").then((x) => {
           setFormMeta(x.FormMeta)
           setColumns([...genericColumns, getActionColumn(x.FormMeta, refName, refreshEventName)])
         })

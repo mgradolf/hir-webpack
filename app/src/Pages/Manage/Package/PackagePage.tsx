@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { PackageSearchMeta } from "~/FormMeta/Package/PackageSearchMeta"
-import { getPackageTableColumns } from "~/FormMeta/Package/PackageTableColumns"
+import { PackageSearchMeta } from "~/TableSearchMeta/Package/PackageSearchMeta"
+import { getPackageTableColumns } from "~/TableSearchMeta/Package/PackageTableColumns"
 
 export default function PackagePage() {
   return (

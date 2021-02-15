@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { MembershipSearchMeta } from "~/FormMeta/Membership/MembershipSearchMeta"
-import { getMembershipTableColumns } from "~/FormMeta/Membership/MembershipTableColumns"
+import { MembershipSearchMeta } from "~/TableSearchMeta/Membership/MembershipSearchMeta"
+import { getMembershipTableColumns } from "~/TableSearchMeta/Membership/MembershipTableColumns"
 
 export default function MembershipPage() {
   return (

@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { findPaymentGatewayActivities } from "~/ApiServices/Service/PaymentGatewayService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getActivityPaymentGatewayDetailsMeta } from "~/FormMeta/ActivityPaymentGateway/ActivityPaymentGatewayDetailsMeta"
+import { getActivityPaymentGatewayDetailsMeta } from "~/TableSearchMeta/ActivityPaymentGateway/ActivityPaymentGatewayDetailsMeta"
 
 export default function GatewayActivityDetailsPage(props: RouteComponentProps<{ PaymentGatewayActivityID: string }>) {
   const PaymentGatewayActivityID = Number(props?.match?.params?.PaymentGatewayActivityID)

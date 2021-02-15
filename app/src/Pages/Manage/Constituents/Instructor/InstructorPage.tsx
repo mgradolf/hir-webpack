@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { InstructorSearchMeta } from "~/FormMeta/Instructor/InstructorSearchMeta"
+import { InstructorSearchMeta } from "~/TableSearchMeta/Instructor/InstructorSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getInstructorTableColumns } from "~/FormMeta/Instructor/InstructorTableColumns"
+import { getInstructorTableColumns } from "~/TableSearchMeta/Instructor/InstructorTableColumns"
 import { Button } from "antd"
 import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonFormMeta } from "~/FormMeta/Person/Basic/PersonFormMeta"
+import { PersonFormMeta } from "~/TableSearchMeta/Person/Basic/PersonFormMeta"
 
 export default function InstructorPage() {
   const [showModal, setShowModal] = useState(false)

@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getStudentTableColumns } from "~/FormMeta/Student/StudentTableColumns"
-import { studentSearchMeta } from "~/FormMeta/Student/StudentSearchMeta"
+import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
+import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import { Button } from "antd"
 import { FormModal } from "~/Component/Common/Form/FormModal"
-import { PersonFormMeta } from "~/FormMeta/Person/Basic/PersonFormMeta"
+import { PersonFormMeta } from "~/TableSearchMeta/Person/Basic/PersonFormMeta"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)

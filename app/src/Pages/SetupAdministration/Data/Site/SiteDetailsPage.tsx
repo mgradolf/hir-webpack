@@ -1,8 +1,8 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getSiteDetailsMeta } from "~/FormMeta/Site/SiteDetailsMeta"
-import { getSiteTableColumns } from "~/FormMeta/Site/SiteTableColumns"
+import { getSiteDetailsMeta } from "~/TableSearchMeta/Site/SiteDetailsMeta"
+import { getSiteTableColumns } from "~/TableSearchMeta/Site/SiteTableColumns"
 
 export default function SiteDetailsPage(props: RouteComponentProps<{ SiteID: string }>) {
   const SiteID = Number(props?.match?.params?.SiteID)

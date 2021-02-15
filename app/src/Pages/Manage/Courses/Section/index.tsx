@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
+import { SectionSearchMeta } from "~/TableSearchMeta/Section/SectionSearchMeta"
 import { RouteComponentProps } from "react-router-dom"
-import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
+import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 
 export default function Offering(props: RouteComponentProps<{ offeringID: string }>) {
   return (

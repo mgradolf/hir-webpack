@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getSectionDetails, getSectionStatistics } from "~/ApiServices/Service/SectionService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getSectionDetailsMeta } from "~/FormMeta/Section/SectionDetailsMeta"
+import { getSectionDetailsMeta } from "~/TableSearchMeta/Section/SectionDetailsMeta"
 
 export default function SectionDetailsPage(props: RouteComponentProps<{ sectionID?: string; offeringID?: string }>) {
   const SectionID = Number(props?.match?.params?.sectionID)

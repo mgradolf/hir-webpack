@@ -4,12 +4,11 @@ import Form, { FormInstance } from "antd/lib/form"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { IPersonFieldNames } from "~/Component/Person/Interfaces"
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
-import { findCountry } from "~/ApiServices/Service/PersonService"
+import { findCountry, createPersonRecordInRoles, getRegions } from "~/ApiServices/Service/PersonService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { createPersonRecordInRoles, getRegions } from "~/ApiServices/Service/PersonService"
+
 import { DATE_FORMAT } from "~/utils/Constants"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
-import { MULTI_SELECT_CHECKBOX } from "~/Component/Common/Form/common"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import "~/Sass/global/index.scss"
 
@@ -142,7 +141,7 @@ export default function PersonForm(props: IPersonFormProps) {
             <FormMultipleCheckbox
               label={"Roles"}
               fieldName={props.fieldNames.Roles}
-              inputType={MULTI_SELECT_CHECKBOX}
+              // inputType={MULTI_SELECT_CHECKBOX}
               formInstance={props.formInstance}
               options={rolesOption}
             />

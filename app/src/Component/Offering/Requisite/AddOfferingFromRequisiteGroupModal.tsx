@@ -8,8 +8,8 @@ import { Row, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
-import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
-import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
+import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
+import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 const { useState } = React

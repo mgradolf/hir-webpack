@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { findPackageDetails } from "~/ApiServices/BizApi/query/queryIf"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getPackageDetailsMeta } from "~/FormMeta/Package/PackageDetailsMeta"
+import { getPackageDetailsMeta } from "~/TableSearchMeta/Package/PackageDetailsMeta"
 
 export default function PackageDetailsPage(props: RouteComponentProps<{ packageID: string }>) {
   const PackageID = Number(props?.match?.params?.packageID)

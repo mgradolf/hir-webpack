@@ -1,7 +1,7 @@
 import React from "react"
-import { EnrollmentsActivitySearchMeta } from "~/FormMeta/EnrollmentActivity/EnrollmentActivitySearchMeta"
+import { EnrollmentsActivitySearchMeta } from "~/TableSearchMeta/EnrollmentActivity/EnrollmentActivitySearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getEnrollmentActivityLogTableColumns } from "~/FormMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
+import { getEnrollmentActivityLogTableColumns } from "~/TableSearchMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
 
 export default function EnrollmentLogPage() {
   return (

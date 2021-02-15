@@ -1,8 +1,8 @@
 import * as React from "react"
 import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getDiscountProgramsTableColumns } from "~/FormMeta/DiscountPrograms/DiscountProgramsTableColumns"
-import { DiscountProgramsSearchMeta } from "~/FormMeta/DiscountPrograms/DiscountProgramsSearchMeta"
+import { getDiscountProgramsTableColumns } from "~/TableSearchMeta/DiscountPrograms/DiscountProgramsTableColumns"
+import { DiscountProgramsSearchMeta } from "~/TableSearchMeta/DiscountPrograms/DiscountProgramsSearchMeta"
 
 interface IDiscountProgramLookup extends IGeneratedField {
   valueField?: string

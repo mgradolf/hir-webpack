@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { Button, Dropdown, Menu, Row } from "antd"
 import Notification from "~/utils/notification"
 import { INVITE_TO_SETUP_WEB_LOGIN, INVITE_TO_RESET_PASSWORD, UNLOCK_WEB_LOGIN } from "~/utils/Constants"
-import { FormModal } from "../Common/Form/FormModal"
-import { PersonLoginFormMeta } from "~/FormMeta/Person/PersonLoginFormMeta"
+import { FormModal } from "~/Component/Common/Form/FormModal"
+import { PersonLoginFormMeta } from "~/TableSearchMeta/Person/PersonLoginFormMeta"
 import {
   sendPasswordResetEmail,
   unlockPersonLogin,

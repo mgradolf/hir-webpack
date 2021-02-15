@@ -1,8 +1,8 @@
 import * as React from "react"
-import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
+import { SectionSearchMeta } from "~/TableSearchMeta/Section/SectionSearchMeta"
 import { OldFormLookupOpenButton } from "~/Component/Common/OldForm/OldFormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
-import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
+import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 
 export function OldFormSectionLookup(props: {
   entityLookupFunc?: () => Promise<{ [key: string]: any }>

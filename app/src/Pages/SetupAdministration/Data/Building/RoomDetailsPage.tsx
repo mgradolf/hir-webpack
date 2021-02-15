@@ -1,8 +1,8 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getRoomDetailsMeta } from "~/FormMeta/Room/RoomDetailsMeta"
-import { getRoomTableColumns } from "~/FormMeta/Room/RoomTableColumns"
+import { getRoomDetailsMeta } from "~/TableSearchMeta/Room/RoomDetailsMeta"
+import { getRoomTableColumns } from "~/TableSearchMeta/Room/RoomTableColumns"
 
 export default function RoomDetailsPage(props: RouteComponentProps<{ RoomID: string }>) {
   const RoomID = Number(props?.match?.params?.RoomID)

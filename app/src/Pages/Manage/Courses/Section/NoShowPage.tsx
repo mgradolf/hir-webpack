@@ -5,7 +5,7 @@ import { CustomForm } from "~/Component/Common/Form"
 import { NUMBER } from "~/Component/Common/Form/common"
 import { Button } from "antd"
 import NoShowDeleteModal from "~/Component/Section/NoShowDeleteModal"
-import { getSectionNoShowTableColumns } from "~/FormMeta/SectionNoShow/NoShowTableColumns"
+import { getSectionNoShowTableColumns } from "~/TableSearchMeta/SectionNoShow/NoShowTableColumns"
 import { REFRESH_SECTION_NO_SHOW_PAGE } from "~/utils/EventBus"
 
 export default function SectionNoShowPage(props: { SectionID: number }) {
