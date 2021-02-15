@@ -1,5 +1,5 @@
-import { Button, Form } from "antd"
 import React, { useState } from "react"
+import { Button, Form } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { IPersonAccountFieldNames } from "~/Component/Person/Interfaces"
 import PersonAccountForm from "~/Component/Person/CreateEdit/PersonAccountForm"

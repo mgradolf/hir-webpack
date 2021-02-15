@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import { Button } from "antd"
+import React from "react"
 import {
   createPersonEducationHistory,
   deletePersonEmail,
@@ -25,7 +24,7 @@ import { getPersonDisabilitiesTableColumns } from "~/TableSearchMeta/Person/Pers
 import { getPersonEduTableColumns } from "~/TableSearchMeta/Person/PersonEduTableColumns"
 import { getPersonAccountTableColumns } from "~/TableSearchMeta/Person/PersonAccountTableColumns"
 
-import { PersonAccountFormModal } from "~/Component/Person/PersonAccountFormModal"
+import { AccountRelationFormModalOpenButton } from "~/Component/Person/PersonAccountFormModal"
 import { PersonAccountAction } from "~/Component/Person/PersonAccountAction"
 
 import { PersonDegreeFormMeta } from "~/Component/Person/FormMeta/PersonDegreeFormMeta"
@@ -37,20 +36,6 @@ import { PersonPhoneFormMeta } from "~/Component/Person/FormMeta/Telephone/Perso
 import { PersonTypeFormMeta } from "~/Component/Person/FormMeta/Basic/PersonTypeFormMeta"
 import { PersonPhoneUpdateFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneUpdateFormMeta"
 import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
-
-const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
-  const [showModal, setShowModal] = useState(false)
-  return (
-    <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          + Add Relation
-        </Button>
-      )}
-      {showModal && <PersonAccountFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
-    </>
-  )
-}
 
 export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
