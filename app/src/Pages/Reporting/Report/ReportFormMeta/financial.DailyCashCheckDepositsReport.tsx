@@ -1,4 +1,5 @@
-import { getOrganizations, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
+import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
+import { getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, MULTI_SELECT_DROPDOWN, TEXT, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
@@ -14,9 +15,9 @@ const meta: IField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "OrganizationID",
-    refLookupService: getOrganizations,
+    refLookupService: getOrganizationByType,
     displayKey: "Name",
-    valueKey: "OrganizationID"
+    valueKey: "OrganizationTypeID"
   },
   {
     label: "User",

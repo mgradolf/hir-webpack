@@ -161,6 +161,10 @@ const ContactFormModalOpenButton = (props: {
   )
 }
 
+const setShowModal = () => {
+  console.log("modal set false!")
+}
+
 export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
 
@@ -287,7 +291,7 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
                 defaultFormValue={{ PersonID: person.PersonID, TelephoneTypeID: x.TelephoneTypeID }}
                 formSubmitApi={pushPersonPhone}
                 refreshEventAfterFormSubmission={REFRESH_PAGE}
-                closeModal={() => {}}
+                closeModal={setShowModal}
               ></FormModal>
             ),
             onDelete: () => {
@@ -326,7 +330,7 @@ export const getProfileMeta = (person: any, disabilities: any): IDetailsTabMeta[
                 defaultFormValue={{ PersonID: person.PersonID, EmailAddressTypeID: x.EmailAddressTypeID }}
                 formSubmitApi={pushPersonEmail}
                 refreshEventAfterFormSubmission={REFRESH_PAGE}
-                closeModal={() => {}}
+                closeModal={setShowModal}
               ></FormModal>
             ),
             onDelete: () => {

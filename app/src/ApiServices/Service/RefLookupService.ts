@@ -462,3 +462,9 @@ export function getReason(): Promise<IApiResponse> {
     LookUpName: "Reason"
   })
 }
+
+export function getMetricType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "MetricType"
+  })
+}

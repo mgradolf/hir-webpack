@@ -12,6 +12,7 @@ import {
   IField,
   CUSTOM_FIELD,
   MULTI_SELECT_CHECKBOX,
+  TEXTAREA,
   MULTI_RADIO
 } from "~/Component/Common/Form/common"
 import { FormInput } from "~/Component/Common/Form/FormInput"
@@ -23,6 +24,7 @@ import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
+import { FormTextArea } from "./FormTextArea"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -249,6 +251,12 @@ const SearchFormFields = (props: {
               return (
                 <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
                   <FormNumberInput {...field} key={i} formInstance={props.formInstance} />
+                </Col>
+              )
+            case TEXTAREA:
+              return (
+                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <FormTextArea {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case BOOLEAN:

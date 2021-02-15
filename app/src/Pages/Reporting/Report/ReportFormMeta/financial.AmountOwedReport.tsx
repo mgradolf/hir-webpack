@@ -35,7 +35,10 @@ const meta: IField[] = [
     label: "Student",
     fieldName: "StudentID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: StudentLookup
+    customFilterComponent: StudentLookup,
+    extraProps: {
+      isArray: true
+    }
   },
   {
     label: "Registration Date",
@@ -55,6 +58,7 @@ const meta: IField[] = [
 
 const reportMeta: IReportMeta = {
   meta,
+  atLeastOneRequiredfield: true,
   defaultFormValue: {
     BalanceMoreThan: 0
   },

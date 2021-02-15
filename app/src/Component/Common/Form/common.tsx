@@ -5,6 +5,7 @@ import { FormInstance, Rule } from "antd/lib/form"
 import { ValidateStatus } from "antd/lib/form/FormItem"
 
 export const TEXT = "TEXT"
+export const TEXTAREA = "TEXTAREA"
 export const DROPDOWN = "DROPDOWN"
 export const MULTI_SELECT_DROPDOWN = "MULTI_SELECT_DROPDOWN"
 export const MULTI_RADIO = "MULTI_RADIO"
@@ -17,6 +18,7 @@ export const CUSTOM_FIELD = "CUSTOM_FIELD"
 
 export type IFieldType =
   | typeof TEXT
+  | typeof TEXTAREA
   | typeof DROPDOWN
   | typeof MULTI_SELECT_DROPDOWN
   | typeof DATE_PICKER
