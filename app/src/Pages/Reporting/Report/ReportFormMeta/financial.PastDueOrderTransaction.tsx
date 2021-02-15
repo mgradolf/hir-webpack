@@ -1,30 +1,28 @@
-import { BOOLEAN, DATE_PICKERS, IField, NUMBER } from "~/Component/Common/Form/common"
+import { IField, MULTI_RADIO, NUMBER } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
   {
-    label: "NumDays",
+    label: "Past Due Over(Days)",
     inputType: NUMBER,
-    fieldName: "NumDays"
+    fieldName: "PastDueAge"
   },
   {
-    label: "Current Date",
-    fieldName: "CurrentDate",
-    inputType: DATE_PICKERS
-  },
-  {
-    label: "ByOrderDate",
+    label: "Due Date",
+    inputType: MULTI_RADIO,
     fieldName: "ByOrderDate",
-    inputType: BOOLEAN
+    options: [
+      { label: "Order Due Date", value: true },
+      { label: "Item Due Date", value: false }
+    ]
   }
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  initialFormValue: {
+    CurrentDate: true
+  }
 }
 
 export default reportMeta
-
-// ByOrderDate
-// CurrentDate
-// NumDays

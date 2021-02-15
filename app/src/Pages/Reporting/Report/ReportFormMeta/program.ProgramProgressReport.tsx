@@ -1,5 +1,20 @@
-import { IField } from "~/Component/Common/Form/common"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { ProgramEnrollmentLookup } from "~/Component/Common/Form/FormLookupFields/ProgramEnrollmentLookup"
+import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
-const meta: IField[] = []
+const meta: IField[] = [
+  {
+    label: "Select Program Enrollment",
+    fieldName: "ProgramEnrollmentID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: ProgramEnrollmentLookup,
+    rules: [{ required: true, message: "Program Enrollment is Required" }]
+  }
+]
 
-export default meta
+const reportMeta: IReportMeta = {
+  meta,
+  atLeastOneRequiredfield: true
+}
+
+export default reportMeta
