@@ -39,10 +39,25 @@ export default function QueriesPage() {
           <Tabs defaultActiveKey="1" type="card" size="large">
             <Tabs.TabPane tab="Budget" key={1}>
               <Descriptions style={{ background: "white", paddingTop: "10px", paddingLeft: "10px" }}>
-                <Descriptions.Item label="Income">{dataSource.TotalIncome}</Descriptions.Item>
-                <Descriptions.Item label="Expense">{dataSource.TotalExpense}</Descriptions.Item>
-                <Descriptions.Item label="P/L">{dataSource.ProfitLoss}</Descriptions.Item>
-                <Descriptions.Item label="Gross Margin">{dataSource.MarginPercent}</Descriptions.Item>
+                <Descriptions.Item label="Income">
+                  <span style={{ fontWeight: 800 }}> {dataSource.TotalIncome}</span>
+                </Descriptions.Item>
+                <Descriptions.Item label="Expense">
+                  <span style={{ fontWeight: 800 }}> {dataSource.TotalExpense}</span>
+                </Descriptions.Item>
+                <Descriptions.Item label="P/L">
+                  <span
+                    style={{
+                      fontWeight: 800,
+                      color: dataSource.ProfitLoss && dataSource.ProfitLoss > 0 ? "green" : "red"
+                    }}
+                  >
+                    {dataSource.ProfitLoss}
+                  </span>
+                </Descriptions.Item>
+                <Descriptions.Item label="Gross Margin">
+                  <span style={{ fontWeight: 800 }}> {dataSource.MarginPercent}</span>
+                </Descriptions.Item>
               </Descriptions>
               <ResponsiveTable
                 loading={loading}
