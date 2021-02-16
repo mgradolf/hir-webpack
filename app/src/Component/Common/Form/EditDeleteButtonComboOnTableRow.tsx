@@ -1,9 +1,9 @@
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { Button, Col, Row } from "antd"
 import React from "react"
-import { IField } from "./common"
-import { FormModalOpenButton } from "./FormModalOpenButton"
+import { Button, Col, Row } from "antd"
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { IField } from "~/Component/Common/Form/common"
+import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
 
 export const EditDeleteButtonComboOnTableRow = (props: {
   valueToBeEdited?: any

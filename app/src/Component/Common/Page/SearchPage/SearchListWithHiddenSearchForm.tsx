@@ -1,5 +1,5 @@
-import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
+import { Button, Col, Row, Typography } from "antd"
 import { FilterOutlined } from "@ant-design/icons"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
@@ -21,23 +21,9 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
   const [filterCount, setFilterCount] = useState(0)
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
   const [showFilter, setShowFilter] = useState(false)
-  const [help, setHelp] = useState(false)
 
   return (
     <div className="site-layout-content">
-      <Row justify="end">
-        {/* <Col span={21}>
-          <Typography.Title level={3}>{props.title}</Typography.Title>
-        </Col> */}
-        {props.helpKey && (
-          <Col span={3}>
-            <Button type="link" onClick={() => setHelp(true)}>
-              Help
-            </Button>
-          </Col>
-        )}
-        {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
-      </Row>
       <Row justify="start" gutter={[8, 8]}>
         <Col>
           <span>
@@ -54,6 +40,11 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             </Button>
           )}
         </Col>
+        {props.helpKey && (
+          <Col>
+            <HelpModal helpKey={props.helpKey} />
+          </Col>
+        )}
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
@@ -61,6 +52,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
           <MetaDrivenForm
             title={<Typography.Title level={3}>{props.title}</Typography.Title>}
             hideFilters={() => setShowFilter(false)}
+            helpKey={props.helpKey}
             meta={props.meta}
             initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {

@@ -2,6 +2,7 @@ import styles from "~/Component/Common/Form/SearchFilters.module.scss"
 import { Button, Card, Col, Form, Row } from "antd"
 import React, { useEffect, useState } from "react"
 import {
+  IField,
   DATE_PICKER,
   DATE_PICKERS,
   DROPDOWN,
@@ -9,7 +10,6 @@ import {
   NUMBER,
   TEXT,
   BOOLEAN,
-  IField,
   CUSTOM_FIELD,
   MULTI_SELECT_CHECKBOX,
   TEXTAREA,
@@ -30,6 +30,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { FormError } from "~/Component/Common/Form/FormError"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
+import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
 export function MetaDrivenForm({
   showClearbutton = true,
@@ -41,6 +42,7 @@ export function MetaDrivenForm({
   title?: React.ReactNode
   loading?: boolean
   isModal?: boolean
+  helpKey?: string
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   hideFilters?: () => void
   initialFormValue?: { [key: string]: any }
@@ -184,6 +186,11 @@ export function MetaDrivenForm({
       loading={props.loading}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          {props.helpKey && (
+            <Col>
+              <HelpModal helpKey={props.helpKey} />
+            </Col>
+          )}
           {!props.closeModal && meta.length > 4 && (
             <Col>
               <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>

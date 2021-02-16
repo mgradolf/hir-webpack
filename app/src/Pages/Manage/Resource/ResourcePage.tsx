@@ -1,10 +1,10 @@
 import React from "react"
-import StandardPage from "~/Component/Common/Page/StandardPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getResourceTableColumns } from "~/TableSearchMeta/Resource/ResourceTableColumns"
 
 export default function ResourcePage() {
   return (
-    <StandardPage
+    <SearchPage
       title="Manage Resources"
       defaultFormValue={{}}
       tableProps={{

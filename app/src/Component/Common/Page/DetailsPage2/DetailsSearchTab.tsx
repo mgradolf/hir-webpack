@@ -1,4 +1,4 @@
-import { Button, Col, Row, Typography } from "antd"
+import { Col, Row, Typography } from "antd"
 import React, { useState } from "react"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
@@ -27,7 +27,6 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(
     props.initialFormValue || props.defaultFormValue || {}
   )
-  const [help, setHelp] = useState(false)
   return (
     <>
       <Row>
@@ -38,13 +37,9 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         )}
         {props.helpKey && (
           <Col span={3}>
-            <Button type="link" onClick={() => setHelp(true)}>
-              Help
-            </Button>
+            <HelpModal helpKey={props.helpKey} />
           </Col>
         )}
-
-        {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
       </Row>
 
       <Row justify="end" gutter={[8, 8]}>
@@ -55,6 +50,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         <MetaDrivenForm
           meta={props.searchMeta}
           initialFormValue={searchParams}
+          helpKey={props.helpKey}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             setSearchParams({ ...props.defaultFormValue, ...newFilterValues })
             console.log(newFilterValues)

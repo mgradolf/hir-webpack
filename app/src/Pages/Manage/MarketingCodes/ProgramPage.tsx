@@ -1,10 +1,10 @@
 import React from "react"
-import StandardPage from "~/Component/Common/Page/StandardPage"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getMarketingProgramTableColumns } from "~/TableSearchMeta/MarketingProgram/MarketingProgramTableColumns"
 
 export default function MarketingProgramPage() {
   return (
-    <StandardPage
+    <SearchPage
       title="Marketing Programs"
       defaultFormValue={{}}
       tableProps={{
