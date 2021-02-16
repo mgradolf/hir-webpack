@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
-import { FormModal } from "~/Component/Common/Form/FormModal2"
+import { FormModal } from "~/Component/Common/Form/FormModal"
 import { StudentHoldFormMeta } from "~/Component/Student/Forms/StudentHoldFormMeta"
 import { createUpdateStudentHold, releaseStudentHold } from "~/ApiServices/Service/StudentService"
 import { StudentReleaseFormMeta } from "~/Component/Student/Forms/StudentReleaseFormMeta"

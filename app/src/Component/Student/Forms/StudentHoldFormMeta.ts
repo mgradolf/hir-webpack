@@ -1,5 +1,5 @@
-import { DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
-import { getHoldType, getReason } from "~/ApiServices/Service/RefLookupService"
+import { DATE_PICKER, DROPDOWN, IField, TEXTAREA } from "~/Component/Common/Form/common"
+import { getHoldType, getHoldReason } from "~/ApiServices/Service/RefLookupService"
 
 export const StudentHoldFormMeta: IField[] = [
   {
@@ -13,7 +13,7 @@ export const StudentHoldFormMeta: IField[] = [
   {
     label: "Reason",
     inputType: DROPDOWN,
-    refLookupService: getReason,
+    refLookupService: getHoldReason,
     fieldName: "HoldReasonID",
     displayKey: "Name",
     valueKey: "ID"
@@ -30,7 +30,7 @@ export const StudentHoldFormMeta: IField[] = [
   },
   {
     label: "Notes",
-    inputType: TEXT,
+    inputType: TEXTAREA,
     fieldName: "Note"
   }
 ]

@@ -9,7 +9,7 @@ import { StudentHoldMenu } from "~/Component/Student/StudentHoldMenu"
 export const getStudentHoldTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     { title: "Hold Date", dataIndex: "EndDate", render: renderDate },
-    { title: "Hold Type", dataIndex: "HoldType" },
+    { title: "Hold Type", dataIndex: "HoldName" },
     { title: "Hold Reason", dataIndex: "HoldReason" },
     { title: "Hold By", dataIndex: "HoldBy" },
     { title: "Release Date", dataIndex: "ReleaseDate", render: renderDate },

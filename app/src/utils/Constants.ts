@@ -216,3 +216,7 @@ export const CURRENT_ORG_ID = 1
 
 export const PT_FULLTIME_STATUS = 0
 export const PT_PARTTIME_STATUS = 1000
+
+export const REASON_HOLD_APPLY = 1
+export const REASON_HOLD_RELEASE = 2
+export const REASON_MEMBERSHIP = 3
