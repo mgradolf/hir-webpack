@@ -246,7 +246,7 @@ const SearchFormFields = (props: {
   isHorizontal?: boolean
 }) => {
   return (
-    <Row>
+    <Row gutter={16}>
       {props.meta
         .filter((field, index) => {
           if (props.showLess && index < 4) return true

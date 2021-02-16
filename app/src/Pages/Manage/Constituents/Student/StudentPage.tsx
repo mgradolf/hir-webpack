@@ -4,6 +4,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
 import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import StudentFormModal from "~/Component/Student/StudentFormModal"
+import { helpFileNameMap } from "~/HelpFileMap"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)
@@ -23,7 +24,7 @@ export default function PersonTable() {
       tableProps={{
         ...getStudentTableColumns()
       }}
-      helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
+      helpKey={helpFileNameMap.generic}
     ></SearchPage>
   )
 }

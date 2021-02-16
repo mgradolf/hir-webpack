@@ -1,5 +1,6 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
+import { helpFileNameMap } from "~/HelpFileMap"
 import { ProgramOfferingSearchMeta } from "~/TableSearchMeta/ProgramOffering/ProgramOfferingSearchMeta"
 import { getProgramOfferingTableColumns } from "~/TableSearchMeta/ProgramOffering/ProgramOfferingTableColumns"
 
@@ -12,7 +13,7 @@ export default function () {
       tableProps={{
         ...getProgramOfferingTableColumns()
       }}
-      helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
+      helpKey={helpFileNameMap.generic}
     ></SearchPage>
   )
 }

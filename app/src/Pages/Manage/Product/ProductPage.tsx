@@ -1,5 +1,6 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
+import { helpFileNameMap } from "~/HelpFileMap"
 import { ProductSearchMeta } from "~/TableSearchMeta/Product/ProductSearchMeta"
 import { getProductTableColumns } from "~/TableSearchMeta/Product/ProductTableColumns"
 
@@ -12,7 +13,7 @@ export default function PersonTable() {
       tableProps={{
         ...getProductTableColumns()
       }}
-      helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
+      helpKey={helpFileNameMap.generic}
     ></SearchPage>
   )
 }

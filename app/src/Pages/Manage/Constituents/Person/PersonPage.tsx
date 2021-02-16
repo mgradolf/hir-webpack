@@ -4,6 +4,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColumns"
 import { Button } from "antd"
 import PersonFormModal from "~/Component/Person/Forms/PersonFormModal"
+import { helpFileNameMap } from "~/HelpFileMap"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)
@@ -24,7 +25,7 @@ export default function PersonTable() {
       tableProps={{
         ...getPersonTableColumns()
       }}
-      helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
+      helpKey={helpFileNameMap.generic}
     ></SearchPage>
   )
 }
