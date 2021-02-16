@@ -28,8 +28,8 @@ export const EditDeleteButtonComboOnTableRow = (props: {
           refreshEventName={props.refreshEventName}
           buttonProps={{ type: "ghost", shape: "circle", icon: <EditOutlined /> }}
         />
-      </Col>
-      <Col flex="none">
+        {/* </Col>
+      <Col flex="none"> */}
         <Button
           type="ghost"
           style={{ marginLeft: "5px" }}
