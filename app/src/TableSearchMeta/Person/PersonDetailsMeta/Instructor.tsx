@@ -13,7 +13,7 @@ import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/Q
 import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
 import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
-import { FormModal } from "~/Component/Common/Form/FormModal2"
+import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
 import { pushInstructor } from "~/ApiServices/Service/InstructorService"
 import { InstructorFormMeta } from "~/Component/Instructor/InstructorFormMeta"
 
@@ -27,7 +27,7 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
         </Button>
       )}
       {showModal && (
-        <FormModal
+        <MetaDrivenFormModal
           meta={InstructorFormMeta}
           title={"Update Instructor"}
           initialFormValue={props.facultyData}

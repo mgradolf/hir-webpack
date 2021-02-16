@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import { FormModal } from "~/Component/Common/Form/FormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
 import { IField } from "~/Component/Common/Form/common"
 import { createRefRecord, removeRefRecord, updateRefRecord } from "~/ApiServices/Service/RefLookupService"
 import { eventBus } from "~/utils/EventBus"
@@ -13,7 +13,7 @@ export function AddRefButton(props: { LookUpName: string; formMeta: IField[]; re
         + Add
       </Button>
       {showModal && (
-        <FormModal
+        <MetaDrivenFormModal
           title={`Add new entry on ${props.LookUpName}`}
           meta={props.formMeta}
           formSubmitApi={(Content) =>
@@ -44,7 +44,7 @@ export function UpdateRefButton(props: {
         Update
       </Button>
       {showModal && (
-        <FormModal
+        <MetaDrivenFormModal
           title={`Update existing entry on ${props.LookUpName}`}
           meta={props.formMeta}
           initialFormValue={props.reference}

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
-import { FormModal } from "~/Component/Common/Form/FormModal2"
+import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
 import { StudentHoldFormMeta } from "~/Component/Student/Forms/StudentHoldFormMeta"
 import { createUpdateStudentHold, releaseStudentHold } from "~/ApiServices/Service/StudentService"
 import { StudentReleaseFormMeta } from "~/Component/Student/Forms/StudentReleaseFormMeta"
@@ -25,7 +25,7 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
           Edit
         </Button>
         {showUpdateModal && (
-          <FormModal
+          <MetaDrivenFormModal
             meta={StudentHoldFormMeta}
             title={"Edit Hold"}
             initialFormValue={props.initialData}
@@ -47,7 +47,7 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
           Release
         </Button>
         {showReleaseModal && (
-          <FormModal
+          <MetaDrivenFormModal
             meta={StudentReleaseFormMeta}
             title={"Release Hold"}
             initialFormValue={props.initialData}

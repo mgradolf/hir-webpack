@@ -3,7 +3,7 @@ import { Button } from "antd"
 import { BaseButtonProps } from "antd/lib/button/button"
 import React, { useState } from "react"
 import { IField } from "~/Component/Common/Form/common"
-import { FormModal } from "~/Component/Common/Form/FormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
 
 interface IFormModalOpenButton {
   buttonLabel?: string
@@ -21,7 +21,7 @@ export const FormModalOpenButton = (props: IFormModalOpenButton) => {
     <>
       <Button type="primary" {...props.buttonProps} onClick={() => setShowModal(true)} children={props.buttonLabel} />
       {showModal && (
-        <FormModal
+        <MetaDrivenFormModal
           title={props.formTitle}
           meta={props.formMeta}
           formSubmitApi={props.formSubmitApi}

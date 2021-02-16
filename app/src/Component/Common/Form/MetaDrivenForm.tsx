@@ -1,5 +1,5 @@
 import styles from "~/Component/Common/Form/SearchFilters.module.scss"
-import { Button, Col, Form, Row } from "antd"
+import { Button, Card, Col, Form, Row } from "antd"
 import React, { useEffect, useState } from "react"
 import {
   DATE_PICKER,
@@ -24,15 +24,23 @@ import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { FormInstance } from "antd/lib/form"
-import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { FormError } from "~/Component/Common/Form/FormError"
+import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 
-interface IFilterColumnProps {
+export function MetaDrivenForm({
+  showClearbutton = true,
+  applyButtonLabel = "Search",
+  clearButtonLabel = "Clear",
+  ...props
+}: {
   meta: IField[]
+  title?: React.ReactNode
+  loading?: boolean
+  isModal?: boolean
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   hideFilters?: () => void
   initialFormValue?: { [key: string]: any }
@@ -40,17 +48,11 @@ interface IFilterColumnProps {
   showClearbutton?: boolean
   applyButtonLabel?: string
   clearButtonLabel?: string
+  isHorizontal?: boolean
   closeModal?: () => void
   stopProducingQueryParams?: boolean
   errorMessages?: Array<ISimplifiedApiErrorMessage>
-}
-
-export function MetaDrivenForm({
-  showClearbutton = true,
-  applyButtonLabel = "Search",
-  clearButtonLabel = "Clear",
-  ...props
-}: IFilterColumnProps) {
+}) {
   const [formInstance] = Form.useForm()
   const [showLess, setShowLess] = useState(true)
   const [clearTrigger, setClearTrigger] = useState(false)
@@ -177,52 +179,62 @@ export function MetaDrivenForm({
   }, [])
 
   return (
-    <Col className={`gutter-row ${styles.offeringFilter}`} xs={24} sm={24} md={24}>
-      <Form
-        layout="horizontal"
-        initialValues={props.initialFormValue}
-        form={formInstance}
-        scrollToFirstError
-        style={{
-          maxHeight: "80vh",
-          overflowY: "scroll"
-        }}
-      >
-        <FormError errorMessages={props.errorMessages} />
-        <SearchFormFields
-          meta={props.meta}
-          formInstance={formInstance}
-          clearTrigger={clearTrigger}
-          showLess={showLess}
-        />
-      </Form>
-      <Row justify="end" gutter={[8, 8]}>
-        {!props.closeModal && meta.length > 4 && (
+    <Card
+      title={props.title}
+      loading={props.loading}
+      actions={[
+        <Row justify="end" gutter={[8, 8]}>
+          {!props.closeModal && meta.length > 4 && (
+            <Col>
+              <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
+            </Col>
+          )}
+          {props.closeModal && (
+            <Col>
+              <Button type="ghost" aria-label="Cancel" danger onClick={() => props.closeModal && props.closeModal()}>
+                Cancel
+              </Button>
+            </Col>
+          )}
+          {showClearbutton && (
+            <Col>
+              <Button danger type="primary" onClick={clearParams}>
+                {clearButtonLabel}
+              </Button>
+            </Col>
+          )}
           <Col>
-            <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
-          </Col>
-        )}
-        {props.closeModal && (
-          <Col>
-            <Button type="ghost" aria-label="Cancel" danger onClick={() => props.closeModal && props.closeModal()}>
-              Cancel
+            <Button type="primary" aria-label="Apply Filter" onClick={() => applyChanges()}>
+              {applyButtonLabel}
             </Button>
           </Col>
-        )}
-        {showClearbutton && (
-          <Col>
-            <Button danger type="primary" onClick={clearParams}>
-              {clearButtonLabel}
-            </Button>
-          </Col>
-        )}
-        <Col>
-          <Button type="primary" aria-label="Apply Filter" onClick={() => applyChanges()}>
-            {applyButtonLabel}
-          </Button>
-        </Col>
-      </Row>
-    </Col>
+        </Row>
+      ]}
+    >
+      <Col className={`gutter-row ${styles.offeringFilter}`} xs={24} sm={24} md={24}>
+        <Form
+          layout="horizontal"
+          initialValues={props.initialFormValue}
+          form={formInstance}
+          scrollToFirstError
+          {...(props.isModal && {
+            style: {
+              maxHeight: "80vh",
+              overflowY: "scroll"
+            }
+          })}
+        >
+          <FormError errorMessages={props.errorMessages} />
+          <SearchFormFields
+            meta={props.meta}
+            isHorizontal={props.isHorizontal}
+            formInstance={formInstance}
+            clearTrigger={clearTrigger}
+            showLess={showLess}
+          />
+        </Form>
+      </Col>
+    </Card>
   )
 }
 
@@ -231,6 +243,7 @@ const SearchFormFields = (props: {
   formInstance: FormInstance
   clearTrigger?: boolean
   showLess: boolean
+  isHorizontal?: boolean
 }) => {
   return (
     <Row>
@@ -240,58 +253,62 @@ const SearchFormFields = (props: {
           return !props.showLess
         })
         .map((field, i) => {
+          const lg = props.isHorizontal ? 24 : 12
+          const md = props.isHorizontal ? 24 : 12
+          const sm = props.isHorizontal ? 24 : 12
+          const xs = 24
           switch (field.inputType) {
             case TEXT:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormInput {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case NUMBER:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormNumberInput {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case TEXTAREA:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormTextArea {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case BOOLEAN:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormCheckbox {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case MULTI_SELECT_CHECKBOX:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormMultipleCheckbox {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case MULTI_RADIO:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormMultipleRadio {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case DROPDOWN:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormDropDown {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case MULTI_SELECT_DROPDOWN:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormMultiSelectDropDown {...field} key={i} formInstance={props.formInstance} />
                 </Col>
               )
             case DATE_PICKER:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormDatePicker
                     {...field}
                     key={i}
@@ -302,7 +319,7 @@ const SearchFormFields = (props: {
               )
             case DATE_PICKERS:
               return (
-                <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                   <FormDatePickers
                     {...field}
                     key={i}
@@ -314,7 +331,7 @@ const SearchFormFields = (props: {
             case CUSTOM_FIELD:
               if (field.customFilterComponent) {
                 return (
-                  <Col key={1000 + i} lg={12} md={12} sm={12} xs={24}>
+                  <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
                     <field.customFilterComponent
                       {...{
                         ...field,

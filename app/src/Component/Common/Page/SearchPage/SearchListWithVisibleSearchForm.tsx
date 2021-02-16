@@ -26,10 +26,10 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
   }, [])
   return (
     <div className="site-layout-content">
-      <Row>
-        <Col span={21}>
+      <Row justify="end">
+        {/* <Col span={21}>
           <Typography.Title level={3}>{props.title}</Typography.Title>
-        </Col>
+        </Col> */}
         {props.helpKey && (
           <Col span={3}>
             <Button type="link" onClick={() => setHelp(true)}>
@@ -41,6 +41,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
       </Row>
       {props.meta && (
         <MetaDrivenForm
+          title={<Typography.Title level={3}>{props.title}</Typography.Title>}
           meta={props.meta}
           stopProducingQueryParams={props.stopProducingQueryParams}
           initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
