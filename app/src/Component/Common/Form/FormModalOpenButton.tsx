@@ -6,7 +6,7 @@ import { IField } from "~/Component/Common/Form/common"
 import { FormModal } from "~/Component/Common/Form/FormModal"
 
 interface IFormModalOpenButton {
-  buttonLabel: string
+  buttonLabel?: string
   buttonProps?: BaseButtonProps
   formTitle: string
   formMeta: IField[]
@@ -19,13 +19,10 @@ export const FormModalOpenButton = (props: IFormModalOpenButton) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button type="primary" onClick={() => setShowModal(true)}>
-        {props.buttonLabel}
-      </Button>
+      <Button type="primary" {...props.buttonProps} onClick={() => setShowModal(true)} children={props.buttonLabel} />
       {showModal && (
         <FormModal
           title={props.formTitle}
-          {...props.buttonProps}
           meta={props.formMeta}
           formSubmitApi={props.formSubmitApi}
           initialFormValue={props.initialFormValue}

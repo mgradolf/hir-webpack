@@ -7,6 +7,7 @@ import {
   pushPersonEmail,
   pushPersonPhone
 } from "~/ApiServices/Service/PersonService"
+
 // import { FormModal } from "~/Component/Common/Form/FormModal"
 import { FormModal } from "~/Component/Common/Form/FormModal2"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
@@ -34,6 +35,7 @@ import { PersonTypeFormMeta } from "~/Component/Person/FormMeta/Basic/PersonType
 import { PersonPhoneUpdateFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneUpdateFormMeta"
 import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
 import { AccountRelationFormModalOpenButton } from "~/Component/Person/PersonAccountFormModal"
+import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/EditDeleteButtonComboOnTableRow"
 
 export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -164,7 +166,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   }
 
   const phone: CardContainer = {
-    title: "Telephone",
+    title: "Telephone asdsad",
     cardActions: [
       <FormModalOpenButton
         formTitle="Add Phone"
@@ -179,28 +181,27 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       ? person.Telephones.map((x: any) => {
           return {
             label: x.TelephoneTypeDescriptor,
-            icon: true,
-            onUpdate: (
-              <FormModal
-                meta={PersonPhoneUpdateFormMeta}
-                title={"Update Phone"}
-                initialFormValue={x}
-                defaultFormValue={{ PersonID: person.PersonID, TelephoneTypeID: x.TelephoneTypeID }}
-                formSubmitApi={pushPersonPhone}
-                refreshEventAfterFormSubmission={REFRESH_PAGE}
-                closeModal={() => {
-                  console.log("remove me later")
-                }}
-              ></FormModal>
-            ),
-            onDelete: () => {
-              deletePersonPhone({ PersonID: person.PersonID, TelephoneNumber: x.TelephoneNumber }).then((response) => {
-                if (response.success) {
-                  eventBus.publish(REFRESH_PAGE)
+            jsx: (
+              <EditDeleteButtonComboOnTableRow
+                valueToBeEdited={x.TelephoneNumber}
+                editFormMeta={PersonPhoneUpdateFormMeta}
+                editFormTitle="Update Phone"
+                editFormInitialValue={x}
+                editFormDefaultValue={{ PersonID: person.PersonID, TelephoneTypeID: x.TelephoneTypeID }}
+                refreshEventName={REFRESH_PAGE}
+                editApi={pushPersonPhone}
+                deleteApi={() =>
+                  deletePersonPhone({ PersonID: person.PersonID, TelephoneNumber: x.TelephoneNumber }).then(
+                    (response) => {
+                      if (response.success) {
+                        eventBus.publish(REFRESH_PAGE)
+                      }
+                      return response
+                    }
+                  )
                 }
-              })
-            },
-            jsx: x.TelephoneNumber
+              />
+            )
           }
         })
       : []
