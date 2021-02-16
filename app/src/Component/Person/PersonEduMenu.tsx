@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
 import { eventBus } from "~/utils/EventBus"
-import { FormModal } from "~/Component/Common/Form/FormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
 import { PersonDegreeFormMeta } from "~/Component/Person/FormMeta/PersonDegreeFormMeta"
 import { removePersonEducationHistory, updatePersonEducationHistory } from "~/ApiServices/Service/PersonService"
 
@@ -25,7 +25,7 @@ export default function PersonEduMenu(props: IPersonEduMenu) {
           Edit
         </Button>
         {showUpdateModal && (
-          <FormModal
+          <MetaDrivenFormModal
             meta={PersonDegreeFormMeta}
             title={"Update Degree"}
             initialFormValue={props.initialData}

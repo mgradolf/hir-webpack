@@ -27,7 +27,7 @@ export function SearchRegion(props: IGeneratedField) {
   }, [selectedCountry])
   return (
     <Row>
-      <Col span={12}>
+      <Col span={24}>
         <SearchComponentWrapper {...props} fieldName="CountryCodeID" label="Country">
           <Select
             allowClear={true}
@@ -44,7 +44,7 @@ export function SearchRegion(props: IGeneratedField) {
           </Select>
         </SearchComponentWrapper>
       </Col>
-      <Col span={12}>
+      <Col span={24}>
         <SearchComponentWrapper {...props}>
           <Select allowClear={true} loading={loading} aria-label="Region Code">
             {regiondCodes &&

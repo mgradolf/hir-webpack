@@ -25,10 +25,10 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
 
   return (
     <div className="site-layout-content">
-      <Row>
-        <Col span={21}>
+      <Row justify="end">
+        {/* <Col span={21}>
           <Typography.Title level={3}>{props.title}</Typography.Title>
-        </Col>
+        </Col> */}
         {props.helpKey && (
           <Col span={3}>
             <Button type="link" onClick={() => setHelp(true)}>
@@ -59,6 +59,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
           <MetaDrivenForm
+            title={<Typography.Title level={3}>{props.title}</Typography.Title>}
             hideFilters={() => setShowFilter(false)}
             meta={props.meta}
             initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}

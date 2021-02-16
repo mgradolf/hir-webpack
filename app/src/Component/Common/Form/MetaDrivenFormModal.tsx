@@ -3,14 +3,15 @@ import Modal from "~/Component/Common/Modal/index2"
 import zIndex from "~/utils/zIndex"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IField } from "~/Component/Common/Form/common"
-import { Card, Form } from "antd"
+import { Form } from "antd"
 import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 
-export const FormModal = (props: {
+export const MetaDrivenFormModal = (props: {
   title: string
   meta: IField[]
+  isHorizontal?: boolean
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
   formSubmitApi: (Params: any) => Promise<IApiResponse>
@@ -48,21 +49,23 @@ export const FormModal = (props: {
 
   return (
     <Modal width="1000px" zIndex={zIndex.defaultModal}>
-      <Card title={props.title} loading={loading}>
-        <MetaDrivenForm
-          meta={props.meta}
-          closeModal={props.closeModal}
-          initialFormValue={props.initialFormValue}
-          defaultFormValue={props.defaultFormValue}
-          applyButtonLabel="Submit"
-          stopProducingQueryParams={true}
-          errorMessages={error}
-          onApplyChanges={(newValues: { [key: string]: any }) => {
-            console.log("calling onApplyChanges ", newValues)
-            submit(newValues)
-          }}
-        />
-      </Card>
+      <MetaDrivenForm
+        meta={props.meta}
+        title={props.title}
+        loading={loading}
+        isHorizontal={props.isHorizontal}
+        isModal={true}
+        closeModal={props.closeModal}
+        initialFormValue={props.initialFormValue}
+        defaultFormValue={props.defaultFormValue}
+        applyButtonLabel="Submit"
+        stopProducingQueryParams={true}
+        errorMessages={error}
+        onApplyChanges={(newValues: { [key: string]: any }) => {
+          console.log("calling onApplyChanges ", newValues)
+          submit(newValues)
+        }}
+      />
     </Modal>
   )
 }

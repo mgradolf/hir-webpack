@@ -7,7 +7,7 @@ import {
 import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
-import { SearchRegion } from "~/TableSearchMeta/Person/SearchRegion"
+import { SearchRegion } from "~/Component/Common/Form/CustomFormFields/SearchRegion"
 
 export const PersonSearchMeta: IField[] = [
   {

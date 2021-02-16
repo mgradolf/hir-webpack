@@ -2,8 +2,7 @@ import React, { useState } from "react"
 import { Button, Dropdown, Menu, Row } from "antd"
 import Notification from "~/utils/notification"
 import { INVITE_TO_SETUP_WEB_LOGIN, INVITE_TO_RESET_PASSWORD, UNLOCK_WEB_LOGIN } from "~/utils/Constants"
-// import { FormModal } from "~/Component/Common/Form/FormModal"
-import { FormModal } from "~/Component/Common/Form/FormModal2"
+import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
 import { PersonLoginFormMeta } from "~/Component/Person/FormMeta/PersonLoginFormMeta"
 import {
   sendPasswordResetEmail,
@@ -104,7 +103,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
         </Button>
       )}
       {showModal && (
-        <FormModal
+        <MetaDrivenFormModal
           meta={PersonLoginFormMeta}
           isHorizontal={true}
           title={"Update Person Login Info"}
@@ -113,7 +112,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
           formSubmitApi={updateLoginInfo}
           refreshEventAfterFormSubmission={REFRESH_PAGE}
           closeModal={() => setShowModal(false)}
-        ></FormModal>
+        ></MetaDrivenFormModal>
       )}
       <Dropdown.Button disabled={!isLogin} overlay={getMenu(props.initialData)} type="primary">
         Actions

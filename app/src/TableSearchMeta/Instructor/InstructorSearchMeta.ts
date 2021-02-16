@@ -7,7 +7,7 @@ import {
 } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
-import { SearchRegion } from "~/TableSearchMeta/Person/SearchRegion"
+import { SearchRegion } from "~/Component/Common/Form/CustomFormFields/SearchRegion"
 
 export const InstructorSearchMeta: IField[] = [
   {

@@ -1,14 +1,14 @@
 import React from "react"
 import {
   createPersonEducationHistory,
+  deletePersonAddress,
   deletePersonEmail,
   deletePersonPhone,
   pushPerson,
+  pushPersonAddress,
   pushPersonEmail,
   pushPersonPhone
 } from "~/ApiServices/Service/PersonService"
-// import { FormModal } from "~/Component/Common/Form/FormModal"
-import { FormModal } from "~/Component/Common/Form/FormModal2"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
@@ -34,6 +34,8 @@ import { PersonTypeFormMeta } from "~/Component/Person/FormMeta/Basic/PersonType
 import { PersonPhoneUpdateFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneUpdateFormMeta"
 import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
 import { AccountRelationFormModalOpenButton } from "~/Component/Person/PersonAccountFormModal"
+import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/EditDeleteButtonComboOnTableRow"
+import { PersonAddressFormMeta } from "~/Component/Person/FormMeta/Address/PersonAddressFormMeta"
 
 export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -146,17 +148,35 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       ? person.Addresses.map((x: any) => {
           return {
             label: x.AddressTypeDescriptor,
-            icon: true,
             jsx: (
-              <div>
-                {x.AddressLine1 && <span>{x.AddressLine1}</span>}
-                {x.AddressLine2 && <span>, {x.AddressLine2}</span>}
-                {x.AddressLine3 && <span>, {x.AddressLine3}</span>}
-                <br />
-                <span>
-                  {x.Locality} {x.CountryDescriptor}
-                </span>
-              </div>
+              <EditDeleteButtonComboOnTableRow
+                valueToBeEdited={
+                  <>
+                    {x.AddressLine1 && x.AddressLine1}
+                    {x.AddressLine2 && x.AddressLine2}
+                    {x.AddressLine3 && x.AddressLine3}
+                    <br />
+                    <>
+                      {x.Locality}
+                      {x.CountryDescriptor}
+                    </>
+                  </>
+                }
+                editFormMeta={PersonAddressFormMeta}
+                editFormTitle="Update Address"
+                editFormInitialValue={x}
+                editFormDefaultValue={{ PersonID: person.PersonID, PersonAddressID: x.PersonAddressID }}
+                refreshEventName={REFRESH_PAGE}
+                editApi={pushPersonAddress}
+                deleteApi={() =>
+                  deletePersonAddress({ PersonAddressID: x.PersonAddressID }).then((response) => {
+                    if (response.success) {
+                      eventBus.publish(REFRESH_PAGE)
+                    }
+                    return response
+                  })
+                }
+              />
             )
           }
         })
@@ -164,7 +184,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   }
 
   const phone: CardContainer = {
-    title: "Telephone",
+    title: "Telephone asdsad",
     cardActions: [
       <FormModalOpenButton
         formTitle="Add Phone"
@@ -179,28 +199,27 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       ? person.Telephones.map((x: any) => {
           return {
             label: x.TelephoneTypeDescriptor,
-            icon: true,
-            onUpdate: (
-              <FormModal
-                meta={PersonPhoneUpdateFormMeta}
-                title={"Update Phone"}
-                initialFormValue={x}
-                defaultFormValue={{ PersonID: person.PersonID, TelephoneTypeID: x.TelephoneTypeID }}
-                formSubmitApi={pushPersonPhone}
-                refreshEventAfterFormSubmission={REFRESH_PAGE}
-                closeModal={() => {
-                  console.log("remove me later")
-                }}
-              ></FormModal>
-            ),
-            onDelete: () => {
-              deletePersonPhone({ PersonID: person.PersonID, TelephoneNumber: x.TelephoneNumber }).then((response) => {
-                if (response.success) {
-                  eventBus.publish(REFRESH_PAGE)
+            jsx: (
+              <EditDeleteButtonComboOnTableRow
+                valueToBeEdited={x.TelephoneNumber}
+                editFormMeta={PersonPhoneUpdateFormMeta}
+                editFormTitle="Update Phone"
+                editFormInitialValue={x}
+                editFormDefaultValue={{ PersonID: person.PersonID, TelephoneTypeID: x.TelephoneTypeID }}
+                refreshEventName={REFRESH_PAGE}
+                editApi={pushPersonPhone}
+                deleteApi={() =>
+                  deletePersonPhone({ PersonID: person.PersonID, TelephoneNumber: x.TelephoneNumber }).then(
+                    (response) => {
+                      if (response.success) {
+                        eventBus.publish(REFRESH_PAGE)
+                      }
+                      return response
+                    }
+                  )
                 }
-              })
-            },
-            jsx: x.TelephoneNumber
+              />
+            )
           }
         })
       : []
@@ -222,28 +241,25 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       ? person.Emails.map((x: any) => {
           return {
             label: x.EmailTypeDescriptor,
-            icon: true,
-            onUpdate: (
-              <FormModal
-                meta={PersonEmailUpdateFormMeta}
-                title={"Update Email Address"}
-                initialFormValue={x}
-                defaultFormValue={{ PersonID: person.PersonID, EmailAddressTypeID: x.EmailAddressTypeID }}
-                formSubmitApi={pushPersonEmail}
-                refreshEventAfterFormSubmission={REFRESH_PAGE}
-                closeModal={() => {
-                  console.log("remove me later")
-                }}
-              ></FormModal>
-            ),
-            onDelete: () => {
-              deletePersonEmail({ PersonID: person.PersonID, EmailAddress: x.EmailAddress }).then((response) => {
-                if (response.success) {
-                  eventBus.publish(REFRESH_PAGE)
+            jsx: (
+              <EditDeleteButtonComboOnTableRow
+                valueToBeEdited={renderEmail(x.EmailAddress)}
+                editFormMeta={PersonEmailUpdateFormMeta}
+                editFormTitle="Update Phone"
+                editFormInitialValue={x}
+                editFormDefaultValue={{ PersonID: person.PersonID, EmailAddressTypeID: x.EmailAddressTypeID }}
+                refreshEventName={REFRESH_PAGE}
+                editApi={pushPersonEmail}
+                deleteApi={() =>
+                  deletePersonEmail({ PersonID: person.PersonID, EmailAddress: x.EmailAddress }).then((response) => {
+                    if (response.success) {
+                      eventBus.publish(REFRESH_PAGE)
+                    }
+                    return response
+                  })
                 }
-              })
-            },
-            jsx: renderEmail(x.EmailAddress)
+              />
+            )
           }
         })
       : []

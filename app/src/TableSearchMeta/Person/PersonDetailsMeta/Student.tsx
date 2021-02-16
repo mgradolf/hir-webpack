@@ -24,7 +24,7 @@ import {
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { Button } from "antd"
-import { FormModal } from "~/Component/Common/Form/FormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
 import { StudentHoldFormMeta } from "~/Component/Student/Forms/StudentHoldFormMeta"
 import { StudentFormMeta } from "~/Component/Student/Forms/StudentFormMeta"
 import { getStudentHoldTableColumns } from "~/TableSearchMeta/StudentHold/StudentHoldTableColumns"
@@ -39,7 +39,7 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
         </Button>
       )}
       {showModal && (
-        <FormModal
+        <MetaDrivenFormModal
           meta={StudentFormMeta}
           title={"Update Student"}
           initialFormValue={props.studentData}
@@ -67,7 +67,7 @@ const HoldFormModalOpenButton = (props: { StudentID: number }) => {
         </Button>
       )}
       {showModal && (
-        <FormModal
+        <MetaDrivenFormModal
           meta={StudentHoldFormMeta}
           title={"Apply Hold"}
           initialFormValue={{ StudentID: props.StudentID }}
