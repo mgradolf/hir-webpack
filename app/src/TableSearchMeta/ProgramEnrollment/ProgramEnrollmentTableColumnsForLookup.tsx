@@ -1,6 +1,6 @@
 import { renderDate, renderEmail, sortByString, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
 import { searchEnrollment } from "~/ApiServices/BizApi/program/programEnrollmentIF"
+import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
 export const getProgramEnrollmentTableColumnsForLookup = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
