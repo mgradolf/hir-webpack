@@ -1,18 +1,18 @@
-import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
-import { getReason } from "~/ApiServices/Service/RefLookupService"
+import { DROPDOWN, IField, TEXTAREA } from "~/Component/Common/Form/common"
+import { getReleaseReason } from "~/ApiServices/Service/RefLookupService"
 
 export const StudentReleaseFormMeta: IField[] = [
   {
     label: "Reason",
     inputType: DROPDOWN,
-    refLookupService: getReason,
-    fieldName: "HoldReasonID",
+    refLookupService: getReleaseReason,
+    fieldName: "ReleaseReasonID",
     displayKey: "Name",
     valueKey: "ID"
   },
   {
     label: "Notes",
-    inputType: TEXT,
+    inputType: TEXTAREA,
     fieldName: "Note"
   }
 ]

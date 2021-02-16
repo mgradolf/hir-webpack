@@ -183,7 +183,7 @@ export function MetaDrivenForm({
       title={props.title}
       loading={props.loading}
       actions={[
-        <Row justify="end" gutter={[8, 8]}>
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           {!props.closeModal && meta.length > 4 && (
             <Col>
               <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
