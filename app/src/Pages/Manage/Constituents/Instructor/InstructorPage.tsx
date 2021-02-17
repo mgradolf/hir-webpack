@@ -3,7 +3,7 @@ import { Button } from "antd"
 import { InstructorSearchMeta } from "~/TableSearchMeta/Instructor/InstructorSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getInstructorTableColumns } from "~/TableSearchMeta/Instructor/InstructorTableColumns"
-import InstructorFormModal from "~/Component/Instructor/InstructorFormModal"
+import InstructorFormModal from "~/Component/Instructor/FormMeta/InstructorFormModal"
 
 export default function InstructorPage() {
   const [showModal, setShowModal] = useState(false)

@@ -22,6 +22,13 @@ export function addInstructorToOffering(
   return InstructorService[config.Actions.addInstructorToOffering](Params, Headers)
 }
 
+export function pushInstructorSchedule(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return InstructorService[config.Actions.pushInstructorSchedule](Params, Headers)
+}
+
 export function removeInstructorFromOffering(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
