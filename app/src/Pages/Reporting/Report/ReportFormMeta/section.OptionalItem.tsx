@@ -43,7 +43,10 @@ const meta: IField[] = [
     label: "Resources",
     fieldName: "ResourceID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: ResourceLookup
+    customFilterComponent: ResourceLookup,
+    extraProps: {
+      isArray: true
+    }
   },
   {
     label: "Section Date",
