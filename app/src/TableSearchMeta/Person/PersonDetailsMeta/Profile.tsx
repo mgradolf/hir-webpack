@@ -32,7 +32,7 @@ import { PersonGovFormMeta } from "~/Component/Person/FormMeta/Basic/PersonGovFo
 import { PersonPhoneFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneFormMeta"
 import { PersonTypeFormMeta } from "~/Component/Person/FormMeta/Basic/PersonTypeFormMeta"
 import { PersonPhoneUpdateFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneUpdateFormMeta"
-import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
+import { FormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { AccountRelationFormModalOpenButton } from "~/Component/Person/PersonAccountFormModal"
 import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/EditDeleteButtonComboOnTableRow"
 import { PersonAddressFormMeta } from "~/Component/Person/FormMeta/Address/PersonAddressFormMeta"

@@ -8,7 +8,7 @@ import { getEnrollmentActivityLogTableColumns } from "~/TableSearchMeta/Enrollme
 import { getActivityOrderCreditSearchTableColumns } from "~/TableSearchMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
 import { getPaymentActivityTableColumns } from "~/TableSearchMeta/PaymentActivity/PaymentActivityTableColumns"
 import { UserSearchMeta } from "~/TableSearchMeta/User/UserFormMeta"
-import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
+import { FormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { saveUser } from "~/ApiServices/Service/UserService"
 
 export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta => {

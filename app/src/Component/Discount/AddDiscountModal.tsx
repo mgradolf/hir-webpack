@@ -1,7 +1,7 @@
 import * as React from "react"
 import { DiscountProgramsSearchMeta } from "~/TableSearchMeta/DiscountPrograms/DiscountProgramsSearchMeta"
 import { getDiscountProgramsTableColumns } from "~/TableSearchMeta/DiscountPrograms/DiscountProgramsTableColumns"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 
 interface ICreateNewDiscountProps {
   sectionId: number

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Dropdown, Menu } from "antd"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import { getProgramTableColumns } from "~/TableSearchMeta/Program/ProgramTableColumns"

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
-import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { StudentHoldFormMeta } from "~/Component/Student/Forms/StudentHoldFormMeta"
 import { createUpdateStudentHold, releaseStudentHold } from "~/ApiServices/Service/StudentService"
 import { StudentReleaseFormMeta } from "~/Component/Student/Forms/StudentReleaseFormMeta"

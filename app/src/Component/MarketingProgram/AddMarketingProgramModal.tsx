@@ -1,5 +1,5 @@
 import * as React from "react"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { getMarketingProgramTableColumns } from "~/TableSearchMeta/MarketingProgram/MarketingProgramTableColumns"
 import { MarketingProgramSearchMeta } from "~/TableSearchMeta/MarketingProgram/MarketingProgramSearchMeta"
 

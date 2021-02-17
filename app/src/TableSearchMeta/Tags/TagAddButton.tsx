@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { addTagIntoEntity } from "~/ApiServices/Service/TagService"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { TagsSearchMeta } from "~/TableSearchMeta/Tags/TagsSearchMeta"
 import { getTagsTableColumns } from "~/TableSearchMeta/Tags/TagsTableColumns"
 import { eventBus } from "~/utils/EventBus"

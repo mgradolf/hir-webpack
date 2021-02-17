@@ -24,7 +24,7 @@ import {
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { Button } from "antd"
-import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { StudentHoldFormMeta } from "~/Component/Student/Forms/StudentHoldFormMeta"
 import { StudentFormMeta } from "~/Component/Student/Forms/StudentFormMeta"
 import { getStudentHoldTableColumns } from "~/TableSearchMeta/StudentHold/StudentHoldTableColumns"

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { getResourceTableColumns } from "~/TableSearchMeta/Resource/ResourceTableColumns"
 import { ResourceSearchMeta } from "~/TableSearchMeta/Resource/ResourceSearchMeta"
 

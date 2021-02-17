@@ -3,7 +3,7 @@ import { Button, Col, Row } from "antd"
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IField } from "~/Component/Common/Form/common"
-import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
+import { FormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 
 export const EditDeleteButtonComboOnTableRow = (props: {
   valueToBeEdited?: any

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
+import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
 import { getRequestTableColumns } from "~/TableSearchMeta/Request/RequestTableColumns"
 import { RequestSearchMeta } from "~/TableSearchMeta/Request/RequestSearchMeta"

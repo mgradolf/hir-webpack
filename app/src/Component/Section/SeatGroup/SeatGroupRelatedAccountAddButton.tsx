@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { addAccount } from "~/ApiServices/Service/SeatGroupService"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { eventBus, REFRESH_SEATGROUP_RELATED_ACCOUNT_PAGE } from "~/utils/EventBus"
 import { getAccountTableColumns } from "~/TableSearchMeta/Account/AccountTableColumns"
 import { AccountSearchMeta } from "~/TableSearchMeta/Account/AccountSearchMeta"
