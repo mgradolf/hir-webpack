@@ -7,6 +7,7 @@ export const config = {
   Actions: {
     pushInstructor: "pushInstructor",
     removeInstructor: "removeInstructor",
+    pushInstructorSchedule: "pushInstructorSchedule",
     addInstructorToOffering: "addInstructorToOffering",
     removeInstructorFromOffering: "removeInstructorFromOffering",
     searchSectionInstructor: "searchSectionInstructor",

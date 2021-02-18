@@ -15,7 +15,8 @@ import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from
 import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { pushInstructor } from "~/ApiServices/Service/InstructorService"
-import { InstructorFormMeta } from "~/Component/Instructor/InstructorFormMeta"
+import { InstructorFormMeta } from "~/Component/Instructor/FormMeta/InstructorFormMeta"
+import InstructorScheduleFormModal from "~/Component/Instructor/Forms/InstructorScheduleFormModal"
 
 const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -41,6 +42,20 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
           closeModal={() => setShowModal(false)}
         />
       )}
+    </>
+  )
+}
+
+const ScheduleFormModalOpenButton = (props: { PersonID: number }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          + Add Schedule
+        </Button>
+      )}
+      {showModal && <InstructorScheduleFormModal PersonID={props.PersonID} closeModal={() => setShowModal(false)} />}
     </>
   )
 }
@@ -89,6 +104,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Schedule",
     tabType: "table",
     tabMeta: {
+      blocks: [<ScheduleFormModalOpenButton PersonID={instructor.PersonID} />],
       tableProps: {
         ...getInstructorScheduleTableColumns(),
         searchParams: { PersonID: person.PersonID },
