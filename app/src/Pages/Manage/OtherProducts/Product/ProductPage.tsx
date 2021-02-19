@@ -1,6 +1,6 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { helpFileNameMap } from "~/HelpFileMap"
+import helpFileNameMap from "~/Config/HelpFileMap.json"
 import { ProductSearchMeta } from "~/TableSearchMeta/Product/ProductSearchMeta"
 import { getProductTableColumns } from "~/TableSearchMeta/Product/ProductTableColumns"
 

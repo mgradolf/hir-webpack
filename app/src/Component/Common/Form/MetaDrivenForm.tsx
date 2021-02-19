@@ -44,7 +44,6 @@ export function MetaDrivenForm({
   isModal?: boolean
   helpKey?: string
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
-  hideFilters?: () => void
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
   showClearbutton?: boolean
@@ -132,7 +131,7 @@ export function MetaDrivenForm({
         props.onApplyChanges(mergedParams, filterCount)
 
         if (!props.stopProducingQueryParams) {
-          const _queryString = objectToQueryString(Object.keys(params).length > 0 ? params : null)
+          const _queryString = objectToQueryString(Object.keys(mergedParams).length > 0 ? params : null)
           window.history && window.history.pushState({}, "", _queryString)
         }
       })

@@ -5,7 +5,7 @@ import { SectionSearchMeta } from "~/TableSearchMeta/Section/SectionSearchMeta"
 import { RouteComponentProps } from "react-router-dom"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
-import { helpFileNameMap } from "~/HelpFileMap"
+import helpFileNameMap from "~/Config/HelpFileMap.json"
 
 export default function Offering(props: RouteComponentProps<{ offeringID: string }>) {
   const OfferingID = Number(props.match.params.offeringID)

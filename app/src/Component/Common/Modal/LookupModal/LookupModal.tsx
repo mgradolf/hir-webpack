@@ -46,13 +46,11 @@ export function LookupModal(props: ILookupModal) {
           <MetaDrivenForm
             meta={props.meta}
             initialFormValue={searchParams}
-            hideFilters={() => {
-              setSelectedItems([])
-            }}
             onApplyChanges={(newSearchParams, newSearchParamsCount) => {
               console.log(props.defaultFormValue, newSearchParams)
               setSearchParams({ ...props.defaultFormValue, ...newSearchParams })
             }}
+            stopProducingQueryParams={true}
           />
           <ResponsiveTable
             columns={props.columns}

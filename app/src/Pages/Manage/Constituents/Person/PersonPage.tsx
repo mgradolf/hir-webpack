@@ -4,7 +4,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColumns"
 import { Button } from "antd"
 import PersonFormModal from "~/Component/Person/Forms/PersonFormModal"
-import { helpFileNameMap } from "~/HelpFileMap"
+import helpFileNameMap from "~/Config/HelpFileMap.json"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)

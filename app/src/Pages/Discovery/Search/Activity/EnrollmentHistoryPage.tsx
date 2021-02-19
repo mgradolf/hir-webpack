@@ -7,7 +7,6 @@ export default function EnrollmentHistoryPage() {
   return (
     <SearchPage
       title="Enrollment History"
-      initialFormValue={{}}
       meta={EnrollmentSearchMeta}
       hideSearchField={false}
       tableProps={{ ...getEnrollmentTableColumns() }}

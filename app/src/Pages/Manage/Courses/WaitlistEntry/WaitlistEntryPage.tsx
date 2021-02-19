@@ -21,7 +21,6 @@ export default function WaitlistEntryPage() {
       )}
       <SearchPage
         title="Waitlist Entries"
-        initialFormValue={{}}
         meta={WaitlistEntriesSearchMeta}
         hideSearchField={false}
         blocks={[

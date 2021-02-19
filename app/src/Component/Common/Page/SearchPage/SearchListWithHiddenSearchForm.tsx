@@ -51,7 +51,6 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
         {props.meta && (
           <MetaDrivenForm
             title={<Typography.Title level={3}>{props.title}</Typography.Title>}
-            hideFilters={() => setShowFilter(false)}
             helpKey={props.helpKey}
             meta={props.meta}
             initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}

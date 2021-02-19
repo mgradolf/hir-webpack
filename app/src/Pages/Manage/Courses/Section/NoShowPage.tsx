@@ -48,14 +48,10 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
             ariaLabel: "OrderID"
           }
         ]}
-        hideFilters={() => {
-          console.log("meo")
-        }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
           newValues.SectionID = props.SectionID
           setSearchParams(newValues)
         }}
-        initialFormValue={{}}
       />
       <Button
         style={{ float: "right", zIndex: 10 }}
