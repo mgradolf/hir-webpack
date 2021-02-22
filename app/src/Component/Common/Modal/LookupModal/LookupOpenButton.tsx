@@ -15,6 +15,7 @@ export interface ILookupOpenButton extends IGeneratedField {
   displayField: string
   columns: TableColumnType
   meta: IField[]
+  defaultFormValue?: { [key: string]: any }
   responsiveColumnIndices?: number[]
   expandableColumnIndices?: number[]
   entityLookupFunc?: () => Promise<any>
@@ -55,10 +56,11 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
       if (props.extraProps && props.extraProps.isArray) {
-        setSelectedItems(items)
-        setOptions(items)
+        const __items = [...selectedItems, ...items]
+        setSelectedItems(__items)
+        setOptions(__items)
         props.formInstance.setFieldsValue({
-          [props.fieldName]: items.map((x) => x[props.valueField])
+          [props.fieldName]: __items.map((x) => x[props.valueField])
         })
       } else {
         console.log([items[0]])
@@ -159,6 +161,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           meta={props.meta}
           responsiveColumnIndices={props.responsiveColumnIndices}
           expandableColumnIndices={props.expandableColumnIndices}
+          defaultFormValue={props.defaultFormValue}
         />
       )}
     </>

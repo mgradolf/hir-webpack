@@ -1,4 +1,11 @@
 import React, { useState } from "react"
+import {
+  REFRESH_OFFERING_APPROVAL_PAGE,
+  REFRESH_OFFERING_CATALOG_PAGE,
+  REFRESH_OFFERING_FINANCIAL_PAGE,
+  REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
+  REFRESH_SECTION_PAGE
+} from "~/utils/EventBus"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
@@ -12,13 +19,6 @@ import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFina
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
 import { AddInstructorButton } from "~/Component/Offering/QualifiedInstructor/AddInstructorButton"
 import { getOfferingCatalogTableColumns } from "~/TableSearchMeta/Offering/OfferingCatalogTableColumns"
-import {
-  REFRESH_OFFERING_APPROVAL_PAGE,
-  REFRESH_OFFERING_CATALOG_PAGE,
-  REFRESH_OFFERING_FINANCIAL_PAGE,
-  REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
-  REFRESH_SECTION_PAGE
-} from "~/utils/EventBus"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import RequisitePage from "~/Pages/Manage/Courses/Offering/Requisite/RequisitePage"
 import { getOfferingApprovalTableColumns } from "~/TableSearchMeta/OfferingApproval/ApprovalTableColumns"
@@ -40,7 +40,6 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },
       { label: "Offering Type", value: offering.OfferingTypeName, render: undefined },
-
       { label: "Description", value: offering.OfferingDescription, render: undefined },
       { label: "URL", value: offering.URL, render: undefined },
       { label: "Creation Date", value: offering.CreationDate, render: renderDate },

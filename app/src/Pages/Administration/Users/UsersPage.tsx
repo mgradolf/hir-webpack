@@ -1,6 +1,6 @@
 import React from "react"
 import { saveUser } from "~/ApiServices/Service/UserService"
-import { FormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
+import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { UserSearchMeta } from "~/TableSearchMeta/User/UserFormMeta"
 import { getUserTableColumns } from "~/TableSearchMeta/User/UserTableColumns"
@@ -10,7 +10,7 @@ export default function () {
     <SearchPage
       title="Users"
       blocks={[
-        <FormModalOpenButton
+        <MetaDrivenFormModalOpenButton
           buttonLabel={"+ Create User"}
           formTitle={"Create User"}
           formMeta={UserSearchMeta}

@@ -15,13 +15,22 @@ export interface IStandardReportPage {
   mapping?: { [key: string]: any }
   atLeastOneRequiredfield?: boolean
 }
+const checkIfFieldParamsAreEmpty = (fieldParams: { [key: string]: any }, defaultParams: { [key: string]: any }) => {
+  for (const key in fieldParams) {
+    console.log(key, fieldParams, defaultParams)
+    if (defaultParams[key] !== undefined) {
+      delete fieldParams[key]
+    }
+  }
+  return Object.keys(fieldParams).length === 0
+}
 
 export default function StandardReportPage(props: IStandardReportPage) {
   const [downloadUrl, setdownloadUrl] = useState<string>()
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const openReportInNewTab = (params: { [key: string]: any }) => {
     setErrorMessages([])
-    if (props.atLeastOneRequiredfield && Object.keys(params).length === 0) {
+    if (props.atLeastOneRequiredfield && checkIfFieldParamsAreEmpty(params, props.defaultFormValue || {})) {
       setErrorMessages([{ message: "Minimum one search field is required!" }])
       return
     }

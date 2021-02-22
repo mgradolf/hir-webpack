@@ -9,21 +9,22 @@ export const PersonPhoneFormMeta: IField[] = [
     fieldName: "TelephoneTypeID",
     displayKey: "Name",
     valueKey: "ID",
-    rules: [{ required: true, message: "Please select telephone type!" }]
+    rules: [{ required: true, message: "Phone Type is required!" }]
   },
   {
     label: "Number",
     inputType: NUMBER,
     fieldName: "TelephoneNumber",
-    rules: [{ required: true, message: "Please enter telephone number!" }]
+    rules: [{ required: true, message: "Phone Number is required!" }]
   },
   {
-    label: "Phone is private",
+    label: "Private",
     inputType: DROPDOWN,
     fieldName: "IsConfidential",
     options: [
       { label: "Yes", value: true },
       { label: "No", value: false }
-    ]
+    ],
+    rules: [{ required: true, message: "Private is required!" }]
   }
 ]
