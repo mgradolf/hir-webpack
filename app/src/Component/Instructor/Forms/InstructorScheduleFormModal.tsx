@@ -2,7 +2,7 @@ import { Form } from "antd"
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { IInstructorScheduleFieldNames } from "~/Component/Instructor/Interfaces"
-import InstructorScheduleForm from "./InstructorScheduleForm"
+import InstructorScheduleForm from "~/Component/Instructor/Forms/InstructorScheduleForm"
 
 interface IInstructorScheduleFormModalProps {
   PersonID?: number

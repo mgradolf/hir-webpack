@@ -171,7 +171,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       tabTitle: "Tags",
       tabType: "summary",
       tabMeta: [],
-      multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Offering", EntityID: offering.OfferingID }).tabs
+      multipleTabMetas: getTagsTabPageDetailsMeta({}, "Offering", offering.OfferingID).tabs
     },
     {
       tabTitle: "Tagged Questions",

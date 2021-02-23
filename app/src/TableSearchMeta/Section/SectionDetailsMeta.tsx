@@ -287,7 +287,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabTitle: "Tags",
         tabType: "summary",
         tabMeta: [],
-        multipleTabMetas: getTagsTabPageDetailsMeta({ EntityType: "Section", EntityID: section.SectionID }).tabs
+        multipleTabMetas: getTagsTabPageDetailsMeta({}, "Section", section.SectionID).tabs
       },
       {
         tabTitle: "Tagged Questions",

@@ -30,15 +30,28 @@ export default function StandardReportPage(props: IStandardReportPage) {
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const openReportInNewTab = (params: { [key: string]: any }) => {
     setErrorMessages([])
+
     if (props.atLeastOneRequiredfield && checkIfFieldParamsAreEmpty(params, props.defaultFormValue || {})) {
       setErrorMessages([{ message: "Minimum one search field is required!" }])
       return
     }
+
+    Object.keys(params).forEach((key) => {
+      if (
+        params[key] === null ||
+        params[key] === undefined ||
+        (typeof params[key] === "string" && params[key].includes("undefined_0"))
+      ) {
+        delete params[key]
+      }
+    })
+
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
       if (Array.isArray(params[key]) && params[key].length > 0) {
         urlParams += `${key}=[${params[key]}]&`
-      } else if (params[key] !== null || params[key] !== undefined) {
+      } else {
+        console.log(params)
         urlParams += `${key}=${params[key]}&`
       }
       if (props.mapping) {

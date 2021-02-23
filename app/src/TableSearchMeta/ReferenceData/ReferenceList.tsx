@@ -26,7 +26,7 @@ export const ReferenceList: IReferenceList[] = [
     Description: "AccountTransactionType is custom a reflookup for ...",
     custom: true
   },
-  { Title: "Account Type", Value: "AccountType", Description: "AccountType is a reflookup for ...", custom: false },
+  { Title: "Account Type", Value: "AccountType", Description: "AccountType is a reflookup for ...", custom: true },
   //Unavailable in admin
   { Title: "Address Types", Value: "AddressType", Description: "AddressType is a reflookup for ...", custom: false },
   {

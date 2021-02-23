@@ -4,15 +4,17 @@ import { getParentTags } from "~/ApiServices/Service/TagService"
 import React from "react"
 import { TagAddButton } from "~/TableSearchMeta/Tags/TagAddButton"
 
-export const getTagsTabPageDetailsMeta = (Params: { [key: string]: any }): IDetailsMeta => {
+export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, EntityID?: number): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
-  const EntityType = Params.EntityType
-  const EntityID = Params.EntityID
   meta.push({
     tabTitle: `${EntityType} Tags`,
     tabType: "table",
     tabMeta: {
-      blocks: [<TagAddButton tag={Params} eventName="REFRESH_CATALOGS_TAB" />],
+      blocks: [
+        EntityType && EntityID && (
+          <TagAddButton EntityType={EntityType} EntityID={EntityID} eventName="REFRESH_CATALOGS_TAB" />
+        )
+      ],
       tableProps: {
         ...getTagsTableColumns(false, "REFRESH_CATALOGS_TAB"),
         searchParams: { EntityType, EntityID, IsSelected: true },
