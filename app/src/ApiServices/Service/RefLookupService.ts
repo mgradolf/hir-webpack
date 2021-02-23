@@ -505,3 +505,9 @@ export function getSystemEvents(): Promise<IApiResponse> {
     LookUpName: "SystemEvent"
   })
 }
+
+export function getGLAccountMappingTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GLAccountMappingType"
+  })
+}

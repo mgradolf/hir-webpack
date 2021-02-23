@@ -184,7 +184,7 @@ export const ReferenceList: IReferenceList[] = [
     custom: false
   },
   { Title: "Gender Types", Value: "GenderType", Description: "gendertype is custom a reflookup for ...", custom: true },
-  { Title: "GLaccount", Value: "glaccount", Description: "glaccount is custom a reflookup for ...", custom: true },
+  { Title: "GL Account", Value: "GLAccount", Description: "glaccount is custom a reflookup for ...", custom: true },
   // Unavailable in admin
   {
     Title: "GLAccount Mapping Type",
