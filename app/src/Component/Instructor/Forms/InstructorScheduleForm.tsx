@@ -43,6 +43,15 @@ export default function InstructorScheduleForm(props: IInstructorScheduleFormPro
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
+    const dayParams: { [key: string]: any } = {}
+    const days = params["Days"]
+    if (days !== undefined) {
+      days.forEach((day: string) => {
+        dayParams[day] = true
+      })
+      params["Days"] = dayParams
+    }
+
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = props.editMode
       ? pushInstructorSchedule
       : pushInstructorSchedule
@@ -97,6 +106,10 @@ export default function InstructorScheduleForm(props: IInstructorScheduleFormPro
 
         <Form.Item label={"PersonID"} className="hidden" name={props.fieldNames.PersonID}>
           <Input aria-label={"Person ID"} />
+        </Form.Item>
+
+        <Form.Item label={"ScheduleID"} className="hidden" name={props.fieldNames.ScheduleID}>
+          <Input aria-label={"Schedule ID"} />
         </Form.Item>
 
         <Form.Item

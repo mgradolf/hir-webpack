@@ -106,7 +106,8 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       blocks: [<ScheduleFormModalOpenButton PersonID={instructor.PersonID} />],
       tableProps: {
-        ...getInstructorScheduleTableColumns(),
+        pagination: false,
+        ...getInstructorScheduleTableColumns(instructor.PersonID),
         searchParams: { PersonID: person.PersonID },
         refreshEventName: "REFRESH_FACULTY_SCHEDULE_TAB"
       }
