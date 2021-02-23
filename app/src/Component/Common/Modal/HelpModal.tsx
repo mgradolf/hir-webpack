@@ -15,7 +15,7 @@ export function HelpModal({ helpKey }: { helpKey?: string }) {
           </Button>
           {help && (
             <Modal width="100%">
-              <>
+              <div style={{ background: "white" }}>
                 <Button
                   style={{ position: "absolute", right: 0 }}
                   onClick={() => setHelp(false)}
@@ -24,7 +24,7 @@ export function HelpModal({ helpKey }: { helpKey?: string }) {
                   icon={<CloseCircleFilled />}
                 />
                 <iframe title="helpViewer" style={{ width: "100%", height: "100vh" }} src={helpUrl} />
-              </>
+              </div>
             </Modal>
           )}
         </>

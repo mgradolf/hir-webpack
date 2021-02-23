@@ -1,6 +1,5 @@
 import { Row, Typography } from "antd"
 import React, { useState } from "react"
-import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
@@ -16,13 +15,22 @@ export interface IStandardReportPage {
   mapping?: { [key: string]: any }
   atLeastOneRequiredfield?: boolean
 }
+const checkIfFieldParamsAreEmpty = (fieldParams: { [key: string]: any }, defaultParams: { [key: string]: any }) => {
+  for (const key in fieldParams) {
+    console.log(key, fieldParams, defaultParams)
+    if (defaultParams[key] !== undefined) {
+      delete fieldParams[key]
+    }
+  }
+  return Object.keys(fieldParams).length === 0
+}
 
 export default function StandardReportPage(props: IStandardReportPage) {
   const [downloadUrl, setdownloadUrl] = useState<string>()
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const openReportInNewTab = (params: { [key: string]: any }) => {
     setErrorMessages([])
-    if (props.atLeastOneRequiredfield && Object.keys(params).length === 0) {
+    if (props.atLeastOneRequiredfield && checkIfFieldParamsAreEmpty(params, props.defaultFormValue || {})) {
       setErrorMessages([{ message: "Minimum one search field is required!" }])
       return
     }
@@ -49,23 +57,19 @@ export default function StandardReportPage(props: IStandardReportPage) {
   }
   return (
     <div className="site-layout-content">
-      <Row>
-        <Typography.Title level={3}>{props.title}</Typography.Title>
-      </Row>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
-        {props.meta && (
-          <MetaDrivenForm
-            meta={props.meta}
-            initialFormValue={props.initialFormValue}
-            defaultFormValue={props.defaultFormValue}
-            applyButtonLabel="Run Report"
-            errorMessages={errorMessages}
-            onApplyChanges={(newFilterValues, appliedFilterCount) => {
-              openReportInNewTab(newFilterValues)
-            }}
-          />
-        )}
-      </Row>
+      {props.meta && (
+        <MetaDrivenForm
+          title={<Typography.Title level={3}>{props.title}</Typography.Title>}
+          meta={props.meta}
+          initialFormValue={props.initialFormValue}
+          defaultFormValue={props.defaultFormValue}
+          applyButtonLabel="Run Report"
+          errorMessages={errorMessages}
+          onApplyChanges={(newFilterValues, appliedFilterCount) => {
+            openReportInNewTab(newFilterValues)
+          }}
+        />
+      )}
       {downloadUrl && (
         <Row>
           <iframe title={props.title} style={{ width: "100%", height: "100vh" }} src={downloadUrl} />

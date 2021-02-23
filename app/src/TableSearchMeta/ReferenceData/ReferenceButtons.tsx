@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { IField } from "~/Component/Common/Form/common"
 import { createRefRecord, removeRefRecord, updateRefRecord } from "~/ApiServices/Service/RefLookupService"
 import { eventBus } from "~/utils/EventBus"

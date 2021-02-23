@@ -50,10 +50,6 @@ const QuestionSearchFiltersMeta: IField[] = [
 export default function QuestionSearch(props: IQuestionSearch) {
   return (
     <MetaDrivenForm
-      initialFormValue={{}}
-      hideFilters={() => {
-        console.log("do nothing")
-      }}
       meta={QuestionSearchFiltersMeta}
       onApplyChanges={(newFilterValues, newFilterCount) => {
         props.onFormSubmission(newFilterValues)

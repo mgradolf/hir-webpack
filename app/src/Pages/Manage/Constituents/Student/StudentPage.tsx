@@ -4,7 +4,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
 import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import StudentFormModal from "~/Component/Student/StudentFormModal"
-import { helpFileNameMap } from "~/HelpFileMap"
+import helpFileNameMap from "~/Config/HelpFileMap.json"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)

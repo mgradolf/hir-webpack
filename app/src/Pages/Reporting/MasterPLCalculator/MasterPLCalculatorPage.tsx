@@ -31,6 +31,7 @@ export default function QueriesPage() {
         meta={MasterPLCalculatorSearchMeta}
         stopProducingQueryParams={true}
         initialFormValue={{ IsActual: true }}
+        applyButtonLabel="Calculate"
         onApplyChanges={(newFilterValues) => loadData(newFilterValues)}
       />
 

@@ -32,9 +32,9 @@ import { PersonGovFormMeta } from "~/Component/Person/FormMeta/Basic/PersonGovFo
 import { PersonPhoneFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneFormMeta"
 import { PersonTypeFormMeta } from "~/Component/Person/FormMeta/Basic/PersonTypeFormMeta"
 import { PersonPhoneUpdateFormMeta } from "~/Component/Person/FormMeta/Telephone/PersonPhoneUpdateFormMeta"
-import { FormModalOpenButton } from "~/Component/Common/Form/FormModalOpenButton"
+import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { AccountRelationFormModalOpenButton } from "~/Component/Person/PersonAccountFormModal"
-import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/EditDeleteButtonComboOnTableRow"
+import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/Buttons/EditDeleteButtonComboOnTableRow"
 import { PersonAddressFormMeta } from "~/Component/Person/FormMeta/Address/PersonAddressFormMeta"
 
 export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
@@ -55,7 +55,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   const personalInfo1: CardContainer = {
     title: "Gov Info",
     cardActions: [
-      <FormModalOpenButton
+      <MetaDrivenFormModalOpenButton
         formTitle="Update Person Gov Info"
         formMeta={PersonGovFormMeta}
         formSubmitApi={pushPerson}
@@ -74,7 +74,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   const personalInfo2: CardContainer = {
     title: "General Info",
     cardActions: [
-      <FormModalOpenButton
+      <MetaDrivenFormModalOpenButton
         formTitle="Update Person General Info"
         formMeta={PersonTypeFormMeta}
         formSubmitApi={pushPerson}
@@ -98,7 +98,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   const personalInfo3: CardContainer = {
     title: "Characteristics Info",
     cardActions: [
-      <FormModalOpenButton
+      <MetaDrivenFormModalOpenButton
         formTitle="Update Person Charanteritics Info"
         formMeta={PersonCharacterFormMeta}
         formSubmitApi={pushPerson}
@@ -186,7 +186,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   const phone: CardContainer = {
     title: "Telephone asdsad",
     cardActions: [
-      <FormModalOpenButton
+      <MetaDrivenFormModalOpenButton
         formTitle="Add Phone"
         formMeta={PersonPhoneFormMeta}
         formSubmitApi={pushPersonPhone}
@@ -228,7 +228,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   const email: CardContainer = {
     title: "Email",
     cardActions: [
-      <FormModalOpenButton
+      <MetaDrivenFormModalOpenButton
         formTitle="Add Email Address"
         formMeta={PersonEmailFormMeta}
         formSubmitApi={pushPersonEmail}
@@ -317,7 +317,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
     tabMeta: {
       // blocks: [<EducationHistoryFormModalOpenButton personData={person} />],
       blocks: [
-        <FormModalOpenButton
+        <MetaDrivenFormModalOpenButton
           formTitle="Add Degree"
           buttonLabel="Add Degree"
           buttonProps={{

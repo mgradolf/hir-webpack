@@ -70,10 +70,6 @@ function AddProgramModal() {
         <MetaDrivenForm
           meta={ProgramSearchMeta}
           initialFormValue={(filterData === null ? initialData : (filterData as unknown)) as { [key: string]: any }}
-          hideFilters={() => {
-            closeAddProgramModal()
-            setSelectedProgram(null)
-          }}
           onApplyChanges={(newFilterValues, newFilterCount) => {
             updateFilterData({ ...(filterData as IProgramFilterValues), ...newFilterValues })
             updateFilterCount(newFilterCount)

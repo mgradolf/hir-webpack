@@ -9,7 +9,6 @@ export default function EnrollmentLogPage(props: RouteComponentProps<{ sectionID
   return (
     <SearchPage
       title="Manage nrollment Activity"
-      initialFormValue={{}}
       meta={ActivityEnrollmentSearchMeta}
       hideSearchField={false}
       defaultFormValue={{ SectionID }}

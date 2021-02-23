@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button, Dropdown, Menu, Row } from "antd"
 import Notification from "~/utils/notification"
 import { INVITE_TO_SETUP_WEB_LOGIN, INVITE_TO_RESET_PASSWORD, UNLOCK_WEB_LOGIN } from "~/utils/Constants"
-import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { PersonLoginFormMeta } from "~/Component/Person/FormMeta/PersonLoginFormMeta"
 import {
   sendPasswordResetEmail,

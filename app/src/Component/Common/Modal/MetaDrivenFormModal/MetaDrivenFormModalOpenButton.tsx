@@ -3,9 +3,9 @@ import { Button } from "antd"
 import { BaseButtonProps } from "antd/lib/button/button"
 import React, { useState } from "react"
 import { IField } from "~/Component/Common/Form/common"
-import { MetaDrivenFormModal } from "~/Component/Common/Form/MetaDrivenFormModal"
+import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 
-interface IFormModalOpenButton {
+interface IMetaDrivenFormModalOpenButton {
   buttonLabel?: string
   buttonProps?: BaseButtonProps
   formTitle: string
@@ -15,7 +15,7 @@ interface IFormModalOpenButton {
   defaultFormValue?: { [key: string]: any }
   refreshEventName?: string
 }
-export const FormModalOpenButton = (props: IFormModalOpenButton) => {
+export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenButton) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>

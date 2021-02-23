@@ -67,11 +67,6 @@ function AddOfferingFromRequisiteGroupModal({
           <Row justify="center">
             <MetaDrivenForm
               meta={OfferingSearchMeta}
-              initialFormValue={{}}
-              hideFilters={() => {
-                closeAddOfferingFromRequisiteGroupModal()
-                setSelectedOfferings([])
-              }}
               onApplyChanges={(newFilterValues, newFilterCount) => {
                 setSearchParams(newFilterValues)
 

@@ -21,15 +21,11 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
     <div className="site-layout-content">
       <MetaDrivenForm
         meta={OrderItemsFiltersMeta}
-        hideFilters={() => {
-          console.log("meo")
-        }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
           if (SectionID) newValues.SectionID = SectionID
           console.log(newValues)
           setSearchParams(newValues)
         }}
-        initialFormValue={{}}
       />
       {showViewReturnItemModal && (
         <ViewReturnItemsModal

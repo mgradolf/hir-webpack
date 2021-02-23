@@ -19,7 +19,6 @@ export default function Certificate() {
         </>
       ]}
       title="Manage Certificates"
-      initialFormValue={{}}
       meta={CourseCertificateSearchMeta}
       hideSearchField={false}
       tableProps={{

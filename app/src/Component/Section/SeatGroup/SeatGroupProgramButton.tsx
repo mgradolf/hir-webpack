@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { attachProgram, detachProgram } from "~/ApiServices/Service/SeatGroupService"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Link } from "react-router-dom"
 import { getProgramTableColumns } from "~/TableSearchMeta/Program/ProgramTableColumns"

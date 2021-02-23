@@ -4,8 +4,8 @@ import Modal from "~/Component/Common/Modal/index2"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IField } from "~/Component/Common/Form/common"
 import zIndex from "~/utils/zIndex"
+import { IField } from "~/Component/Common/Form/common"
 
 interface ILookupModal {
   title: string
@@ -46,13 +46,11 @@ export function LookupModal(props: ILookupModal) {
           <MetaDrivenForm
             meta={props.meta}
             initialFormValue={searchParams}
-            hideFilters={() => {
-              setSelectedItems([])
-            }}
             onApplyChanges={(newSearchParams, newSearchParamsCount) => {
               console.log(props.defaultFormValue, newSearchParams)
               setSearchParams({ ...props.defaultFormValue, ...newSearchParams })
             }}
+            stopProducingQueryParams={true}
           />
           <ResponsiveTable
             columns={props.columns}
