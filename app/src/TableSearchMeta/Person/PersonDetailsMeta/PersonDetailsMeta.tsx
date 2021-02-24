@@ -17,6 +17,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { pushInstructor } from "~/ApiServices/Service/InstructorService"
 import { removePerson } from "~/ApiServices/Service/PersonService"
 import { createAnonymizationRequest } from "~/ApiServices/Service/AnonymizationRequestService"
+import { PersonMergeFormModalOpenButton } from "~/Component/Person/Forms/PersonMergeFormModal"
 
 const getMenu = (personInfos: { [key: string]: any }) => {
   const isStudent = personInfos[1].Student
@@ -84,6 +85,9 @@ const getMenu = (personInfos: { [key: string]: any }) => {
         <Button disabled={isFaculty != null} type="link" onClick={createInstructor}>
           Create an instructor
         </Button>
+      </Menu.Item>
+      <Menu.Item>
+        <PersonMergeFormModalOpenButton personData={personInfos[0]} />
       </Menu.Item>
       <Menu.Item>
         <Button type="link" onClick={forgetMeRequest}>

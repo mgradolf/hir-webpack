@@ -43,7 +43,7 @@ export const BasicFormModalOpenButton = (props: { personData: { [key: string]: a
   return (
     <>
       {setShowModal && (
-        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
           Edit
         </Button>
       )}

@@ -95,7 +95,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       {setShowModal && (
         <Button
           disabled={!isLogin}
-          type="ghost"
+          type="primary"
           style={{ marginRight: "10px" }}
           onClick={() => setShowModal && setShowModal(true)}
         >
