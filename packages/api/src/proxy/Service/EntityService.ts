@@ -6,7 +6,8 @@ export const config = {
   Module: "hir",
   Actions: {
     getEntity: "getEntity",
-    removeEntity: "removeEntity"
+    removeEntity: "removeEntity",
+    findEntitySchedule: "findEntitySchedule"
   }
 }
 

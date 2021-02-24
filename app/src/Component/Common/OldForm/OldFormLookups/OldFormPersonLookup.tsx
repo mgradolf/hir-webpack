@@ -1,8 +1,8 @@
 import * as React from "react"
-import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
+import { PersonSearchMeta } from "~/TableSearchMeta/Person/PersonSearchMeta"
 import { OldFormLookupOpenButton } from "~/Component/Common/OldForm/OldFormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
-import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
+import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColumns"
 
 export function OldFormPersonLookup(props: { formInstance: FormInstance; onCloseModal?: (person: any) => void }) {
   return (

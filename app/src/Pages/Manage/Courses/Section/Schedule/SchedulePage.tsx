@@ -4,7 +4,7 @@ import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
 import ScheduleUpdateMenu from "~/Component/Section/Schedule/ScheduleUpdateMenu"
 import ScheduleRemoveMenu from "~/Component/Section/Schedule/ScheduleRemoveMenu"
-import { getSectionScheduleTableColumns } from "~/FormMeta/SectionSchedule/ScheduleTableColumns"
+import { getSectionScheduleTableColumns } from "~/TableSearchMeta/SectionSchedule/ScheduleTableColumns"
 import { REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 
 const { Title } = Typography

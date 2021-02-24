@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
-import { CourseCertificateSearchMeta } from "~/FormMeta/Certificate/CertificateSearchMeta"
-import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
+import { CourseCertificateSearchMeta } from "~/TableSearchMeta/Certificate/CertificateSearchMeta"
+import { getCertificateTableColumns } from "~/TableSearchMeta/Certificate/CertificateTableColumns"
 
 export default function Certificate() {
   const [showModal, setShowModal] = useState(false)
@@ -19,7 +19,6 @@ export default function Certificate() {
         </>
       ]}
       title="Manage Certificates"
-      initialFormValue={{}}
       meta={CourseCertificateSearchMeta}
       hideSearchField={false}
       tableProps={{

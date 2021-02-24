@@ -11,6 +11,7 @@ const meta: IField[] = [
     label: "Due Date",
     inputType: MULTI_RADIO,
     fieldName: "ByOrderDate",
+    rules: [{ required: true, message: "Due Date is Required" }],
     options: [
       { label: "Order Due Date", value: true },
       { label: "Item Due Date", value: false }
@@ -21,7 +22,7 @@ const meta: IField[] = [
 const reportMeta: IReportMeta = {
   meta,
   initialFormValue: {
-    CurrentDate: true
+    ByOrderDate: true
   }
 }
 

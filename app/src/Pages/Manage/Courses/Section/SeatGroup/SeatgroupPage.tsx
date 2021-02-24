@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
-import { getSeatgroupTableColumns } from "~/FormMeta/Seatgroup/SeatgroupTableColumns"
-import StandardPage from "~/Component/Common/Page/StandardPage"
+import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
 
 export default function SeatgroupPage(props: RouteComponentProps<{ sectionID?: string }>) {
@@ -10,7 +10,7 @@ export default function SeatgroupPage(props: RouteComponentProps<{ sectionID?: s
   const [showModal, setShowModal] = useState(false)
 
   return (
-    <StandardPage
+    <SearchPage
       blocks={[
         <>
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { QuestionTaggingSearchMeta } from "~/FormMeta/QuestionTagging/QuestionTaggingSearchMeta"
+import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getQuestionTaggingTableColumns } from "~/FormMeta/QuestionTagging/QuestionTaggingTableColumn"
+import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingTableColumn"
 import { QuestionCreateButton } from "~/Component/Question/Create/QuestionCreateButton"
 import { QuestionFindButton } from "~/Component/Question/Search/QuestionFindButton"
 

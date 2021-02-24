@@ -3,13 +3,13 @@ import Modal from "~/Component/Common/Modal"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showAddOfferingFromRequisiteGroupModal } from "~/Store/ModalState"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { Row, Card, Button } from "antd"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { FilterOpenButton } from "~/Component/Offering/OfferingFilterOpenButton"
-import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
-import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
+import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
+import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 
 const { useState } = React
@@ -65,13 +65,8 @@ function AddOfferingFromRequisiteGroupModal({
       <div style={{ padding: "10px", height: "65vh" }}>
         {(modalSelectedPage === ModalPages.FilterPage && (
           <Row justify="center">
-            <CustomForm
+            <MetaDrivenForm
               meta={OfferingSearchMeta}
-              initialFormValue={{}}
-              hideFilters={() => {
-                closeAddOfferingFromRequisiteGroupModal()
-                setSelectedOfferings([])
-              }}
               onApplyChanges={(newFilterValues, newFilterCount) => {
                 setSearchParams(newFilterValues)
 

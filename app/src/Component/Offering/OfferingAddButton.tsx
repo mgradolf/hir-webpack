@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { addInstructorToOffering } from "~/ApiServices/Service/InstructorService"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { eventBus, REFRESH_FACULTY_OFFERINGS_TAB } from "~/utils/EventBus"
-import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
-import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
+import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
+import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
 
 interface ICreateActionButtonProp {
   FacultyId?: number

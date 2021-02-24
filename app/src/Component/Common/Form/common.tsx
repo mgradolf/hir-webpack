@@ -56,6 +56,9 @@ export interface IField {
   rules?: Rule[]
   validateStatus?: ValidateStatus
   help?: string
+  labelColSpan?: number
+  wrapperColSpan?: number
+  onSelectedItems?: (items: any) => void
 }
 
 export interface IGeneratedField extends Omit<IField, "inputType"> {

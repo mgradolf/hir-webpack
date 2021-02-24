@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { addSectionProduct } from "~/ApiServices/BizApi/product/productIf"
-import { LookupModal } from "~/Component/Common/Modal/LookupModal"
-import { ProductSearchMeta } from "~/FormMeta/Product/ProductSearchMeta"
-import { getProductTableColumns } from "~/FormMeta/Product/ProductTableColumns"
+import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
+import { ProductSearchMeta } from "~/TableSearchMeta/Product/ProductSearchMeta"
+import { getProductTableColumns } from "~/TableSearchMeta/Product/ProductTableColumns"
 import { eventBus, REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
 
 interface ICreateActionButtonProp {
