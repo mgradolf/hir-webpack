@@ -37,7 +37,7 @@ const meta: IField[] = [
   {
     label: "Show Program Sections",
     inputType: DROPDOWN,
-    fieldName: "SectionUsageType",
+    fieldName: "showProgramSections",
     options: [
       { label: "Yes", value: "true" },
       { label: "No", value: "false" }
