@@ -31,20 +31,20 @@ export default function StandardReportPage(props: IStandardReportPage) {
   const openReportInNewTab = (params: { [key: string]: any }) => {
     setErrorMessages([])
 
-    if (props.atLeastOneRequiredfield && checkIfFieldParamsAreEmpty(params, props.defaultFormValue || {})) {
-      setErrorMessages([{ message: "Minimum one search field is required!" }])
-      return
-    }
-
     Object.keys(params).forEach((key) => {
       if (
         params[key] === null ||
         params[key] === undefined ||
-        (typeof params[key] === "string" && params[key].includes("undefined_0"))
+        (typeof params[key] === "string" && params[key].includes("undefined_"))
       ) {
         delete params[key]
       }
     })
+
+    if (props.atLeastOneRequiredfield && checkIfFieldParamsAreEmpty(params, props.defaultFormValue || {})) {
+      setErrorMessages([{ message: "Minimum one search field is required!" }])
+      return
+    }
 
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
     for (const key in params) {
