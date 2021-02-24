@@ -184,7 +184,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   }
 
   const phone: CardContainer = {
-    title: "Telephone asdsad",
+    title: "Telephone",
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle="Add Phone"
@@ -272,7 +272,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
 
   const login: CardContainer = {
     title: "Login Info",
-    cardActions: [<PersonLoginAction initialData={person.Login} />],
+    cardActions: [<PersonLoginAction initialData={{ ...person.Login, PersonID: person.PersonID }} />],
     contents: [
       { label: "User Login", value: person?.Login?.UserLogin },
       { label: "Secret Question", value: person?.Login?.SecretQuestion },

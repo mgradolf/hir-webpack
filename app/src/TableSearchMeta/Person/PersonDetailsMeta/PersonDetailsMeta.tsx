@@ -8,9 +8,9 @@ import { pushStudent } from "~/ApiServices/Service/StudentService"
 import {
   CURRENT_ORG_ID,
   PT_PARTTIME_STATUS,
-  SAVE_SUCCESSFULLY,
   DELETE_SUCCESSFULLY,
-  REQUEST_SUCCESSFULLY
+  REQUEST_SUCCESSFULLY,
+  CREATE_SUCCESSFULLY
 } from "~/utils/Constants"
 import Notification from "~/utils/notification"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
@@ -31,7 +31,7 @@ const getMenu = (personInfos: { [key: string]: any }) => {
         PartTimeFullTimeStatusID: PT_PARTTIME_STATUS
       })
       if (response.success) {
-        Notification(SAVE_SUCCESSFULLY)
+        Notification(CREATE_SUCCESSFULLY)
         eventBus.publish(REFRESH_PAGE)
       }
     }
@@ -44,7 +44,7 @@ const getMenu = (personInfos: { [key: string]: any }) => {
         OrganizationID: CURRENT_ORG_ID
       })
       if (response.success) {
-        Notification(SAVE_SUCCESSFULLY)
+        Notification(CREATE_SUCCESSFULLY)
         eventBus.publish(REFRESH_PAGE)
       }
     }

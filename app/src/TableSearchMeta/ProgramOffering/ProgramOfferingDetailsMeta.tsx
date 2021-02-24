@@ -6,9 +6,8 @@ export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): 
     contents: [
       { label: "Name", value: program.Name },
       { label: "Description", value: program.Description },
-      { label: "Status", value: program.ProgramStatusName },
-      { label: "Department", value: program.OrganizationName },
-      { label: "Program Offering Status", value: program.ProgramOfferingStatusCodeName }
+      { label: "Status", value: program.ProgramOfferingStatusCodeName },
+      { label: "Department", value: program.OrganizationName }
     ]
   }
 

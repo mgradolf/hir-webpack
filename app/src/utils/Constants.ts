@@ -198,6 +198,7 @@ export const MERGE_SUCCESSFULLY = "Successfully merged!"
 export const SAVE_SUCCESSFULLY = "Successfully saved!"
 export const DELETE_SUCCESSFULLY = "Successfully deleted!"
 export const REQUEST_SUCCESSFULLY = "Successfully requested!"
+export const CREATE_SUCCESSFULLY = "Successfully created!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
 

@@ -163,7 +163,12 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
                 })}
               </Select>
             </Form.Item>
-            <Form.Item label={"Address Line 1"} {...layout} name={props.fieldNames.AddressLine1}>
+            <Form.Item
+              label={"Address Line 1"}
+              {...layout}
+              name={props.fieldNames.AddressLine1}
+              rules={[{ required: true, message: "Please enter address line1!" }]}
+            >
               <Input aria-label={"Address Line 1"} />
             </Form.Item>
             <Form.Item label={"Address Line 2"} {...layout} name={props.fieldNames.AddressLine2}>
@@ -180,10 +185,20 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
             </Form.Item>
           </Col>
           <Col xs={24} sm={24} md={12}>
-            <Form.Item label={"City"} {...layout} name={props.fieldNames.Locality}>
+            <Form.Item
+              label={"City"}
+              {...layout}
+              name={props.fieldNames.Locality}
+              rules={[{ required: true, message: "Please enter city!" }]}
+            >
               <Input aria-label={"City"} />
             </Form.Item>
-            <Form.Item label={"Postal Code"} {...layout} name={props.fieldNames.PostalCode}>
+            <Form.Item
+              label={"Postal Code"}
+              {...layout}
+              name={props.fieldNames.PostalCode}
+              rules={[{ required: true, message: "Please enter postal code!" }]}
+            >
               <Input aria-label={"Postal Code"} />
             </Form.Item>
             <Form.Item label={"State/Province"} {...layout} name={props.fieldNames.RegionCodeID}>
@@ -197,7 +212,12 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
                 })}
               </Select>
             </Form.Item>
-            <Form.Item label={"Country"} {...layout} name={props.fieldNames.CountryCodeID}>
+            <Form.Item
+              label={"Country"}
+              {...layout}
+              name={props.fieldNames.CountryCodeID}
+              rules={[{ required: true, message: "Please select country!" }]}
+            >
               <Select loading={countryLoading} aria-label={"Country"} onChange={onChangeCountry}>
                 {countryList.map((x, i) => {
                   return (

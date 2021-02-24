@@ -12,14 +12,14 @@ export const ProgramEnrollmentSearchMeta: IField[] = [
   },
   {
     label: "Student",
-    fieldName: "StudentID",
+    fieldName: "studentID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: StudentLookup
   },
   {
     label: "Status",
     inputType: DROPDOWN,
-    fieldName: "applicationStatus",
+    fieldName: "statusIDs",
     refLookupService: getProgramEnrollmentStatusCodes,
     displayKey: "Name",
     valueKey: "StatusID"
@@ -29,7 +29,7 @@ export const ProgramEnrollmentSearchMeta: IField[] = [
     inputType: DROPDOWN,
     fieldName: "departmentID",
     refLookupService: getOrganizationByType,
-    displayKey: "Description",
+    displayKey: "Name",
     valueKey: "OrganizationID"
   },
   {

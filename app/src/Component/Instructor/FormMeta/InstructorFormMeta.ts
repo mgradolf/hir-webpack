@@ -1,12 +1,7 @@
-import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { getOrganizations, getInstitutionStatusTypes, getInstructorTypes } from "~/ApiServices/Service/RefLookupService"
 
 export const InstructorFormMeta: IField[] = [
-  {
-    label: "Serial Num",
-    inputType: TEXT,
-    fieldName: "FacultySerialNum"
-  },
   {
     label: "Organization",
     inputType: DROPDOWN,

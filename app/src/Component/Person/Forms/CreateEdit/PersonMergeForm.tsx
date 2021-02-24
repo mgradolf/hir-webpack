@@ -25,6 +25,7 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
   const [duplicateFormInstance] = Form.useForm()
 
   const [loading, setLoading] = useState<boolean>(false)
+  const [isMergable, setIsMergable] = useState<boolean>(false)
   const [mAnalyze, setManalyze] = useState<{ [key: string]: any }>({})
   const [mergeAnalyze, setMergeAnalyze] = useState<{ [key: string]: any }>({})
   const [primaryPerson, setPrimaryPerson] = useState<{ [key: string]: any }>({})
@@ -39,6 +40,7 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
       (response) => {
         if (response.success) {
           setManalyze(response.data)
+          setIsMergable(response.data.IsPersonFullMerged)
 
           const analysisMap: { [key: string]: any } = {
             MergeType: response.data.MergeType,
@@ -92,14 +94,16 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
   }
 
   const onMerge = () => {
-    merge({ ...mAnalyze }).then((response: any) => {
-      if (response.success) {
-        Notification(MERGE_SUCCESSFULLY)
-      } else {
-        console.log(response.error)
-        setErrorMessages(response.error)
+    merge({ ...mAnalyze, PrimaryPersonID: primaryPerson.PersonID, DuplicatePersonID: duplicatePerson.PersonID }).then(
+      (response: any) => {
+        if (response.success) {
+          Notification(MERGE_SUCCESSFULLY)
+        } else {
+          console.log(response.error)
+          setErrorMessages(response.error)
+        }
       }
-    })
+    )
   }
 
   const onSelectedPrimaryPerson = (persons: any) => {
@@ -128,7 +132,7 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
             </Button>
           </Col>
           <Col>
-            <Button disabled={!mergeAnalyze.IsPersonFullMerged} type="primary" aria-label="Submit" onClick={onMerge}>
+            <Button disabled={!isMergable} type="primary" aria-label="Submit" onClick={onMerge}>
               Merge
             </Button>
           </Col>
