@@ -38,7 +38,23 @@ export default function ReferenceDataListPage(props: RouteComponentProps<{ refNa
       if (__reference?.custom) {
         import(`~/TableSearchMeta/ReferenceData/ReferenceCustomFormMeta/${refName}`).then((x) => {
           setFormMeta(x.FormMeta)
-          setColumns([...x.columns, getActionColumn(x.FormMeta, refName, refreshEventName)])
+          if (
+            x.columns &&
+            Array.isArray(x.columns) &&
+            x.columns.length > 0 &&
+            !!x.columns.find((col: any) => col.title === "Actions")
+          ) {
+            console.log(
+              "actions found ",
+              !!x.columns.find((col: any) => {
+                console.log(col)
+                return col.title === "Actions"
+              })
+            )
+            setColumns([...x.columns])
+          } else {
+            setColumns([...x.columns, getActionColumn(x.FormMeta, refName, refreshEventName)])
+          }
         })
       } else {
         import("~/TableSearchMeta/ReferenceData/ReferenceGeneric/ReferenceGenericFormMeta").then((x) => {

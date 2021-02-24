@@ -10,7 +10,8 @@ export const config = {
     findAccount: "findAccount",
     getQuestionAnswers: "getQuestionAnswers",
     getAffiliationRoleTypes: "getAffiliationRoleTypes",
-    getTaggedQuestionsByAffiliationRoleType: "getTaggedQuestionsByAffiliationRoleType"
+    getTaggedQuestionsByAffiliationRoleType: "getTaggedQuestionsByAffiliationRoleType",
+    createorUpdateMultipleAccountEmail: "createorUpdateMultipleAccountEmail"
   }
 }
 

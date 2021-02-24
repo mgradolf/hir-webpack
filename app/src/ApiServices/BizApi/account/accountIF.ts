@@ -42,3 +42,10 @@ export function getTaggedQuestionsByAffiliationRoleType(
 ): Promise<IApiResponse> {
   return AccountIf[config.Actions.getTaggedQuestionsByAffiliationRoleType]([Params.AffiliationRoleTypeID], Headers)
 }
+
+export function createorUpdateMultipleAccountEmail(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountIf[config.Actions.createorUpdateMultipleAccountEmail]([Params], Headers)
+}

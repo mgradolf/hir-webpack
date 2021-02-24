@@ -244,3 +244,10 @@ export function findTermFeeProductsByCategoryID(
     Headers
   )
 }
+
+export function executeRowMapNamedQuery(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.financial.GLAccountLookup", Params, null], Headers)
+}
