@@ -29,3 +29,20 @@ export function getUserByUserLogin(
 ): Promise<IApiResponse> {
   return HRUserService[config.Actions.getUserByUserLogin](Params, Headers)
 }
+
+export function loadUserPermission(): Promise<IApiResponse> {
+  return Promise.resolve({
+    code: 200,
+    data: {
+      disabilities: true,
+      make_payment: true,
+      issue_credit: true,
+      registration_in_course: true,
+      create_offering: true,
+      creation_section: true,
+      update_offering: false
+    },
+    error: false,
+    success: true
+  })
+}
