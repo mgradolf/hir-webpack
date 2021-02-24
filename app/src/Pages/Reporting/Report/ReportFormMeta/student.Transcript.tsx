@@ -1,12 +1,15 @@
 import { getTranscriptTypes } from "~/ApiServices/Service/RefLookupService"
-import { BOOLEAN, DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
+import { BOOLEAN, CUSTOM_FIELD, DATE_PICKER, DROPDOWN, IField } from "~/Component/Common/Form/common"
+import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
+import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
 
 const meta: IField[] = [
   {
-    label: "Select Date",
-    fieldName: "StartDate",
-    fieldName2: "EndDate",
-    inputType: DATE_PICKERS
+    label: "Student",
+    fieldName: "StudentID",
+    rules: [{ required: true, message: "Student is Required" }],
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
   },
   {
     label: "Transcript Type",
@@ -15,6 +18,16 @@ const meta: IField[] = [
     refLookupService: getTranscriptTypes,
     displayKey: "Name",
     valueKey: "ID"
+  },
+  {
+    label: "Start Date",
+    fieldName: "StartDate",
+    inputType: DATE_PICKER
+  },
+  {
+    label: "End Date",
+    fieldName: "EndDate",
+    inputType: DATE_PICKER
   },
   {
     label: "Official Transcript?",
@@ -28,12 +41,19 @@ const meta: IField[] = [
   }
 ]
 
-export const mapping: { [key: string]: any } = {
-  StartDate: "DateFrom_DisplayOnly",
-  EndDate: "DateTo_DisplayOnly"
+const reportMeta: IReportMeta = {
+  meta,
+  atLeastOneRequiredfield: true,
+  mapping: {
+    StartDate: "DateFrom_DisplayOnly",
+    EndDate: "DateTo_DisplayOnly"
+  },
+  initialFormValue: {
+    TranscriptTypeID: 2,
+    IsOfficialTranscript: true
+  },
+  defaultFormValue: {
+    SectionStatusCodeID: 4
+  }
 }
-export default meta
-
-// SchoolName
-// SchoolAddress
-// AddressLine
+export default reportMeta

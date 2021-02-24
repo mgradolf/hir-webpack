@@ -53,7 +53,10 @@ const meta: IField[] = [
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  defaultFormValue: {
+    OnlyShortProducts: true
+  }
 }
 
 export default reportMeta

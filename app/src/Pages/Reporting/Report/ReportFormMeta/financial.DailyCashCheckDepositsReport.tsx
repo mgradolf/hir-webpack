@@ -43,7 +43,10 @@ const meta: IField[] = [
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  mapping: {
+    UserName: "CreatedBy"
+  }
 }
 
 export default reportMeta
