@@ -18,7 +18,7 @@ interface IPage extends Partial<RouteComponentProps> {
   tableProps: IDataTableProps
   initialFormValue?: any
   defaultFormValue?: any
-  helpKey?: string
+  helpUrl?: string
   stopProducingQueryParams?: boolean
   updatedParams?: (params?: any) => void
 }

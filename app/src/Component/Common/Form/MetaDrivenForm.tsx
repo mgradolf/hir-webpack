@@ -30,7 +30,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { FormError } from "~/Component/Common/Form/FormError"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
-import { HelpModal } from "~/Component/Common/Modal/HelpModal"
+// import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 
 export function MetaDrivenForm({
   showClearbutton = true,
@@ -42,7 +42,7 @@ export function MetaDrivenForm({
   title?: React.ReactNode
   loading?: boolean
   isModal?: boolean
-  helpKey?: string
+  helpUrl?: string
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
@@ -185,9 +185,12 @@ export function MetaDrivenForm({
       loading={props.loading}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
-          {props.helpKey && (
+          {props.helpUrl && (
             <Col>
-              <HelpModal helpKey={props.helpKey} />
+              {/* <HelpModal helpUrl={props.helpUrl} /> */}
+              <Button type="link" onClick={() => window.open(props.helpUrl)}>
+                help
+              </Button>
             </Col>
           )}
           {!props.closeModal && meta.length > 4 && (

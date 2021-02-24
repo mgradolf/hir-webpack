@@ -10,7 +10,7 @@ export interface ISearchListWithVisibleSearchFormProp {
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
-  helpKey?: string
+  helpUrl?: string
   stopProducingQueryParams?: boolean
   updatedParams?: (params?: any) => void
 }
@@ -28,7 +28,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
         <MetaDrivenForm
           title={<Typography.Title level={3}>{props.title}</Typography.Title>}
           meta={props.meta}
-          helpKey={props.helpKey}
+          helpUrl={props.helpUrl}
           stopProducingQueryParams={props.stopProducingQueryParams}
           initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
