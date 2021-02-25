@@ -19,7 +19,7 @@ export interface IDetailsSearchTabProp {
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
-  helpKey?: string
+  helpUrl?: string
 }
 
 export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
@@ -35,9 +35,9 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
             <Typography.Title level={3}>{props.title}</Typography.Title>
           </Col>
         )}
-        {props.helpKey && (
+        {props.helpUrl && (
           <Col span={3}>
-            <HelpModal helpKey={props.helpKey} />
+            <HelpModal helpUrl={props.helpUrl} />
           </Col>
         )}
       </Row>
@@ -50,7 +50,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
         <MetaDrivenForm
           meta={props.searchMeta}
           initialFormValue={searchParams}
-          helpKey={props.helpKey}
+          helpUrl={props.helpUrl}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             setSearchParams({ ...props.defaultFormValue, ...newFilterValues })
             console.log(newFilterValues)

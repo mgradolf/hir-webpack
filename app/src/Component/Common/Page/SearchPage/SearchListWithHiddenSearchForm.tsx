@@ -14,7 +14,7 @@ export interface ISearchListWithHiddenSearchFormProp {
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
-  helpKey?: string
+  helpUrl?: string
 }
 
 export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
@@ -40,9 +40,9 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             </Button>
           )}
         </Col>
-        {props.helpKey && (
+        {props.helpUrl && (
           <Col>
-            <HelpModal helpKey={props.helpKey} />
+            <HelpModal helpUrl={props.helpUrl} />
           </Col>
         )}
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
@@ -51,7 +51,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
         {props.meta && (
           <MetaDrivenForm
             title={<Typography.Title level={3}>{props.title}</Typography.Title>}
-            helpKey={props.helpKey}
+            helpUrl={props.helpUrl}
             meta={props.meta}
             initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {

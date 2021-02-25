@@ -3,9 +3,8 @@ import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { CloseCircleFilled } from "@ant-design/icons"
 
-export function HelpModal({ helpKey }: { helpKey?: string }) {
+export function HelpModal({ helpUrl }: { helpUrl?: string }) {
   const [help, setHelp] = useState(false)
-  const helpUrl: any = process.env.REACT_APP_HELP_FILE_URL ? process.env.REACT_APP_HELP_FILE_URL + helpKey : undefined
   return (
     <>
       {helpUrl && (

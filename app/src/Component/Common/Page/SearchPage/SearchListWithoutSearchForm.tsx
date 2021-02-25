@@ -9,7 +9,7 @@ export interface ISearchListWithHiddenSearchFormProp {
   title: string
   tableProps: IDataTableProps
   defaultFormValue?: { [key: string]: string }
-  helpKey?: string
+  helpUrl?: string
 }
 
 export default function SearchListWithoutSearchForm(props: ISearchListWithHiddenSearchFormProp) {
@@ -22,9 +22,9 @@ export default function SearchListWithoutSearchForm(props: ISearchListWithHidden
       </Row>
       <Row justify="end" gutter={[8, 8]}>
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
-        {props.helpKey && (
+        {props.helpUrl && (
           <Col>
-            <HelpModal helpKey={props.helpKey} />
+            <HelpModal helpUrl={props.helpUrl} />
           </Col>
         )}
       </Row>
