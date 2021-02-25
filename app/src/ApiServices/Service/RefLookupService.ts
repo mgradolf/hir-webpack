@@ -1,5 +1,6 @@
 import RefLookupService, { config } from "@packages/api/lib/proxy/Service/RefLookupService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { REASON_HOLD_APPLY, REASON_HOLD_RELEASE } from "~/utils/Constants"
 
 export function getRefList(Params: { [key: string]: any }): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList](Params)
@@ -367,6 +368,54 @@ export function getCertificateCategoryType(): Promise<IApiResponse> {
   })
 }
 
+export function getAddressType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AddressType"
+  })
+}
+
+export function getEmailType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "EmailType"
+  })
+}
+
+export function getTelephoneType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "TelephoneType"
+  })
+}
+
+export function getSecretQuestionType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SecretQuestionType"
+  })
+}
+
+export function getDisabilityType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "DisabilityType"
+  })
+}
+
+export function getSchoolCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SchoolCode"
+  })
+}
+
+export function getCredentialType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "CredentialType"
+  })
+}
+
+export function getExitReasons(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "ExitReasonCode"
+  })
+}
+
 export function getSystemEvent(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "SystemEvent"
@@ -391,8 +440,74 @@ export function getGradeType(): Promise<IApiResponse> {
   })
 }
 
+export function getAcademicStandingType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AcademicStandingType"
+  })
+}
+
+export function getStudentStatusCode(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "StudentStatusCode"
+  })
+}
+
+export function getHoldType(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "HoldType"
+  })
+}
+
+export function getHoldReason(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "Reason"
+  }).then((response) => {
+    if (response.success) {
+      const reasonList: Array<{ [key: string]: any }> = []
+      response.data.map((x: any) => {
+        if (x.ReasonTypeID === REASON_HOLD_APPLY) {
+          reasonList.push(x)
+        }
+        return reasonList
+      })
+      response.data = [...reasonList]
+    }
+    return response
+  })
+}
+
+export function getReleaseReason(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "Reason"
+  }).then((response) => {
+    if (response.success) {
+      const reasonList: Array<{ [key: string]: any }> = [{}]
+      response.data.map((x: any) => {
+        if (x.ReasonTypeID === REASON_HOLD_RELEASE) {
+          reasonList.push(x)
+        }
+        return reasonList
+      })
+      response.data = [...reasonList]
+    }
+    return response
+  })
+}
+
 export function getMetricType(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "MetricType"
+  })
+}
+
+export function getSystemEvents(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "SystemEvent"
+  })
+}
+
+export function getGLAccountMappingTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "GLAccountMappingType"
   })
 }

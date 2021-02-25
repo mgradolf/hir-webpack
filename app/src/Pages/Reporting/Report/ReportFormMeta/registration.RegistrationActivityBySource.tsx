@@ -23,7 +23,13 @@ const meta: IField[] = [
     label: "Registration Source",
     inputType: DROPDOWN,
     fieldName: "sourceAll",
-    refLookupService: getSourceModule,
+    refLookupService: () =>
+      getSourceModule().then((x) => {
+        if (x.success) {
+          x.data = [{ Name: "None", ID: undefined }, ...x.data]
+        }
+        return x
+      }),
     displayKey: "Name",
     valueKey: "ID"
   }

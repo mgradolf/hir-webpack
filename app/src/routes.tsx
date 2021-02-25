@@ -2,6 +2,7 @@ import React from "react"
 import { RouteProps } from "react-router-dom"
 import { IUserPermissions } from "~/Store/Authentication"
 
+// export const AppRoutes: RouteProps[] = [
 export interface IRouteProps extends RouteProps {
   permission?: boolean
 }
@@ -11,7 +12,6 @@ export const getAppRoutes = (permission: IUserPermissions): IRouteProps[] => {
     { path: "/", component: React.lazy(() => import("~/Pages/HomePage")) },
     { path: "/about", component: React.lazy(() => import("~/Pages/AboutPage")) },
     { path: "/admin", component: React.lazy(() => import("~/Pages/AdminPage")) },
-
     {
       path: "/offering",
       component: React.lazy(() =>
@@ -153,10 +153,13 @@ export const getAppRoutes = (permission: IUserPermissions): IRouteProps[] => {
       component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Financial/PaymentDetails"))
     },
 
-    { path: "/discount-program", component: React.lazy(() => import("~/Pages/Manage/Financials/DiscountProgramPage")) },
+    {
+      path: "/discount-program",
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/DiscountProgram/DiscountProgramPage"))
+    },
     {
       path: "/discount-program/:discountProgramID",
-      component: React.lazy(() => import("~/Pages/Manage/Financials/DiscountProgramDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/DiscountProgram/DiscountProgramDetailsPage"))
     },
 
     { path: "/transaction", component: React.lazy(() => import("~/Pages/Manage/Financials/TransactionPage")) },
@@ -165,23 +168,32 @@ export const getAppRoutes = (permission: IUserPermissions): IRouteProps[] => {
       component: React.lazy(() => import("~/Pages/Manage/Financials/TransactionDetailsPage"))
     },
 
-    { path: "/resource", component: React.lazy(() => import("~/Pages/Manage/Resource/ResourcePage")) },
-    { path: "/resource/:resourceID", component: React.lazy(() => import("~/Pages/Manage/Resource/ResourceDetails")) },
-
-    { path: "/product", component: React.lazy(() => import("~/Pages/Manage/Product/ProductPage")) },
-    { path: "/product/:productID", component: React.lazy(() => import("~/Pages/Manage/Product/ProductDetails")) },
-
-    { path: "/package", component: React.lazy(() => import("~/Pages/Manage/Package/PackagePage")) },
-    { path: "/package/:packageID", component: React.lazy(() => import("~/Pages/Manage/Package/PackageDetails")) },
-
-    { path: "/catalog", component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/Catalog/CatalogPage")) },
+    { path: "/resource", component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Resource/ResourcePage")) },
     {
-      path: "/catalog/:catalogID",
-      component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/Catalog/CatalogDetailsPage"))
+      path: "/resource/:resourceID",
+      component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Resource/ResourceDetails"))
     },
 
-    { path: "/tags", component: React.lazy(() => import("~/Pages/Manage/Tags/TagsPage")) },
-    { path: "/tags/:tagID", component: React.lazy(() => import("~/Pages/Manage/Tags/TagsDetailsPage")) },
+    { path: "/product", component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Product/ProductPage")) },
+    {
+      path: "/product/:productID",
+      component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Product/ProductDetails"))
+    },
+
+    { path: "/package", component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Package/PackagePage")) },
+    {
+      path: "/package/:packageID",
+      component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Package/PackageDetails"))
+    },
+
+    { path: "/catalog", component: React.lazy(() => import("~/Pages/Manage/Promotions/Catalog/CatalogPage")) },
+    {
+      path: "/catalog/:catalogID",
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/Catalog/CatalogDetailsPage"))
+    },
+
+    { path: "/tags", component: React.lazy(() => import("~/Pages/Administration/Data/Tags/TagsPage")) },
+    { path: "/tags/:tagID", component: React.lazy(() => import("~/Pages/Administration/Data/Tags/TagsDetailsPage")) },
 
     { path: "/question", component: React.lazy(() => import("~/Pages/Manage/Question/QuestionRepositoryPage")) },
     { path: "/question/response", component: React.lazy(() => import("~/Pages/Manage/Question/QuestionResponsePage")) },
@@ -236,27 +248,36 @@ export const getAppRoutes = (permission: IUserPermissions): IRouteProps[] => {
       component: React.lazy(() => import("~/Pages/Manage/Courses/WaitlistEntry/WaitlistEntryDetailsPage"))
     },
 
-    { path: "/program/offering", component: React.lazy(() => import("~/Pages/Manage/Program/OfferingPage")) },
+    { path: "/program/offering", component: React.lazy(() => import("~/Pages/Manage/Program/Offering/OfferingPage")) },
     {
       path: "/program/offering/:programOfferingID",
-      component: React.lazy(() => import("~/Pages/Manage/Program/OfferingDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Manage/Program/Offering/OfferingDetailsPage"))
     },
-    { path: "/program/enrollment", component: React.lazy(() => import("~/Pages/Program/ProgramEnrollmentPage")) },
+    {
+      path: "/program/enrollment",
+      component: React.lazy(() => import("~/Pages/Manage/Program/Enrollment/EnrollmentPage"))
+    },
     {
       path: "/program/enrollment/:programEnrollmentID",
-      component: React.lazy(() => import("~/Pages/Manage/Program/EnrollmentDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Manage/Program/Enrollment/EnrollmentDetailsPage"))
     },
     { path: "/program/application", component: React.lazy(() => import("~/Pages/Program/ProgramApplicationPage")) },
-    { path: "/program/certificate", component: React.lazy(() => import("~/Pages/Manage/Program/CertificatePage")) },
+    {
+      path: "/program/certificate",
+      component: React.lazy(() => import("~/Pages/Manage/Program/Certificate/CertificatePage"))
+    },
     {
       path: "/program/certificate/:studentCertificateID",
       component: React.lazy(() => import("~/Pages/Manage/Courses/Certificate/CertificateDetailPage"))
     },
-    { path: "/program/program", component: React.lazy(() => import("~/Pages/Manage/Program/ProgramPage")) },
-    { path: "/program/:programID", component: React.lazy(() => import("~/Pages/Manage/Program/ProgramDetailsPage")) },
+    { path: "/program/program", component: React.lazy(() => import("~/Pages/Manage/Program/Program/ProgramPage")) },
+    {
+      path: "/program/:programID",
+      component: React.lazy(() => import("~/Pages/Manage/Program/Program/ProgramDetailsPage"))
+    },
     {
       path: "/program/:programID/student/:studentID/application",
-      component: React.lazy(() => import("~/Pages/Manage/Program/ApplicationDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Manage/Program/Application/ApplicationDetailsPage"))
     },
 
     {
@@ -300,161 +321,161 @@ export const getAppRoutes = (permission: IUserPermissions): IRouteProps[] => {
 
     {
       path: "/marketing-codes/repository",
-      component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/RepositoryPage"))
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/PromotionCodes/RepositoryPage"))
     },
     {
       path: "/marketing-codes/repository/:marketingCodeID",
-      component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/RepositoryDetails"))
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/PromotionCodes/RepositoryDetails"))
     },
     {
       path: "/marketing-codes/response",
-      component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/ResponsePage"))
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/PromotionResponse/ResponsePage"))
     },
     {
       path: "/marketing-codes/response/:orderItemID/:marketingCodeID",
-      component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/ResponseDetails"))
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/PromotionResponse/ResponseDetails"))
     },
 
-    { path: "/marketing-programs", component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/ProgramPage")) },
+    {
+      path: "/marketing-programs",
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/MarketingProgram/MarketingProgramPage"))
+    },
     {
       path: "/marketing-programs/:marketingProgramID",
-      component: React.lazy(() => import("~/Pages/Manage/MarketingCodes/ProgramDetails"))
+      component: React.lazy(() => import("~/Pages/Manage/Promotions/MarketingProgram/MarketingProgramDetails"))
     },
 
-    { path: "/seatgroup/:seatGroupID", component: React.lazy(() => import("~/Pages/Manage/SeatgroupDetails")) },
+    {
+      path: "/seatgroup/:seatGroupID",
+      component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupDetails"))
+    },
     {
       path: "/forget-me-request",
-      component: React.lazy(() => import("~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/ForgetMeRequest/ForgetMeRequestsPage"))
     },
     {
       path: "/forget-me-request/:AnonymizationRequestID",
-      component: React.lazy(() => import("~/Pages/Manage/Constituents/ForgetMeRequest/ForgetMeRequestDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/ForgetMeRequest/ForgetMeRequestDetailsPage"))
     },
 
-    { path: "/batch", component: React.lazy(() => import("~/Pages/Manage/Batch/BatchPage")) },
-    { path: "/batch/:BatchImportID", component: React.lazy(() => import("~/Pages/Manage/Batch/BatchDetailsPage")) },
+    { path: "/batch", component: React.lazy(() => import("~/Pages/Administration/Tools/Batch/BatchPage")) },
+    {
+      path: "/batch/:BatchImportID",
+      component: React.lazy(() => import("~/Pages/Administration/Tools/Batch/BatchDetailsPage"))
+    },
 
     {
       path: "/data/organization",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Organizations/OranizationsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Organizations/OranizationsPage"))
     },
     {
       path: "/data/organization/:OrganizationID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Organizations/OranizationsDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Organizations/OranizationsDetailsPage"))
     },
 
-    { path: "/user", component: React.lazy(() => import("~/Pages/SetupAdministration/Users/UsersPage")) },
-    {
-      path: "/user/:UserID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Users/UsersDetailsPage"))
-    },
+    { path: "/user", component: React.lazy(() => import("~/Pages/Administration/Users/UsersPage")) },
+    { path: "/user/:UserID", component: React.lazy(() => import("~/Pages/Administration/Users/UsersDetailsPage")) },
 
     {
       path: "/gateway-activity",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Audits/GatewayActivity/GatewayActivityPage"))
     },
     {
       path: "/gateway-activity/:PaymentGatewayActivityID",
-      component: React.lazy(() =>
-        import("~/Pages/SetupAdministration/Audits/GatewayActivity/GatewayActivityDetailsPage")
-      )
+      component: React.lazy(() => import("~/Pages/Administration/Audits/GatewayActivity/GatewayActivityDetailsPage"))
     },
     {
       path: "/system-schedule",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/SystemSchedule/SystemSchedulePage"))
+      component: React.lazy(() => import("~/Pages/Administration/Audits/SystemSchedule/SystemSchedulePage"))
     },
     {
       path: "/system-schedule/:TimerID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Audits/SystemSchedule/SystemScheduleDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Audits/SystemSchedule/SystemScheduleDetailsPage"))
     },
     {
       path: "/data/certificate",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Certificates/CertificatesPage"))
     },
     {
       path: "/data/certificate/:CertificateID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Certificates/CertificatesDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Certificates/CertificatesDetailsPage"))
     },
     {
       path: "/data/grade-score-definition",
-      component: React.lazy(() =>
-        import("~/Pages/SetupAdministration/Data/GradeScoreDefinitions/GradeScoreDefinitionsPage")
-      )
+      component: React.lazy(() => import("~/Pages/Administration/Data/GradeScoreDefinitions/GradeScoreDefinitionsPage"))
     },
     {
       path: "/data/grade-score-definition/:GradeScoreDefinitionID",
       component: React.lazy(() =>
-        import("~/Pages/SetupAdministration/Data/GradeScoreDefinitions/GradeScoreDefinitionsDetailsPage")
+        import("~/Pages/Administration/Data/GradeScoreDefinitions/GradeScoreDefinitionsDetailsPage")
       )
     },
     {
       path: "/job-schedules",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Tools/JobSchedules/JobSchedulesPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Tools/JobSchedules/JobSchedulesPage"))
     },
     {
       path: "/configuration-management",
-      component: React.lazy(() =>
-        import("~/Pages/SetupAdministration/ConfigurationManagement/ConfigurationManagementPage")
-      )
+      component: React.lazy(() => import("~/Pages/Administration/ConfigurationManagement/ConfigurationManagementPage"))
     },
 
     {
       path: "/offering-type",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/OfferingType/OfferingTypePage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/OfferingType/OfferingTypePage"))
     },
     {
       path: "/offering-type/:OfferingTypeID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/OfferingType/OfferingTypeDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/OfferingType/OfferingTypeDetailsPage"))
     },
 
     {
       path: "/section-type",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/SectionType/SectionTypePage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/SectionType/SectionTypePage"))
     },
     {
       path: "/section-type/:SectionTypeID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/SectionType/SectionTypeDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/SectionType/SectionTypeDetailsPage"))
     },
 
     {
       path: "/building",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/BuildingPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Building/BuildingPage"))
     },
     {
       path: "/building/:BuildingID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/BuildingDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Building/BuildingDetailsPage"))
     },
     {
       path: "/room/:RoomID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Building/RoomDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Building/RoomDetailsPage"))
     },
     {
       path: "/site",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Site/SitePage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Site/SitePage"))
     },
     {
       path: "/site/:SiteID",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/Site/SiteDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/Site/SiteDetailsPage"))
     },
 
     {
       path: "/membership",
-      component: React.lazy(() => import("~/Pages/Manage/Memberships/MembershipPage"))
+      component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Memberships/MembershipPage"))
     },
     {
       path: "/membership/:MembershipID",
-      component: React.lazy(() => import("~/Pages/Manage/Memberships/MembershipsDetailsPage"))
+      component: React.lazy(() => import("~/Pages/Manage/OtherProducts/Memberships/MembershipsDetailsPage"))
     },
     {
       path: "/student-email-notification",
       component: React.lazy(() =>
-        import("~/Pages/SetupAdministration/Tools/StudentEmailNotification/StudentEmailNotificationPage")
+        import("~/Pages/Administration/Tools/StudentEmailNotification/StudentEmailNotificationPage")
       )
     },
     {
       path: "/student-email-notification/:StudentNoticeID",
       component: React.lazy(() =>
-        import("~/Pages/SetupAdministration/Tools/StudentEmailNotification/StudentEmailNotificationDetailsPage")
+        import("~/Pages/Administration/Tools/StudentEmailNotification/StudentEmailNotificationDetailsPage")
       )
     },
     {
@@ -475,11 +496,17 @@ export const getAppRoutes = (permission: IUserPermissions): IRouteProps[] => {
     },
     {
       path: "/reference-data",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/ReferenceData/ReferenceDataListPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/ReferenceDataListPage"))
     },
     {
       path: "/reference-data/:refName",
-      component: React.lazy(() => import("~/Pages/SetupAdministration/Data/ReferenceData/ReferenceDataPage"))
+      component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/ReferenceDataPage"))
+    },
+    {
+      path: "/reference-data/AccountType/:ID/tags",
+      component: React.lazy(() =>
+        import("~/Pages/Administration/Data/ReferenceData/DetailsPages/AccountTypeTagDetailsPage")
+      )
     }
   ]
 }

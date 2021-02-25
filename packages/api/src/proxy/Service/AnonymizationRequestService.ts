@@ -5,6 +5,7 @@ export const config = {
   Service: "AnonymizationRequestService",
   Module: "hir",
   Actions: {
+    createAnonymizationRequest: "createAnonymizationRequest",
     getAnonymizeRequests: "getAnonymizeRequests"
   }
 }

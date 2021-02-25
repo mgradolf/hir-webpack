@@ -1,8 +1,8 @@
-import { Button, Col, Row, Typography } from "antd"
 import React, { useState } from "react"
+import { Button, Col, Row, Typography } from "antd"
 import { FilterOutlined } from "@ant-design/icons"
 import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
@@ -14,30 +14,16 @@ export interface ISearchListWithHiddenSearchFormProp {
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
-  helpKey?: string
+  helpUrl?: string
 }
 
 export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
   const [filterCount, setFilterCount] = useState(0)
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
   const [showFilter, setShowFilter] = useState(false)
-  const [help, setHelp] = useState(false)
 
   return (
     <div className="site-layout-content">
-      <Row>
-        <Col span={21}>
-          <Typography.Title level={3}>{props.title}</Typography.Title>
-        </Col>
-        {props.helpKey && (
-          <Col span={3}>
-            <Button type="link" onClick={() => setHelp(true)}>
-              Help
-            </Button>
-          </Col>
-        )}
-        {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
-      </Row>
       <Row justify="start" gutter={[8, 8]}>
         <Col>
           <span>
@@ -54,12 +40,18 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             </Button>
           )}
         </Col>
+        {props.helpUrl && (
+          <Col>
+            <HelpModal helpUrl={props.helpUrl} />
+          </Col>
+        )}
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={`${styles.paddingTop10px}  ${styles.margin0px}`}>
         {props.meta && (
-          <CustomForm
-            hideFilters={() => setShowFilter(false)}
+          <MetaDrivenForm
+            title={<Typography.Title level={3}>{props.title}</Typography.Title>}
+            helpUrl={props.helpUrl}
             meta={props.meta}
             initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {

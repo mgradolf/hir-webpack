@@ -21,7 +21,7 @@ import {
   BUDGET_FINANCIAL_TYPE_OFFERING,
   BUDGET_FINANCIAL_TYPE_RESOURCE
 } from "~/utils/Constants"
-import { REFRESH_SECTION_BUDGET_PAGE } from "~/FormMeta/Section/SectionDetailsMeta"
+import { REFRESH_SECTION_BUDGET_PAGE } from "~/TableSearchMeta/Section/SectionDetailsMeta"
 
 interface IBudgetCreateForm2Props {
   sectionId: number

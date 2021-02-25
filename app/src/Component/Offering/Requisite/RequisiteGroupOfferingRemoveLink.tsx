@@ -29,7 +29,7 @@ function RequisiteOfferingRemoveLink(props: IRequisiteOfferingRemoveLinkProp) {
       okText="Confirm"
       cancelText="Cancel"
     >
-      <Button block type="link">
+      <Button danger type="primary">
         Remove
       </Button>
     </Popconfirm>

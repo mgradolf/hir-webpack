@@ -1,7 +1,7 @@
 import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchPayments } from "~/ApiServices/BizApi/payment/paymentIF"
-import { getPaymentDetailsMeta } from "~/FormMeta/Payment/PaymentDetailsMeta"
+import { getPaymentDetailsMeta } from "~/TableSearchMeta/Payment/PaymentDetailsMeta"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 
 export default function PaymentDetailsPage(props: RouteComponentProps<{ paymentID?: string }>) {

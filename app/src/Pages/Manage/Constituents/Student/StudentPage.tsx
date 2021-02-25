@@ -1,18 +1,35 @@
-import React from "react"
+import React, { useState } from "react"
+import { Button } from "antd"
+import StudentFormModal from "~/Component/Student/StudentFormModal"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getStudentTableColumns } from "~/FormMeta/Student/StudentTableColumns"
-import { studentSearchMeta } from "~/FormMeta/Student/StudentSearchMeta"
+import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
+import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
+import { HelpContext } from "~/Context/HelpContext"
+import { IHelpConfig } from "~/Config/Help"
 
 export default function PersonTable() {
+  const [showModal, setShowModal] = useState(false)
   return (
-    <SearchPage
-      title="Manage Students"
-      meta={studentSearchMeta}
-      hideSearchField={false}
-      tableProps={{
-        ...getStudentTableColumns()
-      }}
-      helpKey="https://docs.google.com/document/d/1FKV-i5gsVClhsHLYFMqpdEGDVZmwJU576AXKKcTfwiY/edit?usp=sharing"
-    ></SearchPage>
+    <HelpContext.Consumer>
+      {(helpConfig: IHelpConfig) => (
+        <SearchPage
+          blocks={[
+            <>
+              <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
+                + Create Student
+              </Button>
+              {showModal && <StudentFormModal closeModal={() => setShowModal(false)} />}
+            </>
+          ]}
+          title="Manage Students"
+          meta={studentSearchMeta}
+          hideSearchField={false}
+          tableProps={{
+            ...getStudentTableColumns()
+          }}
+          helpUrl={helpConfig.generic}
+        ></SearchPage>
+      )}
+    </HelpContext.Consumer>
   )
 }

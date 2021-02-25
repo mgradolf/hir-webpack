@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getPaymentTableColumns } from "~/FormMeta/Payment/PaymentTableColumns"
-import { PaymentSearchMeta } from "~/FormMeta/Payment/PaymentSearchMeta"
+import { getPaymentTableColumns } from "~/TableSearchMeta/Payment/PaymentTableColumns"
+import { PaymentSearchMeta } from "~/TableSearchMeta/Payment/PaymentSearchMeta"
 
 export default function Payments() {
   return (

@@ -2,7 +2,7 @@ import { Collapse, Row, Spin } from "antd"
 import React, { useState, useEffect } from "react"
 import { trackingProgress } from "~/ApiServices/BizApi/program/programEnrollmentIF"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getProgressTrackingDetailsMeta } from "~/FormMeta/ProgramEnrollment/ProgressTrackingDetailsMeta"
+import { getProgressTrackingDetailsMeta } from "~/TableSearchMeta/ProgramEnrollment/ProgressTrackingDetailsMeta"
 import { REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_PAGE } from "~/utils/EventBus"
 
 interface IRequisitePageProp {

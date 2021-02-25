@@ -38,16 +38,12 @@ export default function ProgramEnrollmentForm(props: IEnrollmentFormProps) {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
-    type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
     const serviceMethoToCall: serviceMethodType = changeEnrollmentStatusWithEvent
 
     props.setApiCallInProgress(true)
     setErrorMessages([])
-    const response = await serviceMethoToCall([
-      params["ProgramEnrollmentID"],
-      params["StatusID"],
-      params["CommentText"]
-    ])
+    const response = await serviceMethoToCall(params)
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
@@ -61,8 +57,16 @@ export default function ProgramEnrollmentForm(props: IEnrollmentFormProps) {
   }
 
   const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
+  actions.push(
+    <Button danger type="primary" onClick={props.handleCancel}>
+      Cancel
+    </Button>
+  )
+  actions.push(
+    <Button type="primary" onClick={onFormSubmission}>
+      Submit
+    </Button>
+  )
 
   return (
     <Card title={`Update Program Enrollment`} actions={actions}>

@@ -1,8 +1,8 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 
-import { ProgramApplicationSearchMeta } from "~/FormMeta/ProgramApplication/ProgramApplicationSearchMeta"
-import { getProgramApplicationTableColumns } from "~/FormMeta/ProgramApplication/ProgramApplicationTableColumns"
+import { ProgramApplicationSearchMeta } from "~/TableSearchMeta/ProgramApplication/ProgramApplicationSearchMeta"
+import { getProgramApplicationTableColumns } from "~/TableSearchMeta/ProgramApplication/ProgramApplicationTableColumns"
 
 export default function ProgramApplication() {
   return (

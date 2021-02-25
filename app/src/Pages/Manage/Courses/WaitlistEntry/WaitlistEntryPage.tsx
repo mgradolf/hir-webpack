@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import { WaitlistEntriesSearchMeta } from "~/FormMeta/WaitlistEntries/WaitlistEntriesSearchMeta"
+import { WaitlistEntriesSearchMeta } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntriesSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { getWaitlistEntriesTableColumns } from "~/FormMeta/WaitlistEntries/WaitlistEntryTableColumns"
+import { getWaitlistEntriesTableColumns } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntryTableColumns"
 import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
 
 export default function WaitlistEntryPage() {
@@ -21,7 +21,6 @@ export default function WaitlistEntryPage() {
       )}
       <SearchPage
         title="Waitlist Entries"
-        initialFormValue={{}}
         meta={WaitlistEntriesSearchMeta}
         hideSearchField={false}
         blocks={[

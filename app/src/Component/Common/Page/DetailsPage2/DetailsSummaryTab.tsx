@@ -17,10 +17,7 @@ export type CardContainer = {
 
 const DetailsCardContainer = (props: { card: CardContainer }) => {
   return (
-    <Card title={props.card.title}>
-      <Row justify="end" gutter={[8, 8]}>
-        {props.card.cardActions && props.card.cardActions.map((x, i) => <Col key={i}>{x}</Col>)}
-      </Row>
+    <Card title={props.card.title} extra={props.card.cardActions ? props.card.cardActions : []}>
       <table className="dorakata-table">
         <tbody>
           {Array.isArray(props.card.contents)

@@ -1,5 +1,5 @@
 import React from "react"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
 
@@ -49,11 +49,7 @@ const QuestionSearchFiltersMeta: IField[] = [
 
 export default function QuestionSearch(props: IQuestionSearch) {
   return (
-    <CustomForm
-      initialFormValue={{}}
-      hideFilters={() => {
-        console.log("do nothing")
-      }}
+    <MetaDrivenForm
       meta={QuestionSearchFiltersMeta}
       onApplyChanges={(newFilterValues, newFilterCount) => {
         props.onFormSubmission(newFilterValues)

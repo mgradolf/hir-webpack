@@ -2,7 +2,7 @@ import React from "react"
 import { Row, Col, Typography } from "antd"
 import { RouteComponentProps } from "react-router-dom"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { getRegistrationTableColumns } from "~/FormMeta/Registration/RegistrationTableColumns"
+import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
 import "~/Sass/utils.scss"
 
 const { Title } = Typography

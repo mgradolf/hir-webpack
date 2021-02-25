@@ -37,13 +37,16 @@ const meta: IField[] = [
     inputType: MULTI_SELECT_DROPDOWN,
     fieldName: "PaymentTypeID",
     refLookupService: getPaymentTypes,
-    displayKey: "PaymentSchemaName",
+    displayKey: "PaymentAcceptedName",
     valueKey: "PaymentTypeID"
   }
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  mapping: {
+    UserName: "CreatedBy"
+  }
 }
 
 export default reportMeta

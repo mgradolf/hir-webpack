@@ -87,3 +87,10 @@ export function getStudentNoticeById(EntityID: number): Promise<IApiResponse> {
     EntityID
   })
 }
+
+export function findEntitySchedule(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return EntityService[config.Actions.findEntitySchedule](Params, Headers)
+}

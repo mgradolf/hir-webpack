@@ -1,13 +1,13 @@
 import { Col, Descriptions, Row, Tabs, Typography } from "antd"
 import React, { useState } from "react"
 import { analyzeSections } from "~/ApiServices/Service/BudgetAnalysisService"
-import { CustomForm } from "~/Component/Common/Form"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { MasterPLCalculatorSearchMeta } from "~/FormMeta/MasterPLCalculator/MasterPLCalculatorSearchMeta"
+import { MasterPLCalculatorSearchMeta } from "~/TableSearchMeta/MasterPLCalculator/MasterPLCalculatorSearchMeta"
 import {
   MasterPLCalculatorBudgetTableColumns,
   MasterPLCalculatorSeatGroupsTableColumns
-} from "~/FormMeta/MasterPLCalculator/MasterPLCalculatorTableColumns"
+} from "~/TableSearchMeta/MasterPLCalculator/MasterPLCalculatorTableColumns"
 
 export default function QueriesPage() {
   const [dataSource, setDataSource] = useState<{ [key: string]: any }>({})
@@ -27,10 +27,11 @@ export default function QueriesPage() {
         </Col>
       </Row>
 
-      <CustomForm
+      <MetaDrivenForm
         meta={MasterPLCalculatorSearchMeta}
         stopProducingQueryParams={true}
         initialFormValue={{ IsActual: true }}
+        applyButtonLabel="Calculate"
         onApplyChanges={(newFilterValues) => loadData(newFilterValues)}
       />
 
@@ -39,10 +40,25 @@ export default function QueriesPage() {
           <Tabs defaultActiveKey="1" type="card" size="large">
             <Tabs.TabPane tab="Budget" key={1}>
               <Descriptions style={{ background: "white", paddingTop: "10px", paddingLeft: "10px" }}>
-                <Descriptions.Item label="Income">{dataSource.TotalIncome}</Descriptions.Item>
-                <Descriptions.Item label="Expense">{dataSource.TotalExpense}</Descriptions.Item>
-                <Descriptions.Item label="P/L">{dataSource.ProfitLoss}</Descriptions.Item>
-                <Descriptions.Item label="Gross Margin">{dataSource.MarginPercent}</Descriptions.Item>
+                <Descriptions.Item label="Income">
+                  <span style={{ fontWeight: 800 }}> {dataSource.TotalIncome}</span>
+                </Descriptions.Item>
+                <Descriptions.Item label="Expense">
+                  <span style={{ fontWeight: 800 }}> {dataSource.TotalExpense}</span>
+                </Descriptions.Item>
+                <Descriptions.Item label="P/L">
+                  <span
+                    style={{
+                      fontWeight: 800,
+                      color: dataSource.ProfitLoss && dataSource.ProfitLoss > 0 ? "green" : "red"
+                    }}
+                  >
+                    {dataSource.ProfitLoss}
+                  </span>
+                </Descriptions.Item>
+                <Descriptions.Item label="Gross Margin">
+                  <span style={{ fontWeight: 800 }}> {dataSource.MarginPercent}</span>
+                </Descriptions.Item>
               </Descriptions>
               <ResponsiveTable
                 loading={loading}

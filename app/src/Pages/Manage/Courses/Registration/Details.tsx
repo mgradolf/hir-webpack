@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router-dom"
 import { findRegistrationDetail } from "~/ApiServices/Service/RegistrationService"
 import { searchQuestionResponse } from "~/ApiServices/Service/QuestionService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getRegistrationDetailsMeta } from "~/FormMeta/Registration/RegistrationDetailsMeta"
+import { getRegistrationDetailsMeta } from "~/TableSearchMeta/Registration/RegistrationDetailsMeta"
 import { QUESTION_EVENT_TYPE_REGISTRATION } from "~/utils/Constants"
 
 export default function RegistrationDetailsPage(props: RouteComponentProps<{ sectionID: string; studentID: string }>) {

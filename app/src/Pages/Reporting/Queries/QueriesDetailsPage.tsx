@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom"
 import { findQueryResult, getSearchParamList, getTableColumnList } from "~/ApiServices/BizApi/customQuery/customQueryIf"
 import { IField, TEXT } from "~/Component/Common/Form/common"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ITableConfigProp } from "~/FormMeta/ITableConfigProp"
+import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
 export default function QueriesDetailsPage(props: RouteComponentProps<{ queryName: string }>) {
   const QueryName = props?.match?.params?.queryName

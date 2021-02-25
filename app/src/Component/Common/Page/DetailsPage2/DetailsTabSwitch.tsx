@@ -11,11 +11,12 @@ export interface IDetailsPageSubTab {
   actions?: JSX.Element[]
 }
 
-export function DetailsPageSubTabSwitch(props: { meta?: IDetailsTabMeta[]; child: any }) {
+export function DetailsPageSubTabSwitch(props: { meta?: IDetailsTabMeta[]; child: any; actions?: JSX.Element[] }) {
+  console.log("Props: ", props)
   return (
     <>
       {props.meta && props.meta.length > 0 ? (
-        <Tabs defaultActiveKey="1" type="card" size="large">
+        <Tabs defaultActiveKey="1" type="card" size="large" tabBarExtraContent={props.actions ? props.actions : []}>
           {props.meta.map((x, i) => {
             switch (x.tabType) {
               case "summary":

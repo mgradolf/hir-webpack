@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router-dom"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 import { searchOffering } from "~/ApiServices/Service/OfferingService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getOfferingDetailsMeta } from "~/FormMeta/Offering/OfferingDetailsMeta/OfferingDetailsMeta"
+import { getOfferingDetailsMeta } from "~/TableSearchMeta/Offering/OfferingDetailsMeta/OfferingDetailsMeta"
 
 export default function OfferingDetailsPage(props: RouteComponentProps<{ offeringID?: string }>) {
   const OfferingID = Number(props?.match?.params?.offeringID)

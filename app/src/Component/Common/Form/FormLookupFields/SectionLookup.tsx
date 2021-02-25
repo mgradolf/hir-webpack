@@ -1,8 +1,8 @@
 import * as React from "react"
-import { SectionSearchMeta } from "~/FormMeta/Section/SectionSearchMeta"
-import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
+import { SectionSearchMeta } from "~/TableSearchMeta/Section/SectionSearchMeta"
+import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getSectionTableColumns } from "~/FormMeta/Section/SectionTableColumns"
+import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function SectionLookup(props: IGeneratedField) {
@@ -13,8 +13,11 @@ export function SectionLookup(props: IGeneratedField) {
       displayField="SectionNumber"
       meta={SectionSearchMeta as IField[]}
       {...props}
-      formInstance={props.formInstance}
       {...getSectionTableColumns(true)}
+      {...(props.extraProps &&
+        props.extraProps.defaultFormValue && {
+          defaultFormValue: props.extraProps.defaultFormValue
+        })}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           getEntityById("Section", props.defaultValue).then((x) => {

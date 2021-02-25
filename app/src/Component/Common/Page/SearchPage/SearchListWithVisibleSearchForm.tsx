@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { Button, Col, Row, Typography } from "antd"
-import { CustomForm } from "~/Component/Common/Form"
+import { Col, Row, Typography } from "antd"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
-import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 export interface ISearchListWithVisibleSearchFormProp {
   title: string
   blocks?: JSX.Element[]
@@ -11,14 +10,13 @@ export interface ISearchListWithVisibleSearchFormProp {
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
-  helpKey?: string
+  helpUrl?: string
   stopProducingQueryParams?: boolean
   updatedParams?: (params?: any) => void
 }
 
 export default function SearchListWithVisibleSearchForm(props: ISearchListWithVisibleSearchFormProp) {
   const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
-  const [help, setHelp] = useState(false)
 
   useEffect(() => {
     if (props.initialFormValue) setSearchParams(props.initialFormValue)
@@ -26,22 +24,11 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
   }, [])
   return (
     <div className="site-layout-content">
-      <Row>
-        <Col span={21}>
-          <Typography.Title level={3}>{props.title}</Typography.Title>
-        </Col>
-        {props.helpKey && (
-          <Col span={3}>
-            <Button type="link" onClick={() => setHelp(true)}>
-              Help
-            </Button>
-          </Col>
-        )}
-        {props.helpKey && help && <HelpModal helpKey={props.helpKey} closeModal={() => setHelp(false)} />}
-      </Row>
       {props.meta && (
-        <CustomForm
+        <MetaDrivenForm
+          title={<Typography.Title level={3}>{props.title}</Typography.Title>}
           meta={props.meta}
+          helpUrl={props.helpUrl}
           stopProducingQueryParams={props.stopProducingQueryParams}
           initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {

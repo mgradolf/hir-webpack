@@ -2,6 +2,10 @@ import QueryIf, { config } from "@packages/api/lib/proxy/BizApi/query/queryIf"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { MAX_PAGE_SIZE, MIN_START_POSITION_SIZE } from "~/utils/Constants"
 
+export function findPickList(Params: { [key: string]: any }, from?: number, to?: number): Promise<IApiResponse> {
+  return QueryIf[config.Actions.findPickList]([Params.PickListName])
+}
+
 export function findEnrollmentHistory(
   Params: { [key: string]: any },
   from?: number,
@@ -239,4 +243,11 @@ export function findTermFeeProductsByCategoryID(
     ],
     Headers
   )
+}
+
+export function executeRowMapNamedQuery(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](["jxntm.financial.GLAccountLookup", Params, null], Headers)
 }

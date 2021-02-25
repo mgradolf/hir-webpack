@@ -12,6 +12,8 @@ import { getAppRoutes, IRouteProps } from "~/routes"
 import NotFoundPage from "~/Pages/NotFoundPage"
 import { IUserPermissions, setUserPermission } from "~/Store/Authentication"
 import { loadUserPermission } from "~/ApiServices/Service/HRUserService"
+import { getHelpConfig, IHelpConfig } from "~/Config/Help"
+import { HelpContext } from "~/Context/HelpContext"
 
 interface AppProps {
   store: AppStore
@@ -23,6 +25,11 @@ interface AppProps {
 
 function App(props: AppProps): JSX.Element {
   const [routes, setRoutes] = useState<IRouteProps[]>([])
+  const [helpConfig, setHelpConfig] = useState<IHelpConfig>({})
+  useEffect(() => {
+    getHelpConfig().then((x) => setHelpConfig(x))
+  }, [])
+
   useEffect(() => {
     loadUserPermission().then((x) => {
       if (x.success) {
@@ -34,31 +41,33 @@ function App(props: AppProps): JSX.Element {
     // eslint-disable-next-line
   }, [])
   return (
-    <Provider store={props.store}>
-      <div id="modal-container"></div>
-      <ModalContainer />
-      <ConnectedRouter history={props.history}>
-        {props.redirectToLogin ? (
-          <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Redirect to={{ pathname: "/login" }} />
-          </Switch>
-        ) : (
-          <>
-            <DefaultLayout>
-              <Switch>
-                {routes
-                  .filter((route) => route.permission !== false)
-                  .map((route, i) => (
-                    <Route key={i} {...route} exact />
-                  ))}
-                <Route path="*" component={NotFoundPage} />
-              </Switch>
-            </DefaultLayout>
-          </>
-        )}
-      </ConnectedRouter>
-    </Provider>
+    <HelpContext.Provider value={helpConfig}>
+      <Provider store={props.store}>
+        <div id="modal-container"></div>
+        <ModalContainer />
+        <ConnectedRouter history={props.history}>
+          {props.redirectToLogin ? (
+            <Switch>
+              <Route path="/login" component={LoginPage} />
+              <Redirect to={{ pathname: "/login" }} />
+            </Switch>
+          ) : (
+            <>
+              <DefaultLayout>
+                <Switch>
+                  {routes
+                    .filter((route) => route.permission !== false)
+                    .map((route, i) => (
+                      <Route key={i} {...route} exact />
+                    ))}
+                  <Route path="*" component={NotFoundPage} />
+                </Switch>
+              </DefaultLayout>
+            </>
+          )}
+        </ConnectedRouter>
+      </Provider>
+    </HelpContext.Provider>
   )
 }
 
