@@ -30,19 +30,72 @@ export function getUserByUserLogin(
   return HRUserService[config.Actions.getUserByUserLogin](Params, Headers)
 }
 
-export function loadUserPermission(): Promise<IApiResponse> {
+export interface IApiPermissions {
+  [key: string]: { [subKey: string]: boolean }
+}
+
+interface IApiPermission {
+  Service: string
+  Actions: string[]
+}
+
+let cachedPermission: any
+function _loadCachedUserPermission(): Promise<IApiResponse> {
   return Promise.resolve({
     code: 200,
-    data: {
-      disabilities: true,
-      make_payment: true,
-      issue_credit: true,
-      registration_in_course: true,
-      create_offering: true,
-      creation_section: true,
-      update_offering: false
-    },
+    data: cachedPermission,
     error: false,
     success: true
+  })
+}
+
+function _loadFreshUserPermission(): Promise<IApiResponse> {
+  return Promise.resolve({
+    code: 200,
+    data: [
+      {
+        Service: "OfferingService",
+        Actions: [
+          "createOffering",
+          "updateOffering",
+          // "searchOffering",
+          "addOrRemoveOfferingToCatalog",
+          "createOfferingFinancial",
+          "updateOfferingFinancial",
+          "searchOfferingFinancial",
+          "getOfferngApprovalHist",
+          "setApprovalStatus",
+          "getOfferngApprovalStateList",
+          "getOfferingApprovalSendToList",
+          "getRequisiteOfferingGroup",
+          "getGroupOfferings",
+          "createRequisiteOfferingGroup",
+          "updateRequisiteOfferingGroup",
+          "getQualifiedInstructors",
+          "updateInstructors",
+          "createSection"
+        ]
+      }
+    ],
+    error: false,
+    success: true
+  })
+}
+
+export function loadUserPermission(disableCache?: true): Promise<IApiResponse> {
+  const promise = !disableCache && cachedPermission ? _loadCachedUserPermission() : _loadFreshUserPermission()
+  return promise.then((x) => {
+    const dataObject: { [key: string]: any } = {}
+    if (x.success && Array.isArray(x.data)) {
+      x.data.forEach((service: IApiPermission) => {
+        const __: { [key: string]: any } = {}
+        service.Actions.forEach((action) => {
+          __[action] = true
+        })
+        dataObject[service.Service] = __
+      })
+    }
+    cachedPermission = dataObject
+    return { ...x, data: dataObject }
   })
 }

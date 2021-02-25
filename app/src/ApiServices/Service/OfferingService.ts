@@ -4,6 +4,8 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 /*                              offering section                              */
 /* -------------------------------------------------------------------------- */
 
+export const OfferingServiceConfig = config
+
 export function createOffering(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
