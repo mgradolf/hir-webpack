@@ -5,11 +5,7 @@ import { Input } from "antd"
 export function FormInput(props: IGeneratedField) {
   return (
     <SearchFieldWrapper {...props}>
-      <Input
-        aria-label={props.ariaLabel}
-        type={props.inputType ? props.inputType.toLowerCase() : "text"}
-        disabled={props.disabled}
-      />
+      <Input aria-label={props.ariaLabel} type="text" disabled={props.disabled} />
     </SearchFieldWrapper>
   )
 }

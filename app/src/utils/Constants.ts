@@ -178,7 +178,6 @@ export const DEFAULT_HIR_ADMIN_SOURCE_ID = 3
 
 export const ADMIN_SOURCE_NAME = "Admin"
 
-export const ACCOUNT_AFFILIATION_STATUS_ID_ACTIVE = 1
 export const GRADE_CLASSIFICATION_TYPE_WITHDRAW = 2
 
 export const QUESTION_EVENT_TYPE_REGISTRATION = 1
@@ -191,9 +190,33 @@ export const REGISTRATION_EMAIL_CONFIRMATION_SUCCESS = "Successfully send email!
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
 export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
 
+export const INVITE_TO_SETUP_WEB_LOGIN = "Invite to setup web login done!"
+export const INVITE_TO_RESET_PASSWORD = "Invite to reset password done!"
+export const UNLOCK_WEB_LOGIN = "Unlock person login done!"
+
 export const SAVE_SUCCESSFULLY = "Successfully saved!"
+export const DELETE_SUCCESSFULLY = "Successfully deleted!"
+export const REQUEST_SUCCESSFULLY = "Successfully requested!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
 
 export const MAX_PAGE_SIZE = 1000
 export const MIN_START_POSITION_SIZE = 0
+
+export const ACC_INDIVIDUAL = 1000
+export const ACC_AFFILIATED = 1
+export const AFF_ROLE_PURCHASER = 8
+
+export const ACCOUNT_AFFILIATION_STATUS_ACTIVE = 1
+export const ACCOUNT_AFFILIATION_STATUS_INACTIVE = 2
+export const ACCOUNT_AFFILIATION_STATUS_PENDING = 3
+export const ACCOUNT_AFFILIATION_STATUS_REJECTED = 4
+
+export const CURRENT_ORG_ID = 1
+
+export const PT_FULLTIME_STATUS = 0
+export const PT_PARTTIME_STATUS = 1000
+
+export const REASON_HOLD_APPLY = 1
+export const REASON_HOLD_RELEASE = 2
+export const REASON_MEMBERSHIP = 3

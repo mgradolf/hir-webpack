@@ -15,6 +15,8 @@ import {
   REFRESH_STUDENT_COMMENT_PAGE
 } from "~/utils/EventBus"
 import { Button } from "antd"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface ICommentRemoveLinkProp {
   EnrollmentCommentID?: number
@@ -24,40 +26,39 @@ interface ICommentRemoveLinkProp {
   SectionFacultyCommentID?: number
 }
 
-export default function CommentRemoveLink(props: ICommentRemoveLinkProp) {
+export function CommentRemoveLink(props: ICommentRemoveLinkProp) {
+  const remove = async (): Promise<IApiResponse> => {
+    let response: IApiResponse = { code: 200, data: undefined, success: false, error: undefined }
+    if (props.EnrollmentCommentID) {
+      response = await deleteEnrollmentComment({ EnrollmentCommentID: props.EnrollmentCommentID })
+      if (response.success) {
+        eventBus.publish(REFRESH_REGISTRATION_COMMENT_PAGE)
+      }
+    } else if (props.StudentCommentID) {
+      response = await deleteStudentComment({ StudentCommentID: props.StudentCommentID })
+      if (response.success) {
+        eventBus.publish(REFRESH_STUDENT_COMMENT_PAGE)
+      }
+    } else if (props.SectionCommentID) {
+      response = await deleteSectionComment({ SectionCommentID: props.SectionCommentID })
+      if (response.success) {
+        eventBus.publish(REFRESH_SECTION_GENERAL_COMMENT_PAGE)
+      }
+    } else if (props.FacultyCommentID) {
+      response = await deleteFacultyComment({ FacultyCommentID: props.FacultyCommentID })
+      if (response.success) {
+        eventBus.publish(REFRESH_INSTRUCTOR_COMMENT_PAGE)
+      }
+    } else if (props.SectionFacultyCommentID) {
+      response = await deleteSectionFacultyComment({ SectionFacultyCommentID: props.SectionFacultyCommentID })
+      if (response.success) {
+        eventBus.publish(REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE)
+      }
+    }
+    return response
+  }
   return (
-    <Button
-      danger
-      type="primary"
-      onClick={async () => {
-        if (props.EnrollmentCommentID) {
-          const response = await deleteEnrollmentComment({ EnrollmentCommentID: props.EnrollmentCommentID })
-          if (response.success) {
-            eventBus.publish(REFRESH_REGISTRATION_COMMENT_PAGE)
-          }
-        } else if (props.StudentCommentID) {
-          const response = await deleteStudentComment({ StudentCommentID: props.StudentCommentID })
-          if (response.success) {
-            eventBus.publish(REFRESH_STUDENT_COMMENT_PAGE)
-          }
-        } else if (props.SectionCommentID) {
-          const response = await deleteSectionComment({ SectionCommentID: props.SectionCommentID })
-          if (response.success) {
-            eventBus.publish(REFRESH_SECTION_GENERAL_COMMENT_PAGE)
-          }
-        } else if (props.FacultyCommentID) {
-          const response = await deleteFacultyComment({ FacultyCommentID: props.FacultyCommentID })
-          if (response.success) {
-            eventBus.publish(REFRESH_INSTRUCTOR_COMMENT_PAGE)
-          }
-        } else if (props.SectionFacultyCommentID) {
-          const response = await deleteSectionFacultyComment({ SectionFacultyCommentID: props.SectionFacultyCommentID })
-          if (response.success) {
-            eventBus.publish(REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE)
-          }
-        }
-      }}
-    >
+    <Button danger type="primary" onClick={() => showDeleteConfirm(remove)}>
       Remove
     </Button>
   )

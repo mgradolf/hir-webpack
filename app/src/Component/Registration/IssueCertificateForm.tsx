@@ -4,7 +4,7 @@ import { Button, Row, Col } from "antd"
 import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
-import { getCertificateTableColumns } from "~/FormMeta/Certificate/CertificateTableColumns"
+import { getCertificateTableColumns } from "~/TableSearchMeta/Certificate/CertificateTableColumns"
 import { REFRESH_REGISTRATION_CERTIFICATE_PAGE } from "~/utils/EventBus"
 
 interface ICertificateFormProps {

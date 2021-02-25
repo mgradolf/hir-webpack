@@ -20,6 +20,7 @@ export function DetailsPage(props: IDetailsPage) {
     props.getDetails().then((x) => {
       setLoading(false)
       if (x.success && x.data) {
+        console.log("meo meo meo", x.data, props)
         const { tabs, pageTitle } = props.getMeta(x.data, props.entityType, props.entityID)
         setMeta(tabs)
         setTitle(pageTitle)
@@ -71,7 +72,11 @@ export function DetailsPage(props: IDetailsPage) {
                 case "table":
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsTableTab {...x.tabMeta} />} />
+                      <DetailsPageSubTabSwitch
+                        meta={x.multipleTabMetas}
+                        actions={x.actions}
+                        child={<DetailsTableTab {...x.tabMeta} />}
+                      />
                     </Tabs.TabPane>
                   )
                 case "custom":

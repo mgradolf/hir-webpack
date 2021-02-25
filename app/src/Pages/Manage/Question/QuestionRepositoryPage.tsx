@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { QuestionRepositorySearchMeta } from "~/FormMeta/QuestionRepository/QuestionRepositorySearchMeta"
-import { getQuestionRepositoryTableColumn } from "~/FormMeta/QuestionRepository/QuestionRepositoryTableColumn"
+import { QuestionRepositorySearchMeta } from "~/TableSearchMeta/QuestionRepository/QuestionRepositorySearchMeta"
+import { getQuestionRepositoryTableColumn } from "~/TableSearchMeta/QuestionRepository/QuestionRepositoryTableColumn"
 
 export default function QuestionRepository() {
   return (

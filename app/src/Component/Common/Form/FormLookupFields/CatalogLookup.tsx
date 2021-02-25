@@ -1,11 +1,10 @@
 import * as React from "react"
-import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
+import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-// import { PersonSearchMeta } from "~/FormMeta/Person/PersonSearchMeta"
-// import { getPersonTableColumns } from "~/FormMeta/Person/PersonTableColumns"
 // import { getEntityById } from "~/ApiServices/Service/EntityService"
-import { getCatalogTableColumns } from "~/FormMeta/Catalog/CatalogTableColumns"
-import { CatalogSearchMeta } from "~/FormMeta/Catalog/CatalogSearchMeta"
+import { getCatalogTableColumns } from "~/TableSearchMeta/Catalog/CatalogTableColumns"
+import { CatalogSearchMeta } from "~/TableSearchMeta/Catalog/CatalogSearchMeta"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface ILookupOpenButton extends IGeneratedField {
   valueField?: string
@@ -19,12 +18,12 @@ export function CatalogLookup(props: ILookupOpenButton) {
       {...props}
       {...getCatalogTableColumns(true)}
       valueField={props.valueField || "CatalogID"}
-      // {...(props.defaultValue && {
-      //   entityLookupFunc: () =>
-      //     getEntityById("Person", props.defaultValue).then((x) => {
-      //       return x.data
-      //     })
-      // })}
+      {...(props.defaultValue && {
+        entityLookupFunc: () =>
+          getEntityById("Catalog", props.defaultValue).then((x) => {
+            return x.data
+          })
+      })}
     />
   )
 }

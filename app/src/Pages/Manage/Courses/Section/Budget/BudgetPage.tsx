@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
-import StandardPage from "~/Component/Common/Page/StandardPage"
-import { getSectionFinancialTableColumns } from "~/FormMeta/SectionFinancial/FinancialTableColumns"
+import { SearchPage } from "~/Component/Common/Page/SearchPage"
+import { getSectionFinancialTableColumns } from "~/TableSearchMeta/SectionFinancial/FinancialTableColumns"
 import CreateNewBudget from "~/Component/Section/Budget/BudgetFormModal"
 
 export default function BudgetPage(props: RouteComponentProps<{ sectionID?: string }>) {
@@ -10,7 +10,7 @@ export default function BudgetPage(props: RouteComponentProps<{ sectionID?: stri
   const [showModal, setShowModal] = useState(false)
 
   return (
-    <StandardPage
+    <SearchPage
       blocks={[
         <>
           <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>

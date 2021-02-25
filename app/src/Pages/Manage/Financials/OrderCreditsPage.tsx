@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { OrderCreditsSearchMeta } from "~/FormMeta/OrderCredits/OrderCreditsSearchMeta"
-import { getOrderCreditsTableColumns } from "~/FormMeta/OrderCredits/OrderCreditsTableColumns"
+import { OrderCreditsSearchMeta } from "~/TableSearchMeta/OrderCredits/OrderCreditsSearchMeta"
+import { getOrderCreditsTableColumns } from "~/TableSearchMeta/OrderCredits/OrderCreditsTableColumns"
 
 export default function OrderCreditsPage() {
   return (

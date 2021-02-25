@@ -9,7 +9,7 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { saveFinancial } from "~/ApiServices/Service/SectionService"
 import { BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM, BUDGET_FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
-import { REFRESH_SECTION_BUDGET_PAGE } from "~/FormMeta/Section/SectionDetailsMeta"
+import { REFRESH_SECTION_BUDGET_PAGE } from "~/TableSearchMeta/Section/SectionDetailsMeta"
 
 interface IBudgetEditFormProps {
   financialType: string

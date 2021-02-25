@@ -1,12 +1,11 @@
 import * as React from "react"
-import { AccountSearchMeta } from "~/FormMeta/Account/AccountSearchMeta"
-import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
+import { AccountSearchMeta } from "~/TableSearchMeta/Account/AccountSearchMeta"
+import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getAccountTableColumns } from "~/FormMeta/Account/AccountTableColumns"
+import { getAccountTableColumns } from "~/TableSearchMeta/Account/AccountTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function AccountLookup(props: IGeneratedField) {
-  console.log("account ", props)
   return (
     <LookupOpenButton
       lookupModalTitle="Select Account"

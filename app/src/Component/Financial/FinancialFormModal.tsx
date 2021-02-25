@@ -37,7 +37,7 @@ export default function CreateNewFinancial({
   applyToID,
   financialType
 }: ICreateNewFinancialProps) {
-  const initialParam: { [key: string]: any } = { ItemUnitAmount: 0, FinancialBasisTypeID: 1002 }
+  const initialParam: { [key: string]: any } = { ItemUnitAmount: 0 }
   if (financialType === FINANCIAL_TYPE_MARKETING_PROGRAM || financialType === FINANCIAL_TYPE_FACULTY) {
     initialParam["IsCharge"] = false
   }

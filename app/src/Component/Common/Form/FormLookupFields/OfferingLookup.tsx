@@ -1,8 +1,8 @@
 import * as React from "react"
-import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
+import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { OfferingSearchMeta } from "~/FormMeta/Offering/OfferingSearchMeta"
-import { getOfferingTableColumns } from "~/FormMeta/Offering/OfferingTableColumns"
+import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
+import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function OfferingLookupButton(props: IGeneratedField) {

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
-import { CustomForm } from "~/Component/Common/Form"
-import { OrderItemsFiltersMeta } from "~/FormMeta/OrderItem/OrderItemsSearchMeta"
+import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
+import { OrderItemsFiltersMeta } from "~/TableSearchMeta/OrderItem/OrderItemsSearchMeta"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { Button, Dropdown, Menu, Space } from "antd"
@@ -19,17 +19,13 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
   const [showApplyDiscountModal, setShowApplyDiscountModal] = useState(false)
   return (
     <div className="site-layout-content">
-      <CustomForm
+      <MetaDrivenForm
         meta={OrderItemsFiltersMeta}
-        hideFilters={() => {
-          console.log("meo")
-        }}
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
           if (SectionID) newValues.SectionID = SectionID
           console.log(newValues)
           setSearchParams(newValues)
         }}
-        initialFormValue={{}}
       />
       {showViewReturnItemModal && (
         <ViewReturnItemsModal

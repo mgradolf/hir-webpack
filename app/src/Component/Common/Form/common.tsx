@@ -56,14 +56,16 @@ export interface IField {
   rules?: Rule[]
   validateStatus?: ValidateStatus
   help?: string
+  labelColSpan?: number
+  wrapperColSpan?: number
 }
 
-export interface IGeneratedField extends IField {
+export interface IGeneratedField extends Omit<IField, "inputType"> {
   formInstance: FormInstance
   clearTrigger?: boolean
 }
 
-export function SearchFieldWrapper(props: IField & { children?: React.ReactNode }) {
+export function SearchFieldWrapper(props: IGeneratedField & { children?: React.ReactNode }) {
   const _rules: Array<{ [key: string]: any }> = props.rules as Array<{ [key: string]: any }>
   const rulesRequired = !!_rules?.find((rule: any) => rule && rule.required)
 
@@ -87,7 +89,7 @@ export function SearchFieldWrapper(props: IField & { children?: React.ReactNode 
 }
 
 export function SearchComponentWrapper(
-  props: IField & {
+  props: IGeneratedField & {
     children?: React.ReactNode
   }
 ) {

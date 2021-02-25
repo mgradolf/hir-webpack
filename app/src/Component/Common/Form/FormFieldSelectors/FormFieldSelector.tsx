@@ -42,7 +42,7 @@ export function FormFieldSelector(props: IGeneratedField) {
         return (
           <React.Fragment key={i}>
             {selectedKey === x.fieldName && (
-              <Col span={16}>
+              <Col flex="auto">
                 <x.component
                   {...props}
                   label=""

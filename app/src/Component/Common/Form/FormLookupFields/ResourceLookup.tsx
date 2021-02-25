@@ -1,9 +1,9 @@
 import * as React from "react"
-import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
+import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
 import { IGeneratedField } from "~/Component/Common/Form/common"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
-import { ResourceSearchMeta } from "~/FormMeta/Resource/ResourceSearchMeta"
-import { getResourceTableColumns } from "~/FormMeta/Resource/ResourceTableColumns"
+import { ResourceSearchMeta } from "~/TableSearchMeta/Resource/ResourceSearchMeta"
+import { getResourceTableColumns } from "~/TableSearchMeta/Resource/ResourceTableColumns"
 
 interface ILookupOpenButton extends IGeneratedField {
   valueField?: string

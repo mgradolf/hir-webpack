@@ -19,16 +19,33 @@ export function findAccount(Params: { [key: string]: any }, Headers?: { [key: st
   return AccountIf[config.Actions.findAccount]([Params], Headers)
 }
 
+export function getQuestionAnswers(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountIf[config.Actions.getQuestionAnswers]([Params.AccountAffiliationID], Headers)
+}
+
 export function getAffiliationRoleTypes(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return AccountIf[config.Actions.getAffiliationRoleTypes]([Params], Headers)
+  return AccountIf[config.Actions.getAffiliationRoleTypes](
+    [Params.AccountTypeID, Params.SelfIdentifying, Params.IsActive],
+    Headers
+  )
 }
 
 export function getTaggedQuestionsByAffiliationRoleType(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return AccountIf[config.Actions.getTaggedQuestionsByAffiliationRoleType]([Params], Headers)
+  return AccountIf[config.Actions.getTaggedQuestionsByAffiliationRoleType]([Params.AffiliationRoleTypeID], Headers)
+}
+
+export function createorUpdateMultipleAccountEmail(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountIf[config.Actions.createorUpdateMultipleAccountEmail]([Params], Headers)
 }

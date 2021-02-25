@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { readRequestForStaff } from "~/ApiServices/Service/RequestService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
-import { getRequestDetailsMeta } from "~/FormMeta/Request/RequestDetailsMeta"
+import { getRequestDetailsMeta } from "~/TableSearchMeta/Request/RequestDetailsMeta"
 
 export interface IParamsToBeDispatched {
   ValueUpdate: boolean

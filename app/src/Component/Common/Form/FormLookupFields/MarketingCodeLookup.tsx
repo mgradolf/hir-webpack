@@ -1,8 +1,8 @@
 import * as React from "react"
-import { LookupOpenButton } from "~/Component/Common/Form/LookupOpenButton"
+import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
-import { getMarketingCodeRepositoryTableColumns } from "~/FormMeta/MarketingCodeRepository/MarketingCodeRepositoryTableColumns"
-import { MarketingCodeRepositorySearchMeta } from "~/FormMeta/MarketingCodeRepository/MarketingCodeRepositorySearchMeta"
+import { getMarketingCodeRepositoryTableColumns } from "~/TableSearchMeta/MarketingCodeRepository/MarketingCodeRepositoryTableColumns"
+import { MarketingCodeRepositorySearchMeta } from "~/TableSearchMeta/MarketingCodeRepository/MarketingCodeRepositorySearchMeta"
 
 export function MarketingCodeLookup(props: IGeneratedField) {
   return (

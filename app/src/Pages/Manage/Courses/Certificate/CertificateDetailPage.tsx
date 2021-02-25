@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
 import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
-import { getCertificateDetailsMeta } from "~/FormMeta/Certificate/CertificateDetailsMeta"
+import { getCertificateDetailsMeta } from "~/TableSearchMeta/Certificate/CertificateDetailsMeta"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
 
 export default function (props: RouteComponentProps<{ studentCertificateID?: string }>) {
