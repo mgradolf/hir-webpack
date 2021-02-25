@@ -43,6 +43,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
 
     if (props.atLeastOneRequiredfield && checkIfFieldParamsAreEmpty(params, props.defaultFormValue || {})) {
       setErrorMessages([{ message: "Minimum one search field is required!" }])
+      setdownloadUrl(undefined)
       return
     }
 
