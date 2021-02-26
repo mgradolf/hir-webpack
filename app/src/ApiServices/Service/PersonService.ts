@@ -24,7 +24,7 @@ export function getPersonDetails(
           ethnicityIDs.push(ethnicity.EthnicityTypeID)
           return ethnicityIDs
         })
-        x.data[0].EthnicityIDs = ethnicityIDs
+        x.data[0].EthnicityTypeIDs = ethnicityIDs
       }
     }
     return x

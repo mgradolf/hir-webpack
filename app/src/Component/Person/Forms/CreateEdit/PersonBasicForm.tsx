@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Card, Button, Input, Row, Col, Select } from "antd"
+import { Card, Button, Input, Row, Col, Select, Radio } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { IPersonBasicFieldNames } from "~/Component/Person/Interfaces"
@@ -145,6 +145,12 @@ export default function PersonBasicForm(props: IPersonFormProps) {
             </Form.Item>
             <Form.Item label={"Other Name"} {...layout} name={props.fieldNames.OtherName}>
               <Input aria-label={"Other Name"} />
+            </Form.Item>
+            <Form.Item label={"Personal Information is Private"} {...layout} name={props.fieldNames.IsConfidential}>
+              <Radio.Group aria-label={"Person information is private"}>
+                <Radio value={true}>Yes</Radio>
+                <Radio value={false}>No</Radio>
+              </Radio.Group>
             </Form.Item>
           </Col>
         </Row>

@@ -25,7 +25,6 @@ import { getPersonEduTableColumns } from "~/TableSearchMeta/Person/PersonEduTabl
 import { getPersonAccountTableColumns } from "~/TableSearchMeta/Person/PersonAccountTableColumns"
 import { PersonAccountAction } from "~/Component/Person/PersonAccountAction"
 import { PersonDegreeFormMeta } from "~/Component/Person/FormMeta/PersonDegreeFormMeta"
-import { PersonCharacterFormMeta } from "~/Component/Person/FormMeta/Basic/PersonCharacterFormMeta"
 import { PersonEmailFormMeta } from "~/Component/Person/FormMeta/EmailAddress/PersonEmailFormMeta"
 import { PersonEmailUpdateFormMeta } from "~/Component/Person/FormMeta/EmailAddress/PersonEmailUpdateFormMeta"
 import { PersonGovFormMeta } from "~/Component/Person/FormMeta/Basic/PersonGovFormMeta"
@@ -39,8 +38,8 @@ import { PersonAddressFormMeta } from "~/Component/Person/FormMeta/Address/Perso
 
 export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
-  const personalInfo: CardContainer = {
-    title: "Basic Info",
+  const personalInfo1: CardContainer = {
+    title: "Name",
     cardActions: [<BasicFormModalOpenButton personData={person} />],
     contents: [
       { label: "Prefix", value: person.Prefix, render: undefined },
@@ -49,30 +48,12 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       { label: "Last Name", value: person.LastName, render: undefined },
       { label: "Suffix", value: person.Suffix, render: undefined },
       { label: "Maiden Name", value: person.MaidenName, render: undefined },
-      { label: "Other Name", value: person.OtherName, render: undefined }
-    ]
-  }
-  const personalInfo1: CardContainer = {
-    title: "Gov Info",
-    cardActions: [
-      <MetaDrivenFormModalOpenButton
-        formTitle="Update Person Gov Info"
-        formMeta={PersonGovFormMeta}
-        formSubmitApi={pushPerson}
-        initialFormValue={person}
-        buttonLabel="Edit"
-        defaultFormValue={{ PersonID: person.PersonID }}
-        refreshEventName={REFRESH_PAGE}
-      />
-    ],
-    contents: [
-      { label: "Title", value: person.Title, render: undefined },
-      { label: "SSN", value: person.GovID, render: undefined },
-      { label: "ERP ID", value: person.ERPID, render: undefined }
+      { label: "Other Name", value: person.OtherName, render: undefined },
+      { label: "Personal Information is Private", value: person.IsConfidential, render: renderBoolean }
     ]
   }
   const personalInfo2: CardContainer = {
-    title: "General Info",
+    title: "Other Demographic",
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle="Update Person General Info"
@@ -80,7 +61,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
         formSubmitApi={pushPerson}
         initialFormValue={person}
         buttonLabel="Edit"
-        defaultFormValue={{ PersonID: person.PersonID }}
+        defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
       />
     ],
@@ -88,56 +69,51 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       { label: "Date of Birth", value: person.Birthday, render: renderDate },
       { label: "Gender", value: person.GenderTypeName, render: undefined },
       { label: "Marital Status", value: person.MaritalStatusTypeName, render: undefined },
+      { label: "Citizenship", value: person.CitizenshipTypeName, render: undefined },
+      { label: "Religion", value: person.ReligionTypeName, render: undefined },
       { label: "Deceased", value: person.IsDeceased, render: renderBoolean },
       { label: "Date of Death", value: person.DeathDate, render: renderDate },
-      { label: "Citizenship", value: person.CitizenshipTypeName, render: undefined },
-      { label: "Religion", value: person.ReligionTypeName, render: undefined }
-    ]
-  }
-
-  const personalInfo3: CardContainer = {
-    title: "Characteristics Info",
-    cardActions: [
-      <MetaDrivenFormModalOpenButton
-        formTitle="Update Person Charanteritics Info"
-        formMeta={PersonCharacterFormMeta}
-        formSubmitApi={pushPerson}
-        initialFormValue={person}
-        buttonLabel="Edit"
-        defaultFormValue={{ PersonID: person.PersonID }}
-        refreshEventName={REFRESH_PAGE}
-      />
-    ],
-    contents: [
       {
         label: "Ethnicity",
         value:
           Array.isArray(person.Ethnicity) && person.Ethnicity.map((x: any) => x.EthnicityTypeDescriptor).toString(),
         render: undefined
-      },
-      { label: "Can Defer Payment", value: person.CanDeferPayment, render: undefined },
-      { label: "Personal Information is Private", value: person.IsConfidential, render: renderBoolean }
+      }
     ]
   }
-
+  const personalInfo3: CardContainer = {
+    title: "Identity Information",
+    cardActions: [
+      <MetaDrivenFormModalOpenButton
+        formTitle="Update Person Gov Info"
+        formMeta={PersonGovFormMeta}
+        formSubmitApi={pushPerson}
+        initialFormValue={person}
+        buttonLabel="Edit"
+        defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
+        refreshEventName={REFRESH_PAGE}
+      />
+    ],
+    contents: [
+      { label: "SSN", value: person.GovID, render: undefined },
+      { label: "ERP ID", value: person.ERPID, render: undefined }
+    ]
+  }
   const personalInfo4: CardContainer = {
-    title: "Purchaser Account",
+    title: "Purchaser Information",
     cardActions: [<PersonAccountAction initialData={{ ...account, ...person }} />],
     contents: [
       {
-        label: "Name",
+        label: "Account Name",
         value: account?.AccountName,
         render: undefined
       },
-      { label: "Email Address", value: account?.EmailAddress, render: renderEmail }
+      { label: "Can Defer Payment", value: person.CanDeferPayment, render: undefined }
     ]
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [
-      { groupedContents: [personalInfo, personalInfo1, personalInfo4] },
-      { groupedContents: [personalInfo2, personalInfo3] }
-    ]
+    summary: [{ groupedContents: [personalInfo1, personalInfo3] }, { groupedContents: [personalInfo2, personalInfo4] }]
   }
   tabMetas.push({ tabTitle: "Demographic", tabType: "summary", tabMeta: summaryMeta })
 
@@ -191,6 +167,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
         formMeta={PersonPhoneFormMeta}
         formSubmitApi={pushPersonPhone}
         buttonLabel="Add"
+        initialFormValue={{ IsConfidential: false, IsPreferred: false }}
         defaultFormValue={{ PersonID: person.PersonID }}
         refreshEventName={REFRESH_PAGE}
       />
@@ -233,6 +210,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
         formMeta={PersonEmailFormMeta}
         formSubmitApi={pushPersonEmail}
         buttonLabel="Add"
+        initialFormValue={{ IsConfidential: false, IsPreferred: false }}
         defaultFormValue={{ PersonID: person.PersonID }}
         refreshEventName={REFRESH_PAGE}
       />

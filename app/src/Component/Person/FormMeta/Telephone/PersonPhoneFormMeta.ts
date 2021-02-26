@@ -24,7 +24,15 @@ export const PersonPhoneFormMeta: IField[] = [
     options: [
       { label: "Yes", value: true },
       { label: "No", value: false }
-    ],
-    rules: [{ required: true, message: "Private is required!" }]
+    ]
+  },
+  {
+    label: "Preferred",
+    inputType: DROPDOWN,
+    fieldName: "IsPreferred",
+    options: [
+      { label: "Yes", value: true },
+      { label: "No", value: false }
+    ]
   }
 ]
