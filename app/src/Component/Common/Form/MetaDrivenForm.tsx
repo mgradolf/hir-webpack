@@ -131,7 +131,10 @@ export function MetaDrivenForm({
         props.onApplyChanges(mergedParams, filterCount)
 
         if (!props.stopProducingQueryParams) {
-          const _queryString = objectToQueryString(Object.keys(mergedParams).length > 0 ? params : null)
+          console.log("props.stopProducingQueryParams ", props.stopProducingQueryParams)
+          console.log("_mergedParams ", mergedParams)
+          const _queryString = objectToQueryString(Object.keys(mergedParams).length > 0 ? mergedParams : null)
+          console.log("_queryString ", _queryString, mergedParams)
           window.history && window.history.pushState({}, "", _queryString)
         }
       })
@@ -153,7 +156,8 @@ export function MetaDrivenForm({
   }
 
   useEffect(() => {
-    const queryParams: { [key: string]: any } = querystringToObject()
+    const queryParams: { [key: string]: any } = { ...props.initialFormValue, ...querystringToObject() }
+    console.log(queryParams, props.initialFormValue)
     const updateMeta = queryParams && Object.keys(queryParams).length > 0
     if (updateMeta && !props.stopProducingQueryParams) {
       setShowLess(false)
