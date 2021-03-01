@@ -1,0 +1,9 @@
+{
+  "IsConfidential": {
+    "label": "Is It Private?",
+    "sortOrder": 0,
+    "required": true
+  },
+  "EmailAddressTypeID": {},
+  "EmailAddress": {}
+}

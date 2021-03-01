@@ -5,7 +5,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
 import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import { HelpContext } from "~/Context/HelpContext"
-import { IHelpConfig } from "~/Config/Help"
+import { IHelpConfig } from "~/utils/getHelpConfig"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)

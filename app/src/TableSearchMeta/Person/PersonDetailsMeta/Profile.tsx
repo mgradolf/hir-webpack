@@ -231,6 +231,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       <MetaDrivenFormModalOpenButton
         formTitle="Add Email Address"
         formMeta={PersonEmailFormMeta}
+        formMetaName="PersonEmailFormMeta"
         formSubmitApi={pushPersonEmail}
         buttonLabel="Add"
         defaultFormValue={{ PersonID: person.PersonID }}

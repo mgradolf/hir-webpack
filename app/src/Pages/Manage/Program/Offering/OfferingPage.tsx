@@ -1,6 +1,6 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { IHelpConfig } from "~/Config/Help"
+import { IHelpConfig } from "~/utils/getHelpConfig"
 import { HelpContext } from "~/Context/HelpContext"
 import { ProgramOfferingSearchMeta } from "~/TableSearchMeta/ProgramOffering/ProgramOfferingSearchMeta"
 import { getProgramOfferingTableColumns } from "~/TableSearchMeta/ProgramOffering/ProgramOfferingTableColumns"

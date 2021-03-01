@@ -9,7 +9,7 @@ import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
 import { AppRoutes } from "~/routes"
 import NotFoundPage from "~/Pages/NotFoundPage"
-import { getHelpConfig, IHelpConfig } from "~/Config/Help"
+import { getHelpConfig, IHelpConfig } from "~/utils/getHelpConfig"
 import { HelpContext } from "~/Context/HelpContext"
 
 interface AppProps {

@@ -30,7 +30,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { FormError } from "~/Component/Common/Form/FormError"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
-// import { HelpModal } from "~/Component/Common/Modal/HelpModal"
+import { processFormMeta } from "./FormMetaShadowingProcessor"
 
 export function MetaDrivenForm({
   showClearbutton = true,
@@ -39,6 +39,7 @@ export function MetaDrivenForm({
   ...props
 }: {
   meta: IField[]
+  metaName?: string
   title?: React.ReactNode
   loading?: boolean
   isModal?: boolean
@@ -100,13 +101,6 @@ export function MetaDrivenForm({
           x.help = ""
         }
       }
-      // console.log(
-      //   "x || rulesExist || certainInputType || rulesRequired",
-      //   x,
-      //   rulesExist,
-      //   certainInputType,
-      //   rulesRequired
-      // )
       return x
     })
     setMeta(__meta)
@@ -156,13 +150,14 @@ export function MetaDrivenForm({
   }
 
   useEffect(() => {
+    let _meta: IField[] = props.meta
     const queryParams: { [key: string]: any } = { ...props.initialFormValue, ...querystringToObject() }
-    console.log(queryParams, props.initialFormValue)
-    const updateMeta = queryParams && Object.keys(queryParams).length > 0
-    if (updateMeta && !props.stopProducingQueryParams) {
+    const updateMeta = queryParams && Object.keys(queryParams).length > 0 && !props.stopProducingQueryParams
+
+    if (updateMeta) {
       setShowLess(false)
       formInstance.setFieldsValue(queryParams)
-      const _meta = props.meta.map((x) => {
+      _meta = props.meta.map((x) => {
         x.defaultValue = queryParams[x.fieldName]
         x.defaultValue2 = x.fieldName2 ? queryParams[x.fieldName2] : undefined
         if (x.extraProps && Array.isArray(x.extraProps.selectorKeys)) {
@@ -173,15 +168,14 @@ export function MetaDrivenForm({
         }
         return x
       })
-      setMeta(_meta)
       applyChanges(queryParams)
-    } else {
-      if (props.closeModal) setShowLess(false)
-      setMeta(props.meta)
+    } else if (props.closeModal) {
+      setShowLess(false)
     }
+    processFormMeta(_meta, props.metaName || "").then(setMeta)
 
     // eslint-disable-next-line
-  }, [])
+  }, [props.meta, props.metaName])
 
   return (
     <Card
@@ -239,7 +233,7 @@ export function MetaDrivenForm({
         >
           <FormError errorMessages={props.errorMessages} />
           <SearchFormFields
-            meta={props.meta}
+            meta={meta}
             isHorizontal={props.isHorizontal}
             formInstance={formInstance}
             clearTrigger={clearTrigger}
@@ -261,106 +255,86 @@ const SearchFormFields = (props: {
   return (
     <Row gutter={16}>
       {props.meta
+        .filter((field) => !field.hidden)
         .filter((field, index) => {
           if (props.showLess && index < 4) return true
           return !props.showLess
         })
         .map((field, i) => {
-          const lg = props.isHorizontal ? 24 : 12
-          const md = props.isHorizontal ? 24 : 12
-          const sm = props.isHorizontal ? 24 : 12
-          const xs = 24
+          let formField: any
+
           switch (field.inputType) {
             case TEXT:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormInput {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormInput {...field} key={i} formInstance={props.formInstance} />
+              break
             case NUMBER:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormNumberInput {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormNumberInput {...field} key={i} formInstance={props.formInstance} />
+              break
             case TEXTAREA:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormTextArea {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormTextArea {...field} key={i} formInstance={props.formInstance} />
+              break
             case BOOLEAN:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormCheckbox {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormCheckbox {...field} key={i} formInstance={props.formInstance} />
+              break
             case MULTI_SELECT_CHECKBOX:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormMultipleCheckbox {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormMultipleCheckbox {...field} key={i} formInstance={props.formInstance} />
+              break
             case MULTI_RADIO:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormMultipleRadio {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormMultipleRadio {...field} key={i} formInstance={props.formInstance} />
+              break
             case DROPDOWN:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormDropDown {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormDropDown {...field} key={i} formInstance={props.formInstance} />
+              break
             case MULTI_SELECT_DROPDOWN:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormMultiSelectDropDown {...field} key={i} formInstance={props.formInstance} />
-                </Col>
-              )
+              formField = <FormMultiSelectDropDown {...field} key={i} formInstance={props.formInstance} />
+              break
             case DATE_PICKER:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormDatePicker
-                    {...field}
-                    key={i}
-                    formInstance={props.formInstance}
-                    clearTrigger={props.clearTrigger}
-                  />
-                </Col>
+              formField = (
+                <FormDatePicker
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  clearTrigger={props.clearTrigger}
+                />
               )
+              break
             case DATE_PICKERS:
-              return (
-                <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                  <FormDatePickers
-                    {...field}
-                    key={i}
-                    formInstance={props.formInstance}
-                    clearTrigger={props.clearTrigger}
-                  />
-                </Col>
+              formField = (
+                <FormDatePickers
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  clearTrigger={props.clearTrigger}
+                />
               )
+              break
             case CUSTOM_FIELD:
               if (field.customFilterComponent) {
-                return (
-                  <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
-                    <field.customFilterComponent
-                      {...{
-                        ...field,
-                        key: i,
-                        formInstance: props.formInstance,
-                        clearTrigger: props.clearTrigger
-                      }}
-                    />
-                  </Col>
+                formField = (
+                  <field.customFilterComponent
+                    {...{
+                      ...field,
+                      key: i,
+                      formInstance: props.formInstance,
+                      clearTrigger: props.clearTrigger
+                    }}
+                  />
                 )
               }
               break
             default:
               break
           }
-          return null
+
+          const lg = props.isHorizontal ? 24 : 12
+          const md = props.isHorizontal ? 24 : 12
+          const sm = props.isHorizontal ? 24 : 12
+          const xs = 24
+          return (
+            <Col key={1000 + i} lg={lg} md={md} sm={sm} xs={xs}>
+              {formField}
+            </Col>
+          )
         })}
     </Row>
   )

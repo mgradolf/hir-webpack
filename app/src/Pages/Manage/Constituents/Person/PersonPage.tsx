@@ -5,7 +5,7 @@ import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColum
 import { Button } from "antd"
 import PersonFormModal from "~/Component/Person/Forms/PersonFormModal"
 import { HelpContext } from "~/Context/HelpContext"
-import { IHelpConfig } from "~/Config/Help"
+import { IHelpConfig } from "~/utils/getHelpConfig"
 
 export default function PersonTable() {
   const [showModal, setShowModal] = useState(false)

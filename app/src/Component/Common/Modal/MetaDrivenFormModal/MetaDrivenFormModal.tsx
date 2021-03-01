@@ -11,6 +11,7 @@ import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 export const MetaDrivenFormModal = (props: {
   title: string
   meta: IField[]
+  metaName?: string
   isHorizontal?: boolean
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
@@ -51,6 +52,7 @@ export const MetaDrivenFormModal = (props: {
     <Modal width="1000px" zIndex={zIndex.defaultModal}>
       <MetaDrivenForm
         meta={props.meta}
+        metaName={props.metaName}
         title={props.title}
         loading={loading}
         isHorizontal={props.isHorizontal}

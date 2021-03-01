@@ -32,6 +32,7 @@ export type IFieldType =
 export interface IField {
   label: string
   inputType: IFieldType
+  sortOrder?: number
   hidden?: boolean
   placeholder?: string
   disabled?: boolean

@@ -6,7 +6,7 @@ import { RouteComponentProps } from "react-router-dom"
 import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import { HelpContext } from "~/Context/HelpContext"
-import { IHelpConfig } from "~/Config/Help"
+import { IHelpConfig } from "~/utils/getHelpConfig"
 
 export default function Offering(props: RouteComponentProps<{ offeringID: string }>) {
   const OfferingID = Number(props.match.params.offeringID)

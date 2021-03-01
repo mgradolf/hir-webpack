@@ -500,12 +500,6 @@ export function getMetricType(): Promise<IApiResponse> {
   })
 }
 
-export function getSystemEvents(): Promise<IApiResponse> {
-  return RefLookupService[config.Actions.getList]({
-    LookUpName: "SystemEvent"
-  })
-}
-
 export function getGLAccountMappingTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "GLAccountMappingType"

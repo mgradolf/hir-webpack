@@ -10,6 +10,7 @@ interface IMetaDrivenFormModalOpenButton {
   buttonProps?: BaseButtonProps
   formTitle: string
   formMeta: IField[]
+  formMetaName?: string
   formSubmitApi: (Params: { [key: string]: any }) => Promise<IApiResponse>
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
@@ -24,6 +25,7 @@ export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenBut
         <MetaDrivenFormModal
           title={props.formTitle}
           meta={props.formMeta}
+          metaName={props.formMetaName}
           formSubmitApi={props.formSubmitApi}
           initialFormValue={props.initialFormValue}
           defaultFormValue={props.defaultFormValue}
