@@ -2,9 +2,10 @@ import {
   getMaritalStatusType,
   getGenderTypes,
   getReligionType,
-  getCitizenshipType
+  getCitizenshipType,
+  getEthnicityTypes
 } from "~/ApiServices/Service/RefLookupService"
-import { DATE_PICKER, DROPDOWN, IField } from "~/Component/Common/Form/common"
+import { DATE_PICKER, DROPDOWN, IField, MULTI_SELECT_CHECKBOX } from "~/Component/Common/Form/common"
 
 export const PersonTypeFormMeta: IField[] = [
   {
@@ -52,5 +53,18 @@ export const PersonTypeFormMeta: IField[] = [
       { label: "No", value: false }
     ],
     fieldName: "IsDeceased"
+  },
+  {
+    label: "Date Of Death",
+    inputType: DATE_PICKER,
+    fieldName: "DeathDate"
+  },
+  {
+    label: "Ethnicity",
+    inputType: MULTI_SELECT_CHECKBOX,
+    fieldName: "EthnicityTypeIDs",
+    refLookupService: getEthnicityTypes,
+    displayKey: "Name",
+    valueKey: "ID"
   }
 ]

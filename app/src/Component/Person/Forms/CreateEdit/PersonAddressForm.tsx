@@ -193,14 +193,6 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
             >
               <Input aria-label={"City"} />
             </Form.Item>
-            <Form.Item
-              label={"Postal Code"}
-              {...layout}
-              name={props.fieldNames.PostalCode}
-              rules={[{ required: true, message: "Please enter postal code!" }]}
-            >
-              <Input aria-label={"Postal Code"} />
-            </Form.Item>
             <Form.Item label={"State/Province"} {...layout} name={props.fieldNames.RegionCodeID}>
               <Select loading={regionLoading} aria-label={"State / Province"}>
                 {regions.map((x, i) => {
@@ -211,6 +203,14 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
                   )
                 })}
               </Select>
+            </Form.Item>
+            <Form.Item
+              label={"Postal Code"}
+              {...layout}
+              name={props.fieldNames.PostalCode}
+              rules={[{ required: true, message: "Please enter postal code!" }]}
+            >
+              <Input aria-label={"Postal Code"} />
             </Form.Item>
             <Form.Item
               label={"Country"}

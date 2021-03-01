@@ -25,5 +25,14 @@ export const PersonEmailFormMeta: IField[] = [
       { label: "Yes", value: true },
       { label: "No", value: false }
     ]
+  },
+  {
+    label: "Preferred",
+    inputType: DROPDOWN,
+    fieldName: "IsPreferred",
+    options: [
+      { label: "Yes", value: true },
+      { label: "No", value: false }
+    ]
   }
 ]

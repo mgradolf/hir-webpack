@@ -189,9 +189,6 @@ export default function PersonForm(props: IPersonFormProps) {
             <Form.Item label={"City"} {...layout} name={props.fieldNames.Locality}>
               <Input aria-label={"City"} />
             </Form.Item>
-            <Form.Item label={"Postal Code"} {...layout} name={props.fieldNames.PostalCode}>
-              <Input aria-label={"Postal Code"} />
-            </Form.Item>
             <Form.Item label={"State/Province"} {...layout} name={props.fieldNames.RegionCodeID}>
               <Select loading={regionLoading} aria-label={"State / Province"}>
                 {regions.map((x, i) => {
@@ -202,6 +199,9 @@ export default function PersonForm(props: IPersonFormProps) {
                   )
                 })}
               </Select>
+            </Form.Item>
+            <Form.Item label={"Postal Code"} {...layout} name={props.fieldNames.PostalCode}>
+              <Input aria-label={"Postal Code"} />
             </Form.Item>
             <Form.Item label={"Country"} {...layout} name={props.fieldNames.CountryCodeID}>
               <Select loading={countryLoading} aria-label={"Country"} onChange={onChangeCountry}>

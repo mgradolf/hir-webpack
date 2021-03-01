@@ -23,6 +23,7 @@ export interface IPersonBasicFieldNames {
   MiddleName: any
   MaidenName: any
   OtherName: any
+  IsConfidential: any
 }
 
 export interface IPersonAddressFieldNames {

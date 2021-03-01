@@ -17,7 +17,8 @@ const fieldNames: IPersonBasicFieldNames = {
   Suffix: "Suffix",
   MiddleName: "MiddleName",
   MaidenName: "MaidenName",
-  OtherName: "OtherName"
+  OtherName: "OtherName",
+  IsConfidential: "IsConfidential"
 }
 
 function PersonBasicFormModal(props: IPersonBasicFormModalProps) {
