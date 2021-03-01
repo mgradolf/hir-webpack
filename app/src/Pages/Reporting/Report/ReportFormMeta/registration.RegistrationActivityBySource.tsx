@@ -1,7 +1,8 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
-import { generateMMDDYY } from "~/utils/MMDDYYGenerator"
+import moment from "moment"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
   {
@@ -38,8 +39,8 @@ const meta: IField[] = [
 const reportMeta: IReportMeta = {
   meta,
   initialFormValue: {
-    date_start: generateMMDDYY(new Date()),
-    date_end: generateMMDDYY(new Date()),
+    date_start: moment().add(-1, "day").format(DATE_FORMAT), //  generateMMDDYY(new Date()),
+    date_end: moment().add(-1, "day").format(DATE_FORMAT), //generateMMDDYY(new Date()),
     sourceAll: 2
   }
 }

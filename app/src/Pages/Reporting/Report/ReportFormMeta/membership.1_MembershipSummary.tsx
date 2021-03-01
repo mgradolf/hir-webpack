@@ -1,6 +1,8 @@
+import moment from "moment"
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
   {
@@ -26,6 +28,10 @@ const reportMeta: IReportMeta = {
   mapping: {
     StartDate: "DisplayStartDate",
     EndDate: "DisplayEndDate"
+  },
+  initialFormValue: {
+    StartDate: moment().add(-1, "y").add(1, "day").format(DATE_FORMAT),
+    EndDate: moment().format(DATE_FORMAT)
   }
 }
 

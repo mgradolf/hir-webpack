@@ -10,9 +10,13 @@ export function FormDatePickers(props: IGeneratedField) {
   const firstRender = useFirstRender()
   const [value, setValue] = useState<any>(undefined)
   useEffect(() => {
-    props.defaultValue &&
-      props.defaultValue2 &&
+    if (props.defaultValue && props.defaultValue2) {
       setValue([moment(props.defaultValue, DATE_FORMAT), moment(props.defaultValue2, DATE_FORMAT)])
+    } else if (props.defaultValue) {
+      setValue([moment(props.defaultValue, DATE_FORMAT), ""])
+    } else if (props.defaultValue2) {
+      setValue(["", moment(props.defaultValue2, DATE_FORMAT)])
+    }
   }, [props.defaultValue, props.defaultValue2])
   useEffect(() => {
     !firstRender && setValue(undefined)
