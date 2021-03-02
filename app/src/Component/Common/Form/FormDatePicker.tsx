@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react"
+import moment from "moment"
 import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 import { DatePicker, Form, Input } from "antd"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { useFirstRender } from "~/Hooks/useFirstRender"
-import moment from "moment"
 
 export function FormDatePicker(props: IGeneratedField) {
   const firstRender = useFirstRender()
-  const [defualtValue, setDefualtValue] = useState<any>(undefined)
+  const [value, setValue] = useState<any>(undefined)
   useEffect(() => {
-    props.defaultValue && setDefualtValue(moment(props.defaultValue, DATE_FORMAT))
+    if (props.defaultValue) {
+      const t1 = moment(props.defaultValue)
+      setValue(t1)
+      props.formInstance.setFieldsValue({ [props.fieldName]: t1.format(DATE_FORMAT) })
+    }
+    // eslint-disable-next-line
   }, [props.defaultValue])
 
   useEffect(() => {
-    !firstRender && setDefualtValue(undefined)
+    !firstRender && setValue(undefined)
     // eslint-disable-next-line
   }, [props.clearTrigger])
   return (
@@ -25,11 +30,10 @@ export function FormDatePicker(props: IGeneratedField) {
         <DatePicker
           allowClear
           disabled={props.disabled}
-          value={defualtValue}
+          value={value}
           onChange={(date, dateString) => {
-            console.log("date", date, "dateString", dateString)
             dateString && props.formInstance.setFieldsValue({ [props.fieldName]: dateString })
-            setDefualtValue(date)
+            setValue(date)
           }}
           format={DATE_FORMAT}
         />

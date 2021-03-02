@@ -68,7 +68,6 @@ const FormMetaShadowingProcessor = (meta: IField[], userMetaConfig: { [key: stri
 
 export const processFormMeta = (meta: IField[], metaName: string): Promise<IField[]> => {
   return getUserFormMetaConfig(metaName).then((x) => {
-    console.log("x ", x)
     return FormMetaShadowingProcessor(meta, x)
   })
 }
