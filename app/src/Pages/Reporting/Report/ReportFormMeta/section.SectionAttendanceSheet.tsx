@@ -1,9 +1,10 @@
-import moment from "moment"
-import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+// import moment from "moment"
+import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
+import { SectionLookupWithScheduleDatePopulate } from "~/Component/Common/Form/CustomFormFields/SectionLookupWithScheduleDatePopulate"
 
-import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
-import { DATE_FORMAT } from "~/utils/Constants"
+// import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
+// import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
   {
@@ -11,22 +12,23 @@ const meta: IField[] = [
     fieldName: "SectionID",
     rules: [{ required: true, message: "Section is Required" }],
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SectionLookup
-  },
-  {
-    label: "Schedule Date",
-    fieldName: "DateRangeStart",
-    fieldName2: "DateRangeEnd",
-    rules: [{ required: true, message: "Date field is Required" }],
-    inputType: DATE_PICKERS
+    // customFilterComponent: SectionLookup
+    customFilterComponent: SectionLookupWithScheduleDatePopulate
   }
+  // {
+  //   label: "Schedule Date",
+  //   fieldName: "DateRangeStart",
+  //   fieldName2: "DateRangeEnd",
+  //   rules: [{ required: true, message: "Date field is Required" }],
+  //   inputType: DATE_PICKERS
+  // }
 ]
 
 const reportMeta: IReportMeta = {
-  meta,
-  initialFormValue: {
-    DateRangeEnd: moment().format(DATE_FORMAT)
-  }
+  meta
+  // initialFormValue: {
+  //   DateRangeEnd: moment().format(DATE_FORMAT)
+  // }
 }
 
 export default reportMeta
