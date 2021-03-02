@@ -7,6 +7,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import "~/Sass/utils.scss"
+import { PROGRAM_ENROLLMENT_INCOMPLETE, PROGRAM_ENROLLMENT_WITHRAWN } from "~/utils/Constants"
 
 interface IEnrollmentFormProps {
   enrollmentID: number
@@ -24,15 +25,20 @@ export default function ProgramEnrollmentForm(props: IEnrollmentFormProps) {
   const [statusTypes, setStatusTypes] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
+  const statusID = props.formInstance.getFieldValue(props.fieldNames.StatusID)
+
   useEffect(() => {
     props.formInstance.setFieldsValue({ [props.fieldNames.ProgramEnrollmentID]: props.enrollmentID })
     ;(async () => {
       const response = await getProgramEnrollmentStatusCodes()
       if (response && response.success && response.data) {
+        if (statusID === PROGRAM_ENROLLMENT_INCOMPLETE) {
+          response.data = response.data.filter((x: any) => x.StatusID !== PROGRAM_ENROLLMENT_WITHRAWN)
+        }
         setStatusTypes(response.data)
       }
     })()
-  }, [props])
+  }, [props, statusID])
 
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()

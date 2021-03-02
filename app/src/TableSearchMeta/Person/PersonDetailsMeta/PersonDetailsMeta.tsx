@@ -9,17 +9,19 @@ import {
   CURRENT_ORG_ID,
   PT_PARTTIME_STATUS,
   DELETE_SUCCESSFULLY,
-  REQUEST_SUCCESSFULLY,
+  FORGET_ME_REQUEST_SUCCESSFULLY,
+  CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY,
   CREATE_SUCCESSFULLY
 } from "~/utils/Constants"
 import Notification from "~/utils/notification"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { pushInstructor } from "~/ApiServices/Service/InstructorService"
 import { removePerson } from "~/ApiServices/Service/PersonService"
-import { createAnonymizationRequest } from "~/ApiServices/Service/AnonymizationRequestService"
+import { cancelAnonymizeRequest, createAnonymizationRequest } from "~/ApiServices/Service/AnonymizationRequestService"
 import { PersonMergeFormModalOpenButton } from "~/Component/Person/Forms/PersonMergeFormModal"
 
 const getMenu = (personInfos: { [key: string]: any }) => {
+  const canForgetMeRequest: boolean = personInfos[0]["CanForgetMeRequest"]
   const isStudent = personInfos[1].Student
   const isFaculty = personInfos[1].Faculty
 
@@ -52,12 +54,23 @@ const getMenu = (personInfos: { [key: string]: any }) => {
 
   const forgetMeRequest = async () => {
     if (personInfos) {
-      const response = await createAnonymizationRequest({
-        PersonID: personInfos[0].PersonID
-      })
-      if (response.success) {
-        Notification(REQUEST_SUCCESSFULLY)
-        eventBus.publish(REFRESH_PAGE)
+      if (canForgetMeRequest) {
+        const response = await createAnonymizationRequest({
+          PersonID: personInfos[0].PersonID
+        })
+        if (response.success) {
+          Notification(FORGET_ME_REQUEST_SUCCESSFULLY)
+          eventBus.publish(REFRESH_PAGE)
+        }
+      } else {
+        const response = await cancelAnonymizeRequest({
+          PersonID: personInfos[0].PersonID,
+          AnonymizationRequestID: personInfos[0].AnonymizationRequestID
+        })
+        if (response.success) {
+          Notification(CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY)
+          eventBus.publish(REFRESH_PAGE)
+        }
       }
     }
   }
@@ -91,7 +104,7 @@ const getMenu = (personInfos: { [key: string]: any }) => {
       </Menu.Item>
       <Menu.Item>
         <Button type="link" onClick={forgetMeRequest}>
-          Forget me request
+          {canForgetMeRequest ? `Forget me request` : `Cancel Forget me request`}
         </Button>
       </Menu.Item>
       <Menu.Item>

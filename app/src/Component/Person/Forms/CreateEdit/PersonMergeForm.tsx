@@ -170,6 +170,12 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
                 <Form.Item label="Address" {...layout}>
                   <Input disabled aria-label="Address" value={primaryPerson.Address} />
                 </Form.Item>
+                <Form.Item label="ERP ID" {...layout}>
+                  <Input disabled aria-label="ERP ID" value={primaryPerson.ERPID} />
+                </Form.Item>
+                <Form.Item label="SSN" {...layout}>
+                  <Input disabled aria-label="SSN" value={primaryPerson.GovID} />
+                </Form.Item>
               </Form>
             </Col>
 
@@ -198,6 +204,12 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
                 </Form.Item>
                 <Form.Item label="Address" {...layout}>
                   <Input disabled aria-label="Address" value={duplicatePerson.Addresses} />
+                </Form.Item>
+                <Form.Item label="ERP ID" {...layout}>
+                  <Input disabled aria-label="ERP ID" value={duplicatePerson.ERPID} />
+                </Form.Item>
+                <Form.Item label="SSN" {...layout}>
+                  <Input disabled aria-label="SSN" value={duplicatePerson.GovID} />
                 </Form.Item>
               </Form>
             </Col>

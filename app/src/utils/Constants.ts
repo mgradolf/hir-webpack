@@ -12,6 +12,12 @@ export const SECTION_STATUS_CODE = {
   CANCELLED: 1000
 }
 
+export const PERSON_ROLE = {
+  STUDENT: 1,
+  INSTRUCTOR: 2,
+  PURCHASER: 3
+}
+
 export const WAITLIST_ENTRIES_LOOKUP_TYPES = {
   ACCOUNT: "Account",
   PURCHASER: "Purchaser",
@@ -199,6 +205,8 @@ export const SAVE_SUCCESSFULLY = "Successfully saved!"
 export const DELETE_SUCCESSFULLY = "Successfully deleted!"
 export const REQUEST_SUCCESSFULLY = "Successfully requested!"
 export const CREATE_SUCCESSFULLY = "Successfully created!"
+export const FORGET_ME_REQUEST_SUCCESSFULLY = "Forget Me Requested Successfully!"
+export const CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY = "Cancel Forget Me Requested Successfully!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
 
@@ -222,3 +230,5 @@ export const PT_PARTTIME_STATUS = 1000
 export const REASON_HOLD_APPLY = 1
 export const REASON_HOLD_RELEASE = 2
 export const REASON_MEMBERSHIP = 3
+
+export const PERSON_CONTACT_PEFERRED_POSITION = 1
