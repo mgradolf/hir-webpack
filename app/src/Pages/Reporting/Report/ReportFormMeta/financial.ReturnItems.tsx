@@ -1,5 +1,7 @@
+import moment from "moment"
 import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
   {
@@ -39,7 +41,9 @@ const reportMeta: IReportMeta = {
   },
   initialFormValue: {
     SortByColumn: "SortOrderID",
-    SortOrder: "Asc"
+    SortOrder: "Asc",
+    OrderDateFrom: "",
+    OrderDateTo: moment().format(DATE_FORMAT)
   }
 }
 

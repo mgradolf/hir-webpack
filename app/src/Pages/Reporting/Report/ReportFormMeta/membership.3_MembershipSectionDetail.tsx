@@ -1,8 +1,10 @@
+import moment from "moment"
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
   {
@@ -35,7 +37,10 @@ const reportMeta: IReportMeta = {
   mapping: {
     StartDate: "DisplayStartDate",
     EndDate: "DisplayEndDate"
+  },
+  initialFormValue: {
+    StartDate: moment().format(DATE_FORMAT),
+    EndDate: moment().add(1, "M").add(-1, "day").format(DATE_FORMAT)
   }
 }
-
 export default reportMeta

@@ -152,6 +152,7 @@ export function MetaDrivenForm({
   useEffect(() => {
     let _meta: IField[] = props.meta
     const queryParams: { [key: string]: any } = { ...props.initialFormValue, ...querystringToObject() }
+    console.log("queryParams : ", queryParams)
     const updateMeta = queryParams && Object.keys(queryParams).length > 0 && !props.stopProducingQueryParams
 
     if (updateMeta) {
