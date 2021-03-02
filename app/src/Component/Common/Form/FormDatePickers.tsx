@@ -10,13 +10,20 @@ export function FormDatePickers(props: IGeneratedField) {
   const firstRender = useFirstRender()
   const [value, setValue] = useState<any>(undefined)
   useEffect(() => {
-    if (props.defaultValue && props.defaultValue2) {
-      setValue([moment(props.defaultValue, DATE_FORMAT), moment(props.defaultValue2, DATE_FORMAT)])
+    const t1 = moment(props.defaultValue)
+    const t2 = moment(props.defaultValue2)
+    if (props.defaultValue && props.defaultValue2 && props.fieldName2) {
+      setValue([t1, t2])
+      props.formInstance.setFieldsValue({ [props.fieldName]: t1.format(DATE_FORMAT) })
+      props.formInstance.setFieldsValue({ [props.fieldName2]: t2.format(DATE_FORMAT) })
     } else if (props.defaultValue) {
-      setValue([moment(props.defaultValue, DATE_FORMAT), ""])
-    } else if (props.defaultValue2) {
-      setValue(["", moment(props.defaultValue2, DATE_FORMAT)])
+      setValue([t1, ""])
+      props.formInstance.setFieldsValue({ [props.fieldName]: t1.format(DATE_FORMAT) })
+    } else if (props.defaultValue2 && props.fieldName2) {
+      setValue(["", t2])
+      props.formInstance.setFieldsValue({ [props.fieldName2]: t2.format(DATE_FORMAT) })
     }
+    // eslint-disable-next-line
   }, [props.defaultValue, props.defaultValue2])
   useEffect(() => {
     !firstRender && setValue(undefined)
@@ -39,7 +46,6 @@ export function FormDatePickers(props: IGeneratedField) {
           allowClear
           value={value}
           onChange={(dates: any, dateStrings: any): void => {
-            console.log(dates, dateStrings)
             props.formInstance.setFieldsValue({ [props.fieldName]: dateStrings[0] })
             if (props.fieldName2) {
               props.formInstance.setFieldsValue({ [props.fieldName2]: dateStrings[1] })

@@ -79,6 +79,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
           defaultFormValue={props.defaultFormValue}
           applyButtonLabel="Run Report"
           errorMessages={errorMessages}
+          stopProducingQueryParams={true}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             openReportInNewTab(newFilterValues)
           }}

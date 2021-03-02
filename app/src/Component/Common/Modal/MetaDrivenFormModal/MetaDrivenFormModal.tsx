@@ -23,6 +23,7 @@ export const MetaDrivenFormModal = (props: {
   const [clearTrigger, setClearTrigger] = useState(false)
   const [error, setError] = useState<Array<ISimplifiedApiErrorMessage>>()
   const [loading, setLoading] = useState(false)
+  const [stopFirstOnApplyChanges, setStopFirstOnApplyChanges] = useState(true)
   const clearParams = () => {
     Object.keys(formInstance.getFieldsValue()).forEach((key) => formInstance.setFieldsValue({ [key]: undefined }))
     setClearTrigger(!clearTrigger)
@@ -64,8 +65,12 @@ export const MetaDrivenFormModal = (props: {
         stopProducingQueryParams={true}
         errorMessages={error}
         onApplyChanges={(newValues: { [key: string]: any }) => {
-          console.log("calling onApplyChanges ", newValues)
-          submit(newValues)
+          if (stopFirstOnApplyChanges) {
+            setStopFirstOnApplyChanges(false)
+          } else {
+            console.log("submitting form ", newValues)
+            submit(newValues)
+          }
         }}
       />
     </Modal>

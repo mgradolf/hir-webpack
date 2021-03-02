@@ -30,7 +30,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { FormError } from "~/Component/Common/Form/FormError"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
-import { processFormMeta } from "./FormMetaShadowingProcessor"
+import { processFormMeta } from "~/Component/Common/Form/FormMetaShadowingProcessor"
 
 export function MetaDrivenForm({
   showClearbutton = true,
@@ -151,9 +151,12 @@ export function MetaDrivenForm({
 
   useEffect(() => {
     let _meta: IField[] = props.meta
-    const queryParams: { [key: string]: any } = { ...props.initialFormValue, ...querystringToObject() }
+    const queryParams: { [key: string]: any } = {
+      ...props.initialFormValue,
+      ...(!props.stopProducingQueryParams && querystringToObject())
+    }
     console.log("queryParams : ", queryParams)
-    const updateMeta = queryParams && Object.keys(queryParams).length > 0 && !props.stopProducingQueryParams
+    const updateMeta = queryParams && Object.keys(queryParams).length > 0
 
     if (updateMeta) {
       setShowLess(false)
