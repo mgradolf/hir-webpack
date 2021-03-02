@@ -48,17 +48,12 @@ export default function RequestActionHandler(props: IExpirationProps) {
   return (
     <>
       {props.requestJson.RetryStatus && (
-        <Button loading={loading} type="primary" onClick={() => applyAction("retry")}>
+        <Button loading={loading} style={{ marginRight: "5px" }} type="primary" onClick={() => applyAction("retry")}>
           Retry
         </Button>
       )}
       {props.requestJson.CancelStatus && (
-        <Button
-          loading={loading}
-          style={{ marginLeft: "10px", marginRight: "10px" }}
-          type="primary"
-          onClick={() => applyAction("cancel")}
-        >
+        <Button loading={loading} style={{ marginRight: "5px" }} type="primary" onClick={() => applyAction("cancel")}>
           Cancel
         </Button>
       )}

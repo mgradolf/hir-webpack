@@ -27,12 +27,15 @@ export default function ProgramApplicatioResubmitForm(props: IApplicationResubmi
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
-    type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
     const serviceMethoToCall: serviceMethodType = resubmitProgramAdmReq
 
-    let param: Array<any> = []
-    param = [props.ProgramAppID, props.ProgramAdmReqID, params["CommentText"], params["ReasonText"]]
-
+    const param: { [key: string]: any } = {
+      ProgramAppID: props.ProgramAppID,
+      ProgramAdmReqID: props.ProgramAdmReqID,
+      Comment: params["CommentText"],
+      Reason: params["ReasonText"]
+    }
     props.setApiCallInProgress(true)
     setErrorMessages([])
     const response = await serviceMethoToCall(param)

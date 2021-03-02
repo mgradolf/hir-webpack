@@ -30,7 +30,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
   const [admissionReqsList, setAdmissionReqList] = useState<Array<any>>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [fileMap, setFileMap] = useState<{ [key: string]: any }>({})
-  const answerMap: { [key: string]: any } = {}
+  const [answerMap] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
     ;(async () => {
@@ -61,6 +61,9 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                   })
                 })
               }
+              if (answers.Response !== undefined && answers.Response !== null) {
+                answerMap[requirement.ProgramAdmReqID] = answers.Response
+              }
             }
             files[requirement.ProgramAdmReqID] = fileList
           })
@@ -69,6 +72,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
       }
       setLoading(false)
     })()
+    // eslint-disable-next-line
   }, [props])
 
   const storeAnswer = (value: any, ProgramAdmReqID: number) => {
@@ -80,12 +84,15 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
   }
 
   const saveApplicationAnswers = async (ProgramAdmReqID: number) => {
-    type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
     const serviceMethoToCall: serviceMethodType = saveApplicationAnswer
 
     const answer = answerMap[ProgramAdmReqID] === undefined ? "" : answerMap[ProgramAdmReqID]
-    let param: Array<any> = []
-    param = [itemDetails.ProgramAppID, ProgramAdmReqID, answer]
+    const param: { [key: string]: any } = {
+      ProgramAppID: itemDetails.ProgramAppID,
+      ProgramAdmReqID: ProgramAdmReqID,
+      Answer: answer
+    }
 
     const response = await serviceMethoToCall(param)
     if (response && response.success) {
@@ -224,13 +231,14 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                         </Form.Item>
 
                         <Form.Item label={"Expected Answer"} {...layout}>
-                          <Input disabled aria-label="Expected answer" />
+                          <Input disabled aria-label="Expected answer" value={x.ExpectedAnswer} />
                         </Form.Item>
 
                         <Form.Item label={"Answer"} {...layout}>
                           {x.PreferenceDefChoices && (
                             <Select
                               aria-label="Select Asnwer"
+                              defaultValue={x.Answer?.Response}
                               onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)}
                             >
                               {x.PreferenceDefChoices.map((x: any, index: any) => {
@@ -243,7 +251,11 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                             </Select>
                           )}
                           {!x.PreferenceDefChoices && (
-                            <Input aria-label="Answer" onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)} />
+                            <Input
+                              aria-label="Answer"
+                              value={x.Answer?.Response}
+                              onChange={(events) => storeAnswer(events, x.ProgramAdmReqID)}
+                            />
                           )}
                         </Form.Item>
 

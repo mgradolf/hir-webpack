@@ -23,6 +23,7 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
         {setShowModal && (
           <Button
             type="primary"
+            style={{ marginRight: "5px" }}
             disabled={
               props.CurrentStatusID === PROGRAM_APPLICATION_ENROLLED ||
               props.CurrentStatusID === PROGRAM_APPLICATION_APPROVED
@@ -50,6 +51,7 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
         {setShowModal && (
           <Button
             type="primary"
+            style={{ marginRight: "5px" }}
             disabled={
               props.CurrentStatusID === PROGRAM_APPLICATION_ENROLLED ||
               props.CurrentStatusID === PROGRAM_APPLICATION_REJECTED
@@ -78,6 +80,7 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
           <Button
             danger
             type="primary"
+            style={{ marginRight: "5px" }}
             disabled={
               props.CurrentStatusID === PROGRAM_APPLICATION_ENROLLED ||
               props.CurrentStatusID === PROGRAM_APPLICATION_DECLINED

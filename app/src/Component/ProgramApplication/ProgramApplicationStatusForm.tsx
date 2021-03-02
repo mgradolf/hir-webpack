@@ -30,12 +30,15 @@ export default function ProgramApplicationStatusForm(props: IApplicationStatusFo
 
     let response: IApiResponse
     if (props.ProgramAdmReqID) {
-      type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
+      type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
       const serviceMethoToCall: serviceMethodType = changeProgramAdmReqStatus
 
-      let param: Array<any> = []
-      param = [props.ProgramAppID, props.ProgramAdmReqID, params["StatusID"], params["CommentText"]]
-
+      const param: { [key: string]: any } = {
+        ProgramAppID: props.ProgramAppID,
+        ProgramAdmReqID: props.ProgramAdmReqID,
+        StatusID: params["StatusID"],
+        Comment: params["CommentText"]
+      }
       props.setApiCallInProgress(true)
       setErrorMessages([])
       response = await serviceMethoToCall(param)

@@ -12,7 +12,7 @@ export const getProgramEnrollmentTableColumns = (isModal = false): ITableConfigP
         title: "",
         dataIndex: "",
         render: (text: any, record: any) => (
-          <Link to={`/program/enrollment/${record.ProgramEnrollmentID}`}>
+          <Link to={`/program/${record.ProgramID}/student/${record.StudentID}/enrollment`}>
             <ReadOutlined />
           </Link>
         )
