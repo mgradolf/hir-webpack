@@ -76,7 +76,8 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
     } else if (props.initialFormValue.AffiliationRoleTypeID) {
       loadQuestions(props.initialFormValue.AffiliationRoleTypeID)
     }
-  }, [props, roleTypeID, questionAnswers])
+    // eslint-disable-next-line
+  }, [props, roleTypeID])
 
   const onFormSubmission = async () => {
     try {

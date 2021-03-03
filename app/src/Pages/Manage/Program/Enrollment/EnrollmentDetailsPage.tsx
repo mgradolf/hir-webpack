@@ -5,14 +5,16 @@ import { searchEnrollment, trackingProgress } from "~/ApiServices/BizApi/program
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getProgramEnrollmentDetailsMeta } from "~/TableSearchMeta/ProgramEnrollment/ProgramEnrollmentDetailsMeta"
 
-export default function (props: RouteComponentProps<{ programEnrollmentID?: string }>) {
-  const programEnrollmentID = Number(props?.match?.params?.programEnrollmentID)
+export default function (props: RouteComponentProps<{ programID?: string; studentID?: string }>) {
+  const ProgramID = Number(props?.match?.params?.programID)
+  const StudentID = Number(props?.match?.params?.studentID)
+
   return (
     <DetailsPage
       getMeta={getProgramEnrollmentDetailsMeta}
       getDetails={() => {
         let result: IApiResponse
-        return Promise.all([searchEnrollment({ enrollmentID: programEnrollmentID })])
+        return Promise.all([searchEnrollment({ programID: ProgramID, studentID: StudentID })])
           .then((responses) => {
             result = responses[0]
             if (result.success) {

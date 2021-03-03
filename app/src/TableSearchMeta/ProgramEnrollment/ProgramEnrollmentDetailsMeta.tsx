@@ -13,14 +13,28 @@ import {
   REFRESH_PROGRAM_ENROLLMENT_REQUIREMENT_GROUP_PAGE
 } from "~/utils/EventBus"
 import { getRequirementGroupTableColumns } from "~/TableSearchMeta/ProgramEnrollment/RequirementGroupTableColumns"
+import {
+  PROGRAM_ENROLLMENT_COMPLETED,
+  PROGRAM_ENROLLMENT_ENROLLED,
+  PROGRAM_ENROLLMENT_WITHRAWN
+} from "~/utils/Constants"
 
 export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: string]: any }): IDetailsMeta => {
-  const EnrollmentFormModalOpenButton = (props: { enrollmentID: number }) => {
+  const EnrollmentFormModalOpenButton = (props: { enrollmentID: number; statusID: number }) => {
     const [showModal, setShowModal] = useState(false)
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
+          <Button
+            disabled={
+              props.statusID === PROGRAM_ENROLLMENT_COMPLETED ||
+              props.statusID === PROGRAM_ENROLLMENT_WITHRAWN ||
+              props.statusID === PROGRAM_ENROLLMENT_ENROLLED
+            }
+            type="primary"
+            style={{ float: "right" }}
+            onClick={() => setShowModal && setShowModal(true)}
+          >
             Change
           </Button>
         )}
@@ -39,7 +53,10 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
         value: (
           <>
             <Typography.Text>{programEnrollment.StatusName}</Typography.Text>
-            <EnrollmentFormModalOpenButton enrollmentID={programEnrollment.ProgramEnrollmentID} />
+            <EnrollmentFormModalOpenButton
+              enrollmentID={programEnrollment.ProgramEnrollmentID}
+              statusID={programEnrollment.StatusID}
+            />
           </>
         )
       },

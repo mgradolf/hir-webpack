@@ -35,6 +35,7 @@ import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDriv
 import { AccountRelationFormModalOpenButton } from "~/Component/Person/Forms/PersonAccountFormModal"
 import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/Buttons/EditDeleteButtonComboOnTableRow"
 import { PersonAddressFormMeta } from "~/Component/Person/FormMeta/Address/PersonAddressFormMeta"
+import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
 
 export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
   const tabMetas: IDetailsTabMeta[] = []
@@ -294,7 +295,6 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
     tabTitle: "Education History",
     tabType: "table",
     tabMeta: {
-      // blocks: [<EducationHistoryFormModalOpenButton personData={person} />],
       blocks: [
         <MetaDrivenFormModalOpenButton
           formTitle="Add Degree"
@@ -377,7 +377,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       blocks: [<AccountRelationFormModalOpenButton personData={person} />],
       tableProps: {
         ...getPersonAccountTableColumns(),
-        searchParams: { PersonID: person.PersonID },
+        searchParams: { PersonID: person.PersonID, ExceptRoleTypeID: AFF_ROLE_PURCHASER },
         refreshEventName: "REFRESH_CONTACT_TAB",
         pagination: false
       }

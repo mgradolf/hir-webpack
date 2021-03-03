@@ -6,8 +6,8 @@ import { IPersonFieldNames } from "~/Component/Person/Interfaces"
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
 import { findCountry, createPersonRecordInRoles, getRegions } from "~/ApiServices/Service/PersonService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-
-import { DATE_FORMAT } from "~/utils/Constants"
+import Notification from "~/utils/notification"
+import { DATE_FORMAT, CREATE_SUCCESSFULLY, PERSON_ROLE } from "~/utils/Constants"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import "~/Sass/global/index.scss"
@@ -28,9 +28,9 @@ const layout = {
 }
 
 const rolesOption = [
-  { label: "Student", value: 1 },
-  { label: "Instructor", value: 2 },
-  { label: "Purchaser", value: 3 }
+  { label: "Student", value: PERSON_ROLE.STUDENT },
+  { label: "Instructor", value: PERSON_ROLE.INSTRUCTOR },
+  { label: "Purchaser", value: PERSON_ROLE.PURCHASER }
 ]
 
 export default function PersonForm(props: IPersonFormProps) {
@@ -40,6 +40,7 @@ export default function PersonForm(props: IPersonFormProps) {
   const [countryCodeID, setCountryCodeID] = useState<number>()
   const [countryLoading, setCountryLoading] = useState<boolean>(false)
   const [regionLoading, setRegionLoading] = useState<boolean>(false)
+  const [isPurchaserRole, setIsPurchaserRole] = useState<boolean>(false)
 
   useEffect(() => {
     ;(async function () {
@@ -88,6 +89,14 @@ export default function PersonForm(props: IPersonFormProps) {
     setCountryCodeID(countryID)
   }
 
+  const onSelectRoles = (values: any) => {
+    if (values.includes(PERSON_ROLE.PURCHASER)) {
+      setIsPurchaserRole(true)
+    } else {
+      setIsPurchaserRole(false)
+    }
+  }
+
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
@@ -104,6 +113,7 @@ export default function PersonForm(props: IPersonFormProps) {
 
     if (response && response.success) {
       props.closeModal && props.closeModal()
+      Notification(CREATE_SUCCESSFULLY)
     } else {
       console.log(response.error)
       setErrorMessages(response.error)
@@ -141,6 +151,7 @@ export default function PersonForm(props: IPersonFormProps) {
         <Row>
           <Col xs={24} sm={24} md={12}>
             <FormMultipleCheckbox
+              onChangeCallback={onSelectRoles}
               label={"Roles"}
               fieldName={props.fieldNames.Roles}
               formInstance={props.formInstance}
@@ -169,15 +180,30 @@ export default function PersonForm(props: IPersonFormProps) {
             <Form.Item label={"Date Of Birth"} {...layout} name={props.fieldNames.Birthday}>
               <DatePicker aria-label="Pick BirthDate" placeholder="YYYY/MM/DD" format={DATE_FORMAT} />
             </Form.Item>
-            <Form.Item label={"Email Address"} {...layout} name={props.fieldNames.EmailAddress}>
-              <Input aria-label={"Email Address"} />
+            <Form.Item
+              label={"Email Address"}
+              {...layout}
+              name={props.fieldNames.EmailAddress}
+              rules={[{ required: isPurchaserRole, message: "Please enter email address!" }]}
+            >
+              <Input type="email" aria-label={"Email Address"} />
             </Form.Item>
-            <Form.Item label={"Telephone"} {...layout} name={props.fieldNames.TelephoneNumber}>
+            <Form.Item
+              label={"Telephone"}
+              {...layout}
+              name={props.fieldNames.TelephoneNumber}
+              rules={[{ required: isPurchaserRole, message: "Please enter telephone number!" }]}
+            >
               <Input aria-label={"Telephone"} />
             </Form.Item>
           </Col>
           <Col xs={24} sm={24} md={12}>
-            <Form.Item label={"Address Line 1"} {...layout} name={props.fieldNames.AddressLine1}>
+            <Form.Item
+              label={"Address Line 1"}
+              {...layout}
+              name={props.fieldNames.AddressLine1}
+              rules={[{ required: isPurchaserRole, message: "Please enter address!" }]}
+            >
               <Input aria-label={"Address Line 1"} />
             </Form.Item>
             <Form.Item label={"Address Line 2"} {...layout} name={props.fieldNames.AddressLine2}>
