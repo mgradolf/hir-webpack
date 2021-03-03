@@ -232,3 +232,7 @@ export const REASON_HOLD_RELEASE = 2
 export const REASON_MEMBERSHIP = 3
 
 export const PERSON_CONTACT_PEFERRED_POSITION = 1
+
+export const PAY_LATER_ALLOWED = 1
+export const PAY_LATER_WITH_PO = 2
+export const PAY_LATER_NOT_ALLOWED = -1

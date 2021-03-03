@@ -7,6 +7,7 @@ import { StudentReleaseFormMeta } from "~/Component/Student/FormMeta/StudentRele
 
 interface IStudentHoldMenu {
   initialData: { [key: string]: any }
+  studentID: number
 }
 
 export function StudentHoldMenu(props: IStudentHoldMenu) {
@@ -28,8 +29,8 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
           <MetaDrivenFormModal
             meta={StudentHoldFormMeta}
             title={"Edit Hold"}
-            initialFormValue={props.initialData}
-            defaultFormValue={props.initialData}
+            initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
+            defaultFormValue={{ ...props.initialData, StudentID: props.studentID }}
             formSubmitApi={createUpdateStudentHold}
             refreshEventAfterFormSubmission={"REFRESH_HOLD_TAB"}
             closeModal={() => setShowUpdateModal(false)}
@@ -50,8 +51,8 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
           <MetaDrivenFormModal
             meta={StudentReleaseFormMeta}
             title={"Release Hold"}
-            initialFormValue={props.initialData}
-            defaultFormValue={props.initialData}
+            initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
+            defaultFormValue={{ ...props.initialData, StudentID: props.studentID }}
             formSubmitApi={releaseStudentHold}
             refreshEventAfterFormSubmission={"REFRESH_HOLD_TAB"}
             closeModal={() => setShowReleaseModal(false)}

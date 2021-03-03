@@ -11,7 +11,7 @@ import {
 } from "~/ApiServices/Service/PersonService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderDateTime, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { AddressFormModalOpenButton } from "~/Component/Person/Forms/PersonAddressFormModal"
 import { BasicFormModalOpenButton } from "~/Component/Person/Forms/PersonBasicFormModal"
 import { PersonLoginAction } from "~/Component/Person/PersonLoginAction"
@@ -260,12 +260,12 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       {
         label: "Password Expiration",
         value: person?.Login?.ValidUntil,
-        render: person?.Login?.ValidUntil ? renderDate : undefined
+        render: person?.Login?.ValidUntil ? renderDateTime : undefined
       },
       {
         label: "Locked Until",
         value: person?.Login?.LockedUntil,
-        render: person?.Login?.LockedUntil ? renderDate : undefined
+        render: person?.Login?.LockedUntil ? renderDateTime : undefined
       }
     ]
   }

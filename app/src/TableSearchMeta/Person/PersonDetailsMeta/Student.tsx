@@ -290,7 +290,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
       blocks: [<HoldFormModalOpenButton StudentID={student.StudentID} />],
       tableProps: {
         pagination: false,
-        ...getStudentHoldTableColumns(),
+        ...getStudentHoldTableColumns(student.StudentID),
         searchParams: student.StudentID,
         refreshEventName: "REFRESH_HOLD_TAB"
       }

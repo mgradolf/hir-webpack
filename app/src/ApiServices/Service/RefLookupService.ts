@@ -481,7 +481,7 @@ export function getReleaseReason(): Promise<IApiResponse> {
     LookUpName: "Reason"
   }).then((response) => {
     if (response.success) {
-      const reasonList: Array<{ [key: string]: any }> = [{}]
+      const reasonList: Array<{ [key: string]: any }> = []
       response.data.map((x: any) => {
         if (x.ReasonTypeID === REASON_HOLD_RELEASE) {
           reasonList.push(x)
