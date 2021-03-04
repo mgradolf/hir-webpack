@@ -127,13 +127,13 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
   const account: { [key: string]: any } = personInfos[1].Account
   const instructor: { [key: string]: any } | undefined = personInfos[1].Faculty
   const student: { [key: string]: any } | undefined = personInfos[1].Student
-  const disabilities: { [key: string]: any } | undefined = personInfos[1].PersonDisabilites
+  const profileQuestions: { [key: string]: any } | undefined = personInfos[1].ProfileQuestions
 
   const Person: IDetailsTabMeta = {
     tabTitle: "Profile",
     tabType: "table",
     tabMeta: [],
-    multipleTabMetas: getProfileMeta(person, disabilities, account),
+    multipleTabMetas: getProfileMeta(person, account, profileQuestions),
     actions: [
       <Dropdown.Button key="Person_Actions" overlay={<GetMenu personInfos={personInfos} />} type="primary">
         ...Actions

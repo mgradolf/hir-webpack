@@ -36,8 +36,25 @@ import { AccountRelationFormModalOpenButton } from "~/Component/Person/Forms/Per
 import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/Buttons/EditDeleteButtonComboOnTableRow"
 import { PersonAddressFormMeta } from "~/Component/Person/FormMeta/Address/PersonAddressFormMeta"
 import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
+import { CardContents } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 
-export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
+export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
+  const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
+    const content: CardContents[] = []
+    profileQuestionData.map((profileQuestion: any) => {
+      content.push({
+        label: profileQuestion.Name,
+        value: profileQuestion.Response
+      })
+      return content
+    })
+
+    return {
+      title: "Profile Question Responses",
+      contents: content
+    }
+  }
+
   const tabMetas: IDetailsTabMeta[] = []
   const personalInfo1: CardContainer = {
     title: "Name",
@@ -114,7 +131,11 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [{ groupedContents: [personalInfo1, personalInfo3] }, { groupedContents: [personalInfo2, personalInfo4] }]
+    summary: [
+      { groupedContents: [personalInfo1, personalInfo3] },
+      { groupedContents: [personalInfo2, personalInfo4] },
+      profileQuestion(profileQuestions)
+    ]
   }
   tabMetas.push({ tabTitle: "Demographic", tabType: "summary", tabMeta: summaryMeta })
 
