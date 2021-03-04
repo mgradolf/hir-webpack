@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import {
   createUpdateStudentHold,
   pushStudent,
+  removeStudent,
   searchOnlineClasses,
   searchStudentSchedule
 } from "~/ApiServices/Service/StudentService"
@@ -17,20 +18,23 @@ import { getWaitlistEntriesTableColumns } from "~/TableSearchMeta/WaitlistEntrie
 import { getStudentCommentTableColumns } from "~/TableSearchMeta/StudentComment/CommentTableColumns"
 import { getEnrollmentTableColumns } from "~/TableSearchMeta/Enrollment/EnrollmentTableColumns"
 import {
+  eventBus,
   REFRESH_PAGE,
   REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE,
   REFRESH_STUDENT_COMMENT_PAGE
 } from "~/utils/EventBus"
 import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
-import { COMMENT_TYPES } from "~/utils/Constants"
+import { COMMENT_TYPES, DELETE_SUCCESSFULLY } from "~/utils/Constants"
 import { Button } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { StudentHoldFormMeta } from "~/Component/Student/FormMeta/StudentHoldFormMeta"
 import { StudentFormMeta } from "~/Component/Student/FormMeta/StudentFormMeta"
 import { getStudentHoldTableColumns } from "~/TableSearchMeta/StudentHold/StudentHoldTableColumns"
+import Notification from "~/utils/notification"
 
 const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
+
   return (
     <>
       {setShowModal && (
@@ -53,6 +57,20 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
           closeModal={() => setShowModal(false)}
         />
       )}
+      <Button
+        danger
+        style={{ marginLeft: "5px" }}
+        type="primary"
+        onClick={async () => {
+          const response = await removeStudent({ StudentID: props.studentData.StudentID })
+          if (response && response.success) {
+            Notification(DELETE_SUCCESSFULLY)
+            eventBus.publish(REFRESH_PAGE)
+          }
+        }}
+      >
+        Remove
+      </Button>
     </>
   )
 }

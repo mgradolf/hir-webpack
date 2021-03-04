@@ -1,6 +1,6 @@
 import { CUSTOM_FIELD, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
 import { getAccountTypes } from "~/ApiServices/Service/RefLookupService"
-import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 
 export const AccountFormMeta: IField[] = [
   {
@@ -13,9 +13,9 @@ export const AccountFormMeta: IField[] = [
   },
   {
     label: "Primary Contact",
-    fieldName: "PrimaryAccountAffiliationID",
+    fieldName: "PersonID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: AccountLookup
+    customFilterComponent: PersonLookup
   },
   {
     label: "Account Name",
