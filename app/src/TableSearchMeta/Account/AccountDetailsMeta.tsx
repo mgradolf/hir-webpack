@@ -68,6 +68,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabType: "table",
     tabMeta: {
       tableProps: {
+        pagination: false,
         ...getAccountAffiliationTableColumn(),
         searchParams: { AccountID: account.AccountID },
         refreshEventName: "REFRESH_CONTACT_TAB"

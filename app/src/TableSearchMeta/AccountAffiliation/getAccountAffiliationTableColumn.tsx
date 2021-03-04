@@ -1,17 +1,31 @@
+import { Switch } from "antd"
 import React from "react"
 import { Link } from "react-router-dom"
+import { removePrimaryAccountAffiliation, setPrimaryAccountAffiliation } from "~/ApiServices/BizApi/account/accountIF"
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import {
   renderBoolean,
   renderDate,
   renderEmail,
-  sortByBoolean,
   sortByString,
   TableColumnType
 } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
+import { eventBus } from "~/utils/EventBus"
 
 export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigProp => {
+  const primaryContactAction = (IsPublished: boolean, AccountID: number, AccountAffiliationID: number) => {
+    if (IsPublished) {
+      setPrimaryAccountAffiliation({ AccountID, AccountAffiliationID }).then((x) => {
+        if (x.success) eventBus.publish("REFRESH_CONTACT_TAB")
+      })
+    } else {
+      removePrimaryAccountAffiliation({ AccountID }).then((x) => {
+        if (x.success) eventBus.publish("REFRESH_CONTACT_TAB")
+      })
+    }
+  }
+
   const columns: TableColumnType = [
     {
       title: "Last Name",
@@ -36,8 +50,12 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
     {
       title: "Primary Contact",
       dataIndex: "PrimaryAccountAffiliation",
-      render: renderBoolean,
-      sorter: (a: any, b: any) => sortByBoolean(a.PrimaryAccountAffiliation, b.PrimaryAccountAffiliation)
+      render: (text: any, record: any) => (
+        <Switch
+          checked={!!text}
+          onChange={(e) => primaryContactAction(e, record.AccountID, record.AccountAffiliationID)}
+        />
+      )
     }
   ]
   return { columns, searchFunc: getAccountAffiliation, responsiveColumnIndices: [], expandableColumnIndices: [] }
