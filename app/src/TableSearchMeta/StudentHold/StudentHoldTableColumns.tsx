@@ -6,7 +6,7 @@ import { DownOutlined } from "@ant-design/icons"
 import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
 import { StudentHoldMenu } from "~/Component/Student/StudentHoldMenu"
 
-export const getStudentHoldTableColumns = (): ITableConfigProp => {
+export const getStudentHoldTableColumns = (StudentID: number): ITableConfigProp => {
   const columns: TableColumnType = [
     { title: "Hold Date", dataIndex: "EndDate", render: renderDate },
     { title: "Hold Type", dataIndex: "HoldName" },
@@ -19,7 +19,7 @@ export const getStudentHoldTableColumns = (): ITableConfigProp => {
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown overlay={<StudentHoldMenu initialData={record} />} trigger={["click"]}>
+        <Dropdown overlay={<StudentHoldMenu initialData={record} studentID={StudentID} />} trigger={["click"]}>
           <Button type="primary" onClick={(e) => e.preventDefault()}>
             Go To <DownOutlined />
           </Button>

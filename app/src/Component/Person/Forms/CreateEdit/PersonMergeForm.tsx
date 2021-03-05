@@ -219,7 +219,7 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
                   <Input disabled aria-label="Phone" value={duplicatePerson.TelephoneNumber} />
                 </Form.Item>
                 <Form.Item label="Address" {...layout}>
-                  <Input disabled aria-label="Address" value={duplicatePerson.Addresses} />
+                  <Input disabled aria-label="Address" value={duplicatePerson.Address} />
                 </Form.Item>
                 <Form.Item label="ERP ID" {...layout}>
                   <Input disabled aria-label="ERP ID" value={duplicatePerson.ERPID} />

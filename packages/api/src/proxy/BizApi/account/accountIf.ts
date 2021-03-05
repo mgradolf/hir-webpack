@@ -11,7 +11,9 @@ export const config = {
     getQuestionAnswers: "getQuestionAnswers",
     getAffiliationRoleTypes: "getAffiliationRoleTypes",
     getTaggedQuestionsByAffiliationRoleType: "getTaggedQuestionsByAffiliationRoleType",
-    createorUpdateMultipleAccountEmail: "createorUpdateMultipleAccountEmail"
+    createorUpdateMultipleAccountEmail: "createorUpdateMultipleAccountEmail",
+    setPrimaryAccountAffiliation: "setPrimaryAccountAffiliation",
+    removePrimaryAccountAffiliation: "removePrimaryAccountAffiliation"
   }
 }
 

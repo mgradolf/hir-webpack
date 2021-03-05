@@ -13,11 +13,33 @@ import { getPaymentTableColumns } from "~/TableSearchMeta/Payment/PaymentTableCo
 import { getRequestTableColumns } from "~/TableSearchMeta/Request/RequestTableColumns"
 import { getTransactionFinancialTableColumns } from "~/TableSearchMeta/TransactionFinancial/TransactionFinancialTableColumns"
 import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
-import { REFRESH_ACCOUNT_SEATGROUP_PAGE } from "~/utils/EventBus"
+import { REFRESH_ACCOUNT_SEATGROUP_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
+import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
+import { AccountFormMeta } from "~/Component/Account/FormMeta/AccountFormMeta"
+import { pushAccount } from "~/ApiServices/Service/AccountService"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
+    cardActions: [
+      <MetaDrivenFormModalOpenButton
+        formTitle="Update Account"
+        formMeta={AccountFormMeta}
+        formSubmitApi={pushAccount}
+        initialFormValue={{
+          ...account,
+          Name: account.AccountName,
+          AllowToPayLater: account.AllowPayLateDescription,
+          FEID: account.TaxID
+        }}
+        buttonLabel="Edit"
+        defaultFormValue={{
+          AccountID: account.AccountID,
+          oca: account.oca
+        }}
+        refreshEventName={REFRESH_PAGE}
+      />
+    ],
     contents: [
       { label: "Account Type", value: account.AccountTypeName },
       {
@@ -46,6 +68,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabType: "table",
     tabMeta: {
       tableProps: {
+        pagination: false,
         ...getAccountAffiliationTableColumn(),
         searchParams: { AccountID: account.AccountID },
         refreshEventName: "REFRESH_CONTACT_TAB"
