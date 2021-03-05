@@ -4,7 +4,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColumns"
 import { HelpContext } from "~/Context/HelpContext"
 import { IHelpConfig } from "~/utils/getHelpConfig"
-import { PersonFormOpenButton } from "~/Component/Person/Forms/CreateEdit/PersonForm2"
+import { PersonFormOpenButton } from "~/Component/Person/Forms/CreateEdit/PersonForm"
 
 export default function PersonTable() {
   return (
