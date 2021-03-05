@@ -54,7 +54,7 @@ const GLAccountMapping = (props: { accountType: { [key: string]: any } }) => {
               <tbody>
                 {GLAccountsMapping.map((x, i) => (
                   <tr key={i}>
-                    <td>{x.Name}</td>
+                    <td>{x.Description}</td>
                     <td style={{ width: "50px" }}></td>
                     <td>
                       <Input
