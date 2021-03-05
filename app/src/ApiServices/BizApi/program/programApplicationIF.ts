@@ -1,6 +1,16 @@
 import ProgramApplicationIf, { config } from "@packages/api/lib/proxy/BizApi/program/programApplicationIF"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
+export function attachDocument(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramApplicationIf[config.Actions.attachDocument](
+    [Params.ProgramAppID, Params.ProgramAdmReqID, Params.FileName, Params.FileContent],
+    Headers
+  )
+}
+
 export function saveApplicationAnswer(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

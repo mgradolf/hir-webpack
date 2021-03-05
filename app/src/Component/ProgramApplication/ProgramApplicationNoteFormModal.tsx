@@ -1,7 +1,7 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import { Form } from "antd"
+import { Button, Form } from "antd"
 import { IApplicationNoteFieldNames } from "~/Component/ProgramApplication/Interfaces"
 import ProgramApplicationNoteForm from "~/Component/ProgramApplication/ProgramApplicationNoteForm"
 
@@ -52,5 +52,29 @@ export default function ProgramApplicationNoteFormModal({
         </>
       }
     />
+  )
+}
+
+export const NoteFormModalOpenButton = (props: { ProgramAppID: number; ProgramAdmReqID: number }) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button
+          type="primary"
+          className="programApplicationAddNoteBtn"
+          onClick={() => setShowModal && setShowModal(true)}
+        >
+          Add Note
+        </Button>
+      )}
+      {showModal && (
+        <ProgramApplicationNoteFormModal
+          ProgramAppID={props.ProgramAppID}
+          ProgramAdmReqID={props.ProgramAdmReqID}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }
