@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { useFirstRender } from "~/Hooks/useFirstRender"
 import { Breakpoint } from "antd/lib/_util/responsiveObserve"
-import Table, { TableProps, ColumnsType } from "antd/lib/table"
+import Table, { TableProps, ColumnType } from "antd/lib/table"
 import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 import { IApiResponse, RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import moment from "moment"
@@ -8,11 +10,27 @@ import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
 import { ReadOutlined, DownloadOutlined } from "@ant-design/icons"
-import { Link } from "react-router-dom"
-import { useFirstRender } from "~/Hooks/useFirstRender"
 
-export type TableColumnType = ColumnsType<{ [key: string]: any }>
+interface CustomColumnType<RecordType> extends ColumnType<RecordType> {
+  position?: number
+  hidden?: boolean
+}
 
+export type TableColumnType = CustomColumnType<{ [key: string]: any }>[]
+
+export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
+  columns: TableColumnType
+  searchParams?: any
+  searchFunc?: (Params: any, headers?: { [key: string]: any }) => Promise<IApiResponse>
+  dataLoaded?: (Params: any) => void
+  expandableColumnIndices?: number[]
+  responsiveColumnIndices?: number[]
+  expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
+  breakpoints?: Breakpoint[]
+  isModal?: boolean
+  refreshEventName?: string
+  rowKey?: string
+}
 // TODO: Currently we have generic responsive support for
 // only one set of breakpoints, we need support for multiple set of
 // breakpoints
@@ -52,19 +70,6 @@ export const sortByTime = (a?: string, b?: string) => {
 }
 export const sortByNumber = (a?: number, b?: number) => {
   return (a || 0) > (b || 0) ? -1 : 1
-}
-export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
-  columns: TableColumnType
-  searchParams?: any
-  searchFunc?: (Params: any, headers?: { [key: string]: any }) => Promise<IApiResponse>
-  dataLoaded?: (Params: any) => void
-  expandableColumnIndices?: number[]
-  responsiveColumnIndices?: number[]
-  expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
-  breakpoints?: Breakpoint[]
-  isModal?: boolean
-  refreshEventName?: string
-  rowKey?: string
 }
 
 export function ResponsiveTable(props: IDataTableProps) {
