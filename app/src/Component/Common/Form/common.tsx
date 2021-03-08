@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import React from "react"
 import { Form } from "antd"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { FormInstance, Rule } from "antd/lib/form"
 import { ValidateStatus } from "antd/lib/form/FormItem"
 
@@ -55,6 +55,7 @@ export interface IField {
   customFilterComponent?: React.FunctionComponent<any>
   valueField?: string
   rules?: Rule[]
+  required?: boolean
   validateStatus?: ValidateStatus
   help?: string
   labelColSpan?: number
@@ -69,7 +70,10 @@ export interface IGeneratedField extends Omit<IField, "inputType"> {
 
 export function SearchFieldWrapper(props: IGeneratedField & { children?: React.ReactNode }) {
   const _rules: Array<{ [key: string]: any }> = props.rules as Array<{ [key: string]: any }>
-  const rulesRequired = !!_rules?.find((rule: any) => rule && rule.required)
+
+  if (props.required) _rules.push({ required: true, message: `Please enter ${props.label}` })
+
+  const rulesRequired = !!_rules?.find((rule: any) => rule && rule.required) || props.required
 
   return (
     <Form.Item
@@ -95,9 +99,6 @@ export function SearchComponentWrapper(
     children?: React.ReactNode
   }
 ) {
-  useEffect(() => {
-    console.log(props)
-  }, [props])
   return (
     <Form.Item
       colon={false}

@@ -1,3 +1,4 @@
 {
-  "PersonEmailFormMeta": "/MConfig/Form/Person/PersonEmailFormMeta.json"
+  "PersonEmailFormMeta": "/Config/Form/Person/PersonEmailFormMeta.json",
+  "PersonForm": "/Config/Form/Person/PersonForm.json"
 }

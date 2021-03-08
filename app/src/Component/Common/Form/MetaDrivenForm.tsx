@@ -30,7 +30,9 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { FormError } from "~/Component/Common/Form/FormError"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
-import { processFormMeta } from "~/Component/Common/Form/FormMetaShadowingProcessor"
+import { processFormMetaWithUserMetaConfig } from "~/Component/Common/Form/FormMetaShadowingProcessor"
+import { eventBus } from "~/utils/EventBus"
+import { generateUUID } from "~/utils/UUID"
 
 export function MetaDrivenForm({
   showClearbutton = true,
@@ -59,6 +61,7 @@ export function MetaDrivenForm({
   const [showLess, setShowLess] = useState(true)
   const [clearTrigger, setClearTrigger] = useState(false)
   const [meta, setMeta] = useState<IField[]>([])
+  const REFRESH_EVENT_NAME = generateUUID("REFRESH")
 
   const checkValidationOnCustomFormFields = (values: { [key: string]: any }): boolean => {
     let validationPassed = true
@@ -125,10 +128,10 @@ export function MetaDrivenForm({
         props.onApplyChanges(mergedParams, filterCount)
 
         if (!props.stopProducingQueryParams) {
-          console.log("props.stopProducingQueryParams ", props.stopProducingQueryParams)
-          console.log("_mergedParams ", mergedParams)
+          // console.log("props.stopProducingQueryParams ", props.stopProducingQueryParams)
+          // console.log("_mergedParams ", mergedParams)
           const _queryString = objectToQueryString(Object.keys(mergedParams).length > 0 ? mergedParams : null)
-          console.log("_queryString ", _queryString, mergedParams)
+          // console.log("_queryString ", _queryString, mergedParams)
           window.history && window.history.pushState({}, "", _queryString)
         }
       })
@@ -149,13 +152,12 @@ export function MetaDrivenForm({
     setMeta(_meta)
   }
 
-  useEffect(() => {
+  const processMeta = () => {
     let _meta: IField[] = props.meta
     const queryParams: { [key: string]: any } = {
       ...props.initialFormValue,
       ...(!props.stopProducingQueryParams && querystringToObject())
     }
-    console.log("queryParams : ", queryParams)
     const updateMeta = queryParams && Object.keys(queryParams).length > 0
 
     if (updateMeta) {
@@ -176,8 +178,15 @@ export function MetaDrivenForm({
     } else if (props.closeModal) {
       setShowLess(false)
     }
-    processFormMeta(_meta, props.metaName || "").then(setMeta)
+    processFormMetaWithUserMetaConfig(_meta, props.metaName || "").then(setMeta)
+  }
 
+  useEffect(() => {
+    eventBus.subscribe(REFRESH_EVENT_NAME, processMeta)
+    eventBus.publish(REFRESH_EVENT_NAME)
+    return () => {
+      eventBus.unsubscribe(REFRESH_EVENT_NAME)
+    }
     // eslint-disable-next-line
   }, [props.meta, props.metaName])
 
