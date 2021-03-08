@@ -128,10 +128,10 @@ export function MetaDrivenForm({
         props.onApplyChanges(mergedParams, filterCount)
 
         if (!props.stopProducingQueryParams) {
-          console.log("props.stopProducingQueryParams ", props.stopProducingQueryParams)
-          console.log("_mergedParams ", mergedParams)
+          // console.log("props.stopProducingQueryParams ", props.stopProducingQueryParams)
+          // console.log("_mergedParams ", mergedParams)
           const _queryString = objectToQueryString(Object.keys(mergedParams).length > 0 ? mergedParams : null)
-          console.log("_queryString ", _queryString, mergedParams)
+          // console.log("_queryString ", _queryString, mergedParams)
           window.history && window.history.pushState({}, "", _queryString)
         }
       })

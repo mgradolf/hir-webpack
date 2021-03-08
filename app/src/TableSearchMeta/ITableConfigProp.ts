@@ -5,6 +5,7 @@ export interface ITableConfigProp {
   expandableColumnIndices?: number[]
   responsiveColumnIndices?: number[]
   columns: TableColumnType
+  tableName?: string
   refreshEventName?: string
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
 }
@@ -13,5 +14,6 @@ export interface ITableConfigPropWithDataSource {
   expandableColumnIndices?: number[]
   responsiveColumnIndices?: number[]
   columns: TableColumnType
+  tableName?: string
   dataSource: any
 }

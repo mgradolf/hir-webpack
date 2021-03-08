@@ -1,76 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import Table, { TableProps } from "antd/lib/table"
 import { useFirstRender } from "~/Hooks/useFirstRender"
-import { Breakpoint } from "antd/lib/_util/responsiveObserve"
-import Table, { TableProps, ColumnType } from "antd/lib/table"
 import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
-import { IApiResponse, RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
-import moment from "moment"
-import { DATE_FORMAT, DATE_TIME_FORMAT, TIME_FORMAT } from "~/utils/Constants"
+import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
-import { ReadOutlined, DownloadOutlined } from "@ant-design/icons"
-
-interface CustomColumnType<RecordType> extends ColumnType<RecordType> {
-  position?: number
-  hidden?: boolean
-}
-
-export type TableColumnType = CustomColumnType<{ [key: string]: any }>[]
-
-export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
-  columns: TableColumnType
-  searchParams?: any
-  searchFunc?: (Params: any, headers?: { [key: string]: any }) => Promise<IApiResponse>
-  dataLoaded?: (Params: any) => void
-  expandableColumnIndices?: number[]
-  responsiveColumnIndices?: number[]
-  expandableRowRender?: (record: any, mobileView: boolean) => JSX.Element
-  breakpoints?: Breakpoint[]
-  isModal?: boolean
-  refreshEventName?: string
-  rowKey?: string
-}
-// TODO: Currently we have generic responsive support for
-// only one set of breakpoints, we need support for multiple set of
-// breakpoints
-export const renderDetailsLink = (url: string): JSX.Element => {
-  return (
-    <Link to={url}>
-      <ReadOutlined />
-    </Link>
-  )
-}
-export const renderLink = (url: string, text: string, isModal?: boolean) =>
-  !isModal ? <Link to={url}>{text}</Link> : <span>{`${text}`}</span>
-export const renderDecimal = (text: any) =>
-  typeof text === "number" && !isNaN(Number(text)) ? Number(text).toFixed(2) : text
-export const renderEmail = (text: any): JSX.Element => (text !== null ? <a href={`mailto:${text}`}>{text}</a> : <></>)
-export const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
-export const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
-export const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
-export const renderBoolean = (text: any) => {
-  if (typeof text === "boolean") {
-    return text ? "Yes" : "No"
-  } else return ""
-}
-
-export const renderWeek = (text: any[], record: any) => {
-  const weeks: string[] = ["Monday", "TuesDay", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-  return text && Array.isArray(text) && weeks.filter((x, i) => text.includes(i + 1))
-}
-
-export const sortByBoolean = (a: boolean, b: boolean) => (a === b ? 0 : a ? -1 : 1)
-export const sortByString = (a: string, b: string) => a.localeCompare(b)
-export const sortByTime = (a?: string, b?: string) => {
-  const aa = a ? new Date(a).getTime() : 0
-  const bb = b ? new Date(b).getTime() : 0
-
-  return aa === bb ? 0 : aa ? -1 : 1
-}
-export const sortByNumber = (a?: number, b?: number) => {
-  return (a || 0) > (b || 0) ? -1 : 1
-}
+import { DownloadOutlined } from "@ant-design/icons"
+import { renderBoolean } from "~/Component/Common/ResponsiveTable/tableUtils"
+import { IDataTableProps, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { processTableMetaWithUserMetaConfig } from "./TableMetaShadowingProcessor"
 
 export function ResponsiveTable(props: IDataTableProps) {
   const {
@@ -90,11 +28,12 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [downloading, setDownloading] = useState(false)
   const firstRender = useFirstRender()
 
-  const loadDataFromSearchFunc = () => {
+  const loadDataFromSearchFunc = async () => {
+    const columnsConfigByUser = await processTableMetaWithUserMetaConfig(columns, props.tableName)
     if (loading) {
       return
     } else if (otherTableProps.dataSource) {
-      setTableProps()
+      setTableProps(columnsConfigByUser)
     } else if (searchParams && searchFunc) {
       setLoading(true)
       typeof searchParams === "object" &&
@@ -107,7 +46,7 @@ export function ResponsiveTable(props: IDataTableProps) {
             y.rowKey = i
             return y
           })
-          setTableProps(data)
+          setTableProps(columnsConfigByUser, data)
           dataLoaded && dataLoaded(data)
         }
         setTimeout(() => {
@@ -201,9 +140,9 @@ export function ResponsiveTable(props: IDataTableProps) {
   }
 
   const [conditionalProps, setConditionalProps] = useState<{ [key: string]: any }>({})
-  const setTableProps = (data?: any) => {
+  const setTableProps = (columnsConfigByUser: TableColumnType, data?: any) => {
     const _conditionalProps: TableProps<{ [key: string]: string }> = {
-      columns: columns
+      columns: columnsConfigByUser
         .filter((x, i) => {
           const include = !expandableColumnIndices?.includes(i + 1)
           return include
