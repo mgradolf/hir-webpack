@@ -5,7 +5,7 @@ import {
   RejectFormModalOpenButton
 } from "~/Component/ProgramApplication/ProgramApplicationStatusFormModal"
 import {
-  attachDocument,
+  deleteAttachment,
   getProgramAppDetails,
   saveApplicationAnswer
 } from "~/ApiServices/BizApi/program/programApplicationIF"
@@ -17,7 +17,8 @@ import { getToken } from "@packages/api/lib/utils/TokenStore"
 import { UploadOutlined } from "@ant-design/icons"
 import "~/Sass/utils.scss"
 import Notification from "~/utils/notification"
-import { UPLOAD_SUCCESSFULLY } from "~/utils/Constants"
+import { DELETE_SUCCESSFULLY, UPLOAD_SUCCESSFULLY } from "~/utils/Constants"
+import { attachDocument } from "~/ApiServices/Service/ProgramApplicationService"
 
 interface IRequisitePageProp {
   programID: number
@@ -41,7 +42,7 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
   const [answerMap] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
-    ;(async () => {
+    const loadApplicationDetails = async () => {
       setLoading(true)
       const response = await getProgramAppDetails({ ProgramID: props.programID, StudentID: props.studentID })
       if (response && response.success) {
@@ -49,37 +50,47 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
         const admissionRequirementList = response.data.AdmissionReqGroups
         setAdmissionReqGroups(admissionRequirementList)
 
-        const requirements = admissionRequirementList[0].AdmissionReqs
-        if (requirements != null) {
+        if (admissionRequirementList != null) {
           const files: { [key: string]: any } = {}
-          requirements.forEach((requirement: any) => {
-            const answers = requirement.Answer
-            const fileList: Array<any> = []
-            if (answers != null) {
-              const attachments = answers.Attachments
-              if (attachments != null) {
-                attachments.forEach((x: any, index: any) => {
-                  const urlParams =
-                    `/api/document?DocumentID=${x.DocumentID}&DownloadType=attachment&token=` + getToken()
-                  fileList.push({
-                    uid: index + 1,
-                    name: x.Name,
-                    url: urlParams,
-                    status: "done"
-                  })
-                })
-              }
-              if (answers.Response !== undefined && answers.Response !== null) {
-                answerMap[requirement.ProgramAdmReqID] = answers.Response
-              }
+          admissionRequirementList.forEach((adRequirement: any) => {
+            const requirements = adRequirement.AdmissionReqs
+            if (requirements != null) {
+              requirements.forEach((requirement: any) => {
+                const answers = requirement.Answer
+                const fileList: Array<any> = []
+                if (answers != null) {
+                  const attachments = answers.Attachments
+                  if (attachments != null) {
+                    attachments.forEach((x: any, index: any) => {
+                      const urlParams =
+                        `/api/document?DocumentID=${x.DocumentID}&DownloadType=attachment&token=` + getToken()
+                      fileList.push({
+                        uid: x.ProgramAppAttachmentID,
+                        name: x.Name,
+                        url: urlParams,
+                        status: "done"
+                      })
+                    })
+                  }
+                  if (answers.Response !== undefined && answers.Response !== null) {
+                    answerMap[requirement.ProgramAdmReqID] = answers.Response
+                  }
+                }
+                files[requirement.ProgramAdmReqID] = fileList
+              })
             }
-            files[requirement.ProgramAdmReqID] = fileList
+            setFileMap(files)
           })
-          setFileMap(files)
         }
       }
       setLoading(false)
-    })()
+    }
+
+    eventBus.subscribe("REFRESH_APPLICATION_DETAILS", loadApplicationDetails)
+    eventBus.publish("REFRESH_APPLICATION_DETAILS")
+    return () => {
+      eventBus.unsubscribe("REFRESH_APPLICATION_DETAILS")
+    }
     // eslint-disable-next-line
   }, [props])
 
@@ -111,21 +122,30 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
   }
 
   const onFileUpload = async (file: any, ProgramAdmReqID: number) => {
-    getBase64(file.file.originFileObj).then((contents: any) => {
-      const byteContent = dataURItoBlob(contents)
-      console.log("Binary data: ", byteContent)
-      attachDocument({
-        ProgramAppID: itemDetails.ProgramAppID,
-        ProgramAdmReqID: ProgramAdmReqID,
-        FileName: file.file.name,
-        FileContent: byteContent
+    if (file.file.status === "removed") {
+      deleteAttachment({
+        ProgramAppAttachmentID: file.file.uid
       }).then((x: any) => {
         if (x.success) {
-          Notification(UPLOAD_SUCCESSFULLY)
-          eventBus.publish(REFRESH_PAGE)
+          Notification(DELETE_SUCCESSFULLY)
+          eventBus.publish("REFRESH_APPLICATION_DETAILS")
         }
       })
-    })
+    } else {
+      getBase64(file.file.originFileObj).then((contents: any) => {
+        attachDocument({
+          ProgramAppID: itemDetails.ProgramAppID,
+          ProgramAdmReqID: ProgramAdmReqID,
+          FileName: file.file.name,
+          FileContent: contents
+        }).then((x: any) => {
+          if (x.success) {
+            Notification(UPLOAD_SUCCESSFULLY)
+            eventBus.publish("REFRESH_APPLICATION_DETAILS")
+          }
+        })
+      })
+    }
   }
 
   const getBase64 = (file: any) => {
@@ -135,22 +155,6 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
       reader.onload = () => resolve(reader.result)
       reader.onerror = (error) => reject(error)
     })
-  }
-
-  const dataURItoBlob = (dataURI: any) => {
-    // convert base64/URLEncoded data component to raw binary data held in a string
-    let byteString
-    if (dataURI.split(",")[0].indexOf("base64") >= 0) byteString = atob(dataURI.split(",")[1])
-    else byteString = unescape(dataURI.split(",")[1])
-
-    // write the bytes of the string to a typed array
-    const ia = new Uint8Array(byteString.length)
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i)
-    }
-
-    return ia
-    //return new Blob([ia], { type: mimeString })
   }
 
   return (
@@ -205,6 +209,12 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                                 )}
                               </Form.Item>
 
+                              <Form.Item {...btnLayout} style={{ textAlign: "right" }}>
+                                <Button type="primary" onClick={() => saveApplicationAnswers(x.ProgramAdmReqID)}>
+                                  Save
+                                </Button>
+                              </Form.Item>
+
                               {x.NeedProof && (
                                 <Form.Item label="Attachments" {...layout}>
                                   <Upload
@@ -216,12 +226,6 @@ export default function ProgramApplicationTabDetailsPage(props: IRequisitePagePr
                                   </Upload>
                                 </Form.Item>
                               )}
-
-                              <Form.Item {...btnLayout} style={{ textAlign: "right" }}>
-                                <Button type="primary" onClick={() => saveApplicationAnswers(x.ProgramAdmReqID)}>
-                                  Save
-                                </Button>
-                              </Form.Item>
                             </Form>
                           </Col>
                           <Col xs={24} sm={24} md={12}>

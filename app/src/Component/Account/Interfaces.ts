@@ -10,3 +10,19 @@ export interface IAccountFieldNames {
   DefaultWaitlistPriority: any
   FEID: any
 }
+
+export interface IAccountContactFieldNames {
+  AccountAffiliationID: any
+  AccountID: any
+  PersonID: any
+  StatusID: any
+  FirstName: any
+  LastName: any
+  Birthday: any
+  EmailAddress: any
+  AffiliationRoleTypeID: any
+  IsContactShared: any
+  IsPrimaryAccountAffiliation: any
+  ERPID: any
+  AsnwerList: any
+}
