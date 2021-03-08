@@ -1,5 +1,5 @@
-import { Col, Row, Select } from "antd"
 import React, { useEffect, useState } from "react"
+import { Col, Row, Select } from "antd"
 import { getRegions } from "~/ApiServices/Service/PersonService"
 import { getCountries } from "~/ApiServices/Service/RefLookupService"
 import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
@@ -7,24 +7,33 @@ import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form
 export function SearchRegion(props: IGeneratedField) {
   const [countries, setCountries] = useState<any[]>([])
   const [regiondCodes, setRegiondCodes] = useState<any[]>([])
-  const [selectedCountry, setSelectedCountry] = useState<any>()
+  const [selectedCountryCodeID, setSelectedCountryCodeId] = useState<any>()
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     getCountries().then((x) => {
-      if (x.success && Array.isArray(x.data)) setCountries(x.data)
+      if (x.success && Array.isArray(x.data)) {
+        setCountries(x.data)
+        setSelectedCountryCodeId(props.defaultValue)
+        props.formInstance.setFieldsValue({
+          CountryCodeID: props.defaultValue
+        })
+      }
     })
-  }, [])
+    // eslint-disable-next-line
+  }, [props.defaultValue])
 
   useEffect(() => {
-    if (selectedCountry) {
+    if (selectedCountryCodeID) {
       setLoading(true)
-      getRegions({ CountryCodeID: selectedCountry }).then((x) => {
+      getRegions({ CountryCodeID: selectedCountryCodeID }).then((x) => {
         if (x.success && Array.isArray(x.data)) setRegiondCodes(x.data)
         setLoading(false)
       })
+    } else {
+      setRegiondCodes([])
     }
-  }, [selectedCountry])
+  }, [selectedCountryCodeID])
   return (
     <Row>
       <Col span={24}>
@@ -33,7 +42,7 @@ export function SearchRegion(props: IGeneratedField) {
             allowClear={true}
             loading={loading}
             aria-label="Country Code"
-            onChange={(value: any) => setSelectedCountry(value)}
+            onChange={(value: any) => setSelectedCountryCodeId(value)}
           >
             {countries &&
               countries.map(({ Description, ID }, i) => (
@@ -45,7 +54,7 @@ export function SearchRegion(props: IGeneratedField) {
         </SearchComponentWrapper>
       </Col>
       <Col span={24}>
-        <SearchComponentWrapper {...props}>
+        <SearchComponentWrapper {...props} label="Region">
           <Select allowClear={true} loading={loading} aria-label="Region Code">
             {regiondCodes &&
               regiondCodes.map(({ CountryCodeID, Description }, i) => (

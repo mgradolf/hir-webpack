@@ -18,10 +18,9 @@ export interface ApiMethod {
   [key: string]: (Params: Dictionary, Headers?: Dictionary) => Promise<IApiResponse>
 }
 
-export const baseURL =
-  process.env.NODE_ENV === "development"
-    ? process.env.REACT_APP_API_ROOT
-    : `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
+export const baseURL = !(process.env.NODE_ENV === "development" || typeof window === "undefined")
+  ? `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
+  : process.env.REACT_APP_API_ROOT
 
 async function callServiceApi(
   endPoint: string,

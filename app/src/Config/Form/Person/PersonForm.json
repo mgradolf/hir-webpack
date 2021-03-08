@@ -1,0 +1,119 @@
+{
+  "Roles": {
+    "label": "Roles",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "FirstName": {
+    "label": "FirstName",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "LastName": {
+    "label": "LastName",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "Birthday": {
+    "label": "Birthday",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "EmailAddress": {
+    "label": "EmailAddress",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "TelephoneNumber": {
+    "label": "TelephoneNumber",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "AddressLine1": {
+    "label": "AddressLine1",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "AddressLine2": {
+    "label": "AddressLine2",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "AddressLine3": {
+    "label": "AddressLine3",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "Locality": {
+    "label": "Locality",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "PostalCode": {
+    "label": "PostalCode",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "RegionCodeID": {
+    "label": "RegionCodeID",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  },
+  "CountryCodeID": {
+    "label": "CountryCodeID",
+    "sortOrder": 0,
+    "placeholder": "",
+    "ariaLabel": "",
+    "hidden": false,
+    "displayKey": "string",
+    "required": false
+  }
+}

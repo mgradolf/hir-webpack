@@ -3,7 +3,7 @@ import { Button } from "antd"
 import { WaitlistEntriesSearchMeta } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntriesSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getWaitlistEntriesTableColumns } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntryTableColumns"
-import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
+import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/WaitlistEntryCreateEditFormModal"
 import { RouteComponentProps } from "react-router-dom"
 import { REFRESH_SECTION_WAITLIST_ENTRIES_PAGE } from "~/utils/EventBus"
 
