@@ -2,14 +2,13 @@ const fs = require("fs");
 const path = require("path");
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
-	files = fs
-		.readdirSync(dirPath)
-		.filter((x) => !(x.includes(".ts") || x.includes(".map")));
+	let files = fs.readdirSync(dirPath);
+	// .filter((x) => x.includes("SearchMeta.ts"));
 
 	arrayOfFiles = arrayOfFiles || [];
 
 	files.forEach(function (file) {
-		console.log("dirpath ", dirPath);
+		// console.log("dirpath ", dirPath);
 		if (fs.statSync(dirPath + "/" + file).isDirectory()) {
 			arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
 		} else {
@@ -21,28 +20,23 @@ const getAllFiles = function (dirPath, arrayOfFiles) {
 };
 
 const generateSearchMetaConfig = (fileNames, jsonFileName) => {
+	fileNames = fileNames.filter((x) => x.includes("SearchMeta.ts"));
+	console.log(fileNames);
 	// const dirPath = "../../packages/api/lib/proxy/Service";
 	// const fileNames = fs
 	// 	.readdirSync(dirPath)
 	// 	.filter((x) => !(x.includes(".ts") || x.includes(".map")));
+	// let apiConfigList = [];
+	// for (let fileName of fileNames) {
+	// 	console.log(fileName);
+	// 	const { config } = require(fileName);
+	// 	console.log(config);
+	// 	apiConfigList.push(config);
+	// }
 
-	let apiConfigList = [];
-	for (fileName of fileNames) {
-		console.log(fileName);
-		const { config } = require(fileName);
-		console.log(config);
-		apiConfigList.push(config);
-	}
-
-	fs.writeFileSync(
-		`./nextRelease/${jsonFileName}.json`,
-		JSON.stringify(apiConfigList)
-	);
+	fs.writeFileSync(`./configFiles.json`, JSON.stringify(fileNames));
 };
 
-const searchMetas = getAllFiles(
-	"../../packages/api/lib/proxy/Service"
-);
-
+const searchMetas = getAllFiles("../../app/src/TableSearchMeta", []);
 
 generateSearchMetaConfig(searchMetas, "bizapi");
