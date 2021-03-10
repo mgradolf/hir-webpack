@@ -19,22 +19,22 @@ const getAllFiles = function (dirPath, arrayOfFiles) {
 	return arrayOfFiles;
 };
 
-const generateSearchMetaConfig = (fileNames, jsonFileName) => {
-	fileNames = fileNames.filter((x) => x.includes("SearchMeta.ts"));
-	console.log(fileNames);
+const generateSearchMetaConfig = (filePaths, jsonFileName) => {
+	filePaths = filePaths.filter((x) => x.includes("SearchMeta.ts"));
+	console.log(filePaths);
 	// const dirPath = "../../packages/api/lib/proxy/Service";
-	// const fileNames = fs
+	// const filePaths = fs
 	// 	.readdirSync(dirPath)
 	// 	.filter((x) => !(x.includes(".ts") || x.includes(".map")));
 	// let apiConfigList = [];
-	// for (let fileName of fileNames) {
+	// for (let fileName of filePaths) {
 	// 	console.log(fileName);
 	// 	const { config } = require(fileName);
 	// 	console.log(config);
 	// 	apiConfigList.push(config);
 	// }
 
-	fs.writeFileSync(`./configFiles.json`, JSON.stringify(fileNames));
+	fs.writeFileSync(`./configFiles.json`, JSON.stringify(filePaths));
 };
 
 const searchMetas = getAllFiles("../../app/src/TableSearchMeta", []);
