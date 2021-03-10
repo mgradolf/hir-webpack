@@ -11,12 +11,23 @@ import { getFacultyCommentTableColumns } from "~/TableSearchMeta/InstructorComme
 import { getInstructorScheduleTableColumns } from "~/TableSearchMeta/InstructorSchedule/ScheduleTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
 import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
-import { COMMENT_TYPES, FINANCIAL_FACULTY_TYPE_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
-import { REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_INSTRUCTOR_COMMENT_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
+import {
+  COMMENT_TYPES,
+  DELETE_SUCCESSFULLY,
+  FINANCIAL_FACULTY_TYPE_ID,
+  FINANCIAL_TYPE_FACULTY
+} from "~/utils/Constants"
+import {
+  eventBus,
+  REFRESH_FACULTY_OFFERINGS_TAB,
+  REFRESH_INSTRUCTOR_COMMENT_PAGE,
+  REFRESH_PAGE
+} from "~/utils/EventBus"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { pushInstructor } from "~/ApiServices/Service/InstructorService"
+import { pushInstructor, removeInstructor } from "~/ApiServices/Service/InstructorService"
 import { InstructorFormMeta } from "~/Component/Instructor/FormMeta/InstructorFormMeta"
 import InstructorScheduleFormModal from "~/Component/Instructor/Forms/InstructorScheduleFormModal"
+import Notification from "~/utils/notification"
 
 const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -42,6 +53,20 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
           closeModal={() => setShowModal(false)}
         />
       )}
+      <Button
+        danger
+        style={{ marginLeft: "5px" }}
+        type="primary"
+        onClick={async () => {
+          const response = await removeInstructor({ FacultyID: props.facultyData.FacultyID })
+          if (response && response.success) {
+            Notification(DELETE_SUCCESSFULLY)
+            eventBus.publish(REFRESH_PAGE)
+          }
+        }}
+      >
+        Remove
+      </Button>
     </>
   )
 }

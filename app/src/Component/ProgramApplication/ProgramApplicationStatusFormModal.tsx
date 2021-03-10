@@ -1,9 +1,10 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import { Form } from "antd"
+import { Button, Form } from "antd"
 import { IApplicationStatusFieldNames } from "~/Component/ProgramApplication/Interfaces"
 import ProgramApplicationStatusForm from "~/Component/ProgramApplication/ProgramApplicationStatusForm"
+import { PROGRAM_APP_REQ_ACCPETED, PROGRAM_APP_REQ_REJECTED, PROGRAM_APP_REQ_RESUBMIT } from "~/utils/Constants"
 
 interface IProgramApplicationStatusProps {
   ProgramAppID: number
@@ -55,5 +56,68 @@ export default function ProgramApplicationStatusFormModal({
         </>
       }
     />
+  )
+}
+
+export const RejectFormModalOpenButton = (props: {
+  ProgramAppID: number
+  ProgramAdmReqID: number
+  CurrentStatusID: number | -1
+}) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button
+          danger
+          type="primary"
+          style={{ marginRight: "10px" }}
+          disabled={
+            props.CurrentStatusID === PROGRAM_APP_REQ_REJECTED || props.CurrentStatusID === PROGRAM_APP_REQ_RESUBMIT
+          }
+          onClick={() => setShowModal && setShowModal(true)}
+        >
+          Reject
+        </Button>
+      )}
+      {showModal && (
+        <ProgramApplicationStatusFormModal
+          ProgramAppID={props.ProgramAppID}
+          ProgramAdmReqID={props.ProgramAdmReqID}
+          StatusID={PROGRAM_APP_REQ_REJECTED}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
+  )
+}
+
+export const AcceptFormModalOpenButton = (props: {
+  ProgramAppID: number
+  ProgramAdmReqID: number
+  CurrentStatusID: number | -1
+}) => {
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      {setShowModal && (
+        <Button
+          type="primary"
+          style={{ marginRight: "10px" }}
+          disabled={props.CurrentStatusID === PROGRAM_APP_REQ_ACCPETED}
+          onClick={() => setShowModal && setShowModal(true)}
+        >
+          Accept
+        </Button>
+      )}
+      {showModal && (
+        <ProgramApplicationStatusFormModal
+          ProgramAppID={props.ProgramAppID}
+          ProgramAdmReqID={props.ProgramAdmReqID}
+          StatusID={PROGRAM_APP_REQ_ACCPETED}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }

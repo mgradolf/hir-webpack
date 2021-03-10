@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from "react"
-import { Card, Button, Input, Row, Col, DatePicker, Select } from "antd"
+import React, { useEffect, useState } from "react"
+import { Row, Col } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { IPersonFieldNames } from "~/Component/Person/Interfaces"
-import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
-import { findCountry, createPersonRecordInRoles, getRegions } from "~/ApiServices/Service/PersonService"
+import { createPersonRecordInRoles } from "~/ApiServices/Service/PersonService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-
-import { DATE_FORMAT } from "~/utils/Constants"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import "~/Sass/global/index.scss"
+import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
+import { SearchRegion } from "~/Component/Common/Form/CustomFormFields/SearchRegion"
+import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
+import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
 
 interface IPersonFormProps {
   editMode: boolean
-  title: string
   formInstance: FormInstance
-  fieldNames: IPersonFieldNames
-  initialFormValue: { [key: string]: any }
-  closeModal?: () => void
-  setApiCallInProgress: (flag: boolean) => void
 }
 
 const layout = {
@@ -33,190 +28,212 @@ const rolesOption = [
   { label: "Purchaser", value: 3 }
 ]
 
-export default function PersonForm(props: IPersonFormProps) {
-  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [countryList, setCountryList] = useState<Array<any>>([])
-  const [regions, setRegions] = useState<Array<any>>([])
-  const [countryCodeID, setCountryCodeID] = useState<number>()
-  const [countryLoading, setCountryLoading] = useState<boolean>(false)
-  const [regionLoading, setRegionLoading] = useState<boolean>(false)
+const fieldNames: IPersonFieldNames = {
+  Roles: "Roles",
+  FirstName: "FirstName",
+  LastName: "LastName",
+  Birthday: "Birthday",
+  EmailAddress: "EmailAddress",
+  TelephoneNumber: "TelephoneNumber",
+  AddressLine1: "AddressLine1",
+  AddressLine2: "AddressLine2",
+  AddressLine3: "AddressLine3",
+  Locality: "Locality",
+  PostalCode: "PostalCode",
+  RegionCodeID: "RegionCodeID",
+  CountryCodeID: "CountryCodeID"
+}
+
+function PersonForm(props: IPersonFormProps) {
+  const [defaultCountryCodeID, setdefaultCountryCodeID] = useState()
+  const [addressline1Required, setAddressline1Required] = useState(false)
+  const PersonformConfig: IPersonFieldNames = CustomFormConfigHook(fieldNames, "PersonForm") as IPersonFieldNames
 
   useEffect(() => {
-    ;(async function () {
-      setCountryLoading(true)
-      const result = await findCountry({})
+    findDefaultCountry().then((result) => {
       if (result.success && result.data) {
-        setCountryList(result.data)
+        setdefaultCountryCodeID(result.data.CountryID)
       }
-      setCountryLoading(false)
-    })()
-    ;(async function () {
-      setCountryLoading(true)
-      const result = await findDefaultCountry()
-      if (result.success && result.data) {
-        setCountryCodeID(result.data.CountryID)
-        props.formInstance.setFieldsValue({
-          [props.fieldNames.CountryCodeID]: result.data.CountryID
-        })
-      }
-      setCountryLoading(false)
-    })()
-    // eslint-disable-next-line
+    })
   }, [])
-
-  useEffect(() => {
-    if (countryCodeID) {
-      ;(async function () {
-        setRegionLoading(true)
-        const result = await getRegions({ CountryCodeID: countryCodeID })
-        if (result.success && result.data) {
-          setRegions(result.data)
-        }
-        setRegionLoading(false)
-      })()
-    }
-  }, [countryCodeID])
-
-  const onChangeCountry = (countryID: any) => {
-    props.formInstance.setFieldsValue({
-      [props.fieldNames.CountryCodeID]: countryID
-    })
-    props.formInstance.setFieldsValue({
-      [props.fieldNames.RegionCodeID]: undefined
-    })
-    setRegions([])
-    setCountryCodeID(countryID)
-  }
-
-  const onFormSubmission = async () => {
-    await props.formInstance.validateFields()
-    const params = props.formInstance.getFieldsValue()
-
-    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = props.editMode
-      ? createPersonRecordInRoles
-      : createPersonRecordInRoles
-
-    setErrorMessages([])
-    props.setApiCallInProgress(true)
-    const response = await serviceMethoToCall(params)
-    console.log(response)
-    props.setApiCallInProgress(false)
-
-    if (response && response.success) {
-      props.closeModal && props.closeModal()
-    } else {
-      console.log(response.error)
-      setErrorMessages(response.error)
-    }
-  }
-
   return (
-    <Card
-      title={props.editMode ? `Edit ${props.title}` : `Create New ${props.title}`}
-      actions={[
-        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
-          <Col>
-            <Button type="primary" aria-label="Cancel" danger onClick={() => props.closeModal && props.closeModal()}>
-              Cancel
-            </Button>
-          </Col>
-          <Col>
-            <Button type="primary" aria-label="Submit" onClick={onFormSubmission}>
-              Submit
-            </Button>
-          </Col>
-        </Row>
-      ]}
-    >
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        scrollToFirstError
-        style={{
-          maxHeight: "80vh",
-          overflowY: "scroll"
-        }}
-      >
-        <OldFormError errorMessages={errorMessages} />
-        <Row>
-          <Col xs={24} sm={24} md={12}>
-            <FormMultipleCheckbox
-              label={"Roles"}
-              fieldName={props.fieldNames.Roles}
-              formInstance={props.formInstance}
-              options={rolesOption}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={24} sm={24} md={12}>
-            <Form.Item
-              label={"First Name"}
-              {...layout}
-              name={props.fieldNames.FirstName}
-              rules={[{ required: true, message: "Please enter first name!" }]}
-            >
-              <Input aria-label={"Frist Name"} />
-            </Form.Item>
-            <Form.Item
-              label={"Last Name"}
-              {...layout}
-              name={props.fieldNames.LastName}
-              rules={[{ required: true, message: "Please enter last name!" }]}
-            >
-              <Input aria-label={"Last Name"} />
-            </Form.Item>
-            <Form.Item label={"Date Of Birth"} {...layout} name={props.fieldNames.Birthday}>
-              <DatePicker aria-label="Pick BirthDate" placeholder="YYYY/MM/DD" format={DATE_FORMAT} />
-            </Form.Item>
-            <Form.Item label={"Email Address"} {...layout} name={props.fieldNames.EmailAddress}>
-              <Input aria-label={"Email Address"} />
-            </Form.Item>
-            <Form.Item label={"Telephone"} {...layout} name={props.fieldNames.TelephoneNumber}>
-              <Input aria-label={"Telephone"} />
-            </Form.Item>
-          </Col>
-          <Col xs={24} sm={24} md={12}>
-            <Form.Item label={"Address Line 1"} {...layout} name={props.fieldNames.AddressLine1}>
-              <Input aria-label={"Address Line 1"} />
-            </Form.Item>
-            <Form.Item label={"Address Line 2"} {...layout} name={props.fieldNames.AddressLine2}>
-              <Input aria-label={"Address Line 2"} />
-            </Form.Item>
-            <Form.Item label={"Address Line 3"} {...layout} name={props.fieldNames.AddressLine3}>
-              <Input aria-label={"Address Line 3"} />
-            </Form.Item>
-            <Form.Item label={"City"} {...layout} name={props.fieldNames.Locality}>
-              <Input aria-label={"City"} />
-            </Form.Item>
-            <Form.Item label={"State/Province"} {...layout} name={props.fieldNames.RegionCodeID}>
-              <Select loading={regionLoading} aria-label={"State / Province"}>
-                {regions.map((x, i) => {
-                  return (
-                    <Select.Option key={1000 + i} value={x.RegionCodeID}>
-                      {x.Description}
-                    </Select.Option>
-                  )
-                })}
-              </Select>
-            </Form.Item>
-            <Form.Item label={"Postal Code"} {...layout} name={props.fieldNames.PostalCode}>
-              <Input aria-label={"Postal Code"} />
-            </Form.Item>
-            <Form.Item label={"Country"} {...layout} name={props.fieldNames.CountryCodeID}>
-              <Select loading={countryLoading} aria-label={"Country"} onChange={onChangeCountry}>
-                {countryList.map((x, i) => {
-                  return (
-                    <Select.Option key={1000 + i} value={x.CountryID}>
-                      {x.Description}
-                    </Select.Option>
-                  )
-                })}
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form>
-    </Card>
+    <>
+      <Row>
+        <Col xs={24} sm={24} md={12}>
+          <FormMultipleCheckbox
+            label={"Roles"}
+            formInstance={props.formInstance}
+            options={rolesOption}
+            onChangeCallback={(items: number[]) => {
+              if (items.includes(3)) {
+                // 3 means instructor is selected, so address line 1 is required now
+                setAddressline1Required(true)
+              } else {
+                setAddressline1Required(false)
+              }
+            }}
+            fieldName="Roles"
+            {...PersonformConfig.Roles}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={24} sm={24} md={12}>
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            defaultValue={{}}
+            label={"First Name"}
+            ariaLabel={"Frist Name"}
+            fieldName="FirstName"
+            {...PersonformConfig.FirstName}
+            rules={[{ required: true, message: "Please enter first name!" }]}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Last Name"}
+            ariaLabel={"Last Name"}
+            fieldName="LastName"
+            {...PersonformConfig.LastName}
+            rules={[{ required: true, message: "Please enter last name!" }]}
+          />
+
+          <FormDatePicker
+            label={"Date Of Birth"}
+            formInstance={props.formInstance}
+            {...layout}
+            aria-label="Pick BirthDate"
+            placeholder="YYYY/MM/DD"
+            fieldName="Birthday"
+            {...PersonformConfig.Birthday}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Email Address"}
+            ariaLabel={"Email Address"}
+            fieldName="EmailAddress"
+            {...PersonformConfig.EmailAddress}
+            rules={[{ required: true, message: "Please enter valid email address!", type: "email" }]}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Telephone"}
+            ariaLabel={"Telephone"}
+            fieldName="TelephoneNumber"
+            {...PersonformConfig.TelephoneNumber}
+          />
+        </Col>
+
+        <Col xs={24} sm={24} md={12}>
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Address Line 1"}
+            ariaLabel={"Address Line 1"}
+            fieldName="AddressLine1"
+            {...PersonformConfig.AddressLine1}
+            {...(addressline1Required && { rules: [{ required: true, message: "Address Line 1 is required" }] })}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Address Line 2"}
+            ariaLabel={"Address Line 2"}
+            fieldName="AddressLine2"
+            {...PersonformConfig.AddressLine2}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Address Line 3"}
+            ariaLabel={"Address Line 3"}
+            fieldName="AddressLine3"
+            {...PersonformConfig.AddressLine3}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"City"}
+            ariaLabel={"City"}
+            fieldName="Locality"
+            {...PersonformConfig.Locality}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Postal Code"}
+            ariaLabel={"Postal Code"}
+            fieldName="PostalCode"
+            {...PersonformConfig.PostalCode}
+          />
+
+          <SearchRegion
+            {...layout}
+            label={"State/Province"}
+            formInstance={props.formInstance}
+            {...layout}
+            defaultValue={defaultCountryCodeID}
+            fieldName="RegionCodeID"
+            {...PersonformConfig.RegionCodeID}
+          />
+        </Col>
+      </Row>
+    </>
+  )
+}
+
+export function PersonFormOpenButton(props: { initialValues?: { [key: string]: any } }) {
+  const [formInstance] = Form.useForm()
+  const [showModal, setShowModal] = useState(false)
+  const [apiCallInProgress, setApiCallInProgress] = useState(false)
+  // const [loading, setLoading] = useState(false)
+  const [loading] = useState(false)
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
+
+  const onFormSubmission = () => {
+    formInstance.validateFields().then((x) => {
+      const params = formInstance.getFieldsValue()
+      setErrorMessages([])
+      setApiCallInProgress(true)
+      createPersonRecordInRoles(params)
+        .then((response) => {
+          console.log("validation passed ", response)
+          setApiCallInProgress(false)
+          if (response && response.success) {
+            setShowModal(false)
+          } else {
+            console.log("validation failed ", response.error)
+            setErrorMessages(response.error)
+          }
+        })
+        .catch((y) => console.error(y))
+    })
+  }
+  return (
+    <CustomFormModalOpenButton
+      formTitle={"Create Person"}
+      customForm={<PersonForm editMode={false} formInstance={formInstance} />}
+      formInstance={formInstance}
+      onFormSubmission={onFormSubmission}
+      initialValues={initialValues}
+      apiCallInProgress={apiCallInProgress}
+      loading={loading}
+      errorMessages={errorMessages}
+      buttonLabel="+ Create Person"
+      buttonProps={{ type: "primary" }}
+      showModal={showModal}
+      setShowModal={(show: boolean) => setShowModal(show)}
+    />
   )
 }

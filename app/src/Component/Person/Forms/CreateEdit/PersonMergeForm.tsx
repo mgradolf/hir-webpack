@@ -127,7 +127,12 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
             </Button>
           </Col>
           <Col>
-            <Button type="primary" aria-label="Submit" onClick={onAnalyze}>
+            <Button
+              type="primary"
+              aria-label="Submit"
+              disabled={primaryPerson.PersonID === duplicatePerson.PersonID}
+              onClick={onAnalyze}
+            >
               Analyze
             </Button>
           </Col>
@@ -138,7 +143,18 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
           </Col>
         </Row>
       ]}
-      extra={[<Button type="primary">Copy To Clipboard</Button>]}
+      extra={[
+        <Button
+          disabled={!isMergable}
+          type="primary"
+          onClick={() => {
+            navigator.clipboard.writeText(JSON.stringify(mAnalyze))
+            Notification("Copy to clipboard success!")
+          }}
+        >
+          Copy To Clipboard
+        </Button>
+      ]}
     >
       <Row style={{ maxHeight: "80vh", overflowY: "scroll" }}>
         <Col xs={24} sm={24} md={24}>
@@ -170,6 +186,12 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
                 <Form.Item label="Address" {...layout}>
                   <Input disabled aria-label="Address" value={primaryPerson.Address} />
                 </Form.Item>
+                <Form.Item label="ERP ID" {...layout}>
+                  <Input disabled aria-label="ERP ID" value={primaryPerson.ERPID} />
+                </Form.Item>
+                <Form.Item label="SSN" {...layout}>
+                  <Input disabled aria-label="SSN" value={primaryPerson.GovID} />
+                </Form.Item>
               </Form>
             </Col>
 
@@ -197,7 +219,13 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
                   <Input disabled aria-label="Phone" value={duplicatePerson.TelephoneNumber} />
                 </Form.Item>
                 <Form.Item label="Address" {...layout}>
-                  <Input disabled aria-label="Address" value={duplicatePerson.Addresses} />
+                  <Input disabled aria-label="Address" value={duplicatePerson.Address} />
+                </Form.Item>
+                <Form.Item label="ERP ID" {...layout}>
+                  <Input disabled aria-label="ERP ID" value={duplicatePerson.ERPID} />
+                </Form.Item>
+                <Form.Item label="SSN" {...layout}>
+                  <Input disabled aria-label="SSN" value={duplicatePerson.GovID} />
                 </Form.Item>
               </Form>
             </Col>

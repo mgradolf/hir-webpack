@@ -1,0 +1,289 @@
+[
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.util.NTSWebLoginIF",
+		"Module": "hir",
+		"Actions": {
+			"updateLoginInfo": "updateLoginInfo",
+			"unlockPersonLogin": "unlockPersonLogin",
+			"sendPasswordResetEmail": "sendPasswordResetEmail"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.account.AccountIF",
+		"Module": "hir",
+		"Actions": {
+			"findAccountForLookUp": "findAccountForLookUp",
+			"findAccountAffiliation": "findAccountAffiliation",
+			"findAccount": "findAccount",
+			"getQuestionAnswers": "getQuestionAnswers",
+			"getAffiliationRoleTypes": "getAffiliationRoleTypes",
+			"getTaggedQuestionsByAffiliationRoleType": "getTaggedQuestionsByAffiliationRoleType",
+			"createorUpdateMultipleAccountEmail": "createorUpdateMultipleAccountEmail",
+			"setPrimaryAccountAffiliation": "setPrimaryAccountAffiliation",
+			"removePrimaryAccountAffiliation": "removePrimaryAccountAffiliation"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.catalog.CatalogIF",
+		"Module": "hir",
+		"Actions": {
+			"findCatalogs": "findCatalogs",
+			"updateBulkContent": "updateBulkContent",
+			"searchCatalog": "searchCatalog",
+			"getWebCatalogOfferings": "getWebCatalogOfferings",
+			"getWebCatalogSections": "getWebCatalogSections",
+			"getWebCatalogPrograms": "getWebCatalogPrograms"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.certificate.CertificateIF",
+		"Module": "hir",
+		"Actions": {
+			"getApplicableSectionCertificate": "getApplicableSectionCertificate",
+			"getApplicableProgramCertificate": "getApplicableProgramCertificate",
+			"searchCertificate": "searchCertificate"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.certificate.StudentCertificateIF",
+		"Module": "hir",
+		"Actions": {
+			"getCompletedSection": "getCompletedSection",
+			"getCompletedProgram": "getCompletedProgram"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.course.CourseIF",
+		"Module": "hir",
+		"Actions": {
+			"getSection": "getSection",
+			"offeringTypehasSectionType": "offeringTypehasSectionType",
+			"deleteSection": "deleteSection",
+			"searchSection": "searchSection",
+			"findSectionNotice": "findSectionNotice",
+			"createSectionNotice": "createSectionNotice",
+			"findAvailableAffiliatedOrgs": "findAvailableAffiliatedOrgs"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.course.RequisiteIF",
+		"Module": "hir",
+		"Actions": {
+			"deleteGroup": "deleteGroup",
+			"deleteOfferingFromGroup": "deleteOfferingFromGroup",
+			"addOfferingToGroup": "addOfferingToGroup"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.query.CustomQueryIF",
+		"Module": "hir",
+		"Actions": {
+			"findQueryList": "findQueryList",
+			"getParamList": "getParamList",
+			"getResultList": "getResultList",
+			"findQueryResult": "findQueryResult"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.faculty.FacultyIF",
+		"Module": "hir",
+		"Actions": {
+			"searchFaculties": "searchFaculties"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.financial.FinancialsIF",
+		"Module": "hir",
+		"Actions": {
+			"getSectionFinancialMaps": "getSectionFinancialMaps",
+			"getSectionFinancialDefaultMaps": "getSectionFinancialDefaultMaps",
+			"getFinancialsByTarget": "getFinancialsByTarget"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.financial.server.bizapi.gl.GeneralLedgerIF",
+		"Module": "hir",
+		"Actions": {
+			"saveGLAccountMapping": "saveGLAccountMapping"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.system.JobSchedulerIF",
+		"Module": "hir",
+		"Actions": {
+			"findJobSchedules": "findJobSchedules"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.marketingcode.MarketingCodeIF",
+		"Module": "hir",
+		"Actions": {
+			"getMarketingCodeRelatedTagTypes": "getMarketingCodeRelatedTagTypes"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.membership.MembershipIF",
+		"Module": "hir",
+		"Actions": {
+			"findMembershipBeneficiaries": "findMembershipBeneficiaries",
+			"findMebershipTerms": "findMebershipTerms"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.financial.server.bizapi.order.OrderIF",
+		"Module": "hir",
+		"Actions": {
+			"findOrders": "findOrders",
+			"findOrderDetails": "findOrderDetails",
+			"findOrderLineWiseBalance": "findOrderLineWiseBalance",
+			"findCreditMemosOrderLines": "findCreditMemosOrderLines"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.org.OrgIF",
+		"Module": "hir",
+		"Actions": {
+			"getOrganizationByType": "getOrganizationByType",
+			"findSchoolCode": "findSchoolCode"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.financial.server.bizapi.payment.PaymentIF",
+		"Module": "hir",
+		"Actions": {
+			"searchPayment": "searchPayment",
+			"searchCreditMemo": "searchCreditMemo"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.person.AddressBookIF",
+		"Module": "hir",
+		"Actions": {
+			"findDefaultCountry": "findDefaultCountry"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.person.PersonIF",
+		"Module": "hir",
+		"Actions": {
+			"searchPersons": "searchPersons"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.vendable.server.bizapi.product.ProductIF",
+		"Module": "hir",
+		"Actions": {
+			"addSectionProduct": "addSectionProduct",
+			"findSectionProducts": "findSectionProducts",
+			"deleteSectionProduct": "deleteSectionProduct",
+			"findProductFinancials": "findProductFinancials",
+			"findSellerFulfillers": "findSellerFulfillers"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.program.ProgramApplicationIF",
+		"Module": "hir",
+		"Actions": {
+			"saveApplicationAnswer": "saveApplicationAnswer",
+			"getProgramAppDetails": "getProgramAppDetails",
+			"searchProgramApplication": "searchProgramApplication",
+			"addApplicationComment": "addApplicationComment",
+			"addProgramAdmReqComment": "addProgramAdmReqComment",
+			"resubmitProgramAdmReq": "resubmitProgramAdmReq",
+			"changeProgramAdmReqStatus": "changeProgramAdmReqStatus",
+			"changeApplicationStatusWithEvent": "changeApplicationStatusWithEvent"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.program.ProgramEnrollmentIF",
+		"Module": "hir",
+		"Actions": {
+			"searchEnrollment": "searchEnrollment",
+			"trackingProgress": "trackingProgress",
+			"changeEnrollmentStatusWithEvent": "changeEnrollmentStatusWithEvent"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.program.ProgramIF",
+		"Module": "hir",
+		"Actions": {
+			"searchProgram": "searchProgram",
+			"searchProgramOffering": "searchProgramOffering"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.query.QueryIF",
+		"Module": "hir",
+		"Actions": {
+			"executeDomainListWithoutPagination": "executeDomainListWithoutPagination",
+			"executeDomainListWithPagination": "executeDomainListWithPagination",
+			"findEnrollmentHistory": "findEnrollmentHistory",
+			"executeDomainList": "executeDomainList",
+			"executeDomainObject": "executeDomainObject",
+			"findPickList": "findPickList"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.registration.WaitListIF",
+		"Module": "hir",
+		"Actions": {
+			"findWaitListEntries": "findWaitListEntries"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.scheduling.SchedulingIF",
+		"Module": "hir",
+		"Actions": {
+			"findMeetingTypes": "findMeetingTypes",
+			"findPossibleSites": "findPossibleSites",
+			"findPossibleBuildings": "findPossibleBuildings",
+			"findPossibleRooms": "findPossibleRooms",
+			"findQualifiedInstructors": "findQualifiedInstructors",
+			"findInformationTypes": "findInformationTypes",
+			"removeSchedule": "removeSchedule"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.student.StudentHoldIF",
+		"Module": "hir",
+		"Actions": {
+			"findStudentHold": "findStudentHold"
+		}
+	},
+	{
+		"EndPoint": "api/bizApiServlet",
+		"Service": "com.jenzabar.jxntm.server.bizapi.student.StudentIF",
+		"Module": "hir",
+		"Actions": {
+			"searchStudents": "searchStudents",
+			"findAllStudentNotice": "findAllStudentNotice"
+		}
+	}
+]

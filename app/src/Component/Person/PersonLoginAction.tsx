@@ -20,6 +20,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const isLogin: boolean = props.initialData.UserLogin !== undefined
+  const lockedUntil: boolean = props.initialData.LockedUntil !== undefined && props.initialData.LockedUntil !== null
 
   const inviteToSetupWebLogin = async (PersonID: number) => {
     setLoading(true)
@@ -61,13 +62,18 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
     return (
       <Menu>
         <Menu.Item>
-          <Button type="link" loading={loading} onClick={() => inviteToSetupWebLogin(dataInfo.PersonID)}>
+          <Button
+            disabled={isLogin}
+            type="link"
+            loading={loading}
+            onClick={() => inviteToSetupWebLogin(dataInfo.PersonID)}
+          >
             Invite to setup web login
           </Button>
         </Menu.Item>
         <Menu.Item>
           <Button
-            disabled={!isLogin}
+            disabled={!isLogin || lockedUntil}
             type="link"
             loading={loading}
             onClick={() => inviteToResetPassword(dataInfo.PersonID)}

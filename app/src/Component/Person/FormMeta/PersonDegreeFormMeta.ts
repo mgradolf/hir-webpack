@@ -15,14 +15,6 @@ export const PersonDegreeFormMeta: IField[] = [
     inputType: TEXT,
     fieldName: "EstablishmentName"
   },
-  // {
-  //   label: "Degree Program",
-  //   inputType: DROPDOWN,
-  //   refLookupService: () => getDegreeProgram({}),
-  //   fieldName: "EducationHistID",
-  //   displayKey: "Description",
-  //   valueKey: "ID"
-  // },
   {
     label: "Credetial Type",
     inputType: DROPDOWN,

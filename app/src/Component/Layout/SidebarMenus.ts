@@ -35,7 +35,7 @@ export const sidebarMenus: ISidebarMenu[] = [
         url: "",
         submenu: [
           { title: "Offerings", url: "/program/offering", submenu: [] },
-          { title: "Programs", url: "/program/program", submenu: [] },
+          { title: "Programs", url: "/program", submenu: [] },
           { title: "Applications", url: "/program/application", submenu: [] },
           { title: "Certificates", url: "/program/certificate", submenu: [] },
           { title: "Enrollments", url: "/program/enrollment", submenu: [] }

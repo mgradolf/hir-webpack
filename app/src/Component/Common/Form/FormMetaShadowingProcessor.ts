@@ -1,9 +1,12 @@
+import { useEffect, useState } from "react"
+import axios from "axios"
 import { Rule } from "antd/lib/form"
 import { IField } from "~/Component/Common/Form/common"
-import axios from "axios"
-import FormConfigMap from "~/Config/FormMap.json"
+import { baseURL } from "@packages/api/lib/utils/ApiMethodFactory"
+import { eventBus } from "~/utils/EventBus"
 
 export interface IUserFormMetaConfig {
+  fieldName: string
   label?: string
   sortOrder?: number
   placeholder?: string
@@ -13,14 +16,16 @@ export interface IUserFormMetaConfig {
   required?: boolean
 }
 
-const getUserFormMetaConfig = async (metaName: string): Promise<{ [key: string]: any }> => {
-  const _FormConfigMap = FormConfigMap as { [key: string]: string }
-  const url = `http://127.0.0.1:8081${_FormConfigMap[metaName]}`
+async function getUserFormMetaConfig(metaName: string): Promise<{ [key: string]: any }> {
   let userFormMeta: { [key: string]: any } = {}
   try {
-    userFormMeta = (await axios.request({ url })).data
+    const _FormMap = (await axios.request({ baseURL, url: `/webconfig/Config/FormMap.json` })).data
+    if (_FormMap && _FormMap[metaName]) {
+      userFormMeta = (await axios.request({ baseURL, url: `/webconfig${_FormMap[metaName]}` })).data
+      console.log("userFormMeta ", userFormMeta)
+    }
   } catch (error) {
-    console.log("userFormMeta error ", error)
+    console.error("userFormMeta error ", error)
   }
 
   if (userFormMeta && Object.keys(userFormMeta).length > 0) {
@@ -40,14 +45,14 @@ const getUserFormMetaConfig = async (metaName: string): Promise<{ [key: string]:
         delete userFormMeta[key]
     })
   }
-  console.log("userFormMeta ", userFormMeta)
   return Promise.resolve(userFormMeta)
 }
 
-const FormMetaShadowingProcessor = (meta: IField[], userMetaConfig: { [key: string]: any }): IField[] => {
+function FormMetaShadowingProcessor(meta: IField[], userMetaConfig: { [key: string]: any }): IField[] {
   return meta
     .map((x) => {
-      if (userMetaConfig[x.fieldName]) {
+      if (userMetaConfig && userMetaConfig[x.fieldName]) {
+        userMetaConfig[x.fieldName].fieldName = x.fieldName
         const { required, ...others } = userMetaConfig[x.fieldName]
         x = { ...x, ...(others as IField) }
         if (required) {
@@ -66,8 +71,35 @@ const FormMetaShadowingProcessor = (meta: IField[], userMetaConfig: { [key: stri
     .sort((a, b) => (a.sortOrder || 1000) - (b.sortOrder || 1000))
 }
 
-export const processFormMeta = (meta: IField[], metaName: string): Promise<IField[]> => {
-  return getUserFormMetaConfig(metaName).then((x) => {
-    return FormMetaShadowingProcessor(meta, x)
-  })
+export function processFormMetaWithUserMetaConfig(meta: IField[], metaName: string): Promise<IField[]> {
+  return getUserFormMetaConfig(metaName).then((x) => FormMetaShadowingProcessor(meta, x))
+}
+
+function customFormConfigProcessor(
+  formFields: { [key: string]: any },
+  userMetaConfig: { [key: string]: any }
+): { [key: string]: IUserFormMetaConfig } {
+  for (const field in formFields) {
+    if (userMetaConfig && userMetaConfig[field]) {
+      formFields[field] = userMetaConfig[field]
+    }
+  }
+  return formFields
+}
+
+export const REFRESH_CUSTOM_FROM_CONFIG_HOOK = "REFRESH_CustomFormConfigHook1232123123"
+export function CustomFormConfigHook(formFields: { [key: string]: any }, formName: string) {
+  const [formFieldConfig, setFormFieldConfig] = useState<{ [key: string]: any }>({})
+  useEffect(() => {
+    eventBus.subscribe(REFRESH_CUSTOM_FROM_CONFIG_HOOK, () => {
+      getUserFormMetaConfig(formName)
+        .then((x) => customFormConfigProcessor(formFields, x))
+        .then(setFormFieldConfig)
+    })
+    eventBus.publish(REFRESH_CUSTOM_FROM_CONFIG_HOOK)
+    return () => {
+      eventBus.unsubscribe(REFRESH_CUSTOM_FROM_CONFIG_HOOK)
+    }
+  }, [formFields, formName])
+  return formFieldConfig
 }

@@ -46,6 +46,7 @@ export default function PersonBasicForm(props: IPersonFormProps) {
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
+    params["oca"] = props.initialFormValue.oca
 
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = pushPerson
 

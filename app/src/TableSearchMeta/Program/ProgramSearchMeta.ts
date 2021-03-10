@@ -39,7 +39,7 @@ export const ProgramSearchMeta: IField[] = [
     inputType: DROPDOWN,
     fieldName: "departmentID",
     refLookupService: getOrganizations,
-    displayKey: "Description",
+    displayKey: "Name",
     valueKey: "OrganizationID"
   }
 ]

@@ -5,6 +5,7 @@ export const config = {
   Service: "programApplicationService",
   Module: "hir",
   Actions: {
+    attachDocument: "attachDocument",
     changeApplicationStatusWithEvent: "changeApplicationStatusWithEvent"
   }
 }

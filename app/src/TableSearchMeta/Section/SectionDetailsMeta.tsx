@@ -19,7 +19,7 @@ import { getSectionProductTableColumns } from "~/TableSearchMeta/SectionProduct/
 import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
 import { getRequestTableColumns } from "~/TableSearchMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntryTableColumns"
-import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/FormModal"
+import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/WaitlistEntryCreateEditFormModal"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
 import { getGeneralCommentTableColumns } from "~/TableSearchMeta/SectionComment/GeneralCommentTableColumns"
