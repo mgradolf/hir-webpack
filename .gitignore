@@ -6,3 +6,5 @@ lib/**/*
 **/src/**/*.js
 build
 *.log
+
+script/config-generator/Config/**/*
