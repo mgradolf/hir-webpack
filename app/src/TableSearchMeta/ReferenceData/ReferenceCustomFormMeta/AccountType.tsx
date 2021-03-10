@@ -5,7 +5,7 @@ import { BOOLEAN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 import Modal from "~/Component/Common/Modal/index2"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { RemoveRefButton, UpdateRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButtons"
-import { getSystemEvents } from "~/ApiServices/Service/RefLookupService"
+import { getSystemEvent } from "~/ApiServices/Service/RefLookupService"
 import { createorUpdateMultipleAccountEmail } from "~/ApiServices/BizApi/account/accountIF"
 
 const SetupEmailButton = (props: { accountType: { [key: string]: any } }) => {
@@ -16,7 +16,7 @@ const SetupEmailButton = (props: { accountType: { [key: string]: any } }) => {
 
   useEffect(() => {
     if (showModal) {
-      getSystemEvents().then((x) => {
+      getSystemEvent().then((x) => {
         if (x.success) setSystemEvents(x.data.filter((item: any) => item.SystemEventSource === "account"))
       })
     }

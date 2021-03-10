@@ -28,6 +28,8 @@ const checkIfFieldParamsAreEmpty = (fieldParams: { [key: string]: any }, default
 export default function StandardReportPage(props: IStandardReportPage) {
   const [downloadUrl, setdownloadUrl] = useState<string>()
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [stopFirstOnApplyChanges, setStopFirstOnApplyChanges] = useState(true)
+
   const openReportInNewTab = (params: { [key: string]: any }) => {
     setErrorMessages([])
 
@@ -79,8 +81,13 @@ export default function StandardReportPage(props: IStandardReportPage) {
           defaultFormValue={props.defaultFormValue}
           applyButtonLabel="Run Report"
           errorMessages={errorMessages}
+          stopProducingQueryParams={true}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
-            openReportInNewTab(newFilterValues)
+            if (stopFirstOnApplyChanges) {
+              setStopFirstOnApplyChanges(false)
+            } else {
+              openReportInNewTab(newFilterValues)
+            }
           }}
         />
       )}

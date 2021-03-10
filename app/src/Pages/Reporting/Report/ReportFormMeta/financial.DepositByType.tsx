@@ -32,7 +32,7 @@ const meta: IField[] = [
     fieldName: "PaymentTypeID",
     rules: [{ required: true, message: "Deposit Type is Required" }],
     refLookupService: getPaymentTypes,
-    displayKey: "PaymentSchemaName",
+    displayKey: "PaymentAcceptedName",
     valueKey: "PaymentTypeID"
   }
 ]

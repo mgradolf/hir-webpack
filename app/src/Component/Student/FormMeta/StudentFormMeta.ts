@@ -1,12 +1,7 @@
-import { DATE_PICKER, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { DATE_PICKER, DROPDOWN, IField } from "~/Component/Common/Form/common"
 import { getOrganizations, getAcademicStandingType, getStudentStatusCode } from "~/ApiServices/Service/RefLookupService"
 
 export const StudentFormMeta: IField[] = [
-  {
-    label: "Serial Num",
-    inputType: TEXT,
-    fieldName: "StudentSerialNumber"
-  },
   {
     label: "Organization",
     inputType: DROPDOWN,

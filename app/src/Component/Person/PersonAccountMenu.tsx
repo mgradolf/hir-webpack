@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
 import { eventBus } from "~/utils/EventBus"
-import { PersonAccountFormModal } from "~/Component/Person/PersonAccountFormModal"
+import { PersonAccountFormModal } from "~/Component/Person/Forms/PersonAccountFormModal"
 import { deleteAccountAffiliation } from "~/ApiServices/Service/AccountService"
 
 interface IPersonAccountMenu {

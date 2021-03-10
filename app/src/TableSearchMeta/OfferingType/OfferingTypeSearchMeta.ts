@@ -19,7 +19,7 @@ export const OfferingTypeSearchMeta: IField[] = [
   },
   {
     label: "Department",
-    fieldName: "organizationID",
+    fieldName: "OrganizationID",
     inputType: DROPDOWN,
     refLookupService: getOrganizations,
     displayKey: "Name",

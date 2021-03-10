@@ -1,71 +1,54 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import { getMeetings } from "~/ApiServices/Service/SectionService"
-import { renderDate, renderTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { Button, Dropdown } from "antd"
+import { findEntitySchedule } from "~/ApiServices/Service/EntityService"
+import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
+import { DownOutlined } from "@ant-design/icons"
+import InstructorScheduleMenu from "~/Component/Instructor/InstructorScheduleMenu"
 
-export const getInstructorScheduleTableColumns = (): ITableConfigProp => {
+export const getInstructorScheduleTableColumns = (PersonID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "Date",
-      dataIndex: "MeetingDate",
-      render: renderDate
+      title: "Start Date/Time",
+      dataIndex: "StartDate",
+      render: renderDateTime
     },
     {
-      title: "Start",
-      dataIndex: "StartTime",
-      render: renderTime
+      title: "End Date/Time",
+      dataIndex: "EndDate",
+      render: renderDateTime
     },
     {
-      title: "End",
-      dataIndex: "EndTime",
-      render: renderTime
+      title: "Name",
+      dataIndex: "Name"
     },
     {
-      title: "Meeting Type",
-      dataIndex: "MeetingTypeName"
-    },
-    {
-      title: "Section Number",
-      dataIndex: "SectionNumber",
-      render: (text: any, record: any) => <Link to={`/section/${record.SectionID}`}>{text}</Link>
-    },
-    {
-      title: "Offering Name",
-      dataIndex: "OfferingName",
-      render: (text: any, record: any) => <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
+      title: "Description",
+      dataIndex: "Description"
     },
     {
       title: "Location",
-      dataIndex: "LocationSummary",
-      render: (text: any, record: any) => {
-        if (Array.isArray(record.Locations) && record.Locations.length > 0) {
-          if (record.Locations[0].RoomID) return <Link to={`/room/${record.Locations[0].RoomID}`}>{text}</Link>
-          else if (record.Locations[0].BuildingID)
-            return <Link to={`/building/${record.Locations[0].BuildingID}`}>{text}</Link>
-          else if (record.Locations[0].SiteID) return <Link to={`/site/${record.Locations[0].SiteID}`}>{text}</Link>
-        }
-        return null
-      }
+      dataIndex: "Location"
     },
     {
-      title: "Instructor",
-      dataIndex: "InstructorSummary",
-      render: (text: any, record: any) => (
-        <ul>
-          {record.Instructors.map((x: any, i: number) => {
-            return (
-              <li key={i}>
-                <Link to={`/person/faculty/${x.FacultyID}`}>{x.Instructor}</Link>
-              </li>
-            )
-          })}
-        </ul>
+      title: "Action",
+      key: "action",
+      render: (record: any) => (
+        <Dropdown overlay={<InstructorScheduleMenu initialData={{ ...record, PersonID }} />} trigger={["click"]}>
+          <Button type="primary" onClick={(e) => e.preventDefault()}>
+            Go To <DownOutlined />
+          </Button>
+        </Dropdown>
       )
     }
   ]
 
   const responsiveColumnIndices: number[] = []
   const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getMeetings }
+  return {
+    columns,
+    responsiveColumnIndices,
+    expandableColumnIndices,
+    searchFunc: () => findEntitySchedule({ PersonID })
+  }
 }

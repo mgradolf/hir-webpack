@@ -69,6 +69,10 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           [props.fieldName]: items[0][props.valueField]
         })
       }
+
+      if (props.onSelectedItems) {
+        props.onSelectedItems(items)
+      }
     }
     setShowModal(false)
   }

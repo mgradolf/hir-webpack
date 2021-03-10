@@ -13,9 +13,11 @@ import { eventBus } from "~/utils/EventBus"
 export async function login(UserName: string, UserPassword: string): Promise<IApiResponse> {
   const response = await loginService(UserName, UserPassword)
   if (response && response.success) {
-    store.dispatch(showLoginModal({ value: false }))
-    store.dispatch(setRedirectToLogin(false))
-    eventBus.publishSimilarEvents(/REFRESH.*/i)
+    setTimeout(() => {
+      store.dispatch(showLoginModal({ value: false }))
+      store.dispatch(setRedirectToLogin(false))
+      eventBus.publishSimilarEvents(/REFRESH.*/i)
+    }, 0)
   }
   return response
 }

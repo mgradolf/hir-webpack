@@ -1,5 +1,7 @@
+import moment from "moment"
 import { DATE_PICKERS, IField, TEXT } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
   {
@@ -18,7 +20,11 @@ const meta: IField[] = [
 ]
 
 const reportMeta: IReportMeta = {
-  meta
+  meta,
+  initialFormValue: {
+    SectionAStartDate: "",
+    SectionEndDate: moment().format(DATE_FORMAT)
+  }
 }
 
 export default reportMeta

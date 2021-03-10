@@ -37,25 +37,19 @@ export const FormMeta: IField[] = [
     label: "GL Account",
     fieldName: "GLAccountID",
     inputType: DROPDOWN,
-    refLookupService: getGLAccountTypes
+    refLookupService: getGLAccountTypes,
+    displayKey: "Name",
+    valueKey: "ID"
   },
   {
     label: "Require Reference No",
     fieldName: "RequireReferenceNo",
-    inputType: DROPDOWN,
-    options: [
-      { label: "Yes", value: true },
-      { label: "No", value: false }
-    ]
+    inputType: BOOLEAN
   },
   {
     label: "Internal Only",
     fieldName: "IsInternalOnly",
-    inputType: DROPDOWN,
-    options: [
-      { label: "Yes", value: true },
-      { label: "No", value: false }
-    ]
+    inputType: BOOLEAN
   }
 ]
 

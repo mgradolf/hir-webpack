@@ -13,7 +13,7 @@ export const FormMeta: IField[] = [
     inputType: TEXT
   },
   {
-    label: "IPDES Code",
+    label: "IPEDS Code",
     fieldName: "IPEDSCode",
     inputType: TEXT
   },
@@ -35,7 +35,7 @@ export const columns: TableColumnType = [
   },
   { title: "Name", dataIndex: "Name" },
   { title: "Description", dataIndex: "Description" },
-  { title: "IPDES Code", dataIndex: "IPEDSCode" },
+  { title: "IPEDS Code", dataIndex: "IPEDSCode" },
   { title: "SortPosition", dataIndex: "SortPosition" },
   { title: "Is Active", dataIndex: "IsActive", render: renderBoolean }
 ]

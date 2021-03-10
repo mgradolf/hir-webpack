@@ -1,9 +1,11 @@
+import moment from "moment"
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, NUMBER, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
   {
@@ -53,6 +55,10 @@ const reportMeta: IReportMeta = {
   mapping: {
     OrderDateFrom: "OrderDateFrom_DisplayOnly",
     OrderDateTo: "OrderDateTo_DisplayOnly"
+  },
+  initialFormValue: {
+    OrderDateFrom: "",
+    OrderDateTo: moment().format(DATE_FORMAT)
   }
 }
 

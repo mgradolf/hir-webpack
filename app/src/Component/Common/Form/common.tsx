@@ -32,6 +32,7 @@ export type IFieldType =
 export interface IField {
   label: string
   inputType: IFieldType
+  sortOrder?: number
   hidden?: boolean
   placeholder?: string
   disabled?: boolean
@@ -58,6 +59,7 @@ export interface IField {
   help?: string
   labelColSpan?: number
   wrapperColSpan?: number
+  onSelectedItems?: (items: any) => void
 }
 
 export interface IGeneratedField extends Omit<IField, "inputType"> {

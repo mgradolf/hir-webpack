@@ -194,9 +194,11 @@ export const INVITE_TO_SETUP_WEB_LOGIN = "Invite to setup web login done!"
 export const INVITE_TO_RESET_PASSWORD = "Invite to reset password done!"
 export const UNLOCK_WEB_LOGIN = "Unlock person login done!"
 
+export const MERGE_SUCCESSFULLY = "Successfully merged!"
 export const SAVE_SUCCESSFULLY = "Successfully saved!"
 export const DELETE_SUCCESSFULLY = "Successfully deleted!"
 export const REQUEST_SUCCESSFULLY = "Successfully requested!"
+export const CREATE_SUCCESSFULLY = "Successfully created!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
 

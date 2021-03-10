@@ -17,7 +17,8 @@ const fieldNames: IPersonBasicFieldNames = {
   Suffix: "Suffix",
   MiddleName: "MiddleName",
   MaidenName: "MaidenName",
-  OtherName: "OtherName"
+  OtherName: "OtherName",
+  IsConfidential: "IsConfidential"
 }
 
 function PersonBasicFormModal(props: IPersonBasicFormModalProps) {
@@ -43,7 +44,7 @@ export const BasicFormModalOpenButton = (props: { personData: { [key: string]: a
   return (
     <>
       {setShowModal && (
-        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
           Edit
         </Button>
       )}

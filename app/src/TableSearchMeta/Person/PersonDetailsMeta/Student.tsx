@@ -34,7 +34,7 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
   return (
     <>
       {setShowModal && (
-        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
           Edit
         </Button>
       )}

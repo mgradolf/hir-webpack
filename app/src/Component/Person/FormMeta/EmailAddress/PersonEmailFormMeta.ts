@@ -15,12 +15,21 @@ export const PersonEmailFormMeta: IField[] = [
     label: "Email Address",
     inputType: TEXT,
     fieldName: "EmailAddress",
-    rules: [{ required: true, message: "Please enter email address!" }]
+    rules: [{ required: true, message: "Please enter valid email address!", type: "email" }]
   },
   {
     label: "Email address is private",
     inputType: DROPDOWN,
     fieldName: "IsConfidential",
+    options: [
+      { label: "Yes", value: true },
+      { label: "No", value: false }
+    ]
+  },
+  {
+    label: "Preferred",
+    inputType: DROPDOWN,
+    fieldName: "IsPreferred",
     options: [
       { label: "Yes", value: true },
       { label: "No", value: false }

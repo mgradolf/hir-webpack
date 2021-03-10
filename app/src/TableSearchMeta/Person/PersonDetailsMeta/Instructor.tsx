@@ -23,7 +23,7 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
   return (
     <>
       {setShowModal && (
-        <Button type="ghost" onClick={() => setShowModal && setShowModal(true)}>
+        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
           Edit
         </Button>
       )}
@@ -106,7 +106,8 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       blocks: [<ScheduleFormModalOpenButton PersonID={instructor.PersonID} />],
       tableProps: {
-        ...getInstructorScheduleTableColumns(),
+        pagination: false,
+        ...getInstructorScheduleTableColumns(instructor.PersonID),
         searchParams: { PersonID: person.PersonID },
         refreshEventName: "REFRESH_FACULTY_SCHEDULE_TAB"
       }
