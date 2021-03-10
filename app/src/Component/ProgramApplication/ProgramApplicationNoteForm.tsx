@@ -27,15 +27,18 @@ export default function ProgramApplicationNoteForm(props: IApplicationNoteFormPr
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
-    type serviceMethodType = (params: Array<any>) => Promise<IApiResponse>
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
 
-    let param: Array<any> = []
+    const param: { [key: string]: any } = {}
     let serviceMethoToCall: serviceMethodType
     if (props.ProgramAdmReqID) {
-      param = [props.ProgramAppID, props.ProgramAdmReqID, params["CommentText"]]
+      param["ProgramAppID"] = props.ProgramAppID
+      param["ProgramAdmReqID"] = props.ProgramAdmReqID
+      param["Comment"] = params["CommentText"]
       serviceMethoToCall = addProgramAdmReqComment
     } else {
-      param = [props.ProgramAppID, params["CommentText"]]
+      param["ProgramAppID"] = props.ProgramAppID
+      param["Comment"] = params["CommentText"]
       serviceMethoToCall = addApplicationComment
     }
 
@@ -73,7 +76,12 @@ export default function ProgramApplicationNoteForm(props: IApplicationNoteFormPr
           />
         </Form.Item>
 
-        <Form.Item label="Comment" {...layout} name={props.fieldNames.CommentText} required>
+        <Form.Item
+          label="Comment"
+          {...layout}
+          name={props.fieldNames.CommentText}
+          rules={[{ required: true, message: "Please enter comment!" }]}
+        >
           <Input.TextArea rows={4} aria-label="Comment" />
         </Form.Item>
       </Form>

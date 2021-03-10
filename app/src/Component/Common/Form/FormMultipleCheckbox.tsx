@@ -47,7 +47,12 @@ export function FormMultipleCheckbox(props: IGeneratedField & { onChangeCallback
 
   return (
     <SearchFieldWrapper {...props}>
-      <Checkbox.Group style={{ width: "100%" }} disabled={props.disabled} aria-label={props.ariaLabel}>
+      <Checkbox.Group
+        style={{ width: "100%" }}
+        onChange={props.onChangeCallback}
+        disabled={props.disabled}
+        aria-label={props.ariaLabel}
+      >
         <div style={{ border: "1px solid lightgray", padding: "5px" }}>
           <Row>
             {!loading &&

@@ -49,3 +49,20 @@ export function createorUpdateMultipleAccountEmail(
 ): Promise<IApiResponse> {
   return AccountIf[config.Actions.createorUpdateMultipleAccountEmail]([Params], Headers)
 }
+
+export function setPrimaryAccountAffiliation(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountIf[config.Actions.setPrimaryAccountAffiliation](
+    [Params.AccountID, Params.AccountAffiliationID],
+    Headers
+  )
+}
+
+export function removePrimaryAccountAffiliation(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AccountIf[config.Actions.removePrimaryAccountAffiliation]([Params.AccountID], Headers)
+}

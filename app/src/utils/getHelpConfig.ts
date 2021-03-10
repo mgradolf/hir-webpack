@@ -10,7 +10,7 @@ export interface IHelpConfig {
 }
 
 export const getHelpConfig = (): Promise<IHelpConfig> => {
-  const url = "/webconfig/MConfig/Help/HelpConfig.json"
+  const url = "/webconfig/Config/Help/HelpConfig.json"
   return axios
     .request({ baseURL, url })
     .then((x) => {

@@ -11,7 +11,7 @@ import {
 } from "~/ApiServices/Service/PersonService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderDateTime, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { AddressFormModalOpenButton } from "~/Component/Person/Forms/PersonAddressFormModal"
 import { BasicFormModalOpenButton } from "~/Component/Person/Forms/PersonBasicFormModal"
 import { PersonLoginAction } from "~/Component/Person/PersonLoginAction"
@@ -35,8 +35,26 @@ import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDriv
 import { AccountRelationFormModalOpenButton } from "~/Component/Person/Forms/PersonAccountFormModal"
 import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/Buttons/EditDeleteButtonComboOnTableRow"
 import { PersonAddressFormMeta } from "~/Component/Person/FormMeta/Address/PersonAddressFormMeta"
+import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
+import { CardContents } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 
-export const getProfileMeta = (person: any, disabilities: any, account: any): IDetailsTabMeta[] => {
+export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
+  const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
+    const content: CardContents[] = []
+    profileQuestionData.map((profileQuestion: any) => {
+      content.push({
+        label: profileQuestion.Name,
+        value: profileQuestion.Response
+      })
+      return content
+    })
+
+    return {
+      title: "Profile Question Responses",
+      contents: content
+    }
+  }
+
   const tabMetas: IDetailsTabMeta[] = []
   const personalInfo1: CardContainer = {
     title: "Name",
@@ -113,7 +131,11 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [{ groupedContents: [personalInfo1, personalInfo3] }, { groupedContents: [personalInfo2, personalInfo4] }]
+    summary: [
+      { groupedContents: [personalInfo1, personalInfo3] },
+      { groupedContents: [personalInfo2, personalInfo4] },
+      profileQuestion(profileQuestions)
+    ]
   }
   tabMetas.push({ tabTitle: "Demographic", tabType: "summary", tabMeta: summaryMeta })
 
@@ -259,12 +281,12 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       {
         label: "Password Expiration",
         value: person?.Login?.ValidUntil,
-        render: person?.Login?.ValidUntil ? renderDate : undefined
+        render: person?.Login?.ValidUntil ? renderDateTime : undefined
       },
       {
         label: "Locked Until",
         value: person?.Login?.LockedUntil,
-        render: person?.Login?.LockedUntil ? renderDate : undefined
+        render: person?.Login?.LockedUntil ? renderDateTime : undefined
       }
     ]
   }
@@ -294,7 +316,6 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
     tabTitle: "Education History",
     tabType: "table",
     tabMeta: {
-      // blocks: [<EducationHistoryFormModalOpenButton personData={person} />],
       blocks: [
         <MetaDrivenFormModalOpenButton
           formTitle="Add Degree"
@@ -377,7 +398,7 @@ export const getProfileMeta = (person: any, disabilities: any, account: any): ID
       blocks: [<AccountRelationFormModalOpenButton personData={person} />],
       tableProps: {
         ...getPersonAccountTableColumns(),
-        searchParams: { PersonID: person.PersonID },
+        searchParams: { PersonID: person.PersonID, ExceptRoleTypeID: AFF_ROLE_PURCHASER },
         refreshEventName: "REFRESH_CONTACT_TAB",
         pagination: false
       }

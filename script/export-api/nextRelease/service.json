@@ -1,0 +1,525 @@
+[
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "accountService",
+		"Module": "hir",
+		"Actions": {
+			"getAccountAffiliation": "getAccountAffiliation",
+			"getAccountByPurchaserID": "getAccountByPurchaserID",
+			"saveAccountAffiliation": "saveAccountAffiliation",
+			"saveAccountRelation": "saveAccountRelation",
+			"pushAccount": "pushAccount",
+			"pushAccountAffiliation": "pushAccountAffiliation",
+			"deleteAccountAffiliation": "deleteAccountAffiliation",
+			"getOrCreateAccountForPurchaser": "getOrCreateAccountForPurchaser"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "ActivityService",
+		"Module": "hir",
+		"Actions": {
+			"getStudentAcademicActivity": "getStudentAcademicActivity",
+			"getStudentEnrollmentActivity": "getStudentEnrollmentActivity",
+			"getOrderActivity": "getOrderActivity",
+			"getCreditMemoActivity": "getCreditMemoActivity",
+			"getPaymentActivity": "getPaymentActivity",
+			"getSystemSchedules": "getSystemSchedules"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "AnonymizationRequestService",
+		"Module": "hir",
+		"Actions": {
+			"createAnonymizationRequest": "createAnonymizationRequest",
+			"cancelAnonymizeRequest": "cancelAnonymizeRequest",
+			"getAnonymizeRequests": "getAnonymizeRequests"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "BatchImportService",
+		"Module": "hir",
+		"Actions": {
+			"getBatchTypes": "getBatchTypes",
+			"getStateTypes": "getStateTypes"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "BatchService",
+		"Module": "batchimport",
+		"Actions": {
+			"findBatches": "findBatches"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "budgetAnalysisService",
+		"Module": "hir",
+		"Actions": {
+			"analyzeSections": "analyzeSections"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "catalogService",
+		"Module": "hir",
+		"Actions": {
+			"searchCatalogs": "searchCatalogs",
+			"getCatalogContent": "getCatalogContent",
+			"addSectionToCatalog": "addSectionToCatalog",
+			"addOfferingToCatalog": "addOfferingToCatalog",
+			"addProgramToCatalog": "addProgramToCatalog",
+			"removeSectionFromCatalog": "removeSectionFromCatalog",
+			"removeOfferingFromCatalog": "removeOfferingFromCatalog",
+			"removeProgramFromCatalog": "removeProgramFromCatalog",
+			"swapOfferingsInCatalog": "swapOfferingsInCatalog",
+			"swapSectionsInCatalog": "swapSectionsInCatalog",
+			"swapProgramsInCatalog": "swapProgramsInCatalog"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "commentService",
+		"Module": "hir",
+		"Actions": {
+			"addStudentComment": "addStudentComment",
+			"addFacultyComment": "addFacultyComment",
+			"addEnrollmentComment": "addEnrollmentComment",
+			"addSectionComment": "addSectionComment",
+			"addSectionFacultyComment": "addSectionFacultyComment",
+			"findStudentComments": "findStudentComments",
+			"findFacultyComments": "findFacultyComments",
+			"findEnrollmentComments": "findEnrollmentComments",
+			"findSectionComments": "findSectionComments",
+			"findSectionFacultyComments": "findSectionFacultyComments",
+			"deleteStudentComment": "deleteStudentComment",
+			"deleteFacultyComment": "deleteFacultyComment",
+			"deleteEnrollmentComment": "deleteEnrollmentComment",
+			"deleteSectionComment": "deleteSectionComment",
+			"deleteSectionFacultyComment": "deleteSectionFacultyComment"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "EntityService",
+		"Module": "hir",
+		"Actions": {
+			"getEntity": "getEntity",
+			"removeEntity": "removeEntity",
+			"findEntitySchedule": "findEntitySchedule"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "FinancialService",
+		"Module": "hir",
+		"Actions": {
+			"createFinancial": "createFinancial",
+			"updateFinancial": "updateFinancial",
+			"deleteFinancial": "deleteFinancial",
+			"searchFinancials": "searchFinancials",
+			"searchResourceItem": "searchResourceItem",
+			"searchMarketingProgram": "searchMarketingProgram",
+			"searchDiscountProgram": "searchDiscountProgram"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "HRUserService",
+		"Module": "hir",
+		"Actions": {
+			"getAllUsers": "getAllUsers",
+			"getUserByUserLogin": "getUserByUserLogin",
+			"getUsersByRole": "getUsersByRole",
+			"getLoggedInUser": "getLoggedInUser",
+			"getUserByUserID": "getUserByUserID"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "instructorService",
+		"Module": "hir",
+		"Actions": {
+			"pushInstructor": "pushInstructor",
+			"removeInstructor": "removeInstructor",
+			"pushInstructorSchedule": "pushInstructorSchedule",
+			"addInstructorToOffering": "addInstructorToOffering",
+			"removeInstructorFromOffering": "removeInstructorFromOffering",
+			"searchSectionInstructor": "searchSectionInstructor",
+			"searchInstructorOfferings": "searchInstructorOfferings"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "mailService",
+		"Module": "hir",
+		"Actions": {
+			"sendEmail": "sendEmail",
+			"sendRegistrationConfirmationEmail": "sendRegistrationConfirmationEmail"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "marketingService",
+		"Module": "hir",
+		"Actions": {
+			"searchMarketingCodes": "searchMarketingCodes",
+			"searchMarketingCodeResponses": "searchMarketingCodeResponses",
+			"getMarketingCategory": "getMarketingCategory"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "MembershipService",
+		"Module": "hir",
+		"Actions": {
+			"getMembershipCollection": "getMembershipCollection"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "MergeService",
+		"Module": "hir",
+		"Actions": {
+			"analyze": "analyze",
+			"merge": "merge"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "OfferingService",
+		"Module": "hir",
+		"Actions": {
+			"createOffering": "createOffering",
+			"updateOffering": "updateOffering",
+			"searchOffering": "searchOffering",
+			"addOrRemoveOfferingToCatalog": "addOrRemoveOfferingToCatalog",
+			"createOfferingFinancial": "createOfferingFinancial",
+			"updateOfferingFinancial": "updateOfferingFinancial",
+			"searchOfferingFinancial": "searchOfferingFinancial",
+			"getOfferngApprovalHist": "getOfferngApprovalHist",
+			"setApprovalStatus": "setApprovalStatus",
+			"getOfferngApprovalStateList": "getOfferngApprovalStateList",
+			"getOfferingApprovalSendToList": "getOfferingApprovalSendToList",
+			"getRequisiteOfferingGroup": "getRequisiteOfferingGroup",
+			"getGroupOfferings": "getGroupOfferings",
+			"createRequisiteOfferingGroup": "createRequisiteOfferingGroup",
+			"updateRequisiteOfferingGroup": "updateRequisiteOfferingGroup",
+			"getQualifiedInstructors": "getQualifiedInstructors",
+			"updateInstructors": "updateInstructors",
+			"createSection": "createSection"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "orderService",
+		"Module": "hir",
+		"Actions": {
+			"searchOrders": "searchOrders",
+			"getOrderItems": "getOrderItems",
+			"getOrderDetails": "getOrderDetails",
+			"getOrderLines": "getOrderLines",
+			"getOrderItemsLit": "getOrderItemsLit",
+			"getPayments": "getPayments",
+			"getCredits": "getCredits",
+			"getReturnItems": "getReturnItems",
+			"getPurchaseOrder": "getPurchaseOrder",
+			"getCreditMemoDataByOrderItemID": "getCreditMemoDataByOrderItemID",
+			"applyReturnItem": "applyReturnItem",
+			"applyIssueCredit": "applyIssueCredit",
+			"getAvailableDiscountByOrderItemID": "getAvailableDiscountByOrderItemID",
+			"grantDiscountProgram": "grantDiscountProgram",
+			"getPurchaseOrders": "getPurchaseOrders"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "packageService",
+		"Module": "hir",
+		"Actions": {
+			"findPackages": "findPackages"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "PaymentGatewayService",
+		"Module": "hir",
+		"Actions": {
+			"findPaymentGatewayActivities": "findPaymentGatewayActivities"
+		}
+	},
+	null,
+	null,
+	null,
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "personService",
+		"Module": "hir",
+		"Actions": {
+			"createPersonRecordInRoles": "createPersonRecordInRoles",
+			"getPersonDetails": "getPersonDetails",
+			"setupWebLogin": "setupWebLogin",
+			"getPersonLogin": "getPersonLogin",
+			"getRegions": "getRegions",
+			"pushPerson": "pushPerson",
+			"removePerson": "removePerson",
+			"getDegreeProgram": "getDegreeProgram",
+			"removePersonEducationHistory": "removePersonEducationHistory",
+			"updatePersonEducationHistory": "updatePersonEducationHistory",
+			"createPersonEducationHistory": "createPersonEducationHistory",
+			"findPersonEducationHist": "findPersonEducationHist",
+			"getPersonDisabilities": "getPersonDisabilities",
+			"savePersonDisabilities": "savePersonDisabilities",
+			"getFacultySchedule": "getFacultySchedule"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "productService",
+		"Module": "hir",
+		"Actions": {
+			"searchProducts": "searchProducts",
+			"getProductFinancials": "getProductFinancials"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "programApplicationService",
+		"Module": "hir",
+		"Actions": {
+			"changeApplicationStatusWithEvent": "changeApplicationStatusWithEvent"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "QuestionService",
+		"Module": "hir",
+		"Actions": {
+			"getTagQuestions": "getTagQuestions",
+			"searchQuestions": "searchQuestions",
+			"createQuestion": "createQuestion",
+			"addTagQuestions": "addTagQuestions",
+			"UpdateTagQuestions": "UpdateTagQuestions",
+			"removeTagQuestions": "removeTagQuestions",
+			"searchQuestionResponse": "searchQuestionResponse",
+			"saveTagAnswer": "saveTagAnswer",
+			"saveTagAnswers": "saveTagAnswers",
+			"updateTagQuestion": "updateTagQuestion"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "RefLookupService",
+		"Module": "hir",
+		"Actions": {
+			"getList": "getList",
+			"createRefRecord": "createRefRecord",
+			"getRefRecord": "getRefRecord",
+			"removeRefRecord": "removeRefRecord",
+			"updateRefRecord": "updateRefRecord"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "registrationService",
+		"Module": "hir",
+		"Actions": {
+			"findRegistrations": "findRegistrations",
+			"findRegistrationsWebAdmin": "findRegistrationsWebAdmin",
+			"findRegistrationDetail": "findRegistrationDetail",
+			"getCreditMemoData": "getCreditMemoData",
+			"findGradeScoreDefinition": "findGradeScoreDefinition",
+			"dropWithdrawRegistration": "dropWithdrawRegistration",
+			"dropOrWithdrawRegistration": "dropOrWithdrawRegistration",
+			"deleteRegistration": "deleteRegistration",
+			"editRegistration": "editRegistration",
+			"getGradeDefinitionDetails": "getGradeDefinitionDetails",
+			"saveFinalGrade": "saveFinalGrade",
+			"searchNoShowProcessings": "searchNoShowProcessings",
+			"bulkDropRegistration": "bulkDropRegistration",
+			"bulkDeleteRegistration": "bulkDeleteRegistration",
+			"validateRegistration": "validateRegistration",
+			"checkCertificate": "checkCertificate",
+			"issueCertificate": "issueCertificate",
+			"searchCertificate": "searchCertificate",
+			"previewCertificate": "previewCertificate"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "ReportService",
+		"Module": "hir",
+		"Actions": {
+			"getReportList": "getReportList",
+			"getReportByReportName": "getReportByReportName"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "requestActivityService",
+		"Module": "hir",
+		"Actions": {
+			"bulkUpdate": "bulkUpdate",
+			"extendExpirationDate": "extendExpirationDate",
+			"makeExternalPayment": "makeExternalPayment",
+			"findPublishedAndActiveQuestionsWithOptions": "findPublishedAndActiveQuestionsWithOptions"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "requestService",
+		"Module": "requestmodel",
+		"Actions": {
+			"retry": "retry",
+			"cancel": "cancel"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "requestService",
+		"Module": "hir",
+		"Actions": {
+			"getLiteRequests": "getLiteRequests",
+			"readRequestForStaff": "readRequestForStaff",
+			"getEnumValues": "getEnumValues"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "SeatGroupService",
+		"Module": "hir",
+		"Actions": {
+			"addAccount": "addAccount",
+			"removeAccount": "removeAccount",
+			"addFinancial": "addFinancial",
+			"removeFinancial": "removeFinancial",
+			"attachProgram": "attachProgram",
+			"detachProgram": "detachProgram",
+			"findSeatGroups": "findSeatGroups",
+			"getSeatGroupDetails": "getSeatGroupDetails",
+			"getSeatGroups": "getSeatGroups",
+			"createSeatGroup": "createSeatGroup",
+			"updateSeatGroup": "updateSeatGroup",
+			"removeSeatGroup": "removeSeatGroup",
+			"saveAffiliatedOrg": "saveAffiliatedOrg",
+			"findAffiliatedOrgsForSeatGroup": "findAffiliatedOrgsForSeatGroup",
+			"findAvailableAffiliatedOrgs": "findAvailableAffiliatedOrgs"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "SectionService",
+		"Module": "hir",
+		"Actions": {
+			"addOfferingFinancials": "addOfferingFinancials",
+			"addInstructorFinancials": "addInstructorFinancials",
+			"addMarketingProgramFinancials": "addMarketingProgramFinancials",
+			"addResourceFinancials": "addResourceFinancials",
+			"addSectionDiscount": "addSectionDiscount",
+			"getSectionDetails": "getSectionDetails",
+			"getSectionStatistics": "getSectionStatistics",
+			"findAffiliatedOrgsForSeatGroup": "findAffiliatedOrgsForSeatGroup",
+			"getPaymentGatewayAccount": "getPaymentGatewayAccount",
+			"getSeatGroupsBySection": "getSeatGroupsBySection",
+			"getCoordinator": "getCoordinator",
+			"updateSection": "updateSection",
+			"saveAffiliatedOrg": "saveAffiliatedOrg",
+			"updateSectionNotification": "updateSectionNotification",
+			"SectionNoticeID": "SectionNoticeID",
+			"findSectionNoticeRecipients": "findSectionNoticeRecipients",
+			"updateSectionFinancialMaps": "updateSectionFinancialMaps",
+			"copySection": "copySection",
+			"getMeetings": "getMeetings",
+			"createMeetings": "createMeetings",
+			"saveMeetings": "saveMeetings",
+			"saveFinancial": "saveFinancial",
+			"saveFinancials": "saveFinancials",
+			"getSectionFinancials": "getSectionFinancials",
+			"saveSectionNotification": "saveSectionNotification",
+			"getSectionNotifications": "getSectionNotifications",
+			"saveSectionDiscount": "saveSectionDiscount",
+			"removeSectionDiscounts": "removeSectionDiscounts",
+			"getSectionDiscounts": "getSectionDiscounts",
+			"getAvailableDiscountPrograms": "getAvailableDiscountPrograms",
+			"getAvailableOfferingFinancials": "getAvailableOfferingFinancials",
+			"getAvailableFacultyWithFinancials": "getAvailableFacultyWithFinancials",
+			"getAvailableResourcesWithFinancials": "getAvailableResourcesWithFinancials",
+			"getAvailableMarketingProgramsWithFinancials": "getAvailableMarketingProgramsWithFinancials",
+			"removeFinancials": "removeFinancials",
+			"removeMeetings": "removeMeetings",
+			"removeLocations": "removeLocations",
+			"removeInstructors": "removeInstructors",
+			"removeMeetingInformations": "removeMeetingInformations",
+			"findRoom": "findRoom",
+			"saveLocations": "saveLocations",
+			"saveGeneralComment": "saveGeneralComment",
+			"saveFacultyComment": "saveFacultyComment",
+			"saveEnrollmentComment": "saveEnrollmentComment",
+			"findGeneralCommentHistory": "findGeneralCommentHistory",
+			"findFacultyComments": "findFacultyComments",
+			"findEnrollmentCommentHistory": "findEnrollmentCommentHistory",
+			"findFaculty": "findFaculty",
+			"findEnrollmentStudentHistory": "findEnrollmentStudentHistory",
+			"scheduleInstructor": "scheduleInstructor",
+			"saveMeetingInformations": "saveMeetingInformations"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "studentService",
+		"Module": "hir",
+		"Actions": {
+			"pushStudent": "pushStudent",
+			"removeStudent": "removeStudent",
+			"createUpdateStudentHold": "createUpdateStudentHold",
+			"releaseStudentHold": "releaseStudentHold",
+			"searchStudentSchedule": "searchStudentSchedule",
+			"searchOnlineClasses": "searchOnlineClasses"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "TagService",
+		"Module": "hir",
+		"Actions": {
+			"getTags": "getTags",
+			"getParentTags": "getParentTags",
+			"addTagIntoEntity": "addTagIntoEntity",
+			"removeTagFromEntity": "removeTagFromEntity",
+			"findTagContent": "findTagContent"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "transactionService",
+		"Module": "hir",
+		"Actions": {
+			"getBaseTransactionTypes": "getBaseTransactionTypes",
+			"getTransactionTypes": "getTransactionTypes",
+			"searchTransactions": "searchTransactions"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "userService",
+		"Module": "hir",
+		"Actions": {
+			"findAllUsers": "findAllUsers",
+			"findUser": "findUser",
+			"saveUser": "saveUser",
+			"findAllUserRoles": "findAllUserRoles"
+		}
+	},
+	{
+		"EndPoint": "api/hirServlet",
+		"Service": "waitListEntry",
+		"Module": "hir",
+		"Actions": {
+			"saveWaitListEntry": "saveWaitListEntry",
+			"deleteWaitListEntry": "deleteWaitListEntry"
+		}
+	}
+]

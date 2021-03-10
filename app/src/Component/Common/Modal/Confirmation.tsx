@@ -29,3 +29,30 @@ export const showDeleteConfirm = (
     }
   })
 }
+
+export const showConfirm = (
+  confirm: () => Promise<IApiResponse>,
+  success = "Successfull",
+  error = "Unsuccessfull",
+  title = "Are you sure to do this?",
+  warningText = ""
+) => {
+  Modal.confirm({
+    title: title,
+    icon: <ExclamationCircleOutlined />,
+    content: warningText,
+    okText: "Yes",
+    okType: "danger",
+    cancelText: "No",
+    onOk() {
+      confirm().then((result: any) => {
+        result.success
+          ? message.success(success, 2)
+          : message.error(typeof result.error === "string" ? result.error : error, 2)
+      })
+    },
+    onCancel() {
+      console.log("Cancel")
+    }
+  })
+}

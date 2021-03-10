@@ -8,6 +8,13 @@ export function createAnonymizationRequest(
   return AnonymizationRequestService[config.Actions.createAnonymizationRequest](Params, Headers)
 }
 
+export function cancelAnonymizeRequest(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return AnonymizationRequestService[config.Actions.cancelAnonymizeRequest](Params, Headers)
+}
+
 export function getAnonymizeRequests(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
