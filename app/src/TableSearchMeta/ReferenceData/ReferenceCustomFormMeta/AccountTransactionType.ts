@@ -38,7 +38,7 @@ export const FormMeta: IField[] = [
     fieldName: "GLAccountID",
     inputType: DROPDOWN,
     refLookupService: getGLAccountTypes,
-    displayKey: "Name",
+    displayKey: "Description",
     valueKey: "ID"
   },
   {

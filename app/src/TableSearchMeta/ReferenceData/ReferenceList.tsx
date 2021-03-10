@@ -30,7 +30,7 @@ export const ReferenceList: IReferenceList[] = [
   //Unavailable in admin
   { Title: "Address Types", Value: "AddressType", Description: "AddressType is a reflookup for ...", custom: false },
   {
-    Title: "Affiliation Role Type",
+    Title: "Affiliation Role Types Setup",
     Value: "AffiliationRoleType",
     Description: "affiliationroletype is custom a reflookup for ...",
     custom: true
