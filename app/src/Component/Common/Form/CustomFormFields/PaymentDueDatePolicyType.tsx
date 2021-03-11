@@ -23,6 +23,7 @@ export function PaymentDueDatePolicyType(props: IGeneratedField) {
     orderDate: false,
     fixedDate: false
   })
+
   const policyTypeChanged = (value: any) => {
     const __policyType: IPolicyType = { startEndDate: false, orderDate: false, fixedDate: false }
     switch (value) {
@@ -76,7 +77,7 @@ export function PaymentDueDatePolicyType(props: IGeneratedField) {
       )}
       {selectedPolicyType.fixedDate && (
         <Col span={24}>
-          <FormDatePicker label="Date" fieldName="PolicyFixedDueDate" formInstance={props.formInstance} />
+          <FormDatePicker label="Date" fieldName="FixedDueDate" formInstance={props.formInstance} />
         </Col>
       )}
     </Row>
