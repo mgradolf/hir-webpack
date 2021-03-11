@@ -60,11 +60,34 @@ const createNewFilePathString = (oldFilePath) => {
 	return filePath;
 };
 
+const mergeObjects = (obj1, obj2) => {
+	for (key in obj2) {
+		if (!obj1[key]) {
+			obj1[key] = obj2[key];
+		}
+	}
+
+	for (key in obj1) {
+		if (!obj2[key]) {
+			delete obj1[key];
+		}
+	}
+	return obj1;
+};
+
 const createNewFile = (newPath, fileName, content) => {
 	fs.mkdirSync(__dirname + newPath, { recursive: true });
 
 	newPath = path.resolve(newPath, fileName);
 	newPath = __dirname + newPath + ".json";
+	if (fs.existsSync(newPath)) {
+		let previousContent = fs.readFileSync(newPath, {
+			encoding: "utf-8",
+		});
+		previousContent = JSON.parse(previousContent);
+		content = mergeObjects(previousContent, content);
+	}
+
 	fs.writeFileSync(newPath, JSON.stringify(content));
 };
 
