@@ -487,6 +487,10 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/ReferenceDataListPage"))
   },
   {
+    path: "/reference-data/DueDatePolicy",
+    component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/DetailsPages/PaymentDueDatePolicy"))
+  },
+  {
     path: "/reference-data/:refName",
     component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/ReferenceDataPage"))
   },
