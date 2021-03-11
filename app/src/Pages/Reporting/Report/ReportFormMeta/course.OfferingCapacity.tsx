@@ -1,6 +1,6 @@
 import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {

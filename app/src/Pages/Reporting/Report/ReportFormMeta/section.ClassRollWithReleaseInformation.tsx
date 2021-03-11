@@ -1,7 +1,7 @@
 import { CUSTOM_FIELD, IField, DATE_PICKER } from "~/Component/Common/Form/common"
 
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {

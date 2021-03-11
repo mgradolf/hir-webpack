@@ -4,7 +4,7 @@ import { DATE_PICKERS, DROPDOWN, NUMBER, CUSTOM_FIELD, IField } from "~/Componen
 
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [

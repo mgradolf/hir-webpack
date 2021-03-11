@@ -2,7 +2,7 @@
 import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 import { SectionLookupWithScheduleDatePopulate } from "~/Component/Common/Form/CustomFormFields/SectionLookupWithScheduleDatePopulate"
 
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 // import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 // import { DATE_FORMAT } from "~/utils/Constants"
 

@@ -2,7 +2,7 @@ import { getTranscriptTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
 import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {

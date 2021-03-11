@@ -1,27 +1,25 @@
 const fs = require("fs");
 const path = require("path");
 
-// let MarketingProgramSearchMeta = fs.readFileSync(
-// 	"/Users/dsi/workspace/hir-webpack/app/src/TableSearchMeta/Offering/OfferingSearchMeta.ts",
-// 	{ encoding: "utf-8" }
-// );
-// const regex = /fieldName:.*/g;
-// let fileMap = {};
-// while ((match = regex.exec(MarketingProgramSearchMeta)) != null) {
-// 	let foundMatch = match[0];
-// 	if (foundMatch) foundMatch = foundMatch.split('"');
-// 	fileMap[foundMatch[1]] = {};
-// }
-// console.log(fileMap);
+const getAllFiles = function (dirPath, arrayOfFiles) {
+	let files = fs.readdirSync(dirPath);
+	arrayOfFiles = arrayOfFiles || [];
+	files.forEach(function (file) {
+		if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+			arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
+		} else {
+			arrayOfFiles.push(path.join(__dirname, dirPath, "/", file));
+		}
+	});
 
-// let filePath =
-// 	"/Users/dsi/workspace/hir-webpack/app/src/TableSearchMeta/Offering/OfferingSearchMeta.ts";
+	return arrayOfFiles;
+};
 
-filePath = path.resolve(
-	__dirname,
-	"/Config/",
-	"TableSearchMeta/Offering",
-	"Offering.json"
+const rootDirectory = "../../app/src";
+const filePaths = getAllFiles(rootDirectory, []);
+fs.writeFileSync(
+	"configFiles.json",
+	JSON.stringify(
+		filePaths.filter((x) => x.includes("Meta.ts") || x.includes("Meta.tsx"))
+	)
 );
-
-console.log(filePath);

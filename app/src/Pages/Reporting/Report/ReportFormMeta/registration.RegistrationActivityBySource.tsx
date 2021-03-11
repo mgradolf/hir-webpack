@@ -1,6 +1,6 @@
 import { getOrganizations, getSourceModule } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 import moment from "moment"
 import { DATE_FORMAT } from "~/utils/Constants"
 

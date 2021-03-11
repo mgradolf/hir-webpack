@@ -1,5 +1,5 @@
 import { IField, MULTI_SELECT_DROPDOWN } from "~/Component/Common/Form/common"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 import { generateMMDDYY } from "~/utils/MMDDYYGenerator"
 
 const meta: IField[] = [

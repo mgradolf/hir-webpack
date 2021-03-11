@@ -4,7 +4,7 @@ import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLoo
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {
