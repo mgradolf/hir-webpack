@@ -192,7 +192,7 @@ function PersonForm(props: IPersonFormProps) {
   )
 }
 
-export function PersonFormOpenButton(props: { initialValues?: { [key: string]: any } }) {
+export function PersonFormOpenButton(props: { initialValues?: { [key: string]: any }; label?: string }) {
   const [formInstance] = Form.useForm()
   const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -222,7 +222,7 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
   }
   return (
     <CustomFormModalOpenButton
-      formTitle={"Create Person"}
+      formTitle={props.label ? props.label : "Create Person"}
       customForm={<PersonForm editMode={false} formInstance={formInstance} />}
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}
@@ -230,10 +230,13 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
       apiCallInProgress={apiCallInProgress}
       loading={loading}
       errorMessages={errorMessages}
-      buttonLabel="+ Create Person"
+      buttonLabel={`+ ${props.label ? props.label : "Create Person"}`}
       buttonProps={{ type: "primary" }}
       showModal={showModal}
-      setShowModal={(show: boolean) => setShowModal(show)}
+      setShowModal={(show: boolean) => {
+        if (!show) formInstance.resetFields()
+        setShowModal(show)
+      }}
     />
   )
 }

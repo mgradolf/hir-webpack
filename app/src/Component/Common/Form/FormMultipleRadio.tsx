@@ -7,7 +7,7 @@ export function FormMultipleRadio(props: IGeneratedField & { onChangeCallback?: 
   const [options, setOptions] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
 
-  const { refLookupService, displayKey, valueKey } = props
+  const { refLookupService, displayKey, valueKey, fieldName } = props
 
   const loadOptions = () => {
     if (props.options?.length) {
@@ -34,9 +34,7 @@ export function FormMultipleRadio(props: IGeneratedField & { onChangeCallback?: 
     }
   }
   useEffect(() => {
-    const eventName = `REFRESH_SEARCH_DROPDOWN_${
-      (refLookupService || new Date().getTime())?.toString() + displayKey + valueKey
-    }`
+    const eventName = `REFRESH_SEARCH_DROPDOWN_${(refLookupService || new Date().getTime())?.toString() + fieldName}`
     eventBus.subscribe(eventName, loadOptions)
     eventBus.publish(eventName)
     return () => {
@@ -47,7 +45,12 @@ export function FormMultipleRadio(props: IGeneratedField & { onChangeCallback?: 
 
   return (
     <SearchFieldWrapper {...props}>
-      <Radio.Group style={{ width: "100%" }} disabled={props.disabled} aria-label={props.ariaLabel}>
+      <Radio.Group
+        style={{ width: "100%" }}
+        disabled={props.disabled}
+        aria-label={props.ariaLabel}
+        onChange={props.onChangeCallback}
+      >
         <div style={{ border: "1px solid lightgray", padding: "5px" }}>
           <Row>
             {!loading &&

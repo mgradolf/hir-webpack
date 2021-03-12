@@ -1,3 +1,4 @@
+import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
@@ -7,16 +8,37 @@ import {
   REFRESH_PACKAGE_FINANCIAL_PAGE,
   REFRESH_PACKAGE_ORDER_PAGE,
   REFRESH_PACKAGE_REGISTRATION_PAGE,
-  REFRESH_PACKAGE_SEATGROUP_PAGE
+  REFRESH_PACKAGE_SEATGROUP_PAGE,
+  REFRESH_PAGE
 } from "~/utils/EventBus"
 import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getProductFinancialsTableColumns } from "~/TableSearchMeta/ProductFinancialsTableColumns/ProductFinancialsTableColumns"
 import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
+import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
+import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
+import { addPackageFinancial, savePackage } from "~/ApiServices/Service/PackageService"
+import { PackageFinancialFormMeta } from "~/Component/Package/FormMeta/PackageFinancialFormMeta"
 
 export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
     title: "Basic Info",
+    cardActions: [
+      <MetaDrivenFormModalOpenButton
+        formTitle="Update Package"
+        formMeta={PackageFormMeta}
+        formSubmitApi={savePackage}
+        initialFormValue={{
+          ...Package
+        }}
+        buttonLabel="Edit"
+        defaultFormValue={{
+          AccountID: Package.AccountID,
+          PackageID: Package.PackageID
+        }}
+        refreshEventName={REFRESH_PAGE}
+      />
+    ],
     contents: [
       { label: "Description", value: Package.Description },
       { label: "Start Date", value: Package.StartDate, render: renderDate },
@@ -53,6 +75,21 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
   }
 
   const financialMeta: IDetailsTableTabProp = {
+    blocks: [
+      <MetaDrivenFormModalOpenButton
+        formTitle="Financial Setup"
+        formMeta={PackageFinancialFormMeta}
+        formSubmitApi={addPackageFinancial}
+        initialFormValue={{
+          PackageID: Package.PackageID
+        }}
+        buttonLabel="+ Add Financial"
+        defaultFormValue={{
+          PackageID: Package.PackageID
+        }}
+        refreshEventName={REFRESH_PACKAGE_FINANCIAL_PAGE}
+      />
+    ],
     tableProps: {
       pagination: false,
       ...getProductFinancialsTableColumns(),

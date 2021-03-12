@@ -5,7 +5,11 @@ export const config = {
   Service: "packageService",
   Module: "hir",
   Actions: {
-    findPackages: "findPackages"
+    findPackages: "findPackages",
+    savePackage: "savePackage",
+    addPackageFinancial: "addPackageFinancial",
+    removePackageFinancial: "removePackageFinancial",
+    submitBulkOrder: "submitBulkOrder"
   }
 }
 

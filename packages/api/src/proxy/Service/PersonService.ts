@@ -19,7 +19,8 @@ export const config = {
     findPersonEducationHist: "findPersonEducationHist",
     getPersonDisabilities: "getPersonDisabilities",
     savePersonDisabilities: "savePersonDisabilities",
-    getFacultySchedule: "getFacultySchedule"
+    getFacultySchedule: "getFacultySchedule",
+    findPersonsByAccount: "findPersonsByAccount"
   }
 }
 
