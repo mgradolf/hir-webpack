@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Col, Form, Row } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { getRefList } from "~/ApiServices/Service/RefLookupService"
@@ -15,12 +14,13 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { RemoveRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButtons"
 import { PAYMENT_POLICY_TYPE } from "~/utils/Constants"
+import { savePaymentDueDatePolicy, getPaymentDueDatePolicy } from "~/ApiServices/Service/PaymentService"
 
-const getPaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
-  Promise.resolve({ code: 200, success: true, data: {}, error: "" })
+// const getPaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
+//   Promise.resolve({ code: 200, success: true, data: {}, error: "" })
 
-const savePaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
-  Promise.resolve({ code: 200, success: true, data: {}, error: "" })
+// const savePaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
+//   Promise.resolve({ code: 200, success: true, data: {}, error: "" })
 
 interface IPolicyType {
   startEndDate: boolean
@@ -65,7 +65,7 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
           fieldName="IsActive"
           options={[
             { label: "Yes", value: true },
-            { label: "False", value: false }
+            { label: "No", value: false }
           ]}
         />
       </Col>
@@ -125,13 +125,13 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number }) => {
   const [initialValues, setInitialValues] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
-    if (props.ID) {
+    if (props.ID && showModal) {
       setLoading(true)
       getPaymentDueDatePolicy({ ID: props.ID })
-        .then((x) => setInitialValues(x.data))
+        .then((x) => setInitialValues(x.data[0]))
         .finally(() => setLoading(false))
     }
-  }, [props.ID])
+  }, [showModal, props.ID])
 
   const onFormSubmission = () => {
     formInstance.validateFields().then((x) => {
