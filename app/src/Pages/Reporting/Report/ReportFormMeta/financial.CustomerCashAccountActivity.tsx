@@ -3,7 +3,7 @@ import { DATE_PICKERS, CUSTOM_FIELD, IField } from "~/Component/Common/Form/comm
 
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [

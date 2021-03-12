@@ -13,7 +13,7 @@ async function getUserFormMetaConfig(tableName?: string): Promise<{ [key: string
   let userFormMeta: { [key: string]: any } = {}
   if (!tableName) return Promise.resolve({})
   try {
-    const _FormMap = (await axios.request({ baseURL, url: `/webconfig/Config/FormMap.json` })).data
+    const _FormMap = (await axios.request({ baseURL, url: `/webconfig/Config/fileMap.json` })).data
     if (_FormMap && _FormMap[tableName]) {
       userFormMeta = (await axios.request({ baseURL, url: `/webconfig${_FormMap[tableName]}` })).data
       console.log("table user config  ", userFormMeta)

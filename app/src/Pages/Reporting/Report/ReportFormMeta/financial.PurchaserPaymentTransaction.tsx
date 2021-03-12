@@ -3,7 +3,7 @@ import { getPaymentGatewayAccounts } from "~/ApiServices/Service/RefLookupServic
 import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [

@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const fileNameSuffixFilter = "SearchMeta.ts";
-const rootDirectory = "../../app/src/TableSearchMeta";
+// const fileNameSuffixFilter = "SearchMeta.ts";
+const rootDirectory = "../../app/src";
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
 	let files = fs.readdirSync(dirPath);
@@ -18,17 +18,37 @@ const getAllFiles = function (dirPath, arrayOfFiles) {
 	return arrayOfFiles;
 };
 
-const processFile = (filePath) => {
-	let MarketingProgramSearchMeta = fs.readFileSync(filePath, {
+const processMetaFile = (filePath) => {
+	let fileContentString = fs.readFileSync(filePath, {
 		encoding: "utf-8",
 	});
 	const regex = /fieldName:.*/g;
 	let fileMap = {};
-	while ((match = regex.exec(MarketingProgramSearchMeta)) != null) {
+	while ((match = regex.exec(fileContentString)) != null) {
 		let foundMatch = match[0];
 		if (foundMatch) foundMatch = foundMatch.split('"');
 		fileMap[foundMatch[1]] = {};
 	}
+	return fileMap;
+};
+
+const processCustomFormFile = (filePath) => {
+	let fileContentString = fs.readFileSync(filePath, {
+		encoding: "utf-8",
+	});
+	const regex = /fieldNames:.*(\n.*)*"\n\}/g;
+	let fileMap = {};
+	const match1 = regex.exec(fileContentString);
+	if (match1) {
+		const regex2 = /\{(\n.*)*\}/g;
+		let match2 = regex2.exec(match1[0]);
+		match2 = match2[0].split('"');
+		match2 = match2.filter((x, i) => i % 2 === 1);
+		match2.forEach((x) => {
+			fileMap[x] = {};
+		});
+	}
+	//
 	return fileMap;
 };
 
@@ -40,34 +60,73 @@ const createNewFilePathString = (oldFilePath) => {
 	return filePath;
 };
 
-const getFileName = (filePath) => {
-	return path.basename(filePath, ".ts");
+const mergeObjects = (obj1, obj2) => {
+	for (key in obj2) {
+		if (!obj1[key]) {
+			obj1[key] = obj2[key];
+		}
+	}
+
+	for (key in obj1) {
+		if (!obj2[key]) {
+			delete obj1[key];
+		}
+	}
+	return obj1;
 };
 
 const createNewFile = (newPath, fileName, content) => {
-	console.log("with dir ", __dirname + newPath);
 	fs.mkdirSync(__dirname + newPath, { recursive: true });
 
 	newPath = path.resolve(newPath, fileName);
-	console.log("all params ", newPath, fileName, content);
-	fs.writeFileSync(__dirname + newPath + ".json", JSON.stringify(content));
+	newPath = __dirname + newPath + ".json";
+	if (fs.existsSync(newPath)) {
+		let previousContent = fs.readFileSync(newPath, {
+			encoding: "utf-8",
+		});
+		try {
+			previousContent = JSON.parse(previousContent);
+		} catch (error) {
+			previousContent = {};
+		}
+		content = mergeObjects(previousContent, content);
+	}
+
+	fs.writeFileSync(newPath, JSON.stringify(content, null, 1));
 };
 
-const fileMap = {};
+const createMetaDrivenFormConfigs = () => {
+	const fileMap = {};
+	const allFilePaths = getAllFiles(rootDirectory, []);
+	const absolutePathOfAllMetaFiles = allFilePaths.filter(
+		(x) =>
+			x.includes("SearchMeta.ts") ||
+			x.includes("SearchMeta.tsx") ||
+			x.includes("FormMeta.ts") ||
+			x.includes("FormMeta.tsx")
+	);
 
-// const absolutePathOfAllFiles = getAllFiles(rootDirectory, []).filter((x) =>
-// 	x.includes(fileNameSuffixFilter)
-// );
-const absolutePathOfAllFiles = [
-	"/Users/dsi/workspace/hir-webpack/app/src/TableSearchMeta/Membership/MembershipSearchMeta.ts",
-	"/Users/dsi/workspace/hir-webpack/app/src/TableSearchMeta/Offering/OfferingSearchMeta.ts",
-];
-absolutePathOfAllFiles.forEach((path) => {
-	const fieldNameMap = processFile(path);
-	const newFilePath = createNewFilePathString(path);
-	const newFileName = getFileName(path);
-	createNewFile(newFilePath, newFileName, fieldNameMap);
-	fileMap[newFileName] = newFilePath;
-});
+	absolutePathOfAllMetaFiles.forEach((filepath) => {
+		const fieldNameMap = processMetaFile(filepath);
+		const newFilePath = createNewFilePathString(filepath);
+		const newFileName = path.basename(filepath, path.extname(filepath));
+		createNewFile(newFilePath, newFileName, fieldNameMap);
+		fileMap[newFileName] = newFilePath + "/" + newFileName + ".json";
+	});
 
-createNewFile("/Config", "fileMap.json", fileMap);
+	const absolutePathOfAllCustomFormFiles = allFilePaths.filter((x) =>
+		x.includes("WithConfig.tsx")
+	);
+
+	absolutePathOfAllCustomFormFiles.forEach((filepath) => {
+		const fieldNameMap = processCustomFormFile(filepath);
+		const newFilePath = createNewFilePathString(filepath);
+		const newFileName = path.basename(filepath, path.extname(filepath));
+		createNewFile(newFilePath, newFileName, fieldNameMap);
+		fileMap[newFileName] = newFilePath + "/" + newFileName + ".json";
+	});
+
+	createNewFile("/Config", "fileMap", fileMap);
+};
+
+createMetaDrivenFormConfigs();

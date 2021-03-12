@@ -47,7 +47,10 @@ const fieldNames: IPersonFieldNames = {
 function PersonForm(props: IPersonFormProps) {
   const [defaultCountryCodeID, setdefaultCountryCodeID] = useState()
   const [addressline1Required, setAddressline1Required] = useState(false)
-  const PersonformConfig: IPersonFieldNames = CustomFormConfigHook(fieldNames, "PersonForm") as IPersonFieldNames
+  const PersonformConfig: IPersonFieldNames = CustomFormConfigHook(
+    fieldNames,
+    "PersonFormWithConfig"
+  ) as IPersonFieldNames
 
   useEffect(() => {
     findDefaultCountry().then((result) => {
