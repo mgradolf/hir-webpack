@@ -84,26 +84,34 @@ const createNewFile = (newPath, fileName, content) => {
 		let previousContent = fs.readFileSync(newPath, {
 			encoding: "utf-8",
 		});
-		previousContent = JSON.parse(previousContent);
+		try {
+			previousContent = JSON.parse(previousContent);
+		} catch (error) {
+			previousContent = {};
+		}
 		content = mergeObjects(previousContent, content);
 	}
 
-	fs.writeFileSync(newPath, JSON.stringify(content));
+	fs.writeFileSync(newPath, JSON.stringify(content, null, 1));
 };
 
 const createMetaDrivenFormConfigs = () => {
 	const fileMap = {};
 	const allFilePaths = getAllFiles(rootDirectory, []);
 	const absolutePathOfAllMetaFiles = allFilePaths.filter(
-		(x) => x.includes("Meta.ts") || x.includes("Meta.tsx")
+		(x) =>
+			x.includes("SearchMeta.ts") ||
+			x.includes("SearchMeta.tsx") ||
+			x.includes("FormMeta.ts") ||
+			x.includes("FormMeta.tsx")
 	);
 
 	absolutePathOfAllMetaFiles.forEach((filepath) => {
 		const fieldNameMap = processMetaFile(filepath);
 		const newFilePath = createNewFilePathString(filepath);
-		const newFileName = path.basename(filepath, ".ts");
+		const newFileName = path.basename(filepath, path.extname(filepath));
 		createNewFile(newFilePath, newFileName, fieldNameMap);
-		fileMap[newFileName] = newFilePath + ".json";
+		fileMap[newFileName] = newFilePath + "/" + newFileName + ".json";
 	});
 
 	const absolutePathOfAllCustomFormFiles = allFilePaths.filter((x) =>
@@ -113,9 +121,9 @@ const createMetaDrivenFormConfigs = () => {
 	absolutePathOfAllCustomFormFiles.forEach((filepath) => {
 		const fieldNameMap = processCustomFormFile(filepath);
 		const newFilePath = createNewFilePathString(filepath);
-		const newFileName = path.basename(filepath, ".tsx");
+		const newFileName = path.basename(filepath, path.extname(filepath));
 		createNewFile(newFilePath, newFileName, fieldNameMap);
-		fileMap[newFileName] = newFilePath + ".json";
+		fileMap[newFileName] = newFilePath + "/" + newFileName + ".json";
 	});
 
 	createNewFile("/Config", "fileMap", fileMap);
