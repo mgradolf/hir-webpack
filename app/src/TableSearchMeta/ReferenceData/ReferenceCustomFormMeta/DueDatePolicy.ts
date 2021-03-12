@@ -1,5 +1,4 @@
-import { BOOLEAN, CUSTOM_FIELD, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
-import { PaymentDueDatePolicyType } from "~/Component/Common/Form/CustomFormFields/PaymentDueDatePolicyType"
+import { BOOLEAN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { PAYMENT_POLICY_TYPE } from "~/utils/Constants"
 
@@ -23,12 +22,6 @@ export const FormMeta: IField[] = [
     label: "SortPosition",
     fieldName: "SortPosition",
     inputType: NUMBER
-  },
-  {
-    label: "Policy Type",
-    fieldName: "DateReferenceType",
-    inputType: CUSTOM_FIELD,
-    customFilterComponent: PaymentDueDatePolicyType
   }
 ]
 

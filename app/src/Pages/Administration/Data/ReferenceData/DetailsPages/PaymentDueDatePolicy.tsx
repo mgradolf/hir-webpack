@@ -15,6 +15,7 @@ import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTab
 import { RemoveRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButtons"
 import { PAYMENT_POLICY_TYPE } from "~/utils/Constants"
 import { savePaymentDueDatePolicy, getPaymentDueDatePolicy } from "~/ApiServices/Service/PaymentService"
+import { eventBus } from "~/utils/EventBus"
 
 // const getPaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
 //   Promise.resolve({ code: 200, success: true, data: {}, error: "" })
@@ -50,8 +51,15 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
     }
     setSelectedPolicyType(__policyType)
   }
+  useEffect(() => {
+    if (props.initialValues && props.initialValues.DateReferenceType)
+      policyTypeChanged(props.initialValues.DateReferenceType)
+  }, [props.initialValues])
   return (
     <Row>
+      <div className="hidden">
+        <FormInput formInstance={props.formInstance} label="ID" fieldName="ID" />
+      </div>
       <Col xs={24} sm={24} md={12}>
         <FormInput formInstance={props.formInstance} label="Name" fieldName="Name" />
       </Col>
@@ -90,9 +98,12 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
       {(selectedPolicyType.startEndDate || selectedPolicyType.orderDate) && (
         <>
           <Col xs={24} sm={24} md={12}>
-            <FormInput label={"Offset"} fieldName="NumberOfDays" formInstance={props.formInstance} />
+            <FormInput
+              label={selectedPolicyType.orderDate ? "Offset (Days After)" : "Offset"}
+              fieldName="NumberOfDays"
+              formInstance={props.formInstance}
+            />
           </Col>
-          {selectedPolicyType.orderDate && <Col span={4}>&nbsp;{" Days After"}</Col>}
         </>
       )}
       {selectedPolicyType.startEndDate && (
@@ -100,6 +111,8 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
           <FormMultipleRadio
             label=""
             fieldName="BeforeAndAfter"
+            {...(props.initialValues &&
+              props.initialValues.IsBefore && { defaultValue: !props.initialValues.IsBefore })}
             options={[
               { label: "Days Before", value: false },
               { label: "Days After", value: true }
@@ -110,13 +123,19 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
       )}
       {selectedPolicyType.fixedDate && (
         <Col xs={24} sm={24} md={12}>
-          <FormDatePicker label="Date" fieldName="FixedDueDate" formInstance={props.formInstance} />
+          <FormDatePicker
+            label="Date"
+            fieldName="FixedDueDate"
+            formInstance={props.formInstance}
+            {...(props.initialValues &&
+              props.initialValues.FixedDueDate && { defaultValue: props.initialValues.FixedDueDate })}
+          />
         </Col>
       )}
     </Row>
   )
 }
-const DueDatePolicyFormOpenButton = (props: { ID?: number }) => {
+const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: string }) => {
   const [formInstance] = Form.useForm()
   const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -127,8 +146,10 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number }) => {
   useEffect(() => {
     if (props.ID && showModal) {
       setLoading(true)
-      getPaymentDueDatePolicy({ ID: props.ID })
-        .then((x) => setInitialValues(x.data[0]))
+      getPaymentDueDatePolicy({ PolicyID: props.ID })
+        .then((x) => {
+          if (x.success) setInitialValues({ ...x.data, BeforeAndAfter: !x.data.IsBefore })
+        })
         .finally(() => setLoading(false))
     }
   }, [showModal, props.ID])
@@ -142,6 +163,7 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number }) => {
         .then((response) => {
           setApiCallInProgress(false)
           if (response && response.success) {
+            eventBus.publish(props.refreshEventName)
             setShowModal(false)
           } else {
             setErrorMessages(response.error)
@@ -192,7 +214,7 @@ export default function PaymentDueDatePolicy() {
       dataIndex: "ID",
       render: (ID: any, record: any) => (
         <>
-          <DueDatePolicyFormOpenButton ID={ID} />
+          <DueDatePolicyFormOpenButton ID={ID} refreshEventName={refreshEventName} />
           <RemoveRefButton ID={ID} LookUpName={refName} refreshEventName={refreshEventName} />
         </>
       )
@@ -205,7 +227,7 @@ export default function PaymentDueDatePolicy() {
       tableProps={{ columns, refreshEventName, searchFunc: getRefList }}
       defaultFormValue={{ LookUpName: refName }}
       initialFormValue={{}}
-      blocks={[<DueDatePolicyFormOpenButton />]}
+      blocks={[<DueDatePolicyFormOpenButton refreshEventName={refreshEventName} />]}
     />
   )
 }

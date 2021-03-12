@@ -2,11 +2,10 @@ import ApiMethodFactory from "../../utils/ApiMethodFactory"
 
 export const config = {
   EndPoint: "api/hirServlet",
-  Service: "paymentService",
+  Service: "GradingService",
   Module: "hir",
   Actions: {
-    savePaymentDueDatePolicy: "savePaymentDueDatePolicy",
-    getPaymentDueDatePolicy: "getPaymentDueDatePolicy"
+    saveCreditType: "saveCreditType"
   }
 }
 

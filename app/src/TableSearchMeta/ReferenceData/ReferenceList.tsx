@@ -454,7 +454,7 @@ export const ReferenceList: IReferenceList[] = [
     Title: "Transcript Type",
     Value: "TranscriptType",
     Description: "transcripttype is a reflookup for ...",
-    custom: false
+    custom: true
   }
 ]
 
