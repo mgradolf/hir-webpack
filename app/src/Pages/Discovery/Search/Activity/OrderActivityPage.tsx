@@ -8,6 +8,7 @@ export default function AcademicLogPage() {
     <SearchPage
       title="Order Activity"
       meta={ActivityOrderSearchMeta}
+      metaName="ActivityOrderSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getActivityOrderSearchTableColumns()

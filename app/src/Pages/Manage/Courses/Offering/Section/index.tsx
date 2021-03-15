@@ -29,6 +29,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
           hideSearchField={true}
           title="Sections"
           meta={SectionSearchMeta}
+          metaName="SectionSearchMeta"
           defaultFormValue={{ OfferingID }}
           tableProps={getSectionTableColumns()}
           helpUrl={helpConfig.generic}

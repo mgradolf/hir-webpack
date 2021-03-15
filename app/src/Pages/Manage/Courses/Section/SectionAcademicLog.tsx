@@ -11,6 +11,7 @@ export default function AcademicLogPage(props: RouteComponentProps<{ sectionID: 
     <SearchPage
       title="Manage Section Academic Log"
       meta={ActivityAcademicSearchMeta}
+      metaName="ActivityAcademicSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getActivityAcademicTableColumn(false)

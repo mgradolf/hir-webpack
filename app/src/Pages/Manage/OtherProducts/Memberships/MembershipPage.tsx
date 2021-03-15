@@ -8,6 +8,7 @@ export default function MembershipPage() {
     <SearchPage
       title="Manage Memberships"
       meta={MembershipSearchMeta}
+      metaName="MembershipSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getMembershipTableColumns()

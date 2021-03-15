@@ -110,6 +110,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       {showModal && (
         <MetaDrivenFormModal
           meta={PersonLoginFormMeta}
+          metaName="PersonLoginFormMeta"
           isHorizontal={true}
           title={"Update Person Login Info"}
           initialFormValue={props.initialData}

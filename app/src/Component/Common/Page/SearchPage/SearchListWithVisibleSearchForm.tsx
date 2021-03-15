@@ -7,6 +7,7 @@ export interface ISearchListWithVisibleSearchFormProp {
   title: string
   blocks?: JSX.Element[]
   meta?: IField[]
+  metaName?: string
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
@@ -28,6 +29,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
         <MetaDrivenForm
           title={<Typography.Title level={3}>{props.title}</Typography.Title>}
           meta={props.meta}
+          metaName={props.metaName}
           helpUrl={props.helpUrl}
           stopProducingQueryParams={props.stopProducingQueryParams}
           initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}

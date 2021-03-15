@@ -8,6 +8,7 @@ export default function PackagePage() {
     <SearchPage
       title="Manage Packages"
       meta={PackageSearchMeta}
+      metaName="PackageSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getPackageTableColumns()

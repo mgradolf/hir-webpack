@@ -162,7 +162,7 @@ export function ResponsiveTable(props: IDataTableProps) {
               return sortByBoolean(a, b)
             } else if (typeof a.dataIndex === "number") {
               return sortByNumber(a, b)
-            } else if (new Date(a.dataIndex).toString() !== "Invalid Date") {
+            } else if (!isNaN(Date.parse(a.dataIndex))) {
               return sortByTime(a, b)
             } else if (typeof a.dataIndex === "string") {
               return sortByString(a, b)

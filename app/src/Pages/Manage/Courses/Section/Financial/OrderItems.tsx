@@ -21,6 +21,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
     <div className="site-layout-content">
       <MetaDrivenForm
         meta={OrderItemsFiltersMeta}
+        metaName="OrderItemsFiltersMeta"
         onApplyChanges={(newValues: any, appliedFilterCount: number) => {
           if (SectionID) newValues.SectionID = SectionID
           console.log(newValues)

@@ -14,6 +14,7 @@ export function SearchPackageLookupButton(props: ILookupOpenButton) {
       lookupModalTitle="Select Package"
       displayField="Name"
       meta={PackageSearchMeta as IField[]}
+      metaName="PackageSearchMeta"
       {...props}
       {...getPackageTableColumns(true)}
       valueField={props.valueField || "PackageID"}

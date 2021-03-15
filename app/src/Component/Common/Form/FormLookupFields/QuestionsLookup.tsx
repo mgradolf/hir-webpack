@@ -14,6 +14,7 @@ export function QuestionsLookup(props: ILookupOpenButton) {
       lookupModalTitle="Select Question"
       displayField="Name"
       meta={QuestionRepositorySearchMeta as IField[]}
+      metaName="QuestionRepositorySearchMeta"
       {...props}
       {...getQuestionRepositoryTableColumn(true)}
       valueField={"PreferenceDefID"}

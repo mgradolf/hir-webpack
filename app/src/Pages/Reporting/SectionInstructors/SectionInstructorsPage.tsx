@@ -8,6 +8,7 @@ export default function SectionInstructorsPage() {
     <SearchPage
       title="Section Instructor"
       meta={InstructorContractsSearchMeta}
+      metaName="InstructorContractsSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getInstructorContractsTableColumns()

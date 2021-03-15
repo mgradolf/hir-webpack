@@ -8,6 +8,7 @@ export default function TransactionPage() {
     <SearchPage
       title="Manage Transactions"
       meta={TransactionSearchMeta}
+      metaName="TransactionSearchMeta"
       hideSearchField={false}
       defaultFormValue={{ IsDepositeView: false }}
       tableProps={getTransactionFinancialTableColumns()}

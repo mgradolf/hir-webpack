@@ -10,6 +10,7 @@ export default function Request(props: RouteComponentProps<{ sectionID?: string 
     <SearchPage
       title="Manage Requests"
       meta={RequestSearchMeta}
+      metaName="RequestSearchMeta"
       hideSearchField={true}
       defaultFormValue={{ SectionID }}
       tableProps={getRequestTableColumns()}

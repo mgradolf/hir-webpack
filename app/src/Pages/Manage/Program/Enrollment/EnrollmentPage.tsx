@@ -8,6 +8,7 @@ export default function ProgramEnrollment() {
     <SearchPage
       title="Manage Program Enrollments"
       meta={ProgramEnrollmentSearchMeta}
+      metaName="ProgramEnrollmentSearchMeta"
       hideSearchField={false}
       defaultFormValue={{}}
       tableProps={getProgramEnrollmentTableColumns()}

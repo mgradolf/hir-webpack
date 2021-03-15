@@ -12,6 +12,7 @@ export function ResourceLookup(props: ILookupOpenButton) {
   return (
     <LookupOpenButton
       meta={ResourceSearchMeta}
+      metaName="ResourceSearchMeta"
       {...getResourceTableColumns()}
       lookupModalTitle="Select Resource"
       displayField="Name"

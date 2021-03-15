@@ -41,6 +41,7 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
       {showModal && (
         <MetaDrivenFormModal
           meta={InstructorFormMeta}
+          metaName="InstructorFormMeta"
           title={"Update Instructor"}
           initialFormValue={props.facultyData}
           defaultFormValue={{

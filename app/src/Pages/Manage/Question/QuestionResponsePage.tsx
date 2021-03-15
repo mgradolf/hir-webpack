@@ -8,6 +8,7 @@ export default function QuestionResponsePage() {
     <SearchPage
       title="Manage Question Response"
       meta={QuestionResponseSearchMeta}
+      metaName="QuestionResponseSearchMeta"
       initialFormValue={{ EventID: 2 }}
       hideSearchField={false}
       tableProps={{

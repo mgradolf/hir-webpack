@@ -8,6 +8,7 @@ export default function SitePage() {
     <SearchPage
       title="Sites"
       meta={SiteSearchMeta}
+      metaName="SiteSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getSiteTableColumns()

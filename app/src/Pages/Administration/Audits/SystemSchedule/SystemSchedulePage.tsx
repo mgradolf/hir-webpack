@@ -8,6 +8,7 @@ export default function SystemSchedulePage() {
     <SearchPage
       title="System Schedules"
       meta={ActivitySystemScheduleSearchMeta}
+      metaName="ActivitySystemScheduleSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getActivitySystemScheduleTableColumns()

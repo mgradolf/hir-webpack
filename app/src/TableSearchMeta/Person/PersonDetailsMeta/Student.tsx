@@ -45,6 +45,7 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
       {showModal && (
         <MetaDrivenFormModal
           meta={StudentFormMeta}
+          metaName="StudentFormMeta"
           title={"Update Student"}
           initialFormValue={props.studentData}
           defaultFormValue={{
@@ -87,6 +88,7 @@ const HoldFormModalOpenButton = (props: { StudentID: number }) => {
       {showModal && (
         <MetaDrivenFormModal
           meta={StudentHoldFormMeta}
+          metaName="StudentHoldFormMeta"
           title={"Apply Hold"}
           initialFormValue={{ StudentID: props.StudentID }}
           defaultFormValue={{ StudentID: props.StudentID, HoldBy: "JoeAdmin" }}

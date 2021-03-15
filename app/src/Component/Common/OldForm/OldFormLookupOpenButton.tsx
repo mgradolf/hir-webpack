@@ -18,6 +18,7 @@ export interface IFormLookupOpenButton {
   label: string
   columns: TableColumnType
   meta: IField[]
+  metaName?: string
   isArray?: boolean
   zIndex?: boolean
   formInstance: FormInstance
@@ -88,6 +89,7 @@ export function OldFormLookupOpenButton(props: IFormLookupOpenButton) {
             searchFunc={props.searchFunc}
             columns={props.columns}
             meta={props.meta}
+            metaName={props.metaName || ""}
             zIndex={props.zIndex}
           />
         )}

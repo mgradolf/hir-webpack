@@ -13,6 +13,7 @@ export function DiscountProgramLookup(props: IDiscountProgramLookup) {
       lookupModalTitle="Select Discount Program"
       displayField="Name"
       meta={DiscountProgramsSearchMeta as IField[]}
+      metaName="DiscountProgramsSearchMeta"
       {...props}
       {...getDiscountProgramsTableColumns(true)}
       valueField={props.valueField || "DiscountProgramID"}

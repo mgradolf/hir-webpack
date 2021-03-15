@@ -11,6 +11,7 @@ export default function AddResourceModal({ onClose }: IInstructorProps) {
   return (
     <LookupModal
       meta={ResourceSearchMeta}
+      metaName="ResourceSearchMeta"
       {...getResourceTableColumns()}
       title="Add Resource"
       isArray={true}

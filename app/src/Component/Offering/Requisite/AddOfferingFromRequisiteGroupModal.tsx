@@ -67,6 +67,7 @@ function AddOfferingFromRequisiteGroupModal({
           <Row justify="center">
             <MetaDrivenForm
               meta={OfferingSearchMeta}
+              metaName="OfferingSearchMeta"
               onApplyChanges={(newFilterValues, newFilterCount) => {
                 setSearchParams(newFilterValues)
 

@@ -13,6 +13,7 @@ export function RoomLookup(props: IGeneratedField) {
       displayField="Name"
       {...getRoomTableColumns(true)}
       meta={RoomeSearchMeta as IField[]}
+      metaName="RoomeSearchMeta"
       {...props}
       {...(props.defaultValue && {
         entityLookupFunc: () =>

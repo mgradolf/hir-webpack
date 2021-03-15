@@ -45,6 +45,7 @@ export function ProductAddButton(props: ICreateActionButtonProp) {
           closeModal={closeModal}
           {...getProductTableColumns()}
           meta={modifiedMeta}
+          metaName="ProductSearchMeta"
           defaultFormValue={{ ProductOptionalItem: true, ProductInventoryUnits: 1, ProductIsActive: true }}
         />
       )}

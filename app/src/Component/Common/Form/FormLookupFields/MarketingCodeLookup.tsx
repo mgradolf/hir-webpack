@@ -11,6 +11,7 @@ export function MarketingCodeLookup(props: IGeneratedField) {
       valueField="MarketingCodeID"
       displayField="Name"
       meta={MarketingCodeRepositorySearchMeta as IField[]}
+      metaName="MarketingCodeRepositorySearchMeta"
       {...props}
       formInstance={props.formInstance}
       {...getMarketingCodeRepositoryTableColumns(true)}

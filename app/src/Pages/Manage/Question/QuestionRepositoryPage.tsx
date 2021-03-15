@@ -8,6 +8,7 @@ export default function QuestionRepository() {
     <SearchPage
       title="Manage Questions"
       meta={QuestionRepositorySearchMeta}
+      metaName="QuestionRepositorySearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getQuestionRepositoryTableColumn()

@@ -12,6 +12,7 @@ export default function () {
         <SearchPage
           title="Manage Program Offerings"
           meta={ProgramOfferingSearchMeta}
+          metaName="ProgramOfferingSearchMeta"
           hideSearchField={false}
           tableProps={{
             ...getProgramOfferingTableColumns()

@@ -26,6 +26,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
     {
       type: "Offering",
       meta: OfferingSearchMeta,
+      metaName: "OfferingSearchMeta",
       searchFunc: getOfferingTableColumns().searchFunc,
       columns: getOfferingTableColumns().columns,
       key: "OfferingID"
@@ -33,6 +34,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
     {
       type: "Section",
       meta: SectionSearchMeta,
+      metaName: "SectionSearchMeta",
       searchFunc: getSectionTableColumns().searchFunc,
       columns: getSectionTableColumns().columns,
       key: "SectionID"
@@ -40,6 +42,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
     {
       type: "Program",
       meta: ProgramSearchMeta,
+      metaName: "ProgramSearchMeta",
       searchFunc: getProgramTableColumns().searchFunc,
       columns: getProgramTableColumns().columns,
       key: "ProgramID"
@@ -47,6 +50,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
     {
       type: "Marketing Code",
       meta: MarketingCodeRepositorySearchMeta,
+      metaName: "MarketingCodeRepositorySearchMeta",
       searchFunc: getMarketingCodeRepositoryTableColumns().searchFunc,
       columns: getMarketingCodeRepositoryTableColumns().columns,
       key: "MarketingCodeID"
@@ -102,6 +106,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
           isArray={true}
           columns={entityType.columns}
           meta={entityType.meta}
+          metaName={entityType.metaName}
         />
       )}
     </>

@@ -11,6 +11,7 @@ export default function AddMarketingProgramModal({ onClose }: IInstructorProps) 
   return (
     <LookupModal
       meta={MarketingProgramSearchMeta}
+      metaName="MarketingProgramSearchMeta"
       {...getMarketingProgramTableColumns()}
       title="Add Marketing Program"
       isArray={true}

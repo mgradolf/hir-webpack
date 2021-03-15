@@ -8,6 +8,7 @@ export default function ReferenceDataListPage() {
     <SearchPage
       title="Reference Data"
       meta={SearchMeta}
+      metaName="ReferenceGenericSearchMeta"
       initialFormValue={{}}
       tableProps={getReferenceListTableColumns()}
     />

@@ -11,6 +11,7 @@ import { IChartConfig } from "~/Pages/Reporting/Chart/ChartMeta/IChartConfig"
 export interface IStandardReportPage {
   config: IChartConfig
   meta?: IField[]
+  metaName?: string
   searchFunc: (Params: { [key: string]: any }, from?: number, to?: number) => Promise<IApiResponse>
   initialFormValue: { [key: string]: string }
 }
@@ -36,6 +37,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
         {props.meta && (
           <MetaDrivenForm
             meta={props.meta}
+            metaName={props.metaName}
             initialFormValue={props.initialFormValue}
             applyButtonLabel="Render Chart"
             clearButtonLabel="Clear Chart"

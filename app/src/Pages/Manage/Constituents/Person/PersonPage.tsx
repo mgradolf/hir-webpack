@@ -14,6 +14,7 @@ export default function PersonTable() {
           blocks={[<PersonFormOpenButton />]}
           title="Manage Persons"
           meta={PersonSearchMeta}
+          metaName="PersonSearchMeta"
           hideSearchField={false}
           tableProps={{
             ...getPersonTableColumns()

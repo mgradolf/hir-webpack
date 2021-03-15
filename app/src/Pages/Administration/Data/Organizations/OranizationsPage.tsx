@@ -8,6 +8,7 @@ export default function () {
     <SearchPage
       title="Organization"
       meta={OrganizationSearchMeta}
+      metaName="OrganizationSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getOrganizationTableColumns()

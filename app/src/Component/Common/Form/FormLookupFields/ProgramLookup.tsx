@@ -14,6 +14,7 @@ export function ProgramLookup(props: ISearchProgramLookup) {
       lookupModalTitle="Select Program"
       displayField="ProgramCode"
       meta={ProgramSearchMeta as IField[]}
+      metaName="ProgramSearchMeta"
       {...props}
       {...getProgramTableColumns(true)}
       valueField={props.valueField || "ProgramID"}

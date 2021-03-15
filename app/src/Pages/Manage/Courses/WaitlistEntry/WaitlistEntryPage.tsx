@@ -22,6 +22,7 @@ export default function WaitlistEntryPage() {
       <SearchPage
         title="Waitlist Entries"
         meta={WaitlistEntriesSearchMeta}
+        metaName="WaitlistEntriesSearchMeta"
         hideSearchField={false}
         blocks={[
           <>

@@ -10,6 +10,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
       hideSearchField={false}
       title="Manage Sections"
       meta={SectionSearchMeta}
+      metaName="SectionSearchMeta"
       tableProps={getSectionTableColumns()}
     ></SearchPage>
   )

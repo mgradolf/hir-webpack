@@ -15,6 +15,7 @@ export interface ILookupOpenButton extends IGeneratedField {
   displayField: string
   columns: TableColumnType
   meta: IField[]
+  metaName: string
   defaultFormValue?: { [key: string]: any }
   responsiveColumnIndices?: number[]
   expandableColumnIndices?: number[]
@@ -163,6 +164,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           searchFunc={props.searchFunc}
           columns={props.columns}
           meta={props.meta}
+          metaName={props.metaName}
           responsiveColumnIndices={props.responsiveColumnIndices}
           expandableColumnIndices={props.expandableColumnIndices}
           defaultFormValue={props.defaultFormValue}

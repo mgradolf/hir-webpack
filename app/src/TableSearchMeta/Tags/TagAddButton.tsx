@@ -31,6 +31,7 @@ export const TagAddButton = (props: { EntityType: string; EntityID: number; even
           title="Select Tags"
           isArray={true}
           meta={TagsSearchMeta}
+          metaName="TagsSearchMeta"
           {...getTagsTableColumns(true, "")}
           defaultFormValue={{ EntityType: props.EntityType, EntityID: props.EntityID, IsSelected: false }}
           closeModal={(Params: any) => {

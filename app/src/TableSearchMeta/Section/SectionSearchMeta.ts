@@ -94,17 +94,17 @@ export const SectionSearchMeta: IField[] = [
     ]
   },
   {
-    label: "Search Tag Hierarchy",
-    fieldName: "searchTagHeirarchy",
-    inputType: CUSTOM_FIELD,
-    customFilterComponent: TagFilter
-  },
-  {
     label: "Coordinator",
     inputType: DROPDOWN,
     fieldName: "Coordinator",
     refLookupService: () => getUsersByRole({ Role: "coordinator" }),
     displayKey: "FormattedName",
     valueKey: "UserLogin"
+  },
+  {
+    label: "Search Tag Hierarchy",
+    fieldName: "searchTagHeirarchy",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: TagFilter
   }
 ]

@@ -24,6 +24,7 @@ export function CatalogContentAddDropdown(props: IScheduleUpdateMenuProp) {
     {
       type: "Offering",
       meta: OfferingSearchMeta,
+      metaName: "OfferingSearchMeta",
       searchFunc: getOfferingTableColumns().searchFunc,
       addToCatalogFunc: addOfferingToCatalog,
       columns: getOfferingTableColumns().columns,
@@ -32,6 +33,7 @@ export function CatalogContentAddDropdown(props: IScheduleUpdateMenuProp) {
     {
       type: "Section",
       meta: SectionSearchMeta,
+      metaName: "SectionSearchMeta",
       searchFunc: getSectionTableColumns().searchFunc,
       addToCatalogFunc: addSectionToCatalog,
       columns: getSectionTableColumns().columns,
@@ -40,6 +42,7 @@ export function CatalogContentAddDropdown(props: IScheduleUpdateMenuProp) {
     {
       type: "Program",
       meta: ProgramSearchMeta,
+      metaName: "ProgramSearchMeta",
       searchFunc: getProgramTableColumns().searchFunc,
       addToCatalogFunc: addProgramToCatalog,
       columns: getProgramTableColumns().columns,
@@ -94,6 +97,7 @@ export function CatalogContentAddDropdown(props: IScheduleUpdateMenuProp) {
           isArray={true}
           columns={entityType.columns}
           meta={entityType.meta}
+          metaName={entityType.metaName}
         />
       )}
     </>

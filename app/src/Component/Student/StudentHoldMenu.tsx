@@ -28,6 +28,7 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
         {showUpdateModal && (
           <MetaDrivenFormModal
             meta={StudentHoldFormMeta}
+            metaName="StudentHoldFormMeta"
             title={"Edit Hold"}
             initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
             defaultFormValue={{ ...props.initialData, StudentID: props.studentID }}
@@ -50,6 +51,7 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
         {showReleaseModal && (
           <MetaDrivenFormModal
             meta={StudentReleaseFormMeta}
+            metaName="StudentReleaseFormMeta"
             title={"Release Hold"}
             initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
             defaultFormValue={{ ...props.initialData, StudentID: props.studentID }}

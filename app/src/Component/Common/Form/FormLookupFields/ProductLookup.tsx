@@ -13,6 +13,7 @@ export function ProductLookup(props: IGeneratedField) {
       displayField="ProductName"
       {...getProductTableColumns(true)}
       meta={ProductSearchMeta as IField[]}
+      metaName="ProductSearchMeta"
       {...props}
       {...(props.defaultValue && {
         entityLookupFunc: () =>

@@ -8,6 +8,7 @@ export default () => {
     <SearchPage
       title="Manage Catalogs"
       meta={CatalogSearchMeta}
+      metaName="CatalogSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getCatalogTableColumns()

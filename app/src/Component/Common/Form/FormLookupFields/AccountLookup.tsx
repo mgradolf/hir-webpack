@@ -13,6 +13,7 @@ export function AccountLookup(props: IGeneratedField) {
       displayField={"AccountName"}
       {...getAccountTableColumns(true)}
       meta={AccountSearchMeta as IField[]}
+      metaName="AccountSearchMeta"
       {...props}
       {...(props.defaultValue && {
         entityLookupFunc: () =>

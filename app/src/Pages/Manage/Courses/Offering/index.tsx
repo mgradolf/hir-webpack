@@ -20,6 +20,7 @@ export function OfferingPage() {
       ]}
       title="Manage Offerings"
       meta={OfferingSearchMeta}
+      metaName="OfferingSearchMeta"
       tableProps={{
         ...getOfferingTableColumns()
       }}

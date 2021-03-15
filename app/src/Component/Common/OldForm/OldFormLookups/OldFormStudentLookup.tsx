@@ -1,5 +1,5 @@
 import * as React from "react"
-import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
+import { StudentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import { OldFormLookupOpenButton } from "~/Component/Common/OldForm/OldFormLookupOpenButton"
 import { FormInstance } from "antd/lib/form"
 import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
@@ -13,7 +13,7 @@ export function OldFormStudentLookup(props: { formInstance: FormInstance; onClos
       fieldName="StudentID"
       label="Student"
       {...getStudentTableColumns(true)}
-      meta={studentSearchMeta}
+      meta={StudentSearchMeta}
       formInstance={props.formInstance}
       onCloseModal={props.onCloseModal}
     />

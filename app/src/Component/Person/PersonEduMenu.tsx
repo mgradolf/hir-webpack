@@ -27,6 +27,7 @@ export default function PersonEduMenu(props: IPersonEduMenu) {
         {showUpdateModal && (
           <MetaDrivenFormModal
             meta={PersonDegreeFormMeta}
+            metaName="PersonDegreeFormMeta"
             title={"Update Degree"}
             initialFormValue={props.initialData}
             defaultFormValue={{

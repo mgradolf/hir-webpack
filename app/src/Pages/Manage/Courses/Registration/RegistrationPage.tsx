@@ -8,6 +8,7 @@ export default function RegistrationPage() {
     <SearchPage
       title="Manage Registrations"
       meta={RegistrationSearchMeta}
+      metaName="RegistrationSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getRegistrationTableColumns()

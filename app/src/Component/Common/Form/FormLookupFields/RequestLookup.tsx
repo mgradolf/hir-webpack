@@ -13,6 +13,7 @@ export function RequestLookup(props: IGeneratedField) {
       displayField={"RequestID"}
       {...getRequestTableColumns(true)}
       meta={RequestSearchMeta as IField[]}
+      metaName="RequestSearchMeta"
       {...props}
       // {...(props.defaultValue && {
       //   entityLookupFunc: () =>

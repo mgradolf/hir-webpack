@@ -10,6 +10,7 @@ export default function InstructorPage() {
       blocks={[<PersonFormOpenButton label={"Create Instructor"} initialValues={{ Roles: [2] }} />]}
       title="Manage Instructors"
       meta={InstructorSearchMeta}
+      metaName="InstructorSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getInstructorTableColumns()

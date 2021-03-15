@@ -12,6 +12,7 @@ export default function PersonTable() {
         <SearchPage
           title="Manage Products"
           meta={ProductSearchMeta}
+          metaName="ProductSearchMeta"
           hideSearchField={false}
           tableProps={{
             ...getProductTableColumns()

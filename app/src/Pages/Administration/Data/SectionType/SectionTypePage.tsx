@@ -8,6 +8,7 @@ export default function SectionTypePage() {
     <SearchPage
       title="Section Types"
       meta={SectionTypeSearchMeta}
+      metaName="SectionTypeSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getSectionTypeTableColumns()

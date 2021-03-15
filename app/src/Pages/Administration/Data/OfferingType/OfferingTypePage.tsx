@@ -8,6 +8,7 @@ export default function OfferingTypePage() {
     <SearchPage
       title="Offering Types"
       meta={OfferingTypeSearchMeta}
+      metaName="OfferingTypeSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getOfferingTypeTableColumns()

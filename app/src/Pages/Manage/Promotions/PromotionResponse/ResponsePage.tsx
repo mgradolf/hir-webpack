@@ -8,6 +8,7 @@ export default function () {
     <SearchPage
       title="Manage Promotion Responses"
       meta={MarketingCodeResponseSearchMeta}
+      metaName="MarketingCodeResponseSearchMeta"
       tableProps={{
         ...getMarketingCodeResponseTableColumns()
       }}

@@ -11,6 +11,7 @@ export function SellerFulFillerLookup(props: IGeneratedField) {
       valueField="OrganizationID"
       displayField="OrganizationName"
       meta={SellerFulFillerSearchMeta as IField[]}
+      metaName="SellerFulFillerSearchMeta"
       {...props}
       formInstance={props.formInstance}
       {...getSellerFulFillerTableColumns(true)}

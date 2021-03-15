@@ -69,6 +69,7 @@ function AddProgramModal() {
       <Card title="Select Program" actions={cardActions} style={{ maxHeight: "90vh", overflowY: "auto" }}>
         <MetaDrivenForm
           meta={ProgramSearchMeta}
+          metaName="ProgramSearchMeta"
           initialFormValue={(filterData === null ? initialData : (filterData as unknown)) as { [key: string]: any }}
           onApplyChanges={(newFilterValues, newFilterCount) => {
             updateFilterData({ ...(filterData as IProgramFilterValues), ...newFilterValues })

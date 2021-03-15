@@ -15,6 +15,7 @@ interface IPage extends Partial<RouteComponentProps> {
   blocks?: JSX.Element[]
   title: string
   meta?: IField[]
+  metaName?: string
   tableProps: IDataTableProps
   initialFormValue?: any
   defaultFormValue?: any
@@ -25,6 +26,7 @@ interface IPage extends Partial<RouteComponentProps> {
 export function SearchPage(props: IPage) {
   const hideSearchFieldByUrlParam = useQuery().get("hide-search") === "true"
   const { hideSearchField, ...propsToPass } = props
+
   if (!props.meta) {
     return <SearchListWithoutSearchForm {...propsToPass} />
   }

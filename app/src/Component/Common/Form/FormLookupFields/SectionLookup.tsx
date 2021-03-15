@@ -12,6 +12,7 @@ export function SectionLookup(props: IGeneratedField) {
       valueField="SectionID"
       displayField="SectionNumber"
       meta={SectionSearchMeta as IField[]}
+      metaName="SectionSearchMeta"
       {...props}
       {...getSectionTableColumns(true)}
       {...(props.extraProps &&

@@ -8,6 +8,7 @@ export default function CertificatesPage() {
     <SearchPage
       title="Certificates"
       meta={CertificateDefinitionSearchMeta}
+      metaName="CertificateDefinitionSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getCertificateDefinitionTableColumns()

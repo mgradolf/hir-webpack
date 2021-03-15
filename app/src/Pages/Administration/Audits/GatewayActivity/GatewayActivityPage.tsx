@@ -8,6 +8,7 @@ export default function GatewayActivityPage() {
     <SearchPage
       title="Gateway Activity"
       meta={ActivityPaymentGatewaySearchMeta}
+      metaName="ActivityPaymentGatewaySearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getActivityPaymentGatewayTableColumns()

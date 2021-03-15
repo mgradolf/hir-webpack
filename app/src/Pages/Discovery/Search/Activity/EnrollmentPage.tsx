@@ -8,6 +8,7 @@ export default function EnrollmentLogPage() {
     <SearchPage
       title="Enrollment Activity"
       meta={EnrollmentsActivitySearchMeta}
+      metaName="EnrollmentsActivitySearchMeta"
       hideSearchField={false}
       tableProps={{ ...getEnrollmentActivityLogTableColumns() }}
     ></SearchPage>

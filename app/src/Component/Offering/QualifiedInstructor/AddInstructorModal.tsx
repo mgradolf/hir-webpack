@@ -12,6 +12,7 @@ export function AddInstructorModal({ onClose, CanTeachOfferingID }: IInstructorP
   return (
     <LookupModal
       meta={InstructorSearchMeta}
+      metaName="InstructorSearchMeta"
       defaultFormValue={CanTeachOfferingID ? { CanTeachOfferingID } : {}}
       {...getInstructorTableColumns(true)}
       title="Add Instructor"

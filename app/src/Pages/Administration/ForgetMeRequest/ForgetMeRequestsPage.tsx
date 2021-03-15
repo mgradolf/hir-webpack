@@ -8,6 +8,7 @@ export default function () {
     <SearchPage
       title="Manage Forget Me Requests"
       meta={ForgetMeRequestSearchMeta}
+      metaName="ForgetMeRequestSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getForgetMeRequestTableColumns()

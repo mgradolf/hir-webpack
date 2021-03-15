@@ -8,6 +8,7 @@ export default function EnrollmentHistoryPage() {
     <SearchPage
       title="Enrollment History"
       meta={EnrollmentSearchMeta}
+      metaName="EnrollmentSearchMeta"
       hideSearchField={false}
       tableProps={{ ...getEnrollmentTableColumns() }}
     ></SearchPage>

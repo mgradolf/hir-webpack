@@ -11,6 +11,7 @@ export function AccountLinkModal({ onClose }: IAccountLinkProps) {
   return (
     <LookupModal
       meta={AccountSearchMeta}
+      metaName="AccountSearchMeta"
       defaultFormValue={{}}
       {...getAccountTableColumns(true)}
       title="Select Account"

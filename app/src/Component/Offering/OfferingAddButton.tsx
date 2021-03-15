@@ -39,6 +39,7 @@ export default function OfferingAddButton(props: ICreateActionButtonProp) {
           closeModal={closeModal}
           {...getOfferingTableColumns(true)}
           meta={OfferingSearchMeta}
+          metaName="OfferingSearchMeta"
           defaultFormValue={{}}
         />
       )}

@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
-import { studentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
+import { StudentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import { HelpContext } from "~/Help/HelpContext"
 import { IHelpConfig } from "~/Help/getHelpConfig"
 import { PersonFormOpenButton } from "~/Component/Person/Forms/CreateEdit/PersonFormWithConfig"
@@ -13,7 +13,8 @@ export default function PersonTable() {
         <SearchPage
           blocks={[<PersonFormOpenButton label={"Create Student"} initialValues={{ Roles: [1] }} />]}
           title="Manage Students"
-          meta={studentSearchMeta}
+          meta={StudentSearchMeta}
+          metaName="StudentSearchMeta"
           hideSearchField={false}
           tableProps={{
             ...getStudentTableColumns()

@@ -29,6 +29,7 @@ export default function QueriesPage() {
 
       <MetaDrivenForm
         meta={MasterPLCalculatorSearchMeta}
+        metaName="MasterPLCalculatorSearchMeta"
         stopProducingQueryParams={true}
         initialFormValue={{ IsActual: true }}
         applyButtonLabel="Calculate"

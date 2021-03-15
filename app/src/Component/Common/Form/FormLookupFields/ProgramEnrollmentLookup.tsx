@@ -14,6 +14,7 @@ export function ProgramEnrollmentLookup(props: ILookupOpenButton) {
       lookupModalTitle="Select Program Enrollment"
       displayField="ProgramCode"
       meta={ProgramEnrollmentSearchMeta as IField[]}
+      metaName="ProgramEnrollmentSearchMeta"
       {...props}
       {...getProgramEnrollmentTableColumnsForLookup(true)}
       valueField={props.valueField || "ProgramEnrollmentID"}

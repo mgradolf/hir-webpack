@@ -8,6 +8,7 @@ export default function OrderCreditsPage() {
     <SearchPage
       title="Manage Credits"
       meta={OrderCreditsSearchMeta}
+      metaName="OrderCreditsSearchMeta"
       hideSearchField={false}
       tableProps={getOrderCreditsTableColumns()}
     />

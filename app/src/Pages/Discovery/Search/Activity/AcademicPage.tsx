@@ -8,6 +8,7 @@ export default function AcademicLogPage() {
     <SearchPage
       title="Academic Log"
       meta={AcademicActivitySearchMeta}
+      metaName="AcademicActivitySearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getAcademicActivityLogTableColumns(false)

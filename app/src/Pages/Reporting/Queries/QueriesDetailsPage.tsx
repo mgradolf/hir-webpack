@@ -44,7 +44,13 @@ export default function QueriesDetailsPage(props: RouteComponentProps<{ queryNam
         </Row>
       )}
       {!loading && (
-        <SearchPage title={QueryName} meta={searchMeta} defaultFormValue={{ QueryName }} tableProps={tableProps} />
+        <SearchPage
+          title={QueryName}
+          meta={searchMeta}
+          metaName=""
+          defaultFormValue={{ QueryName }}
+          tableProps={tableProps}
+        />
       )}
     </>
   )

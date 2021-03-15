@@ -16,6 +16,7 @@ export interface IDetailsSearchTabProp {
   blockComponents?: IBlockComponentProp[]
   title?: string
   searchMeta?: IField[]
+  searchMetaName?: string
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
@@ -49,6 +50,7 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
       {props.searchMeta && (
         <MetaDrivenForm
           meta={props.searchMeta}
+          metaName={props.searchMetaName}
           initialFormValue={searchParams}
           helpUrl={props.helpUrl}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {

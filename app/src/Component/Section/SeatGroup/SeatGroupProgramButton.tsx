@@ -57,6 +57,7 @@ export default function SeatGroupProgramAddButton(props: ICreateActionButtonProp
           closeModal={closeModal}
           {...getProgramTableColumns(true)}
           meta={ProgramSearchMeta}
+          metaName="ProgramSearchMeta"
         />
       )}
     </>

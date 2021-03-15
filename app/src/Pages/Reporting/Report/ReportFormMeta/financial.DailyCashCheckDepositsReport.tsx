@@ -1,6 +1,5 @@
 import moment from "moment"
-import { getOrganizationByType } from "~/ApiServices/BizApi/org/orgIf"
-import { getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
+import { getOrganizations, getPaymentGatewayAccounts, getPaymentTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, MULTI_SELECT_DROPDOWN, TEXT, IField } from "~/Component/Common/Form/common"
 import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 import { DATE_FORMAT } from "~/utils/Constants"
@@ -17,9 +16,9 @@ const meta: IField[] = [
     label: "Department",
     inputType: DROPDOWN,
     fieldName: "OrganizationID",
-    refLookupService: getOrganizationByType,
+    refLookupService: getOrganizations,
     displayKey: "Name",
-    valueKey: "OrganizationTypeID"
+    valueKey: "OrganizationID"
   },
   {
     label: "User",

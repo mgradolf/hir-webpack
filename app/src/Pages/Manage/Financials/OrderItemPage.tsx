@@ -8,6 +8,7 @@ export default function AccountPage() {
     <SearchPage
       title="Manage Order Items"
       meta={OrderItemsFiltersMeta}
+      metaName="OrderItemsFiltersMeta"
       hideSearchField={false}
       tableProps={{
         ...getOrderItemTableColumns()

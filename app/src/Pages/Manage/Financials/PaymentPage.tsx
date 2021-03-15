@@ -8,6 +8,7 @@ export default function Payments() {
     <SearchPage
       title="Manage Payments"
       meta={PaymentSearchMeta}
+      metaName="PaymentSearchMeta"
       hideSearchField={false}
       tableProps={getPaymentTableColumns(false)}
     ></SearchPage>

@@ -18,6 +18,7 @@ export function AddRefButton(props: { LookUpName: string; formMeta: IField[]; re
         <MetaDrivenFormModal
           title={`Add new entry on ${props.LookUpName}`}
           meta={props.formMeta}
+          metaName={props.LookUpName}
           formSubmitApi={(Content) =>
             createRefRecord({
               LookUpName: props.LookUpName,
@@ -50,6 +51,7 @@ export function UpdateRefButton(props: {
         <MetaDrivenFormModal
           title={`Update existing entry on ${props.LookUpName}`}
           meta={props.formMeta}
+          metaName={props.LookUpName}
           initialFormValue={props.reference}
           formSubmitApi={(Content) =>
             updateRefRecord({

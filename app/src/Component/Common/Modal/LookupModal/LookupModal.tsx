@@ -16,6 +16,7 @@ interface ILookupModal {
   isArray?: boolean
   columns: TableColumnType
   meta: IField[]
+  metaName: string
   defaultFormValue?: { [key: string]: any }
   zIndex?: boolean
 }
@@ -45,6 +46,7 @@ export function LookupModal(props: ILookupModal) {
         <div className="modal-card">
           <MetaDrivenForm
             meta={props.meta}
+            metaName={props.metaName}
             initialFormValue={searchParams}
             onApplyChanges={(newSearchParams, newSearchParamsCount) => {
               console.log(props.defaultFormValue, newSearchParams)

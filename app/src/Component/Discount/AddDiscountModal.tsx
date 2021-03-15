@@ -12,6 +12,7 @@ export default function AddDiscountModal(props: ICreateNewDiscountProps) {
   return (
     <LookupModal
       meta={DiscountProgramsSearchMeta}
+      metaName="DiscountProgramsSearchMeta"
       {...getDiscountProgramsTableColumns()}
       title="Add Discount Programs"
       closeModal={props.onClose}

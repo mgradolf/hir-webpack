@@ -8,6 +8,7 @@ export default function ProgramProgramPage() {
     <SearchPage
       title="Manage Programs"
       meta={ProgramSearchMeta}
+      metaName="ProgramSearchMeta"
       tableProps={{
         ...getProgramTableColumns()
       }}

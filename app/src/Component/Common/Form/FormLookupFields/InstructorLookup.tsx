@@ -12,6 +12,7 @@ export function InstructorLookupButton(props: IGeneratedField) {
       valueField="FacultyID"
       displayField="FirstName"
       meta={InstructorSearchMeta as IField[]}
+      metaName="InstructorSearchMeta"
       {...props}
       formInstance={props.formInstance}
       {...getInstructorTableColumns(true)}

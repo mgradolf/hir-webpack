@@ -15,6 +15,7 @@ export function CatalogLookup(props: ILookupOpenButton) {
       lookupModalTitle="Select Catalog"
       displayField="Name"
       meta={CatalogSearchMeta as IField[]}
+      metaName="CatalogSearchMeta"
       {...props}
       {...getCatalogTableColumns(true)}
       valueField={props.valueField || "CatalogID"}

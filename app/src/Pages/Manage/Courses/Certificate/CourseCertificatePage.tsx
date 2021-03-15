@@ -20,6 +20,7 @@ export default function Certificate() {
       ]}
       title="Manage Certificates"
       meta={CourseCertificateSearchMeta}
+      metaName="CourseCertificateSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getCertificateTableColumns(true)

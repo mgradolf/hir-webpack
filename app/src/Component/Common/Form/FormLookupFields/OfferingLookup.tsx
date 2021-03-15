@@ -12,6 +12,7 @@ export function OfferingLookupButton(props: IGeneratedField) {
       valueField="OfferingID"
       displayField="OfferingCode"
       meta={OfferingSearchMeta as IField[]}
+      metaName="OfferingSearchMeta"
       {...props}
       formInstance={props.formInstance}
       {...getOfferingTableColumns(true)}

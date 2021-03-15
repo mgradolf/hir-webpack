@@ -8,6 +8,7 @@ export default function () {
     <SearchPage
       title="Manage Batch"
       meta={BatchSearchMeta}
+      metaName="BatchSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getBatchTableColumns()

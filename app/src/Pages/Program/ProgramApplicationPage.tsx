@@ -9,6 +9,7 @@ export default function ProgramApplication() {
     <SearchPage
       title="Manage Program Applications"
       meta={ProgramApplicationSearchMeta}
+      metaName="ProgramApplicationSearchMeta"
       hideSearchField={false}
       defaultFormValue={{}}
       tableProps={getProgramApplicationTableColumns()}

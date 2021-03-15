@@ -8,6 +8,7 @@ export default function RequestTable() {
     <SearchPage
       title="Manage Requests"
       meta={RequestSearchMeta}
+      metaName="RequestSearchMeta"
       hideSearchField={false}
       tableProps={getRequestTableColumns()}
     ></SearchPage>

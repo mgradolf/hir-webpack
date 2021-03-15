@@ -90,6 +90,7 @@ export default function RequestSearchCustomLookupFilter(props: IGeneratedField) 
             { title: "Account Name", dataIndex: "AccountName", width: 150 }
           ]}
           meta={PersonSearchMeta}
+          metaName="PersonSearchMeta"
         />
       )}
       {openAccountLookupModal && (
@@ -116,6 +117,7 @@ export default function RequestSearchCustomLookupFilter(props: IGeneratedField) 
             { title: "Address", dataIndex: "BillingAddress", width: 150 }
           ]}
           meta={AccountSearchMeta}
+          metaName="AccountSearchMeta"
         />
       )}
 

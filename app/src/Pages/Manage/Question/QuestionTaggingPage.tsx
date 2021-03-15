@@ -11,6 +11,7 @@ export function QuestionTaggingPage(props: { TagID: number }) {
     <SearchPage
       title="Manage Accounts"
       meta={QuestionTaggingSearchMeta}
+      metaName="QuestionTaggingSearchMeta"
       hideSearchField={false}
       initialFormValue={{ TagID: props.TagID, EventID: 2 }}
       blocks={[

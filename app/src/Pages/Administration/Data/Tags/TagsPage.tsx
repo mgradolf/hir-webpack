@@ -8,6 +8,7 @@ export default function TagsPage() {
     <SearchPage
       title="Manage Tags"
       meta={TagsSearchMeta}
+      metaName="TagsSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getTagsTableColumns(true, "")

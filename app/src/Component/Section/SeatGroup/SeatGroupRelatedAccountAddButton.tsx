@@ -39,6 +39,7 @@ export default function SeatGroupRelatedAccountAddButton(props: ICreateActionBut
           closeModal={closeModal}
           {...getAccountTableColumns()}
           meta={AccountSearchMeta}
+          metaName="AccountSearchMeta"
           defaultFormValue={{ SeatGroupID: props.SeatGroupID }}
         />
       )}

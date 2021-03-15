@@ -11,6 +11,7 @@ export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]
   title: string
   meta?: IField[]
+  metaName?: string
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
@@ -53,6 +54,7 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             title={<Typography.Title level={3}>{props.title}</Typography.Title>}
             helpUrl={props.helpUrl}
             meta={props.meta}
+            metaName={props.metaName}
             initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
             onApplyChanges={(newFilterValues, appliedFilterCount) => {
               setSearchParams({ ...props.defaultFormValue, ...newFilterValues })

@@ -14,6 +14,7 @@ export default function OrderLogPage(props: RouteComponentProps<{ sectionID: str
       <SearchPage
         title="Find Order Activity"
         meta={modifiedMeta}
+        metaName="OrderSearchMeta"
         hideSearchField={true}
         defaultFormValue={{ SectionIDs: [SectionID] }}
         tableProps={getOrderTableColumns()}

@@ -8,6 +8,7 @@ export default function BuildingPage() {
     <SearchPage
       title="Buildings"
       meta={BuildingTypeSearchMeta}
+      metaName="BuildingTypeSearchMeta"
       hideSearchField={false}
       tableProps={{
         ...getBuildingTypeTableColumns()

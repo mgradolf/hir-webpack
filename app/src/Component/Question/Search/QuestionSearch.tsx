@@ -51,6 +51,7 @@ export default function QuestionSearch(props: IQuestionSearch) {
   return (
     <MetaDrivenForm
       meta={QuestionSearchFiltersMeta}
+      metaName="QuestionSearchFiltersMeta"
       onApplyChanges={(newFilterValues, newFilterCount) => {
         props.onFormSubmission(newFilterValues)
       }}

@@ -8,6 +8,7 @@ export default function DiscountProgramPage() {
     <SearchPage
       title="Manage Discount Programs"
       meta={DiscountProgramsSearchMeta}
+      metaName="DiscountProgramsSearchMeta"
       hideSearchField={false}
       tableProps={getDiscountProgramsTableColumns()}
     />

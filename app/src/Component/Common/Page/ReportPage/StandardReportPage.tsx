@@ -10,6 +10,7 @@ export interface IStandardReportPage {
   reportName: string
   description?: string
   meta?: IField[]
+  metaName?: string
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
   mapping?: { [key: string]: any }
@@ -77,6 +78,7 @@ export default function StandardReportPage(props: IStandardReportPage) {
         <MetaDrivenForm
           title={<Typography.Title level={3}>{props.title}</Typography.Title>}
           meta={props.meta}
+          metaName={props.reportName}
           initialFormValue={props.initialFormValue}
           defaultFormValue={props.defaultFormValue}
           applyButtonLabel="Run Report"

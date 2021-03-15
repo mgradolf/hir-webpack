@@ -12,6 +12,7 @@ export function PersonLookup(props: IGeneratedField) {
       lookupModalTitle="Select Person"
       displayField="SortName"
       meta={PersonSearchMeta as IField[]}
+      metaName="PersonSearchMeta"
       {...props}
       {...getPersonTableColumns(true)}
       valueField={props.valueField || "PersonID"}
