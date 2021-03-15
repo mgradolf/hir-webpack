@@ -1,14 +1,10 @@
 import React from "react"
 import { Switch } from "antd"
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { RouteComponentProps } from "react-router-dom"
-import { saveCreditType } from "~/ApiServices/Service/GradingService"
+import { findAvailableCreditType, saveCreditType } from "~/ApiServices/Service/GradingService"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { eventBus } from "~/utils/EventBus"
-
-const getCreditTypeOfTranscripts = (Params: { [key: string]: any }): Promise<IApiResponse> =>
-  Promise.resolve({ code: 200, success: true, data: [], error: false })
 
 const refreshEventName = "REFRESH_TranscriptTypeCreditDetailsPage"
 const getColumns = (TranscriptTypeID: number, IDs: number[]): TableColumnType => [
@@ -44,9 +40,10 @@ export default function TranscriptTypeCreditDetailsPage(props: RouteComponentPro
     <SearchPage
       title={`Credit Types of `}
       hideSearchField={false}
+      defaultFormValue={{ TranscriptTypeID: ID }}
       tableProps={{
         columns: getColumns(ID, []),
-        searchFunc: getCreditTypeOfTranscripts,
+        searchFunc: findAvailableCreditType,
         refreshEventName
       }}
     />

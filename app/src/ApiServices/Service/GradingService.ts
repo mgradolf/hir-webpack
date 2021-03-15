@@ -7,3 +7,10 @@ export function saveCreditType(
 ): Promise<IApiResponse> {
   return GradingService[config.Actions.saveCreditType](Params, Headers)
 }
+
+export function findAvailableCreditType(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return GradingService[config.Actions.findAvailableCreditType](Params, Headers)
+}

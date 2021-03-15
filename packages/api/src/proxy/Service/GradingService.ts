@@ -5,7 +5,8 @@ export const config = {
   Service: "GradingService",
   Module: "hir",
   Actions: {
-    saveCreditType: "saveCreditType"
+    saveCreditType: "saveCreditType",
+    findAvailableCreditType: "findAvailableCreditType"
   }
 }
 
