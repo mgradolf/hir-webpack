@@ -6,26 +6,28 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { eventBus } from "~/utils/EventBus"
 
+let creditTypeIDs: number[] = []
 const refreshEventName = "REFRESH_TranscriptTypeCreditDetailsPage"
 const getColumns = (TranscriptTypeID: number, IDs: number[]): TableColumnType => [
   {
     title: "CreditName",
-    dataIndex: "Name"
+    dataIndex: "CreditTypeDescriptor"
   },
   {
     title: "Attach",
     dataIndex: "isPublished",
     render: (text: any, record: any) => (
       <Switch
-        checked={!!text}
+        defaultChecked={record.IsSelected}
         onChange={(event) => {
           if (event) {
-            IDs.push(record.ID)
+            console.log(creditTypeIDs)
+            creditTypeIDs.push(record.CreditTypeID)
           } else {
-            const index = IDs.indexOf(record.ID)
-            IDs.splice(index, 1)
+            const index = creditTypeIDs.indexOf(record.CreditTypeID)
+            creditTypeIDs.splice(index, 1)
           }
-          saveCreditType({ TranscriptTypeID, SelectedCreditTypeIDs: IDs }).then((x) => {
+          saveCreditType({ TranscriptTypeID, SelectedCreditTypeIDs: creditTypeIDs }).then((x) => {
             eventBus.publish(refreshEventName)
           })
         }}
@@ -36,14 +38,23 @@ const getColumns = (TranscriptTypeID: number, IDs: number[]): TableColumnType =>
 
 export default function TranscriptTypeCreditDetailsPage(props: RouteComponentProps<{ ID: string }>) {
   const ID = Number(props?.match?.params?.ID)
+
   return (
     <SearchPage
-      title={`Credit Types of `}
+      title={`Transcript Credit Types`}
       hideSearchField={false}
       defaultFormValue={{ TranscriptTypeID: ID }}
       tableProps={{
         columns: getColumns(ID, []),
-        searchFunc: findAvailableCreditType,
+        searchFunc: (Params) =>
+          findAvailableCreditType(Params).then((x) => {
+            if (x.success) {
+              creditTypeIDs = x.data
+                .filter((credit: any) => credit.IsSelected)
+                .map((credit: any) => credit.CreditTypeID)
+            }
+            return x
+          }),
         refreshEventName
       }}
     />
