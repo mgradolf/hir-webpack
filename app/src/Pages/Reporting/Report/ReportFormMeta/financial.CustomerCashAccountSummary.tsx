@@ -1,6 +1,6 @@
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {

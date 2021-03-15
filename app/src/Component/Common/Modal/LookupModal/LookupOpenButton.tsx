@@ -33,16 +33,16 @@ export function LookupOpenButton(props: ILookupOpenButton) {
 
   useEffect(() => {
     console.log("props.entityLookupFunc ", props)
-    // if (props.entityLookupFunc) {
-    //   props.entityLookupFunc().then((item) => {
-    //     console.log("item ", item)
-    //     if (item) setSelectedItems([item[props.displayField]])
-    //   })
-    // }
+    if (props.entityLookupFunc) {
+      props.entityLookupFunc().then((item) => {
+        console.log("item ", item)
+        if (item) setSelectedItems([item])
+      })
+    }
     if (props.tempentityLookupFunc && props.defaultValue) {
       props.tempentityLookupFunc("Person", props.defaultValue).then((item) => {
         console.log("item ", item)
-        if (item) setSelectedItems([item[props.displayField]])
+        if (item) setSelectedItems([item.data])
       })
     }
     // eslint-disable-next-line
@@ -79,7 +79,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
 
   const toRender = (
     <>
-      <Form.Item name={props.fieldName} hidden={true}>
+      <Form.Item name={props.fieldName} rules={props.rules} hidden={true}>
         <Input />
       </Form.Item>
       <Form.Item

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Input, Select, Switch, Card, Divider, Row, Col, Button, Spin, DatePicker } from "antd"
-import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
+import { Form, Input, Select, Divider, Row, Col, Spin } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { IAccountContactFieldNames } from "~/Component/Account/Interfaces"
 import {
@@ -9,24 +7,26 @@ import {
   getQuestionAnswers,
   getTaggedQuestionsByAffiliationRoleType
 } from "~/ApiServices/BizApi/account/accountIF"
-import { eventBus } from "~/utils/EventBus"
 import "~/Sass/utils.scss"
 import {
   ACCOUNT_AFFILIATION_STATUS_ACTIVE,
   ACCOUNT_AFFILIATION_STATUS_INACTIVE,
-  ACCOUNT_AFFILIATION_STATUS_PENDING,
-  DATE_FORMAT,
-  REQUEST_DATE_TIME_FORMAT
+  ACCOUNT_AFFILIATION_STATUS_PENDING
 } from "~/utils/Constants"
 import { saveAccountAffiliation } from "~/ApiServices/Service/AccountService"
-import moment from "moment"
+import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
+import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
+import { eventBus } from "~/utils/EventBus"
 
 interface IAccountContactFormProps {
+  editMode: boolean
+  initialValue: { [key: string]: any }
   formInstance: FormInstance
-  fieldNames: IAccountContactFieldNames
-  initialFormValue: { [key: string]: any }
-  closeModal?: () => void
-  setApiCallInProgress: (flag: boolean) => void
 }
 
 const layout = {
@@ -34,25 +34,34 @@ const layout = {
   wrapperCol: { span: 14 }
 }
 
-export default function AccountContactForm(props: IAccountContactFormProps) {
+const fieldNames: IAccountContactFieldNames = {
+  AccountAffiliationID: "AccountAffiliationID",
+  AccountID: "AccountID",
+  PersonID: "PersonID",
+  FirstName: "FirstName",
+  LastName: "LastName",
+  Birthday: "Birthday",
+  EmailAddress: "EmailAddress",
+  AffiliationRoleTypeID: "AffiliationRoleTypeID",
+  StatusID: "StatusID",
+  IsContactShared: "IsContactShared",
+  IsPrimaryAccountAffiliation: "IsPrimaryAccountAffiliation",
+  ERPID: "ERPID",
+  AsnwerList: "AnswerList"
+}
+
+function AccountContactForm(props: IAccountContactFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [roleTypeID, setRoleTypeID] = useState(Number)
-  const [roleTypeItems, setRoleTypeItems] = useState<Array<any>>([])
   const [questionItems, setQuestionItems] = useState<Array<any>>([])
-  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const questionAnswers: { [key: string]: any } = {}
 
-  const editMode: boolean = props.initialFormValue.AccountAffiliationID ? true : false
-  const birthday = props.initialFormValue.Birthday
-
-  useEffect(() => {
-    ;(async function () {
-      const result = await getAffiliationRoleTypes({ IsActive: true })
-      if (result && result.success) {
-        setRoleTypeItems(result.data)
-      }
-    })()
-  }, [])
+  const AccountAffiliationID = props.initialValue.AccountAffiliationID
+  const AffiliationRoleTypeID = props.initialValue.AffiliationRoleTypeID
+  const AccountContactFormConfig: IAccountContactFieldNames = CustomFormConfigHook(
+    fieldNames,
+    "AccountContactForm"
+  ) as IAccountContactFieldNames
 
   useEffect(() => {
     async function loadQuestions(roleTypeID: number) {
@@ -60,8 +69,8 @@ export default function AccountContactForm(props: IAccountContactFormProps) {
       const res = await getTaggedQuestionsByAffiliationRoleType({ AffiliationRoleTypeID: roleTypeID })
       if (res.success && Array.isArray(res.data)) {
         setQuestionItems(res.data)
-        if (props.initialFormValue.AccountAffiliationID) {
-          loadAnswers(props.initialFormValue.AccountAffiliationID)
+        if (AccountAffiliationID) {
+          loadAnswers(AccountAffiliationID)
         } else {
           setLoading(false)
         }
@@ -81,17 +90,204 @@ export default function AccountContactForm(props: IAccountContactFormProps) {
 
     if (roleTypeID) {
       loadQuestions(roleTypeID)
-    } else if (props.initialFormValue.AffiliationRoleTypeID) {
-      loadQuestions(props.initialFormValue.AffiliationRoleTypeID)
+    } else if (AffiliationRoleTypeID) {
+      loadQuestions(AffiliationRoleTypeID)
     }
     // eslint-disable-next-line
   }, [props, roleTypeID])
 
-  const onFormSubmission = async () => {
-    try {
-      await props.formInstance.validateFields()
-      const params = props.formInstance.getFieldsValue()
+  const handelRoleTypeSelection = (value: any) => {
+    setRoleTypeID(value)
+  }
 
+  return (
+    <>
+      <Row>
+        <Col xs={24} sm={24} md={12}>
+          <FormInput
+            hidden
+            formInstance={props.formInstance}
+            defaultValue={props.initialValue.AccountID}
+            label={"Account ID"}
+            ariaLabel={"Account ID"}
+            fieldName="AccountID"
+            {...AccountContactFormConfig.AccountID}
+          />
+
+          <FormInput
+            hidden
+            formInstance={props.formInstance}
+            defaultValue={props.initialValue.AccountAffiliationID}
+            label={"Account Affilation ID"}
+            ariaLabel={"Account Affilation ID"}
+            fieldName="AccountAffiliationID"
+            {...AccountContactFormConfig.AccountAffiliationID}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            defaultValue={{}}
+            label={"First Name"}
+            ariaLabel={"Frist Name"}
+            fieldName="FirstName"
+            rules={[{ required: true, message: "Please enter first name!" }]}
+            {...AccountContactFormConfig.FirstName}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Last Name"}
+            ariaLabel={"Last Name"}
+            fieldName="LastName"
+            rules={[{ required: true, message: "Please enter last name!" }]}
+            {...AccountContactFormConfig.LastName}
+          />
+
+          <FormDatePicker
+            label={"Date Of Birth"}
+            formInstance={props.formInstance}
+            {...layout}
+            aria-label="Pick BirthDate"
+            placeholder="YYYY/MM/DD"
+            fieldName="Birthday"
+            defaultValue={props.initialValue.Birthday}
+            {...AccountContactFormConfig.Birthday}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Email Address"}
+            ariaLabel={"Email Address"}
+            fieldName="EmailAddress"
+            rules={[{ required: true, message: "Please enter valid email address!", type: "email" }]}
+            {...AccountContactFormConfig.EmailAddress}
+          />
+
+          <FormDropDown
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Status"}
+            ariaLabel={"StatusID"}
+            fieldName="StatusID"
+            options={[
+              { label: "Active", value: ACCOUNT_AFFILIATION_STATUS_ACTIVE },
+              { label: "Inactive", value: ACCOUNT_AFFILIATION_STATUS_INACTIVE },
+              { label: "Pending", value: ACCOUNT_AFFILIATION_STATUS_PENDING }
+            ]}
+            {...AccountContactFormConfig.StatusID}
+          />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
+          <FormDropDown
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Role Type"}
+            ariaLabel={"Role Type"}
+            fieldName="AffiliationRoleTypeID"
+            onChangeCallback={handelRoleTypeSelection}
+            refLookupService={() => getAffiliationRoleTypes({ IsActive: true })}
+            displayKey="Name"
+            valueKey="AffiliationRoleTypeID"
+            {...AccountContactFormConfig.AffiliationRoleTypeID}
+          />
+
+          <FormMultipleRadio
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Shared Contact"}
+            ariaLabel={"Shared Contact"}
+            fieldName="IsContactShared"
+            options={[
+              { label: "Yes", value: true },
+              { label: "No", value: false }
+            ]}
+            {...AccountContactFormConfig.IsContactShared}
+          />
+
+          <FormMultipleRadio
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Primary Contact"}
+            ariaLabel={"Primary Contact"}
+            fieldName="IsPrimaryAccountAffiliation"
+            options={[
+              { label: "Yes", value: true },
+              { label: "No", value: false }
+            ]}
+            {...AccountContactFormConfig.IsPrimaryAccountAffiliation}
+          />
+
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"ERPID"}
+            ariaLabel={"ERPID"}
+            fieldName="ERPID"
+            {...AccountContactFormConfig.ERPID}
+          />
+        </Col>
+        <Col xs={24} sm={24} md={24}>
+          <Divider orientation="left">Questions</Divider>
+          <Spin spinning={loading} size="small">
+            {questionItems.map((questionObj, index) => {
+              const possibleOptions: Array<any> = questionObj.PossibleOptions
+              if (possibleOptions !== null) {
+                return (
+                  <Form.Item
+                    key={index}
+                    label={questionObj.Name}
+                    {...layout}
+                    rules={[{ required: questionObj.IsRequired, message: "Please select your answer!" }]}
+                    name={`AnswerList_${questionObj.TagQuestionID}`}
+                  >
+                    <Select aria-label={questionObj.Name}>
+                      <>
+                        {possibleOptions.map((x) => {
+                          return (
+                            <Select.Option key={`${x.TagQuestionID}_${x.Option}`} value={x.Option}>
+                              {x.Option}
+                            </Select.Option>
+                          )
+                        })}
+                      </>
+                    </Select>
+                  </Form.Item>
+                )
+              } else {
+                return (
+                  <Form.Item
+                    key={index}
+                    label={questionObj.Name}
+                    rules={[{ required: questionObj.IsRequired, message: "Please input your answer!" }]}
+                    {...layout}
+                    name={`AnswerList_${questionObj.TagQuestionID}`}
+                  >
+                    <Input />
+                  </Form.Item>
+                )
+              }
+            })}
+          </Spin>
+        </Col>
+      </Row>
+    </>
+  )
+}
+
+export function AccountContactFormOpenButton(props: { editMode: boolean; initialValues: { [key: string]: any } }) {
+  const [loading] = useState(false)
+  const [formInstance] = Form.useForm()
+  const [showModal, setShowModal] = useState(false)
+  const [apiCallInProgress, setApiCallInProgress] = useState(false)
+  const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
+
+  const onFormSubmission = async () => {
+    formInstance.validateFields().then((x) => {
+      const params = formInstance.getFieldsValue()
       const answerList: Array<any> = []
       Object.keys(params).map((key) => {
         if (key.includes("AnswerList")) {
@@ -103,193 +299,36 @@ export default function AccountContactForm(props: IAccountContactFormProps) {
       params["AnswerList"] = answerList
 
       setErrorMessages([])
-      const response = await saveAccountAffiliation(params)
-      if (response && response.success) {
-        props.closeModal && props.closeModal()
-        eventBus.publish("REFRESH_CONTACT_TAB")
-      } else {
-        setErrorMessages(response.error)
-        console.log(response.error)
-        console.log(errorMessages)
-      }
-    } catch (errorInfo) {
-      console.log("Failed:", errorInfo)
-    }
-  }
-
-  const handelRoleTypeSelection = (value: any) => {
-    setRoleTypeID(value)
+      saveAccountAffiliation(params)
+        .then((response) => {
+          console.log("validation passed ", response)
+          setApiCallInProgress(false)
+          if (response && response.success) {
+            setShowModal(false)
+            eventBus.publish("REFRESH_CONTACT_TAB")
+          } else {
+            console.log("validation failed ", response.error)
+            setErrorMessages(response.error)
+          }
+        })
+        .catch((y) => console.error(y))
+    })
   }
 
   return (
-    <Card
-      title={editMode ? `Edit Contact` : `Add Contact`}
-      actions={[
-        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
-          <Col>
-            <Button type="primary" danger onClick={props.closeModal}>
-              Cancel
-            </Button>
-          </Col>
-          <Col>
-            <Button type="primary" onClick={onFormSubmission}>
-              Submit
-            </Button>
-          </Col>
-        </Row>
-      ]}
-    >
-      <Form
-        form={props.formInstance}
-        initialValues={props.initialFormValue}
-        scrollToFirstError
-        style={{
-          maxHeight: "80vh",
-          overflowY: "scroll"
-        }}
-      >
-        <OldFormError errorMessages={errorMessages} />
-        <Row>
-          <Col xs={24} sm={24} md={12}>
-            <Form.Item label="Account ID" className="hidden" {...layout} name={props.fieldNames.AccountID}>
-              <Input aria-label="Account ID" />
-            </Form.Item>
-            <Form.Item
-              label="Account Affilation ID"
-              className="hidden"
-              {...layout}
-              name={props.fieldNames.AccountAffiliationID}
-            >
-              <Input aria-label="Account Affiliation ID" />
-            </Form.Item>
-            <Form.Item
-              label="First Name"
-              {...layout}
-              name={props.fieldNames.FirstName}
-              rules={[{ required: true, message: "Please enter first name!" }]}
-            >
-              <Input aria-label="First Name" />
-            </Form.Item>
-            <Form.Item
-              label="Last Name"
-              {...layout}
-              name={props.fieldNames.LastName}
-              rules={[{ required: true, message: "Please enter last name!" }]}
-            >
-              <Input aria-label="Last Name" />
-            </Form.Item>
-            <Form.Item label="Birthday" {...layout} name={props.fieldNames.Birthday}>
-              <DatePicker
-                aria-label="Pick Birthday"
-                placeholder={DATE_FORMAT}
-                format={DATE_FORMAT}
-                defaultValue={birthday ? moment(birthday, REQUEST_DATE_TIME_FORMAT) : undefined}
-              />
-            </Form.Item>
-            <Form.Item label="Email Address" {...layout} name={props.fieldNames.EmailAddress}>
-              <Input aria-label="Email Address" />
-            </Form.Item>
-            <Form.Item
-              name={props.fieldNames.StatusID}
-              label="Status"
-              rules={[{ required: true, message: "Please select your answer!" }]}
-              {...layout}
-            >
-              <Select aria-label="Status">
-                <Select.Option key={ACCOUNT_AFFILIATION_STATUS_ACTIVE} value={ACCOUNT_AFFILIATION_STATUS_ACTIVE}>
-                  Active
-                </Select.Option>
-                <Select.Option key={ACCOUNT_AFFILIATION_STATUS_INACTIVE} value={ACCOUNT_AFFILIATION_STATUS_INACTIVE}>
-                  Inactive
-                </Select.Option>
-                <Select.Option key={ACCOUNT_AFFILIATION_STATUS_PENDING} value={ACCOUNT_AFFILIATION_STATUS_PENDING}>
-                  Pending
-                </Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col xs={24} sm={24} md={12}>
-            <Form.Item
-              name={props.fieldNames.AffiliationRoleTypeID}
-              label="Role Type"
-              rules={[{ required: true, message: "Please select your answer!" }]}
-              {...layout}
-            >
-              <Select onChange={handelRoleTypeSelection} aria-label="Role Type">
-                {roleTypeItems.map((x) => {
-                  return (
-                    <Select.Option key={x.AffiliationRoleTypeID} value={x.AffiliationRoleTypeID}>
-                      {x.Name}
-                    </Select.Option>
-                  )
-                })}
-              </Select>
-            </Form.Item>
-            <Form.Item
-              label="Shared Contact"
-              {...layout}
-              valuePropName="checked"
-              name={props.fieldNames.IsContactShared}
-            >
-              <Switch aria-label="Shared contact" />
-            </Form.Item>
-            <Form.Item
-              label="Primary Contact"
-              {...layout}
-              valuePropName="checked"
-              name={props.fieldNames.IsPrimaryAccountAffiliation}
-            >
-              <Switch aria-label="Primary contact" />
-            </Form.Item>
-            <Form.Item label="ERPID" {...layout} name={props.fieldNames.ERPID}>
-              <Input aria-label="ERPID" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} sm={24} md={24}>
-            <Divider orientation="left">Questions</Divider>
-            <Spin spinning={loading} size="small">
-              {questionItems.map((questionObj, index) => {
-                const possibleOptions: Array<any> = questionObj.PossibleOptions
-                if (possibleOptions !== null) {
-                  return (
-                    <Form.Item
-                      key={index}
-                      label={questionObj.Name}
-                      {...layout}
-                      rules={[{ required: questionObj.IsRequired, message: "Please select your answer!" }]}
-                      name={`AnswerList_${questionObj.TagQuestionID}`}
-                    >
-                      <Select aria-label={questionObj.Name}>
-                        <>
-                          {possibleOptions.map((x) => {
-                            return (
-                              <Select.Option key={`${x.TagQuestionID}_${x.Option}`} value={x.Option}>
-                                {x.Option}
-                              </Select.Option>
-                            )
-                          })}
-                        </>
-                      </Select>
-                    </Form.Item>
-                  )
-                } else {
-                  return (
-                    <Form.Item
-                      key={index}
-                      label={questionObj.Name}
-                      rules={[{ required: questionObj.IsRequired, message: "Please input your answer!" }]}
-                      {...layout}
-                      name={`AnswerList_${questionObj.TagQuestionID}`}
-                    >
-                      <Input />
-                    </Form.Item>
-                  )
-                }
-              })}
-            </Spin>
-          </Col>
-        </Row>
-      </Form>
-    </Card>
+    <CustomFormModalOpenButton
+      formTitle={props.editMode ? "Edit Contact" : "Add Contact"}
+      customForm={<AccountContactForm editMode={true} initialValue={props.initialValues} formInstance={formInstance} />}
+      formInstance={formInstance}
+      onFormSubmission={onFormSubmission}
+      initialValues={initialValues}
+      apiCallInProgress={apiCallInProgress}
+      loading={loading}
+      errorMessages={errorMessages}
+      buttonLabel={props.editMode ? "Edit" : "+ Add Contact"}
+      buttonProps={{ type: props.editMode ? "link" : "primary" }}
+      showModal={showModal}
+      setShowModal={(show: boolean) => setShowModal(show)}
+    />
   )
 }

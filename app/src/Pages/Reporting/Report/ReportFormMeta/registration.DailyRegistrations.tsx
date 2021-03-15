@@ -3,7 +3,7 @@ import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common
 import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {

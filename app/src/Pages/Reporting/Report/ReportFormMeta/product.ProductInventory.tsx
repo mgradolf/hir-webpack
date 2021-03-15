@@ -1,6 +1,6 @@
 import { getDeliveryModes } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {

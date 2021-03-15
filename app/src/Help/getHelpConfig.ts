@@ -1,5 +1,5 @@
 import axios from "axios"
-import HelpConfig from "~/Config/Help/HelpConfig.json"
+import HelpConfig from "~/Help/HelpConfig.json"
 import { baseURL } from "@packages/api/lib/utils/ApiMethodFactory"
 
 export interface IHelpConfig {
@@ -22,6 +22,6 @@ export const getHelpConfig = (): Promise<IHelpConfig> => {
       return x.data
     })
     .catch((error) => {
-      return {}
+      return HelpConfig as IHelpConfig
     })
 }

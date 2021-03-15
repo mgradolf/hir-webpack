@@ -10,6 +10,7 @@ export const config = {
     findEnrollmentHistory: "findEnrollmentHistory",
     executeDomainList: "executeDomainList",
     executeDomainObject: "executeDomainObject",
+    executeRowMapNamedQuery: "executeRowMapNamedQuery",
     findPickList: "findPickList"
   }
 }

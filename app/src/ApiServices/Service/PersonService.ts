@@ -181,3 +181,10 @@ export function getDegreeProgram(
 ): Promise<IApiResponse> {
   return PersonService[config.Actions.getDegreeProgram](Params, Headers)
 }
+
+export function findPersonsByAccount(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PersonService[config.Actions.findPersonsByAccount](Params, Headers)
+}

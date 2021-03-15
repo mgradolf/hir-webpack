@@ -1,6 +1,6 @@
 import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKERS, DROPDOWN, IField } from "~/Component/Common/Form/common"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {

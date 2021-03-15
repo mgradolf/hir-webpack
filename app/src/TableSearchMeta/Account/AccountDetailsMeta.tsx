@@ -17,7 +17,10 @@ import { REFRESH_ACCOUNT_SEATGROUP_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { AccountFormMeta } from "~/Component/Account/FormMeta/AccountFormMeta"
 import { pushAccount } from "~/ApiServices/Service/AccountService"
-import { AccountContactFormModalOpenButton } from "~/Component/Account/AccountContactFormModal"
+import { AccountContactFormOpenButton } from "~/Component/Account/Forms/AccountContactForm"
+import { BulkOrderFormModalOpenButton } from "~/Component/Package/BulkOrderFormModal"
+import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
+import { savePackage } from "~/ApiServices/Service/PackageService"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -68,7 +71,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Contacts",
     tabType: "table",
     tabMeta: {
-      blocks: [<AccountContactFormModalOpenButton accountData={account} />],
+      blocks: [<AccountContactFormOpenButton editMode={false} initialValues={account} />],
       tableProps: {
         pagination: false,
         ...getAccountAffiliationTableColumn(),
@@ -179,7 +182,24 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       tabTitle: "Packages",
       tabType: "table",
       tabMeta: {
+        blocks: [
+          <MetaDrivenFormModalOpenButton
+            formTitle="Create Package"
+            formMeta={PackageFormMeta}
+            formSubmitApi={savePackage}
+            initialFormValue={{
+              AccountID: account.AccountID
+            }}
+            buttonLabel="+ Add Package"
+            defaultFormValue={{
+              AccountID: account.AccountID
+            }}
+            refreshEventName={"REFRESH_PACKAGES_TAB"}
+          />,
+          <BulkOrderFormModalOpenButton accountData={account} />
+        ],
         tableProps: {
+          pagination: false,
           ...getPackageTableColumns(false),
           searchParams: { AccountID: account.AccountID },
           refreshEventName: "REFRESH_PACKAGES_TAB"

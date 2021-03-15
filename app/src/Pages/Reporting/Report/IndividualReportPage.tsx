@@ -6,7 +6,7 @@ import { getReportByReportName } from "~/ApiServices/Service/ReportService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { Row, Spin } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const generateIfilterFieldObject = (Params: { [key: string]: any }[]): IField[] => {
   const metas: IField[] = []

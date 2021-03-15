@@ -3,7 +3,7 @@ import { getMembershipProgramTypes } from "~/ApiServices/Service/RefLookupServic
 import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common/Form/common"
 
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
-import { IReportMeta } from "~/Pages/Reporting/Report/IReportMeta"
+import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 import { DATE_FORMAT } from "~/utils/Constants"
 
 const meta: IField[] = [
