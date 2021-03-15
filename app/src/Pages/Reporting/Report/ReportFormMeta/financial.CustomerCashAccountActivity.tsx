@@ -35,7 +35,7 @@ const meta: IField[] = [
 const reportMeta: IReportMeta = {
   meta,
   initialFormValue: {
-    TxDateFrom: moment().add(-2, "M").format(DATE_FORMAT),
+    TxDateFrom: moment().startOf("year").format(DATE_FORMAT),
     TxDateTo: moment().format(DATE_FORMAT)
   }
 }
