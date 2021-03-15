@@ -10,12 +10,12 @@ export function FormDropDown(props: IGeneratedField & { onChangeCallback?: (para
   const { refLookupService, displayKey, valueKey } = props
 
   const loadOptions = () => {
-    if (props.options?.length) {
+    if (props.options && props.options.length) {
       setOptions(
-        props.options?.map((x) => {
+        props.options.map((x) => {
           return {
-            label: x[displayKey || "label"],
-            value: x[valueKey || "value"]
+            label: x["label"],
+            value: x["value"]
           }
         })
       )

@@ -6,7 +6,13 @@ import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
 import { Button, Dropdown, Menu } from "antd"
 import { DownloadOutlined } from "@ant-design/icons"
-import { renderBoolean } from "~/Component/Common/ResponsiveTable/tableUtils"
+import {
+  renderBoolean,
+  sortByBoolean,
+  sortByNumber,
+  sortByString,
+  sortByTime
+} from "~/Component/Common/ResponsiveTable/tableUtils"
 import { IDataTableProps, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { processTableMetaWithUserMetaConfig } from "./TableMetaShadowingProcessor"
 
@@ -149,6 +155,20 @@ export function ResponsiveTable(props: IDataTableProps) {
         })
         .filter((x, i) => {
           return !(mobileView && responsiveColumnIndices?.includes(i + 1))
+        })
+        .map((x, i) => {
+          x.sorter = (a: any, b: any) => {
+            if (typeof a.dataIndex === "boolean") {
+              return sortByBoolean(a, b)
+            } else if (typeof a.dataIndex === "number") {
+              return sortByNumber(a, b)
+            } else if (new Date(a.dataIndex).toString() !== "Invalid Date") {
+              return sortByTime(a, b)
+            } else if (typeof a.dataIndex === "string") {
+              return sortByString(a, b)
+            } else return -1
+          }
+          return x
         }),
       ...otherTableProps
     }

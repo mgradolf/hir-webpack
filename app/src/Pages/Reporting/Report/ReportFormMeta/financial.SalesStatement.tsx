@@ -26,8 +26,8 @@ const meta: IField[] = [
     inputType: DROPDOWN,
     fieldName: "SortOrder",
     options: [
-      { label: "ascending", value: "Asc" },
-      { label: "descending", value: "Desc" }
+      { label: "Ascending", value: "Asc" },
+      { label: "Descending", value: "Desc" }
     ]
   }
 ]
