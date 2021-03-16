@@ -29,3 +29,15 @@ export function submitBulkOrder(
 ): Promise<IApiResponse> {
   return PackageService[config.Actions.submitBulkOrder](Params, Headers)
 }
+
+export function addSection(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return PackageService[config.Actions.addSection](Params, Headers)
+}
+
+export function updateSection(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return PackageService[config.Actions.updateSection](Params, Headers)
+}
+
+export function removeSection(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return PackageService[config.Actions.removeSection](Params, Headers)
+}

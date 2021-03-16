@@ -21,20 +21,14 @@ import { AccountContactFormOpenButton } from "~/Component/Account/Forms/AccountC
 import { BulkOrderFormModalOpenButton } from "~/Component/Package/BulkOrderFormModal"
 import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
 import { savePackage } from "~/ApiServices/Service/PackageService"
-import { IField } from "~/Component/Common/Form/common"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
-  const updateAccountForm = AccountFormMeta.map((x: IField) => {
-    if (x.fieldName === "AccountTypeID") x.disabled = true
-    return x
-  })
-
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle="Update Account"
-        formMeta={updateAccountForm}
+        formMeta={AccountFormMeta}
         formSubmitApi={pushAccount}
         initialFormValue={{
           ...account,

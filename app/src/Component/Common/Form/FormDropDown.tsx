@@ -35,7 +35,7 @@ export function FormDropDown(props: IGeneratedField & { onChangeCallback?: (para
   }
   useEffect(() => {
     const eventName = `REFRESH_SEARCH_DROPDOWN_${
-      (refLookupService || new Date().getTime())?.toString() + displayKey + valueKey
+      (refLookupService || new Date().getTime())?.toString() + displayKey + valueKey + props.fieldName
     }`
     eventBus.subscribe(eventName, loadOptions)
     eventBus.publish(eventName)
