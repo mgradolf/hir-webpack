@@ -31,6 +31,7 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
           refLookupService={() => findPersonsByAccount({ AccountID: props.initialValue.AccountID })}
           displayKey="FormattedName"
           valueKey="PersonID"
+          rules={[{ required: true, message: "Please select purchaser!" }]}
         />
         <FormDatePicker
           {...layout}
@@ -40,6 +41,7 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
           placeholder="YYYY/MM/DD"
           fieldName="PaymentDueDate"
           defaultValue={props.formInstance.getFieldValue("PaymentDueDate")}
+          rules={[{ required: true, message: "Pick due date!" }]}
         />
       </Col>
       <Col xs={24} sm={24} md={12}>
@@ -49,6 +51,7 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
           label={"PO Number"}
           ariaLabel={"PO Number"}
           fieldName={"PONumber"}
+          rules={[{ required: true, message: "Please enter PO Number!" }]}
         />
         <FormInput
           {...layout}
@@ -56,6 +59,7 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
           label={"Amount"}
           ariaLabel={"Amount"}
           fieldName={"POAmount"}
+          rules={[{ required: true, message: "Please enter PO Amount!" }]}
         />
       </Col>
     </Row>

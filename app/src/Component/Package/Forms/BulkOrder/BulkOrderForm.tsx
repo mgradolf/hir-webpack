@@ -30,6 +30,7 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
 
   const isEnableSeatAffiliate = formInstance.getFieldValue("IsEnableSeatAffiliate")
   const isEnableSeatStudent = formInstance.getFieldValue("IsEnableSeatStudent")
+  const isGenerateOrder = formInstance.getFieldValue("IsGenerateOrder")
 
   const steps = [
     <ConfiguretStepForm formInstance={formInstance} initialValue={initialValues} />,
@@ -41,8 +42,20 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
 
   const next = () => {
     formInstance.validateFields().then((x) => {
-      if (current === 1 && !isEnableSeatAffiliate && !isEnableSeatStudent) {
-        setCurrent(current + 2)
+      if (current === 1) {
+        if (!isEnableSeatAffiliate && !isEnableSeatStudent && !isGenerateOrder) {
+          setCurrent(current + 3)
+        } else if (!isEnableSeatAffiliate && !isEnableSeatStudent) {
+          setCurrent(current + 2)
+        } else {
+          setCurrent(current + 1)
+        }
+      } else if (current === 2) {
+        if (!isGenerateOrder) {
+          setCurrent(current + 2)
+        } else {
+          setCurrent(current + 1)
+        }
       } else {
         setCurrent(current + 1)
       }
@@ -50,8 +63,20 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
   }
 
   const prev = () => {
-    if (current === 3 && !isEnableSeatAffiliate && !isEnableSeatStudent) {
-      setCurrent(current - 2)
+    if (current === 4) {
+      if (isGenerateOrder) {
+        setCurrent(current - 1)
+      } else if (isEnableSeatAffiliate || isEnableSeatStudent) {
+        setCurrent(current - 2)
+      } else {
+        setCurrent(current - 3)
+      }
+    } else if (current === 3) {
+      if (isEnableSeatAffiliate || isEnableSeatStudent) {
+        setCurrent(current - 1)
+      } else {
+        setCurrent(current - 2)
+      }
     } else {
       setCurrent(current - 1)
     }
@@ -59,7 +84,12 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
 
   const onFormSubmission = async () => {
     const params = formInstance.getFieldsValue(true)
-
+    if (!params["IsEnableSeatAffiliate"]) {
+      params["AffiliateFinancials"] = []
+    }
+    if (!params["IsEnableSeatStudent"]) {
+      params["StudentFinancials"] = []
+    }
     const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = submitBulkOrder
     setErrorMessages([])
     props.setApiCallInProgress(true)
@@ -88,12 +118,12 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
           </Col>
           {current > 0 && (
             <Col>
-              <Button onClick={() => prev()}>Previous</Button>
+              <Button onClick={prev}>Previous</Button>
             </Col>
           )}
           {current < steps.length - 1 && (
             <Col>
-              <Button type="primary" onClick={() => next()}>
+              <Button type="primary" onClick={next}>
                 Next
               </Button>
             </Col>

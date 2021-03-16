@@ -48,6 +48,7 @@ export default function FinalStepForm(props: IFinalStepFormProps) {
 
   const isEnableSeatAffiliate = props.formInstance.getFieldValue("IsEnableSeatAffiliate")
   const isEnableSeatStudent = props.formInstance.getFieldValue("IsEnableSeatStudent")
+  const isGenerateOrder = props.formInstance.getFieldValue("IsGenerateOrder")
 
   return (
     <>
@@ -70,27 +71,31 @@ export default function FinalStepForm(props: IFinalStepFormProps) {
             ariaLabel={"Section"}
             fieldName={"SectionNumber"}
           />
-          <FormDropDown
-            disabled
-            {...layout}
-            formInstance={props.formInstance}
-            label={"Purchaser"}
-            ariaLabel={"Purchaser"}
-            fieldName="PurchaserID"
-            refLookupService={() => findPersonsByAccount({ AccountID: props.initialValue.AccountID })}
-            displayKey="FormattedName"
-            valueKey="PersonID"
-          />
-          <FormDatePicker
-            disabled
-            {...layout}
-            label={"Due Date"}
-            formInstance={props.formInstance}
-            aria-label="Due Date"
-            placeholder="YYYY/MM/DD"
-            fieldName="PaymentDueDate"
-            defaultValue={props.formInstance.getFieldValue("PaymentDueDate")}
-          />
+          {isGenerateOrder && (
+            <FormDropDown
+              disabled
+              {...layout}
+              formInstance={props.formInstance}
+              label={"Purchaser"}
+              ariaLabel={"Purchaser"}
+              fieldName="PurchaserID"
+              refLookupService={() => findPersonsByAccount({ AccountID: props.initialValue.AccountID })}
+              displayKey="FormattedName"
+              valueKey="PersonID"
+            />
+          )}
+          {isGenerateOrder && (
+            <FormDatePicker
+              disabled
+              {...layout}
+              label={"Due Date"}
+              formInstance={props.formInstance}
+              aria-label="Due Date"
+              placeholder="YYYY/MM/DD"
+              fieldName="PaymentDueDate"
+              defaultValue={props.formInstance.getFieldValue("PaymentDueDate")}
+            />
+          )}
         </Col>
         <Col xs={24} sm={24} md={12}>
           <FormInput
@@ -109,24 +114,29 @@ export default function FinalStepForm(props: IFinalStepFormProps) {
             ariaLabel={"Invitation Code"}
             fieldName={"InvitationCode"}
           />
-          <FormInput
-            disabled
-            {...layout}
-            formInstance={props.formInstance}
-            label={"PO Number"}
-            ariaLabel={"PO Number"}
-            fieldName={"PONumber"}
-          />
-          <FormInputNumber
-            disabled
-            {...layout}
-            formInstance={props.formInstance}
-            label={"Amount"}
-            ariaLabel={"Amount"}
-            fieldName={"POAmount"}
-          />
+          {isGenerateOrder && (
+            <FormInput
+              disabled
+              {...layout}
+              formInstance={props.formInstance}
+              label={"PO Number"}
+              ariaLabel={"PO Number"}
+              fieldName={"PONumber"}
+            />
+          )}
+          {isGenerateOrder && (
+            <FormInputNumber
+              disabled
+              {...layout}
+              formInstance={props.formInstance}
+              label={"Amount"}
+              ariaLabel={"Amount"}
+              fieldName={"POAmount"}
+            />
+          )}
         </Col>
-        <Divider orientation="left">Pricing</Divider>
+
+        {(isEnableSeatAffiliate || isEnableSeatStudent) && <Divider orientation="left">Pricing</Divider>}
         {isEnableSeatAffiliate && (
           <Col xs={24} sm={24} md={!isEnableSeatStudent ? 24 : { span: 11, offset: 1 }}>
             <Table

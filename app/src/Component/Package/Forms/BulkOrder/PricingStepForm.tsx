@@ -67,13 +67,6 @@ export default function PricingStepForm(props: IPricingStepFormProps) {
 
   useEffect(() => {
     ;(async () => {
-      if (!isEnableSeatAffiliate) {
-        props.formInstance.setFieldsValue({ AffiliateFinancials: [] })
-      }
-      if (!isEnableSeatStudent) {
-        props.formInstance.setFieldsValue({ StudentFinancials: [] })
-      }
-
       if (affiliateFinancial.length === 0 && studentFinancial.length === 0) {
         setLoading(true)
         const response = await getSectionFinancials({ SectionID: SectionID, IsDefault: true })
