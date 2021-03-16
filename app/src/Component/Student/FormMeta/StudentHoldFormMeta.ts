@@ -8,7 +8,8 @@ export const StudentHoldFormMeta: IField[] = [
     refLookupService: getHoldType,
     fieldName: "HoldTypeID",
     displayKey: "Name",
-    valueKey: "ID"
+    valueKey: "ID",
+    rules: [{ required: true, message: "Please select hold type!" }]
   },
   {
     label: "Reason",
@@ -16,12 +17,14 @@ export const StudentHoldFormMeta: IField[] = [
     refLookupService: getHoldReason,
     fieldName: "HoldReasonID",
     displayKey: "Name",
-    valueKey: "ID"
+    valueKey: "ID",
+    rules: [{ required: true, message: "Please select hold reason!" }]
   },
   {
     label: "Start Date",
     inputType: DATE_PICKER,
-    fieldName: "StartDate"
+    fieldName: "StartDate",
+    rules: [{ required: true, message: "Pick the start date!" }]
   },
   {
     label: "Release Date",

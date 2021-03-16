@@ -1,5 +1,6 @@
 import { getBasePaymentTypes, getGLAccountTypes } from "~/ApiServices/Service/RefLookupService"
 import { BOOLEAN, DROPDOWN, IField, TEXT } from "~/Component/Common/Form/common"
+import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 
 export const FormMeta: IField[] = [
   {
@@ -33,4 +34,13 @@ export const FormMeta: IField[] = [
     fieldName: "IsInternalOnly",
     inputType: BOOLEAN
   }
+]
+
+export const columns: TableColumnType = [
+  { title: "ID", dataIndex: "ID" },
+  { title: "Payment Base Type", dataIndex: "GLAccountID" },
+  { title: "Payment Method Name", dataIndex: "PaymentAcceptedName" },
+  { title: "GL Account", dataIndex: "GLAccountID" },
+  { title: "Is Active", dataIndex: "IsActive", render: renderBoolean },
+  { title: "Is Internal Only", dataIndex: "IsInternalOnly" }
 ]

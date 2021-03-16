@@ -5,8 +5,8 @@ import Modal from "~/Component/Common/Modal/index2"
 import { IField, DROPDOWN, NUMBER, TEXT } from "~/Component/Common/Form/common"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { RemoveRefButton, UpdateRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButtons"
-import { getGLAccountMappingTypes, getOrganizations } from "~/ApiServices/Service/RefLookupService"
-import { saveGLAccountMapping } from "~/ApiServices/BizApi/gl/GeneralLedgerIF"
+import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
+import { findGLAccountMapping, saveGLAccountMapping } from "~/ApiServices/BizApi/gl/GeneralLedgerIF"
 
 const GLAccountMapping = (props: { accountType: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -15,11 +15,11 @@ const GLAccountMapping = (props: { accountType: { [key: string]: any } }) => {
 
   useEffect(() => {
     if (showModal) {
-      getGLAccountMappingTypes().then((x) => {
+      findGLAccountMapping({ GLAccountID: props.accountType.ID }).then((x) => {
         if (x.success) setGLAccountsMapping(x.data)
       })
     }
-  }, [showModal])
+  }, [showModal, props.accountType])
   return (
     <>
       <Button type="link" onClick={() => setShowModal(true)}>
@@ -54,10 +54,11 @@ const GLAccountMapping = (props: { accountType: { [key: string]: any } }) => {
               <tbody>
                 {GLAccountsMapping.map((x, i) => (
                   <tr key={i}>
-                    <td>{x.Name}</td>
+                    <td>{x.GLAccountMappingType}</td>
                     <td style={{ width: "50px" }}></td>
                     <td>
                       <Input
+                        defaultValue={x.MappingTarget}
                         style={{ width: "100%" }}
                         onChange={($event) => {
                           $event.persist()
@@ -67,7 +68,7 @@ const GLAccountMapping = (props: { accountType: { [key: string]: any } }) => {
                               ...mapping,
                               [x.ID]: {
                                 GLAccountID: props.accountType.ID,
-                                GLAccountMappingID: x.ID,
+                                GLAccountMappingID: x.GLAccountMappingTypeID,
                                 MappingTarget: $event.target.value
                               }
                             })

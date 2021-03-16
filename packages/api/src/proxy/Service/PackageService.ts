@@ -9,7 +9,10 @@ export const config = {
     savePackage: "savePackage",
     addPackageFinancial: "addPackageFinancial",
     removePackageFinancial: "removePackageFinancial",
-    submitBulkOrder: "submitBulkOrder"
+    submitBulkOrder: "submitBulkOrder",
+    addSection: "addSection",
+    updateSection: "updateSection",
+    removeSection: "removeSection"
   }
 }
 

@@ -1,8 +1,9 @@
 import React, { useState } from "react"
-import { Button, Menu } from "antd"
+import { Button, Menu, message } from "antd"
 import { eventBus } from "~/utils/EventBus"
-import { removeSchedule } from "~/ApiServices/BizApi/scheduling/schedulingIF"
 import InstructorScheduleFormModal from "~/Component/Instructor/Forms/InstructorScheduleFormModal"
+import { removeInstructorSchedule } from "~/ApiServices/Service/InstructorService"
+import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
 
 interface IInstructorScheduleMenu {
   initialData: { [key: string]: any }
@@ -23,21 +24,18 @@ export default function InstructorScheduleMenu(props: IInstructorScheduleMenu) {
           Edit
         </Button>
         {showUpdateModal && (
-          <InstructorScheduleFormModal
-            ScheduleID={props.initialData.ScheduleID}
-            PersonID={props.initialData.PersonID}
-            closeModal={() => setShowUpdateModal(false)}
-          />
+          <InstructorScheduleFormModal initialData={props.initialData} closeModal={() => setShowUpdateModal(false)} />
         )}
       </Menu.Item>
       <Menu.Item key="1">
         <Button
           type="link"
           onClick={async () => {
-            const response = await removeSchedule({
+            const response = await removeInstructorSchedule({
               ScheduleID: props.initialData.ScheduleID
             })
             if (response && response.success) {
+              message.success(DELETE_SUCCESSFULLY)
               eventBus.publish("REFRESH_FACULTY_SCHEDULE_TAB")
             }
           }}

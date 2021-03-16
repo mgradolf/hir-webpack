@@ -23,7 +23,7 @@ export const FormMeta: IField[] = [
     inputType: DROPDOWN,
     fieldName: "CountryCodeID",
     refLookupService: getCountries,
-    displayKey: "Name",
+    displayKey: "Description",
     valueKey: "ID"
   },
   {

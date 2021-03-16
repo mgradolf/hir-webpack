@@ -49,3 +49,10 @@ export function searchSectionInstructor(
 ): Promise<IApiResponse> {
   return InstructorService[config.Actions.searchSectionInstructor](Params, Headers)
 }
+
+export function removeInstructorSchedule(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return InstructorService[config.Actions.removeInstructorSchedule](Params, Headers)
+}

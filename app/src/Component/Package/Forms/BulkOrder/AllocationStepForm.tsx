@@ -61,6 +61,7 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
             label={"Requested Seat"}
             ariaLabel={"Requested Seat"}
             fieldName={"NumberOfSeats"}
+            rules={[{ required: true, message: "Please enter requested seats!" }]}
           />
           <FormInput
             {...layout}

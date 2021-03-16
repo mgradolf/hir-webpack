@@ -4,8 +4,9 @@ import { getRefRecord } from "~/ApiServices/Service/RefLookupService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
 
-export default function AccountTypeTagDetailsPage(props: RouteComponentProps<{ ID: string }>) {
+export default function LookupTagDetailsPage(props: RouteComponentProps<{ LookUpName: string; ID: string }>) {
   const ID = Number(props?.match?.params?.ID)
+  const LookUpName = props?.match?.params?.LookUpName
   return (
     <DetailsPage
       getMeta={(data, type, id) => {
@@ -15,8 +16,8 @@ export default function AccountTypeTagDetailsPage(props: RouteComponentProps<{ I
           tabs: [__.tabs[0]]
         }
       }}
-      getDetails={() => getRefRecord({ LookUpName: "AccountType", ID })}
-      entityType="AccountType"
+      getDetails={() => getRefRecord({ LookUpName, ID })}
+      entityType={LookUpName}
       entityID={ID}
     />
   )

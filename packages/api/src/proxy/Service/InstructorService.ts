@@ -11,7 +11,8 @@ export const config = {
     addInstructorToOffering: "addInstructorToOffering",
     removeInstructorFromOffering: "removeInstructorFromOffering",
     searchSectionInstructor: "searchSectionInstructor",
-    searchInstructorOfferings: "searchInstructorOfferings"
+    searchInstructorOfferings: "searchInstructorOfferings",
+    removeInstructorSchedule: "removeInstructorSchedule"
   }
 }
 

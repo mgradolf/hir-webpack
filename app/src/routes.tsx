@@ -487,13 +487,21 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/ReferenceDataListPage"))
   },
   {
+    path: "/reference-data/DueDatePolicy",
+    component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/DetailsPages/PaymentDueDatePolicy"))
+  },
+  {
+    path: "/reference-data/TranscriptTypeCreditSetup/:ID/CreditSetup",
+    component: React.lazy(() =>
+      import("~/Pages/Administration/Data/ReferenceData/DetailsPages/TranscriptTypeCreditDetailsPage")
+    )
+  },
+  {
     path: "/reference-data/:refName",
     component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/ReferenceDataPage"))
   },
   {
-    path: "/reference-data/AccountType/:ID/tags",
-    component: React.lazy(() =>
-      import("~/Pages/Administration/Data/ReferenceData/DetailsPages/AccountTypeTagDetailsPage")
-    )
+    path: "/reference-data/:LookUpName/:ID/tags",
+    component: React.lazy(() => import("~/Pages/Administration/Data/ReferenceData/DetailsPages/LookupTagDetailsPage"))
   }
 ]

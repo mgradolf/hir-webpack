@@ -7,3 +7,10 @@ export function saveGLAccountMapping(
 ): Promise<IApiResponse> {
   return GeneralLedgerIF[config.Actions.saveGLAccountMapping]([Params], Headers)
 }
+
+export function findGLAccountMapping(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return GeneralLedgerIF[config.Actions.findGLAccountMapping]([Params.GLAccountID], Headers)
+}

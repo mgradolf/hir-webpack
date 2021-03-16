@@ -25,7 +25,7 @@ const meta: IField[] = [
 const reportMeta: IReportMeta = {
   meta,
   initialFormValue: {
-    OrderDateFrom: moment().add(-2, "M").format(DATE_FORMAT),
+    OrderDateFrom: moment().startOf("year").format(DATE_FORMAT),
     OrderDateTo: moment().format(DATE_FORMAT)
   }
 }

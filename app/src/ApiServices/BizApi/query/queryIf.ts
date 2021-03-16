@@ -259,3 +259,18 @@ export function getSectionFinancials(
     Headers
   )
 }
+
+export function findPaymentTypesByReference(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "financial.payment.findPaymentTypesByReference",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}

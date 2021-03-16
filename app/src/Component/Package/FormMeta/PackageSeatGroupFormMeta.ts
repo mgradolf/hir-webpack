@@ -6,7 +6,8 @@ export const PackageSeatGroupFormMeta: IField[] = [
     label: "Section",
     fieldName: "SectionID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: SectionLookup
+    customFilterComponent: SectionLookup,
+    rules: [{ required: true, message: "Please select section!" }]
   },
   {
     label: "Seat Allocated",

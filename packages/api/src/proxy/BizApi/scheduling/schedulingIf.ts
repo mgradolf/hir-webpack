@@ -10,8 +10,7 @@ export const config: Iconfig = {
     findPossibleBuildings: "findPossibleBuildings",
     findPossibleRooms: "findPossibleRooms",
     findQualifiedInstructors: "findQualifiedInstructors",
-    findInformationTypes: "findInformationTypes",
-    removeSchedule: "removeSchedule"
+    findInformationTypes: "findInformationTypes"
   }
 }
 

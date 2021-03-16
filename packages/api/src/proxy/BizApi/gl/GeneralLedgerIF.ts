@@ -5,7 +5,8 @@ export const config = {
   Service: "com.jenzabar.financial.server.bizapi.gl.GeneralLedgerIF",
   Module: "hir",
   Actions: {
-    saveGLAccountMapping: "saveGLAccountMapping"
+    saveGLAccountMapping: "saveGLAccountMapping",
+    findGLAccountMapping: "findGLAccountMapping"
   }
 }
 

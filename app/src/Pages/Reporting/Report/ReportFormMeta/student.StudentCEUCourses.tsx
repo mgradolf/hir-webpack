@@ -35,7 +35,7 @@ const meta: IField[] = [
 const reportMeta: IReportMeta = {
   meta,
   initialFormValue: {
-    TranscriptTypeID: 5
+    TranscriptTypeID: 2
   }
 }
 

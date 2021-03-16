@@ -77,6 +77,13 @@ export const REGISTRATION_VERIFICATION_DETAILS = {
   check_sectionvalidity_issues: "check_sectionvalidity_issues"
 }
 
+export const PAYMENT_POLICY_TYPE: { [key: number]: string } = {
+  1: "Class Start Date",
+  2: "Class End Date",
+  3: "Order Date",
+  4: "Fixed Date"
+}
+
 export const REGISTRATION_VERIFICATION_NAME = {
   PREREQUISITE_CHECK: "Test prerequisites",
   SCHEDULE_CONFLICT_CHECK: "Test schedule conflicts",

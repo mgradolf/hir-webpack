@@ -8,7 +8,8 @@ export const StudentReleaseFormMeta: IField[] = [
     refLookupService: getReleaseReason,
     fieldName: "ReleaseReasonID",
     displayKey: "Name",
-    valueKey: "ID"
+    valueKey: "ID",
+    rules: [{ required: true, message: "Please select release reason!" }]
   },
   {
     label: "Notes",

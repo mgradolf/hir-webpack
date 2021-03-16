@@ -7,8 +7,9 @@ import { DATE_TIME_FORMAT } from "~/utils/Constants"
 import { pushInstructorSchedule } from "~/ApiServices/Service/InstructorService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IInstructorScheduleFieldNames } from "~/Component/Instructor/Interfaces"
-import "~/Sass/global/index.scss"
+import { FormDateTimePicker } from "~/Component/Common/Form/FormDateTimePicker"
 import { eventBus } from "~/utils/EventBus"
+import "~/Sass/global/index.scss"
 
 interface IInstructorScheduleFormProps {
   editMode: boolean
@@ -112,23 +113,27 @@ export default function InstructorScheduleForm(props: IInstructorScheduleFormPro
           <Input aria-label={"Schedule ID"} />
         </Form.Item>
 
-        <Form.Item
+        <FormDateTimePicker
           label={"Start Date/Time"}
+          formInstance={props.formInstance}
           {...layout}
-          name={props.fieldNames.StartDate}
+          aria-label="Pick Start Date"
+          placeholder={DATE_TIME_FORMAT}
+          fieldName={props.fieldNames.StartDate}
+          defaultValue={props.initialFormValue.StartDate}
           rules={[{ required: true, message: "Please enter start date!" }]}
-        >
-          <DatePicker showTime aria-label="Pick Start Date" placeholder={DATE_TIME_FORMAT} format={DATE_TIME_FORMAT} />
-        </Form.Item>
+        />
 
-        <Form.Item
+        <FormDateTimePicker
           label={"End Date/Time"}
+          formInstance={props.formInstance}
           {...layout}
-          name={props.fieldNames.EndDate}
+          aria-label="Pick End Date"
+          placeholder={DATE_TIME_FORMAT}
+          fieldName={props.fieldNames.EndDate}
+          defaultValue={props.initialFormValue.EndDate}
           rules={[{ required: true, message: "Please enter end date!" }]}
-        >
-          <DatePicker showTime aria-label="Pick End Date" placeholder={DATE_TIME_FORMAT} format={DATE_TIME_FORMAT} />
-        </Form.Item>
+        />
 
         <Form.Item
           label={"Name"}
@@ -143,19 +148,28 @@ export default function InstructorScheduleForm(props: IInstructorScheduleFormPro
           <Input.TextArea rows={3} aria-label={"Description"} />
         </Form.Item>
 
-        <Form.Item label={"Recurring"} {...layout} valuePropName="checked">
-          <Switch aria-label="Recurring" onChange={handleRecurring} />
-        </Form.Item>
-
-        {recurring && (
+        {!props.editMode && (
           <>
-            <Form.Item label={"Repeat Until"} {...layout} name={props.fieldNames.RecurringDate}>
-              <DatePicker showTime aria-label="Pick Date" placeholder={DATE_TIME_FORMAT} format={DATE_TIME_FORMAT} />
+            <Form.Item label={"Recurring"} {...layout} valuePropName="checked">
+              <Switch aria-label="Recurring" onChange={handleRecurring} />
             </Form.Item>
 
-            <Form.Item label="Days" {...layout} name={props.fieldNames.Days}>
-              <Checkbox.Group options={dayOptions} />
-            </Form.Item>
+            {recurring && (
+              <>
+                <Form.Item label={"Repeat Until"} {...layout} name={props.fieldNames.RecurringDate}>
+                  <DatePicker
+                    showTime
+                    aria-label="Pick Date"
+                    placeholder={DATE_TIME_FORMAT}
+                    format={DATE_TIME_FORMAT}
+                  />
+                </Form.Item>
+
+                <Form.Item label="Days" {...layout} name={props.fieldNames.Days}>
+                  <Checkbox.Group options={dayOptions} />
+                </Form.Item>
+              </>
+            )}
           </>
         )}
       </Form>

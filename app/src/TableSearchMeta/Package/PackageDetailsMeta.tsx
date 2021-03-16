@@ -14,12 +14,12 @@ import {
 import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getProductFinancialsTableColumns } from "~/TableSearchMeta/ProductFinancialsTableColumns/ProductFinancialsTableColumns"
-import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
 import { addPackageFinancial, addSection, savePackage } from "~/ApiServices/Service/PackageService"
 import { PackageFinancialFormMeta } from "~/Component/Package/FormMeta/PackageFinancialFormMeta"
 import { PackageSeatGroupFormMeta } from "~/Component/Package/FormMeta/PackageSeatGroupFormMeta"
+import { getPackageSeatGroupTableColumns } from "~/TableSearchMeta/PackageSeatGroup/PackageSeatGroupTableColumns"
 
 export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -113,15 +113,17 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
         formTitle="Add Section"
         formMeta={PackageSeatGroupFormMeta}
         formSubmitApi={addSection}
-        initialFormValue={{}}
+        initialFormValue={{
+          PackageID: Package.PackageID
+        }}
         buttonLabel="+ Add Section"
-        defaultFormValue={{}}
+        defaultFormValue={{ PackageID: Package.PackageID }}
         refreshEventName={REFRESH_PACKAGE_SEATGROUP_PAGE}
       />
     ],
     tableProps: {
       pagination: false,
-      ...getSeatgroupTableColumns(false, true),
+      ...getPackageSeatGroupTableColumns(false, Package.AccountID),
       searchParams: { PackageID: Package.PackageID },
       refreshEventName: REFRESH_PACKAGE_SEATGROUP_PAGE
     }

@@ -32,10 +32,3 @@ export function findQualifiedInstructors(
 ): Promise<IApiResponse> {
   return SchedulingIf[config.Actions.findQualifiedInstructors]([Params], Headers)
 }
-
-export function removeSchedule(
-  Params: { [key: string]: any },
-  Headers?: { [key: string]: any }
-): Promise<IApiResponse> {
-  return SchedulingIf[config.Actions.removeSchedule]([Params.ScheduleID], Headers)
-}

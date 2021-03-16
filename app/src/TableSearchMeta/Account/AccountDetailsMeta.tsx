@@ -21,6 +21,8 @@ import { AccountContactFormOpenButton } from "~/Component/Account/Forms/AccountC
 import { BulkOrderFormModalOpenButton } from "~/Component/Package/BulkOrderFormModal"
 import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
 import { savePackage } from "~/ApiServices/Service/PackageService"
+import { IField } from "~/Component/Common/Form/common"
+import AccountQuestionTab from "~/Component/Account/AccountQuestionTab"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -28,7 +30,10 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle="Update Account"
-        formMeta={AccountFormMeta}
+        formMeta={AccountFormMeta.map((x: IField) => {
+          if (x.fieldName === "AccountTypeID") return { ...x, disabled: true }
+          return x
+        })}
         formSubmitApi={pushAccount}
         initialFormValue={{
           ...account,
@@ -206,6 +211,15 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         }
       }
     })
+
+  meta.push({
+    tabTitle: "Questions",
+    tabType: "custom",
+    tabMeta: {
+      component: AccountQuestionTab,
+      props: {}
+    }
+  })
 
   return {
     pageTitle: `Account Name - ${account.AccountName}`,
