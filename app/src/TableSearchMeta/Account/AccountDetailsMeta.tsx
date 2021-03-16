@@ -24,17 +24,15 @@ import { savePackage } from "~/ApiServices/Service/PackageService"
 import { IField } from "~/Component/Common/Form/common"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
-  const updateAccountForm = AccountFormMeta.map((x: IField) => {
-    if (x.fieldName === "AccountTypeID") x.disabled = true
-    return x
-  })
-
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle="Update Account"
-        formMeta={updateAccountForm}
+        formMeta={AccountFormMeta.map((x: IField) => {
+          if (x.fieldName === "AccountTypeID") return { ...x, disabled: true }
+          return x
+        })}
         formSubmitApi={pushAccount}
         initialFormValue={{
           ...account,
