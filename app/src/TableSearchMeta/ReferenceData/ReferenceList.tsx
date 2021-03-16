@@ -30,7 +30,7 @@ export const ReferenceList: IReferenceList[] = [
   //Unavailable in admin
   { Title: "Address Types", Value: "AddressType", Description: "AddressType is a reflookup for ...", custom: false },
   {
-    Title: "Affiliation Role Type",
+    Title: "Affiliation Role Types Setup",
     Value: "AffiliationRoleType",
     Description: "affiliationroletype is custom a reflookup for ...",
     custom: true
@@ -187,12 +187,11 @@ export const ReferenceList: IReferenceList[] = [
   { Title: "GL Account", Value: "GLAccount", Description: "glaccount is custom a reflookup for ...", custom: true },
   // Unavailable in admin
   {
-    Title: "GLAccount Mapping Type",
+    Title: "GL Mapping Type",
     Value: "GLAccountMappingType",
     Description: "GLAccountMappingType is a reflookup for ...",
     custom: false
   },
-  // Unavailable in admin
   {
     Title: "Grade Classification Types",
     Value: "GradeClassificationType",
@@ -226,7 +225,7 @@ export const ReferenceList: IReferenceList[] = [
     custom: true
   },
   {
-    Title: "Meeting Information Type",
+    Title: "Meeting Information Types",
     Value: "MeetingInformationType",
     Description: "meetinginformationtype is a reflookup for ...",
     custom: false
@@ -290,7 +289,7 @@ export const ReferenceList: IReferenceList[] = [
   {
     Title: "Payment Types",
     Value: "PaymentType",
-    Description: "BasePaymentType is a reflookup for ...",
+    Description: "Payment Types is a reflookup for ...",
     custom: true
   },
   {
@@ -448,14 +447,14 @@ export const ReferenceList: IReferenceList[] = [
     custom: false
   },
   { Title: "Term", Value: "Term", Description: "transcripttype is a reflookup for ...", custom: true },
-  { Title: "Term Type", Value: "TermType", Description: "termtype is a reflookup for ...", custom: false },
+  { Title: "TermType", Value: "TermType", Description: "termtype is a reflookup for ...", custom: false },
   { Title: "Timer Type", Value: "TimerType", Description: "timertype is a reflookup for ...", custom: false },
   // Unavailable in admin
   {
     Title: "Transcript Type",
     Value: "TranscriptType",
     Description: "transcripttype is a reflookup for ...",
-    custom: false
+    custom: true
   }
 ]
 
@@ -480,7 +479,7 @@ export const getReferenceListTableColumns = (isModal = false): ITableConfigProp 
           if (Params.Name) {
             let result
             try {
-              result = x.Title.search(Params.Name) > -1
+              result = x.Title.toLowerCase().search(Params.Name.toLowerCase()) > -1
             } catch (error) {
               result = true
             }

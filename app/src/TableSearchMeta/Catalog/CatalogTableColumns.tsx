@@ -9,7 +9,7 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Name",
       dataIndex: "Name",
-      render: (text: any, record: any) => <Link to={`/catalog/${record.CatalogID}`}>{text}</Link>,
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/catalog/${record.CatalogID}`}>{text}</Link>),
       sorter: (a, b) => sortByString(a.Name, b.Name)
     },
     {
