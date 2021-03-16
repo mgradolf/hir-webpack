@@ -8,12 +8,14 @@ import { AddRefButton, RemoveRefButton, UpdateRefButton } from "~/TableSearchMet
 import { genericColumns } from "~/TableSearchMeta/ReferenceData/ReferenceGeneric/ReferenceGenericTableColumn"
 import { ReferenceList } from "~/TableSearchMeta/ReferenceData/ReferenceList"
 
+let customSearchFunc: any = undefined
 export default function ReferenceDataListPage(props: RouteComponentProps<{ refName: string }>) {
   const refName = props?.match?.params?.refName
   const refreshEventName = `REFRESH_${refName}`
   const [reference, setReference] = useState<any>()
   const [formMeta, setFormMeta] = useState<IField[]>([])
   const [columns, setColumns] = useState<TableColumnType>([])
+  const [useCustomSearchFunc, setUseCustomSearchFunc] = useState(false)
 
   const getActionColumn = (formMeta: IField[], refName: string, refreshEventName: string) => ({
     title: "Actions",
@@ -37,6 +39,11 @@ export default function ReferenceDataListPage(props: RouteComponentProps<{ refNa
     if (__reference) {
       if (__reference?.custom) {
         import(`~/TableSearchMeta/ReferenceData/ReferenceCustomFormMeta/${refName}`).then((x) => {
+          if (x.customSearchFunction) {
+            console.log("x.customSearchFunction ", x.customSearchFunction)
+            customSearchFunc = x.customSearchFunction
+            setUseCustomSearchFunc(true)
+          }
           setFormMeta(x.FormMeta)
           if (
             x.columns &&
@@ -44,13 +51,6 @@ export default function ReferenceDataListPage(props: RouteComponentProps<{ refNa
             x.columns.length > 0 &&
             !!x.columns.find((col: any) => col.title === "Actions")
           ) {
-            console.log(
-              "actions found ",
-              !!x.columns.find((col: any) => {
-                console.log(col)
-                return col.title === "Actions"
-              })
-            )
             setColumns([...x.columns])
           } else {
             setColumns([...x.columns, getActionColumn(x.FormMeta, refName, refreshEventName)])
@@ -71,7 +71,11 @@ export default function ReferenceDataListPage(props: RouteComponentProps<{ refNa
       {reference && columns.length > 0 && (
         <SearchPage
           title={reference?.Title || ""}
-          tableProps={{ columns, refreshEventName, searchFunc: getRefList }}
+          tableProps={{
+            columns,
+            refreshEventName,
+            searchFunc: useCustomSearchFunc && customSearchFunc ? customSearchFunc : getRefList
+          }}
           defaultFormValue={{ LookUpName: refName }}
           initialFormValue={{}}
           blocks={[<AddRefButton LookUpName={refName} formMeta={formMeta} refreshEventName={refreshEventName} />]}

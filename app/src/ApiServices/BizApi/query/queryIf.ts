@@ -267,7 +267,7 @@ export function findPaymentTypesByReference(
   return QueryIf[config.Actions.executeDomainList](
     [
       "financial.payment.findPaymentTypesByReference",
-      Params,
+      {},
       Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
       Headers ? Headers.PageSize : MAX_PAGE_SIZE
     ],
