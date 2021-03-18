@@ -17,13 +17,7 @@ export interface IStandardReportPage {
   atLeastOneRequiredfield?: boolean
 }
 const checkIfFieldParamsAreEmpty = (fieldParams: { [key: string]: any }, defaultParams: { [key: string]: any }) => {
-  for (const key in fieldParams) {
-    console.log(key, fieldParams, defaultParams)
-    if (defaultParams[key] !== undefined) {
-      delete fieldParams[key]
-    }
-  }
-  return Object.keys(fieldParams).length === 0
+  return Object.keys(fieldParams).filter((key) => defaultParams[key] === undefined).length === 0
 }
 
 export default function StandardReportPage(props: IStandardReportPage) {
