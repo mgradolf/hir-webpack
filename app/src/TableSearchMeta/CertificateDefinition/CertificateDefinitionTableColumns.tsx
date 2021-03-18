@@ -5,7 +5,8 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 export const getCertificateDefinitionTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      render: (text: any, record: any) => renderDetailsLink(`/data/certificate/${record.CertificateID}`)
+      dataIndex: "CertificateID",
+      render: (text: any, record: any) => renderDetailsLink(`/data/certificate/${text}`)
     },
     {
       title: "Certificate Name",

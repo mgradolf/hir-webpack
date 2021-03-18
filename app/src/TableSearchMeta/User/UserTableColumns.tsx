@@ -9,10 +9,9 @@ export const getUserTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       ...(!isModal && {
-        title: "",
-        dataIndex: "",
+        dataIndex: "name",
         render: (text: any, record: any) => (
-          <Link to={`/user/${record.name}`}>
+          <Link to={`/user/${text}`}>
             <ReadOutlined />
           </Link>
         )

@@ -9,10 +9,9 @@ export const getProgramEnrollmentTableColumns = (isModal = false): ITableConfigP
   const columns: TableColumnType = [
     {
       ...(!isModal && {
-        title: "",
-        dataIndex: "",
+        dataIndex: "StudentID",
         render: (text: any, record: any) => (
-          <Link to={`/program/${record.ProgramID}/student/${record.StudentID}/enrollment`}>
+          <Link to={`/program/${record.ProgramID}/student/${text}/enrollment`}>
             <ReadOutlined />
           </Link>
         )

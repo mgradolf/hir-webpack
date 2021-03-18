@@ -2,14 +2,14 @@ import axios from "axios"
 import { baseURL } from "@packages/api/lib/utils/ApiMethodFactory"
 import { TableColumnType } from "."
 
-export interface IUserFormMetaConfig {
+export interface IUserTableMetaConfig {
   hidden?: string
   columnPosition?: number
   title?: string
   defaultSortOrder?: "descend" | "ascend" | null
 }
 
-async function getUserFormMetaConfig(tableName?: string): Promise<{ [key: string]: any }> {
+async function getUserTableMetaConfig(tableName?: string): Promise<{ [key: string]: any }> {
   let userFormMeta: { [key: string]: any } = {}
   if (!tableName) return Promise.resolve({})
   try {
@@ -66,5 +66,5 @@ export function processTableMetaWithUserMetaConfig(
   columns: TableColumnType,
   tableName?: string
 ): Promise<TableColumnType> {
-  return getUserFormMetaConfig(tableName).then((x) => TableMetaShadowingProcessor(columns, x))
+  return getUserTableMetaConfig(tableName).then((x) => TableMetaShadowingProcessor(columns, x))
 }

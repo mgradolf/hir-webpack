@@ -7,9 +7,8 @@ import { findPaymentGatewayActivities } from "~/ApiServices/Service/PaymentGatew
 export const getActivityPaymentGatewayTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
       dataIndex: "PaymentGatewayActivityID",
-      render: (text: any, record: any) => renderDetailsLink(`/gateway-activity/${record.PaymentGatewayActivityID}`)
+      render: (text: any, record: any) => renderDetailsLink(`/gateway-activity/${text}`)
     },
     {
       title: "Activity Time",

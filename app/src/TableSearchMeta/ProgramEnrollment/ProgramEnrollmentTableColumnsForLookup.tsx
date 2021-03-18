@@ -4,17 +4,6 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
 export const getProgramEnrollmentTableColumnsForLookup = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
-    // {
-    //   ...(!isModal && {
-    //     title: "",
-    //     dataIndex: "",
-    //     render: (text: any, record: any) => (
-    //       <Link to={`/program/enrollment/${record.ProgramEnrollmentID}`}>
-    //         <ReadOutlined />
-    //       </Link>
-    //     )
-    //   })
-    // },
     {
       title: "Program Code",
       dataIndex: "ProgramCode",

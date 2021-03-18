@@ -5,7 +5,8 @@ import { getSystemSchedules } from "~/ApiServices/Service/ActivityService"
 export const getActivitySystemScheduleTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      render: (text: any, record: any) => renderDetailsLink(`/system-schedule/${record.TimerID}`)
+      dataIndex: "TimerID",
+      render: (text: any, record: any) => renderDetailsLink(`/system-schedule/${text}`)
     },
     {
       title: "Schedule Time",

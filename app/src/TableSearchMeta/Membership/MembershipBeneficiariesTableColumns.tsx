@@ -1,14 +1,12 @@
 import { findMembershipBeneficiaries } from "~/ApiServices/BizApi/membership/membershipIF"
-import { renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
 export const getMembershipBeneficiariesTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Contact Name",
-      dataIndex: "PersonName",
-      key: "PersonName",
-      render: (text: any, record: any) => renderDetailsLink(`/person/${record.PersonID}`)
+      dataIndex: "PersonName"
     },
     {
       title: "Source",

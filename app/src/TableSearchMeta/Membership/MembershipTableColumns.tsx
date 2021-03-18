@@ -12,10 +12,7 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 export const getMembershipTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
-      dataIndex: "MembershipID",
-      key: "MembershipID",
-      render: (text: any, record: any) => renderDetailsLink(`/membership/${record.MembershipID}`)
+      render: (text: any, record: any) => renderDetailsLink(`/membership/${text}`)
     },
     {
       title: "Member Since",

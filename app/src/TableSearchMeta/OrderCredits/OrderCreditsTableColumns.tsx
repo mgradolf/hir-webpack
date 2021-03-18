@@ -5,8 +5,7 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
-      dataIndex: "CreditMemoID",
+      dataIndex: "OrderID",
       render: (text: any, record: any) => (isModal ? text : renderDetailsLink(`/order/${record.OrderID}`))
     },
     {

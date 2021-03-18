@@ -14,10 +14,9 @@ export const getWaitlistEntriesTableColumns = (
   const columns: TableColumnType = [
     {
       ...(!isModal && {
-        title: "",
-        dataIndex: "",
+        dataIndex: "WaitListEntryID",
         render: (text: any, record: any) => (
-          <Link to={`/waitlist/${record.WaitListEntryID}`}>
+          <Link to={`/waitlist/${text}`}>
             <ReadOutlined />
           </Link>
         )

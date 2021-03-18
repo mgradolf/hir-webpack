@@ -14,12 +14,9 @@ import { DownOutlined } from "@ant-design/icons"
 export const getOrderItemTableColumns = (isModal = false, SectionID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
       dataIndex: "OrderID",
       render: (text: any, record: any) =>
-        isModal
-          ? { text }
-          : renderDetailsLink(SectionID ? `/section/${SectionID}/order/${record.OrderID}` : `/order/${record.OrderID}`)
+        isModal ? { text } : renderDetailsLink(SectionID ? `/section/${SectionID}/order/${text}` : `/order/${text}`)
     },
     {
       title: "Order Date",

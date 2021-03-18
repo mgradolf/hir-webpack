@@ -12,11 +12,7 @@ export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITa
       render: (text: any, record: any) =>
         isModal
           ? text
-          : renderDetailsLink(
-              SectionID
-                ? `/section/${SectionID}/order/payments/${record.PaymentID}`
-                : `/order/payments/${record.PaymentID}`
-            )
+          : renderDetailsLink(SectionID ? `/section/${SectionID}/order/payments/${text}` : `/order/payments/${text}`)
     },
     {
       title: "Payment Date",

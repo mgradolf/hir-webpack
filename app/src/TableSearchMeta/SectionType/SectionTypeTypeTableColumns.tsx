@@ -5,8 +5,8 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 export const getSectionTypeTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      width: 50,
-      render: (text: any, record: any) => renderDetailsLink(`/section-type/${record.SectionTypeID}`)
+      dataIndex: "SectionTypeID",
+      render: (text: any, record: any) => renderDetailsLink(`/section-type/${text}`)
     },
     { title: "Section Type", dataIndex: "SectionTypeName", width: 100 },
     { title: "Section Type Description", dataIndex: "SectionTypeDescription", width: 150 },

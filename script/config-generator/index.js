@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-// const fileNameSuffixFilter = "SearchMeta.ts";
 const rootDirectory = "../../app/src";
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
@@ -48,7 +47,20 @@ const processCustomFormFile = (filePath) => {
 			fileMap[x] = {};
 		});
 	}
-	//
+	return fileMap;
+};
+
+const processTableColumnsFile = (filePath) => {
+	let fileContentString = fs.readFileSync(filePath, {
+		encoding: "utf-8",
+	});
+	const regex = /dataIndex: "(.*)"/g;
+	let fileMap = {};
+	while ((match = regex.exec(fileContentString)) != null) {
+		let foundMatch = match[0];
+		if (foundMatch) foundMatch = foundMatch.split('"');
+		fileMap[foundMatch[1]] = {};
+	}
 	return fileMap;
 };
 
@@ -60,37 +72,37 @@ const createNewFilePathString = (oldFilePath) => {
 	return filePath;
 };
 
-const mergeObjects = (obj1, obj2) => {
-	for (key in obj2) {
-		if (!obj1[key]) {
-			obj1[key] = obj2[key];
-		}
-	}
+// const mergeObjects = (obj1, obj2) => {
+// 	for (key in obj2) {
+// 		if (!obj1[key]) {
+// 			obj1[key] = obj2[key];
+// 		}
+// 	}
 
-	for (key in obj1) {
-		if (!obj2[key]) {
-			delete obj1[key];
-		}
-	}
-	return obj1;
-};
+// 	for (key in obj1) {
+// 		if (!obj2[key]) {
+// 			delete obj1[key];
+// 		}
+// 	}
+// 	return obj1;
+// };
 
 const createNewFile = (newPath, fileName, content) => {
 	fs.mkdirSync(__dirname + newPath, { recursive: true });
 
 	newPath = path.resolve(newPath, fileName);
 	newPath = __dirname + newPath + ".json";
-	if (fs.existsSync(newPath)) {
-		let previousContent = fs.readFileSync(newPath, {
-			encoding: "utf-8",
-		});
-		try {
-			previousContent = JSON.parse(previousContent);
-		} catch (error) {
-			previousContent = {};
-		}
-		content = mergeObjects(previousContent, content);
-	}
+	// if (fs.existsSync(newPath)) {
+	// 	let previousContent = fs.readFileSync(newPath, {
+	// 		encoding: "utf-8",
+	// 	});
+	// 	try {
+	// 		previousContent = JSON.parse(previousContent);
+	// 	} catch (error) {
+	// 		previousContent = {};
+	// 	}
+	// 	content = mergeObjects(previousContent, content);
+	// }
 
 	fs.writeFileSync(newPath, JSON.stringify(content, null, 1));
 };
@@ -98,6 +110,10 @@ const createNewFile = (newPath, fileName, content) => {
 const createMetaDrivenFormConfigs = () => {
 	const fileMap = {};
 	const allFilePaths = getAllFiles(rootDirectory, []);
+
+	/**
+	 * Form Meta
+	 * */
 	const absolutePathOfAllMetaFiles = allFilePaths.filter(
 		(x) =>
 			x.includes("SearchMeta.ts") ||
@@ -114,12 +130,29 @@ const createMetaDrivenFormConfigs = () => {
 		fileMap[newFileName] = newFilePath + "/" + newFileName + ".json";
 	});
 
+	/**
+	 * Custom forms
+	 * */
 	const absolutePathOfAllCustomFormFiles = allFilePaths.filter((x) =>
 		x.includes("WithConfig.tsx")
 	);
-
 	absolutePathOfAllCustomFormFiles.forEach((filepath) => {
 		const fieldNameMap = processCustomFormFile(filepath);
+		const newFilePath = createNewFilePathString(filepath);
+		const newFileName = path.basename(filepath, path.extname(filepath));
+		createNewFile(newFilePath, newFileName, fieldNameMap);
+		fileMap[newFileName] = newFilePath + "/" + newFileName + ".json";
+	});
+
+	/**
+	 * Table Columns
+	 * */
+	const absolutePathOfAllTableColumnsFiles = allFilePaths.filter((x) =>
+		x.includes("TableColumns.tsx")
+	);
+
+	absolutePathOfAllTableColumnsFiles.forEach((filepath) => {
+		const fieldNameMap = processTableColumnsFile(filepath);
 		const newFilePath = createNewFilePathString(filepath);
 		const newFileName = path.basename(filepath, path.extname(filepath));
 		createNewFile(newFilePath, newFileName, fieldNameMap);

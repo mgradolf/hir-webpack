@@ -5,10 +5,8 @@ import { getLiteRequests } from "~/ApiServices/Service/RequestService"
 export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      title: "",
       dataIndex: "RequestID",
-      key: "RequestID",
-      render: (text: any, record: any) => renderDetailsLink(`/request/${record.RequestID}`)
+      render: (text: any, record: any) => renderDetailsLink(`/request/${text}`)
     },
     {
       title: "Request Date",

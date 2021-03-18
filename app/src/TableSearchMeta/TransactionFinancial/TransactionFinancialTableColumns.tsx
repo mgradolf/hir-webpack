@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 export const getTransactionFinancialTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
+      dataIndex: "DepositTransactionID",
       render: (text: any, record: any) =>
         isModal
           ? text

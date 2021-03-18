@@ -9,10 +9,9 @@ export const getBatchTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       ...(!isModal && {
-        title: "",
-        dataIndex: "",
+        dataIndex: "BatchImportID",
         render: (text: any, record: any) => (
-          <Link to={`/batch/${record.BatchImportID}`}>
+          <Link to={`/batch/${text}`}>
             <ReadOutlined />
           </Link>
         )

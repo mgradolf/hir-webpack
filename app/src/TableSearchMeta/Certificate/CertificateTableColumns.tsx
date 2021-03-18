@@ -6,9 +6,8 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
   const route = isCourse ? "course" : "program"
   const columns: TableColumnType = [
     {
-      title: "",
-      dataIndex: "CertificateNumber",
-      render: (text: any, record: any) => renderDetailsLink(`/${route}/certificate/${record.StudentCertificateID}`)
+      dataIndex: "StudentCertificateID",
+      render: (text: any, record: any) => renderDetailsLink(`/${route}/certificate/${text}`)
     },
     {
       title: "Issue Date",

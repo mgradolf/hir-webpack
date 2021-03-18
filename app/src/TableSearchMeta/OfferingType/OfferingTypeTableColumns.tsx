@@ -5,7 +5,8 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 export const getOfferingTypeTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      render: (text: any, record: any) => renderDetailsLink(`/offering-type/${record.OfferingTypeID}`)
+      dataIndex: "OfferingTypeID",
+      render: (text: any, record: any) => renderDetailsLink(`/offering-type/${text}`)
     },
     { title: "Offering Type", dataIndex: "OfferingTypeName" },
     { title: "Offering Name", dataIndex: "Name" },

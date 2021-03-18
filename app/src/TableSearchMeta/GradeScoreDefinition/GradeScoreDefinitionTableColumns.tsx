@@ -5,8 +5,8 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 export const getGradeScoreDefinitionTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
     {
-      render: (text: any, record: any) =>
-        renderDetailsLink(`/data/grade-score-definition/${record.GradeScoreDefinitionID}`)
+      dataIndex: "GradeScoreDefinitionID",
+      render: (text: any, record: any) => renderDetailsLink(`/data/grade-score-definition/${text}`)
     },
     {
       title: "Grade Scale",

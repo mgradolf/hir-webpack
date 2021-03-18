@@ -9,10 +9,9 @@ export const getProgramApplicationTableColumns = (isModal = false): ITableConfig
   const columns: TableColumnType = [
     {
       ...(!isModal && {
-        title: "",
-        dataIndex: "",
+        dataIndex: "StudentID",
         render: (text: any, record: any) => (
-          <Link to={`/program/${record.ProgramID}/student/${record.StudentID}/application`}>
+          <Link to={`/program/${record.ProgramID}/student/${text}/application`}>
             <ReadOutlined />
           </Link>
         )

@@ -8,6 +8,7 @@ export const getPersonTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Name",
+      dataIndex: "SortName",
       render: (text: any, record: any) =>
         !isModal ? (
           <Link to={`/person/${record.PersonID}`}>{`${record.SortName}`}</Link>
