@@ -16,9 +16,6 @@ export interface IStandardReportPage {
   mapping?: { [key: string]: any }
   atLeastOneRequiredfield?: boolean
 }
-const checkIfFieldParamsAreEmpty = (fieldParams: { [key: string]: any }, defaultParams: { [key: string]: any }) => {
-  return Object.keys(fieldParams).filter((key) => defaultParams[key] === undefined).length === 0
-}
 
 export default function StandardReportPage(props: IStandardReportPage) {
   const [downloadUrl, setdownloadUrl] = useState<string>()
@@ -38,14 +35,14 @@ export default function StandardReportPage(props: IStandardReportPage) {
       }
     })
 
-    if (props.atLeastOneRequiredfield && checkIfFieldParamsAreEmpty(params, props.defaultFormValue || {})) {
+    if (props.atLeastOneRequiredfield && Object.keys(params).length === 0) {
       setErrorMessages([{ message: "Minimum one search field is required!" }])
       setdownloadUrl(undefined)
       return
     }
 
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
-    for (const key in params) {
+    for (const key in { ...params, ...props.defaultFormValue }) {
       if (Array.isArray(params[key]) && params[key].length > 0) {
         urlParams += `${key}=[${params[key]}]&`
       } else {
@@ -74,11 +71,10 @@ export default function StandardReportPage(props: IStandardReportPage) {
           meta={props.meta}
           metaName={props.reportName}
           initialFormValue={props.initialFormValue}
-          defaultFormValue={props.defaultFormValue}
           applyButtonLabel="Run Report"
           errorMessages={errorMessages}
           stopProducingQueryParams={true}
-          onApplyChanges={(newFilterValues, appliedFilterCount) => {
+          onApplyChanges={(newFilterValues) => {
             if (stopFirstOnApplyChanges) {
               setStopFirstOnApplyChanges(false)
             } else {
