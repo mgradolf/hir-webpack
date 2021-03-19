@@ -27,6 +27,15 @@ export const getReportListTableColumns = (isModal = false): ITableConfigProp => 
     searchFunc: (Params: { [key: string]: any }) => {
       if (ReportList.length > 0) {
         const result = ReportList.filter((x) => {
+          let ReportMatched = false
+          try {
+            ReportMatched =
+              Params.ReportLabel &&
+              x.ReportLabel &&
+              x.ReportLabel.toLowerCase().search(Params.ReportLabel.toLowerCase()) > -1
+          } catch (error) {
+            ReportMatched = true
+          }
           let FolderMatched = false
           try {
             FolderMatched = Params.Folder && x.Folder && Params.Folder === x.Folder
@@ -34,12 +43,6 @@ export const getReportListTableColumns = (isModal = false): ITableConfigProp => 
             FolderMatched = true
           }
 
-          let ReportMatched = false
-          try {
-            ReportMatched = Params.ReportLabel && x.ReportLabel && x.ReportLabel.search(Params.ReportLabel) > -1
-          } catch (error) {
-            ReportMatched = true
-          }
           if (Object.keys(Params).length) return !!(FolderMatched || ReportMatched)
           else return true
         })

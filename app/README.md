@@ -1,5 +1,5 @@
 ## Documentation of this project
-- 0\. [Create React App tooling](ReadMeFiles/cra.md)
+- 0\. [Create React App tooling](ReadMeFiles/0/0.md)
 
 - 1\. Meta Driven Form Structure
 
@@ -27,10 +27,11 @@
 
 * 4\. Configuration by User Configs
 
-  - 4.1\. Web Config Project
-  - 4.2\. Meta driven forms
-  - 4.3\. Custom Interactive forms
-  - 4.4\. Table Columns
+  - 4.1\. [Web Config Project](ReadMeFiles/4/4.1.md)
+
+  - 4.2\. [Meta driven forms](ReadMeFiles/4/4.2.md)
+  - 4.3\. [Custom Interactive forms](ReadMeFiles/4/4.3.md)
+  - 4.4\. [Table Columns](ReadMeFiles/4/4.4.md)
 
 * 5\. Access Control
 
