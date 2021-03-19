@@ -1,4 +1,4 @@
 {
   "generic": "https://google.com",
-  "person": "http://localhost:8080/OnlineHelp/application/form/jxntm/search/PersonSearch.htm"
+  "personSearchPage": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/person-search-page/"
 }

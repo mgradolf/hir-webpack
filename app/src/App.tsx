@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
 import { AppStore, AppState } from "~/Store/index"
 import { Provider, connect } from "react-redux"
@@ -9,8 +9,6 @@ import DefaultLayout from "~/Layout/DefaultLayout"
 import ModalContainer from "~/Component/ModalContainer"
 import { AppRoutes } from "~/routes"
 import NotFoundPage from "~/Pages/NotFoundPage"
-import { getHelpConfig, IHelpConfig } from "~/Help/getHelpConfig"
-import { HelpContext } from "~/Help/HelpContext"
 
 interface AppProps {
   store: AppStore
@@ -19,11 +17,6 @@ interface AppProps {
 }
 
 function App(props: AppProps): JSX.Element {
-  const [helpConfig, setHelpConfig] = useState<IHelpConfig>({})
-  useEffect(() => {
-    getHelpConfig().then((x) => setHelpConfig(x))
-  }, [])
-
   const route: JSX.Element = props.redirectToLogin ? (
     <Switch>
       <Route path="/login" component={LoginPage} />
@@ -38,15 +31,13 @@ function App(props: AppProps): JSX.Element {
     </Switch>
   )
   return (
-    <HelpContext.Provider value={helpConfig}>
-      <Provider store={props.store}>
-        <div id="modal-container"></div>
-        <ModalContainer />
-        <ConnectedRouter history={props.history}>
-          {props.redirectToLogin ? route : <DefaultLayout>{route}</DefaultLayout>}
-        </ConnectedRouter>
-      </Provider>
-    </HelpContext.Provider>
+    <Provider store={props.store}>
+      <div id="modal-container"></div>
+      <ModalContainer />
+      <ConnectedRouter history={props.history}>
+        {props.redirectToLogin ? route : <DefaultLayout>{route}</DefaultLayout>}
+      </ConnectedRouter>
+    </Provider>
   )
 }
 
