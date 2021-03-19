@@ -23,6 +23,8 @@ import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
 import { savePackage } from "~/ApiServices/Service/PackageService"
 import { IField } from "~/Component/Common/Form/common"
 import AccountQuestionTab from "~/Component/Account/AccountQuestionTab"
+import { AccountMergeFormModalOpenButton } from "~/Component/Account/Forms/AccountMergeFormModal"
+import { AccountEmailSetupForm } from "~/Component/Account/Forms/AccountEmailSetupForm"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -47,7 +49,8 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
           oca: account.oca
         }}
         refreshEventName={REFRESH_PAGE}
-      />
+      />,
+      <AccountMergeFormModalOpenButton accountData={{ AccountID: account.AccountID }} />
     ],
     contents: [
       { label: "Account Type", value: account.AccountTypeName },
@@ -220,6 +223,16 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       props: {}
     }
   })
+
+  account.AccountTypeID !== 1000 &&
+    meta.push({
+      tabTitle: "Email Setup",
+      tabType: "custom",
+      tabMeta: {
+        component: AccountEmailSetupForm,
+        props: { AccountID: account.AccountID }
+      }
+    })
 
   return {
     pageTitle: `Account Name - ${account.AccountName}`,

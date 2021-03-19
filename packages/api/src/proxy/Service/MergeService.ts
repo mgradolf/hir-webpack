@@ -6,7 +6,9 @@ export const config = {
   Module: "hir",
   Actions: {
     analyze: "analyze",
-    merge: "merge"
+    analyzeAccount: "analyzeAccount",
+    merge: "merge",
+    mergeAccount: "mergeAccount"
   }
 }
 
