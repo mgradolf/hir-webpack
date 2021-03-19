@@ -19,3 +19,10 @@ export function findAllUserRoles(
 ): Promise<IApiResponse> {
   return UserService[config.Actions.findAllUserRoles](Params, Headers)
 }
+
+export function changePassword(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return UserService[config.Actions.changePassword](Params, Headers)
+}

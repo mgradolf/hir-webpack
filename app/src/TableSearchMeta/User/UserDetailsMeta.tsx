@@ -1,4 +1,5 @@
 import React from "react"
+import { Col, Row } from "antd"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderEmail } from "~/Component/Common/ResponsiveTable"
@@ -10,18 +11,26 @@ import { getPaymentActivityTableColumns } from "~/TableSearchMeta/PaymentActivit
 import { UserSearchMeta } from "~/TableSearchMeta/User/UserFormMeta"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { saveUser } from "~/ApiServices/Service/UserService"
+import { ChangePasswordFormOpenButton } from "~/TableSearchMeta/User/ChangePasswordFormOpenButton"
 
 export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     cardActions: [
-      <MetaDrivenFormModalOpenButton
-        buttonLabel={user ? "Edit User" : "+ Create User"}
-        formTitle={user ? "Edit User" : "Create User"}
-        initialFormValue={user}
-        formMeta={UserSearchMeta}
-        formSubmitApi={saveUser}
-      />
+      <Row gutter={4}>
+        <Col>
+          <MetaDrivenFormModalOpenButton
+            buttonLabel={user ? "Edit User" : "+ Create User"}
+            formTitle={user ? "Edit User" : "Create User"}
+            initialFormValue={user}
+            formMeta={UserSearchMeta}
+            formSubmitApi={saveUser}
+          />
+        </Col>
+        <Col>
+          <ChangePasswordFormOpenButton UserID={user.UserID} />
+        </Col>
+      </Row>
     ],
     contents: [
       { label: "Login Name", value: user.UserID },

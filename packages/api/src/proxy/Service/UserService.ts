@@ -8,7 +8,8 @@ export const config = {
     findAllUsers: "findAllUsers",
     findUser: "findUser",
     saveUser: "saveUser",
-    findAllUserRoles: "findAllUserRoles"
+    findAllUserRoles: "findAllUserRoles",
+    changePassword: "changePassword"
   }
 }
 
