@@ -42,7 +42,9 @@ export default function StandardReportPage(props: IStandardReportPage) {
     }
 
     let urlParams = `/api/reportServlet?ReportName=${props.reportName}&`
-    for (const key in { ...params, ...props.defaultFormValue }) {
+
+    params = { ...params, ...props.defaultFormValue }
+    for (const key in params) {
       if (Array.isArray(params[key]) && params[key].length > 0) {
         urlParams += `${key}=[${params[key]}]&`
       } else {
