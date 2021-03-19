@@ -36,7 +36,7 @@ const SortingTableComponent = (props: ISortingTableComponent) => {
   useEffect(() => {
     setLoading(true)
     props
-      .searchFunc(props.CatalogID)
+      .searchFunc({ CatalogID: props.CatalogID })
       .then((x) => {
         setData(x.data)
       })

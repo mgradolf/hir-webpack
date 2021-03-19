@@ -13,7 +13,7 @@ export const getSiteTableColumns = (isModal = false): ITableConfigProp => {
     {
       title: "Parent Organization",
       dataIndex: "OrganizationName",
-      render: (text: any, record: any) => renderLink(`/organization/${record.OrganizationID}`, text, isModal)
+      render: (text: any, record: any) => renderLink(`/site/${record.OrganizationID}`, text, isModal)
     }
   ]
 

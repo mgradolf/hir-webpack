@@ -80,7 +80,7 @@ export function TagAddDropdown(props: IScheduleUpdateMenuProp) {
       </Dropdown.Button>
       {showLookupModal && (
         <LookupModal
-          title={`${entityType.type} Lookup`}
+          title={`Select ${entityType.type}`}
           closeModal={(items) => {
             if (items && items.length > 0) {
               const promises = items?.map((x) => {

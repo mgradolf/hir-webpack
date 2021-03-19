@@ -157,7 +157,7 @@ export const columns: TableColumnType = [
   {
     title: "Organization ID",
     dataIndex: "OrganizationID",
-    render: (text, record) => <Link to={`/organization/${text}`}>{text}</Link>
+    render: (text, record) => <Link to={`/site/${text}`}>{text}</Link>
   },
   { title: "Allocation Order", dataIndex: "AllocationOrder" },
   {

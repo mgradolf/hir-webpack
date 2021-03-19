@@ -34,5 +34,5 @@ export function getWebCatalogPrograms(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return CatalogIf[config.Actions.getWebCatalogPrograms]([Params], Headers)
+  return CatalogIf[config.Actions.getWebCatalogPrograms]([Params.CatalogID], Headers)
 }
