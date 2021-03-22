@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Row, Col } from "antd"
+import { Row, Col, message } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IPersonFieldNames } from "~/Component/Person/Interfaces"
 import { createPersonRecordInRoles } from "~/ApiServices/Service/PersonService"
@@ -11,6 +11,7 @@ import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { SearchRegion } from "~/Component/Common/Form/CustomFormFields/SearchRegion"
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
 import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
+import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
 
 interface IPersonFormProps {
   editMode: boolean
@@ -199,7 +200,6 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
   const [formInstance] = Form.useForm()
   const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  // const [loading, setLoading] = useState(false)
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
@@ -214,6 +214,7 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
           console.log("validation passed ", response)
           setApiCallInProgress(false)
           if (response && response.success) {
+            message.success(CREATE_SUCCESSFULLY)
             setShowModal(false)
           } else {
             console.log("validation failed ", response.error)

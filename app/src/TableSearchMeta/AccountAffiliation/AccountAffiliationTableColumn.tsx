@@ -13,7 +13,7 @@ import {
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { eventBus } from "~/utils/EventBus"
 import { DownOutlined } from "@ant-design/icons"
-import AccountContactMenu from "~/Component/Account/AccountContactMenu"
+import { AccountContactMenu } from "~/Component/Account/AccountContactMenu"
 
 export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigProp => {
   const primaryContactAction = (IsPublished: boolean, AccountID: number, AccountAffiliationID: number) => {
@@ -63,7 +63,14 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown overlay={<AccountContactMenu initialData={record} />} trigger={["click"]}>
+        <Dropdown
+          overlay={
+            <AccountContactMenu
+              initialData={{ ...record, IsPrimaryAccountAffiliation: record.PrimaryAccountAffiliation }}
+            />
+          }
+          trigger={["click"]}
+        >
           <Button type="primary" onClick={(e) => e.preventDefault()}>
             Go To <DownOutlined />
           </Button>

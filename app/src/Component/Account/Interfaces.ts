@@ -2,6 +2,7 @@ export interface IAccountFieldNames {
   AccountID: any
   AccountTypeID: any
   Name: any
+  PersonID: any
   PrimaryAccountAffiliationID: any
   PaymentTerm: any
   AllowToPayLater: any

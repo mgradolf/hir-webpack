@@ -10,7 +10,7 @@ interface IAccountContactMenu {
   initialData: { [key: string]: any }
 }
 
-export default function AccountContactMenu(props: IAccountContactMenu) {
+export function AccountContactMenu(props: IAccountContactMenu) {
   return (
     <Menu>
       <Menu.Item key="0">
