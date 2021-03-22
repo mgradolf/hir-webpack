@@ -1,4 +1,4 @@
-import { IStudent } from "~/Component/Student/StudentFinderModal"
+import { IStudent } from "~/Component/Feature/Student/StudentFinderModal"
 
 const SHOW_LOGIN_MODAL = "SHOW_LOGIN_MODAL"
 const SHOW_CREATE_OFFERING_MODAL = "SHOW_CREATE_OFFERING_MODAL"

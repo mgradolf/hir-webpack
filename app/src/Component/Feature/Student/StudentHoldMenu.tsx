@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Button, Menu } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { StudentHoldFormMeta } from "~/Component/Student/FormMeta/StudentHoldFormMeta"
+import { StudentHoldFormMeta } from "~/Component/Feature/Student/FormMeta/StudentHoldFormMeta"
 import { createUpdateStudentHold, releaseStudentHold } from "~/ApiServices/Service/StudentService"
-import { StudentReleaseFormMeta } from "~/Component/Student/FormMeta/StudentReleaseFormMeta"
+import { StudentReleaseFormMeta } from "~/Component/Feature/Student/FormMeta/StudentReleaseFormMeta"
 
 interface IStudentHoldMenu {
   initialData: { [key: string]: any }

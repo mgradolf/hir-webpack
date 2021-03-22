@@ -12,7 +12,7 @@ import {
   REQUEST_DATE_TIME_FORMAT,
   REGISTRATION_VERIFICATION_NAME
 } from "~/utils/Constants"
-import StudentFinderFormField from "~/Component/Student/StudentFinderFormField"
+import StudentFinderFormField from "~/Component/Feature/Student/StudentFinderFormField"
 import { useEffect } from "react"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -20,7 +20,7 @@ import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLooku
 import { validateRegistration } from "~/ApiServices/Service/RegistrationService"
 import moment from "moment"
 
-import { IStudent } from "~/Component/Student/StudentFinderModal"
+import { IStudent } from "~/Component/Feature/Student/StudentFinderModal"
 import RegistrationVerification from "~/utils/RegistrationVerification"
 import RegistrationError from "~/Component/Section/Request/RegistrationError"
 

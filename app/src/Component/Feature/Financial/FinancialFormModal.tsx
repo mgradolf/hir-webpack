@@ -1,10 +1,10 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
-import FinancialForm from "~/Component/Financial/FinancialForm"
+import FinancialForm from "~/Component/Feature/Financial/FinancialForm"
 import { getOfferingFinancialById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
-import { IFinancialFieldNames } from "~/Component/Financial/Interfaces"
+import { IFinancialFieldNames } from "~/Component/Feature/Financial/Interfaces"
 import { FINANCIAL_TYPE_FACULTY, FINANCIAL_TYPE_MARKETING_PROGRAM } from "~/utils/Constants"
 
 interface ICreateNewFinancialProps {

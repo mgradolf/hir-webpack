@@ -1,9 +1,9 @@
 import { Button, Typography, Form } from "antd"
 import { FormInstance } from "antd/lib/form"
 import React, { useState } from "react"
-import StudentFinder from "~/Component/Student/index"
-import { IStudent } from "~/Component/Student/StudentFinderModal"
-import AddContactModalOpenButton from "~/Component/Student/AddContactModalOpenButton"
+import StudentFinder from "~/Component/Feature/Student/index"
+import { IStudent } from "~/Component/Feature/Student/StudentFinderModal"
+import AddContactModalOpenButton from "~/Component/Feature/Student/AddContactModalOpenButton"
 
 const { Text } = Typography
 

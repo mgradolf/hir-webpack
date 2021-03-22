@@ -3,22 +3,14 @@ import { Button } from "antd"
 import { WaitlistEntriesSearchMeta } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntriesSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getWaitlistEntriesTableColumns } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntryTableColumns"
-import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/WaitlistEntryCreateEditFormModal"
+import { WaitlistEntryFormOpenButton } from "~/Component/Feature/WaitlistEntries/WaitlistEntryForm"
 
 export default function WaitlistEntryPage() {
   const [entry, setEntry] = useState<{ [key: string]: any }>()
   const [showCreateModal, setShowCreateModal] = useState(false)
   return (
     <>
-      {showCreateModal && (
-        <WaitlistEntryCreateEditFormModal
-          WaitListEntry={entry}
-          closeModal={() => {
-            setShowCreateModal(false)
-            setEntry(undefined)
-          }}
-        />
-      )}
+      {showCreateModal && <WaitlistEntryFormOpenButton />}
       <SearchPage
         title="Waitlist Entries"
         meta={WaitlistEntriesSearchMeta}

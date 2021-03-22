@@ -3,8 +3,6 @@ import { authenticationReducer, IAuthentication } from "~/Store/Authentication"
 import { globalApiErrorReducer, IGlobalApiErrorState } from "~/Store/GlobalError"
 import { modalStateReducer, IModalState } from "~/Store/ModalState"
 import { IModalStates, modalState2Reducer } from "~/Store/ModalState2"
-
-import thunk from "redux-thunk"
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router"
 import { createBrowserHistory, History } from "history"
 
@@ -33,7 +31,6 @@ function createStore(): { store: AppStore; history: History } {
   })
 
   const storeEnhancers: any = compose(
-    applyMiddleware(thunk),
     applyMiddleware(routerMiddleware(history)),
     // redux dev tools
     typeof (window as WindowWithReduxDevTools).__REDUX_DEVTOOLS_EXTENSION__ !== "undefined"

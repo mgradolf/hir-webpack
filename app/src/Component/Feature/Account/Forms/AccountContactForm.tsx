@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Form, Input, Select, Divider, Row, Col, Spin } from "antd"
 import { FormInstance } from "antd/lib/form"
-import { IAccountContactFieldNames } from "~/Component/Account/Interfaces"
+import { IAccountContactFieldNames } from "~/Component/Feature/Account/Interfaces"
 import {
   getAffiliationRoleTypes,
   getQuestionAnswers,

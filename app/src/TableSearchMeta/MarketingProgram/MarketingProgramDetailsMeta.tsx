@@ -7,7 +7,7 @@ import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { FINANCIAL_MARKETING_PROGRAM_TYPE_ID, FINANCIAL_TYPE_MARKETING_PROGRAM } from "~/utils/Constants"
 import { getFinancialTableColumns } from "~/TableSearchMeta/Financial/FinancialTableColumns"
 import { Button } from "antd"
-import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
+import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
 import { REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB } from "~/utils/EventBus"
 
 export const getMarketingProgramDetailsMeta = (MarketingProgram: { [key: string]: any }): IDetailsMeta => {

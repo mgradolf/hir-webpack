@@ -2,7 +2,7 @@ import { Button } from "antd"
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
 import { showStudentFinderModal } from "~/Store/ModalState"
-import { IStudent } from "~/Component/Student/StudentFinderModal"
+import { IStudent } from "~/Component/Feature/Student/StudentFinderModal"
 
 function StudentFinder(props: {
   AccountID: number

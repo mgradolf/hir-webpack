@@ -1,7 +1,7 @@
 import { Button, Card, Col } from "antd"
 import React, { useState, useEffect, useCallback } from "react"
 import Modal from "~/Component/Common/Modal"
-import StudentListTable from "~/Component/Student/StudentListTable"
+import StudentListTable from "~/Component/Feature/Student/StudentListTable"
 
 import { useDispatch } from "react-redux"
 

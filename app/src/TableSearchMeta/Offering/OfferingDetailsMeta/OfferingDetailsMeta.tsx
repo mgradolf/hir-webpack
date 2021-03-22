@@ -27,7 +27,7 @@ import OfferingRemoveLink from "~/Component/Offering/CreateEdit/OfferingRemoveLi
 import "~/Sass/utils.scss"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
 import { FINANCIAL_OFFERING_TYPE_ID, FINANCIAL_TYPE_OFFERING } from "~/utils/Constants"
-import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
+import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
 import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingTableColumn"
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 
