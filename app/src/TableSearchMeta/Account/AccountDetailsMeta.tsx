@@ -25,6 +25,7 @@ import { IField } from "~/Component/Common/Form/common"
 import AccountQuestionTab from "~/Component/Account/AccountQuestionTab"
 import { AccountMergeFormModalOpenButton } from "~/Component/Account/Forms/AccountMergeFormModal"
 import { AccountEmailSetupForm } from "~/Component/Account/Forms/AccountEmailSetupForm"
+import { AccountRemoveLink } from "~/Component/Account/AccountRemoveLink"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -50,7 +51,8 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         }}
         refreshEventName={REFRESH_PAGE}
       />,
-      <AccountMergeFormModalOpenButton accountData={{ AccountID: account.AccountID }} />
+      <AccountMergeFormModalOpenButton accountData={{ AccountID: account.AccountID }} />,
+      <AccountRemoveLink AccountID={account.AccountID} />
     ],
     contents: [
       { label: "Account Type", value: account.AccountTypeName },
@@ -79,7 +81,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Contacts",
     tabType: "table",
     tabMeta: {
-      blocks: [<AccountContactFormOpenButton editMode={false} initialValues={account} />],
+      blocks: [<AccountContactFormOpenButton editMode={false} initialValues={{ AccountID: account.AccountID }} />],
       tableProps: {
         pagination: false,
         ...getAccountAffiliationTableColumn(),

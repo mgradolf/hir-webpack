@@ -6,6 +6,7 @@ import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { findPersonsByAccount } from "~/ApiServices/Service/PersonService"
 import "~/Sass/utils.scss"
+import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
 
 interface IBillingStepFormProps {
   formInstance: FormInstance
@@ -53,13 +54,13 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
           fieldName={"PONumber"}
           rules={[{ required: true, message: "Please enter PO Number!" }]}
         />
-        <FormInput
+        <FormInputNumber
           {...layout}
           formInstance={props.formInstance}
           label={"Amount"}
           ariaLabel={"Amount"}
           fieldName={"POAmount"}
-          rules={[{ required: true, message: "Please enter PO Amount!" }]}
+          rules={[{ required: true, message: "Please enter Amount!" }]}
         />
       </Col>
     </Row>

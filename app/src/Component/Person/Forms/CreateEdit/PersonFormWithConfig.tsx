@@ -215,6 +215,7 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
           setApiCallInProgress(false)
           if (response && response.success) {
             message.success(CREATE_SUCCESSFULLY)
+            formInstance.resetFields()
             setShowModal(false)
           } else {
             console.log("validation failed ", response.error)
