@@ -2,8 +2,8 @@ import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
 import { Button, Form } from "antd"
-import { IApplicationNoteFieldNames } from "~/Component/ProgramApplication/Interfaces"
-import ProgramApplicationNoteForm from "~/Component/ProgramApplication/ProgramApplicationNoteForm"
+import { IApplicationNoteFieldNames } from "~/Component/Feature/ProgramApplication/Interfaces"
+import ProgramApplicationNoteForm from "~/Component/Feature/ProgramApplication/ProgramApplicationNoteForm"
 
 interface IProgramApplicationNoteProps {
   ProgramAppID: number

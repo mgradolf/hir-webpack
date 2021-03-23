@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import { QuestionFindModal } from "~/Component/Question/Search/QuestionFindModal"
+import { QuestionFindModal } from "~/Component/Feature/Question/Search/QuestionFindModal"
 
 interface IQuestionFindButtonProp {
   EventID?: number

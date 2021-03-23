@@ -1,10 +1,10 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
-import SeatGroupForm from "~/Component/Section/SeatGroup/SeatGroupForm"
+import SeatGroupForm from "~/Component/Feature/Section/SeatGroup/SeatGroupForm"
 import { getSeatGroupById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
-import { ISectionSeatGroupFieldNames } from "~/Component/Section/Interfaces"
+import { ISectionSeatGroupFieldNames } from "~/Component/Feature/Section/Interfaces"
 
 interface ICreateNewSeatGroupProps {
   seatgroupId?: number

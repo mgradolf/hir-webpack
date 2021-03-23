@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import UpdateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
+import UpdateSeatGroup from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
 
 interface ISeatGroupEditLinkProp {
   additionalData: { [key: string]: any }

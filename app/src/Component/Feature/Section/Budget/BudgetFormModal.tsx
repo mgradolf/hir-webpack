@@ -2,9 +2,9 @@ import * as React from "react"
 import { Form } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import CreateForm1 from "~/Component/Section/Budget/Form1"
-import CreateForm2 from "~/Component/Section/Budget/Form2"
-import { IBudgetFieldNames } from "~/Component/Section/Interfaces"
+import CreateForm1 from "~/Component/Feature/Section/Budget/Form1"
+import CreateForm2 from "~/Component/Feature/Section/Budget/Form2"
+import { IBudgetFieldNames } from "~/Component/Feature/Section/Interfaces"
 
 const filedNames: IBudgetFieldNames = {
   SectionID: "SectionID",

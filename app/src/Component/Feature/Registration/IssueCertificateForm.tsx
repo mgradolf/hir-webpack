@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import { Button, Row, Col } from "antd"
 import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
+import CertificateFormModal from "~/Component/Feature/Certificate/CertificateFormModal"
 import { getCertificateTableColumns } from "~/TableSearchMeta/Certificate/CertificateTableColumns"
 import { REFRESH_REGISTRATION_CERTIFICATE_PAGE } from "~/utils/EventBus"
 

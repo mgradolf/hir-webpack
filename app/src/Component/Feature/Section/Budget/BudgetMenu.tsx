@@ -1,8 +1,8 @@
 import React from "react"
 import { Menu } from "antd"
 
-import BudgetEditLink from "~/Component/Section/Budget/BudgetEditLink"
-import BudgetRemoveLink from "~/Component/Section/Budget/BudgetRemoveLink"
+import BudgetEditLink from "~/Component/Feature/Section/Budget/BudgetEditLink"
+import BudgetRemoveLink from "~/Component/Feature/Section/Budget/BudgetRemoveLink"
 
 interface IBudgetMenu {
   sectionId: number

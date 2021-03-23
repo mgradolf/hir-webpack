@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { Button, Form } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
-import { IBulkOrderFieldNames } from "~/Component/Account/Interfaces"
-import BulkOrderForm from "~/Component/Package/Forms/BulkOrder/BulkOrderForm"
+import { IBulkOrderFieldNames } from "~/Component/Feature/Account/Interfaces"
+import BulkOrderForm from "~/Component/Feature/Package/Forms/BulkOrder/BulkOrderForm"
 
 interface IBulkOrderFormModalProps {
   initialData: { [key: string]: any }

@@ -6,7 +6,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { DATE_TIME_FORMAT } from "~/utils/Constants"
 import { pushInstructorSchedule } from "~/ApiServices/Service/InstructorService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IInstructorScheduleFieldNames } from "~/Component/Instructor/Interfaces"
+import { IInstructorScheduleFieldNames } from "~/Component/Feature/Instructor/Interfaces"
 import { FormDateTimePicker } from "~/Component/Common/Form/FormDateTimePicker"
 import { eventBus } from "~/utils/EventBus"
 import "~/Sass/global/index.scss"

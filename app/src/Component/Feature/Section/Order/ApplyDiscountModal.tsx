@@ -6,7 +6,7 @@ import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
-import OrderDetailForModal from "~/Component/Section/Order/OrderDetailForModal"
+import OrderDetailForModal from "~/Component/Feature/Section/Order/OrderDetailForModal"
 import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 
 interface IApplyDiscountModal {

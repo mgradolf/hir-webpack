@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 
-import NoticeEditForm from "~/Component/Section/Notice/NoticeEditForm"
+import NoticeEditForm from "~/Component/Feature/Section/Notice/NoticeEditForm"
 import { getSectionNotifications } from "~/ApiServices/Service/SectionService"
 import { Form } from "antd"
-import { INoticeFieldNames } from "~/Component/Section/Interfaces"
+import { INoticeFieldNames } from "~/Component/Feature/Section/Interfaces"
 
 interface INoticetEditProps {
   sectionId: number

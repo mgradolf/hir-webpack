@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import AddDiscountModal from "~/Component/Discount/AddDiscountModal"
+import AddDiscountModal from "~/Component/Feature/Discount/AddDiscountModal"
 import { addSectionDiscount } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
 

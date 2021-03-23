@@ -5,8 +5,8 @@ import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showUpdateSectionScheduleLocationModal } from "~/Store/ModalState"
 import { Form } from "antd"
-import { IScheduleLocationFieldNames } from "~/Component/Section/Interfaces"
-import ScheduleLocationForm from "~/Component/Section/Schedule/ScheduleLocationForm"
+import { IScheduleLocationFieldNames } from "~/Component/Feature/Section/Interfaces"
+import ScheduleLocationForm from "~/Component/Feature/Section/Schedule/ScheduleLocationForm"
 
 interface IScheduleProps {
   scheduleIds: any

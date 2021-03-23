@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import NoticeUpdate from "~/Component/Section/Notice/NoticeEditFormModal"
+import NoticeUpdate from "~/Component/Feature/Section/Notice/NoticeEditFormModal"
 
 interface INoticeEditLinkProp {
   sectionId: number

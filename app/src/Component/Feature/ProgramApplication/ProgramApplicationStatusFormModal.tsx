@@ -2,8 +2,8 @@ import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
 import { Button, Form } from "antd"
-import { IApplicationStatusFieldNames } from "~/Component/ProgramApplication/Interfaces"
-import ProgramApplicationStatusForm from "~/Component/ProgramApplication/ProgramApplicationStatusForm"
+import { IApplicationStatusFieldNames } from "~/Component/Feature/ProgramApplication/Interfaces"
+import ProgramApplicationStatusForm from "~/Component/Feature/ProgramApplication/ProgramApplicationStatusForm"
 import { PROGRAM_APP_REQ_ACCPETED, PROGRAM_APP_REQ_REJECTED, PROGRAM_APP_REQ_RESUBMIT } from "~/utils/Constants"
 
 interface IProgramApplicationStatusProps {

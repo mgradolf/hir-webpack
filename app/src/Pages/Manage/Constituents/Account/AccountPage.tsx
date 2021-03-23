@@ -4,7 +4,7 @@ import { AccountSearchMeta } from "~/TableSearchMeta/Account/AccountSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getAccountTableColumns } from "~/TableSearchMeta/Account/AccountTableColumns"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { AccountFormMeta } from "~/Component/Account/FormMeta/AccountFormMeta"
+import { AccountFormMeta } from "~/Component/Feature/Account/FormMeta/AccountFormMeta"
 import { pushAccount } from "~/ApiServices/Service/AccountService"
 import { REFRESH_PAGE } from "~/utils/EventBus"
 

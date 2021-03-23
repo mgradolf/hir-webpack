@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Card, Button, Input, Select, Radio } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IOfferingRequisiteGroupFieldNames } from "~/Component/Offering/Interfaces"
+import { IOfferingRequisiteGroupFieldNames } from "~/Component/Feature/Offering/Interfaces"
 import { getPolicyTypes } from "~/ApiServices/Service/RefLookupService"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"

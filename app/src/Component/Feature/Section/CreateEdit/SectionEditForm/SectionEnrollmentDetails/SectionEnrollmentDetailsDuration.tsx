@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Form, Input, Row } from "antd"
-import { ISectionEnrollmentDetails } from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
+import { ISectionEnrollmentDetails } from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
 import { FormInstance } from "antd/lib/form"
 import Radio, { RadioChangeEvent } from "antd/lib/radio"
 

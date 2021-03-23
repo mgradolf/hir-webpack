@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button, Menu, message } from "antd"
 import { eventBus } from "~/utils/EventBus"
-import InstructorScheduleFormModal from "~/Component/Instructor/Forms/InstructorScheduleFormModal"
+import InstructorScheduleFormModal from "~/Component/Feature/Instructor/Forms/InstructorScheduleFormModal"
 import { removeInstructorSchedule } from "~/ApiServices/Service/InstructorService"
 import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
 

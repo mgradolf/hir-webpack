@@ -1,7 +1,7 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
-import SeatGroupAffiliateOrganizationForm from "~/Component/Section/SeatGroup/SeatGroupAffiliateOrganizationForm"
+import SeatGroupAffiliateOrganizationForm from "~/Component/Feature/Section/SeatGroup/SeatGroupAffiliateOrganizationForm"
 import { findAffiliatedOrgsForSeatGroup, findAvailableAffiliatedOrgs } from "~/ApiServices/Service/SeatGroupService"
 
 interface ISeatGroupAffiliatedOrganizationProps {

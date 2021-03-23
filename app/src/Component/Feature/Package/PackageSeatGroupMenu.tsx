@@ -3,7 +3,7 @@ import { Button, Menu, message } from "antd"
 import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
 import { eventBus, REFRESH_PACKAGE_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { removeSection, updateSection } from "~/ApiServices/Service/PackageService"
-import { PackageSeatGroupFormMeta } from "~/Component/Package/FormMeta/PackageSeatGroupFormMeta"
+import { PackageSeatGroupFormMeta } from "~/Component/Feature/Package/FormMeta/PackageSeatGroupFormMeta"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 
 interface IPackageSeatGroupMenu {

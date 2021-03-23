@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import CommentCreateModal from "~/Component/Comment/CommentCreateModal"
+import CommentCreateModal from "~/Component/Feature/Comment/CommentCreateModal"
 
 interface ICommentCreateProp {
   SectionID?: number

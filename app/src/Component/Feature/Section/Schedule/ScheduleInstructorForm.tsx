@@ -7,7 +7,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
-import { IScheduleInstructorFieldNames } from "~/Component/Section/Interfaces"
+import { IScheduleInstructorFieldNames } from "~/Component/Feature/Section/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 
 interface IScheduleInstructorFormProps {

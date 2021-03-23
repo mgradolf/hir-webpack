@@ -1,12 +1,12 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal"
 import { useState } from "react"
-import ScheduleForm from "~/Component/Section/Schedule/ScheduleForm"
+import ScheduleForm from "~/Component/Feature/Section/Schedule/ScheduleForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showCreateSectionScheduleModal } from "~/Store/ModalState"
 import { Form } from "antd"
-import { IScheduleFieldNames } from "~/Component/Section/Interfaces"
+import { IScheduleFieldNames } from "~/Component/Feature/Section/Interfaces"
 
 interface IScheduleProps {
   scheduleIds?: number

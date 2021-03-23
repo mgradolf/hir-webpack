@@ -4,7 +4,7 @@ import Notification from "~/utils/notification"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { getOrCreateAccountForPurchaser, pushAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import { SAVE_SUCCESSFULLY, ACCOUNT_AFFILIATION_STATUS_ACTIVE, AFF_ROLE_PURCHASER } from "~/utils/Constants"
-import { AccountLinkModal } from "~/Component/Account/AccountLinkModal"
+import { AccountLinkModal } from "~/Component/Feature/Account/AccountLinkModal"
 
 interface IPersonAccountActionProp {
   initialData: { [key: string]: any }

@@ -4,7 +4,7 @@ import { eventBus } from "~/utils/EventBus"
 import { deleteAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import Notification from "~/utils/notification"
 import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
-import { AccountContactFormOpenButton } from "~/Component/Account/Forms/AccountContactForm"
+import { AccountContactFormOpenButton } from "~/Component/Feature/Account/Forms/AccountContactForm"
 
 interface IAccountContactMenu {
   initialData: { [key: string]: any }

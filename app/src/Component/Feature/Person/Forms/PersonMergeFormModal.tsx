@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import PersonMergeForm from "~/Component/Person/Forms/CreateEdit/PersonMergeForm"
+import PersonMergeForm from "~/Component/Feature/Person/Forms/CreateEdit/PersonMergeForm"
 import { Button } from "antd"
 
 interface IPersonMergeFormModalProps {

@@ -2,7 +2,7 @@ import * as React from "react"
 import { Form } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import CreateDiscountForm from "~/Component/Section/Discount/DiscountCreateForm"
+import CreateDiscountForm from "~/Component/Feature/Section/Discount/DiscountCreateForm"
 
 interface ICreateNewDiscountProps {
   sectionId: number

@@ -15,14 +15,14 @@ import { getTransactionFinancialTableColumns } from "~/TableSearchMeta/Transacti
 import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
 import { REFRESH_ACCOUNT_SEATGROUP_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
-import { AccountFormMeta } from "~/Component/Account/FormMeta/AccountFormMeta"
+import { AccountFormMeta } from "~/Component/Feature/Account/FormMeta/AccountFormMeta"
 import { pushAccount } from "~/ApiServices/Service/AccountService"
-import { AccountContactFormOpenButton } from "~/Component/Account/Forms/AccountContactForm"
-import { BulkOrderFormModalOpenButton } from "~/Component/Package/BulkOrderFormModal"
-import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
+import { AccountContactFormOpenButton } from "~/Component/Feature/Account/Forms/AccountContactForm"
+import { BulkOrderFormModalOpenButton } from "~/Component/Feature/Package/BulkOrderFormModal"
+import { PackageFormMeta } from "~/Component/Feature/Package/FormMeta/PackageFormMeta"
 import { savePackage } from "~/ApiServices/Service/PackageService"
 import { IField } from "~/Component/Common/Form/common"
-import AccountQuestionTab from "~/Component/Account/AccountQuestionTab"
+import AccountQuestionTab from "~/Component/Feature/Account/AccountQuestionTab"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []

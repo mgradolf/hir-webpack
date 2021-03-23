@@ -1,6 +1,6 @@
 import React from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import RegistrationGradeForm from "~/Component/Registration/RegistrationGradeForm"
+import RegistrationGradeForm from "~/Component/Feature/Registration/RegistrationGradeForm"
 
 interface IRegistrationGradeFormProps {
   initialFormValue: { [key: string]: any }

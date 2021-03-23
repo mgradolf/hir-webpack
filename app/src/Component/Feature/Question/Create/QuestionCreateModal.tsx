@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import QuestionCreateForm from "~/Component/Question/Create/QuestionCreateForm"
+import QuestionCreateForm from "~/Component/Feature/Question/Create/QuestionCreateForm"
 import { Form } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { createQuestion, addTagQuestions } from "~/ApiServices/Service/QuestionService"

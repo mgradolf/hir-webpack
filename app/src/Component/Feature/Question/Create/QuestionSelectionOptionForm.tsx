@@ -1,7 +1,7 @@
 import { Button, Input } from "antd"
 import { TableRowSelection } from "antd/lib/table/interface"
 import React, { useState } from "react"
-import FixedQuestionSortableTable from "~/Component/Question/Create/FixedQuestionSortableTable"
+import FixedQuestionSortableTable from "~/Component/Feature/Question/Create/FixedQuestionSortableTable"
 import debounce from "~/utils/debounce"
 
 import { SortableHandle as sortableHandle } from "react-sortable-hoc"

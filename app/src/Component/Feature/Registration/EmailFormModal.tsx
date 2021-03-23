@@ -2,7 +2,7 @@ import * as React from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import SendEmailForm from "~/Component/Registration/SendEmailForm"
+import SendEmailForm from "~/Component/Feature/Registration/SendEmailForm"
 
 interface IEmailFormProps {
   toEmailAddress: any

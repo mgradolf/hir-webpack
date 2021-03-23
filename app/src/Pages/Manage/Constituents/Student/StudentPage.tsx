@@ -2,7 +2,7 @@ import React from "react"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
 import { StudentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
-import { PersonFormOpenButton } from "~/Component/Person/Forms/CreateEdit/PersonFormWithConfig"
+import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdit/PersonFormWithConfig"
 
 export default function PersonTable() {
   return (

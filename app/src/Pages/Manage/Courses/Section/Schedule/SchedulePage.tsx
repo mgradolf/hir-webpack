@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Row, Col, Typography } from "antd"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
-import ScheduleUpdateMenu from "~/Component/Section/Schedule/ScheduleUpdateMenu"
-import ScheduleRemoveMenu from "~/Component/Section/Schedule/ScheduleRemoveMenu"
+import ScheduleCreateModal from "~/Component/Feature/Section/Schedule/ScheduleCreateModal"
+import ScheduleUpdateMenu from "~/Component/Feature/Section/Schedule/ScheduleUpdateMenu"
+import ScheduleRemoveMenu from "~/Component/Feature/Section/Schedule/ScheduleRemoveMenu"
 import { getSectionScheduleTableColumns } from "~/TableSearchMeta/SectionSchedule/ScheduleTableColumns"
 import { REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 

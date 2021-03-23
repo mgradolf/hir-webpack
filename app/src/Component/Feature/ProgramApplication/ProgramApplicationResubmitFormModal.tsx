@@ -2,8 +2,8 @@ import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
 import { Button, Form } from "antd"
-import { IApplicationResubmitFieldNames } from "~/Component/ProgramApplication/Interfaces"
-import ProgramApplicatioResubmitForm from "~/Component/ProgramApplication/ProgramApplicationResubmitForm"
+import { IApplicationResubmitFieldNames } from "~/Component/Feature/ProgramApplication/Interfaces"
+import ProgramApplicatioResubmitForm from "~/Component/Feature/ProgramApplication/ProgramApplicationResubmitForm"
 import { PROGRAM_APP_REQ_ACCPETED, PROGRAM_APP_REQ_REJECTED, PROGRAM_APP_REQ_RESUBMIT } from "~/utils/Constants"
 
 interface IProgramApplicationResubmitProps {

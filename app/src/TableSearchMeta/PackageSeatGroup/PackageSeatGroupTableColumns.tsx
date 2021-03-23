@@ -5,7 +5,7 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { findSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { Button, Dropdown } from "antd"
 import { DownOutlined } from "@ant-design/icons"
-import PackageSeatGroupMenu from "~/Component/Package/PackageSeatGroupMenu"
+import PackageSeatGroupMenu from "~/Component/Feature/Package/PackageSeatGroupMenu"
 
 export const getPackageSeatGroupTableColumns = (isModal = false, AccountID?: number): ITableConfigProp => {
   const columns: TableColumnType = [

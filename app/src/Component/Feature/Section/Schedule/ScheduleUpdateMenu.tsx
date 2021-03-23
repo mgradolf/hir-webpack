@@ -1,10 +1,10 @@
 import React from "react"
 import { Dropdown, Menu } from "antd"
 
-import ScheduleCreateModal from "~/Component/Section/Schedule/ScheduleCreateModal"
-import UpdateLocationModal from "~/Component/Section/Schedule/UpdateLocationModal"
-import UpdateInstructorModal from "~/Component/Section/Schedule/UpdateInstructorModal"
-import UpdateNoteModal from "~/Component/Section/Schedule/UpdateNoteModal"
+import ScheduleCreateModal from "~/Component/Feature/Section/Schedule/ScheduleCreateModal"
+import UpdateLocationModal from "~/Component/Feature/Section/Schedule/UpdateLocationModal"
+import UpdateInstructorModal from "~/Component/Feature/Section/Schedule/UpdateInstructorModal"
+import UpdateNoteModal from "~/Component/Feature/Section/Schedule/UpdateNoteModal"
 
 interface IScheduleUpdateMenuProp {
   sectionId: number

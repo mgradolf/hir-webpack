@@ -1,13 +1,13 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal"
 import { useEffect, useState } from "react"
-import BudgetEditForm from "~/Component/Section/Budget/BudgetEditForm"
+import BudgetEditForm from "~/Component/Feature/Section/Budget/BudgetEditForm"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { showUpdateBudgetModal } from "~/Store/ModalState"
 import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
 import { Form } from "antd"
-import { IBudgetFieldNames } from "~/Component/Section/Interfaces"
+import { IBudgetFieldNames } from "~/Component/Feature/Section/Interfaces"
 
 interface IBudgetEditProps {
   financialId: number

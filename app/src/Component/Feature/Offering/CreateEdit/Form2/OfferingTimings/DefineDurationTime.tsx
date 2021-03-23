@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Form, Input, Row } from "antd"
-import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/Component/Feature/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 
 interface IOfferingTimings {

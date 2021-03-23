@@ -6,7 +6,7 @@ import { putSpaceBetweenCapitalLetters } from "~/utils/util"
 import { getOrderCreditsTableColumns } from "~/TableSearchMeta/OrderCredits/OrderCreditsTableColumns"
 import { getSectionDiscountTableColumns } from "~/TableSearchMeta/SectionDiscount/DiscountTableColumns"
 import { REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
-import SectionAddButton from "~/Component/Section/SectionAddButton"
+import SectionAddButton from "~/Component/Feature/Section/SectionAddButton"
 
 export const getDiscountProgramsDetailsMeta = (discountProgram: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Form, Input, Row } from "antd"
-import { ISectionDetailsFieldNames } from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
+import { ISectionDetailsFieldNames } from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionDetails"
 import { FormInstance } from "antd/lib/form"
 
 interface IDefineDurationTime {

@@ -4,7 +4,7 @@ import { Form, Input, DatePicker, Select } from "antd"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 import { DATE_FORMAT } from "~/utils/Constants"
-import { ICertificateFieldNames } from "~/Component/Registration/Interfaces"
+import { ICertificateFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import {
   getApplicableSectionCertificate,
   getApplicableProgramCertificate

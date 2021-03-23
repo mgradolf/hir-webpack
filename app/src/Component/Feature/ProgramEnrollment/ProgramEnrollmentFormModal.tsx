@@ -3,8 +3,8 @@ import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
 import { searchEnrollment } from "~/ApiServices/BizApi/program/programEnrollmentIF"
 import { Form } from "antd"
-import { IEnrollmentFieldNames } from "~/Component/ProgramEnrollment/Interfaces"
-import ProgramEnrollmentForm from "~/Component/ProgramEnrollment/ProgramEnrollmentForm"
+import { IEnrollmentFieldNames } from "~/Component/Feature/ProgramEnrollment/Interfaces"
+import ProgramEnrollmentForm from "~/Component/Feature/ProgramEnrollment/ProgramEnrollmentForm"
 
 interface IUpdateProgramEnrollmentProps {
   enrollmentID: number

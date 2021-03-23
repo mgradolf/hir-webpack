@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import GeneralCommentCreateForm from "~/Component/Section/Comment/GeneralCommentCreateForm"
-import InstructorCommentCreateForm from "~/Component/Section/Comment/InstructorCommentCreateForm"
-import EnrollmentCommentCreateForm from "~/Component/Section/Comment/EnrollmentCommentCreateForm"
+import GeneralCommentCreateForm from "~/Component/Feature/Section/Comment/GeneralCommentCreateForm"
+import InstructorCommentCreateForm from "~/Component/Feature/Section/Comment/InstructorCommentCreateForm"
+import EnrollmentCommentCreateForm from "~/Component/Feature/Section/Comment/EnrollmentCommentCreateForm"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
+import CertificateFormModal from "~/Component/Feature/Certificate/CertificateFormModal"
 import { ProgramCertificateSearchMeta } from "~/TableSearchMeta/Certificate/CertificateSearchMeta"
 import { getCertificateTableColumns } from "~/TableSearchMeta/Certificate/CertificateTableColumns"
 

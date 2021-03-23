@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import DiscountEditFormModal from "~/Component/Section/Discount/DiscountEditFormModal"
+import DiscountEditFormModal from "~/Component/Feature/Section/Discount/DiscountEditFormModal"
 
 interface IDiscountEditLinkProp {
   sectionId: number

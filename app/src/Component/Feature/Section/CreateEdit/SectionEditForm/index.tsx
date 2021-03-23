@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Button, Card, Collapse, Form } from "antd"
-import SectionDetails from "~/Component/Section/CreateEdit/SectionEditForm/SectionDetails"
-import SectionTimingOtherDetails from "~/Component/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails"
-import SectionEnrollmentDetails from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
-import SectionRefundEnquiryDetails from "~/Component/Section/CreateEdit/SectionEditForm/SectionRefundEnquiryDetails"
+import SectionDetails from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionDetails"
+import SectionTimingOtherDetails from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails"
+import SectionEnrollmentDetails from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
+import SectionRefundEnquiryDetails from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionRefundEnquiryDetails"
 import { updateSection } from "~/ApiServices/Service/SectionService"
 
 interface ISectionEditProps {

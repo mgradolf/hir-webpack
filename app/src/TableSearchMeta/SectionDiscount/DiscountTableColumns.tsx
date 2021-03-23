@@ -4,7 +4,7 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { getSectionDiscounts } from "~/ApiServices/Service/SectionService"
 import { Button, Dropdown } from "antd"
 import { DownOutlined } from "@ant-design/icons"
-import DiscountMenu from "~/Component/Section/Discount/DiscountMenu"
+import DiscountMenu from "~/Component/Feature/Section/Discount/DiscountMenu"
 import { Link } from "react-router-dom"
 import { DISCOUNT_AMOUNT, DISCOUNT_DOLLAR_AMOUNT_TYPE_ID } from "~/utils/Constants"
 

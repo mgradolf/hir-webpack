@@ -5,7 +5,7 @@ import { bulkUpdate, makeExternalPayment } from "~/ApiServices/Service/RequestAc
 import { retry, cancel } from "~/ApiServices/Service/RequestModelService"
 import { getUserByUserLogin } from "~/ApiServices/Service/HRUserService"
 import { getUsername } from "@packages/api/lib/utils/UserInfoStore"
-import RequestDetailsMenu from "~/Component/Section/Request/RequestDetailsMenu"
+import RequestDetailsMenu from "~/Component/Feature/Section/Request/RequestDetailsMenu"
 import {
   PROCESSED_REQUEST_STATE_ID,
   ERROR_REQUEST_STATE_ID,

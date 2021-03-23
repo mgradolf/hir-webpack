@@ -2,7 +2,7 @@ import { Form, Select } from "antd"
 import { FormInstance } from "antd/lib/form"
 import React, { useEffect, useState } from "react"
 import { getGradeScaleType } from "~/ApiServices/Service/RefLookupService"
-import { ISectionEnrollmentDetails } from "~/Component/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
+import { ISectionEnrollmentDetails } from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
 
 interface IGradeScale {
   fieldNames: ISectionEnrollmentDetails

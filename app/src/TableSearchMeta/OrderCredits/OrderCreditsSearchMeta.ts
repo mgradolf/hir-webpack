@@ -1,6 +1,6 @@
 import { getOPCStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
-import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
+import TotalAmountRange from "~/Component/Feature/Section/Order/TotalAmountRange"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { DiscountProgramLookup } from "~/Component/Common/Form/FormLookupFields/DiscountProgramLookup"

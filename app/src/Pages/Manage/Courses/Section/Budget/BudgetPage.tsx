@@ -3,7 +3,7 @@ import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getSectionFinancialTableColumns } from "~/TableSearchMeta/SectionFinancial/FinancialTableColumns"
-import CreateNewBudget from "~/Component/Section/Budget/BudgetFormModal"
+import CreateNewBudget from "~/Component/Feature/Section/Budget/BudgetFormModal"
 
 export default function BudgetPage(props: RouteComponentProps<{ sectionID?: string }>) {
   const SectionID = Number(props.match.params.sectionID)

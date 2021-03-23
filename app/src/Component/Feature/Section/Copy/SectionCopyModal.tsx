@@ -9,7 +9,7 @@ import { Button, Card, Form } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { copySection } from "~/ApiServices/Service/SectionService"
-import SectionCopyForm from "~/Component/Section/Copy/SectionCopyForm"
+import SectionCopyForm from "~/Component/Feature/Section/Copy/SectionCopyForm"
 
 interface IQuestionModal {
   closeModal?: () => void

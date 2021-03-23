@@ -2,9 +2,9 @@ import * as React from "react"
 import { Form } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
-import CreateForm1 from "~/Component/Offering/CreateEdit/Form1"
-import CreateForm2 from "~/Component/Offering/CreateEdit/Form2"
-import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
+import CreateForm1 from "~/Component/Feature/Offering/CreateEdit/Form1"
+import CreateForm2 from "~/Component/Feature/Offering/CreateEdit/Form2"
+import { IOfferingFieldNames } from "~/Component/Feature/Offering/Interfaces"
 import { getOfferingById } from "~/ApiServices/Service/EntityService"
 
 interface ICreateNewOfferingProps {

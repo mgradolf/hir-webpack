@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react"
-import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, DatePicker, Form, Input, Radio, Switch } from "antd"
+import React, { useState } from "react"
+import { DatePicker, Form, Input, Radio, Switch } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
-import { DATE_FORMAT, DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
-import { OldFormPersonLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormPersonLookup"
+import { DATE_FORMAT } from "~/utils/Constants"
+// import { DATE_FORMAT, DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
 import { eventBus, REFRESH_SECTION_WAITLIST_ENTRIES_PAGE } from "~/utils/EventBus"
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
-import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
-import { getEntityById } from "~/ApiServices/Service/EntityService"
+// import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
+// import { getEntityById } from "~/ApiServices/Service/EntityService"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
@@ -49,13 +47,14 @@ const fieldNames: IFormFields = {
   IsActive: "IsActive"
 }
 
-function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formInstance: FormInstance }) {
-  const [Section, setSection] = useState<{ [key: string]: any }>()
+function WaitlistEntryForm(props: {
+  SectionID?: number
+  initialValue?: { [key: string]: any }
+  formInstance: FormInstance
+}) {
   const [showAdministrators, setShowAdministrators] = useState(false)
-  const [personNameToDisplay, setPersonNameToDisplay] = useState("")
-  const [errorMessages, setErrorMessages] = useState<ISimplifiedApiErrorMessage[]>([])
-  const [apiCallInProgress, setApiCallInProgress] = useState(false)
-
+  // const [account, setAccount] = useState<{ [key: string]: any }>({})
+  // const [student, setStudent] = useState<{ [key: string]: any }[]>([])
   // useEffect(() => {
   //   if (props.SectionID) {
   //     getEntityById("Section", props.SectionID).then((x) => {
@@ -89,10 +88,10 @@ function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formI
         formInstance={props.formInstance}
         label="Section"
         fieldName="SectionID"
-        defaultValue={props.initialValue && props.initialValue.SectionID}
+        defaultValue={(props.initialValue && props.initialValue.SectionID) || props.SectionID}
       />
 
-      {props.initialValue?.SectionID && (
+      {(props.initialValue?.SectionID || props.SectionID) && (
         <FormDropDown
           label="Seat Group"
           formInstance={props.formInstance}
@@ -100,7 +99,7 @@ function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formI
           refLookupService={() => getSeatGroups({ SectionID: props.initialValue?.SectionID })}
           displayKey="Name"
           valueField="SeatGroupID"
-          disabled={!!props.initialValue || !Section}
+          disabled={!!props.initialValue}
         />
       )}
       <Form.Item label="Managed By" labelCol={{ span: 6 }}>
@@ -157,12 +156,12 @@ function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formI
         // }}
       />
 
-      <Form.Item label="Student" labelCol={{ span: 6 }}>
-        <Input readOnly value={personNameToDisplay} />
+      {/* <Form.Item label="Student" labelCol={{ span: 6 }}>
+        <Input readOnly value={account.SortName} />
       </Form.Item>
       <Form.Item label="Account" labelCol={{ span: 6 }}>
-        <Input readOnly value={personNameToDisplay} />
-      </Form.Item>
+        <Input readOnly value={student[0].SortName} />
+      </Form.Item> */}
       <Form.Item
         name={fieldNames.ConfirmationEmailToRequester}
         label="Send Waitlist Confirmation"
@@ -170,9 +169,9 @@ function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formI
         labelCol={{ span: 6 }}
       >
         <Switch
-          disabled={!!props.WaitListEntry}
+          disabled={!!props.initialValue}
           aria-label="Send Waitlist Confirmation"
-          defaultChecked={formInstance.getFieldValue(fieldNames.ConfirmationEmailToRequester)}
+          defaultChecked={props.formInstance.getFieldValue(fieldNames.ConfirmationEmailToRequester)}
         />
       </Form.Item>
       <Form.Item
@@ -182,9 +181,9 @@ function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formI
         labelCol={{ span: 6 }}
       >
         <Switch
-          disabled={!!props.WaitListEntry}
+          disabled={!!props.initialValue}
           aria-label="Send Registration Invitation"
-          defaultChecked={formInstance.getFieldValue(fieldNames.InvitationEmailToRecipient)}
+          defaultChecked={props.formInstance.getFieldValue(fieldNames.InvitationEmailToRecipient)}
         />
       </Form.Item>
       <Form.Item>
@@ -222,12 +221,12 @@ function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formI
         <DatePicker
           format={DATE_FORMAT}
           onChange={(value, dateString) => {
-            formInstance.setFieldsValue({ [fieldNames.RequestExpirationTime]: dateString })
+            props.formInstance.setFieldsValue({ [fieldNames.RequestExpirationTime]: dateString })
           }}
         ></DatePicker>
       </Form.Item>
       <Form.Item name={fieldNames.IsActive} label="Is Active" valuePropName="checked" labelCol={{ span: 6 }}>
-        <Switch aria-label="Is Active" defaultChecked={formInstance.getFieldValue(fieldNames.IsActive)} />
+        <Switch aria-label="Is Active" defaultChecked={props.formInstance.getFieldValue(fieldNames.IsActive)} />
       </Form.Item>
       <OldDropDown
         label="Source"
@@ -242,7 +241,7 @@ function WaitlistEntryForm(props: { initialValue?: { [key: string]: any }; formI
   )
 }
 
-export function WaitlistEntryFormOpenButton(props: { initialValues?: { [key: string]: any } }) {
+export function WaitlistEntryFormOpenButton(props: { SectionID?: number; initialValues?: { [key: string]: any } }) {
   const [editMode] = useState(props.initialValues && Object.keys(props.initialValues).length > 0)
   const [loading] = useState(false)
   const [formInstance] = Form.useForm()

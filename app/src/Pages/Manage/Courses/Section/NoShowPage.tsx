@@ -4,7 +4,7 @@ import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { NUMBER } from "~/Component/Common/Form/common"
 import { Button } from "antd"
-import NoShowDeleteModal from "~/Component/Section/NoShowDeleteModal"
+import NoShowDeleteModal from "~/Component/Feature/Section/NoShowDeleteModal"
 import { getSectionNoShowTableColumns } from "~/TableSearchMeta/SectionNoShow/NoShowTableColumns"
 import { REFRESH_SECTION_NO_SHOW_PAGE } from "~/utils/EventBus"
 

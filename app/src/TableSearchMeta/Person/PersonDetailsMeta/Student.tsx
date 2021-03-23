@@ -23,7 +23,7 @@ import {
   REFRESH_REGISTRATION_ENROLLMENT_HISTORY_PAGE,
   REFRESH_STUDENT_COMMENT_PAGE
 } from "~/utils/EventBus"
-import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
+import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { COMMENT_TYPES, DELETE_SUCCESSFULLY } from "~/utils/Constants"
 import { Button } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"

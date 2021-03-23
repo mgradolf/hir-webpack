@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import SectionCreateForm from "~/Component/Section/CreateEdit/SectionCreateForm"
-import SectionEditForm from "~/Component/Section/CreateEdit/SectionEditForm"
+import SectionCreateForm from "~/Component/Feature/Section/CreateEdit/SectionCreateForm"
+import SectionEditForm from "~/Component/Feature/Section/CreateEdit/SectionEditForm"
 
 import { getSectionById } from "~/ApiServices/Service/EntityService"
 

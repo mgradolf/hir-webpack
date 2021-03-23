@@ -1,8 +1,8 @@
 import React from "react"
 import { Menu } from "antd"
 
-import ScheduleEditLink from "~/Component/Section/Schedule/ScheduleEditLink"
-import ScheduleRemoveLink from "~/Component/Section/Schedule/ScheduleRemoveLink"
+import ScheduleEditLink from "~/Component/Feature/Section/Schedule/ScheduleEditLink"
+import ScheduleRemoveLink from "~/Component/Feature/Section/Schedule/ScheduleRemoveLink"
 
 interface IScheduleMenu {
   sectionId: number

@@ -4,7 +4,7 @@ import { findPersonEducationHist } from "~/ApiServices/Service/PersonService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { DownOutlined } from "@ant-design/icons"
-import PersonEduMenu from "~/Component/Person/PersonEduMenu"
+import PersonEduMenu from "~/Component/Feature/Person/PersonEduMenu"
 
 export const getPersonEduTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [

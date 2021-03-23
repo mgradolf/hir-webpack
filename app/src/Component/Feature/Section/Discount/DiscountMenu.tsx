@@ -1,8 +1,8 @@
 import React from "react"
 import { Menu } from "antd"
 
-import DiscountEditLink from "~/Component/Section/Discount/DiscountEditLink"
-import DiscountRemoveLink from "~/Component/Section/Discount/DiscountRemoveLink"
+import DiscountEditLink from "~/Component/Feature/Section/Discount/DiscountEditLink"
+import DiscountRemoveLink from "~/Component/Feature/Section/Discount/DiscountRemoveLink"
 
 interface IBudgetMenu {
   sectionId: number

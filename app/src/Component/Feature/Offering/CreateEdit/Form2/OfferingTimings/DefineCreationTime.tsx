@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Form, Radio, DatePicker, Select, Input, Col, Row } from "antd"
-import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
+import { IOfferingFieldNames } from "~/Component/Feature/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 import { RadioChangeEvent } from "antd/lib/radio"
 import moment from "moment"

@@ -2,7 +2,7 @@ import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLook
 import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { FormDateTypelector } from "~/Component/Common/Form/FormFieldSelectors/FormDateTypelector"
-import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
+import TotalAmountRange from "~/Component/Feature/Section/Order/TotalAmountRange"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"

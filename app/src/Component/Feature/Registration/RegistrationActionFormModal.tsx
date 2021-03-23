@@ -1,6 +1,6 @@
 import React from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import RegistrationActionForm from "~/Component/Registration/RegistrationActionForm"
+import RegistrationActionForm from "~/Component/Feature/Registration/RegistrationActionForm"
 
 interface IRegistrationFormProps {
   initialFormValue: { [key: string]: any }

@@ -1,10 +1,10 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
-import DiscountEditForm from "~/Component/Section/Discount/DiscountEditForm"
+import DiscountEditForm from "~/Component/Feature/Section/Discount/DiscountEditForm"
 import { getSectionDiscounts } from "~/ApiServices/Service/SectionService"
 import { Form } from "antd"
-import { IDiscountFieldNames } from "~/Component/Section/Interfaces"
+import { IDiscountFieldNames } from "~/Component/Feature/Section/Interfaces"
 
 interface IDiscountEditProps {
   sectionDiscountId: number

@@ -3,7 +3,7 @@ import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { findAffiliatedOrgsForSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { Link } from "react-router-dom"
-import SeatGroupRelatedAccountRemoveLink from "~/Component/Section/SeatGroup/SeatGroupRelatedAccountRemoveLink"
+import SeatGroupRelatedAccountRemoveLink from "~/Component/Feature/Section/SeatGroup/SeatGroupRelatedAccountRemoveLink"
 
 export const getSeatgroupRelatedAccountTableColumns = (SeatGroupID: number): ITableConfigProp => {
   const columns: TableColumnType = [

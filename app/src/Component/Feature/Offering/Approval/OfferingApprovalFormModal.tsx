@@ -2,7 +2,7 @@ import * as React from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import ApprovalForm from "~/Component/Offering/Approval/ApprovalForm"
+import ApprovalForm from "~/Component/Feature/Offering/Approval/ApprovalForm"
 
 interface IOfferingApprovalProps {
   offeringID: number

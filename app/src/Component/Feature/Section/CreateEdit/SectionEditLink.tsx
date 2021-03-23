@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
+import SectionFormModal from "~/Component/Feature/Section/CreateEdit/SectionFormModal"
 
 interface ISectionEditLinkProp {
   section: { [key: string]: any }

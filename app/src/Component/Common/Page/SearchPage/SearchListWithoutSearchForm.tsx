@@ -1,6 +1,6 @@
 import React from "react"
 import { Col, Row, Typography } from "antd"
-import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
+import styles from "~/Component/Feature/Offering/OfferingFilterOpenButton.module.scss"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
 import { HelpModal } from "~/Component/Common/Modal/HelpModal"
 

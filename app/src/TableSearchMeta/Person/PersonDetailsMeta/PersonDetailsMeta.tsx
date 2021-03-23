@@ -19,7 +19,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { pushInstructor } from "~/ApiServices/Service/InstructorService"
 import { removePerson } from "~/ApiServices/Service/PersonService"
 import { cancelAnonymizeRequest, createAnonymizationRequest } from "~/ApiServices/Service/AnonymizationRequestService"
-import { PersonMergeFormModalOpenButton } from "~/Component/Person/Forms/PersonMergeFormModal"
+import { PersonMergeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonMergeFormModal"
 
 export const GetMenu = (props: { personInfos: { [key: string]: any } }) => {
   const canForgetMeRequest: boolean = props.personInfos[0]["CanForgetMeRequest"]

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
-import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
+import OfferingFormModal from "~/Component/Feature/Offering/CreateEdit/OfferingFormModal"
 import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
 
 export function OfferingPage() {

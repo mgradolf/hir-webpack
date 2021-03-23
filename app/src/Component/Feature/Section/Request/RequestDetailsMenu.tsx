@@ -1,6 +1,6 @@
 import React from "react"
 import { Menu } from "antd"
-import ResolutionModalOpenButton from "~/Component/Section/Request/ResolutionModalOpenButton"
+import ResolutionModalOpenButton from "~/Component/Feature/Section/Request/ResolutionModalOpenButton"
 
 interface IRequestDetailsMenu {
   taskJson: any

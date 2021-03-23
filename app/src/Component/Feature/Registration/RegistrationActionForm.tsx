@@ -17,7 +17,7 @@ import {
   findGradeScoreDefinition,
   getCreditMemoData
 } from "~/ApiServices/Service/RegistrationService"
-import { IRegistrationActionFieldNames } from "~/Component/Registration/Interfaces"
+import { IRegistrationActionFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import "~/Sass/utils.scss"
 import moment from "moment"
 

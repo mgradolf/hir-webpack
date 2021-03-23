@@ -6,9 +6,9 @@ import { getOrderItems } from "~/ApiServices/Service/OrderService"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { Button, Dropdown, Menu, Space } from "antd"
 import { DownOutlined } from "@ant-design/icons"
-import ViewReturnItemsModal from "~/Component/Section/Order/ViewReturnItemsModal"
-import IssueCreditModal from "~/Component/Section/Order/IssueCreditModal"
-import ApplyDiscountModal from "~/Component/Section/Order/ApplyDiscountModal"
+import ViewReturnItemsModal from "~/Component/Feature/Section/Order/ViewReturnItemsModal"
+import IssueCreditModal from "~/Component/Feature/Section/Order/IssueCreditModal"
+import ApplyDiscountModal from "~/Component/Feature/Section/Order/ApplyDiscountModal"
 
 export default function OrderItems(props: RouteComponentProps<{ sectionID?: string }>) {
   const SectionID = Number(props.match.params.sectionID)

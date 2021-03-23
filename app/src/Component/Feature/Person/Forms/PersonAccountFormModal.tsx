@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { Button, Form } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
-import { IPersonAccountFieldNames } from "~/Component/Person/Interfaces"
-import PersonAccountForm from "~/Component/Person/Forms/CreateEdit/PersonAccountForm"
+import { IPersonAccountFieldNames } from "~/Component/Feature/Person/Interfaces"
+import PersonAccountForm from "~/Component/Feature/Person/Forms/CreateEdit/PersonAccountForm"
 import { ACCOUNT_AFFILIATION_STATUS_ACTIVE } from "~/utils/Constants"
 
 interface IPersonAccountFormModalProps {

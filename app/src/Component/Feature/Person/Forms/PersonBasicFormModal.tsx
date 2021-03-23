@@ -1,8 +1,8 @@
 import { Button, Form } from "antd"
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { IPersonBasicFieldNames } from "~/Component/Person/Interfaces"
-import PersonBasicForm from "~/Component/Person/Forms/CreateEdit/PersonBasicForm"
+import { IPersonBasicFieldNames } from "~/Component/Feature/Person/Interfaces"
+import PersonBasicForm from "~/Component/Feature/Person/Forms/CreateEdit/PersonBasicForm"
 
 interface IPersonBasicFormModalProps {
   initialData: { [key: string]: any }

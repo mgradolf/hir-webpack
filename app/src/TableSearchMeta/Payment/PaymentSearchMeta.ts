@@ -7,7 +7,7 @@ import {
 } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 
-import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
+import TotalAmountRange from "~/Component/Feature/Section/Order/TotalAmountRange"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"

@@ -3,7 +3,7 @@ import { Form, Input, Select, Switch, Card, Divider, Row, Col, Button, Spin } fr
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
-import { IPersonAccountFieldNames } from "~/Component/Person/Interfaces"
+import { IPersonAccountFieldNames } from "~/Component/Feature/Person/Interfaces"
 import {
   getAffiliationRoleTypes,
   getQuestionAnswers,

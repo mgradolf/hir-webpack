@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react"
 import {
   AcceptFormModalOpenButton,
   RejectFormModalOpenButton
-} from "~/Component/ProgramApplication/ProgramApplicationStatusFormModal"
+} from "~/Component/Feature/ProgramApplication/ProgramApplicationStatusFormModal"
 import {
   deleteAttachment,
   getProgramAppDetails,
   saveApplicationAnswer
 } from "~/ApiServices/BizApi/program/programApplicationIF"
-import { NoteFormModalOpenButton } from "~/Component/ProgramApplication/ProgramApplicationNoteFormModal"
-import { ResubmitFormModalOpenButton } from "~/Component/ProgramApplication/ProgramApplicationResubmitFormModal"
+import { NoteFormModalOpenButton } from "~/Component/Feature/ProgramApplication/ProgramApplicationNoteFormModal"
+import { ResubmitFormModalOpenButton } from "~/Component/Feature/ProgramApplication/ProgramApplicationResubmitFormModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { getToken } from "@packages/api/lib/utils/TokenStore"

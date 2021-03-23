@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Card, Button, Input } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IEmailSendFieldNames } from "~/Component/Registration/Interfaces"
+import { IEmailSendFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import { sendEmail } from "~/ApiServices/Service/MailService"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getLoggedInUser } from "~/ApiServices/Service/HRUserService"

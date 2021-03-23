@@ -1,7 +1,7 @@
 import { Row, Col, Button } from "antd"
 import React from "react"
 import { FilterOutlined } from "@ant-design/icons"
-import styles from "~/Component/Offering/OfferingFilterOpenButton.module.scss"
+import styles from "~/Component/Feature/Offering/OfferingFilterOpenButton.module.scss"
 
 type IToolbarPropsBase = {
   filterCount: number

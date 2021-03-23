@@ -1,14 +1,14 @@
 import { Button } from "antd"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import CertificateFormModal from "~/Component/Certificate/CertificateFormModal"
+import CertificateFormModal from "~/Component/Feature/Certificate/CertificateFormModal"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContents, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
-import RegistrationDetailsMenu from "~/Component/Registration/RegistrationDetailsMenu"
-import RegistrationGradeFormModal from "~/Component/Registration/RegistrationGradeFormModal"
+import RegistrationDetailsMenu from "~/Component/Feature/Registration/RegistrationDetailsMenu"
+import RegistrationGradeFormModal from "~/Component/Feature/Registration/RegistrationGradeFormModal"
 import {
   REFRESH_REGISTRATION_COMMENT_PAGE,
   REFRESH_REGISTRATION_CERTIFICATE_PAGE,
@@ -21,7 +21,7 @@ import { getEnrollmentTableColumns } from "~/TableSearchMeta/Enrollment/Enrollme
 import { getAcademicActivityLogTableColumns } from "~/TableSearchMeta/Academic/AcademicActivityTableColumns"
 import { getEnrollmentActivityLogTableColumns } from "~/TableSearchMeta/EnrollmentActivity/EnrollmentActivityTableColumns"
 import { getRegistrationCommentTableColumns } from "~/TableSearchMeta/RegistrationComment/CommentTableColumns"
-import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
+import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
 
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import { QuestionCreateModal } from "~/Component/Question/Create/QuestionCreateModal"
+import { QuestionCreateModal } from "~/Component/Feature/Question/Create/QuestionCreateModal"
 
 interface IQuestionCreateButtonProp {
   EventID?: number

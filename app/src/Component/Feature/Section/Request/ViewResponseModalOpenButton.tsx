@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import ViewResponseModal from "~/Component/Section/Request/ViewResponseModal"
+import ViewResponseModal from "~/Component/Feature/Section/Request/ViewResponseModal"
 
 interface IViewResponseProp {
   requestJson: any

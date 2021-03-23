@@ -9,7 +9,7 @@ import {
   getGradeDefinitionDetails,
   saveFinalGrade
 } from "~/ApiServices/Service/RegistrationService"
-import { IRegistrationGradeFieldNames } from "~/Component/Registration/Interfaces"
+import { IRegistrationGradeFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import "~/Sass/utils.scss"
 import moment from "moment"
 import { eventBus, REFRESH_REGISTRATION_DETAIL_PAGE } from "~/utils/EventBus"

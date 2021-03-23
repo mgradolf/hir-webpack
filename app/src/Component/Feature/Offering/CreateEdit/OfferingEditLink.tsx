@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import OfferingFormModal from "~/Component/Offering/CreateEdit/OfferingFormModal"
+import OfferingFormModal from "~/Component/Feature/Offering/CreateEdit/OfferingFormModal"
 
 interface IOfferingEditLinkProp {
   OfferingId: number

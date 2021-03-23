@@ -22,7 +22,7 @@ import moment from "moment"
 
 import { IStudent } from "~/Component/Feature/Student/StudentFinderModal"
 import RegistrationVerification from "~/utils/RegistrationVerification"
-import RegistrationError from "~/Component/Section/Request/RegistrationError"
+import RegistrationError from "~/Component/Feature/Section/Request/RegistrationError"
 
 const { useState } = React
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Row, Col } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IPersonFieldNames } from "~/Component/Person/Interfaces"
+import { IPersonFieldNames } from "~/Component/Feature/Person/Interfaces"
 import { createPersonRecordInRoles } from "~/ApiServices/Service/PersonService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"

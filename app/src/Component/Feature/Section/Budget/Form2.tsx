@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Card, Button, Input, Select, Switch } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import { IBudgetFieldNames } from "~/Component/Section/Interfaces"
+import { IBudgetFieldNames } from "~/Component/Feature/Section/Interfaces"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import {

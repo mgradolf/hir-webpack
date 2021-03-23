@@ -5,7 +5,7 @@ import { FormInstance } from "antd/lib/form"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getOrganizations, getPreferenceValueType } from "~/ApiServices/Service/RefLookupService"
 import TextArea from "antd/lib/input/TextArea"
-import QuestionSelectionOptionForm from "~/Component/Question/Create/QuestionSelectionOptionForm"
+import QuestionSelectionOptionForm from "~/Component/Feature/Question/Create/QuestionSelectionOptionForm"
 
 interface IQuestionCreateForm {
   formInstance: FormInstance
