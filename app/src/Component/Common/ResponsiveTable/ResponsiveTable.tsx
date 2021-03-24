@@ -14,7 +14,7 @@ import {
   sortByTime
 } from "~/Component/Common/ResponsiveTable/tableUtils"
 import { IDataTableProps, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import { processTableMetaWithUserMetaConfig } from "./TableMetaShadowingProcessor"
+import { processTableMetaWithUserMetaConfig } from "~/Component/Common/ResponsiveTable/TableMetaShadowingProcessor"
 
 export function ResponsiveTable(props: IDataTableProps) {
   const {

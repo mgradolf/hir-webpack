@@ -10,7 +10,7 @@ export const getHelpConfig = (helpKey?: string): Promise<string | undefined> => 
   if (!!MergedHelpConfig[helpKey]) return Promise.resolve(MergedHelpConfig[helpKey])
 
   const helpConfig: { [key: string]: string } = HelpConfig
-  const url = "/webconfig/Config/helpConfig.json"
+  const url = "/webconfig/Config/Help/HelpConfig.json"
   return axios
     .request({ baseURL, url })
     .then((x) => {

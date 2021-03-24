@@ -19,7 +19,7 @@ export interface IUserFormMetaConfig {
 async function getUserFormMetaConfig(metaName: string): Promise<{ [key: string]: any }> {
   let userFormMeta: { [key: string]: any } = {}
   try {
-    const _FormMap = (await axios.request({ baseURL, url: `/webconfig/Config/fileMap.json` })).data
+    const _FormMap = (await axios.request({ baseURL, url: `/webconfig/Config/FormMap.json` })).data
     if (_FormMap && _FormMap[metaName]) {
       userFormMeta = (await axios.request({ baseURL, url: `/webconfig${_FormMap[metaName]}` })).data
       // console.log("userFormMeta ", userFormMeta)

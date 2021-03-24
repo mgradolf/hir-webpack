@@ -37,6 +37,7 @@ import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/Buttons
 import { PersonAddressFormMeta } from "~/Component/Feature/Person/FormMeta/Address/PersonAddressFormMeta"
 import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
 import { CardContents } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
   const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
@@ -58,7 +59,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   const tabMetas: IDetailsTabMeta[] = []
   const personalInfo1: CardContainer = {
     title: "Name",
-    cardActions: [<BasicFormModalOpenButton personData={person} />],
+    cardActions: [<HelpButton helpKey="personDemographicTab" />, <BasicFormModalOpenButton personData={person} />],
     contents: [
       { label: "Prefix", value: person.Prefix, render: undefined },
       { label: "First Name", value: person.FirstName, render: undefined },
@@ -130,14 +131,14 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     ]
   }
 
-  const summaryMeta: IDetailsSummary = {
+  const demographySummaryMeta: IDetailsSummary = {
     summary: [
       { groupedContents: [personalInfo1, personalInfo3] },
       { groupedContents: [personalInfo2, personalInfo4] },
       profileQuestion(profileQuestions)
     ]
   }
-  tabMetas.push({ tabTitle: "Demographic", tabType: "summary", tabMeta: summaryMeta })
+  tabMetas.push({ tabTitle: "Demographic", tabType: "summary", tabMeta: demographySummaryMeta })
 
   const address: CardContainer = {
     title: "Address",
@@ -227,6 +228,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   const email: CardContainer = {
     title: "Email",
     cardActions: [
+      <HelpButton helpKey="personContactInfoTab" />,
       <MetaDrivenFormModalOpenButton
         formTitle="Add Email Address"
         formMeta={PersonEmailFormMeta}
@@ -295,6 +297,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     tabTitle: "Disabilities",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="personDisabilitiesTab" />],
       tableProps: {
         pagination: false,
         ...getPersonDisabilitiesTableColumns(person.PersonID),

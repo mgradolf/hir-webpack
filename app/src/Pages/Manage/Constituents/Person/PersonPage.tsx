@@ -15,7 +15,7 @@ export default function PersonTable() {
       tableProps={{
         ...getPersonTableColumns()
       }}
-      helpKey={"personSearchPage"}
+      helpKey={"personSearchPageForm"}
     ></SearchPage>
   )
 }

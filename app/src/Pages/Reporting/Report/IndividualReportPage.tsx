@@ -57,13 +57,12 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
 
   const loadReportMeta = async () => {
     setLoading(true)
-    Promise.all([
-      import(`~/Pages/Reporting/Report/ReportFormMeta/${ReportName}`),
-      getReportByReportName({ ReportName })
-    ])
-      .then((results) => {
-        const fileResponse: IReportMeta = results[0]?.default
-        const apiResponse: IApiResponse = results[1]
+    const apiResponse: IApiResponse = await getReportByReportName({ ReportName })
+    console.log("apiResponse : ", apiResponse)
+
+    import(`~/Pages/Reporting/Report/ReportFormMeta/${ReportName}`)
+      .then((result) => {
+        const fileResponse: IReportMeta = result?.default
         if (apiResponse.success) {
           setReport(apiResponse.data)
           if (
@@ -84,6 +83,12 @@ export default function IndividualReportPage(props: RouteComponentProps<{ report
             setReportMeta(metas)
           }
         }
+      })
+      .catch((error) => {
+        console.log("error in individual report page ", error)
+        const metas: IField[] = generateIfilterFieldObject(apiResponse.data.Params)
+        console.log("meta after error ", metas)
+        setReportMeta(metas)
       })
       .finally(() => {
         setLoading(false)

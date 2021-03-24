@@ -3,33 +3,20 @@ import { DATE_PICKERS, DROPDOWN, CUSTOM_FIELD, IField } from "~/Component/Common
 import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
-import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { IReportMeta } from "~/Pages/Reporting/Report/ReportMetaInterface"
 
 const meta: IField[] = [
   {
-    label: "",
-    fieldName: "",
+    label: "Offering",
+    fieldName: "OfferingID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: FormFieldSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "Offering",
-          fieldName: "OfferingID",
-          valueField: "OfferingID",
-          displayField: "OfferingCode",
-          component: OfferingLookupButton
-        },
-        {
-          label: "Section",
-          fieldName: "SectionID",
-          valueField: "SectionID",
-          displayField: "SectionNumber",
-          component: SectionLookup
-        }
-      ]
-    }
+    customFilterComponent: OfferingLookupButton
+  },
+  {
+    label: "Section",
+    fieldName: "SectionID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SectionLookup
   },
   {
     label: "Student",

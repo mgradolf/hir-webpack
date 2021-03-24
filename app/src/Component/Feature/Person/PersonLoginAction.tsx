@@ -11,6 +11,7 @@ import {
 } from "~/ApiServices/BizApi/NTSWebLogin/NTSWebLoginIF"
 import { REFRESH_PAGE } from "~/utils/EventBus"
 import { setupWebLogin } from "~/ApiServices/Service/PersonService"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IPersonLoginActionProp {
   initialData: { [key: string]: any }
@@ -97,6 +98,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
 
   return (
     <Row>
+      <HelpButton helpKey="personWebLoginTab" />
       {setShowModal && (
         <Button
           disabled={!isLogin}
