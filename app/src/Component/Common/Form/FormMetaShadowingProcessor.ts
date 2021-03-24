@@ -22,10 +22,10 @@ async function getUserFormMetaConfig(metaName: string): Promise<{ [key: string]:
     const _FormMap = (await axios.request({ baseURL, url: `/webconfig/Config/fileMap.json` })).data
     if (_FormMap && _FormMap[metaName]) {
       userFormMeta = (await axios.request({ baseURL, url: `/webconfig${_FormMap[metaName]}` })).data
-      console.log("userFormMeta ", userFormMeta)
+      // console.log("userFormMeta ", userFormMeta)
     }
   } catch (error) {
-    console.error("userFormMeta error ", error)
+    // console.error("userFormMeta error ", error)
   }
 
   if (userFormMeta && Object.keys(userFormMeta).length > 0) {

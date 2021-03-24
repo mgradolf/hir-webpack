@@ -99,7 +99,7 @@ export default function InstructorScheduleForm(props: IInstructorScheduleFormPro
         initialValues={props.initialFormValue}
         scrollToFirstError
         style={{
-          maxHeight: "80vh",
+          maxHeight: "66vh",
           overflowY: "scroll"
         }}
       >

@@ -197,14 +197,13 @@ function PersonForm(props: IPersonFormProps) {
 
 export function PersonFormOpenButton(props: { initialValues?: { [key: string]: any }; label?: string }) {
   const [formInstance] = Form.useForm()
-  const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   // const [loading, setLoading] = useState(false)
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
 
-  const onFormSubmission = () => {
+  const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       const params = formInstance.getFieldsValue()
       setErrorMessages([])
@@ -214,7 +213,7 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
           console.log("validation passed ", response)
           setApiCallInProgress(false)
           if (response && response.success) {
-            setShowModal(false)
+            closeModal()
           } else {
             console.log("validation failed ", response.error)
             setErrorMessages(response.error)
@@ -235,11 +234,6 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
       errorMessages={errorMessages}
       buttonLabel={`+ ${props.label ? props.label : "Create Person"}`}
       buttonProps={{ type: "primary" }}
-      showModal={showModal}
-      setShowModal={(show: boolean) => {
-        if (!show) formInstance.resetFields()
-        setShowModal(show)
-      }}
     />
   )
 }

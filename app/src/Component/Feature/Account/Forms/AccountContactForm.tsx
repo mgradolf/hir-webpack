@@ -280,12 +280,11 @@ function AccountContactForm(props: IAccountContactFormProps) {
 export function AccountContactFormOpenButton(props: { editMode: boolean; initialValues: { [key: string]: any } }) {
   const [loading] = useState(false)
   const [formInstance] = Form.useForm()
-  const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
 
-  const onFormSubmission = async () => {
+  const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       const params = formInstance.getFieldsValue()
       const answerList: Array<any> = []
@@ -304,7 +303,7 @@ export function AccountContactFormOpenButton(props: { editMode: boolean; initial
           console.log("validation passed ", response)
           setApiCallInProgress(false)
           if (response && response.success) {
-            setShowModal(false)
+            closeModal()
             eventBus.publish("REFRESH_CONTACT_TAB")
           } else {
             console.log("validation failed ", response.error)
@@ -327,8 +326,6 @@ export function AccountContactFormOpenButton(props: { editMode: boolean; initial
       errorMessages={errorMessages}
       buttonLabel={props.editMode ? "Edit" : "+ Add Contact"}
       buttonProps={{ type: props.editMode ? "link" : "primary" }}
-      showModal={showModal}
-      setShowModal={(show: boolean) => setShowModal(show)}
     />
   )
 }

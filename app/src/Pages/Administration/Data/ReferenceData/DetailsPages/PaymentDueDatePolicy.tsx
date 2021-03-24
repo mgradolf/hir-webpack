@@ -137,14 +137,13 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
 }
 const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: string }) => {
   const [formInstance] = Form.useForm()
-  const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues, setInitialValues] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
-    if (props.ID && showModal) {
+    if (props.ID) {
       setLoading(true)
       getPaymentDueDatePolicy({ PolicyID: props.ID })
         .then((x) => {
@@ -152,9 +151,9 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: str
         })
         .finally(() => setLoading(false))
     }
-  }, [showModal, props.ID])
+  }, [props.ID])
 
-  const onFormSubmission = () => {
+  const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       const params = formInstance.getFieldsValue()
       setErrorMessages([])
@@ -164,7 +163,7 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: str
           setApiCallInProgress(false)
           if (response && response.success) {
             eventBus.publish(props.refreshEventName)
-            setShowModal(false)
+            closeModal()
           } else {
             setErrorMessages(response.error)
           }
@@ -185,8 +184,6 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: str
       errorMessages={errorMessages}
       buttonLabel={props.ID ? "Update" : "+ Add"}
       buttonProps={{ type: props.ID ? "ghost" : "primary" }}
-      showModal={showModal}
-      setShowModal={(show: boolean) => setShowModal(show)}
     />
   )
 }

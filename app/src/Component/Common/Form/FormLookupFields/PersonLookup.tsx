@@ -6,7 +6,6 @@ import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColum
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function PersonLookup(props: IGeneratedField) {
-  console.log("defaultValue ", props)
   return (
     <LookupOpenButton
       lookupModalTitle="Select Person"

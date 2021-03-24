@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react"
+import React, { CSSProperties, useState } from "react"
 import { Button } from "antd"
 import { BaseButtonProps } from "antd/lib/button/button"
 import { CustomFormModal, ICustomFormModal } from "~/Component/Common/Modal/FormModal/CustomFormModal"
@@ -7,18 +7,26 @@ export interface ICustomFormModalOpenButton extends Omit<ICustomFormModal, "clos
   style?: CSSProperties
   buttonProps?: BaseButtonProps
   buttonLabel?: string
-  showModal: boolean
-  setShowModal: (show: boolean) => void
 }
 export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => {
-  const { style, buttonProps, buttonLabel, showModal, setShowModal, ...CustomFormModalProps } = props
+  const { style, buttonProps, buttonLabel, ...CustomFormModalProps } = props
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <>
       <Button style={props.style} {...props.buttonProps} onClick={() => setShowModal && setShowModal(true)}>
         {props.buttonLabel}
       </Button>
 
-      {props.showModal && <CustomFormModal {...CustomFormModalProps} closeModal={() => setShowModal(false)} />}
+      {showModal && (
+        <CustomFormModal
+          {...CustomFormModalProps}
+          closeModal={() => {
+            props.formInstance.resetFields()
+            setShowModal(false)
+          }}
+        />
+      )}
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { Col, Row, Select } from "antd"
 import React, { useEffect, useState } from "react"
 import { getBaseTransactionTypes, getTransactionTypes } from "~/ApiServices/Service/TransactionService"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 
 export function SearchTransactionType(props: IGeneratedField) {
   const [countries, setCountries] = useState<any[]>([])
@@ -34,7 +34,7 @@ export function SearchTransactionType(props: IGeneratedField) {
       }}
     >
       <Col span={24}>
-        <SearchComponentWrapper {...props} fieldName="BaseTransactionTypeID" label="Base Transaction Type">
+        <SearchFieldWrapper {...props} fieldName="BaseTransactionTypeID" label="Base Transaction Type">
           <Select allowClear={true} loading={loading} onChange={(value: any) => setSelectedCountry(value)}>
             {countries &&
               countries.map(({ Name, ID }, i) => (
@@ -43,10 +43,10 @@ export function SearchTransactionType(props: IGeneratedField) {
                 </Select.Option>
               ))}
           </Select>
-        </SearchComponentWrapper>
+        </SearchFieldWrapper>
       </Col>
       <Col span={24}>
-        <SearchComponentWrapper {...props}>
+        <SearchFieldWrapper {...props}>
           <Select allowClear={true} loading={loading}>
             {regiondCodes &&
               regiondCodes.map(({ ID, Name }, i) => (
@@ -55,7 +55,7 @@ export function SearchTransactionType(props: IGeneratedField) {
                 </Select.Option>
               ))}
           </Select>
-        </SearchComponentWrapper>
+        </SearchFieldWrapper>
       </Col>
     </Row>
   )

@@ -143,7 +143,7 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
         initialValues={initialValues}
         scrollToFirstError
         style={{
-          maxHeight: "80vh",
+          maxHeight: "66vh",
           overflowY: "scroll"
         }}
       >

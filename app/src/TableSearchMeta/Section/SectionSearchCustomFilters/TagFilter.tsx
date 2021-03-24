@@ -1,7 +1,7 @@
 import { Select, Col, Input } from "antd"
 import React, { useEffect, useState } from "react"
 import { getTagTypes } from "~/ApiServices/Service/RefLookupService"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 
 const { Option } = Select
 const fieldNames = {
@@ -26,7 +26,7 @@ export default function TagFilter(props: IGeneratedField) {
 
   return (
     <Col style={{ paddingLeft: 0 }}>
-      <SearchComponentWrapper {...props} fieldName={props.fieldName}>
+      <SearchFieldWrapper {...props} fieldName={props.fieldName}>
         <Select
           aria-label="Search Tag Hierarchy"
           style={{ width: 250 }}
@@ -41,11 +41,11 @@ export default function TagFilter(props: IGeneratedField) {
             No
           </Option>
         </Select>
-      </SearchComponentWrapper>
+      </SearchFieldWrapper>
       {isSearchTagHierarcy && tagTypes.length && (
         <>
           {" "}
-          <SearchComponentWrapper {...props} label="Tag Type" fieldName={fieldNames.tagType}>
+          <SearchFieldWrapper {...props} label="Tag Type" fieldName={fieldNames.tagType}>
             <Select aria-label="Tag Type" style={{ width: 250 }}>
               {tagTypes.map(({ Name: label, ID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
@@ -53,16 +53,16 @@ export default function TagFilter(props: IGeneratedField) {
                 </Option>
               ))}
             </Select>
-          </SearchComponentWrapper>
-          <SearchComponentWrapper {...props} label="Tag Name" fieldName={fieldNames.tagName}>
+          </SearchFieldWrapper>
+          <SearchFieldWrapper {...props} label="Tag Name" fieldName={fieldNames.tagName}>
             <Input aria-label="Tag Name" />
-          </SearchComponentWrapper>
+          </SearchFieldWrapper>
         </>
       )}
       {!isSearchTagHierarcy && tagTypes.length && (
         <>
           {" "}
-          <SearchComponentWrapper {...props} label="Tag Type" fieldName={fieldNames.combotagType}>
+          <SearchFieldWrapper {...props} label="Tag Type" fieldName={fieldNames.combotagType}>
             <Select aria-label="Tag Type" style={{ width: 250 }}>
               {tagTypes.map(({ Name: label, ID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
@@ -70,10 +70,10 @@ export default function TagFilter(props: IGeneratedField) {
                 </Option>
               ))}
             </Select>
-          </SearchComponentWrapper>
-          <SearchComponentWrapper {...props} label="Tag Name" fieldName={fieldNames.combotagName}>
+          </SearchFieldWrapper>
+          <SearchFieldWrapper {...props} label="Tag Name" fieldName={fieldNames.combotagName}>
             <Input aria-label="Tag Name" />
-          </SearchComponentWrapper>
+          </SearchFieldWrapper>
         </>
       )}
     </Col>

@@ -136,7 +136,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
         initialValues={props.initialFormValue}
         scrollToFirstError
         style={{
-          maxHeight: "80vh",
+          maxHeight: "66vh",
           overflowY: "scroll"
         }}
       >

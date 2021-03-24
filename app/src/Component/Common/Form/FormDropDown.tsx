@@ -10,6 +10,9 @@ export function FormDropDown(props: IGeneratedField & { onChangeCallback?: (para
   const { refLookupService, displayKey, valueKey } = props
 
   const loadOptions = () => {
+    if (props.defaultValue) {
+      props.formInstance.setFieldsValue({ [props.fieldName]: props.defaultValue })
+    }
     if (props.options && props.options.length) {
       setOptions(
         props.options.map((x) => {

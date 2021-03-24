@@ -156,7 +156,7 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
         </Button>
       ]}
     >
-      <Row style={{ maxHeight: "80vh", overflowY: "scroll" }}>
+      <Row style={{ maxHeight: "66vh", overflowY: "scroll" }}>
         <Col xs={24} sm={24} md={24}>
           <Row>
             <OldFormError errorMessages={errorMessages} />

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Col, Form, Input, Row, Select } from "antd"
-import { IField, IGeneratedField } from "~/Component/Common/Form/common"
+import { IField, IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { useFirstRender } from "~/Hooks/useFirstRender"
 import { DeleteOutlined, SearchOutlined } from "@ant-design/icons"
+import { ValidateStatus } from "antd/lib/form/FormItem"
 
 export interface ILookupOpenButton extends IGeneratedField {
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
@@ -30,19 +31,36 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   const firstRender = useFirstRender()
 
   const _rules: Array<{ [key: string]: any }> = props.rules as Array<{ [key: string]: any }>
-  const rulesRequired = !!_rules?.find((rule: any) => rule && rule.required)
+
+  const [rulesRequired, setRulesRequired] = useState(false)
+  const [helpMessages, setHelpMessages] = useState("")
+  const [validateStatus, setValidateStatus] = useState<ValidateStatus>()
+
+  // eslint-disable-next-line
+  useEffect(() => {
+    const _required = !!_rules?.find((rule: any) => rule && rule.required)
+    if (_required && !props.formInstance.getFieldValue(props.fieldName)) {
+      setRulesRequired(_required)
+      setHelpMessages((_rules?.find((rule: any) => rule && rule.required) || {}).message)
+      setValidateStatus("error")
+    } else if (!!props.formInstance.getFieldValue(props.fieldName)) {
+      setRulesRequired(false)
+      setHelpMessages("")
+      setValidateStatus(undefined)
+    }
+  })
 
   useEffect(() => {
-    console.log("props.entityLookupFunc ", props)
+    // console.log("props.entityLookupFunc ", props)
     if (props.entityLookupFunc) {
       props.entityLookupFunc().then((item) => {
-        console.log("item ", item)
+        // console.log("item ", item)
         if (item) setSelectedItems([item])
       })
     }
     if (props.tempentityLookupFunc && props.defaultValue) {
       props.tempentityLookupFunc("Person", props.defaultValue).then((item) => {
-        console.log("item ", item)
+        // console.log("item ", item)
         if (item) setSelectedItems([item.data])
       })
     }
@@ -64,7 +82,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           [props.fieldName]: __items.map((x) => x[props.valueField])
         })
       } else {
-        console.log([items[0]])
+        // console.log([items[0]])
         setSelectedItems([items[0]])
         props.formInstance.setFieldsValue({
           [props.fieldName]: items[0][props.valueField]
@@ -80,16 +98,15 @@ export function LookupOpenButton(props: ILookupOpenButton) {
 
   const toRender = (
     <>
-      <Form.Item name={props.fieldName} rules={props.rules} hidden={true}>
+      <Form.Item name={props.fieldName} rules={props.rules} className="hidden">
         <Input />
       </Form.Item>
-      <Form.Item
-        colon={false}
-        labelCol={{ span: props.labelColSpan ? props.labelColSpan : 8 }}
-        wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 24 }}
+      <SearchComponentWrapper
         label={props.label}
-        validateStatus={props.validateStatus}
-        help={props.help}
+        rules={props.rules}
+        formInstance={props.formInstance}
+        validateStatus={props.validateStatus || validateStatus}
+        help={helpMessages}
         required={rulesRequired}
       >
         {props.extraProps && props.extraProps.isArray ? (
@@ -115,7 +132,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
                 listHeight={0}
                 value={selectedItems.map((x) => x[props.valueField])}
                 onChange={(records: any[]) => {
-                  console.log(records)
+                  // console.log(records)
                   const __items = records
                     .map((x) => {
                       return options.find((item) => {
@@ -155,7 +172,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
             }
           />
         )}
-      </Form.Item>
+      </SearchComponentWrapper>
       {showModal && (
         <LookupModal
           title={props.lookupModalTitle}
