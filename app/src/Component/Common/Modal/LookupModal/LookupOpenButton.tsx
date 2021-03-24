@@ -39,6 +39,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   // eslint-disable-next-line
   useEffect(() => {
     const _required = !!_rules?.find((rule: any) => rule && rule.required)
+    console.log("every render ", props.formInstance.getFieldValue(props.fieldName))
     if (_required && !props.formInstance.getFieldValue(props.fieldName)) {
       setRulesRequired(_required)
       setHelpMessages((_rules?.find((rule: any) => rule && rule.required) || {}).message)
@@ -54,8 +55,11 @@ export function LookupOpenButton(props: ILookupOpenButton) {
     // console.log("props.entityLookupFunc ", props)
     if (props.entityLookupFunc) {
       props.entityLookupFunc().then((item) => {
-        // console.log("item ", item)
-        if (item) setSelectedItems([item])
+        console.log("item ", item)
+        if (item) {
+          props.formInstance.setFieldsValue({ [props.fieldName]: item.SectionID })
+          setSelectedItems([item])
+        }
       })
     }
     if (props.tempentityLookupFunc && props.defaultValue) {

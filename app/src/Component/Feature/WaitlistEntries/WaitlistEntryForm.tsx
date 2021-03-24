@@ -352,7 +352,9 @@ export function WaitlistEntryFormOpenButton(props: { SectionID?: number; initial
   return (
     <CustomFormModalOpenButton
       formTitle={editMode ? "Edit Waitlist Entry" : "Add Waitlist Entry"}
-      customForm={<WaitlistEntryForm initialValue={props.initialValues} formInstance={formInstance} />}
+      customForm={
+        <WaitlistEntryForm SectionID={props.SectionID} initialValue={props.initialValues} formInstance={formInstance} />
+      }
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}
       initialValues={initialValues}
