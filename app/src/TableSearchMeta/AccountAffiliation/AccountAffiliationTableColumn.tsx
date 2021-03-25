@@ -78,5 +78,5 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
       )
     }
   ]
-  return { columns, searchFunc: getAccountAffiliation, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getAccountAffiliation, tableName: "AccountAffiliationTableColumn" }
 }

@@ -34,7 +34,5 @@ export const getNoticeTableColumns = (SectionID: number): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: [] = []
-  const expandableColumnIndices: [] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getSectionNotifications }
+  return { columns, searchFunc: getSectionNotifications, tableName: "NoticeTableColumns" }
 }

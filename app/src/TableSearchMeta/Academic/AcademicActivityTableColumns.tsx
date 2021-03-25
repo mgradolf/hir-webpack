@@ -33,7 +33,5 @@ export const getAcademicActivityLogTableColumns = (isModal = false): ITableConfi
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getStudentAcademicActivity }
+  return { columns, searchFunc: getStudentAcademicActivity, tableName: "AcademicActivityTableColumns" }
 }

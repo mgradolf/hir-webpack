@@ -94,7 +94,5 @@ export const getOrderItemTableColumns = (isModal = false, SectionID?: number): I
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getOrderItems }
+  return { columns, searchFunc: getOrderItems, tableName: "OrderItemsTableColumns" }
 }

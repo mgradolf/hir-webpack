@@ -26,7 +26,5 @@ export const getPersonEduTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findPersonEducationHist }
+  return { columns, searchFunc: findPersonEducationHist, tableName: "PersonEduTableColumns" }
 }

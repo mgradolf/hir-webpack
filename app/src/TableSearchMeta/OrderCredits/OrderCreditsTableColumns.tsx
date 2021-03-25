@@ -50,7 +50,5 @@ export const getOrderCreditsTableColumns = (isModal = false): ITableConfigProp =
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchCreditMemo }
+  return { columns, searchFunc: searchCreditMemo, tableName: "OrderCreditsTableColumns" }
 }

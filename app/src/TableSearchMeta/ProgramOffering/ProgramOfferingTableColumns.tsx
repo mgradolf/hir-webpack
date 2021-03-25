@@ -17,7 +17,5 @@ export const getProgramOfferingTableColumns = (isModal = false): ITableConfigPro
     { title: "Department ", dataIndex: "OrganizationName" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchProgramOffering }
+  return { columns, searchFunc: searchProgramOffering, tableName: "ProgramOfferingTableColumns" }
 }

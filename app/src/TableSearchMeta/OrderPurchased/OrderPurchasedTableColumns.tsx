@@ -28,7 +28,5 @@ export const getOrderPurchasedTableColumns = (isModal = false, SectionID?: numbe
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getPurchaseOrders }
+  return { columns, searchFunc: getPurchaseOrders, tableName: "OrderPurchasedTableColumns" }
 }

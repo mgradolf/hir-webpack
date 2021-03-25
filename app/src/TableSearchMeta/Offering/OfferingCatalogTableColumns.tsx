@@ -67,6 +67,7 @@ export const getOfferingCatalogTableColumns = (OfferingID: number): ITableConfig
   ]
   return {
     columns,
-    searchFunc: () => findCatalog({ OfferingID })
+    searchFunc: () => findCatalog({ OfferingID }),
+    tableName: "OfferingCatalogTableColumns"
   }
 }

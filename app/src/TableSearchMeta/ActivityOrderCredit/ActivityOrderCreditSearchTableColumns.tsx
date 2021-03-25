@@ -42,5 +42,5 @@ export const getActivityOrderCreditSearchTableColumns = (isModal = false): ITabl
       }
     }
   ]
-  return { columns, searchFunc: getCreditMemoActivity, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getCreditMemoActivity, tableName: "ActivityOrderCreditSearchTableColumns" }
 }

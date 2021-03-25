@@ -53,12 +53,9 @@ export const getSeatgroupFinancialTableColumns = (SeatGroupID: number, SectionID
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: () => getSectionFinancialsCombined(SeatGroupID, SectionID)
+    searchFunc: () => getSectionFinancialsCombined(SeatGroupID, SectionID),
+    tableName: "FinancialTableColumns"
   }
 }

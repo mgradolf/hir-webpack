@@ -22,7 +22,5 @@ export const getStudentTableColumns = (isModal = false): ITableConfigProp => {
     { title: "ERP ID", dataIndex: "ERPID" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchStudents }
+  return { columns, searchFunc: searchStudents, tableName: "StudentTableColumns" }
 }

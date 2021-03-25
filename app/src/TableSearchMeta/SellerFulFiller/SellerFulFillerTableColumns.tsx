@@ -8,7 +8,5 @@ export const getSellerFulFillerTableColumns = (isModal = false): ITableConfigPro
     { title: "Description", dataIndex: "OrganizationDescriptor" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findSellerFulfillers }
+  return { columns, searchFunc: findSellerFulfillers, tableName: "SellerFulFillerTableColumns" }
 }

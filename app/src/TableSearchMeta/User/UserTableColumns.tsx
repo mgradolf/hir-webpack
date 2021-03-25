@@ -24,7 +24,5 @@ export const getUserTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Email", dataIndex: "email", render: renderEmail }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findAllUsers }
+  return { columns, searchFunc: findAllUsers, tableName: "UserTableColumns" }
 }

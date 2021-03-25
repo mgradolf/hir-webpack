@@ -33,7 +33,5 @@ export const getTransactionFinancialTableColumns = (isModal = false): ITableConf
     { title: "Withdrawal", dataIndex: "Debit" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchTransactions }
+  return { columns, searchFunc: searchTransactions, tableName: "TransactionFinancialTableColumns" }
 }

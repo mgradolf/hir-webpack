@@ -32,5 +32,5 @@ export const getCatalogContentTableColumns = (isModal = false, eventName: string
       })
     }
   ]
-  return { columns, searchFunc: getCatalogContent, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getCatalogContent, tableName: "getCatalogContentTableColumns" }
 }

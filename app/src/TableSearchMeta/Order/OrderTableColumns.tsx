@@ -54,7 +54,6 @@ export const getOrderTableColumns = (isModal = false, OfferingID?: number, Secti
       dataIndex: "Balance"
     }
   ]
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchOrders }
+
+  return { columns, searchFunc: searchOrders, tableName: "OrderTableColumns" }
 }

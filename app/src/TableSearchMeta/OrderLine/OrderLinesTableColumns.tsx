@@ -29,8 +29,5 @@ export const getOrderLinesTableColumns = (isModal = false): ITableConfigProp => 
       dataIndex: "TotalAmount"
     }
   ]
-
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getOrderLines }
+  return { columns, searchFunc: getOrderLines, tableName: "OrderLinesTableColumns" }
 }

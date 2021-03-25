@@ -48,7 +48,5 @@ export const getOrderPaymentTableColumns = (isModal = false): ITableConfigProp =
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getPayment }
+  return { columns, searchFunc: getPayment, tableName: "OrderPaymentTableColumns" }
 }

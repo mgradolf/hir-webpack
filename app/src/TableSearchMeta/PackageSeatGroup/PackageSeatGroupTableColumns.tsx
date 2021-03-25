@@ -39,7 +39,5 @@ export const getPackageSeatGroupTableColumns = (isModal = false, AccountID?: num
     }
   ]
 
-  const responsiveColumnIndices: [] = []
-  const expandableColumnIndices: [] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findSeatGroups }
+  return { columns, searchFunc: findSeatGroups, tableName: "PackageSeatGroupTableColumns" }
 }

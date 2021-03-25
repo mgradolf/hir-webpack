@@ -27,12 +27,9 @@ export const getOfferingApprovalTableColumns = (OfferingID: number): ITableConfi
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: () => getOfferngApprovalHist({ OfferingID })
+    searchFunc: () => getOfferngApprovalHist({ OfferingID }),
+    tableName: "ApprovalTableColumns"
   }
 }

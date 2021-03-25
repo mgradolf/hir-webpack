@@ -38,7 +38,5 @@ export const getEnrollmentTableColumns = (isModal = false): ITableConfigProp => 
     { title: "Status Date", dataIndex: "StatusDate", render: renderDate }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findEnrollmentHistory }
+  return { columns, searchFunc: findEnrollmentHistory, tableName: "EnrollmentTableColumns" }
 }

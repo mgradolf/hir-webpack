@@ -22,7 +22,5 @@ export const getResourceTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchResourceItem }
+  return { columns, searchFunc: searchResourceItem, tableName: "ResourceTableColumns" }
 }

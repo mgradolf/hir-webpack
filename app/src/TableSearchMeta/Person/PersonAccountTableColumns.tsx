@@ -30,7 +30,5 @@ export const getPersonAccountTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getAccountAffiliation }
+  return { columns, searchFunc: getAccountAffiliation, tableName: "PersonAccountTableColumns" }
 }
