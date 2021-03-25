@@ -112,6 +112,8 @@ export function LookupOpenButton(props: ILookupOpenButton) {
         validateStatus={props.validateStatus || validateStatus}
         help={helpMessages}
         required={rulesRequired}
+        labelColSpan={props.labelColSpan}
+        wrapperColSpan={props.wrapperColSpan}
       >
         {props.extraProps && props.extraProps.isArray ? (
           <Row>

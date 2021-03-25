@@ -394,7 +394,7 @@ const SearchFormFields = (props: {
                       clearTrigger: props.clearTrigger
                     }}
                     labelColSpan={8}
-                    wrapperColSpan={24}
+                    wrapperColSpan={16}
                   />
                 )
               }
