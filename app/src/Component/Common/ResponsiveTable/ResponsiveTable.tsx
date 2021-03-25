@@ -4,8 +4,8 @@ import { useFirstRender } from "~/Hooks/useFirstRender"
 import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
 import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
-import { Button, Dropdown, Menu } from "antd"
-import { DownloadOutlined } from "@ant-design/icons"
+import { Button, Col, Dropdown, Menu, Pagination, Row } from "antd"
+import { DownCircleFilled } from "@ant-design/icons"
 import {
   renderBoolean,
   sortByBoolean,
@@ -192,12 +192,12 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.scroll = { x: columns.length }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
-    _conditionalProps.pagination =
-      typeof props.pagination === "boolean" && !props.pagination
-        ? props.pagination
-        : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
-        ? { position: ["topLeft"], pageSize: 20, simple: true }
-        : false
+    // _conditionalProps.pagination =
+    //   typeof props.pagination === "boolean" && !props.pagination
+    //     ? props.pagination
+    //     : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
+    //     ? { position: ["topLeft"], pageSize: 20, simple: true }
+    //     : false
     setConditionalProps(_conditionalProps)
   }
 
@@ -220,44 +220,65 @@ export function ResponsiveTable(props: IDataTableProps) {
       })
   }
 
+  const paginationChange = (page: number, pageSize?: number) => {
+    console.log("pagination ", page, pageSize)
+  }
+
   return (
-    <div>
-      {searchFunc &&
-        searchParams &&
-        conditionalProps &&
-        !isModal &&
-        conditionalProps.dataSource &&
-        conditionalProps.dataSource.length > 0 && (
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item>
-                  <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.CSV)}>
-                    CSV
-                  </Button>
-                </Menu.Item>
-                <Menu.Item>
-                  <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.EXCEL)}>
-                    Excel
-                  </Button>
-                </Menu.Item>
-              </Menu>
-            }
-            trigger={["click"]}
-          >
-            <Button
-              loading={downloading}
-              disabled={downloading}
-              style={{ position: "absolute", zIndex: 100, right: "25px", top: "15px", border: "1px solid" }}
-              type="default"
-              // style={{ float: "right", right: "15px", top: "15px", border: "1px solid" }}
-              // type="link"
-              onClick={(e) => e.preventDefault()}
-              icon={<DownloadOutlined />}
-            />
-          </Dropdown>
+    <Row style={{ marginTop: "15px" }}>
+      <Col span={12} style={{ backgroundColor: "#fafafa", paddingTop: "5px", paddingBottom: "5px" }}>
+        {conditionalProps && conditionalProps.dataSource && (
+          <Pagination
+            style={{ paddingTop: "10px", paddingRight: "10px", paddingBottom: "10px" }}
+            simple
+            total={conditionalProps.dataSource.length}
+            onChange={paginationChange}
+          />
         )}
-      <Table {...conditionalProps} loading={otherTableProps.loading || loading} />
-    </div>
+      </Col>
+      <Col span={12} style={{ backgroundColor: "#fafafa", paddingTop: "5px", paddingBottom: "5px" }}>
+        <Row justify="end">
+          {searchFunc &&
+            searchParams &&
+            !isModal &&
+            conditionalProps &&
+            conditionalProps.dataSource &&
+            conditionalProps.dataSource.length > 0 && (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.CSV)}>
+                        CSV
+                      </Button>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.EXCEL)}>
+                        Excel
+                      </Button>
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={["click"]}
+              >
+                <DownCircleFilled
+                  style={{
+                    color: "#1990ff",
+                    fontSize: "20px",
+                    paddingTop: "10px",
+                    paddingRight: "10px",
+                    paddingBottom: "10px"
+                  }}
+                  disabled={downloading}
+                  onClick={(e) => e.preventDefault()}
+                />
+              </Dropdown>
+            )}
+        </Row>
+      </Col>
+      <Col span={24}>
+        <Table {...conditionalProps} bordered={true} loading={otherTableProps.loading || loading} />
+      </Col>
+    </Row>
   )
 }

@@ -27,7 +27,18 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
     <div className="site-layout-content">
       {props.meta && (
         <MetaDrivenForm
-          title={<Typography.Title level={3}>{props.title}</Typography.Title>}
+          title={
+            <Row>
+              <Col xs={24} sm={12}>
+                <Typography.Title level={3}>{props.title}</Typography.Title>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Row justify="end" gutter={[8, 8]}>
+                  {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
+                </Row>
+              </Col>
+            </Row>
+          }
           meta={props.meta}
           metaName={props.metaName}
           helpUrl={props.helpUrl}
@@ -39,14 +50,8 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
           }}
         />
       )}
-      <Row justify="end" gutter={[8, 8]}>
-        {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
-      </Row>
-      <Row>
-        <Col span={24}>
-          <ResponsiveTable {...props.tableProps} searchParams={searchParams} />
-        </Col>
-      </Row>
+
+      <ResponsiveTable {...props.tableProps} searchParams={searchParams} />
     </div>
   )
 }
