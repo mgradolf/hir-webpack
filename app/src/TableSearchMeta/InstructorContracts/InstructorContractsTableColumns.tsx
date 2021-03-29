@@ -24,5 +24,5 @@ export const getInstructorContractsTableColumns = (isModal = false): ITableConfi
     { title: "Pay Rate", dataIndex: "Amount" }
   ]
 
-  return { columns, searchFunc: searchSectionInstructor }
+  return { columns, searchFunc: searchSectionInstructor, tableName: "InstructorContractsTableColumns" }
 }

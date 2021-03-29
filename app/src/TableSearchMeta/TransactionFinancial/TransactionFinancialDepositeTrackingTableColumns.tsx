@@ -27,7 +27,5 @@ export const getTransactionFinancialDepositeTrackingTableColumns = (isModal = fa
     { title: "Balance", dataIndex: "Balance", sorter: (a: any, b: any) => sortByNumber(a, b) }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchTransactions }
+  return { columns, searchFunc: searchTransactions, tableName: "TransactionFinancialDepositeTrackingTableColumns" }
 }

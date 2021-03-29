@@ -26,9 +26,7 @@ export const getTagsTableColumns = (isModal = false, eventName: string): ITableC
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getTags }
+  return { columns, searchFunc: getTags, tableName: "TagsTableColumns" }
 }
 
 export const getParentTagsTableColumns = (isModal = false): ITableConfigProp => {
@@ -44,7 +42,5 @@ export const getParentTagsTableColumns = (isModal = false): ITableConfigProp => 
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getTags }
+  return { columns, searchFunc: getTags }
 }

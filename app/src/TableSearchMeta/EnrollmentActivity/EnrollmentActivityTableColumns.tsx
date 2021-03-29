@@ -33,7 +33,5 @@ export const getEnrollmentActivityLogTableColumns = (isModal = false): ITableCon
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getStudentEnrollmentActivity }
+  return { columns, searchFunc: getStudentEnrollmentActivity, tableName: "EnrollmentActivityTableColumns" }
 }

@@ -38,5 +38,5 @@ export const getOfferingTableColumns = (isModal = false): ITableConfigProp => {
     }
   ]
 
-  return { columns, searchFunc: searchOffering }
+  return { columns, searchFunc: searchOffering, tableName: "OfferingTableColumns" }
 }

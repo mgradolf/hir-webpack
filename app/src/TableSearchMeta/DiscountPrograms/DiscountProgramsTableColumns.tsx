@@ -20,5 +20,5 @@ export const getDiscountProgramsTableColumns = (isModal = false): ITableConfigPr
     { title: "Is Active?", dataIndex: "IsActive", render: renderBoolean },
     { title: "Is Promoted", dataIndex: "IsPromotedForMarketing", render: renderBoolean }
   ]
-  return { columns, searchFunc: searchDiscountProgram, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: searchDiscountProgram, tableName: "DiscountProgramsTableColumns" }
 }

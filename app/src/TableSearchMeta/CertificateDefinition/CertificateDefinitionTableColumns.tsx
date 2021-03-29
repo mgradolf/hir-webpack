@@ -30,12 +30,10 @@ export const getCertificateDefinitionTableColumns = (): ITableConfigProp => {
       render: renderBoolean
     }
   ]
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
+
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: searchCertificate
+    searchFunc: searchCertificate,
+    tableName: "CertificateDefinitionTableColumns"
   }
 }

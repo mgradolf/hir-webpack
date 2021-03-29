@@ -48,7 +48,5 @@ export const getMarketingCodeResponseTableColumns = (isModal = false): ITableCon
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchMarketingCodeResponses }
+  return { columns, searchFunc: searchMarketingCodeResponses, tableName: "MarketingCodeResponseTableColumns" }
 }

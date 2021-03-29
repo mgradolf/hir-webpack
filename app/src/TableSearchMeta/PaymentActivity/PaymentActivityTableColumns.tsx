@@ -43,7 +43,5 @@ export const getPaymentActivityTableColumns = (isModal = false, SectionID?: numb
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getPaymentActivity }
+  return { columns, searchFunc: getPaymentActivity, tableName: "PaymentActivityTableColumns" }
 }

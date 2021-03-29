@@ -15,13 +15,10 @@ export const getMembershipBeneficiariesTableColumns = (isModal = false): ITableC
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
     searchFunc: (Params: { [key: string]: any }) =>
-      findMembershipBeneficiaries({ MembershipTermID: Params.MembershipTermID, PersonID: Params.PersonID })
+      findMembershipBeneficiaries({ MembershipTermID: Params.MembershipTermID, PersonID: Params.PersonID }),
+    tableName: "MembershipBeneficiariesTableColumns"
   }
 }

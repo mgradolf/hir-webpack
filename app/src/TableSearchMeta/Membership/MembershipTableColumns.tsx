@@ -57,12 +57,9 @@ export const getMembershipTableColumns = (isModal = false): ITableConfigProp => 
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: getMembershipCollection
+    searchFunc: getMembershipCollection,
+    tableName: "MembershipTableColumns"
   }
 }

@@ -47,7 +47,5 @@ export const getPersonDisabilitiesTableColumns = (PersonID: number): ITableConfi
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getDisabilities }
+  return { columns, searchFunc: getDisabilities, tableName: "PersonDisabilitiesTableColumns" }
 }

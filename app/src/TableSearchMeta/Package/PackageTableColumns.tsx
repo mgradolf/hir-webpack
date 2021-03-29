@@ -21,7 +21,5 @@ export const getPackageTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Credit Units", dataIndex: "AllowedCredit", render: undefined }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findPackages }
+  return { columns, searchFunc: findPackages, tableName: "PackageTableColumns" }
 }

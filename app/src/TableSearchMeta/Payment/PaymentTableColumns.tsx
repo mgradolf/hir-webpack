@@ -52,7 +52,5 @@ export const getPaymentTableColumns = (isModal = false, SectionID?: number): ITa
     { title: "Check/ Reference", dataIndex: "TransactionNumber" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPayments }
+  return { columns, searchFunc: searchPayments, tableName: "PaymentTableColumns" }
 }

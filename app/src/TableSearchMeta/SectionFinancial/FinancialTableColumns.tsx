@@ -64,7 +64,5 @@ export const getSectionFinancialTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getSectionFinancials }
+  return { columns, searchFunc: getSectionFinancials, tableName: "FinancialTableColumns" }
 }

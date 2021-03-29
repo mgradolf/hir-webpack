@@ -28,7 +28,5 @@ export const getOrganizationTableColumns = (isModal = false): ITableConfigProp =
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findOrganizations }
+  return { columns, searchFunc: findOrganizations, tableName: "OrganizationTableColumns" }
 }

@@ -34,7 +34,5 @@ export const getOrganizationCalendarTableColumns = (isModal = false): ITableConf
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findOrganizationCalendar }
+  return { columns, searchFunc: findOrganizationCalendar, tableName: "OrganizationCalendarTableColumns" }
 }

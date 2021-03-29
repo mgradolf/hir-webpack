@@ -30,5 +30,5 @@ export const getGeneralCommentTableColumns = (isModal = false): ITableConfigProp
     }
   ]
 
-  return { columns, searchFunc: findSectionComments }
+  return { columns, searchFunc: findSectionComments, tableName: "GeneralCommentTableColumns" }
 }

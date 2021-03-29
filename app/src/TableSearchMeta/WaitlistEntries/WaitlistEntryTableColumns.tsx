@@ -40,8 +40,6 @@ export const getWaitlistEntriesTableColumns = (
     { title: "Expiration Date", dataIndex: "RequestExpirationTime", render: renderDate },
     { title: "Source", dataIndex: "Source" }
   ]
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
 
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findWaitListEntries }
+  return { columns, searchFunc: findWaitListEntries, tableName: "WaitlistEntryTableColumns" }
 }

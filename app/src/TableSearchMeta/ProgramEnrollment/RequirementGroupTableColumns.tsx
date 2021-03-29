@@ -15,7 +15,5 @@ export const getRequirementGroupTableColumns = (programEnrollment: any): ITableC
     { title: "Actual", dataIndex: "ActualValue" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, dataSource: programEnrollment.Summary }
+  return { columns, dataSource: programEnrollment.Summary, tableName: "RequirementGroupTableColumns" }
 }

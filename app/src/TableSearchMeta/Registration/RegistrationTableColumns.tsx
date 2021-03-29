@@ -56,5 +56,5 @@ export const getRegistrationTableColumns = (isModal = false): ITableConfigProp =
     }
   ]
 
-  return { columns, searchFunc: findRegistrationsWebAdmin }
+  return { columns, searchFunc: findRegistrationsWebAdmin, tableName: "RegistrationTableColumns" }
 }

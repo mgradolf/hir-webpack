@@ -47,5 +47,5 @@ export const getQualifiedInstructorTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  return { columns, searchFunc: searchInstructorOfferings }
+  return { columns, searchFunc: searchInstructorOfferings, tableName: "QualifiedInstructorTableColumns" }
 }

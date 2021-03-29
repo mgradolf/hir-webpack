@@ -24,7 +24,5 @@ export const getProgramEnrollmentTableColumnsForLookup = (isModal = false): ITab
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchEnrollment }
+  return { columns, searchFunc: searchEnrollment, tableName: "ProgramEnrollmentTableColumnsForLookup" }
 }

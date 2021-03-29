@@ -45,7 +45,5 @@ export const getPaymentAllocationsTableColumns = (isModal = false, SectionID?: n
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchPaymentDetailsByPaymentID }
+  return { columns, searchFunc: searchPaymentDetailsByPaymentID, tableName: "PaymentAllocationsTableColumns" }
 }

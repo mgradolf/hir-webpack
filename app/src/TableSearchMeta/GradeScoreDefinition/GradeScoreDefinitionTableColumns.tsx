@@ -30,7 +30,5 @@ export const getGradeScoreDefinitionTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findGradeScoreDefinitions }
+  return { columns, searchFunc: findGradeScoreDefinitions, tableName: "GradeScoreDefinitionTableColumns" }
 }

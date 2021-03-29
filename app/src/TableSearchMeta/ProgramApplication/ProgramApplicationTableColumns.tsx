@@ -39,7 +39,5 @@ export const getProgramApplicationTableColumns = (isModal = false): ITableConfig
     }
   ]
 
-  const responsiveColumnIndices: [] = []
-  const expandableColumnIndices: [] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchProgramApplication }
+  return { columns, searchFunc: searchProgramApplication, tableName: "ProgramApplicationTableColumns" }
 }

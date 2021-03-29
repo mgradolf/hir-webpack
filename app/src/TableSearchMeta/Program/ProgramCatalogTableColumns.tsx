@@ -54,6 +54,7 @@ export const getProgramCatalogTableColumns = (ProgramID: number): ITableConfigPr
   ]
   return {
     columns,
-    searchFunc: findCatalog
+    searchFunc: findCatalog,
+    tableName: "ProgramCatalogTableColumns"
   }
 }
