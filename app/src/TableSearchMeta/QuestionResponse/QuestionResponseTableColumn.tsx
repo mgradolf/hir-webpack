@@ -30,5 +30,5 @@ export const getQuestionResponseTableColumns = (isModal = false): ITableConfigPr
     },
     { title: "Previous Answer", dataIndex: "PreviousAnswers" }
   ]
-  return { columns, searchFunc: searchQuestionResponse, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: searchQuestionResponse, tableName: "QuestionResponseTableColumn" }
 }

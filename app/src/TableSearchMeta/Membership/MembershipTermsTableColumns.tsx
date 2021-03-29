@@ -35,12 +35,9 @@ export const getMembershipTermsTableColumns = (isModal = false): ITableConfigPro
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: (Params: { [key: string]: any }) => findMebershipTerms({ MembershipID: Params.MembershipID })
+    searchFunc: (Params: { [key: string]: any }) => findMebershipTerms({ MembershipID: Params.MembershipID }),
+    tableName: "MembershipTermsTableColumns"
   }
 }

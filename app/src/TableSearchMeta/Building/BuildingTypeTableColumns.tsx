@@ -16,5 +16,5 @@ export const getBuildingTypeTableColumns = (isModal = false): ITableConfigProp =
       render: (text: any, record: any) => renderLink(`/site/${record.SiteID}`, text, isModal)
     }
   ]
-  return { columns, searchFunc: findBuildings, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findBuildings, tableName: "BuildingTypeTableColumns" }
 }

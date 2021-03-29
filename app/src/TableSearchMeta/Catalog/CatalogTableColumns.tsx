@@ -40,5 +40,5 @@ export const getCatalogTableColumns = (isModal = false): ITableConfigProp => {
       sorter: (a, b) => sortByString(a.SortTypeName, b.SortTypeName)
     }
   ]
-  return { columns, searchFunc: searchCatalogs, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: searchCatalogs, tableName: "CatalogTableColumns" }
 }

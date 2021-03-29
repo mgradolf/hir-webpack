@@ -22,7 +22,5 @@ export const getSystemConfigurationTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findSystemConfiguration }
+  return { columns, searchFunc: findSystemConfiguration, tableName: "SystemConfigurationTableColumns" }
 }

@@ -28,7 +28,5 @@ export const getMarketingProgramTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchMarketingProgram }
+  return { columns, searchFunc: searchMarketingProgram, tableName: "MarketingProgramTableColumns" }
 }

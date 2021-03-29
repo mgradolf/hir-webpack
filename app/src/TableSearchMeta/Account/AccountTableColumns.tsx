@@ -21,5 +21,5 @@ export const getAccountTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Telephone", dataIndex: "TelephoneNumber" },
     { title: "Account Type", dataIndex: "AccountTypeName" }
   ]
-  return { columns, searchFunc: findAccountForLookUp, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findAccountForLookUp, tableName: "AccountTableColumns" }
 }

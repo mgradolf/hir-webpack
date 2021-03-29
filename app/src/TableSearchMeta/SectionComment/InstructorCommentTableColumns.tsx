@@ -30,5 +30,5 @@ export const getInstructorCommentTableColumns = (isModal = false): ITableConfigP
     }
   ]
 
-  return { columns, searchFunc: findSectionFacultyComments }
+  return { columns, searchFunc: findSectionFacultyComments, tableName: "InstructorCommentTableColumns" }
 }

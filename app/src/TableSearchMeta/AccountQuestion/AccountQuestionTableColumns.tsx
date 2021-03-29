@@ -34,7 +34,6 @@ export const getAccountQuestionTableColumns = (isModal = false): ITableConfigPro
   return {
     columns,
     searchFunc: getTaggedQuestionsByAffiliationRoleType,
-    responsiveColumnIndices: [],
-    expandableColumnIndices: []
+    tableName: "AccountQuestionTableColumns"
   }
 }

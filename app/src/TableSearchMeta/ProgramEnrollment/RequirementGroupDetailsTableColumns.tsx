@@ -22,7 +22,5 @@ export const getRequirementGroupDetailsTableColumns = (programEnrollment: any): 
     { title: "Status", dataIndex: "Status" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, dataSource: programEnrollment.Offerings }
+  return { columns, dataSource: programEnrollment.Offerings, tableName: "RequirementGroupDetailsTableColumns" }
 }

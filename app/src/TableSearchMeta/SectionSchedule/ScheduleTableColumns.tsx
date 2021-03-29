@@ -56,7 +56,5 @@ export const getSectionScheduleTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getMeetings }
+  return { columns, searchFunc: getMeetings, tableName: "ScheduleTableColumns" }
 }

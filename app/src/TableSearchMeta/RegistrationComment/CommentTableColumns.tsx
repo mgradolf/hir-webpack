@@ -30,5 +30,5 @@ export const getRegistrationCommentTableColumns = (isModal = false): ITableConfi
     }
   ]
 
-  return { columns, searchFunc: findEnrollmentComments }
+  return { columns, searchFunc: findEnrollmentComments, tableName: "CommentTableColumns" }
 }

@@ -213,6 +213,7 @@ export const DELETE_SUCCESSFULLY = "Successfully deleted!"
 export const REQUEST_SUCCESSFULLY = "Successfully requested!"
 export const CREATE_SUCCESSFULLY = "Successfully created!"
 export const UPLOAD_SUCCESSFULLY = "Successfully uploaded!"
+export const ADDED_SUCCESSFULLY = "Successfully added!"
 export const FORGET_ME_REQUEST_SUCCESSFULLY = "Forget Me Requested Successfully!"
 export const CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY = "Cancel Forget Me Requested Successfully!"
 

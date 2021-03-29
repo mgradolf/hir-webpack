@@ -56,7 +56,5 @@ export const getSectionDiscountTableColumns = (isModal = false): ITableConfigPro
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getSectionDiscounts }
+  return { columns, searchFunc: getSectionDiscounts, tableName: "DiscountTableColumns" }
 }

@@ -67,13 +67,5 @@ export const getPersonTableColumns = (isModal = false): ITableConfigProp => {
     { title: "State", dataIndex: "State", hidden: true } //: "FL"
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return {
-    columns,
-    tableName: "PersonTableColumns",
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: searchPersons
-  }
+  return { columns, searchFunc: searchPersons, tableName: "PersonTableColumns" }
 }

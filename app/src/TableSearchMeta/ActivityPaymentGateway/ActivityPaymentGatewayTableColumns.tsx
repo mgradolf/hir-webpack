@@ -39,5 +39,5 @@ export const getActivityPaymentGatewayTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  return { columns, searchFunc: findPaymentGatewayActivities }
+  return { columns, searchFunc: findPaymentGatewayActivities, tableName: "ActivityPaymentGatewayTableColumns" }
 }

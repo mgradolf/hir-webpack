@@ -42,5 +42,5 @@ export const getActivityOrderSearchTableColumns = (isModal = false): ITableConfi
       }
     }
   ]
-  return { columns, searchFunc: getOrderActivity, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getOrderActivity, tableName: "ActivityOrderSearchTableColumns" }
 }

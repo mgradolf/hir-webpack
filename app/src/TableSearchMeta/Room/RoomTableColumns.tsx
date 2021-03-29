@@ -29,7 +29,5 @@ export const getRoomTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Accessible", dataIndex: "IsHandicapAccess", render: renderBoolean }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findRooms }
+  return { columns, searchFunc: findRooms, tableName: "RoomTableColumns" }
 }

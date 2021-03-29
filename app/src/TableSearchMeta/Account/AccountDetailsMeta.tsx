@@ -23,6 +23,9 @@ import { PackageFormMeta } from "~/Component/Feature/Package/FormMeta/PackageFor
 import { savePackage } from "~/ApiServices/Service/PackageService"
 import { IField } from "~/Component/Common/Form/common"
 import AccountQuestionTab from "~/Component/Feature/Account/AccountQuestionTab"
+import { AccountMergeFormModalOpenButton } from "~/Component/Account/Forms/AccountMergeFormModal"
+import { AccountEmailSetupForm } from "~/Component/Account/Forms/AccountEmailSetupForm"
+import { AccountRemoveLink } from "~/Component/Account/AccountRemoveLink"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -47,7 +50,9 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
           oca: account.oca
         }}
         refreshEventName={REFRESH_PAGE}
-      />
+      />,
+      <AccountMergeFormModalOpenButton accountData={{ AccountID: account.AccountID }} />,
+      <AccountRemoveLink AccountID={account.AccountID} />
     ],
     contents: [
       { label: "Account Type", value: account.AccountTypeName },
@@ -76,7 +81,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Contacts",
     tabType: "table",
     tabMeta: {
-      blocks: [<AccountContactFormOpenButton editMode={false} initialValues={account} />],
+      blocks: [<AccountContactFormOpenButton editMode={false} initialValues={{ AccountID: account.AccountID }} />],
       tableProps: {
         pagination: false,
         ...getAccountAffiliationTableColumn(),
@@ -220,6 +225,16 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       props: {}
     }
   })
+
+  account.AccountTypeID !== 1000 &&
+    meta.push({
+      tabTitle: "Email Setup",
+      tabType: "custom",
+      tabMeta: {
+        component: AccountEmailSetupForm,
+        props: { AccountID: account.AccountID }
+      }
+    })
 
   return {
     pageTitle: `Account Name - ${account.AccountName}`,

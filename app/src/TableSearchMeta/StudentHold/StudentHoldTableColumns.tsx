@@ -28,7 +28,5 @@ export const getStudentHoldTableColumns = (StudentID: number): ITableConfigProp 
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findStudentHold }
+  return { columns, searchFunc: findStudentHold, tableName: "StudentHoldTableColumns" }
 }

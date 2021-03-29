@@ -29,7 +29,5 @@ export const getSectionProductTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findSectionProducts }
+  return { columns, searchFunc: findSectionProducts, tableName: "ProductTableColumns" }
 }

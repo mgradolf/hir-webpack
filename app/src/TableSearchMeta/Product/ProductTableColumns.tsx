@@ -17,7 +17,5 @@ export const getProductTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Active", dataIndex: "ProductIsActive", render: renderBoolean }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchProducts }
+  return { columns, searchFunc: searchProducts, tableName: "ProductTableColumns" }
 }

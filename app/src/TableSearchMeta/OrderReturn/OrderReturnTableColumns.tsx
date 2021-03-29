@@ -14,7 +14,5 @@ export const getOrderReturnTableColumns = (isModal = false): ITableConfigProp =>
     { title: "Note", dataIndex: "ReturnedNote" }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getReturnItems }
+  return { columns, searchFunc: getReturnItems, tableName: "OrderReturnTableColumns" }
 }

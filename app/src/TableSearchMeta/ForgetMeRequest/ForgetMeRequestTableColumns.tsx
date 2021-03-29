@@ -27,7 +27,5 @@ export const getForgetMeRequestTableColumns = (isModal = false): ITableConfigPro
     { title: "Processed Date", dataIndex: "ProcessingDate", render: renderDate }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getAnonymizeRequests }
+  return { columns, searchFunc: getAnonymizeRequests, tableName: "ForgetMeRequestTableColumns" }
 }

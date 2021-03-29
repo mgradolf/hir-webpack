@@ -37,7 +37,5 @@ export const getProgramEnrollmentTableColumns = (isModal = false): ITableConfigP
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchEnrollment }
+  return { columns, searchFunc: searchEnrollment, tableName: "ProgramEnrollmentTableColumns" }
 }

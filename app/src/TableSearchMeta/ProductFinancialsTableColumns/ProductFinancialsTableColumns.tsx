@@ -31,5 +31,5 @@ export const getProductFinancialsTableColumns = (isModal = false): ITableConfigP
       )
     }
   ]
-  return { columns, searchFunc: getProductFinancials, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getProductFinancials, tableName: "ProductFinancialsTableColumns" }
 }

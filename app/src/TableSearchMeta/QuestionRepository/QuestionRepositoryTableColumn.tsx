@@ -19,5 +19,5 @@ export const getQuestionRepositoryTableColumn = (isModal = false): ITableConfigP
     { title: "Active", dataIndex: "IsActive", render: renderBoolean },
     { title: "Organization", dataIndex: "OrganizationName" }
   ]
-  return { columns, searchFunc: searchQuestions, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: searchQuestions, tableName: "QuestionRepositoryTableColumn" }
 }

@@ -32,6 +32,10 @@ export function pushAccount(Params: { [key: string]: any }, Headers?: { [key: st
   return AccountService[config.Actions.pushAccount](Params, Headers)
 }
 
+export function removeAccount(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return AccountService[config.Actions.removeAccount](Params, Headers)
+}
+
 export function pushAccountAffiliation(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

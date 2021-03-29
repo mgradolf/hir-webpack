@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Divider, Row, Col, Table, Input } from "antd"
+import { Divider, Row, Col, Table, InputNumber } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { getSectionFinancials } from "~/ApiServices/BizApi/query/queryIf"
 
@@ -35,8 +35,10 @@ export default function PricingStepForm(props: IPricingStepFormProps) {
       width: 150,
       render: (record: any) => {
         return (
-          <Input
+          <InputNumber
             type="number"
+            min={0}
+            max={1000000}
             style={{ width: "150px", textAlign: "right" }}
             onChange={(event) => onAmountHandler(record, event)}
             defaultValue={record.ItemUnitAmount}
@@ -47,8 +49,7 @@ export default function PricingStepForm(props: IPricingStepFormProps) {
   ]
 
   const onAmountHandler = (record: any, event: any) => {
-    debugger
-    const itemUnitAmount = parseFloat(event.target.value).toFixed(2)
+    const itemUnitAmount = parseFloat(event).toFixed(2)
     const ID = record.ID
 
     affiliateFinancial.forEach((object: any) => {

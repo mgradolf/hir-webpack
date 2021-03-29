@@ -22,7 +22,5 @@ export const getJobScheduleTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findJobSchedules }
+  return { columns, searchFunc: findJobSchedules, tableName: "JobScheduleTableColumns" }
 }

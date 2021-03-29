@@ -17,5 +17,5 @@ export const getSiteTableColumns = (isModal = false): ITableConfigProp => {
     }
   ]
 
-  return { columns, searchFunc: findSites, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findSites, tableName: "SiteTableColumns" }
 }

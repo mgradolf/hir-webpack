@@ -43,12 +43,9 @@ export const getInstructorScheduleTableColumns = (PersonID?: number): ITableConf
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: () => findEntitySchedule({ PersonID })
+    searchFunc: () => findEntitySchedule({ PersonID }),
+    tableName: "ScheduleTableColumns"
   }
 }

@@ -68,5 +68,5 @@ export const getActivityEnrollmentTableColumns = (isModal = false): ITableConfig
       width: 100
     }
   ]
-  return { columns, searchFunc: getStudentEnrollmentActivity, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getStudentEnrollmentActivity, tableName: "ActivityEnrollmentTableColumns" }
 }

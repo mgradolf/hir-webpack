@@ -37,8 +37,6 @@ export const getWaitlistEntriesTableColumns = (isModal = false): ITableConfigPro
     { title: "Expiration Date", dataIndex: "RequestExpirationTime", render: renderDate },
     { title: "Source", dataIndex: "Source" }
   ]
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
 
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findWaitListEntries }
+  return { columns, searchFunc: findWaitListEntries, tableName: "WaitlistEntryTableColumns" }
 }

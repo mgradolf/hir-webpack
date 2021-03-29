@@ -160,5 +160,5 @@ export const getQuestionTaggingTableColumns = (isTab?: boolean): ITableConfigPro
     }
   ]
 
-  return { columns, searchFunc: getTagQuestions, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getTagQuestions, tableName: "QuestionTaggingTableColumn" }
 }

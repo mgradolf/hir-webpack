@@ -25,7 +25,5 @@ export const getActivitySystemScheduleTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: getSystemSchedules }
+  return { columns, searchFunc: getSystemSchedules, tableName: "ActivitySystemScheduleTableColumns" }
 }

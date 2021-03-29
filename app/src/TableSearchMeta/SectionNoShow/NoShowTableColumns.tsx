@@ -20,8 +20,5 @@ export const getSectionNoShowTableColumns = (): ITableConfigProp => {
     { title: "Quantity", dataIndex: "Quantity" },
     { title: "Total Amount", dataIndex: "TotalAmount" }
   ]
-
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchNoShowProcessings }
+  return { columns, searchFunc: searchNoShowProcessings, tableName: "NoShowTableColumns" }
 }

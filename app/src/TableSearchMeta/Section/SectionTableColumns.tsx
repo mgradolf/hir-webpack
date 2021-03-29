@@ -51,5 +51,9 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
     }
   ]
 
-  return { columns, searchFunc: OfferingID ? () => searchSection({ OfferingID }) : searchSection }
+  return {
+    columns,
+    searchFunc: OfferingID ? () => searchSection({ OfferingID }) : searchSection,
+    tableName: "SectionTableColumns"
+  }
 }

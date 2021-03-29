@@ -28,5 +28,5 @@ export const getBatchTableColumns = (isModal = false): ITableConfigProp => {
     { title: "Processed", render: (text, record) => record?.BatchDetails?.TotalProcessed },
     { title: "Failed", render: (text, record) => record?.BatchDetails?.TotalFailed }
   ]
-  return { columns, searchFunc: findBatches, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findBatches, tableName: "BatchTableColumns" }
 }

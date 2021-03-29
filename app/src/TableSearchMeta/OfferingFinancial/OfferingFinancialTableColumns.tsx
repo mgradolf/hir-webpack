@@ -79,6 +79,7 @@ export const getOfferingFinancialTableColumns = (ApplyToID: number, FinancialTyp
 
   return {
     columns,
-    searchFunc: () => searchFinancials({ FinancialTypeID, ApplyToID })
+    searchFunc: () => searchFinancials({ FinancialTypeID, ApplyToID }),
+    tableName: "OfferingFinancialTableColumns"
   }
 }

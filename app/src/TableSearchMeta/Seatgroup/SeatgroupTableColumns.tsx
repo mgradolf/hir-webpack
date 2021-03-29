@@ -42,7 +42,5 @@ export const getSeatgroupTableColumns = (isModal = false, isPackagePage?: boolea
     }
   ]
 
-  const responsiveColumnIndices: [] = []
-  const expandableColumnIndices: [] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: findSeatGroups }
+  return { columns, searchFunc: findSeatGroups, tableName: "SeatgroupTableColumns" }
 }

@@ -54,7 +54,7 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
             metaName="StudentReleaseFormMeta"
             title={"Release Hold"}
             initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
-            defaultFormValue={{ ...props.initialData, StudentID: props.studentID }}
+            defaultFormValue={{ StudentHoldID: props.initialData.StudentHoldID, StudentID: props.studentID }}
             formSubmitApi={releaseStudentHold}
             refreshEventAfterFormSubmission={"REFRESH_HOLD_TAB"}
             closeModal={() => setShowReleaseModal(false)}

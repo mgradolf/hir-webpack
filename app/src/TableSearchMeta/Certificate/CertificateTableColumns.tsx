@@ -33,7 +33,6 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
       render: (text, record) => renderLink(`/offering/${record.OfferingID}`, text)
     }
   ]
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
-  return { columns, responsiveColumnIndices, expandableColumnIndices, searchFunc: searchCertificate }
+
+  return { columns, searchFunc: searchCertificate, tableName: "CertificateTableColumns" }
 }

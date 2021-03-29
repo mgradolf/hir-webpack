@@ -132,5 +132,5 @@ export const getActivityAcademicTableColumn = (isModal = false): ITableConfigPro
       width: 100
     }
   ]
-  return { columns, searchFunc: getStudentAcademicActivity, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: getStudentAcademicActivity, tableName: "getActivityAcademicTableColumn" }
 }

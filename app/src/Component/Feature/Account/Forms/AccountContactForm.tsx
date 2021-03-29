@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Input, Select, Divider, Row, Col, Spin } from "antd"
+import { Form, Input, Select, Divider, Row, Col, Spin, message } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { IAccountContactFieldNames } from "~/Component/Feature/Account/Interfaces"
 import {
@@ -11,7 +11,8 @@ import "~/Sass/utils.scss"
 import {
   ACCOUNT_AFFILIATION_STATUS_ACTIVE,
   ACCOUNT_AFFILIATION_STATUS_INACTIVE,
-  ACCOUNT_AFFILIATION_STATUS_PENDING
+  ACCOUNT_AFFILIATION_STATUS_PENDING,
+  ADDED_SUCCESSFULLY
 } from "~/utils/Constants"
 import { saveAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
@@ -178,6 +179,7 @@ function AccountContactForm(props: IAccountContactFormProps) {
               { label: "Pending", value: ACCOUNT_AFFILIATION_STATUS_PENDING }
             ]}
             {...AccountContactFormConfig.StatusID}
+            rules={[{ required: true, message: "Please select status!" }]}
           />
         </Col>
         <Col xs={24} sm={24} md={12}>
@@ -192,6 +194,7 @@ function AccountContactForm(props: IAccountContactFormProps) {
             displayKey="Name"
             valueKey="AffiliationRoleTypeID"
             {...AccountContactFormConfig.AffiliationRoleTypeID}
+            rules={[{ required: true, message: "Please select affiliation role type!" }]}
           />
 
           <FormMultipleRadio
@@ -303,8 +306,10 @@ export function AccountContactFormOpenButton(props: { editMode: boolean; initial
           console.log("validation passed ", response)
           setApiCallInProgress(false)
           if (response && response.success) {
-            closeModal()
+            formInstance.resetFields()
+            message.success(ADDED_SUCCESSFULLY)
             eventBus.publish("REFRESH_CONTACT_TAB")
+            closeModal()
           } else {
             console.log("validation failed ", response.error)
             setErrorMessages(response.error)

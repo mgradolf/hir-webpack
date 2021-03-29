@@ -12,5 +12,5 @@ export const getSectionTypeTableColumns = (isModal = false): ITableConfigProp =>
     { title: "Section Type Description", dataIndex: "SectionTypeDescription", width: 150 },
     { title: "Section Description", dataIndex: "Description", width: 200 }
   ]
-  return { columns, searchFunc: findSectionTypes, responsiveColumnIndices: [], expandableColumnIndices: [] }
+  return { columns, searchFunc: findSectionTypes, tableName: "SectionTypeTypeTableColumns" }
 }

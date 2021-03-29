@@ -31,12 +31,9 @@ export const getStudentEmailTableColumns = (): ITableConfigProp => {
     }
   ]
 
-  const responsiveColumnIndices: number[] = []
-  const expandableColumnIndices: number[] = []
   return {
     columns,
-    responsiveColumnIndices,
-    expandableColumnIndices,
-    searchFunc: findAllStudentNotice
+    searchFunc: findAllStudentNotice,
+    tableName: "StudentEmailTableColumns"
   }
 }
