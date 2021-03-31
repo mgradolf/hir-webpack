@@ -9,12 +9,12 @@ export function PersonLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Person"
-      displayField="SortName"
+      displayKey="SortName"
       meta={PersonSearchMeta as IField[]}
       metaName="PersonSearchMeta"
       {...props}
       {...getPersonTableColumns(true)}
-      valueField={props.valueField || "PersonID"}
+      valueKey={props.valueKey || "PersonID"}
       {...(props.defaultValue && {
         tempentityLookupFunc: getEntityById
       })}

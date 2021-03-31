@@ -10,14 +10,14 @@ export const OrderCreditsSearchMeta: IField[] = [
   {
     label: "Purchaser",
     fieldName: "BuyerName",
-    valueField: "FormattedName",
+    valueKey: "FormattedName",
     inputType: CUSTOM_FIELD,
     customFilterComponent: PersonLookup
   },
   {
     label: "Section",
     fieldName: "SectionID",
-    valueField: "SectionID",
+    valueKey: "SectionID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: SectionLookup
   },

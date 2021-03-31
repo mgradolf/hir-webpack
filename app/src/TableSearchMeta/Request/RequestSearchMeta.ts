@@ -27,25 +27,25 @@ export const RequestSearchMeta: IField[] = [
         {
           label: "Account",
           fieldName: "AccountID",
-          valueField: "AccountID",
+          valueKey: "AccountID",
           component: AccountLookup
         },
         {
           label: "Purchaser",
           fieldName: "PurchaserPersonID",
-          valueField: "PersonID",
+          valueKey: "PersonID",
           component: PersonLookup
         },
         {
           label: "Recipient",
           fieldName: "RecipientPersonID",
-          valueField: "PersonID",
+          valueKey: "PersonID",
           component: PersonLookup
         },
         {
           label: "Any",
           fieldName: "PersonID",
-          valueField: "PersonID",
+          valueKey: "PersonID",
           component: PersonLookup
         }
       ]
@@ -78,14 +78,14 @@ export const RequestSearchMeta: IField[] = [
   {
     label: "Product",
     fieldName: "ProductID",
-    valueField: "ProductName",
+    valueKey: "ProductName",
     inputType: CUSTOM_FIELD,
     customFilterComponent: ProductLookup
   },
   {
     label: "Program",
     fieldName: "ProgramID",
-    valueField: "Name",
+    valueKey: "Name",
     inputType: CUSTOM_FIELD,
     customFilterComponent: ProgramLookup
   },

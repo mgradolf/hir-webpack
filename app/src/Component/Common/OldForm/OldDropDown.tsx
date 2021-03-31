@@ -6,7 +6,7 @@ interface IDropDown {
   fieldName: string
   label: string
   displayField: string
-  valueField: string
+  valueKey: string
   searchFunc: (Params: any) => Promise<IApiResponse>
   searchParams?: { [key: string]: any } | any[]
   labelColumn?: { [key: string]: any }
@@ -39,7 +39,7 @@ export function OldDropDown(props: IDropDown) {
     <Form.Item label={props.label} name={props.fieldName} labelCol={props.labelColumn}>
       <Select defaultValue={props.defaultValue} disabled={props.disabled} loading={loading} onChange={props.onChange}>
         {dataSource.map((x) => (
-          <Select.Option key={x.key + x[props.valueField] + x[props.displayField]} value={x[props.valueField]}>
+          <Select.Option key={x.key + x[props.valueKey] + x[props.displayField]} value={x[props.valueKey]}>
             {x[props.displayField]}
           </Select.Option>
         ))}

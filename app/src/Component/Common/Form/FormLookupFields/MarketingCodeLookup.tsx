@@ -8,8 +8,8 @@ export function MarketingCodeLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Promotion Code"
-      valueField="MarketingCodeID"
-      displayField="Name"
+      valueKey="MarketingCodeID"
+      displayKey="Name"
       meta={MarketingCodeRepositorySearchMeta as IField[]}
       metaName="MarketingCodeRepositorySearchMeta"
       {...props}

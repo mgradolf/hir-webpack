@@ -9,8 +9,8 @@ export function AccountLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Account"
-      valueField={props.valueField || "AccountID"}
-      displayField={"AccountName"}
+      valueKey={props.valueKey || "AccountID"}
+      displayKey={"AccountName"}
       {...getAccountTableColumns(true)}
       meta={AccountSearchMeta as IField[]}
       metaName="AccountSearchMeta"

@@ -72,7 +72,7 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
                 label="Associated With"
                 fieldName={fieldNames.OrderLineID}
                 displayField="Description"
-                valueField="OrderLineID"
+                valueKey="OrderLineID"
                 labelColumn={{ span: 6 }}
               />
               <Form.Item name={fieldNames.Amount} label="Amount Credited" labelCol={{ span: 6 }}>

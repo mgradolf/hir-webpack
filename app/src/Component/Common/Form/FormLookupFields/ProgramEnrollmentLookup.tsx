@@ -6,18 +6,18 @@ import { ProgramEnrollmentSearchMeta } from "~/TableSearchMeta/ProgramEnrollment
 import { getProgramEnrollmentTableColumnsForLookup } from "~/TableSearchMeta/ProgramEnrollment/ProgramEnrollmentTableColumnsForLookup"
 
 interface ILookupOpenButton extends IGeneratedField {
-  valueField?: string
+  valueKey?: string
 }
 export function ProgramEnrollmentLookup(props: ILookupOpenButton) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Program Enrollment"
-      displayField="ProgramCode"
+      displayKey="ProgramCode"
       meta={ProgramEnrollmentSearchMeta as IField[]}
       metaName="ProgramEnrollmentSearchMeta"
       {...props}
       {...getProgramEnrollmentTableColumnsForLookup(true)}
-      valueField={props.valueField || "ProgramEnrollmentID"}
+      valueKey={props.valueKey || "ProgramEnrollmentID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           getEntityById("Person", props.defaultValue).then((x) => {

@@ -77,7 +77,7 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
                 searchFunc={getAvailableDiscountByOrderItemID}
                 searchParams={{ OrderItemID: props.OrderItemID }}
                 displayField="Name"
-                valueField="SectionDiscountID"
+                valueKey="SectionDiscountID"
                 labelColumn={{ span: 6 }}
                 label="Available Discounts"
               />

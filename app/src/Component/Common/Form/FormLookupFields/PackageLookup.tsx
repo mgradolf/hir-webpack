@@ -6,18 +6,18 @@ import { getPackageTableColumns } from "~/TableSearchMeta/Package/PackageTableCo
 import { findPackages } from "~/ApiServices/Service/PackageService"
 
 interface ILookupOpenButton extends IGeneratedField {
-  valueField?: string
+  valueKey?: string
 }
 export function SearchPackageLookupButton(props: ILookupOpenButton) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Package"
-      displayField="Name"
+      displayKey="Name"
       meta={PackageSearchMeta as IField[]}
       metaName="PackageSearchMeta"
       {...props}
       {...getPackageTableColumns(true)}
-      valueField={props.valueField || "PackageID"}
+      valueKey={props.valueKey || "PackageID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           findPackages({ PackageID: props.defaultValue }).then((x) => {

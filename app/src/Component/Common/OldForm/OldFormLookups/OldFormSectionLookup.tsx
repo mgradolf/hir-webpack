@@ -12,7 +12,7 @@ export function OldFormSectionLookup(props: {
   return (
     <OldFormLookupOpenButton
       lookupModalTitle="Select Section"
-      valueField="SectionID"
+      valueKey="SectionID"
       displayField="SectionNumber"
       fieldName="SectionID"
       label="Section"

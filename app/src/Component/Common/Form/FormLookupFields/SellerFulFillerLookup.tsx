@@ -8,8 +8,8 @@ export function SellerFulFillerLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Seller Fulfiller"
-      valueField="OrganizationID"
-      displayField="OrganizationName"
+      valueKey="OrganizationID"
+      displayKey="OrganizationName"
       meta={SellerFulFillerSearchMeta as IField[]}
       metaName="SellerFulFillerSearchMeta"
       {...props}

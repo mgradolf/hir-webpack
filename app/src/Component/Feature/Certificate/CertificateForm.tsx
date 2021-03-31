@@ -149,7 +149,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
           fieldName={props.fieldNames.SectionID}
           searchFunc={() => getCompletedSection({ StudentID: studentID })}
           displayField="SectionNumber"
-          valueField="SectionID"
+          valueKey="SectionID"
           labelColumn={{ span: 6 }}
           disabled={false}
         ></OldDropDown>
@@ -162,7 +162,7 @@ export default function CertificateForm(props: ICertificateFormProps) {
           fieldName={props.fieldNames.ProgramID}
           searchFunc={() => getCompletedProgram({ StudentID: studentID })}
           displayField="ProgramCode"
-          valueField="ProgramID"
+          valueKey="ProgramID"
           labelColumn={{ span: 6 }}
           disabled={false}
         ></OldDropDown>

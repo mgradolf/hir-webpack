@@ -11,8 +11,8 @@ function SectionLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Section"
-      valueField="SectionID"
-      displayField="SectionNumber"
+      valueKey="SectionID"
+      displayKey="SectionNumber"
       meta={SectionSearchMeta.filter((x) => x.fieldName !== "SectionStatusCodeID") as IField[]}
       metaName="SectionSearchMeta"
       {...props}

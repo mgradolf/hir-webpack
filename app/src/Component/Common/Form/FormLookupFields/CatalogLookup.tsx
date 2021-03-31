@@ -7,18 +7,18 @@ import { CatalogSearchMeta } from "~/TableSearchMeta/Catalog/CatalogSearchMeta"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface ILookupOpenButton extends IGeneratedField {
-  valueField?: string
+  valueKey?: string
 }
 export function CatalogLookup(props: ILookupOpenButton) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Catalog"
-      displayField="Name"
+      displayKey="Name"
       meta={CatalogSearchMeta as IField[]}
       metaName="CatalogSearchMeta"
       {...props}
       {...getCatalogTableColumns(true)}
-      valueField={props.valueField || "CatalogID"}
+      valueKey={props.valueKey || "CatalogID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           getEntityById("Catalog", props.defaultValue).then((x) => {

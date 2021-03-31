@@ -12,7 +12,7 @@ export function OldFormProgramLookup(props: {
   return (
     <OldFormLookupOpenButton
       lookupModalTitle="Select Program"
-      valueField="ProgramID"
+      valueKey="ProgramID"
       displayField="ProgramCode"
       fieldName="ProgramID"
       label="Program"

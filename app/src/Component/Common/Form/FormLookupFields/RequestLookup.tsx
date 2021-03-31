@@ -9,8 +9,8 @@ export function RequestLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Request"
-      valueField={props.valueField || "RequestID"}
-      displayField={"RequestID"}
+      valueKey={props.valueKey || "RequestID"}
+      displayKey={"RequestID"}
       {...getRequestTableColumns(true)}
       meta={RequestSearchMeta as IField[]}
       metaName="RequestSearchMeta"

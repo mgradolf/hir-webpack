@@ -1,7 +1,7 @@
 import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLookupService"
-import { CUSTOM_FIELD, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
-import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
-import { FormDateTypelector } from "~/Component/Common/Form/FormFieldSelectors/FormDateTypelector"
+import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
+// import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
+// import { FormDateTypelector } from "~/Component/Common/Form/FormFieldSelectors/FormDateTypelector"
 import TotalAmountRange from "~/Component/Feature/Section/Order/TotalAmountRange"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
@@ -10,32 +10,25 @@ import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionL
 
 export const OrderSearchMeta: IField[] = [
   {
-    label: "Person Selector",
-    fieldName: "",
+    label: "Purchaser",
+    fieldName: "BuyerName",
+    valueKey: "FormattedName",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: FormFieldSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "Purchaser",
-          fieldName: "BuyerName",
-          valueField: "FormattedName",
-          component: PersonLookup
-        },
-        {
-          label: "Student",
-          fieldName: "StudentName",
-          valueField: "FormattedName",
-          component: StudentLookup
-        },
-        {
-          label: "Billed To Name",
-          fieldName: "BilledPersonName",
-          valueField: "FormattedName",
-          component: PersonLookup
-        }
-      ]
-    }
+    customFilterComponent: PersonLookup
+  },
+  {
+    label: "Student",
+    fieldName: "StudentName",
+    valueKey: "FormattedName",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: StudentLookup
+  },
+  {
+    label: "Billed To Name",
+    fieldName: "BilledPersonName",
+    valueKey: "FormattedName",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Order ID",
@@ -43,36 +36,28 @@ export const OrderSearchMeta: IField[] = [
     fieldName: "OrderID"
   },
   {
-    label: "Date Type Select",
-    fieldName: "",
-    inputType: CUSTOM_FIELD,
-    customFilterComponent: FormDateTypelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          name: "Order Date",
-          key1: "CreateDateFrom",
-          key2: "CreateDateTo"
-        },
-        {
-          name: "Due Date",
-          key1: "PaymentDueDateFrom",
-          key2: "PaymentDueDateTo"
-        }
-      ]
-    }
+    label: "Order Date",
+    fieldName: "CreateDateFrom",
+    fieldName2: "CreateDateTo",
+    inputType: DATE_PICKERS
+  },
+  {
+    label: "Due Date",
+    fieldName: "PaymentDueDateFrom",
+    fieldName2: "PaymentDueDateTo",
+    inputType: DATE_PICKERS
   },
   {
     label: "Section",
     fieldName: "SectionID",
-    valueField: "SectionID",
+    valueKey: "SectionID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: SectionLookup
   },
   {
     label: "Account",
     fieldName: "AccountID",
-    valueField: "AccountID",
+    valueKey: "AccountID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: AccountLookup
   },

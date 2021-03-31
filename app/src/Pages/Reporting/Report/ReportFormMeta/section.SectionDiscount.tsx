@@ -17,13 +17,13 @@ const meta: IField[] = [
         {
           label: "Section",
           fieldName: "SectionID",
-          valueField: "SectionID",
+          valueKey: "SectionID",
           component: SectionLookup
         },
         {
           label: "Offering",
           fieldName: "OfferingID",
-          valueField: "SectionID",
+          valueKey: "SectionID",
           component: OfferingLookupButton
         }
       ]

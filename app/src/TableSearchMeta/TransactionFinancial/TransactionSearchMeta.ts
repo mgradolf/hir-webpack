@@ -17,13 +17,13 @@ export const TransactionSearchMeta: IField[] = [
         {
           label: "Purchaser",
           fieldName: "PersonID",
-          valueField: "PersonID",
+          valueKey: "PersonID",
           component: PersonLookup
         },
         {
           label: "Student",
           fieldName: "StudentID",
-          valueField: "StudentID",
+          valueKey: "StudentID",
           component: StudentLookup
         }
       ]
@@ -51,7 +51,7 @@ export const TransactionSearchMeta: IField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
-    valueField: "AccountID",
+    valueKey: "AccountID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: AccountLookup
   },
@@ -68,7 +68,7 @@ export const TransactionSearchMeta: IField[] = [
   {
     label: "SectionID",
     fieldName: "SectionIDID",
-    valueField: "SectionIDID",
+    valueKey: "SectionIDID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: SectionLookup
   },

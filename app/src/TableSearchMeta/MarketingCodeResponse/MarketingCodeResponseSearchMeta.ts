@@ -33,19 +33,19 @@ export const MarketingCodeResponseSearchMeta: IField[] = [
         {
           label: "Section",
           fieldName: "SectionId",
-          valueField: "SectionID",
+          valueKey: "SectionID",
           component: SectionLookup
         },
         {
           label: "Offering",
           fieldName: "OfferingID",
-          valueField: "OfferingID",
+          valueKey: "OfferingID",
           component: OfferingLookupButton
         },
         {
           label: "Program",
           fieldName: "ProgramID",
-          valueField: "ProgramID",
+          valueKey: "ProgramID",
           component: ProgramLookup
         }
       ]
@@ -70,7 +70,7 @@ export const MarketingCodeResponseSearchMeta: IField[] = [
   {
     label: "Account",
     fieldName: "AccountID",
-    valueField: "AccountID",
+    valueKey: "AccountID",
     inputType: CUSTOM_FIELD,
     customFilterComponent: AccountLookup
   }

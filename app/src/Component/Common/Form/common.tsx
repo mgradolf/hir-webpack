@@ -53,7 +53,6 @@ export interface IField {
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
   customFilterComponent?: React.FunctionComponent<any>
-  valueField?: string
   rules?: Rule[]
   required?: boolean
   validateStatus?: ValidateStatus

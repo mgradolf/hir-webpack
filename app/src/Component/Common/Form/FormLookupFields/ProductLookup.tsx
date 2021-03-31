@@ -9,8 +9,8 @@ export function ProductLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Product"
-      valueField={props.valueField || "ProductID"}
-      displayField="ProductName"
+      valueKey={props.valueKey || "ProductID"}
+      displayKey="ProductName"
       {...getProductTableColumns(true)}
       meta={ProductSearchMeta as IField[]}
       metaName="ProductSearchMeta"
