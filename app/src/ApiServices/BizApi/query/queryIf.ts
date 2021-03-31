@@ -260,6 +260,16 @@ export function getSectionFinancials(
   )
 }
 
+export function findSectionTypesByOfferingType(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeRowMapNamedQuery](
+    ["jxntm.course.AllSectionTypesByOfferingTypeID", Params, null],
+    Headers
+  )
+}
+
 export function findPaymentTypesByReference(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

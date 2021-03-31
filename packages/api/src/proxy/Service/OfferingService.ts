@@ -8,6 +8,7 @@ export const config = {
     createOffering: "createOffering",
     updateOffering: "updateOffering",
     searchOffering: "searchOffering",
+    removeOffering: "removeOffering",
     addOrRemoveOfferingToCatalog: "addOrRemoveOfferingToCatalog",
     createOfferingFinancial: "createOfferingFinancial",
     updateOfferingFinancial: "updateOfferingFinancial",

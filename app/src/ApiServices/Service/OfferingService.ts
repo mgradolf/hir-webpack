@@ -25,6 +25,13 @@ export function searchOffering(
   return OfferingService[config.Actions.searchOffering](Params, Headers)
 }
 
+export function removeOffering(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OfferingService[config.Actions.removeOffering](Params, Headers)
+}
+
 export function addOrRemoveOfferingToCatalog(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

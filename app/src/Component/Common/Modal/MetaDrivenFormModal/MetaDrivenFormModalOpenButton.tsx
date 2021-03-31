@@ -1,13 +1,14 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Button } from "antd"
 import { BaseButtonProps } from "antd/lib/button/button"
-import React, { useState } from "react"
+import React, { CSSProperties, useState } from "react"
 import { IField } from "~/Component/Common/Form/common"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 
 interface IMetaDrivenFormModalOpenButton {
   buttonLabel?: string
   buttonProps?: BaseButtonProps
+  style?: CSSProperties
   formTitle: string
   formMeta: IField[]
   formMetaName?: string
@@ -20,7 +21,13 @@ export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenBut
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button type="primary" {...props.buttonProps} onClick={() => setShowModal(true)} children={props.buttonLabel} />
+      <Button
+        type="primary"
+        {...props.buttonProps}
+        style={props.style}
+        onClick={() => setShowModal(true)}
+        children={props.buttonLabel}
+      />
       {showModal && (
         <MetaDrivenFormModal
           title={props.formTitle}

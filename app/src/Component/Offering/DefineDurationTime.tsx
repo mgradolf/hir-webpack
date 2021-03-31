@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Form, Input, Row } from "antd"
+import { Col, Form, Input, Row } from "antd"
 import { IOfferingFieldNames } from "~/Component/Offering/Interfaces"
 import { FormInstance } from "antd/lib/form"
 
@@ -8,11 +8,7 @@ interface IOfferingTimings {
   formInstance: FormInstance
 }
 
-interface IDefineTime extends IOfferingTimings {
-  terms: Array<any>
-}
-
-interface IDefineDurationTime extends IDefineTime {
+interface IDefineDurationTime extends IOfferingTimings {
   disableDuration: boolean
 }
 
@@ -136,27 +132,38 @@ export default function DefineDurationTime(props: IDefineDurationTime) {
       <Form.Item name={props.fieldNames.RecurrenceRule} className="hidden">
         <Input />
       </Form.Item>
-      <Row justify="center">
-        <Form.Item name={fieldnames.byYear}>
-          <Input aria-label="Year" placeholder="Year" disabled={props.disableDuration} onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byMonth}>
-          <Input aria-label="Month" placeholder="Month" disabled={props.disableDuration} onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byWeek}>
-          <Input aria-label="Week" placeholder="Week" disabled={props.disableDuration} onChange={onChange} />
-        </Form.Item>
-      </Row>
-      <Row justify="center">
-        <Form.Item name={fieldnames.byDay}>
-          <Input aria-label="Day" placeholder="Day" disabled={props.disableDuration} onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byHour}>
-          <Input aria-label="Hour" placeholder="Hour" disabled={props.disableDuration} onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byMinute}>
-          <Input aria-label="Minute" placeholder="Min" disabled={props.disableDuration} onChange={onChange} />
-        </Form.Item>
+      <Row>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byYear}>
+            <Input aria-label="Year" placeholder="Year" disabled={props.disableDuration} onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byMonth}>
+            <Input aria-label="Month" placeholder="Month" disabled={props.disableDuration} onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byWeek}>
+            <Input aria-label="Week" placeholder="Week" disabled={props.disableDuration} onChange={onChange} />
+          </Form.Item>
+        </Col>
+
+        <Col md={4}>
+          <Form.Item name={fieldnames.byDay}>
+            <Input aria-label="Day" placeholder="Day" disabled={props.disableDuration} onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byHour}>
+            <Input aria-label="Hour" placeholder="Hour" disabled={props.disableDuration} onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byMinute}>
+            <Input aria-label="Minute" placeholder="Min" disabled={props.disableDuration} onChange={onChange} />
+          </Form.Item>
+        </Col>
       </Row>
     </>
   )
