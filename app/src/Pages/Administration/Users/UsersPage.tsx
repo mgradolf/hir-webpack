@@ -12,6 +12,7 @@ export default function () {
       blocks={[
         <MetaDrivenFormModalOpenButton
           buttonLabel={"+ Create User"}
+          // buttonIcon="create"
           formTitle={"Create User"}
           formMeta={UserSearchMeta}
           formSubmitApi={saveUser}

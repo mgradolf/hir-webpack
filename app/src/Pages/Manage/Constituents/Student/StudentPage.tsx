@@ -7,7 +7,7 @@ import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdi
 export default function PersonTable() {
   return (
     <SearchPage
-      blocks={[<PersonFormOpenButton label={"Create Student"} initialValues={{ Roles: [1] }} />]}
+      blocks={[<PersonFormOpenButton label={"Create Student"} buttonIcon="create" initialValues={{ Roles: [1] }} />]}
       title="Manage Students"
       meta={StudentSearchMeta}
       metaName="StudentSearchMeta"

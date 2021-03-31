@@ -7,7 +7,7 @@ import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdi
 export default function InstructorPage() {
   return (
     <SearchPage
-      blocks={[<PersonFormOpenButton label={"Create Instructor"} initialValues={{ Roles: [2] }} />]}
+      blocks={[<PersonFormOpenButton label={"Create Instructor"} buttonIcon="create" initialValues={{ Roles: [2] }} />]}
       title="Manage Instructors"
       meta={InstructorSearchMeta}
       metaName="InstructorSearchMeta"

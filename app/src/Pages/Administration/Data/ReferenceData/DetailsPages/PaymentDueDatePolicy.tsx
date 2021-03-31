@@ -16,6 +16,7 @@ import { RemoveRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButton
 import { PAYMENT_POLICY_TYPE } from "~/utils/Constants"
 import { savePaymentDueDatePolicy, getPaymentDueDatePolicy } from "~/ApiServices/Service/PaymentService"
 import { eventBus } from "~/utils/EventBus"
+import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 // const getPaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
 //   Promise.resolve({ code: 200, success: true, data: {}, error: "" })
@@ -135,7 +136,7 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
     </Row>
   )
 }
-const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: string }) => {
+const DueDatePolicyFormOpenButton = (props: { iconType: iconType; ID?: number; refreshEventName: string }) => {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -183,6 +184,7 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: str
       loading={loading}
       errorMessages={errorMessages}
       buttonLabel={props.ID ? "Update" : "+ Add"}
+      buttonIcon={props.iconType}
       buttonProps={{ type: props.ID ? "ghost" : "primary" }}
     />
   )
@@ -211,7 +213,7 @@ export default function PaymentDueDatePolicy() {
       dataIndex: "ID",
       render: (ID: any, record: any) => (
         <>
-          <DueDatePolicyFormOpenButton ID={ID} refreshEventName={refreshEventName} />
+          <DueDatePolicyFormOpenButton iconType="edit" ID={ID} refreshEventName={refreshEventName} />
           <RemoveRefButton ID={ID} LookUpName={refName} refreshEventName={refreshEventName} />
         </>
       )
@@ -224,7 +226,7 @@ export default function PaymentDueDatePolicy() {
       tableProps={{ columns, refreshEventName, searchFunc: getRefList }}
       defaultFormValue={{ LookUpName: refName }}
       initialFormValue={{}}
-      blocks={[<DueDatePolicyFormOpenButton refreshEventName={refreshEventName} />]}
+      blocks={[<DueDatePolicyFormOpenButton iconType="create" refreshEventName={refreshEventName} />]}
     />
   )
 }

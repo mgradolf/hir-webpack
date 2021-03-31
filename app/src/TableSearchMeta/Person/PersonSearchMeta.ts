@@ -41,7 +41,6 @@ export const PersonSearchMeta: IField[] = [
   {
     label: "First Name",
     inputType: TEXT,
-    defaultValue: "*",
     fieldName: "FirstName"
   },
   {

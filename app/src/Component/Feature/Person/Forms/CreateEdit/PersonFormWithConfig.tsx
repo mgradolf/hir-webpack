@@ -12,6 +12,7 @@ import { SearchRegion } from "~/Component/Common/Form/CustomFormFields/SearchReg
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
 import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface IPersonFormProps {
   editMode: boolean
@@ -196,7 +197,11 @@ function PersonForm(props: IPersonFormProps) {
   )
 }
 
-export function PersonFormOpenButton(props: { initialValues?: { [key: string]: any }; label?: string }) {
+export function PersonFormOpenButton(props: {
+  initialValues?: { [key: string]: any }
+  label?: string
+  buttonIcon?: iconType
+}) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading] = useState(false)
@@ -236,6 +241,7 @@ export function PersonFormOpenButton(props: { initialValues?: { [key: string]: a
       errorMessages={errorMessages}
       buttonLabel={`+ ${props.label ? props.label : "Create Person"}`}
       buttonProps={{ type: "primary" }}
+      buttonIcon={props.buttonIcon}
     />
   )
 }

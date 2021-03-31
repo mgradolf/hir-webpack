@@ -16,10 +16,10 @@ async function getUserTableMetaConfig(tableName?: string): Promise<{ [key: strin
     const _fileMap = (await axios.request({ baseURL, url: `/webconfig/Config/fileMap.json` })).data
     if (_fileMap && _fileMap[tableName]) {
       userFormMeta = (await axios.request({ baseURL, url: `/webconfig${_fileMap[tableName]}` })).data
-      console.log("table user config  ", userFormMeta)
+      // console.log("table user config  ", userFormMeta)
     }
   } catch (error) {
-    console.error("table user config error ", error)
+    // console.error("table user config error ", error)
   }
 
   if (userFormMeta && Object.keys(userFormMeta).length > 0) {
@@ -36,7 +36,7 @@ async function getUserTableMetaConfig(tableName?: string): Promise<{ [key: strin
           ("hidden" in config && typeof config["hidden"] === "boolean")
         )
       ) {
-        console.log("deleting this invalid key ", key, userFormMeta[key])
+        // console.log("deleting this invalid key ", key, userFormMeta[key])
         delete userFormMeta[key]
       }
     })

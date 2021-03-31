@@ -5,7 +5,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
-import { IAccountFieldNames } from "~/Component/Account/Interfaces"
+import { IAccountFieldNames } from "~/Component/Feature/Account/Interfaces"
 import { getAccountTypes } from "~/ApiServices/Service/RefLookupService"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
@@ -164,7 +164,7 @@ function AccountForm(props: IAccountFormProps) {
 
 export function AccountFormOpenButton(props: { initialValues?: { [key: string]: any }; label?: string }) {
   const [formInstance] = Form.useForm()
-  const [showModal, setShowModal] = useState(false)
+  // const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
@@ -182,7 +182,7 @@ export function AccountFormOpenButton(props: { initialValues?: { [key: string]: 
           if (response && response.success) {
             message.success(CREATE_SUCCESSFULLY)
             formInstance.resetFields()
-            setShowModal(false)
+            // setShowModal(false)
           } else {
             console.log("validation failed ", response.error)
             setErrorMessages(response.error)
@@ -203,11 +203,12 @@ export function AccountFormOpenButton(props: { initialValues?: { [key: string]: 
       errorMessages={errorMessages}
       buttonLabel={`+ ${props.label ? props.label : "Create Account"}`}
       buttonProps={{ type: "primary" }}
-      showModal={showModal}
-      setShowModal={(show: boolean) => {
-        if (!show) formInstance.resetFields()
-        setShowModal(show)
-      }}
+
+      // showModal={showModal}
+      // setShowModal={(show: boolean) => {
+      //   if (!show) formInstance.resetFields()
+      // setShowModal(show)
+      // }}
     />
   )
 }
