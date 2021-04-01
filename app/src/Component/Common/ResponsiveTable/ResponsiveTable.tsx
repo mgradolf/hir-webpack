@@ -168,7 +168,7 @@ export function ResponsiveTable(props: IDataTableProps) {
             total={conditionalProps.dataSource.length}
             pageSizeOptions={["5", "10", "15", "20", "25", "30", "50"]}
           />
-          <div>{`Total ${conditionalProps.dataSource.length} items`}</div>
+          <div>{`Total ${conditionalProps.dataSource.length} rows`}</div>
         </Col>
       )}
       <Col span={12}>

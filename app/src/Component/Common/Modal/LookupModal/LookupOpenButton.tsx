@@ -27,6 +27,8 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   const [showModal, setShowModal] = useState(false)
   const [options, setOptions] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+  const [searchKey, setSearchKey] = useState("")
+  const [keepOptionsOpen, setKeepOptionsOpen] = useState(false)
 
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
@@ -82,7 +84,30 @@ export function LookupOpenButton(props: ILookupOpenButton) {
               {...(props.extraProps && props.extraProps.isArray && { mode: "multiple" })}
               listItemHeight={10}
               listHeight={256}
-              onSearch={handleSearch}
+              open={keepOptionsOpen}
+              defaultActiveFirstOption={false}
+              onSearch={debounce((_searchKey) => {
+                setSearchKey(_searchKey)
+              }, 200)}
+              onKeyDown={(event) => {
+                if (event.keyCode === 13 && !(!searchKey || searchKey === "")) {
+                  setKeepOptionsOpen(true)
+                  setOptions([])
+                  handleSearch(searchKey)
+                }
+              }}
+              onMouseDown={() => {
+                setKeepOptionsOpen(true)
+              }}
+              onFocus={() => {
+                setKeepOptionsOpen(true)
+              }}
+              onBlur={() => {
+                setKeepOptionsOpen(false)
+              }}
+              onSelect={() => {
+                setKeepOptionsOpen(false)
+              }}
             >
               {Array.isArray(options) &&
                 options.map((x, i) => (
