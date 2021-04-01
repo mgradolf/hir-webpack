@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Radio, Switch, InputNumber } from "antd"
+import { Form, Card, Button, Select } from "antd"
 import {
   getGLAccountTypes,
   getFinancialCategoryType,
@@ -19,6 +19,11 @@ import {
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FINANCIAL_BASIS_TYPE_PER_UNIT_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 
 interface ICreateFormProps {
   applyToID: number
@@ -36,9 +41,7 @@ const layout = {
   wrapperCol: { span: 12 }
 }
 export default function FinancialForm(props: ICreateFormProps) {
-  const [financialCategoryTypes, setFinancialCategoryTypes] = useState<Array<any>>([])
   const [financialBasisTypes, setFinancialBasisTypes] = useState<Array<any>>([])
-  const [glAccountTypes, setGlAccountTypes] = useState<Array<any>>([])
   const [financialTypeId, setfinancialTypeId] = useState(1)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
@@ -46,24 +49,12 @@ export default function FinancialForm(props: ICreateFormProps) {
     props.formInstance.setFieldsValue({ [props.fieldNames.ApplyToID]: props.applyToID })
     props.formInstance.setFieldsValue({ [props.fieldNames.FinancialTypeID]: financialTypeId })
     ;(async () => {
-      const response = await getFinancialCategoryType()
-      if (response && response.success && response.data) {
-        setFinancialCategoryTypes(response.data)
-      }
-    })()
-    ;(async () => {
       const response = await getFinancialBasisType()
       if (response && response.success && response.data) {
         if (props.financialType === FINANCIAL_TYPE_FACULTY) {
           response.data = response.data.filter((x: any) => x.ID === FINANCIAL_BASIS_TYPE_PER_UNIT_ID)
         }
         setFinancialBasisTypes(response.data)
-      }
-    })()
-    ;(async () => {
-      const response = await getGLAccountTypes()
-      if (response && response.success && response.data) {
-        setGlAccountTypes(response.data)
       }
     })()
     ;(async () => {
@@ -112,39 +103,47 @@ export default function FinancialForm(props: ICreateFormProps) {
     >
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <OldFormError errorMessages={errorMessages} />
-        <Form.Item className="hidden" name={props.fieldNames.FinancialID}>
-          <Input aria-label="Financial ID" value={props.financialID ? props.financialID : undefined} />
-        </Form.Item>
+        <FormInput
+          label={"FinancialID"}
+          fieldName={props.fieldNames.FinancialID}
+          formInstance={props.formInstance}
+          defaultValue={props.financialID}
+          hidden
+        />
 
-        <Form.Item className="hidden" name={props.fieldNames.FinancialTypeID}>
-          <Input aria-label="Financial Type" value={financialTypeId} />
-        </Form.Item>
+        <FormInput
+          label={"FinancialTypeID"}
+          fieldName={props.fieldNames.FinancialTypeID}
+          formInstance={props.formInstance}
+          defaultValue={financialTypeId}
+          hidden
+        />
 
-        <Form.Item className="hidden" name={props.fieldNames.ApplyToID}>
-          <Input aria-label="Offering ID" value={props.applyToID} />
-        </Form.Item>
+        <FormInput
+          label={"OfferingID"}
+          fieldName={props.fieldNames.ApplyToID}
+          formInstance={props.formInstance}
+          defaultValue={props.applyToID}
+          hidden
+        />
 
-        <Form.Item
-          label="Category"
-          name={props.fieldNames.FinancialCategoryTypeID}
-          {...layout}
+        <FormDropDown
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"Category"}
+          ariaLabel={"Category Select"}
+          formInstance={props.formInstance}
+          fieldName={props.fieldNames.FinancialCategoryTypeID}
+          refLookupService={getFinancialCategoryType}
+          displayKey="Name"
+          valueKey="ID"
           rules={[
             {
               required: true,
               message: "Please select category type!"
             }
           ]}
-        >
-          <Select aria-label="Category Select">
-            {financialCategoryTypes.map((x) => {
-              return (
-                <Select.Option key={x.ID + x.Name} value={x.ID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
+        />
 
         <Form.Item
           label="Basis"
@@ -168,44 +167,59 @@ export default function FinancialForm(props: ICreateFormProps) {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Description" {...layout} name={props.fieldNames.Description}>
-          <Input aria-label="Description" />
-        </Form.Item>
+        <FormTextArea
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"Description"}
+          fieldName={props.fieldNames.Description}
+          formInstance={props.formInstance}
+          rules={[
+            {
+              required: true,
+              message: "Please enter description!"
+            }
+          ]}
+        />
 
-        <Form.Item label="GL Accounts" {...layout} name={props.fieldNames.GLAccountID}>
-          <Select aria-label="GL Accounts">
-            {glAccountTypes.map((x) => {
-              return <Select.Option key={x.ID + x.Name} value={x.ID}>{`${x.Name} (${x.Description})`}</Select.Option>
-            })}
-          </Select>
-        </Form.Item>
+        <FormDropDown
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"GL Accounts"}
+          ariaLabel={"GL Accounts Select"}
+          formInstance={props.formInstance}
+          fieldName={props.fieldNames.GLAccountID}
+          refLookupService={getGLAccountTypes}
+          displayKey="Name"
+          valueKey="ID"
+        />
 
-        <Form.Item
-          label="Amount"
-          {...layout}
-          name={props.fieldNames.ItemUnitAmount}
+        <FormInputNumber
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"Amount"}
+          fieldName={props.fieldNames.ItemUnitAmount}
+          formInstance={props.formInstance}
           rules={[
             {
               required: true,
               message: "Please enter an amount!"
             }
           ]}
-        >
-          <InputNumber
-            style={{ width: "250px" }}
-            aria-label="Amount"
-            max={999999}
-            formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            parser={(value) => (value !== undefined ? value.replace(/\$\s?|(,*)/g, "") : "")}
-          />
-        </Form.Item>
+        />
 
-        <Form.Item label="Type" {...layout} name={props.fieldNames.IsCharge}>
-          <Radio.Group aria-label="Type" disabled={props.initialFormValue.IsCharge !== undefined}>
-            <Radio value={true}>Income</Radio>
-            <Radio value={false}>Expense</Radio>
-          </Radio.Group>
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={6}
+          wrapperColSpan={12}
+          formInstance={props.formInstance}
+          label={"Type"}
+          ariaLabel={"Is Type"}
+          fieldName={props.fieldNames.IsCharge}
+          options={[
+            { label: "Income", value: true },
+            { label: "Expense", value: false }
+          ]}
+          disabled={props.initialFormValue.IsCharge !== undefined}
+        />
 
         {/* <Form.Item name={props.fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
           <Switch
@@ -219,9 +233,19 @@ export default function FinancialForm(props: ICreateFormProps) {
             defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsTaxable)}
           />
         </Form.Item> */}
-        <Form.Item name={props.fieldNames.IsActive} label="Active" {...layout} valuePropName="checked">
-          <Switch aria-label="Is Active" defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)} />
-        </Form.Item>
+
+        <FormMultipleRadio
+          labelColSpan={6}
+          wrapperColSpan={12}
+          formInstance={props.formInstance}
+          label={"Active"}
+          ariaLabel={"Is Active"}
+          fieldName={props.fieldNames.IsActive}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
 
         {/* <Form.Item label="Weight" {...layout} name={props.fieldNames.Weight}>
           <Input aria-label="Weight" type="number" min={0} />

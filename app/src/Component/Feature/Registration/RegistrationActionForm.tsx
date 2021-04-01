@@ -104,8 +104,6 @@ export default function RegistrationActionForm(props: IRegistrationFormProps) {
     if (params["IsRefund"]) {
       params["CreditMemoData"] = creditMemoData
     }
-    console.log("Params: ", params)
-    console.log("Action name: ", actionName)
 
     type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
     const serviceMethoToCall: serviceMethodType =

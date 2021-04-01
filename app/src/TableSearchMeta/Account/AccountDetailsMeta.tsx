@@ -23,9 +23,9 @@ import { PackageFormMeta } from "~/Component/Feature/Package/FormMeta/PackageFor
 import { savePackage } from "~/ApiServices/Service/PackageService"
 import { IField } from "~/Component/Common/Form/common"
 import AccountQuestionTab from "~/Component/Feature/Account/AccountQuestionTab"
-import { AccountMergeFormModalOpenButton } from "~/Component/Account/Forms/AccountMergeFormModal"
-import { AccountEmailSetupForm } from "~/Component/Account/Forms/AccountEmailSetupForm"
-import { AccountRemoveLink } from "~/Component/Account/AccountRemoveLink"
+import { AccountMergeFormModalOpenButton } from "~/Component/Feature/Account/Forms/AccountMergeFormModal"
+import { AccountEmailSetupForm } from "~/Component/Feature/Account/Forms/AccountEmailSetupForm"
+import { AccountRemoveLink } from "~/Component/Feature/Account/AccountRemoveLink"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []

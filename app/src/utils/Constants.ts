@@ -6,10 +6,20 @@ export const DATE_TIME_FORMAT = "MM/DD/YYYY hh:mm A"
 export const REQUEST_DATE_TIME_FORMAT = "YYYY-MM-DD hh:mm A"
 export const DATE_TIME = ""
 
+export const OFFERING_TRMINATION_TIME = {
+  DATE: "Date",
+  TERM: "Term",
+  DURATION: "Duration"
+}
+
 export const SECTION_STATUS_CODE = {
   PRELIMINARY: 0,
   COMPLETED: 4,
   CANCELLED: 1000
+}
+
+export const OFFERING_STATUS_CODE = {
+  PRELIMINARY: 0
 }
 
 export const PERSON_ROLE = {
@@ -209,6 +219,7 @@ export const UNLOCK_WEB_LOGIN = "Unlock person login done!"
 
 export const MERGE_SUCCESSFULLY = "Successfully merged!"
 export const SAVE_SUCCESSFULLY = "Successfully saved!"
+export const UPDATE_SUCCESSFULLY = "Successfully updated!"
 export const DELETE_SUCCESSFULLY = "Successfully deleted!"
 export const REQUEST_SUCCESSFULLY = "Successfully requested!"
 export const CREATE_SUCCESSFULLY = "Successfully created!"
@@ -245,3 +256,5 @@ export const PERSON_CONTACT_PEFERRED_POSITION = 1
 export const PAY_LATER_ALLOWED = 1
 export const PAY_LATER_WITH_PO = 2
 export const PAY_LATER_NOT_ALLOWED = -1
+
+export const PAYMENT_GATEWAY_ACCOUNT_ID_STUB = 9

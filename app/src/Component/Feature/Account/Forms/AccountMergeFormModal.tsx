@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import AccountMergeForm from "~/Component/Account/Forms/AccountMergeForm"
+import AccountMergeForm from "~/Component/Feature/Account/Forms/AccountMergeForm"
 import { Button, Tooltip } from "antd"
 import { MergeCellsOutlined } from "@ant-design/icons"
 

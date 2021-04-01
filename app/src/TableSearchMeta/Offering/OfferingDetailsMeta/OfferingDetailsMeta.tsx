@@ -4,17 +4,19 @@ import {
   REFRESH_OFFERING_CATALOG_PAGE,
   REFRESH_OFFERING_FINANCIAL_PAGE,
   REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
+  REFRESH_PAGE,
   REFRESH_SECTION_PAGE
 } from "~/utils/EventBus"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
-import OfferingEditLink from "~/Component/Feature/Offering/CreateEdit/OfferingEditLink"
+import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
+// import OfferingEditLink from "~/Component/Feature/Offering/CreateEdit/OfferingEditLink"
+import { OfferingEditLink } from "~/Component/Feature/Offering/OfferingEditLink"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import SectionFormModal from "~/Component/Feature/Section/CreateEdit/SectionFormModal"
-import { Button } from "antd"
+import { Button, Typography } from "antd"
 import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
 import { AddInstructorButton } from "~/Component/Feature/Offering/QualifiedInstructor/AddInstructorButton"
@@ -24,38 +26,70 @@ import RequisitePage from "~/Pages/Manage/Courses/Offering/Requisite/RequisitePa
 import { getOfferingApprovalTableColumns } from "~/TableSearchMeta/OfferingApproval/ApprovalTableColumns"
 import OfferingApprovalModalOpenButton from "~/Component/Feature/Offering/Approval/OfferingApprovalModalOpenButton"
 import OfferingRemoveLink from "~/Component/Feature/Offering/CreateEdit/OfferingRemoveLink"
-import "~/Sass/utils.scss"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
 import { FINANCIAL_OFFERING_TYPE_ID, FINANCIAL_TYPE_OFFERING } from "~/utils/Constants"
 import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
 import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingTableColumn"
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
+import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
+import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
+import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
+import { OfferingGatewayFormMeta } from "~/Component/Feature/Offering/FormMeta/OfferingGatewayFormMeta"
+import { updateOffering } from "~/ApiServices/Service/OfferingService"
+import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
-  const summary: CardContainer = {
+  const basicInfo: CardContainer = {
+    title: "Basic Info",
     cardActions: [
-      <OfferingEditLink OfferingId={offering.OfferingID} />,
+      <OfferingEditLink component={SecondStepForm} initialValues={offering} />,
       <OfferingRemoveLink OfferingId={offering.OfferingID} />
     ],
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },
-      { label: "Offering Type", value: offering.OfferingTypeName, render: undefined },
       { label: "Description", value: offering.OfferingDescription, render: undefined },
-      { label: "URL", value: offering.URL, render: undefined },
+      { label: "URL", value: offering.URL, render: (text: any) => renderLink(text, text) },
       { label: "Creation Date", value: offering.CreationDate, render: renderDate },
+      { label: "Creation Term", value: offering.StartTermName, render: undefined },
       { label: "Termination Date", value: offering.TerminationDate, render: renderDate },
-      { label: "Duration/Term", value: offering.StartTermName, render: undefined },
+      { label: "Termination Term", value: offering.EndTermName, render: undefined }
+    ]
+  }
+
+  const characteristicsInfo: CardContainer = {
+    title: "Core Characteristics",
+    cardActions: [<OfferingEditLink component={ThirdStepForm} initialValues={offering} />],
+    contents: [
       { label: "Offering Status ", value: offering.StatusCode, render: undefined },
       { label: "Department", value: offering.OrganizationName, render: undefined },
       { label: "Quick Admit", value: offering.IsQuickAdmit, render: renderBoolean },
       { label: "Approval Process", value: offering.HasApprovalProcess, render: renderBoolean },
       { label: "Inquiry Recipient", value: offering.SubmitInquiryToName, render: undefined },
-      { label: "Selected Gateway", value: offering.PaymentGatewayAccountName, render: undefined },
+      // { label: "Payment Gateway", value: offering.PaymentGatewayAccountName },
+      {
+        label: "Payment Gateway",
+        value: (
+          <>
+            <Typography.Text>{offering.PaymentGatewayAccountName}</Typography.Text>
+            <MetaDrivenFormModalOpenButton
+              formTitle="Update Gateway"
+              formMeta={OfferingGatewayFormMeta}
+              formSubmitApi={updateOffering}
+              initialFormValue={offering}
+              buttonLabel="Change"
+              style={{ float: "right" }}
+              defaultFormValue={{ OfferingID: offering.OfferingID }}
+              refreshEventName={REFRESH_PAGE}
+            />
+          </>
+        )
+      },
       { label: "Default Section Type", value: offering.SectionTypeName, render: undefined }
     ]
   }
+
   const summaryMeta: IDetailsSummary = {
-    summary: [summary]
+    summary: [basicInfo, characteristicsInfo]
   }
 
   const SectionFormModalOpenButton = (props: { OfferingID: number }) => {

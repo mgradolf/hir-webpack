@@ -7,7 +7,6 @@ import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/Crea
 
 export function OfferingPage() {
   const [showModal, setShowModal] = useState(false)
-
   return (
     <SearchPage
       blocks={[
