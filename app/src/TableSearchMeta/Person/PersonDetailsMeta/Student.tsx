@@ -25,11 +25,11 @@ import {
 } from "~/utils/EventBus"
 import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { COMMENT_TYPES, DELETE_SUCCESSFULLY } from "~/utils/Constants"
-import { Button } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { StudentHoldFormMeta } from "~/Component/Feature/Student/FormMeta/StudentHoldFormMeta"
 import { StudentFormMeta } from "~/Component/Feature/Student/FormMeta/StudentFormMeta"
 import { getStudentHoldTableColumns } from "~/TableSearchMeta/StudentHold/StudentHoldTableColumns"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 import Notification from "~/utils/notification"
 
 const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any } }) => {
@@ -37,11 +37,7 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
 
   return (
     <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          Edit
-        </Button>
-      )}
+      <CreateEditRemoveIconButton toolTip="Edit Student Info" iconType="edit" onClick={() => setShowModal(true)} />
       {showModal && (
         <MetaDrivenFormModal
           meta={StudentFormMeta}
@@ -58,10 +54,9 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
           closeModal={() => setShowModal(false)}
         />
       )}
-      <Button
-        danger
-        style={{ marginLeft: "5px" }}
-        type="primary"
+      <CreateEditRemoveIconButton
+        toolTip="Delete Student Info"
+        iconType="remove"
         onClick={async () => {
           const response = await removeStudent({ StudentID: props.studentData.StudentID })
           if (response && response.success) {
@@ -69,9 +64,7 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
             eventBus.publish(REFRESH_PAGE)
           }
         }}
-      >
-        Remove
-      </Button>
+      />
     </>
   )
 }
@@ -81,9 +74,11 @@ const HoldFormModalOpenButton = (props: { StudentID: number }) => {
   return (
     <>
       {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          + Apply Hold
-        </Button>
+        <CreateEditRemoveIconButton
+          toolTip="Apply Hold"
+          iconType="create"
+          onClick={() => setShowModal && setShowModal(true)}
+        />
       )}
       {showModal && (
         <MetaDrivenFormModal

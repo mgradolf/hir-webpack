@@ -1,6 +1,6 @@
 import React from "react"
-import { Button, Dropdown, Menu } from "antd"
-import { DownCircleFilled } from "@ant-design/icons"
+import { Button, Dropdown, Menu, Tooltip } from "antd"
+import { DownOutlined } from "@ant-design/icons"
 import { IApiResponse, RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 
 export const DownloadButton = (props: {
@@ -27,34 +27,31 @@ export const DownloadButton = (props: {
     })
   }
   return (
-    <Dropdown
-      overlay={
-        <Menu>
-          <Menu.Item>
-            <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.CSV)}>
-              CSV
-            </Button>
-          </Menu.Item>
-          <Menu.Item>
-            <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.EXCEL)}>
-              Excel
-            </Button>
-          </Menu.Item>
-        </Menu>
-      }
-      trigger={["click"]}
-    >
-      <DownCircleFilled
-        style={{
-          color: "#1990ff",
-          fontSize: "20px",
-          paddingTop: "10px",
-          paddingRight: "10px",
-          paddingBottom: "10px"
-        }}
-        disabled={props.downloading}
-        onClick={(e) => e.preventDefault()}
-      />
-    </Dropdown>
+    <Tooltip title="Download Table Data">
+      <Dropdown
+        overlay={
+          <Menu>
+            <Menu.Item>
+              <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.CSV)}>
+                CSV
+              </Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.EXCEL)}>
+                Excel
+              </Button>
+            </Menu.Item>
+          </Menu>
+        }
+        trigger={["click"]}
+      >
+        <Button
+          type="primary"
+          shape="circle"
+          style={{ marginTop: "10px", marginRight: "10px", marginBottom: "10px" }}
+          icon={<DownOutlined disabled={props.downloading} onClick={(e) => e.preventDefault()} />}
+        />
+      </Dropdown>
+    </Tooltip>
   )
 }

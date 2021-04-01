@@ -59,7 +59,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   const tabMetas: IDetailsTabMeta[] = []
   const personalInfo1: CardContainer = {
     title: "Name",
-    cardActions: [<HelpButton helpKey="personDemographicTab" />, <BasicFormModalOpenButton personData={person} />],
+    cardActions: [<BasicFormModalOpenButton iconType="edit" personData={person} />],
     contents: [
       { label: "Prefix", value: person.Prefix, render: undefined },
       { label: "First Name", value: person.FirstName, render: undefined },
@@ -79,7 +79,8 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         formMeta={PersonTypeFormMeta}
         formSubmitApi={pushPerson}
         initialFormValue={person}
-        buttonLabel="Edit"
+        buttonLabel="Update Person General Info"
+        iconType="edit"
         defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
       />
@@ -108,7 +109,8 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         formMeta={PersonGovFormMeta}
         formSubmitApi={pushPerson}
         initialFormValue={person}
-        buttonLabel="Edit"
+        buttonLabel="Update Person Gov Info"
+        iconType="edit"
         defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
       />
@@ -136,13 +138,14 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
       { groupedContents: [personalInfo1, personalInfo3] },
       { groupedContents: [personalInfo2, personalInfo4] },
       profileQuestion(profileQuestions)
-    ]
+    ],
+    actions: [<HelpButton helpKey="personDemographicTab" />]
   }
   tabMetas.push({ tabTitle: "Demographic", tabType: "summary", tabMeta: demographySummaryMeta })
 
   const address: CardContainer = {
     title: "Address",
-    cardActions: [<AddressFormModalOpenButton personData={person} />],
+    cardActions: [<AddressFormModalOpenButton personData={person} iconType="create" />],
     contents: Array.isArray(person.Addresses)
       ? person.Addresses.map((x: any) => {
           return {
@@ -189,7 +192,8 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         formTitle="Add Phone"
         formMeta={PersonPhoneFormMeta}
         formSubmitApi={pushPersonPhone}
-        buttonLabel="Add"
+        buttonLabel="Add Phone"
+        iconType="create"
         initialFormValue={{ IsConfidential: false, IsPreferred: false }}
         defaultFormValue={{ PersonID: person.PersonID }}
         refreshEventName={REFRESH_PAGE}
@@ -228,13 +232,13 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   const email: CardContainer = {
     title: "Email",
     cardActions: [
-      <HelpButton helpKey="personContactInfoTab" />,
       <MetaDrivenFormModalOpenButton
         formTitle="Add Email Address"
         formMeta={PersonEmailFormMeta}
         formMetaName="PersonEmailFormMeta"
         formSubmitApi={pushPersonEmail}
-        buttonLabel="Add"
+        buttonLabel="Add Email"
+        iconType="create"
         initialFormValue={{ IsConfidential: false, IsPreferred: false }}
         defaultFormValue={{ PersonID: person.PersonID }}
         refreshEventName={REFRESH_PAGE}
@@ -269,7 +273,8 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   }
 
   const contactMeta: IDetailsSummary = {
-    summary: [{ groupedContents: [email, phone] }, address]
+    summary: [{ groupedContents: [email, phone] }, address],
+    actions: [<HelpButton helpKey="personContactInfoTab" />]
   }
   tabMetas.push({ tabTitle: "Contact Info", tabType: "summary", tabMeta: contactMeta })
 
@@ -311,7 +316,8 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     tabTitle: "Web Login",
     tabType: "summary",
     tabMeta: {
-      summary: [login]
+      summary: [login],
+      actions: [<HelpButton helpKey="personWebLoginTab" />]
     }
   })
 

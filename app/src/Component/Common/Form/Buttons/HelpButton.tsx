@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { Button } from "antd"
 import { getHelpConfig } from "~/Help/getHelpConfig"
+import { QuestionOutlined } from "@ant-design/icons"
+import { Button, Tooltip } from "antd"
 
 export function HelpButton(props: { helpKey?: string }) {
   const [helpUrl, setHelpUrl] = useState<string>()
@@ -14,9 +15,9 @@ export function HelpButton(props: { helpKey?: string }) {
   return (
     <>
       {helpUrl && (
-        <Button type="link" onClick={() => window.open(helpUrl)}>
-          help
-        </Button>
+        <Tooltip title="Help">
+          <Button icon={<QuestionOutlined />} type="primary" shape="circle" onClick={() => window.open(helpUrl)} />
+        </Tooltip>
       )}
     </>
   )

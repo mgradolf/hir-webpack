@@ -12,7 +12,7 @@ export function OfferingPage() {
     <SearchPage
       blocks={[
         <>
-          <CreateEditRemoveIconButton iconType="create" onClick={() => setShowModal(true)} />
+          <CreateEditRemoveIconButton toolTip="Create Offering" iconType="create" onClick={() => setShowModal(true)} />
           {showModal && <OfferingFormModal closeModal={() => setShowModal(false)} />}
         </>
       ]}

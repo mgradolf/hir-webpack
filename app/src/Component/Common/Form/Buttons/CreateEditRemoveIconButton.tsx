@@ -1,5 +1,6 @@
 import React from "react"
-import { PlusCircleFilled, EditFilled, DeleteFilled } from "@ant-design/icons"
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"
+import { Button, Tooltip } from "antd"
 
 export type iconType = "create" | "edit" | "remove"
 
@@ -7,6 +8,8 @@ export const CreateEditRemoveIconButton = (props: {
   onClick: () => void
   iconType: iconType
   inProgress?: boolean
+  toolTip: string
+  disabled?: boolean
 }) => {
   const onClick = () => {
     if (props.iconType === "remove") {
@@ -17,45 +20,46 @@ export const CreateEditRemoveIconButton = (props: {
       props.onClick()
     }
   }
-  if (props.iconType === "create")
-    return (
-      <PlusCircleFilled
-        style={{
-          color: "#1990ff",
-          fontSize: "20px",
-          // paddingTop: "10px",
-          paddingRight: "10px",
-          paddingBottom: "10px"
-        }}
-        onClick={onClick}
-      />
-    )
-  else if (props.iconType === "edit") {
-    return (
-      <EditFilled
-        style={{
-          color: "#1990ff",
-          fontSize: "20px",
-          // paddingTop: "10px",
-          paddingRight: "10px",
-          paddingBottom: "10px"
-        }}
-        onClick={onClick}
-      />
-    )
-  } else if (props.iconType === "remove") {
-    return (
-      <DeleteFilled
-        style={{
-          color: "#ff4d4f",
-          fontSize: "20px",
-          // paddingTop: "10px",
-          paddingRight: "10px",
-          paddingBottom: "10px"
-        }}
-        onClick={onClick}
-      />
-    )
+
+  let _button: JSX.Element = <></>
+  switch (props.iconType) {
+    case "create":
+      _button = (
+        <Button
+          aria-label={props.toolTip}
+          icon={<PlusOutlined />}
+          shape="circle"
+          onClick={onClick}
+          type="primary"
+          disabled={props.disabled}
+        />
+      )
+      break
+    case "edit":
+      _button = (
+        <Button
+          aria-label={props.toolTip}
+          icon={<EditOutlined />}
+          shape="circle"
+          onClick={onClick}
+          type="primary"
+          disabled={props.disabled}
+        />
+      )
+      break
+    case "remove":
+      _button = (
+        <Button
+          aria-label={props.toolTip}
+          icon={<DeleteOutlined />}
+          shape="circle"
+          onClick={onClick}
+          danger
+          type="primary"
+          disabled={props.disabled}
+        />
+      )
+      break
   }
-  return null
+  return <Tooltip title={props.toolTip}>{_button}</Tooltip>
 }

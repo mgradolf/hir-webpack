@@ -160,6 +160,10 @@ const createMetaDrivenFormConfigs = () => {
 	});
 
 	createNewFile("/Config", "fileMap", fileMap);
+	fs.copyFileSync(
+		"../../app/src/Help/helpConfig.json",
+		"./Config/helpConfig.json"
+	);
 };
 
 createMetaDrivenFormConfigs();

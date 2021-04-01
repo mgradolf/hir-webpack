@@ -184,7 +184,7 @@ const DueDatePolicyFormOpenButton = (props: { iconType: iconType; ID?: number; r
       loading={loading}
       errorMessages={errorMessages}
       buttonLabel={props.ID ? "Update" : "+ Add"}
-      buttonIcon={props.iconType}
+      iconType={props.iconType}
       buttonProps={{ type: props.ID ? "ghost" : "primary" }}
     />
   )

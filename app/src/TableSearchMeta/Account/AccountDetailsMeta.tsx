@@ -32,6 +32,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
   const summary: CardContainer = {
     cardActions: [
       <MetaDrivenFormModalOpenButton
+        iconType="edit"
         formTitle="Update Account"
         formMeta={AccountFormMeta.map((x: IField) => {
           if (x.fieldName === "AccountTypeID") return { ...x, disabled: true }
@@ -44,7 +45,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
           AllowToPayLater: account.AllowPayLateDescription,
           FEID: account.TaxID
         }}
-        buttonLabel="Edit"
+        buttonLabel="Update Account"
         defaultFormValue={{
           AccountID: account.AccountID,
           oca: account.oca
@@ -81,7 +82,13 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Contacts",
     tabType: "table",
     tabMeta: {
-      blocks: [<AccountContactFormOpenButton editMode={false} initialValues={{ AccountID: account.AccountID }} />],
+      blocks: [
+        <AccountContactFormOpenButton
+          iconType="create"
+          editMode={false}
+          initialValues={{ AccountID: account.AccountID }}
+        />
+      ],
       tableProps: {
         pagination: false,
         ...getAccountAffiliationTableColumn(),

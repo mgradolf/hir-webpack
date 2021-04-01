@@ -6,9 +6,9 @@ import { CreateEditRemoveIconButton, iconType } from "~/Component/Common/Form/Bu
 
 export interface ICustomFormModalOpenButton extends Omit<ICustomFormModal, "closeModal"> {
   style?: CSSProperties
+  buttonLabel: string
   buttonProps?: BaseButtonProps
-  buttonLabel?: string
-  buttonIcon?: iconType
+  iconType?: iconType
 }
 
 export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => {
@@ -16,9 +16,13 @@ export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => 
   const [showModal, setShowModal] = useState(false)
   let ButtonType: JSX.Element
 
-  if (props.buttonIcon) {
+  if (props.iconType) {
     ButtonType = (
-      <CreateEditRemoveIconButton iconType={props.buttonIcon} onClick={() => setShowModal && setShowModal(true)} />
+      <CreateEditRemoveIconButton
+        toolTip={props.buttonLabel}
+        iconType={props.iconType}
+        onClick={() => setShowModal && setShowModal(true)}
+      />
     )
   } else {
     ButtonType = (

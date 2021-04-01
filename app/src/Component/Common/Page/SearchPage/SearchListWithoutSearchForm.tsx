@@ -2,14 +2,14 @@ import React from "react"
 import { Col, Row, Typography } from "antd"
 import styles from "~/Component/Feature/Offering/OfferingFilterOpenButton.module.scss"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
-import { HelpModal } from "~/Component/Common/Modal/HelpModal"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]
   title: string
   tableProps: IDataTableProps
   defaultFormValue?: { [key: string]: string }
-  helpUrl?: string
+  helpKey?: string
 }
 
 export default function SearchListWithoutSearchForm(props: ISearchListWithHiddenSearchFormProp) {
@@ -22,9 +22,9 @@ export default function SearchListWithoutSearchForm(props: ISearchListWithHidden
       </Row>
       <Row justify="end" gutter={[8, 8]}>
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
-        {props.helpUrl && (
+        {props.helpKey && (
           <Col>
-            <HelpModal helpUrl={props.helpUrl} />
+            <HelpButton helpKey={props.helpKey} />
           </Col>
         )}
       </Row>

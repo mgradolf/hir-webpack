@@ -45,7 +45,6 @@ export function MetaDrivenForm({
   title?: React.ReactNode
   loading?: boolean
   isModal?: boolean
-  helpUrl?: string
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
@@ -196,14 +195,6 @@ export function MetaDrivenForm({
       loading={props.loading}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
-          {props.helpUrl && (
-            <Col>
-              {/* <HelpModal helpUrl={props.helpUrl} /> */}
-              <Button type="link" onClick={() => window.open(props.helpUrl)}>
-                help
-              </Button>
-            </Col>
-          )}
           {!props.closeModal && meta.length > 4 && (
             <Col>
               <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>

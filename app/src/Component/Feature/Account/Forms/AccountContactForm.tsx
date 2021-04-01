@@ -23,6 +23,7 @@ import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
 import { eventBus } from "~/utils/EventBus"
+import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface IAccountContactFormProps {
   editMode: boolean
@@ -280,7 +281,11 @@ function AccountContactForm(props: IAccountContactFormProps) {
   )
 }
 
-export function AccountContactFormOpenButton(props: { editMode: boolean; initialValues: { [key: string]: any } }) {
+export function AccountContactFormOpenButton(props: {
+  editMode: boolean
+  iconType?: iconType
+  initialValues: { [key: string]: any }
+}) {
   const [loading] = useState(false)
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -327,6 +332,7 @@ export function AccountContactFormOpenButton(props: { editMode: boolean; initial
       onFormSubmission={onFormSubmission}
       initialValues={initialValues}
       apiCallInProgress={apiCallInProgress}
+      iconType={props.iconType}
       loading={loading}
       errorMessages={errorMessages}
       buttonLabel={props.editMode ? "Edit" : "+ Add Contact"}

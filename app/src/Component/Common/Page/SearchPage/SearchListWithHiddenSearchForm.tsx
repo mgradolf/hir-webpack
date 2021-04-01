@@ -5,7 +5,7 @@ import styles from "~/Component/Feature/Offering/OfferingFilterOpenButton.module
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
-import { HelpModal } from "~/Component/Common/Modal/HelpModal"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export interface ISearchListWithHiddenSearchFormProp {
   blocks?: JSX.Element[]
@@ -15,7 +15,7 @@ export interface ISearchListWithHiddenSearchFormProp {
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
-  helpUrl?: string
+  helpKey?: string
 }
 
 export default function SearchListWithHiddenSearchForm(props: ISearchListWithHiddenSearchFormProp) {
@@ -41,9 +41,9 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
             </Button>
           )}
         </Col>
-        {props.helpUrl && (
+        {props.helpKey && (
           <Col>
-            <HelpModal helpUrl={props.helpUrl} />
+            <HelpButton helpKey={props.helpKey} />
           </Col>
         )}
         {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
@@ -52,7 +52,6 @@ export default function SearchListWithHiddenSearchForm(props: ISearchListWithHid
         {props.meta && (
           <MetaDrivenForm
             title={<Typography.Title level={3}>{props.title}</Typography.Title>}
-            helpUrl={props.helpUrl}
             meta={props.meta}
             metaName={props.metaName}
             initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}

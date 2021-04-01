@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { IPersonBasicFieldNames } from "~/Component/Feature/Person/Interfaces"
 import PersonBasicForm from "~/Component/Feature/Person/Forms/CreateEdit/PersonBasicForm"
+import { CreateEditRemoveIconButton, iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface IPersonBasicFormModalProps {
   initialData: { [key: string]: any }
@@ -39,12 +40,18 @@ function PersonBasicFormModal(props: IPersonBasicFormModalProps) {
   )
 }
 
-export const BasicFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
+export const BasicFormModalOpenButton = (props: { personData: { [key: string]: any }; iconType?: iconType }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+      {props.iconType ? (
+        <CreateEditRemoveIconButton
+          iconType={props.iconType}
+          toolTip={"Update Basic Profile Data"}
+          onClick={() => setShowModal(true)}
+        />
+      ) : (
+        <Button type="primary" onClick={() => setShowModal(true)}>
           Edit
         </Button>
       )}

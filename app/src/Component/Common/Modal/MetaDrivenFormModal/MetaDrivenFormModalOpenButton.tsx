@@ -4,9 +4,11 @@ import { BaseButtonProps } from "antd/lib/button/button"
 import React, { useState } from "react"
 import { IField } from "~/Component/Common/Form/common"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
+import { CreateEditRemoveIconButton, iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface IMetaDrivenFormModalOpenButton {
-  buttonLabel?: string
+  buttonLabel: string
+  iconType?: iconType
   buttonProps?: BaseButtonProps
   formTitle: string
   formMeta: IField[]
@@ -20,7 +22,15 @@ export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenBut
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button type="primary" {...props.buttonProps} onClick={() => setShowModal(true)} children={props.buttonLabel} />
+      {props.iconType ? (
+        <CreateEditRemoveIconButton
+          iconType={props.iconType}
+          onClick={() => setShowModal(true)}
+          toolTip={props.buttonLabel}
+        />
+      ) : (
+        <Button type="primary" {...props.buttonProps} onClick={() => setShowModal(true)} children={props.buttonLabel} />
+      )}
       {showModal && (
         <MetaDrivenFormModal
           title={props.formTitle}

@@ -241,7 +241,7 @@ export function PersonFormOpenButton(props: {
       errorMessages={errorMessages}
       buttonLabel={`+ ${props.label ? props.label : "Create Person"}`}
       buttonProps={{ type: "primary" }}
-      buttonIcon={props.buttonIcon}
+      iconType={props.buttonIcon}
     />
   )
 }

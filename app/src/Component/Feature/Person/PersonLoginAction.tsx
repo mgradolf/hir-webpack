@@ -11,7 +11,7 @@ import {
 } from "~/ApiServices/BizApi/NTSWebLogin/NTSWebLoginIF"
 import { REFRESH_PAGE } from "~/utils/EventBus"
 import { setupWebLogin } from "~/ApiServices/Service/PersonService"
-import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface IPersonLoginActionProp {
   initialData: { [key: string]: any }
@@ -98,17 +98,12 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
 
   return (
     <Row>
-      <HelpButton helpKey="personWebLoginTab" />
-      {setShowModal && (
-        <Button
-          disabled={!isLogin}
-          type="primary"
-          style={{ marginRight: "10px" }}
-          onClick={() => setShowModal && setShowModal(true)}
-        >
-          Edit
-        </Button>
-      )}
+      <CreateEditRemoveIconButton
+        disabled={!isLogin}
+        toolTip="Edit Login Info"
+        iconType="edit"
+        onClick={() => setShowModal(true)}
+      />
       {showModal && (
         <MetaDrivenFormModal
           meta={PersonLoginFormMeta}
@@ -122,7 +117,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
           closeModal={() => setShowModal(false)}
         ></MetaDrivenFormModal>
       )}
-      <Dropdown.Button overlay={getMenu(props.initialData)} type="primary">
+      <Dropdown.Button style={{ marginLeft: "5px" }} overlay={getMenu(props.initialData)} type="primary">
         Actions
       </Dropdown.Button>
     </Row>

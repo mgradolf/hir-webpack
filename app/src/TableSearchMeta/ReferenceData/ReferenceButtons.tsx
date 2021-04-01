@@ -12,7 +12,11 @@ export function AddRefButton(props: { LookUpName: string; formMeta: IField[]; re
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <CreateEditRemoveIconButton iconType="create" onClick={() => setShowModal(true)} />
+      <CreateEditRemoveIconButton
+        toolTip={`Create ${props.LookUpName}`}
+        iconType="create"
+        onClick={() => setShowModal(true)}
+      />
       {showModal && (
         <MetaDrivenFormModal
           title={`Add new entry on ${props.LookUpName}`}
@@ -43,7 +47,11 @@ export function UpdateRefButton(props: {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <CreateEditRemoveIconButton iconType="edit" onClick={() => setShowModal(true)} />
+      <CreateEditRemoveIconButton
+        toolTip={`Edit ${props.LookUpName}`}
+        iconType="edit"
+        onClick={() => setShowModal(true)}
+      />
       {showModal && (
         <MetaDrivenFormModal
           title={`Update existing entry on ${props.LookUpName}`}
@@ -91,7 +99,12 @@ export function RemoveRefButton(props: {
   return (
     <>
       {disabled && (
-        <CreateEditRemoveIconButton iconType="remove" inProgress={loading} onClick={() => showDeleteConfirm(remove)} />
+        <CreateEditRemoveIconButton
+          toolTip={`Delete ${props.LookUpName}`}
+          iconType="remove"
+          inProgress={loading}
+          onClick={() => showDeleteConfirm(remove)}
+        />
       )}
     </>
   )

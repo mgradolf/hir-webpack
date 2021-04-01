@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, Col, Row, Tooltip } from "antd"
-import { EditOutlined, DeleteOutlined, CheckOutlined } from "@ant-design/icons"
+import { DeleteOutlined, CheckOutlined } from "@ant-design/icons"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IField } from "~/Component/Common/Form/common"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
@@ -56,7 +56,8 @@ export const EditDeleteButtonComboOnTableRow = (props: {
           defaultFormValue={props.editFormDefaultValue}
           formSubmitApi={props.editApi}
           refreshEventName={props.refreshEventName}
-          buttonProps={{ type: "ghost", shape: "circle", icon: <EditOutlined /> }}
+          buttonLabel={`Edit ${props.valueToBeEdited}`}
+          iconType="edit"
         />
         <Tooltip title="Delete">
           <Button

@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { Button } from "antd"
 import { addInstructorToOffering } from "~/ApiServices/Service/InstructorService"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { eventBus, REFRESH_FACULTY_OFFERINGS_TAB } from "~/utils/EventBus"
 import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
 import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface ICreateActionButtonProp {
   FacultyId?: number
@@ -29,9 +29,7 @@ export default function OfferingAddButton(props: ICreateActionButtonProp) {
 
   return (
     <>
-      <Button type="primary" onClick={() => setShowModal(true)}>
-        + Add Offering
-      </Button>
+      <CreateEditRemoveIconButton toolTip="Add Offering" iconType="create" onClick={() => setShowModal(true)} />
       {showModal && (
         <LookupModal
           title="Select Offering"

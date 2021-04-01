@@ -1,14 +1,15 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import AccountMergeForm from "~/Component/Account/Forms/AccountMergeForm"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
+import { MergeCellsOutlined } from "@ant-design/icons"
 
 interface IAccountMergeFormModalProps {
   PrimaryAccount: { [key: string]: any }
   closeModal?: () => void
 }
 
-export default function AccountMergeFormModal(props: IAccountMergeFormModalProps) {
+function AccountMergeFormModal(props: IAccountMergeFormModalProps) {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>(props.PrimaryAccount)
 
@@ -28,9 +29,15 @@ export const AccountMergeFormModalOpenButton = (props: { accountData: { [key: st
   return (
     <>
       {setShowModal && (
-        <Button type="primary" style={{ marginLeft: "10px" }} onClick={() => setShowModal && setShowModal(true)}>
-          Merge
-        </Button>
+        <Tooltip title="Merge Account">
+          <Button
+            type="primary"
+            style={{ marginLeft: "10px", marginRight: "10px" }}
+            shape="circle"
+            onClick={() => setShowModal && setShowModal(true)}
+            icon={<MergeCellsOutlined />}
+          />
+        </Tooltip>
       )}
       {showModal && <AccountMergeFormModal PrimaryAccount={props.accountData} closeModal={() => setShowModal(false)} />}
     </>
