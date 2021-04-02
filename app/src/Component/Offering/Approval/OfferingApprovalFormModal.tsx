@@ -22,7 +22,7 @@ export default function OfferingApprovalFormModal({ closeModal, offeringID }: IO
 
   return (
     <Modal
-      width="800px"
+      width="1000px"
       apiCallInProgress={apiCallInProgress}
       children={
         <>

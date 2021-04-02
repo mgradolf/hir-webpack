@@ -69,7 +69,9 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
         label: "Payment Gateway",
         value: (
           <>
-            <Typography.Text>{offering.PaymentGatewayAccountName}</Typography.Text>
+            <Typography.Text>
+              {offering.PaymentGatewayAccountName != null ? offering.PaymentGatewayAccountName : "Default"}
+            </Typography.Text>
             <MetaDrivenFormModalOpenButton
               formTitle="Update Gateway"
               formMeta={OfferingGatewayFormMeta}

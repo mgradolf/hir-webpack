@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Select } from "antd"
+import { Form, Card, Button, Select, Row, Col } from "antd"
 import {
   getGLAccountTypes,
   getFinancialCategoryType,
@@ -90,16 +90,25 @@ export default function FinancialForm(props: ICreateFormProps) {
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
     <Card
       title={
         props.financialID ? `Edit ${props.financialType} Financial` : `Create New ${props.financialType} Financial`
       }
-      actions={actions}
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
     >
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <OldFormError errorMessages={errorMessages} />
