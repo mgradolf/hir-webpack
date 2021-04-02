@@ -25,7 +25,7 @@ import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/Deta
 import RequisitePage from "~/Pages/Manage/Courses/Offering/Requisite/RequisitePage"
 import { getOfferingApprovalTableColumns } from "~/TableSearchMeta/OfferingApproval/ApprovalTableColumns"
 import OfferingApprovalModalOpenButton from "~/Component/Feature/Offering/Approval/OfferingApprovalModalOpenButton"
-import OfferingRemoveLink from "~/Component/Feature/Offering/CreateEdit/OfferingRemoveLink"
+import { OfferingRemoveLink } from "~/Component/Feature/Offering/OfferingRemoveLink"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
 import { FINANCIAL_OFFERING_TYPE_ID, FINANCIAL_TYPE_OFFERING } from "~/utils/Constants"
 import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
