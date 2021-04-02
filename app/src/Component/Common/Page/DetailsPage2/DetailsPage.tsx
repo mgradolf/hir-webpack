@@ -9,35 +9,28 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { IDetailsPage, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { DetailsPageSubTabSwitch } from "~/Component/Common/Page/DetailsPage2/DetailsTabSwitch"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
+import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 
 export function DetailsPage(props: IDetailsPage) {
   const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState<string>()
   const [error, setError] = useState<IProcessedApiError>()
   const [meta, setMeta] = useState<IDetailsTabMeta[]>([])
-  const [defaultTabKey, setDefaultTabKey] = useState<string>()
-  const [immediatechildTabKey, setImmediatechildTabKey] = useState<string>()
-  const [nextchildTabKeys, setNextchildTabKeys] = useState<string>()
+  const [activeTabKey, setActiveTabKey] = useState<string>()
+
+  const changeActiveTabkey = (key: string) => {
+    setActiveTabKey(key)
+    const _queryString = objectToQueryString({ activeTabKey: `${key}1` })
+    window.history && window.history.pushState({}, "", _queryString)
+  }
 
   useEffect(() => {
     const __defaultTabKey: { [key: string]: any } = querystringToObject()
-    if (__defaultTabKey && __defaultTabKey["defaultTabKey"]) {
-      const key = __defaultTabKey["defaultTabKey"].toString().split("")[0]
-      setDefaultTabKey(key)
-
-      const __immediatechildTabKey = __defaultTabKey["defaultTabKey"]
-        .toString()
-        .split("")
-        .filter((x: any, i: number) => i !== 0)[0]
-
-      setImmediatechildTabKey(__immediatechildTabKey)
-
-      const __nextchildTabKeys = __defaultTabKey["defaultTabKey"]
-        .toString()
-        .split("")
-        .filter((x: any, i: number) => i !== 0 && i !== 1)
-        .join()
-      setNextchildTabKeys(__nextchildTabKeys)
+    if (__defaultTabKey && __defaultTabKey["activeTabKey"]) {
+      const key = __defaultTabKey["activeTabKey"].toString().split("")[0]
+      setActiveTabKey(key)
+    } else {
+      changeActiveTabkey("1")
     }
   }, [])
 
@@ -83,7 +76,8 @@ export function DetailsPage(props: IDetailsPage) {
             </Row>
           )}
           <Tabs
-            defaultActiveKey={defaultTabKey}
+            activeKey={activeTabKey}
+            onChange={changeActiveTabkey}
             type="card"
             size="large"
             tabBarExtraContent={props.actions ? props.actions : []}
@@ -95,8 +89,7 @@ export function DetailsPage(props: IDetailsPage) {
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i}>
                       <DetailsPageSubTabSwitch
-                        immediatechildTabKey={immediatechildTabKey}
-                        nextchildTabKeys={nextchildTabKeys}
+                        tabLevel={1}
                         meta={x.multipleTabMetas}
                         child={<DetailsSummary {...x.tabMeta} />}
                       />
@@ -106,8 +99,7 @@ export function DetailsPage(props: IDetailsPage) {
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i}>
                       <DetailsPageSubTabSwitch
-                        immediatechildTabKey={immediatechildTabKey}
-                        nextchildTabKeys={nextchildTabKeys}
+                        tabLevel={1}
                         meta={x.multipleTabMetas}
                         child={<DetailsSearchTab {...x.tabMeta} />}
                       />
@@ -117,8 +109,7 @@ export function DetailsPage(props: IDetailsPage) {
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i}>
                       <DetailsPageSubTabSwitch
-                        immediatechildTabKey={immediatechildTabKey}
-                        nextchildTabKeys={nextchildTabKeys}
+                        tabLevel={1}
                         meta={x.multipleTabMetas}
                         actions={x.actions}
                         child={<DetailsTableTab {...x.tabMeta} />}
@@ -129,8 +120,7 @@ export function DetailsPage(props: IDetailsPage) {
                   return (
                     <Tabs.TabPane tab={x.tabTitle} key={i}>
                       <DetailsPageSubTabSwitch
-                        immediatechildTabKey={immediatechildTabKey}
-                        nextchildTabKeys={nextchildTabKeys}
+                        tabLevel={1}
                         meta={x.multipleTabMetas}
                         child={<DetailsCustomTab {...x.tabMeta} />}
                       />

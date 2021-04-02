@@ -5,6 +5,8 @@ import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearch
 import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
+import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
+import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 
 export interface IDetailsPageSubTab {
   meta: IDetailsTabMeta
@@ -15,32 +17,36 @@ export function DetailsPageSubTabSwitch(props: {
   meta?: IDetailsTabMeta[]
   child: any
   actions?: JSX.Element[]
-  immediatechildTabKey?: string
-  nextchildTabKeys?: string
+  tabLevel: number
 }) {
-  const [immediatechildTabKey, setImmediatechildTabKey] = useState<string>()
-  const [nextchildTabKeys, setNextchildTabKeys] = useState<string>()
-  useEffect(() => {
-    console.log("props.immediatechildTabKey ", props.immediatechildTabKey)
-    console.log("props.nextchildTabKeys ", props.nextchildTabKeys)
-    if (props.nextchildTabKeys) {
-      const __immediatechildTabKey = props.nextchildTabKeys.toString().split("")[0]
-      setImmediatechildTabKey(__immediatechildTabKey)
+  const [activeTabKey, setActiveTabKey] = useState("1")
 
-      const ___childTabKey = props.nextchildTabKeys
-        .toString()
-        .split("")
-        .filter((x: any, i: number) => i !== 0)
-        .join("")
+  const changeActiveTabkey = (key: string) => {
+    setActiveTabKey(key)
 
-      setNextchildTabKeys(___childTabKey)
+    const activeTabKesFromQueryParams: any = querystringToObject()
+    if (activeTabKesFromQueryParams && activeTabKesFromQueryParams["activeTabKey"]) {
+      const __activeTabKesFromQueryParams = activeTabKesFromQueryParams["activeTabKey"].toString().split("")
+      __activeTabKesFromQueryParams[props.tabLevel] = key
+      activeTabKesFromQueryParams["activeTabKey"] = __activeTabKesFromQueryParams.slice(0, props.tabLevel + 1).join("")
+      const _queryString = objectToQueryString(activeTabKesFromQueryParams)
+      window.history && window.history.pushState({}, "", _queryString)
     }
-  }, [props.immediatechildTabKey, props.nextchildTabKeys])
+  }
+
+  useEffect(() => {
+    const activeTabKesFromQueryParams: { [key: string]: any } = querystringToObject()
+    if (activeTabKesFromQueryParams && activeTabKesFromQueryParams["activeTabKey"]) {
+      const currentActiveTabkey = activeTabKesFromQueryParams["activeTabKey"].toString().split("")[props.tabLevel]
+      setActiveTabKey(currentActiveTabkey)
+    }
+  }, [props.tabLevel])
   return (
     <>
       {props.meta && props.meta.length > 0 ? (
         <Tabs
-          defaultActiveKey={props.immediatechildTabKey}
+          activeKey={activeTabKey}
+          onChange={changeActiveTabkey}
           type="card"
           size="large"
           tabBarExtraContent={props.actions ? props.actions : []}
@@ -63,23 +69,14 @@ export function DetailsPageSubTabSwitch(props: {
               case "table":
                 return (
                   <Tabs.TabPane tab={x.tabTitle} key={i}>
-                    {/* {x && Array.isArray(x.multipleTabMetas) && x.multipleTabMetas.length > 0 ? ( */}
                     <DetailsPageSubTabSwitch
-                      immediatechildTabKey={immediatechildTabKey}
-                      nextchildTabKeys={nextchildTabKeys}
+                      tabLevel={props.tabLevel + 1}
+                      // nextActivechildTabKeys={nextActivechildTabKeys}
                       meta={x.multipleTabMetas}
                       child={<DetailsTableTab {...x.tabMeta} />}
                     />
                   </Tabs.TabPane>
                 )
-              // <Tabs.TabPane tab={x.tabTitle} key={i}>
-              //   <DetailsPageSubTabSwitch
-              //     childTabKey={childTabKey}
-              //     meta={x.multipleTabMetas}
-              //     child={<DetailsTableTab {...x.tabMeta} />}
-              //   />
-              // </Tabs.TabPane>
-              // )
               case "custom":
                 return (
                   <Tabs.TabPane tab={x.tabTitle} key={i}>
