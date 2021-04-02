@@ -1,8 +1,8 @@
 import { Button } from "antd"
 import React, { useState } from "react"
-import ApplyDiscountModal from "~/Component/Section/Order/ApplyDiscountModal"
-import IssueCreditModal from "~/Component/Section/Order/IssueCreditModal"
-import ViewReturnItemsModal from "~/Component/Section/Order/ViewReturnItemsModal"
+import ApplyDiscountModal from "~/Component/Feature/Section/Order/ApplyDiscountModal"
+import IssueCreditModal from "~/Component/Feature/Section/Order/IssueCreditModal"
+import ViewReturnItemsModal from "~/Component/Feature/Section/Order/ViewReturnItemsModal"
 
 export const ViewReturnItemModalOpenButton = (props: { OrderItemID: number; OrderID: number }) => {
   const [showViewReturnItemModal, setShowViewReturnItemModal] = useState(false)

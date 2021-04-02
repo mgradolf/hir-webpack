@@ -6,7 +6,7 @@ import { ResourceSearchMeta } from "~/TableSearchMeta/Resource/ResourceSearchMet
 import { getResourceTableColumns } from "~/TableSearchMeta/Resource/ResourceTableColumns"
 
 interface ILookupOpenButton extends IGeneratedField {
-  valueField?: string
+  valueKey?: string
 }
 export function ResourceLookup(props: ILookupOpenButton) {
   return (
@@ -15,9 +15,9 @@ export function ResourceLookup(props: ILookupOpenButton) {
       metaName="ResourceSearchMeta"
       {...getResourceTableColumns()}
       lookupModalTitle="Select Resource"
-      displayField="Name"
+      displayKey="Name"
       {...props}
-      valueField={props.valueField || "ResourceID"}
+      valueKey={props.valueKey || "ResourceID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           getEntityById("Resource", props.defaultValue).then((x) => {

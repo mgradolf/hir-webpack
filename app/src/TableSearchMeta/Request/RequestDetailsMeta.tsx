@@ -4,11 +4,11 @@ import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
-import { RequestActivityTable } from "~/Component/Section/Request/RequestActivityTable"
-import RequestActionsTable from "~/Component/Section/Request/RequestActionsTable"
-import RequestExpirationHandler from "~/Component/Section/Request/RequestExpirationHandler"
-import ViewResponseModalOpenButton from "~/Component/Section/Request/ViewResponseModalOpenButton"
-import RequestActionHandler from "~/Component/Section/Request/Resolutions/RequestActionHandler"
+import { RequestActivityTable } from "~/Component/Feature/Section/Request/RequestActivityTable"
+import RequestActionsTable from "~/Component/Feature/Section/Request/RequestActionsTable"
+import RequestExpirationHandler from "~/Component/Feature/Section/Request/RequestExpirationHandler"
+import ViewResponseModalOpenButton from "~/Component/Feature/Section/Request/ViewResponseModalOpenButton"
+import RequestActionHandler from "~/Component/Feature/Section/Request/Resolutions/RequestActionHandler"
 
 export const getRequestDetailsMeta = (Request: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {

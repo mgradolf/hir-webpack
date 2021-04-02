@@ -56,25 +56,25 @@ export const WaitlistEntriesSearchMeta: IField[] = [
         {
           label: "Account",
           fieldName: "AccountID",
-          valueField: "AccountID",
+          valueKey: "AccountID",
           component: AccountLookup
         },
         {
           label: "Purchaser",
           fieldName: "RequesterPersonID",
-          valueField: "PersonID",
+          valueKey: "PersonID",
           component: PersonLookup
         },
         {
           label: "Student",
           fieldName: "RecipientPersonID",
-          valueField: "PersonID",
+          valueKey: "PersonID",
           component: StudentLookup
         },
         {
           label: "Purchaser/Student",
           fieldName: "RequesterRecipientPersonID1",
-          valueField: "PersonID",
+          valueKey: "PersonID",
           component: PersonLookup
         }
       ]

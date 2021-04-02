@@ -15,23 +15,24 @@ import { getTransactionFinancialTableColumns } from "~/TableSearchMeta/Transacti
 import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
 import { REFRESH_ACCOUNT_SEATGROUP_PAGE, REFRESH_PAGE } from "~/utils/EventBus"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
-import { AccountFormMeta } from "~/Component/Account/FormMeta/AccountFormMeta"
+import { AccountFormMeta } from "~/Component/Feature/Account/FormMeta/AccountFormMeta"
 import { pushAccount } from "~/ApiServices/Service/AccountService"
-import { AccountContactFormOpenButton } from "~/Component/Account/Forms/AccountContactForm"
-import { BulkOrderFormModalOpenButton } from "~/Component/Package/BulkOrderFormModal"
-import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
+import { AccountContactFormOpenButton } from "~/Component/Feature/Account/Forms/AccountContactForm"
+import { BulkOrderFormModalOpenButton } from "~/Component/Feature/Package/BulkOrderFormModal"
+import { PackageFormMeta } from "~/Component/Feature/Package/FormMeta/PackageFormMeta"
 import { savePackage } from "~/ApiServices/Service/PackageService"
 import { IField } from "~/Component/Common/Form/common"
-import AccountQuestionTab from "~/Component/Account/AccountQuestionTab"
-import { AccountMergeFormModalOpenButton } from "~/Component/Account/Forms/AccountMergeFormModal"
-import { AccountEmailSetupForm } from "~/Component/Account/Forms/AccountEmailSetupForm"
-import { AccountRemoveLink } from "~/Component/Account/AccountRemoveLink"
+import AccountQuestionTab from "~/Component/Feature/Account/AccountQuestionTab"
+import { AccountMergeFormModalOpenButton } from "~/Component/Feature/Account/Forms/AccountMergeFormModal"
+import { AccountEmailSetupForm } from "~/Component/Feature/Account/Forms/AccountEmailSetupForm"
+import { AccountRemoveLink } from "~/Component/Feature/Account/AccountRemoveLink"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     cardActions: [
       <MetaDrivenFormModalOpenButton
+        iconType="edit"
         formTitle="Update Account"
         formMeta={AccountFormMeta.map((x: IField) => {
           if (x.fieldName === "AccountTypeID") return { ...x, disabled: true }
@@ -44,7 +45,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
           AllowToPayLater: account.AllowPayLateDescription,
           FEID: account.TaxID
         }}
-        buttonLabel="Edit"
+        buttonLabel="Update Account"
         defaultFormValue={{
           AccountID: account.AccountID,
           oca: account.oca
@@ -81,7 +82,13 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Contacts",
     tabType: "table",
     tabMeta: {
-      blocks: [<AccountContactFormOpenButton editMode={false} initialValues={{ AccountID: account.AccountID }} />],
+      blocks: [
+        <AccountContactFormOpenButton
+          iconType="create"
+          editMode={false}
+          initialValues={{ AccountID: account.AccountID }}
+        />
+      ],
       tableProps: {
         pagination: false,
         ...getAccountAffiliationTableColumn(),

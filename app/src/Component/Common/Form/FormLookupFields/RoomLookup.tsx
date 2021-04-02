@@ -9,8 +9,8 @@ export function RoomLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Room"
-      valueField="RoomID"
-      displayField="Name"
+      valueKey="RoomID"
+      displayKey="Name"
       {...getRoomTableColumns(true)}
       meta={RoomeSearchMeta as IField[]}
       metaName="RoomeSearchMeta"

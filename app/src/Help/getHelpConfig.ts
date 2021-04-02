@@ -20,7 +20,7 @@ export const getHelpConfig = (helpKey?: string): Promise<string | undefined> => 
         x.data = helpConfig
       }
       MergedHelpConfig = x.data
-      console.log("MergedHelpConfig Populated", MergedHelpConfig)
+      // console.log("MergedHelpConfig Populated", MergedHelpConfig)
 
       return x.data[helpKey]
     })

@@ -1,7 +1,7 @@
 import React from "react"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
-import ProductRemoveLink from "~/Component/Section/Product/ProductRemoveLink"
+import ProductRemoveLink from "~/Component/Feature/Section/Product/ProductRemoveLink"
 import { findSectionProducts } from "~/ApiServices/BizApi/product/productIf"
 import { Link } from "react-router-dom"
 

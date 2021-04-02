@@ -8,7 +8,7 @@ export function OldFormRoomLookup(props: { formInstance: FormInstance; onCloseMo
   return (
     <OldFormLookupOpenButton
       lookupModalTitle="Select Room"
-      valueField="RoomID"
+      valueKey="RoomID"
       displayField="Name"
       fieldName="RoomID"
       label="Room"

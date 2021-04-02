@@ -6,16 +6,15 @@ import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColum
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function PersonLookup(props: IGeneratedField) {
-  console.log("defaultValue ", props)
   return (
     <LookupOpenButton
       lookupModalTitle="Select Person"
-      displayField="SortName"
+      displayKey="SortName"
       meta={PersonSearchMeta as IField[]}
       metaName="PersonSearchMeta"
       {...props}
       {...getPersonTableColumns(true)}
-      valueField={props.valueField || "PersonID"}
+      valueKey={props.valueKey || "PersonID"}
       {...(props.defaultValue && {
         tempentityLookupFunc: getEntityById
       })}

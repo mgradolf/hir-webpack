@@ -8,7 +8,7 @@ import { getOfferngApprovalHist, searchOffering } from "~/ApiServices/Service/Of
 import styles from "~/Pages/Manage/Courses/Offering/Approval/Approval.module.scss"
 
 import { eventBus, REFRESH_OFFERING_APPROVAL_PAGE } from "~/utils/EventBus"
-import OfferingApprovalModalOpenButton from "~/Component/Offering/Approval/OfferingApprovalModalOpenButton"
+import OfferingApprovalModalOpenButton from "~/Component/Feature/Offering/Approval/OfferingApprovalModalOpenButton"
 
 const { Title } = Typography
 

@@ -16,6 +16,7 @@ import { RemoveRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButton
 import { PAYMENT_POLICY_TYPE } from "~/utils/Constants"
 import { savePaymentDueDatePolicy, getPaymentDueDatePolicy } from "~/ApiServices/Service/PaymentService"
 import { eventBus } from "~/utils/EventBus"
+import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 // const getPaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
 //   Promise.resolve({ code: 200, success: true, data: {}, error: "" })
@@ -135,16 +136,15 @@ const DueDatePolicyFormOpen = (props: { initialValues: { [key: string]: any }; f
     </Row>
   )
 }
-const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: string }) => {
+const DueDatePolicyFormOpenButton = (props: { iconType: iconType; ID?: number; refreshEventName: string }) => {
   const [formInstance] = Form.useForm()
-  const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues, setInitialValues] = useState<{ [key: string]: any }>({})
 
   useEffect(() => {
-    if (props.ID && showModal) {
+    if (props.ID) {
       setLoading(true)
       getPaymentDueDatePolicy({ PolicyID: props.ID })
         .then((x) => {
@@ -152,9 +152,9 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: str
         })
         .finally(() => setLoading(false))
     }
-  }, [showModal, props.ID])
+  }, [props.ID])
 
-  const onFormSubmission = () => {
+  const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       const params = formInstance.getFieldsValue()
       setErrorMessages([])
@@ -164,7 +164,7 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: str
           setApiCallInProgress(false)
           if (response && response.success) {
             eventBus.publish(props.refreshEventName)
-            setShowModal(false)
+            closeModal()
           } else {
             setErrorMessages(response.error)
           }
@@ -184,9 +184,8 @@ const DueDatePolicyFormOpenButton = (props: { ID?: number; refreshEventName: str
       loading={loading}
       errorMessages={errorMessages}
       buttonLabel={props.ID ? "Update" : "+ Add"}
+      iconType={props.iconType}
       buttonProps={{ type: props.ID ? "ghost" : "primary" }}
-      showModal={showModal}
-      setShowModal={(show: boolean) => setShowModal(show)}
     />
   )
 }
@@ -214,7 +213,7 @@ export default function PaymentDueDatePolicy() {
       dataIndex: "ID",
       render: (ID: any, record: any) => (
         <>
-          <DueDatePolicyFormOpenButton ID={ID} refreshEventName={refreshEventName} />
+          <DueDatePolicyFormOpenButton iconType="edit" ID={ID} refreshEventName={refreshEventName} />
           <RemoveRefButton ID={ID} LookUpName={refName} refreshEventName={refreshEventName} />
         </>
       )
@@ -227,7 +226,7 @@ export default function PaymentDueDatePolicy() {
       tableProps={{ columns, refreshEventName, searchFunc: getRefList }}
       defaultFormValue={{ LookUpName: refName }}
       initialFormValue={{}}
-      blocks={[<DueDatePolicyFormOpenButton refreshEventName={refreshEventName} />]}
+      blocks={[<DueDatePolicyFormOpenButton iconType="create" refreshEventName={refreshEventName} />]}
     />
   )
 }

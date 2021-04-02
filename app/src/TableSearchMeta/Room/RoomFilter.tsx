@@ -2,7 +2,7 @@ import { Col, Select } from "antd"
 import React, { useState, useEffect } from "react"
 
 import { findPossibleBuildings, findPossibleSites } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 const { Option } = Select
 
 export default function RoomFilter(props: IGeneratedField & { key: number }) {
@@ -55,7 +55,7 @@ export default function RoomFilter(props: IGeneratedField & { key: number }) {
     return (
       <Col style={{ paddingLeft: 0 }}>
         {sites.length && (
-          <SearchComponentWrapper {...props} label="Select Site" fieldName="SiteID">
+          <SearchFieldWrapper {...props} label="Select Site" fieldName="SiteID">
             <Select aria-label="Site Select" style={{ width: 250 }} onChange={handleSiteChange}>
               {sites.map(({ Name: label, SiteID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
@@ -63,10 +63,10 @@ export default function RoomFilter(props: IGeneratedField & { key: number }) {
                 </Option>
               ))}
             </Select>
-          </SearchComponentWrapper>
+          </SearchFieldWrapper>
         )}
         {buildings.length > 0 && (
-          <SearchComponentWrapper {...props} label="Select Building" fieldName="BuildingID">
+          <SearchFieldWrapper {...props} label="Select Building" fieldName="BuildingID">
             <Select aria-label="Building Select" style={{ width: 250 }} onChange={handleBuildingChange}>
               {buildings.map(({ Name: label, BuildingID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
@@ -74,11 +74,11 @@ export default function RoomFilter(props: IGeneratedField & { key: number }) {
                 </Option>
               ))}
             </Select>
-          </SearchComponentWrapper>
+          </SearchFieldWrapper>
         )}
         {/* {rooms.length > 0 || (props.extraProps && !props.extraProps.hideRoomDropdown) && ( */}
         {/* {rooms.length > 0 && (
-          <SearchComponentWrapper {...props} label="Select Room" fieldName="RoomID">
+          <SearchFieldWrapper {...props} label="Select Room" fieldName="RoomID">
             <Select aria-label="Room Select" style={{ width: 250 }}>
               {rooms.map(({ Name: label, RoomID: value }, i) => (
                 <Option value={value} key={`${value}_${i}`}>
@@ -86,7 +86,7 @@ export default function RoomFilter(props: IGeneratedField & { key: number }) {
                 </Option>
               ))}
             </Select>
-          </SearchComponentWrapper>
+          </SearchFieldWrapper>
         )} */}
       </Col>
     )

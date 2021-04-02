@@ -1,12 +1,11 @@
-import { Button } from "antd"
 import React, { useState } from "react"
 import { getInstructorContractsTableColumns } from "~/TableSearchMeta/InstructorContracts/InstructorContractsTableColumns"
-import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
+import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
-import CreateNewFinancial from "~/Component/Financial/FinancialFormModal"
-import OfferingAddButton from "~/Component/Offering/OfferingAddButton"
+import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
+import OfferingAddButton from "~/Component/Feature/Offering/OfferingAddButton"
 import { getFacultyCommentTableColumns } from "~/TableSearchMeta/InstructorComment/CommentTableColumns"
 import { getInstructorScheduleTableColumns } from "~/TableSearchMeta/InstructorSchedule/ScheduleTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
@@ -25,19 +24,21 @@ import {
 } from "~/utils/EventBus"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { pushInstructor, removeInstructor } from "~/ApiServices/Service/InstructorService"
-import { InstructorFormMeta } from "~/Component/Instructor/FormMeta/InstructorFormMeta"
-import InstructorScheduleFormModal from "~/Component/Instructor/Forms/InstructorScheduleFormModal"
+import { InstructorFormMeta } from "~/Component/Feature/Instructor/FormMeta/InstructorFormMeta"
+import InstructorScheduleFormModal from "~/Component/Feature/Instructor/Forms/InstructorScheduleFormModal"
 import Notification from "~/utils/notification"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          Edit
-        </Button>
-      )}
+      <CreateEditRemoveIconButton
+        iconType="edit"
+        toolTip="Update Instructor Info"
+        onClick={() => setShowModal && setShowModal(true)}
+      />
+
       {showModal && (
         <MetaDrivenFormModal
           meta={InstructorFormMeta}
@@ -54,10 +55,9 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
           closeModal={() => setShowModal(false)}
         />
       )}
-      <Button
-        danger
-        style={{ marginLeft: "5px" }}
-        type="primary"
+      <CreateEditRemoveIconButton
+        iconType="remove"
+        toolTip="Delete Instructor Info"
         onClick={async () => {
           const response = await removeInstructor({ FacultyID: props.facultyData.FacultyID })
           if (response && response.success) {
@@ -65,9 +65,7 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
             eventBus.publish(REFRESH_PAGE)
           }
         }}
-      >
-        Remove
-      </Button>
+      />
     </>
   )
 }
@@ -76,11 +74,12 @@ const ScheduleFormModalOpenButton = (props: { PersonID: number }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      {setShowModal && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          + Add Schedule
-        </Button>
-      )}
+      <CreateEditRemoveIconButton
+        toolTip="Add Schedule"
+        iconType="create"
+        onClick={() => setShowModal && setShowModal(true)}
+      />
+
       {showModal && <InstructorScheduleFormModal PersonID={props.PersonID} closeModal={() => setShowModal(false)} />}
     </>
   )
@@ -109,11 +108,12 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     const [showModal, setShowModal] = useState(false)
     return (
       <>
-        {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Financial
-          </Button>
-        )}
+        <CreateEditRemoveIconButton
+          toolTip="Create Financial"
+          iconType="create"
+          onClick={() => setShowModal && setShowModal(true)}
+        />
+
         {showModal && (
           <CreateNewFinancial
             applyToID={props.FacultyID}

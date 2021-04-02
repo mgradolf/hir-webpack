@@ -8,7 +8,7 @@ export function OldFormStudentLookup(props: { formInstance: FormInstance; onClos
   return (
     <OldFormLookupOpenButton
       lookupModalTitle="Select Student"
-      valueField="StudentID"
+      valueKey="StudentID"
       displayField="FirstName"
       fieldName="StudentID"
       label="Student"

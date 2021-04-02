@@ -20,19 +20,19 @@ export const PersonSearchMeta: IField[] = [
         {
           label: "Last Name",
           fieldName: "LastName",
-          valueField: "LastName",
+          valueKey: "LastName",
           component: FormInput
         },
         {
           label: "Maiden Name",
           fieldName: "MaidenName",
-          valueField: "MaidenName",
+          valueKey: "MaidenName",
           component: FormInput
         },
         {
           label: "Other Name",
           fieldName: "OtherName",
-          valueField: "OtherName",
+          valueKey: "OtherName",
           component: FormInput
         }
       ]
@@ -41,7 +41,6 @@ export const PersonSearchMeta: IField[] = [
   {
     label: "First Name",
     inputType: TEXT,
-    defaultValue: "*",
     fieldName: "FirstName"
   },
   {
@@ -54,13 +53,13 @@ export const PersonSearchMeta: IField[] = [
         {
           label: "Email",
           fieldName: "EmailAddress",
-          valueField: "EmailAddress",
+          valueKey: "EmailAddress",
           component: FormInput
         },
         {
           label: "Telephone",
           fieldName: "TelephoneNumber",
-          valueField: "TelephoneNumber",
+          valueKey: "TelephoneNumber",
           component: FormInput
         }
       ]
@@ -76,19 +75,19 @@ export const PersonSearchMeta: IField[] = [
         {
           label: "Address",
           fieldName: "AddressLine",
-          valueField: "Address",
+          valueKey: "Address",
           component: FormInput
         },
         {
           label: "City",
           fieldName: "Locality",
-          valueField: "Locality",
+          valueKey: "Locality",
           component: FormInput
         },
         {
           label: "Postal Code",
           fieldName: "PostalCode",
-          valueField: "PostalCode",
+          valueKey: "PostalCode",
           component: FormInput
         }
       ]

@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingTableColumn"
-import { QuestionCreateButton } from "~/Component/Question/Create/QuestionCreateButton"
-import { QuestionFindButton } from "~/Component/Question/Search/QuestionFindButton"
+import { QuestionCreateButton } from "~/Component/Feature/Question/Create/QuestionCreateButton"
+import { QuestionFindButton } from "~/Component/Feature/Question/Search/QuestionFindButton"
 
 export function QuestionTaggingPage(props: { TagID: number }) {
   const [params, setParams] = useState<any>({})

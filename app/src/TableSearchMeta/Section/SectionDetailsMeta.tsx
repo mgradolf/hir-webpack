@@ -5,29 +5,29 @@ import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
-import SectionEditLink from "~/Component/Section/CreateEdit/SectionEditLink"
+import SectionEditLink from "~/Component/Feature/Section/CreateEdit/SectionEditLink"
 import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
 import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/TableSearchMeta/SectionFinancial/FinancialTableColumns"
 import { Button } from "antd"
 import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
-import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
+import CreateSeatGroup from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
 import { getSectionDiscountTableColumns } from "~/TableSearchMeta/SectionDiscount/DiscountTableColumns"
 import { getNoticeTableColumns } from "~/TableSearchMeta/Notice/NoticeTableColumns"
 import SectionCatalogPage from "~/Pages/Manage/Courses/Section/Catalog/CatalogPage"
 import { getSectionProductTableColumns } from "~/TableSearchMeta/SectionProduct/ProductTableColumns"
-import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
+import { ProductAddButton } from "~/Component/Feature/Section/Product/ProductAddButton"
 import { getRequestTableColumns } from "~/TableSearchMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntryTableColumns"
-import { WaitlistEntryCreateEditFormModal } from "~/Component/Section/WaitlistEntries/CreateEdit/WaitlistEntryCreateEditFormModal"
+// import { WaitlistEntryCreateEditFormModal } from "~/Component/Feature/Section/WaitlistEntries/CreateEdit/WaitlistEntryCreateEditFormModal"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
 import { getGeneralCommentTableColumns } from "~/TableSearchMeta/SectionComment/GeneralCommentTableColumns"
 import { getInstructorCommentTableColumns } from "~/TableSearchMeta/SectionComment/InstructorCommentTableColumns"
 import { COMMENT_TYPES } from "~/utils/Constants"
-import CommentCreateModalOpenButton from "~/Component/Comment/CommentAddLink"
-import { AddDiscountButton } from "~/Component/Discount/AddDiscountButton"
-import { SectionRemoveButton } from "~/Component/Section/CreateEdit/SectionRemoveButton"
+import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
+import { AddDiscountButton } from "~/Component/Feature/Discount/AddDiscountButton"
+import { SectionRemoveButton } from "~/Component/Feature/Section/CreateEdit/SectionRemoveButton"
 import { getEnrollmentTableColumns } from "~/TableSearchMeta/Enrollment/EnrollmentTableColumns"
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getAcademicActivityLogTableColumns } from "~/TableSearchMeta/Academic/AcademicActivityTableColumns"
@@ -35,6 +35,7 @@ import { getEnrollmentActivityLogTableColumns } from "~/TableSearchMeta/Enrollme
 import FinancialMenu from "~/TableSearchMeta/Financial/FinancialMenu"
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingTableColumn"
+import { WaitlistEntryFormOpenButton } from "~/Component/Feature/WaitlistEntries/WaitlistEntryForm"
 
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
@@ -93,22 +94,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
           </Button>
         )}
         {showModal && <CreateSeatGroup sectionId={props.SectionID} closeModal={() => setShowModal(false)} />}
-      </>
-    )
-  }
-
-  const WaitlistEntryFormModalOpenButton = (props: { SectionID: number }) => {
-    const [showModal, setShowModal] = useState(false)
-    return (
-      <>
-        {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Add Waitlist Entry
-          </Button>
-        )}
-        {showModal && (
-          <WaitlistEntryCreateEditFormModal SectionID={props.SectionID} closeModal={() => setShowModal(false)} />
-        )}
       </>
     )
   }
@@ -196,7 +181,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const waitlistEntriesMeta: IDetailsTableTabProp = {
-    blocks: [<WaitlistEntryFormModalOpenButton SectionID={section.SectionID} />],
+    blocks: [<WaitlistEntryFormOpenButton SectionID={section.SectionID} />],
     tableProps: {
       ...getWaitlistEntriesTableColumns(),
       searchParams: { SectionID: section.SectionID },

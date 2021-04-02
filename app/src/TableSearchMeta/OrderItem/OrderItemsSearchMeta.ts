@@ -18,13 +18,13 @@ export const OrderItemsFiltersMeta: IField[] = [
         {
           label: "Purchaser",
           fieldName: "PayerName",
-          valueField: "FirstName",
+          valueKey: "FirstName",
           component: PersonLookup
         },
         {
           label: "Student",
           fieldName: "StudentName",
-          valueField: "FirstName",
+          valueKey: "FirstName",
           component: StudentLookup
         }
       ]
@@ -64,7 +64,7 @@ export const OrderItemsFiltersMeta: IField[] = [
   {
     label: "Account",
     fieldName: "AccountName",
-    valueField: "AccountName",
+    valueKey: "AccountName",
     inputType: CUSTOM_FIELD,
     customFilterComponent: AccountLookup
   },

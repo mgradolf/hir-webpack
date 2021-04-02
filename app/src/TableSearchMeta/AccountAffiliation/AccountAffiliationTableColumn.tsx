@@ -13,7 +13,7 @@ import {
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { eventBus } from "~/utils/EventBus"
 import { DownOutlined } from "@ant-design/icons"
-import { AccountContactMenu } from "~/Component/Account/AccountContactMenu"
+import { AccountContactMenu } from "~/Component/Feature/Account/AccountContactMenu"
 
 export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigProp => {
   const primaryContactAction = (IsPublished: boolean, AccountID: number, AccountAffiliationID: number) => {

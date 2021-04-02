@@ -1,19 +1,22 @@
 import React, { useState } from "react"
-import { Button, message } from "antd"
+import { message } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { IField } from "~/Component/Common/Form/common"
 import { createRefRecord, removeRefRecord, updateRefRecord } from "~/ApiServices/Service/RefLookupService"
 import { eventBus } from "~/utils/EventBus"
 import { ButtonType } from "antd/lib/button"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 export function AddRefButton(props: { LookUpName: string; formMeta: IField[]; refreshEventName: string }) {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button type="primary" onClick={() => setShowModal(true)}>
-        + Add
-      </Button>
+      <CreateEditRemoveIconButton
+        toolTip={`Create ${props.LookUpName}`}
+        iconType="create"
+        onClick={() => setShowModal(true)}
+      />
       {showModal && (
         <MetaDrivenFormModal
           title={`Add new entry on ${props.LookUpName}`}
@@ -44,9 +47,11 @@ export function UpdateRefButton(props: {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button type={props.type || "ghost"} onClick={() => setShowModal(true)}>
-        Update
-      </Button>
+      <CreateEditRemoveIconButton
+        toolTip={`Edit ${props.LookUpName}`}
+        iconType="edit"
+        onClick={() => setShowModal(true)}
+      />
       {showModal && (
         <MetaDrivenFormModal
           title={`Update existing entry on ${props.LookUpName}`}
@@ -92,14 +97,15 @@ export function RemoveRefButton(props: {
     })
   }
   return (
-    <Button
-      type={props.type || "ghost"}
-      danger
-      loading={loading}
-      disabled={disabled}
-      onClick={() => showDeleteConfirm(remove)}
-    >
-      Remove
-    </Button>
+    <>
+      {disabled && (
+        <CreateEditRemoveIconButton
+          toolTip={`Delete ${props.LookUpName}`}
+          iconType="remove"
+          inProgress={loading}
+          onClick={() => showDeleteConfirm(remove)}
+        />
+      )}
+    </>
   )
 }

@@ -2,19 +2,13 @@ import React, { useEffect, useState } from "react"
 import Table, { TableProps } from "antd/lib/table"
 import { useFirstRender } from "~/Hooks/useFirstRender"
 import { useDeviceViews, IDeviceView } from "~/Hooks/useDeviceViews"
-import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_MODAl, REFRESH_PAGE } from "~/utils/EventBus"
-import { Button, Dropdown, Menu } from "antd"
-import { DownloadOutlined } from "@ant-design/icons"
-import {
-  renderBoolean,
-  sortByBoolean,
-  sortByNumber,
-  sortByString,
-  sortByTime
-} from "~/Component/Common/ResponsiveTable/tableUtils"
+import { Col, Pagination, Row } from "antd"
+import { sortByBoolean, sortByNumber, sortByString, sortByTime } from "~/Component/Common/ResponsiveTable/tableUtils"
 import { IDataTableProps, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import { processTableMetaWithUserMetaConfig } from "./TableMetaShadowingProcessor"
+import { processTableMetaWithUserMetaConfig } from "~/Component/Common/ResponsiveTable/TableMetaShadowingProcessor"
+import { ExpandableRowRender } from "~/Component/Common/ResponsiveTable/ExpandableRowRender"
+import { DownloadButton } from "~/Component/Common/ResponsiveTable/DownloadButton"
 
 export function ResponsiveTable(props: IDataTableProps) {
   const {
@@ -32,6 +26,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   const [loading, setLoading] = useState(false)
   const [mobileView, setMobileView] = useState<boolean>(false)
   const [downloading, setDownloading] = useState(false)
+  const [paginatedData, setPaginatedData] = useState<any[]>([])
   const firstRender = useFirstRender()
 
   const loadDataFromSearchFunc = async () => {
@@ -81,70 +76,6 @@ export function ResponsiveTable(props: IDataTableProps) {
     setMobileView(deviceViews.mobile)
   })
 
-  const expandableRowRender = (record: any, mobileView: boolean): JSX.Element => {
-    const _columns: any = columns
-    const expandableRowElements = expandableColumnIndices ? (
-      <>
-        {expandableColumnIndices
-          .filter((index) => index <= _columns.length)
-          .map((index, i) => {
-            const _index = index - 1
-            const title = _columns[_index].title
-            const text = record[_columns[_index].dataIndex]
-            return (
-              <React.Fragment key={i}>
-                {title && text && (
-                  <li>
-                    <span>{title} : </span>
-                    <span>
-                      {" "}
-                      {_columns[_index] && _columns[_index].render ? _columns[_index].render(text, record) : text}
-                    </span>
-                  </li>
-                )}
-              </React.Fragment>
-            )
-          })}
-      </>
-    ) : null
-    const responsiveExpandableRowElements =
-      responsiveColumnIndices && responsiveColumnIndices.length > 0 && mobileView ? (
-        <>
-          {responsiveColumnIndices
-            .filter((index) => {
-              return !expandableColumnIndices?.includes(index) || index <= _columns.length
-            })
-            .map((index, i) => {
-              const _index = index - 1
-              const title = _columns[_index].title
-              let text: any = record[_columns[_index].dataIndex]
-              if (Array.isArray(text)) text = text.toString()
-              else if (typeof text === "boolean") text = renderBoolean(text)
-              return (
-                <React.Fragment key={i}>
-                  {title && text && (
-                    <li>
-                      <span>{title} : </span>
-                      <span>
-                        {" "}
-                        {_columns[_index] && _columns[_index].render ? _columns[_index].render(text, record) : text}
-                      </span>
-                    </li>
-                  )}
-                </React.Fragment>
-              )
-            })}
-        </>
-      ) : null
-
-    return (
-      <ul>
-        {expandableRowElements}
-        {responsiveExpandableRowElements}
-      </ul>
-    )
-  }
-
   const [conditionalProps, setConditionalProps] = useState<{ [key: string]: any }>({})
   const setTableProps = (columnsConfigByUser: TableColumnType, data?: any) => {
     const _conditionalProps: TableProps<{ [key: string]: string }> = {
@@ -175,6 +106,9 @@ export function ResponsiveTable(props: IDataTableProps) {
     }
 
     _conditionalProps.dataSource = otherTableProps.dataSource ? otherTableProps.dataSource : data
+    if (Array.isArray(_conditionalProps.dataSource)) {
+      setPaginatedData(_conditionalProps.dataSource?.filter((x, i) => i < 20))
+    }
 
     if (otherTableProps.expandableRowRender) {
       _conditionalProps.expandedRowRender = (record: any) =>
@@ -186,78 +120,83 @@ export function ResponsiveTable(props: IDataTableProps) {
       )
     ) {
       _conditionalProps.expandedRowRender = (record: any) => {
-        return expandableRowRender(record, mobileView)
+        return (
+          <ExpandableRowRender
+            columns={columns}
+            expandableColumnIndices={expandableColumnIndices}
+            responsiveColumnIndices={responsiveColumnIndices}
+            record={record}
+            mobileView={mobileView}
+          />
+        )
       }
     }
     _conditionalProps.scroll = { x: columns.length }
     _conditionalProps.rowSelection = otherTableProps.rowSelection
     _conditionalProps.rowKey = props.rowKey ? props.rowKey : "rowKey"
-    _conditionalProps.pagination =
-      typeof props.pagination === "boolean" && !props.pagination
-        ? props.pagination
-        : _conditionalProps.dataSource && _conditionalProps.dataSource?.length > 0
-        ? { position: ["topLeft"], pageSize: 20, simple: true }
-        : false
     setConditionalProps(_conditionalProps)
   }
 
-  const downloadData = (fileType: string) => {
-    let header = {}
-    switch (fileType) {
-      case RESPONSE_TYPE.EXCEL:
-        header = { ResponseType: "application/vnd.ms-excel" }
-        break
-      case RESPONSE_TYPE.CSV:
-        header = { ResponseType: "text/csv" }
-        break
+  const paginationChange = (page: number, pageSize = 20) => {
+    console.log("pagination ", page, pageSize)
+    if (conditionalProps && Array.isArray(conditionalProps.dataSource)) {
+      const __dataSource = conditionalProps.dataSource.slice(
+        page === 1 ? 0 : page * pageSize - pageSize,
+        page * pageSize
+      )
+      setPaginatedData(__dataSource)
     }
-
-    setDownloading(true)
-    console.log("header in responsive table ", header)
-    searchFunc &&
-      searchFunc(searchParams, header).then((x) => {
-        setDownloading(false)
-      })
   }
 
   return (
-    <div>
-      {searchFunc &&
-        searchParams &&
-        conditionalProps &&
-        !isModal &&
-        conditionalProps.dataSource &&
-        conditionalProps.dataSource.length > 0 && (
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item>
-                  <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.CSV)}>
-                    CSV
-                  </Button>
-                </Menu.Item>
-                <Menu.Item>
-                  <Button type="link" onClick={() => downloadData(RESPONSE_TYPE.EXCEL)}>
-                    Excel
-                  </Button>
-                </Menu.Item>
-              </Menu>
-            }
-            trigger={["click"]}
-          >
-            <Button
-              loading={downloading}
-              disabled={downloading}
-              style={{ position: "absolute", zIndex: 100, right: "25px", top: "15px", border: "1px solid" }}
-              type="default"
-              // style={{ float: "right", right: "15px", top: "15px", border: "1px solid" }}
-              // type="link"
-              onClick={(e) => e.preventDefault()}
-              icon={<DownloadOutlined />}
-            />
-          </Dropdown>
-        )}
-      <Table {...conditionalProps} loading={otherTableProps.loading || loading} />
-    </div>
+    <Row style={{ marginTop: "15px", backgroundColor: "#fafafa", paddingTop: "5px", paddingBottom: "5px" }}>
+      {conditionalProps && conditionalProps.dataSource && (
+        <Col
+          span={12}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            paddingTop: "10px",
+            paddingRight: "10px",
+            paddingBottom: "10px"
+          }}
+        >
+          <Pagination
+            simple
+            onChange={paginationChange}
+            defaultPageSize={20}
+            total={conditionalProps.dataSource.length}
+            pageSizeOptions={["5", "10", "15", "20", "25", "30", "50"]}
+          />
+          <div>{`Total ${conditionalProps.dataSource.length} rows`}</div>
+        </Col>
+      )}
+      <Col span={12}>
+        <Row justify="end">
+          {searchFunc &&
+            searchParams &&
+            !isModal &&
+            conditionalProps &&
+            conditionalProps.dataSource &&
+            conditionalProps.dataSource.length > 0 && (
+              <DownloadButton
+                searchFunc={searchFunc}
+                searchParams={searchParams}
+                downloading={downloading}
+                setDownloading={setDownloading}
+              />
+            )}
+        </Row>
+      </Col>
+      <Col span={24}>
+        <Table
+          {...conditionalProps}
+          dataSource={paginatedData}
+          bordered={true}
+          pagination={false}
+          loading={otherTableProps.loading || loading}
+        />
+      </Col>
+    </Row>
   )
 }

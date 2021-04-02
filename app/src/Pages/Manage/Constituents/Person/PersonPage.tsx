@@ -2,12 +2,12 @@ import React from "react"
 import { PersonSearchMeta } from "~/TableSearchMeta/Person/PersonSearchMeta"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { getPersonTableColumns } from "~/TableSearchMeta/Person/PersonTableColumns"
-import { PersonFormOpenButton } from "~/Component/Person/Forms/CreateEdit/PersonFormWithConfig"
+import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdit/PersonFormWithConfig"
 
 export default function PersonTable() {
   return (
     <SearchPage
-      blocks={[<PersonFormOpenButton />]}
+      blocks={[<PersonFormOpenButton buttonIcon="create" />]}
       title="Manage Persons"
       meta={PersonSearchMeta}
       metaName="PersonSearchMeta"
@@ -15,7 +15,7 @@ export default function PersonTable() {
       tableProps={{
         ...getPersonTableColumns()
       }}
-      helpKey={"personSearchPage"}
+      helpKey={"personSearchPageForm"}
     ></SearchPage>
   )
 }

@@ -53,7 +53,6 @@ export interface IField {
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>
   customFilterComponent?: React.FunctionComponent<any>
-  valueField?: string
   rules?: Rule[]
   required?: boolean
   validateStatus?: ValidateStatus
@@ -79,8 +78,8 @@ export function SearchFieldWrapper(props: IGeneratedField & { children?: React.R
     <Form.Item
       colon={false}
       label={props.label}
-      labelCol={{ span: props.labelColSpan ? props.labelColSpan : 8 }}
-      wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 24 }}
+      labelCol={{ span: props.labelColSpan ? props.labelColSpan : 6 }}
+      wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 16 }}
       {...(props.fieldName !== "" && { name: props.fieldName })}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
@@ -95,20 +94,21 @@ export function SearchFieldWrapper(props: IGeneratedField & { children?: React.R
 }
 
 export function SearchComponentWrapper(
-  props: IGeneratedField & {
+  props: Omit<IGeneratedField, "fieldName"> & {
     children?: React.ReactNode
+    rulesRequired?: boolean
   }
 ) {
   return (
     <Form.Item
       colon={false}
       label={props.label}
-      labelCol={{ span: props.labelColSpan ? props.labelColSpan : 8 }}
-      wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 24 }}
-      name={props.fieldName}
+      labelCol={{ span: props.labelColSpan ? props.labelColSpan : 6 }}
+      wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 16 }}
       rules={props.rules}
       validateStatus={props.validateStatus}
       help={props.help}
+      required={props.rulesRequired}
     >
       {props.children}
     </Form.Item>

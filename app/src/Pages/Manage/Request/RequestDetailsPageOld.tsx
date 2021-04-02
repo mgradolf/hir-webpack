@@ -10,9 +10,9 @@ import { getUsername } from "@packages/api/lib/utils/UserInfoStore"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import styles from "~/Pages/Manage/Request/RequestDetails.module.scss"
-import RequestDetailsTable from "~/Component/Section/Request/RequestActionsTable"
-import { RequestActivityTable } from "~/Component/Section/Request/RequestActivityTable"
-import ViewResponseModalOpenButton from "~/Component/Section/Request/ViewResponseModalOpenButton"
+import RequestDetailsTable from "~/Component/Feature/Section/Request/RequestActionsTable"
+import { RequestActivityTable } from "~/Component/Feature/Section/Request/RequestActivityTable"
+import ViewResponseModalOpenButton from "~/Component/Feature/Section/Request/ViewResponseModalOpenButton"
 import { eventBus, EVENT_REQUEST_RESOLUTION, EVENT_REQUEST_RETRY, EVENT_REQUEST_MAKE_PAYMENT } from "~/utils/EventBus"
 import {
   ACTION_REQUIRED_REQUEST_STATE_ID,

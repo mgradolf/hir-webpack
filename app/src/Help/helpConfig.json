@@ -1,4 +1,23 @@
 {
-  "generic": "https://google.com",
-  "personSearchPage": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/person-search-page/"
+  "personSearchPageForm": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/person-search-page/",
+  "personDemographicTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/person-demographic-page",
+  "personContactInfoTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/person-contact-info",
+  "personDisabilitiesTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/person-student-faculty-disability-page",
+  "personWebLoginTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/web-login",
+  "personEducationHistoryTab": "",
+  "personFinancialsTab": "",
+  "personAccountRelations": "",
+  "studentSummary": "",
+  "studentSchedule": "",
+  "studentRegistrations": "",
+  "studentPrograms": "",
+  "studentCertificates": "",
+  "studentHolds": "",
+  "studentComments": "",
+  "instructorSummary": "",
+  "instructorSchedule": "",
+  "instructorFinancials": "",
+  "instructorQulifiedOfferings": "",
+  "instructorContracts": "",
+  "instructorComments": ""
 }

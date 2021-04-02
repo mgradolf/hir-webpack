@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Col, Row, Select } from "antd"
 import { getRegions } from "~/ApiServices/Service/PersonService"
 import { getCountries } from "~/ApiServices/Service/RefLookupService"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 
 export function SearchRegion(props: IGeneratedField) {
   const [countries, setCountries] = useState<any[]>([])
@@ -37,7 +37,7 @@ export function SearchRegion(props: IGeneratedField) {
   return (
     <Row>
       <Col span={24}>
-        <SearchComponentWrapper {...props} fieldName="CountryCodeID" label="Country">
+        <SearchFieldWrapper {...props} fieldName="CountryCodeID" label="Country">
           <Select
             allowClear={true}
             loading={loading}
@@ -51,10 +51,10 @@ export function SearchRegion(props: IGeneratedField) {
                 </Select.Option>
               ))}
           </Select>
-        </SearchComponentWrapper>
+        </SearchFieldWrapper>
       </Col>
       <Col span={24}>
-        <SearchComponentWrapper {...props} label="Region">
+        <SearchFieldWrapper {...props} label="Region">
           <Select allowClear={true} loading={loading} aria-label="Region Code">
             {regiondCodes &&
               regiondCodes.map(({ CountryCodeID, Description }, i) => (
@@ -63,7 +63,7 @@ export function SearchRegion(props: IGeneratedField) {
                 </Select.Option>
               ))}
           </Select>
-        </SearchComponentWrapper>
+        </SearchFieldWrapper>
       </Col>
     </Row>
   )

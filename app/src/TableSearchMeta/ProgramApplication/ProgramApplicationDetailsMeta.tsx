@@ -11,9 +11,9 @@ import {
   PROGRAM_APPLICATION_DECLINED,
   PROGRAM_APPLICATION_ENROLLED
 } from "~/utils/Constants"
-import ProgramApplicationStatusFormModal from "~/Component/ProgramApplication/ProgramApplicationStatusFormModal"
+import ProgramApplicationStatusFormModal from "~/Component/Feature/ProgramApplication/ProgramApplicationStatusFormModal"
 import ProgramApplicationTabDetailsPage from "~/Pages/Program/ProgramApplicationDetailsPage"
-import ProgramApplicationNoteFormModal from "~/Component/ProgramApplication/ProgramApplicationNoteFormModal"
+import ProgramApplicationNoteFormModal from "~/Component/Feature/ProgramApplication/ProgramApplicationNoteFormModal"
 
 export const getProgramApplicationDetailsMeta = (programApplication: { [key: string]: any }): IDetailsMeta => {
   const AcceptFormModalOpenButton = (props: { ProgramAppID: number; CurrentStatusID: number }) => {

@@ -13,7 +13,7 @@ export interface IFormLookupOpenButton {
   lookupModalTitle: string
   disabled?: boolean
   displayField: string
-  valueField: string
+  valueKey: string
   fieldName: string
   label: string
   columns: TableColumnType
@@ -41,12 +41,12 @@ export function OldFormLookupOpenButton(props: IFormLookupOpenButton) {
       if (props.isArray) {
         setSelectedItem(items.map((x) => x[props.displayField]).toString())
         selectedValue = {
-          [props.fieldName]: "[" + items.map((x) => x[props.valueField]).toString() + "]"
+          [props.fieldName]: "[" + items.map((x) => x[props.valueKey]).toString() + "]"
         }
       } else {
         setSelectedItem(items[0][props.displayField])
         selectedValue = {
-          [props.fieldName]: items[0][props.valueField]
+          [props.fieldName]: items[0][props.valueKey]
         }
       }
       props.formInstance.setFieldsValue(selectedValue)

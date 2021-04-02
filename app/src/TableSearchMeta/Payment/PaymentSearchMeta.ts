@@ -7,7 +7,7 @@ import {
 } from "~/ApiServices/Service/RefLookupService"
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER } from "~/Component/Common/Form/common"
 
-import TotalAmountRange from "~/Component/Section/Order/TotalAmountRange"
+import TotalAmountRange from "~/Component/Feature/Section/Order/TotalAmountRange"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
@@ -26,13 +26,13 @@ export const PaymentSearchMeta: IField[] = [
       selectorKeys: [
         {
           label: "Payer",
-          valueField: "FirstName",
+          valueKey: "FirstName",
           fieldName: "PayerName",
           component: PersonLookup
         },
         {
           label: "Student",
-          valueField: "StudentName",
+          valueKey: "StudentName",
           fieldName: "FirstName",
           component: StudentLookup
         }
@@ -58,13 +58,13 @@ export const PaymentSearchMeta: IField[] = [
       selectorKeys: [
         {
           label: "Check",
-          valueField: "checkNumber",
+          valueKey: "checkNumber",
           fieldName: "checkNumber",
           component: FormInput
         },
         {
           label: "Reference",
-          valueField: "TransactionNumber",
+          valueKey: "TransactionNumber",
           fieldName: "TransactionNumber",
           component: FormInput
         }

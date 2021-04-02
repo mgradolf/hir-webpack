@@ -10,6 +10,9 @@ export function FormDropDown(props: IGeneratedField & { onChangeCallback?: (para
   const { refLookupService, displayKey, valueKey } = props
 
   const loadOptions = () => {
+    if (props.defaultValue) {
+      props.formInstance.setFieldsValue({ [props.fieldName]: props.defaultValue })
+    }
     if (props.options && props.options.length) {
       setOptions(
         props.options.map((x) => {
@@ -48,18 +51,22 @@ export function FormDropDown(props: IGeneratedField & { onChangeCallback?: (para
   return (
     <SearchFieldWrapper {...props}>
       <Select
+        showSearch
         allowClear={true}
         loading={loading}
+        filterOption={(inputValue, options) => {
+          return !!(
+            options &&
+            typeof options.children === "string" &&
+            options.children.toLowerCase().includes(inputValue.toLowerCase())
+          )
+        }}
         aria-label={props.ariaLabel}
         disabled={props.disabled}
         onChange={props.onChangeCallback}
       >
         {options &&
-          options.map(({ label, value }, i) => (
-            <Select.Option value={value} key={`${value}_${i}`}>
-              {label}
-            </Select.Option>
-          ))}
+          options.map(({ label, value }, i) => <Select.Option value={value} key={`${value}_${i}`} children={label} />)}
       </Select>
     </SearchFieldWrapper>
   )

@@ -5,7 +5,7 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { DownOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
-import PersonAccountMenu from "~/Component/Person/PersonAccountMenu"
+import PersonAccountMenu from "~/Component/Feature/Person/PersonAccountMenu"
 
 export const getPersonAccountTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [

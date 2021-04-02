@@ -2,7 +2,7 @@ import React from "react"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { getSectionNotifications } from "~/ApiServices/Service/SectionService"
-import NoticeEditLink from "~/Component/Section/Notice/NoticeEditLink"
+import NoticeEditLink from "~/Component/Feature/Section/Notice/NoticeEditLink"
 
 export const getNoticeTableColumns = (SectionID: number): ITableConfigProp => {
   const columns: TableColumnType = [

@@ -7,10 +7,7 @@ import { renderDate, renderDateTime, renderEmail, TableColumnType } from "~/Comp
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { ReadOutlined } from "@ant-design/icons"
 
-export const getWaitlistEntriesTableColumns = (
-  isModal = false,
-  setShowCreateModal?: (record: any) => void
-): ITableConfigProp => {
+export const getWaitlistEntriesTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       ...(!isModal && {

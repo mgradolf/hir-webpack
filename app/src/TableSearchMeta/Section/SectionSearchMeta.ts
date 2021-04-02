@@ -15,7 +15,6 @@ export const SectionSearchMeta: IField[] = [
   {
     label: "Section Number",
     inputType: TEXT,
-    defaultValue: "*",
     fieldName: "SectionNumber"
   },
   {

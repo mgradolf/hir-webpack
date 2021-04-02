@@ -3,7 +3,7 @@ import { Button } from "antd"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { SectionSearchMeta } from "~/TableSearchMeta/Section/SectionSearchMeta"
 import { RouteComponentProps } from "react-router-dom"
-import SectionFormModal from "~/Component/Section/CreateEdit/SectionFormModal"
+import SectionFormModal from "~/Component/Feature/Section/CreateEdit/SectionFormModal"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 
 export default function Offering(props: RouteComponentProps<{ offeringID: string }>) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Col, Input, Row, Select } from "antd"
 import { getGLAccountTypes } from "~/ApiServices/Service/RefLookupService"
-import { IGeneratedField, SearchComponentWrapper } from "~/Component/Common/Form/common"
+import { IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 
 export function GLAccount(props: IGeneratedField) {
   const [glCodes, setGLCodes] = useState<any[]>([])
@@ -20,7 +20,7 @@ export function GLAccount(props: IGeneratedField) {
   return (
     <Row>
       <Col span={24}>
-        <SearchComponentWrapper {...props} fieldName="GLAccountID" label="GL Code">
+        <SearchFieldWrapper {...props} fieldName="GLAccountID" label="GL Code">
           <Select
             allowClear={true}
             loading={loading}
@@ -37,12 +37,12 @@ export function GLAccount(props: IGeneratedField) {
                 </Select.Option>
               ))}
           </Select>
-        </SearchComponentWrapper>
+        </SearchFieldWrapper>
       </Col>
       <Col span={24}>
-        <SearchComponentWrapper {...props} fieldName="Description" label="GL Description">
+        <SearchFieldWrapper {...props} fieldName="Description" label="GL Description">
           <Input aria-label={"GL Description"} type="text" disabled={true} />
-        </SearchComponentWrapper>
+        </SearchFieldWrapper>
       </Col>
     </Row>
   )

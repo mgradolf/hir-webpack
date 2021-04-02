@@ -3,7 +3,7 @@ import { Button } from "antd"
 import { RouteComponentProps } from "react-router-dom"
 import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import CreateSeatGroup from "~/Component/Section/SeatGroup/SectionSeatGroupFormModal"
+import CreateSeatGroup from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
 
 export default function SeatgroupPage(props: RouteComponentProps<{ sectionID?: string }>) {
   const SectionID = Number(props.match.params.sectionID)

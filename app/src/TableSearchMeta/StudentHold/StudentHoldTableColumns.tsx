@@ -4,7 +4,7 @@ import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { DownOutlined } from "@ant-design/icons"
 import { findStudentHold } from "~/ApiServices/BizApi/student/studentHoldIF"
-import { StudentHoldMenu } from "~/Component/Student/StudentHoldMenu"
+import { StudentHoldMenu } from "~/Component/Feature/Student/StudentHoldMenu"
 
 export const getStudentHoldTableColumns = (StudentID: number): ITableConfigProp => {
   const columns: TableColumnType = [

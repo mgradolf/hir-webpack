@@ -4,7 +4,7 @@ import { findEntitySchedule } from "~/ApiServices/Service/EntityService"
 import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { DownOutlined } from "@ant-design/icons"
-import InstructorScheduleMenu from "~/Component/Instructor/InstructorScheduleMenu"
+import InstructorScheduleMenu from "~/Component/Feature/Instructor/InstructorScheduleMenu"
 
 export const getInstructorScheduleTableColumns = (PersonID?: number): ITableConfigProp => {
   const columns: TableColumnType = [

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react"
-import { Col, Form, Input, Row, Select } from "antd"
-import { IField, IGeneratedField } from "~/Component/Common/Form/common"
+import React, { useState } from "react"
+import { Col, Row, Select, Spin } from "antd"
+import { IField, IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
-import { useFirstRender } from "~/Hooks/useFirstRender"
-import { DeleteOutlined, SearchOutlined } from "@ant-design/icons"
+import { SearchOutlined } from "@ant-design/icons"
+import debounce from "~/utils/debounce"
 
 export interface ILookupOpenButton extends IGeneratedField {
+  displayKey: string
+  valueKey: string
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
   lookupModalTitle: string
   disabled?: boolean
-  valueField: string
-  displayField: string
   columns: TableColumnType
   meta: IField[]
   metaName: string
@@ -25,137 +25,114 @@ export interface ILookupOpenButton extends IGeneratedField {
 
 export function LookupOpenButton(props: ILookupOpenButton) {
   const [showModal, setShowModal] = useState(false)
-  const [selectedItems, setSelectedItems] = useState<any[]>([])
   const [options, setOptions] = useState<any[]>([])
-  const firstRender = useFirstRender()
-
-  const _rules: Array<{ [key: string]: any }> = props.rules as Array<{ [key: string]: any }>
-  const rulesRequired = !!_rules?.find((rule: any) => rule && rule.required)
-
-  useEffect(() => {
-    console.log("props.entityLookupFunc ", props)
-    if (props.entityLookupFunc) {
-      props.entityLookupFunc().then((item) => {
-        console.log("item ", item)
-        if (item) setSelectedItems([item])
-      })
-    }
-    if (props.tempentityLookupFunc && props.defaultValue) {
-      props.tempentityLookupFunc("Person", props.defaultValue).then((item) => {
-        console.log("item ", item)
-        if (item) setSelectedItems([item.data])
-      })
-    }
-    // eslint-disable-next-line
-  }, [])
-
-  useEffect(() => {
-    !firstRender && setSelectedItems([])
-    // eslint-disable-next-line
-  }, [props.clearTrigger])
+  const [loading, setLoading] = useState(false)
+  const [searchKey, setSearchKey] = useState("")
+  const [keepOptionsOpen, setKeepOptionsOpen] = useState(false)
 
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
       if (props.extraProps && props.extraProps.isArray) {
-        const __items = [...selectedItems, ...items]
-        setSelectedItems(__items)
-        setOptions(__items)
+        const previousValues: any[] = props.formInstance.getFieldValue(props.fieldName) || []
+        console.log("previouse values ", previousValues)
         props.formInstance.setFieldsValue({
-          [props.fieldName]: __items.map((x) => x[props.valueField])
+          [props.fieldName]: [...previousValues, ...items.map((x) => x[props.valueKey])]
         })
+        setOptions([...options, ...items])
       } else {
-        console.log([items[0]])
-        setSelectedItems([items[0]])
-        props.formInstance.setFieldsValue({
-          [props.fieldName]: items[0][props.valueField]
-        })
+        setOptions(items)
+        props.formInstance.setFieldsValue({ [props.fieldName]: items[0][props.valueKey] })
       }
-
-      if (props.onSelectedItems) {
-        props.onSelectedItems(items)
-      }
+    }
+    if (props.onSelectedItems) {
+      props.onSelectedItems(items)
     }
     setShowModal(false)
   }
 
+  const handleSearch = debounce((searchInput: any): void => {
+    if (!searchInput || searchInput === "") return
+    setLoading(true)
+    props.searchFunc({ [props.displayKey]: searchInput }).then((x) => {
+      if (x.success) {
+        console.log(x.data)
+        setOptions(x.data)
+      }
+      setLoading(false)
+    })
+  }, 500)
   const toRender = (
     <>
-      <Form.Item name={props.fieldName} rules={props.rules} hidden={true}>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        colon={false}
-        labelCol={{ span: props.labelColSpan ? props.labelColSpan : 8 }}
-        wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 24 }}
-        label={props.label}
-        validateStatus={props.validateStatus}
-        help={props.help}
-        required={rulesRequired}
-      >
-        {props.extraProps && props.extraProps.isArray ? (
-          <Row>
-            <Col span={24} style={{ display: "flex", flexDirection: "row" }}>
-              <SearchOutlined
-                style={{
-                  borderTop: "1px solid lightgray",
-                  borderBottom: "1px solid lightgray",
-                  borderLeft: "1px solid lightgray",
-                  padding: "8px"
-                }}
-                onClick={() => setShowModal(true)}
-                disabled={props.disabled}
-              />
-              <Select
-                allowClear={true}
-                aria-label={props.ariaLabel}
-                disabled={props.disabled}
-                showSearch
-                mode="multiple"
-                listItemHeight={0}
-                listHeight={0}
-                value={selectedItems.map((x) => x[props.valueField])}
-                onChange={(records: any[]) => {
-                  console.log(records)
-                  const __items = records
-                    .map((x) => {
-                      return options.find((item) => {
-                        return item[props.valueField] === x
-                      })
-                    })
-                    .filter(Boolean)
-                  setSelectedItems(__items)
-                  props.formInstance.setFieldsValue({
-                    [props.fieldName]: __items.length > 0 ? __items.map((x) => x[props.valueField]) : undefined
-                  })
-                }}
-              >
-                {options &&
-                  Array.isArray(options) &&
-                  options.map((x, i) => (
-                    <Select.Option value={x[props.valueField]} key={`${x[props.valueField]}_${i}`}>
-                      {x[props.displayField]}
-                    </Select.Option>
-                  ))}
-              </Select>
-            </Col>
-          </Row>
-        ) : (
-          <Input
-            value={selectedItems.length > 0 ? selectedItems[0][props.displayField] : ""}
-            readOnly
-            addonBefore={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
-            addonAfter={
-              <DeleteOutlined
-                color="red"
-                onClick={() => {
-                  setSelectedItems([])
-                  props.formInstance.setFieldsValue({ [props.fieldName]: undefined })
-                }}
-              />
-            }
+      <Row>
+        <Col span={20}>
+          <SearchFieldWrapper
+            fieldName={props.fieldName}
+            label={props.label}
+            rules={props.rules}
+            formInstance={props.formInstance}
+            labelColSpan={props.labelColSpan}
+            wrapperColSpan={props.wrapperColSpan}
+          >
+            <Select
+              showSearch
+              loading={loading}
+              allowClear={true}
+              filterOption={false}
+              aria-label={props.ariaLabel}
+              disabled={props.disabled}
+              notFoundContent={loading ? <Spin size="small" /> : null}
+              {...(props.extraProps && props.extraProps.isArray && { mode: "multiple" })}
+              listItemHeight={10}
+              listHeight={256}
+              open={keepOptionsOpen}
+              defaultActiveFirstOption={false}
+              onSearch={debounce((_searchKey) => {
+                setSearchKey(_searchKey)
+              }, 200)}
+              onKeyDown={(event) => {
+                if (event.keyCode === 13 && !(!searchKey || searchKey === "")) {
+                  setKeepOptionsOpen(true)
+                  setOptions([])
+                  handleSearch(searchKey)
+                }
+              }}
+              onMouseDown={() => {
+                setKeepOptionsOpen(true)
+              }}
+              onFocus={() => {
+                setKeepOptionsOpen(true)
+              }}
+              onBlur={() => {
+                setKeepOptionsOpen(false)
+              }}
+              onSelect={() => {
+                setKeepOptionsOpen(false)
+              }}
+            >
+              {Array.isArray(options) &&
+                options.map((x, i) => (
+                  <Select.Option value={x[props.valueKey]} key={`${x[props.valueKey]}_${i}`}>
+                    {x[props.displayKey]}
+                  </Select.Option>
+                ))}
+            </Select>
+          </SearchFieldWrapper>
+        </Col>
+        <Col span={4}>
+          <SearchOutlined
+            style={{
+              borderTop: "1px solid lightgray",
+              borderBottom: "1px solid lightgray",
+              borderLeft: "1px solid lightgray",
+              borderRight: "1px solid lightgray",
+              padding: "8px"
+            }}
+            onClick={() => setShowModal(true)}
+            disabled={props.disabled}
           />
-        )}
-      </Form.Item>
+        </Col>
+      </Row>
+
       {showModal && (
         <LookupModal
           title={props.lookupModalTitle}

@@ -15,10 +15,10 @@ import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/Regi
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getProductFinancialsTableColumns } from "~/TableSearchMeta/ProductFinancialsTableColumns/ProductFinancialsTableColumns"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
-import { PackageFormMeta } from "~/Component/Package/FormMeta/PackageFormMeta"
+import { PackageFormMeta } from "~/Component/Feature/Package/FormMeta/PackageFormMeta"
 import { addPackageFinancial, addSection, savePackage } from "~/ApiServices/Service/PackageService"
-import { PackageFinancialFormMeta } from "~/Component/Package/FormMeta/PackageFinancialFormMeta"
-import { PackageSeatGroupFormMeta } from "~/Component/Package/FormMeta/PackageSeatGroupFormMeta"
+import { PackageFinancialFormMeta } from "~/Component/Feature/Package/FormMeta/PackageFinancialFormMeta"
+import { PackageSeatGroupFormMeta } from "~/Component/Feature/Package/FormMeta/PackageSeatGroupFormMeta"
 import { getPackageSeatGroupTableColumns } from "~/TableSearchMeta/PackageSeatGroup/PackageSeatGroupTableColumns"
 
 export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetailsMeta => {

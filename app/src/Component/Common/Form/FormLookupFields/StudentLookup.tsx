@@ -6,18 +6,18 @@ import { StudentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
 import { searchStudents } from "~/ApiServices/BizApi/student/studentIf"
 
 interface IStudentLookup extends IGeneratedField {
-  valueField?: string
+  valueKey?: string
 }
 export function StudentLookup(props: IStudentLookup) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Student"
-      displayField="SortName"
+      displayKey="SortName"
       meta={StudentSearchMeta as IField[]}
       metaName="StudentSearchMeta"
       {...props}
       {...getStudentTableColumns(true)}
-      valueField={props.valueField || "StudentID"}
+      valueKey={props.valueKey || "StudentID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           searchStudents({ StudentID: props.defaultValue }).then((x) => {

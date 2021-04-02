@@ -1,24 +1,48 @@
-import React, { CSSProperties } from "react"
+import React, { CSSProperties, useState } from "react"
 import { Button } from "antd"
 import { BaseButtonProps } from "antd/lib/button/button"
 import { CustomFormModal, ICustomFormModal } from "~/Component/Common/Modal/FormModal/CustomFormModal"
+import { CreateEditRemoveIconButton, iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 export interface ICustomFormModalOpenButton extends Omit<ICustomFormModal, "closeModal"> {
   style?: CSSProperties
+  buttonLabel: string
   buttonProps?: BaseButtonProps
-  buttonLabel?: string
-  showModal: boolean
-  setShowModal: (show: boolean) => void
+  iconType?: iconType
 }
+
 export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => {
-  const { style, buttonProps, buttonLabel, showModal, setShowModal, ...CustomFormModalProps } = props
-  return (
-    <>
+  const { style, buttonProps, buttonLabel, ...CustomFormModalProps } = props
+  const [showModal, setShowModal] = useState(false)
+  let ButtonType: JSX.Element
+
+  if (props.iconType) {
+    ButtonType = (
+      <CreateEditRemoveIconButton
+        toolTip={props.buttonLabel}
+        iconType={props.iconType}
+        onClick={() => setShowModal && setShowModal(true)}
+      />
+    )
+  } else {
+    ButtonType = (
       <Button style={props.style} {...props.buttonProps} onClick={() => setShowModal && setShowModal(true)}>
         {props.buttonLabel}
       </Button>
-
-      {props.showModal && <CustomFormModal {...CustomFormModalProps} closeModal={() => setShowModal(false)} />}
+    )
+  }
+  return (
+    <>
+      {ButtonType}
+      {showModal && (
+        <CustomFormModal
+          {...CustomFormModalProps}
+          closeModal={() => {
+            props.formInstance.resetFields()
+            setShowModal(false)
+          }}
+        />
+      )}
     </>
   )
 }

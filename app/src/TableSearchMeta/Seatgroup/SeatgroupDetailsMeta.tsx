@@ -5,13 +5,13 @@ import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
-import SeatGroupEditLink from "~/Component/Section/SeatGroup/SeatGroupEditLink"
-import SeatGroupRelatedAccountAddButton from "~/Component/Section/SeatGroup/SeatGroupRelatedAccountAddButton"
-import SeatGroupRemoveLink from "~/Component/Section/SeatGroup/SeatGroupRemoveLink"
+import SeatGroupEditLink from "~/Component/Feature/Section/SeatGroup/SeatGroupEditLink"
+import SeatGroupRelatedAccountAddButton from "~/Component/Feature/Section/SeatGroup/SeatGroupRelatedAccountAddButton"
+import SeatGroupRemoveLink from "~/Component/Feature/Section/SeatGroup/SeatGroupRemoveLink"
 import { getSeatgroupFinancialTableColumns } from "~/TableSearchMeta/SeatgroupFinancial/FinancialTableColumns"
 import { REFRESH_SEATGROUP_FINANCIAL_PAGE, REFRESH_SEATGROUP_RELATED_ACCOUNT_PAGE } from "~/utils/EventBus"
 import { getSeatgroupRelatedAccountTableColumns } from "~/TableSearchMeta/SeatgroupRelatedAccount/RelatedAccountTableColumns"
-import SeatGroupProgramButton from "~/Component/Section/SeatGroup/SeatGroupProgramButton"
+import SeatGroupProgramButton from "~/Component/Feature/Section/SeatGroup/SeatGroupProgramButton"
 
 export const getSeatgroupDetailsMeta = (seatgroup: { [key: string]: any }): IDetailsMeta => {
   const seatgroupInfo: CardContainer = {

@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { IField } from "~/Component/Common/Form/common"
 import { ResponsiveTable, IDataTableProps } from "~/Component/Common/ResponsiveTable"
-import { HelpModal } from "~/Component/Common/Modal/HelpModal"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export interface IBlockComponentProp {
   component: React.FunctionComponent<any>
@@ -20,7 +20,7 @@ export interface IDetailsSearchTabProp {
   tableProps: IDataTableProps
   initialFormValue?: { [key: string]: string }
   defaultFormValue?: { [key: string]: string }
-  helpUrl?: string
+  helpKey?: string
 }
 
 export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
@@ -36,9 +36,9 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
             <Typography.Title level={3}>{props.title}</Typography.Title>
           </Col>
         )}
-        {props.helpUrl && (
+        {props.helpKey && (
           <Col span={3}>
-            <HelpModal helpUrl={props.helpUrl} />
+            <HelpButton helpKey={props.helpKey} />
           </Col>
         )}
       </Row>
@@ -52,7 +52,6 @@ export default function DetailsSearchTab(props: IDetailsSearchTabProp) {
           meta={props.searchMeta}
           metaName={props.searchMetaName}
           initialFormValue={searchParams}
-          helpUrl={props.helpUrl}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             setSearchParams({ ...props.defaultFormValue, ...newFilterValues })
             console.log(newFilterValues)

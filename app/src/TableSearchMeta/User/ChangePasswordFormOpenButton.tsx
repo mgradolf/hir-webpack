@@ -63,11 +63,10 @@ const ChangePasswordFormItems = () => {
 
 export const ChangePasswordFormOpenButton = (props: { UserID: string }) => {
   const [formInstance] = Form.useForm()
-  const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
-  const onFormSubmission = () => {
+  const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       const params = formInstance.getFieldsValue()
       setErrorMessages([])
@@ -78,7 +77,7 @@ export const ChangePasswordFormOpenButton = (props: { UserID: string }) => {
           if (response && response.success) {
             message.success("Password Changed Successfully!")
             formInstance.resetFields()
-            setShowModal(false)
+            closeModal()
           } else {
             console.log("validation failed ", response.error)
             setErrorMessages(response.error)
@@ -99,11 +98,6 @@ export const ChangePasswordFormOpenButton = (props: { UserID: string }) => {
       errorMessages={errorMessages}
       buttonLabel="Change Password"
       buttonProps={{ type: "primary" }}
-      showModal={showModal}
-      setShowModal={(show: boolean) => {
-        if (!show) formInstance.resetFields()
-        setShowModal(show)
-      }}
     />
   )
 }

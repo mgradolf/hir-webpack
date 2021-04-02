@@ -8,20 +8,41 @@ import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustom
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { IDetailsPage, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { DetailsPageSubTabSwitch } from "~/Component/Common/Page/DetailsPage2/DetailsTabSwitch"
+import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
+import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 
 export function DetailsPage(props: IDetailsPage) {
   const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState<string>()
   const [error, setError] = useState<IProcessedApiError>()
   const [meta, setMeta] = useState<IDetailsTabMeta[]>([])
+  const [activeTabKey, setActiveTabKey] = useState<string>()
+
+  const changeActiveTabkey = (key: string) => {
+    setActiveTabKey(key)
+    const _queryString = objectToQueryString({ activeTabKey: `${key}1` })
+    window.history && window.history.pushState({}, "", _queryString)
+  }
+
+  useEffect(() => {
+    const __defaultTabKey: { [key: string]: any } = querystringToObject()
+    if (__defaultTabKey && __defaultTabKey["activeTabKey"]) {
+      const key = __defaultTabKey["activeTabKey"].toString().split("")[0]
+      setActiveTabKey(key)
+    } else {
+      changeActiveTabkey("1")
+    }
+  }, [])
+
   const loadDetails = () => {
     setLoading(true)
     setError(undefined)
     props.getDetails().then((x) => {
       setLoading(false)
       if (x.success && x.data) {
-        console.log("meo meo meo", x.data, props)
         const { tabs, pageTitle } = props.getMeta(x.data, props.entityType, props.entityID)
+        console.log(tabs)
+
         setMeta(tabs)
         setTitle(pageTitle)
       } else setError(x.error)
@@ -54,25 +75,41 @@ export function DetailsPage(props: IDetailsPage) {
               <Typography.Title level={3}>{title}</Typography.Title>
             </Row>
           )}
-          <Tabs defaultActiveKey="1" type="card" size="large" tabBarExtraContent={props.actions ? props.actions : []}>
+          <Tabs
+            activeKey={activeTabKey}
+            onChange={changeActiveTabkey}
+            type="card"
+            size="large"
+            tabBarExtraContent={props.actions ? props.actions : []}
+          >
             {meta.map((x, i) => {
+              i = i + 1
               switch (x.tabType) {
                 case "summary":
                   return (
-                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsSummary {...x.tabMeta} />} />
+                    <Tabs.TabPane tab={x.tabTitle} key={i}>
+                      <DetailsPageSubTabSwitch
+                        tabLevel={1}
+                        meta={x.multipleTabMetas}
+                        child={<DetailsSummary {...x.tabMeta} />}
+                      />
                     </Tabs.TabPane>
                   )
                 case "searchtable":
                   return (
-                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsSearchTab {...x.tabMeta} />} />
+                    <Tabs.TabPane tab={x.tabTitle} key={i}>
+                      <DetailsPageSubTabSwitch
+                        tabLevel={1}
+                        meta={x.multipleTabMetas}
+                        child={<DetailsSearchTab {...x.tabMeta} />}
+                      />
                     </Tabs.TabPane>
                   )
                 case "table":
                   return (
-                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
+                    <Tabs.TabPane tab={x.tabTitle} key={i}>
                       <DetailsPageSubTabSwitch
+                        tabLevel={1}
                         meta={x.multipleTabMetas}
                         actions={x.actions}
                         child={<DetailsTableTab {...x.tabMeta} />}
@@ -81,8 +118,12 @@ export function DetailsPage(props: IDetailsPage) {
                   )
                 case "custom":
                   return (
-                    <Tabs.TabPane tab={x.tabTitle} key={i + 1}>
-                      <DetailsPageSubTabSwitch meta={x.multipleTabMetas} child={<DetailsCustomTab {...x.tabMeta} />} />
+                    <Tabs.TabPane tab={x.tabTitle} key={i}>
+                      <DetailsPageSubTabSwitch
+                        tabLevel={1}
+                        meta={x.multipleTabMetas}
+                        child={<DetailsCustomTab {...x.tabMeta} />}
+                      />
                     </Tabs.TabPane>
                   )
 

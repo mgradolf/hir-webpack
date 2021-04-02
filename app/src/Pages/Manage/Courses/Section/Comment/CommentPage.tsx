@@ -5,7 +5,7 @@ import {
   findFacultyComments,
   findGeneralCommentHistory
 } from "~/ApiServices/Service/SectionService"
-import CommentCreateModalOpenButton from "~/Component/Section/Comment/CommentCreateModalOpenButton"
+import CommentCreateModalOpenButton from "~/Component/Feature/Section/Comment/CommentCreateModalOpenButton"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { COMMENT_TYPES } from "~/utils/Constants"
 

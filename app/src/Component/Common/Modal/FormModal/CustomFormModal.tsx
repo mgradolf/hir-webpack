@@ -10,7 +10,7 @@ export interface ICustomFormModal {
   customForm: JSX.Element
   formInstance: FormInstance
   closeModal: () => void
-  onFormSubmission: (Params: { [key: string]: any }) => void
+  onFormSubmission: (closeModal: () => void) => void
   initialValues: { [key: string]: any }
   apiCallInProgress?: boolean
   loading: boolean
@@ -30,7 +30,7 @@ export function CustomFormModal(props: ICustomFormModal) {
               </Button>
             </Col>
             <Col>
-              <Button type="primary" onClick={props.onFormSubmission}>
+              <Button type="primary" onClick={() => props.onFormSubmission(props.closeModal)}>
                 Submit
               </Button>
             </Col>
@@ -42,7 +42,7 @@ export function CustomFormModal(props: ICustomFormModal) {
           initialValues={props.initialValues}
           scrollToFirstError
           style={{
-            maxHeight: "80vh",
+            maxHeight: "66vh",
             overflowY: "scroll"
           }}
         >

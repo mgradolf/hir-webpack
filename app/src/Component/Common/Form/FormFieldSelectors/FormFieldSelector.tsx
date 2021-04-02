@@ -5,7 +5,7 @@ import { Row, Select, Col } from "antd"
 interface ISelector {
   label?: string
   fieldName: string
-  valueField?: string
+  valueKey?: string
   defaultValue?: any
   component: (props?: any) => JSX.Element
 }
@@ -47,7 +47,7 @@ export function FormFieldSelector(props: IGeneratedField) {
                   {...props}
                   label=""
                   fieldName={x.fieldName}
-                  valueField={x.valueField}
+                  valueKey={x.valueKey}
                   defaultValue={x.defaultValue}
                   // rules={[]}
                 />

@@ -1,7 +1,7 @@
 import React from "react"
 import { getGroupOfferings } from "~/ApiServices/Service/OfferingService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import RequisiteOfferingRemoveLink from "~/Component/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
+import RequisiteOfferingRemoveLink from "~/Component/Feature/Offering/Requisite/RequisiteGroupOfferingRemoveLink"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
 export const getOfferingPrerequisiteTableColumns = (requisiteGroupID: number): ITableConfigProp => {

@@ -6,18 +6,18 @@ import { QuestionRepositorySearchMeta } from "~/TableSearchMeta/QuestionReposito
 import { getQuestionRepositoryTableColumn } from "~/TableSearchMeta/QuestionRepository/QuestionRepositoryTableColumn"
 
 interface ILookupOpenButton extends IGeneratedField {
-  valueField?: string
+  valueKey?: string
 }
 export function QuestionsLookup(props: ILookupOpenButton) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Question"
-      displayField="Name"
+      displayKey="Name"
       meta={QuestionRepositorySearchMeta as IField[]}
       metaName="QuestionRepositorySearchMeta"
       {...props}
       {...getQuestionRepositoryTableColumn(true)}
-      valueField={"PreferenceDefID"}
+      valueKey={"PreferenceDefID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           getEntityById("Question", props.defaultValue).then((x) => {

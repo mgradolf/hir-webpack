@@ -1,7 +1,7 @@
 import React from "react"
 import { findStudentComments } from "~/ApiServices/Service/CommentService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
-import { CommentRemoveLink } from "~/Component/Comment/CommentRemoveLink"
+import { CommentRemoveLink } from "~/Component/Feature/Comment/CommentRemoveLink"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
 export const getStudentCommentTableColumns = (isModal = false): ITableConfigProp => {

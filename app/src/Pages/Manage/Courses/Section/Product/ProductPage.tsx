@@ -1,7 +1,7 @@
 import React from "react"
 import { RouteComponentProps } from "react-router"
 import { SearchPage } from "~/Component/Common/Page/SearchPage"
-import { ProductAddButton } from "~/Component/Section/Product/ProductAddButton"
+import { ProductAddButton } from "~/Component/Feature/Section/Product/ProductAddButton"
 import { getSectionProductTableColumns } from "~/TableSearchMeta/SectionProduct/ProductTableColumns"
 import { REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
 

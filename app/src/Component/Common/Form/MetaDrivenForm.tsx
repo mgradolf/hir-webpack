@@ -45,7 +45,6 @@ export function MetaDrivenForm({
   title?: React.ReactNode
   loading?: boolean
   isModal?: boolean
-  helpUrl?: string
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
@@ -196,14 +195,6 @@ export function MetaDrivenForm({
       loading={props.loading}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
-          {props.helpUrl && (
-            <Col>
-              {/* <HelpModal helpUrl={props.helpUrl} /> */}
-              <Button type="link" onClick={() => window.open(props.helpUrl)}>
-                help
-              </Button>
-            </Col>
-          )}
           {!props.closeModal && meta.length > 4 && (
             <Col>
               <Button onClick={() => setShowLess(!showLess)}>{showLess ? "Show More" : "Show Less"}</Button>
@@ -239,7 +230,7 @@ export function MetaDrivenForm({
           scrollToFirstError
           {...(props.isModal && {
             style: {
-              maxHeight: "80vh",
+              maxHeight: "66vh",
               overflowY: "scroll"
             }
           })}
@@ -278,28 +269,86 @@ const SearchFormFields = (props: {
 
           switch (field.inputType) {
             case TEXT:
-              formField = <FormInput {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormInput {...field} key={i} formInstance={props.formInstance} labelColSpan={8} wrapperColSpan={24} />
+              )
               break
             case NUMBER:
-              formField = <FormNumberInput {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormNumberInput
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
+                />
+              )
               break
             case TEXTAREA:
-              formField = <FormTextArea {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormTextArea
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
+                />
+              )
               break
             case BOOLEAN:
-              formField = <FormCheckbox {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormCheckbox
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
+                />
+              )
               break
             case MULTI_SELECT_CHECKBOX:
-              formField = <FormMultipleCheckbox {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormMultipleCheckbox
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
+                />
+              )
               break
             case MULTI_RADIO:
-              formField = <FormMultipleRadio {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormMultipleRadio
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
+                />
+              )
               break
             case DROPDOWN:
-              formField = <FormDropDown {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormDropDown
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
+                />
+              )
               break
             case MULTI_SELECT_DROPDOWN:
-              formField = <FormMultiSelectDropDown {...field} key={i} formInstance={props.formInstance} />
+              formField = (
+                <FormMultiSelectDropDown
+                  {...field}
+                  key={i}
+                  formInstance={props.formInstance}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
+                />
+              )
               break
             case DATE_PICKER:
               formField = (
@@ -308,6 +357,8 @@ const SearchFormFields = (props: {
                   key={i}
                   formInstance={props.formInstance}
                   clearTrigger={props.clearTrigger}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
                 />
               )
               break
@@ -318,6 +369,8 @@ const SearchFormFields = (props: {
                   key={i}
                   formInstance={props.formInstance}
                   clearTrigger={props.clearTrigger}
+                  labelColSpan={8}
+                  wrapperColSpan={24}
                 />
               )
               break
@@ -331,6 +384,8 @@ const SearchFormFields = (props: {
                       formInstance: props.formInstance,
                       clearTrigger: props.clearTrigger
                     }}
+                    labelColSpan={8}
+                    wrapperColSpan={24}
                   />
                 )
               }

@@ -6,18 +6,18 @@ import { ProgramSearchMeta } from "~/TableSearchMeta/Program/ProgramSearchMeta"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 interface ISearchProgramLookup extends IGeneratedField {
-  valueField?: string
+  valueKey?: string
 }
 export function ProgramLookup(props: ISearchProgramLookup) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Program"
-      displayField="ProgramCode"
+      displayKey="ProgramCode"
       meta={ProgramSearchMeta as IField[]}
       metaName="ProgramSearchMeta"
       {...props}
       {...getProgramTableColumns(true)}
-      valueField={props.valueField || "ProgramID"}
+      valueKey={props.valueKey || "ProgramID"}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           getEntityById("Program", props.defaultValue).then((x) => {
