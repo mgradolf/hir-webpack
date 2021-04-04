@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Card, Button, Input, Select, Radio } from "antd"
+import { Card, Button, Row, Col } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingRequisiteGroupFieldNames } from "~/Component/Feature/Offering/Interfaces"
 import { getPolicyTypes } from "~/ApiServices/Service/RefLookupService"
@@ -8,8 +8,10 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { updateRequisiteOfferingGroup, createRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
-
-const { TextArea } = Input
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 
 interface IOfferingRequisiteGroupFormProps {
   requisiteGroupID?: number
@@ -30,22 +32,11 @@ const fieldNames: IOfferingRequisiteGroupFieldNames = {
   RequisiteOfferingGroupID: "RequisiteOfferingGroupID"
 }
 
-const layout = {
-  labelCol: { span: 6 }
-}
-
 export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormProps) {
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [offeringGroupPolicyTypeList, setOfferingGroupPolicyTypeList] = useState<Array<any>>([])
 
   useEffect(() => {
     props.formInstance.setFieldsValue({ [fieldNames.OfferingID]: props.offeringID })
-    ;(async () => {
-      const response = await getPolicyTypes()
-      if (response && response.success && response.data) {
-        setOfferingGroupPolicyTypeList(response.data)
-      }
-    })()
   }, [props.formInstance, props.offeringID])
 
   const onFormSubmission = async () => {
@@ -62,6 +53,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
+      props.formInstance.resetFields()
       eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
       props.handleCancel()
     } else {
@@ -70,94 +62,105 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title="Prerequisite Group Setup" actions={actions}>
+    <Card
+      title="Prerequisite Group Setup"
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
       <Form initialValues={props.initialFormValue} form={props.formInstance} className="modal-form">
-        <OldFormError
-          errorMessages={errorMessages}
-          genericInstructions={
-            <ul>
-              <li>
-                All fields marked with an asterisk (<span style={{ color: "red" }}>*</span>) are required.
-              </li>
-            </ul>
-          }
-        ></OldFormError>
-        <Form.Item style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }} name={fieldNames.OfferingID}>
-          <Input aria-label="Offering ID" value={props.offeringID ? props.offeringID : undefined} />
-        </Form.Item>
+        <OldFormError errorMessages={errorMessages}></OldFormError>
 
-        <Form.Item
-          style={{ visibility: "hidden", height: "1px", padding: 0, margin: 0 }}
-          name={fieldNames.RequisiteOfferingGroupID}
-        >
-          <Input aria-label="Requisite Group ID" value={props.requisiteGroupID ? props.requisiteGroupID : undefined} />
-        </Form.Item>
+        <FormInput
+          label={"OfferingID"}
+          fieldName={fieldNames.OfferingID}
+          formInstance={props.formInstance}
+          defaultValue={props.offeringID}
+          hidden
+        />
 
-        <Form.Item
-          label="Group Name"
-          required
-          {...layout}
-          name={fieldNames.Name}
+        <FormInput
+          label={"RequisiteOfferingGroupID"}
+          fieldName={fieldNames.RequisiteOfferingGroupID}
+          formInstance={props.formInstance}
+          defaultValue={props.requisiteGroupID}
+          hidden
+        />
+
+        <FormInput
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"Group Name"}
+          fieldName={fieldNames.Name}
+          formInstance={props.formInstance}
           rules={[{ required: true, message: "Please input group name!" }]}
-        >
-          <Input aria-label="Group Name" />
-        </Form.Item>
+        />
 
-        <Form.Item
-          label="Policy Name"
-          required
-          {...layout}
-          name={fieldNames.PolicyTypeID}
-          rules={[{ required: true, message: "Please select policy name!" }]}
-        >
-          <Select aria-label="Policy Name Select">
-            {offeringGroupPolicyTypeList.map((x) => {
-              return (
-                <Select.Option key={x.ID} value={x.ID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
+        <FormDropDown
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"Policy Name"}
+          ariaLabel={"Policy Select"}
+          formInstance={props.formInstance}
+          fieldName={fieldNames.PolicyTypeID}
+          refLookupService={getPolicyTypes}
+          displayKey="Name"
+          valueKey="ID"
+          rules={[
+            {
+              required: true,
+              message: "Please select policy name!"
+            }
+          ]}
+        />
 
-        <Form.Item
-          label="Policy Value"
-          required
-          {...layout}
-          name={fieldNames.PolicyValue}
-          rules={[{ required: true, message: "Please input policy name!" }]}
-        >
-          <Input aria-label="Policy Value" />
-        </Form.Item>
+        <FormInput
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"Policy Value"}
+          fieldName={fieldNames.PolicyValue}
+          formInstance={props.formInstance}
+          rules={[{ required: true, message: "Please input policy value!" }]}
+        />
 
-        <Form.Item
-          label="Information Only"
-          required
-          {...layout}
-          name={fieldNames.IsInformational}
+        <FormMultipleRadio
+          labelColSpan={6}
+          wrapperColSpan={12}
+          formInstance={props.formInstance}
+          label={"Information Only"}
+          fieldName={fieldNames.IsInformational}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
           rules={[{ required: true, message: "Please checked information field!" }]}
-        >
-          <Radio.Group aria-label="Information Only">
-            <Radio value={true}>Yes</Radio>
-            <Radio value={false}>No</Radio>
-          </Radio.Group>
-        </Form.Item>
+        />
 
-        <Form.Item
-          label="Quick Admit Narrative"
-          required
-          {...layout}
-          name={fieldNames.CatalogNarrative}
-          rules={[{ required: true, message: "Please input narrative description!" }]}
-        >
-          <TextArea rows={4} aria-label="Quick Admit Narrative" />
-        </Form.Item>
+        <FormTextArea
+          labelColSpan={6}
+          wrapperColSpan={12}
+          label={"Quick Admit Narrative"}
+          fieldName={fieldNames.CatalogNarrative}
+          formInstance={props.formInstance}
+          rules={[
+            {
+              required: true,
+              message: "Please input narrative description!"
+            }
+          ]}
+        />
       </Form>
     </Card>
   )

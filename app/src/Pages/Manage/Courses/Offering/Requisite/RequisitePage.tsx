@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react"
 import { Row, Col, Typography } from "antd"
 import { getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import PrerequisiteGroupOfferingModalOpenButton from "~/Component/Feature/Offering/Requisite/PrerequisiteGroupOfferingModalOpenButton"
+import { AddOfferingFromRequisiteGroupButton } from "~/Component/Feature/Offering/Requisite/AddOfferingFromRequisiteGroupButton"
 import PrerequisiteGroups from "~/Component/Feature/Offering/Requisite/PrerequisiteGroups"
-import { REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
 import styles from "~/Pages/Manage/Courses/Offering/Requisite/Requisite.module.scss"
 import { getOfferingPrerequisiteTableColumns } from "~/TableSearchMeta/OfferingRequisite/PrerequisiteTableColumns"
 
@@ -28,7 +28,12 @@ export default function RequisitePage(props: IRequisitePageProp) {
         setPolicyTypeList(result.data)
       }
     }
-    loadOfferingRequisiteGroup()
+    eventBus.subscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE, loadOfferingRequisiteGroup)
+    eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+    return () => {
+      eventBus.unsubscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+    }
+    //loadOfferingRequisiteGroup()
   }, [props.offeringID])
 
   const handleSelection = (param: any) => {
@@ -47,9 +52,8 @@ export default function RequisitePage(props: IRequisitePageProp) {
       <PrerequisiteGroups offeringId={props.offeringID} policyData={policyTypeList} onSelected={handleSelection} />
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className={`gutter-row`} xs={24} sm={24} md={24}>
-          <PrerequisiteGroupOfferingModalOpenButton
-            offeringId={props.offeringID}
-            requisiteGroupId={requisiteGroupID}
+          <AddOfferingFromRequisiteGroupButton
+            requisiteGroupID={requisiteGroupID}
             hasRequisiteGroup={hasRequisiteGroup}
           />
         </Col>

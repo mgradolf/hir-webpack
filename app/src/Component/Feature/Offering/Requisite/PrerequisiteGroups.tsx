@@ -58,7 +58,7 @@ export default function PrerequisiteGroups(props: IRequisiteGroupProps) {
           )}
         </Col>
         <Col className={`gutter-row ${styles.paddingTopBottom} ${styles.textAlign}`} xs={24} sm={24} md={8}>
-          <PrerequisiteGroupModalOpenButton offeringId={props.offeringId} />
+          <PrerequisiteGroupModalOpenButton OfferingID={props.offeringId} />
           {requisiteGroups.length > 0 && (
             <RequisiteGroupEdit offeringId={props.offeringId} requisiteGroupId={requisiteGroupID} />
           )}

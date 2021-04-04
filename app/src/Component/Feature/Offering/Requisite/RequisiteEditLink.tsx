@@ -1,34 +1,26 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showCreateOfferingPrerequisiteGroupModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import OfferingRequisiteGroupFormModal from "./RequisiteFormModal"
 
 interface IRequisiteGroupEditLinkProp {
   offeringId: number
   requisiteGroupId?: number
-  openOfferingRequisiteGroupModal: (offeringId: number, requisiteGroupId?: number) => void
 }
-function RequisiteGroupEditLink(props: IRequisiteGroupEditLinkProp) {
+
+export default function RequisiteGroupEditLink(props: IRequisiteGroupEditLinkProp) {
+  const [showModal, setShowModal] = useState(false)
   return (
-    <Button
-      type="primary"
-      style={{ marginRight: "5px" }}
-      onClick={() => {
-        props.openOfferingRequisiteGroupModal(props.offeringId, props.requisiteGroupId)
-      }}
-    >
-      Edit
-    </Button>
+    <>
+      <Button type="primary" style={{ marginRight: "5px" }} onClick={() => setShowModal && setShowModal(true)}>
+        Edit
+      </Button>
+      {showModal && (
+        <OfferingRequisiteGroupFormModal
+          offeringID={props.offeringId}
+          requisiteGroupID={props.requisiteGroupId}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openOfferingRequisiteGroupModal: (offeringId: number, requisiteGroupId?: number) => {
-      return dispatch(showCreateOfferingPrerequisiteGroupModal(true, { offeringId, requisiteGroupId }))
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(RequisiteGroupEditLink)

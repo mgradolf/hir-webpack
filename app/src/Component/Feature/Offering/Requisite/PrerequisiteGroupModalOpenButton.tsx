@@ -1,30 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showCreateOfferingPrerequisiteGroupModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import OfferingRequisiteGroupFormModal from "~/Component/Feature/Offering/Requisite/RequisiteFormModal"
 
-interface ICreateActionButtonProp {
-  offeringId: number
-  openCreateOfferingRequisiteGroupModal?: (offeringId: number) => void
+interface IPrerequisiteGroupModalOpenButtonProp {
+  OfferingID: number
 }
 
-function CreateActionButton(props: ICreateActionButtonProp) {
-  const onClick = () => {
-    if (props.openCreateOfferingRequisiteGroupModal) props.openCreateOfferingRequisiteGroupModal(props.offeringId)
-  }
+export default function PrerequisiteGroupModalOpenButton(props: IPrerequisiteGroupModalOpenButtonProp) {
+  const [showModal, setShowModal] = useState(false)
   return (
-    <Button type="primary" style={{ marginRight: "5px" }} onClick={onClick}>
-      + Add Group
-    </Button>
+    <>
+      <Button type="primary" style={{ marginRight: "5px" }} onClick={() => setShowModal && setShowModal(true)}>
+        + Add Group
+      </Button>
+      {showModal && (
+        <OfferingRequisiteGroupFormModal offeringID={props.OfferingID} closeModal={() => setShowModal(false)} />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openCreateOfferingRequisiteGroupModal: (offeringId: number) =>
-      dispatch(showCreateOfferingPrerequisiteGroupModal(true, { offeringId }))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(CreateActionButton)
