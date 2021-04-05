@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import OfferingApprovalFormModal from "~/Component/Feature/Offering/Approval/OfferingApprovalFormModal"
+import OfferingApprovalFormModal from "~/Component/Feature/OfferingApproval/OfferingApprovalFormModal"
 
 interface ICreateActionButtonProp {
   offeringId: number

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import { Row, Col, Typography } from "antd"
 import { getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { AddOfferingFromRequisiteGroupButton } from "~/Component/Feature/Offering/Requisite/AddOfferingFromRequisiteGroupButton"
-import PrerequisiteGroups from "~/Component/Feature/Offering/Requisite/PrerequisiteGroups"
+import { AddOfferingFromRequisiteGroupButton } from "~/Component/Feature/OfferingRequisite/AddOfferingFromRequisiteGroupButton"
+import PrerequisiteGroups from "~/Component/Feature/OfferingRequisite/PrerequisiteGroups"
 import {
   eventBus,
   REFRESH_OFFERING_REQUISITE_GROUP_PAGE,

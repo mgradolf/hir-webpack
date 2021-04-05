@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Row, Col, Button } from "antd"
-import { AddOfferingFromRequisiteGroupModal } from "~/Component/Feature/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
+import { AddOfferingFromRequisiteGroupModal } from "~/Component/Feature/OfferingRequisite/AddOfferingFromRequisiteGroupModal"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { eventBus, REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP } from "~/utils/EventBus"
 

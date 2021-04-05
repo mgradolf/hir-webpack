@@ -2,7 +2,7 @@ import * as React from "react"
 import { useEffect, useState } from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
-import RequisiteGroupForm from "~/Component/Feature/Offering/Requisite/RequisiteGroupForm"
+import RequisiteGroupForm from "~/Component/Feature/OfferingRequisite/RequisiteGroupForm"
 import { getOfferingRequisiteGroupById } from "~/ApiServices/Service/EntityService"
 
 interface IOfferingRequisiteGroupProps {

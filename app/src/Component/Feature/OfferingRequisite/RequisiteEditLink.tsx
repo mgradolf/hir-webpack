@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import OfferingRequisiteGroupFormModal from "./RequisiteFormModal"
+import OfferingRequisiteGroupFormModal from "~/Component/Feature/OfferingRequisite/RequisiteFormModal"
 
 interface IRequisiteGroupEditLinkProp {
   offeringId: number

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Row, Col, Typography, Select, Divider } from "antd"
 
-import RequisiteGroupEdit from "~/Component/Feature/Offering/Requisite/RequisiteEditLink"
-import RequisiteRemoveLink from "~/Component/Feature/Offering/Requisite/RequisiteRemoveLink"
-import PrerequisiteGroupModalOpenButton from "~/Component/Feature/Offering/Requisite/PrerequisiteGroupModalOpenButton"
-import styles from "~/Component/Feature/Offering/Requisite/PrerequisiteGroups.module.scss"
+import RequisiteGroupEdit from "~/Component/Feature/OfferingRequisite/RequisiteEditLink"
+import RequisiteRemoveLink from "~/Component/Feature/OfferingRequisite/RequisiteRemoveLink"
+import PrerequisiteGroupModalOpenButton from "~/Component/Feature/OfferingRequisite/PrerequisiteGroupModalOpenButton"
+import styles from "~/Component/Feature/OfferingRequisite/PrerequisiteGroups.module.scss"
 
 interface IRequisiteGroupProps {
   offeringId: number
