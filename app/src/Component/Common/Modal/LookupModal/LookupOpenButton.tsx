@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Col, Row, Select, Spin } from "antd"
+import React, { useEffect, useState } from "react"
+import { Select, Spin } from "antd"
 import { IField, IGeneratedField, SearchFieldWrapper } from "~/Component/Common/Form/common"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -16,7 +16,7 @@ export interface ILookupOpenButton extends IGeneratedField {
   columns: TableColumnType
   meta: IField[]
   metaName: string
-  defaultFormValue?: { [key: string]: any }
+  // defaultFormValue?: { [key: string]: any }
   responsiveColumnIndices?: number[]
   expandableColumnIndices?: number[]
   entityLookupFunc?: () => Promise<any>
@@ -29,6 +29,15 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   const [loading, setLoading] = useState(false)
   const [searchKey, setSearchKey] = useState("")
   const [keepOptionsOpen, setKeepOptionsOpen] = useState(false)
+
+  useEffect(() => {
+    if (props.defaultValue) {
+      props.searchFunc({ [props.fieldName]: props.defaultValue }).then((x) => {
+        if (x.success) setOptions(x.data)
+      })
+    }
+    // eslint-disable-next-line
+  }, [props.defaultValue, props.fieldName])
 
   const closeModal = (items?: any[]) => {
     if (items && items.length > 0) {
@@ -63,76 +72,73 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   }, 500)
   const toRender = (
     <>
-      <Row>
-        <Col span={20}>
-          <SearchFieldWrapper
-            fieldName={props.fieldName}
-            label={props.label}
-            rules={props.rules}
-            formInstance={props.formInstance}
-            labelColSpan={props.labelColSpan}
-            wrapperColSpan={props.wrapperColSpan}
-          >
-            <Select
-              showSearch
-              loading={loading}
-              allowClear={true}
-              filterOption={false}
-              aria-label={props.ariaLabel}
-              disabled={props.disabled}
-              notFoundContent={loading ? <Spin size="small" /> : null}
-              {...(props.extraProps && props.extraProps.isArray && { mode: "multiple" })}
-              listItemHeight={10}
-              listHeight={256}
-              open={keepOptionsOpen}
-              defaultActiveFirstOption={false}
-              onSearch={debounce((_searchKey) => {
-                setSearchKey(_searchKey)
-              }, 200)}
-              onKeyDown={(event) => {
-                if (event.keyCode === 13 && !(!searchKey || searchKey === "")) {
-                  setKeepOptionsOpen(true)
-                  setOptions([])
-                  handleSearch(searchKey)
+      <SearchFieldWrapper
+        fieldName={props.fieldName}
+        label={props.label}
+        rules={props.rules}
+        formInstance={props.formInstance}
+        labelColSpan={props.labelColSpan}
+        wrapperColSpan={props.wrapperColSpan}
+      >
+        <Select
+          showSearch
+          loading={loading}
+          allowClear={true}
+          filterOption={false}
+          aria-label={props.ariaLabel}
+          disabled={props.disabled}
+          notFoundContent={loading ? <Spin size="small" /> : null}
+          {...(props.extraProps && props.extraProps.isArray && { mode: "multiple" })}
+          listItemHeight={10}
+          listHeight={256}
+          open={keepOptionsOpen}
+          defaultActiveFirstOption={false}
+          onSearch={debounce((_searchKey) => {
+            setSearchKey(_searchKey)
+          }, 200)}
+          onKeyDown={(event) => {
+            if (event.keyCode === 13 && !(!searchKey || searchKey === "")) {
+              setKeepOptionsOpen(true)
+              setOptions([])
+              handleSearch(searchKey)
+            }
+          }}
+          onMouseDown={() => {
+            setKeepOptionsOpen(true)
+          }}
+          onFocus={() => {
+            setKeepOptionsOpen(true)
+          }}
+          onBlur={() => {
+            setKeepOptionsOpen(false)
+          }}
+          onSelect={() => {
+            setKeepOptionsOpen(false)
+          }}
+          suffixIcon={
+            <SearchOutlined
+              style={
+                {
+                  // borderTop: "1px solid lightgray",
+                  // borderBottom: "1px solid lightgray",
+                  // borderLeft: "1px solid lightgray",
+                  // borderRight: "1px solid lightgray",
+                  // padding: "8px"
                 }
-              }}
-              onMouseDown={() => {
-                setKeepOptionsOpen(true)
-              }}
-              onFocus={() => {
-                setKeepOptionsOpen(true)
-              }}
-              onBlur={() => {
-                setKeepOptionsOpen(false)
-              }}
-              onSelect={() => {
-                setKeepOptionsOpen(false)
-              }}
-            >
-              {Array.isArray(options) &&
-                options.map((x, i) => (
-                  <Select.Option value={x[props.valueKey]} key={`${x[props.valueKey]}_${i}`}>
-                    {x[props.displayKey]}
-                  </Select.Option>
-                ))}
-            </Select>
-          </SearchFieldWrapper>
-        </Col>
-        <Col span={4}>
-          <SearchOutlined
-            style={{
-              borderTop: "1px solid lightgray",
-              borderBottom: "1px solid lightgray",
-              borderLeft: "1px solid lightgray",
-              borderRight: "1px solid lightgray",
-              padding: "8px"
-            }}
-            onClick={() => setShowModal(true)}
-            disabled={props.disabled}
-          />
-        </Col>
-      </Row>
-
+              }
+              onClick={() => setShowModal(true)}
+              disabled={props.disabled}
+            />
+          }
+        >
+          {Array.isArray(options) &&
+            options.map((x, i) => (
+              <Select.Option value={x[props.valueKey]} key={`${x[props.valueKey]}_${i}`}>
+                {x[props.displayKey]}
+              </Select.Option>
+            ))}
+        </Select>
+      </SearchFieldWrapper>
       {showModal && (
         <LookupModal
           title={props.lookupModalTitle}
@@ -144,7 +150,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           metaName={props.metaName}
           responsiveColumnIndices={props.responsiveColumnIndices}
           expandableColumnIndices={props.expandableColumnIndices}
-          defaultFormValue={props.defaultFormValue}
+          // defaultFormValue={props.defaultFormValue}
         />
       )}
     </>

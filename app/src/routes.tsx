@@ -270,7 +270,6 @@ export const AppRoutes: RouteProps[] = [
     path: "/program/:programID/student/:studentID/enrollment",
     component: React.lazy(() => import("~/Pages/Manage/Program/Enrollment/EnrollmentDetailsPage"))
   },
-
   {
     path: "/search/activity/academic-log",
     component: React.lazy(() => import("~/Pages/Discovery/Search/Activity/AcademicPage"))
