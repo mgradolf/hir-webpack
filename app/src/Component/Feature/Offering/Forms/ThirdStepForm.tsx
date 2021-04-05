@@ -26,6 +26,8 @@ const OfferingStatus = {
 
 export default function ThirdStepForm(props: IThirdStepFormProps) {
   const offeringTypes = props.formInstance.getFieldValue("OfferingTypes")
+  const hasApprovalProcess = props.initialValue.HasApprovalProcess
+
   const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
   const [department, setDepartment] = useState<Array<any>>([])
   const [defaultSection, setDefaultSection] = useState<Array<any>>([])
@@ -35,8 +37,15 @@ export default function ThirdStepForm(props: IThirdStepFormProps) {
     ;(async () => {
       const response = await getOfferingStatusTypes()
       if (response && response.data && Array.isArray(response.data)) {
+        if (!hasApprovalProcess) {
+          response.data = response.data.filter(
+            (x: any) => x.StatusID !== OfferingStatus.AwaitingApproval && x.StatusID !== OfferingStatus.Denied
+          )
+        }
         switch (props.formInstance.getFieldValue(props.fieldNames.OfferingStatusCodeID)) {
           case OfferingStatus.Preliminary:
+            setDisableStatus(hasApprovalProcess)
+            break
           case OfferingStatus.AwaitingApproval:
           case OfferingStatus.Denied:
             setDisableStatus(true)
