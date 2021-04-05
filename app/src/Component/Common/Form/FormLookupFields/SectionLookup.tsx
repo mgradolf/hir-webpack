@@ -17,10 +17,6 @@ export function SectionLookup(props: IGeneratedField) {
       metaName="SectionSearchMeta"
       {...props}
       {...getSectionTableColumns(true)}
-      {...(props.extraProps &&
-        props.extraProps.defaultFormValue && {
-          defaultFormValue: props.extraProps.defaultFormValue
-        })}
       {...(props.defaultValue && {
         entityLookupFunc: () =>
           getEntityById("Section", props.defaultValue).then((x) => {

@@ -9,6 +9,7 @@ export function AccountLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Account"
+      placeholder="Enter Account Name"
       valueKey={props.valueKey || "AccountID"}
       displayKey={"AccountName"}
       {...getAccountTableColumns(true)}
