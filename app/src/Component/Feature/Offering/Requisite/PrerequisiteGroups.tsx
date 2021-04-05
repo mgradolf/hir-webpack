@@ -13,11 +13,9 @@ interface IRequisiteGroupProps {
 }
 
 export default function PrerequisiteGroups(props: IRequisiteGroupProps) {
-  const [requisiteGroups, setRequisiteGroups] = useState<Array<any>>([])
   const [requisiteGroupID, setRequisiteGroupID] = useState<number>()
 
   useEffect(() => {
-    setRequisiteGroups(props.policyData)
     if (props.policyData.length > 0) {
       setRequisiteGroupID(props.policyData[0].RequisiteOfferingGroupID)
     }
@@ -35,11 +33,11 @@ export default function PrerequisiteGroups(props: IRequisiteGroupProps) {
           </Typography.Text>
         </Col>
         <Col className={`gutter-row ${styles.paddingTopBottom} ${styles.textAlignLeft}`} xs={24} sm={24} md={12}>
-          {requisiteGroups.length > 0 && (
+          {props.policyData.length > 0 && (
             <Select
               className={styles.show}
               showSearch
-              defaultValue={requisiteGroups[0].RequisiteOfferingGroupID}
+              value={requisiteGroupID}
               optionFilterProp="children"
               onSelect={(e) => {
                 setRequisiteGroupID(e)
@@ -47,7 +45,7 @@ export default function PrerequisiteGroups(props: IRequisiteGroupProps) {
               }}
               placeholder="Select a requisite group"
             >
-              {requisiteGroups.map((x) => {
+              {props.policyData.map((x) => {
                 return (
                   <Select.Option key={x.RequisiteOfferingGroupID} value={x.RequisiteOfferingGroupID}>
                     {x.RequisiteOfferingGroupName}
@@ -59,10 +57,10 @@ export default function PrerequisiteGroups(props: IRequisiteGroupProps) {
         </Col>
         <Col className={`gutter-row ${styles.paddingTopBottom} ${styles.textAlign}`} xs={24} sm={24} md={8}>
           <PrerequisiteGroupModalOpenButton OfferingID={props.offeringId} />
-          {requisiteGroups.length > 0 && (
+          {props.policyData.length > 0 && (
             <RequisiteGroupEdit offeringId={props.offeringId} requisiteGroupId={requisiteGroupID} />
           )}
-          {requisiteGroups.length > 0 && (
+          {props.policyData.length > 0 && (
             <RequisiteRemoveLink offeringId={props.offeringId} requisiteGroupId={requisiteGroupID} />
           )}
         </Col>

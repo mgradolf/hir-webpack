@@ -4,7 +4,11 @@ import { getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { AddOfferingFromRequisiteGroupButton } from "~/Component/Feature/Offering/Requisite/AddOfferingFromRequisiteGroupButton"
 import PrerequisiteGroups from "~/Component/Feature/Offering/Requisite/PrerequisiteGroups"
-import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
+import {
+  eventBus,
+  REFRESH_OFFERING_REQUISITE_GROUP_PAGE,
+  REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP
+} from "~/utils/EventBus"
 import styles from "~/Pages/Manage/Courses/Offering/Requisite/Requisite.module.scss"
 import { getOfferingPrerequisiteTableColumns } from "~/TableSearchMeta/OfferingRequisite/PrerequisiteTableColumns"
 
@@ -49,22 +53,26 @@ export default function RequisitePage(props: IRequisitePageProp) {
           </Col>
         </Row>
       )}
-      <PrerequisiteGroups offeringId={props.offeringID} policyData={policyTypeList} onSelected={handleSelection} />
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        <Col className={`gutter-row`} xs={24} sm={24} md={24}>
-          <AddOfferingFromRequisiteGroupButton
-            requisiteGroupID={requisiteGroupID}
-            hasRequisiteGroup={hasRequisiteGroup}
-          />
-        </Col>
-      </Row>
+      {policyTypeList.length > 0 && (
+        <>
+          <PrerequisiteGroups offeringId={props.offeringID} policyData={policyTypeList} onSelected={handleSelection} />
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+            <Col className={`gutter-row`} xs={24} sm={24} md={24}>
+              <AddOfferingFromRequisiteGroupButton
+                requisiteGroupID={requisiteGroupID}
+                hasRequisiteGroup={hasRequisiteGroup}
+              />
+            </Col>
+          </Row>
+        </>
+      )}
       {requisiteGroupID && (
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={"padding-top-10"}>
           <Col className="gutter-row" xs={24} sm={24} md={{ span: 24, offset: 0 }}>
             <ResponsiveTable
               searchParams={{ RequisiteOfferingGroupID: requisiteGroupID }}
               {...getOfferingPrerequisiteTableColumns(requisiteGroupID)}
-              refreshEventName={REFRESH_OFFERING_REQUISITE_GROUP_PAGE}
+              refreshEventName={REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP}
               className={styles.paddingTop10px}
             />
           </Col>
