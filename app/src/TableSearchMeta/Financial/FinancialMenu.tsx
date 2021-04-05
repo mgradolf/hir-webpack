@@ -22,8 +22,6 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
   const [showResource, setShowResource] = useState<boolean>(false)
   const [showMarketingProgram, setShowMarketingProgram] = useState<boolean>(false)
 
-  console.log("Data info: ", props.dataLoaded)
-
   const addOfferingFinancial = async (SectionID: number) => {
     if (props.dataLoaded) {
       setLoading(true)

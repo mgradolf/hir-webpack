@@ -1,36 +1,33 @@
 import React from "react"
-import { Button, Popconfirm } from "antd"
+import { Button } from "antd"
 import { removeOfferingRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 
 interface IRequisiteRemoveLinkProp {
   offeringId: number
   requisiteGroupId?: number
 }
 
-function RequisiteRemoveLink(props: IRequisiteRemoveLinkProp) {
-  const removeRequisiteGroup = async () => {
-    if (props.requisiteGroupId !== undefined) {
-      const response = await removeOfferingRequisiteGroup({ RequisiteGroupId: props.requisiteGroupId })
-      if (response.success) {
-        eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
-      }
-    }
-  }
-
+export function RequisiteRemoveLink(props: IRequisiteRemoveLinkProp) {
   return (
-    <Popconfirm
-      placement="left"
-      title="Are you sure, you want to delete this prerequisite group?"
-      onConfirm={removeRequisiteGroup}
-      okText="Confirm"
-      cancelText="Cancel"
+    <Button
+      danger
+      type="primary"
+      onClick={() =>
+        showDeleteConfirm(() => {
+          return removeOfferingRequisiteGroup({
+            RequisiteGroupId: props.requisiteGroupId
+          }).then((x) => {
+            if (x && x.success) {
+              eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+            }
+            return x
+          })
+        })
+      }
     >
-      <Button style={{ marginRight: "5px" }} type="primary">
-        Remove
-      </Button>
-    </Popconfirm>
+      Remove
+    </Button>
   )
 }
-
-export default RequisiteRemoveLink
