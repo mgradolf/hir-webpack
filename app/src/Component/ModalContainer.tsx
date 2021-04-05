@@ -4,9 +4,8 @@ import { IModalState } from "~/Store/ModalState"
 import { connect } from "react-redux"
 import OfflineAlert from "~/Component/Alerts/Offline"
 import LoginModal from "~/Component/Login/LoginModal"
-import OfferingApprovalFormModal from "~/Component/Feature/Offering/Approval/OfferingApprovalFormModal"
-import OfferingRequisiteGroupFormModal from "~/Component/Feature/Offering/Requisite/RequisiteFormModal"
-import AddOfferingFromRequisiteGroupModal from "~/Component/Feature/Offering/Requisite/AddOfferingFromRequisiteGroupModal"
+import OfferingApprovalFormModal from "~/Component/Feature/OfferingApproval/OfferingApprovalFormModal"
+import OfferingRequisiteGroupFormModal from "~/Component/Feature/OfferingRequisite/RequisiteFormModal"
 import SectionCopyModal from "~/Component/Feature/Section/Copy/SectionCopyModal"
 import SectionSeatGroupFormModal from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Feature/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
@@ -46,13 +45,6 @@ function ModalContainer(modalState: IModalState) {
           requisiteGroupID={modalState.offeringPrerequisiteGroupModal.config.requisiteGroupId}
         />
       )}
-      {modalState.addOfferingFromRequisiteGroupModal.value && (
-        <AddOfferingFromRequisiteGroupModal
-          offeringID={modalState.addOfferingFromRequisiteGroupModal.config.offeringId}
-          requisiteGroupID={modalState.addOfferingFromRequisiteGroupModal.config.requisiteGroupId}
-        />
-      )}
-      {/* {modalState.createSectionModal.value && <SectionFormModal />} */}
       {modalState.copySectionModal.value && <SectionCopyModal />}
       {modalState.createSectionSeatGroupModal.value && (
         <SectionSeatGroupFormModal

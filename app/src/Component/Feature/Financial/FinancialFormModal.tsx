@@ -71,7 +71,7 @@ export default function CreateNewFinancial({
 
   return (
     <Modal
-      width="800px"
+      width="1000px"
       loading={offeringFinancialLoading}
       apiCallInProgress={apiCallInProgress}
       children={

@@ -7,7 +7,7 @@ import {
   addResourceFinancials
 } from "~/ApiServices/Service/SectionService"
 import { eventBus } from "~/utils/EventBus"
-import { AddInstructorModal } from "~/Component/Feature/Offering/QualifiedInstructor/AddInstructorModal"
+import { AddInstructorModal } from "~/Component/Feature/OfferingQualifiedInstructor/AddInstructorModal"
 import AddResourceModal from "~/Component/Feature/Resource/AddResourceModal"
 import AddMarketingProgramModal from "~/Component/Feature/MarketingProgram/AddMarketingProgramModal"
 import { REFRESH_SECTION_BUDGET_PAGE } from "~/TableSearchMeta/Section/SectionDetailsMeta"

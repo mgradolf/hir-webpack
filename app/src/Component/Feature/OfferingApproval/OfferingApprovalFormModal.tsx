@@ -2,7 +2,7 @@ import * as React from "react"
 import { Form, Typography } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import ApprovalForm from "~/Component/Feature/Offering/Approval/ApprovalForm"
+import ApprovalForm from "~/Component/Feature/OfferingApproval/ApprovalForm"
 
 interface IOfferingApprovalProps {
   offeringID: number
@@ -22,7 +22,7 @@ export default function OfferingApprovalFormModal({ closeModal, offeringID }: IO
 
   return (
     <Modal
-      width="800px"
+      width="1000px"
       apiCallInProgress={apiCallInProgress}
       children={
         <>

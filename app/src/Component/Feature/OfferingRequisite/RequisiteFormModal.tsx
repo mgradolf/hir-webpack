@@ -1,21 +1,18 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
 import { Form, Typography } from "antd"
-import Modal from "~/Component/Common/Modal"
-import RequisiteGroupForm from "~/Component/Feature/Offering/Requisite/RequisiteGroupForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showCreateOfferingPrerequisiteGroupModal } from "~/Store/ModalState"
+import Modal from "~/Component/Common/Modal/index2"
+import RequisiteGroupForm from "~/Component/Feature/OfferingRequisite/RequisiteGroupForm"
 import { getOfferingRequisiteGroupById } from "~/ApiServices/Service/EntityService"
 
 interface IOfferingRequisiteGroupProps {
   offeringID: number
   requisiteGroupID?: number
-  closeOfferingRequisiteGroupModal?: () => void
+  closeModal?: () => void
 }
 
-function OfferingRequisiteGroupFormModal({
-  closeOfferingRequisiteGroupModal,
+export default function OfferingRequisiteGroupFormModal({
+  closeModal,
   requisiteGroupID,
   offeringID
 }: IOfferingRequisiteGroupProps) {
@@ -26,8 +23,8 @@ function OfferingRequisiteGroupFormModal({
   const [errorMessages] = useState<Array<string>>([])
 
   const handleCancel = () => {
-    if (closeOfferingRequisiteGroupModal) {
-      closeOfferingRequisiteGroupModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
@@ -40,19 +37,18 @@ function OfferingRequisiteGroupFormModal({
         if (response && response.success) {
           formInstance.setFieldsValue(response.data)
         } else {
-          if (closeOfferingRequisiteGroupModal) {
-            closeOfferingRequisiteGroupModal()
+          if (closeModal) {
+            closeModal()
           }
         }
         setOfferingARequisiteGroupLoading(false)
       })()
     }
-  }, [requisiteGroupID, closeOfferingRequisiteGroupModal, formInstance])
+  }, [requisiteGroupID, closeModal, formInstance])
 
   return (
     <Modal
-      showModal={true}
-      width="800px"
+      width="1000px"
       loading={offeringARequisiteGroupLoading}
       apiCallInProgress={apiCallInProgress}
       children={
@@ -79,9 +75,3 @@ function OfferingRequisiteGroupFormModal({
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeOfferingRequisiteGroupModal: () => dispatch(showCreateOfferingPrerequisiteGroupModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(OfferingRequisiteGroupFormModal)
