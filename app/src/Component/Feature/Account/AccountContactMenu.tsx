@@ -25,6 +25,8 @@ export function AccountContactMenu(props: IAccountContactMenu) {
             if (response && response.success) {
               message.success(DELETE_SUCCESSFULLY)
               eventBus.publish("REFRESH_CONTACT_TAB")
+            } else {
+              message.error(response.error[0].message)
             }
           }}
         >

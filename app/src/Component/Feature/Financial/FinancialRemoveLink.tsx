@@ -8,6 +8,7 @@ import {
   REFRESH_RESOURCE_OFFERINGS_TAB
 } from "~/utils/EventBus"
 import { Button } from "antd"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 
 interface IFinancialRemoveLinkProp {
   financialId: number
@@ -16,15 +17,19 @@ function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
   return (
     <Button
       type="link"
-      onClick={async () => {
-        const response = await deleteFinancial({ FinancialID: props.financialId })
-        if (response && response.success) {
-          eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
-          eventBus.publish(REFRESH_FACULTY_OFFERINGS_TAB)
-          eventBus.publish(REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB)
-          eventBus.publish(REFRESH_RESOURCE_OFFERINGS_TAB)
-        }
-      }}
+      onClick={() =>
+        showDeleteConfirm(() => {
+          return deleteFinancial({ FinancialID: props.financialId }).then((x) => {
+            if (x && x.success) {
+              eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
+              eventBus.publish(REFRESH_FACULTY_OFFERINGS_TAB)
+              eventBus.publish(REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB)
+              eventBus.publish(REFRESH_RESOURCE_OFFERINGS_TAB)
+            }
+            return x
+          })
+        })
+      }
     >
       Remove
     </Button>

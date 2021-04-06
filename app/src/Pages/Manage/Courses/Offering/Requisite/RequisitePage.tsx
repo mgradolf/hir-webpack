@@ -32,7 +32,6 @@ export default function RequisitePage(props: IRequisitePageProp) {
     return () => {
       eventBus.unsubscribe(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
     }
-    //loadOfferingRequisiteGroup()
   }, [props.offeringID])
 
   const handleSelection = (param: any) => {
