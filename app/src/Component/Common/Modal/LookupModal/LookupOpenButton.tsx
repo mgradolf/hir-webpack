@@ -83,6 +83,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
         <Select
           showSearch
           loading={loading}
+          placeholder={`Enter ${props.displayKey}`}
           allowClear={true}
           filterOption={false}
           aria-label={props.ariaLabel}

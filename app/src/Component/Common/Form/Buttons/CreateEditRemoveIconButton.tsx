@@ -10,6 +10,7 @@ export const CreateEditRemoveIconButton = (props: {
   inProgress?: boolean
   toolTip: string
   disabled?: boolean
+  loading?: boolean
 }) => {
   const onClick = () => {
     if (props.iconType === "remove") {
@@ -26,11 +27,13 @@ export const CreateEditRemoveIconButton = (props: {
     case "create":
       _button = (
         <Button
+          style={{ marginRight: "5px" }}
           aria-label={props.toolTip}
           icon={<PlusOutlined />}
           shape="circle"
           onClick={onClick}
           type="primary"
+          loading={props.loading}
           disabled={props.disabled}
         />
       )
@@ -38,11 +41,13 @@ export const CreateEditRemoveIconButton = (props: {
     case "edit":
       _button = (
         <Button
+          style={{ marginRight: "5px" }}
           aria-label={props.toolTip}
           icon={<EditOutlined />}
           shape="circle"
           onClick={onClick}
           type="primary"
+          loading={props.loading}
           disabled={props.disabled}
         />
       )
@@ -50,12 +55,14 @@ export const CreateEditRemoveIconButton = (props: {
     case "remove":
       _button = (
         <Button
+          style={{ marginRight: "5px" }}
           aria-label={props.toolTip}
           icon={<DeleteOutlined />}
           shape="circle"
-          onClick={onClick}
           danger
           type="primary"
+          onClick={onClick}
+          loading={props.loading}
           disabled={props.disabled}
         />
       )

@@ -34,9 +34,10 @@ import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/Que
 import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
-import { OfferingGatewayFormMeta } from "~/Component/Feature/Offering/FormMeta/OfferingGatewayFormMeta"
 import { updateOffering } from "~/ApiServices/Service/OfferingService"
+import { OfferingGatewayFormMeta } from "~/Component/Feature/Offering/FormMeta/OfferingGatewayFormMeta"
 import "~/Sass/utils.scss"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const basicInfo: CardContainer = {
@@ -113,9 +114,11 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Financial
-          </Button>
+          <CreateEditRemoveIconButton
+            toolTip="Create Financial"
+            iconType="create"
+            onClick={() => setShowModal && setShowModal(true)}
+          />
         )}
         {showModal && (
           <CreateNewFinancial

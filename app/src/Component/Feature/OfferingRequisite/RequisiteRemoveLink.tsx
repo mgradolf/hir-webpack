@@ -2,6 +2,7 @@ import React from "react"
 import { Button, Popconfirm } from "antd"
 import { removeOfferingRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
+import { DeleteOutlined } from "@ant-design/icons"
 
 interface IRequisiteRemoveLinkProp {
   offeringId: number
@@ -26,9 +27,7 @@ function RequisiteRemoveLink(props: IRequisiteRemoveLinkProp) {
       okText="Confirm"
       cancelText="Cancel"
     >
-      <Button style={{ marginRight: "5px" }} type="primary">
-        Remove
-      </Button>
+      <Button icon={<DeleteOutlined />} shape="circle" danger type="primary" />
     </Popconfirm>
   )
 }

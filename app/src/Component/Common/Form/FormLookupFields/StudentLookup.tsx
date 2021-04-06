@@ -12,7 +12,7 @@ export function StudentLookup(props: IStudentLookup) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Student"
-      displayKey="SortName"
+      displayKey="FormattedName"
       meta={StudentSearchMeta as IField[]}
       metaName="StudentSearchMeta"
       {...props}
