@@ -28,7 +28,7 @@ export const TagRemoveButton = (props: { tag: { [key: string]: any }; eventName:
       toolTip={buttonLabel}
       disabled={disabled}
       loading={loading}
-      onClick={() => addRemoveTagToOffering(props.tag)}
+      onClickRemove={() => addRemoveTagToOffering(props.tag)}
     />
   )
 }

@@ -80,7 +80,7 @@ export function CertificateFormModal(props: ICertificateFormProps) {
 
   return (
     <CustomFormModalOpenButton
-      formTitle={props.editMode ? "Edit Contact" : "Add Contact"}
+      formTitle={props.editMode ? "Edit Issue Certificate" : "Issue Certificate"}
       customForm={
         <CertificateForm
           fieldNames={fieldNames}
@@ -96,7 +96,7 @@ export function CertificateFormModal(props: ICertificateFormProps) {
       iconType={props.editMode ? "edit" : "create"}
       loading={apiCallInProgress}
       errorMessages={errorMessages}
-      buttonLabel={props.editMode ? "Edit Certificate" : "+ Issue Certificate"}
+      buttonLabel={props.editMode ? "Edit Issue Certificatee" : "Issue Certificate"}
       buttonProps={{ type: props.editMode ? "link" : "primary" }}
       extraButtons={[
         <Button type="primary" loading={loadingView} onClick={viewCertificate}>

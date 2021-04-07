@@ -1,27 +1,20 @@
 import React from "react"
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"
 import { Button, Tooltip } from "antd"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 export type iconType = "create" | "edit" | "remove"
 
 export const CreateEditRemoveIconButton = (props: {
-  onClick: () => void
+  onClick?: () => void
+  onClickRemove?: () => Promise<IApiResponse>
   iconType: iconType
   inProgress?: boolean
   toolTip: string
   disabled?: boolean
   loading?: boolean
 }) => {
-  const onClick = () => {
-    if (props.iconType === "remove") {
-      if (props.inProgress !== undefined && !props.inProgress) {
-        props.onClick()
-      }
-    } else {
-      props.onClick()
-    }
-  }
-
   let _button: JSX.Element = <></>
   switch (props.iconType) {
     case "create":
@@ -31,7 +24,7 @@ export const CreateEditRemoveIconButton = (props: {
           aria-label={props.toolTip}
           icon={<PlusOutlined />}
           shape="circle"
-          onClick={onClick}
+          onClick={props.onClick}
           type="primary"
           loading={props.loading}
           disabled={props.disabled}
@@ -45,7 +38,7 @@ export const CreateEditRemoveIconButton = (props: {
           aria-label={props.toolTip}
           icon={<EditOutlined />}
           shape="circle"
-          onClick={onClick}
+          onClick={props.onClick}
           type="primary"
           loading={props.loading}
           disabled={props.disabled}
@@ -61,9 +54,9 @@ export const CreateEditRemoveIconButton = (props: {
           shape="circle"
           danger
           type="primary"
-          onClick={onClick}
+          onClick={() => props.onClickRemove && showDeleteConfirm(props.onClickRemove)}
           loading={props.loading}
-          disabled={props.disabled}
+          disabled={props.disabled || (props.inProgress !== undefined && !props.inProgress)}
         />
       )
       break

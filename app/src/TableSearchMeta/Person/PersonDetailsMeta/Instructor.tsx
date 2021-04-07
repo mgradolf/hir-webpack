@@ -58,12 +58,14 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
       <CreateEditRemoveIconButton
         iconType="remove"
         toolTip="Delete Instructor Info"
-        onClick={async () => {
-          const response = await removeInstructor({ FacultyID: props.facultyData.FacultyID })
-          if (response && response.success) {
-            Notification(DELETE_SUCCESSFULLY)
-            eventBus.publish(REFRESH_PAGE)
-          }
+        onClickRemove={() => {
+          return removeInstructor({ FacultyID: props.facultyData.FacultyID }).then((response) => {
+            if (response && response.success) {
+              Notification(DELETE_SUCCESSFULLY)
+              eventBus.publish(REFRESH_PAGE)
+            }
+            return response
+          })
         }}
       />
     </>

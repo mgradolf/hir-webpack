@@ -17,12 +17,14 @@ export function AccountRemoveLink(props: IAccountRemoveLinkProp) {
       <CreateEditRemoveIconButton
         iconType="remove"
         toolTip="Delete Account"
-        onClick={async () => {
-          const response = await removeAccount({ AccountID: props.AccountID })
-          if (response && response.success) {
-            message.success(DELETE_SUCCESSFULLY)
-            setRedirectAfterRemove(`/account`)
-          }
+        onClickRemove={() => {
+          return removeAccount({ AccountID: props.AccountID }).then((response) => {
+            if (response && response.success) {
+              message.success(DELETE_SUCCESSFULLY)
+              setRedirectAfterRemove(`/account`)
+            }
+            return response
+          })
         }}
       />
     </>
