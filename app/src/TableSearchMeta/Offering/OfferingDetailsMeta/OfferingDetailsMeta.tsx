@@ -12,11 +12,10 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
-// import OfferingEditLink from "~/Component/Feature/Offering/CreateEdit/OfferingEditLink"
 import { OfferingEditLink } from "~/Component/Feature/Offering/OfferingEditLink"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import SectionFormModal from "~/Component/Feature/Section/CreateEdit/SectionFormModal"
-import { Button, Typography } from "antd"
+import { Typography } from "antd"
 import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
 import { AddInstructorButton } from "~/Component/Feature/OfferingQualifiedInstructor/AddInstructorButton"
@@ -100,9 +99,11 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Section
-          </Button>
+          <CreateEditRemoveIconButton
+            toolTip="Create Section"
+            iconType="create"
+            onClick={() => setShowModal && setShowModal(true)}
+          />
         )}
         {showModal && <SectionFormModal OfferingID={props.OfferingID} closeModal={() => setShowModal(false)} />}
       </>

@@ -48,7 +48,6 @@ export interface IField {
   ariaLabel2?: string
   displayKey2?: string
   valueKey2?: string
-
   extraProps?: { [key: string]: any }
   options?: any[]
   refLookupService?: () => Promise<IApiResponse>

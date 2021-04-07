@@ -11,8 +11,8 @@ export function SectionLookup(props: IGeneratedField) {
       lookupModalTitle="Select Section"
       valueKey="SectionID"
       displayKey="SectionNumber"
-      labelColSpan={8}
-      wrapperColSpan={24}
+      labelColSpan={6}
+      wrapperColSpan={16}
       meta={SectionSearchMeta as IField[]}
       metaName="SectionSearchMeta"
       {...props}
