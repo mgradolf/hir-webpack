@@ -3,7 +3,6 @@ import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpe
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
 import { RoomeSearchMeta } from "~/TableSearchMeta/Room/RoomSearchMeta"
 import { getRoomTableColumns } from "~/TableSearchMeta/Room/RoomTableColumns"
-import { getEntityById } from "~/ApiServices/Service/EntityService"
 
 export function RoomLookup(props: IGeneratedField) {
   return (
@@ -11,16 +10,11 @@ export function RoomLookup(props: IGeneratedField) {
       lookupModalTitle="Select Room"
       valueKey="RoomID"
       displayKey="Name"
+      placeholder="Search By Room Name"
       {...getRoomTableColumns(true)}
       meta={RoomeSearchMeta as IField[]}
       metaName="RoomeSearchMeta"
       {...props}
-      {...(props.defaultValue && {
-        entityLookupFunc: () =>
-          getEntityById("Room", props.defaultValue).then((x) => {
-            return x.data
-          })
-      })}
     />
   )
 }

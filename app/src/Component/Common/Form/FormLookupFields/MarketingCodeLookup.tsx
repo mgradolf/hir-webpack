@@ -10,6 +10,7 @@ export function MarketingCodeLookup(props: IGeneratedField) {
       lookupModalTitle="Select Promotion Code"
       valueKey="MarketingCodeID"
       displayKey="Name"
+      placeholder="Search By Promotion Code"
       meta={MarketingCodeRepositorySearchMeta as IField[]}
       metaName="MarketingCodeRepositorySearchMeta"
       {...props}

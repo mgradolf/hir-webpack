@@ -4,26 +4,17 @@ import { IField, IGeneratedField } from "~/Component/Common/Form/common"
 import { getDiscountProgramsTableColumns } from "~/TableSearchMeta/DiscountPrograms/DiscountProgramsTableColumns"
 import { DiscountProgramsSearchMeta } from "~/TableSearchMeta/DiscountPrograms/DiscountProgramsSearchMeta"
 
-interface IDiscountProgramLookup extends IGeneratedField {
-  valueKey?: string
-}
-export function DiscountProgramLookup(props: IDiscountProgramLookup) {
+export function DiscountProgramLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Discount Program"
       displayKey="Name"
+      placeholder="Search By Discount Program Name"
       meta={DiscountProgramsSearchMeta as IField[]}
       metaName="DiscountProgramsSearchMeta"
       {...props}
       {...getDiscountProgramsTableColumns(true)}
       valueKey={props.valueKey || "DiscountProgramID"}
-      // {...(props.defaultValue && {
-      //   entityLookupFunc: () =>
-      //     searchStudents({ StudentID: props.defaultValue }).then((x) => {
-      //       if (x.success) return x.data[0]
-      //       else return undefined
-      //     })
-      // })}
     />
   )
 }

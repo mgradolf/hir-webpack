@@ -1,29 +1,20 @@
 import * as React from "react"
 import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpenButton"
-import { IGeneratedField } from "~/Component/Common/Form/common"
-import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { IField, IGeneratedField } from "~/Component/Common/Form/common"
 import { ResourceSearchMeta } from "~/TableSearchMeta/Resource/ResourceSearchMeta"
 import { getResourceTableColumns } from "~/TableSearchMeta/Resource/ResourceTableColumns"
 
-interface ILookupOpenButton extends IGeneratedField {
-  valueKey?: string
-}
-export function ResourceLookup(props: ILookupOpenButton) {
+export function ResourceLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
-      meta={ResourceSearchMeta}
+      lookupModalTitle="Select Resource"
+      valueKey={props.valueKey || "ResourceID"}
+      displayKey="Name"
+      placeholder="Search By Resouce Name"
+      meta={ResourceSearchMeta as IField[]}
       metaName="ResourceSearchMeta"
       {...getResourceTableColumns()}
-      lookupModalTitle="Select Resource"
-      displayKey="Name"
       {...props}
-      valueKey={props.valueKey || "ResourceID"}
-      {...(props.defaultValue && {
-        entityLookupFunc: () =>
-          getEntityById("Resource", props.defaultValue).then((x) => {
-            return x.data
-          })
-      })}
     />
   )
 }

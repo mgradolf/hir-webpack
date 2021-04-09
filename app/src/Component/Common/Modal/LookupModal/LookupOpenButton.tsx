@@ -6,11 +6,13 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { SearchOutlined } from "@ant-design/icons"
 import debounce from "~/utils/debounce"
+import { putSpaceBetweenCapitalLetters } from "~/utils/util"
 
 export interface ILookupOpenButton extends IGeneratedField {
   displayKey: string
   valueKey: string
   searchFunc: (Params: { [key: string]: any }) => Promise<IApiResponse>
+  searchFieldName?: string
   lookupModalTitle: string
   disabled?: boolean
   columns: TableColumnType
@@ -20,7 +22,6 @@ export interface ILookupOpenButton extends IGeneratedField {
   responsiveColumnIndices?: number[]
   expandableColumnIndices?: number[]
   entityLookupFunc?: () => Promise<any>
-  tempentityLookupFunc?: (entity: string, id: any) => Promise<any>
 }
 
 export function LookupOpenButton(props: ILookupOpenButton) {
@@ -62,7 +63,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   const handleSearch = debounce((searchInput: any): void => {
     if (!searchInput || searchInput === "") return
     setLoading(true)
-    props.searchFunc({ [props.displayKey]: searchInput }).then((x) => {
+    props.searchFunc({ [props.searchFieldName || props.displayKey]: searchInput }).then((x) => {
       if (x.success) {
         console.log(x.data)
         setOptions(x.data)
@@ -83,7 +84,15 @@ export function LookupOpenButton(props: ILookupOpenButton) {
         <Select
           showSearch
           loading={loading}
-          placeholder={`Enter ${props.displayKey}`}
+          placeholder={
+            props.placeholder
+              ? props.placeholder
+              : `Search By ${
+                  props.searchFieldName
+                    ? putSpaceBetweenCapitalLetters(props.searchFieldName)
+                    : putSpaceBetweenCapitalLetters(props.displayKey)
+                }`
+          }
           allowClear={true}
           filterOption={false}
           aria-label={props.ariaLabel}
@@ -116,6 +125,21 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           onSelect={() => {
             setKeepOptionsOpen(false)
           }}
+          menuItemSelectedIcon={
+            <SearchOutlined
+              style={
+                {
+                  // borderTop: "1px solid lightgray",
+                  // borderBottom: "1px solid lightgray",
+                  // borderLeft: "1px solid lightgray",
+                  // borderRight: "1px solid lightgray",
+                  // padding: "8px"
+                }
+              }
+              onClick={() => setShowModal(true)}
+              disabled={props.disabled}
+            />
+          }
           suffixIcon={
             <SearchOutlined
               style={
