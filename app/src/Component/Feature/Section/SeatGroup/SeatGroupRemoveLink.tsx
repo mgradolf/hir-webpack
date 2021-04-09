@@ -1,7 +1,7 @@
 import React from "react"
 import { removeSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
-import { Button } from "antd"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface ISeatGroupRemoveLinkProp {
   seatgroupId: number
@@ -10,17 +10,17 @@ interface ISeatGroupRemoveLinkProp {
 
 export default function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
   return (
-    <Button
-      danger={props.PrimaryType ? true : false}
-      type={props.PrimaryType ? "primary" : "link"}
-      onClick={async () => {
-        const response = await removeSeatGroup({ SeatGroupID: props.seatgroupId })
-        if (response.success) {
-          eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
-        }
+    <CreateEditRemoveIconButton
+      iconType="remove"
+      toolTip="Remove"
+      onClickRemove={() => {
+        return removeSeatGroup({ SeatGroupID: props.seatgroupId }).then((response) => {
+          if (response.success) {
+            eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
+          }
+          return response
+        })
       }}
-    >
-      Remove
-    </Button>
+    />
   )
 }

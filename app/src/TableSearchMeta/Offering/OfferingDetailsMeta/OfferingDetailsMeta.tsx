@@ -14,7 +14,6 @@ import { renderBoolean, renderDate, renderLink } from "~/Component/Common/Respon
 import { OfferingEditLink } from "~/Component/Feature/Offering/OfferingEditLink"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import { SectionFormModal } from "~/Component/Feature/Section/SectionFormModal"
-import { Button } from "antd"
 import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
 import { AddInstructorButton } from "~/Component/Feature/OfferingQualifiedInstructor/AddInstructorButton"
@@ -32,8 +31,9 @@ import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/Que
 import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
 import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
-import "~/Sass/utils.scss"
 import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const basicInfo: CardContainer = {
@@ -79,9 +79,11 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Section
-          </Button>
+          <CreateEditRemoveIconButton
+            toolTip="Create Section"
+            iconType="create"
+            onClick={() => setShowModal && setShowModal(true)}
+          />
         )}
         {showModal && <SectionFormModal OfferingID={props.OfferingID} closeModal={() => setShowModal(false)} />}
       </>
@@ -93,9 +95,11 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Financial
-          </Button>
+          <CreateEditRemoveIconButton
+            toolTip="Create Financial"
+            iconType="create"
+            onClick={() => setShowModal && setShowModal(true)}
+          />
         )}
         {showModal && (
           <CreateNewFinancial

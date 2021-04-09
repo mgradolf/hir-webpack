@@ -57,12 +57,14 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
       <CreateEditRemoveIconButton
         toolTip="Delete Student Info"
         iconType="remove"
-        onClick={async () => {
-          const response = await removeStudent({ StudentID: props.studentData.StudentID })
-          if (response && response.success) {
-            Notification(DELETE_SUCCESSFULLY)
-            eventBus.publish(REFRESH_PAGE)
-          }
+        onClickRemove={() => {
+          return removeStudent({ StudentID: props.studentData.StudentID }).then((response) => {
+            if (response && response.success) {
+              Notification(DELETE_SUCCESSFULLY)
+              eventBus.publish(REFRESH_PAGE)
+            }
+            return response
+          })
         }}
       />
     </>

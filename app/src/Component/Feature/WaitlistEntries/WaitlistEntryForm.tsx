@@ -361,7 +361,8 @@ export function WaitlistEntryFormOpenButton(props: { SectionID?: number; initial
       apiCallInProgress={apiCallInProgress}
       loading={loading}
       errorMessages={errorMessages}
-      buttonLabel={editMode ? "Edit" : "+ Add Waitlist Entry"}
+      iconType={editMode ? "edit" : "create"}
+      buttonLabel={editMode ? "Edit Waitlist Entry" : "Add Waitlist Entry"}
       buttonProps={{ type: editMode ? "link" : "primary" }}
     />
   )

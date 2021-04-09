@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { Button } from "antd"
 import OfferingRequisiteGroupFormModal from "~/Component/Feature/OfferingRequisite/RequisiteFormModal"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface IRequisiteGroupEditLinkProp {
   offeringId: number
@@ -11,9 +11,12 @@ export default function RequisiteGroupEditLink(props: IRequisiteGroupEditLinkPro
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <Button type="primary" style={{ marginRight: "5px" }} onClick={() => setShowModal && setShowModal(true)}>
-        Edit
-      </Button>
+      <CreateEditRemoveIconButton
+        toolTip="Edit Selected Pre Requisite Group"
+        iconType="edit"
+        onClick={() => setShowModal && setShowModal(true)}
+      />
+
       {showModal && (
         <OfferingRequisiteGroupFormModal
           offeringID={props.offeringId}

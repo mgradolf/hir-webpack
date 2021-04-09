@@ -3,7 +3,6 @@ import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpe
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
 import { InstructorSearchMeta } from "~/TableSearchMeta/Instructor/InstructorSearchMeta"
 import { getInstructorTableColumns } from "~/TableSearchMeta/Instructor/InstructorTableColumns"
-import { searchFaculties } from "~/ApiServices/BizApi/faculty/facultyIf"
 
 export function InstructorLookupButton(props: IGeneratedField) {
   return (
@@ -11,17 +10,12 @@ export function InstructorLookupButton(props: IGeneratedField) {
       lookupModalTitle="Select Instructor"
       valueKey="FacultyID"
       displayKey="FirstName"
+      searchFieldName="FirstName"
+      placeholder="Search By Instructor First Name"
       meta={InstructorSearchMeta as IField[]}
       metaName="InstructorSearchMeta"
       {...props}
-      formInstance={props.formInstance}
       {...getInstructorTableColumns(true)}
-      {...(props.defaultValue && {
-        entityLookupFunc: () =>
-          searchFaculties({ FacultyID: props.defaultValue }).then((x) => {
-            return x.data[0]
-          })
-      })}
     />
   )
 }

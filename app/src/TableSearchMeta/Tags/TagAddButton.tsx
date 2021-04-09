@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { Button } from "antd"
 import { addTagIntoEntity } from "~/ApiServices/Service/TagService"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { TagsSearchMeta } from "~/TableSearchMeta/Tags/TagsSearchMeta"
 import { getTagsTableColumns } from "~/TableSearchMeta/Tags/TagsTableColumns"
 import { eventBus } from "~/utils/EventBus"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 export const TagAddButton = (props: { EntityType: string; EntityID: number; eventName: string }) => {
   const [showModal, setShowModal] = useState(false)
@@ -23,9 +23,7 @@ export const TagAddButton = (props: { EntityType: string; EntityID: number; even
 
   return (
     <>
-      <Button type="primary" onClick={() => setShowModal(true)}>
-        + Add Tag
-      </Button>
+      <CreateEditRemoveIconButton toolTip="Add Tag" iconType="create" onClick={() => setShowModal(true)} />
       {showModal && (
         <LookupModal
           title="Select Tags"

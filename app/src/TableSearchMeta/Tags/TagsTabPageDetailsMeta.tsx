@@ -1,7 +1,7 @@
+import React from "react"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { getParentTagsTableColumns, getTagsTableColumns } from "~/TableSearchMeta/Tags/TagsTableColumns"
 import { getParentTags } from "~/ApiServices/Service/TagService"
-import React from "react"
 import { TagAddButton } from "~/TableSearchMeta/Tags/TagAddButton"
 
 export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, EntityID?: number): IDetailsMeta => {

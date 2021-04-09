@@ -15,6 +15,7 @@ export interface ICustomFormModal {
   apiCallInProgress?: boolean
   loading: boolean
   errorMessages: Array<ISimplifiedApiErrorMessage>
+  extraButtons?: JSX.Element[]
 }
 
 export function CustomFormModal(props: ICustomFormModal) {
@@ -24,6 +25,7 @@ export function CustomFormModal(props: ICustomFormModal) {
         title={props.formTitle}
         actions={[
           <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+            {props.extraButtons && props.extraButtons.map((x, i) => <Col key={i}>{x}</Col>)}
             <Col>
               <Button type="primary" danger onClick={props.closeModal}>
                 Cancel

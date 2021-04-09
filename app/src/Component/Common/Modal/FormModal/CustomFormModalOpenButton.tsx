@@ -9,6 +9,7 @@ export interface ICustomFormModalOpenButton extends Omit<ICustomFormModal, "clos
   buttonLabel: string
   buttonProps?: BaseButtonProps
   iconType?: iconType
+  extraButtons?: JSX.Element[]
 }
 
 export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => {

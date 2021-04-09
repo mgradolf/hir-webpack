@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { Row, Col, Button } from "antd"
 import { AddOfferingFromRequisiteGroupModal } from "~/Component/Feature/OfferingRequisite/AddOfferingFromRequisiteGroupModal"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { eventBus, REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP } from "~/utils/EventBus"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface IOfferingRequisiteButtonProp {
   requisiteGroupID: number | undefined
@@ -30,15 +30,9 @@ export function AddOfferingFromRequisiteGroupButton(props: IOfferingRequisiteBut
   return (
     <>
       {openModal && <AddOfferingFromRequisiteGroupModal {...props} onClose={onClose} />}
-      <Row>
-        {props.hasRequisiteGroup && (
-          <Col span={24} style={{ textAlign: "right" }}>
-            <Button type="primary" onClick={onClick}>
-              + Add Offering
-            </Button>
-          </Col>
-        )}
-      </Row>
+      {props.hasRequisiteGroup && (
+        <CreateEditRemoveIconButton toolTip="Add Offering To Requisite Group" iconType="create" onClick={onClick} />
+      )}
     </>
   )
 }

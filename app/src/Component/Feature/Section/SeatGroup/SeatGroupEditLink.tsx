@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { Button } from "antd"
 import UpdateSeatGroup from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface ISeatGroupEditLinkProp {
   additionalData: { [key: string]: any }
@@ -19,15 +19,14 @@ export default function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
 
   return (
     <>
-      <Button
-        type={props.GhostType ? "ghost" : "link"}
-        style={props.style}
+      <CreateEditRemoveIconButton
+        iconType="edit"
+        toolTip="Edit"
         onClick={() => {
           setShowUpdateModal(true)
         }}
-      >
-        Edit
-      </Button>
+      />
+
       {showUpdateModal && (
         <UpdateSeatGroup
           sectionId={sectionID}

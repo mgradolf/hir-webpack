@@ -5,7 +5,6 @@ import { IField } from "~/Component/Common/Form/common"
 import { createRefRecord, removeRefRecord, updateRefRecord } from "~/ApiServices/Service/RefLookupService"
 import { eventBus } from "~/utils/EventBus"
 import { ButtonType } from "antd/lib/button"
-import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 export function AddRefButton(props: { LookUpName: string; formMeta: IField[]; refreshEventName: string }) {
@@ -103,7 +102,7 @@ export function RemoveRefButton(props: {
           toolTip={`Delete ${props.LookUpName}`}
           iconType="remove"
           inProgress={loading}
-          onClick={() => showDeleteConfirm(remove)}
+          onClickRemove={() => remove()}
         />
       )}
     </>

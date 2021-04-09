@@ -3,28 +3,18 @@ import { LookupOpenButton } from "~/Component/Common/Modal/LookupModal/LookupOpe
 import { IField, IGeneratedField } from "~/Component/Common/Form/common"
 import { getStudentTableColumns } from "~/TableSearchMeta/Student/StudentTableColumns"
 import { StudentSearchMeta } from "~/TableSearchMeta/Student/StudentSearchMeta"
-import { searchStudents } from "~/ApiServices/BizApi/student/studentIf"
 
-interface IStudentLookup extends IGeneratedField {
-  valueKey?: string
-}
-export function StudentLookup(props: IStudentLookup) {
+export function StudentLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Student"
-      displayKey="SortName"
+      displayKey="FormattedName"
+      searchFieldName="FirstName"
       meta={StudentSearchMeta as IField[]}
       metaName="StudentSearchMeta"
       {...props}
       {...getStudentTableColumns(true)}
       valueKey={props.valueKey || "StudentID"}
-      {...(props.defaultValue && {
-        entityLookupFunc: () =>
-          searchStudents({ StudentID: props.defaultValue }).then((x) => {
-            if (x.success) return x.data[0]
-            else return undefined
-          })
-      })}
     />
   )
 }

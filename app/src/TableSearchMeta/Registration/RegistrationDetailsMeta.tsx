@@ -1,7 +1,7 @@
 import { Button } from "antd"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import CertificateFormModal from "~/Component/Feature/Certificate/CertificateFormModal"
+import { CertificateFormModal } from "~/Component/Feature/Certificate/CertificateFormModal"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { CardContents, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
@@ -127,30 +127,10 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     }
   }
 
-  const CertificateFormModalOpenButton = (props: { initialData: { [key: string]: any } }) => {
-    const [showModal, setShowModal] = useState(false)
-    props.initialData["IsProgram"] = false
-
-    return (
-      <>
-        {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal(true)}>
-            + Issue Certificate
-          </Button>
-        )}
-        {showModal && (
-          <CertificateFormModal
-            isProgram={false}
-            closeModal={() => setShowModal(false)}
-            initialFormValue={props.initialData}
-          />
-        )}
-      </>
-    )
-  }
-
   const certificateMeta: IDetailsTableTabProp = {
-    blocks: [<CertificateFormModalOpenButton initialData={registration} />],
+    blocks: [
+      <CertificateFormModal editMode={true} isProgram={false} initialValues={{ ...registration, IsProgram: false }} />
+    ],
     tableProps: {
       pagination: false,
       ...getCertificateTableColumns(true),
