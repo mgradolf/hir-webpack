@@ -3,7 +3,7 @@ import { Col, Divider, Row, Select } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingFieldNames } from "~/Component/Feature/Offering/Interfaces"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
-import { getOfferingStatusTypes, getOrganizations } from "~/ApiServices/Service/RefLookupService"
+import { getOrganizations } from "~/ApiServices/Service/RefLookupService"
 import { findSectionTypesByOfferingType } from "~/ApiServices/BizApi/query/queryIf"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
@@ -16,57 +16,13 @@ interface IThirdStepFormProps {
   initialValue: { [key: string]: any }
 }
 
-const OfferingStatus = {
-  Preliminary: 0,
-  AwaitingApproval: 1,
-  Open: 2,
-  Denied: 3,
-  Closed: 1000
-}
-
 export default function ThirdStepForm(props: IThirdStepFormProps) {
   const offeringTypes = props.formInstance.getFieldValue("OfferingTypes")
-  const hasApprovalProcess = props.initialValue.HasApprovalProcess
 
-  const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
   const [department, setDepartment] = useState<Array<any>>([])
   const [defaultSection, setDefaultSection] = useState<Array<any>>([])
-  const [disableStatus, setDisableStatus] = useState(false)
 
   useEffect(() => {
-    ;(async () => {
-      const response = await getOfferingStatusTypes()
-      if (response && response.data && Array.isArray(response.data)) {
-        if (!hasApprovalProcess) {
-          response.data = response.data.filter(
-            (x: any) => x.StatusID !== OfferingStatus.AwaitingApproval && x.StatusID !== OfferingStatus.Denied
-          )
-        }
-        switch (props.formInstance.getFieldValue(props.fieldNames.OfferingStatusCodeID)) {
-          case OfferingStatus.Preliminary:
-            setDisableStatus(hasApprovalProcess)
-            break
-          case OfferingStatus.AwaitingApproval:
-          case OfferingStatus.Denied:
-            setDisableStatus(true)
-            break
-          case OfferingStatus.Open:
-          case OfferingStatus.Closed:
-            setDisableStatus(false)
-            response.data = response.data.filter((x: any) => {
-              switch (x.StatusID) {
-                case OfferingStatus.Preliminary:
-                case OfferingStatus.Open:
-                case OfferingStatus.Closed:
-                  return true
-                default:
-                  return false
-              }
-            })
-        }
-        setOfferingStatusTypes(response.data)
-      }
-    })()
     ;(async () => {
       const response = await getOrganizations()
       if (response && response.success && Array.isArray(response.data)) {
@@ -97,7 +53,7 @@ export default function ThirdStepForm(props: IThirdStepFormProps) {
       <Row>
         <Divider orientation="left">Core characteristics</Divider>
         <Col xs={24} sm={24} md={12}>
-          <Form.Item
+          {/* <Form.Item
             label="Offering status"
             name={props.fieldNames.OfferingStatusCodeID}
             labelCol={{ span: 8 }}
@@ -113,7 +69,7 @@ export default function ThirdStepForm(props: IThirdStepFormProps) {
                   )
                 })}
             </Select>
-          </Form.Item>
+          </Form.Item> */}
           <FormMultipleRadio
             labelColSpan={8}
             wrapperColSpan={14}

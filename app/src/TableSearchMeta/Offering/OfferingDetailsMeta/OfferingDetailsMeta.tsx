@@ -4,7 +4,6 @@ import {
   REFRESH_OFFERING_CATALOG_PAGE,
   REFRESH_OFFERING_FINANCIAL_PAGE,
   REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
-  REFRESH_PAGE,
   REFRESH_SECTION_PAGE
 } from "~/utils/EventBus"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
@@ -12,11 +11,10 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
-// import OfferingEditLink from "~/Component/Feature/Offering/CreateEdit/OfferingEditLink"
 import { OfferingEditLink } from "~/Component/Feature/Offering/OfferingEditLink"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
-import SectionFormModal from "~/Component/Feature/Section/CreateEdit/SectionFormModal"
-import { Button, Typography } from "antd"
+import { SectionFormModal } from "~/Component/Feature/Section/SectionFormModal"
+import { Button } from "antd"
 import { getOfferingFinancialTableColumns } from "~/TableSearchMeta/OfferingFinancial/OfferingFinancialTableColumns"
 import { getQualifiedInstructorTableColumns } from "~/TableSearchMeta/Offering/QualifiedInstructorTableColumns"
 import { AddInstructorButton } from "~/Component/Feature/OfferingQualifiedInstructor/AddInstructorButton"
@@ -33,10 +31,9 @@ import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTaggin
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
-import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
-import { OfferingGatewayFormMeta } from "~/Component/Feature/Offering/FormMeta/OfferingGatewayFormMeta"
-import { updateOffering } from "~/ApiServices/Service/OfferingService"
+import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
 import "~/Sass/utils.scss"
+import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const basicInfo: CardContainer = {
@@ -60,31 +57,14 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     title: "Core Characteristics",
     cardActions: [<OfferingEditLink component={ThirdStepForm} initialValues={offering} />],
     contents: [
-      { label: "Offering Status ", value: offering.StatusCode, render: undefined },
+      { label: "Offering Status ", value: <OfferingStatusForm initialValue={offering} /> },
       { label: "Department", value: offering.OrganizationName, render: undefined },
       { label: "Quick Admit", value: offering.IsQuickAdmit, render: renderBoolean },
       { label: "Approval Process", value: offering.HasApprovalProcess, render: renderBoolean },
       { label: "Inquiry Recipient", value: offering.SubmitInquiryToName, render: undefined },
-      // { label: "Payment Gateway", value: offering.PaymentGatewayAccountName },
       {
         label: "Payment Gateway",
-        value: (
-          <>
-            <Typography.Text>
-              {offering.PaymentGatewayAccountName != null ? offering.PaymentGatewayAccountName : "Default"}
-            </Typography.Text>
-            <MetaDrivenFormModalOpenButton
-              formTitle="Update Gateway"
-              formMeta={OfferingGatewayFormMeta}
-              formSubmitApi={updateOffering}
-              initialFormValue={offering}
-              buttonLabel="Change"
-              style={{ float: "right" }}
-              defaultFormValue={{ OfferingID: offering.OfferingID }}
-              refreshEventName={REFRESH_PAGE}
-            />
-          </>
-        )
+        value: <OfferingPaymentGatewayForm initialValue={offering} />
       },
       { label: "Default Section Type", value: offering.SectionTypeName, render: undefined }
     ]

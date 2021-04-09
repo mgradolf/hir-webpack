@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import { removeSectionById } from "~/ApiServices/Service/EntityService"
 import apiErroreEventBus from "@packages/api/lib/utils/GlobalHttpErrorEventBus"
 import { Redirect } from "react-router-dom"
+import { DeleteOutlined } from "@ant-design/icons"
 
 export function SectionRemoveButton(props: { Section: { [key: string]: any }; OfferingID?: number }) {
   const [removeApiCallInProgress, setRemoveApiCallInProgress] = useState(false)
@@ -17,6 +18,8 @@ export function SectionRemoveButton(props: { Section: { [key: string]: any }; Of
         loading={removeApiCallInProgress}
         disabled={removeApiCallInProgress}
         style={{ marginLeft: "5px" }}
+        icon={<DeleteOutlined />}
+        shape="circle"
         onClick={() => {
           setRemoveApiCallInProgress(true)
           removeSectionById(props.Section.SectionID)
@@ -34,9 +37,7 @@ export function SectionRemoveButton(props: { Section: { [key: string]: any }; Of
               setRemoveApiCallInProgress(false)
             })
         }}
-      >
-        Remove
-      </Button>
+      />
     </>
   )
 }

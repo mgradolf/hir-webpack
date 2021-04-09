@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
-import { Form, Input, Row } from "antd"
-import { ISectionDetailsFieldNames } from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionDetails"
+import { Col, Form, Input, Row } from "antd"
+import { ISectionDetailsFieldNames } from "~/Component/Feature/Section/Forms/SectionBasicInfoForm"
 import { FormInstance } from "antd/lib/form"
 
 interface IDefineDurationTime {
@@ -20,7 +20,6 @@ interface IDurationValues extends IValues {
   byHour: string
   byMinute: string
 }
-const layout = { labelCol: { span: 6 } }
 
 function getDurationFromRule(referenceString: string) {
   const periodRegex = "P(\\dY)?(\\dM)?(\\dW)?(\\dD)?"
@@ -129,27 +128,38 @@ export default function DefineDurationTime(props: IDefineDurationTime) {
       <Form.Item name={props.fieldNames.RecurrenceRule} className="hidden">
         <Input />
       </Form.Item>
-      <Row justify="center">
-        <Form.Item name={fieldnames.byYear} {...layout}>
-          <Input aria-label="Year" placeholder="Year" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byMonth} {...layout}>
-          <Input aria-label="Month" placeholder="Month" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byWeek} {...layout}>
-          <Input aria-label="Week" placeholder="Week" onChange={onChange} />
-        </Form.Item>
-      </Row>
-      <Row justify="center">
-        <Form.Item name={fieldnames.byDay} {...layout}>
-          <Input aria-label="Day" placeholder="Day" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byHour} {...layout}>
-          <Input aria-label="Hour" placeholder="Hour" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byMinute} {...layout}>
-          <Input aria-label="Minute" placeholder="Min" onChange={onChange} />
-        </Form.Item>
+      <Row>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byYear}>
+            <Input aria-label="Year" placeholder="Year" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byMonth}>
+            <Input aria-label="Month" placeholder="Month" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byWeek}>
+            <Input aria-label="Week" placeholder="Week" onChange={onChange} />
+          </Form.Item>
+        </Col>
+
+        <Col md={4}>
+          <Form.Item name={fieldnames.byDay}>
+            <Input aria-label="Day" placeholder="Day" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byHour}>
+            <Input aria-label="Hour" placeholder="Hour" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byMinute}>
+            <Input aria-label="Minute" placeholder="Min" onChange={onChange} />
+          </Form.Item>
+        </Col>
       </Row>
     </>
   )

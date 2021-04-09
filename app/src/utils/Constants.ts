@@ -12,6 +12,12 @@ export const OFFERING_TRMINATION_TIME = {
   DURATION: "Duration"
 }
 
+export const SECTION_TRMINATION_TIME = {
+  DATE: "Date",
+  TERM: "Term",
+  DURATION: "Duration"
+}
+
 export const SECTION_STATUS_CODE = {
   PRELIMINARY: 0,
   COMPLETED: 4,
@@ -227,6 +233,8 @@ export const UPLOAD_SUCCESSFULLY = "Successfully uploaded!"
 export const ADDED_SUCCESSFULLY = "Successfully added!"
 export const FORGET_ME_REQUEST_SUCCESSFULLY = "Forget Me Requested Successfully!"
 export const CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY = "Cancel Forget Me Requested Successfully!"
+
+export const UPDATE_FAILED = "Update Failed!"
 
 export const ORGANIZATION_TYPE_ID_FOR_PROGRAM_APPLICATION = 1000
 

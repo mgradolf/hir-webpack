@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { Form, Input, Row } from "antd"
+import { Col, Form, Input, Row } from "antd"
 import { ISectionEnrollmentDetails } from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
 import { FormInstance } from "antd/lib/form"
-import Radio, { RadioChangeEvent } from "antd/lib/radio"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 
 interface IDefineDurationTime {
   fieldNames: ISectionEnrollmentDetails
@@ -130,27 +130,38 @@ function DefineDurationTime(props: IDefineDurationTime) {
       <Form.Item name={props.fieldNames.DefaultEnrollmentDuration} className="hidden">
         <Input />
       </Form.Item>
-      <Row justify="center">
-        <Form.Item name={fieldnames.byYear} {...layout}>
-          <Input aria-label="Year" placeholder="Year" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byMonth} {...layout}>
-          <Input aria-label="Month" placeholder="Month" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byWeek} {...layout}>
-          <Input aria-label="Week" placeholder="Week" onChange={onChange} />
-        </Form.Item>
-      </Row>
-      <Row justify="center">
-        <Form.Item name={fieldnames.byDay} {...layout}>
-          <Input aria-label="Day" placeholder="Day" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byHour} {...layout}>
-          <Input aria-label="Hour" placeholder="Hour" onChange={onChange} />
-        </Form.Item>
-        <Form.Item name={fieldnames.byMinute} {...layout}>
-          <Input aria-label="Minute" placeholder="Min" onChange={onChange} />
-        </Form.Item>
+      <Row>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byYear} {...layout}>
+            <Input aria-label="Year" placeholder="Year" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byMonth} {...layout}>
+            <Input aria-label="Month" placeholder="Month" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byWeek} {...layout}>
+            <Input aria-label="Week" placeholder="Week" onChange={onChange} />
+          </Form.Item>
+        </Col>
+
+        <Col md={4}>
+          <Form.Item name={fieldnames.byDay} {...layout}>
+            <Input aria-label="Day" placeholder="Day" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byHour} {...layout}>
+            <Input aria-label="Hour" placeholder="Hour" onChange={onChange} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item name={fieldnames.byMinute} {...layout}>
+            <Input aria-label="Minute" placeholder="Min" onChange={onChange} />
+          </Form.Item>
+        </Col>
       </Row>
     </>
   )
@@ -162,32 +173,41 @@ interface IEnrollmentDurationDefault {
 }
 export default function EnrollmentDurationDefault(props: IEnrollmentDurationDefault) {
   const values = {
-    EnrollmentSpecificDate: "Enrollment Specific Date",
+    EnrollmentSpecificDate: "EnrollmentSpecificDate",
     FollowSectionDates: "FollowSectionDates"
   }
+
   const options = [
     { label: "Enrollment Specific Date", value: values.EnrollmentSpecificDate },
     { label: "Follow Section Dates", value: values.FollowSectionDates }
   ]
 
   const [selectedValue, setSelectedValue] = useState(values.FollowSectionDates)
-  const onRadioChange = (e: RadioChangeEvent) => {
-    setSelectedValue(e.target.value)
+
+  const onChange = (e: any) => {
+    setSelectedValue(e)
   }
+
   return (
     <>
-      <Form.Item>
-        <Radio.Group
-          defaultValue={selectedValue}
-          options={options}
-          onChange={onRadioChange}
-          optionType="button"
-          buttonStyle="solid"
-        />
-      </Form.Item>
-      {selectedValue === values.EnrollmentSpecificDate && (
-        <DefineDurationTime fieldNames={props.fieldNames} formInstance={props.formInstance} />
-      )}
+      <Row>
+        <Col xs={24} sm={24} md={12}>
+          <FormDropDown
+            labelColSpan={8}
+            wrapperColSpan={14}
+            label={"Enrollment Duration Default"}
+            fieldName={props.fieldNames.DefaultEnrollmentDuration}
+            onChangeCallback={onChange}
+            formInstance={props.formInstance}
+            options={options}
+          />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
+          {selectedValue === values.EnrollmentSpecificDate && (
+            <DefineDurationTime fieldNames={props.fieldNames} formInstance={props.formInstance} />
+          )}
+        </Col>
+      </Row>
     </>
   )
 }

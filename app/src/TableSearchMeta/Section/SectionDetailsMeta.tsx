@@ -5,7 +5,7 @@ import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
-import SectionEditLink from "~/Component/Feature/Section/CreateEdit/SectionEditLink"
+import { SectionEditLink } from "~/Component/Feature/Section/SectionEditLink"
 import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
 import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/TableSearchMeta/SectionFinancial/FinancialTableColumns"
@@ -19,7 +19,6 @@ import { getSectionProductTableColumns } from "~/TableSearchMeta/SectionProduct/
 import { ProductAddButton } from "~/Component/Feature/Section/Product/ProductAddButton"
 import { getRequestTableColumns } from "~/TableSearchMeta/Request/RequestTableColumns"
 import { getWaitlistEntriesTableColumns } from "~/TableSearchMeta/WaitlistEntries/WaitlistEntryTableColumns"
-// import { WaitlistEntryCreateEditFormModal } from "~/Component/Feature/Section/WaitlistEntries/CreateEdit/WaitlistEntryCreateEditFormModal"
 import SectionNoShowPage from "~/Pages/Manage/Courses/Section/NoShowPage"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
 import { getGeneralCommentTableColumns } from "~/TableSearchMeta/SectionComment/GeneralCommentTableColumns"
@@ -36,28 +35,50 @@ import FinancialMenu from "~/TableSearchMeta/Financial/FinancialMenu"
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingTableColumn"
 import { WaitlistEntryFormOpenButton } from "~/Component/Feature/WaitlistEntries/WaitlistEntryForm"
+import { BasicInfoForm } from "~/Component/Feature/Section/Forms/SectionBasicInfoForm"
+import { SectionEnrollmentForm } from "~/Component/Feature/Section/Forms/SectionEnrollmentForm"
+import { SectionPaymentGatewayForm } from "~/Component/Feature/Section/Forms/SectionPaymentGatewayForm"
+import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
+import { SectionGradesCreditsFormMeta } from "~/Component/Feature/Section/FormMeta/SectionGradesCreditsFormMeta"
+import { updateSection } from "~/ApiServices/Service/SectionService"
+import { REFRESH_PAGE } from "~/utils/EventBus"
+import { EditOutlined } from "@ant-design/icons"
+import { SectionStatusForm } from "~/Component/Feature/Section/Forms/SectionStatusForm"
+import { SectionRefundEnquiryForm } from "~/Component/Feature/Section/Forms/SectionRefundEnquiryForm"
 
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
-    cardActions: [<SectionEditLink section={section} PrimaryType={true} />, <SectionRemoveButton Section={section} />],
+    title: "Basic Info",
+    cardActions: [
+      <SectionEditLink initialValues={section} component={BasicInfoForm} />,
+      <SectionRemoveButton Section={section} />
+    ],
     contents: [
+      { label: "Status", value: <SectionStatusForm initialValue={section} /> },
       { label: "Description", value: section.Description, render: undefined },
-      { label: "Status", value: section.StatusCode, render: undefined },
       { label: "URL", value: section.URL, render: undefined },
-      { label: "Distance Learning", value: section.IsDistanceLearning, render: renderBoolean },
-      { label: "StartDate", value: section.StartDate, render: renderDate },
-      { label: "EndDate", value: section.EndDate, render: renderDate },
+      { label: "Creation Date", value: section.EffectiveCreationDate, render: renderDate },
+      { label: "Termination Date", value: section.EffectiveTerminationDate, render: renderDate },
       { label: "Final Enrollment Date", value: section.FinalEnrollmentDate, render: renderDate },
       { label: "Billing Date", value: section.BillingDate, render: renderDate },
-      { label: "Effective Creation Date", value: section.EffectiveCreationDate, render: renderDate },
-      { label: "Effective Termination Date", value: section.EffectiveTerminationDate, render: renderDate },
-      { label: "Fiscal Period", value: section.FiscalPeriodCodeName, render: undefined }
+      { label: "Distance Learning", value: section.IsDistanceLearning, render: renderBoolean },
+      { label: "Fiscal Period", value: section.FiscalPeriodCodeName, render: undefined },
+      { label: "Other Section Type", value: section.SectionTypeName, render: undefined },
+      {
+        label: "Payment Gateway",
+        value: <SectionPaymentGatewayForm initialValue={section} />
+      },
+      {
+        label: "Room",
+        value: section.Locations
+      }
     ]
   }
   const enrollmentInfo: CardContainer = {
     title: "Enrollment",
+    cardActions: [<SectionEditLink initialValues={section} component={SectionEnrollmentForm} />],
     contents: [
       { label: "Current Enrollment", value: section.TotalEnrolledSeats, render: undefined },
       { label: "Minimum Enrollment", value: section.MinEnrollment, render: undefined },
@@ -72,6 +93,22 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
 
   const gradeInfo: CardContainer = {
     title: "Grades and Credits",
+    cardActions: [
+      <MetaDrivenFormModalOpenButton
+        formTitle={`Update Grades & Credits`}
+        formMeta={SectionGradesCreditsFormMeta}
+        formSubmitApi={updateSection}
+        initialFormValue={{
+          ...section
+        }}
+        buttonLabel=""
+        buttonProps={{ icon: <EditOutlined />, shape: "circle", type: "primary" }}
+        defaultFormValue={{
+          SectionID: section.SectionID
+        }}
+        refreshEventName={REFRESH_PAGE}
+      />
+    ],
     contents: [
       { label: "Grade Scale", value: section.GradeScaleTypeName, render: undefined },
       { label: "Credit Type", value: section.CreditTypeName, render: undefined },
@@ -81,6 +118,15 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       { label: "CEUs", value: section.CEUHours, render: undefined },
       { label: "Expected Attendance", value: section.AttendanceExpected, render: undefined },
       { label: "Attendance Unit", value: section.AttendanceUnit, render: undefined }
+    ]
+  }
+
+  const refundInfo: CardContainer = {
+    title: "Section Redunf and Inquiry",
+    cardActions: [<SectionEditLink initialValues={section} component={SectionRefundEnquiryForm} />],
+    contents: [
+      { label: "Refund Policy", value: section.RefundPolicyTypeName, render: undefined },
+      { label: "Inquiry Recipient", value: section.SubmitInquiryToUserID, render: undefined }
     ]
   }
 
@@ -99,7 +145,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [sectionInfo, enrollmentInfo, gradeInfo]
+    summary: [{ groupedContents: [sectionInfo, enrollmentInfo] }, { groupedContents: [gradeInfo, refundInfo] }]
   }
 
   const scheduleMeta: IDetailsCustomTabProp = {
