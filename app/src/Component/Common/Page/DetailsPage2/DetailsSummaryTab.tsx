@@ -1,19 +1,6 @@
 import React from "react"
 import { Card, Col, Row } from "antd"
-
-export type CardContents = {
-  label: string
-  value?: any
-  jsx?: JSX.Element
-  render?: (text: any) => string | JSX.Element
-}
-
-export type CardContainer = {
-  title?: string
-  contents?: CardContents[]
-  cardActions?: JSX.Element[]
-  groupedContents?: CardContainer[]
-}
+import { CardContainer, CardContents, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 
 const DetailsCardContainer = (props: { card: CardContainer }) => {
   return (
@@ -22,7 +9,7 @@ const DetailsCardContainer = (props: { card: CardContainer }) => {
         <tbody>
           {Array.isArray(props.card.contents)
             ? props.card.contents.map((y: CardContents, j: number) => (
-                <tr key={j}>
+                <tr key={j} className={y.cssClass}>
                   <td>{y.label}</td>
                   <td style={{ width: "30px" }}></td>
                   <td>{y.jsx ? y.jsx : y.render ? y.render(y.value) : y.value}</td>
@@ -35,10 +22,6 @@ const DetailsCardContainer = (props: { card: CardContainer }) => {
   )
 }
 
-export interface IDetailsSummary {
-  summary: CardContainer[]
-  actions?: JSX.Element[]
-}
 export const DetailsSummary = (props: IDetailsSummary) => {
   return (
     <>

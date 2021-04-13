@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { Button, Typography } from "antd"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 import UpdateProgramEnrollment from "~/Component/Feature/ProgramEnrollment/ProgramEnrollmentFormModal"

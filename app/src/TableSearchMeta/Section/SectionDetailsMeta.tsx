@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { SectionEditLink } from "~/Component/Feature/Section/SectionEditLink"
@@ -56,7 +56,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       <SectionRemoveButton Section={section} />
     ],
     contents: [
-      { label: "Status", value: <SectionStatusForm initialValue={section} /> },
+      { label: "Status", value: <SectionStatusForm initialValue={section} />, cssClass: "highlight" },
       { label: "Description", value: section.Description, render: undefined },
       { label: "URL", value: section.URL, render: undefined },
       { label: "Creation Date", value: section.EffectiveCreationDate, render: renderDate },

@@ -1,6 +1,6 @@
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+
 import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
 import { getMembershipBeneficiariesTableColumns } from "~/TableSearchMeta/Membership/MembershipBeneficiariesTableColumns"
 import { getMembershipTermsTableColumns } from "~/TableSearchMeta/Membership/MembershipTermsTableColumns"

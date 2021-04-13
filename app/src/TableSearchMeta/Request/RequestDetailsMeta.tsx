@@ -1,8 +1,8 @@
 import React from "react"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { RequestActivityTable } from "~/Component/Feature/Section/Request/RequestActivityTable"
 import RequestActionsTable from "~/Component/Feature/Section/Request/RequestActionsTable"

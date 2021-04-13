@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { Row, Spin, Tabs, Typography } from "antd"
-import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
 import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
@@ -10,6 +9,7 @@ import { IDetailsPage, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { DetailsPageSubTabSwitch } from "~/Component/Common/Page/DetailsPage2/DetailsTabSwitch"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
+import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
 
 export function DetailsPage(props: IDetailsPage) {
   const [loading, setLoading] = useState(false)
