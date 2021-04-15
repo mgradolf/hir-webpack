@@ -8,6 +8,7 @@ export function FormInput(props: IGeneratedField & { readOnly?: boolean }) {
       <Input
         aria-label={props.ariaLabel}
         type="text"
+        maxLength={props.maxLength}
         defaultValue={props.defaultValue}
         disabled={props.disabled}
         readOnly={props.readOnly}

@@ -14,14 +14,28 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
 
   useEffect(() => {
     findPossibleSites({}).then((x) => {
-      if (x.success) setSites(x.data)
+      if (x.success) {
+        const options: any[] = []
+        x.data.map((y: any) => {
+          options.push({ label: y.Name, value: y.SiteID })
+          return options
+        })
+        setSites(options)
+      }
     })
   }, [])
 
   const loadBuildings = (SiteID: number) => {
     if (SiteID) {
       findPossibleBuildings({ SiteID }).then((x) => {
-        if (x.success) setBuildings(x.data)
+        if (x.success) {
+          const options: any[] = []
+          x.data.map((y: any) => {
+            options.push({ label: y.Name, value: y.BuildingID })
+            return options
+          })
+          setBuildings(options)
+        }
       })
     } else {
       setBuildings([])
@@ -32,7 +46,14 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
   const loadRooms = (BuildingID: number) => {
     if (BuildingID) {
       findPossibleRooms({ BuildingID }).then((x) => {
-        if (x.success) setRooms(x.data)
+        if (x.success) {
+          const options: any[] = []
+          x.data.map((y: any) => {
+            options.push({ label: y.Name, value: y.RoomID })
+            return options
+          })
+          setRooms(options)
+        }
       })
     } else {
       setRooms([])
@@ -76,6 +97,7 @@ export const SiteBuildingRoomFilter = (props: IGeneratedField) => {
           displayKey="Name"
           valueKey="RoomID"
           formInstance={props.formInstance}
+          onChangeCallback={props.onSelectedItems}
         />
       )}
     </>

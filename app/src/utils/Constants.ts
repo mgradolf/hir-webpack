@@ -229,6 +229,7 @@ export const UPDATE_SUCCESSFULLY = "Successfully updated!"
 export const DELETE_SUCCESSFULLY = "Successfully deleted!"
 export const REQUEST_SUCCESSFULLY = "Successfully requested!"
 export const CREATE_SUCCESSFULLY = "Successfully created!"
+export const COPPIED_SUCCESSFULLY = "Successfully coppied!"
 export const UPLOAD_SUCCESSFULLY = "Successfully uploaded!"
 export const ADDED_SUCCESSFULLY = "Successfully added!"
 export const FORGET_ME_REQUEST_SUCCESSFULLY = "Forget Me Requested Successfully!"
@@ -266,3 +267,4 @@ export const PAY_LATER_WITH_PO = 2
 export const PAY_LATER_NOT_ALLOWED = -1
 
 export const PAYMENT_GATEWAY_ACCOUNT_ID_STUB = 9
+export const ALL_REQUIRED_POLICY_TYPE = 1

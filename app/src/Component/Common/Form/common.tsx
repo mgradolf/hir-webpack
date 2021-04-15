@@ -58,6 +58,7 @@ export interface IField {
   help?: string
   labelColSpan?: number
   wrapperColSpan?: number
+  maxLength?: number
   onSelectedItems?: (items: any) => void
 }
 

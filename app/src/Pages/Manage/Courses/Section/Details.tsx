@@ -1,10 +1,13 @@
-import React from "react"
+import { Button } from "antd"
+import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import { getSectionDetails, getSectionStatistics } from "~/ApiServices/Service/SectionService"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
+import { SectionCopyModal } from "~/Component/Feature/Section/Copy/SectionCopyModal"
 import { getSectionDetailsMeta } from "~/TableSearchMeta/Section/SectionDetailsMeta"
 
 export default function SectionDetailsPage(props: RouteComponentProps<{ sectionID?: string; offeringID?: string }>) {
+  const [showModal, setShowModal] = useState(false)
   const SectionID = Number(props?.match?.params?.sectionID)
 
   const getSectionDetailsInfo = () => {
@@ -35,6 +38,14 @@ export default function SectionDetailsPage(props: RouteComponentProps<{ sectionI
       entityType="Section"
       entityID={SectionID}
       titleKey="SectionNumber"
+      actions={[
+        <>
+          <Button type="primary" onClick={() => setShowModal(true)}>
+            Copy
+          </Button>
+          {showModal && <SectionCopyModal closeModal={() => setShowModal(false)} SectionID={SectionID} />}
+        </>
+      ]}
     />
   )
 }

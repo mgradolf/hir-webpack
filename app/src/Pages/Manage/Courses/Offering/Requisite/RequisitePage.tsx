@@ -40,9 +40,7 @@ export default function RequisitePage(props: IRequisitePageProp) {
 
   return (
     <>
-      {policyTypeList.length > 0 && (
-        <PrerequisiteGroups offeringId={props.offeringID} policyData={policyTypeList} onSelected={handleSelection} />
-      )}
+      <PrerequisiteGroups offeringId={props.offeringID} policyData={policyTypeList} onSelected={handleSelection} />
       {requisiteGroupID && (
         <SearchPage
           title={props.title || ""}

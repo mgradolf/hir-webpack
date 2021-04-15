@@ -26,7 +26,7 @@ import { getInstructorCommentTableColumns } from "~/TableSearchMeta/SectionComme
 import { COMMENT_TYPES } from "~/utils/Constants"
 import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { AddDiscountButton } from "~/Component/Feature/Discount/AddDiscountButton"
-import { SectionRemoveButton } from "~/Component/Feature/Section/CreateEdit/SectionRemoveButton"
+import { SectionRemoveButton } from "~/Component/Feature/Section/SectionRemoveButton"
 import { getEnrollmentTableColumns } from "~/TableSearchMeta/Enrollment/EnrollmentTableColumns"
 import { getOrderItemTableColumns } from "~/TableSearchMeta/OrderItem/OrderItemsTableColumns"
 import { getAcademicActivityLogTableColumns } from "~/TableSearchMeta/Academic/AcademicActivityTableColumns"
@@ -47,6 +47,7 @@ import { EditOutlined } from "@ant-design/icons"
 import { SectionRefundEnquiryForm } from "~/Component/Feature/Section/Forms/SectionRefundEnquiryForm"
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { getPaymentGatewayAccounts, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
+import { AddSectionRoomButton } from "~/Component/Feature/Section/AddSectionRoomButton"
 
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
@@ -77,7 +78,9 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       { label: "Description", value: section.Description, render: undefined },
       { label: "URL", value: section.URL, render: undefined },
       { label: "Creation Date", value: section.EffectiveCreationDate, render: renderDate },
+      { label: "Creation Term", value: section.StartTermName, render: undefined },
       { label: "Termination Date", value: section.EffectiveTerminationDate, render: renderDate },
+      { label: "Termination Term", value: section.EndTermName, render: undefined },
       { label: "Final Enrollment Date", value: section.FinalEnrollmentDate, render: renderDate },
       { label: "Billing Date", value: section.BillingDate, render: renderDate },
       { label: "Distance Learning", value: section.IsDistanceLearning, render: renderBoolean },
@@ -101,7 +104,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       },
       {
         label: "Room",
-        value: section.Locations
+        value: <AddSectionRoomButton Locations={section.RoomName} SectionID={section.SectionID} />
       }
     ]
   }

@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Col, Row } from "antd"
 import { FormInstance } from "antd/lib/form"
-import { getTerms } from "~/ApiServices/Service/RefLookupService"
+import { getActiveTerms } from "~/ApiServices/Service/RefLookupService"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormDateTimePicker } from "~/Component/Common/Form/FormDateTimePicker"
-import SectionDetailsTerminationDuration from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionTimingOtherDetails/SectionDetailsTerminationDuration"
+import SectionDetailsTerminationDuration from "~/Component/Feature/Section/SectionDetailsTerminationDuration"
 import { SECTION_TRMINATION_TIME } from "~/utils/Constants"
 import { ISectionDetailsFieldNames } from "~/Component/Feature/Section/Forms/SectionBasicInfoForm"
 import SectionCharacteristicForm from "~/Component/Feature/Section/Forms/SectionCharacteristicForm"
@@ -96,7 +96,7 @@ export default function SectionTimingForm(props: ISectionTimingFormProps) {
               label={"Choose a term"}
               formInstance={props.formInstance}
               fieldName={props.fieldNames.StartTermID}
-              refLookupService={getTerms}
+              refLookupService={getActiveTerms}
               displayKey="Name"
               valueKey="TermID"
             />
@@ -138,7 +138,7 @@ export default function SectionTimingForm(props: ISectionTimingFormProps) {
               label={"Choose a term"}
               formInstance={props.formInstance}
               fieldName={props.fieldNames.EndTermID}
-              refLookupService={getTerms}
+              refLookupService={getActiveTerms}
               displayKey="Name"
               valueKey="TermID"
             />

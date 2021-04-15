@@ -1,6 +1,8 @@
-import { Checkbox, Col, DatePicker, Form, Input, Row } from "antd"
+import { Col, Row } from "antd"
 import { FormInstance } from "antd/lib/form"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
+import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 
 export interface IFieldNames {
   SectionID: string
@@ -27,122 +29,127 @@ const fieldNames: IFieldNames = {
 }
 
 interface ISectionCopyForm {
-  SectionID?: number
+  SectionID: number
   formInstance: FormInstance
 }
-export default function SectionCopyForm(props: ISectionCopyForm) {
-  const [disableScheduleGroup, setDisableScheduleGroup] = useState(false)
-  useEffect(() => {
-    props.formInstance.setFieldsValue({ [fieldNames.SectionID]: props.SectionID })
-  }, [props])
-  return (
-    <>
-      <Form.Item name={fieldNames.SectionID} className="hidden">
-        <Input />
-      </Form.Item>
-      <Form.Item name={fieldNames.StartDate} className="hidden">
-        <Input />
-      </Form.Item>
 
-      <Form.Item
-        name={fieldNames.Schedule}
-        label="Schedule"
-        valuePropName="checked"
-        labelCol={{ span: 4 }}
-        labelAlign="left"
-      >
-        <Checkbox
-          onChange={(value) => {
-            const isChecked = value.target.checked
+export default function SectionCopyForm(props: ISectionCopyForm) {
+  const [disableScheduleGroup, setDisableScheduleGroup] = useState(true)
+
+  return (
+    <Row>
+      <Col xs={24} sm={24} md={12}>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Schedule"}
+          ariaLabel={"Schedule"}
+          fieldName={fieldNames.Schedule}
+          onChangeCallback={(e) => {
+            const isChecked = e.target.value
             setDisableScheduleGroup(!isChecked)
             props.formInstance.setFieldsValue({ [fieldNames.Location]: isChecked })
             props.formInstance.setFieldsValue({ [fieldNames.Instructor]: isChecked })
             props.formInstance.setFieldsValue({ [fieldNames.Notes]: isChecked })
           }}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
         />
-      </Form.Item>
+      </Col>
 
-      <Row>
-        <Col span={8}>
-          <Form.Item
-            name={fieldNames.Location}
-            label="Location"
-            valuePropName="checked"
-            labelCol={{ span: 12 }}
-            labelAlign="left"
-          >
-            <Checkbox disabled={disableScheduleGroup} />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            name={fieldNames.Instructor}
-            label="Instructor"
-            valuePropName="checked"
-            labelCol={{ span: 12 }}
-            labelAlign="left"
-          >
-            <Checkbox disabled={disableScheduleGroup} />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            name={fieldNames.Notes}
-            label="Notes"
-            valuePropName="checked"
-            labelCol={{ span: 12 }}
-            labelAlign="left"
-          >
-            <Checkbox disabled={disableScheduleGroup} />
-          </Form.Item>
-        </Col>
-      </Row>
-      <Form.Item label="StartDate" labelCol={{ span: 4 }} labelAlign="left" wrapperCol={{ span: 4 }}>
-        <DatePicker
-          size="large"
-          allowClear
+      <Col xs={24} sm={24} md={12}>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Location"}
+          ariaLabel={"Location"}
+          fieldName={fieldNames.Location}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
           disabled={disableScheduleGroup}
-          onChange={(value: any, dateString: string) => {
-            props.formInstance.setFieldsValue({ [fieldNames.StartDate]: dateString })
-          }}
-          format="MM/DD/YYYY"
         />
-      </Form.Item>
-      <Row>
-        <Col span={8}>
-          <Form.Item
-            name={fieldNames.Financials}
-            label="Financials"
-            valuePropName="checked"
-            labelCol={{ span: 12 }}
-            labelAlign="left"
-          >
-            <Checkbox />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            name={fieldNames.Discount}
-            label="Discount"
-            valuePropName="checked"
-            labelCol={{ span: 12 }}
-            labelAlign="left"
-          >
-            <Checkbox />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            name={fieldNames.Product}
-            label="Product"
-            valuePropName="checked"
-            labelCol={{ span: 12 }}
-            labelAlign="left"
-          >
-            <Checkbox />
-          </Form.Item>
-        </Col>
-      </Row>
-    </>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Instructor"}
+          ariaLabel={"Instructor"}
+          fieldName={fieldNames.Instructor}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+          disabled={disableScheduleGroup}
+        />
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Notes"}
+          ariaLabel={"Notes"}
+          fieldName={fieldNames.Notes}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+          disabled={disableScheduleGroup}
+        />
+      </Col>
+
+      <Col xs={24} sm={24} md={12}>
+        <FormDatePicker
+          label="StartDate"
+          labelColSpan={8}
+          wrapperColSpan={14}
+          disabled={disableScheduleGroup}
+          formInstance={props.formInstance}
+          fieldName={fieldNames.StartDate}
+          placeholder="MM/DD/YYYY"
+        />
+
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Financials"}
+          ariaLabel={"Financials"}
+          fieldName={fieldNames.Financials}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Discount"}
+          ariaLabel={"Discount"}
+          fieldName={fieldNames.Discount}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Product"}
+          ariaLabel={"Product"}
+          fieldName={fieldNames.Product}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
+      </Col>
+    </Row>
   )
 }

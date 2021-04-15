@@ -19,6 +19,7 @@ export default function SecondStepForm(props: ISecondStepFormProps) {
       <Row>
         <Col xs={24} sm={24} md={24}>
           <FormInput
+            maxLength={16}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"Offering Code"}

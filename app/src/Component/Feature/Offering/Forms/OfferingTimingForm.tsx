@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Col, Divider, Row } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { IOfferingFieldNames } from "~/Component/Feature/Offering/Interfaces"
-import { getTerms } from "~/ApiServices/Service/RefLookupService"
+import { getActiveTerms } from "~/ApiServices/Service/RefLookupService"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormDateTimePicker } from "~/Component/Common/Form/FormDateTimePicker"
 import DefineDurationTime from "~/Component/Feature/Offering/DefineDurationTime"
@@ -96,7 +96,7 @@ export default function OfferingTimingForm(props: IOfferingTimingFormProps) {
               label={"Choose a term"}
               formInstance={props.formInstance}
               fieldName={props.fieldNames.StartTermID}
-              refLookupService={getTerms}
+              refLookupService={getActiveTerms}
               displayKey="Name"
               valueKey="TermID"
             />
@@ -138,7 +138,7 @@ export default function OfferingTimingForm(props: IOfferingTimingFormProps) {
               label={"Choose a term"}
               formInstance={props.formInstance}
               fieldName={props.fieldNames.EndTermID}
-              refLookupService={getTerms}
+              refLookupService={getActiveTerms}
               displayKey="Name"
               valueKey="TermID"
             />
