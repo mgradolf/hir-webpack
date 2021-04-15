@@ -30,6 +30,17 @@ export function getTerms(): Promise<IApiResponse> {
   })
 }
 
+export function getActiveTerms(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "Term"
+  }).then((response) => {
+    if (response.success) {
+      response.data = response.data.filter((x: any) => x.IsActive)
+    }
+    return response
+  })
+}
+
 export function getOfferingStatusTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "OfferingStatusCode"

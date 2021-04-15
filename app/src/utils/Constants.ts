@@ -267,3 +267,4 @@ export const PAY_LATER_WITH_PO = 2
 export const PAY_LATER_NOT_ALLOWED = -1
 
 export const PAYMENT_GATEWAY_ACCOUNT_ID_STUB = 9
+export const ALL_REQUIRED_POLICY_TYPE = 1

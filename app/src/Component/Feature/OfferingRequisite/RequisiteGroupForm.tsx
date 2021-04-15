@@ -12,6 +12,7 @@ import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
+import { ALL_REQUIRED_POLICY_TYPE } from "~/utils/Constants"
 
 interface IOfferingRequisiteGroupFormProps {
   requisiteGroupID?: number
@@ -33,6 +34,7 @@ const fieldNames: IOfferingRequisiteGroupFieldNames = {
 }
 
 export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormProps) {
+  const [requiredPolicyValue, setRequiredPolicyValue] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
@@ -59,6 +61,14 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
     } else {
       setErrorMessages(response.error)
       console.log(response)
+    }
+  }
+
+  const handlePolicyType = (value: any) => {
+    if (value === ALL_REQUIRED_POLICY_TYPE) {
+      setRequiredPolicyValue(false)
+    } else {
+      setRequiredPolicyValue(true)
     }
   }
 
@@ -116,6 +126,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           formInstance={props.formInstance}
           fieldName={fieldNames.PolicyTypeID}
           refLookupService={getPolicyTypes}
+          onChangeCallback={handlePolicyType}
           displayKey="Name"
           valueKey="ID"
           rules={[
@@ -132,7 +143,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           label={"Policy Value"}
           fieldName={fieldNames.PolicyValue}
           formInstance={props.formInstance}
-          rules={[{ required: true, message: "Please input policy value!" }]}
+          rules={[{ required: requiredPolicyValue, message: "Please input policy value!" }]}
         />
 
         <FormMultipleRadio
