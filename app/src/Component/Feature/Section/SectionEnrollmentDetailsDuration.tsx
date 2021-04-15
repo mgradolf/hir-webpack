@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Col, Form, Input, Row } from "antd"
-import { ISectionEnrollmentDetails } from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails"
+import { ISectionEnrollmentDetails } from "~/Component/Feature/Section/Forms/SectionEnrollmentForm"
 import { FormInstance } from "antd/lib/form"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 

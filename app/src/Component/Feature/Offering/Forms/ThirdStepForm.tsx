@@ -53,23 +53,6 @@ export default function ThirdStepForm(props: IThirdStepFormProps) {
       <Row>
         <Divider orientation="left">Core characteristics</Divider>
         <Col xs={24} sm={24} md={12}>
-          {/* <Form.Item
-            label="Offering status"
-            name={props.fieldNames.OfferingStatusCodeID}
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 14 }}
-          >
-            <Select aria-label="Offering Status Select" disabled={disableStatus}>
-              {offeringStatusTypes &&
-                offeringStatusTypes.map((x) => {
-                  return (
-                    <Select.Option key={x.StatusID} value={x.StatusID}>
-                      {x.Name}
-                    </Select.Option>
-                  )
-                })}
-            </Select>
-          </Form.Item> */}
           <FormMultipleRadio
             labelColSpan={8}
             wrapperColSpan={14}

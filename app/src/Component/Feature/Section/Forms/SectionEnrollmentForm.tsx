@@ -1,6 +1,6 @@
 import React from "react"
 import { Row, Col, Divider } from "antd"
-import SectionEnrollmentDetailsDuration from "~/Component/Feature/Section/CreateEdit/SectionEditForm/SectionEnrollmentDetails/SectionEnrollmentDetailsDuration"
+import SectionEnrollmentDetailsDuration from "~/Component/Feature/Section/SectionEnrollmentDetailsDuration"
 import { FormInstance } from "antd/lib/form"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 

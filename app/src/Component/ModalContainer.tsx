@@ -6,7 +6,6 @@ import OfflineAlert from "~/Component/Alerts/Offline"
 import LoginModal from "~/Component/Login/LoginModal"
 import OfferingApprovalFormModal from "~/Component/Feature/OfferingApproval/OfferingApprovalFormModal"
 import OfferingRequisiteGroupFormModal from "~/Component/Feature/OfferingRequisite/RequisiteFormModal"
-import SectionCopyModal from "~/Component/Feature/Section/Copy/SectionCopyModal"
 import SectionSeatGroupFormModal from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
 import SeatGroupAffiliatedOrganization from "~/Component/Feature/Section/SeatGroup/SeatGroupAffiliatedOrganizationModal"
 import ScheduleFormModal from "~/Component/Feature/Section/Schedule/ScheduleFormModal"
@@ -45,7 +44,6 @@ function ModalContainer(modalState: IModalState) {
           requisiteGroupID={modalState.offeringPrerequisiteGroupModal.config.requisiteGroupId}
         />
       )}
-      {modalState.copySectionModal.value && <SectionCopyModal />}
       {modalState.createSectionSeatGroupModal.value && (
         <SectionSeatGroupFormModal
           sectionId={modalState.createSectionSeatGroupModal.config.sectionId}
