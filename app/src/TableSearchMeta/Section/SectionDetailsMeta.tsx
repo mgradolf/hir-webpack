@@ -129,7 +129,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     cardActions: [<SectionEditLink initialValues={section} component={SectionRefundEnquiryForm} />],
     contents: [
       { label: "Refund Policy", value: section.RefundPolicyTypeName, render: undefined },
-      { label: "Inquiry Recipient", value: section.SubmitInquiryToUserID, render: undefined }
+      { label: "Inquiry Recipient", value: section.SubmitInquiryToName, render: undefined }
     ]
   }
 

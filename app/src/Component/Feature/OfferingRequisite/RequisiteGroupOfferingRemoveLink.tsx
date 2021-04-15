@@ -3,6 +3,7 @@ import { Button } from "antd"
 import { deleteOfferingFromGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { eventBus, REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP } from "~/utils/EventBus"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
+import { DeleteOutlined } from "@ant-design/icons"
 
 interface IRequisiteOfferingRemoveLinkProp {
   offeringId: number
@@ -14,6 +15,8 @@ export function RequisiteOfferingRemoveLink(props: IRequisiteOfferingRemoveLinkP
     <Button
       danger
       type="primary"
+      icon={<DeleteOutlined />}
+      shape="circle"
       onClick={() =>
         showDeleteConfirm(() => {
           return deleteOfferingFromGroup({
@@ -27,8 +30,6 @@ export function RequisiteOfferingRemoveLink(props: IRequisiteOfferingRemoveLinkP
           })
         })
       }
-    >
-      Remove
-    </Button>
+    />
   )
 }

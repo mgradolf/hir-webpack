@@ -1,10 +1,8 @@
 import React from "react"
-import { Button, Dropdown } from "antd"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { searchFinancials } from "~/ApiServices/Service/FinancialService"
 import FinancialMenu from "~/Component/Feature/Financial/FinancialMenu"
-import { DownOutlined } from "@ant-design/icons"
 import { FINANCIAL_OFFERING_TYPE_ID, FINANCIAL_TYPE_FACULTY, FINANCIAL_TYPE_OFFERING } from "~/utils/Constants"
 
 export const getOfferingFinancialTableColumns = (ApplyToID: number, FinancialTypeID: number): ITableConfigProp => {
@@ -57,22 +55,13 @@ export const getOfferingFinancialTableColumns = (ApplyToID: number, FinancialTyp
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown
-          overlay={
-            <FinancialMenu
-              applyToID={record.ApplyToID}
-              financialType={
-                FinancialTypeID === FINANCIAL_OFFERING_TYPE_ID ? FINANCIAL_TYPE_OFFERING : FINANCIAL_TYPE_FACULTY
-              }
-              financialId={record.FinancialID}
-            />
+        <FinancialMenu
+          applyToID={record.ApplyToID}
+          financialId={record.FinancialID}
+          financialType={
+            FinancialTypeID === FINANCIAL_OFFERING_TYPE_ID ? FINANCIAL_TYPE_OFFERING : FINANCIAL_TYPE_FACULTY
           }
-          trigger={["click"]}
-        >
-          <Button type="primary" onClick={(e) => e.preventDefault()}>
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
+        />
       )
     }
   ]

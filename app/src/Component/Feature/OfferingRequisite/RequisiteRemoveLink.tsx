@@ -29,8 +29,6 @@ export function RequisiteRemoveLink(props: IRequisiteRemoveLinkProp) {
           })
         })
       }
-    >
-      Remove
-    </Button>
+    />
   )
 }

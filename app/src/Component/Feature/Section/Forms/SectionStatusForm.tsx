@@ -27,7 +27,7 @@ export function SectionStatusForm(props: ISectionStatusFormProps) {
     params["SectionStatusCodeID"] = statusCodeID
 
     setLoading(true)
-    updateSection(params).then((x) => {
+    updateSection(params).then((x: any) => {
       if (x && x.success) {
         message.success(UPDATE_SUCCESSFULLY)
         eventBus.publish(REFRESH_PAGE)
@@ -45,7 +45,7 @@ export function SectionStatusForm(props: ISectionStatusFormProps) {
       {setShowUpdateStatus && (
         <Button
           danger={showUpdateStatus}
-          type="default"
+          type="primary"
           shape="circle"
           icon={showUpdateStatus ? <CloseOutlined /> : <EditOutlined />}
           style={{ float: "right" }}

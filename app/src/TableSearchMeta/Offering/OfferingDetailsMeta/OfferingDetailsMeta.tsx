@@ -40,7 +40,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     title: "Basic Info",
     cardActions: [
       <OfferingEditLink component={SecondStepForm} initialValues={offering} />,
-      <OfferingRemoveLink OfferingId={offering.OfferingID} />
+      <OfferingRemoveLink OfferingId={offering.OfferingID} HasSection={offering.HasSection} />
     ],
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },

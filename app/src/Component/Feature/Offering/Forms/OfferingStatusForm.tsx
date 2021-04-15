@@ -88,7 +88,7 @@ export function OfferingStatusForm(props: IOfferingStatusFormProps) {
       {setShowUpdateStatus && (
         <Button
           danger={showUpdateStatus}
-          type="default"
+          type="primary"
           shape="circle"
           icon={showUpdateStatus ? <CloseOutlined /> : <EditOutlined />}
           style={{ float: "right" }}

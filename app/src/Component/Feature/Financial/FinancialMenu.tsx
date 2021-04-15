@@ -1,7 +1,8 @@
 import React, { useState } from "react"
-import { Button, Menu } from "antd"
+import { Button } from "antd"
 import FinancialRemoveLink from "~/Component/Feature/Financial/FinancialRemoveLink"
 import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
+import { EditOutlined } from "@ant-design/icons"
 
 interface IFinancialMenu {
   applyToID: number
@@ -13,28 +14,24 @@ export default function FinancialMenu(props: IFinancialMenu) {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   return (
-    <Menu>
-      <Menu.Item key="0">
-        <Button
-          type="link"
-          onClick={() => {
-            setShowUpdateModal(true)
-          }}
-        >
-          Edit
-        </Button>
-        {showUpdateModal && (
-          <CreateNewFinancial
-            applyToID={props.applyToID}
-            financialType={props.financialType}
-            financialID={props.financialId}
-            closeModal={() => setShowUpdateModal(false)}
-          />
-        )}
-      </Menu.Item>
-      <Menu.Item key="1">
-        <FinancialRemoveLink financialId={props.financialId} />
-      </Menu.Item>
-    </Menu>
+    <>
+      <Button
+        type="primary"
+        icon={<EditOutlined />}
+        shape="circle"
+        onClick={() => {
+          setShowUpdateModal(true)
+        }}
+      />
+      {showUpdateModal && (
+        <CreateNewFinancial
+          applyToID={props.applyToID}
+          financialType={props.financialType}
+          financialID={props.financialId}
+          closeModal={() => setShowUpdateModal(false)}
+        />
+      )}
+      <FinancialRemoveLink financialId={props.financialId} />
+    </>
   )
 }
