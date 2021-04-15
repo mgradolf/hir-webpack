@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { FINANCIAL_MARKETING_PROGRAM_TYPE_ID, FINANCIAL_TYPE_MARKETING_PROGRAM } from "~/utils/Constants"

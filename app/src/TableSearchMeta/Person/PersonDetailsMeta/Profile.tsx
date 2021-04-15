@@ -10,7 +10,7 @@ import {
   pushPersonPhone
 } from "~/ApiServices/Service/PersonService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+import { CardContainer, IDetailsSummary, CardContents } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { renderBoolean, renderDate, renderDateTime, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { AddressFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonAddressFormModal"
 import { BasicFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonBasicFormModal"
@@ -36,7 +36,7 @@ import { AccountRelationFormModalOpenButton } from "~/Component/Feature/Person/F
 import { EditDeleteButtonComboOnTableRow } from "~/Component/Common/Form/Buttons/EditDeleteButtonComboOnTableRow"
 import { PersonAddressFormMeta } from "~/Component/Feature/Person/FormMeta/Address/PersonAddressFormMeta"
 import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
-import { CardContents } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {

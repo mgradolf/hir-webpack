@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { SectionEditLink } from "~/Component/Feature/Section/SectionEditLink"
@@ -37,14 +37,16 @@ import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTaggin
 import { WaitlistEntryFormOpenButton } from "~/Component/Feature/WaitlistEntries/WaitlistEntryForm"
 import { BasicInfoForm } from "~/Component/Feature/Section/Forms/SectionBasicInfoForm"
 import { SectionEnrollmentForm } from "~/Component/Feature/Section/Forms/SectionEnrollmentForm"
-import { SectionPaymentGatewayForm } from "~/Component/Feature/Section/Forms/SectionPaymentGatewayForm"
+// import { SectionPaymentGatewayForm } from "~/Component/Feature/Section/Forms/SectionPaymentGatewayForm"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { SectionGradesCreditsFormMeta } from "~/Component/Feature/Section/FormMeta/SectionGradesCreditsFormMeta"
 import { updateSection } from "~/ApiServices/Service/SectionService"
 import { REFRESH_PAGE } from "~/utils/EventBus"
 import { EditOutlined } from "@ant-design/icons"
-import { SectionStatusForm } from "~/Component/Feature/Section/Forms/SectionStatusForm"
+// import { SectionStatusForm } from "~/Component/Feature/Section/Forms/SectionStatusForm"
 import { SectionRefundEnquiryForm } from "~/Component/Feature/Section/Forms/SectionRefundEnquiryForm"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { getPaymentGatewayAccounts, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { AddSectionRoomButton } from "~/Component/Feature/Section/AddSectionRoomButton"
 
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
@@ -57,7 +59,22 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       <SectionRemoveButton Section={section} />
     ],
     contents: [
-      { label: "Status", value: <SectionStatusForm initialValue={section} /> },
+      {
+        label: "Status",
+        value: (
+          <InlineForm
+            fieldName="SectionStatusCodeID"
+            refreshEventName="REFRESH"
+            inputType="DROPDOWN"
+            displayKey="Name"
+            valueKey="StatusID"
+            defaultValue={section.StatusCode}
+            updateFunc={(Params: { [key: string]: any }) => updateSection({ SectionID: section.SectionID, ...Params })}
+            refLookupService={getSectionStatusCode}
+          />
+        ),
+        cssClass: "highlight"
+      },
       { label: "Description", value: section.Description, render: undefined },
       { label: "URL", value: section.URL, render: undefined },
       { label: "Creation Date", value: section.EffectiveCreationDate, render: renderDate },
@@ -71,7 +88,19 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       { label: "Other Section Type", value: section.SectionTypeName, render: undefined },
       {
         label: "Payment Gateway",
-        value: <SectionPaymentGatewayForm initialValue={section} />
+        value: (
+          <InlineForm
+            fieldName="PaymentGatewayAccountID"
+            refreshEventName="REFRESH_PAGE"
+            inputType="DROPDOWN"
+            displayKey="Name"
+            valueKey="ID"
+            defaultValue={section.PaymentGatewayAccountID}
+            updateFunc={(Params: { [key: string]: any }) => updateSection({ SectionID: section.SectionID, ...Params })}
+            refLookupService={getPaymentGatewayAccounts}
+          />
+        )
+        //  <SectionPaymentGatewayForm initialValue={section} />
       },
       {
         label: "Room",

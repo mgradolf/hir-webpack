@@ -8,7 +8,7 @@ import {
   searchStudentSchedule
 } from "~/ApiServices/Service/StudentService"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { renderBoolean, renderDate, sortByTime } from "~/Component/Common/ResponsiveTable"
 import { getCertificateTableColumns } from "~/TableSearchMeta/Certificate/CertificateTableColumns"
 import { getProgramApplicationTableColumns } from "~/TableSearchMeta/ProgramApplication/ProgramApplicationTableColumns"

@@ -6,10 +6,10 @@ import {
   REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE,
   REFRESH_SECTION_PAGE
 } from "~/utils/EventBus"
-import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+
 import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
 import { OfferingEditLink } from "~/Component/Feature/Offering/OfferingEditLink"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"

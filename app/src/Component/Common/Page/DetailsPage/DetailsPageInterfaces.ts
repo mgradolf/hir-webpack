@@ -1,9 +1,15 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 
+export interface IDetailsSummary {
+  summary: CardContainer[]
+  actions?: JSX.Element[]
+}
+
 export type CardContents = {
   label: string
   value?: any
+  cssClass?: string
   jsx?: JSX.Element
   render?: (text: any) => string | JSX.Element
 }
