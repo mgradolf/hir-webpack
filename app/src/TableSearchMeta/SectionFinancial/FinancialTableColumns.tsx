@@ -1,10 +1,8 @@
 import React from "react"
-import { Button, Dropdown } from "antd"
 import BudgetMenu from "~/Component/Feature/Section/Budget/BudgetMenu"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
-import { DownOutlined } from "@ant-design/icons"
 
 export const getSectionFinancialTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -45,21 +43,12 @@ export const getSectionFinancialTableColumns = (): ITableConfigProp => {
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown
-          overlay={
-            <BudgetMenu
-              sectionId={record.SectionID}
-              financialId={record.FinancialID}
-              seatGroups={record.SeatGroups}
-              sectionFinancialId={record.SectionFinancialID}
-            />
-          }
-          trigger={["click"]}
-        >
-          <Button type="primary">
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
+        <BudgetMenu
+          sectionId={record.SectionID}
+          financialId={record.FinancialID}
+          seatGroups={record.SeatGroups}
+          sectionFinancialId={record.SectionFinancialID}
+        />
       )
     }
   ]

@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { Button } from "antd"
 import AddDiscountModal from "~/Component/Feature/Discount/AddDiscountModal"
 import { addSectionDiscount } from "~/ApiServices/Service/SectionService"
-import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface ICreateActionButtonProp {
   sectionId: number
@@ -10,16 +10,13 @@ interface ICreateActionButtonProp {
 
 export function AddDiscountButton(props: ICreateActionButtonProp) {
   const [openModal, setOpenModal] = useState(false)
-  const onClick = () => {
-    setOpenModal(true)
-  }
 
   const onClose = (selectedItems?: any[]) => {
     if (selectedItems) {
       const discountProgramID = selectedItems[0].DiscountProgramID
 
       addSectionDiscount({ SectionID: props.sectionId, DiscountProgramID: discountProgramID })
-        .then(() => eventBus.publish(REFRESH_SECTION_DISCOUNT_PAGE))
+        .then(() => eventBus.publish("REFRESH_SECTION_DISCOUNT_PAGE_1"))
         .finally(() => setOpenModal(false))
     } else {
       setOpenModal(false)
@@ -28,9 +25,11 @@ export function AddDiscountButton(props: ICreateActionButtonProp) {
   return (
     <>
       {openModal && <AddDiscountModal {...props} onClose={onClose} />}
-      <Button type="primary" onClick={onClick}>
-        + Add Discount Program
-      </Button>
+      <CreateEditRemoveIconButton
+        toolTip="Add Discount Program"
+        iconType="create"
+        onClick={() => setOpenModal && setOpenModal(true)}
+      />
     </>
   )
 }

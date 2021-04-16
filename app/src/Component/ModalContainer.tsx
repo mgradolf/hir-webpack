@@ -13,8 +13,6 @@ import ScheduleLocationFromModal from "~/Component/Feature/Section/Schedule/Sche
 import ScheduleInstructorFromModal from "~/Component/Feature/Section/Schedule/ScheduleInstructorFormModal"
 import AddProgramModal from "~/Component/Feature/Program/AddProgramModal"
 import BudgetFormModal from "~/Component/Feature/Section/Budget/BudgetFormModal"
-import BudgetEditFormModal from "~/Component/Feature/Section/Budget/BudgetEditFormModal"
-import DiscountFomrModal from "~/Component/Feature/Section/Discount/DiscountFormModal"
 import DiscountEditFormModal from "~/Component/Feature/Section/Discount/DiscountEditFormModal"
 import NoticeEditFormModal from "~/Component/Feature/Section/Notice/NoticeEditFormModal"
 import ViewResponseModal from "~/Component/Feature/Section/Request/ViewResponseModal"
@@ -26,7 +24,6 @@ import PostPaymentModal from "~/Component/Feature/Section/Request/Resolutions/Po
 import SpecifyRecipientModal from "~/Component/Feature/Section/Request/Resolutions/SpecifyRecipientModal"
 import StudentFinderModal from "~/Component/Feature/Student/StudentFinderModal"
 import ErrorDetailsModal from "~/Component/Feature/Section/Request/Resolutions/ErrorDetailsModal"
-import CommentCreateModal from "~/Component/Feature/Section/Comment/CommentCreateModal"
 import AddContactModal from "~/Component/Feature/Student/AddContactModal"
 import ScheduleNoteFormModal from "~/Component/Feature/Section/Schedule/ScheduleNoteFormModal"
 
@@ -76,16 +73,6 @@ function ModalContainer(modalState: IModalState) {
       {modalState.addProgramModal.value && <AddProgramModal />}
       {modalState.createBudgetModal.value && (
         <BudgetFormModal sectionId={modalState.createBudgetModal.config.sectionId} />
-      )}
-      {modalState.updateBudgetModal.value && (
-        <BudgetEditFormModal
-          sectionId={modalState.updateBudgetModal.config.sectionId}
-          financialId={modalState.updateBudgetModal.config.financialId}
-          seatGroups={modalState.updateBudgetModal.config.seatGroups}
-        />
-      )}
-      {modalState.createDiscountModal.value && (
-        <DiscountFomrModal sectionId={modalState.createDiscountModal.config.sectionId} />
       )}
       {modalState.updateDiscountModal.value && (
         <DiscountEditFormModal
@@ -150,7 +137,6 @@ function ModalContainer(modalState: IModalState) {
           AccountID={modalState.studentFinderModal.config.AccountID}
         />
       )}
-      {modalState.sectionCommentModal.value && <CommentCreateModal />}
       {modalState.addContactModal.value && <AddContactModal AccountID={modalState.addContactModal.config.AccountID} />}
     </>
   )

@@ -31,8 +31,10 @@ import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/Que
 import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
 import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
-import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
 import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { updateOffering } from "~/ApiServices/Service/OfferingService"
+import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
 import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
@@ -57,7 +59,23 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     title: "Core Characteristics",
     cardActions: [<OfferingEditLink component={ThirdStepForm} initialValues={offering} />],
     contents: [
-      { label: "Offering Status ", value: <OfferingStatusForm initialValue={offering} /> },
+      {
+        label: "Status",
+        value: (
+          <InlineForm
+            fieldName="OfferingStatusCodeID"
+            refreshEventName="REFRESH"
+            inputType="DROPDOWN"
+            displayKey="Name"
+            valueKey="StatusID"
+            defaultValue={offering.StatusCode}
+            updateFunc={(Params: { [key: string]: any }) =>
+              updateOffering({ OfferingID: offering.OfferingID, ...Params })
+            }
+            refLookupService={getOfferingStatusTypes}
+          />
+        )
+      },
       { label: "Department", value: offering.OrganizationName, render: undefined },
       { label: "Quick Admit", value: offering.IsQuickAdmit, render: renderBoolean },
       { label: "Approval Process", value: offering.HasApprovalProcess, render: renderBoolean },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Switch, Divider } from "antd"
+import { Form, Card, Button, Input, Select, Switch, Divider, Row, Col } from "antd"
 import {
   findPossibleBuildings,
   findPossibleRooms,
@@ -27,16 +27,15 @@ interface IScheduleCreateFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
   const [siteItems, setSiteItems] = useState<Array<any>>([])
   const [buildingItems, setBuildingItems] = useState<Array<any>>([])
   const [roomItems, setRoomItems] = useState<Array<any>>([])
-
   const [selectedSiteID, setSelectedSiteID] = useState<number | null>(null)
   const [selectedBuildingID, setSelectedBuildingID] = useState<number | null>(null)
-
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
   useEffect(() => {
@@ -121,17 +120,33 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title="Update Location" actions={actions}>
+    <Card
+      title="Update Location"
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
       <Form
         form={props.formInstance}
         initialValues={props.initialFormValue}
         onValuesChange={onValuesChange}
-        className="modal-form"
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
       >
         <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>

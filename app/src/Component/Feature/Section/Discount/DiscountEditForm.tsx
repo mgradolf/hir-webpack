@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Switch, DatePicker } from "antd"
+import { Form, Card, Button, Input, Select, DatePicker, message, Row, Col } from "antd"
 import { getGLAccountTypes, getDiscountAmountTypes } from "~/ApiServices/Service/RefLookupService"
-import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_SECTION_DISCOUNT_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getSectionFinancials, saveSectionDiscount } from "~/ApiServices/Service/SectionService"
@@ -17,9 +16,12 @@ import {
   DISCOUNT_VOLUME_TYPE_ID,
   DISCOUNT_DOLLAR_AMOUNT_TYPE_ID,
   DISCOUNT_DOLLATE_AMOUNT_TYPE_LABEL,
-  DISCOUNT_PERCENTAGE_AMOUNT_TYPE_LABEL
+  DISCOUNT_PERCENTAGE_AMOUNT_TYPE_LABEL,
+  UPDATE_SUCCESSFULLY
 } from "~/utils/Constants"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import moment from "moment"
+import "~/Sass/utils.scss"
 
 interface IDiscountEditFormProps {
   sectionId: number
@@ -31,7 +33,8 @@ interface IDiscountEditFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 export default function DiscountEditForm(props: IDiscountEditFormProps) {
@@ -96,7 +99,8 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      eventBus.publish(REFRESH_SECTION_DISCOUNT_PAGE)
+      message.success(UPDATE_SUCCESSFULLY)
+      eventBus.publish("REFRESH_SECTION_DISCOUNT_PAGE_1")
       props.handleCancel()
     } else {
       setErrorMessages(response.error)
@@ -126,12 +130,24 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
     props.formInstance.setFieldsValue({ [props.fieldNames.ToDate]: dateString })
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title={`Edit Discount Program`} actions={actions}>
+    <Card
+      title={`Edit Discount Program`}
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
       <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
         <OldFormError errorMessages={errorMessages} />
 
@@ -260,21 +276,30 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
           </Form.Item>
         )}
 
-        <Form.Item name={props.fieldNames.IsActive} label="Is Active" {...layout} valuePropName="checked">
-          <Switch aria-label="Is Active" defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)} />
-        </Form.Item>
-
-        <Form.Item
-          name={props.fieldNames.IsPromotedForMarketing}
-          label="Is Promoted For Marketing"
-          {...layout}
-          valuePropName="checked"
-        >
-          <Switch
-            aria-label="Is Promoted For Marketing"
-            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsPromotedForMarketing)}
-          />
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Active"}
+          ariaLabel={"Is Active"}
+          fieldName={props.fieldNames.IsActive}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Promoted For Marketing"}
+          ariaLabel={"Is Promoted For Marketing"}
+          fieldName={props.fieldNames.IsPromotedForMarketing}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
       </Form>
     </Card>
   )

@@ -110,7 +110,15 @@ export default function FinancialForm(props: ICreateFormProps) {
         </Row>
       ]}
     >
-      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
+      <Form
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
+      >
         <OldFormError errorMessages={errorMessages} />
         <FormInput
           label={"FinancialID"}
