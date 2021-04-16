@@ -23,7 +23,7 @@ import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
 import { eventBus } from "~/utils/EventBus"
-import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IAccountContactFormProps {
   editMode: boolean

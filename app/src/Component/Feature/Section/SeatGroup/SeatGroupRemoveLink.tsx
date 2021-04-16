@@ -1,7 +1,7 @@
 import React from "react"
 import { removeSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ISeatGroupRemoveLinkProp {
   seatgroupId: number
@@ -10,7 +10,7 @@ interface ISeatGroupRemoveLinkProp {
 
 export default function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
   return (
-    <CreateEditRemoveIconButton
+    <IconButton
       iconType="remove"
       toolTip="Remove"
       onClickRemove={() => {

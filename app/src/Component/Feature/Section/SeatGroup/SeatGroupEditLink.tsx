@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import UpdateSeatGroup from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ISeatGroupEditLinkProp {
   additionalData: { [key: string]: any }
@@ -19,7 +19,7 @@ export default function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
 
   return (
     <>
-      <CreateEditRemoveIconButton
+      <IconButton
         iconType="edit"
         toolTip="Edit"
         onClick={() => {

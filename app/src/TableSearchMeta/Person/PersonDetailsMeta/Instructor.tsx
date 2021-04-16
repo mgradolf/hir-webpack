@@ -27,17 +27,13 @@ import { pushInstructor, removeInstructor } from "~/ApiServices/Service/Instruct
 import { InstructorFormMeta } from "~/Component/Feature/Instructor/FormMeta/InstructorFormMeta"
 import InstructorScheduleFormModal from "~/Component/Feature/Instructor/Forms/InstructorScheduleFormModal"
 import Notification from "~/utils/notification"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <CreateEditRemoveIconButton
-        iconType="edit"
-        toolTip="Update Instructor Info"
-        onClick={() => setShowModal && setShowModal(true)}
-      />
+      <IconButton iconType="edit" toolTip="Update Instructor Info" onClick={() => setShowModal && setShowModal(true)} />
 
       {showModal && (
         <MetaDrivenFormModal
@@ -55,7 +51,7 @@ const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: an
           closeModal={() => setShowModal(false)}
         />
       )}
-      <CreateEditRemoveIconButton
+      <IconButton
         iconType="remove"
         toolTip="Delete Instructor Info"
         onClickRemove={() => {
@@ -76,11 +72,7 @@ const ScheduleFormModalOpenButton = (props: { PersonID: number }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <CreateEditRemoveIconButton
-        toolTip="Add Schedule"
-        iconType="create"
-        onClick={() => setShowModal && setShowModal(true)}
-      />
+      <IconButton toolTip="Add Schedule" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
 
       {showModal && <InstructorScheduleFormModal PersonID={props.PersonID} closeModal={() => setShowModal(false)} />}
     </>
@@ -110,11 +102,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     const [showModal, setShowModal] = useState(false)
     return (
       <>
-        <CreateEditRemoveIconButton
-          toolTip="Create Financial"
-          iconType="create"
-          onClick={() => setShowModal && setShowModal(true)}
-        />
+        <IconButton toolTip="Create Financial" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
 
         {showModal && (
           <CreateNewFinancial

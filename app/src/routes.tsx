@@ -235,10 +235,13 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/Manage/Courses/WaitlistEntry/WaitlistEntryDetailsPage"))
   },
 
-  { path: "/program/offering", component: React.lazy(() => import("~/Pages/Manage/Program/Offering/OfferingPage")) },
+  {
+    path: "/program/offering",
+    component: React.lazy(() => import("~/Pages/Manage/Program/Offering/ProgramOfferingPage"))
+  },
   {
     path: "/program/offering/:programOfferingID",
-    component: React.lazy(() => import("~/Pages/Manage/Program/Offering/OfferingDetailsPage"))
+    component: React.lazy(() => import("~/Pages/Manage/Program/Offering/ProgramOfferingDetailsPage"))
   },
   {
     path: "/program/enrollment",

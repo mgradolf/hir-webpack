@@ -3,7 +3,7 @@ import { message } from "antd"
 import { removeAccount } from "~/ApiServices/Service/AccountService"
 import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
 import { Redirect } from "react-router"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IAccountRemoveLinkProp {
   AccountID: number
@@ -14,7 +14,7 @@ export function AccountRemoveLink(props: IAccountRemoveLinkProp) {
   return (
     <>
       {redirectAfterRemove && <Redirect to={redirectAfterRemove} />}
-      <CreateEditRemoveIconButton
+      <IconButton
         iconType="remove"
         toolTip="Delete Account"
         onClickRemove={() => {

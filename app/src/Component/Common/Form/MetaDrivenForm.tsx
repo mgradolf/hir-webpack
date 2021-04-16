@@ -184,6 +184,7 @@ export function MetaDrivenForm({
     eventBus.subscribe(REFRESH_EVENT_NAME, processMeta)
     eventBus.publish(REFRESH_EVENT_NAME)
     return () => {
+      clearParams()
       eventBus.unsubscribe(REFRESH_EVENT_NAME)
     }
     // eslint-disable-next-line
@@ -202,7 +203,15 @@ export function MetaDrivenForm({
           )}
           {props.closeModal && (
             <Col>
-              <Button type="ghost" aria-label="Cancel" danger onClick={() => props.closeModal && props.closeModal()}>
+              <Button
+                type="ghost"
+                aria-label="Cancel"
+                danger
+                onClick={() => {
+                  formInstance.resetFields()
+                  props.closeModal && props.closeModal()
+                }}
+              >
                 Cancel
               </Button>
             </Col>

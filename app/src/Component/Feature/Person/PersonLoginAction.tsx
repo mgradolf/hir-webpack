@@ -11,7 +11,7 @@ import {
 } from "~/ApiServices/BizApi/NTSWebLogin/NTSWebLoginIF"
 import { REFRESH_PAGE } from "~/utils/EventBus"
 import { setupWebLogin } from "~/ApiServices/Service/PersonService"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IPersonLoginActionProp {
   initialData: { [key: string]: any }
@@ -98,12 +98,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
 
   return (
     <Row>
-      <CreateEditRemoveIconButton
-        disabled={!isLogin}
-        toolTip="Edit Login Info"
-        iconType="edit"
-        onClick={() => setShowModal(true)}
-      />
+      <IconButton disabled={!isLogin} toolTip="Edit Login Info" iconType="edit" onClick={() => setShowModal(true)} />
       {showModal && (
         <MetaDrivenFormModal
           meta={PersonLoginFormMeta}

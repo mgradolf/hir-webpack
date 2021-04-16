@@ -14,13 +14,47 @@ import {
   REFRESH_PROGRAM_APPLICATION_PAGE,
   REFRESH_PROGRAM_ENROLLMENT_PAGE
 } from "~/utils/EventBus"
+import React from "react"
+import { ProgramFormOpenButton } from "~/Component/Feature/Program/Forms/ProgramForm"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
+import { deleteProgramWithEvent, saveProgramWithEvent } from "~/ApiServices/BizApi/program/programIF"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
+    cardActions: [
+      <ProgramFormOpenButton iconType="edit" editMode={true} ProgramID={program.ProgramID} />,
+      <IconButton
+        toolTip="Delete Program"
+        iconType="remove"
+        onClickRemove={() => deleteProgramWithEvent({ ProgramID: program.ProgramID })}
+        redirectTo="/program"
+      />
+    ],
+    title: "Program Details",
     contents: [
       { label: "Name", value: program.Name },
       { label: "Description", value: program.Description },
-      { label: "Status", value: program.ProgramStatusName },
+      // { label: "Status", value: program.ProgramStatusName },
+      {
+        label: "Status",
+        value: (
+          <InlineForm
+            fieldName="ProgramStatusCodeID"
+            refreshEventName="REFRESH"
+            inputType="DROPDOWN"
+            displayKey="Name"
+            valueKey="StatusID"
+            defaultValue={program.ProgramStatusCodeID}
+            updateFunc={(Params: { [key: string]: any }) =>
+              saveProgramWithEvent({ ProgramID: program.ProgramID, ...Params })
+            }
+            refLookupService={getProgramStatusCodes}
+          />
+        ),
+        cssClass: "highlight"
+      },
       { label: "Start Date", value: program.ProgramStartDate, render: renderDate },
       { label: "End Date", value: program.ProgramEndDate, render: renderDate },
       { label: "Inquiry Recipient", value: program.SubmitInquiryToUserID },

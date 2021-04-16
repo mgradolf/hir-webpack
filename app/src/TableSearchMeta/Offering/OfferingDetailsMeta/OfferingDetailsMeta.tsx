@@ -32,7 +32,7 @@ import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
 import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
 import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
@@ -79,11 +79,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <CreateEditRemoveIconButton
-            toolTip="Create Section"
-            iconType="create"
-            onClick={() => setShowModal && setShowModal(true)}
-          />
+          <IconButton toolTip="Create Section" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
         {showModal && <SectionFormModal OfferingID={props.OfferingID} closeModal={() => setShowModal(false)} />}
       </>
@@ -95,11 +91,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <CreateEditRemoveIconButton
-            toolTip="Create Financial"
-            iconType="create"
-            onClick={() => setShowModal && setShowModal(true)}
-          />
+          <IconButton toolTip="Create Financial" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
         {showModal && (
           <CreateNewFinancial

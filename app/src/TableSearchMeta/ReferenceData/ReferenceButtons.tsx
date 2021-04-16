@@ -5,17 +5,13 @@ import { IField } from "~/Component/Common/Form/common"
 import { createRefRecord, removeRefRecord, updateRefRecord } from "~/ApiServices/Service/RefLookupService"
 import { eventBus } from "~/utils/EventBus"
 import { ButtonType } from "antd/lib/button"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 export function AddRefButton(props: { LookUpName: string; formMeta: IField[]; refreshEventName: string }) {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <CreateEditRemoveIconButton
-        toolTip={`Create ${props.LookUpName}`}
-        iconType="create"
-        onClick={() => setShowModal(true)}
-      />
+      <IconButton toolTip={`Create ${props.LookUpName}`} iconType="create" onClick={() => setShowModal(true)} />
       {showModal && (
         <MetaDrivenFormModal
           title={`Add new entry on ${props.LookUpName}`}
@@ -46,11 +42,7 @@ export function UpdateRefButton(props: {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <CreateEditRemoveIconButton
-        toolTip={`Edit ${props.LookUpName}`}
-        iconType="edit"
-        onClick={() => setShowModal(true)}
-      />
+      <IconButton toolTip={`Edit ${props.LookUpName}`} iconType="edit" onClick={() => setShowModal(true)} />
       {showModal && (
         <MetaDrivenFormModal
           title={`Update existing entry on ${props.LookUpName}`}
@@ -98,7 +90,7 @@ export function RemoveRefButton(props: {
   return (
     <>
       {disabled && (
-        <CreateEditRemoveIconButton
+        <IconButton
           toolTip={`Delete ${props.LookUpName}`}
           iconType="remove"
           inProgress={loading}

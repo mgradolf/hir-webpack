@@ -4,7 +4,7 @@ import { BaseButtonProps } from "antd/lib/button/button"
 import React, { CSSProperties, useState } from "react"
 import { IField } from "~/Component/Common/Form/common"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { CreateEditRemoveIconButton, iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton, iconType } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IMetaDrivenFormModalOpenButton {
   buttonLabel: string
@@ -14,6 +14,7 @@ interface IMetaDrivenFormModalOpenButton {
   formTitle: string
   formMeta: IField[]
   formMetaName?: string
+  isHorizontal?: boolean
   formSubmitApi: (Params: { [key: string]: any }) => Promise<IApiResponse>
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
@@ -24,11 +25,7 @@ export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenBut
   return (
     <>
       {props.iconType ? (
-        <CreateEditRemoveIconButton
-          iconType={props.iconType}
-          onClick={() => setShowModal(true)}
-          toolTip={props.buttonLabel}
-        />
+        <IconButton iconType={props.iconType} onClick={() => setShowModal(true)} toolTip={props.buttonLabel} />
       ) : (
         <Button
           type="primary"
@@ -41,6 +38,7 @@ export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenBut
       {showModal && (
         <MetaDrivenFormModal
           title={props.formTitle}
+          isHorizontal={props.isHorizontal}
           meta={props.formMeta}
           metaName={props.formMetaName}
           formSubmitApi={props.formSubmitApi}

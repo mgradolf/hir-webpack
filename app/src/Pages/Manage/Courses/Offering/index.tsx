@@ -3,7 +3,7 @@ import { SearchPage } from "~/Component/Common/Page/SearchPage"
 import { OfferingSearchMeta } from "~/TableSearchMeta/Offering/OfferingSearchMeta"
 import { OfferingFormModal } from "~/Component/Feature/Offering/OfferingFormModal"
 import { getOfferingTableColumns } from "~/TableSearchMeta/Offering/OfferingTableColumns"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 export function OfferingPage() {
   const [showModal, setShowModal] = useState(false)
@@ -11,7 +11,7 @@ export function OfferingPage() {
     <SearchPage
       blocks={[
         <>
-          <CreateEditRemoveIconButton toolTip="Create Offering" iconType="create" onClick={() => setShowModal(true)} />
+          <IconButton toolTip="Create Offering" iconType="create" onClick={() => setShowModal(true)} />
           {showModal && <OfferingFormModal initialData={{}} closeModal={() => setShowModal(false)} />}
         </>
       ]}

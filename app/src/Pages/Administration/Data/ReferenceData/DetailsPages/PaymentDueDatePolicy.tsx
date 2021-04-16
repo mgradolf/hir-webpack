@@ -16,7 +16,7 @@ import { RemoveRefButton } from "~/TableSearchMeta/ReferenceData/ReferenceButton
 import { PAYMENT_POLICY_TYPE } from "~/utils/Constants"
 import { savePaymentDueDatePolicy, getPaymentDueDatePolicy } from "~/ApiServices/Service/PaymentService"
 import { eventBus } from "~/utils/EventBus"
-import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 
 // const getPaymentDueDatePolicy = (params: any): Promise<IApiResponse> =>
 //   Promise.resolve({ code: 200, success: true, data: {}, error: "" })
