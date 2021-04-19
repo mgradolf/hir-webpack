@@ -36,7 +36,6 @@ const fieldNames: IDiscountFieldNames = {
 
 export default function DiscountUpdate({ closeModal, sectionDiscountId, sectionId }: IDiscountEditProps) {
   const [formInstance] = Form.useForm()
-  const [discountLoading, setDiscountLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({ IsActive: true, IsPromotedForMarketing: true })
 
@@ -49,7 +48,7 @@ export default function DiscountUpdate({ closeModal, sectionDiscountId, sectionI
   useEffect(() => {
     if (sectionDiscountId) {
       ;(async () => {
-        setDiscountLoading(true)
+        setApiCallInProgress(true)
         const response = await getSectionDiscounts({ SectionID: sectionId, SectionDiscountID: sectionDiscountId })
         if (response && response.success && response.data) {
           formInstance.setFieldsValue(response.data[0])
@@ -63,7 +62,7 @@ export default function DiscountUpdate({ closeModal, sectionDiscountId, sectionI
             closeModal()
           }
         }
-        setDiscountLoading(false)
+        setApiCallInProgress(false)
       })()
     }
     // eslint-disable-next-line
@@ -72,7 +71,6 @@ export default function DiscountUpdate({ closeModal, sectionDiscountId, sectionI
   return (
     <Modal
       width="800px"
-      loading={discountLoading}
       apiCallInProgress={apiCallInProgress}
       children={
         <>

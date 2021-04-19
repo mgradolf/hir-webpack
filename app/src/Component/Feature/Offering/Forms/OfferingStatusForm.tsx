@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { Button, message, Select, Typography } from "antd"
+import { Button, message, Select } from "antd"
 import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
 import { UPDATE_FAILED, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
-import { EditOutlined, CloseOutlined } from "@ant-design/icons"
+import { EditOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons"
 import { updateOffering } from "~/ApiServices/Service/OfferingService"
 import "~/Sass/utils.scss"
 
@@ -24,6 +24,7 @@ export function OfferingStatusForm(props: IOfferingStatusFormProps) {
   const [showUpdateStatus, setShowUpdateStatus] = useState<boolean>(false)
   const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
   const [disableStatus, setDisableStatus] = useState(false)
+  const [statusCodeID, setStatusCodeID] = useState<number>()
 
   const hasApprovalProcess = props.initialValue.HasApprovalProcess
   const offeringStatusCodeID = props.initialValue.OfferingStatusCodeID
@@ -66,53 +67,73 @@ export function OfferingStatusForm(props: IOfferingStatusFormProps) {
   }, [])
 
   const handleStatus = (statusCodeID: number) => {
-    const params = props.initialValue
-    params["OfferingStatusCodeID"] = statusCodeID
-
-    setLoading(true)
-    updateOffering(params).then((x) => {
-      if (x && x.success) {
-        message.success(UPDATE_SUCCESSFULLY)
-        eventBus.publish(REFRESH_PAGE)
-      } else {
-        message.error(UPDATE_FAILED)
-        setShowUpdateStatus(false)
-      }
-      setLoading(false)
-    })
+    setStatusCodeID(statusCodeID)
   }
 
   return (
     <>
-      {!showUpdateStatus && <Typography.Text>{props.initialValue.StatusCode}</Typography.Text>}
-      {setShowUpdateStatus && (
+      <Select
+        loading={loading}
+        aria-label="Offering Status Select"
+        defaultValue={props.initialValue.StatusCode}
+        onChange={handleStatus}
+        style={{ width: "250px" }}
+        disabled={disableStatus || !showUpdateStatus}
+      >
+        {offeringStatusTypes &&
+          offeringStatusTypes.map((x) => {
+            return (
+              <Select.Option key={x.StatusID} value={x.StatusID}>
+                {x.Name}
+              </Select.Option>
+            )
+          })}
+      </Select>
+
+      {!showUpdateStatus && (
         <Button
-          danger={showUpdateStatus}
-          type="default"
+          type="primary"
           shape="circle"
-          icon={showUpdateStatus ? <CloseOutlined /> : <EditOutlined />}
+          icon={<EditOutlined />}
           style={{ float: "right" }}
           onClick={() => setShowUpdateStatus && setShowUpdateStatus(!showUpdateStatus)}
         />
       )}
       {showUpdateStatus && (
-        <Select
-          loading={loading}
-          aria-label="Offering Status Select"
-          defaultValue={props.initialValue.StatusCode}
-          onChange={handleStatus}
-          style={{ width: "150px" }}
-          disabled={disableStatus}
-        >
-          {offeringStatusTypes &&
-            offeringStatusTypes.map((x) => {
-              return (
-                <Select.Option key={x.StatusID} value={x.StatusID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-        </Select>
+        <>
+          <Button
+            danger
+            type="primary"
+            shape="circle"
+            icon={<CloseOutlined />}
+            style={{ float: "right", marginLeft: "5px" }}
+            onClick={() => setShowUpdateStatus && setShowUpdateStatus(!showUpdateStatus)}
+          />
+          <Button
+            ghost
+            type="primary"
+            shape="circle"
+            icon={<CheckOutlined />}
+            style={{ float: "right" }}
+            onClick={() => {
+              const params = props.initialValue
+              params["OfferingStatusCodeID"] = statusCodeID
+              console.log("params: ", params)
+
+              setLoading(true)
+              updateOffering(params).then((x) => {
+                if (x && x.success) {
+                  message.success(UPDATE_SUCCESSFULLY)
+                  eventBus.publish(REFRESH_PAGE)
+                } else {
+                  message.error(UPDATE_FAILED)
+                  setShowUpdateStatus(false)
+                }
+                setLoading(false)
+              })
+            }}
+          />
+        </>
       )}
     </>
   )

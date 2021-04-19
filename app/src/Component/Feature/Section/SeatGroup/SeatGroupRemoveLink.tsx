@@ -1,6 +1,6 @@
 import React from "react"
 import { removeSeatGroup } from "~/ApiServices/Service/SeatGroupService"
-import { eventBus, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ISeatGroupRemoveLinkProp {
@@ -16,7 +16,7 @@ export default function SeatGroupRemoveLink(props: ISeatGroupRemoveLinkProp) {
       onClickRemove={() => {
         return removeSeatGroup({ SeatGroupID: props.seatgroupId }).then((response) => {
           if (response.success) {
-            eventBus.publish(REFRESH_SECTION_SEATGROUP_PAGE)
+            eventBus.publish("REFRESH_SECTION_SEATGROUP_PAGE_1")
           }
           return response
         })

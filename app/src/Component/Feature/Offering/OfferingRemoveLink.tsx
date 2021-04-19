@@ -7,6 +7,7 @@ import { DeleteOutlined } from "@ant-design/icons"
 
 interface IOfferingRemoveLinkProp {
   OfferingId: number
+  HasSection: boolean
 }
 export function OfferingRemoveLink(props: IOfferingRemoveLinkProp) {
   const [redirectAfterRemove, setRedirectAfterRemove] = useState<string>()
@@ -16,6 +17,7 @@ export function OfferingRemoveLink(props: IOfferingRemoveLinkProp) {
       {redirectAfterRemove && <Redirect to={redirectAfterRemove} />}
       <Button
         danger
+        disabled={props.HasSection}
         type="primary"
         shape="circle"
         icon={<DeleteOutlined />}

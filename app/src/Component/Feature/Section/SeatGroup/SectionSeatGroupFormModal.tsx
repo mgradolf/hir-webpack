@@ -38,7 +38,7 @@ export default function CreateOrUpdateSeatGroup({
   const [formInstance] = Form.useForm()
   const [sectionSeatGroupLoading, setSectionSeatGroupLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [initialFormValue] = useState<{ [key: string]: any }>({})
+  const [initialFormValue] = useState<{ [key: string]: any }>({ WaitListEnabled: false })
 
   const handleCancel = () => {
     if (closeModal) {

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Checkbox, Switch } from "antd"
+import { Form, Card, Button, Input, Select, Checkbox, Row, Col, message } from "antd"
 import { getGLAccountTypes } from "~/ApiServices/Service/RefLookupService"
-import "~/Sass/utils.scss"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import { saveFinancial } from "~/ApiServices/Service/SectionService"
-import { BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM, BUDGET_FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
+import {
+  BUDGET_FINANCIAL_TYPE_MARKETING_PROGRAM,
+  BUDGET_FINANCIAL_TYPE_FACULTY,
+  UPDATE_SUCCESSFULLY
+} from "~/utils/Constants"
 import { REFRESH_SECTION_BUDGET_PAGE } from "~/TableSearchMeta/Section/SectionDetailsMeta"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import "~/Sass/utils.scss"
 
 interface IBudgetEditFormProps {
   financialType: string
@@ -23,7 +28,8 @@ interface IBudgetEditFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 export default function BudgetEditForm(props: IBudgetEditFormProps) {
@@ -82,6 +88,7 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
+      message.success(UPDATE_SUCCESSFULLY)
       props.formInstance.resetFields()
       eventBus.publish(REFRESH_SECTION_BUDGET_PAGE)
       props.handleCancel()
@@ -90,13 +97,33 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title={`Edit ${props.financialType} Financial`} actions={actions}>
-      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
+    <Card
+      title={`Edit ${props.financialType} Financial`}
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
+      <Form
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
+      >
         <OldFormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
@@ -140,12 +167,18 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
           </Form.Item>
         )}
 
-        <Form.Item name={props.fieldNames.IsOptional} label="Optional" {...layout} valuePropName="checked">
-          <Switch
-            aria-label="Optional"
-            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsOptional)}
-          />
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Optional"}
+          ariaLabel={"Is Optional"}
+          fieldName={props.fieldNames.IsOptional}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
 
         {seatGroupList && (
           <Form.Item label="Seat Groups" {...layout} name={props.fieldNames.SeatGroupIDs}>

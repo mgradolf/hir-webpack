@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import GeneralCommentCreateForm from "~/Component/Feature/Section/Comment/GeneralCommentCreateForm"
 import InstructorCommentCreateForm from "~/Component/Feature/Section/Comment/InstructorCommentCreateForm"
 import EnrollmentCommentCreateForm from "~/Component/Feature/Section/Comment/EnrollmentCommentCreateForm"
 import { COMMENT_TYPES } from "~/utils/Constants"
-import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
 
 interface ICommentCreateModal {
   SectionID?: number
@@ -16,15 +15,6 @@ interface ICommentCreateModal {
 
 export default function CommentCreateModal(props: ICommentCreateModal) {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [commentCatagories, setCommentCatagories] = useState<any[]>([])
-
-  useEffect(() => {
-    getCommentCategories().then((x) => {
-      if (x.success) {
-        setCommentCatagories(x.data)
-      }
-    })
-  }, [])
 
   return (
     <Modal
@@ -38,7 +28,6 @@ export default function CommentCreateModal(props: ICommentCreateModal) {
               StudentID={props.StudentID}
               FacultyID={props.FacultyID}
               onClose={props.closeModal}
-              commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
             />
           )}
@@ -46,7 +35,6 @@ export default function CommentCreateModal(props: ICommentCreateModal) {
             <InstructorCommentCreateForm
               SectionID={props.SectionID}
               onClose={props.closeModal}
-              commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
             />
           )}
@@ -55,7 +43,6 @@ export default function CommentCreateModal(props: ICommentCreateModal) {
               SectionID={props.SectionID}
               StudentID={props.StudentID}
               onClose={props.closeModal}
-              commentCatagories={commentCatagories}
               setApiCallInProgress={setApiCallInProgress}
             />
           )}

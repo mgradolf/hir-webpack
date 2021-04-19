@@ -1,7 +1,6 @@
 import React from "react"
 import { Dropdown, Menu } from "antd"
-
-import ScheduleCreateModal from "~/Component/Feature/Section/Schedule/ScheduleCreateModal"
+import { ScheduleCreateButton } from "~/Component/Feature/Section/Schedule/ScheduleCreateModal"
 import UpdateLocationModal from "~/Component/Feature/Section/Schedule/UpdateLocationModal"
 import UpdateInstructorModal from "~/Component/Feature/Section/Schedule/UpdateInstructorModal"
 import UpdateNoteModal from "~/Component/Feature/Section/Schedule/UpdateNoteModal"
@@ -17,7 +16,7 @@ export default function ScheduleUpdateMenu(props: IScheduleUpdateMenuProp) {
     return (
       <Menu>
         <Menu.Item>
-          <ScheduleCreateModal sectionId={sectionId} scheduleIds={scheduleIds} />
+          <ScheduleCreateButton sectionId={sectionId} scheduleIds={scheduleIds} />
         </Menu.Item>
         <Menu.Item>
           <UpdateLocationModal scheduleIds={scheduleIds} />

@@ -6,6 +6,7 @@ import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { eventBus, REFRESH_FACULTY_OFFERINGS_TAB, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
+import { DeleteOutlined } from "@ant-design/icons"
 
 export const getQualifiedInstructorTableColumns = (): ITableConfigProp => {
   const columns: TableColumnType = [
@@ -35,6 +36,8 @@ export const getQualifiedInstructorTableColumns = (): ITableConfigProp => {
         <Button
           danger
           type="primary"
+          icon={<DeleteOutlined />}
+          shape="circle"
           onClick={() =>
             showDeleteConfirm(() => {
               return removeInstructorFromOffering({
@@ -49,9 +52,7 @@ export const getQualifiedInstructorTableColumns = (): ITableConfigProp => {
               })
             })
           }
-        >
-          Remove
-        </Button>
+        />
       )
     }
   ]

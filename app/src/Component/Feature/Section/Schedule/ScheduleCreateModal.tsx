@@ -1,39 +1,37 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showCreateSectionScheduleModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import ScheduleFormModal from "~/Component/Feature/Section/Schedule/ScheduleFormModal"
 
-interface ICreateActionButtonProp {
+interface IScheduleCreateFormProp {
   sectionId: number
   scheduleIds?: any
-  openCreateSectionScheduleModal?: (sectionId: number, scheduleIds: any) => void
 }
-function CreateActionButton(props: ICreateActionButtonProp) {
-  const onClick = () => {
-    if (props.openCreateSectionScheduleModal) props.openCreateSectionScheduleModal(props.sectionId, props.scheduleIds)
-  }
+
+export function ScheduleCreateButton(props: IScheduleCreateFormProp) {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <>
       {Array.isArray(props.scheduleIds) && (
-        <Button type="link" onClick={onClick}>
+        <Button type="link" onClick={() => setShowModal && setShowModal(true)}>
           Schedule
         </Button>
       )}
       {!Array.isArray(props.scheduleIds) && (
-        <Button type="primary" onClick={onClick}>
-          + Create Schedule
-        </Button>
+        <CreateEditRemoveIconButton
+          toolTip="Create Schedule"
+          iconType="create"
+          onClick={() => setShowModal && setShowModal(true)}
+        />
+      )}
+      {showModal && (
+        <ScheduleFormModal
+          sectionId={props.sectionId}
+          scheduleIds={props.scheduleIds}
+          closeModal={() => setShowModal(false)}
+        />
       )}
     </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openCreateSectionScheduleModal: (sectionId: number, scheduleIds: any) =>
-      dispatch(showCreateSectionScheduleModal(true, { sectionId, scheduleIds }))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(CreateActionButton)

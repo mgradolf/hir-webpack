@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Switch } from "antd"
+import { Form, Card, Button, Input, Select, Row, Col } from "antd"
 import { getDueDatePolicy } from "~/ApiServices/Service/RefLookupService"
 import { createSeatGroup, updateSeatGroup } from "~/ApiServices/Service/SeatGroupService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus, REFRESH_PAGE, REFRESH_SECTION_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
 
 interface ISeatGroupCreateFormProps {
@@ -22,7 +23,8 @@ interface ISeatGroupCreateFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
@@ -71,13 +73,33 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title={props.seatgroupId ? `Edit seat group` : "Create new seat group"} actions={actions}>
-      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
+    <Card
+      title={props.seatgroupId ? `Edit seat group` : "Create new seat group"}
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
+      <Form
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
+      >
         <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.SeatGroupID}>
           <Input value={props.seatgroupId ? props.seatgroupId : undefined} />
@@ -111,9 +133,18 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
           </Select>
         </Form.Item>
 
-        <Form.Item name={props.fieldNames.IsOptional} label="Waitlist Enabled" {...layout} valuePropName="checked">
-          <Switch defaultChecked={props.formInstance.getFieldValue(props.fieldNames.WaitListEnabled)} />
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Waitlist Enabled"}
+          ariaLabel={"Is Waitlist Enabled"}
+          fieldName={props.fieldNames.WaitListEnabled}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
       </Form>
     </Card>
   )

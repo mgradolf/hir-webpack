@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import DiscountEditFormModal from "~/Component/Feature/Section/Discount/DiscountEditFormModal"
+import { EditOutlined } from "@ant-design/icons"
 
 interface IDiscountEditLinkProp {
   sectionId: number
@@ -13,13 +14,14 @@ export default function DiscountEditLink(props: IDiscountEditLinkProp) {
   return (
     <>
       <Button
-        type="link"
+        type="primary"
+        icon={<EditOutlined />}
+        shape="circle"
+        style={{ marginRight: "5px" }}
         onClick={() => {
           setOpenModal(true)
         }}
-      >
-        Edit
-      </Button>
+      />
       {openModal && (
         <DiscountEditFormModal
           sectionId={props.sectionId}

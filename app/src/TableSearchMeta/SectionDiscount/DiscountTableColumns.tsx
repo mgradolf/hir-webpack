@@ -2,8 +2,6 @@ import React from "react"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { getSectionDiscounts } from "~/ApiServices/Service/SectionService"
-import { Button, Dropdown } from "antd"
-import { DownOutlined } from "@ant-design/icons"
 import DiscountMenu from "~/Component/Feature/Section/Discount/DiscountMenu"
 import { Link } from "react-router-dom"
 import { DISCOUNT_AMOUNT, DISCOUNT_DOLLAR_AMOUNT_TYPE_ID } from "~/utils/Constants"
@@ -44,14 +42,7 @@ export const getSectionDiscountTableColumns = (isModal = false): ITableConfigPro
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown
-          overlay={<DiscountMenu sectionId={record.SectionID} sectionDiscountId={record.SectionDiscountID} />}
-          trigger={["click"]}
-        >
-          <Button type="primary" onClick={(e) => e.preventDefault()}>
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
+        <DiscountMenu sectionId={record.SectionID} sectionDiscountId={record.SectionDiscountID} />
       )
     }
   ]

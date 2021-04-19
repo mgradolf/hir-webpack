@@ -65,8 +65,8 @@ export const InlineForm = (props: IInlineForm) => {
         {showForm && (
           <Col flex="20px">
             <Button
-              danger
-              type="default"
+              ghost
+              type="primary"
               shape="circle"
               loading={apiCallInProgress}
               icon={<CheckOutlined />}

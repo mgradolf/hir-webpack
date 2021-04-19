@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Switch, Divider } from "antd"
-import "~/Sass/utils.scss"
+import { Form, Card, Button, Input, Select, Divider, message, Row, Col } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { saveSectionNotification } from "~/ApiServices/Service/SectionService"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
+import { UPDATE_SUCCESSFULLY } from "~/utils/Constants"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import "~/Sass/utils.scss"
 
 interface INoticeEditFormProps {
   sectionId: number
@@ -18,7 +20,8 @@ interface INoticeEditFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 export default function NoticeEditForm(props: INoticeEditFormProps) {
@@ -51,7 +54,6 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
     Object.keys(params).forEach((key) => {
       if (params[key] === undefined) params[key] = null
     })
-    console.log("Params: ", params)
 
     type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
     const serviceMethoToCall: serviceMethodType = saveSectionNotification
@@ -62,7 +64,8 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      eventBus.publish(REFRESH_PAGE)
+      message.success(UPDATE_SUCCESSFULLY)
+      eventBus.publish("REFRESH_SECTION_NOTIFICATION_PAGE_1")
       props.handleCancel()
     } else {
       setErrorMessages(response.error)
@@ -71,13 +74,33 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title={`Edit Email Notification`} actions={actions}>
-      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
+    <Card
+      title={`Edit Email Notification`}
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
+      <Form
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
+      >
         <OldFormError errorMessages={errorMessages} />
 
         <Form.Item className="hidden" name={props.fieldNames.SectionID}>
@@ -153,12 +176,18 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
           </Select>
         </Form.Item>
 
-        <Form.Item name={props.fieldNames.IsActive} label="Active Notification" {...layout} valuePropName="checked">
-          <Switch
-            aria-label="Active Notification"
-            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsActive)}
-          />
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Active Notification"}
+          ariaLabel={"Is Active Notification"}
+          fieldName={props.fieldNames.IsActive}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
       </Form>
     </Card>
   )

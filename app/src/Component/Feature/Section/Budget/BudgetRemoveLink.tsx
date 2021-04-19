@@ -1,26 +1,32 @@
 import React from "react"
+import { Button } from "antd"
 import { removeFinancials } from "~/ApiServices/Service/SectionService"
 import { eventBus } from "~/utils/EventBus"
 import { REFRESH_SECTION_BUDGET_PAGE } from "~/TableSearchMeta/Section/SectionDetailsMeta"
-import { Button } from "antd"
+import { DeleteOutlined } from "@ant-design/icons"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 
 interface IBudgetRemoveLinkProp {
   sectionFinancialId: number
 }
-function BudgetRemoveLink(props: IBudgetRemoveLinkProp) {
+
+export function BudgetRemoveLink(props: IBudgetRemoveLinkProp) {
   return (
     <Button
-      type="link"
-      onClick={async () => {
-        const response = await removeFinancials({ SectionFinancialIDs: [props.sectionFinancialId] })
-        if (response.success) {
-          eventBus.publish(REFRESH_SECTION_BUDGET_PAGE)
-        }
-      }}
-    >
-      Remove
-    </Button>
+      type="primary"
+      danger
+      icon={<DeleteOutlined />}
+      shape="circle"
+      onClick={() =>
+        showDeleteConfirm(() => {
+          return removeFinancials({ SectionFinancialIDs: [props.sectionFinancialId] }).then((x) => {
+            if (x && x.success) {
+              eventBus.publish(REFRESH_SECTION_BUDGET_PAGE)
+            }
+            return x
+          })
+        })
+      }
+    />
   )
 }
-
-export default BudgetRemoveLink

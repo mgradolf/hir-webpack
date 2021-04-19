@@ -17,6 +17,7 @@ import {
 import { Button } from "antd"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { DeleteOutlined } from "@ant-design/icons"
 
 interface ICommentRemoveLinkProp {
   EnrollmentCommentID?: number
@@ -58,8 +59,6 @@ export function CommentRemoveLink(props: ICommentRemoveLinkProp) {
     return response
   }
   return (
-    <Button danger type="primary" onClick={() => showDeleteConfirm(remove)}>
-      Remove
-    </Button>
+    <Button danger type="primary" icon={<DeleteOutlined />} shape="circle" onClick={() => showDeleteConfirm(remove)} />
   )
 }

@@ -1,17 +1,14 @@
 import * as React from "react"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
 import ScheduleForm from "~/Component/Feature/Section/Schedule/ScheduleForm"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showCreateSectionScheduleModal } from "~/Store/ModalState"
 import { Form } from "antd"
 import { IScheduleFieldNames } from "~/Component/Feature/Section/Interfaces"
 
 interface IScheduleProps {
   scheduleIds?: number
   sectionId: number
-  closeScheduleModal?: () => void
+  closeModal?: () => void
 }
 
 const fieldNames: IScheduleFieldNames = {
@@ -32,20 +29,19 @@ const fieldNames: IScheduleFieldNames = {
   ExcludeHoliday: "ExcludeHoliday"
 }
 
-function CreateNewSchedule({ scheduleIds, closeScheduleModal, sectionId }: IScheduleProps) {
+export default function CreateNewSchedule({ scheduleIds, closeModal, sectionId }: IScheduleProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({})
 
   const handleCancel = () => {
-    if (closeScheduleModal) {
-      closeScheduleModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       apiCallInProgress={apiCallInProgress}
       children={
@@ -64,9 +60,3 @@ function CreateNewSchedule({ scheduleIds, closeScheduleModal, sectionId }: ISche
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeScheduleModal: () => dispatch(showCreateSectionScheduleModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(CreateNewSchedule)

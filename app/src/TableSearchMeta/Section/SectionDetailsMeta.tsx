@@ -9,7 +9,6 @@ import { SectionEditLink } from "~/Component/Feature/Section/SectionEditLink"
 import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
 import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
 import { getSectionFinancialTableColumns } from "~/TableSearchMeta/SectionFinancial/FinancialTableColumns"
-import { Button } from "antd"
 import { getSeatgroupTableColumns } from "~/TableSearchMeta/Seatgroup/SeatgroupTableColumns"
 import CreateSeatGroup from "~/Component/Feature/Section/SeatGroup/SectionSeatGroupFormModal"
 import { getSectionDiscountTableColumns } from "~/TableSearchMeta/SectionDiscount/DiscountTableColumns"
@@ -37,17 +36,16 @@ import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTaggin
 import { WaitlistEntryFormOpenButton } from "~/Component/Feature/WaitlistEntries/WaitlistEntryForm"
 import { BasicInfoForm } from "~/Component/Feature/Section/Forms/SectionBasicInfoForm"
 import { SectionEnrollmentForm } from "~/Component/Feature/Section/Forms/SectionEnrollmentForm"
-// import { SectionPaymentGatewayForm } from "~/Component/Feature/Section/Forms/SectionPaymentGatewayForm"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { SectionGradesCreditsFormMeta } from "~/Component/Feature/Section/FormMeta/SectionGradesCreditsFormMeta"
 import { updateSection } from "~/ApiServices/Service/SectionService"
 import { REFRESH_PAGE } from "~/utils/EventBus"
 import { EditOutlined } from "@ant-design/icons"
-// import { SectionStatusForm } from "~/Component/Feature/Section/Forms/SectionStatusForm"
 import { SectionRefundEnquiryForm } from "~/Component/Feature/Section/Forms/SectionRefundEnquiryForm"
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { getPaymentGatewayAccounts, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { AddSectionRoomButton } from "~/Component/Feature/Section/AddSectionRoomButton"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
@@ -100,7 +98,6 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
             refLookupService={getPaymentGatewayAccounts}
           />
         )
-        //  <SectionPaymentGatewayForm initialValue={section} />
       },
       {
         label: "Room",
@@ -158,7 +155,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     cardActions: [<SectionEditLink initialValues={section} component={SectionRefundEnquiryForm} />],
     contents: [
       { label: "Refund Policy", value: section.RefundPolicyTypeName, render: undefined },
-      { label: "Inquiry Recipient", value: section.SubmitInquiryToUserID, render: undefined }
+      { label: "Inquiry Recipient", value: section.SubmitInquiryToName, render: undefined }
     ]
   }
 
@@ -167,9 +164,11 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Seat Group
-          </Button>
+          <CreateEditRemoveIconButton
+            toolTip="Create Seat Group"
+            iconType="create"
+            onClick={() => setShowModal && setShowModal(true)}
+          />
         )}
         {showModal && <CreateSeatGroup sectionId={props.SectionID} closeModal={() => setShowModal(false)} />}
       </>

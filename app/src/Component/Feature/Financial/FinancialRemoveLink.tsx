@@ -9,14 +9,20 @@ import {
 } from "~/utils/EventBus"
 import { Button } from "antd"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
+import { DeleteOutlined } from "@ant-design/icons"
 
 interface IFinancialRemoveLinkProp {
   financialId: number
 }
+
 function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
   return (
     <Button
-      type="link"
+      danger
+      type="primary"
+      icon={<DeleteOutlined />}
+      shape="circle"
+      style={{ marginLeft: "10px" }}
       onClick={() =>
         showDeleteConfirm(() => {
           return deleteFinancial({ FinancialID: props.financialId }).then((x) => {
@@ -30,9 +36,7 @@ function FinancialRemoveLink(props: IFinancialRemoveLinkProp) {
           })
         })
       }
-    >
-      Remove
-    </Button>
+    />
   )
 }
 

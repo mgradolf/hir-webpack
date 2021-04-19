@@ -1,6 +1,5 @@
 import React from "react"
-import { Button, Card, Form, Select } from "antd"
-import TextArea from "antd/lib/input/TextArea"
+import { Button, Card, Col, Form, message, Row } from "antd"
 import { addSectionComment, addStudentComment, addFacultyComment } from "~/ApiServices/Service/CommentService"
 import {
   eventBus,
@@ -8,26 +7,31 @@ import {
   REFRESH_STUDENT_COMMENT_PAGE,
   REFRESH_INSTRUCTOR_COMMENT_PAGE
 } from "~/utils/EventBus"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
+import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
+import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
 
 interface IGeneralCommentCreateForm {
   SectionID?: number
   StudentID?: number
   FacultyID?: number
-  commentCatagories: any[]
   onClose?: () => void
   setApiCallInProgress: (flag: boolean) => void
 }
 export default function GeneralCommentCreateForm(props: IGeneralCommentCreateForm) {
   const [formInstance] = Form.useForm()
 
-  const submit = () => {
-    props.setApiCallInProgress(true)
+  const submit = async () => {
+    await formInstance.validateFields()
 
     const params = { ...formInstance.getFieldsValue() }
+    props.setApiCallInProgress(true)
     if (props.SectionID) {
       params["SectionID"] = props.SectionID
       addSectionComment(params).then((x) => {
         if (x.success) {
+          message.success(CREATE_SUCCESSFULLY)
           eventBus.publish(REFRESH_SECTION_GENERAL_COMMENT_PAGE)
           props.onClose && props.onClose()
         }
@@ -37,6 +41,7 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
       params["StudentID"] = props.StudentID
       addStudentComment(params).then((x) => {
         if (x.success) {
+          message.success(CREATE_SUCCESSFULLY)
           eventBus.publish(REFRESH_STUDENT_COMMENT_PAGE)
           props.onClose && props.onClose()
         }
@@ -46,6 +51,7 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
       params["FacultyID"] = props.FacultyID
       addFacultyComment(params).then((x) => {
         if (x.success) {
+          message.success(CREATE_SUCCESSFULLY)
           eventBus.publish(REFRESH_INSTRUCTOR_COMMENT_PAGE)
           props.onClose && props.onClose()
         }
@@ -57,21 +63,42 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
   return (
     <Card
       title="Create General Comment"
-      actions={[<Button onClick={props.onClose}>Cancel</Button>, <Button onClick={submit}>Submit</Button>]}
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.onClose}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={submit}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
     >
       <Form form={formInstance}>
-        <Form.Item label="Category" name="CommentCategoryID" labelCol={{ span: 6 }}>
-          <Select>
-            {props.commentCatagories.map((x, i) => (
-              <Select.Option key={i} value={x.ID}>
-                {x.Name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item label="Commments" name="CommentText" labelCol={{ span: 6 }}>
-          <TextArea></TextArea>
-        </Form.Item>
+        <FormDropDown
+          labelColSpan={8}
+          wrapperColSpan={14}
+          label={"Category"}
+          ariaLabel={"Comment category select"}
+          formInstance={formInstance}
+          fieldName={"CommentCategoryID"}
+          refLookupService={getCommentCategories}
+          displayKey="Name"
+          valueKey="ID"
+          rules={[{ required: true, message: "Please select category!" }]}
+        />
+        <FormTextArea
+          label={"Comments"}
+          formInstance={formInstance}
+          fieldName="CommentText"
+          labelColSpan={8}
+          wrapperColSpan={14}
+          rules={[{ required: true, message: "Please enter comment!" }]}
+        />
       </Form>
     </Card>
   )

@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { Button } from "antd"
 import { addSectionProduct } from "~/ApiServices/BizApi/product/productIf"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { ProductSearchMeta } from "~/TableSearchMeta/Product/ProductSearchMeta"
 import { getProductTableColumns } from "~/TableSearchMeta/Product/ProductTableColumns"
-import { eventBus, REFRESH_SECTION_PRODUCT_PAGE } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
+import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 
 interface ICreateActionButtonProp {
   SectionId: number
@@ -23,7 +23,7 @@ export function ProductAddButton(props: ICreateActionButtonProp) {
     if (items && items.length > 0) {
       addSectionProduct([props.SectionId, items.map((x) => x.ProductID)])
         .then((x) => {
-          if (x.success) eventBus.publish(REFRESH_SECTION_PRODUCT_PAGE)
+          if (x.success) eventBus.publish("REFRESH_SECTION_PRODUCT_PAGE_1")
         })
         .finally(() => {
           setShowModal(false)
@@ -35,9 +35,11 @@ export function ProductAddButton(props: ICreateActionButtonProp) {
 
   return (
     <>
-      <Button type="primary" onClick={() => setShowModal(true)}>
-        + Add Product
-      </Button>
+      <CreateEditRemoveIconButton
+        toolTip="Add Product"
+        iconType="create"
+        onClick={() => setShowModal && setShowModal(true)}
+      />
       {showModal && (
         <LookupModal
           title="Select Product"

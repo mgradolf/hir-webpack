@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Row, Col, Typography } from "antd"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import ScheduleCreateModal from "~/Component/Feature/Section/Schedule/ScheduleCreateModal"
+import { ScheduleCreateButton } from "~/Component/Feature/Section/Schedule/ScheduleCreateModal"
 import ScheduleUpdateMenu from "~/Component/Feature/Section/Schedule/ScheduleUpdateMenu"
 import ScheduleRemoveMenu from "~/Component/Feature/Section/Schedule/ScheduleRemoveMenu"
 import { getSectionScheduleTableColumns } from "~/TableSearchMeta/SectionSchedule/ScheduleTableColumns"
@@ -33,7 +33,7 @@ export default function SectionSchedulePage(props: { sectionID: number; title?: 
           </Col>
         )}
         <Col className={`gutter-row text-right`} xs={24} sm={24} md={props.title ? 12 : 24}>
-          <ScheduleCreateModal sectionId={props.sectionID} />
+          <ScheduleCreateButton sectionId={props.sectionID} />
           <ScheduleUpdateMenu sectionId={props.sectionID} scheduleIds={schedueIDs} style={{ marginLeft: "5px" }} />
           <ScheduleRemoveMenu
             sectionId={props.sectionID}
