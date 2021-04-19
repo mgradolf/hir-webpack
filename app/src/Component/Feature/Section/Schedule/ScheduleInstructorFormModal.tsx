@@ -1,9 +1,6 @@
 import * as React from "react"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { useState } from "react"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { showUpdateSectionScheduleInstructorModal } from "~/Store/ModalState"
 import { Form } from "antd"
 import { IScheduleInstructorFieldNames } from "~/Component/Feature/Section/Interfaces"
 import ScheduleInstructorForm from "~/Component/Feature/Section/Schedule/ScheduleInstructorForm"
@@ -11,7 +8,7 @@ import ScheduleInstructorForm from "~/Component/Feature/Section/Schedule/Schedul
 interface IScheduleProps {
   sectionId: number
   scheduleIds: any
-  closeScheduleModal?: () => void
+  closeModal?: () => void
 }
 
 const fieldNames: IScheduleInstructorFieldNames = {
@@ -20,13 +17,13 @@ const fieldNames: IScheduleInstructorFieldNames = {
   ConflictCheck: "ConflictCheck"
 }
 
-function UpdateScheduleInstructor({ sectionId, scheduleIds, closeScheduleModal }: IScheduleProps) {
+export default function UpdateScheduleInstructor({ sectionId, scheduleIds, closeModal }: IScheduleProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
 
   const handleCancel = () => {
-    if (closeScheduleModal) {
-      closeScheduleModal()
+    if (closeModal) {
+      closeModal()
     }
   }
 
@@ -38,7 +35,6 @@ function UpdateScheduleInstructor({ sectionId, scheduleIds, closeScheduleModal }
 
   return (
     <Modal
-      showModal={true}
       width="800px"
       apiCallInProgress={apiCallInProgress}
       children={
@@ -57,9 +53,3 @@ function UpdateScheduleInstructor({ sectionId, scheduleIds, closeScheduleModal }
     />
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { closeScheduleModal: () => dispatch(showUpdateSectionScheduleInstructorModal(false)) }
-}
-
-export default connect(undefined, mapDispatchToProps)(UpdateScheduleInstructor)

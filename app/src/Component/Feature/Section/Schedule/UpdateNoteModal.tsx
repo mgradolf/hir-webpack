@@ -1,29 +1,20 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showUpdateSectionScheduleNoteModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import ScheduleNoteFormModal from "~/Component/Feature/Section/Schedule/ScheduleNoteFormModal"
 
-interface ICreateActionButtonProp {
+interface IScheduleNoteButtonProp {
   scheduleIds: any
-  openCreateScheduleNoteModal?: (scheduleIds: any) => void
 }
-function CreateActionButton(props: ICreateActionButtonProp) {
-  const onClick = () => {
-    if (props.openCreateScheduleNoteModal) props.openCreateScheduleNoteModal(props.scheduleIds)
-  }
+
+export default function ScheduleNoteModalButton(props: IScheduleNoteButtonProp) {
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <Button type="link" onClick={onClick}>
-      Note
-    </Button>
+    <>
+      <Button type="link" onClick={() => setShowModal && setShowModal(true)}>
+        Note
+      </Button>
+      {showModal && <ScheduleNoteFormModal scheduleIds={props.scheduleIds} closeModal={() => setShowModal(false)} />}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openCreateScheduleNoteModal: (scheduleIds: any) =>
-      dispatch(showUpdateSectionScheduleNoteModal(true, { scheduleIds }))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(CreateActionButton)

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Switch, Select } from "antd"
+import { Form, Card, Button, Input, Select, Row, Col } from "antd"
 import { findQualifiedInstructors } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import "~/Sass/utils.scss"
 import { scheduleInstructor } from "~/ApiServices/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -9,6 +8,8 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
 import { IScheduleInstructorFieldNames } from "~/Component/Feature/Section/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import "~/Sass/utils.scss"
 
 interface IScheduleInstructorFormProps {
   sectionId: number
@@ -21,7 +22,8 @@ interface IScheduleInstructorFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 export default function ScheduleInstructorForm(props: IScheduleInstructorFormProps) {
   const [instructorItems, setInstructorItems] = useState<Array<any>>([])
@@ -29,7 +31,7 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
 
   useEffect(() => {
     ;(async () => {
-      const response = await findQualifiedInstructors({ SectionId: props.sectionId })
+      const response = await findQualifiedInstructors({ SectionID: props.sectionId })
       if (response && response.success && response.data) {
         setInstructorItems(response.data)
       } else {
@@ -65,13 +67,33 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title="Update Instructor" actions={actions}>
-      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
+    <Card
+      title="Update Instructor"
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
+      <Form
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
+      >
         <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds} />
@@ -89,14 +111,18 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
           </Select>
         </Form.Item>
 
-        <Form.Item
-          name={props.fieldNames.ConflictCheck}
-          label="Check for conflicts(slower)"
-          {...layout}
-          valuePropName="checked"
-        >
-          <Switch aria-label="Check for conflicts(slower)" />
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Check for conflicts(slower)"}
+          ariaLabel={"Check for conflicts(slower)"}
+          fieldName={props.fieldNames.ConflictCheck}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
       </Form>
     </Card>
   )
