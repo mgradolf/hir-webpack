@@ -7,6 +7,7 @@ import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import "~/Sass/utils.scss"
 import { findPersonsByAccount } from "~/ApiServices/Service/PersonService"
 import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
+import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 
 interface IFinalStepFormProps {
   formInstance: FormInstance
@@ -98,7 +99,7 @@ export default function FinalStepForm(props: IFinalStepFormProps) {
           )}
         </Col>
         <Col xs={24} sm={24} md={12}>
-          <FormInput
+          <FormNumberInput
             disabled
             {...layout}
             formInstance={props.formInstance}
@@ -115,7 +116,7 @@ export default function FinalStepForm(props: IFinalStepFormProps) {
             fieldName={"InvitationCode"}
           />
           {isGenerateOrder && (
-            <FormInput
+            <FormNumberInput
               disabled
               {...layout}
               formInstance={props.formInstance}

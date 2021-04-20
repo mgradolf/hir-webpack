@@ -24,6 +24,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
 import { eventBus } from "~/utils/EventBus"
 import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { EditOutlined, PlusOutlined } from "@ant-design/icons"
 
 interface IAccountContactFormProps {
   editMode: boolean
@@ -129,7 +130,6 @@ function AccountContactForm(props: IAccountContactFormProps) {
           <FormInput
             {...layout}
             formInstance={props.formInstance}
-            defaultValue={{}}
             label={"First Name"}
             ariaLabel={"Frist Name"}
             fieldName="FirstName"
@@ -335,8 +335,9 @@ export function AccountContactFormOpenButton(props: {
       iconType={props.iconType}
       loading={loading}
       errorMessages={errorMessages}
-      buttonLabel={props.editMode ? "Edit" : "+ Add Contact"}
-      buttonProps={{ type: props.editMode ? "link" : "primary" }}
+      buttonLabel={""}
+      buttonProps={{ type: "primary", icon: props.editMode ? <EditOutlined /> : <PlusOutlined />, shape: "circle" }}
+      disabled={props.initialValues.PrimaryAccountAffiliation}
     />
   )
 }

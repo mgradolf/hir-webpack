@@ -3,8 +3,6 @@ import { Link } from "react-router-dom"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { findSeatGroups } from "~/ApiServices/Service/SeatGroupService"
-import { Button, Dropdown } from "antd"
-import { DownOutlined } from "@ant-design/icons"
 import PackageSeatGroupMenu from "~/Component/Feature/Package/PackageSeatGroupMenu"
 
 export const getPackageSeatGroupTableColumns = (isModal = false, AccountID?: number): ITableConfigProp => {
@@ -26,16 +24,7 @@ export const getPackageSeatGroupTableColumns = (isModal = false, AccountID?: num
     {
       title: "Action",
       key: "action",
-      render: (record: any) => (
-        <Dropdown
-          overlay={<PackageSeatGroupMenu initialData={{ ...record, AccountID: AccountID }} />}
-          trigger={["click"]}
-        >
-          <Button type="primary" onClick={(e) => e.preventDefault()}>
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
-      )
+      render: (record: any) => <PackageSeatGroupMenu initialData={{ ...record, AccountID: AccountID }} />
     }
   ]
 

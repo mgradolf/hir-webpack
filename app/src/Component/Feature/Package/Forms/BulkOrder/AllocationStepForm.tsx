@@ -4,6 +4,7 @@ import { FormInstance } from "antd/lib/form"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 import { getSectionStatistics } from "~/ApiServices/Service/SectionService"
+import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import "~/Sass/utils.scss"
 
 interface IAllocationStepFormProps {
@@ -55,7 +56,7 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
             ariaLabel={"Max Allowed"}
             fieldName="MaxAllowed"
           />
-          <FormInput
+          <FormNumberInput
             {...layout}
             formInstance={props.formInstance}
             label={"Requested Seat"}

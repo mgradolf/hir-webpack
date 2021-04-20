@@ -6,7 +6,7 @@ export function FormInputNumber(props: IGeneratedField) {
   return (
     <SearchFieldWrapper {...props}>
       <InputNumber
-        style={{ width: "150px", textAlign: "right" }}
+        style={{ width: "200px", textAlign: "right" }}
         aria-label={props.ariaLabel}
         max={999999}
         min={0}

@@ -34,7 +34,7 @@ export const showConfirm = (
   confirm: () => Promise<IApiResponse>,
   success = "Successfull",
   error = "Unsuccessfull",
-  title = "Are you sure to do this?",
+  title = "A person with this information already exists.  Do you really want to create a new person with this information?",
   warningText = ""
 ) => {
   Modal.confirm({

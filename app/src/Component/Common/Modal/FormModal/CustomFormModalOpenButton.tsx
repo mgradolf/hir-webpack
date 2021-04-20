@@ -10,6 +10,7 @@ export interface ICustomFormModalOpenButton extends Omit<ICustomFormModal, "clos
   buttonProps?: BaseButtonProps
   iconType?: iconType
   extraButtons?: JSX.Element[]
+  disabled?: boolean
 }
 
 export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => {
@@ -22,12 +23,18 @@ export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => 
       <CreateEditRemoveIconButton
         toolTip={props.buttonLabel}
         iconType={props.iconType}
+        disabled={props.disabled}
         onClick={() => setShowModal && setShowModal(true)}
       />
     )
   } else {
     ButtonType = (
-      <Button style={props.style} {...props.buttonProps} onClick={() => setShowModal && setShowModal(true)}>
+      <Button
+        style={props.style}
+        disabled={props.disabled}
+        {...props.buttonProps}
+        onClick={() => setShowModal && setShowModal(true)}
+      >
         {props.buttonLabel}
       </Button>
     )
