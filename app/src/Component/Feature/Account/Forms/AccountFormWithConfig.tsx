@@ -162,7 +162,11 @@ function AccountForm(props: IAccountFormProps) {
   )
 }
 
-export function AccountFormOpenButton(props: { initialValues?: { [key: string]: any }; label?: string }) {
+export function AccountFormOpenButton(props: {
+  helpKey?: string
+  initialValues?: { [key: string]: any }
+  label?: string
+}) {
   const [formInstance] = Form.useForm()
   // const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -193,6 +197,7 @@ export function AccountFormOpenButton(props: { initialValues?: { [key: string]: 
   }
   return (
     <CustomFormModalOpenButton
+      helpKey={props.helpKey}
       formTitle={props.label ? props.label : "Create Account"}
       customForm={<AccountForm formInstance={formInstance} />}
       formInstance={formInstance}

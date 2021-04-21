@@ -8,8 +8,12 @@ export default function AccountPage() {
   return (
     <SearchPage
       blocks={[
-        <AccountFormOpenButton initialValues={{ AllowToPayLater: "Not Allowed", DefaultWaitlistPriority: 5 }} />
+        <AccountFormOpenButton
+          helpKey="createAccount"
+          initialValues={{ AllowToPayLater: "Not Allowed", DefaultWaitlistPriority: 5 }}
+        />
       ]}
+      helpKey="searchAccounts"
       title="Manage Accounts"
       meta={AccountSearchMeta}
       hideSearchField={false}
