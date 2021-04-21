@@ -14,3 +14,10 @@ export function saveOrUpdateEmailNotification(
 ): Promise<IApiResponse> {
   return ProgramService[config.Actions.saveOrUpdateEmailNotification](Params, Headers)
 }
+
+export function addOrUpdateOfferingRequirement(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramService[config.Actions.addOrUpdateOfferingRequirement](Params, Headers)
+}

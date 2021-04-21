@@ -1,4 +1,4 @@
-import { Col, Form, Row } from "antd"
+import { Col, Row } from "antd"
 import React from "react"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { FormInput } from "~/Component/Common/Form/FormInput"
@@ -19,7 +19,6 @@ export const ProgramNotificationEmailRecipeintSection = (props: {
   formInstance: FormInstance
   EmailNotification: { [key: string]: any }
 }) => {
-  const [formInstance] = Form.useForm()
   return (
     <Row gutter={10}>
       <Col span="12">
@@ -41,7 +40,7 @@ export const ProgramNotificationEmailRecipeintSection = (props: {
               onClick={() => {
                 addRecipientUserID({
                   ProgramEmailNoticeID: props.EmailNotification.ProgramEmailNoticeID,
-                  UserID: formInstance.getFieldValue("toUsers")
+                  UserID: props.formInstance.getFieldValue("toUsers")
                 }).then((x) => {
                   if (x.success) {
                     eventBus.publish("REFRESH_RECIPIENT_LIST")
@@ -57,7 +56,7 @@ export const ProgramNotificationEmailRecipeintSection = (props: {
             <FormInput
               label="To Email"
               fieldName="toEmail"
-              formInstance={formInstance}
+              formInstance={props.formInstance}
               rules={[{ message: "Please enter valid email address!", type: "email" }]}
             />
           </Col>
@@ -68,7 +67,7 @@ export const ProgramNotificationEmailRecipeintSection = (props: {
               onClick={() => {
                 addRecipientEmailAddress({
                   ProgramEmailNoticeID: props.EmailNotification.ProgramEmailNoticeID,
-                  UserID: formInstance.getFieldValue("toEmail")
+                  UserID: props.formInstance.getFieldValue("toEmail")
                 }).then((x) => {
                   if (x.success) {
                     eventBus.publish("REFRESH_RECIPIENT_LIST")
@@ -84,7 +83,7 @@ export const ProgramNotificationEmailRecipeintSection = (props: {
             <FormDropDown
               label="To Tag"
               fieldName="toTag"
-              formInstance={formInstance}
+              formInstance={props.formInstance}
               options={[{ label: "student@email.com", value: "student@email.com" }]}
             />
           </Col>
@@ -95,7 +94,7 @@ export const ProgramNotificationEmailRecipeintSection = (props: {
               onClick={() => {
                 addRecipientEmailAddress({
                   ProgramEmailNoticeID: props.EmailNotification.ProgramEmailNoticeID,
-                  UserID: formInstance.getFieldValue("toTag")
+                  UserID: props.formInstance.getFieldValue("toTag")
                 }).then((x) => {
                   if (x.success) {
                     eventBus.publish("REFRESH_RECIPIENT_LIST")

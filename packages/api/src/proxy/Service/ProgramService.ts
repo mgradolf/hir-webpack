@@ -6,7 +6,8 @@ export const config = {
   Module: "hir",
   Actions: {
     createOrUpdateProgramOffering: "createOrUpdateProgramOffering",
-    saveOrUpdateEmailNotification: "saveOrUpdateEmailNotification"
+    saveOrUpdateEmailNotification: "saveOrUpdateEmailNotification",
+    addOrUpdateOfferingRequirement: "addOrUpdateOfferingRequirement"
   }
 }
 
