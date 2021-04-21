@@ -7,7 +7,8 @@ export const config = {
   Actions: {
     createOrUpdateProgramOffering: "createOrUpdateProgramOffering",
     saveOrUpdateEmailNotification: "saveOrUpdateEmailNotification",
-    addOrUpdateOfferingRequirement: "addOrUpdateOfferingRequirement"
+    addOrUpdateOfferingRequirement: "addOrUpdateOfferingRequirement",
+    saveOrUpdateProgramFinancial: "saveOrUpdateProgramFinancial"
   }
 }
 

@@ -84,3 +84,17 @@ export function deleteProgramReqGroupMember(
 ): Promise<IApiResponse> {
   return ProgramIf[config.Actions.deleteProgramReqGroupMember]([Params.ProgramReqGroupID, [Params.OfferingID]], Headers)
 }
+
+export function getProgramFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramFinancials]([Params.ProgramID], Headers)
+}
+
+export function deleteProgramFinancial(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramFinancial]([Params.ProgramFinancialID], Headers)
+}

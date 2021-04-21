@@ -21,3 +21,10 @@ export function addOrUpdateOfferingRequirement(
 ): Promise<IApiResponse> {
   return ProgramService[config.Actions.addOrUpdateOfferingRequirement](Params, Headers)
 }
+
+export function saveOrUpdateProgramFinancial(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramService[config.Actions.saveOrUpdateProgramFinancial](Params, Headers)
+}
