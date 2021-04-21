@@ -1,3 +1,4 @@
+import React from "react"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
@@ -13,7 +14,8 @@ import {
   REFRESH_PROGRAM_APPLICATION_PAGE,
   REFRESH_PROGRAM_ENROLLMENT_PAGE
 } from "~/utils/EventBus"
-import React from "react"
+import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
+import AdmissionRequirementPage from "~/Pages/Manage/Program/Program/AdmissionRequirementPage"
 import { ProgramFormOpenButton } from "~/Component/Feature/Program/Forms/ProgramForm"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { deleteProgramWithEvent, saveProgramWithEvent } from "~/ApiServices/BizApi/program/programIF"
@@ -118,6 +120,11 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
     }
   }
 
+  const admissionRequirementMeta: IDetailsCustomTabProp = {
+    component: AdmissionRequirementPage,
+    props: { programID: program.ProgramID }
+  }
+
   const summaryMeta: IDetailsSummary = {
     summary: [info, application, enrollment]
   }
@@ -139,6 +146,11 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         tabTitle: "Seat Groups",
         tabType: "table",
         tabMeta: seatgroupMeta
+      },
+      {
+        tabTitle: "Admission Requirements",
+        tabType: "custom",
+        tabMeta: admissionRequirementMeta
       },
       {
         tabTitle: "Applications",
