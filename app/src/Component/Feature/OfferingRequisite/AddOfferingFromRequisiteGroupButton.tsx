@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { AddOfferingFromRequisiteGroupModal } from "~/Component/Feature/OfferingRequisite/AddOfferingFromRequisiteGroupModal"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
 import { eventBus, REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP } from "~/utils/EventBus"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IOfferingRequisiteButtonProp {
   requisiteGroupID: number | undefined
@@ -31,7 +31,7 @@ export function AddOfferingFromRequisiteGroupButton(props: IOfferingRequisiteBut
     <>
       {openModal && <AddOfferingFromRequisiteGroupModal {...props} onClose={onClose} />}
       {props.hasRequisiteGroup && (
-        <CreateEditRemoveIconButton toolTip="Add Offering To Requisite Group" iconType="create" onClick={onClick} />
+        <IconButton toolTip="Add Offering To Requisite Group" iconType="create" onClick={onClick} />
       )}
     </>
   )

@@ -45,7 +45,7 @@ import { SectionRefundEnquiryForm } from "~/Component/Feature/Section/Forms/Sect
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { getPaymentGatewayAccounts, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { AddSectionRoomButton } from "~/Component/Feature/Section/AddSectionRoomButton"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
@@ -164,7 +164,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     return (
       <>
         {setShowModal && (
-          <CreateEditRemoveIconButton
+          <IconButton
             toolTip="Create Seat Group"
             iconType="create"
             onClick={() => setShowModal && setShowModal(true)}
@@ -311,7 +311,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       {
         tabTitle: "Budget",
         tabType: "summary",
-        tabMeta: [],
+        // tabMeta: [],
         multipleTabMetas: [
           {
             tabTitle: "Financials",
@@ -348,7 +348,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       {
         tabTitle: "Tags",
         tabType: "summary",
-        tabMeta: [],
+        // tabMeta: [],
         multipleTabMetas: getTagsTabPageDetailsMeta({}, "Section", section.SectionID).tabs
       },
       {
@@ -374,7 +374,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       {
         tabTitle: "Registrations",
         tabType: "table",
-        tabMeta: [],
+        // tabMeta: [],
         multipleTabMetas: [
           {
             tabTitle: "Roster",
@@ -416,7 +416,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       {
         tabTitle: "Comments",
         tabType: "table",
-        tabMeta: [],
+        // tabMeta: [],
         multipleTabMetas: [
           {
             tabTitle: "General",

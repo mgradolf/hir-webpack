@@ -103,6 +103,13 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           listHeight={256}
           open={keepOptionsOpen}
           defaultActiveFirstOption={false}
+          onChange={(value: any) => {
+            if (props.onSelectedItems) {
+              console.log("onChange ", value)
+              if (Array.isArray(value)) props.onSelectedItems(value)
+              else props.onSelectedItems([value])
+            }
+          }}
           onSearch={debounce((_searchKey) => {
             setSearchKey(_searchKey)
           }, 200)}

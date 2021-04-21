@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import OfferingRequisiteGroupFormModal from "~/Component/Feature/OfferingRequisite/RequisiteFormModal"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IPrerequisiteGroupModalOpenButtonProp {
   OfferingID: number
@@ -10,7 +10,7 @@ export default function PrerequisiteGroupModalOpenButton(props: IPrerequisiteGro
   const [showModal, setShowModal] = useState(false)
   return (
     <>
-      <CreateEditRemoveIconButton
+      <IconButton
         toolTip="Add Pre Requisite Group"
         iconType="create"
         onClick={() => setShowModal && setShowModal(true)}

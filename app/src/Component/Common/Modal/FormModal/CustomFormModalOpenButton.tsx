@@ -2,7 +2,7 @@ import React, { CSSProperties, useState } from "react"
 import { Button } from "antd"
 import { BaseButtonProps } from "antd/lib/button/button"
 import { CustomFormModal, ICustomFormModal } from "~/Component/Common/Modal/FormModal/CustomFormModal"
-import { CreateEditRemoveIconButton, iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton, iconType } from "~/Component/Common/Form/Buttons/IconButton"
 
 export interface ICustomFormModalOpenButton extends Omit<ICustomFormModal, "closeModal"> {
   style?: CSSProperties
@@ -20,7 +20,7 @@ export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => 
 
   if (props.iconType) {
     ButtonType = (
-      <CreateEditRemoveIconButton
+      <IconButton
         toolTip={props.buttonLabel}
         iconType={props.iconType}
         disabled={props.disabled}

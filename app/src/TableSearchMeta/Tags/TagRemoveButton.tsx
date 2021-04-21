@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { removeTagFromEntity } from "~/ApiServices/Service/TagService"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { eventBus } from "~/utils/EventBus"
 
 export const TagRemoveButton = (props: { tag: { [key: string]: any }; eventName: string }) => {
@@ -23,7 +23,7 @@ export const TagRemoveButton = (props: { tag: { [key: string]: any }; eventName:
     return response
   }
   return (
-    <CreateEditRemoveIconButton
+    <IconButton
       iconType="remove"
       toolTip={buttonLabel}
       disabled={disabled}

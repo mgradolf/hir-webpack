@@ -18,8 +18,8 @@ export interface IDetailsSearchTabProp {
   searchMeta?: IField[]
   searchMetaName?: string
   tableProps: IDataTableProps
-  initialFormValue?: { [key: string]: string }
-  defaultFormValue?: { [key: string]: string }
+  initialFormValue?: { [key: string]: any }
+  defaultFormValue?: { [key: string]: any }
   helpKey?: string
 }
 

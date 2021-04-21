@@ -1,3 +1,4 @@
+import React from "react"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 
@@ -16,13 +17,47 @@ import {
 } from "~/utils/EventBus"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import AdmissionRequirementPage from "~/Pages/Manage/Program/Program/AdmissionRequirementPage"
+import { ProgramFormOpenButton } from "~/Component/Feature/Program/Forms/ProgramForm"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
+import { deleteProgramWithEvent, saveProgramWithEvent } from "~/ApiServices/BizApi/program/programIF"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
+import { getProgramNotificationTableColumns } from "~/TableSearchMeta/ProgramNotification/ProgramNotificationTableColumns"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
+    cardActions: [
+      <ProgramFormOpenButton iconType="edit" editMode={true} ProgramID={program.ProgramID} />,
+      <IconButton
+        toolTip="Delete Program"
+        iconType="remove"
+        onClickRemove={() => deleteProgramWithEvent({ ProgramID: program.ProgramID })}
+        redirectTo="/program"
+      />
+    ],
+    title: "Program Details",
     contents: [
       { label: "Name", value: program.Name },
       { label: "Description", value: program.Description },
-      { label: "Status", value: program.ProgramStatusName },
+      // { label: "Status", value: program.ProgramStatusName },
+      {
+        label: "Status",
+        value: (
+          <InlineForm
+            fieldName="ProgramStatusCodeID"
+            refreshEventName="REFRESH"
+            inputType="DROPDOWN"
+            displayKey="Name"
+            valueKey="StatusID"
+            defaultValue={program.ProgramStatusCodeID}
+            updateFunc={(Params: { [key: string]: any }) =>
+              saveProgramWithEvent({ ProgramID: program.ProgramID, ...Params })
+            }
+            refLookupService={getProgramStatusCodes}
+          />
+        ),
+        cssClass: "highlight"
+      },
       { label: "Start Date", value: program.ProgramStartDate, render: renderDate },
       { label: "End Date", value: program.ProgramEndDate, render: renderDate },
       { label: "Inquiry Recipient", value: program.SubmitInquiryToUserID },
@@ -127,8 +162,20 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
       {
         tabTitle: "Tags",
         tabType: "summary",
-        tabMeta: [],
+        // // tabMeta: [],
         multipleTabMetas: getTagsTabPageDetailsMeta({}, "Program", program.ProgramID).tabs
+      },
+      {
+        tabTitle: "Notifications",
+        tabType: "table",
+        tabMeta: {
+          actions: [],
+          tableProps: {
+            ...getProgramNotificationTableColumns(),
+            searchParams: { ProgramID: program.ProgramID },
+            refreshEventName: "REFRESH_NOTIFICATION_PROGRAM"
+          }
+        }
       }
     ]
   }

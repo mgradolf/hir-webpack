@@ -11,9 +11,11 @@ export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, Entity
     tabType: "table",
     tabMeta: {
       blocks: [
-        EntityType && EntityID && (
-          <TagAddButton EntityType={EntityType} EntityID={EntityID} eventName="REFRESH_CATALOGS_TAB" />
-        )
+        <>
+          {EntityType && EntityID && (
+            <TagAddButton EntityType={EntityType} EntityID={EntityID} eventName="REFRESH_CATALOGS_TAB" />
+          )}
+        </>
       ],
       tableProps: {
         ...getTagsTableColumns(false, "REFRESH_CATALOGS_TAB"),

@@ -31,7 +31,7 @@ import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/Que
 import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
 import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { updateOffering } from "~/ApiServices/Service/OfferingService"
 import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
@@ -97,11 +97,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <CreateEditRemoveIconButton
-            toolTip="Create Section"
-            iconType="create"
-            onClick={() => setShowModal && setShowModal(true)}
-          />
+          <IconButton toolTip="Create Section" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
         {showModal && <SectionFormModal OfferingID={props.OfferingID} closeModal={() => setShowModal(false)} />}
       </>
@@ -113,11 +109,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <CreateEditRemoveIconButton
-            toolTip="Create Financial"
-            iconType="create"
-            onClick={() => setShowModal && setShowModal(true)}
-          />
+          <IconButton toolTip="Create Financial" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
         {showModal && (
           <CreateNewFinancial
@@ -208,7 +200,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     {
       tabTitle: "Tags",
       tabType: "summary",
-      tabMeta: [],
+      // tabMeta: [],
       multipleTabMetas: getTagsTabPageDetailsMeta({}, "Offering", offering.OfferingID).tabs
     },
     {

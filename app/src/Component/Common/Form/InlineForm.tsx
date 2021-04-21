@@ -59,11 +59,11 @@ export const InlineForm = (props: IInlineForm) => {
         </Col>
         {!showForm && (
           <Col flex="20px">
-            <Button type="default" shape="circle" icon={<EditOutlined />} onClick={() => setShowForm(true)} />
+            <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => setShowForm(true)} />
           </Col>
         )}
         {showForm && (
-          <Col flex="30px">
+          <Col flex="20px">
             <Button
               ghost
               type="primary"
@@ -85,7 +85,7 @@ export const InlineForm = (props: IInlineForm) => {
         )}
 
         {showForm && (
-          <Col flex="30px">
+          <Col flex="20px">
             <Button
               danger
               type="default"

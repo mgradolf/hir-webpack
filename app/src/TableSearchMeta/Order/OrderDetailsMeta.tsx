@@ -171,7 +171,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
       {
         tabTitle: "Logs",
         tabType: "table",
-        tabMeta: [],
+        // tabMeta: [],
         multipleTabMetas: [
           {
             tabTitle: "Orders",

@@ -135,7 +135,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
   const Person: IDetailsTabMeta = {
     tabTitle: "Profile",
     tabType: "table",
-    tabMeta: [],
+    // tabMeta: [],
     multipleTabMetas: getProfileMeta(person, account, profileQuestions),
     actions: [
       <Dropdown.Button key="Person_Actions" overlay={<GetMenu personInfos={personInfos} />} type="primary">
@@ -149,7 +149,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
     tabMetas.push({
       tabTitle: "Student",
       tabType: "table",
-      tabMeta: [],
+      // tabMeta: [],
       multipleTabMetas: getStudentMeta(person, student)
     })
 
@@ -157,7 +157,7 @@ export const getPersonDetailsMeta = (personInfos: { [key: string]: any }[]): IDe
     tabMetas.push({
       tabTitle: "Instructor",
       tabType: "table",
-      tabMeta: [],
+      // tabMeta: [],
       multipleTabMetas: getInstructorMeta(person, instructor)
     })
 

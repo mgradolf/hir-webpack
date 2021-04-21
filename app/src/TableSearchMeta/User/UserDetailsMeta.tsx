@@ -63,7 +63,7 @@ export const getUserDetailsMeta = (user: { [key: string]: any }): IDetailsMeta =
   tabMeta.push({
     tabTitle: "Logs",
     tabType: "summary",
-    tabMeta: [],
+    // tabMeta: [],
     multipleTabMetas: [
       {
         tabTitle: "Academic",

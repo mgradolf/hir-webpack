@@ -14,3 +14,31 @@ export function searchProgramOffering(
 ): Promise<IApiResponse> {
   return ProgramIf[config.Actions.searchProgramOffering]([Params], Headers)
 }
+
+export function deleteProgramOfferingWithEvent(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramOfferingWithEvent]([Params.ProgramOfferingID], Headers)
+}
+
+export function saveProgramWithEvent(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.saveProgramWithEvent]([Params], Headers)
+}
+
+export function copyProgramWithEvent(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.copyProgramWithEvent]([Params.ProgramID], Headers)
+}
+
+export function deleteProgramWithEvent(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramWithEvent]([Params.ProgramID], Headers)
+}

@@ -103,7 +103,7 @@ export const getProgramEnrollmentDetailsMeta = (programEnrollment: { [key: strin
       {
         tabTitle: "Progress Tracking",
         tabType: "custom",
-        tabMeta: [],
+        // tabMeta: [],
         multipleTabMetas: [
           {
             tabTitle: "Summary",

@@ -12,8 +12,8 @@ import { SearchRegion } from "~/Component/Common/Form/CustomFormFields/SearchReg
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
 import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
-import { iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
 import { showConfirm } from "~/Component/Common/Modal/Confirmation"
+import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IPersonFormProps {
   editMode: boolean

@@ -10,7 +10,7 @@ export function RoomLookup(props: IGeneratedField) {
       lookupModalTitle="Select Room"
       valueKey="RoomID"
       displayKey="Name"
-      placeholder="Search By Room Name"
+      placeholder="Search By Room"
       {...getRoomTableColumns(true)}
       meta={RoomeSearchMeta as IField[]}
       metaName="RoomeSearchMeta"

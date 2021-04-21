@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { addInstructorToOffering } from "~/ApiServices/Service/InstructorService"
 import { eventBus, REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE } from "~/utils/EventBus"
 import { AddInstructorModal } from "~/Component/Feature/OfferingQualifiedInstructor/AddInstructorModal"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ICreateActionButtonProp {
   OfferingID: number
@@ -30,7 +30,7 @@ export function AddInstructorButton(props: ICreateActionButtonProp) {
   return (
     <>
       {openModal && <AddInstructorModal {...props} onClose={onClose} />}
-      <CreateEditRemoveIconButton toolTip="Add Instructor" iconType="create" onClick={onClick} />
+      <IconButton toolTip="Add Instructor" iconType="create" onClick={onClick} />
     </>
   )
 }

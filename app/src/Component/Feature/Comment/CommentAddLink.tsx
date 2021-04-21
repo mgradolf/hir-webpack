@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import CommentCreateModal from "~/Component/Feature/Comment/CommentCreateModal"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ICommentCreateProp {
   SectionID?: number
@@ -14,7 +14,7 @@ export default function CommentCreateModalOpenButton(props: ICommentCreateProp) 
 
   return (
     <>
-      <CreateEditRemoveIconButton toolTip="Add Comment" iconType="create" onClick={() => setShowModal(true)} />
+      <IconButton toolTip="Add Comment" iconType="create" onClick={() => setShowModal(true)} />
       {showModal && (
         <CommentCreateModal
           SectionID={props.SectionID}

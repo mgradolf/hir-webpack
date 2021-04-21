@@ -1,4 +1,8 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
+import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
+import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
+import { IDetailsSearchTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
+import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 
 export const tabTypes = {
   summary: "summary",
@@ -11,7 +15,7 @@ type TabType = "summary" | "table" | "searchtable" | "custom"
 export interface IDetailsTabMeta {
   tabType: TabType
   tabTitle: string
-  tabMeta: any
+  tabMeta?: IDetailsTableTabProp | IDetailsSummary | IDetailsSearchTabProp | IDetailsCustomTabProp // | any
   multipleTabMetas?: IDetailsTabMeta[]
   actions?: JSX.Element[]
 }

@@ -179,7 +179,7 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     {
       tabTitle: "Logs",
       tabType: "table",
-      tabMeta: [],
+      // tabMeta: [],
       multipleTabMetas: [
         {
           tabTitle: "Enrollment",

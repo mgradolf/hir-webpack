@@ -37,7 +37,7 @@ export const getMarketingCodeRepositoryDetailsMeta = (MarketingCode: { [key: str
   tabMetas.push({
     tabTitle: "Tags",
     tabType: "summary",
-    tabMeta: [],
+    // tabMeta: [],
     multipleTabMetas: getTagsTabPageDetailsMeta({}, "MarketingCode", MarketingCode.MarketingCodeID).tabs
   })
 

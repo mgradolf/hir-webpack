@@ -6,7 +6,11 @@ export const config = {
   Module: "hir",
   Actions: {
     searchProgram: "searchProgram",
-    searchProgramOffering: "searchProgramOffering"
+    searchProgramOffering: "searchProgramOffering",
+    deleteProgramOfferingWithEvent: "deleteProgramOfferingWithEvent",
+    saveProgramWithEvent: "saveProgramWithEvent",
+    copyProgramWithEvent: "copyProgramWithEvent",
+    deleteProgramWithEvent: "deleteProgramWithEvent"
   }
 }
 

@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { IPersonAddressFieldNames } from "~/Component/Feature/Person/Interfaces"
 import PersonAddressForm from "~/Component/Feature/Person/Forms/CreateEdit/PersonAddressForm"
-import { CreateEditRemoveIconButton, iconType } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton, iconType } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IPersonAddressFormModalProps {
   initialData: { [key: string]: any }
@@ -47,7 +47,7 @@ export const AddressFormModalOpenButton = (props: { personData: { [key: string]:
   return (
     <>
       {props.iconType ? (
-        <CreateEditRemoveIconButton
+        <IconButton
           iconType={props.iconType}
           toolTip={"Add Address"}
           onClick={() => setShowModal && setShowModal(true)}
