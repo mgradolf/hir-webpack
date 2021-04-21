@@ -9,7 +9,6 @@ import { pushStudent } from "~/ApiServices/Service/StudentService"
 import {
   CURRENT_ORG_ID,
   PT_PARTTIME_STATUS,
-  DELETE_SUCCESSFULLY,
   FORGET_ME_REQUEST_SUCCESSFULLY,
   CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY,
   CREATE_SUCCESSFULLY
@@ -20,6 +19,7 @@ import { pushInstructor } from "~/ApiServices/Service/InstructorService"
 import { removePerson } from "~/ApiServices/Service/PersonService"
 import { cancelAnonymizeRequest, createAnonymizationRequest } from "~/ApiServices/Service/AnonymizationRequestService"
 import { PersonMergeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonMergeFormModal"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 
 export const GetMenu = (props: { personInfos: { [key: string]: any } }) => {
   const canForgetMeRequest: boolean = props.personInfos[0]["CanForgetMeRequest"]
@@ -77,18 +77,6 @@ export const GetMenu = (props: { personInfos: { [key: string]: any } }) => {
     }
   }
 
-  const deletePerson = async () => {
-    if (props.personInfos) {
-      const response = await removePerson({
-        PersonID: props.personInfos[0].PersonID
-      })
-      if (response.success) {
-        Notification(DELETE_SUCCESSFULLY)
-        setRedirectAfterRemove(`/person`)
-      }
-    }
-  }
-
   return (
     <>
       {redirectAfterRemove && <Redirect to={redirectAfterRemove} />}
@@ -112,7 +100,22 @@ export const GetMenu = (props: { personInfos: { [key: string]: any } }) => {
           </Button>
         </Menu.Item>
         <Menu.Item>
-          <Button type="link" danger onClick={deletePerson}>
+          <Button
+            type="link"
+            danger
+            onClick={() =>
+              showDeleteConfirm(() => {
+                return removePerson({
+                  PersonID: props.personInfos[0].PersonID
+                }).then((x) => {
+                  if (x.success) {
+                    setRedirectAfterRemove(`/person`)
+                  }
+                  return x
+                })
+              })
+            }
+          >
             Delete this person
           </Button>
         </Menu.Item>

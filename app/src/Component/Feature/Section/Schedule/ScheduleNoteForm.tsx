@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select } from "antd"
+import { Form, Card, Button, Input, Select, Row, Col } from "antd"
 import { getMeetingInformationTypes } from "~/ApiServices/Service/RefLookupService"
 import { saveMeetingInformations } from "~/ApiServices/Service/SectionService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -20,7 +20,8 @@ interface IScheduleNoteFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 export default function ScheduleNoteForm(props: IScheduleNoteFormProps) {
   const [meetingTypes, setMeetingTypes] = useState<Array<any>>([])
@@ -60,13 +61,33 @@ export default function ScheduleNoteForm(props: IScheduleNoteFormProps) {
     }
   }
 
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Submit</Button>)
-
   return (
-    <Card title="Add Notes" actions={actions}>
-      <Form form={props.formInstance} initialValues={props.initialFormValue} className="modal-form">
+    <Card
+      title="Add Notes"
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
+      <Form
+        form={props.formInstance}
+        initialValues={props.initialFormValue}
+        scrollToFirstError
+        style={{
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}
+      >
         <OldFormError errorMessages={errorMessages} />
         <Form.Item className="hidden" name={props.fieldNames.ScheduleIDs}>
           <Input aria-label="Schedule IDs" value={props.scheduleIds} />

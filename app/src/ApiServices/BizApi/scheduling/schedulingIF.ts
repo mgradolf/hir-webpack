@@ -30,5 +30,5 @@ export function findQualifiedInstructors(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return SchedulingIf[config.Actions.findQualifiedInstructors]([Params], Headers)
+  return SchedulingIf[config.Actions.findQualifiedInstructors]([Params.SectionID], Headers)
 }

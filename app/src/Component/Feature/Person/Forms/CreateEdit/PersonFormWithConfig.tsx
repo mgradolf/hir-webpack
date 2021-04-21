@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Row, Col, message } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IPersonFieldNames } from "~/Component/Feature/Person/Interfaces"
-import { createPersonRecordInRoles } from "~/ApiServices/Service/PersonService"
+import { canPushPerson, createPersonRecordInRoles } from "~/ApiServices/Service/PersonService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
@@ -12,6 +12,7 @@ import { SearchRegion } from "~/Component/Common/Form/CustomFormFields/SearchReg
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
 import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { showConfirm } from "~/Component/Common/Modal/Confirmation"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IPersonFormProps {
@@ -87,7 +88,6 @@ function PersonForm(props: IPersonFormProps) {
           <FormInput
             {...layout}
             formInstance={props.formInstance}
-            defaultValue={{}}
             label={"First Name"}
             ariaLabel={"Frist Name"}
             fieldName="FirstName"
@@ -213,20 +213,45 @@ export function PersonFormOpenButton(props: {
       const params = formInstance.getFieldsValue()
       setErrorMessages([])
       setApiCallInProgress(true)
-      createPersonRecordInRoles(params)
-        .then((response) => {
-          console.log("validation passed ", response)
-          setApiCallInProgress(false)
-          if (response && response.success) {
-            message.success(CREATE_SUCCESSFULLY)
-            formInstance.resetFields()
-            closeModal()
+      canPushPerson(params).then((response) => {
+        console.log("Response:", response)
+        setApiCallInProgress(false)
+        if (response && response.success) {
+          if (response.data.IsDuplicate) {
+            showConfirm(() => {
+              setApiCallInProgress(true)
+              return createPersonRecordInRoles(params).then((response) => {
+                console.log("validation passed ", response)
+                setApiCallInProgress(false)
+                if (response && response.success) {
+                  formInstance.resetFields()
+                  closeModal()
+                } else {
+                  console.log("validation failed ", response.error)
+                  setErrorMessages(response.error)
+                }
+                return response
+              })
+            })
           } else {
-            console.log("validation failed ", response.error)
-            setErrorMessages(response.error)
+            setApiCallInProgress(true)
+            createPersonRecordInRoles(params)
+              .then((response) => {
+                console.log("validation passed ", response)
+                setApiCallInProgress(false)
+                if (response && response.success) {
+                  message.success(CREATE_SUCCESSFULLY)
+                  formInstance.resetFields()
+                  closeModal()
+                } else {
+                  console.log("validation failed ", response.error)
+                  setErrorMessages(response.error)
+                }
+              })
+              .catch((y) => console.error(y))
           }
-        })
-        .catch((y) => console.error(y))
+        }
+      })
     })
   }
   return (

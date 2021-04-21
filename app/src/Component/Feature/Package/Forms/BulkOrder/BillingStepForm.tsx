@@ -2,11 +2,10 @@ import React from "react"
 import { Divider, Row, Col } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
-import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { findPersonsByAccount } from "~/ApiServices/Service/PersonService"
+import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import "~/Sass/utils.scss"
-import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
 
 interface IBillingStepFormProps {
   formInstance: FormInstance
@@ -46,7 +45,7 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
         />
       </Col>
       <Col xs={24} sm={24} md={12}>
-        <FormInput
+        <FormNumberInput
           {...layout}
           formInstance={props.formInstance}
           label={"PO Number"}
@@ -54,7 +53,7 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
           fieldName={"PONumber"}
           rules={[{ required: true, message: "Please enter PO Number!" }]}
         />
-        <FormInputNumber
+        <FormNumberInput
           {...layout}
           formInstance={props.formInstance}
           label={"Amount"}

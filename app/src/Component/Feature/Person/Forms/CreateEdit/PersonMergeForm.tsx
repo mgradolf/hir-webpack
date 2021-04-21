@@ -130,7 +130,11 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
             <Button
               type="primary"
               aria-label="Submit"
-              disabled={primaryPerson.PersonID === duplicatePerson.PersonID}
+              disabled={
+                Object.keys(primaryPerson).length === 0 ||
+                Object.keys(duplicatePerson).length === 0 ||
+                primaryPerson.PersonID === duplicatePerson.PersonID
+              }
               onClick={onAnalyze}
             >
               Analyze

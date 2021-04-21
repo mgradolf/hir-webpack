@@ -42,7 +42,7 @@ const fieldNames: IOfferingFieldNames = {
 export function OfferingEditLink(props: IOfferingEditLinkProp) {
   const [loading, setLoading] = useState(false)
   const [formInstance] = Form.useForm()
-  const [apiCallInProgress, setApiCallInProgress] = useState(false)
+  const [apiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
 
@@ -57,19 +57,17 @@ export function OfferingEditLink(props: IOfferingEditLinkProp) {
 
     setLoading(true)
     setErrorMessages([])
-    updateOffering(params)
-      .then((response) => {
-        setApiCallInProgress(false)
-        if (response && response.success) {
-          formInstance.resetFields()
-          message.success(UPDATE_SUCCESSFULLY)
-          eventBus.publish(REFRESH_PAGE)
-          closeModal()
-        } else {
-          setErrorMessages(response.error)
-        }
-      })
-      .catch((y) => console.error(y))
+    updateOffering(params).then((response) => {
+      setLoading(false)
+      if (response && response.success) {
+        formInstance.resetFields()
+        message.success(UPDATE_SUCCESSFULLY)
+        eventBus.publish(REFRESH_PAGE)
+        closeModal()
+      } else {
+        setErrorMessages(response.error)
+      }
+    })
   }
 
   return (

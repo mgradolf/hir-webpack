@@ -4,7 +4,6 @@ import ScheduleLocationFormModal from "~/Component/Feature/Section/Schedule/Sche
 
 interface IScheduleLocationButtonProp {
   scheduleIds: any
-  openCreateScheduleLocationModal?: (scheduleIds: any) => void
 }
 
 export default function ScheduleLocationModalButton(props: IScheduleLocationButtonProp) {

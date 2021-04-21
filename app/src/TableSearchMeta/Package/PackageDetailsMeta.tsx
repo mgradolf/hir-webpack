@@ -32,7 +32,8 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
         initialFormValue={{
           ...Package
         }}
-        buttonLabel="Edit"
+        iconType="edit"
+        buttonLabel=""
         defaultFormValue={{
           AccountID: Package.AccountID,
           PackageID: Package.PackageID
@@ -84,7 +85,8 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
         initialFormValue={{
           PackageID: Package.PackageID
         }}
-        buttonLabel="+ Add Financial"
+        iconType="create"
+        buttonLabel=""
         defaultFormValue={{
           PackageID: Package.PackageID
         }}
@@ -116,7 +118,8 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
         initialFormValue={{
           PackageID: Package.PackageID
         }}
-        buttonLabel="+ Add Section"
+        iconType="create"
+        buttonLabel=""
         defaultFormValue={{ PackageID: Package.PackageID }}
         refreshEventName={REFRESH_PACKAGE_SEATGROUP_PAGE}
       />

@@ -1,4 +1,4 @@
-import { Button, Dropdown, Switch } from "antd"
+import { Switch } from "antd"
 import React from "react"
 import { Link } from "react-router-dom"
 import { removePrimaryAccountAffiliation, setPrimaryAccountAffiliation } from "~/ApiServices/BizApi/account/accountIF"
@@ -12,7 +12,6 @@ import {
 } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { eventBus } from "~/utils/EventBus"
-import { DownOutlined } from "@ant-design/icons"
 import { AccountContactMenu } from "~/Component/Feature/Account/AccountContactMenu"
 
 export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigProp => {
@@ -63,18 +62,9 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
       title: "Action",
       key: "action",
       render: (record: any) => (
-        <Dropdown
-          overlay={
-            <AccountContactMenu
-              initialData={{ ...record, IsPrimaryAccountAffiliation: record.PrimaryAccountAffiliation }}
-            />
-          }
-          trigger={["click"]}
-        >
-          <Button type="primary" onClick={(e) => e.preventDefault()}>
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
+        <AccountContactMenu
+          initialData={{ ...record, IsPrimaryAccountAffiliation: record.PrimaryAccountAffiliation }}
+        />
       )
     }
   ]

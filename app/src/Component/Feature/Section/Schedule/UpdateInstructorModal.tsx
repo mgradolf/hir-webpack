@@ -1,31 +1,27 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "antd"
-import { connect } from "react-redux"
-import { showUpdateSectionScheduleInstructorModal } from "~/Store/ModalState"
-import { Dispatch } from "redux"
+import ScheduleInstructorFormModal from "~/Component/Feature/Section/Schedule/ScheduleInstructorFormModal"
 
-interface ICreateActionButtonProp {
+interface IScheduleInstructorButtonProp {
   sectionId: number
   scheduleIds: any
-  openCreateScheduleInstructorModal?: (scheduleIds: any, sectionId: number) => void
 }
-function CreateActionButton(props: ICreateActionButtonProp) {
-  const onClick = () => {
-    if (props.openCreateScheduleInstructorModal)
-      props.openCreateScheduleInstructorModal(props.scheduleIds, props.sectionId)
-  }
+
+export default function ScheduleInstructorModalButton(props: IScheduleInstructorButtonProp) {
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <Button type="link" onClick={onClick}>
-      Instructor
-    </Button>
+    <>
+      <Button type="link" onClick={() => setShowModal && setShowModal(true)}>
+        Instructor
+      </Button>
+      {showModal && (
+        <ScheduleInstructorFormModal
+          sectionId={props.sectionId}
+          scheduleIds={props.scheduleIds}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openCreateScheduleInstructorModal: (scheduleIds: any, sectionId: number) =>
-      dispatch(showUpdateSectionScheduleInstructorModal(true, { scheduleIds, sectionId }))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(CreateActionButton)

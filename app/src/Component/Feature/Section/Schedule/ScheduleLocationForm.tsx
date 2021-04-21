@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Input, Select, Switch, Divider, Row, Col } from "antd"
+import { Form, Card, Button, Input, Select, Divider, Row, Col } from "antd"
 import {
   findPossibleBuildings,
   findPossibleRooms,
   findPossibleSites
 } from "~/ApiServices/BizApi/scheduling/schedulingIF"
-import "~/Sass/utils.scss"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
@@ -14,6 +13,8 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { saveLocations } from "~/ApiServices/Service/SectionService"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import { OldFormRoomLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormRoomLookup"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import "~/Sass/utils.scss"
 
 const { Option } = Select
 
@@ -27,8 +28,8 @@ interface IScheduleCreateFormProps {
 }
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 14 }
+  labelCol: { span: 6 },
+  wrapperCol: { span: 12 }
 }
 export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
   const [siteItems, setSiteItems] = useState<Array<any>>([])
@@ -198,14 +199,18 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
           // }}
         />
         <Divider />
-        <Form.Item
-          name={props.fieldNames.ConflictCheck}
-          label="Check for conflicts(slower)"
-          {...layout}
-          valuePropName="checked"
-        >
-          <Switch aria-label="Check for conflicts(slower)" />
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={6}
+          wrapperColSpan={12}
+          formInstance={props.formInstance}
+          label={"Check for conflicts(slower)"}
+          ariaLabel={"Check for conflicts(slower)"}
+          fieldName={props.fieldNames.ConflictCheck}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
       </Form>
     </Card>
   )

@@ -1,10 +1,11 @@
 import React from "react"
-import { Button, Menu, message } from "antd"
-import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
+import { Button } from "antd"
 import { eventBus, REFRESH_PACKAGE_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { removeSection, updateSection } from "~/ApiServices/Service/PackageService"
 import { PackageSeatGroupFormMeta } from "~/Component/Feature/Package/FormMeta/PackageSeatGroupFormMeta"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
+import { DeleteOutlined } from "@ant-design/icons"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 
 interface IPackageSeatGroupMenu {
   initialData: { [key: string]: any }
@@ -12,42 +13,42 @@ interface IPackageSeatGroupMenu {
 
 export default function PackageSeatGroupMenu(props: IPackageSeatGroupMenu) {
   return (
-    <Menu>
-      <Menu.Item key="0">
-        <MetaDrivenFormModalOpenButton
-          formTitle="Update Section"
-          formMeta={PackageSeatGroupFormMeta}
-          formSubmitApi={updateSection}
-          initialFormValue={{
-            ...props.initialData,
-            AllocatedSeats: props.initialData.NumberOfSeats
-          }}
-          buttonLabel="Edit"
-          buttonProps={{ type: "link" }}
-          defaultFormValue={{
-            PackageID: props.initialData.PackageID,
-            AccountID: props.initialData.AccountID,
-            SeatGroupID: props.initialData.SeatGroupID
-          }}
-          refreshEventName={REFRESH_PACKAGE_SEATGROUP_PAGE}
-        />
-      </Menu.Item>
-      <Menu.Item key="1">
-        <Button
-          type="link"
-          onClick={async () => {
-            const response = await removeSection({
+    <>
+      <MetaDrivenFormModalOpenButton
+        formTitle="Update Section"
+        formMeta={PackageSeatGroupFormMeta}
+        formSubmitApi={updateSection}
+        initialFormValue={{
+          ...props.initialData,
+          AllocatedSeats: props.initialData.NumberOfSeats
+        }}
+        iconType="edit"
+        buttonLabel=""
+        defaultFormValue={{
+          PackageID: props.initialData.PackageID,
+          AccountID: props.initialData.AccountID,
+          SeatGroupID: props.initialData.SeatGroupID
+        }}
+        refreshEventName={REFRESH_PACKAGE_SEATGROUP_PAGE}
+      />
+      <Button
+        danger
+        type="primary"
+        icon={<DeleteOutlined />}
+        shape="circle"
+        onClick={() =>
+          showDeleteConfirm(() => {
+            return removeSection({
               SeatGroupID: props.initialData.SeatGroupID
+            }).then((x) => {
+              if (x.success) {
+                eventBus.publish(REFRESH_PACKAGE_SEATGROUP_PAGE)
+              }
+              return x
             })
-            if (response && response.success) {
-              message.success(DELETE_SUCCESSFULLY)
-              eventBus.publish(REFRESH_PACKAGE_SEATGROUP_PAGE)
-            }
-          }}
-        >
-          Remove
-        </Button>
-      </Menu.Item>
-    </Menu>
+          })
+        }
+      />
+    </>
   )
 }
