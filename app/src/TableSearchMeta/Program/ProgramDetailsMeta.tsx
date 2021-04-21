@@ -14,6 +14,8 @@ import {
   REFRESH_PROGRAM_APPLICATION_PAGE,
   REFRESH_PROGRAM_ENROLLMENT_PAGE
 } from "~/utils/EventBus"
+import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
+import AdmissionRequirementPage from "~/Pages/Manage/Program/Program/AdmissionRequirementPage"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -80,6 +82,11 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
     }
   }
 
+  const admissionRequirementMeta: IDetailsCustomTabProp = {
+    component: AdmissionRequirementPage,
+    props: { programID: program.ProgramID }
+  }
+
   const summaryMeta: IDetailsSummary = {
     summary: [info, application, enrollment]
   }
@@ -101,6 +108,11 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         tabTitle: "Seat Groups",
         tabType: "table",
         tabMeta: seatgroupMeta
+      },
+      {
+        tabTitle: "Admission Requirements",
+        tabType: "custom",
+        tabMeta: admissionRequirementMeta
       },
       {
         tabTitle: "Applications",
