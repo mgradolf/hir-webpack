@@ -5,7 +5,8 @@ export const config = {
   Service: "programService",
   Module: "hir",
   Actions: {
-    createOrUpdateProgramOffering: "createOrUpdateProgramOffering"
+    createOrUpdateProgramOffering: "createOrUpdateProgramOffering",
+    saveOrUpdateEmailNotification: "saveOrUpdateEmailNotification"
   }
 }
 

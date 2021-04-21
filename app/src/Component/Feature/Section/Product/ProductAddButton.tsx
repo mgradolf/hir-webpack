@@ -4,7 +4,7 @@ import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { ProductSearchMeta } from "~/TableSearchMeta/Product/ProductSearchMeta"
 import { getProductTableColumns } from "~/TableSearchMeta/Product/ProductTableColumns"
 import { eventBus } from "~/utils/EventBus"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ICreateActionButtonProp {
   SectionId: number
@@ -35,11 +35,7 @@ export function ProductAddButton(props: ICreateActionButtonProp) {
 
   return (
     <>
-      <CreateEditRemoveIconButton
-        toolTip="Add Product"
-        iconType="create"
-        onClick={() => setShowModal && setShowModal(true)}
-      />
+      <IconButton toolTip="Add Product" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
       {showModal && (
         <LookupModal
           title="Select Product"

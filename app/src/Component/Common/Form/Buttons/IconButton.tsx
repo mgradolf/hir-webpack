@@ -1,12 +1,19 @@
 import React, { CSSProperties, useState } from "react"
-import { PlusOutlined, EditOutlined, DeleteOutlined, CloseOutlined, CopyOutlined } from "@ant-design/icons"
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  CloseOutlined,
+  CopyOutlined,
+  MailOutlined
+} from "@ant-design/icons"
 import { Button, Tooltip } from "antd"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Redirect } from "react-router"
 import { ButtonType } from "antd/lib/button"
 
-export type iconType = "create" | "edit" | "remove" | "close" | "copy"
+export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email"
 
 export const IconButton = (props: {
   onClick?: () => void
@@ -62,7 +69,8 @@ export const IconButton = (props: {
       create: <PlusOutlined />,
       edit: <EditOutlined />,
       close: <CloseOutlined />,
-      copy: <CopyOutlined />
+      copy: <CopyOutlined />,
+      email: <MailOutlined />
     }
     _button = (
       <Button

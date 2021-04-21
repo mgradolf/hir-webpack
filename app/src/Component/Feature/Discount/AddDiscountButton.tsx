@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import AddDiscountModal from "~/Component/Feature/Discount/AddDiscountModal"
 import { addSectionDiscount } from "~/ApiServices/Service/SectionService"
 import { eventBus } from "~/utils/EventBus"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ICreateActionButtonProp {
   sectionId: number
@@ -25,11 +25,7 @@ export function AddDiscountButton(props: ICreateActionButtonProp) {
   return (
     <>
       {openModal && <AddDiscountModal {...props} onClose={onClose} />}
-      <CreateEditRemoveIconButton
-        toolTip="Add Discount Program"
-        iconType="create"
-        onClick={() => setOpenModal && setOpenModal(true)}
-      />
+      <IconButton toolTip="Add Discount Program" iconType="create" onClick={() => setOpenModal && setOpenModal(true)} />
     </>
   )
 }

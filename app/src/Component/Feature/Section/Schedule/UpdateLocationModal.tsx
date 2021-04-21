@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import ScheduleLocationFormModal from "./ScheduleLocationFormModal"
+import ScheduleLocationFormModal from "~/Component/Feature/Section/Schedule/ScheduleLocationFormModal"
 
 interface IScheduleLocationButtonProp {
   scheduleIds: any

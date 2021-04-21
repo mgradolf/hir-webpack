@@ -49,7 +49,10 @@ export function FormMultipleRadio(props: IGeneratedField & { onChangeCallback?: 
         style={{ width: "100%" }}
         disabled={props.disabled}
         aria-label={props.ariaLabel}
-        onChange={props.onChangeCallback}
+        defaultValue={props.defaultValue}
+        onChange={(e) => {
+          props.onChangeCallback && props.onChangeCallback(e.target.value)
+        }}
       >
         <div style={{ border: "1px solid lightgray", padding: "5px" }}>
           <Row>

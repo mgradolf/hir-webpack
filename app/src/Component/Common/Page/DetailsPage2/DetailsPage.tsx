@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { IProcessedApiError } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { Row, Spin, Tabs, Typography } from "antd"
-import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
-import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
+import DetailsSearchTab, { IDetailsSearchTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
+import DetailsTableTab, { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
+import DetailsCustomTab, { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { IDetailsPage, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { DetailsPageSubTabSwitch } from "~/Component/Common/Page/DetailsPage2/DetailsTabSwitch"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
+import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 
 export function DetailsPage(props: IDetailsPage) {
   const [loading, setLoading] = useState(false)
@@ -91,7 +92,7 @@ export function DetailsPage(props: IDetailsPage) {
                       <DetailsPageSubTabSwitch
                         tabLevel={1}
                         meta={x.multipleTabMetas}
-                        child={<DetailsSummary {...x.tabMeta} />}
+                        child={<DetailsSummary {...(x.tabMeta as IDetailsSummary)} />}
                       />
                     </Tabs.TabPane>
                   )
@@ -101,7 +102,7 @@ export function DetailsPage(props: IDetailsPage) {
                       <DetailsPageSubTabSwitch
                         tabLevel={1}
                         meta={x.multipleTabMetas}
-                        child={<DetailsSearchTab {...x.tabMeta} />}
+                        child={<DetailsSearchTab {...(x.tabMeta as IDetailsSearchTabProp)} />}
                       />
                     </Tabs.TabPane>
                   )
@@ -112,7 +113,7 @@ export function DetailsPage(props: IDetailsPage) {
                         tabLevel={1}
                         meta={x.multipleTabMetas}
                         actions={x.actions}
-                        child={<DetailsTableTab {...x.tabMeta} />}
+                        child={<DetailsTableTab {...(x.tabMeta as IDetailsTableTabProp)} />}
                       />
                     </Tabs.TabPane>
                   )
@@ -122,7 +123,7 @@ export function DetailsPage(props: IDetailsPage) {
                       <DetailsPageSubTabSwitch
                         tabLevel={1}
                         meta={x.multipleTabMetas}
-                        child={<DetailsCustomTab {...x.tabMeta} />}
+                        child={<DetailsCustomTab {...(x.tabMeta as IDetailsCustomTabProp)} />}
                       />
                     </Tabs.TabPane>
                   )

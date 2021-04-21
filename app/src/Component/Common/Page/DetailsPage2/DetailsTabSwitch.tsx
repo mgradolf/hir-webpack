@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Tabs } from "antd"
 import { DetailsSummary } from "~/Component/Common/Page/DetailsPage2/DetailsSummaryTab"
-import DetailsSearchTab from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
-import DetailsTableTab from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import DetailsCustomTab from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
+import DetailsSearchTab, { IDetailsSearchTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsSearchTab"
+import DetailsTableTab, { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
+import DetailsCustomTab, { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import { IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { objectToQueryString } from "~/utils/ObjectToQueryStringConverter"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
+import { IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 
 export interface IDetailsPageSubTab {
   meta: IDetailsTabMeta
@@ -57,13 +58,13 @@ export function DetailsPageSubTabSwitch(props: {
               case "summary":
                 return (
                   <Tabs.TabPane tab={x.tabTitle} key={i}>
-                    <DetailsSummary {...x.tabMeta} />
+                    <DetailsSummary {...(x.tabMeta as IDetailsSummary)} />
                   </Tabs.TabPane>
                 )
               case "searchtable":
                 return (
                   <Tabs.TabPane tab={x.tabTitle} key={i}>
-                    <DetailsSearchTab {...x.tabMeta} />
+                    <DetailsSearchTab {...(x.tabMeta as IDetailsSearchTabProp)} />
                   </Tabs.TabPane>
                 )
               case "table":
@@ -73,14 +74,14 @@ export function DetailsPageSubTabSwitch(props: {
                       tabLevel={props.tabLevel + 1}
                       // nextActivechildTabKeys={nextActivechildTabKeys}
                       meta={x.multipleTabMetas}
-                      child={<DetailsTableTab {...x.tabMeta} />}
+                      child={<DetailsTableTab {...(x.tabMeta as IDetailsTableTabProp)} />}
                     />
                   </Tabs.TabPane>
                 )
               case "custom":
                 return (
                   <Tabs.TabPane tab={x.tabTitle} key={i}>
-                    <DetailsCustomTab {...x.tabMeta} />
+                    <DetailsCustomTab {...(x.tabMeta as IDetailsCustomTabProp)} />
                   </Tabs.TabPane>
                 )
 

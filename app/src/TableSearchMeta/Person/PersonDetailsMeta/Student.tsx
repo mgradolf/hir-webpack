@@ -127,7 +127,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Schedule",
     tabType: "table",
-    tabMeta: [],
+    // tabMeta: [],
     multipleTabMetas: [
       {
         tabTitle: "On Site",
@@ -212,7 +212,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Registrations",
     tabType: "table",
-    tabMeta: [],
+    // tabMeta: [],
     multipleTabMetas: [
       {
         tabTitle: "Roster",
@@ -257,7 +257,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Programs",
     tabType: "table",
-    tabMeta: [],
+    // tabMeta: [],
     multipleTabMetas: [
       {
         tabTitle: "Applications",

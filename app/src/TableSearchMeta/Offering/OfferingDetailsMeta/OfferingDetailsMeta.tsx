@@ -200,7 +200,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     {
       tabTitle: "Tags",
       tabType: "summary",
-      tabMeta: [],
+      // tabMeta: [],
       multipleTabMetas: getTagsTabPageDetailsMeta({}, "Offering", offering.OfferingID).tabs
     },
     {

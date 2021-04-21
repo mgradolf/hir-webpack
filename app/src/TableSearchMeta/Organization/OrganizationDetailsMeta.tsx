@@ -54,7 +54,7 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
   tabMeta.push({
     tabTitle: "Tags",
     tabType: "summary",
-    tabMeta: [],
+    // tabMeta: [],
     multipleTabMetas: getTagsTabPageDetailsMeta({}, "Organization", organization.OrganizationID).tabs
   })
 

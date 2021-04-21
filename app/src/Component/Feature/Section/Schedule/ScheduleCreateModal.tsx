@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "antd"
-import { CreateEditRemoveIconButton } from "~/Component/Common/Form/Buttons/CreateEditRemoveIconButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import ScheduleFormModal from "~/Component/Feature/Section/Schedule/ScheduleFormModal"
 
 interface IScheduleCreateFormProp {
@@ -19,11 +19,7 @@ export function ScheduleCreateButton(props: IScheduleCreateFormProp) {
         </Button>
       )}
       {!Array.isArray(props.scheduleIds) && (
-        <CreateEditRemoveIconButton
-          toolTip="Create Schedule"
-          iconType="create"
-          onClick={() => setShowModal && setShowModal(true)}
-        />
+        <IconButton toolTip="Create Schedule" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
       )}
       {showModal && (
         <ScheduleFormModal

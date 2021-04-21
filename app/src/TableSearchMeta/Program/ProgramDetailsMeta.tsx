@@ -20,6 +20,7 @@ import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { deleteProgramWithEvent, saveProgramWithEvent } from "~/ApiServices/BizApi/program/programIF"
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
+import { getProgramNotificationTableColumns } from "~/TableSearchMeta/ProgramNotification/ProgramNotificationTableColumns"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -149,8 +150,20 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
       {
         tabTitle: "Tags",
         tabType: "summary",
-        tabMeta: [],
+        // // tabMeta: [],
         multipleTabMetas: getTagsTabPageDetailsMeta({}, "Program", program.ProgramID).tabs
+      },
+      {
+        tabTitle: "Notifications",
+        tabType: "table",
+        tabMeta: {
+          actions: [],
+          tableProps: {
+            ...getProgramNotificationTableColumns(),
+            searchParams: { ProgramID: program.ProgramID },
+            refreshEventName: "REFRESH_NOTIFICATION_PROGRAM"
+          }
+        }
       }
     ]
   }
