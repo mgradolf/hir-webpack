@@ -10,7 +10,12 @@ export const config = {
     deleteProgramOfferingWithEvent: "deleteProgramOfferingWithEvent",
     saveProgramWithEvent: "saveProgramWithEvent",
     copyProgramWithEvent: "copyProgramWithEvent",
-    deleteProgramWithEvent: "deleteProgramWithEvent"
+    deleteProgramWithEvent: "deleteProgramWithEvent",
+    getProgramAdmReqGroups: "getProgramAdmReqGroups",
+    getProgramAdmReqGroup: "getProgramAdmReqGroup",
+    getProgramAdmReqs: "getProgramAdmReqs",
+    deleteProgramAdmReqGroup: "deleteProgramAdmReqGroup",
+    deleteProgramAdmReq: "deleteProgramAdmReq"
   }
 }
 

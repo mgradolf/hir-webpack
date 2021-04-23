@@ -14,3 +14,17 @@ export function saveOrUpdateEmailNotification(
 ): Promise<IApiResponse> {
   return ProgramService[config.Actions.saveOrUpdateEmailNotification](Params, Headers)
 }
+
+export function addOrUpdateAdmissionRequirement(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramService[config.Actions.addOrUpdateAdmissionRequirement](Params, Headers)
+}
+
+export function saveOrUpdateAdmissionRequirementGroups(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramService[config.Actions.saveOrUpdateAdmissionRequirementGroups](Params, Headers)
+}

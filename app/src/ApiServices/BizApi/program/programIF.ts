@@ -42,3 +42,38 @@ export function deleteProgramWithEvent(
 ): Promise<IApiResponse> {
   return ProgramIf[config.Actions.deleteProgramWithEvent]([Params.ProgramID], Headers)
 }
+
+export function getProgramAdmReqGroups(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramAdmReqGroups]([Params.ProgramID], Headers)
+}
+
+export function getProgramAdmReqGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramAdmReqGroup]([Params.ProgramAdmReqGroupID], Headers)
+}
+
+export function getProgramAdmReqs(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramAdmReqs]([Params.ProgramAdmReqGroupID], Headers)
+}
+
+export function deleteProgramAdmReqGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramAdmReqGroup]([Params.ProgramAdmReqGroupID], Headers)
+}
+
+export function deleteProgramAdmReq(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramAdmReq]([Params.ProgramAdmReqID], Headers)
+}

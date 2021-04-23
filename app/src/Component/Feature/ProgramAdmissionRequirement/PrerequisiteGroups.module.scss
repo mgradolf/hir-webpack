@@ -1,0 +1,83 @@
+.textAlignRight {
+  text-align: right;
+}
+
+.textAlignLeft {
+  text-align: left;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.marginRight5px {
+  margin-right: 5px;
+}
+
+.margin0px {
+  margin: 0 !important;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.show {
+  width: 250px;
+}
+
+.offeringRequisiteDetails {
+  background: $white;
+  border-radius: 4px;
+  padding: 1rem 0 !important;
+}
+
+.Table_config {
+  margin-left: auto;
+  z-index: 10;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 576px) {
+  .padding5px {
+    padding: 5px;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (max-width: 768px) {
+  .textAlignLeft {
+    text-align: left;
+  }
+
+  .paddingTopBottom {
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+  }
+
+  .offeringRequisiteDetails {
+    padding: 1rem !important;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 768px) {
+  .textAlign {
+    text-align: right;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .padding5px {
+    padding: 5px;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .padding5px {
+    padding: 5px;
+  }
+}
