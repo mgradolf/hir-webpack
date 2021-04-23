@@ -1,6 +1,7 @@
 import React from "react"
 import { getProgramAdmReqs } from "~/ApiServices/BizApi/program/programIF"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import AdmissionReqEditLink from "~/Component/Feature/ProgramAdmissionRequirement/AdmisisonReqEditLink"
 import { AdmissionReqRemoveLink } from "~/Component/Feature/ProgramAdmissionRequirement/AdmissionReqRemoveLink"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
@@ -23,7 +24,15 @@ export const getProgramAdmissionReqTableColumns = (ProgramAdmReqGroupID: number)
     {
       title: "Action",
       key: "action",
-      render: (record: any) => <AdmissionReqRemoveLink ProgramAdmReqID={record.ProgramAdmReqID} />
+      render: (record: any) => (
+        <>
+          <AdmissionReqEditLink
+            ProgramAdmReqID={record.ProgramAdmReqID}
+            ProgramAdmReqGroupID={record.ProgramAdmReqGroupID}
+          />
+          <AdmissionReqRemoveLink ProgramAdmReqID={record.ProgramAdmReqID} />
+        </>
+      )
     }
   ]
 

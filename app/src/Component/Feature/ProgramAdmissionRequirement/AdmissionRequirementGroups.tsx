@@ -1,37 +1,18 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Row, Col, Typography, Select, Divider } from "antd"
 import styles from "~/Component/Feature/OfferingRequisite/PrerequisiteGroups.module.scss"
-import { getProgramAdmReqGroups } from "~/ApiServices/BizApi/program/programIF"
-import { eventBus, REFRESH_PROGRAM_ADMISSION_REQUIREMENT_PAGE } from "~/utils/EventBus"
 import AdmissionReqGroupModalOpenButton from "~/Component/Feature/ProgramAdmissionRequirement/AdmissionReqGroupModalOpenButton"
 import AdmissionReqGroupEditLink from "~/Component/Feature/ProgramAdmissionRequirement/AdmisisonReqGroupEditLink"
 import { AdmissionReqGroupRemoveLink } from "~/Component/Feature/ProgramAdmissionRequirement/AdmissionReqGroupRemoveLink"
 
 interface IAdmissionRequirementGroupProps {
   programID: number
+  admissionReqList: Array<any>
   onSelected: (param: { [key: string]: any }) => void
 }
 
 export default function AdmissionRequirementGroups(props: IAdmissionRequirementGroupProps) {
   const [programAdmReqGroupID, setProgramAdmReqGroupID] = useState<number>()
-  const [admissionReqList, setAdmissionReqList] = useState<Array<any>>([])
-
-  useEffect(() => {
-    const loadAdmissionRequirementsGroup = async function () {
-      const result = await getProgramAdmReqGroups({ ProgramID: props.programID })
-
-      if (result && result.success && Array.isArray(result.data) && result.data.length > 0) {
-        setAdmissionReqList(result.data)
-      }
-    }
-
-    eventBus.subscribe(REFRESH_PROGRAM_ADMISSION_REQUIREMENT_PAGE, loadAdmissionRequirementsGroup)
-    eventBus.publish(REFRESH_PROGRAM_ADMISSION_REQUIREMENT_PAGE)
-    return () => {
-      eventBus.unsubscribe(REFRESH_PROGRAM_ADMISSION_REQUIREMENT_PAGE)
-    }
-    // eslint-disable-next-line
-  }, [])
 
   return (
     <>
@@ -45,7 +26,7 @@ export default function AdmissionRequirementGroups(props: IAdmissionRequirementG
           </Typography.Text>
         </Col>
         <Col className={`gutter-row ${styles.paddingTopBottom} ${styles.textAlignLeft}`} xs={24} sm={24} md={10}>
-          {admissionReqList.length > 0 && (
+          {props.admissionReqList.length > 0 && (
             <Select
               className={styles.show}
               showSearch
@@ -56,7 +37,7 @@ export default function AdmissionRequirementGroups(props: IAdmissionRequirementG
               }}
               placeholder="Select an admission requirement group"
             >
-              {admissionReqList.map((x) => {
+              {props.admissionReqList.map((x) => {
                 return (
                   <Select.Option key={x.ProgramAdmReqGroupID} value={x.ProgramAdmReqGroupID}>
                     {x.Name}
@@ -68,10 +49,12 @@ export default function AdmissionRequirementGroups(props: IAdmissionRequirementG
         </Col>
         <Col className={`gutter-row ${styles.paddingTopBottom} ${styles.textAlign}`} xs={24} sm={24} md={8}>
           <AdmissionReqGroupModalOpenButton ProgramID={props.programID} />
-          {admissionReqList.length > 0 && (
+          {props.admissionReqList.length > 0 && (
             <AdmissionReqGroupEditLink ProgramID={props.programID} ProgramAdmReqGroupID={programAdmReqGroupID} />
           )}
-          {admissionReqList.length > 0 && <AdmissionReqGroupRemoveLink ProgramAdmReqGroupID={programAdmReqGroupID} />}
+          {props.admissionReqList.length > 0 && (
+            <AdmissionReqGroupRemoveLink ProgramAdmReqGroupID={programAdmReqGroupID} />
+          )}
         </Col>
       </Row>
       <Divider />

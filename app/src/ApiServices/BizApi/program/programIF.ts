@@ -57,6 +57,13 @@ export function getProgramAdmReqGroup(
   return ProgramIf[config.Actions.getProgramAdmReqGroup]([Params.ProgramAdmReqGroupID], Headers)
 }
 
+export function getProgramAdmReq(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramAdmReq]([Params.ProgramAdmReqID], Headers)
+}
+
 export function getProgramAdmReqs(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

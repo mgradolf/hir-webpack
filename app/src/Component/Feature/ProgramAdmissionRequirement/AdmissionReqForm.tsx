@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Card, Button, Row, Col, message } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
@@ -11,9 +11,11 @@ import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { addOrUpdateAdmissionRequirement } from "~/ApiServices/Service/ProgramService"
 import { ADDED_SUCCESSFULLY } from "~/utils/Constants"
 import { QuestionsLookup } from "~/Component/Common/Form/FormLookupFields/QuestionsLookup"
+import { getPreference } from "~/ApiServices/BizApi/registration/preferencesIF"
 
 interface IAdmissionReqFormProps {
   ProgramAdmReqGroupID?: number
+  ProgramAdmReqID?: number
   formInstance: FormInstance
   initialFormValue: { [key: string]: any }
   setApiCallInProgress: (flag: boolean) => void
@@ -21,6 +23,7 @@ interface IAdmissionReqFormProps {
 }
 
 const fieldNames = {
+  ProgramAdmReqID: "ProgramAdmReqID",
   ProgramAdmReqGroupID: "ProgramAdmReqGroupID",
   Name: "Name",
   PreferenceDefID: "PreferenceDefID",
@@ -31,8 +34,33 @@ const fieldNames = {
 
 export function AdmissionReqForm(props: IAdmissionReqFormProps) {
   const [isQuestion, setIsQuestion] = useState<boolean>(false)
+  const [fixedOptions, setFixedOptions] = useState<Array<any>>([])
+  const [defaultOption, setDefaultOption] = useState<string>("")
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   props.initialFormValue["ProgramAdmReqGroupID"] = props.ProgramAdmReqGroupID
+
+  useEffect(() => {
+    if (props.ProgramAdmReqID) {
+      ;(async () => {
+        const response = await getPreference({ PreferenceDefID: props.formInstance.getFieldValue("PreferenceDefID") })
+        if (response && response.success) {
+          setIsQuestion(true)
+          if (response.data.FixedOptions !== null) {
+            const options: Array<any> = []
+            response.data.FixedOptions.map((item: any) => {
+              if (item.IsDefault) {
+                setDefaultOption(item.PreferenceValueID)
+              }
+              options.push({ label: item.TextValue, value: item.PreferenceValueID })
+              return options
+            })
+            setFixedOptions(options)
+          }
+        }
+      })()
+    }
+    // eslint-disable-next-line
+  }, [])
 
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
@@ -61,6 +89,21 @@ export function AdmissionReqForm(props: IAdmissionReqFormProps) {
   const handleQuestion = (items: any) => {
     setIsQuestion(true)
     props.formInstance.setFieldsValue({ AnswerType: items[0].PreferenceValueTypeName })
+
+    const PreferenceDefID = items[0].PreferenceDefID
+    getPreference({ PreferenceDefID: PreferenceDefID }).then((x: any) => {
+      if (x.data.FixedOptions !== null) {
+        const options: Array<any> = []
+        x.data.FixedOptions.map((item: any) => {
+          if (item.IsDefault) {
+            setDefaultOption(item.PreferenceValueID)
+          }
+          options.push({ label: item.TextValue, value: item.PreferenceValueID })
+          return options
+        })
+        setFixedOptions(options)
+      }
+    })
   }
 
   return (
@@ -100,6 +143,13 @@ export function AdmissionReqForm(props: IAdmissionReqFormProps) {
         />
 
         <FormInput
+          label={"ProgramAdmReqID"}
+          fieldName={fieldNames.ProgramAdmReqID}
+          formInstance={props.formInstance}
+          hidden
+        />
+
+        <FormInput
           labelColSpan={8}
           wrapperColSpan={14}
           label={"Requirement"}
@@ -115,6 +165,7 @@ export function AdmissionReqForm(props: IAdmissionReqFormProps) {
           formInstance={props.formInstance}
           fieldName={fieldNames.PreferenceDefID}
           onSelectedItems={handleQuestion}
+          rules={[{ required: true, message: "Please select quesiton!" }]}
         />
 
         {isQuestion && (
@@ -138,6 +189,19 @@ export function AdmissionReqForm(props: IAdmissionReqFormProps) {
           </>
         )}
 
+        {fixedOptions.length > 0 && (
+          <FormMultipleRadio
+            labelColSpan={8}
+            wrapperColSpan={14}
+            formInstance={props.formInstance}
+            label={"Fixed Options"}
+            fieldName={""}
+            defaultValue={defaultOption}
+            options={fixedOptions}
+            disabled
+          />
+        )}
+
         <FormMultipleRadio
           labelColSpan={8}
           wrapperColSpan={14}
@@ -148,6 +212,7 @@ export function AdmissionReqForm(props: IAdmissionReqFormProps) {
             { label: "Yes", value: true },
             { label: "No", value: false }
           ]}
+          rules={[{ required: true, message: "Please choose one!" }]}
         />
 
         <FormTextArea

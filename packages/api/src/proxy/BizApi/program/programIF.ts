@@ -19,6 +19,7 @@ export const config = {
     deleteProgramReqGroupMember: "deleteProgramReqGroupMember",
     getProgramReqGroups: "getProgramReqGroups",
     getProgramReqGroupMembers: "getProgramReqGroupMembers",
+    getProgramAdmReq: "getProgramAdmReq",
     saveProgramReqGroup: "saveProgramReqGroup",
     deleteProgramReqGroup: "deleteProgramReqGroup",
     addProgramReqGroupMember: "addProgramReqGroupMember",
