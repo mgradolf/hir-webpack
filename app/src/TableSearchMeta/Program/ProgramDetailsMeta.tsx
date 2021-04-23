@@ -1,7 +1,6 @@
 import React from "react"
 import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
-
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
 import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDetailsMeta"
@@ -23,6 +22,10 @@ import { deleteProgramWithEvent, saveProgramWithEvent } from "~/ApiServices/BizA
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { getProgramStatusCodes } from "~/ApiServices/Service/RefLookupService"
 import { getProgramNotificationTableColumns } from "~/TableSearchMeta/ProgramNotification/ProgramNotificationTableColumns"
+import { getProgramOfferingRequirementsTableColumns } from "~/TableSearchMeta/ProgramOfferingRequirements/ProgramOfferingRequirementsTableColumns"
+import { ProgramOfferingRequirementsGroupFormOpenButton } from "~/Component/Feature/ProgramOfferingRequirementsGroup/ProgramOfferingRequirementsGroupFormOpenButton"
+import { getProgramFinancialTableColumns } from "~/TableSearchMeta/ProgramFinancial/ProgramFinancialTableColumns"
+import { ProgramFinancialFormOpenButton } from "~/Component/Feature/ProgramFinancial/ProgramFinancialFormOpenButton"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -174,6 +177,37 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
             ...getProgramNotificationTableColumns(),
             searchParams: { ProgramID: program.ProgramID },
             refreshEventName: "REFRESH_NOTIFICATION_PROGRAM"
+          }
+        }
+      },
+      {
+        tabTitle: "Offering Requirements",
+        tabType: "table",
+        tabMeta: {
+          blocks: [
+            <ProgramOfferingRequirementsGroupFormOpenButton
+              editMode={false}
+              OfferingGroup={{ ProgramID: program.ProgramID }}
+            />
+          ],
+          tableProps: {
+            ...getProgramOfferingRequirementsTableColumns(),
+            searchParams: { ProgramID: program.ProgramID },
+            refreshEventName: "REFRESH_PROGRAM_OFFERING_REQUIREMENT"
+          }
+        }
+      },
+      {
+        tabTitle: "Program Financial",
+        tabType: "table",
+        tabMeta: {
+          blocks: [
+            <ProgramFinancialFormOpenButton editMode={false} ProgramFinancial={{ ProgramID: program.ProgramID }} />
+          ],
+          tableProps: {
+            ...getProgramFinancialTableColumns(),
+            searchParams: { ProgramID: program.ProgramID },
+            refreshEventName: "REFRESH_PROGRAM_FINANCIAL"
           }
         }
       }

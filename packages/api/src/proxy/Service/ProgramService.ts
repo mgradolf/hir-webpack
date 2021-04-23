@@ -8,7 +8,9 @@ export const config = {
     createOrUpdateProgramOffering: "createOrUpdateProgramOffering",
     saveOrUpdateEmailNotification: "saveOrUpdateEmailNotification",
     addOrUpdateAdmissionRequirement: "addOrUpdateAdmissionRequirement",
-    saveOrUpdateAdmissionRequirementGroups: "saveOrUpdateAdmissionRequirementGroups"
+    saveOrUpdateAdmissionRequirementGroups: "saveOrUpdateAdmissionRequirementGroups",
+    addOrUpdateOfferingRequirement: "addOrUpdateOfferingRequirement",
+    saveOrUpdateProgramFinancial: "saveOrUpdateProgramFinancial"
   }
 }
 

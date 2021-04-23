@@ -28,3 +28,17 @@ export function saveOrUpdateAdmissionRequirementGroups(
 ): Promise<IApiResponse> {
   return ProgramService[config.Actions.saveOrUpdateAdmissionRequirementGroups](Params, Headers)
 }
+
+export function addOrUpdateOfferingRequirement(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramService[config.Actions.addOrUpdateOfferingRequirement](Params, Headers)
+}
+
+export function saveOrUpdateProgramFinancial(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramService[config.Actions.saveOrUpdateProgramFinancial](Params, Headers)
+}

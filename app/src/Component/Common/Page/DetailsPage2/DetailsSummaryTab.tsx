@@ -23,6 +23,7 @@ const DetailsCardContainer = (props: { card: CardContainer }) => {
 }
 
 export const DetailsSummary = (props: IDetailsSummary) => {
+  console.log("this is action ", props.actions)
   return (
     <>
       {Array.isArray(props.actions) && (

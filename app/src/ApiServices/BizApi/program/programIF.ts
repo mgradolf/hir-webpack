@@ -77,3 +77,59 @@ export function deleteProgramAdmReq(
 ): Promise<IApiResponse> {
   return ProgramIf[config.Actions.deleteProgramAdmReq]([Params.ProgramAdmReqID], Headers)
 }
+
+export function getProgramReqGroups(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramReqGroups]([Params.ProgramID], Headers)
+}
+
+export function getProgramReqGroupMembers(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramReqGroupMembers]([Params.ProgramID], Headers)
+}
+
+export function saveProgramReqGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.saveProgramReqGroup]([Params], Headers)
+}
+
+export function deleteProgramReqGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramReqGroup]([Params.ProgramReqGroupID, [Params.OfferingID]], Headers)
+}
+
+export function addProgramReqGroupMember(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.addProgramReqGroupMember]([Params.ProgramReqGroupID, [Params.OfferingID]], Headers)
+}
+
+export function deleteProgramReqGroupMember(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramReqGroupMember]([Params.ProgramReqGroupID, [Params.OfferingID]], Headers)
+}
+
+export function getProgramFinancials(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.getProgramFinancials]([Params.ProgramID], Headers)
+}
+
+export function deleteProgramFinancial(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramIf[config.Actions.deleteProgramFinancial]([Params.ProgramFinancialID], Headers)
+}

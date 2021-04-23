@@ -26,6 +26,7 @@ import AccountQuestionTab from "~/Component/Feature/Account/AccountQuestionTab"
 import { AccountMergeFormModalOpenButton } from "~/Component/Feature/Account/Forms/AccountMergeFormModal"
 import { AccountEmailSetupForm } from "~/Component/Feature/Account/Forms/AccountEmailSetupForm"
 import { AccountRemoveLink } from "~/Component/Feature/Account/AccountRemoveLink"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -75,6 +76,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="accountSummary" />],
       summary: [summary]
     }
   })
@@ -83,6 +85,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabType: "table",
     tabMeta: {
       blocks: [
+        <HelpButton helpKey="accountcontacts" />,
         <AccountContactFormOpenButton
           iconType="create"
           editMode={false}
@@ -102,6 +105,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       tabTitle: "Seat Groups",
       tabType: "table",
       tabMeta: {
+        blocks: [<HelpButton helpKey="accountSeatGroups" />],
         tableProps: {
           ...getSeatgroupTableColumns(),
           searchParams: { AccountID: account.AccountID },
@@ -113,6 +117,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Registrations",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="registrations" />],
       tableProps: {
         ...getRegistrationTableColumns(false),
         searchParams: { AccountID: account.AccountID },
@@ -124,6 +129,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Requests",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="accountRequests" />],
       tableProps: {
         ...getRequestTableColumns(false),
         searchParams: { AccountID: account.AccountID },
@@ -133,8 +139,9 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
   })
   meta.push({
     tabTitle: "Financials",
-    tabType: "summary",
+    tabType: "table",
     tabMeta: undefined,
+    actions: [<HelpButton helpKey="accountFinancialsActions" />],
     multipleTabMetas: [
       {
         tabTitle: "Orders",
@@ -186,6 +193,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Catalogs",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="accountCatalogs" />],
       tableProps: {
         ...getCatalogTableColumns(false),
         searchParams: { AccountID: account.AccountID },
@@ -200,6 +208,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       tabType: "table",
       tabMeta: {
         blocks: [
+          <HelpButton helpKey="accountPackges" />,
           <MetaDrivenFormModalOpenButton
             formTitle="Create Package"
             formMeta={PackageFormMeta}

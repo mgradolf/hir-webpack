@@ -516,3 +516,9 @@ export function getGLAccountMappingTypes(): Promise<IApiResponse> {
     LookUpName: "GLAccountMappingType"
   })
 }
+
+export function getOfferingGroupPolicyTypes(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "OfferingGroupPolicyType"
+  })
+}

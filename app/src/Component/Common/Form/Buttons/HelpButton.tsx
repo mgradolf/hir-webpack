@@ -3,7 +3,7 @@ import { getHelpConfig } from "~/Help/getHelpConfig"
 import { QuestionOutlined } from "@ant-design/icons"
 import { Button, Tooltip } from "antd"
 
-export function HelpButton(props: { helpKey?: string }) {
+export function HelpButton(props: { helpKey?: string; skipIcon?: boolean }) {
   const [helpUrl, setHelpUrl] = useState<string>()
 
   useEffect(() => {
@@ -16,7 +16,13 @@ export function HelpButton(props: { helpKey?: string }) {
     <>
       {helpUrl && (
         <Tooltip title="Help">
-          <Button icon={<QuestionOutlined />} type="primary" shape="circle" onClick={() => window.open(helpUrl)} />
+          {props.skipIcon ? (
+            <Button type="link" shape="circle" onClick={() => window.open(helpUrl)}>
+              Help
+            </Button>
+          ) : (
+            <Button icon={<QuestionOutlined />} type="primary" shape="circle" onClick={() => window.open(helpUrl)} />
+          )}
         </Tooltip>
       )}
     </>

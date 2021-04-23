@@ -10,6 +10,7 @@ export function FormMultipleRadio(props: IGeneratedField & { onChangeCallback?: 
   const { refLookupService, displayKey, valueKey, fieldName } = props
 
   const loadOptions = () => {
+    if (props.defaultValue !== undefined) props.formInstance.setFieldsValue({ [props.fieldName]: props.defaultValue })
     if (props.options?.length) {
       setOptions(
         props.options?.map((x) => {

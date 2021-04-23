@@ -15,7 +15,15 @@ export const config = {
     getProgramAdmReqGroup: "getProgramAdmReqGroup",
     getProgramAdmReqs: "getProgramAdmReqs",
     deleteProgramAdmReqGroup: "deleteProgramAdmReqGroup",
-    deleteProgramAdmReq: "deleteProgramAdmReq"
+    deleteProgramAdmReq: "deleteProgramAdmReq",
+    deleteProgramReqGroupMember: "deleteProgramReqGroupMember",
+    getProgramReqGroups: "getProgramReqGroups",
+    getProgramReqGroupMembers: "getProgramReqGroupMembers",
+    saveProgramReqGroup: "saveProgramReqGroup",
+    deleteProgramReqGroup: "deleteProgramReqGroup",
+    addProgramReqGroupMember: "addProgramReqGroupMember",
+    getProgramFinancials: "getProgramFinancials",
+    deleteProgramFinancial: "deleteProgramFinancial"
   }
 }
 

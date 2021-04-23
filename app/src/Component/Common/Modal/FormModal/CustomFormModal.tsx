@@ -4,6 +4,7 @@ import { Button, Card, Col, Form, Row } from "antd"
 import { FormError } from "~/Component/Common/Form/FormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { FormInstance } from "antd/lib/form"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export interface ICustomFormModal {
   formTitle: string
@@ -16,6 +17,7 @@ export interface ICustomFormModal {
   loading: boolean
   errorMessages: Array<ISimplifiedApiErrorMessage>
   extraButtons?: JSX.Element[]
+  helpKey?: string
 }
 
 export function CustomFormModal(props: ICustomFormModal) {
@@ -26,6 +28,11 @@ export function CustomFormModal(props: ICustomFormModal) {
         actions={[
           <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
             {props.extraButtons && props.extraButtons.map((x, i) => <Col key={i}>{x}</Col>)}
+            {props.helpKey && (
+              <Col>
+                <HelpButton skipIcon helpKey={props.helpKey} />
+              </Col>
+            )}
             <Col>
               <Button type="primary" danger onClick={props.closeModal}>
                 Cancel
