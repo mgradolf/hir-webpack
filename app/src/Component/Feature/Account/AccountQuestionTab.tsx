@@ -4,6 +4,7 @@ import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import styles from "~/Pages/Manage/Courses/Offering/Requisite/Requisite.module.scss"
 import { getAffiliationRoleTypes } from "~/ApiServices/BizApi/account/accountIF"
 import { getAccountQuestionTableColumns } from "~/TableSearchMeta/AccountQuestion/AccountQuestionTableColumns"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IAccountQuestionTabProp {
   AccountID: number
@@ -24,6 +25,9 @@ export default function AccountQuestionTab(props: IAccountQuestionTabProp) {
 
   return (
     <>
+      <Row justify="end">
+        <HelpButton helpKey="accountQuestionSetup" />
+      </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" xs={24} sm={24} md={4}>
           <Typography.Text className={`${styles.paddingTopBottom} ${styles.title}`}>

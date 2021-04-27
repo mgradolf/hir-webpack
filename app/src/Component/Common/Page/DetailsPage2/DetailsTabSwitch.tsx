@@ -74,6 +74,7 @@ export function DetailsPageSubTabSwitch(props: {
                       tabLevel={props.tabLevel + 1}
                       // nextActivechildTabKeys={nextActivechildTabKeys}
                       meta={x.multipleTabMetas}
+                      actions={x.actions}
                       child={<DetailsTableTab {...(x.tabMeta as IDetailsTableTabProp)} />}
                     />
                   </Tabs.TabPane>

@@ -28,6 +28,7 @@ import { InstructorFormMeta } from "~/Component/Feature/Instructor/FormMeta/Inst
 import InstructorScheduleFormModal from "~/Component/Feature/Instructor/Forms/InstructorScheduleFormModal"
 import Notification from "~/utils/notification"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 const InstructorFormModalOpenButton = (props: { facultyData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -95,7 +96,8 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [instructorInfo]
+    summary: [instructorInfo],
+    actions: [<HelpButton helpKey="instructorSummary" />]
   }
 
   const FinancialFormModalOpenButton = (props: { FacultyID: number }) => {
@@ -115,12 +117,19 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     )
   }
 
-  tabMetas.push({ tabTitle: "Summary", tabType: "summary", tabMeta: summaryMeta })
+  tabMetas.push({
+    tabTitle: "Summary",
+    tabType: "summary",
+    tabMeta: summaryMeta
+  })
   tabMetas.push({
     tabTitle: "Schedule",
     tabType: "table",
     tabMeta: {
-      blocks: [<ScheduleFormModalOpenButton PersonID={instructor.PersonID} />],
+      blocks: [
+        <ScheduleFormModalOpenButton PersonID={instructor.PersonID} />,
+        <HelpButton helpKey="instructorSchedule" />
+      ],
       tableProps: {
         pagination: false,
         ...getInstructorScheduleTableColumns(instructor.PersonID),
@@ -134,7 +143,10 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Financials",
     tabType: "table",
     tabMeta: {
-      blocks: [<FinancialFormModalOpenButton FacultyID={instructor.FacultyID} />],
+      blocks: [
+        <FinancialFormModalOpenButton FacultyID={instructor.FacultyID} />,
+        <HelpButton helpKey="instructorFinancials" />
+      ],
       tableProps: {
         pagination: false,
         ...getOfferingFinancialTableColumns(instructor.FacultyID, FINANCIAL_FACULTY_TYPE_ID),
@@ -148,7 +160,10 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Qualified Offerings",
     tabType: "table",
     tabMeta: {
-      blocks: [<OfferingAddButton FacultyId={instructor.FacultyID} />],
+      blocks: [
+        <OfferingAddButton FacultyId={instructor.FacultyID} />,
+        <HelpButton helpKey="instructorQulifiedOfferings" />
+      ],
       tableProps: {
         pagination: false,
         ...getQualifiedInstructorTableColumns(),
@@ -162,6 +177,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Instructor Contracts",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="instructorContracts" />],
       tableProps: {
         ...getInstructorContractsTableColumns(),
         searchParams: { FacultyID: instructor.FacultyID },
@@ -174,7 +190,10 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Comments",
     tabType: "table",
     tabMeta: {
-      blocks: [<CommentCreateModalOpenButton FacultyID={instructor.FacultyID} CommentType={COMMENT_TYPES.GENERAL} />],
+      blocks: [
+        <CommentCreateModalOpenButton FacultyID={instructor.FacultyID} CommentType={COMMENT_TYPES.GENERAL} />,
+        <HelpButton helpKey="instructorComments" />
+      ],
       tableProps: {
         pagination: false,
         ...getFacultyCommentTableColumns(),

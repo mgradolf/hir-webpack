@@ -351,7 +351,6 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   tabMetas.push({
     tabTitle: "Financials",
     tabType: "table",
-    tabMeta: undefined,
     multipleTabMetas: [
       {
         tabTitle: "Orders",
@@ -368,6 +367,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         tabTitle: "Order Items",
         tabType: "table",
         tabMeta: {
+          // blocks: [<HelpButton helpKey="personFinancialsTab" />],
           tableProps: {
             ...getOrderItemTableColumns(false),
             searchParams: { PersonID: person.PersonID },
@@ -379,6 +379,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         tabTitle: "Payments",
         tabType: "table",
         tabMeta: {
+          // blocks: [<HelpButton helpKey="personFinancialsTab" />],
           tableProps: {
             ...getPaymentTableColumns(false),
             searchParams: { PersonID: person.PersonID },
@@ -390,6 +391,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         tabTitle: "Transactions",
         tabType: "table",
         tabMeta: {
+          // blocks: [<HelpButton helpKey="personFinancialsTab" />],
           tableProps: {
             ...getTransactionFinancialTableColumns(false),
             searchParams: { PersonID: person.PersonID },
@@ -397,14 +399,18 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
           }
         }
       }
-    ]
+    ],
+    actions: [<HelpButton helpKey="personFinancialsTab" />]
   })
 
   tabMetas.push({
     tabTitle: "Account Relations",
     tabType: "table",
     tabMeta: {
-      blocks: [<AccountRelationFormModalOpenButton personData={person} />],
+      blocks: [
+        <AccountRelationFormModalOpenButton personData={person} />,
+        <HelpButton helpKey="personAccountRelations" />
+      ],
       tableProps: {
         ...getPersonAccountTableColumns(),
         searchParams: { PersonID: person.PersonID, ExceptRoleTypeID: AFF_ROLE_PURCHASER },

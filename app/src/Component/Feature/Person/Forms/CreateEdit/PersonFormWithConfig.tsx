@@ -201,6 +201,7 @@ export function PersonFormOpenButton(props: {
   initialValues?: { [key: string]: any }
   label?: string
   buttonIcon?: iconType
+  helpKey?: string
 }) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -257,6 +258,7 @@ export function PersonFormOpenButton(props: {
   return (
     <CustomFormModalOpenButton
       formTitle={props.label ? props.label : "Create Person"}
+      helpKey={props.helpKey}
       customForm={<PersonForm editMode={false} formInstance={formInstance} />}
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}

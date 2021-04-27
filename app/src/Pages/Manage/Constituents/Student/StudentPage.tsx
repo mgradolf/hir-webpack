@@ -7,7 +7,14 @@ import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdi
 export default function PersonTable() {
   return (
     <SearchPage
-      blocks={[<PersonFormOpenButton label={"Create Student"} buttonIcon="create" initialValues={{ Roles: [1] }} />]}
+      blocks={[
+        <PersonFormOpenButton
+          label={"Create Student"}
+          buttonIcon="create"
+          initialValues={{ Roles: [1] }}
+          helpKey="createStudent"
+        />
+      ]}
       title="Manage Students"
       meta={StudentSearchMeta}
       metaName="StudentSearchMeta"
@@ -15,7 +22,7 @@ export default function PersonTable() {
       tableProps={{
         ...getStudentTableColumns()
       }}
-      helpKey={""}
+      helpKey="searchStudents"
     ></SearchPage>
   )
 }

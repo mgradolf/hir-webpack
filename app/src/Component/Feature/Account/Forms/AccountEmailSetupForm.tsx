@@ -5,6 +5,7 @@ import { createorUpdateMultipleAccountEmail, findAccountEmails } from "~/ApiServ
 import { getSystemEvent } from "~/ApiServices/Service/RefLookupService"
 import { SAVE_SUCCESSFULLY } from "~/utils/Constants"
 import { FormError } from "~/Component/Common/Form/FormError"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IAccountEmailSetupFormProps {
   AccountID: number
@@ -73,39 +74,44 @@ export function AccountEmailSetupForm(props: IAccountEmailSetupFormProps) {
   }
 
   return (
-    <Card title={"Account Email Setup"}>
-      <Spin spinning={apiCallInProgress}>
-        <Row>
-          <Col key={1000} xs={24} sm={24} md={24}>
-            <FormError errorMessages={errorMessages} />
-            {systemEvents.map((x, index) => {
-              return (
-                <Form.Item key={index + 1} label={x.Name} {...layout}>
-                  <Select
-                    defaultValue={emailMap[x.ID]}
-                    onSelect={(selectedValue) => {
-                      if (selectedValue !== "") {
-                        emailMap[x.ID] = selectedValue
-                      }
-                    }}
-                  >
-                    {emailComponents.map((x, index) => (
-                      <Select.Option key={index + 1} value={x}>
-                        {x}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-              )
-            })}
-            <Form.Item {...btnLayout} style={{ textAlign: "right" }}>
-              <Button type="primary" onClick={onFormSubmission}>
-                Save
-              </Button>
-            </Form.Item>
-          </Col>
-        </Row>
-      </Spin>
-    </Card>
+    <>
+      <Row justify="end">
+        <HelpButton helpKey="accountQuestionSetup" />
+      </Row>
+      <Card title={"Account Email Setup"}>
+        <Spin spinning={apiCallInProgress}>
+          <Row>
+            <Col key={1000} xs={24} sm={24} md={24}>
+              <FormError errorMessages={errorMessages} />
+              {systemEvents.map((x, index) => {
+                return (
+                  <Form.Item key={index + 1} label={x.Name} {...layout}>
+                    <Select
+                      defaultValue={emailMap[x.ID]}
+                      onSelect={(selectedValue) => {
+                        if (selectedValue !== "") {
+                          emailMap[x.ID] = selectedValue
+                        }
+                      }}
+                    >
+                      {emailComponents.map((x, index) => (
+                        <Select.Option key={index + 1} value={x}>
+                          {x}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                )
+              })}
+              <Form.Item {...btnLayout} style={{ textAlign: "right" }}>
+                <Button type="primary" onClick={onFormSubmission}>
+                  Save
+                </Button>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Spin>
+      </Card>
+    </>
   )
 }

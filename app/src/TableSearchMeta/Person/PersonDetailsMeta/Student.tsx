@@ -31,6 +31,7 @@ import { StudentFormMeta } from "~/Component/Feature/Student/FormMeta/StudentFor
 import { getStudentHoldTableColumns } from "~/TableSearchMeta/StudentHold/StudentHoldTableColumns"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import Notification from "~/utils/notification"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -115,7 +116,8 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [studentInfo]
+    summary: [studentInfo],
+    actions: [<HelpButton helpKey="studentSummary" />]
   }
 
   tabMetas.push({
@@ -127,7 +129,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Schedule",
     tabType: "table",
-    // tabMeta: [],
+    actions: [<HelpButton helpKey="studentSchedule" />],
     multipleTabMetas: [
       {
         tabTitle: "On Site",
@@ -212,7 +214,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Registrations",
     tabType: "table",
-    // tabMeta: [],
+    actions: [<HelpButton helpKey="studentRegistrations" />],
     multipleTabMetas: [
       {
         tabTitle: "Roster",
@@ -257,7 +259,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Programs",
     tabType: "table",
-    // tabMeta: [],
+    actions: [<HelpButton helpKey="studentPrograms" />],
     multipleTabMetas: [
       {
         tabTitle: "Applications",
@@ -288,6 +290,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabTitle: "Certificates",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="studentCertificates" />],
       tableProps: {
         ...getCertificateTableColumns(false),
         searchParams: { StudentID: student.StudentID },
@@ -300,7 +303,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabTitle: "Holds",
     tabType: "table",
     tabMeta: {
-      blocks: [<HoldFormModalOpenButton StudentID={student.StudentID} />],
+      blocks: [<HoldFormModalOpenButton StudentID={student.StudentID} />, <HelpButton helpKey="studentHolds" />],
       tableProps: {
         pagination: false,
         ...getStudentHoldTableColumns(student.StudentID),
@@ -314,7 +317,10 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabTitle: "Comments",
     tabType: "table",
     tabMeta: {
-      blocks: [<CommentCreateModalOpenButton StudentID={student.StudentID} CommentType={COMMENT_TYPES.GENERAL} />],
+      blocks: [
+        <CommentCreateModalOpenButton StudentID={student.StudentID} CommentType={COMMENT_TYPES.GENERAL} />,
+        <HelpButton helpKey="studentComments" />
+      ],
       tableProps: {
         pagination: false,
         ...getStudentCommentTableColumns(),

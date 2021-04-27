@@ -8,6 +8,8 @@ export function HelpButton(props: { helpKey?: string; skipIcon?: boolean }) {
 
   useEffect(() => {
     getHelpConfig(props.helpKey).then((x) => {
+      console.log("this is help key ", props.helpKey)
+      console.log(x)
       if (x) setHelpUrl(x)
     })
   }, [props.helpKey])

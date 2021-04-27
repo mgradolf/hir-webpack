@@ -141,12 +141,12 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Financials",
     tabType: "table",
     tabMeta: undefined,
-    actions: [<HelpButton helpKey="accountFinancialsActions" />],
     multipleTabMetas: [
       {
         tabTitle: "Orders",
         tabType: "table",
         tabMeta: {
+          blocks: [<HelpButton helpKey="accountFinancialsActions" />],
           tableProps: {
             ...getOrderTableColumns(false),
             searchParams: { AccountID: account.AccountID },
