@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Input, Select, Switch, Card, Divider, Row, Col, Button, Spin } from "antd"
+import { Form, Input, Select, Card, Divider, Row, Col, Button, Spin } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormInstance } from "antd/lib/form"
@@ -12,6 +12,15 @@ import {
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { saveAccountRelation } from "~/ApiServices/Service/AccountService"
 import { eventBus } from "~/utils/EventBus"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { getAccountAffiliationStatus } from "~/ApiServices/Service/RefLookupService"
+import {
+  ACCOUNT_AFFILIATION_STATUS_ACTIVE,
+  ACCOUNT_AFFILIATION_STATUS_INACTIVE,
+  ACCOUNT_AFFILIATION_STATUS_PENDING,
+  ACCOUNT_AFFILIATION_STATUS_REJECTED
+} from "~/utils/Constants"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
 
 interface IPersonAccountFormProps {
@@ -31,11 +40,16 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [roleTypeID, setRoleTypeID] = useState(Number)
   const [roleTypeItems, setRoleTypeItems] = useState<Array<any>>([])
+  const [statusItems, setStatusItems] = useState<Array<any>>([])
   const [questionItems, setQuestionItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const questionAnswers: { [key: string]: any } = {}
 
   const editMode: boolean = props.initialFormValue.AccountAffiliationID ? true : false
+  props.initialFormValue.StatusID =
+    props.initialFormValue.AccountAffiliationStatusID !== undefined
+      ? props.initialFormValue.AccountAffiliationStatusID
+      : props.initialFormValue.StatusID
 
   useEffect(() => {
     ;(async function () {
@@ -44,6 +58,38 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
         setRoleTypeItems(result.data)
       }
     })()
+    ;(async function () {
+      const result = await getAccountAffiliationStatus()
+      if (result && result.success) {
+        let resultData = result.data
+        if (!editMode) {
+          resultData = resultData.filter((x: any) => x.ID !== ACCOUNT_AFFILIATION_STATUS_REJECTED)
+        } else {
+          const currentStatusID = props.initialFormValue.AccountAffiliationStatusID
+          if (
+            currentStatusID === ACCOUNT_AFFILIATION_STATUS_ACTIVE ||
+            currentStatusID === ACCOUNT_AFFILIATION_STATUS_INACTIVE
+          ) {
+            resultData = resultData.filter(
+              (x: any) => x.ID === ACCOUNT_AFFILIATION_STATUS_ACTIVE || x.ID === ACCOUNT_AFFILIATION_STATUS_INACTIVE
+            )
+          } else if (currentStatusID === ACCOUNT_AFFILIATION_STATUS_PENDING) {
+            resultData = resultData.filter(
+              (x: any) =>
+                x.ID === ACCOUNT_AFFILIATION_STATUS_ACTIVE ||
+                x.ID === ACCOUNT_AFFILIATION_STATUS_PENDING ||
+                x.ID === ACCOUNT_AFFILIATION_STATUS_REJECTED
+            )
+          } else {
+            resultData = resultData.filter(
+              (x: any) => x.ID === ACCOUNT_AFFILIATION_STATUS_PENDING || x.ID === ACCOUNT_AFFILIATION_STATUS_REJECTED
+            )
+          }
+        }
+        setStatusItems(resultData)
+      }
+    })()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -150,18 +196,14 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
           label={"Account"}
         />
 
-        <Form.Item label="Person ID" className="hidden" {...layout} name={props.fieldNames.PersonID}>
-          <Input />
-        </Form.Item>
+        <FormInput label="PersonID" formInstance={props.formInstance} fieldName={props.fieldNames.PersonID} hidden />
 
-        <Form.Item
-          label="Account Affilation ID"
-          className="hidden"
-          {...layout}
-          name={props.fieldNames.AccountAffiliationID}
-        >
-          <Input />
-        </Form.Item>
+        <FormInput
+          label="AccountAffiliationID"
+          formInstance={props.formInstance}
+          fieldName={props.fieldNames.AccountAffiliationID}
+          hidden
+        />
 
         <Form.Item
           name={props.fieldNames.StatusID}
@@ -169,10 +211,15 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
           rules={[{ required: true, message: "Please select your answer!" }]}
           {...layout}
         >
-          <Select disabled aria-label="Status">
-            <Select.Option key={1} value={1}>
-              Active
-            </Select.Option>
+          <Select aria-label="Status">
+            {statusItems.length &&
+              statusItems.map((status) => {
+                return (
+                  <Select.Option key={status.ID} value={status.ID}>
+                    {status.Name}
+                  </Select.Option>
+                )
+              })}
           </Select>
         </Form.Item>
 
@@ -193,9 +240,18 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Shared Contact" {...layout} valuePropName="checked" name={props.fieldNames.IsContactShared}>
-          <Switch aria-label="Shared contact" />
-        </Form.Item>
+        <FormMultipleRadio
+          labelColSpan={8}
+          wrapperColSpan={14}
+          formInstance={props.formInstance}
+          label={"Shared Contact"}
+          ariaLabel={"Is Shared Contact"}
+          fieldName={props.fieldNames.IsContactShared}
+          options={[
+            { label: "Yes", value: true },
+            { label: "No", value: false }
+          ]}
+        />
 
         <Divider orientation="left">Questions</Divider>
         <Spin spinning={loading} size="small">

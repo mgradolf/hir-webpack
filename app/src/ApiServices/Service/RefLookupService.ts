@@ -522,3 +522,9 @@ export function getOfferingGroupPolicyTypes(): Promise<IApiResponse> {
     LookUpName: "OfferingGroupPolicyType"
   })
 }
+
+export function getAccountAffiliationStatus(): Promise<IApiResponse> {
+  return RefLookupService[config.Actions.getList]({
+    LookUpName: "AccountAffiliationStatus"
+  })
+}

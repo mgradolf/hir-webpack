@@ -246,6 +246,7 @@ export const ACC_INDIVIDUAL = 1000
 export const ACC_AFFILIATED = 1
 export const AFF_ROLE_PURCHASER = 8
 
+//Account affiliation status
 export const ACCOUNT_AFFILIATION_STATUS_ACTIVE = 1
 export const ACCOUNT_AFFILIATION_STATUS_INACTIVE = 2
 export const ACCOUNT_AFFILIATION_STATUS_PENDING = 3

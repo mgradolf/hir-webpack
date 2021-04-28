@@ -46,8 +46,7 @@ export default function SectionCopyForm(props: ISectionCopyForm) {
           label={"Schedule"}
           ariaLabel={"Schedule"}
           fieldName={fieldNames.Schedule}
-          onChangeCallback={(e) => {
-            const isChecked = e.target.value
+          onChangeCallback={(isChecked) => {
             setDisableScheduleGroup(!isChecked)
             props.formInstance.setFieldsValue({ [fieldNames.Location]: isChecked })
             props.formInstance.setFieldsValue({ [fieldNames.Instructor]: isChecked })
