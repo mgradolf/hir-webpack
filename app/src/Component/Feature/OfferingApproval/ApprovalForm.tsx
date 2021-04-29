@@ -4,7 +4,7 @@ import Form, { FormInstance } from "antd/lib/form"
 import { IOfferingApprovalFieldNames } from "~/Component/Feature/Offering/Interfaces"
 import {
   getOfferingApprovalSendToList,
-  getOfferngApprovalStateList,
+  getOfferingApprovalStateList,
   setApprovalStatus
 } from "~/ApiServices/Service/OfferingService"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
@@ -17,6 +17,7 @@ import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 
 interface IOfferingApprovalFormProps {
   offeringID: number
+  statusCode: string
   formInstance: FormInstance
   handleCancel: () => void
   setApiCallInProgress: (flag: boolean) => void
@@ -32,6 +33,7 @@ const fieldNames: IOfferingApprovalFieldNames = {
 
 export default function ApprovalForm(props: IOfferingApprovalFormProps) {
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
+  const [showSubmit, setShowSubmit] = useState<boolean>(true)
 
   useEffect(() => {
     props.formInstance.setFieldsValue({ [fieldNames.OfferingID]: props.offeringID })
@@ -40,6 +42,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
   const onFormSubmission = async () => {
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
+
     setErrorMessages([])
     props.setApiCallInProgress(true)
     const response = await setApprovalStatus(params)
@@ -55,6 +58,14 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
     }
   }
 
+  const handleSelection = (value: any) => {
+    if (props.statusCode === "Awaiting Approval" && value === 1) {
+      setShowSubmit(false)
+    } else {
+      setShowSubmit(true)
+    }
+  }
+
   return (
     <Card
       title="Offering Approval"
@@ -66,7 +77,7 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
             </Button>
           </Col>
           <Col>
-            <Button type="primary" onClick={onFormSubmission}>
+            <Button disabled={!showSubmit} type="primary" onClick={onFormSubmission}>
               Submit
             </Button>
           </Col>
@@ -92,7 +103,8 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
           ariaLabel={"Move Approval State Select"}
           formInstance={props.formInstance}
           fieldName={fieldNames.StatusID}
-          refLookupService={() => getOfferngApprovalStateList({ OfferingID: props.offeringID })}
+          onChangeCallback={handleSelection}
+          refLookupService={() => getOfferingApprovalStateList({ OfferingID: props.offeringID })}
           displayKey="StateName"
           valueKey="StatusID"
           rules={[

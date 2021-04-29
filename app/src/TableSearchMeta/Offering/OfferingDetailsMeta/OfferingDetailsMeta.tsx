@@ -32,9 +32,7 @@ import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
 import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
-import { InlineForm } from "~/Component/Common/Form/InlineForm"
-import { updateOffering } from "~/ApiServices/Service/OfferingService"
-import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
+import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
 import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
@@ -61,20 +59,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     contents: [
       {
         label: "Status",
-        value: (
-          <InlineForm
-            fieldName="OfferingStatusCodeID"
-            refreshEventName="REFRESH"
-            inputType="DROPDOWN"
-            displayKey="Name"
-            valueKey="StatusID"
-            defaultValue={offering.StatusCode}
-            updateFunc={(Params: { [key: string]: any }) =>
-              updateOffering({ OfferingID: offering.OfferingID, ...Params })
-            }
-            refLookupService={getOfferingStatusTypes}
-          />
-        )
+        value: <OfferingStatusForm initialValue={offering} />
       },
       { label: "Department", value: offering.OrganizationName, render: undefined },
       { label: "Quick Admit", value: offering.IsQuickAdmit, render: renderBoolean },

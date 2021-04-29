@@ -6,10 +6,11 @@ import ApprovalForm from "~/Component/Feature/OfferingApproval/ApprovalForm"
 
 interface IOfferingApprovalProps {
   offeringID: number
+  statusCode: string
   closeModal?: () => void
 }
 
-export default function OfferingApprovalFormModal({ closeModal, offeringID }: IOfferingApprovalProps) {
+export default function OfferingApprovalFormModal({ closeModal, offeringID, statusCode }: IOfferingApprovalProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages] = useState<Array<string>>([])
@@ -37,6 +38,7 @@ export default function OfferingApprovalFormModal({ closeModal, offeringID }: IO
           )}
           <ApprovalForm
             offeringID={offeringID}
+            statusCode={statusCode}
             formInstance={formInstance}
             handleCancel={handleCancel}
             setApiCallInProgress={setApiCallInProgress}

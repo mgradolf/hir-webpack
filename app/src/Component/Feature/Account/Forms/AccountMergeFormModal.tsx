@@ -32,7 +32,7 @@ export const AccountMergeFormModalOpenButton = (props: { accountData: { [key: st
         <Tooltip title="Merge Account">
           <Button
             type="primary"
-            style={{ marginLeft: "10px", marginRight: "10px" }}
+            style={{ marginRight: "5px" }}
             shape="circle"
             onClick={() => setShowModal && setShowModal(true)}
             icon={<MergeCellsOutlined />}

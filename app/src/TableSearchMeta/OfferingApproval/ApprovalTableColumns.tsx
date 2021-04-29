@@ -1,4 +1,4 @@
-import { getOfferngApprovalHist } from "~/ApiServices/Service/OfferingService"
+import { getOfferingApprovalHist } from "~/ApiServices/Service/OfferingService"
 import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
@@ -29,7 +29,7 @@ export const getOfferingApprovalTableColumns = (OfferingID: number): ITableConfi
 
   return {
     columns,
-    searchFunc: () => getOfferngApprovalHist({ OfferingID }),
+    searchFunc: () => getOfferingApprovalHist({ OfferingID }),
     tableName: "ApprovalTableColumns"
   }
 }
