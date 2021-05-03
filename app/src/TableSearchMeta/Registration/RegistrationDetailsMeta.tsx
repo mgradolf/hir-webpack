@@ -62,10 +62,11 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
 
   const RegistrationGradeFormModalOpenButton = (props: { registration: { [key: string]: any } }) => {
     const [showModal, setShowModal] = useState(false)
+    const disableActions = props.registration.EnrollmentStatus === "Dropped"
     return (
       <>
         {setShowModal && (
-          <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
+          <Button type="primary" disabled={disableActions} onClick={() => setShowModal && setShowModal(true)}>
             Edit
           </Button>
         )}

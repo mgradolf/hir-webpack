@@ -1,6 +1,5 @@
 import React from "react"
 import {
-  createPersonEducationHistory,
   deletePersonAddress,
   deletePersonEmail,
   deletePersonPhone,
@@ -24,7 +23,6 @@ import { getPersonDisabilitiesTableColumns } from "~/TableSearchMeta/Person/Pers
 import { getPersonEduTableColumns } from "~/TableSearchMeta/Person/PersonEduTableColumns"
 import { getPersonAccountTableColumns } from "~/TableSearchMeta/Person/PersonAccountTableColumns"
 import { PersonAccountAction } from "~/Component/Feature/Person/PersonAccountAction"
-import { PersonDegreeFormMeta } from "~/Component/Feature/Person/FormMeta/PersonDegreeFormMeta"
 import { PersonEmailFormMeta } from "~/Component/Feature/Person/FormMeta/EmailAddress/PersonEmailFormMeta"
 import { PersonEmailUpdateFormMeta } from "~/Component/Feature/Person/FormMeta/EmailAddress/PersonEmailUpdateFormMeta"
 import { PersonGovFormMeta } from "~/Component/Feature/Person/FormMeta/Basic/PersonGovFormMeta"
@@ -38,6 +36,7 @@ import { PersonAddressFormMeta } from "~/Component/Feature/Person/FormMeta/Addre
 import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
 
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { DegreeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonDegreeFormModal"
 
 export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
   const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
@@ -325,20 +324,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     tabTitle: "Education History",
     tabType: "table",
     tabMeta: {
-      blocks: [
-        <MetaDrivenFormModalOpenButton
-          formTitle="Add Degree"
-          buttonLabel="Add Degree"
-          buttonProps={{
-            type: "primary"
-          }}
-          initialFormValue={person}
-          defaultFormValue={{ PersonID: person.PersonID }}
-          formSubmitApi={createPersonEducationHistory}
-          formMeta={PersonDegreeFormMeta}
-          refreshEventName={"REFRESH_EDUCATION_HISTORY_TAB"}
-        />
-      ],
+      blocks: [<DegreeFormModalOpenButton initialData={person} />],
       tableProps: {
         pagination: false,
         ...getPersonEduTableColumns(),
