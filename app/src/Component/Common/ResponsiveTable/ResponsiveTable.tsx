@@ -149,7 +149,7 @@ export function ResponsiveTable(props: IDataTableProps) {
   }
 
   return (
-    <Row style={{ backgroundColor: "#fafafa" }}>
+    <Row style={{ backgroundColor: "#fafafa", ...props.style }}>
       {conditionalProps && conditionalProps.dataSource && (
         <Col
           span={12}

@@ -18,11 +18,12 @@ interface ILookupModal {
   meta: IField[]
   metaName: string
   defaultFormValue?: { [key: string]: any }
+  initialFormValue?: { [key: string]: any }
   zIndex?: boolean
 }
 
 export function LookupModal(props: ILookupModal) {
-  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>()
+  const [searchParams, setSearchParams] = useState<{ [key: string]: any }>(props.initialFormValue || {})
   const [selectedItems, setSelectedItems] = useState<any[]>([])
   const rowSelection: any = {
     type: props.isArray ? "checkbox" : "radio",

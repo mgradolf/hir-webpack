@@ -2,12 +2,10 @@ import ApiMethodFactory from "../../../utils/ApiMethodFactory"
 
 export const config = {
   EndPoint: "api/bizApiServlet",
-  Service: "com.jenzabar.financial.server.bizapi.payment.PaymentIF",
+  Service: "com.jenzabar.financial.server.bizapi.cashaccount.AccountIF",
   Module: "hir",
   Actions: {
-    searchPayment: "searchPayment",
-    searchCreditMemo: "searchCreditMemo",
-    getPaymentTypes: "getPaymentTypes"
+    getDepositList: "getDepositList"
   }
 }
 

@@ -30,3 +30,14 @@ export function getEnumValues(): Promise<IApiResponse> {
     return x
   })
 }
+
+export function launchRequestWithExternalPayment(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return RequestService[config.Actions.launchRequestWithExternalPayment](Params, Headers)
+}
+
+export function launchRequest(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return RequestService[config.Actions.launchRequest](Params, Headers)
+}

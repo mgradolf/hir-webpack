@@ -105,9 +105,16 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           defaultActiveFirstOption={false}
           onChange={(value: any) => {
             if (props.onSelectedItems) {
-              console.log("onChange ", value)
-              if (Array.isArray(value)) props.onSelectedItems(value)
-              else props.onSelectedItems([value])
+              if (Array.isArray(value)) {
+                const __: any[] = []
+                options.forEach((x) => {
+                  if (!!value.find((val) => val === x[props.valueKey])) __.push(x)
+                })
+                props.onSelectedItems(__)
+              } else {
+                const __ = options.find((x) => x[props.valueKey] === value)
+                props.onSelectedItems([__])
+              }
             }
           }}
           onSearch={debounce((_searchKey) => {
@@ -132,36 +139,8 @@ export function LookupOpenButton(props: ILookupOpenButton) {
           onSelect={() => {
             setKeepOptionsOpen(false)
           }}
-          menuItemSelectedIcon={
-            <SearchOutlined
-              style={
-                {
-                  // borderTop: "1px solid lightgray",
-                  // borderBottom: "1px solid lightgray",
-                  // borderLeft: "1px solid lightgray",
-                  // borderRight: "1px solid lightgray",
-                  // padding: "8px"
-                }
-              }
-              onClick={() => setShowModal(true)}
-              disabled={props.disabled}
-            />
-          }
-          suffixIcon={
-            <SearchOutlined
-              style={
-                {
-                  // borderTop: "1px solid lightgray",
-                  // borderBottom: "1px solid lightgray",
-                  // borderLeft: "1px solid lightgray",
-                  // borderRight: "1px solid lightgray",
-                  // padding: "8px"
-                }
-              }
-              onClick={() => setShowModal(true)}
-              disabled={props.disabled}
-            />
-          }
+          menuItemSelectedIcon={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
+          suffixIcon={<SearchOutlined onClick={() => setShowModal(true)} disabled={props.disabled} />}
         >
           {Array.isArray(options) &&
             options.map((x, i) => (

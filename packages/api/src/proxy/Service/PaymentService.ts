@@ -6,7 +6,9 @@ export const config = {
   Module: "hir",
   Actions: {
     savePaymentDueDatePolicy: "savePaymentDueDatePolicy",
-    getPaymentDueDatePolicy: "getPaymentDueDatePolicy"
+    getPaymentDueDatePolicy: "getPaymentDueDatePolicy",
+    addOrderItemsToPay: "addOrderItemsToPay",
+    setCustomPaymentAmount: "setCustomPaymentAmount"
   }
 }
 
