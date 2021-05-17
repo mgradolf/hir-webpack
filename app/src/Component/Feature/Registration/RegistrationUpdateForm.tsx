@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react"
-import { Form, Button, Input, Select, Switch, DatePicker, Spin, Card, Divider } from "antd"
+import { Form, Button, Input, Select, Spin, Card, Divider, Row, Col } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
-import { DATE_TIME_FORMAT, QUESTION_EVENT_TYPE_REGISTRATION, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
+import { QUESTION_EVENT_TYPE_REGISTRATION } from "~/utils/Constants"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
 import { editRegistration } from "~/ApiServices/Service/RegistrationService"
 import { IRegistrationFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import { eventBus, REFRESH_REGISTRATION_DETAIL_PAGE } from "~/utils/EventBus"
 import { searchQuestionResponse, saveTagAnswers } from "~/ApiServices/Service/QuestionService"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormDateTimePicker } from "~/Component/Common/Form/FormDateTimePicker"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
-import moment from "moment"
 
 interface IRegistrationUpdateFormProps {
   initialFormValue: { [key: string]: any }
@@ -32,34 +34,17 @@ const fieldNames: IRegistrationFieldNames = {
 }
 
 const layout = {
-  labelCol: { span: 10 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
 
 export default function RegistrationUpdateForm(props: IRegistrationUpdateFormProps) {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState<boolean>(false)
-  const [gradeScaleItems, setGradeScaleItems] = useState<Array<any>>([])
-  const [transcriptItems, setTranscriptItems] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [answerQuestions, setAnswerQuestions] = useState<Array<any>>([])
 
-  const creationTime = props.initialFormValue.CreationTime
-  const terminationTime = props.initialFormValue.TerminationTime
-  const completionDate = props.initialFormValue.CompletionDate
-
   useEffect(() => {
-    ;(async function () {
-      const result = await getGradeScaleType()
-      if (result && result.success) {
-        setGradeScaleItems(result.data)
-      }
-    })()
-    ;(async function () {
-      const result = await getCreditType()
-      if (result && result.success) {
-        setTranscriptItems(result.data)
-      }
-    })()
     ;(async function () {
       setLoading(true)
       const result = await searchQuestionResponse({
@@ -130,24 +115,24 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
     setLoading(false)
   }
 
-  const onCreationTimeChange = (date: any, dateString: string) => {
-    form.setFieldsValue({ [fieldNames.CreationTime]: date })
-  }
-
-  const onTerminationTimeChange = (date: any, dateString: string) => {
-    form.setFieldsValue({ [fieldNames.TerminationTime]: date })
-  }
-
-  const onEffectiveDateChange = (date: any, dateString: string) => {
-    form.setFieldsValue({ [fieldNames.StatusDate]: date })
-  }
-
-  const actions = []
-  actions.push(<Button onClick={props.handleCancel}>Cancel</Button>)
-  actions.push(<Button onClick={onFormSubmission}>Update</Button>)
-
   return (
-    <Card title={`Update Registration`} actions={actions}>
+    <Card
+      title={`Update Registration`}
+      actions={[
+        <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
+          <Col>
+            <Button type="primary" danger onClick={props.handleCancel}>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" onClick={onFormSubmission}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      ]}
+    >
       <Spin size="large" spinning={loading}>
         <Form
           form={form}
@@ -166,98 +151,85 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
             <Input aria-label="SeatGroup ID" />
           </Form.Item>
 
-          <Form.Item
-            label="Grade Scale"
-            rules={[{ required: true, message: "Please select your answer!" }]}
-            {...layout}
-            name={fieldNames.GradeScaleTypeID}
-          >
-            <Select aria-label="Grade Scale">
-              {gradeScaleItems.map((x) => {
-                return (
-                  <Select.Option key={x.ID} value={x.ID}>
-                    {x.Name}
-                  </Select.Option>
-                )
-              })}
-            </Select>
-          </Form.Item>
+          <FormDropDown
+            labelColSpan={8}
+            wrapperColSpan={14}
+            label={"Grade Scale"}
+            ariaLabel={"Grade Scale Select"}
+            formInstance={form}
+            fieldName={fieldNames.GradeScaleTypeID}
+            refLookupService={getGradeScaleType}
+            displayKey="Name"
+            valueKey="ID"
+            rules={[{ required: true, message: "Please select grade scale!" }]}
+          />
 
-          <Form.Item
-            label="Transcript"
-            rules={[{ required: true, message: "Please select your answer!" }]}
-            {...layout}
-            name={fieldNames.TranscriptCreditTypeID}
-          >
-            <Select aria-label="Transcript">
-              {transcriptItems.map((x) => {
-                return (
-                  <Select.Option key={x.ID} value={x.ID}>
-                    {x.Name}
-                  </Select.Option>
-                )
-              })}
-            </Select>
-          </Form.Item>
+          <FormDropDown
+            labelColSpan={8}
+            wrapperColSpan={14}
+            label={"Transcript"}
+            ariaLabel={"Transcript Select"}
+            formInstance={form}
+            fieldName={fieldNames.TranscriptCreditTypeID}
+            refLookupService={getCreditType}
+            displayKey="Name"
+            valueKey="ID"
+            rules={[{ required: true, message: "Please select transcript!" }]}
+          />
 
-          <Form.Item className="hidden" name={fieldNames.CreationTime}>
-            <Input aria-label="Creation time" />
-          </Form.Item>
+          <FormDateTimePicker
+            labelColSpan={8}
+            wrapperColSpan={14}
+            label="Creation Time"
+            formInstance={form}
+            fieldName={fieldNames.CreationTime}
+            defaultValue={props.initialFormValue.CreationTime}
+          />
 
-          <Form.Item label="Creation Time" rules={[{ required: true, message: "Please pick the date!" }]} {...layout}>
-            <DatePicker
-              aria-label="Pick Creation Date"
-              placeholder={DATE_TIME_FORMAT}
-              format={DATE_TIME_FORMAT}
-              onChange={onCreationTimeChange}
-              defaultValue={creationTime ? moment(creationTime, REQUEST_DATE_TIME_FORMAT) : undefined}
-            />
-          </Form.Item>
-
-          <Form.Item className="hidden" name={fieldNames.TerminationTime}>
-            <Input aria-label="Termination time" />
-          </Form.Item>
-
-          <Form.Item
+          <FormDateTimePicker
+            labelColSpan={8}
+            wrapperColSpan={14}
             label="Termination Time"
-            rules={[{ required: true, message: "Please pick the date!" }]}
-            {...layout}
-          >
-            <DatePicker
-              aria-label="Pick Termination Date"
-              placeholder={DATE_TIME_FORMAT}
-              format={DATE_TIME_FORMAT}
-              onChange={onTerminationTimeChange}
-              defaultValue={terminationTime ? moment(terminationTime, REQUEST_DATE_TIME_FORMAT) : undefined}
-            />
-          </Form.Item>
+            formInstance={form}
+            fieldName={fieldNames.TerminationTime}
+            defaultValue={props.initialFormValue.TerminationTime}
+          />
 
-          <Form.Item className="hidden" name={fieldNames.StatusDate}>
-            <Input aria-label="Completion date" />
-          </Form.Item>
+          <FormDateTimePicker
+            labelColSpan={8}
+            wrapperColSpan={14}
+            label="Completion Date"
+            formInstance={form}
+            fieldName={fieldNames.StatusDate}
+            rules={[{ required: true, message: "Please enter completion date" }]}
+            defaultValue={props.initialFormValue.CompletionDate}
+          />
 
-          <Form.Item label="Effective Date" rules={[{ required: true, message: "Please pick the date!" }]} {...layout}>
-            <DatePicker
-              aria-label="Pick Effective Date"
-              placeholder={DATE_TIME_FORMAT}
-              format={DATE_TIME_FORMAT}
-              onChange={onEffectiveDateChange}
-              defaultValue={completionDate ? moment(completionDate, REQUEST_DATE_TIME_FORMAT) : undefined}
-            />
-          </Form.Item>
+          <FormMultipleRadio
+            labelColSpan={8}
+            wrapperColSpan={14}
+            formInstance={form}
+            label={"Repeat/Retake"}
+            ariaLabel={"Is Repeat/Retake"}
+            fieldName={fieldNames.IsRepeat}
+            options={[
+              { label: "Yes", value: true },
+              { label: "No", value: false }
+            ]}
+          />
 
-          <Form.Item label="Repeat/Retake" {...layout} valuePropName="checked" name={fieldNames.IsRepeat}>
-            <Switch aria-label="Repeat/Retake" />
-          </Form.Item>
-
-          <Form.Item
-            label="Complete status on termination"
-            {...layout}
-            valuePropName="checked"
-            name={fieldNames.IsCompleteOnTermination}
-          >
-            <Switch aria-label="Complete status on termination" />
-          </Form.Item>
+          <FormMultipleRadio
+            labelColSpan={8}
+            wrapperColSpan={14}
+            formInstance={form}
+            label={"Complete status on termination"}
+            ariaLabel={"Is complete status on termination"}
+            fieldName={fieldNames.IsCompleteOnTermination}
+            options={[
+              { label: "Yes", value: true },
+              { label: "No", value: false }
+            ]}
+          />
 
           <Form.Item
             label="Expected Attendance"

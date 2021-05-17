@@ -1,8 +1,6 @@
 import React from "react"
-import { Button, Dropdown } from "antd"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
-import { DownOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import PersonAccountMenu from "~/Component/Feature/Person/PersonAccountMenu"
@@ -20,13 +18,7 @@ export const getPersonAccountTableColumns = (): ITableConfigProp => {
     {
       title: "Action",
       key: "action",
-      render: (record: any) => (
-        <Dropdown overlay={<PersonAccountMenu initialData={record} />} trigger={["click"]}>
-          <Button type="primary" onClick={(e) => e.preventDefault()}>
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
-      )
+      render: (record: any) => <PersonAccountMenu initialData={record} />
     }
   ]
 

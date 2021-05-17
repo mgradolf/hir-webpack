@@ -1,9 +1,10 @@
 import React, { useState } from "react"
-import { Button, Menu } from "antd"
+import { Button } from "antd"
 import { eventBus } from "~/utils/EventBus"
-import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { PersonDegreeFormMeta } from "~/Component/Feature/Person/FormMeta/PersonDegreeFormMeta"
-import { removePersonEducationHistory, updatePersonEducationHistory } from "~/ApiServices/Service/PersonService"
+import { removePersonEducationHistory } from "~/ApiServices/Service/PersonService"
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
+import { PersonDegreeFormModal } from "~/Component/Feature/Person/Forms/PersonDegreeFormModal"
 
 interface IPersonEduMenu {
   PersonID: number
@@ -14,45 +15,35 @@ export default function PersonEduMenu(props: IPersonEduMenu) {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   return (
-    <Menu>
-      <Menu.Item key="0">
-        <Button
-          type="link"
-          onClick={() => {
-            setShowUpdateModal(true)
-          }}
-        >
-          Edit
-        </Button>
-        {showUpdateModal && (
-          <MetaDrivenFormModal
-            meta={PersonDegreeFormMeta}
-            metaName="PersonDegreeFormMeta"
-            title={"Update Degree"}
-            initialFormValue={props.initialData}
-            defaultFormValue={{
-              PersonID: props.initialData.PersonID,
-              EducationHistID: props.initialData.EducationHistID
-            }}
-            formSubmitApi={updatePersonEducationHistory}
-            refreshEventAfterFormSubmission={"REFRESH_EDUCATION_HISTORY_TAB"}
-            closeModal={() => setShowUpdateModal(false)}
-          />
-        )}
-      </Menu.Item>
-      <Menu.Item key="1">
-        <Button
-          type="link"
-          onClick={async () => {
-            const response = await removePersonEducationHistory({ EducationHistID: props.initialData.EducationHistID })
-            if (response && response.success) {
-              eventBus.publish("REFRESH_EDUCATION_HISTORY_TAB")
-            }
-          }}
-        >
-          Remove
-        </Button>
-      </Menu.Item>
-    </Menu>
+    <>
+      <Button
+        type="primary"
+        icon={<EditOutlined />}
+        shape="circle"
+        style={{ marginRight: "5px" }}
+        onClick={() => {
+          setShowUpdateModal(true)
+        }}
+      />
+      {showUpdateModal && (
+        <PersonDegreeFormModal initialData={props.initialData} closeModal={() => setShowUpdateModal(false)} />
+      )}
+      <Button
+        danger
+        type="primary"
+        icon={<DeleteOutlined />}
+        shape="circle"
+        onClick={() =>
+          showDeleteConfirm(() => {
+            return removePersonEducationHistory({ EducationHistID: props.initialData.EducationHistID }).then((x) => {
+              if (x.success) {
+                eventBus.publish("REFRESH_EDUCATION_HISTORY_TAB")
+              }
+              return x
+            })
+          })
+        }
+      />
+    </>
   )
 }

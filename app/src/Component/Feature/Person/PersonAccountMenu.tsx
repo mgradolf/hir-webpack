@@ -1,8 +1,10 @@
 import React, { useState } from "react"
-import { Button, Menu } from "antd"
+import { Button } from "antd"
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { eventBus } from "~/utils/EventBus"
 import { PersonAccountFormModal } from "~/Component/Feature/Person/Forms/PersonAccountFormModal"
 import { deleteAccountAffiliation } from "~/ApiServices/Service/AccountService"
+import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 
 interface IPersonAccountMenu {
   initialData: { [key: string]: any }
@@ -12,35 +14,37 @@ export default function PersonAccountMenu(props: IPersonAccountMenu) {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   return (
-    <Menu>
-      <Menu.Item key="0">
-        <Button
-          type="link"
-          onClick={() => {
-            setShowUpdateModal(true)
-          }}
-        >
-          Edit
-        </Button>
-        {showUpdateModal && (
-          <PersonAccountFormModal initialData={props.initialData} closeModal={() => setShowUpdateModal(false)} />
-        )}
-      </Menu.Item>
-      <Menu.Item key="1">
-        <Button
-          type="link"
-          onClick={async () => {
-            const response = await deleteAccountAffiliation({
+    <>
+      <Button
+        type="primary"
+        icon={<EditOutlined />}
+        shape="circle"
+        style={{ marginRight: "5px" }}
+        onClick={() => {
+          setShowUpdateModal(true)
+        }}
+      />
+      {showUpdateModal && (
+        <PersonAccountFormModal initialData={props.initialData} closeModal={() => setShowUpdateModal(false)} />
+      )}
+      <Button
+        danger
+        type="primary"
+        icon={<DeleteOutlined />}
+        shape="circle"
+        onClick={() =>
+          showDeleteConfirm(() => {
+            return deleteAccountAffiliation({
               AccountAffiliationID: props.initialData.AccountAffiliationID
+            }).then((x) => {
+              if (x.success) {
+                eventBus.publish("REFRESH_CONTACT_TAB")
+              }
+              return x
             })
-            if (response && response.success) {
-              eventBus.publish("REFRESH_CONTACT_TAB")
-            }
-          }}
-        >
-          Remove
-        </Button>
-      </Menu.Item>
-    </Menu>
+          })
+        }
+      />
+    </>
   )
 }

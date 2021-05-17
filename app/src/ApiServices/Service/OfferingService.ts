@@ -60,11 +60,11 @@ export function searchOfferingFinancial(
   return OfferingService[config.Actions.searchOfferingFinancial](Params, Headers)
 }
 
-export function getOfferngApprovalHist(
+export function getOfferingApprovalHist(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferngApprovalHist](Params, Headers)
+  return OfferingService[config.Actions.getOfferingApprovalHist](Params, Headers)
 }
 
 export function setApprovalStatus(
@@ -74,11 +74,11 @@ export function setApprovalStatus(
   return OfferingService[config.Actions.setApprovalStatus](Params, Headers)
 }
 
-export function getOfferngApprovalStateList(
+export function getOfferingApprovalStateList(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return OfferingService[config.Actions.getOfferngApprovalStateList](Params, Headers)
+  return OfferingService[config.Actions.getOfferingApprovalStateList](Params, Headers)
 }
 
 export function getOfferingApprovalSendToList(

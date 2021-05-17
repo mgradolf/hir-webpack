@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Button, message, Select } from "antd"
+import { Button, Col, Form, message, Row, Select } from "antd"
 import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
-import { UPDATE_FAILED, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { EditOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons"
 import { updateOffering } from "~/ApiServices/Service/OfferingService"
+import { UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import "~/Sass/utils.scss"
 
 interface IOfferingStatusFormProps {
@@ -20,11 +20,12 @@ const OfferingStatus = {
 }
 
 export function OfferingStatusForm(props: IOfferingStatusFormProps) {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [showUpdateStatus, setShowUpdateStatus] = useState<boolean>(false)
+  const [formInstance] = Form.useForm()
+  const [showForm, setShowForm] = useState<boolean>(false)
+  const [apiCallInProgress, setApiCallInProgress] = useState(false)
+
   const [offeringStatusTypes, setOfferingStatusTypes] = useState<Array<any>>([])
   const [disableStatus, setDisableStatus] = useState(false)
-  const [statusCodeID, setStatusCodeID] = useState<number>()
 
   const hasApprovalProcess = props.initialValue.HasApprovalProcess
   const offeringStatusCodeID = props.initialValue.OfferingStatusCodeID
@@ -44,19 +45,29 @@ export function OfferingStatusForm(props: IOfferingStatusFormProps) {
             break
           case OfferingStatus.AwaitingApproval:
           case OfferingStatus.Denied:
+          case OfferingStatus.Closed:
             setDisableStatus(true)
             break
           case OfferingStatus.Open:
-          case OfferingStatus.Closed:
             setDisableStatus(false)
             response.data = response.data.filter((x: any) => {
-              switch (x.StatusID) {
-                case OfferingStatus.Preliminary:
-                case OfferingStatus.Open:
-                case OfferingStatus.Closed:
-                  return true
-                default:
-                  return false
+              if (hasApprovalProcess) {
+                switch (x.StatusID) {
+                  case OfferingStatus.Preliminary:
+                  case OfferingStatus.Open:
+                  case OfferingStatus.Closed:
+                    return true
+                  default:
+                    return false
+                }
+              } else {
+                switch (x.StatusID) {
+                  case OfferingStatus.Open:
+                  case OfferingStatus.Closed:
+                    return true
+                  default:
+                    return false
+                }
               }
             })
         }
@@ -66,75 +77,74 @@ export function OfferingStatusForm(props: IOfferingStatusFormProps) {
     // eslint-disable-next-line
   }, [])
 
-  const handleStatus = (statusCodeID: number) => {
-    setStatusCodeID(statusCodeID)
-  }
-
   return (
-    <>
-      <Select
-        loading={loading}
-        aria-label="Offering Status Select"
-        defaultValue={props.initialValue.StatusCode}
-        onChange={handleStatus}
-        style={{ width: "250px" }}
-        disabled={disableStatus || !showUpdateStatus}
-      >
-        {offeringStatusTypes &&
-          offeringStatusTypes.map((x) => {
-            return (
-              <Select.Option key={x.StatusID} value={x.StatusID}>
-                {x.Name}
-              </Select.Option>
-            )
-          })}
-      </Select>
+    <Form form={formInstance} initialValues={props.initialValue}>
+      <Row gutter={8} style={{ height: "30px" }}>
+        <Col flex="auto">
+          <Form.Item name="OfferingStatusCodeID">
+            <Select aria-label="Offering Status Select" disabled={disableStatus || !showForm}>
+              {offeringStatusTypes &&
+                offeringStatusTypes.map((x) => {
+                  return (
+                    <Select.Option key={x.StatusID} value={x.StatusID}>
+                      {x.Name}
+                    </Select.Option>
+                  )
+                })}
+            </Select>
+          </Form.Item>
+        </Col>
+        {!showForm && (
+          <Col flex="20px">
+            <Button
+              disabled={disableStatus}
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => setShowForm(true)}
+            />
+          </Col>
+        )}
+        {showForm && (
+          <Col flex="20px">
+            <Button
+              ghost
+              type="primary"
+              shape="circle"
+              loading={apiCallInProgress}
+              icon={<CheckOutlined />}
+              onClick={() => {
+                setApiCallInProgress(true)
+                updateOffering({ OfferingID: props.initialValue.OfferingID, ...formInstance.getFieldsValue() }).then(
+                  (x) => {
+                    if (x.success) {
+                      message.success(UPDATE_SUCCESSFULLY)
+                      setShowForm(false)
+                      eventBus.publish(REFRESH_PAGE)
+                    }
+                    setApiCallInProgress(false)
+                  }
+                )
+              }}
+            />
+          </Col>
+        )}
 
-      {!showUpdateStatus && (
-        <Button
-          type="primary"
-          shape="circle"
-          icon={<EditOutlined />}
-          style={{ float: "right" }}
-          onClick={() => setShowUpdateStatus && setShowUpdateStatus(!showUpdateStatus)}
-        />
-      )}
-      {showUpdateStatus && (
-        <>
-          <Button
-            danger
-            type="primary"
-            shape="circle"
-            icon={<CloseOutlined />}
-            style={{ float: "right", marginLeft: "5px" }}
-            onClick={() => setShowUpdateStatus && setShowUpdateStatus(!showUpdateStatus)}
-          />
-          <Button
-            ghost
-            type="primary"
-            shape="circle"
-            icon={<CheckOutlined />}
-            style={{ float: "right" }}
-            onClick={() => {
-              const params = props.initialValue
-              params["OfferingStatusCodeID"] = statusCodeID
-              console.log("params: ", params)
-
-              setLoading(true)
-              updateOffering(params).then((x) => {
-                if (x && x.success) {
-                  message.success(UPDATE_SUCCESSFULLY)
-                  eventBus.publish(REFRESH_PAGE)
-                } else {
-                  message.error(UPDATE_FAILED)
-                  setShowUpdateStatus(false)
-                }
-                setLoading(false)
-              })
-            }}
-          />
-        </>
-      )}
-    </>
+        {showForm && (
+          <Col flex="20px">
+            <Button
+              danger
+              type="default"
+              shape="circle"
+              icon={<CloseOutlined />}
+              onClick={() => {
+                formInstance.resetFields()
+                setShowForm(false)
+              }}
+            />
+          </Col>
+        )}
+      </Row>
+    </Form>
   )
 }

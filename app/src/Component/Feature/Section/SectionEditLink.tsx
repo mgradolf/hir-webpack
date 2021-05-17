@@ -10,6 +10,7 @@ import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 interface ISectionEditLinkProp {
   initialValues: { [key: string]: any }
   component: React.FunctionComponent<any>
+  tooltip: string
 }
 
 export function SectionEditLink(props: ISectionEditLinkProp) {
@@ -55,7 +56,7 @@ export function SectionEditLink(props: ISectionEditLinkProp) {
       apiCallInProgress={apiCallInProgress}
       loading={loading}
       iconType="edit"
-      buttonLabel="Update Offering"
+      buttonLabel={props.tooltip}
       errorMessages={errorMessages}
       buttonProps={{ type: "primary", shape: "circle", icon: <EditOutlined /> }}
     />

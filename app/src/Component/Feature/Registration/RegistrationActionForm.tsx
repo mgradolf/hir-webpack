@@ -113,7 +113,7 @@ export default function RegistrationActionForm(props: IRegistrationFormProps) {
     setErrorMessages([])
     const response = await serviceMethoToCall(params)
     if (response && response.success) {
-      setRedirectAfterRemove(`/section/${props.initialFormValue.SectionID}/registration`)
+      setRedirectAfterRemove(`/registration?SectionID=${props.initialFormValue.SectionID}`)
     } else {
       setErrorMessages(response.error)
       console.log(response.error)

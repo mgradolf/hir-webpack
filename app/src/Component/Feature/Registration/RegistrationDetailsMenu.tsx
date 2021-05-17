@@ -15,6 +15,8 @@ export default function RegistrationDetailsMenu(props: IRegistrationDetailsMenuP
   const [showRegistrationDetails, setShowRegistrationDetails] = useState<boolean>(false)
   const [showRegistrationActions, setShowRegistrationActions] = useState<boolean>(false)
 
+  const disableActions = props.dataLoaded.EnrollmentStatus === "Dropped"
+
   const sendEmailConfirmation = async (StudentID: number, SeatGroupID: number) => {
     if (props.dataLoaded) {
       setLoading(true)
@@ -69,7 +71,7 @@ export default function RegistrationDetailsMenu(props: IRegistrationDetailsMenuP
   }
 
   return (
-    <Dropdown.Button overlay={getMenu(props.dataLoaded)} type="primary">
+    <Dropdown.Button overlay={getMenu(props.dataLoaded)} disabled={disableActions} type="primary">
       Updates
     </Dropdown.Button>
   )

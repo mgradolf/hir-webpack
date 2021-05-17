@@ -18,7 +18,13 @@ export default function OfferingApprovalModalOpenButton(props: ICreateActionButt
           Manage Approval
         </Button>
       )}
-      {showModal && <OfferingApprovalFormModal offeringID={props.offeringId} closeModal={() => setShowModal(false)} />}
+      {showModal && (
+        <OfferingApprovalFormModal
+          statusCode={props.statusCode}
+          offeringID={props.offeringId}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
     </>
   )
 }

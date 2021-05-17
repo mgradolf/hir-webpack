@@ -65,7 +65,6 @@ export function LookupOpenButton(props: ILookupOpenButton) {
     setLoading(true)
     props.searchFunc({ [props.searchFieldName || props.displayKey]: searchInput }).then((x) => {
       if (x.success) {
-        console.log(x.data)
         setOptions(x.data)
       }
       setLoading(false)
@@ -116,6 +115,10 @@ export function LookupOpenButton(props: ILookupOpenButton) {
                 const __ = options.find((x) => x[props.valueKey] === value)
                 props.onSelectedItems([__])
               }
+              // const data = options.filter((x: any) => x[props.valueKey] === value)
+              // props.onSelectedItems(data)
+              //if (Array.isArray(value)) props.onSelectedItems(value)
+              //else props.onSelectedItems([value])
             }
           }}
           onSearch={debounce((_searchKey) => {

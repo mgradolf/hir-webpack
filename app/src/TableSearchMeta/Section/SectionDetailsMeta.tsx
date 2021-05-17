@@ -40,7 +40,6 @@ import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDriv
 import { SectionGradesCreditsFormMeta } from "~/Component/Feature/Section/FormMeta/SectionGradesCreditsFormMeta"
 import { updateSection } from "~/ApiServices/Service/SectionService"
 import { REFRESH_PAGE } from "~/utils/EventBus"
-import { EditOutlined } from "@ant-design/icons"
 import { SectionRefundEnquiryForm } from "~/Component/Feature/Section/Forms/SectionRefundEnquiryForm"
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { getPaymentGatewayAccounts, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
@@ -53,7 +52,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const sectionInfo: CardContainer = {
     title: "Basic Info",
     cardActions: [
-      <SectionEditLink initialValues={section} component={BasicInfoForm} />,
+      <SectionEditLink tooltip="Update Basic Info" initialValues={section} component={BasicInfoForm} />,
       <SectionRemoveButton Section={section} />
     ],
     contents: [
@@ -107,7 +106,9 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
   const enrollmentInfo: CardContainer = {
     title: "Enrollment",
-    cardActions: [<SectionEditLink initialValues={section} component={SectionEnrollmentForm} />],
+    cardActions: [
+      <SectionEditLink tooltip="Update Entollment" initialValues={section} component={SectionEnrollmentForm} />
+    ],
     contents: [
       { label: "Current Enrollment", value: section.TotalEnrolledSeats, render: undefined },
       { label: "Minimum Enrollment", value: section.MinEnrollment, render: undefined },
@@ -130,8 +131,8 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         initialFormValue={{
           ...section
         }}
-        buttonLabel=""
-        buttonProps={{ icon: <EditOutlined />, shape: "circle", type: "primary" }}
+        buttonLabel={`Update Grades & Credits`}
+        iconType="edit"
         defaultFormValue={{
           SectionID: section.SectionID
         }}
@@ -151,8 +152,14 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const refundInfo: CardContainer = {
-    title: "Section Redunf and Inquiry",
-    cardActions: [<SectionEditLink initialValues={section} component={SectionRefundEnquiryForm} />],
+    title: "Section Refund and Inquiry",
+    cardActions: [
+      <SectionEditLink
+        tooltip={`Update Refund & Inquiry`}
+        initialValues={section}
+        component={SectionRefundEnquiryForm}
+      />
+    ],
     contents: [
       { label: "Refund Policy", value: section.RefundPolicyTypeName, render: undefined },
       { label: "Inquiry Recipient", value: section.SubmitInquiryToName, render: undefined }
