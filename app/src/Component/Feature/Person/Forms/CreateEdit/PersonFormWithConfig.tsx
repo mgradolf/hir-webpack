@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Row, Col, message } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { IPersonFieldNames } from "~/Component/Feature/Person/Interfaces"
-import { canPushPerson, createPersonRecordInRoles } from "~/ApiServices/Service/PersonService"
+import { canPushPerson, createPersonRecordInRoles, pushPerson } from "~/ApiServices/Service/PersonService"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { FormMultipleCheckbox } from "~/Component/Common/Form/FormMultipleCheckbox"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
@@ -14,11 +14,8 @@ import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingP
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
 import { showConfirm } from "~/Component/Common/Modal/Confirmation"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
-
-interface IPersonFormProps {
-  editMode: boolean
-  formInstance: FormInstance
-}
+import { ButtonType } from "antd/lib/button"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 const layout = {
   labelCol: { span: 8 },
@@ -47,21 +44,30 @@ const fieldNames: IPersonFieldNames = {
   CountryCodeID: "CountryCodeID"
 }
 
-function PersonForm(props: IPersonFormProps) {
+function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Roles?: number[] }) {
   const [defaultCountryCodeID, setdefaultCountryCodeID] = useState()
   const [addressline1Required, setAddressline1Required] = useState(false)
+  const [telephoneIsRequired, setTelephoneIsRequired] = useState(false)
   const PersonformConfig: IPersonFieldNames = CustomFormConfigHook(
     fieldNames,
     "PersonFormWithConfig"
   ) as IPersonFieldNames
 
   useEffect(() => {
+    if (props.Roles && props.Roles.includes(3)) {
+      // 3 means Purchase is selected, so address line 1 is required now
+      setAddressline1Required(true)
+      setTelephoneIsRequired(true)
+    } else {
+      setTelephoneIsRequired(false)
+      setAddressline1Required(false)
+    }
     findDefaultCountry().then((result) => {
       if (result.success && result.data) {
         setdefaultCountryCodeID(result.data.CountryID)
       }
     })
-  }, [])
+  }, [props.Roles])
   return (
     <>
       <Row>
@@ -72,9 +78,11 @@ function PersonForm(props: IPersonFormProps) {
             options={rolesOption}
             onChangeCallback={(items: number[]) => {
               if (items.includes(3)) {
-                // 3 means instructor is selected, so address line 1 is required now
+                // 3 means Purchase is selected, so address line 1 is required now
                 setAddressline1Required(true)
+                setTelephoneIsRequired(true)
               } else {
+                setTelephoneIsRequired(false)
                 setAddressline1Required(false)
               }
             }}
@@ -131,6 +139,9 @@ function PersonForm(props: IPersonFormProps) {
             label={"Telephone"}
             ariaLabel={"Telephone"}
             fieldName="TelephoneNumber"
+            {...(telephoneIsRequired && {
+              rules: [{ required: true, message: "Please enter Telephone Number!" }]
+            })}
             {...PersonformConfig.TelephoneNumber}
           />
         </Col>
@@ -201,73 +212,96 @@ export function PersonFormOpenButton(props: {
   initialValues?: { [key: string]: any }
   label?: string
   buttonIcon?: iconType
+  buttonType?: ButtonType
   helpKey?: string
+  onSubmit?: (Params: IApiResponse) => void
 }) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
 
   const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       const params = formInstance.getFieldsValue()
+      const createPerson = (): any =>
+        createPersonRecordInRoles(params).then((response) => {
+          setApiCallInProgress(false)
+          if (response && response.success) {
+            formInstance.resetFields()
+            closeModal()
+          } else {
+            console.log("validation failed ", response.error)
+            setErrorMessages(response.error)
+          }
+          props.onSubmit && props.onSubmit(response)
+          return response
+        })
       setErrorMessages([])
       setApiCallInProgress(true)
-      canPushPerson(params).then((response) => {
-        console.log("Response:", response)
-        setApiCallInProgress(false)
-        if (response && response.success) {
-          if (response.data.IsDuplicate) {
-            showConfirm(() => {
-              setApiCallInProgress(true)
-              return createPersonRecordInRoles(params).then((response) => {
-                console.log("validation passed ", response)
-                setApiCallInProgress(false)
-                if (response && response.success) {
-                  formInstance.resetFields()
-                  closeModal()
-                } else {
-                  console.log("validation failed ", response.error)
-                  setErrorMessages(response.error)
-                }
-                return response
-              })
-            })
+      if (props.initialValues && Object.keys(props.initialValues).length > 2)
+        pushPerson(params).then((response) => {
+          setApiCallInProgress(false)
+          if (response && response.success) {
+            formInstance.resetFields()
+            closeModal()
           } else {
-            setApiCallInProgress(true)
-            createPersonRecordInRoles(params)
-              .then((response) => {
-                console.log("validation passed ", response)
-                setApiCallInProgress(false)
-                if (response && response.success) {
-                  message.success(CREATE_SUCCESSFULLY)
-                  formInstance.resetFields()
-                  closeModal()
-                } else {
-                  console.log("validation failed ", response.error)
-                  setErrorMessages(response.error)
-                }
-              })
-              .catch((y) => console.error(y))
+            console.log("validation failed ", response.error)
+            setErrorMessages(response.error)
           }
-        }
-      })
+          props.onSubmit && props.onSubmit(response)
+          return response
+        })
+      else
+        canPushPerson(params).then((response) => {
+          console.log("Response:", response)
+          setApiCallInProgress(false)
+          if (response && response.success) {
+            if (response.data.IsDuplicate) {
+              showConfirm(() => {
+                setApiCallInProgress(true)
+                return createPerson()
+              })
+            } else {
+              setApiCallInProgress(true)
+              createPersonRecordInRoles(params)
+                .then((response) => {
+                  console.log("validation passed ", response)
+                  setApiCallInProgress(false)
+                  if (response && response.success) {
+                    message.success(CREATE_SUCCESSFULLY)
+                    formInstance.resetFields()
+                    closeModal()
+                  } else {
+                    console.log("validation failed ", response.error)
+                    setErrorMessages(response.error)
+                  }
+                })
+                .catch((y) => console.error(y))
+            }
+          }
+        })
     })
   }
   return (
     <CustomFormModalOpenButton
       formTitle={props.label ? props.label : "Create Person"}
       helpKey={props.helpKey}
-      customForm={<PersonForm editMode={false} formInstance={formInstance} />}
+      customForm={
+        <PersonForm
+          Roles={props.initialValues && props.initialValues.Roles}
+          editMode={false}
+          formInstance={formInstance}
+        />
+      }
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}
-      initialValues={initialValues}
+      initialValues={props.initialValues || {}}
       apiCallInProgress={apiCallInProgress}
       loading={loading}
       errorMessages={errorMessages}
-      buttonLabel={`+ ${props.label ? props.label : "Create Person"}`}
-      buttonProps={{ type: "primary" }}
+      buttonLabel={`${props.label ? props.label : "+ Create Person"}`}
+      buttonProps={{ type: props.buttonType ? props.buttonType : "primary" }}
       iconType={props.buttonIcon}
     />
   )

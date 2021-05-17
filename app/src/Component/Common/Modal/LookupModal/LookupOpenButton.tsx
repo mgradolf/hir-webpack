@@ -74,6 +74,7 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   const toRender = (
     <>
       <SearchFieldWrapper
+        help={props.help}
         fieldName={props.fieldName}
         label={props.label}
         rules={props.rules}

@@ -21,3 +21,10 @@ export function getPaymentTypes(
 ): Promise<IApiResponse> {
   return PaymentIF[config.Actions.getPaymentTypes]([Params], Headers)
 }
+
+export function generatePaymentAllocation(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentIF[config.Actions.generatePaymentAllocation]([Params], Headers)
+}

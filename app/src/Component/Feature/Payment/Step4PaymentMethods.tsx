@@ -2,14 +2,17 @@ import { Button, message, Row } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import React, { useState } from "react"
 import { getPaymentTypes } from "~/ApiServices/BizApi/payment/paymentIF"
-import { launchRequestWithExternalPayment } from "~/ApiServices/Service/RequestService"
+import { launchRequest, launchRequestWithExternalPayment } from "~/ApiServices/Service/RequestService"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
-import { getAdjustFromCashPaymentRequestObject } from "~/Component/Feature/Payment/PaymentObjectFactory/AdjustFromCash"
 import { getExternalPaymentRequestObject } from "~/Component/Feature/Payment/PaymentObjectFactory/ExternalPayment"
 import { AdjustFromCashAccount } from "~/Component/Feature/Payment/Step4PaymentMethods/AdjustFromCashAccount"
 import { ExternalPayment } from "~/Component/Feature/Payment/Step4PaymentMethods/ExternalPayment"
 import { GiftOrCash } from "~/Component/Feature/Payment/Step4PaymentMethods/GiftOrCash"
 import { SavingsOrChecks } from "~/Component/Feature/Payment/Step4PaymentMethods/SavingsOrChecks"
+import { getAdjustFromCashPaymentRequestObject } from "~/Component/Feature/Payment/PaymentObjectFactory/AdjustFromCash"
+import { getGiftOrCashPaymentRequestObject } from "~/Component/Feature/Payment/PaymentObjectFactory/GiftOrCash"
+import { getSavingsOrCheckPaymentRequestObject } from "./PaymentObjectFactory/SavingsOrCheck"
+import { Redirect } from "react-router-dom"
 
 export const Step4PaymentMethods = (props: {
   selectedPayment?: { [key: string]: any }
@@ -20,9 +23,12 @@ export const Step4PaymentMethods = (props: {
   allocatedItems: any[]
   PersonFormInstance: FormInstance
   PaymentFormInstance: FormInstance
+  totalBalance: number
+  totalPayment: number
 }) => {
   const [paymentMethods, setPaymentMethods] = useState([])
   const [depositItems, setDepositItems] = useState<any[]>([])
+  const [redirectTo, setRedirectTo] = useState<string>()
   return (
     <>
       <Form form={props.formInstance}>
@@ -81,26 +87,27 @@ export const Step4PaymentMethods = (props: {
               switch (props.selectedPayment.PaymentTypeID) {
                 case 13:
                   console.log("depositItems ", depositItems)
-                  methodToGetPaymentRequestObject = getAdjustFromCashPaymentRequestObject({
-                    ...props,
-                    depositItems: depositItems
-                  })
+                  if (!depositItems) message.warning("Select Deposit")
+                  else
+                    methodToGetPaymentRequestObject = getAdjustFromCashPaymentRequestObject({
+                      ...props,
+                      depositItems: depositItems
+                    })
                   break
                 case 11:
-                  methodToGetPaymentRequestObject = null
+                  methodToGetPaymentRequestObject = getGiftOrCashPaymentRequestObject(props)
                   break
                 case 4:
-                  methodToGetPaymentRequestObject = null
+                  methodToGetPaymentRequestObject = getGiftOrCashPaymentRequestObject(props)
                   break
                 case 1:
-                  methodToGetPaymentRequestObject = null
+                  methodToGetPaymentRequestObject = getSavingsOrCheckPaymentRequestObject(props)
                   break
                 case 0:
-                  methodToGetPaymentRequestObject = null
+                  methodToGetPaymentRequestObject = getSavingsOrCheckPaymentRequestObject(props)
                   break
                 case 7:
-                  if (!depositItems) message.warning("Select Deposit")
-                  else methodToGetPaymentRequestObject = getExternalPaymentRequestObject(props)
+                  methodToGetPaymentRequestObject = getExternalPaymentRequestObject(props)
                   break
               }
 
@@ -108,16 +115,23 @@ export const Step4PaymentMethods = (props: {
               methodToGetPaymentRequestObject
                 .then((requestObject) => {
                   console.log(requestObject)
-                  if (requestObject) return launchRequestWithExternalPayment(requestObject)
+                  if (requestObject)
+                    return props.selectedPayment && props.selectedPayment.PaymentTypeID === 7
+                      ? launchRequestWithExternalPayment(requestObject)
+                      : launchRequest(requestObject)
                 })
-                .then((x) => {
-                  console.log(x)
+                .then((response) => {
+                  if (response && response.success) setRedirectTo(`/payment-success`)
+                  else {
+                    message.error("Something went wrong! Payment is not successful")
+                  }
                 })
           }}
           style={{ marginBottom: "10px" }}
         >
           Submit
         </Button>
+        {redirectTo && <Redirect to={redirectTo} />}
       </Row>
     </>
   )

@@ -1,13 +1,12 @@
+import React from "react"
 import { Form } from "antd"
 import { FormInstance } from "antd/lib/form"
-import React from "react"
-
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 
 export const SavingsOrChecks = (props: { formInstance: FormInstance }) => {
   return (
-    <Form>
+    <Form form={props.formInstance}>
       <FormInput
         formInstance={props.formInstance}
         label="Check Number"

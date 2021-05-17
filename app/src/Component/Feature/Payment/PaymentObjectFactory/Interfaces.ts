@@ -101,6 +101,7 @@ interface ICash extends IRequestData {
   PaymentType: any
   SourceID: any
   EmailReceipt: any
+  PurchaserPersonID?: any
 }
 
 interface ISaving extends IRequestData {
@@ -142,4 +143,5 @@ export interface IRequestObject {
   RequestComponentName: any
   PaymentGatewayAccountID?: any
   TotalPaymentAmount?: any
+  PurchaserPersonID?: any
 }

@@ -7,7 +7,8 @@ export const config = {
   Actions: {
     searchPayment: "searchPayment",
     searchCreditMemo: "searchCreditMemo",
-    getPaymentTypes: "getPaymentTypes"
+    getPaymentTypes: "getPaymentTypes",
+    generatePaymentAllocation: "generatePaymentAllocation"
   }
 }
 

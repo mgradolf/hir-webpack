@@ -11,13 +11,15 @@ export const getExternalPaymentRequestObject = async (props: {
   allocatedItems: any[]
   PersonFormInstance: FormInstance
   PaymentFormInstance: FormInstance
+  totalBalance: number
+  totalPayment: number
 }) => {
   const person = await props.PersonFormInstance.validateFields()
-  const payerExist = person && Array.isArray(props.selectedPayer) && props.selectedPayer.length > 0
+  const payerExist = person && props.selectedPayer
   if (!payerExist) return
   const allocatedItemsExist = props.allocatedItems && props.allocatedItems.length > 0
   if (!allocatedItemsExist) message.warning("Please Select Order Items")
-  const balance = allocatedItemsExist ? props.selectedOrderItems.reduce((acc, curr) => acc + curr.Balance, 0) : 0
+  // const balance = allocatedItemsExist ? props.selectedOrderItems.reduce((acc, curr) => acc + curr.Balance, 0) : 0
 
   const __ = await props.PaymentFormInstance.validateFields()
   let requestObject: IRequestObject
@@ -25,11 +27,11 @@ export const getExternalPaymentRequestObject = async (props: {
     requestObject = {
       ExpirationDate: __.ExpirationDate,
       RequestData: {
-        ...props.selectedPayer[0],
+        ...props.selectedPayer,
         PaymentNotes: __.PaymentNotes,
         Allocation: props.allocatedItems,
-        PurchaseOrderAmount: balance,
-        TotalPaymentAmount: balance,
+        PurchaseOrderAmount: props.totalBalance,
+        TotalPaymentAmount: props.totalPayment,
         PaymentTypeID: props.selectedPayment.PaymentTypeID,
         SuccessPath: "admin_success",
         FailurePath: "admin_failed",
@@ -44,7 +46,7 @@ export const getExternalPaymentRequestObject = async (props: {
       },
       RequestComponentName: "PaymentOnly",
       PaymentGatewayAccountID: 12,
-      TotalPaymentAmount: balance
+      TotalPaymentAmount: props.totalPayment
     }
     return requestObject
   }

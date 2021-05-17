@@ -8,9 +8,12 @@ import { Step4PaymentMethods } from "~/Component/Feature/Payment/Step4PaymentMet
 
 export default function PaymentDetailsPage(props: RouteComponentProps<{ OrederID?: string; PersonID?: string }>) {
   const [selectedPayer, setSelectedPayer] = useState<{ [key: string]: any }>()
+  const [defaultPersonID, setDefaultPersonID] = useState<number | undefined>()
   const [selectedOrderItems, setSelectedOrderItems] = useState<any[]>([])
   const [allocatedItems, setAllocatedItems] = useState<any[]>([])
   const [selectedPayment, setSelectedPayment] = useState<{ [key: string]: any }>()
+  const [totalBalance, setTotalBalance] = useState(0)
+  const [totalPayment, setTotalPayment] = useState(0)
 
   const [PersonFormInstance] = Form.useForm()
   const [PaymentFormInstance] = Form.useForm()
@@ -19,13 +22,26 @@ export default function PaymentDetailsPage(props: RouteComponentProps<{ OrederID
       <div style={{ backgroundColor: "white", padding: "10px" }}>
         <Row justify="center">
           <Col span={18}>
-            <Step1SelectPayer setSelectedPayer={setSelectedPayer} formInstance={PersonFormInstance} />
+            <Step1SelectPayer
+              defaultPersonID={defaultPersonID}
+              selectedPayer={selectedPayer}
+              setSelectedPayer={setSelectedPayer}
+              formInstance={PersonFormInstance}
+            />
           </Col>
         </Row>
         <Row justify="center">
           <Col span={18}>
             <Step2SelectOrderItems
-              // selectedOrderItems={selectedOrderItems}
+              PersonFormInstance={PersonFormInstance}
+              setSelectedPayer={setSelectedPayer}
+              setDefaultPersonID={setDefaultPersonID}
+              allocatedItems={allocatedItems}
+              selectedOrderItems={selectedOrderItems}
+              totalBalance={totalBalance}
+              setTotalBalance={setTotalBalance}
+              totalPayment={totalPayment}
+              setTotalPayment={setTotalPayment}
               setSelectedOrderItems={setSelectedOrderItems}
               setAllocatedItems={setAllocatedItems}
               {...(selectedPayer && { PersonID: selectedPayer.PersonID })}
@@ -46,6 +62,8 @@ export default function PaymentDetailsPage(props: RouteComponentProps<{ OrederID
               allocatedItems={allocatedItems}
               PersonFormInstance={PersonFormInstance}
               PaymentFormInstance={PaymentFormInstance}
+              totalBalance={totalBalance}
+              totalPayment={totalPayment}
             />
           </Col>
         </Row>

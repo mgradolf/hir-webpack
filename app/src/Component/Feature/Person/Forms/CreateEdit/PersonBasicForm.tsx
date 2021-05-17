@@ -53,7 +53,6 @@ export default function PersonBasicForm(props: IPersonFormProps) {
     setErrorMessages([])
     props.setApiCallInProgress(true)
     const response = await serviceMethoToCall(params)
-    console.log(response)
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
