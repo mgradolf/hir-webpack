@@ -65,6 +65,7 @@ function ProgramForm(props: IProgramFormProps) {
             disabled: !!props?.initialValue?.ProgramOfferingID
           })}
           label="Program Offering"
+          rules={[{ required: true, message: "Please select program offering!" }]}
           onSelectedItems={(items: any[]) => {
             if (items && items.length > 0) {
               const offeringiD = typeof items[0] === "number" ? items[0] : items[0].ProgramOfferingID
@@ -113,9 +114,10 @@ function ProgramForm(props: IProgramFormProps) {
           label={"Contact Person"}
           ariaLabel={"Contact Person"}
           refLookupService={() => findAllUsers({})}
-          displayKey="erpid"
+          displayKey="name"
           valueKey="erpid"
           fieldName={fieldNames.AdminUserID}
+          rules={[{ required: true, message: "Please select contact person!" }]}
           {...ProgramFormConfig[fieldNames.AdminUserID]}
         />
 
@@ -199,6 +201,7 @@ export function ProgramFormOpenButton(props: {
   const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       setErrorMessages([])
+      setApiCallInProgress(true)
       saveProgramWithEvent({ ...x, ProgramID: props.ProgramID })
         .then((response) => {
           setApiCallInProgress(false)

@@ -1,6 +1,6 @@
 import { Col, Row } from "antd"
 import { FormInstance } from "antd/lib/form"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 
@@ -30,11 +30,17 @@ const fieldNames: IFieldNames = {
 
 interface ISectionCopyForm {
   SectionID: number
+  initialData: { [key: string]: any }
   formInstance: FormInstance
 }
 
 export default function SectionCopyForm(props: ISectionCopyForm) {
-  const [disableScheduleGroup, setDisableScheduleGroup] = useState(true)
+  const [disableScheduleGroup, setDisableScheduleGroup] = useState<boolean>(false)
+  const [disableDiscount, setDisableDiscount] = useState<boolean>(false)
+
+  useEffect(() => {
+    setDisableScheduleGroup(props.initialData.StartDate === null)
+  }, [props])
 
   return (
     <Row>
@@ -45,6 +51,7 @@ export default function SectionCopyForm(props: ISectionCopyForm) {
           formInstance={props.formInstance}
           label={"Schedule"}
           ariaLabel={"Schedule"}
+          disabled={props.initialData.StartDate === null}
           fieldName={fieldNames.Schedule}
           onChangeCallback={(isChecked) => {
             setDisableScheduleGroup(!isChecked)
@@ -109,6 +116,7 @@ export default function SectionCopyForm(props: ISectionCopyForm) {
           disabled={disableScheduleGroup}
           formInstance={props.formInstance}
           fieldName={fieldNames.StartDate}
+          defaultValue={props.initialData.StartDate}
           placeholder="MM/DD/YYYY"
         />
 
@@ -119,6 +127,9 @@ export default function SectionCopyForm(props: ISectionCopyForm) {
           label={"Financials"}
           ariaLabel={"Financials"}
           fieldName={fieldNames.Financials}
+          onChangeCallback={(isChecked) => {
+            setDisableDiscount(!isChecked)
+          }}
           options={[
             { label: "Yes", value: true },
             { label: "No", value: false }
@@ -130,6 +141,7 @@ export default function SectionCopyForm(props: ISectionCopyForm) {
           formInstance={props.formInstance}
           label={"Discount"}
           ariaLabel={"Discount"}
+          disabled={disableDiscount}
           fieldName={fieldNames.Discount}
           options={[
             { label: "Yes", value: true },

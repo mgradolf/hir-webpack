@@ -29,8 +29,7 @@ export const StudentHoldFormMeta: IField[] = [
   {
     label: "Release Date",
     inputType: DATE_PICKER,
-    fieldName: "ReleaseDate",
-    rules: [{ required: true, message: "Pick the release date!" }]
+    fieldName: "ReleaseDate"
   },
   {
     label: "Notes",

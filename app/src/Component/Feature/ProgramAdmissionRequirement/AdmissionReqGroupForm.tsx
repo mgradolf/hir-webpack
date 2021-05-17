@@ -43,6 +43,9 @@ export default function AdmissionReqGroupForm(props: IAdmissionReqGroupFormProps
     await props.formInstance.validateFields()
     const params = props.formInstance.getFieldsValue()
 
+    if (params["MinMeet"] === undefined) {
+      params["MinMeet"] = 0
+    }
     const serviceMethoToCall: (params: {
       [key: string]: any
     }) => Promise<IApiResponse> = saveOrUpdateAdmissionRequirementGroups

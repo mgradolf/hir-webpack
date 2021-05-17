@@ -147,7 +147,11 @@ export default class ProcessedApiError implements IProcessedApiError {
     if (error.Context && Array.isArray(error.Context.MessageKeys)) {
       return { message: error.Context.MessageKeys.map((x) => `- ${x} \n`).toString() }
     } else if (error.Description) {
-      return { message: error.Description }
+      let msg = error.Description
+      if (msg.includes("net.jenzabar.util.ReasonException: ")) {
+        msg = msg.replace("net.jenzabar.util.ReasonException: ", "")
+      }
+      return { message: msg }
     }
     return undefined
   }

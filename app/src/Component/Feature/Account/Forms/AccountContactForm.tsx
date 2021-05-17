@@ -337,7 +337,6 @@ export function AccountContactFormOpenButton(props: {
       errorMessages={errorMessages}
       buttonLabel={""}
       buttonProps={{ type: "primary", icon: props.editMode ? <EditOutlined /> : <PlusOutlined />, shape: "circle" }}
-      disabled={props.initialValues.PrimaryAccountAffiliation}
     />
   )
 }

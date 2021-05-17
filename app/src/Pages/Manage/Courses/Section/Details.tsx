@@ -5,6 +5,7 @@ import { getSectionDetails, getSectionStatistics } from "~/ApiServices/Service/S
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
 import { SectionCopyModal } from "~/Component/Feature/Section/Copy/SectionCopyModal"
 import { getSectionDetailsMeta } from "~/TableSearchMeta/Section/SectionDetailsMeta"
+import { CopyOutlined } from "@ant-design/icons"
 
 export default function SectionDetailsPage(props: RouteComponentProps<{ sectionID?: string; offeringID?: string }>) {
   const [showModal, setShowModal] = useState(false)
@@ -40,9 +41,7 @@ export default function SectionDetailsPage(props: RouteComponentProps<{ sectionI
       titleKey="SectionNumber"
       actions={[
         <>
-          <Button type="primary" onClick={() => setShowModal(true)}>
-            Copy
-          </Button>
+          <Button icon={<CopyOutlined />} shape="circle" type="primary" onClick={() => setShowModal(true)} />
           {showModal && <SectionCopyModal closeModal={() => setShowModal(false)} SectionID={SectionID} />}
         </>
       ]}

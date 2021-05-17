@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { Button, Card, Col, Form, message, Row } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
-import { copySection } from "~/ApiServices/Service/SectionService"
+import { copySection, getSectionDetails } from "~/ApiServices/Service/SectionService"
 import SectionCopyForm from "~/Component/Feature/Section/Copy/SectionCopyForm"
 import { COPPIED_SUCCESSFULLY } from "~/utils/Constants"
 import { Redirect } from "react-router"
@@ -15,10 +15,28 @@ interface IQuestionModal {
 }
 
 export function SectionCopyModal(props: IQuestionModal) {
-  const [apiCallInProgress, setapiCallInProgress] = useState(false)
+  const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [redirectAfterCopy, setRedirectAfterCopy] = useState<string>()
+  const [sectionDetails, setSectionDetail] = useState<{ [key: string]: any }>({})
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [formInstance] = Form.useForm()
+
+  useEffect(() => {
+    ;(async function () {
+      setApiCallInProgress(true)
+      const result = await getSectionDetails({ SectionID: props.SectionID })
+      if (result && result.success) {
+        setSectionDetail(result.data)
+        formInstance.setFieldsValue({
+          Schedule: result.data.StartDate === null ? false : true,
+          Location: result.data.StartDate === null ? false : true,
+          Instructor: result.data.StartDate === null ? false : true,
+          Notes: result.data.StartDate === null ? false : true
+        })
+      }
+      setApiCallInProgress(false)
+    })()
+  }, [props, formInstance])
 
   return (
     <>
@@ -40,7 +58,7 @@ export function SectionCopyModal(props: IQuestionModal) {
                   <Button
                     onClick={() => {
                       setErrorMessages([])
-                      setapiCallInProgress(true)
+                      setApiCallInProgress(true)
                       copySection({ ...formInstance.getFieldsValue(), SectionID: props.SectionID }).then((x) => {
                         if (x.success && props.closeModal) {
                           formInstance.resetFields()
@@ -50,7 +68,7 @@ export function SectionCopyModal(props: IQuestionModal) {
                         } else {
                           setErrorMessages(x.error)
                         }
-                        setapiCallInProgress(false)
+                        setApiCallInProgress(false)
                       })
                     }}
                   >
@@ -69,7 +87,11 @@ export function SectionCopyModal(props: IQuestionModal) {
               }}
             >
               <OldFormError errorMessages={errorMessages}></OldFormError>
-              <SectionCopyForm formInstance={formInstance} SectionID={props.SectionID}></SectionCopyForm>
+              <SectionCopyForm
+                formInstance={formInstance}
+                initialData={sectionDetails}
+                SectionID={props.SectionID}
+              ></SectionCopyForm>
             </Form>
           </Card>
         }
