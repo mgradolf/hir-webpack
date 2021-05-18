@@ -80,7 +80,7 @@ export function SearchFieldWrapper(props: IGeneratedField & { children?: React.R
       label={props.label}
       labelCol={{ span: props.labelColSpan ? props.labelColSpan : 6 }}
       wrapperCol={{ span: props.wrapperColSpan ? props.wrapperColSpan : 16 }}
-      {...(props.fieldName !== "" && { name: props.fieldName })}
+      {...(props.fieldName === "" ? { name: `__${props.fieldName}` } : { name: props.fieldName })}
       {...(props.hidden && { className: "hidden" })}
       {...(props.extraProps && props.extraProps.valuePropName && { valuePropName: "checked" })}
       required={rulesRequired}

@@ -27,9 +27,10 @@ import { COMMENT_TYPES } from "~/utils/Constants"
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {
   const getQuestionResponses = () => {
     const questionList: Array<CardContents> = []
-    registration.QuestionResponses.forEach((element: any) => {
-      questionList.push({ label: element.Question, value: element.AnswerText })
-    })
+    registration.QuestionResponses &&
+      registration.QuestionResponses.forEach((element: any) => {
+        questionList.push({ label: element.Question, value: element.AnswerText })
+      })
     return questionList
   }
 
