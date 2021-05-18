@@ -239,8 +239,8 @@ export function PersonFormOpenButton(props: {
         })
       setErrorMessages([])
       setApiCallInProgress(true)
-      if (props.initialValues && Object.keys(props.initialValues).length > 2)
-        pushPerson(params).then((response) => {
+      if (props.initialValues && props.initialValues.PersonID && Object.keys(props.initialValues).length > 2)
+        pushPerson({ ...params, PersonID: props.initialValues.PersonID }).then((response) => {
           setApiCallInProgress(false)
           if (response && response.success) {
             formInstance.resetFields()
