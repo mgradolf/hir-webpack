@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { Row, Col, message, Select } from "antd"
+import React, { useState } from "react"
+import { Row, Col, message } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
@@ -37,20 +37,11 @@ const fieldNames: IAccountFieldNames = {
 
 function AccountForm(props: IAccountFormProps) {
   const [isRequiredPrimaryContact, setIsRequiredPrimaryContact] = useState<boolean>(false)
-  const [accountTypes, setAccountTypes] = useState<Array<any>>([])
+  // const [accountTypes, setAccountTypes] = useState<Array<any>>([])
   const AccountFormConfig: IAccountFieldNames = CustomFormConfigHook(
     fieldNames,
     "AccountFormWithConfig"
   ) as IAccountFieldNames
-
-  useEffect(() => {
-    ;(async function () {
-      const result = await getAccountTypes()
-      if (result.success && result.data) {
-        setAccountTypes(result.data)
-      }
-    })()
-  }, [])
 
   const accountTypeHandler = (value: any) => {
     if (value === 1000) {
@@ -63,23 +54,17 @@ function AccountForm(props: IAccountFormProps) {
   return (
     <Row>
       <Col xs={24} sm={24} md={12}>
-        <Form.Item
+        <FormDropDown
           {...layout}
           label={"Account Type"}
-          name={fieldNames.AccountTypeID}
+          fieldName={fieldNames.AccountTypeID}
+          onChangeCallback={accountTypeHandler}
+          displayKey="Name"
+          valueKey="ID"
+          refLookupService={getAccountTypes}
           {...AccountFormConfig.AccountTypeID}
           rules={[{ required: true, message: "Please select account type!" }]}
-        >
-          <Select aria-label="Account Type" onChange={accountTypeHandler}>
-            {accountTypes.map((x) => {
-              return (
-                <Select.Option key={x.ID} value={x.ID}>
-                  {x.Name}
-                </Select.Option>
-              )
-            })}
-          </Select>
-        </Form.Item>
+        />
 
         <FormInput
           {...layout}
@@ -168,27 +153,23 @@ export function AccountFormOpenButton(props: {
   label?: string
 }) {
   const [formInstance] = Form.useForm()
-  // const [showModal, setShowModal] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
 
-  const onFormSubmission = () => {
-    formInstance.validateFields().then((x) => {
-      const params = formInstance.getFieldsValue()
+  const onFormSubmission = (closeModal: () => void) => {
+    formInstance.validateFields().then((params) => {
       setErrorMessages([])
       setApiCallInProgress(true)
       pushAccount(params)
         .then((response) => {
-          console.log("validation passed ", response)
           setApiCallInProgress(false)
           if (response && response.success) {
             message.success(CREATE_SUCCESSFULLY)
             formInstance.resetFields()
-            // setShowModal(false)
+            closeModal()
           } else {
-            console.log("validation failed ", response.error)
             setErrorMessages(response.error)
           }
         })
