@@ -13,6 +13,8 @@ export function FormDatePicker(props: IGeneratedField) {
       const t1 = moment(props.defaultValue)
       setValue(t1)
       props.formInstance.setFieldsValue({ [props.fieldName]: t1.format(DATE_FORMAT) })
+      console.log(t1)
+      console.log(t1.format(DATE_FORMAT))
     }
     // eslint-disable-next-line
   }, [props.defaultValue])
@@ -27,16 +29,29 @@ export function FormDatePicker(props: IGeneratedField) {
         <Input />
       </Form.Item>
       <SearchFieldWrapper {...props} fieldName="">
-        <DatePicker
-          allowClear
-          disabled={props.disabled}
-          value={value}
-          onChange={(date, dateString) => {
-            dateString && props.formInstance.setFieldsValue({ [props.fieldName]: dateString })
-            setValue(date)
-          }}
-          format={DATE_FORMAT}
-        />
+        {value && (
+          <DatePicker
+            allowClear
+            disabled={props.disabled}
+            defaultValue={value}
+            onChange={(date, dateString) => {
+              dateString && props.formInstance.setFieldsValue({ [props.fieldName]: dateString })
+              setValue(date)
+            }}
+            format={DATE_FORMAT}
+          />
+        )}
+        {!value && (
+          <DatePicker
+            allowClear
+            disabled={props.disabled}
+            onChange={(date, dateString) => {
+              dateString && props.formInstance.setFieldsValue({ [props.fieldName]: dateString })
+              setValue(date)
+            }}
+            format={DATE_FORMAT}
+          />
+        )}
       </SearchFieldWrapper>
     </>
   )

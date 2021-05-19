@@ -120,7 +120,7 @@ export function MetaDrivenForm({
         const params: { [key: string]: any } = queryParams || validatedValues
         const mergedParams: { [key: string]: any } = { ...params, ...props.defaultFormValue }
         for (const key in mergedParams) {
-          if (key === "" || mergedParams[key] === undefined || mergedParams[key] === null || key.includes("____"))
+          if (key === "" || mergedParams[key] === undefined || mergedParams[key] === null || key.includes("__"))
             delete mergedParams[key]
         }
         const filterCount = Object.keys(mergedParams).length
@@ -128,7 +128,7 @@ export function MetaDrivenForm({
 
         if (!props.stopProducingQueryParams) {
           // console.log("props.stopProducingQueryParams ", props.stopProducingQueryParams)
-          // console.log("_mergedParams ", mergedParams)
+          console.log("_mergedParams ", mergedParams)
           const _queryString = objectToQueryString(Object.keys(mergedParams).length > 0 ? mergedParams : null)
           // console.log("_queryString ", _queryString, mergedParams)
           window.history && window.history.pushState({}, "", _queryString)

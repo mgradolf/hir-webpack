@@ -59,7 +59,6 @@ export const AllocatedItemsTableForPayment = (props: {
   loading: boolean
   setLoading: (flag: boolean) => void
   selectePaymentAmountType: any
-  // __addOrderItemsToPay: (___: any[]) => Promise<IApiResponse>
   totalPayment: number
   setTotalPayment: (payment: number) => void
 }) => (
@@ -74,21 +73,6 @@ export const AllocatedItemsTableForPayment = (props: {
         title: "Payment",
         render: (text, record) => <UpdateBalanceRow {...props} record={record} />
       }
-      // {
-      //   title: "Action",
-      //   render: (text, record) => (
-      //     <IconButton
-      //       iconType="remove"
-      //       toolTip="Remove Item"
-      //       onClickRemove={() => {
-      //         const __ = props.allocatedItems.filter((x: any) => x.OrderItemID !== record.OrderItemID)
-      // return props.__addOrderItemsToPay(__).then((response) => {
-      //           return response
-      //         })
-      //       }}
-      //     />
-      //   )
-      // }
     ]}
     dataSource={props.allocatedItems}
   />

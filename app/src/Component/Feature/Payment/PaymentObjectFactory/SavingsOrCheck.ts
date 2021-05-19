@@ -22,7 +22,6 @@ export const getSavingsOrCheckPaymentRequestObject = async (props: {
   if (!allocatedItemsExist) message.warning("Please Select Order Items")
   // const balance = allocatedItemsExist ? props.selectedOrderItems.reduce((acc, curr) => acc + curr.Balance, 0) : 0
   const __ = await props.PaymentFormInstance.validateFields()
-  console.log("__ ", __)
 
   let requestObject: IRequestObject
 

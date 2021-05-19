@@ -12,7 +12,8 @@ import {
   REFRESH_PROGRAM_SEATGROUP_PAGE,
   REFRESH_PROGRAM_CATALOG_PAGE,
   REFRESH_PROGRAM_APPLICATION_PAGE,
-  REFRESH_PROGRAM_ENROLLMENT_PAGE
+  REFRESH_PROGRAM_ENROLLMENT_PAGE,
+  REFRESH_PAGE
 } from "~/utils/EventBus"
 import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsCustomTab"
 import AdmissionRequirementPage from "~/Pages/Manage/Program/Program/AdmissionRequirementPage"
@@ -26,6 +27,8 @@ import { getProgramOfferingRequirementsTableColumns } from "~/TableSearchMeta/Pr
 import { ProgramOfferingRequirementsGroupFormOpenButton } from "~/Component/Feature/ProgramOfferingRequirementsGroup/ProgramOfferingRequirementsGroupFormOpenButton"
 import { getProgramFinancialTableColumns } from "~/TableSearchMeta/ProgramFinancial/ProgramFinancialTableColumns"
 import { ProgramFinancialFormOpenButton } from "~/Component/Feature/ProgramFinancial/ProgramFinancialFormOpenButton"
+import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
+import { DATE_PICKER, NUMBER } from "~/Component/Common/Form/common"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -72,8 +75,26 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
 
   const application: CardContainer = {
     title: "Application",
+    cardActions: [
+      <MetaDrivenFormModalOpenButton
+        formMeta={[
+          { label: "Application Start Date", inputType: DATE_PICKER, fieldName: "ApplicationStartDate" },
+          { label: "Application End Date", inputType: DATE_PICKER, fieldName: "ApplicationEndDate" }
+        ]}
+        formTitle="Edit Program Enrollment"
+        initialFormValue={{
+          ApplicationStartDate: program.ApplicationStartDate,
+          ApplicationEndDate: program.ApplicationEndDate
+        }}
+        defaultFormValue={{ ProgramID: program.ProgramID }}
+        formSubmitApi={saveProgramWithEvent}
+        refreshEventName={REFRESH_PAGE}
+        buttonLabel={`Edit`}
+        iconType="edit"
+      />
+    ],
     contents: [
-      { label: "Application Required", value: "" },
+      // { label: "Application Required", value: "" },
       { label: "Start Date", value: program.ApplicationStartDate, render: renderDate },
       { label: "End Date", value: program.ApplicationEndDate, render: renderDate }
     ]
@@ -81,6 +102,26 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
 
   const enrollment: CardContainer = {
     title: "Enrollment",
+    cardActions: [
+      <MetaDrivenFormModalOpenButton
+        formMeta={[
+          { label: "Enrollment Start Date", inputType: DATE_PICKER, fieldName: "EnrollmentStartDate" },
+          { label: "Enrollment End Date", inputType: DATE_PICKER, fieldName: "EnrollmentEndDate" },
+          { label: "Seat Capacity", inputType: NUMBER, fieldName: "SeatCapacity" }
+        ]}
+        formTitle="Edit Program Enrollment"
+        initialFormValue={{
+          EnrollmentStartDate: program.EnrollmentStartDate,
+          EnrollmentEndDate: program.EnrollmentEndDate,
+          SeatCapacity: program.SeatCapacity
+        }}
+        defaultFormValue={{ ProgramID: program.ProgramID }}
+        formSubmitApi={saveProgramWithEvent}
+        refreshEventName={REFRESH_PAGE}
+        buttonLabel={`Edit`}
+        iconType="edit"
+      />
+    ],
     contents: [
       { label: "Start Date", value: program.EnrollmentStartDate, render: renderDate },
       { label: "End Date", value: program.EnrollmentEndDate, render: renderDate },
