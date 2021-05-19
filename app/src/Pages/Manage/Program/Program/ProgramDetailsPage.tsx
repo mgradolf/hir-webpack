@@ -36,8 +36,9 @@ export default function (props: RouteComponentProps<{ programID?: string }>) {
                   return copyProgramWithEvent({ ProgramID: programID }).then((x) => {
                     setApiCallInProgress(false)
                     if (x.success) {
+                      setRedirectTo(`/program/${x.data.ProgramID}`)
                       setTimeout(() => {
-                        setRedirectTo(`/program/${x.data.ProgramID}`)
+                        window.location.reload()
                       }, 0)
                     }
                     return x

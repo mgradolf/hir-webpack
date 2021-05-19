@@ -13,11 +13,11 @@ export async function getOrderDetails(
   let result: IApiResponse
   return Promise.all([searchOrders(Params, Headers), OrderService[config.Actions.getOrderDetails](Params, Headers)])
     .then((results) => {
+      console.log("result ", Params, results)
       result = results[1]
       if (result && results[0].success) {
         result.data = { ...result?.data[0], ...results[0].data[0] }
       }
-      console.log(result.data)
       return getPersonDetails({ PersonID: result.data.PersonID })
     })
     .then((personResult) => {
