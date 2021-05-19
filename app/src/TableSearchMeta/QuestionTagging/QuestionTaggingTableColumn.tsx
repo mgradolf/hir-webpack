@@ -1,6 +1,6 @@
 import React from "react"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { Button, Checkbox, Select } from "antd"
+import { Checkbox, Select } from "antd"
 import { CheckboxChangeEvent } from "antd/lib/checkbox"
 import { Link } from "react-router-dom"
 import { getTagQuestions, removeTagQuestions, updateTagQuestion } from "~/ApiServices/Service/QuestionService"
@@ -9,6 +9,7 @@ import { eventBus, REFRESH_QUESTION_PAGE } from "~/utils/EventBus"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 
 import { getQuestionGroup } from "~/ApiServices/Service/RefLookupService"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IQuestionCheckBox {
   defaultChecked: boolean
@@ -138,11 +139,12 @@ export const getQuestionTaggingTableColumns = (isTab?: boolean): ITableConfigPro
     },
     {
       ...(!isTab && {
+        title: "Action",
         render: (value: any, data: any) => (
-          <Button
-            type="primary"
-            danger
-            onClick={() => {
+          <IconButton
+            toolTip="Remove"
+            iconType="remove"
+            onClickRemove={() =>
               removeTagQuestions({ TagQuestionIDs: [data.TagQuestionID] }).then((x) => {
                 if (!x.success && x.error) {
                   const errors: Array<ISimplifiedApiErrorMessage> = x.error
@@ -150,11 +152,10 @@ export const getQuestionTaggingTableColumns = (isTab?: boolean): ITableConfigPro
                 } else if (x.success) {
                   eventBus.publish(REFRESH_QUESTION_PAGE)
                 }
+                return x
               })
-            }}
-          >
-            Remove
-          </Button>
+            }
+          />
         )
       })
     }

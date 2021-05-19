@@ -9,7 +9,7 @@ export function QuestionTaggingPage(props: { TagID: number }) {
   const [params, setParams] = useState<any>({})
   return (
     <SearchPage
-      title="Manage Accounts"
+      title="Manage Tags"
       meta={QuestionTaggingSearchMeta}
       metaName="QuestionTaggingSearchMeta"
       hideSearchField={false}
