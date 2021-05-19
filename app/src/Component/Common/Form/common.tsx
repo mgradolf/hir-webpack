@@ -55,7 +55,7 @@ export interface IField {
   rules?: Rule[]
   required?: boolean
   validateStatus?: ValidateStatus
-  help?: string
+  help?: string | React.ReactNode
   labelColSpan?: number
   wrapperColSpan?: number
   maxLength?: number

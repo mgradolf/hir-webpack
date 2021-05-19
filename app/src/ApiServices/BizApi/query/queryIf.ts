@@ -284,3 +284,38 @@ export function findPaymentTypesByReference(
     Headers
   )
 }
+
+export function findDueDatesByItemsSummary(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  // const _Params = {
+  //   BalanceMoreThan: Params.BalanceMoreThan,
+  //   PersonID: Params.PersonID,
+  //   PersonID4: Params.PersonID,
+  //   OrganizationID: Params.OrganizationID,
+  //   OrganizationID1: Params.OrganizationID,
+  //   OrganizationID2: Params.OrganizationID,
+  //   OrganizationID3: Params.OrganizationID,
+  //   OrganizationID4: Params.OrganizationID,
+  //   OrderID: Params.OrderID,
+  //   OrderID4: Params.OrderID,
+  //   PaymentDueDateTo: Params.PaymentDueDateTo,
+  //   PaymentDueDateTo4: Params.PaymentDueDateTo,
+  //   PaymentDueDateFrom: Params.PaymentDueDateFrom,
+  //   PaymentDueDateFrom4: Params.PaymentDueDateFrom,
+  //   DepartmentID: Params.DepartmentID,
+  //   OptionalItem: [Params.OptionalItem],
+  //   SectionID: [Params.SectionID],
+  //   ProgramID: [Params.ProgramID]
+  // }
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "financial.orderItem.findDueDatesByItemsSummary",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}

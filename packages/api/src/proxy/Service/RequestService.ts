@@ -7,7 +7,9 @@ export const config = {
   Actions: {
     getLiteRequests: "getLiteRequests",
     readRequestForStaff: "readRequestForStaff",
-    getEnumValues: "getEnumValues"
+    getEnumValues: "getEnumValues",
+    launchRequestWithExternalPayment: "launchRequestWithExternalPayment",
+    launchRequest: "launchRequest"
   }
 }
 

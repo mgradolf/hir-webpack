@@ -45,14 +45,14 @@ export const IconButton = (props: {
             props.onClickRemove &&
             showDeleteConfirm(() => {
               if (props.onClickRemove) {
-                console.log("props.onClickRemove exist, setLocalLoading to true")
+                // console.log("props.onClickRemove exist, setLocalLoading to true")
                 setLocalLoading(true)
                 return props.onClickRemove().then((x) => {
                   setLocalLoading(false)
                   if (x.success && props.redirectTo) {
                     setRedirectTo(props.redirectTo)
                   }
-                  console.log("setLocalLoading to false", x)
+                  // console.log("setLocalLoading to false", x)
                   return x
                 })
               }

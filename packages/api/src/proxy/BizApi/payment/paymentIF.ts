@@ -6,7 +6,9 @@ export const config = {
   Module: "hir",
   Actions: {
     searchPayment: "searchPayment",
-    searchCreditMemo: "searchCreditMemo"
+    searchCreditMemo: "searchCreditMemo",
+    getPaymentTypes: "getPaymentTypes",
+    generatePaymentAllocation: "generatePaymentAllocation"
   }
 }
 

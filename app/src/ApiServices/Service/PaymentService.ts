@@ -14,3 +14,17 @@ export function getPaymentDueDatePolicy(
 ): Promise<IApiResponse> {
   return PaymentService[config.Actions.getPaymentDueDatePolicy](Params, Headers)
 }
+
+export function addOrderItemsToPay(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentService[config.Actions.addOrderItemsToPay](Params, Headers)
+}
+
+export function setCustomPaymentAmount(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentService[config.Actions.setCustomPaymentAmount](Params, Headers)
+}
