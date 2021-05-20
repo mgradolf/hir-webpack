@@ -24,15 +24,20 @@ export function CustomFormModal(props: ICustomFormModal) {
   return (
     <Modal width="1000px" loading={props.loading} apiCallInProgress={props.apiCallInProgress}>
       <Card
-        title={props.formTitle}
+        title={
+          <Row justify="space-between">
+            <Col>{props.formTitle}</Col>
+            {props.helpKey && (
+              <Col>
+                <HelpButton helpKey={props.helpKey} />
+              </Col>
+            )}
+          </Row>
+        }
         actions={[
           <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
             {props.extraButtons && props.extraButtons.map((x, i) => <Col key={i}>{x}</Col>)}
-            {props.helpKey && (
-              <Col>
-                <HelpButton skipIcon helpKey={props.helpKey} />
-              </Col>
-            )}
+
             <Col>
               <Button type="primary" danger onClick={props.closeModal}>
                 Cancel
