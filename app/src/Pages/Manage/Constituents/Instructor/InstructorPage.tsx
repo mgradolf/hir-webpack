@@ -12,7 +12,7 @@ export default function InstructorPage() {
           label={"Create Instructor"}
           buttonIcon="create"
           initialValues={{ Roles: [2] }}
-          helpKey="createInstructor"
+          helpKey="createInstructorForm"
         />
       ]}
       title="Manage Instructors"

@@ -396,7 +396,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     tabMeta: {
       blocks: [
         <AccountRelationFormModalOpenButton personData={person} />,
-        <HelpButton helpKey="personAccountRelations" />
+        <HelpButton helpKey="personAccountRelationsTab" />
       ],
       tableProps: {
         ...getPersonAccountTableColumns(),

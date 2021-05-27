@@ -9,7 +9,7 @@ export default function AccountPage() {
     <SearchPage
       blocks={[
         <AccountFormOpenButton
-          helpKey="createAccount"
+          helpKey="createAccountForm"
           initialValues={{ AllowToPayLater: "Not Allowed", DefaultWaitlistPriority: 5 }}
         />
       ]}

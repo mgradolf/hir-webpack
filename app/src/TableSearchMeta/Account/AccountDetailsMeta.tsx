@@ -76,7 +76,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
-      actions: [<HelpButton helpKey="accountSummary" />],
+      actions: [<HelpButton helpKey="accountSummaryTab" />],
       summary: [summary]
     }
   })
@@ -85,7 +85,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabType: "table",
     tabMeta: {
       blocks: [
-        <HelpButton helpKey="accountcontacts" />,
+        <HelpButton helpKey="accountContactsTab" />,
         <AccountContactFormOpenButton
           iconType="create"
           editMode={false}
@@ -105,7 +105,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       tabTitle: "Seat Groups",
       tabType: "table",
       tabMeta: {
-        blocks: [<HelpButton helpKey="accountSeatGroups" />],
+        blocks: [<HelpButton helpKey="accountSeatGroupsTab" />],
         tableProps: {
           ...getSeatgroupTableColumns(),
           searchParams: { AccountID: account.AccountID },
@@ -129,7 +129,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Requests",
     tabType: "table",
     tabMeta: {
-      blocks: [<HelpButton helpKey="accountRequests" />],
+      blocks: [<HelpButton helpKey="accountRequestsTab" />],
       tableProps: {
         ...getRequestTableColumns(false),
         searchParams: { AccountID: account.AccountID },
@@ -193,7 +193,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Catalogs",
     tabType: "table",
     tabMeta: {
-      blocks: [<HelpButton helpKey="accountCatalogs" />],
+      blocks: [<HelpButton helpKey="accountCatalogsTab" />],
       tableProps: {
         ...getCatalogTableColumns(false),
         searchParams: { AccountID: account.AccountID },
@@ -208,7 +208,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       tabType: "table",
       tabMeta: {
         blocks: [
-          <HelpButton helpKey="accountPackges" />,
+          <HelpButton helpKey="accountPackgesTab" />,
           <MetaDrivenFormModalOpenButton
             formTitle="Create Package"
             formMeta={PackageFormMeta}
