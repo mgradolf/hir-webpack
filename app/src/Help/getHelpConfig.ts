@@ -1,5 +1,5 @@
 // import axios from "axios"
-import HelpConfig from "~/Help/helpConfig.json"
+import HelpConfig from "~/Help/helpConfig2.json"
 // import { baseURL } from "@packages/api/lib/utils/ApiMethodFactory"
 
 const helpConfig: { [key: string]: string } = HelpConfig

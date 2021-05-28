@@ -8,6 +8,7 @@ export default function Offering(props: RouteComponentProps<{ offeringID: string
   return (
     <SearchPage
       hideSearchField={false}
+      helpKey="searchSection"
       title="Manage Sections"
       meta={SectionSearchMeta}
       metaName="SectionSearchMeta"

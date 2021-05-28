@@ -117,7 +117,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
     tabTitle: "Registrations",
     tabType: "table",
     tabMeta: {
-      blocks: [<HelpButton helpKey="registrations" />],
+      blocks: [<HelpButton helpKey="accountRegistrationsTab" />],
       tableProps: {
         ...getRegistrationTableColumns(false),
         searchParams: { AccountID: account.AccountID },
@@ -146,7 +146,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         tabTitle: "Orders",
         tabType: "table",
         tabMeta: {
-          blocks: [<HelpButton helpKey="accountFinancialsActions" />],
+          blocks: [<HelpButton helpKey="accountFinancialsOrdersTab" />],
           tableProps: {
             ...getOrderTableColumns(false),
             searchParams: { AccountID: account.AccountID },
@@ -158,6 +158,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         tabTitle: "Order Items",
         tabType: "table",
         tabMeta: {
+          blocks: [<HelpButton helpKey="accountFinancialsOrdersItemsTab" />],
           tableProps: {
             ...getOrderItemTableColumns(false),
             searchParams: { OrganizationID: account.AccountID },
@@ -169,6 +170,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         tabTitle: "Payments",
         tabType: "table",
         tabMeta: {
+          blocks: [<HelpButton helpKey="accountFinancialsPaymentsTab" />],
           tableProps: {
             ...getPaymentTableColumns(false),
             searchParams: { AccountID: account.AccountID },
@@ -180,6 +182,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         tabTitle: "Transactions",
         tabType: "table",
         tabMeta: {
+          blocks: [<HelpButton helpKey="accountFinancialsTransactionTab" />],
           tableProps: {
             ...getTransactionFinancialTableColumns(false),
             searchParams: { AccountID: account.AccountID },

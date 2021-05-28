@@ -9,6 +9,7 @@ export default function () {
     <SearchPage
       blocks={[<CertificateFormModal initialValues={{}} isProgram={true} />]}
       title="Manage Certificates"
+      helpKey="coursesSearchCertificates"
       meta={ProgramCertificateSearchMeta}
       metaName="ProgramCertificateSearchMeta"
       hideSearchField={false}

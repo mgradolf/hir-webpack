@@ -35,5 +35,6 @@
   "accountPackgesTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/accounts/packages/",
   "accountCatalogsTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/accounts/catalogs/",
   "accountEmailSetupTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/accounts/email-setup/",
-  "accountQuestionsTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/accounts/questions/"
+  "accountQuestionsTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/accounts/questions/",
+  "searchOffering": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/courses/offering-2/offering/"
 }
