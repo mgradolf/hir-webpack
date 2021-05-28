@@ -10,6 +10,7 @@ export default function AccountPage() {
       blocks={[
         <AccountFormOpenButton
           helpKey="createAccount"
+          iconType="create"
           initialValues={{ AllowToPayLater: "Not Allowed", DefaultWaitlistPriority: 5 }}
         />
       ]}

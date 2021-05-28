@@ -150,6 +150,10 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/Manage/Financials/CreatePaymentPage"))
   },
   {
+    path: "/create-order",
+    component: React.lazy(() => import("~/Pages/Manage/Financials/CreateOrderPage"))
+  },
+  {
     path: "/payment-success",
     component: React.lazy(() => import("~/Pages/Manage/Financials/PaymentSuccesPage"))
   },

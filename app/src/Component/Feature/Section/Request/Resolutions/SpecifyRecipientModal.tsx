@@ -17,7 +17,7 @@ import { useEffect } from "react"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { getGradeScaleType, getCreditType } from "~/ApiServices/Service/RefLookupService"
-import { validateRegistration } from "~/ApiServices/Service/RegistrationService"
+import { validateRegistrationRequest } from "~/ApiServices/Service/RegistrationService"
 import moment from "moment"
 
 import { IStudent } from "~/Component/Feature/Student/StudentFinderModal"
@@ -164,7 +164,7 @@ function SpecifyRecipientModal(props: ISpecifyRecipientModal) {
     })
 
     setLoading(true)
-    const response = await validateRegistration({
+    const response = await validateRegistrationRequest({
       SeatGroupID: props.taskJson.TaskData.SeatGroupID,
       PersonID: student.PersonID
     })

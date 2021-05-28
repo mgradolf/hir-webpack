@@ -16,7 +16,7 @@ export function findAccountAffiliation(
 }
 
 export function findAccount(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
-  return AccountIf[config.Actions.findAccount]([Params], Headers)
+  return AccountIf[config.Actions.findAccount]([Params.PersonID], Headers)
 }
 
 export function findAccountEmails(

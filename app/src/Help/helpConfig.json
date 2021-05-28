@@ -7,7 +7,7 @@
   "personWebLoginTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/web-login",
   "personEducationHistoryTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/person-educational-history/",
   "personFinancialsTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/financials",
-  "personAccountRelations": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/account-relations",
+  "personAccountRelationsTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/person/account-relations",
   "searchStudents": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/students/search-students/",
   "createStudent": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/students/create-student/",
   "studentSummary": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/students/summary/",

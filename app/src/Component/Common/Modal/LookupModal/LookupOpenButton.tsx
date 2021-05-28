@@ -32,8 +32,9 @@ export function LookupOpenButton(props: ILookupOpenButton) {
   const [keepOptionsOpen, setKeepOptionsOpen] = useState(false)
 
   useEffect(() => {
-    if (props.defaultValue) {
-      props.searchFunc({ [props.fieldName]: props.defaultValue }).then((x) => {
+    const defaultValue = props.defaultValue || props.formInstance.getFieldValue(props.fieldName)
+    if (defaultValue) {
+      props.searchFunc({ [props.fieldName]: defaultValue }).then((x) => {
         if (x.success) setOptions(x.data)
       })
     }

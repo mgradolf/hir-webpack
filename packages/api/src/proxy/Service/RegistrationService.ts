@@ -19,7 +19,7 @@ export const config = {
     searchNoShowProcessings: "searchNoShowProcessings",
     bulkDropRegistration: "bulkDropRegistration",
     bulkDeleteRegistration: "bulkDeleteRegistration",
-    validateRegistration: "validateRegistration",
+    validateRegistrationRequest: "validateRegistrationRequest",
     checkCertificate: "checkCertificate",
     issueCertificate: "issueCertificate",
     searchCertificate: "searchCertificate",
