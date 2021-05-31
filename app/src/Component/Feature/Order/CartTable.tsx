@@ -1,12 +1,9 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
-import { CartModel } from "~/Component/Feature/Order/Model/CartModel"
+import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
+import { IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 
-export const CartTable = (props: { cartModel: CartModel }) => {
-  useEffect(() => {
-    console.log("cartModelState changed ", props.cartModel)
-  }, [props.cartModel])
-
+export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctionality: CartModelFunctionality }) => {
   return (
     <>
       <ResponsiveTable
@@ -15,7 +12,7 @@ export const CartTable = (props: { cartModel: CartModel }) => {
           { title: "Recipient Person", dataIndex: "RecipientPersonName" },
           { title: "Item Type", dataIndex: "ItemType" }
         ]}
-        dataSource={props.cartModel.ItemList}
+        dataSource={props.itemList}
       />
     </>
   )

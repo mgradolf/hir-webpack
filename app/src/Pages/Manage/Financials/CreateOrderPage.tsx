@@ -1,20 +1,41 @@
 import { Col, Dropdown, Menu, Row } from "antd"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { CartTable } from "~/Component/Feature/Order/CartTable"
-import { CartModel } from "~/Component/Feature/Order/Model/CartModel"
+import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
+import { IBuyer, IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { SelectBuyer } from "~/Component/Feature/Order/SelectBuyer"
 import { AddSectionModal } from "~/Component/Feature/Order/Shop/AddSectionModal"
+import { eventBus } from "~/utils/EventBus"
+
+export const UPDATE_CART = "UPDATE_CART"
+export const UPDATE_BUYER = "UPDATE_BUYER"
 
 export default function CreateOrderPage() {
-  const cartModel = new CartModel()
-  const [cartModelState, setCartModelState] = useState<CartModel>(cartModel)
+  const [buyer, setBuyer] = useState<IBuyer>({})
+  const [ItemList, setItemList] = useState<IItemRequest[]>([])
+  const [cartModelFunctionality] = useState(new CartModelFunctionality())
 
+  useEffect(() => {
+    eventBus.subscribe(UPDATE_CART, (ItemList: IItemRequest[]) => {
+      console.log("Updating model ", ItemList)
+      setItemList(ItemList)
+      eventBus.publish("REFRESH_CART_TABLE")
+    })
+    eventBus.subscribe(UPDATE_BUYER, (buyer: IBuyer) => {
+      console.log("Updating model ", buyer)
+      setBuyer(buyer)
+      eventBus.publish("REFRESH_CART_TABLE")
+    })
+    return () => {
+      eventBus.unsubscribe("UPDATE_CART")
+    }
+  }, [])
   return (
     <div className="site-layout-content">
       <div style={{ backgroundColor: "white", padding: "10px" }}>
         <Row justify="center">
           <Col span={18}>
-            <SelectBuyer cartModelState={cartModelState} setCartModelState={setCartModelState} />
+            <SelectBuyer buyer={buyer} cartModelFunctionality={cartModelFunctionality} />
           </Col>
         </Row>
         <Row justify="end">
@@ -23,7 +44,11 @@ export default function CreateOrderPage() {
               overlay={
                 <Menu>
                   <Menu.Item>
-                    <AddSectionModal cartModel={cartModelState} setCartModelState={setCartModelState} />
+                    <AddSectionModal
+                      buyer={buyer}
+                      itemList={ItemList}
+                      cartModelFunctionality={cartModelFunctionality}
+                    />
                   </Menu.Item>
                   <Menu.Item></Menu.Item>
                   <Menu.Item></Menu.Item>
@@ -36,8 +61,8 @@ export default function CreateOrderPage() {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <CartTable cartModel={cartModelState} />
+          <Col span={24}>
+            <CartTable itemList={ItemList} cartModelFunctionality={cartModelFunctionality} />
           </Col>
         </Row>
       </div>

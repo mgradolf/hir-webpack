@@ -8,9 +8,14 @@ import Modal from "~/Component/Common/Modal/index2"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import zIndex from "~/utils/zIndex"
 import { ContactListModal } from "~/Component/Feature/Order/ContactListModal"
-import { CartModel } from "~/Component/Feature/Order/Model/CartModel"
+import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
+import { IBuyer, IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 
-export const AddSectionModal = (props: { cartModel: CartModel; setCartModelState: (model: CartModel) => void }) => {
+export const AddSectionModal = (props: {
+  buyer: IBuyer
+  itemList: IItemRequest[]
+  cartModelFunctionality: CartModelFunctionality
+}) => {
   const [showModal, setShowModal] = useState(false)
   const [searchParams, setSearchParams] = useState<any>()
   const [selectedItem, setSelectedItem] = useState<any>()
@@ -21,7 +26,7 @@ export const AddSectionModal = (props: { cartModel: CartModel; setCartModelState
     <>
       <Button
         onClick={() => {
-          if (props.cartModel && props.cartModel.PersonID) {
+          if (props.buyer && props.buyer.PersonID) {
             setShowModal(true)
           } else {
             message.warning("You must Select a Buyer first!", 5)
@@ -31,7 +36,7 @@ export const AddSectionModal = (props: { cartModel: CartModel; setCartModelState
       >
         Add Section
       </Button>
-      {showModal && props.cartModel && props.cartModel.PersonID && (
+      {showModal && props.buyer && props.buyer.PersonID && (
         <Modal
           width="1000px"
           zIndex={zIndex.defaultModal + 1}
@@ -53,10 +58,10 @@ export const AddSectionModal = (props: { cartModel: CartModel; setCartModelState
                     const requests = []
                     console.log(selectedItem)
                     for (let i = 0; i < Number(seatCount); i++) {
-                      requests.push(props.cartModel.addRegistrationRequest(selectedItem.SectionID))
+                      requests.push(props.cartModelFunctionality.addRegistrationRequest(selectedItem.SectionID))
                     }
                     Promise.all(requests).then((responses) => {
-                      props.setCartModelState(props.cartModel)
+                      // props.setCartModelState(props.cartModelState)
                       setLoadingBuyseats(false)
                       setShowModal(false)
                     })
@@ -69,10 +74,10 @@ export const AddSectionModal = (props: { cartModel: CartModel; setCartModelState
                 disabled={!selectedItem}
                 onClick={() => {
                   setLoadingRegisterMe(true)
-                  props.cartModel
-                    .addRegistrationRequest(selectedItem.SectionID, props.cartModel.PersonID)
+                  props.cartModelFunctionality
+                    .addRegistrationRequest(selectedItem.SectionID, props.buyer.PersonID)
                     .then((response) => {
-                      props.setCartModelState(props.cartModel)
+                      // props.setCartModelState(props.cartModelState)
                       setShowModal(false)
                     })
                 }}
@@ -85,17 +90,17 @@ export const AddSectionModal = (props: { cartModel: CartModel; setCartModelState
                   if (selectedStudentIds && selectedStudentIds.length > 0) {
                     setLoadingRegisterOthers(true)
                     const requests = []
-                    for (let id of selectedStudentIds) {
-                      requests.push(props.cartModel.addRegistrationRequest(selectedItem.SectionID, id))
+                    for (const id of selectedStudentIds) {
+                      requests.push(props.cartModelFunctionality.addRegistrationRequest(selectedItem.SectionID, id))
                     }
                     Promise.all(requests).then((responses) => {
-                      props.setCartModelState(props.cartModel)
+                      // props.setCartModelState(props.cartModelState)
                       setLoadingRegisterOthers(false)
                       setShowModal(false)
                     })
                   }
                 }}
-                cartModel={props.cartModel}
+                buyer={props.buyer}
               />
             ]}
           >

@@ -4,21 +4,22 @@ import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLoo
 import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdit/PersonFormWithConfig"
 import { findAccount } from "~/ApiServices/BizApi/account/accountIF"
 import { AccountFormOpenButton } from "~/Component/Feature/Account/Forms/AccountFormWithConfig"
-import { CartModel } from "~/Component/Feature/Order/Model/CartModel"
+import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
+import { IBuyer } from "~/Component/Feature/Order/Model/Interface/IModel"
 
 export const SelectBuyer = (props: {
-  cartModelState: CartModel
-  setCartModelState: (model: CartModel) => void
+  buyer: IBuyer
+  cartModelFunctionality: CartModelFunctionality
   defaultPersonID?: number
 }) => {
   const [PersonFormInstance] = Form.useForm()
   const [help, setHelp] = useState<React.ReactNode>(null)
   useEffect(() => {
-    if (props.cartModelState.PersonProfile) {
+    if (props.buyer.PersonProfile) {
       if (
-        !props.cartModelState.PersonProfile.Address ||
-        !props.cartModelState.PersonProfile.EmailAddress ||
-        !props.cartModelState.PersonProfile.TelephoneNumber
+        !props.buyer.PersonProfile.Address ||
+        !props.buyer.PersonProfile.EmailAddress ||
+        !props.buyer.PersonProfile.TelephoneNumber
       ) {
         setHelp(
           <>
@@ -27,7 +28,7 @@ export const SelectBuyer = (props: {
               label="Update Payer"
               buttonType="link"
               helpKey="createPerson"
-              initialValues={{ ...props.cartModelState.PersonProfile, Roles: [3] }}
+              initialValues={{ ...props.buyer.PersonProfile, Roles: [3] }}
               onSubmit={(response) => {
                 if (response.success) {
                   setHelp(null)
@@ -40,13 +41,13 @@ export const SelectBuyer = (props: {
         setHelp(null)
       }
     }
-  }, [props.cartModelState.PersonProfile])
+  }, [props.buyer.PersonProfile])
 
   const onSelectedItems = (Params: any[]) => {
     if (Params.length) {
       findAccount({ PersonID: Params[0].PersonID }).then((response) => {
         if (response.success && response.data === "") {
-          props.cartModelState.assignPerson(Params[0])
+          props.cartModelFunctionality.assignPerson(Params[0])
           setHelp(
             <>
               Selected Purchaser does not have any account
@@ -56,7 +57,7 @@ export const SelectBuyer = (props: {
                 buttonProps={{ type: "link" }}
                 onSubmitSuccess={(account) => {
                   setHelp(null)
-                  props.cartModelState.assignPerson({ ...Params[0], ...account })
+                  props.cartModelFunctionality.assignPerson({ ...Params[0], ...account })
                 }}
                 initialValues={{
                   AllowToPayLater: "Not Allowed",
@@ -67,11 +68,11 @@ export const SelectBuyer = (props: {
             </>
           )
         } else {
-          props.cartModelState.assignPerson({ ...Params[0], ...response.data })
+          props.cartModelFunctionality.assignPerson({ ...Params[0], ...response.data })
           console.log({ ...Params[0], ...response.data })
         }
       })
-    } else props.cartModelState.assignPerson()
+    } else props.cartModelFunctionality.assignPerson()
   }
 
   return (
@@ -80,7 +81,7 @@ export const SelectBuyer = (props: {
         labelColSpan={6}
         wrapperColSpan={18}
         help={help}
-        label="Select Payer"
+        label="Select Buyer"
         fieldName="PersonID"
         defaultValue={props.defaultPersonID}
         formInstance={PersonFormInstance}

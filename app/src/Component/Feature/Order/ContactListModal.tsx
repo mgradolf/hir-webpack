@@ -4,12 +4,12 @@ import { renderDate, renderEmail, ResponsiveTable } from "~/Component/Common/Res
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import zIndex from "~/utils/zIndex"
 import Modal from "~/Component/Common/Modal/index2"
-import { CartModel } from "./Model/CartModel"
+import { IBuyer } from "~/Component/Feature/Order/Model/Interface/IModel"
 
 export const ContactListModal = (props: {
   disabled: boolean
   onSelect: (recipientPersonIDs?: number[]) => void
-  cartModel: CartModel
+  buyer: IBuyer
 }) => {
   const [showModal, setShowModal] = useState(false)
   const [selectedStudents, setSelectedStudents] = useState<any[]>([])
@@ -61,7 +61,7 @@ export const ContactListModal = (props: {
                 { title: "Status", dataIndex: "AccountAffiliationStatusName" }
               ]}
               searchFunc={getAccountAffiliation}
-              searchParams={{ PersonID: props.cartModel.PersonID, ExceptRoleTypeID: 8 }}
+              searchParams={{ PersonID: props.buyer.PersonID, ExceptRoleTypeID: 8 }}
               isModal={true}
               rowSelection={rowSelection}
               tableName="asdsads"

@@ -108,6 +108,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     _conditionalProps.dataSource = otherTableProps.dataSource ? otherTableProps.dataSource : data
     if (Array.isArray(_conditionalProps.dataSource)) {
       setPaginatedData(_conditionalProps.dataSource?.filter((x, i) => i < 20))
+      console.log("updating table ", columnsConfigByUser, otherTableProps.dataSource)
     }
 
     if (otherTableProps.expandableRowRender) {

@@ -1,5 +1,8 @@
-import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { ICartModel_ItemList, IItemRequest } from ".."
+export interface IBuyer {
+  PersonID?: number
+  AccountID?: number
+  PersonProfile?: { [key: string]: any }
+}
 
 export interface IValidationRegistration {
   check_sectionvalidity_issues: string[]
@@ -36,9 +39,6 @@ export interface IRegistrationRequest extends IItemRequest {
   issues?: IValidationRegistration
 }
 
-export interface IRegistrationRequest_Func extends ICartModel_ItemList {
-  addRegistrationRequest: (SectionID: number, RecipientPersonID?: number, StatusDate?: string) => Promise<IApiResponse>
-
-  // updateRegistrationRequest: (RequestID: number, Params: any) => Promise<IApiResponse>
-  removeRegistrationRequest: (RequestID: number) => void
+export interface IItemRequest {
+  RequestID: number
 }
