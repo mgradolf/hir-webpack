@@ -22,6 +22,7 @@ import {
 } from "~/utils/Constants"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IPersonAccountFormProps {
   formInstance: FormInstance
@@ -161,7 +162,14 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
 
   return (
     <Card
-      title={editMode ? `Edit Relation` : `Add Relation`}
+      title={
+        <Row justify="space-between">
+          <Col>{editMode ? `Edit Relation` : `Add Relation`}</Col>
+          <Col>
+            <HelpButton helpKey="personAddRelationForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>
