@@ -33,7 +33,7 @@ const fieldNames: IFormFields = {
 function DepositForm(props: { formInstance: FormInstance }) {
   return (
     <>
-      <Divider orientation="left">Deposit To Person</Divider>
+      <Divider orientation="left">Deposit To Cash Account</Divider>
       <PersonLookup
         labelColSpan={8}
         wrapperColSpan={14}
@@ -146,7 +146,7 @@ export function DepositFormModalOpenButton() {
 
   return (
     <CustomFormModalOpenButton
-      formTitle={"Person Cash Account Transaction"}
+      formTitle={"Cash Account Transaction"}
       customForm={<DepositForm formInstance={formInstance} />}
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}

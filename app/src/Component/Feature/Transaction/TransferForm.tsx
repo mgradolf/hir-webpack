@@ -82,7 +82,7 @@ function TransferForm(props: ITransferFormProps) {
     <>
       <Row>
         <Col xs={24} sm={24} md={12}>
-          <Divider orientation="left">Transfer From Person</Divider>
+          <Divider orientation="left">Transfer From Cash Account</Divider>
           <PersonLookup
             labelColSpan={8}
             wrapperColSpan={14}
@@ -120,7 +120,7 @@ function TransferForm(props: ITransferFormProps) {
           />
         </Col>
         <Col xs={24} sm={24} md={12}>
-          <Divider orientation="left">Transfer To Person</Divider>
+          <Divider orientation="left">Transfer To Cash Account</Divider>
           <PersonLookup
             labelColSpan={8}
             wrapperColSpan={14}
@@ -157,6 +157,21 @@ function TransferForm(props: ITransferFormProps) {
           />
         </Col>
       </Row>
+
+      {depositList.length > 0 && (
+        <>
+          <Divider orientation="left">Deposits</Divider>
+          <Table
+            loading={loading}
+            rowKey="TransactionID"
+            bordered
+            rowSelection={rowSelection}
+            dataSource={depositList}
+            pagination={false}
+            columns={columns}
+          />
+        </>
+      )}
 
       <Divider orientation="left">Transaction Details</Divider>
       <FormDropDown
@@ -206,19 +221,6 @@ function TransferForm(props: ITransferFormProps) {
         formInstance={props.formInstance}
         hidden
       />
-
-      <Divider orientation="left">Deposits</Divider>
-      {depositList.length > 0 && (
-        <Table
-          loading={loading}
-          rowKey="TransactionID"
-          bordered
-          rowSelection={rowSelection}
-          dataSource={depositList}
-          pagination={false}
-          columns={columns}
-        />
-      )}
     </>
   )
 }
@@ -257,7 +259,7 @@ export function TransferFormModalOpenButton() {
 
   return (
     <CustomFormModalOpenButton
-      formTitle={"Person Cash Account Transaction"}
+      formTitle={"Cash Account Transaction"}
       customForm={<TransferForm formInstance={formInstance} />}
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}

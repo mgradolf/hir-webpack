@@ -77,7 +77,7 @@ function RefundForm(props: IRefundFormProps) {
 
   return (
     <>
-      <Divider orientation="left">Withdraw From Person</Divider>
+      <Divider orientation="left">Withdraw From Cash Account</Divider>
       <PersonLookup
         labelColSpan={8}
         wrapperColSpan={14}
@@ -113,6 +113,21 @@ function RefundForm(props: IRefundFormProps) {
         fieldName={fieldNames.Balance}
         disabled
       />
+
+      {depositList.length > 0 && (
+        <>
+          <Divider orientation="left">Deposits</Divider>
+          <Table
+            loading={loading}
+            rowKey="TransactionID"
+            bordered
+            rowSelection={rowSelection}
+            dataSource={depositList}
+            pagination={false}
+            columns={columns}
+          />
+        </>
+      )}
 
       <Divider orientation="left">Transaction Details</Divider>
       <FormDropDown
@@ -162,19 +177,6 @@ function RefundForm(props: IRefundFormProps) {
         formInstance={props.formInstance}
         hidden
       />
-
-      <Divider orientation="left">Deposits</Divider>
-      {depositList.length > 0 && (
-        <Table
-          loading={loading}
-          rowKey="TransactionID"
-          bordered
-          rowSelection={rowSelection}
-          dataSource={depositList}
-          pagination={false}
-          columns={columns}
-        />
-      )}
     </>
   )
 }
@@ -213,7 +215,7 @@ export function RefundFormModalOpenButton() {
 
   return (
     <CustomFormModalOpenButton
-      formTitle={"Person Cash Account Transaction"}
+      formTitle={"Cash Account Transaction"}
       customForm={<RefundForm formInstance={formInstance} />}
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}
