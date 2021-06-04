@@ -26,7 +26,7 @@ export default function AccountQuestionTab(props: IAccountQuestionTabProp) {
   return (
     <>
       <Row justify="end">
-        <HelpButton helpKey="accountQuestionSetup" />
+        <HelpButton helpKey="accountQuestionsTab" />
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" xs={24} sm={24} md={4}>

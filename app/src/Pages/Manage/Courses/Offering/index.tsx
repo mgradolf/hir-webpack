@@ -15,6 +15,7 @@ export function OfferingPage() {
           {showModal && <OfferingFormModal initialData={{}} closeModal={() => setShowModal(false)} />}
         </>
       ]}
+      helpKey="searchOffering"
       title="Manage Offerings"
       meta={OfferingSearchMeta}
       metaName="OfferingSearchMeta"

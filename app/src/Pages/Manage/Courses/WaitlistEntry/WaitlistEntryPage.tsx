@@ -9,6 +9,7 @@ export default function WaitlistEntryPage() {
     <>
       <SearchPage
         title="Waitlist Entries"
+        helpKey="courseSearchWaitlistEntries"
         meta={WaitlistEntriesSearchMeta}
         metaName="WaitlistEntriesSearchMeta"
         hideSearchField={false}

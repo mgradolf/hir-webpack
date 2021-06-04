@@ -7,6 +7,7 @@ export default function RegistrationPage() {
   return (
     <SearchPage
       title="Manage Registrations"
+      helpKey="coursessearchRegistration"
       meta={RegistrationSearchMeta}
       metaName="RegistrationSearchMeta"
       hideSearchField={false}
