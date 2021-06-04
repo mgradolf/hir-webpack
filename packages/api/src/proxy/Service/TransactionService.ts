@@ -7,7 +7,10 @@ export const config = {
   Actions: {
     getBaseTransactionTypes: "getBaseTransactionTypes",
     getTransactionTypes: "getTransactionTypes",
-    searchTransactions: "searchTransactions"
+    searchTransactions: "searchTransactions",
+    credit: "credit",
+    debit: "debit",
+    transfer: "transfer"
   }
 }
 

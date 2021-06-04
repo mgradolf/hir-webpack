@@ -232,6 +232,9 @@ export const CREATE_SUCCESSFULLY = "Successfully created!"
 export const COPPIED_SUCCESSFULLY = "Successfully coppied!"
 export const UPLOAD_SUCCESSFULLY = "Successfully uploaded!"
 export const ADDED_SUCCESSFULLY = "Successfully added!"
+export const DEPOSIT_SUCCESSFULLY = "Deposit Successfully!"
+export const REFUND_SUCCESSFULLY = "Refund Successfully!"
+export const TRANSFER_SUCCESSFULLY = "Transfer Successfully!"
 export const FORGET_ME_REQUEST_SUCCESSFULLY = "Forget Me Requested Successfully!"
 export const CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY = "Cancel Forget Me Requested Successfully!"
 
@@ -269,3 +272,7 @@ export const PAY_LATER_NOT_ALLOWED = -1
 
 export const PAYMENT_GATEWAY_ACCOUNT_ID_STUB = 9
 export const ALL_REQUIRED_POLICY_TYPE = 1
+
+export const DEPOSIT_TRANSACTION_TYPE_ID = 1
+export const REFUND_TRANSACTION_TYPE_ID = 2
+export const TRANSFER_TRANSACTION_TYPE_ID = 3

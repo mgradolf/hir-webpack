@@ -21,3 +21,15 @@ export function searchTransactions(
 ): Promise<IApiResponse> {
   return TransactionService[config.Actions.searchTransactions](Params, Headers)
 }
+
+export function credit(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return TransactionService[config.Actions.credit](Params, Headers)
+}
+
+export function debit(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return TransactionService[config.Actions.debit](Params, Headers)
+}
+
+export function transfer(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return TransactionService[config.Actions.transfer](Params, Headers)
+}
