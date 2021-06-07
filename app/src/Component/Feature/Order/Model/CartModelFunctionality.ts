@@ -61,7 +61,7 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
               SectionValidityCheck_passed: !!response.data.SectionValidityCheck_passed,
               check_sectionvalidity_issues: response.data.check_sectionvalidity_issues,
               check_prerequisiteconflict_conflicts: response.data.check_prerequisiteconflict_conflicts,
-              check_scheduleconflict_conflicts: response.data.check_prerequisiteconflict_conflicts
+              check_scheduleconflict_conflicts: response.data.check_scheduleconflict_conflicts
             }
 
             tempRegistrationRequest.OverrideData = {

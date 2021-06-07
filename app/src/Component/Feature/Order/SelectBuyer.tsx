@@ -40,11 +40,13 @@ export const SelectBuyer = (props: {
       } else {
         setHelp(null)
       }
+    } else {
+      setHelp(null)
     }
   }, [props.buyer.PersonProfile])
 
   const onSelectedItems = (Params: any[]) => {
-    if (Params.length) {
+    if (Params.length && Params[0] && Params[0].PersonID) {
       findAccount({ PersonID: Params[0].PersonID }).then((response) => {
         if (response.success && response.data === "") {
           props.cartModelFunctionality.assignPerson(Params[0])

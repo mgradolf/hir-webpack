@@ -15,6 +15,8 @@ import { CheckPrerequisiteConflictsModal } from "~/Component/Feature/Order/Regis
 import { eventBus } from "~/utils/EventBus"
 import { UPDATE_CART } from "~/Pages/Manage/Financials/CreateOrderPage"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
+import RegistrationIssues from "./RegistrationIssues"
+import { Link } from "react-router-dom"
 
 export const RegistrationCartItemDetailsModal = (props: {
   itemList: IItemRequest[]
@@ -29,13 +31,14 @@ export const RegistrationCartItemDetailsModal = (props: {
   useEffect(() => {
     setIssueExist(
       !!props.item.issues &&
-        (props.item.issues?.check_sectionvalidity_issues?.length > 0 ||
-          !props.item.issues?.RegistrationCheck_passed ||
+        (!props.item.issues?.RegistrationCheck_passed ||
           !props.item.issues?.DuplicateRequestCheck_passed ||
-          !props.item.issues?.RegistrationQuestionCheck_passed ||
-          !props.item.issues?.ScheduleConflict_passed ||
-          !props.item.issues?.StudentOnHoldCheck_passed ||
-          !props.item.issues?.PrerequisiteCheck_passed ||
+          (!props.item.issues?.RegistrationQuestionCheck_passed && !props.item.OverrideData.AnswerQuestion) ||
+          (!props.item.issues?.ScheduleConflict_passed && !props.item.OverrideData.ScheduleConflictCheck) ||
+          (!props.item.issues?.StudentOnHoldCheck_passed &&
+            !props.item.OverrideData.StudentOnHoldCheck &&
+            !props.item.OverrideData.StudentOnHoldCheckWithMessage) ||
+          (!props.item.issues?.PrerequisiteCheck_passed && !props.item.OverrideData.SectionPrerequisiteCheck) ||
           !props.item.issues?.SectionValidityCheck_passed)
     )
   }, [props.item.issues])
@@ -86,10 +89,18 @@ export const RegistrationCartItemDetailsModal = (props: {
                 overflowY: "scroll"
               }}
             >
-              <Card title="Student Registration">
+              <Card
+                title={
+                  <>
+                    Register{" "}
+                    <Link to={`/person/${props.item.RecipientPersonID}`}>{props.item.RecipientPersonName}</Link> in{" "}
+                    <Link to={`/section/${props.item.SectionID}`}>{props.item.ItemName}</Link>
+                  </>
+                }
+              >
                 <Form form={formInstance} initialValues={props.item}>
-                  <PersonLookup formInstance={formInstance} label="Student" fieldName="RecipientPersonID" disabled />
-                  <FormInput formInstance={formInstance} label="Section Number" fieldName="ItemName" disabled />
+                  {/* <PersonLookup formInstance={formInstance} label="Student" fieldName="RecipientPersonID" disabled />
+                  <FormInput formInstance={formInstance} label="Section Number" fieldName="ItemName" disabled /> */}
                   <FormDropDown
                     labelColSpan={8}
                     wrapperColSpan={14}
@@ -107,6 +118,14 @@ export const RegistrationCartItemDetailsModal = (props: {
                       }
                     }}
                   />
+                  <FormDatePicker
+                    label={"Effective Date"}
+                    formInstance={formInstance}
+                    aria-label="Effective Date"
+                    placeholder="YYYY/MM/DD"
+                    fieldName="StatusDate"
+                  />
+                  <RegistrationIssues {...props} overRide={overRide} setOverRide={setOverRide} />
                   <FormDropDown
                     labelColSpan={8}
                     wrapperColSpan={14}
@@ -135,13 +154,6 @@ export const RegistrationCartItemDetailsModal = (props: {
                     aria-label="Creation Time"
                     placeholder="YYYY/MM/DD"
                     fieldName="CreationTime"
-                  />
-                  <FormDatePicker
-                    label={"Effective Date"}
-                    formInstance={formInstance}
-                    aria-label="Effective Date"
-                    placeholder="YYYY/MM/DD"
-                    fieldName="StatusDate"
                   />
                   <FormDatePicker
                     label={"Termination Time"}
@@ -175,104 +187,6 @@ export const RegistrationCartItemDetailsModal = (props: {
                   />
                 </Form>
               </Card>
-              {props.item.issues && (
-                <Card title="Registration Verification">
-                  {!props.item.issues?.ScheduleConflict_passed && (
-                    <Row>
-                      <Col span={12}>Test Schedule Conflict</Col>
-                      <Col span={4}>
-                        Wave
-                        <Checkbox
-                          defaultChecked={props.item.OverrideData.ScheduleConflictCheck}
-                          onChange={(e) => {
-                            setOverRide({ ...overRide, ScheduleConflictCheck: e.target.checked })
-                          }}
-                        />
-                      </Col>
-                      <Col span={4}>
-                        <CheckScheduleconflictConflictsModal
-                          sectionNumbers={props.item.issues.check_scheduleconflict_conflicts}
-                        />
-                      </Col>
-                    </Row>
-                  )}
-                  {!props.item.issues?.PrerequisiteCheck_passed && (
-                    <Row>
-                      <Col span={12}>Test Pre Requisites</Col>
-                      <Col span={4}>
-                        Wave{" "}
-                        <Checkbox
-                          defaultChecked={props.item.OverrideData.SectionPrerequisiteCheck}
-                          onChange={(e) => {
-                            console.log(e.target.checked)
-                            setOverRide({ ...overRide, SectionPrerequisiteCheck: e.target.checked })
-                          }}
-                        />
-                      </Col>
-                      <Col span={4}>
-                        <CheckPrerequisiteConflictsModal
-                          offerings={props.item.issues?.check_prerequisiteconflict_conflicts}
-                        />
-                      </Col>
-                    </Row>
-                  )}
-
-                  {!props.item.issues?.RegistrationQuestionCheck_passed && (
-                    <Row>
-                      <Col span={12}>Registration Questions</Col>
-                      <Col span={4}>
-                        Wave{" "}
-                        <Checkbox
-                          defaultChecked={props.item.OverrideData.AnswerQuestion}
-                          onChange={(e) => {
-                            setOverRide({ ...overRide, AnswerQuestion: e.target.checked })
-                          }}
-                        />
-                      </Col>
-                      <Col span={4}>
-                        <Button>Answer</Button>
-                      </Col>
-                    </Row>
-                  )}
-
-                  {!props.item.issues?.StudentOnHoldCheck_passed && (
-                    <Row>
-                      <Col span={12}>Test Student on Hold</Col>
-                      <Col span={4}>
-                        Wave{" "}
-                        <Checkbox
-                          defaultChecked={props.item.OverrideData.StudentOnHoldCheck}
-                          onChange={(e) => {
-                            setOverRide({
-                              ...overRide,
-                              StudentOnHoldCheckWithMessage: e.target.checked,
-                              StudentOnHoldCheck: e.target.checked
-                            })
-                          }}
-                        />
-                      </Col>
-                      {/* <Col span={4}>
-                        <Button onClick={() => {}}>Details</Button>
-                      </Col> */}
-                    </Row>
-                  )}
-                  {!props.item.issues?.RegistrationCheck_passed && (
-                    <Row>
-                      <Col span={12}>Test If already Registered</Col>
-                    </Row>
-                  )}
-                  {!props.item.issues?.SectionValidityCheck_passed && (
-                    <Row>
-                      <Col span={12}>Test If Section open for Registration</Col>
-                    </Row>
-                  )}
-                  {!props.item.issues?.DuplicateRequestCheck_passed && (
-                    <Row>
-                      <Col span={12}>Test Duplicate Request</Col>
-                    </Row>
-                  )}
-                </Card>
-              )}
             </div>
           </Card>
         </Modal>
