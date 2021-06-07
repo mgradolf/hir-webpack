@@ -1,10 +1,11 @@
 import React, { useState } from "react"
-import { Button, Card } from "antd"
+import { Button, Card, Col, Row } from "antd"
 import { renderDate, renderEmail, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { getAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import zIndex from "~/utils/zIndex"
 import Modal from "~/Component/Common/Modal/index2"
 import { IBuyer } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { AccountRelationFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonAccountFormModal"
 
 export const ContactListModal = (props: {
   disabled: boolean
@@ -24,17 +25,34 @@ export const ContactListModal = (props: {
     <>
       <Button
         disabled={props.disabled}
+        type="primary"
         onClick={() => {
           console.log("Register Others clicked")
           setShowModal(true)
         }}
       >
-        Register Others
+        Register Students
       </Button>
       {showModal && (
         <Modal width="1000px" zIndex={zIndex.defaultModal + 2}>
           <Card
-            title="Select Student"
+            title={
+              <Row justify="space-between">
+                <Col>Select Student</Col>
+                <Col>
+                  <AccountRelationFormModalOpenButton
+                    personData={{ AccountID: props.buyer.AccountID, PersonID: props.buyer.PersonID }}
+                    zIndex={zIndex.defaultModal + 10}
+                  />
+                  {/* <AccountContactFormOpenButton
+                    iconType="create"
+                    editMode={false}
+                    initialValues={{ AccountID: props.buyer.AccountID }}
+                    zIndex={zIndex.defaultModal + 10}
+                  /> */}
+                </Col>
+              </Row>
+            }
             actions={[
               <Button type="ghost" onClick={() => setShowModal(false)}>
                 Cancel
@@ -62,10 +80,9 @@ export const ContactListModal = (props: {
               ]}
               searchFunc={getAccountAffiliation}
               searchParams={{ PersonID: props.buyer.PersonID, ExceptRoleTypeID: 8 }}
-              isModal={true}
               rowSelection={rowSelection}
               tableName="asdsads"
-              refreshEventName="REFRESH"
+              refreshEventName="REFRESH_CONTACT_TAB"
             />
           </Card>
         </Modal>

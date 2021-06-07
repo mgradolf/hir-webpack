@@ -11,6 +11,7 @@ export interface ICustomFormModalOpenButton extends Omit<ICustomFormModal, "clos
   iconType?: iconType
   extraButtons?: JSX.Element[]
   disabled?: boolean
+  zIndex?: number
 }
 
 export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => {
@@ -44,6 +45,7 @@ export const CustomFormModalOpenButton = (props: ICustomFormModalOpenButton) => 
       {ButtonType}
       {showModal && (
         <CustomFormModal
+          zIndex={props.zIndex}
           {...CustomFormModalProps}
           closeModal={() => {
             props.formInstance.resetFields()

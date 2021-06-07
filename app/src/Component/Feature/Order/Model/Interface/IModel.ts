@@ -1,3 +1,5 @@
+import { ISeatGroup } from "~/Component/Feature/Order/Model/Interface/IFunc"
+
 export interface IBuyer {
   PersonID?: number
   AccountID?: number
@@ -9,10 +11,20 @@ export interface IValidationRegistration {
   RegistrationCheck_passed: boolean
   DuplicateRequestCheck_passed: boolean
   RegistrationQuestionCheck_passed: boolean
-  ScheduleConflict_passed: boolean
   StudentOnHoldCheck_passed: boolean
-  PrerequisiteCheck_passed: boolean
   SectionValidityCheck_passed: boolean
+  PrerequisiteCheck_passed: boolean
+  check_prerequisiteconflict_conflicts: any[]
+  ScheduleConflict_passed: boolean
+  check_scheduleconflict_conflicts: any[]
+}
+
+export interface IOverride {
+  SectionPrerequisiteCheck: boolean
+  StudentOnHoldCheckWithMessage: boolean
+  StudentOnHoldCheck: boolean
+  ScheduleConflictCheck: boolean
+  AnswerQuestion: boolean
 }
 
 export interface IRegistrationRequest extends IItemRequest {
@@ -37,6 +49,9 @@ export interface IRegistrationRequest extends IItemRequest {
   OfferingID: number
   RecipientPersonName: any
   issues?: IValidationRegistration
+  OverrideData: IOverride
+  varificationInProgress: boolean
+  SeatGroups: ISeatGroup[]
 }
 
 export interface IItemRequest {

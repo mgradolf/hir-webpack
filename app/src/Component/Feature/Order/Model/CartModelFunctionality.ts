@@ -1,4 +1,4 @@
-import { IBuyer_Func, IRegistrationRequest_Func } from "~/Component/Feature/Order/Model/Interface/IFunc"
+import { IBuyer_Func, IRegistrationRequest_Func, ISeatGroup } from "~/Component/Feature/Order/Model/Interface/IFunc"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import {
   createRegistrationRequest,
@@ -24,38 +24,65 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
     if (this.itemList.length) return launchRegistrationRequest({ ItemList: this.itemList })
     else return Promise.resolve({ code: 200, success: false, data: "", error: "" })
   }
-  addRegistrationRequest(SectionID: number, RecipientPersonID?: number, StatusDate?: string): Promise<IApiResponse> {
+  addRegistrationRequest(
+    SeatGroups: ISeatGroup[],
+    SeatGroupID: number,
+    RecipientPersonID?: number,
+    StatusDate?: string
+  ): Promise<IApiResponse> {
     let tempRegistrationRequest: IRegistrationRequest
-    console.log("this.model ", this.itemList)
     return createRegistrationRequest({
-      SectionID,
+      SeatGroupID,
       RecipientPersonID,
       AccountID: this.buyer.AccountID,
       StatusDate
-    })
-      .then((response) => {
-        if (response.success) {
-          tempRegistrationRequest = response.data
-          console.log(tempRegistrationRequest)
+    }).then((x) => {
+      if (x.success) {
+        tempRegistrationRequest = x.data
+        console.log(tempRegistrationRequest)
+        tempRegistrationRequest.varificationInProgress = true
+        this.itemList = [...this.itemList, tempRegistrationRequest]
+        eventBus.publish(UPDATE_CART, this.itemList)
+        validateRegistrationRequest({
+          SeatGroupID: tempRegistrationRequest.SeatGroupID,
+          RecipientPersonID: tempRegistrationRequest.RecipientPersonID,
+          StatusDate: tempRegistrationRequest.StatusDate,
+          AnswerMap: tempRegistrationRequest.AnswerMap
+        }).then((response) => {
+          tempRegistrationRequest.varificationInProgress = true
+          if (response.success) {
+            tempRegistrationRequest.issues = {
+              RegistrationCheck_passed: !!response.data.RegistrationCheck_passed,
+              DuplicateRequestCheck_passed: !!response.data["Request.DuplicateRequestCheck_passed"],
+              PrerequisiteCheck_passed: !!response.data["Request.PrerequisiteCheck_passed"],
+              RegistrationQuestionCheck_passed: !!response.data["Request.RegistrationQuestionCheck_passed"],
+              ScheduleConflict_passed: !!response.data["Request.ScheduleConflict_passed"],
+              StudentOnHoldCheck_passed: !!response.data["Request.StudentOnHoldCheck_passed"],
+              SectionValidityCheck_passed: !!response.data.SectionValidityCheck_passed,
+              check_sectionvalidity_issues: response.data.check_sectionvalidity_issues,
+              check_prerequisiteconflict_conflicts: response.data.check_prerequisiteconflict_conflicts,
+              check_scheduleconflict_conflicts: response.data.check_prerequisiteconflict_conflicts
+            }
 
-          return validateRegistrationRequest({
-            SeatGroupID: tempRegistrationRequest.SeatGroupID,
-            RecipientPersonID: tempRegistrationRequest.RecipientPersonID,
-            StatusDate: tempRegistrationRequest.StatusDate,
-            AnswerMap: tempRegistrationRequest.AnswerMap
+            tempRegistrationRequest.OverrideData = {
+              SectionPrerequisiteCheck: false,
+              StudentOnHoldCheckWithMessage: false,
+              StudentOnHoldCheck: false,
+              ScheduleConflictCheck: false,
+              AnswerQuestion: false
+            }
+          }
+          tempRegistrationRequest.varificationInProgress = false
+          tempRegistrationRequest.SeatGroups = SeatGroups
+          const __itemList = this.itemList.map((x) => {
+            if (x.RequestID === tempRegistrationRequest.RequestID) x = tempRegistrationRequest
+            return x
           })
-        } else {
-          return Promise.resolve({ code: 200, success: false, data: [], error: false })
-        }
-      })
-      .then((response) => {
-        if (response.success) {
-          tempRegistrationRequest.issues = response.data
-          this.itemList.push(tempRegistrationRequest)
-          eventBus.publish(UPDATE_CART, this.itemList)
-        }
-        return response
-      })
+          eventBus.publish(UPDATE_CART, __itemList)
+        })
+      }
+      return x
+    })
   }
 
   removeRegistrationRequest(RequestID: number): void {

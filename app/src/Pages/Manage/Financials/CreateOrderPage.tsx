@@ -9,6 +9,7 @@ import { eventBus } from "~/utils/EventBus"
 
 export const UPDATE_CART = "UPDATE_CART"
 export const UPDATE_BUYER = "UPDATE_BUYER"
+export const UPDATE_CART_ITEM_BY_REQUESTID = "UPDATE_CART_ITEM_BY_REQUESTID"
 
 export default function CreateOrderPage() {
   const [buyer, setBuyer] = useState<IBuyer>({})
@@ -17,12 +18,11 @@ export default function CreateOrderPage() {
 
   useEffect(() => {
     eventBus.subscribe(UPDATE_CART, (ItemList: IItemRequest[]) => {
-      console.log("Updating model ", ItemList)
+      console.log("UPDATE_CART ", ItemList)
       setItemList(ItemList)
       eventBus.publish("REFRESH_CART_TABLE")
     })
     eventBus.subscribe(UPDATE_BUYER, (buyer: IBuyer) => {
-      console.log("Updating model ", buyer)
       setBuyer(buyer)
       eventBus.publish("REFRESH_CART_TABLE")
     })
@@ -45,13 +45,32 @@ export default function CreateOrderPage() {
                 <Menu>
                   <Menu.Item>
                     <AddSectionModal
+                      sectionAddType="buy"
                       buyer={buyer}
                       itemList={ItemList}
                       cartModelFunctionality={cartModelFunctionality}
                     />
                   </Menu.Item>
-                  <Menu.Item></Menu.Item>
-                  <Menu.Item></Menu.Item>
+                  {buyer.PersonID && (
+                    <Menu.Item>
+                      <AddSectionModal
+                        sectionAddType="me"
+                        buyer={buyer}
+                        itemList={ItemList}
+                        cartModelFunctionality={cartModelFunctionality}
+                      />
+                    </Menu.Item>
+                  )}
+                  {buyer.PersonID && (
+                    <Menu.Item>
+                      <AddSectionModal
+                        sectionAddType="others"
+                        buyer={buyer}
+                        itemList={ItemList}
+                        cartModelFunctionality={cartModelFunctionality}
+                      />
+                    </Menu.Item>
+                  )}
                 </Menu>
               }
               type="primary"
