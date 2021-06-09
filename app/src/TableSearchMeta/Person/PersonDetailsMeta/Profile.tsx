@@ -251,7 +251,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
               <EditDeleteButtonComboOnTableRow
                 valueToBeEdited={renderEmail(x.EmailAddress)}
                 editFormMeta={PersonEmailUpdateFormMeta}
-                editFormTitle="Update Phone"
+                editFormTitle="Update Email Address"
                 editFormInitialValue={x}
                 editFormDefaultValue={{ PersonID: person.PersonID, EmailAddressTypeID: x.EmailAddressTypeID }}
                 refreshEventName={REFRESH_PAGE}

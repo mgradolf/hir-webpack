@@ -14,6 +14,7 @@ export const PersonPhoneFormMeta: IField[] = [
   {
     label: "Number",
     inputType: NUMBER,
+    maxLength: 20,
     fieldName: "TelephoneNumber",
     rules: [{ required: true, message: "Phone Number is required!" }]
   },
