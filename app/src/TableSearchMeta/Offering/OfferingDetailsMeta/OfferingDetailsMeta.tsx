@@ -30,9 +30,11 @@ import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTaggin
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
-import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { getPaymentGatewayAccounts } from "~/ApiServices/Service/RefLookupService"
+import { updateOffering } from "~/ApiServices/Service/OfferingService"
 import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
@@ -67,7 +69,20 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       { label: "Inquiry Recipient", value: offering.SubmitInquiryToName, render: undefined },
       {
         label: "Payment Gateway",
-        value: <OfferingPaymentGatewayForm initialValue={offering} />
+        value: (
+          <InlineForm
+            fieldName="PaymentGatewayAccountID"
+            refreshEventName="REFRESH_PAGE"
+            inputType="DROPDOWN"
+            displayKey="Name"
+            valueKey="ID"
+            defaultValue={offering.PaymentGatewayAccountID}
+            updateFunc={(Params: { [key: string]: any }) =>
+              updateOffering({ OfferingID: offering.OfferingID, ...Params })
+            }
+            refLookupService={getPaymentGatewayAccounts}
+          />
+        )
       },
       { label: "Default Section Type", value: offering.SectionTypeName, render: undefined }
     ]

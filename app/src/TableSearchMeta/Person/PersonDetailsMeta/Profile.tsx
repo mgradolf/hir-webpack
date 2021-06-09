@@ -37,6 +37,7 @@ import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
 
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { DegreeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonDegreeFormModal"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
 
 export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
   const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
@@ -74,11 +75,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     title: "Other Demographic",
     cardActions: [
       <MetaDrivenFormModalOpenButton
-        formTitle="Update Person General Info"
+        formTitle="Update General Info"
         formMeta={PersonTypeFormMeta}
         formSubmitApi={pushPerson}
         initialFormValue={person}
-        buttonLabel="Update Person General Info"
+        buttonLabel="Update General Info"
         iconType="edit"
         defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
@@ -104,11 +105,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     title: "Identity Information",
     cardActions: [
       <MetaDrivenFormModalOpenButton
-        formTitle="Update Person Gov Info"
+        formTitle="Update Identity Info"
         formMeta={PersonGovFormMeta}
         formSubmitApi={pushPerson}
         initialFormValue={person}
-        buttonLabel="Update Person Gov Info"
+        buttonLabel="Update Identity Info"
         iconType="edit"
         defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
@@ -127,16 +128,37 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         label: "Account Name",
         value: account?.AccountName,
         render: undefined
-      },
-      { label: "Can Defer Payment", value: person.CanDeferPayment, render: undefined }
+      }
+    ]
+  }
+  const personalInfo5: CardContainer = {
+    title: "Payment Option",
+    contents: [
+      {
+        label: "Can Defer Payment",
+        value: (
+          <InlineForm
+            fieldName="CanDeferPayment"
+            refreshEventName="REFRESH_PAGE"
+            inputType="DROPDOWN"
+            defaultValue={person.CanDeferPayment}
+            updateFunc={(Params: { [key: string]: any }) =>
+              pushPerson({ PersonID: person.PersonID, oca: person.oca, ...Params })
+            }
+            options={[
+              { label: "Yes", value: true },
+              { label: "No", value: false }
+            ]}
+          />
+        )
+      }
     ]
   }
 
   const demographySummaryMeta: IDetailsSummary = {
     summary: [
-      { groupedContents: [personalInfo1, personalInfo3] },
-      { groupedContents: [personalInfo2, personalInfo4] },
-      profileQuestion(profileQuestions)
+      { groupedContents: [personalInfo1, personalInfo3, profileQuestion(profileQuestions)] },
+      { groupedContents: [personalInfo2, personalInfo5, personalInfo4] }
     ],
     actions: [<HelpButton helpKey="personDemographicTab" />]
   }
