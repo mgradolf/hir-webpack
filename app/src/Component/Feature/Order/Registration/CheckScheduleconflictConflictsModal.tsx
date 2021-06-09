@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button, Card } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import zIndex from "~/utils/zIndex"
-import { IRegistrationRequest } from "../Model/Interface/IModel"
+import { IRegistrationRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { Link } from "react-router-dom"
 
 export const CheckScheduleconflictConflictsModal = (props: { items: IRegistrationRequest }) => {

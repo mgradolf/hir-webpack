@@ -97,7 +97,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
 
   const summaryMeta: IDetailsSummary = {
     summary: [instructorInfo],
-    actions: [<HelpButton helpKey="instructorSummary" />]
+    actions: [<HelpButton helpKey="instructorSummaryTab" />]
   }
 
   const FinancialFormModalOpenButton = (props: { FacultyID: number }) => {
@@ -128,7 +128,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       blocks: [
         <ScheduleFormModalOpenButton PersonID={instructor.PersonID} />,
-        <HelpButton helpKey="instructorSchedule" />
+        <HelpButton helpKey="instructorScheduleTab" />
       ],
       tableProps: {
         pagination: false,
@@ -145,7 +145,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       blocks: [
         <FinancialFormModalOpenButton FacultyID={instructor.FacultyID} />,
-        <HelpButton helpKey="instructorFinancials" />
+        <HelpButton helpKey="instructorFinancialsTab" />
       ],
       tableProps: {
         pagination: false,
@@ -162,7 +162,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       blocks: [
         <OfferingAddButton FacultyId={instructor.FacultyID} />,
-        <HelpButton helpKey="instructorQulifiedOfferings" />
+        <HelpButton helpKey="instructorQulifiedOfferingsTab" />
       ],
       tableProps: {
         pagination: false,
@@ -177,7 +177,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabTitle: "Instructor Contracts",
     tabType: "table",
     tabMeta: {
-      blocks: [<HelpButton helpKey="instructorContracts" />],
+      blocks: [<HelpButton helpKey="instructorContractsTab" />],
       tableProps: {
         ...getInstructorContractsTableColumns(),
         searchParams: { FacultyID: instructor.FacultyID },
@@ -192,7 +192,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     tabMeta: {
       blocks: [
         <CommentCreateModalOpenButton FacultyID={instructor.FacultyID} CommentType={COMMENT_TYPES.GENERAL} />,
-        <HelpButton helpKey="instructorComments" />
+        <HelpButton helpKey="instructorCommentsTab" />
       ],
       tableProps: {
         pagination: false,

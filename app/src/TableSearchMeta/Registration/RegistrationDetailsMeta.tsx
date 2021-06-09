@@ -23,6 +23,7 @@ import { getEnrollmentActivityLogTableColumns } from "~/TableSearchMeta/Enrollme
 import { getRegistrationCommentTableColumns } from "~/TableSearchMeta/RegistrationComment/CommentTableColumns"
 import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {
   const getQuestionResponses = () => {
@@ -99,7 +100,8 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [summary, gradeInfo, orderInfo]
+    summary: [summary, gradeInfo, orderInfo],
+    actions: [<HelpButton helpKey="registrationSummaryTab" />]
   }
 
   const enrollmentMeta: IDetailsTableTabProp = {

@@ -45,6 +45,7 @@ import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { getPaymentGatewayAccounts, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { AddSectionRoomButton } from "~/Component/Feature/Section/AddSectionRoomButton"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
@@ -183,7 +184,8 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [{ groupedContents: [sectionInfo, enrollmentInfo] }, { groupedContents: [gradeInfo, refundInfo] }]
+    summary: [{ groupedContents: [sectionInfo, enrollmentInfo] }, { groupedContents: [gradeInfo, refundInfo] }],
+    actions: [<HelpButton helpKey="sectionSummaryTab" />]
   }
 
   const scheduleMeta: IDetailsCustomTabProp = {
@@ -192,7 +194,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const financialMeta: IDetailsTableTabProp = {
-    blocks: [<FinancialMenu dataLoaded={section} />],
+    blocks: [<FinancialMenu dataLoaded={section} />, <HelpButton helpKey="sectionBudgetFinancialsTab" />],
     tableProps: {
       ...getSectionFinancialTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -210,7 +212,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const discountMeta: IDetailsTableTabProp = {
-    blocks: [<AddDiscountButton sectionId={section.SectionID} />],
+    blocks: [<AddDiscountButton sectionId={section.SectionID} />, <HelpButton helpKey="sectionBudgetDiscountsTab" />],
     tableProps: {
       ...getSectionDiscountTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -224,6 +226,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const notificationMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionNotificationsTab" />],
     tableProps: {
       ...getNoticeTableColumns(section.SectionID),
       searchParams: { SectionID: section.SectionID },
@@ -232,7 +235,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const productMeta: IDetailsTableTabProp = {
-    blocks: [<ProductAddButton SectionId={section.SectionID} />],
+    blocks: [<ProductAddButton SectionId={section.SectionID} />, <HelpButton helpKey="sectionBudgetProductsTab" />],
     tableProps: {
       ...getSectionProductTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -241,6 +244,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const registrationMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRegistrationsTab" />],
     tableProps: {
       ...getRegistrationTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -249,6 +253,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const orderItemMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionBudgetOrderItems" />],
     tableProps: {
       ...getOrderItemTableColumns(false, section.SectionID),
       searchParams: { SectionID: section.SectionID },
@@ -257,6 +262,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const requestMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRequestsTab" />],
     tableProps: {
       ...getRequestTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -362,6 +368,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabTitle: "Tagged Questions",
         tabType: "searchtable",
         tabMeta: {
+          blocks: [<HelpButton helpKey="sectionTaggedQuestionsTab" />],
           searchMeta: QuestionTaggingSearchMeta,
           defaultFormValue: { SectionID: section.SectionID },
           initialFormValue: { EventID: 2 },
@@ -430,7 +437,8 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
             tabType: "table",
             tabMeta: {
               blocks: [
-                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.GENERAL} />
+                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.GENERAL} />,
+                <HelpButton helpKey="sectionCommentsGeneralTab" />
               ],
               tableProps: {
                 pagination: false,
@@ -445,7 +453,8 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
             tabType: "table",
             tabMeta: {
               blocks: [
-                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.INSTRUCTOR} />
+                <CommentCreateModalOpenButton SectionID={section.SectionID} CommentType={COMMENT_TYPES.INSTRUCTOR} />,
+                <HelpButton helpKey="sectionCommentsInstructorTab" />
               ],
               tableProps: {
                 pagination: false,

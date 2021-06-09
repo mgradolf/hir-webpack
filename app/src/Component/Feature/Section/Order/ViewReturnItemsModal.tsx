@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, Form, Input, Typography } from "antd"
+import { Button, Card, Col, Form, Input, Row, Typography } from "antd"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { applyReturnItem, getCreditMemoDataByOrderItemID } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
@@ -8,6 +8,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Feature/Section/Order/OrderDetailForModal"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IViewReturnItemsModal {
   OrderID: number
@@ -37,7 +38,14 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
       apiCallInProgress={apiCallInProgress}
       children={
         <Card
-          title="View Return Items"
+          title={
+            <Row justify="space-between">
+              <Col>View Return Items</Col>
+              <Col>
+                <HelpButton helpKey="accountFinancialsOrdersItemsViewReturnItemsForm" />
+              </Col>
+            </Row>
+          }
           actions={[
             <Button
               onClick={() => {

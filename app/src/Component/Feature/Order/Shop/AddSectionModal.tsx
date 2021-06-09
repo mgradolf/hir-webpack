@@ -1,5 +1,5 @@
 import { Button, Card, Col, Input, message, Row } from "antd"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { findSectionsLite } from "~/ApiServices/BizApi/query/queryIf"
 import { getOrganizations, getSectionStatusCode } from "~/ApiServices/Service/RefLookupService"
 import { DATE_PICKER, DROPDOWN, TEXT } from "~/Component/Common/Form/common"
@@ -23,10 +23,12 @@ export const AddSectionModal = (props: {
   const [selectedItem, setSelectedItem] = useState<any>()
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+  const closeModal = () => {
+    setLoading(false)
     setSearchParams(undefined)
     setSelectedItem(undefined)
-  }, [showModal])
+    setShowModal(false)
+  }
 
   let selectButton: JSX.Element = <></>
   let buttonLabel = ""
@@ -54,8 +56,7 @@ export const AddSectionModal = (props: {
                     )
                   }
                   Promise.all(requests).then((responses) => {
-                    setLoading(false)
-                    setShowModal(false)
+                    closeModal()
                   })
                 }
               }}
@@ -78,7 +79,7 @@ export const AddSectionModal = (props: {
             props.cartModelFunctionality
               .addRegistrationRequest(selectedItem.SeatGroups, selectedItem.SeatGroupID, props.buyer.PersonID)
               .then((response) => {
-                setShowModal(false)
+                closeModal()
               })
           }}
         >
@@ -105,9 +106,7 @@ export const AddSectionModal = (props: {
                 )
               }
               Promise.all(requests).then((responses) => {
-                // props.setCartModelState(props.cartModelState)
-                setLoading(false)
-                setShowModal(false)
+                closeModal()
               })
             }
           }}

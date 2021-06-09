@@ -34,6 +34,7 @@ import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/O
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const basicInfo: CardContainer = {
@@ -74,7 +75,8 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const summaryMeta: IDetailsSummary = {
-    summary: [basicInfo, characteristicsInfo]
+    summary: [basicInfo, characteristicsInfo],
+    actions: [<HelpButton helpKey="offeringSummaryTab" />]
   }
 
   const SectionFormModalOpenButton = (props: { OfferingID: number }) => {
@@ -108,7 +110,10 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const financialMeta: IDetailsTableTabProp = {
-    blocks: [<FinancialFormModalOpenButton OfferingID={offering.OfferingID} />],
+    blocks: [
+      <FinancialFormModalOpenButton OfferingID={offering.OfferingID} />,
+      <HelpButton helpKey="offeringFinancialsTab" />
+    ],
     tableProps: {
       pagination: false,
       ...getOfferingFinancialTableColumns(offering.OfferingID, FINANCIAL_OFFERING_TYPE_ID),
@@ -123,6 +128,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const qualifiedInstructorMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="offeringQualifiedInstructorsTab" />],
     blockComponents: [{ component: AddInstructorButton, props: { OfferingID: offering.OfferingID } }],
     tableProps: {
       pagination: false,
@@ -133,6 +139,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const catalogMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="offeringCatalogsTab" />],
     tableProps: {
       pagination: false,
       ...getOfferingCatalogTableColumns(offering.OfferingID),
@@ -142,7 +149,10 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const sectionMeta: IDetailsTableTabProp = {
-    blocks: [<SectionFormModalOpenButton OfferingID={offering.OfferingID} />],
+    blocks: [
+      <SectionFormModalOpenButton OfferingID={offering.OfferingID} />,
+      <HelpButton helpKey="offeringSectionsTab" />
+    ],
     tableProps: {
       pagination: false,
       ...getSectionTableColumns(false, offering.OfferingID),
@@ -152,7 +162,10 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   }
 
   const approvalMeta: IDetailsTableTabProp = {
-    blocks: [<OfferingApprovalModalOpenButton offeringId={offering.OfferingID} statusCode={offering.StatusCode} />],
+    blocks: [
+      <OfferingApprovalModalOpenButton offeringId={offering.OfferingID} statusCode={offering.StatusCode} />,
+      <HelpButton helpKey="offeringApprovalsTab" />
+    ],
     tableProps: {
       pagination: false,
       ...getOfferingApprovalTableColumns(offering.OfferingID),
@@ -192,6 +205,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       tabTitle: "Tagged Questions",
       tabType: "searchtable",
       tabMeta: {
+        blocks: [<HelpButton helpKey="offeringTaggedQuestionsTab" />],
         searchMeta: QuestionTaggingSearchMeta,
         defaultFormValue: { OfferingID: offering.OfferingID },
         initialFormValue: { EventID: 2 },

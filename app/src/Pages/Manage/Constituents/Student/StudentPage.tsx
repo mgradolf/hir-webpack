@@ -12,7 +12,7 @@ export default function PersonTable() {
           label={"Create Student"}
           buttonIcon="create"
           initialValues={{ Roles: [1] }}
-          helpKey="createStudent"
+          helpKey="createStudentForm"
         />
       ]}
       title="Manage Students"

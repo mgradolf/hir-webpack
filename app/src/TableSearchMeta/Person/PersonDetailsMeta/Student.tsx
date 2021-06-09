@@ -117,7 +117,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
 
   const summaryMeta: IDetailsSummary = {
     summary: [studentInfo],
-    actions: [<HelpButton helpKey="studentSummary" />]
+    actions: [<HelpButton helpKey="studentSummaryTab" />]
   }
 
   tabMetas.push({
@@ -129,7 +129,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Schedule",
     tabType: "table",
-    actions: [<HelpButton helpKey="studentSchedule" />],
+    actions: [<HelpButton helpKey="studentScheduleTab" />],
     multipleTabMetas: [
       {
         tabTitle: "On Site",
@@ -214,7 +214,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Registrations",
     tabType: "table",
-    actions: [<HelpButton helpKey="studentRegistrations" />],
+    actions: [<HelpButton helpKey="studentRegistrationsTab" />],
     multipleTabMetas: [
       {
         tabTitle: "Roster",
@@ -259,7 +259,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
   tabMetas.push({
     tabTitle: "Programs",
     tabType: "table",
-    actions: [<HelpButton helpKey="studentPrograms" />],
+    actions: [<HelpButton helpKey="studentProgramsTab" />],
     multipleTabMetas: [
       {
         tabTitle: "Applications",
@@ -290,7 +290,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabTitle: "Certificates",
     tabType: "table",
     tabMeta: {
-      blocks: [<HelpButton helpKey="studentCertificates" />],
+      blocks: [<HelpButton helpKey="studentCertificatesTab" />],
       tableProps: {
         ...getCertificateTableColumns(false),
         searchParams: { StudentID: student.StudentID },
@@ -303,7 +303,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabTitle: "Holds",
     tabType: "table",
     tabMeta: {
-      blocks: [<HoldFormModalOpenButton StudentID={student.StudentID} />, <HelpButton helpKey="studentHolds" />],
+      blocks: [<HoldFormModalOpenButton StudentID={student.StudentID} />, <HelpButton helpKey="studentHoldsTab" />],
       tableProps: {
         pagination: false,
         ...getStudentHoldTableColumns(student.StudentID),
@@ -319,7 +319,7 @@ export const getStudentMeta = (person: any, student: any): IDetailsTabMeta[] => 
     tabMeta: {
       blocks: [
         <CommentCreateModalOpenButton StudentID={student.StudentID} CommentType={COMMENT_TYPES.GENERAL} />,
-        <HelpButton helpKey="studentComments" />
+        <HelpButton helpKey="studentCommentsTab" />
       ],
       tableProps: {
         pagination: false,
