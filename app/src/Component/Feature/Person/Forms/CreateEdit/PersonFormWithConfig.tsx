@@ -239,12 +239,22 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             {...PersonformConfig.RegionCodeID}
             {...(stateIsRequired && { rules: [{ required: true, message: "State is required" }] })}
           >
-            <Select allowClear={true} loading={loading} aria-label="Region Code">
+            <Select
+              showSearch
+              filterOption={(inputValue, options) => {
+                return !!(
+                  options &&
+                  typeof options.children === "string" &&
+                  options.children.toLowerCase().includes(inputValue.toLowerCase())
+                )
+              }}
+              allowClear={true}
+              loading={loading}
+              aria-label="Region Code"
+            >
               {regiondCodes &&
-                regiondCodes.map(({ CountryCodeID, Description }, i) => (
-                  <Select.Option value={CountryCodeID} key={`${CountryCodeID}_${i}`}>
-                    {Description}
-                  </Select.Option>
+                regiondCodes.map(({ ID, Description }, i) => (
+                  <Select.Option value={ID} key={`${ID}_${i}`} children={Description} />
                 ))}
             </Select>
           </Form.Item>
@@ -268,16 +278,25 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             {...PersonformConfig.CountryCodeID}
           >
             <Select
+              showSearch
+              filterOption={(inputValue, options) => {
+                return !!(
+                  options &&
+                  typeof options.children === "string" &&
+                  options.children.toLowerCase().includes(inputValue.toLowerCase())
+                )
+              }}
               allowClear={true}
               loading={loading}
               aria-label="Country Code"
-              onChange={(value: any) => setDefaultCountryCodeID(value)}
+              onChange={(value: any) => {
+                setDefaultCountryCodeID(value)
+                props.formInstance.setFieldsValue({ RegionCodeID: null })
+              }}
             >
               {countries &&
-                countries.map(({ Description, ID }, i) => (
-                  <Select.Option value={ID} key={`${ID}_${i}`}>
-                    {Description}
-                  </Select.Option>
+                countries.map(({ Description, ID }) => (
+                  <Select.Option value={ID} key={`${ID}_${Description}`} children={Description} />
                 ))}
             </Select>
           </Form.Item>

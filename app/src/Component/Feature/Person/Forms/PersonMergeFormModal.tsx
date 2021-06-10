@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import PersonMergeForm from "~/Component/Feature/Person/Forms/CreateEdit/PersonMergeForm"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
+import { MergeCellsOutlined } from "@ant-design/icons"
 
 interface IPersonMergeFormModalProps {
   PrimaryPerson: { [key: string]: any }
@@ -28,9 +29,15 @@ export const PersonMergeFormModalOpenButton = (props: { personData: { [key: stri
   return (
     <>
       {setShowModal && (
-        <Button type="link" onClick={() => setShowModal && setShowModal(true)}>
-          Merge
-        </Button>
+        <Tooltip title="Merge Person">
+          <Button
+            type="primary"
+            style={{ marginRight: "5px" }}
+            shape="circle"
+            onClick={() => setShowModal && setShowModal(true)}
+            icon={<MergeCellsOutlined />}
+          />
+        </Tooltip>
       )}
       {showModal && <PersonMergeFormModal PrimaryPerson={props.personData} closeModal={() => setShowModal(false)} />}
     </>

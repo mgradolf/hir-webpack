@@ -131,7 +131,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
                 {schoolCode.map((x) => {
                   return (
                     <Select.Option key={x.ID} value={x.ID}>
-                      {x.Description}
+                      {`${x.Description} (${x.Name})`}
                     </Select.Option>
                   )
                 })}

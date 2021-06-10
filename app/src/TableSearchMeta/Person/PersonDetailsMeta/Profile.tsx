@@ -38,6 +38,8 @@ import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { DegreeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonDegreeFormModal"
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { PersonMergeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonMergeFormModal"
+import { PersonRemoveLink } from "~/Component/Feature/Person/PersonRemoveLink"
 
 export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
   const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
@@ -59,7 +61,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   const tabMetas: IDetailsTabMeta[] = []
   const personalInfo1: CardContainer = {
     title: "Name",
-    cardActions: [<BasicFormModalOpenButton iconType="edit" personData={person} />],
+    cardActions: [
+      <BasicFormModalOpenButton iconType="edit" personData={person} />,
+      <PersonMergeFormModalOpenButton personData={person} />,
+      <PersonRemoveLink PersonID={person.PersonID} />
+    ],
     contents: [
       { label: "Prefix", value: person.Prefix, render: undefined },
       { label: "First Name", value: person.FirstName, render: undefined },
@@ -146,6 +152,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
               pushPerson({ PersonID: person.PersonID, oca: person.oca, ...Params })
             }
             options={[
+              { label: "Default to system", value: null },
               { label: "Yes", value: true },
               { label: "No", value: false }
             ]}
