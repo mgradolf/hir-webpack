@@ -76,7 +76,7 @@ export function AccountEmailSetupForm(props: IAccountEmailSetupFormProps) {
   return (
     <>
       <Row justify="end">
-        <HelpButton helpKey="accountQuestionSetup" />
+        <HelpButton helpKey="accountQuestionsTab" />
       </Row>
       <Card title={"Account Email Setup"}>
         <Spin spinning={apiCallInProgress}>

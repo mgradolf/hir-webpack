@@ -372,6 +372,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         tabTitle: "Orders",
         tabType: "table",
         tabMeta: {
+          blocks: [<HelpButton helpKey="personFinancialsOrdersTab" />],
           tableProps: {
             ...getOrderTableColumns(false),
             searchParams: { PersonID: person.PersonID },
@@ -383,7 +384,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         tabTitle: "Order Items",
         tabType: "table",
         tabMeta: {
-          // blocks: [<HelpButton helpKey="personFinancialsTab" />],
+          blocks: [<HelpButton helpKey="personFinancialsOrderItemsTab" />],
           tableProps: {
             ...getOrderItemTableColumns(false),
             searchParams: { PersonID: person.PersonID },
@@ -395,7 +396,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         tabTitle: "Payments",
         tabType: "table",
         tabMeta: {
-          // blocks: [<HelpButton helpKey="personFinancialsTab" />],
+          blocks: [<HelpButton helpKey="personFinancialsPaymentsTab" />],
           tableProps: {
             ...getPaymentTableColumns(false),
             searchParams: { PersonID: person.PersonID },
@@ -407,7 +408,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         tabTitle: "Transactions",
         tabType: "table",
         tabMeta: {
-          // blocks: [<HelpButton helpKey="personFinancialsTab" />],
+          blocks: [<HelpButton helpKey="personFinancialsTransactionsTab" />],
           tableProps: {
             ...getTransactionFinancialTableColumns(false),
             searchParams: { PersonID: person.PersonID },
@@ -415,8 +416,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
           }
         }
       }
-    ],
-    actions: [<HelpButton helpKey="personFinancialsTab" />]
+    ]
   })
 
   tabMetas.push({
@@ -425,7 +425,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     tabMeta: {
       blocks: [
         <AccountRelationFormModalOpenButton personData={person} />,
-        <HelpButton helpKey="personAccountRelations" />
+        <HelpButton helpKey="personAccountRelationsTab" />
       ],
       tableProps: {
         ...getPersonAccountTableColumns(),
