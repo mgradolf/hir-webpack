@@ -43,6 +43,7 @@ export const ScheduleConflict = (props: {
                 ].map((x, i) => {
                   return (
                     <li
+                      key={i}
                       style={{
                         color: props.overRide.ScheduleConflictCheck ? "green" : "red",
                         fontWeight: 900

@@ -52,6 +52,23 @@ export interface IRegistrationRequest extends IItemRequest {
   OverrideData: IOverride
   varificationInProgress: boolean
   SeatGroups: ISeatGroup[]
+  ItemList?: any[]
+}
+
+export interface IOptionalItem {
+  RequestID: number
+  ItemType: string
+  SectionFinancialID: number
+  ItemRequestType: string
+  PaymentAmount: number
+  PaymentGatewayAccountID: number
+  ItemTypeID: number
+  UnitPrice: number
+  ItemQuantity: number
+  ItemName: string
+  AccessContext: any
+  AnswerMap: any
+  SeatGroupID: number
 }
 
 export interface IItemRequest {

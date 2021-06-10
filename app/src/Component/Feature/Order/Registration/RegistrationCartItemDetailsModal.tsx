@@ -1,5 +1,6 @@
-import { Button, Card, Form, Row } from "antd"
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { Button, Card, Form, Row } from "antd"
 import { getCreditType, getGradeScaleType } from "~/ApiServices/Service/RefLookupService"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
@@ -12,7 +13,7 @@ import { eventBus } from "~/utils/EventBus"
 import { UPDATE_CART } from "~/Pages/Manage/Financials/CreateOrderPage"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import RegistrationIssues from "~/Component/Feature/Order/Registration/RegistrationIssues"
-import { Link } from "react-router-dom"
+import { OptionalItemList } from "~/Component/Feature/Order/Registration/OptionalItemList"
 
 export const RegistrationCartItemDetailsModal = (props: {
   itemList: IItemRequest[]
@@ -46,7 +47,12 @@ export const RegistrationCartItemDetailsModal = (props: {
         disabled={props.item.varificationInProgress}
         loading={props.item.varificationInProgress}
         type="link"
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          setShowModal(true)
+          setTimeout(() => {
+            console.log(props)
+          }, 5 * 1000)
+        }}
       >
         {!props.item.varificationInProgress && !issueSolved && (
           <WarningOutlined style={{ color: "#f11e1e", fontSize: "16px" }} />
@@ -56,6 +62,12 @@ export const RegistrationCartItemDetailsModal = (props: {
       {showModal && (
         <Modal width="1000px">
           <Card
+            title={
+              <>
+                Register <Link to={`/person/${props.item.RecipientPersonID}`}>{props.item.RecipientPersonName}</Link> in{" "}
+                <Link to={`/section/${props.item.SectionID}`}>{props.item.ItemName}</Link>
+              </>
+            }
             actions={[
               <Button type="ghost" onClick={() => setShowModal(false)}>
                 Cancel
@@ -93,112 +105,101 @@ export const RegistrationCartItemDetailsModal = (props: {
           >
             <div
               style={{
-                maxHeight: "80vh",
+                maxHeight: "70vh",
                 overflowY: "scroll"
               }}
             >
-              <Card
-                title={
-                  <>
-                    Register{" "}
-                    <Link to={`/person/${props.item.RecipientPersonID}`}>{props.item.RecipientPersonName}</Link> in{" "}
-                    <Link to={`/section/${props.item.SectionID}`}>{props.item.ItemName}</Link>
-                  </>
-                }
-              >
-                <Form form={formInstance} initialValues={props.item}>
-                  {/* <PersonLookup formInstance={formInstance} label="Student" fieldName="RecipientPersonID" disabled />
-                  <FormInput formInstance={formInstance} label="Section Number" fieldName="ItemName" disabled /> */}
-                  <FormDropDown
-                    label={"Seat Group"}
-                    ariaLabel={"Seat Group"}
-                    formInstance={formInstance}
-                    fieldName="SeatGroupID"
-                    options={props.item.SeatGroups.map((x) => {
-                      return { label: x.SeatGroupName, value: x.SeatGroupID }
-                    })}
-                    onChangeCallback={(SeatGroupID) => {
-                      if (SeatGroupID) {
-                        props.cartModelFunctionality.addRegistrationRequest(props.item.SeatGroups, SeatGroupID)
-                        props.cartModelFunctionality.removeRegistrationRequest(props.item.RequestID)
-                      }
-                    }}
-                  />
-                  <FormDatePicker
-                    label={"Effective Date"}
-                    formInstance={formInstance}
-                    aria-label="Effective Date"
-                    placeholder="YYYY/MM/DD"
-                    fieldName="StatusDate"
-                  />
-                  <RegistrationIssues {...props} overRide={overRide} setOverRide={setOverRide} />
+              <Form form={formInstance} initialValues={props.item}>
+                <FormDropDown
+                  label={"Seat Group"}
+                  ariaLabel={"Seat Group"}
+                  formInstance={formInstance}
+                  fieldName="SeatGroupID"
+                  options={props.item.SeatGroups.map((x) => {
+                    return { label: x.SeatGroupName, value: x.SeatGroupID }
+                  })}
+                  onChangeCallback={(SeatGroupID) => {
+                    if (SeatGroupID) {
+                      props.cartModelFunctionality.addRegistrationRequest(props.item.SeatGroups, SeatGroupID)
+                      props.cartModelFunctionality.removeRegistrationRequest(props.item.RequestID)
+                    }
+                  }}
+                />
+                <FormDatePicker
+                  label={"Effective Date"}
+                  formInstance={formInstance}
+                  aria-label="Effective Date"
+                  placeholder="YYYY/MM/DD"
+                  fieldName="StatusDate"
+                />
+                <RegistrationIssues {...props} overRide={overRide} setOverRide={setOverRide} />
 
-                  {showMore && (
-                    <>
-                      <FormDropDown
-                        label={"Grade Scale"}
-                        ariaLabel={"Grade Scale Select"}
-                        formInstance={formInstance}
-                        fieldName="GradeScaleTypeID"
-                        refLookupService={getGradeScaleType}
-                        displayKey="Name"
-                        valueKey="ID"
-                      />
-                      <FormDropDown
-                        label={"Transcript Type"}
-                        ariaLabel={"Transcript Type "}
-                        formInstance={formInstance}
-                        fieldName="TranscriptCreditTypeID"
-                        refLookupService={getCreditType}
-                        displayKey="Name"
-                        valueKey="ID"
-                      />
-                      <FormDatePicker
-                        label={"Creation Time"}
-                        formInstance={formInstance}
-                        aria-label="Creation Time"
-                        placeholder="YYYY/MM/DD"
-                        fieldName="CreationTime"
-                      />
-                      <FormDatePicker
-                        label={"Termination Time"}
-                        formInstance={formInstance}
-                        aria-label="Termination Time"
-                        placeholder="YYYY/MM/DD"
-                        fieldName="TerminationTime"
-                      />
-                      <FormMultipleRadio
-                        label="Repeat/Retake"
-                        formInstance={formInstance}
-                        fieldName="IsRepeat"
-                        options={[
-                          { label: "Yes", value: true },
-                          { label: "No", value: false }
-                        ]}
-                      />
-                      <FormMultipleRadio
-                        label="Complete Status on Termination"
-                        formInstance={formInstance}
-                        fieldName="CompleteOnTermination"
-                        options={[
-                          { label: "Yes", value: true },
-                          { label: "No", value: false }
-                        ]}
-                      />
-                      <FormInputNumber
-                        label="Expected Attendance"
-                        formInstance={formInstance}
-                        fieldName="AttendanceExpected"
-                      />
-                    </>
-                  )}
-                  <Row justify="end">
-                    <Button size="large" onClick={() => setShowMore(!showMore)}>
-                      {showMore ? "Show Less Options" : "Show More Options"}
-                    </Button>
-                  </Row>
-                </Form>
-              </Card>
+                {showMore && (
+                  <>
+                    <FormDropDown
+                      label={"Grade Scale"}
+                      ariaLabel={"Grade Scale Select"}
+                      formInstance={formInstance}
+                      fieldName="GradeScaleTypeID"
+                      refLookupService={getGradeScaleType}
+                      displayKey="Name"
+                      valueKey="ID"
+                    />
+                    <FormDropDown
+                      label={"Transcript Type"}
+                      ariaLabel={"Transcript Type "}
+                      formInstance={formInstance}
+                      fieldName="TranscriptCreditTypeID"
+                      refLookupService={getCreditType}
+                      displayKey="Name"
+                      valueKey="ID"
+                    />
+                    <FormDatePicker
+                      label={"Creation Time"}
+                      formInstance={formInstance}
+                      aria-label="Creation Time"
+                      placeholder="YYYY/MM/DD"
+                      fieldName="CreationTime"
+                    />
+                    <FormDatePicker
+                      label={"Termination Time"}
+                      formInstance={formInstance}
+                      aria-label="Termination Time"
+                      placeholder="YYYY/MM/DD"
+                      fieldName="TerminationTime"
+                    />
+                    <FormMultipleRadio
+                      label="Repeat/Retake"
+                      formInstance={formInstance}
+                      fieldName="IsRepeat"
+                      options={[
+                        { label: "Yes", value: true },
+                        { label: "No", value: false }
+                      ]}
+                    />
+                    <FormMultipleRadio
+                      label="Complete Status on Termination"
+                      formInstance={formInstance}
+                      fieldName="CompleteOnTermination"
+                      options={[
+                        { label: "Yes", value: true },
+                        { label: "No", value: false }
+                      ]}
+                    />
+                    <FormInputNumber
+                      label="Expected Attendance"
+                      formInstance={formInstance}
+                      fieldName="AttendanceExpected"
+                    />
+                  </>
+                )}
+                <Row justify="end">
+                  <Button size="large" onClick={() => setShowMore(!showMore)}>
+                    {showMore ? "Show Less Options" : "Show More Options"}
+                  </Button>
+                </Row>
+              </Form>
+              <OptionalItemList {...props} />
             </div>
           </Card>
         </Modal>

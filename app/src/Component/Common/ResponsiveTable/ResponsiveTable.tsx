@@ -44,7 +44,7 @@ export function ResponsiveTable(props: IDataTableProps) {
       searchFunc(searchParams).then((x) => {
         if (x.success && Array.isArray(x.data)) {
           const data = x.data.map((y: any, i: number) => {
-            y.rowKey = i
+            if (!otherTableProps.rowKey) y.rowKey = i
             return y
           })
           setTableProps(columnsConfigByUser, data)
@@ -62,13 +62,14 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    const eventName = isModal ? REFRESH_MODAl : props.refreshEventName ? props.refreshEventName : REFRESH_PAGE
-    eventBus.subscribe(eventName, loadDataFromSearchFunc)
-    eventBus.publish(eventName)
-    return () => {
-      eventBus.unsubscribe(eventName)
+    if (props.searchFunc) {
+      const eventName = isModal ? REFRESH_MODAl : props.refreshEventName ? props.refreshEventName : REFRESH_PAGE
+      eventBus.subscribe(eventName, loadDataFromSearchFunc)
+      eventBus.publish(eventName)
+      return () => {
+        eventBus.unsubscribe(eventName)
+      }
     }
-
     // eslint-disable-next-line
   }, [])
 

@@ -8,6 +8,7 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
   return (
     <>
       <ResponsiveTable
+        rowKey="RequestID"
         columns={[
           {
             title: "Name",

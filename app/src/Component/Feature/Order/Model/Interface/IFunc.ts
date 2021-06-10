@@ -25,6 +25,8 @@ export interface IRegistrationRequest_Func {
 
   // updateRegistrationRequest: (RequestID: number, Params: any) => Promise<IApiResponse>
   removeRegistrationRequest: (RequestID: number) => void
+
+  addOptionalItem: (RequestID: number, SectionFinancialIDs: number[], ProductIDs: number[]) => Promise<IApiResponse>
 }
 
 export interface ICartModel_ItemList_Func {

@@ -334,3 +334,33 @@ export function findSectionsLite(
     Headers
   )
 }
+
+export function findProductBySeatGroupID(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "jxntm.product.findBySeatGroupID",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}
+
+export function findOptionalItemBySeatGroupID(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "jxntm.seatGroup.optionalItem.findBySeatGroupID",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}

@@ -32,7 +32,7 @@ export const PrerequisiteCheck = (props: {
             :
             <ul>
               {props.item.issues?.check_prerequisiteconflict_conflicts.map((x, i) => (
-                <li>
+                <li key={i}>
                   <Link
                     target="_blank"
                     style={{

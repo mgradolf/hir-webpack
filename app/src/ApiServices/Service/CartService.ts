@@ -21,3 +21,10 @@ export function createRegistrationRequest(
 ): Promise<IApiResponse> {
   return CartService[config.Actions.createRegistrationRequest](Params, Headers)
 }
+
+export function createOptionalItemRequest(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CartService[config.Actions.createOptionalItemRequest](Params, Headers)
+}

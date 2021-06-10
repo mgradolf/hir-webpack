@@ -72,13 +72,13 @@ export default function CreateOrderPage() {
           }
         ],
         issues: {
-          // RegistrationCheck_passed: false,
-          // DuplicateRequestCheck_passed: false,
-          // SectionValidityCheck_passed: false,
+          RegistrationCheck_passed: false,
+          DuplicateRequestCheck_passed: false,
+          SectionValidityCheck_passed: false,
 
-          RegistrationCheck_passed: true,
-          DuplicateRequestCheck_passed: true,
-          SectionValidityCheck_passed: true,
+          // RegistrationCheck_passed: true,
+          // DuplicateRequestCheck_passed: true,
+          // SectionValidityCheck_passed: true,
           check_sectionvalidity_issues: [],
           check_prerequisiteconflict_conflicts: [
             {
