@@ -47,7 +47,7 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
           meta={props.meta}
           metaName={props.metaName}
           stopProducingQueryParams={props.stopProducingQueryParams}
-          initialFormValue={{ ...props.initialFormValue, ...props.defaultFormValue } || {}}
+          initialFormValue={{ ...props.initialFormValue } || {}}
           onApplyChanges={(newFilterValues, appliedFilterCount) => {
             setSearchParams({ ...props.defaultFormValue, ...newFilterValues })
             props.updatedParams && props.updatedParams({ ...props.defaultFormValue, ...newFilterValues })

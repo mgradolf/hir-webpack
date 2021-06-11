@@ -28,7 +28,7 @@ export const getWaitlistEntriesTableColumns = (isModal = false): ITableConfigPro
       title: "Student",
       dataIndex: "StudentName",
       render: (text: any, record: any) =>
-        isModal ? { text } : <Link to={`/person/student/${record.StudentID}`}>{text}</Link>
+        isModal ? { text } : <Link to={`/person/${record.StudentID}?activeTabKey=21`}>{text}</Link>
     },
     { title: "Email", dataIndex: "StudentEmailAddress", render: renderEmail },
     { title: "Request State", dataIndex: "RequestState" },
