@@ -1,8 +1,13 @@
 import React from "react"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
-import { IItemRequest, IRegistrationRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
+import {
+  IItemRequest,
+  IProgramApplicationRequest,
+  IRegistrationRequest
+} from "~/Component/Feature/Order/Model/Interface/IModel"
 import { RegistrationCartItemDetailsModal } from "~/Component/Feature/Order/Registration/RegistrationCartItemDetailsModal"
+import { ProgramApplicationCartItemDetailsModal } from "~/Component/Feature/Order/ProgramApplication/ProgramApplicationCartItemDetailsModal"
 
 export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctionality: CartModelFunctionality }) => {
   return (
@@ -13,13 +18,27 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
           {
             title: "Name",
             dataIndex: "ItemName",
-            render: (text, record) => (
-              <RegistrationCartItemDetailsModal
-                cartModelFunctionality={props.cartModelFunctionality}
-                itemList={props.itemList}
-                item={record as IRegistrationRequest}
-              />
-            )
+            render: (text, record) => {
+              switch (record.ItemType) {
+                case "RegistrationRequest":
+                  return (
+                    <RegistrationCartItemDetailsModal
+                      cartModelFunctionality={props.cartModelFunctionality}
+                      itemList={props.itemList}
+                      item={record as IRegistrationRequest}
+                    />
+                  )
+                case "ProgramApplicationRequest":
+                  return (
+                    <ProgramApplicationCartItemDetailsModal
+                      cartModelFunctionality={props.cartModelFunctionality}
+                      itemList={props.itemList}
+                      item={record as IProgramApplicationRequest}
+                    />
+                  )
+              }
+              return null
+            }
           },
           { title: "Recipient Person", dataIndex: "RecipientPersonName" },
           { title: "Item Type", dataIndex: "ItemType" }

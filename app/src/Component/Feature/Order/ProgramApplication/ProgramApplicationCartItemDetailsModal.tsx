@@ -7,24 +7,22 @@ import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import Modal from "~/Component/Common/Modal/index2"
-import { IItemRequest, IOverride, IRegistrationRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { IItemRequest, IOverride, IProgramApplicationRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { WarningOutlined } from "@ant-design/icons"
 import { eventBus } from "~/utils/EventBus"
 import { UPDATE_CART } from "~/Pages/Manage/Financials/CreateOrderPage"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
-import RegistrationIssues from "~/Component/Feature/Order/Registration/RegistrationIssues"
-import { OptionalItemList } from "~/Component/Feature/Order/Registration/OptionalItemList"
 
-export const RegistrationCartItemDetailsModal = (props: {
+export const ProgramApplicationCartItemDetailsModal = (props: {
   itemList: IItemRequest[]
-  item: IRegistrationRequest
+  item: IProgramApplicationRequest
   cartModelFunctionality: CartModelFunctionality
 }) => {
   const [showModal, setShowModal] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const [formInstance] = Form.useForm()
   const [issueSolved, setIssueSolved] = useState(true)
-  const [overRide, setOverRide] = useState<IOverride>(props.item.OverrideData)
+  const [overRide] = useState<IOverride>(props.item.OverrideData)
 
   useEffect(() => {
     setIssueSolved(
@@ -49,9 +47,6 @@ export const RegistrationCartItemDetailsModal = (props: {
         type="link"
         onClick={() => {
           setShowModal(true)
-          setTimeout(() => {
-            console.log(props)
-          }, 5 * 1000)
         }}
       >
         {!props.item.varificationInProgress && !issueSolved && (
@@ -75,7 +70,7 @@ export const RegistrationCartItemDetailsModal = (props: {
               <Button
                 type="primary"
                 onClick={() => {
-                  const valueToBeUpdated: IRegistrationRequest = {
+                  const valueToBeUpdated: IProgramApplicationRequest = {
                     ...props.item,
                     ...formInstance.getFieldsValue(),
                     OverrideData: overRide
@@ -110,7 +105,7 @@ export const RegistrationCartItemDetailsModal = (props: {
               }}
             >
               <Form form={formInstance} initialValues={props.item}>
-                <FormDropDown
+                {/* <FormDropDown
                   label={"Seat Group"}
                   ariaLabel={"Seat Group"}
                   formInstance={formInstance}
@@ -124,7 +119,7 @@ export const RegistrationCartItemDetailsModal = (props: {
                       props.cartModelFunctionality.removeRegistrationRequest(props.item.RequestID)
                     }
                   }}
-                />
+                /> */}
                 <FormDatePicker
                   label={"Effective Date"}
                   formInstance={formInstance}
@@ -132,7 +127,7 @@ export const RegistrationCartItemDetailsModal = (props: {
                   placeholder="YYYY/MM/DD"
                   fieldName="StatusDate"
                 />
-                <RegistrationIssues {...props} overRide={overRide} setOverRide={setOverRide} />
+                {/* <RegistrationIssues {...props} overRide={overRide} setOverRide={setOverRide} /> */}
 
                 {showMore && (
                   <>
@@ -199,7 +194,7 @@ export const RegistrationCartItemDetailsModal = (props: {
                   </Button>
                 </Row>
               </Form>
-              <OptionalItemList {...props} />
+              {/* <OptionalItemList {...props} /> */}
             </div>
           </Card>
         </Modal>

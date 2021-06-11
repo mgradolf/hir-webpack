@@ -1,16 +1,28 @@
-import { IBuyer_Func, IRegistrationRequest_Func, ISeatGroup } from "~/Component/Feature/Order/Model/Interface/IFunc"
+import {
+  IBuyer_Func,
+  IProgramApplicationRequest_Func,
+  IRegistrationRequest_Func,
+  ISeatGroup
+} from "~/Component/Feature/Order/Model/Interface/IFunc"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import {
   createOptionalItemRequest,
+  createProgramApplicationRequest,
   createRegistrationRequest,
   launchRegistrationRequest,
+  validateProgramRequest,
   validateRegistrationRequest
 } from "~/ApiServices/Service/CartService"
-import { IBuyer, IItemRequest, IRegistrationRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
+import {
+  IBuyer,
+  IItemRequest,
+  IProgramApplicationRequest,
+  IRegistrationRequest
+} from "~/Component/Feature/Order/Model/Interface/IModel"
 import { eventBus } from "~/utils/EventBus"
 import { UPDATE_BUYER, UPDATE_CART } from "~/Pages/Manage/Financials/CreateOrderPage"
 
-export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest_Func {
+export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest_Func, IProgramApplicationRequest_Func {
   buyer: IBuyer = {}
   itemList: IItemRequest[] = [
     {
@@ -92,7 +104,15 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
         ScheduleConflict_passed: false,
         StudentOnHoldCheck_passed: false,
         PrerequisiteCheck_passed: false,
-        check_scheduleconflict_conflicts: [{ SectionNumber: "COMP-201.(1)" }]
+        check_scheduleconflict_conflicts: [
+          { SectionNumber: "COMP-201.(1)" },
+          { SectionNumber: "SMT1" },
+          { SectionNumber: "SMT1" },
+          { SectionNumber: "SMT1" },
+          { SectionNumber: "SMT1" },
+          { SectionNumber: "SMT1" },
+          { SectionNumber: "SMT1" }
+        ]
       },
       OverrideData: {
         SectionPrerequisiteCheck: false,
@@ -132,6 +152,13 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
         tempRegistrationRequest = x.data
         console.log(tempRegistrationRequest)
         tempRegistrationRequest.varificationInProgress = true
+        tempRegistrationRequest.OverrideData = {
+          SectionPrerequisiteCheck: false,
+          StudentOnHoldCheckWithMessage: false,
+          StudentOnHoldCheck: false,
+          ScheduleConflictCheck: false,
+          AnswerQuestion: false
+        }
         this.itemList = [...this.itemList, tempRegistrationRequest]
         eventBus.publish(UPDATE_CART, this.itemList)
         validateRegistrationRequest({
@@ -154,13 +181,6 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
               check_prerequisiteconflict_conflicts: response.data.check_prerequisiteconflict_conflicts || [],
               check_scheduleconflict_conflicts: response.data.check_scheduleconflict_conflicts || []
             }
-          }
-          tempRegistrationRequest.OverrideData = {
-            SectionPrerequisiteCheck: false,
-            StudentOnHoldCheckWithMessage: false,
-            StudentOnHoldCheck: false,
-            ScheduleConflictCheck: false,
-            AnswerQuestion: false
           }
           tempRegistrationRequest.varificationInProgress = false
           tempRegistrationRequest.SeatGroups = SeatGroups
@@ -208,5 +228,24 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
       return x
     })
     eventBus.publish(UPDATE_CART, this.itemList)
+  }
+
+  createProgramApplicationRequest(ProgramID: number, RecipientPersonID?: number) {
+    return createProgramApplicationRequest({ ProgramID, RecipientPersonID }).then((response) => {
+      if (response.success) {
+        const tempRegistrationRequest: IProgramApplicationRequest = response.data
+        tempRegistrationRequest.varificationInProgress = false
+        validateProgramRequest({
+          ProgramID,
+          RecipientPersonID,
+          ProgramRequestType: "ProgramApplicationRequest"
+        }).then((validationResponse) => {
+          tempRegistrationRequest.varificationInProgress = false
+        })
+        this.itemList = [...this.itemList, response.data]
+        eventBus.publish(UPDATE_CART, this.itemList)
+      }
+      return response
+    })
   }
 }

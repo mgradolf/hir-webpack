@@ -71,6 +71,32 @@ export interface IOptionalItem {
   SeatGroupID: number
 }
 
+export interface IProgramApplicationRequest {
+  RequestID: number
+  ItemType: string
+  ItemRequestType: string
+  PaymentAmount: number
+  PaymentGatewayAccountID: number
+  TranscriptCreditTypeID: number
+  ProgramID: number
+  ItemTypeID: number
+  RecipientPersonID: number
+  UnitPrice: number
+  StatusDate: string
+  GradeScaleTypeID: number
+  ItemQuantity: number
+  ItemName: string
+  AccessContext: any
+  AnswerMap: any
+  AttendanceExpected: any
+  SectionID: number
+  SeatGroupID: number
+  OfferingID: number
+  RecipientPersonName: any
+  OverrideData: IOverride
+  issues?: IValidationRegistration
+  varificationInProgress?: boolean
+}
 export interface IItemRequest {
   RequestID: number
 }

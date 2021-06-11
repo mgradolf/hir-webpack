@@ -9,9 +9,9 @@ export const ScheduleConflict = (props: {
   setOverRide: (overRide: IOverride) => void
 }) => {
   return (
-    <li style={{ marginBottom: "15px" }}>
+    <>
       {!props.item.issues?.ScheduleConflict_passed && (
-        <>
+        <li style={{ marginBottom: "15px" }}>
           <span
             style={{
               color: props.overRide.ScheduleConflictCheck ? "green" : "red",
@@ -32,15 +32,7 @@ export const ScheduleConflict = (props: {
             <ul>
               {props.item.issues &&
                 props.item.issues.check_scheduleconflict_conflicts &&
-                [
-                  ...props.item.issues.check_scheduleconflict_conflicts,
-                  { SectionNumber: "SMT1" },
-                  { SectionNumber: "SMT1" },
-                  { SectionNumber: "SMT1" },
-                  { SectionNumber: "SMT1" },
-                  { SectionNumber: "SMT1" },
-                  { SectionNumber: "SMT1" }
-                ].map((x, i) => {
+                props.item.issues.check_scheduleconflict_conflicts.map((x, i) => {
                   return (
                     <li
                       key={i}
@@ -64,8 +56,8 @@ export const ScheduleConflict = (props: {
           >
             Click here to {props.overRide.ScheduleConflictCheck ? "Unwave it" : "Wave it"}
           </Button>
-        </>
+        </li>
       )}
-    </li>
+    </>
   )
 }

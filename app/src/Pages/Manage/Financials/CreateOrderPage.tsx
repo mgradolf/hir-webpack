@@ -4,6 +4,7 @@ import { CartTable } from "~/Component/Feature/Order/CartTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import { IBuyer, IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { SelectBuyer } from "~/Component/Feature/Order/SelectBuyer"
+import { AddProgramApplicationModal } from "~/Component/Feature/Order/Shop/AddProgramApplicationModal"
 import { AddSectionModal } from "~/Component/Feature/Order/Shop/AddSectionModal"
 import { eventBus } from "~/utils/EventBus"
 
@@ -97,7 +98,15 @@ export default function CreateOrderPage() {
           ScheduleConflict_passed: false,
           StudentOnHoldCheck_passed: false,
           PrerequisiteCheck_passed: false,
-          check_scheduleconflict_conflicts: [{ SectionNumber: "COMP-201.(1)" }]
+          check_scheduleconflict_conflicts: [
+            { SectionNumber: "COMP-201.(1)" },
+            { SectionNumber: "SMT1" },
+            { SectionNumber: "SMT1" },
+            { SectionNumber: "SMT1" },
+            { SectionNumber: "SMT1" },
+            { SectionNumber: "SMT1" },
+            { SectionNumber: "SMT1" }
+          ]
         },
         OverrideData: {
           SectionPrerequisiteCheck: false,
@@ -106,6 +115,29 @@ export default function CreateOrderPage() {
           ScheduleConflictCheck: false,
           AnswerQuestion: false
         }
+      } as IItemRequest,
+      {
+        RequestID: 5065553080567287080,
+        ItemType: "ProgramApplicationRequest",
+        ItemRequestType: "ProgramApplicationRequest",
+        PaymentAmount: 0.0,
+        PaymentGatewayAccountID: 2,
+        TranscriptCreditTypeID: 0,
+        ProgramID: 1002,
+        ItemTypeID: 1,
+        RecipientPersonID: 14889,
+        UnitPrice: 0,
+        StatusDate: "2021-06-11T18:13:43+06:00",
+        GradeScaleTypeID: 2,
+        ItemQuantity: 1,
+        ItemName: "CX Release I System Administrator Application",
+        AccessContext: null,
+        AnswerMap: null,
+        AttendanceExpected: null,
+        SectionID: 5168,
+        SeatGroupID: 5248,
+        OfferingID: 2097,
+        RecipientPersonName: "0507, nargis"
       } as IItemRequest
     ])
     eventBus.subscribe(UPDATE_CART, (ItemList: IItemRequest[]) => {
@@ -155,6 +187,34 @@ export default function CreateOrderPage() {
                   {buyer.PersonID && (
                     <Menu.Item>
                       <AddSectionModal
+                        sectionAddType="others"
+                        buyer={buyer}
+                        itemList={ItemList}
+                        cartModelFunctionality={cartModelFunctionality}
+                      />
+                    </Menu.Item>
+                  )}
+                  <Menu.Item>
+                    <AddProgramApplicationModal
+                      sectionAddType="me"
+                      buyer={buyer}
+                      itemList={ItemList}
+                      cartModelFunctionality={cartModelFunctionality}
+                    />
+                  </Menu.Item>
+                  {buyer.PersonID && (
+                    <Menu.Item>
+                      <AddProgramApplicationModal
+                        sectionAddType="buy"
+                        buyer={buyer}
+                        itemList={ItemList}
+                        cartModelFunctionality={cartModelFunctionality}
+                      />
+                    </Menu.Item>
+                  )}
+                  {buyer.PersonID && (
+                    <Menu.Item>
+                      <AddProgramApplicationModal
                         sectionAddType="others"
                         buyer={buyer}
                         itemList={ItemList}

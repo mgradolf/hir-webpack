@@ -8,7 +8,9 @@ export const config = {
     validateRegistrationRequest: "validateRegistrationRequest",
     launchRegistrationRequest: "launchRegistrationRequest",
     createRegistrationRequest: "createRegistrationRequest",
-    createOptionalItemRequest: "createOptionalItemRequest"
+    createOptionalItemRequest: "createOptionalItemRequest",
+    createProgramApplicationRequest: "createProgramApplicationRequest",
+    validateProgramRequest: "validateProgramRequest"
   }
 }
 

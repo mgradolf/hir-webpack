@@ -36,6 +36,9 @@ export interface IRegistrationRequest_Func {
   addAnswerMap: (RequestID: number, answerMap: { [key: string]: any }) => void
 }
 
+export interface IProgramApplicationRequest_Func {
+  createProgramApplicationRequest: (ProgramID: number, RecipientPersonID?: number) => Promise<IApiResponse>
+}
 export interface ICartModel_ItemList_Func {
   launchRegistrationRequest: (ItemList: IItemRequest[]) => Promise<IApiResponse>
 }
