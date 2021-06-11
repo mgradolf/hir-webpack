@@ -21,7 +21,8 @@ export const OptionalItemList = (props: {
           return x.ProductID
         })
       )
-  }, [props.item])
+    // eslint-disable-next-line
+  }, [])
   return (
     <div>
       <Typography.Title level={4}>Select Optional Item</Typography.Title>
@@ -37,9 +38,10 @@ export const OptionalItemList = (props: {
           onChange: (selectedRowKeys: any[], selectedRows: any[]) => {
             setSelectedRowKeys(selectedRowKeys)
             props.cartModelFunctionality.addOptionalItem(
+              props.item.RequestID,
               props.item.SeatGroupID,
-              selectedRows.map((x) => x.SectionFinancialID),
-              selectedRows.map((x) => x.ProductID)
+              selectedRows.map((x) => x.SectionFinancialID).filter(Boolean),
+              selectedRows.map((x) => x.ProductID).filter(Boolean)
             )
           }
         }}
@@ -47,9 +49,14 @@ export const OptionalItemList = (props: {
         searchFunc={(Param: { [key: string]: any }) =>
           Promise.all([findOptionalItemBySeatGroupID(Param), findProductBySeatGroupID(Param)]).then(
             (results: IApiResponse[]) => {
+              let finalResponse: any[] = []
               const items = results[0]
               const products = results[1]
-              const finalResponse = [...items.data, ...products.data].map((x) => {
+              if (items && items.success && Array.isArray(items.data)) finalResponse = [...finalResponse, ...items.data]
+              if (products && products.success && Array.isArray(products.data))
+                finalResponse = [...finalResponse, ...products.data]
+
+              finalResponse = finalResponse.map((x) => {
                 x.rowKey = x.SectionFinancialID || x.ProductID
                 return x
               })
@@ -62,26 +69,3 @@ export const OptionalItemList = (props: {
     </div>
   )
 }
-
-// {
-//   "Description" : "Product type optional item",
-//   "Price" : 100.00,
-//   "Name" : "Product type optional item"
-//   "ProductID" : 267,
-//   "Quantity" : 1,
-// }
-// {
-//   "Description" : "Textbook Price",
-//   "Price" : 1400.0000,
-//   "Name" : "Default seat group"
-//   "SectionFinancialID" : 12563,
-//   "ItemType" : {
-//     "ItemTypeDescriptor" : "OptionalItem",
-//     "ItemTypeID" : 1000
-//   },
-//   "Quantity" : 0,
-//   "SeatGroupDescriptor" : "Default seat group",
-//   "SectionID" : 8884,
-//   "SeatGroupID" : 9177,
-//   "ItemTypeID" : 1000,
-// }

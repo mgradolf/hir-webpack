@@ -180,18 +180,17 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
     eventBus.publish(UPDATE_CART, this.itemList)
   }
 
-  addOptionalItem(SeatGroupID: number, SectionFinancialIDs: number[], ProductIDs: number[]) {
-    if (SeatGroupID) {
+  addOptionalItem(RequestID: number, SeatGroupID: number, SectionFinancialIDs: number[], ProductIDs: number[]) {
+    if (RequestID && SeatGroupID) {
       return createOptionalItemRequest({
         SeatGroupID: SeatGroupID,
         ...(SectionFinancialIDs.length && { SectionFinancialIDs: SectionFinancialIDs }),
         ...(ProductIDs.length && { ProductIDs: ProductIDs })
       }).then((response) => {
-        console.log("added OptionalItem", response, this.itemList)
         if (response.success && Array.isArray(response.data)) {
           this.itemList = (this.itemList as IRegistrationRequest[]).map((x) => {
-            if (x.SeatGroupID === SeatGroupID) {
-              x.ItemList = [...(x.ItemList || []), ...response.data]
+            if (x.RequestID === RequestID && Array.isArray(response.data)) {
+              x.ItemList = [...response.data]
             }
             return x
           })
@@ -201,5 +200,13 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
       })
     }
     return Promise.resolve({ code: 200, success: false, data: [], error: true })
+  }
+
+  addAnswerMap(RequestID: number, answerMap: { [key: string]: any }) {
+    this.itemList = (this.itemList as IRegistrationRequest[]).map((x) => {
+      if (x.RequestID === RequestID) x.AnswerMap = answerMap
+      return x
+    })
+    eventBus.publish(UPDATE_CART, this.itemList)
   }
 }

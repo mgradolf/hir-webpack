@@ -42,7 +42,7 @@ export interface IRegistrationRequest extends IItemRequest {
   ItemQuantity: number
   ItemName: string
   AccessContext: any
-  AnswerMap: any
+  AnswerMap: { [key: string]: any }
   AttendanceExpected: any
   SectionID: number
   SeatGroupID: number
