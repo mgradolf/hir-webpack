@@ -29,6 +29,7 @@
   "studentEditHoldForm": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/students/hold/edit-hold/",
   "studentReleaseHoldForm": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/students/hold/release-hold/",
   "studentCommentsTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/students/comments/",
+  "searchInstructors": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/instructors/search-instructor/",
   "createInstructorForm": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/instructors/create/",
   "instructorSummaryTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/instructors/summary/",
   "instructorScheduleTab": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/constituents/instructors/schedule/",
