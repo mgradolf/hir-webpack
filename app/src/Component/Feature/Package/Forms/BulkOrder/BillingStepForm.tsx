@@ -5,6 +5,7 @@ import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { findPersonsByAccount } from "~/ApiServices/Service/PersonService"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
+import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
 import "~/Sass/utils.scss"
 
 interface IBillingStepFormProps {
@@ -28,7 +29,9 @@ export default function BillingStepForm(props: IBillingStepFormProps) {
           label={"Purchaser"}
           ariaLabel={"Purchaser"}
           fieldName="PurchaserID"
-          refLookupService={() => findPersonsByAccount({ AccountID: props.initialValue.AccountID })}
+          refLookupService={() =>
+            findPersonsByAccount({ AccountID: props.initialValue.AccountID, AffiliationRoleTypeID: AFF_ROLE_PURCHASER })
+          }
           displayKey="FormattedName"
           valueKey="PersonID"
           rules={[{ required: true, message: "Please select purchaser!" }]}
