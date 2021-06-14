@@ -34,7 +34,7 @@ export const AddSectionModal = (props: {
   let buttonLabel = ""
   switch (props.sectionAddType) {
     case "buy":
-      buttonLabel = "Buy Seats"
+      buttonLabel = "Buy Seats (Registration)"
       selectButton = (
         <Row justify="center">
           <Col span={12}>
@@ -69,7 +69,7 @@ export const AddSectionModal = (props: {
     case "me":
       buttonLabel = `Register ${
         props.buyer.PersonProfile ? props.buyer.PersonProfile.PersonDescriptor : "Selected Buyer"
-      }`
+      } (Registration)`
       selectButton = (
         <Button
           type="primary"
@@ -88,7 +88,7 @@ export const AddSectionModal = (props: {
       )
       break
     case "others":
-      buttonLabel = "Register Students"
+      buttonLabel = "Register Students (Registration)"
       selectButton = (
         <ContactListModal
           disabled={!selectedItem}

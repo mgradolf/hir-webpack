@@ -40,8 +40,8 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
               return null
             }
           },
-          { title: "Recipient Person", dataIndex: "RecipientPersonName" },
-          { title: "Item Type", dataIndex: "ItemType" }
+          { title: "Quantity", dataIndex: "ItemQuantity" },
+          { title: "Unit Price", dataIndex: "UnitPrice" }
         ]}
         dataSource={props.itemList}
       />

@@ -57,7 +57,7 @@ export const RegistrationCartItemDetailsModal = (props: {
         {!props.item.varificationInProgress && !issueSolved && (
           <WarningOutlined style={{ color: "#f11e1e", fontSize: "16px" }} />
         )}
-        {props.item.ItemName}
+        {`${props.item.RecipientPersonName ? props.item.RecipientPersonName : "Unassigned"} - ${props.item.ItemName}`}
       </Button>
       {showModal && (
         <Modal width="1000px">

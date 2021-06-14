@@ -71,6 +71,13 @@ export interface IOptionalItem {
   SeatGroupID: number
 }
 
+export interface IProgramApplicaionIssues {
+  program_validity_issues: any[]
+  DuplicateRequestCheck_passed: boolean
+  check_application_passed: boolean
+  program_validity_passed: boolean
+}
+
 export interface IProgramApplicationRequest {
   RequestID: number
   ItemType: string
@@ -93,8 +100,7 @@ export interface IProgramApplicationRequest {
   SeatGroupID: number
   OfferingID: number
   RecipientPersonName: any
-  OverrideData: IOverride
-  issues?: IValidationRegistration
+  issues?: IProgramApplicaionIssues
   varificationInProgress?: boolean
 }
 export interface IItemRequest {

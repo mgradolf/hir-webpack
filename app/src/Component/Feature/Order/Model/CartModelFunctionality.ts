@@ -21,108 +21,11 @@ import {
 } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { eventBus } from "~/utils/EventBus"
 import { UPDATE_BUYER, UPDATE_CART } from "~/Pages/Manage/Financials/CreateOrderPage"
+import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
 
 export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest_Func, IProgramApplicationRequest_Func {
   buyer: IBuyer = {}
-  itemList: IItemRequest[] = [
-    {
-      RequestID: 606483311526822030,
-      ItemType: "RegistrationRequest",
-      ItemRequestType: "RegistrationRequest",
-      PaymentAmount: 1000.0,
-      PaymentGatewayAccountID: 9,
-      TranscriptCreditTypeID: 2002,
-      ItemTypeID: 1,
-      RecipientPersonID: 14889,
-      UnitPrice: 1000.0,
-      StatusDate: "2021-06-09T12:02:54+06:00",
-      GradeScaleTypeID: 2044,
-      ItemQuantity: 1,
-      ItemName: "SMT.(3) SMT Offering",
-      AccessContext: null,
-      AnswerMap: null,
-      AttendanceExpected: null,
-      SectionID: 10852,
-      SeatGroupID: 11562,
-      OfferingID: 6824,
-      RecipientPersonName: "0507, nargis",
-      SeatGroups: [
-        {
-          IsDefault: false,
-          AccountID: 4813,
-          ReservedSeats: 0,
-          TotalSeats: 10,
-          SectionID: 8885,
-          SeatGroupID: 11933,
-          SeatGroupName: "aarosh",
-          AvailableSeats: 10
-        },
-        {
-          IsDefault: true,
-          AccountID: null,
-          ReservedSeats: 122,
-          TotalSeats: 123,
-          SectionID: 8885,
-          SeatGroupID: 9178,
-          SeatGroupName: "Default seat group",
-          AvailableSeats: 1
-        },
-        {
-          IsDefault: false,
-          AccountID: null,
-          ReservedSeats: 2,
-          TotalSeats: 500,
-          SectionID: 8885,
-          SeatGroupID: 9638,
-          SeatGroupName: "j2ee",
-          AvailableSeats: 498
-        }
-      ],
-      issues: {
-        RegistrationCheck_passed: false,
-        DuplicateRequestCheck_passed: false,
-        SectionValidityCheck_passed: false,
-
-        // RegistrationCheck_passed: true,
-        // DuplicateRequestCheck_passed: true,
-        // SectionValidityCheck_passed: true,
-        check_sectionvalidity_issues: [],
-        check_prerequisiteconflict_conflicts: [
-          {
-            Status: "NOT-TAKEN",
-            SectionNumber: null,
-            CreditHours: null,
-            StatusID: null,
-            OfferingCode: "COMP-101",
-            Grade: null,
-            OfferingName: "Java Programming I",
-            SectionID: null,
-            OfferingID: 5576
-          }
-        ],
-        RegistrationQuestionCheck_passed: false,
-        ScheduleConflict_passed: false,
-        StudentOnHoldCheck_passed: false,
-        PrerequisiteCheck_passed: false,
-        check_scheduleconflict_conflicts: [
-          { SectionNumber: "COMP-201.(1)" },
-          { SectionNumber: "SMT1" },
-          { SectionNumber: "SMT1" },
-          { SectionNumber: "SMT1" },
-          { SectionNumber: "SMT1" },
-          { SectionNumber: "SMT1" },
-          { SectionNumber: "SMT1" }
-        ]
-      },
-      OverrideData: {
-        SectionPrerequisiteCheck: false,
-        StudentOnHoldCheckWithMessage: false,
-        StudentOnHoldCheck: false,
-        ScheduleConflictCheck: false,
-        AnswerQuestion: false
-      }
-    } as IItemRequest
-  ]
+  itemList: IItemRequest[] = fakeCartData
 
   assignPerson(Person?: { [key: string]: any }): void {
     this.buyer.PersonID = Person ? Person.PersonID : undefined
@@ -234,16 +137,30 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
     return createProgramApplicationRequest({ ProgramID, RecipientPersonID }).then((response) => {
       if (response.success) {
         const tempRegistrationRequest: IProgramApplicationRequest = response.data
-        tempRegistrationRequest.varificationInProgress = false
+        tempRegistrationRequest.varificationInProgress = true
+        this.itemList = [...this.itemList, tempRegistrationRequest]
+        eventBus.publish(UPDATE_CART, this.itemList)
         validateProgramRequest({
           ProgramID,
           RecipientPersonID,
           ProgramRequestType: "ProgramApplicationRequest"
         }).then((validationResponse) => {
           tempRegistrationRequest.varificationInProgress = false
+          if (validationResponse.success)
+            tempRegistrationRequest.issues = {
+              program_validity_issues: validationResponse.data.program_validity_issues || [],
+              DuplicateRequestCheck_passed: !!validationResponse.data["Request.DuplicateRequestCheck_passed"],
+              check_application_passed: !!validationResponse.data.check_application_passed,
+              program_validity_passed: !!validationResponse.data.program_validity_passed
+            }
+          this.itemList = this.itemList.map((x) => {
+            if (x.RequestID === tempRegistrationRequest.RequestID) {
+              x = tempRegistrationRequest
+            }
+            return x
+          })
+          eventBus.publish(UPDATE_CART, this.itemList)
         })
-        this.itemList = [...this.itemList, response.data]
-        eventBus.publish(UPDATE_CART, this.itemList)
       }
       return response
     })

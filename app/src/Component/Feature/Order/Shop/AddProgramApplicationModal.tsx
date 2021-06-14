@@ -34,7 +34,7 @@ export const AddProgramApplicationModal = (props: {
   let buttonLabel = ""
   switch (props.sectionAddType) {
     case "buy":
-      buttonLabel = "Buy Seats"
+      buttonLabel = "Buy Seats (Program)"
       selectButton = (
         <Row justify="center">
           <Col span={12}>
@@ -64,7 +64,7 @@ export const AddProgramApplicationModal = (props: {
     case "me":
       buttonLabel = `Register ${
         props.buyer.PersonProfile ? props.buyer.PersonProfile.PersonDescriptor : "Selected Buyer"
-      }`
+      } (Program)`
       selectButton = (
         <Button
           type="primary"
@@ -83,7 +83,7 @@ export const AddProgramApplicationModal = (props: {
       )
       break
     case "others":
-      buttonLabel = "Register Students"
+      buttonLabel = "Register Students (Program)"
       selectButton = (
         <ContactListModal
           disabled={!selectedItem}
@@ -133,8 +133,8 @@ export const AddProgramApplicationModal = (props: {
             <div className="modal-card">
               <MetaDrivenForm
                 meta={[
-                  { label: "Program Code", inputType: TEXT, fieldName: "ProgramCode" },
-                  { label: "Program Name", inputType: TEXT, fieldName: "ProgramName" },
+                  { label: "Program Code", inputType: TEXT, fieldName: "programCode" },
+                  { label: "Program Name", inputType: TEXT, fieldName: "programName" },
                   {
                     label: "Department",
                     fieldName: "OrganizationID",
@@ -145,7 +145,7 @@ export const AddProgramApplicationModal = (props: {
                   }
                 ]}
                 onApplyChanges={(newSearchParams, newSearchParamsCount) => {
-                  setSearchParams(newSearchParams)
+                  setSearchParams({ ...newSearchParams, programStatusCodeID: 3, hasApplicationProcess: true })
                 }}
                 stopProducingQueryParams={true}
               />

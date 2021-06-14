@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Form } from "antd"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdit/PersonFormWithConfig"
@@ -14,7 +14,8 @@ export const SelectBuyer = (props: {
 }) => {
   const [PersonFormInstance] = Form.useForm()
   const [help, setHelp] = useState<React.ReactNode>(null)
-  useEffect(() => {
+
+  const setPayerCriteria = () => {
     if (props.buyer.PersonProfile) {
       if (
         !props.buyer.PersonProfile.Address ||
@@ -32,6 +33,7 @@ export const SelectBuyer = (props: {
               onSubmit={(response) => {
                 if (response.success) {
                   setHelp(null)
+                  findAndSetAccount(props.buyer.PersonProfile)
                 }
               }}
             />
@@ -43,37 +45,46 @@ export const SelectBuyer = (props: {
     } else {
       setHelp(null)
     }
-  }, [props.buyer.PersonProfile])
+  }
+
+  const setPayerAccounCriteria = (Person: { [key: string]: any }) => {
+    setHelp(
+      <>
+        Selected Purchaser does not have any account
+        <AccountFormOpenButton
+          helpKey="createAccount"
+          label="Update Payer Account"
+          buttonProps={{ type: "link" }}
+          onSubmitSuccess={(account) => {
+            setHelp(null)
+            props.cartModelFunctionality.assignPerson({ ...Person, ...account })
+          }}
+          initialValues={{
+            AllowToPayLater: "Not Allowed",
+            DefaultWaitlistPriority: 5,
+            PersonID: Person.PersonID
+          }}
+        />
+      </>
+    )
+  }
+
+  const findAndSetAccount = (Person: any) => {
+    findAccount({ PersonID: Person.PersonID }).then((response) => {
+      if (response.success && response.data === "") {
+        props.cartModelFunctionality.assignPerson(Person)
+        setPayerAccounCriteria(Person)
+      } else {
+        props.cartModelFunctionality.assignPerson({ ...Person, ...response.data })
+        // console.log({ ...Person, ...response.data })
+      }
+    })
+  }
 
   const onSelectedItems = (Params: any[]) => {
-    if (Params.length && Params[0] && Params[0].PersonID) {
-      findAccount({ PersonID: Params[0].PersonID }).then((response) => {
-        if (response.success && response.data === "") {
-          props.cartModelFunctionality.assignPerson(Params[0])
-          setHelp(
-            <>
-              Selected Purchaser does not have any account
-              <AccountFormOpenButton
-                helpKey="createAccount"
-                label="Update Payer Account"
-                buttonProps={{ type: "link" }}
-                onSubmitSuccess={(account) => {
-                  setHelp(null)
-                  props.cartModelFunctionality.assignPerson({ ...Params[0], ...account })
-                }}
-                initialValues={{
-                  AllowToPayLater: "Not Allowed",
-                  DefaultWaitlistPriority: 5,
-                  PersonID: Params[0].PersonID
-                }}
-              />
-            </>
-          )
-        } else {
-          props.cartModelFunctionality.assignPerson({ ...Params[0], ...response.data })
-          console.log({ ...Params[0], ...response.data })
-        }
-      })
+    setPayerCriteria()
+    if (!help && Params.length && Params[0] && Params[0].PersonID) {
+      findAndSetAccount(Params[0])
     } else props.cartModelFunctionality.assignPerson()
   }
 
