@@ -1,17 +1,18 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import PersonMergeForm from "~/Component/Feature/Person/Forms/CreateEdit/PersonMergeForm"
 import { Button, Tooltip } from "antd"
 import { MergeCellsOutlined } from "@ant-design/icons"
+import { searchPersons } from "~/ApiServices/BizApi/person/personIF"
 
 interface IPersonMergeFormModalProps {
-  PrimaryPerson: { [key: string]: any }
+  PersonInfo: { [key: string]: any }
   closeModal?: () => void
 }
 
 export default function PersonMergeFormModal(props: IPersonMergeFormModalProps) {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
-  const [initialFormValue] = useState<{ [key: string]: any }>(props.PrimaryPerson)
+  const [initialFormValue] = useState<{ [key: string]: any }>(props.PersonInfo || {})
 
   return (
     <Modal width="1000px" apiCallInProgress={apiCallInProgress}>
@@ -24,8 +25,19 @@ export default function PersonMergeFormModal(props: IPersonMergeFormModalProps) 
   )
 }
 
-export const PersonMergeFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
+export const PersonMergeFormModalOpenButton = (props: { PersonID: number }) => {
   const [showModal, setShowModal] = useState(false)
+  const [personInfo, setPersonInfo] = useState<{ [key: string]: any }>({})
+
+  useEffect(() => {
+    ;(async function () {
+      const result = await searchPersons({ PersonID: props.PersonID })
+      if (result.success && result.data) {
+        setPersonInfo(result.data[0])
+      }
+    })()
+  }, [props.PersonID])
+
   return (
     <>
       {setShowModal && (
@@ -39,7 +51,9 @@ export const PersonMergeFormModalOpenButton = (props: { personData: { [key: stri
           />
         </Tooltip>
       )}
-      {showModal && <PersonMergeFormModal PrimaryPerson={props.personData} closeModal={() => setShowModal(false)} />}
+      {showModal && Object.keys(personInfo).length > 0 && (
+        <PersonMergeFormModal PersonInfo={personInfo} closeModal={() => setShowModal(false)} />
+      )}
     </>
   )
 }

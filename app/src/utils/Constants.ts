@@ -219,8 +219,8 @@ export const REGISTRATION_EMAIL_CONFIRMATION_SUCCESS = "Successfully send email!
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
 export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
 
-export const INVITE_TO_SETUP_WEB_LOGIN = "Invite to setup web login done!"
-export const INVITE_TO_RESET_PASSWORD = "Invite to reset password done!"
+export const INVITE_TO_SETUP_WEB_LOGIN = "An invitation to setup a web login has been sent."
+export const INVITE_TO_RESET_PASSWORD = "An invitation to reset password has been sent."
 export const UNLOCK_WEB_LOGIN = "Unlock person login done!"
 
 export const MERGE_SUCCESSFULLY = "Successfully merged!"

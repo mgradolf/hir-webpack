@@ -63,7 +63,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     title: "Name",
     cardActions: [
       <BasicFormModalOpenButton iconType="edit" personData={person} />,
-      <PersonMergeFormModalOpenButton personData={person} />,
+      <PersonMergeFormModalOpenButton PersonID={person.PersonID} />,
       <PersonRemoveLink PersonID={person.PersonID} />
     ],
     contents: [

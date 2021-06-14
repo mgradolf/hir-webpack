@@ -211,6 +211,14 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
               defaultValue={props.initialFormValue.EndDate}
               formInstance={props.formInstance}
             />
+            <FormDatePicker
+              labelColSpan={8}
+              wrapperColSpan={14}
+              label="Conferred"
+              fieldName="DateConferred"
+              defaultValue={props.initialFormValue.DateConferred}
+              formInstance={props.formInstance}
+            />
           </Col>
         </Row>
       </Form>

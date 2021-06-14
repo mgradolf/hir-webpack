@@ -9,7 +9,7 @@ export function PersonLookup(props: IGeneratedField) {
     <LookupOpenButton
       lookupModalTitle="Select Person"
       displayKey="SortName"
-      searchFieldName="FirstName"
+      searchFieldName="SortName"
       meta={PersonSearchMeta as IField[]}
       help={props.help}
       metaName="PersonSearchMeta"
