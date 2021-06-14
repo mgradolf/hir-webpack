@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
 import { Button, Dropdown, Menu } from "antd"
-import { Redirect } from "react-router-dom"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { getProfileMeta } from "~/TableSearchMeta/Person/PersonDetailsMeta/Profile"
 import { getStudentMeta } from "~/TableSearchMeta/Person/PersonDetailsMeta/Student"
@@ -16,16 +15,12 @@ import {
 import Notification from "~/utils/notification"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { pushInstructor } from "~/ApiServices/Service/InstructorService"
-import { removePerson } from "~/ApiServices/Service/PersonService"
 import { cancelAnonymizeRequest, createAnonymizationRequest } from "~/ApiServices/Service/AnonymizationRequestService"
-import { PersonMergeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonMergeFormModal"
-import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 
 export const GetMenu = (props: { personInfos: { [key: string]: any } }) => {
   const canForgetMeRequest: boolean = props.personInfos[0]["CanForgetMeRequest"]
   const isStudent = props.personInfos[1].Student
   const isFaculty = props.personInfos[1].Faculty
-  const [redirectAfterRemove, setRedirectAfterRemove] = useState<string>()
 
   const createStudent = async () => {
     if (props.personInfos) {
@@ -79,7 +74,6 @@ export const GetMenu = (props: { personInfos: { [key: string]: any } }) => {
 
   return (
     <>
-      {redirectAfterRemove && <Redirect to={redirectAfterRemove} />}
       <Menu>
         <Menu.Item>
           <Button disabled={isStudent != null} type="link" onClick={createStudent}>
@@ -92,31 +86,8 @@ export const GetMenu = (props: { personInfos: { [key: string]: any } }) => {
           </Button>
         </Menu.Item>
         <Menu.Item>
-          <PersonMergeFormModalOpenButton personData={props.personInfos[0]} />
-        </Menu.Item>
-        <Menu.Item>
           <Button type="link" onClick={forgetMeRequest}>
             {canForgetMeRequest ? `Forget me request` : `Cancel Forget me request`}
-          </Button>
-        </Menu.Item>
-        <Menu.Item>
-          <Button
-            type="link"
-            danger
-            onClick={() =>
-              showDeleteConfirm(() => {
-                return removePerson({
-                  PersonID: props.personInfos[0].PersonID
-                }).then((x) => {
-                  if (x.success) {
-                    setRedirectAfterRemove(`/person`)
-                  }
-                  return x
-                })
-              })
-            }
-          >
-            Delete this person
           </Button>
         </Menu.Item>
       </Menu>

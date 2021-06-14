@@ -131,7 +131,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
                 {schoolCode.map((x) => {
                   return (
                     <Select.Option key={x.ID} value={x.ID}>
-                      {x.Description}
+                      {`${x.Description} (${x.Name})`}
                     </Select.Option>
                   )
                 })}
@@ -209,6 +209,14 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
               label="End Date"
               fieldName="EndDate"
               defaultValue={props.initialFormValue.EndDate}
+              formInstance={props.formInstance}
+            />
+            <FormDatePicker
+              labelColSpan={8}
+              wrapperColSpan={14}
+              label="Conferred"
+              fieldName="DateConferred"
+              defaultValue={props.initialFormValue.DateConferred}
               formInstance={props.formInstance}
             />
           </Col>

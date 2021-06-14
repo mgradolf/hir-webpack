@@ -37,6 +37,9 @@ import { AFF_ROLE_PURCHASER } from "~/utils/Constants"
 
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { DegreeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonDegreeFormModal"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { PersonMergeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonMergeFormModal"
+import { PersonRemoveLink } from "~/Component/Feature/Person/PersonRemoveLink"
 
 export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
   const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
@@ -58,7 +61,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
   const tabMetas: IDetailsTabMeta[] = []
   const personalInfo1: CardContainer = {
     title: "Name",
-    cardActions: [<BasicFormModalOpenButton iconType="edit" personData={person} />],
+    cardActions: [
+      <BasicFormModalOpenButton iconType="edit" personData={person} />,
+      <PersonMergeFormModalOpenButton PersonID={person.PersonID} />,
+      <PersonRemoveLink PersonID={person.PersonID} />
+    ],
     contents: [
       { label: "Prefix", value: person.Prefix, render: undefined },
       { label: "First Name", value: person.FirstName, render: undefined },
@@ -74,11 +81,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     title: "Other Demographic",
     cardActions: [
       <MetaDrivenFormModalOpenButton
-        formTitle="Update Person General Info"
+        formTitle="Update General Info"
         formMeta={PersonTypeFormMeta}
         formSubmitApi={pushPerson}
         initialFormValue={person}
-        buttonLabel="Update Person General Info"
+        buttonLabel="Update General Info"
         iconType="edit"
         defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
@@ -104,11 +111,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     title: "Identity Information",
     cardActions: [
       <MetaDrivenFormModalOpenButton
-        formTitle="Update Person Gov Info"
+        formTitle="Update Identity Info"
         formMeta={PersonGovFormMeta}
         formSubmitApi={pushPerson}
         initialFormValue={person}
-        buttonLabel="Update Person Gov Info"
+        buttonLabel="Update Identity Info"
         iconType="edit"
         defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
@@ -127,16 +134,38 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         label: "Account Name",
         value: account?.AccountName,
         render: undefined
-      },
-      { label: "Can Defer Payment", value: person.CanDeferPayment, render: undefined }
+      }
+    ]
+  }
+  const personalInfo5: CardContainer = {
+    title: "Payment Option",
+    contents: [
+      {
+        label: "Can Defer Payment",
+        value: (
+          <InlineForm
+            fieldName="CanDeferPayment"
+            refreshEventName="REFRESH_PAGE"
+            inputType="DROPDOWN"
+            defaultValue={person.CanDeferPayment}
+            updateFunc={(Params: { [key: string]: any }) =>
+              pushPerson({ PersonID: person.PersonID, oca: person.oca, ...Params })
+            }
+            options={[
+              { label: "Default to system", value: null },
+              { label: "Yes", value: true },
+              { label: "No", value: false }
+            ]}
+          />
+        )
+      }
     ]
   }
 
   const demographySummaryMeta: IDetailsSummary = {
     summary: [
-      { groupedContents: [personalInfo1, personalInfo3] },
-      { groupedContents: [personalInfo2, personalInfo4] },
-      profileQuestion(profileQuestions)
+      { groupedContents: [personalInfo1, personalInfo3, profileQuestion(profileQuestions)] },
+      { groupedContents: [personalInfo2, personalInfo5, personalInfo4] }
     ],
     actions: [<HelpButton helpKey="personDemographicTab" />]
   }
@@ -251,7 +280,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
               <EditDeleteButtonComboOnTableRow
                 valueToBeEdited={renderEmail(x.EmailAddress)}
                 editFormMeta={PersonEmailUpdateFormMeta}
-                editFormTitle="Update Phone"
+                editFormTitle="Update Email Address"
                 editFormInitialValue={x}
                 editFormDefaultValue={{ PersonID: person.PersonID, EmailAddressTypeID: x.EmailAddressTypeID }}
                 refreshEventName={REFRESH_PAGE}

@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Row, Col, message } from "antd"
+import React, { useEffect, useState } from "react"
+import { Row, Col, message, Select } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
@@ -39,7 +39,8 @@ const fieldNames: IAccountFieldNames = {
 
 function AccountForm(props: IAccountFormProps) {
   const [isRequiredPrimaryContact, setIsRequiredPrimaryContact] = useState<boolean>(false)
-  // const [accountTypes, setAccountTypes] = useState<Array<any>>([])
+  const [accountTypes, setAccountTypes] = useState<Array<any>>([])
+  const [loading, setLoading] = useState(false)
   const AccountFormConfig: IAccountFieldNames = CustomFormConfigHook(
     fieldNames,
     "AccountFormWithConfig"
@@ -53,20 +54,37 @@ function AccountForm(props: IAccountFormProps) {
     }
   }
 
+  useEffect(() => {
+    ;(async function () {
+      setLoading(true)
+      const result = await getAccountTypes()
+      if (result.success && result.data) {
+        setAccountTypes(result.data)
+        setLoading(false)
+      }
+    })()
+  }, [])
+
   return (
     <Row>
       <Col xs={24} sm={24} md={12}>
-        <FormDropDown
-          {...layout}
-          label={"Account Type"}
-          fieldName={fieldNames.AccountTypeID}
-          onChangeCallback={accountTypeHandler}
-          displayKey="Name"
-          valueKey="ID"
-          refLookupService={getAccountTypes}
-          {...AccountFormConfig.AccountTypeID}
+        <Form.Item
+          label="Account Type"
+          name={fieldNames.AccountTypeID}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 16 }}
           rules={[{ required: true, message: "Please select account type!" }]}
-        />
+          {...AccountFormConfig.AccountTypeID}
+        >
+          <Select allowClear={true} loading={loading} aria-label="Account Type" onChange={accountTypeHandler}>
+            {accountTypes &&
+              accountTypes.map(({ Name, ID }, i) => (
+                <Select.Option value={ID} key={`${ID}_${i}`}>
+                  {Name}
+                </Select.Option>
+              ))}
+          </Select>
+        </Form.Item>
 
         <FormInput
           {...layout}

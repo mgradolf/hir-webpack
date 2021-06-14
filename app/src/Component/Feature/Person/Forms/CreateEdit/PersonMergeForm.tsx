@@ -21,14 +21,13 @@ const layout = {
 }
 
 export default function PersonMergeForm(props: IPersonMergeFormProps) {
-  const [primaryFormInstance] = Form.useForm()
   const [duplicateFormInstance] = Form.useForm()
 
   const [loading, setLoading] = useState<boolean>(false)
   const [isMergable, setIsMergable] = useState<boolean>(false)
   const [mAnalyze, setManalyze] = useState<{ [key: string]: any }>({})
   const [mergeAnalyze, setMergeAnalyze] = useState<{ [key: string]: any }>({})
-  const [primaryPerson, setPrimaryPerson] = useState<{ [key: string]: any }>({})
+  const [primaryPerson] = useState<{ [key: string]: any }>(props.initialFormValue || {})
   const [duplicatePerson, setDuplicatePerson] = useState<{ [key: string]: any }>({})
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
@@ -106,11 +105,6 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
     )
   }
 
-  const onSelectedPrimaryPerson = (persons: any) => {
-    setErrorMessages([])
-    setPrimaryPerson(persons[0])
-  }
-
   const onSelectedDuplicatePerson = (persons: any) => {
     setErrorMessages([])
     setDuplicatePerson(persons[0])
@@ -131,9 +125,7 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
               type="primary"
               aria-label="Submit"
               disabled={
-                Object.keys(primaryPerson).length === 0 ||
-                Object.keys(duplicatePerson).length === 0 ||
-                primaryPerson.PersonID === duplicatePerson.PersonID
+                Object.keys(duplicatePerson).length === 0 || primaryPerson.PersonID === duplicatePerson.PersonID
               }
               onClick={onAnalyze}
             >
@@ -166,13 +158,13 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
             <OldFormError errorMessages={errorMessages} />
             <Col xs={24} sm={24} md={12}>
               <Form>
-                <Form.Item>
-                  <PersonLookup
-                    onSelectedItems={onSelectedPrimaryPerson}
-                    fieldName="PersonID"
-                    label="Primary Person"
-                    formInstance={primaryFormInstance}
-                  />
+                <Form.Item
+                  label="Primary Person"
+                  style={{ paddingBottom: "24px" }}
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 16 }}
+                >
+                  <Input disabled aria-label="Primary Person" value={primaryPerson.SortName} />
                 </Form.Item>
                 <Divider orientation="left">Primary</Divider>
                 <Form.Item label="Name" {...layout}>

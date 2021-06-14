@@ -10,7 +10,7 @@ import { CardContainer, IDetailsSummary } from "~/Component/Common/Page/DetailsP
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
 
-import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { OfferingEditLink } from "~/Component/Feature/Offering/OfferingEditLink"
 import { getSectionTableColumns } from "~/TableSearchMeta/Section/SectionTableColumns"
 import { SectionFormModal } from "~/Component/Feature/Section/SectionFormModal"
@@ -30,11 +30,13 @@ import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTaggin
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import SecondStepForm from "~/Component/Feature/Offering/Forms/SecondStepForm"
 import ThirdStepForm from "~/Component/Feature/Offering/Forms/ThirdStepForm"
-import { OfferingPaymentGatewayForm } from "~/Component/Feature/Offering/Forms/OfferingPaymentGatewayForm"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { OfferingStatusForm } from "~/Component/Feature/Offering/Forms/OfferingStatusForm"
-import "~/Sass/utils.scss"
+import { InlineForm } from "~/Component/Common/Form/InlineForm"
+import { getPaymentGatewayAccounts } from "~/ApiServices/Service/RefLookupService"
+import { updateOffering } from "~/ApiServices/Service/OfferingService"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import "~/Sass/utils.scss"
 
 export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetailsMeta => {
   const basicInfo: CardContainer = {
@@ -46,7 +48,15 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     contents: [
       { label: "Offering Name", value: offering.OfferingName, render: undefined },
       { label: "Description", value: offering.OfferingDescription, render: undefined },
-      { label: "URL", value: offering.URL, render: (text: any) => renderLink(text, text) },
+      {
+        label: "URL",
+        value: offering.URL,
+        render: (text: any) => (
+          <a href={text} target={"_blank"} rel="noopener noreferrer">
+            {text}
+          </a>
+        )
+      },
       { label: "Creation Date", value: offering.CreationDate, render: renderDate },
       { label: "Creation Term", value: offering.StartTermName, render: undefined },
       { label: "Termination Date", value: offering.TerminationDate, render: renderDate },
@@ -68,7 +78,20 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       { label: "Inquiry Recipient", value: offering.SubmitInquiryToName, render: undefined },
       {
         label: "Payment Gateway",
-        value: <OfferingPaymentGatewayForm initialValue={offering} />
+        value: (
+          <InlineForm
+            fieldName="PaymentGatewayAccountID"
+            refreshEventName="REFRESH_PAGE"
+            inputType="DROPDOWN"
+            displayKey="Name"
+            valueKey="ID"
+            defaultValue={offering.PaymentGatewayAccountID}
+            updateFunc={(Params: { [key: string]: any }) =>
+              updateOffering({ OfferingID: offering.OfferingID, ...Params })
+            }
+            refLookupService={getPaymentGatewayAccounts}
+          />
+        )
       },
       { label: "Default Section Type", value: offering.SectionTypeName, render: undefined }
     ]

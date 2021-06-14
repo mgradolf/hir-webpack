@@ -27,6 +27,7 @@ import { AccountMergeFormModalOpenButton } from "~/Component/Feature/Account/For
 import { AccountEmailSetupForm } from "~/Component/Feature/Account/Forms/AccountEmailSetupForm"
 import { AccountRemoveLink } from "~/Component/Feature/Account/AccountRemoveLink"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { ACC_INDIVIDUAL } from "~/utils/Constants"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -37,6 +38,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         formTitle="Update Account"
         formMeta={AccountFormMeta.map((x: IField) => {
           if (x.fieldName === "AccountTypeID") return { ...x, disabled: true }
+          if (account.AccountTypeID === ACC_INDIVIDUAL && x.fieldName === "PersonID") return { ...x, disabled: true }
           return x
         })}
         formSubmitApi={pushAccount}
@@ -94,7 +96,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       ],
       tableProps: {
         pagination: false,
-        ...getAccountAffiliationTableColumn(),
+        ...getAccountAffiliationTableColumn(false, account.AccountTypeID === ACC_INDIVIDUAL),
         searchParams: { AccountID: account.AccountID },
         refreshEventName: "REFRESH_CONTACT_TAB"
       }

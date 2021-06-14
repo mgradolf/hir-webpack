@@ -114,7 +114,7 @@ function ProgramForm(props: IProgramFormProps) {
           label={"Contact Person"}
           ariaLabel={"Contact Person"}
           refLookupService={() => findAllUsers({})}
-          displayKey="name"
+          displayKey="sortName"
           valueKey="erpid"
           fieldName={fieldNames.AdminUserID}
           rules={[{ required: true, message: "Please select contact person!" }]}

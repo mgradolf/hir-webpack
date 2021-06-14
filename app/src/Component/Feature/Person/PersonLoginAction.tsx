@@ -1,6 +1,5 @@
 import React, { useState } from "react"
-import { Button, Dropdown, Menu, Row } from "antd"
-import Notification from "~/utils/notification"
+import { Button, Dropdown, Menu, message, Row } from "antd"
 import { INVITE_TO_SETUP_WEB_LOGIN, INVITE_TO_RESET_PASSWORD, UNLOCK_WEB_LOGIN } from "~/utils/Constants"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { PersonLoginFormMeta } from "~/Component/Feature/Person/FormMeta/PersonLoginFormMeta"
@@ -29,8 +28,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       PersonID: PersonID
     })
     if (response.success) {
-      Notification(INVITE_TO_SETUP_WEB_LOGIN)
-      console.log("Successfully invite to setup login done!")
+      message.success(INVITE_TO_SETUP_WEB_LOGIN)
     }
     setLoading(false)
   }
@@ -41,8 +39,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       PersonID: PersonID
     })
     if (response.success) {
-      Notification(INVITE_TO_RESET_PASSWORD)
-      console.log("Successfully invite to reset password done!")
+      message.success(INVITE_TO_RESET_PASSWORD)
     }
     setLoading(false)
   }
@@ -53,8 +50,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       PersonID: PersonID
     })
     if (response.success) {
-      Notification(UNLOCK_WEB_LOGIN)
-      console.log("Successfully unlock person login done!")
+      message.success(UNLOCK_WEB_LOGIN)
     }
     setLoading(false)
   }
