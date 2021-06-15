@@ -64,12 +64,13 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
             fieldName={"NumberOfSeats"}
             rules={[{ required: true, message: "Please enter requested seats!" }]}
           />
-          <FormInput
+          <FormNumberInput
             {...layout}
             formInstance={props.formInstance}
-            label={"Invitation Code"}
-            ariaLabel={"Invitation Code"}
-            fieldName={"InvitationCode"}
+            label={"Credit Unit"}
+            ariaLabel={"Credit Unit"}
+            fieldName={"AllowedCredit"}
+            rules={[{ required: true, message: "Please enter credit unit!" }]}
           />
         </Col>
         <Col xs={24} sm={24} md={12}>
@@ -88,6 +89,13 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
             label={"Available Seat"}
             ariaLabel={"Available Seat"}
             fieldName="AvailableSeat"
+          />
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Invitation Code"}
+            ariaLabel={"Invitation Code"}
+            fieldName={"InvitationCode"}
           />
         </Col>
       </Row>

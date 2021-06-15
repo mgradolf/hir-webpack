@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Button } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { StudentHoldFormMeta } from "~/Component/Feature/Student/FormMeta/StudentHoldFormMeta"
-import { createUpdateStudentHold, releaseStudentHold } from "~/ApiServices/Service/StudentService"
+import { releaseStudentHold } from "~/ApiServices/Service/StudentService"
 import { StudentReleaseFormMeta } from "~/Component/Feature/Student/FormMeta/StudentReleaseFormMeta"
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons"
+import { StudentHoldFormModal } from "~/Component/Feature/Student/StudentHoldFormModal"
 import moment from "moment"
 
 interface IStudentHoldMenu {
@@ -32,18 +32,8 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
         }}
       />
       {showUpdateModal && (
-        <MetaDrivenFormModal
-          meta={StudentHoldFormMeta}
-          metaName="StudentHoldFormMeta"
-          title={"Edit Hold"}
-          initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
-          defaultFormValue={{
-            StudentHoldID: props.initialData.StudentHoldID,
-            HoldBy: props.initialData.HoldBy,
-            StudentID: props.studentID
-          }}
-          formSubmitApi={createUpdateStudentHold}
-          refreshEventAfterFormSubmission={"REFRESH_HOLD_TAB"}
+        <StudentHoldFormModal
+          initialData={{ ...props.initialData, StudentID: props.studentID }}
           closeModal={() => setShowUpdateModal(false)}
         />
       )}
