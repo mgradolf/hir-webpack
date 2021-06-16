@@ -1,30 +1,51 @@
 import {
   IBuyer_Func,
+  IIProductRequest_Func,
+  IMembershipRequest_Func,
+  IPackageRequest_Func,
   IProgramApplicationRequest_Func,
+  IProgramEnrollmentRequest_Func,
   IRegistrationRequest_Func,
   ISeatGroup
 } from "~/Component/Feature/Order/Model/Interface/IFunc"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import {
+  createMembershipRequest,
   createOptionalItemRequest,
+  createProductRequest,
   createProgramApplicationRequest,
+  createProgramEnrollmentRequest,
   createRegistrationRequest,
   launchRegistrationRequest,
+  validateProductRequest,
   validateProgramRequest,
   validateRegistrationRequest
 } from "~/ApiServices/Service/CartService"
 import {
   IBuyer,
   IItemRequest,
+  IMembershipRequest,
+  IPackageRequest,
+  IProductRequest,
   IProgramApplicationRequest,
+  IProgramEnrollmentRequest,
   IRegistrationRequest
 } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { eventBus } from "~/utils/EventBus"
 import { UPDATE_BUYER, UPDATE_CART } from "~/Pages/Manage/Financials/CreateOrderPage"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
 
-export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest_Func, IProgramApplicationRequest_Func {
+export class CartModelFunctionality
+  implements
+    IBuyer_Func,
+    IRegistrationRequest_Func,
+    IProgramApplicationRequest_Func,
+    IProgramEnrollmentRequest_Func,
+    IIProductRequest_Func,
+    IPackageRequest_Func,
+    IMembershipRequest_Func {
   buyer: IBuyer = {}
+  // itemList: IItemRequest[] = []
   itemList: IItemRequest[] = fakeCartData
 
   assignPerson(Person?: { [key: string]: any }): void {
@@ -156,6 +177,126 @@ export class CartModelFunctionality implements IBuyer_Func, IRegistrationRequest
           this.itemList = this.itemList.map((x) => {
             if (x.RequestID === tempRegistrationRequest.RequestID) {
               x = tempRegistrationRequest
+            }
+            return x
+          })
+          eventBus.publish(UPDATE_CART, this.itemList)
+        })
+      }
+      return response
+    })
+  }
+
+  createProgramEnrollmentRequest(ProgramID: number, RecipientPersonID?: number) {
+    return createProgramEnrollmentRequest({ ProgramID, RecipientPersonID }).then((response) => {
+      if (response.success) {
+        const tempRegistrationRequest: IProgramEnrollmentRequest = response.data
+        tempRegistrationRequest.varificationInProgress = true
+        this.itemList = [...this.itemList, tempRegistrationRequest]
+        eventBus.publish(UPDATE_CART, this.itemList)
+        validateProgramRequest({
+          ProgramID,
+          RecipientPersonID,
+          ProgramRequestType: "ProgramEnrollmentRequest"
+        }).then((validationResponse) => {
+          if (validationResponse.success)
+            tempRegistrationRequest.issues = {
+              program_validity_passed: !!validationResponse.data.program_validity_passed,
+              check_enrollment_passed: !!validationResponse.data.check_enrollment_passed,
+              check_application_approval_passed: !!validationResponse.data.check_application_approval_passed,
+              DuplicateRequestCheck_passed: !!validationResponse.data.DuplicateRequestCheck_passed
+            }
+          tempRegistrationRequest.varificationInProgress = false
+          this.itemList = this.itemList.map((x) => {
+            if (x.RequestID === tempRegistrationRequest.RequestID) {
+              x = tempRegistrationRequest
+            }
+            return x
+          })
+          eventBus.publish(UPDATE_CART, this.itemList)
+        })
+      }
+      return response
+    })
+  }
+
+  createProductRequest(ProductID: number, RecipientPersonID: number, Quantity: number) {
+    return createProductRequest({ ProductID, RecipientPersonID, Quantity }).then((response) => {
+      const tempProductRequest: IProductRequest = response.data
+      tempProductRequest.varificationInProgress = true
+      this.itemList = [...this.itemList, tempProductRequest]
+      eventBus.publish(UPDATE_CART, this.itemList)
+      validateProductRequest({ ProductID: ProductID, RecipientPersonID: this.buyer.PersonID, Quantity }).then(
+        (validateProductResponse) => {
+          tempProductRequest.varificationInProgress = false
+          this.itemList = this.itemList.map((x) => {
+            if (x.RequestID === tempProductRequest.RequestID) {
+              x = tempProductRequest
+            }
+            return x
+          })
+          eventBus.publish(UPDATE_CART, this.itemList)
+        }
+      )
+      return response
+    })
+  }
+
+  createPackageRequest(ProductID: number, PackageID: number, RecipientPersonID: number, Quantity: number) {
+    return createProductRequest({
+      ProductID,
+      PackageID,
+      RecipientPersonID,
+      Quantity
+    }).then((response) => {
+      const tempProductRequest: IPackageRequest = response.data
+      tempProductRequest.varificationInProgress = true
+      this.itemList = [...this.itemList, tempProductRequest]
+      eventBus.publish(UPDATE_CART, this.itemList)
+      validateProductRequest({
+        ProductID: ProductID,
+        PackageID,
+        RecipientPersonID: this.buyer.PersonID,
+        Quantity
+      }).then((validateProductResponse) => {
+        tempProductRequest.varificationInProgress = false
+        this.itemList = this.itemList.map((x) => {
+          if (x.RequestID === tempProductRequest.RequestID) {
+            x = tempProductRequest
+          }
+          return x
+        })
+        eventBus.publish(UPDATE_CART, this.itemList)
+      })
+      return response
+    })
+  }
+
+  createMembershipRequest(MembershipDefinitionID: number, RecipientPersonID: number) {
+    return createMembershipRequest({ MembershipDefinitionID, RecipientPersonID }).then((response) => {
+      if (response.success) {
+        const tempMembershipRequest: IMembershipRequest = response.data
+        tempMembershipRequest.varificationInProgress = true
+        this.itemList = [...this.itemList, tempMembershipRequest]
+        eventBus.publish(UPDATE_CART, this.itemList)
+        validateProductRequest({
+          MembershipDefinitionID,
+          RecipientPersonID
+        }).then((validateMembershipResponse) => {
+          tempMembershipRequest.varificationInProgress = false
+          if (validateMembershipResponse.success)
+            tempMembershipRequest.issues = {
+              FixedTermMembershipAlreadyBought_passed:
+                validateMembershipResponse.data.FixedTermMembershipAlreadyBought_passed,
+              FixterTermMembershipExpired_passed: validateMembershipResponse.data.FixterTermMembershipExpired_passed,
+              DuplicateRequestCheck_passed: validateMembershipResponse.data["Request.DuplicateRequestCheck_passed"],
+              MembershipCannotBeRenewed_passed: validateMembershipResponse.data.MembershipCannotBeRenewed_passed,
+              MembershipAlreadyBoughtAndRenewed_passed:
+                validateMembershipResponse.data.MembershipAlreadyBoughtAndRenewed_passed
+            }
+          this.itemList = this.itemList.map((x) => {
+            if (x.RequestID === tempMembershipRequest.RequestID) {
+              x = tempMembershipRequest
             }
             return x
           })

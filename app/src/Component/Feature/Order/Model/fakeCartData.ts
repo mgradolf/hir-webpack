@@ -1,4 +1,4 @@
-import { IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { IItemRequest, IMembershipRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 
 export const fakeCartData: IItemRequest[] = [
   {
@@ -127,5 +127,34 @@ export const fakeCartData: IItemRequest[] = [
       check_application_passed: false,
       program_validity_passed: false
     }
-  } as IItemRequest
+  } as IItemRequest,
+  {
+    RequestID: 8979652293605344847,
+    MembershipProgramName: "sprint 1",
+    ItemType: "MembershipRequest",
+    ItemRequestType: "MembershipRequest",
+    ProductID: 11,
+    PaymentAmount: 20.0,
+    PaymentGatewayAccountID: 8,
+    ItemTypeID: 2,
+    RecipientPersonID: 14889,
+    UnitPrice: 20,
+    MembershipDefinitionID: 12,
+    ItemQuantity: 1,
+    MembershipDefinitionName: "level1",
+    MktExpirationDate: null,
+    ItemName: "Shot glasses",
+    IsOptionalProduct: false,
+    MemberSince: null,
+    AccessContext: null,
+    AnswerMap: null,
+    RecipientPersonName: "0507, nargis",
+    issues: {
+      FixedTermMembershipAlreadyBought_passed: false,
+      FixterTermMembershipExpired_passed: false,
+      DuplicateRequestCheck_passed: false,
+      MembershipCannotBeRenewed_passed: false,
+      MembershipAlreadyBoughtAndRenewed_passed: false
+    }
+  } as IMembershipRequest
 ]

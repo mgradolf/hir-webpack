@@ -78,8 +78,7 @@ export interface IProgramApplicaionIssues {
   program_validity_passed: boolean
 }
 
-export interface IProgramApplicationRequest {
-  RequestID: number
+export interface IProgramApplicationRequest extends IItemRequest {
   ItemType: string
   ItemRequestType: string
   PaymentAmount: number
@@ -103,6 +102,107 @@ export interface IProgramApplicationRequest {
   issues?: IProgramApplicaionIssues
   varificationInProgress?: boolean
 }
+
+export interface IProgramEnrollmentIssues {
+  program_validity_passed: boolean
+  check_enrollment_passed: boolean
+  check_application_approval_passed: boolean
+  DuplicateRequestCheck_passed: boolean
+}
+
+export interface IProgramEnrollmentRequest extends IItemRequest {
+  ItemType: string
+  ItemRequestType: string
+  PaymentAmount: number
+  PaymentGatewayAccountID: number
+  TranscriptCreditTypeID: number
+  ProgramID: number
+  ItemTypeID: number
+  RecipientPersonID: number
+  UnitPrice: number
+  StatusDate: string
+  GradeScaleTypeID: number
+  ItemQuantity: number
+  ItemName: string
+  AccessContext: any
+  AnswerMap: any
+  AttendanceExpected: any
+  SectionID: number
+  SeatGroupID: number
+  OfferingID: number
+  RecipientPersonName: string
+  varificationInProgress?: boolean
+  issues?: IProgramEnrollmentIssues
+}
+
+export interface IProductRequest extends IItemRequest {
+  ItemType: string
+  ItemRequestType: string
+  ProductID: number
+  PaymentAmount: number
+  PaymentGatewayAccountID: number
+  ItemTypeID: number
+  RecipientPersonID: number
+  UnitPrice: number
+  ItemQuantity: number
+  ItemName: string
+  IsOptionalProduct: false
+  AccessContext: any
+  AnswerMap: any
+  RecipientPersonName: any
+  varificationInProgress?: boolean
+}
+
+export interface IPackageRequest extends IItemRequest {
+  ItemType: string
+  ItemRequestType: string
+  ProductID: number
+  PaymentAmount: number
+  PaymentGatewayAccountID: number
+  ItemTypeID: number
+  RecipientPersonID: number
+  UnitPrice: number
+  ItemQuantity: number
+  ItemName: string
+  IsOptionalProduct: false
+  AccessContext: any
+  AnswerMap: any
+  RecipientPersonName: any
+  varificationInProgress?: boolean
+}
+
+export interface IMembershipIssues {
+  FixedTermMembershipAlreadyBought_passed: boolean
+  FixterTermMembershipExpired_passed: boolean
+  DuplicateRequestCheck_passed: boolean
+  MembershipCannotBeRenewed_passed: boolean
+  MembershipAlreadyBoughtAndRenewed_passed: boolean
+}
+
+export interface IMembershipRequest extends IItemRequest {
+  MembershipProgramName: string
+  ItemType: string
+  ItemRequestType: string
+  ProductID: number
+  PaymentAmount: number
+  PaymentGatewayAccountID: number
+  ItemTypeID: number
+  RecipientPersonID: number
+  UnitPrice: number
+  MembershipDefinitionID: number
+  ItemQuantity: number
+  MembershipDefinitionName: string
+  MktExpirationDate: any
+  ItemName: string
+  IsOptionalProduct: false
+  MemberSince: any
+  AccessContext: any
+  AnswerMap: any
+  RecipientPersonName: any
+  issues?: IMembershipIssues
+  varificationInProgress?: boolean
+}
+
 export interface IItemRequest {
   RequestID: number
 }

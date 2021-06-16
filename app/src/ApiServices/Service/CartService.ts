@@ -28,15 +28,45 @@ export function createOptionalItemRequest(
 ): Promise<IApiResponse> {
   return CartService[config.Actions.createOptionalItemRequest](Params, Headers)
 }
+
 export function createProgramApplicationRequest(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
   return CartService[config.Actions.createProgramApplicationRequest](Params, Headers)
 }
+
 export function validateProgramRequest(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
   return CartService[config.Actions.validateProgramRequest](Params, Headers)
+}
+
+export function createProgramEnrollmentRequest(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CartService[config.Actions.createProgramEnrollmentRequest](Params, Headers)
+}
+
+export function createProductRequest(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CartService[config.Actions.createProductRequest](Params, Headers)
+}
+
+export function validateProductRequest(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CartService[config.Actions.validateProductRequest](Params, Headers)
+}
+
+export function createMembershipRequest(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CartService[config.Actions.createMembershipRequest](Params, Headers)
 }

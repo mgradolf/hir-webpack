@@ -39,6 +39,26 @@ export interface IRegistrationRequest_Func {
 export interface IProgramApplicationRequest_Func {
   createProgramApplicationRequest: (ProgramID: number, RecipientPersonID?: number) => Promise<IApiResponse>
 }
+
+export interface IProgramEnrollmentRequest_Func {
+  createProgramEnrollmentRequest: (ProgramID: number, RecipientPersonID?: number) => Promise<IApiResponse>
+}
+
+export interface IIProductRequest_Func {
+  createProductRequest: (ProductID: number, RecipientPersonID: number, Quantity: number) => Promise<IApiResponse>
+}
+export interface IPackageRequest_Func {
+  createPackageRequest: (
+    ProductID: number,
+    PackageID: number,
+    RecipientPersonID: number,
+    Quantity: number
+  ) => Promise<IApiResponse>
+}
+
+export interface IMembershipRequest_Func {
+  createMembershipRequest: (MembershipDefinitionID: number, RecipientPersonID: number) => Promise<IApiResponse>
+}
 export interface ICartModel_ItemList_Func {
   launchRegistrationRequest: (ItemList: IItemRequest[]) => Promise<IApiResponse>
 }

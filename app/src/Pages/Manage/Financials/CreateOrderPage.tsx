@@ -5,6 +5,10 @@ import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartMode
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
 import { IBuyer, IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { SelectBuyer } from "~/Component/Feature/Order/SelectBuyer"
+import { AddEnrollmentModal } from "~/Component/Feature/Order/Shop/AddEnrollmentModal"
+import { AddMembershipModal } from "~/Component/Feature/Order/Shop/AddMembershipModal"
+import { AddPackageModal } from "~/Component/Feature/Order/Shop/AddPackageModal"
+import { AddProductModal } from "~/Component/Feature/Order/Shop/AddProductModal"
 import { AddProgramApplicationModal } from "~/Component/Feature/Order/Shop/AddProgramApplicationModal"
 import { AddSectionModal } from "~/Component/Feature/Order/Shop/AddSectionModal"
 import { eventBus } from "~/utils/EventBus"
@@ -36,9 +40,11 @@ export default function CreateOrderPage() {
   return (
     <div className="site-layout-content">
       <div style={{ backgroundColor: "white", padding: "10px" }}>
+        <button onClick={() => console.log(JSON.stringify(ItemList))}>click meh</button>
         <Row justify="center">
           <Col span={18}>
             <SelectBuyer defaultPersonID={14889} buyer={buyer} cartModelFunctionality={cartModelFunctionality} />
+            {/* <SelectBuyer buyer={buyer} cartModelFunctionality={cartModelFunctionality} /> */}
           </Col>
         </Row>
         <Row justify="end">
@@ -102,6 +108,55 @@ export default function CreateOrderPage() {
                       />
                     </Menu.Item>
                   )}
+                  <Menu.Item>
+                    <AddEnrollmentModal
+                      sectionAddType="buy"
+                      buyer={buyer}
+                      itemList={ItemList}
+                      cartModelFunctionality={cartModelFunctionality}
+                    />
+                  </Menu.Item>
+                  {buyer.PersonID && (
+                    <Menu.Item>
+                      <AddEnrollmentModal
+                        sectionAddType="me"
+                        buyer={buyer}
+                        itemList={ItemList}
+                        cartModelFunctionality={cartModelFunctionality}
+                      />
+                    </Menu.Item>
+                  )}
+                  {buyer.PersonID && (
+                    <Menu.Item>
+                      <AddEnrollmentModal
+                        sectionAddType="others"
+                        buyer={buyer}
+                        itemList={ItemList}
+                        cartModelFunctionality={cartModelFunctionality}
+                      />
+                    </Menu.Item>
+                  )}
+                  <Menu.Item>
+                    <AddProductModal
+                      buyer={buyer}
+                      itemList={ItemList}
+                      cartModelFunctionality={cartModelFunctionality}
+                    />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <AddPackageModal
+                      buyer={buyer}
+                      itemList={ItemList}
+                      cartModelFunctionality={cartModelFunctionality}
+                    />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <AddMembershipModal
+                      buyer={buyer}
+                      itemList={ItemList}
+                      cartModelFunctionality={cartModelFunctionality}
+                    />
+                  </Menu.Item>
                 </Menu>
               }
               type="primary"

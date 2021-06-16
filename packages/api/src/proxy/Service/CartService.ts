@@ -10,7 +10,11 @@ export const config = {
     createRegistrationRequest: "createRegistrationRequest",
     createOptionalItemRequest: "createOptionalItemRequest",
     createProgramApplicationRequest: "createProgramApplicationRequest",
-    validateProgramRequest: "validateProgramRequest"
+    validateProgramRequest: "validateProgramRequest",
+    createProgramEnrollmentRequest: "createProgramEnrollmentRequest",
+    createProductRequest: "createProductRequest",
+    validateProductRequest: "validateProductRequest",
+    createMembershipRequest: "createMembershipRequest"
   }
 }
 

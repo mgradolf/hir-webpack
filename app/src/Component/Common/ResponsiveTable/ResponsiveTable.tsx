@@ -69,6 +69,8 @@ export function ResponsiveTable(props: IDataTableProps) {
       return () => {
         eventBus.unsubscribe(eventName)
       }
+    } else {
+      loadDataFromSearchFunc()
     }
     // eslint-disable-next-line
   }, [])
