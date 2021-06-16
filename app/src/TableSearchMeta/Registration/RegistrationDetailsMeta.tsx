@@ -117,7 +117,7 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     tableProps: {
       pagination: false,
       ...getAcademicActivityLogTableColumns(),
-      searchParams: { SectionIDs: [registration.SectionID], StudentIDs: [registration.StudentID] },
+      searchParams: { SectionID: registration.SectionID, StudentIDs: [registration.StudentID] },
       refreshEventName: REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE
     }
   }

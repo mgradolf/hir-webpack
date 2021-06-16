@@ -10,6 +10,7 @@ export function PersonLookup(props: IGeneratedField) {
       lookupModalTitle="Select Person"
       displayKey="SortName"
       searchFieldName="FirstName"
+      // searchFieldName="LastName"
       meta={PersonSearchMeta as IField[]}
       help={props.help}
       metaName="PersonSearchMeta"

@@ -335,7 +335,6 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         pagination: false,
         ...getPersonDisabilitiesTableColumns(person.PersonID),
         searchParams: { PersonID: person.PersonID },
-        isModal: true,
         refreshEventName: "REFRESH_DISABILITES_TAB"
       }
     }

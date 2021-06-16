@@ -232,6 +232,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
           />
 
           <Form.Item
+            colon={false}
             name="RegionCodeID"
             label="State"
             labelCol={{ span: 6 }}
@@ -270,6 +271,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
           />
 
           <Form.Item
+            colon={false}
             label="Country"
             name="CountryCodeID"
             labelCol={{ span: 6 }}

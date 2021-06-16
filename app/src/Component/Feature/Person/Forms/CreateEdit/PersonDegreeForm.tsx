@@ -3,7 +3,11 @@ import { Card, Button, Row, Col, Select, message } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
-import { createPersonEducationHistory, getDegreeProgram } from "~/ApiServices/Service/PersonService"
+import {
+  createPersonEducationHistory,
+  getDegreeProgram,
+  updatePersonEducationHistory
+} from "~/ApiServices/Service/PersonService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { eventBus } from "~/utils/EventBus"
 import { getCredentialType, getExitReasons, getSchoolCode } from "~/ApiServices/Service/RefLookupService"
@@ -11,7 +15,7 @@ import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
-import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { CREATE_SUCCESSFULLY, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import "~/Sass/global/index.scss"
 
 interface IPersonDegreeFormProps {
@@ -34,6 +38,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
   const [degreeProgram, setDegreeProgram] = useState<Array<any>>([])
 
   const educationHistID = props.initialFormValue.EducationHistID
+  const isEdit = educationHistID !== undefined
 
   useEffect(() => {
     ;(async function () {
@@ -72,7 +77,9 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
       }
     }
 
-    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = createPersonEducationHistory
+    const serviceMethoToCall: (params: { [key: string]: any }) => Promise<IApiResponse> = isEdit
+      ? updatePersonEducationHistory
+      : createPersonEducationHistory
 
     setErrorMessages([])
     props.setApiCallInProgress(true)
@@ -82,7 +89,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
 
     if (response && response.success) {
       props.closeModal && props.closeModal()
-      message.success(CREATE_SUCCESSFULLY)
+      message.success(isEdit ? UPDATE_SUCCESSFULLY : CREATE_SUCCESSFULLY)
       eventBus.publish("REFRESH_EDUCATION_HISTORY_TAB")
     } else {
       console.log(response.error)
@@ -97,7 +104,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
 
   return (
     <Card
-      title={"Add Degree"}
+      title={isEdit ? "Update Degree" : "Add Degree"}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>
@@ -126,6 +133,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
         <Row>
           <Col xs={24} sm={24} md={12}>
             <FormInput label="PersonID" fieldName="PersonID" formInstance={props.formInstance} hidden />
+            <FormInput label="EducationHistID" fieldName="EducationHistID" formInstance={props.formInstance} hidden />
             <Form.Item label="School Code" {...layout} name="SchoolCodeID">
               <Select loading={loading} onChange={handleSchoolCode} aria-label="School Code Select">
                 {schoolCode.map((x) => {
