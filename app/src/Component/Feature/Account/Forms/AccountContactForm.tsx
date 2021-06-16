@@ -25,6 +25,7 @@ import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/Cu
 import { eventBus } from "~/utils/EventBus"
 import { EditOutlined, PlusOutlined } from "@ant-design/icons"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 
 interface IAccountContactFormProps {
   editMode: boolean
@@ -103,14 +104,35 @@ function AccountContactForm(props: IAccountContactFormProps) {
     setRoleTypeID(value)
   }
 
+  const onSelectPerson = (persons: any) => {
+    props.formInstance.setFieldsValue({ ...persons[0] })
+  }
+
   return (
     <>
       <Row>
         <Col xs={24} sm={24} md={12}>
+          <PersonLookup
+            onSelectedItems={onSelectPerson}
+            fieldName="PersonID"
+            label="Person"
+            formInstance={props.formInstance}
+          />
+        </Col>
+        <Divider orientation="left">Details</Divider>
+        <Col xs={24} sm={24} md={12}>
           <FormInput
             hidden
             formInstance={props.formInstance}
-            defaultValue={props.initialValue.AccountID}
+            label={"Person ID"}
+            ariaLabel={"Person ID"}
+            fieldName="PersonID"
+            {...AccountContactFormConfig.PersonID}
+          />
+
+          <FormInput
+            hidden
+            formInstance={props.formInstance}
             label={"Account ID"}
             ariaLabel={"Account ID"}
             fieldName="AccountID"
@@ -120,7 +142,6 @@ function AccountContactForm(props: IAccountContactFormProps) {
           <FormInput
             hidden
             formInstance={props.formInstance}
-            defaultValue={props.initialValue.AccountAffiliationID}
             label={"Account Affilation ID"}
             ariaLabel={"Account Affilation ID"}
             fieldName="AccountAffiliationID"
@@ -290,7 +311,9 @@ export function AccountContactFormOpenButton(props: {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
+  const [initialValues] = useState<{ [key: string]: any }>(
+    { ...props.initialValues, StatusID: ACCOUNT_AFFILIATION_STATUS_ACTIVE } || {}
+  )
 
   const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
