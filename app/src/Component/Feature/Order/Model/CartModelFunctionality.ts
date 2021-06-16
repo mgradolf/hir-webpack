@@ -26,6 +26,7 @@ import {
   IItemRequest,
   IMembershipRequest,
   IPackageRequest,
+  IPersonProfile,
   IProductRequest,
   IProgramApplicationRequest,
   IProgramEnrollmentRequest,
@@ -48,7 +49,7 @@ export class CartModelFunctionality
   // itemList: IItemRequest[] = []
   itemList: IItemRequest[] = fakeCartData
 
-  assignPerson(Person?: { [key: string]: any }): void {
+  assignPerson(Person?: IPersonProfile): void {
     this.buyer.PersonID = Person ? Person.PersonID : undefined
     this.buyer.AccountID = Person ? Person.AccountID : undefined
     this.buyer.PersonProfile = Person ? Person : undefined
@@ -56,8 +57,32 @@ export class CartModelFunctionality
     eventBus.publish(UPDATE_BUYER, this.buyer)
   }
   launchRegistrationRequest(): Promise<IApiResponse> {
-    if (this.itemList.length) return launchRegistrationRequest({ ItemList: this.itemList })
-    else return Promise.resolve({ code: 200, success: false, data: "", error: "" })
+    console.log("create order", this.itemList.length, this.buyer)
+    if (this.itemList.length && this.buyer && this.buyer.PersonProfile) {
+      let Override: { [key: string]: any } = {}
+
+      const list: IRegistrationRequest[] = (this.itemList as IRegistrationRequest[]).filter(
+        (x) => x.ItemType === "RegistrationRequest"
+      )
+      list.forEach((x) => {
+        Override = {
+          ...Override,
+          [`Registration_SectionID_${x.SectionID}_${this.buyer.PersonID}`]: {
+            ...(x.OverrideData.SectionPrerequisiteCheck && { SectionPrerequisiteCheck: 1 }),
+            ...(x.OverrideData.StudentOnHoldCheckWithMessage && { StudentOnHoldCheckWithMessage: 1 }),
+            ...(x.OverrideData.StudentOnHoldCheck && { StudentOnHoldCheck: 1 }),
+            ...(x.OverrideData.ScheduleConflictCheck && { ScheduleConflictCheck: 1 }),
+            ...(x.OverrideData.AnswerQuestion && { AnswerQuestion: 1 })
+          }
+        }
+      })
+
+      const orderPayload = {
+        ItemList: this.itemList,
+        Override
+      }
+      return launchRegistrationRequest(orderPayload)
+    } else return Promise.resolve({ code: 200, success: false, data: "", error: "" })
   }
   addRegistrationRequest(
     SeatGroups: ISeatGroup[],
@@ -94,13 +119,25 @@ export class CartModelFunctionality
           tempRegistrationRequest.varificationInProgress = true
           if (response.success) {
             tempRegistrationRequest.issues = {
-              RegistrationCheck_passed: !!response.data.RegistrationCheck_passed,
-              DuplicateRequestCheck_passed: !!response.data["Request.DuplicateRequestCheck_passed"],
-              PrerequisiteCheck_passed: !!response.data["Request.PrerequisiteCheck_passed"],
-              RegistrationQuestionCheck_passed: !!response.data["Request.RegistrationQuestionCheck_passed"],
-              ScheduleConflict_passed: !!response.data["Request.ScheduleConflict_passed"],
-              StudentOnHoldCheck_passed: !!response.data["Request.StudentOnHoldCheck_passed"],
-              SectionValidityCheck_passed: !!response.data.SectionValidityCheck_passed,
+              RegistrationCheck_passed:
+                !!response.data.RegistrationCheck_passed || response.data.RegistrationCheck_passed === undefined,
+              DuplicateRequestCheck_passed:
+                !!response.data["Request.DuplicateRequestCheck_passed"] ||
+                response.data["Request.DuplicateRequestCheck_passed"] === undefined,
+              PrerequisiteCheck_passed:
+                !!response.data["Request.PrerequisiteCheck_passed"] ||
+                response.data["Request.PrerequisiteCheck_passed"] === undefined,
+              RegistrationQuestionCheck_passed:
+                !!response.data["Request.RegistrationQuestionCheck_passed"] ||
+                response.data["Request.RegistrationQuestionCheck_passed"] === undefined,
+              ScheduleConflict_passed:
+                !!response.data["Request.ScheduleConflict_passed"] ||
+                response.data["Request.ScheduleConflict_passed"] === undefined,
+              StudentOnHoldCheck_passed:
+                !!response.data["Request.StudentOnHoldCheck_passed"] ||
+                response.data["Request.StudentOnHoldCheck_passed"] === undefined,
+              SectionValidityCheck_passed:
+                !!response.data.SectionValidityCheck_passed || response.data.SectionValidityCheck_passed === undefined,
               check_sectionvalidity_issues: response.data.check_sectionvalidity_issues,
               check_prerequisiteconflict_conflicts: response.data.check_prerequisiteconflict_conflicts || [],
               check_scheduleconflict_conflicts: response.data.check_scheduleconflict_conflicts || []
@@ -119,9 +156,10 @@ export class CartModelFunctionality
     })
   }
 
-  removeRegistrationRequest(RequestID: number): void {
+  removeRegistrationRequest(RequestID: number): Promise<IApiResponse> {
     this.itemList = this.itemList.filter((x) => x.RequestID !== RequestID)
     eventBus.publish(UPDATE_CART, this.itemList)
+    return Promise.resolve({ code: 200, data: "", error: false, success: true })
   }
 
   addOptionalItem(RequestID: number, SeatGroupID: number, SectionFinancialIDs: number[], ProductIDs: number[]) {

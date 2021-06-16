@@ -1,8 +1,8 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { IItemRequest, IPersonProfile } from "~/Component/Feature/Order/Model/Interface/IModel"
 
 export interface IBuyer_Func {
-  assignPerson: (PersonID: { [key: string]: any }) => void
+  assignPerson: (PersonID: IPersonProfile) => void
 }
 
 export interface ISeatGroup {
@@ -24,7 +24,7 @@ export interface IRegistrationRequest_Func {
   ) => Promise<IApiResponse>
 
   // updateRegistrationRequest: (RequestID: number, Params: any) => Promise<IApiResponse>
-  removeRegistrationRequest: (RequestID: number) => void
+  removeRegistrationRequest: (RequestID: number) => Promise<IApiResponse>
 
   addOptionalItem: (
     RequestID: number,

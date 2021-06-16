@@ -1,9 +1,40 @@
 import { ISeatGroup } from "~/Component/Feature/Order/Model/Interface/IFunc"
 
+export interface IPersonProfile {
+  PersonID: number
+  AccountID?: number
+  PersonDescriptor: string
+  Ethnicity: any
+  FirstName: string
+  LastName: string
+  MaidenName: string
+  OtherName: string
+  MiddleName: string
+  SortName: string
+  GovID: any
+  ERPID: string
+  Address: string
+  TelephoneNumber: string
+  EmailAddress: string
+  IsDeceased: boolean
+  Birthday: string
+  AddressLine1: string
+  AddressLine2: string
+  AddressLine3: string
+  Locality: string
+  PostalCode: string
+  State: any
+  Country: string
+  AccountName: any
+  RoleName: any
+  GenderTypeName: string
+  SourceID: number
+}
+
 export interface IBuyer {
   PersonID?: number
   AccountID?: number
-  PersonProfile?: { [key: string]: any }
+  PersonProfile?: IPersonProfile
 }
 
 export interface IValidationRegistration {
@@ -146,7 +177,7 @@ export interface IProductRequest extends IItemRequest {
   UnitPrice: number
   ItemQuantity: number
   ItemName: string
-  IsOptionalProduct: false
+  IsOptionalProduct: boolean
   AccessContext: any
   AnswerMap: any
   RecipientPersonName: any
@@ -164,7 +195,7 @@ export interface IPackageRequest extends IItemRequest {
   UnitPrice: number
   ItemQuantity: number
   ItemName: string
-  IsOptionalProduct: false
+  IsOptionalProduct: boolean
   AccessContext: any
   AnswerMap: any
   RecipientPersonName: any
@@ -194,7 +225,7 @@ export interface IMembershipRequest extends IItemRequest {
   MembershipDefinitionName: string
   MktExpirationDate: any
   ItemName: string
-  IsOptionalProduct: false
+  IsOptionalProduct: boolean
   MemberSince: any
   AccessContext: any
   AnswerMap: any
@@ -205,4 +236,7 @@ export interface IMembershipRequest extends IItemRequest {
 
 export interface IItemRequest {
   RequestID: number
+  UnitPrice: number
+  ItemQuantity: number
+  ItemType: string
 }

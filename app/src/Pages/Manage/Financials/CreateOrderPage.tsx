@@ -1,5 +1,6 @@
-import { Col, Dropdown, Menu, Row } from "antd"
+import { Button, Col, Dropdown, Menu, Row } from "antd"
 import React, { useEffect, useState } from "react"
+import { Redirect } from "react-router-dom"
 import { CartTable } from "~/Component/Feature/Order/CartTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
@@ -21,6 +22,8 @@ export default function CreateOrderPage() {
   const [buyer, setBuyer] = useState<IBuyer>({})
   const [ItemList, setItemList] = useState<IItemRequest[]>([])
   const [cartModelFunctionality] = useState(new CartModelFunctionality())
+  const [orderRequestInProgress, setOrderRequestInProgress] = useState(false)
+  const [redirectTo, setRedirectTo] = useState("")
 
   useEffect(() => {
     setItemList(fakeCartData)
@@ -168,6 +171,26 @@ export default function CreateOrderPage() {
         <Row>
           <Col span={24}>
             <CartTable itemList={ItemList} cartModelFunctionality={cartModelFunctionality} />
+          </Col>
+        </Row>
+        <Row justify="end">
+          <Col>
+            {redirectTo && <Redirect to={redirectTo} />}
+            <Button
+              loading={orderRequestInProgress}
+              type="primary"
+              onClick={() => {
+                setOrderRequestInProgress(true)
+                cartModelFunctionality.launchRegistrationRequest().then((response) => {
+                  setOrderRequestInProgress(false)
+                  if (response.success) {
+                    setRedirectTo(`/request/${response.data.RequestID}`)
+                  }
+                })
+              }}
+            >
+              Create Order
+            </Button>
           </Col>
         </Row>
       </div>

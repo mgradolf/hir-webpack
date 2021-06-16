@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import {
@@ -10,16 +10,44 @@ import {
 } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { RegistrationCartItemDetailsModal } from "~/Component/Feature/Order/Registration/RegistrationCartItemDetailsModal"
 import { ProgramApplicationCartItemDetailsModal } from "~/Component/Feature/Order/ProgramApplication/ProgramApplicationCartItemDetailsModal"
-import { ProgramEnrollmentCartItemDetailsModal } from "./ProgramEnrollment/ProgramEnrollmentCartItemDetailsModal"
+import { ProgramEnrollmentCartItemDetailsModal } from "~/Component/Feature/Order/ProgramEnrollment/ProgramEnrollmentCartItemDetailsModal"
 import { Link } from "react-router-dom"
-import { MembershipCartItemDetailsModal } from "./Membership/MembershipCartItemDetailsModal"
-import { Col, Row } from "antd"
+import { MembershipCartItemDetailsModal } from "~/Component/Feature/Order/Membership/MembershipCartItemDetailsModal"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctionality: CartModelFunctionality }) => {
+  const [dataSource, setDataSource] = useState<any[]>([])
+  useEffect(() => {
+    if (props.itemList.length) {
+      const GrossPrice = props.itemList.reduce((acc, curr) => {
+        if (curr.ItemType === "RegistrationRequest" && (curr as IRegistrationRequest).ItemList?.length) {
+          return (
+            acc +
+            curr.ItemQuantity * curr.UnitPrice +
+            (curr as IRegistrationRequest).ItemList?.reduce((a, c) => a + c.UnitPrice * c.ItemQuantity, 0)
+          )
+        }
+        return acc + curr.ItemQuantity * curr.UnitPrice
+      }, 0)
+
+      setDataSource([
+        ...props.itemList,
+        {
+          ItemName: "Total",
+          ItemQuantity: "", //props.itemList.reduce((acc, curr) => acc + curr.ItemQuantity, 0),
+          GrossPrice,
+          Discount: 0,
+          TotalPrice: GrossPrice
+        }
+      ])
+    } else setDataSource([])
+  }, [props.itemList])
   return (
     <>
       <ResponsiveTable
         rowKey="RequestID"
+        hidePagination={true}
+        disableSorting={true}
         columns={[
           {
             title: "Name",
@@ -65,45 +93,47 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
                     />
                   )
               }
-              return null
+              return text
             }
           },
-          { title: "Quantity", dataIndex: "ItemQuantity" },
-          { title: "Unit Price", dataIndex: "UnitPrice" }
+          { title: "Qty", dataIndex: "ItemQuantity" },
+          {
+            title: "Gross Price",
+            dataIndex: "GrossPrice",
+            render: (text, record) =>
+              text ? text : (record as IRegistrationRequest).ItemQuantity * (record as IRegistrationRequest).UnitPrice
+          },
+          { title: "Discount", dataIndex: "Discount", render: (text, record) => <>{"0"}</> },
+          {
+            title: "Total Price",
+            dataIndex: "TotalPrice",
+            render: (text, record) =>
+              text ? text : (record as IRegistrationRequest).ItemQuantity * (record as IRegistrationRequest).UnitPrice
+          },
+          {
+            title: "Action",
+            render: (text, record) =>
+              (record as IItemRequest).ItemType ? (
+                <IconButton
+                  iconType="remove"
+                  toolTip="Remove Item"
+                  onClickRemove={() => props.cartModelFunctionality.removeRegistrationRequest(record.RequestID)}
+                />
+              ) : (
+                ""
+              )
+          }
         ]}
         expandable={{
           expandedRowKeys: props.itemList
             .filter((x: any) => x.ItemType === "RegistrationRequest" && x.ItemList && x.ItemList.length)
             .map((x) => x.RequestID),
-          expandedRowRender: (record) => (
-            <Row>
-              <Col span={4}></Col>
-              <Col span={20}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Quantity</th>
-                      <th>Unit Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {record.ItemList.map((x: any) => (
-                      <tr>
-                        <td>{x.ItemName}</td>
-                        <td>{x.ItemQuantity}</td>
-                        <td>{x.UnitPrice}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </Col>
-            </Row>
-          ),
+          childrenColumnName: "ItemList",
+          indentSize: 50,
           rowExpandable: (record) =>
             record.ItemType === "RegistrationRequest" && record.ItemList && record.ItemList.length
         }}
-        dataSource={props.itemList}
+        dataSource={dataSource}
       />
     </>
   )

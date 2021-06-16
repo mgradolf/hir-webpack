@@ -1,5 +1,5 @@
 import { IItemRequest, IMembershipRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
-
+// export const fakeCartData: IItemRequest[] = []
 export const fakeCartData: IItemRequest[] = [
   {
     RequestID: 606483311526822030,
