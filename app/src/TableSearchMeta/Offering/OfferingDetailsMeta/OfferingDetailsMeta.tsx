@@ -51,11 +51,19 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
       {
         label: "URL",
         value: offering.URL,
-        render: (text: any) => (
-          <a href={text} target={"_blank"} rel="noopener noreferrer">
-            {text}
-          </a>
-        )
+        render: (text: any) => {
+          let finalUrl
+          if (text.includes("http://") || text.includes("https://")) {
+            finalUrl = text
+          } else {
+            finalUrl = "http://" + text
+          }
+          return (
+            <a href={finalUrl} target={"_blank"} rel="noopener noreferrer">
+              {text}
+            </a>
+          )
+        }
       },
       { label: "Creation Date", value: offering.CreationDate, render: renderDate },
       { label: "Creation Term", value: offering.StartTermName, render: undefined },
