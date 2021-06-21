@@ -2,6 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getCertificateDetailsMeta = (certificate: { [key: string]: any }): CardContainer[] => {
+  console.log("Certificate: ", certificate)
   const certificateInfo: CardContainer = {
     title: certificate.CertificateName,
     contents: [
