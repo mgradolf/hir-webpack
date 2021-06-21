@@ -200,7 +200,7 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
                   return !!(
                     options &&
                     typeof options.children === "string" &&
-                    options.children.toLowerCase().includes(inputValue.toLowerCase())
+                    options.children.toLowerCase().startsWith(inputValue.toLowerCase())
                   )
                 }}
                 loading={regionLoading}
@@ -231,7 +231,7 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
                   return !!(
                     options &&
                     typeof options.children === "string" &&
-                    options.children.toLowerCase().includes(inputValue.toLowerCase())
+                    options.children.toLowerCase().startsWith(inputValue.toLowerCase())
                   )
                 }}
                 loading={countryLoading}

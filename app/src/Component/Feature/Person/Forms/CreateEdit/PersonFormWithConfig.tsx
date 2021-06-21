@@ -246,7 +246,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
                 return !!(
                   options &&
                   typeof options.children === "string" &&
-                  options.children.toLowerCase().includes(inputValue.toLowerCase())
+                  options.children.toLowerCase().startsWith(inputValue.toLowerCase())
                 )
               }}
               allowClear={true}
@@ -285,7 +285,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
                 return !!(
                   options &&
                   typeof options.children === "string" &&
-                  options.children.toLowerCase().includes(inputValue.toLowerCase())
+                  options.children.toLowerCase().startsWith(inputValue.toLowerCase())
                 )
               }}
               allowClear={true}

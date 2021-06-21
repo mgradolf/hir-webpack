@@ -92,19 +92,24 @@ export function ResponsiveTable(props: IDataTableProps) {
           return !(mobileView && responsiveColumnIndices?.includes(i + 1))
         })
         .map((x, i) => {
-          if (x.title === "" || !x.title) return x
-          if (!otherTableProps.disableSorting) {
-            x.sorter = (a: any, b: any) => {
-              if (typeof a.dataIndex === "boolean") {
-                return sortByBoolean(a, b)
-              } else if (typeof a.dataIndex === "number") {
-                return sortByNumber(a, b)
-              } else if (!isNaN(Date.parse(a.dataIndex))) {
-                return sortByTime(a, b)
-              } else if (typeof a.dataIndex === "string") {
-                return sortByString(a, b)
-              } else return -1
-            }
+          if (
+            x.title === "" ||
+            !x.title ||
+            x.title === "Action" ||
+            x.title === "Published" ||
+            otherTableProps.disableSorting
+          )
+            return x
+          x.sorter = (a: any, b: any) => {
+            if (typeof a.dataIndex === "boolean") {
+              return sortByBoolean(a, b)
+            } else if (typeof a.dataIndex === "number") {
+              return sortByNumber(a, b)
+            } else if (!isNaN(Date.parse(a.dataIndex))) {
+              return sortByTime(a, b)
+            } else if (typeof a.dataIndex === "string") {
+              return sortByString(a, b)
+            } else return -1
           }
           return x
         }),

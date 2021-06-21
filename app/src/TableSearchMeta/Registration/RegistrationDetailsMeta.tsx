@@ -6,7 +6,6 @@ import { CardContainer, CardContents, IDetailsSummary } from "~/Component/Common
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
 import RegistrationDetailsMenu from "~/Component/Feature/Registration/RegistrationDetailsMenu"
 import RegistrationGradeFormModal from "~/Component/Feature/Registration/RegistrationGradeFormModal"
 import {
@@ -53,9 +52,6 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       },
       { label: "Student ID", value: registration.StudentSerialNumber },
       { label: "Enrollment Status", value: registration.EnrollmentStatus },
-      { label: "Registration Date", value: registration.RegistrationDate, render: renderDate },
-      { label: "Withdrawal Date", value: registration.WithdrawalDate, render: renderDate },
-      { label: "Graded Date", value: registration.GradedDate, render: renderDate },
       { label: "Grade Scale", value: registration.GradeScaleType },
       { label: "Expected Attendance", value: registration.AttendanceExpected },
       ...getQuestionResponses()

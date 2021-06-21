@@ -56,6 +56,7 @@ const fieldNames: IAccountContactFieldNames = {
 
 function AccountContactForm(props: IAccountContactFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
+  const [showPersonLookup, setShowPersonLookup] = useState(true)
   const [roleTypeID, setRoleTypeID] = useState(Number)
   const [questionItems, setQuestionItems] = useState<Array<any>>([])
   const questionAnswers: { [key: string]: any } = {}
@@ -112,13 +113,37 @@ function AccountContactForm(props: IAccountContactFormProps) {
     <>
       <Row>
         <Col xs={24} sm={24} md={12}>
+          <FormMultipleRadio
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Choose"}
+            ariaLabel={"Choose"}
+            fieldName="IsNewOrExistContact"
+            onChangeCallback={(value) => {
+              if (value) {
+                setShowPersonLookup(true)
+              } else {
+                setShowPersonLookup(false)
+              }
+            }}
+            options={[
+              { label: "New Person", value: true },
+              { label: "Lookup Existing Person", value: false }
+            ]}
+            {...AccountContactFormConfig.IsContactShared}
+          />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
           <PersonLookup
             onSelectedItems={onSelectPerson}
             fieldName="PersonID"
             label="Person"
             formInstance={props.formInstance}
+            disabled={showPersonLookup}
           />
         </Col>
+      </Row>
+      <Row>
         <Divider orientation="left">Details</Divider>
         <Col xs={24} sm={24} md={12}>
           <FormInput
@@ -313,7 +338,7 @@ export function AccountContactFormOpenButton(props: {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(
-    { ...props.initialValues, StatusID: ACCOUNT_AFFILIATION_STATUS_ACTIVE } || {}
+    { ...props.initialValues, IsNewOrExistContact: true, StatusID: ACCOUNT_AFFILIATION_STATUS_ACTIVE } || {}
   )
 
   const onFormSubmission = async (closeModal: () => void) => {
