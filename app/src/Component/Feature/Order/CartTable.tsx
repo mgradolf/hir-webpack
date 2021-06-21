@@ -14,6 +14,8 @@ import { ProgramEnrollmentCartItemDetailsModal } from "~/Component/Feature/Order
 import { Link } from "react-router-dom"
 import { MembershipCartItemDetailsModal } from "~/Component/Feature/Order/Membership/MembershipCartItemDetailsModal"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
+import { Button } from "antd"
+import { PromoDetails } from "~/Component/Feature/Order/PromoDetails"
 
 export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctionality: CartModelFunctionality }) => {
   const [dataSource, setDataSource] = useState<any[]>([])
@@ -103,7 +105,32 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
             render: (text, record) =>
               text ? text : (record as IRegistrationRequest).ItemQuantity * (record as IRegistrationRequest).UnitPrice
           },
-          { title: "Discount", dataIndex: "Discount", render: (text, record) => <>{"0"}</> },
+          {
+            title: "Discount",
+            dataIndex: "Discount",
+            render: (text, record) => {
+              const item = record as IRegistrationRequest
+              if (!item) {
+                return props.itemList.reduce((acc, curr) => {
+                  const item = curr as IRegistrationRequest
+                  const amount = item.AvailablePromoCode ? item.AvailablePromoCode?.Amount : 0
+                  return acc + amount
+                }, 0)
+              } else if (!item.AvailablePromoCode) {
+                return "0"
+              } else {
+                if (item.AppliedPromoCode) {
+                  return <PromoDetails item={item} cartModelFunctionality={props.cartModelFunctionality} />
+                } else {
+                  return (
+                    <Button type="link" onClick={() => props.cartModelFunctionality.addRemovePromo(item, true)}>
+                      Redeem Discount
+                    </Button>
+                  )
+                }
+              }
+            }
+          },
           {
             title: "Total Price",
             dataIndex: "TotalPrice",

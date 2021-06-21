@@ -3,6 +3,7 @@ import { IItemRequest, IPersonProfile } from "~/Component/Feature/Order/Model/In
 
 export interface IBuyer_Func {
   assignPerson: (PersonID: IPersonProfile) => void
+  findIssue: (item: IItemRequest) => boolean
 }
 
 export interface ISeatGroup {
@@ -15,6 +16,11 @@ export interface ISeatGroup {
   SectionID: number
   TotalSeats: number
 }
+
+export interface IRequest_Func {
+  removeRegistrationRequest: (RequestID: number) => Promise<IApiResponse>
+}
+
 export interface IRegistrationRequest_Func {
   addRegistrationRequest: (
     SeatGroups: ISeatGroup[],
@@ -22,9 +28,6 @@ export interface IRegistrationRequest_Func {
     RecipientPersonID?: number,
     StatusDate?: string
   ) => Promise<IApiResponse>
-
-  // updateRegistrationRequest: (RequestID: number, Params: any) => Promise<IApiResponse>
-  removeRegistrationRequest: (RequestID: number) => Promise<IApiResponse>
 
   addOptionalItem: (
     RequestID: number,
@@ -34,6 +37,7 @@ export interface IRegistrationRequest_Func {
   ) => Promise<IApiResponse>
 
   addAnswerMap: (RequestID: number, answerMap: { [key: string]: any }) => void
+  addRemovePromo: (item: IItemRequest, applyOrRemove: boolean) => void
 }
 
 export interface IProgramApplicationRequest_Func {

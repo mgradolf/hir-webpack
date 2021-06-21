@@ -58,6 +58,25 @@ export interface IOverride {
   AnswerQuestion: boolean
 }
 
+export interface IRegistrationPromoCode {
+  Description: string
+  GLAccountID: number
+  IsActive: true
+  DiscountServiceParams: string
+  Amount: number
+  SectionFinancialID: number
+  ShortName: string
+  DiscocuntType: string
+  oca: number
+  AmountTypeID: number
+  Name: string
+  SectionDiscountID: number
+  DiscountProgramID: number
+  AmountType: string
+  SectionID: number
+  IsPromotedForMarketing: true
+}
+
 export interface IRegistrationRequest extends IItemRequest {
   ItemType: string
   RegistrationDate: string
@@ -84,6 +103,8 @@ export interface IRegistrationRequest extends IItemRequest {
   varificationInProgress: boolean
   SeatGroups: ISeatGroup[]
   ItemList?: any[]
+  AppliedPromoCode: boolean
+  AvailablePromoCode?: IRegistrationPromoCode
 }
 
 export interface IOptionalItem {

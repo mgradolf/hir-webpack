@@ -27,19 +27,10 @@ export const RegistrationCartItemDetailsModal = (props: {
   const [overRide, setOverRide] = useState<IOverride>(props.item.OverrideData)
 
   useEffect(() => {
-    setIssueSolved(
-      !!props.item.issues &&
-        props.item.issues?.RegistrationCheck_passed &&
-        props.item.issues?.DuplicateRequestCheck_passed &&
-        props.item.issues?.SectionValidityCheck_passed &&
-        (props.item.issues?.RegistrationQuestionCheck_passed || props.item.OverrideData.AnswerQuestion) &&
-        (props.item.issues?.ScheduleConflict_passed || props.item.OverrideData.ScheduleConflictCheck) &&
-        (props.item.issues?.StudentOnHoldCheck_passed ||
-          (props.item.OverrideData.StudentOnHoldCheck && props.item.OverrideData.StudentOnHoldCheckWithMessage)) &&
-        (props.item.issues?.PrerequisiteCheck_passed || props.item.OverrideData.SectionPrerequisiteCheck)
-    )
+    setOverRide(props.item.OverrideData)
+    setIssueSolved(props.cartModelFunctionality.findIssue(props.item))
     // eslint-disable-next-line
-  }, [])
+  }, [props.item.issues, props.item.OverrideData])
 
   return (
     <>

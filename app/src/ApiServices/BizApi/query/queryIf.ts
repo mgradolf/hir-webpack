@@ -364,3 +364,15 @@ export function findOptionalItemBySeatGroupID(
     Headers
   )
 }
+
+export function getPromotionalForSeatGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeRowMapNamedQuery](
+    ["financial.discount.PromotionalForSeatGroup", Params, null],
+    Headers
+  ).then((x) => {
+    return x
+  })
+}

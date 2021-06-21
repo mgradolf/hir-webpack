@@ -6,6 +6,7 @@ import {
   IProgramApplicationRequest_Func,
   IProgramEnrollmentRequest_Func,
   IRegistrationRequest_Func,
+  IRequest_Func,
   ISeatGroup
 } from "~/Component/Feature/Order/Model/Interface/IFunc"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -30,15 +31,18 @@ import {
   IProductRequest,
   IProgramApplicationRequest,
   IProgramEnrollmentRequest,
+  IRegistrationPromoCode,
   IRegistrationRequest
 } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { eventBus } from "~/utils/EventBus"
 import { UPDATE_BUYER, UPDATE_CART } from "~/Pages/Manage/Financials/CreateOrderPage"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
+import { getPromotionalForSeatGroup } from "~/ApiServices/BizApi/query/queryIf"
 
 export class CartModelFunctionality
   implements
     IBuyer_Func,
+    IRequest_Func,
     IRegistrationRequest_Func,
     IProgramApplicationRequest_Func,
     IProgramEnrollmentRequest_Func,
@@ -48,6 +52,56 @@ export class CartModelFunctionality
   buyer: IBuyer = {}
   // itemList: IItemRequest[] = []
   itemList: IItemRequest[] = fakeCartData
+
+  findIssue(_item: IItemRequest): boolean {
+    switch (_item.ItemType) {
+      case "RegistrationRequest":
+        const registrationItem: IRegistrationRequest = _item as IRegistrationRequest
+        return (
+          !!registrationItem.issues &&
+          registrationItem.issues?.RegistrationCheck_passed &&
+          registrationItem.issues?.DuplicateRequestCheck_passed &&
+          registrationItem.issues?.SectionValidityCheck_passed &&
+          (registrationItem.issues?.RegistrationQuestionCheck_passed || registrationItem.OverrideData.AnswerQuestion) &&
+          (registrationItem.issues?.ScheduleConflict_passed || registrationItem.OverrideData.ScheduleConflictCheck) &&
+          (registrationItem.issues?.StudentOnHoldCheck_passed ||
+            (registrationItem.OverrideData.StudentOnHoldCheck &&
+              registrationItem.OverrideData.StudentOnHoldCheckWithMessage)) &&
+          (registrationItem.issues?.PrerequisiteCheck_passed || registrationItem.OverrideData.SectionPrerequisiteCheck)
+        )
+      case "ProgramApplicationRequest":
+        const programApplicationItem: IProgramApplicationRequest = _item as IProgramApplicationRequest
+        return (
+          !!programApplicationItem.issues &&
+          programApplicationItem.issues.DuplicateRequestCheck_passed &&
+          programApplicationItem.issues?.check_application_passed &&
+          programApplicationItem.issues?.program_validity_passed
+        )
+      case "ProgramEnrollmentRequest":
+        const programEnrollmeItem: IProgramEnrollmentRequest = _item as IProgramEnrollmentRequest
+        return (
+          !!programEnrollmeItem.issues &&
+          !programEnrollmeItem.issues.program_validity_passed &&
+          !programEnrollmeItem.issues.check_enrollment_passed &&
+          !programEnrollmeItem.issues.check_application_approval_passed &&
+          !programEnrollmeItem.issues.DuplicateRequestCheck_passed
+        )
+      case "ProductRequest":
+        break
+      case "MembershipRequest":
+        const membershipRequest: IMembershipRequest = _item as IMembershipRequest
+        return (
+          !!membershipRequest.issues &&
+          !membershipRequest.issues.FixedTermMembershipAlreadyBought_passed &&
+          !membershipRequest.issues.FixterTermMembershipExpired_passed &&
+          !membershipRequest.issues.DuplicateRequestCheck_passed &&
+          !membershipRequest.issues.MembershipCannotBeRenewed_passed &&
+          !membershipRequest.issues.MembershipAlreadyBoughtAndRenewed_passed
+        )
+    }
+
+    return true
+  }
 
   assignPerson(Person?: IPersonProfile): void {
     this.buyer.PersonID = Person ? Person.PersonID : undefined
@@ -79,7 +133,11 @@ export class CartModelFunctionality
 
       const orderPayload = {
         ItemList: this.itemList,
-        Override
+        Override,
+        PromotionalCodes: list
+          .filter((x) => x.AppliedPromoCode)
+          .map((x) => (x.AvailablePromoCode ? x.AvailablePromoCode.DiscountServiceParams : undefined))
+          .filter(Boolean)
       }
       return launchRegistrationRequest(orderPayload)
     } else return Promise.resolve({ code: 200, success: false, data: "", error: "" })
@@ -101,14 +159,16 @@ export class CartModelFunctionality
         tempRegistrationRequest = x.data
         console.log(tempRegistrationRequest)
         tempRegistrationRequest.varificationInProgress = true
-        tempRegistrationRequest.OverrideData = {
-          SectionPrerequisiteCheck: false,
-          StudentOnHoldCheckWithMessage: false,
-          StudentOnHoldCheck: false,
-          ScheduleConflictCheck: false,
-          AnswerQuestion: false
-        }
+        tempRegistrationRequest.AppliedPromoCode = false
+
         this.itemList = [...this.itemList, tempRegistrationRequest]
+        tempRegistrationRequest.OverrideData = {
+          SectionPrerequisiteCheck: true,
+          StudentOnHoldCheckWithMessage: true,
+          StudentOnHoldCheck: true,
+          ScheduleConflictCheck: true,
+          AnswerQuestion: true
+        }
         eventBus.publish(UPDATE_CART, this.itemList)
         validateRegistrationRequest({
           SeatGroupID: tempRegistrationRequest.SeatGroupID,
@@ -142,6 +202,13 @@ export class CartModelFunctionality
               check_prerequisiteconflict_conflicts: response.data.check_prerequisiteconflict_conflicts || [],
               check_scheduleconflict_conflicts: response.data.check_scheduleconflict_conflicts || []
             }
+            tempRegistrationRequest.OverrideData = {
+              SectionPrerequisiteCheck: tempRegistrationRequest.issues.PrerequisiteCheck_passed,
+              StudentOnHoldCheckWithMessage: tempRegistrationRequest.issues.StudentOnHoldCheck_passed,
+              StudentOnHoldCheck: tempRegistrationRequest.issues.StudentOnHoldCheck_passed,
+              ScheduleConflictCheck: tempRegistrationRequest.issues.ScheduleConflict_passed,
+              AnswerQuestion: tempRegistrationRequest.issues.RegistrationQuestionCheck_passed
+            }
           }
           tempRegistrationRequest.varificationInProgress = false
           tempRegistrationRequest.SeatGroups = SeatGroups
@@ -151,9 +218,37 @@ export class CartModelFunctionality
           })
           eventBus.publish(UPDATE_CART, __itemList)
         })
+
+        getPromotionalForSeatGroup({
+          SeatGroupID: this.itemList
+            .filter((x) => x.ItemType === "RegistrationRequest")
+            .map((x) => (x as IRegistrationRequest).SeatGroupID)
+        }).then((response) => {
+          if (response.success && Array.isArray(response.data) && response.data.length) {
+            response.data.forEach((promo) => {
+              const __itemList = this.itemList.map((x) => {
+                const itemIRegistrationRequest = x as IRegistrationRequest
+                if (itemIRegistrationRequest.SectionID === promo.SectionID) {
+                  itemIRegistrationRequest.AvailablePromoCode = promo as IRegistrationPromoCode
+                }
+                return itemIRegistrationRequest
+              })
+              eventBus.publish(UPDATE_CART, __itemList)
+            })
+          }
+        })
       }
       return x
     })
+  }
+
+  addRemovePromo(item: IItemRequest, addOrRemove: boolean) {
+    const __itemList = this.itemList.map((x) => {
+      const registrationItem = x as IRegistrationRequest
+      if (item.RequestID === registrationItem.RequestID) registrationItem.AppliedPromoCode = addOrRemove
+      return registrationItem
+    })
+    eventBus.publish(UPDATE_CART, __itemList)
   }
 
   removeRegistrationRequest(RequestID: number): Promise<IApiResponse> {

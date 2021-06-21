@@ -15,16 +15,9 @@ export const MembershipCartItemDetailsModal = (props: {
   const [issueSolved, setIssueSolved] = useState(true)
 
   useEffect(() => {
-    setIssueSolved(
-      !!props.item.issues &&
-        !props.item.issues.FixedTermMembershipAlreadyBought_passed &&
-        !props.item.issues.FixterTermMembershipExpired_passed &&
-        !props.item.issues.DuplicateRequestCheck_passed &&
-        !props.item.issues.MembershipCannotBeRenewed_passed &&
-        !props.item.issues.MembershipAlreadyBoughtAndRenewed_passed
-    )
+    setIssueSolved(props.cartModelFunctionality.findIssue(props.item))
     // eslint-disable-next-line
-  }, [])
+  }, [props.item.issues])
 
   return (
     <>

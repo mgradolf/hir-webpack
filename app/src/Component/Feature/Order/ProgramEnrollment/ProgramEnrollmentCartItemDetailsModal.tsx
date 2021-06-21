@@ -15,15 +15,9 @@ export const ProgramEnrollmentCartItemDetailsModal = (props: {
   const [issueSolved, setIssueSolved] = useState(true)
 
   useEffect(() => {
-    setIssueSolved(
-      !!props.item.issues &&
-        !props.item.issues.program_validity_passed &&
-        !props.item.issues.check_enrollment_passed &&
-        !props.item.issues.check_application_approval_passed &&
-        !props.item.issues.DuplicateRequestCheck_passed
-    )
+    setIssueSolved(props.cartModelFunctionality.findIssue(props.item))
     // eslint-disable-next-line
-  }, [])
+  }, [props.item.issues])
 
   return (
     <>

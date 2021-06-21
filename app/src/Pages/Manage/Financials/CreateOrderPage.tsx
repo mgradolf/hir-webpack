@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, Menu, Row } from "antd"
+import { Button, Col, Dropdown, Menu, message, Row } from "antd"
 import React, { useEffect, useState } from "react"
 import { Redirect } from "react-router-dom"
 import { CartTable } from "~/Component/Feature/Order/CartTable"
@@ -180,13 +180,20 @@ export default function CreateOrderPage() {
               loading={orderRequestInProgress}
               type="primary"
               onClick={() => {
-                setOrderRequestInProgress(true)
-                cartModelFunctionality.launchRegistrationRequest().then((response) => {
-                  setOrderRequestInProgress(false)
-                  if (response.success) {
-                    setRedirectTo(`/request/${response.data.RequestID}`)
-                  }
+                let issueDoesNotExist = true
+                ItemList.forEach((x) => {
+                  issueDoesNotExist = issueDoesNotExist && cartModelFunctionality.findIssue(x)
                 })
+                if (!issueDoesNotExist) message.error("Please solve cart item issues first!")
+                else {
+                  setOrderRequestInProgress(true)
+                  cartModelFunctionality.launchRegistrationRequest().then((response) => {
+                    setOrderRequestInProgress(false)
+                    if (response.success) {
+                      setRedirectTo(`/request/${response.data.RequestID}`)
+                    }
+                  })
+                }
               }}
             >
               Create Order

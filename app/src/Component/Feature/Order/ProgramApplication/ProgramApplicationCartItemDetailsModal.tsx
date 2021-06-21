@@ -15,14 +15,9 @@ export const ProgramApplicationCartItemDetailsModal = (props: {
   const [issueSolved, setIssueSolved] = useState(true)
 
   useEffect(() => {
-    setIssueSolved(
-      !!props.item.issues &&
-        props.item.issues.DuplicateRequestCheck_passed &&
-        props.item.issues?.check_application_passed &&
-        props.item.issues?.program_validity_passed
-    )
+    setIssueSolved(props.cartModelFunctionality.findIssue(props.item))
     // eslint-disable-next-line
-  }, [])
+  }, [props.item.issues])
 
   return (
     <>
