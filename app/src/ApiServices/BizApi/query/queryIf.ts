@@ -373,6 +373,14 @@ export function getPromotionalForSeatGroup(
     ["financial.discount.PromotionalForSeatGroup", Params, null],
     Headers
   ).then((x) => {
+    if (x.success && Array.isArray(x.data)) {
+      x.data = x.data.map((p) => {
+        const parser = new DOMParser()
+        const xmlDoc = parser.parseFromString(p.DiscountServiceParams as string, "text/xml")
+        p.DiscountServiceParams = xmlDoc.getElementsByTagName("value")[0].childNodes[0].nodeValue
+        return p
+      })
+    }
     return x
   })
 }

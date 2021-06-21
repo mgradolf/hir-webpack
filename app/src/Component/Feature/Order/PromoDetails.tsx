@@ -31,7 +31,7 @@ export const PromoDetails = (props: { item: IRegistrationRequest; cartModelFunct
                   setShowModal(false)
                 }}
               >
-                Close
+                Remove
               </Button>
             ]}
           >
