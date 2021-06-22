@@ -1,14 +1,17 @@
 import moment from "moment"
 import React, { useState } from "react"
-import { Form, Input, DatePicker } from "antd"
+import { Form, DatePicker } from "antd"
 import { DATE_FORMAT } from "~/utils/Constants"
 import { ICertificateFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import { getApplicableSectionCertificate } from "~/ApiServices/BizApi/certificate/certificateIF"
-import "~/Sass/utils.scss"
 import { FormInstance } from "antd/lib/form"
 import { getCompletedProgram, getCompletedSection } from "~/ApiServices/BizApi/certificate/studentCertificateIF"
 import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { FormInput } from "~/Component/Common/Form/FormInput"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
+import "~/Sass/utils.scss"
 
 interface ICertificateFormProps {
   initialValue: { [key: string]: any }
@@ -23,21 +26,21 @@ export function CertificateForm(props: ICertificateFormProps) {
   const fromRegistation = props.initialValue.StudentID
 
   const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: fromRegistation ? 10 : 0 }
+    labelCol: { span: 8 },
+    wrapperCol: { span: 14 }
   }
 
   const [certificateItems, setCertificateItems] = useState<any[]>([])
   const [sectionID, setSectionID] = useState<number>(fromRegistation ? props.initialValue.SectionID : undefined)
   const [programID, setProgramID] = useState<number>()
   const [studentID, setStudentID] = useState<number>(fromRegistation ? props.initialValue.StudentID : undefined)
+
   const certificateHandler = (certificateID: any) => {
     certificateItems.forEach((element) => {
       if (element.CertificateID === certificateID) {
         validityMonths = element.ValidityMonths
       }
     })
-
     const currentDate = new Date()
     if (validityMonths !== null) {
       props.formInstance.setFieldsValue({
@@ -55,7 +58,6 @@ export function CertificateForm(props: ICertificateFormProps) {
 
   const issueDateHandler = (date: any) => {
     const selectedDate = date.toDate()
-
     if (validityMonths !== null) {
       props.formInstance.setFieldsValue({
         [props.fieldNames.ExpirationDate]: moment(
@@ -79,36 +81,53 @@ export function CertificateForm(props: ICertificateFormProps) {
 
   return (
     <>
-      <Form.Item className="hidden" name={props.fieldNames.IsProgram}>
-        <Input aria-label="Certificate type" />
-      </Form.Item>
-
-      <Form.Item label="Certificate Type" {...layout}>
-        <Input disabled value={isProgram ? "Program" : "Offering"} />
-      </Form.Item>
-
+      <FormMultipleRadio
+        {...layout}
+        formInstance={props.formInstance}
+        label={"Certificate Type"}
+        ariaLabel={"Ceritficate Type"}
+        fieldName={props.fieldNames.IsProgram}
+        options={[
+          { label: "Offering", value: false },
+          { label: "Program", value: true }
+        ]}
+        disabled
+      />
       {fromRegistation && (
         <>
-          <Form.Item label="StudentID" className="hidden" name={props.fieldNames.StudentID}>
-            <Input aria-label="StudentID" />
-          </Form.Item>
-
-          <Form.Item label="Student" {...layout}>
-            <Input disabled value={props.initialValue.StudentName} />
-          </Form.Item>
-
-          <Form.Item label="SectionID" className="hidden" name={props.fieldNames.SectionID}>
-            <Input aria-label="SectionID" />
-          </Form.Item>
-
-          <Form.Item label="Section" {...layout}>
-            <Input disabled value={props.initialValue.SectionNumber} />
-          </Form.Item>
+          <FormInput
+            {...layout}
+            label="StudentID"
+            fieldName={props.fieldNames.StudentID}
+            formInstance={props.formInstance}
+            hidden
+          />
+          <FormInput
+            {...layout}
+            label="Student"
+            fieldName={props.fieldNames.StudentName}
+            formInstance={props.formInstance}
+            disabled
+          />
+          <FormInput
+            {...layout}
+            label="SectionID"
+            fieldName={props.fieldNames.SectionID}
+            formInstance={props.formInstance}
+            hidden
+          />
+          <FormInput
+            {...layout}
+            label="Section"
+            fieldName={props.fieldNames.SectionNumber}
+            formInstance={props.formInstance}
+            disabled
+          />
         </>
       )}
-
       {!fromRegistation && (
         <StudentLookup
+          {...layout}
           fieldName="StudentID"
           label="Student"
           formInstance={props.formInstance}
@@ -118,6 +137,7 @@ export function CertificateForm(props: ICertificateFormProps) {
 
       {!isProgram && !fromRegistation && studentID && (
         <FormDropDown
+          {...layout}
           formInstance={props.formInstance}
           onChangeCallback={selectSectionHandler}
           label="Section"
@@ -130,10 +150,11 @@ export function CertificateForm(props: ICertificateFormProps) {
         />
       )}
 
-      {isProgram && !fromRegistation && (
+      {isProgram && !fromRegistation && studentID && (
         <FormDropDown
+          {...layout}
           formInstance={props.formInstance}
-          onSelectedItems={selectProgramHandler}
+          onChangeCallback={selectProgramHandler}
           label="Program"
           fieldName={props.fieldNames.ProgramID}
           refLookupService={() => getCompletedProgram({ StudentID: studentID })}
@@ -146,6 +167,7 @@ export function CertificateForm(props: ICertificateFormProps) {
 
       {(sectionID || programID) && (
         <FormDropDown
+          {...layout}
           label="Certificate Name"
           fieldName={props.fieldNames.CertificateID}
           formInstance={props.formInstance}
@@ -169,7 +191,13 @@ export function CertificateForm(props: ICertificateFormProps) {
         />
       )}
 
-      <Form.Item label="Issue Date" {...layout} name={props.fieldNames.IssueDate}>
+      <Form.Item
+        colon={false}
+        label="Issue Date"
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 12 }}
+        name={props.fieldNames.IssueDate}
+      >
         <DatePicker
           aria-label="Pick Issue Date"
           placeholder={DATE_FORMAT}
@@ -178,13 +206,22 @@ export function CertificateForm(props: ICertificateFormProps) {
         />
       </Form.Item>
 
-      <Form.Item label="Expiration Date" {...layout} name={props.fieldNames.ExpirationDate}>
+      <Form.Item
+        colon={false}
+        label="Expiration Date"
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 12 }}
+        name={props.fieldNames.ExpirationDate}
+      >
         <DatePicker aria-label="Pick Expiration Date" placeholder={DATE_FORMAT} format={DATE_FORMAT} />
       </Form.Item>
 
-      <Form.Item label="Comment" {...layout} name={props.fieldNames.Comment}>
-        <Input.TextArea rows={4} aria-label="Comment" />
-      </Form.Item>
+      <FormTextArea
+        {...layout}
+        label="Comment"
+        fieldName={props.fieldNames.Comment}
+        formInstance={props.formInstance}
+      />
     </>
   )
 }

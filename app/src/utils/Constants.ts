@@ -218,7 +218,7 @@ export const CEU_HOURS = "CEUHours"
 
 export const REGISTRATION_EMAIL_CONFIRMATION_SUCCESS = "Successfully send email!"
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
-export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
+export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate issue successfully!"
 
 export const INVITE_TO_SETUP_WEB_LOGIN = "An invitation to setup a web login has been sent."
 export const INVITE_TO_RESET_PASSWORD = "An invitation to reset password has been sent."
@@ -277,3 +277,5 @@ export const ALL_REQUIRED_POLICY_TYPE = 1
 export const DEPOSIT_TRANSACTION_TYPE_ID = 1
 export const REFUND_TRANSACTION_TYPE_ID = 2
 export const TRANSFER_TRANSACTION_TYPE_ID = 3
+
+export const REGISTRATION_ENROLLMENT_STATUS_COMPLETED = "Completed"

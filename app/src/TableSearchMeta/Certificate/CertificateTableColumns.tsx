@@ -34,5 +34,9 @@ export const getCertificateTableColumns = (isCourse: boolean): ITableConfigProp 
     }
   ]
 
-  return { columns, searchFunc: searchCertificate, tableName: "CertificateTableColumns" }
+  return {
+    columns,
+    searchFunc: () => searchCertificate({ IsProgramCertificate: !isCourse }),
+    tableName: "CertificateTableColumns"
+  }
 }

@@ -129,7 +129,7 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
 
   const certificateMeta: IDetailsTableTabProp = {
     blocks: [
-      <CertificateFormModal editMode={true} isProgram={false} initialValues={{ ...registration, IsProgram: false }} />
+      <CertificateFormModal editMode={false} isProgram={false} initialValues={{ ...registration, IsProgram: false }} />
     ],
     tableProps: {
       pagination: false,

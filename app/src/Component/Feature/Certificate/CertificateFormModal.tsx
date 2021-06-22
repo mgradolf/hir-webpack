@@ -1,15 +1,14 @@
 import "~/Sass/utils.scss"
 import React, { useState } from "react"
-import { Form, Button } from "antd"
-import { ISSUE_CERTIFICATE_SAVE_SUCCESS } from "~/utils/Constants"
+import { Form, Button, message } from "antd"
+import { ISSUE_CERTIFICATE_SAVE_SUCCESS, REGISTRATION_ENROLLMENT_STATUS_COMPLETED } from "~/utils/Constants"
 import { issueCertificate, previewCertificate } from "~/ApiServices/Service/RegistrationService"
-import Notification from "~/utils/notification"
 import { ICertificateFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import { CertificateForm } from "~/Component/Feature/Certificate/CertificateForm"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_REGISTRATION_CERTIFICATE_PAGE } from "~/utils/EventBus"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
+import { Redirect } from "react-router"
 
 interface ICertificateFormProps {
   isProgram?: boolean
@@ -19,7 +18,9 @@ interface ICertificateFormProps {
 
 const fieldNames: ICertificateFieldNames = {
   SectionID: "SectionID",
+  SectionNumber: "SectionNumber",
   StudentID: "StudentID",
+  StudentName: "StudentName",
   ProgramID: "ProgramID",
   CertificateID: "CertificateID",
   IssueDate: "IssueDate",
@@ -30,6 +31,7 @@ const fieldNames: ICertificateFieldNames = {
 
 export function CertificateFormModal(props: ICertificateFormProps) {
   const [formInstance] = Form.useForm()
+  const [redirectAfterCreate, setRedirectAfterCreate] = useState<string>()
   const [initialFormValue] = useState<{ [key: string]: any }>(
     props.initialValues !== undefined ? props.initialValues : {}
   )
@@ -67,8 +69,12 @@ export function CertificateFormModal(props: ICertificateFormProps) {
     setErrorMessages([])
     const response = await issueCertificate(params)
     if (response && response.success) {
-      Notification(ISSUE_CERTIFICATE_SAVE_SUCCESS)
-      eventBus.publish(REFRESH_REGISTRATION_CERTIFICATE_PAGE)
+      message.success(ISSUE_CERTIFICATE_SAVE_SUCCESS)
+      if (props.isProgram) {
+        setRedirectAfterCreate(`/program/certificate/${response.data.StudentCertificateID}`)
+      } else {
+        setRedirectAfterCreate(`/course/certificate/${response.data.StudentCertificateID}`)
+      }
       closeModal()
     } else {
       setErrorMessages(response.error)
@@ -79,53 +85,34 @@ export function CertificateFormModal(props: ICertificateFormProps) {
   }
 
   return (
-    <CustomFormModalOpenButton
-      formTitle={props.editMode ? "Edit Issue Certificate" : "Issue Certificate"}
-      customForm={
-        <CertificateForm
-          fieldNames={fieldNames}
-          initialValue={props.initialValues}
-          formInstance={formInstance}
-          setApiCallInProgress={setApiCallInProgress}
-        />
-      }
-      formInstance={formInstance}
-      onFormSubmission={onFormSubmission}
-      initialValues={props.initialValues}
-      apiCallInProgress={apiCallInProgress}
-      iconType={props.editMode ? "edit" : "create"}
-      loading={apiCallInProgress}
-      errorMessages={errorMessages}
-      buttonLabel={props.editMode ? "Edit Issue Certificatee" : "Issue Certificate"}
-      buttonProps={{ type: props.editMode ? "link" : "primary" }}
-      extraButtons={[
-        <Button type="primary" loading={loadingView} onClick={viewCertificate}>
-          Preview
-        </Button>
-      ]}
-    />
-    // <Modal width="800px" loading={false} apiCallInProgress={apiCallInProgress}>
-    //   <>
-    //     <Card
-    //       style={{ overflowY: "scroll", height: "65vh" }}
-    //       title="Issue a Certificate"
-    //       actions={[
-    //         <Button onClick={handleCancel}>Cancel</Button>,
-    //         <Button type="primary" onClick={viewCertificate}>
-    //           Preview
-    //         </Button>,
-    //         <Button onClick={onFormSubmission}>Submit</Button>
-    //       ]}
-    //     >
-    //       <CertificateForm
-    //         fieldNames={fieldNames}
-    //         formInstance={formInstance}
-    //         initialFormValue={initialFormValue}
-    //         setApiCallInProgress={setApiCallInProgress}
-    //         errorMessages={errorMessages}
-    //       />
-    //     </Card>
-    //   </>
-    // </Modal>
+    <>
+      {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
+      <CustomFormModalOpenButton
+        formTitle={props.editMode ? "Edit Issue Certificate" : "Issue Certificate"}
+        customForm={
+          <CertificateForm
+            fieldNames={fieldNames}
+            initialValue={props.initialValues}
+            formInstance={formInstance}
+            setApiCallInProgress={setApiCallInProgress}
+          />
+        }
+        formInstance={formInstance}
+        onFormSubmission={onFormSubmission}
+        initialValues={props.initialValues}
+        apiCallInProgress={apiCallInProgress}
+        iconType={props.editMode ? "edit" : "create"}
+        loading={apiCallInProgress}
+        errorMessages={errorMessages}
+        buttonLabel={props.editMode ? "Edit Issue Certificatee" : "Issue Certificate"}
+        buttonProps={{ type: props.editMode ? "link" : "primary" }}
+        extraButtons={[
+          <Button type="primary" loading={loadingView} onClick={viewCertificate}>
+            Preview
+          </Button>
+        ]}
+        disabled={props.initialValues.EnrollmentStatus !== REGISTRATION_ENROLLMENT_STATUS_COMPLETED}
+      />
+    </>
   )
 }
