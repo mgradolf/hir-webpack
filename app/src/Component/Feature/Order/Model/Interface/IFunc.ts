@@ -1,5 +1,5 @@
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { IItemRequest, IPersonProfile } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { IItemRequest, IPersonProfile, IRegistrationRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 
 export interface IBuyer_Func {
   assignPerson: (PersonID: IPersonProfile) => void
@@ -37,7 +37,8 @@ export interface IRegistrationRequest_Func {
   ) => Promise<IApiResponse>
 
   addAnswerMap: (RequestID: number, answerMap: { [key: string]: any }) => void
-  addRemovePromo: (item: IItemRequest, applyOrRemove: boolean) => void
+  applyPromoCodes: (ItemList: IRegistrationRequest[], PromotionalCodes: string[]) => Promise<IApiResponse>
+  addPromo: (SectionDiscountIDsToBeAdded: number[]) => Promise<IApiResponse>
 }
 
 export interface IProgramApplicationRequest_Func {

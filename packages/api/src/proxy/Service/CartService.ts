@@ -9,6 +9,7 @@ export const config = {
     launchRegistrationRequest: "launchRegistrationRequest",
     createRegistrationRequest: "createRegistrationRequest",
     createOptionalItemRequest: "createOptionalItemRequest",
+    applyPromoCodes: "applyPromoCodes",
     createProgramApplicationRequest: "createProgramApplicationRequest",
     validateProgramRequest: "validateProgramRequest",
     createProgramEnrollmentRequest: "createProgramEnrollmentRequest",

@@ -28,6 +28,12 @@ export function createOptionalItemRequest(
 ): Promise<IApiResponse> {
   return CartService[config.Actions.createOptionalItemRequest](Params, Headers)
 }
+export function applyPromoCodes(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CartService[config.Actions.applyPromoCodes](Params, Headers)
+}
 
 export function createProgramApplicationRequest(
   Params: { [key: string]: any },

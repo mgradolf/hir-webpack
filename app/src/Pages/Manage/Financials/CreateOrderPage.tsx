@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom"
 import { CartTable } from "~/Component/Feature/Order/CartTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
-import { IBuyer, IItemRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { SelectBuyer } from "~/Component/Feature/Order/SelectBuyer"
 import { AddEnrollmentModal } from "~/Component/Feature/Order/Shop/AddEnrollmentModal"
 import { AddMembershipModal } from "~/Component/Feature/Order/Shop/AddMembershipModal"
@@ -13,46 +13,50 @@ import { AddProductModal } from "~/Component/Feature/Order/Shop/AddProductModal"
 import { AddProgramApplicationModal } from "~/Component/Feature/Order/Shop/AddProgramApplicationModal"
 import { AddSectionModal } from "~/Component/Feature/Order/Shop/AddSectionModal"
 import { eventBus } from "~/utils/EventBus"
+import { DownOutlined } from "@ant-design/icons"
+import { PromoTable } from "~/Component/Feature/Order/PromoTable"
 
 export const UPDATE_CART = "UPDATE_CART"
 export const UPDATE_BUYER = "UPDATE_BUYER"
-export const UPDATE_CART_ITEM_BY_REQUESTID = "UPDATE_CART_ITEM_BY_REQUESTID"
+export const UPDATE_PROMO = "UPDATE_PROMO"
 
 export default function CreateOrderPage() {
   const [buyer, setBuyer] = useState<IBuyer>({})
   const [ItemList, setItemList] = useState<IItemRequest[]>([])
-  const [cartModelFunctionality] = useState(new CartModelFunctionality())
+  const [cartModelFunctionality] = useState(new CartModelFunctionality(UPDATE_CART, UPDATE_BUYER, UPDATE_PROMO))
   const [orderRequestInProgress, setOrderRequestInProgress] = useState(false)
+  const [promoCodes, setPromoCodes] = useState<IRegistrationPromo[]>([])
   const [redirectTo, setRedirectTo] = useState("")
 
   useEffect(() => {
     setItemList(fakeCartData)
     eventBus.subscribe(UPDATE_CART, (ItemList: IItemRequest[]) => {
-      console.log("UPDATE_CART ", ItemList)
       setItemList(ItemList)
-      eventBus.publish("REFRESH_CART_TABLE")
     })
     eventBus.subscribe(UPDATE_BUYER, (buyer: IBuyer) => {
       setBuyer(buyer)
-      eventBus.publish("REFRESH_CART_TABLE")
+    })
+    eventBus.subscribe(UPDATE_PROMO, (promoCodes: IRegistrationPromo[]) => {
+      setPromoCodes(promoCodes)
     })
     return () => {
-      eventBus.unsubscribe("UPDATE_CART")
+      eventBus.unsubscribe(UPDATE_BUYER)
+      eventBus.unsubscribe(UPDATE_CART)
+      eventBus.unsubscribe(UPDATE_PROMO)
     }
   }, [])
   return (
     <div className="site-layout-content">
       <div style={{ backgroundColor: "white", padding: "10px" }}>
-        <button onClick={() => console.log(JSON.stringify(ItemList))}>click meh</button>
         <Row justify="center">
           <Col span={18}>
-            <SelectBuyer defaultPersonID={14889} buyer={buyer} cartModelFunctionality={cartModelFunctionality} />
+            <SelectBuyer buyer={buyer} cartModelFunctionality={cartModelFunctionality} />
             {/* <SelectBuyer buyer={buyer} cartModelFunctionality={cartModelFunctionality} /> */}
           </Col>
         </Row>
-        <Row justify="end">
+        <Row justify="end" gutter={4}>
           <Col>
-            <Dropdown.Button
+            <Dropdown
               overlay={
                 <Menu>
                   <Menu.Item>
@@ -83,6 +87,19 @@ export default function CreateOrderPage() {
                       />
                     </Menu.Item>
                   )}
+                </Menu>
+              }
+            >
+              <Button>
+                Registration <DownOutlined />
+              </Button>
+            </Dropdown>
+          </Col>
+
+          <Col>
+            <Dropdown
+              overlay={
+                <Menu>
                   <Menu.Item>
                     <AddProgramApplicationModal
                       sectionAddType="buy"
@@ -111,6 +128,18 @@ export default function CreateOrderPage() {
                       />
                     </Menu.Item>
                   )}
+                </Menu>
+              }
+            >
+              <Button>
+                Program Apllication <DownOutlined />
+              </Button>
+            </Dropdown>
+          </Col>
+          <Col>
+            <Dropdown
+              overlay={
+                <Menu>
                   <Menu.Item>
                     <AddEnrollmentModal
                       sectionAddType="buy"
@@ -139,6 +168,18 @@ export default function CreateOrderPage() {
                       />
                     </Menu.Item>
                   )}
+                </Menu>
+              }
+            >
+              <Button>
+                Program Enrollment <DownOutlined />
+              </Button>
+            </Dropdown>
+          </Col>
+          <Col>
+            <Dropdown
+              overlay={
+                <Menu>
                   <Menu.Item>
                     <AddProductModal
                       buyer={buyer}
@@ -162,10 +203,11 @@ export default function CreateOrderPage() {
                   </Menu.Item>
                 </Menu>
               }
-              type="primary"
             >
-              Add Items
-            </Dropdown.Button>
+              <Button>
+                Others <DownOutlined />
+              </Button>
+            </Dropdown>
           </Col>
         </Row>
         <Row>
@@ -173,7 +215,14 @@ export default function CreateOrderPage() {
             <CartTable itemList={ItemList} cartModelFunctionality={cartModelFunctionality} />
           </Col>
         </Row>
-        <Row justify="end">
+        <Row justify="end" gutter={4}>
+          <Col>
+            <PromoTable
+              promos={promoCodes}
+              cartModelFunctionality={cartModelFunctionality}
+              disable={orderRequestInProgress}
+            />
+          </Col>
           <Col>
             {redirectTo && <Redirect to={redirectTo} />}
             <Button

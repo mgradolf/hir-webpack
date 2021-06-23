@@ -14,32 +14,19 @@ import { ProgramEnrollmentCartItemDetailsModal } from "~/Component/Feature/Order
 import { Link } from "react-router-dom"
 import { MembershipCartItemDetailsModal } from "~/Component/Feature/Order/Membership/MembershipCartItemDetailsModal"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
-import { Button } from "antd"
-import { PromoDetails } from "~/Component/Feature/Order/PromoDetails"
 
 export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctionality: CartModelFunctionality }) => {
   const [dataSource, setDataSource] = useState<any[]>([])
   useEffect(() => {
     if (props.itemList.length) {
-      const GrossPrice = props.itemList.reduce((acc, curr) => {
-        if (curr.ItemType === "RegistrationRequest" && (curr as IRegistrationRequest).ItemList?.length) {
-          return (
-            acc +
-            curr.ItemQuantity * curr.UnitPrice +
-            (curr as IRegistrationRequest).ItemList?.reduce((a, c) => a + c.UnitPrice * c.ItemQuantity, 0)
-          )
-        }
-        return acc + curr.ItemQuantity * curr.UnitPrice
-      }, 0)
-
       setDataSource([
         ...props.itemList,
         {
           ItemName: "Total",
           ItemQuantity: "", //props.itemList.reduce((acc, curr) => acc + curr.ItemQuantity, 0),
-          GrossPrice,
-          Discount: 0,
-          TotalPrice: GrossPrice
+          GrossPrice: props.itemList.reduce((acc, curr) => acc + (curr && curr.GrossPrice ? curr.GrossPrice : 0), 0),
+          Discount: props.itemList.reduce((acc, curr) => acc + (curr && curr.Discount ? curr.Discount : 0), 0),
+          NetPrice: props.itemList.reduce((acc, curr) => acc + (curr && curr.NetPrice ? curr.NetPrice : 0), 0)
         }
       ])
     } else setDataSource([])
@@ -101,41 +88,15 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
           { title: "Qty", dataIndex: "ItemQuantity" },
           {
             title: "Gross Price",
-            dataIndex: "GrossPrice",
-            render: (text, record) =>
-              text ? text : (record as IRegistrationRequest).ItemQuantity * (record as IRegistrationRequest).UnitPrice
+            dataIndex: "GrossPrice"
           },
           {
             title: "Discount",
-            dataIndex: "Discount",
-            render: (text, record) => {
-              const item = record as IRegistrationRequest
-              if (!item) {
-                return props.itemList.reduce((acc, curr) => {
-                  const item = curr as IRegistrationRequest
-                  const amount = item.AvailablePromoCode ? item.AvailablePromoCode?.Amount : 0
-                  return acc + amount
-                }, 0)
-              } else if (!item.AvailablePromoCode) {
-                return "0"
-              } else {
-                if (item.AppliedPromoCode) {
-                  return <PromoDetails item={item} cartModelFunctionality={props.cartModelFunctionality} />
-                } else {
-                  return (
-                    <Button type="link" onClick={() => props.cartModelFunctionality.addRemovePromo(item, true)}>
-                      Redeem Discount
-                    </Button>
-                  )
-                }
-              }
-            }
+            dataIndex: "Discount"
           },
           {
             title: "Total Price",
-            dataIndex: "TotalPrice",
-            render: (text, record) =>
-              text ? text : (record as IRegistrationRequest).ItemQuantity * (record as IRegistrationRequest).UnitPrice
+            dataIndex: "NetPrice"
           },
           {
             title: "Action",
