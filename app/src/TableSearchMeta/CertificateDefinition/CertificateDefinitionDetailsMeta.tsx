@@ -1,12 +1,19 @@
+import React from "react"
 import { searchCertificateParams } from "~/ApiServices/BizApi/query/queryIf"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
+import { CertificateDefinitionFormModal } from "~/Component/Feature/CertificateDefinition/CertificateDefinitionFormModal"
+import { CertificateDefRemoveLink } from "~/Component/Feature/CertificateDefinition/CertificateDefRemoveLink"
 
 export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   const summary: CardContainer = {
     title: certificate.Name,
+    cardActions: [
+      <CertificateDefinitionFormModal initialValues={certificate} editMode={true} />,
+      <CertificateDefRemoveLink CertificateID={certificate.CertificateID} />
+    ],
     contents: [
       { label: "Certificate Type", value: certificate.CertificateType, render: undefined },
       { label: "Department", value: certificate.OrganizationName, render: undefined },
