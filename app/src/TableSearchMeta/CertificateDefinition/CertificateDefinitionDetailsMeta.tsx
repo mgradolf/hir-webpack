@@ -4,6 +4,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
 import { CertificateDefinitionFormModal } from "~/Component/Feature/CertificateDefinition/CertificateDefinitionFormModal"
+import { CertificateDefPreview } from "~/Component/Feature/CertificateDefinition/CertificateDefPreview"
 import { CertificateDefRemoveLink } from "~/Component/Feature/CertificateDefinition/CertificateDefRemoveLink"
 
 export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]: any }): IDetailsMeta => {
@@ -12,6 +13,7 @@ export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]
     title: certificate.Name,
     cardActions: [
       <CertificateDefinitionFormModal initialValues={certificate} editMode={true} />,
+      <CertificateDefPreview CertificateID={certificate.CertificateID} />,
       <CertificateDefRemoveLink CertificateID={certificate.CertificateID} />
     ],
     contents: [

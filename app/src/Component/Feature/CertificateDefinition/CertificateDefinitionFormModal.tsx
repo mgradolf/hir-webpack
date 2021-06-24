@@ -6,8 +6,8 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
 import { Redirect } from "react-router"
 import { saveOrUpdateCertificate } from "~/ApiServices/Service/CertificateService"
-import "~/Sass/utils.scss"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
+import "~/Sass/utils.scss"
 
 interface ICertificateDefinitionFormProps {
   editMode?: boolean
