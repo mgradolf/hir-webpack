@@ -52,11 +52,13 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
         label: "URL",
         value: offering.URL,
         render: (text: any) => {
-          let finalUrl
-          if (text.includes("http://") || text.includes("https://")) {
-            finalUrl = text
-          } else {
-            finalUrl = "http://" + text
+          let finalUrl = null
+          if (text !== null) {
+            if (text.includes("http://") || text.includes("https://")) {
+              finalUrl = text
+            } else {
+              finalUrl = "http://" + text
+            }
           }
           return (
             <a href={finalUrl} target={"_blank"} rel="noopener noreferrer">

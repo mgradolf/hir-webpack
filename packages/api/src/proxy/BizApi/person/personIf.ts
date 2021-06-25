@@ -5,7 +5,8 @@ export const config = {
   Service: "com.jenzabar.jxntm.server.bizapi.person.PersonIF",
   Module: "hir",
   Actions: {
-    searchPersons: "searchPersons"
+    searchPersons: "searchPersons",
+    findPreferredEmail: "findPreferredEmail"
   }
 }
 

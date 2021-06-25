@@ -237,7 +237,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
                 editFormMeta={PersonPhoneUpdateFormMeta}
                 editFormTitle="Update Phone"
                 editFormInitialValue={x}
-                editFormDefaultValue={{ PersonID: person.PersonID, TelephoneTypeID: x.TelephoneTypeID }}
+                editFormDefaultValue={{
+                  PersonID: person.PersonID,
+                  TelephoneTypeID: x.TelephoneTypeID,
+                  oca: person.oca
+                }}
                 refreshEventName={REFRESH_PAGE}
                 editApi={pushPersonPhone}
                 deleteApi={() =>

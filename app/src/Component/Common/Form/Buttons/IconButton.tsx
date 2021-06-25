@@ -5,7 +5,9 @@ import {
   DeleteOutlined,
   CloseOutlined,
   CopyOutlined,
-  MailOutlined
+  MailOutlined,
+  SwapOutlined,
+  InfoCircleOutlined
 } from "@ant-design/icons"
 import { Button, Tooltip } from "antd"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
@@ -13,7 +15,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Redirect } from "react-router"
 import { ButtonType } from "antd/lib/button"
 
-export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email"
+export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email" | "swap" | "info"
 
 export const IconButton = (props: {
   onClick?: () => void
@@ -70,7 +72,9 @@ export const IconButton = (props: {
       edit: <EditOutlined />,
       close: <CloseOutlined />,
       copy: <CopyOutlined />,
-      email: <MailOutlined />
+      email: <MailOutlined />,
+      swap: <SwapOutlined />,
+      info: <InfoCircleOutlined />
     }
     _button = (
       <Button

@@ -202,6 +202,7 @@ export default function PersonAccountForm(props: IPersonAccountFormProps) {
           fieldName={props.fieldNames.AccountID}
           formInstance={props.formInstance}
           label={"Account"}
+          rules={[{ required: true, message: "Please select account!" }]}
         />
 
         <FormInput label="PersonID" formInstance={props.formInstance} fieldName={props.fieldNames.PersonID} hidden />

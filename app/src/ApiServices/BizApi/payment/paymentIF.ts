@@ -15,6 +15,20 @@ export function searchCreditMemo(
   return PaymentIF[config.Actions.searchCreditMemo]([Params], Headers)
 }
 
+export function canReversePayment(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentIF[config.Actions.canReversePayment]([Params], Headers)
+}
+
+export function getPaymentReceipt(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentIF[config.Actions.getPaymentReceipt]([Params.PaymentID], Headers)
+}
+
 export function getPaymentTypes(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

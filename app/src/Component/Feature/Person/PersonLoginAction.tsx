@@ -8,7 +8,7 @@ import {
   unlockPersonLogin,
   updateLoginInfo
 } from "~/ApiServices/BizApi/NTSWebLogin/NTSWebLoginIF"
-import { REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { setupWebLogin } from "~/ApiServices/Service/PersonService"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
@@ -29,6 +29,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
     })
     if (response.success) {
       message.success(INVITE_TO_SETUP_WEB_LOGIN)
+      eventBus.publish(REFRESH_PAGE)
     }
     setLoading(false)
   }
@@ -40,6 +41,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
     })
     if (response.success) {
       message.success(INVITE_TO_RESET_PASSWORD)
+      eventBus.publish(REFRESH_PAGE)
     }
     setLoading(false)
   }
@@ -51,6 +53,7 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
     })
     if (response.success) {
       message.success(UNLOCK_WEB_LOGIN)
+      eventBus.publish(REFRESH_PAGE)
     }
     setLoading(false)
   }
@@ -99,7 +102,6 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
         <MetaDrivenFormModal
           meta={PersonLoginFormMeta}
           metaName="PersonLoginFormMeta"
-          isHorizontal={true}
           title={"Update Person Login Info"}
           initialFormValue={props.initialData}
           defaultFormValue={{ PersonID: props.initialData.PersonID }}
