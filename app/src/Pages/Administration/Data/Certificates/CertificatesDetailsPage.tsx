@@ -11,14 +11,12 @@ export default function CertificatesDetailsPage(props: RouteComponentProps<{ Cer
       getMeta={getCertificateDefinitionDetailsMeta}
       getDetails={() =>
         getCertificateDefinitionTableColumns()
-          .searchFunc({ CertificateID })
+          .searchFunc({ certificateID: CertificateID })
           .then((x) => {
             if (x.success) x.data = x.data[0]
             return x
           })
       }
-      // entityType="Organization"
-      // entityID={CertificateID}
     />
   )
 }

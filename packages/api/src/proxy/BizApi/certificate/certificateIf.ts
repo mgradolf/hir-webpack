@@ -7,6 +7,8 @@ export const config = {
   Actions: {
     getApplicableSectionCertificate: "getApplicableSectionCertificate",
     getApplicableProgramCertificate: "getApplicableProgramCertificate",
+    getCertificateTemplateFileNames: "getCertificateTemplateFileNames",
+    getStaticParameters: "getStaticParameters",
     searchCertificate: "searchCertificate",
     canDeleteCertificate: "canDeleteCertificate",
     deleteCertificate: "deleteCertificate"
