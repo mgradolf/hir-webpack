@@ -8,6 +8,8 @@ export const config = {
     searchPayment: "searchPayment",
     searchCreditMemo: "searchCreditMemo",
     getPaymentTypes: "getPaymentTypes",
+    canReversePayment: "canReversePayment",
+    getPaymentReceipt: "getPaymentReceipt",
     generatePaymentAllocation: "generatePaymentAllocation"
   }
 }

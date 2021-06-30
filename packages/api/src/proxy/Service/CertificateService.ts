@@ -6,7 +6,8 @@ export const config = {
   Module: "hir",
   Actions: {
     createOrUpdateCertificate: "createOrUpdateCertificate",
-    getStaticParams: "getStaticParams"
+    getStaticParams: "getStaticParams",
+    previewCertificate: "previewCertificate"
   }
 }
 

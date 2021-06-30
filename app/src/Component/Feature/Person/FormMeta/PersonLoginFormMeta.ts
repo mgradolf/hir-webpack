@@ -8,6 +8,15 @@ export const PersonLoginFormMeta: IField[] = [
     fieldName: "UserLogin"
   },
   {
+    label: "Active",
+    inputType: DROPDOWN,
+    options: [
+      { label: "Yes", value: true },
+      { label: "No", value: false }
+    ],
+    fieldName: "IsActivated"
+  },
+  {
     label: "Secret Question",
     inputType: DROPDOWN,
     fieldName: "SecretQuestion",
@@ -19,14 +28,5 @@ export const PersonLoginFormMeta: IField[] = [
     label: "Secret Answer",
     inputType: TEXT,
     fieldName: "SecretAnswer"
-  },
-  {
-    label: "Active",
-    inputType: DROPDOWN,
-    options: [
-      { label: "Yes", value: true },
-      { label: "No", value: false }
-    ],
-    fieldName: "IsActivated"
   }
 ]

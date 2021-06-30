@@ -19,14 +19,13 @@ const layout = {
 }
 
 export default function AccountMergeForm(props: IAccountMergeFormProps) {
-  const [primaryFormInstance] = Form.useForm()
   const [duplicateFormInstance] = Form.useForm()
 
   const [loading, setLoading] = useState<boolean>(false)
   const [isMergable, setIsMergable] = useState<boolean>(false)
   const [mAnalyze, setManalyze] = useState<{ [key: string]: any }>({})
   const [mergeAnalyze, setMergeAnalyze] = useState<{ [key: string]: any }>({})
-  const [primaryAccount, setPrimaryAccount] = useState<{ [key: string]: any }>({})
+  const [primaryAccount] = useState<{ [key: string]: any }>(props.initialFormValue || {})
   const [duplicateAccount, setDuplicateAccount] = useState<{ [key: string]: any }>({})
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
 
@@ -105,11 +104,6 @@ export default function AccountMergeForm(props: IAccountMergeFormProps) {
     })
   }
 
-  const onSelectedPrimaryAccount = (accounts: any) => {
-    setErrorMessages([])
-    setPrimaryAccount(accounts[0])
-  }
-
   const onSelectedDuplicateAccount = (accounts: any) => {
     setErrorMessages([])
     setDuplicateAccount(accounts[0])
@@ -129,7 +123,9 @@ export default function AccountMergeForm(props: IAccountMergeFormProps) {
             <Button
               type="primary"
               aria-label="Submit"
-              disabled={primaryAccount.AccountID === duplicateAccount.AccountID}
+              disabled={
+                Object.keys(duplicateAccount).length === 0 || primaryAccount.AccountID === duplicateAccount.AccountID
+              }
               onClick={onAnalyze}
             >
               Analyze
@@ -161,13 +157,14 @@ export default function AccountMergeForm(props: IAccountMergeFormProps) {
             <OldFormError errorMessages={errorMessages} />
             <Col xs={24} sm={24} md={12}>
               <Form>
-                <Form.Item>
-                  <AccountLookup
-                    onSelectedItems={onSelectedPrimaryAccount}
-                    fieldName="AccountID"
-                    label="Primary Account"
-                    formInstance={primaryFormInstance}
-                  />
+                <Form.Item
+                  colon={false}
+                  label="Primary Account"
+                  style={{ paddingBottom: "24px" }}
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 16 }}
+                >
+                  <Input disabled aria-label="Primary Account" value={primaryAccount.AccountName} />
                 </Form.Item>
                 <Divider orientation="left">Primary</Divider>
                 <Form.Item label="Primary Contact" {...layout}>

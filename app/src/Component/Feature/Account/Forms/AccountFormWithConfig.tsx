@@ -13,6 +13,7 @@ import { pushAccount } from "~/ApiServices/Service/AccountService"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
 import { BaseButtonProps } from "antd/lib/button/button"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
+import { Redirect } from "react-router"
 
 interface IAccountFormProps {
   formInstance: FormInstance
@@ -69,6 +70,7 @@ function AccountForm(props: IAccountFormProps) {
     <Row>
       <Col xs={24} sm={24} md={12}>
         <Form.Item
+          colon={false}
           label="Account Type"
           name={fieldNames.AccountTypeID}
           labelCol={{ span: 6 }}
@@ -177,6 +179,7 @@ export function AccountFormOpenButton(props: {
 }) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
+  const [redirectAfterCreate, setRedirectAfterCreate] = useState<string>()
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
@@ -192,6 +195,7 @@ export function AccountFormOpenButton(props: {
             message.success(CREATE_SUCCESSFULLY)
             formInstance.resetFields()
             props.onSubmitSuccess && props.onSubmitSuccess(response.data)
+            setRedirectAfterCreate(`/account/${response.data.AccountID}`)
             closeModal()
           } else {
             setErrorMessages(response.error)
@@ -201,25 +205,22 @@ export function AccountFormOpenButton(props: {
     })
   }
   return (
-    <CustomFormModalOpenButton
-      helpKey={props.helpKey}
-      formTitle={props.label ? props.label : "Create Account"}
-      customForm={<AccountForm formInstance={formInstance} />}
-      formInstance={formInstance}
-      onFormSubmission={onFormSubmission}
-      initialValues={initialValues}
-      apiCallInProgress={apiCallInProgress}
-      loading={loading}
-      iconType={props.iconType}
-      errorMessages={errorMessages}
-      buttonLabel={`${props.label ? props.label : "Create Account"}`}
-      buttonProps={props.buttonProps}
-
-      // showModal={showModal}
-      // setShowModal={(show: boolean) => {
-      //   if (!show) formInstance.resetFields()
-      // setShowModal(show)
-      // }}
-    />
+    <>
+      {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
+      <CustomFormModalOpenButton
+        helpKey={props.helpKey}
+        formTitle={props.label ? props.label : "Create Account"}
+        customForm={<AccountForm formInstance={formInstance} />}
+        formInstance={formInstance}
+        onFormSubmission={onFormSubmission}
+        initialValues={initialValues}
+        apiCallInProgress={apiCallInProgress}
+        loading={loading}
+        iconType={props.iconType}
+        errorMessages={errorMessages}
+        buttonLabel={`${props.label ? props.label : "Create Account"}`}
+        buttonProps={props.buttonProps}
+      />
+    </>
   )
 }

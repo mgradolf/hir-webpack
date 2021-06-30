@@ -6,6 +6,7 @@ import { getCertificateDefinitionTableColumns } from "~/TableSearchMeta/Certific
 
 export default function CertificatesDetailsPage(props: RouteComponentProps<{ CertificateID?: string }>) {
   const CertificateID = Number(props?.match?.params?.CertificateID)
+
   return (
     <DetailsPage
       getMeta={getCertificateDefinitionDetailsMeta}
