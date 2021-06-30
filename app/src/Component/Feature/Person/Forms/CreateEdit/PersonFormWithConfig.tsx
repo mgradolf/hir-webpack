@@ -172,11 +172,11 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
           <FormInput
             {...layout}
             formInstance={props.formInstance}
-            label={"Email Address"}
-            ariaLabel={"Email Address"}
+            label={"Email"}
+            ariaLabel={"Email"}
             fieldName="EmailAddress"
             {...PersonformConfig.EmailAddress}
-            rules={[{ required: true, message: "Please enter valid email address!", type: "email" }]}
+            rules={[{ required: true, message: "Please enter valid Email!", type: "email" }]}
           />
 
           <FormInput

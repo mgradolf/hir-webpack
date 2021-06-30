@@ -28,7 +28,7 @@ export const PromoTable = (props: {
               setShowModal(true)
             }}
           >
-            Promo Available
+            Apply Promo
           </Button>
           {showModal && (
             <Modal zIndex={zIndex.defaultModal} width="1000px" loading={loading} loadingTip="Applying Promo ...">

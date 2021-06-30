@@ -19,7 +19,7 @@ export const SelectBuyer = (props: {
     if (props.buyer.PersonProfile) {
       if (
         !props.buyer.PersonProfile.Address ||
-        !props.buyer.PersonProfile.EmailAddress ||
+        // !props.buyer.PersonProfile.EmailAddress ||
         !props.buyer.PersonProfile.TelephoneNumber
       ) {
         setHelp(

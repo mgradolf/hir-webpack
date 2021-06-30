@@ -245,7 +245,7 @@ export default function CreateOrderPage() {
                 }
               }}
             >
-              Create Order
+              Submit Order
             </Button>
           </Col>
         </Row>

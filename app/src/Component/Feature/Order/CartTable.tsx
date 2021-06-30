@@ -91,11 +91,11 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
             dataIndex: "GrossPrice"
           },
           {
-            title: "Discount",
+            title: "Credit/Discount",
             dataIndex: "Discount"
           },
           {
-            title: "Total Price",
+            title: "Net Price",
             dataIndex: "NetPrice"
           },
           {
