@@ -94,7 +94,7 @@ export function PaymentReverseFormOpenButton(props: {
         initialValues={initialValues}
         apiCallInProgress={apiCallInProgress}
         loading={loading}
-        iconType="swap"
+        iconType="undo"
         errorMessages={errorMessages}
         buttonLabel={`${props.label ? props.label : "Reverse Payment"}`}
         buttonProps={{ type: "primary" }}

@@ -6,7 +6,7 @@ import {
   CloseOutlined,
   CopyOutlined,
   MailOutlined,
-  SwapOutlined,
+  UndoOutlined,
   InfoCircleOutlined
 } from "@ant-design/icons"
 import { Button, Tooltip } from "antd"
@@ -15,7 +15,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Redirect } from "react-router"
 import { ButtonType } from "antd/lib/button"
 
-export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email" | "swap" | "info"
+export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email" | "undo" | "info"
 
 export const IconButton = (props: {
   onClick?: () => void
@@ -73,7 +73,7 @@ export const IconButton = (props: {
       close: <CloseOutlined />,
       copy: <CopyOutlined />,
       email: <MailOutlined />,
-      swap: <SwapOutlined />,
+      undo: <UndoOutlined />,
       info: <InfoCircleOutlined />
     }
     _button = (
