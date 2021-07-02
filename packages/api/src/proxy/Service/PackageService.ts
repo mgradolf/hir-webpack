@@ -12,7 +12,8 @@ export const config = {
     submitBulkOrder: "submitBulkOrder",
     addSection: "addSection",
     updateSection: "updateSection",
-    removeSection: "removeSection"
+    removeSection: "removeSection",
+    getPackageReport: "getPackageReport"
   }
 }
 

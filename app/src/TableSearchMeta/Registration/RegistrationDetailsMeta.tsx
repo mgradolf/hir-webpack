@@ -1,4 +1,3 @@
-import { Button } from "antd"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { CertificateFormModal } from "~/Component/Feature/Certificate/CertificateFormModal"
@@ -23,6 +22,7 @@ import { getRegistrationCommentTableColumns } from "~/TableSearchMeta/Registrati
 import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {
   const getQuestionResponses = () => {
@@ -64,9 +64,12 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     return (
       <>
         {setShowModal && (
-          <Button type="primary" disabled={disableActions} onClick={() => setShowModal && setShowModal(true)}>
-            Edit
-          </Button>
+          <IconButton
+            disabled={disableActions}
+            iconType="edit"
+            toolTip="Update grade"
+            onClick={() => setShowModal && setShowModal(true)}
+          />
         )}
         {showModal && (
           <RegistrationGradeFormModal initialFormValue={registration} closeModal={() => setShowModal(false)} />

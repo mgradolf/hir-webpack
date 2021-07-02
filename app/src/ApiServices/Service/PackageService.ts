@@ -41,3 +41,10 @@ export function updateSection(Params: { [key: string]: any }, Headers?: { [key: 
 export function removeSection(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
   return PackageService[config.Actions.removeSection](Params, Headers)
 }
+
+export function getPackageReport(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PackageService[config.Actions.getPackageReport](Params, Headers)
+}

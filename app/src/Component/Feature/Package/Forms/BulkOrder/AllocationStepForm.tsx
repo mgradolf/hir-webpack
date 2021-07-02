@@ -6,9 +6,11 @@ import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionL
 import { getSectionStatistics } from "~/ApiServices/Service/SectionService"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import "~/Sass/utils.scss"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 interface IAllocationStepFormProps {
   formInstance: FormInstance
+  setErrorMessages?: (flag: Array<ISimplifiedApiErrorMessage>) => void
   initialValue: { [key: string]: any }
 }
 
@@ -24,8 +26,20 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
       if (x.success) {
         props.formInstance.setFieldsValue({
           CurrentAllocation: x.data.TotalSeats,
-          AvailableSeat: x.data.TotalAvailableSeats
+          AvailableSeat: x.data.TotalAvailableSeats,
+          HasFinancial: x.data.HasFinancials
         })
+        if (!x.data.HasFinancials) {
+          if (props.setErrorMessages !== undefined) {
+            props.setErrorMessages([
+              { message: "No financial setup for this section, You will not be able to generate package order!" }
+            ])
+          }
+        } else {
+          if (props.setErrorMessages !== undefined) {
+            props.setErrorMessages([])
+          }
+        }
       }
     })
     props.formInstance.setFieldsValue({ SectionNumber: items[0].SectionNumber })
