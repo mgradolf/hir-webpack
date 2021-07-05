@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Card, Button, Select, Row, Col } from "antd"
+import { Form, Card, Button, Select, Row, Col, Divider, message } from "antd"
 import {
   getGLAccountTypes,
   getFinancialCategoryType,
@@ -9,21 +9,21 @@ import {
 import "~/Sass/utils.scss"
 import { createFinancial, updateFinancial } from "~/ApiServices/Service/FinancialService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import {
-  eventBus,
-  REFRESH_FACULTY_OFFERINGS_TAB,
-  REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB,
-  REFRESH_OFFERING_FINANCIAL_PAGE,
-  REFRESH_RESOURCE_OFFERINGS_TAB
-} from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
-import { FINANCIAL_BASIS_TYPE_PER_UNIT_ID, FINANCIAL_TYPE_FACULTY } from "~/utils/Constants"
+import {
+  ADDED_SUCCESSFULLY,
+  FINANCIAL_TYPE_FACULTY,
+  FINANCIAL_TYPE_MARKETING_PROGRAM,
+  UPDATE_SUCCESSFULLY
+} from "~/utils/Constants"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
+import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 
 interface ICreateFormProps {
   applyToID: number
@@ -37,9 +37,10 @@ interface ICreateFormProps {
 }
 
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 12 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 14 }
 }
+
 export default function FinancialForm(props: ICreateFormProps) {
   const [financialBasisTypes, setFinancialBasisTypes] = useState<Array<any>>([])
   const [financialTypeId, setfinancialTypeId] = useState(1)
@@ -48,12 +49,12 @@ export default function FinancialForm(props: ICreateFormProps) {
   useEffect(() => {
     props.formInstance.setFieldsValue({ [props.fieldNames.ApplyToID]: props.applyToID })
     props.formInstance.setFieldsValue({ [props.fieldNames.FinancialTypeID]: financialTypeId })
+    if (props.financialID) {
+      props.formInstance.setFieldsValue({ [props.fieldNames.FinancialID]: props.financialID })
+    }
     ;(async () => {
       const response = await getFinancialBasisType()
       if (response && response.success && response.data) {
-        if (props.financialType === FINANCIAL_TYPE_FACULTY) {
-          response.data = response.data.filter((x: any) => x.ID === FINANCIAL_BASIS_TYPE_PER_UNIT_ID)
-        }
         setFinancialBasisTypes(response.data)
       }
     })()
@@ -78,10 +79,12 @@ export default function FinancialForm(props: ICreateFormProps) {
     props.setApiCallInProgress(false)
 
     if (response && response.success) {
-      eventBus.publish(REFRESH_OFFERING_FINANCIAL_PAGE)
-      eventBus.publish(REFRESH_FACULTY_OFFERINGS_TAB)
-      eventBus.publish(REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB)
-      eventBus.publish(REFRESH_RESOURCE_OFFERINGS_TAB)
+      if (props.financialID) {
+        message.success(UPDATE_SUCCESSFULLY)
+      } else {
+        message.success(ADDED_SUCCESSFULLY)
+      }
+      eventBus.publish(REFRESH_PAGE)
       props.handleCancel()
     } else {
       setErrorMessages(response.error)
@@ -124,29 +127,23 @@ export default function FinancialForm(props: ICreateFormProps) {
           label={"FinancialID"}
           fieldName={props.fieldNames.FinancialID}
           formInstance={props.formInstance}
-          defaultValue={props.financialID}
           hidden
         />
-
         <FormInput
           label={"FinancialTypeID"}
           fieldName={props.fieldNames.FinancialTypeID}
           formInstance={props.formInstance}
-          defaultValue={financialTypeId}
           hidden
         />
-
         <FormInput
           label={"OfferingID"}
           fieldName={props.fieldNames.ApplyToID}
           formInstance={props.formInstance}
-          defaultValue={props.applyToID}
           hidden
         />
 
         <FormDropDown
-          labelColSpan={6}
-          wrapperColSpan={12}
+          {...layout}
           label={"Category"}
           ariaLabel={"Category Select"}
           formInstance={props.formInstance}
@@ -161,10 +158,11 @@ export default function FinancialForm(props: ICreateFormProps) {
             }
           ]}
         />
-
         <Form.Item
           label="Basis"
-          {...layout}
+          colon={false}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 16 }}
           name={props.fieldNames.FinancialBasisTypeID}
           rules={[
             {
@@ -172,6 +170,7 @@ export default function FinancialForm(props: ICreateFormProps) {
               message: "Please select financial basis type!"
             }
           ]}
+          hidden={props.financialType === FINANCIAL_TYPE_FACULTY}
         >
           <Select aria-label="Basis Select">
             {financialBasisTypes.map((x) => {
@@ -183,10 +182,8 @@ export default function FinancialForm(props: ICreateFormProps) {
             })}
           </Select>
         </Form.Item>
-
         <FormTextArea
-          labelColSpan={6}
-          wrapperColSpan={12}
+          {...layout}
           label={"Description"}
           fieldName={props.fieldNames.Description}
           formInstance={props.formInstance}
@@ -197,10 +194,8 @@ export default function FinancialForm(props: ICreateFormProps) {
             }
           ]}
         />
-
         <FormDropDown
-          labelColSpan={6}
-          wrapperColSpan={12}
+          {...layout}
           label={"GL Accounts"}
           ariaLabel={"GL Accounts Select"}
           formInstance={props.formInstance}
@@ -210,63 +205,91 @@ export default function FinancialForm(props: ICreateFormProps) {
           valueKey="ID"
         />
 
-        <FormInputNumber
-          labelColSpan={6}
-          wrapperColSpan={12}
-          label={"Amount"}
-          fieldName={props.fieldNames.ItemUnitAmount}
-          formInstance={props.formInstance}
-          rules={[
-            {
-              required: true,
-              message: "Please enter an amount!"
-            }
-          ]}
-        />
-
-        <FormMultipleRadio
-          labelColSpan={6}
-          wrapperColSpan={12}
-          formInstance={props.formInstance}
-          label={"Type"}
-          ariaLabel={"Is Type"}
-          fieldName={props.fieldNames.IsCharge}
-          options={[
-            { label: "Income", value: true },
-            { label: "Expense", value: false }
-          ]}
-          disabled={props.initialFormValue.IsCharge !== undefined}
-        />
-
-        {/* <Form.Item name={props.fieldNames.IsOptional} label="Item is Optional" {...layout} valuePropName="checked">
-          <Switch
-            aria-label="Is Item Optional"
-            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsOptional)}
-          />
-        </Form.Item>
-        <Form.Item name={props.fieldNames.IsTaxable} label="Taxable" {...layout} valuePropName="checked">
-          <Switch
-            aria-label="Is Taxable"
-            defaultChecked={props.formInstance.getFieldValue(props.fieldNames.IsTaxable)}
-          />
-        </Form.Item> */}
-
-        <FormMultipleRadio
-          labelColSpan={6}
-          wrapperColSpan={12}
-          formInstance={props.formInstance}
-          label={"Active"}
-          ariaLabel={"Is Active"}
-          fieldName={props.fieldNames.IsActive}
-          options={[
-            { label: "Yes", value: true },
-            { label: "No", value: false }
-          ]}
-        />
-
-        {/* <Form.Item label="Weight" {...layout} name={props.fieldNames.Weight}>
-          <Input aria-label="Weight" type="number" min={0} />
-        </Form.Item> */}
+        <Divider orientation="left"></Divider>
+        <Row>
+          <Col xs={24} sm={24} md={12}>
+            <FormInputNumber
+              {...layout}
+              label={"Amount"}
+              fieldName={props.fieldNames.ItemUnitAmount}
+              formInstance={props.formInstance}
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter an amount!"
+                }
+              ]}
+            />
+            <FormMultipleRadio
+              {...layout}
+              formInstance={props.formInstance}
+              label={"Type"}
+              ariaLabel={"Is Type"}
+              fieldName={props.fieldNames.IsCharge}
+              options={[
+                { label: "Income", value: true },
+                { label: "Expense", value: false }
+              ]}
+              hidden={
+                props.financialType === FINANCIAL_TYPE_MARKETING_PROGRAM ||
+                props.financialType === FINANCIAL_TYPE_FACULTY
+              }
+            />
+            <FormNumberInput
+              {...layout}
+              label={"Weight"}
+              fieldName={props.fieldNames.Weight}
+              formInstance={props.formInstance}
+              hidden={
+                props.financialType === FINANCIAL_TYPE_MARKETING_PROGRAM ||
+                props.financialType === FINANCIAL_TYPE_FACULTY
+              }
+            />
+          </Col>
+          <Col xs={24} sm={24} md={12}>
+            <FormMultipleRadio
+              {...layout}
+              formInstance={props.formInstance}
+              label={"Is Item Optional"}
+              ariaLabel={"Is Item Optional"}
+              fieldName={props.fieldNames.IsOptional}
+              options={[
+                { label: "Yes", value: true },
+                { label: "No", value: false }
+              ]}
+              hidden={
+                props.financialType === FINANCIAL_TYPE_MARKETING_PROGRAM ||
+                props.financialType === FINANCIAL_TYPE_FACULTY
+              }
+            />
+            <FormMultipleRadio
+              {...layout}
+              formInstance={props.formInstance}
+              label={"Is Taxable"}
+              ariaLabel={"Is Taxable"}
+              fieldName={props.fieldNames.IsTaxable}
+              options={[
+                { label: "Yes", value: true },
+                { label: "No", value: false }
+              ]}
+              hidden={
+                props.financialType === FINANCIAL_TYPE_MARKETING_PROGRAM ||
+                props.financialType === FINANCIAL_TYPE_FACULTY
+              }
+            />
+            <FormMultipleRadio
+              {...layout}
+              formInstance={props.formInstance}
+              label={"Active"}
+              ariaLabel={"Is Active"}
+              fieldName={props.fieldNames.IsActive}
+              options={[
+                { label: "Yes", value: true },
+                { label: "No", value: false }
+              ]}
+            />
+          </Col>
+        </Row>
       </Form>
     </Card>
   )
