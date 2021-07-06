@@ -111,7 +111,10 @@ export function CertificateFormModal(props: ICertificateFormProps) {
             Preview
           </Button>
         ]}
-        disabled={props.initialValues.EnrollmentStatus !== REGISTRATION_ENROLLMENT_STATUS_COMPLETED}
+        disabled={
+          props.initialValues.EnrollmentStatus !== undefined &&
+          props.initialValues.EnrollmentStatus !== REGISTRATION_ENROLLMENT_STATUS_COMPLETED
+        }
       />
     </>
   )
