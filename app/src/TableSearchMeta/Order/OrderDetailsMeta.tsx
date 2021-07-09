@@ -16,10 +16,18 @@ import { getPaymentTableColumns } from "~/TableSearchMeta/Payment/PaymentTableCo
 import { getActivityOrderSearchTableColumns } from "~/TableSearchMeta/ActivityOrder/ActivityOrderSearchTableColumns"
 import { REFRESH_ORDER_ACTIVITY_PAGE, REFRESH_ORDER_CREDIT_ACTIVITY_PAGE } from "~/utils/EventBus"
 import { getActivityOrderCreditSearchTableColumns } from "~/TableSearchMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
+import { OrderEmailFormOpenButton } from "~/Component/Feature/Order/Forms/OrderEmailForm"
+import { OrderReceiptLink } from "~/Component/Feature/Order/OrderReceiptLink"
+import { OrderPaymentDueDateFormOpenButton } from "~/Component/Feature/Order/Forms/PaymentDueDateForm"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
     title: `Order Info`,
+    cardActions: [
+      <OrderPaymentDueDateFormOpenButton initialValues={order} />,
+      <OrderEmailFormOpenButton initialValues={order} />,
+      <OrderReceiptLink OrderID={order.OrderID} />
+    ],
     contents: [
       { label: "Order Created On", value: renderDate(order.OrderDate) },
       { label: "Status", value: order.OrderStatus },

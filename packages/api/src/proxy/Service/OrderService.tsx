@@ -19,7 +19,8 @@ export const config = {
     applyIssueCredit: "applyIssueCredit",
     getAvailableDiscountByOrderItemID: "getAvailableDiscountByOrderItemID",
     grantDiscountProgram: "grantDiscountProgram",
-    getPurchaseOrders: "getPurchaseOrders"
+    getPurchaseOrders: "getPurchaseOrders",
+    saveOrderPaymentDueDate: "saveOrderPaymentDueDate"
   }
 }
 export default ApiMethodFactory(config)
