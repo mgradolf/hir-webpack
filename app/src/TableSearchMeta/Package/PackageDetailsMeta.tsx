@@ -33,7 +33,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
           ...Package
         }}
         iconType="edit"
-        buttonLabel=""
+        buttonLabel="Edit"
         defaultFormValue={{
           AccountID: Package.AccountID,
           PackageID: Package.PackageID
@@ -86,7 +86,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
           PackageID: Package.PackageID
         }}
         iconType="create"
-        buttonLabel=""
+        buttonLabel="Add Financial"
         defaultFormValue={{
           PackageID: Package.PackageID
         }}
@@ -119,7 +119,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
           PackageID: Package.PackageID
         }}
         iconType="create"
-        buttonLabel=""
+        buttonLabel="Add SeatGroup"
         defaultFormValue={{ PackageID: Package.PackageID }}
         refreshEventName={REFRESH_PACKAGE_SEATGROUP_PAGE}
       />

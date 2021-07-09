@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { Button } from "antd"
 import OfferingApprovalFormModal from "~/Component/Feature/OfferingApproval/OfferingApprovalFormModal"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ICreateActionButtonProp {
   offeringId: number
@@ -14,9 +14,7 @@ export default function OfferingApprovalModalOpenButton(props: ICreateActionButt
   return (
     <>
       {props.statusCode !== "Open" && (
-        <Button type="primary" onClick={() => setShowModal && setShowModal(true)}>
-          Manage Approval
-        </Button>
+        <IconButton iconType="create" toolTip="Manage Approval" onClick={() => setShowModal && setShowModal(true)} />
       )}
       {showModal && (
         <OfferingApprovalFormModal

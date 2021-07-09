@@ -5,7 +5,8 @@ export const PersonLoginFormMeta: IField[] = [
   {
     label: "User Name",
     inputType: TEXT,
-    fieldName: "UserLogin"
+    fieldName: "UserLogin",
+    maxLength: 255
   },
   {
     label: "Active",
@@ -27,6 +28,7 @@ export const PersonLoginFormMeta: IField[] = [
   {
     label: "Secret Answer",
     inputType: TEXT,
-    fieldName: "SecretAnswer"
+    fieldName: "SecretAnswer",
+    maxLength: 36
   }
 ]

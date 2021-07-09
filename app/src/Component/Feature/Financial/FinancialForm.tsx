@@ -187,6 +187,7 @@ export default function FinancialForm(props: ICreateFormProps) {
           label={"Description"}
           fieldName={props.fieldNames.Description}
           formInstance={props.formInstance}
+          maxLength={255}
           rules={[
             {
               required: true,

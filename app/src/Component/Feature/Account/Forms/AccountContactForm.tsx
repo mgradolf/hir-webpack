@@ -383,7 +383,7 @@ export function AccountContactFormOpenButton(props: {
       iconType={props.iconType}
       loading={loading}
       errorMessages={errorMessages}
-      buttonLabel={""}
+      buttonLabel={props.editMode ? "Edit" : "Add Contact"}
       buttonProps={{ type: "primary", icon: props.editMode ? <EditOutlined /> : <PlusOutlined />, shape: "circle" }}
     />
   )

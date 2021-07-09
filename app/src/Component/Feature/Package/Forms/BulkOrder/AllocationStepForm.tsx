@@ -110,6 +110,7 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
             label={"Invitation Code"}
             ariaLabel={"Invitation Code"}
             fieldName={"InvitationCode"}
+            maxLength={50}
           />
         </Col>
       </Row>

@@ -92,6 +92,7 @@ function AccountForm(props: IAccountFormProps) {
           label={"Account Name"}
           ariaLabel={"Account Name"}
           fieldName="Name"
+          maxLength={256}
           {...AccountFormConfig.Name}
           rules={[{ required: true, message: "Please enter account name!" }]}
         />
@@ -137,6 +138,7 @@ function AccountForm(props: IAccountFormProps) {
           formInstance={props.formInstance}
           label={"Payment Term"}
           ariaLabel={"Payment Term"}
+          maxLength={128}
           fieldName={fieldNames.PaymentTerm}
           {...AccountFormConfig.PaymentTerm}
         />
@@ -159,6 +161,7 @@ function AccountForm(props: IAccountFormProps) {
           formInstance={props.formInstance}
           label={"Tax ID"}
           ariaLabel={"Tax ID"}
+          maxLength={10}
           fieldName={fieldNames.FEID}
           {...AccountFormConfig.FEID}
         />

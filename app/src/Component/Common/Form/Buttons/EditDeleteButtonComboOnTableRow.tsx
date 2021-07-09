@@ -61,7 +61,7 @@ export const EditDeleteButtonComboOnTableRow = (props: {
         />
         <Tooltip title="Delete">
           <Button
-            type="ghost"
+            type="primary"
             style={{ marginLeft: "5px" }}
             danger
             shape="circle"

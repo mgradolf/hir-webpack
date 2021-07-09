@@ -161,6 +161,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
               wrapperColSpan={14}
               label="Lic/Cert Name"
               fieldName="CredentialName"
+              maxLength={255}
               formInstance={props.formInstance}
             />
             <FormDatePicker
@@ -190,6 +191,7 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
               wrapperColSpan={14}
               label="School/Establishment Name"
               fieldName="EstablishmentName"
+              maxLength={50}
               formInstance={props.formInstance}
             />
             <FormDropDown

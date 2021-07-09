@@ -272,7 +272,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         buttonLabel="Add Email"
         iconType="create"
         initialFormValue={{ IsConfidential: false, IsPreferred: false }}
-        defaultFormValue={{ PersonID: person.PersonID }}
+        defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
       />
     ],
@@ -286,7 +286,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
                 editFormMeta={PersonEmailUpdateFormMeta}
                 editFormTitle="Update Email Address"
                 editFormInitialValue={x}
-                editFormDefaultValue={{ PersonID: person.PersonID, EmailAddressTypeID: x.EmailAddressTypeID }}
+                editFormDefaultValue={{
+                  PersonID: person.PersonID,
+                  EmailAddressTypeID: x.EmailAddressTypeID,
+                  oca: person.oca
+                }}
                 refreshEventName={REFRESH_PAGE}
                 editApi={pushPersonEmail}
                 deleteApi={() =>

@@ -221,7 +221,9 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
             initialFormValue={{
               AccountID: account.AccountID
             }}
-            buttonLabel="+ Add Package"
+            iconType="create"
+            buttonProps={{ type: "primary" }}
+            buttonLabel="Add Package"
             defaultFormValue={{
               AccountID: account.AccountID
             }}

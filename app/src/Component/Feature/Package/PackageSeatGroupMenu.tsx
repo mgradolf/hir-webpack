@@ -1,5 +1,5 @@
 import React from "react"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
 import { eventBus, REFRESH_PACKAGE_SEATGROUP_PAGE } from "~/utils/EventBus"
 import { removeSection, updateSection } from "~/ApiServices/Service/PackageService"
 import { PackageSeatGroupFormMeta } from "~/Component/Feature/Package/FormMeta/PackageSeatGroupFormMeta"
@@ -23,7 +23,7 @@ export default function PackageSeatGroupMenu(props: IPackageSeatGroupMenu) {
           AllocatedSeats: props.initialData.NumberOfSeats
         }}
         iconType="edit"
-        buttonLabel=""
+        buttonLabel="Edit"
         defaultFormValue={{
           PackageID: props.initialData.PackageID,
           AccountID: props.initialData.AccountID,
@@ -31,24 +31,26 @@ export default function PackageSeatGroupMenu(props: IPackageSeatGroupMenu) {
         }}
         refreshEventName={REFRESH_PACKAGE_SEATGROUP_PAGE}
       />
-      <Button
-        danger
-        type="primary"
-        icon={<DeleteOutlined />}
-        shape="circle"
-        onClick={() =>
-          showDeleteConfirm(() => {
-            return removeSection({
-              SeatGroupID: props.initialData.SeatGroupID
-            }).then((x) => {
-              if (x.success) {
-                eventBus.publish(REFRESH_PACKAGE_SEATGROUP_PAGE)
-              }
-              return x
+      <Tooltip title="Remove">
+        <Button
+          danger
+          type="primary"
+          icon={<DeleteOutlined />}
+          shape="circle"
+          onClick={() =>
+            showDeleteConfirm(() => {
+              return removeSection({
+                SeatGroupID: props.initialData.SeatGroupID
+              }).then((x) => {
+                if (x.success) {
+                  eventBus.publish(REFRESH_PACKAGE_SEATGROUP_PAGE)
+                }
+                return x
+              })
             })
-          })
-        }
-      />
+          }
+        />
+      </Tooltip>
     </>
   )
 }
