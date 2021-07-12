@@ -19,6 +19,7 @@ import { getActivityOrderCreditSearchTableColumns } from "~/TableSearchMeta/Acti
 import { OrderEmailFormOpenButton } from "~/Component/Feature/Order/Forms/OrderEmailForm"
 import { OrderReceiptLink } from "~/Component/Feature/Order/OrderReceiptLink"
 import { OrderPaymentDueDateFormOpenButton } from "~/Component/Feature/Order/Forms/PaymentDueDateForm"
+import { PurchaseOrderFormOpenButton } from "~/Component/Feature/PurchaseOrder/Forms/PurchaseOrderForm"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -156,6 +157,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderPurchasedCodeMeta: IDetailsTableTabProp = {
+    blocks: [<PurchaseOrderFormOpenButton editMode={false} initialValues={order} iconType="create" />],
     tableProps: {
       ...getOrderPurchasedTableColumns(false),
       searchParams: { OrderID: order.OrderID },
