@@ -39,7 +39,7 @@ export default function () {
         tableProps={{
           ...getProgramOfferingTableColumns()
         }}
-        helpKey={""}
+        helpKey="programsSearchOffering"
       />
     </>
   )

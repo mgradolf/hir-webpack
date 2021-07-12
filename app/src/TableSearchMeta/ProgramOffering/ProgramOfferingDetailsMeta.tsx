@@ -9,6 +9,7 @@ import { ProgramFormOpenButton } from "~/Component/Feature/Program/Forms/Program
 import { ProgramOfferingFormMeta } from "~/Component/Feature/ProgramOffering/FormMeta/ProgramOfferingFormMeta"
 import { REFRESH_PAGE } from "~/utils/EventBus"
 import { getProgramTableColumns } from "~/TableSearchMeta/Program/ProgramTableColumns"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -50,6 +51,7 @@ export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): 
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      blocks: [<HelpButton helpKey="programsProgramOfferingSummaryTab" />],
       summary: [info]
     }
   })
@@ -58,7 +60,10 @@ export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): 
     tabTitle: "Programs",
     tabType: "table",
     tabMeta: {
-      blocks: [<ProgramFormOpenButton iconType="create" editMode={false} ProgramOfferingID={program.OfferingID} />],
+      blocks: [
+        <ProgramFormOpenButton iconType="create" editMode={false} ProgramOfferingID={program.OfferingID} />,
+        <HelpButton helpKey="programOfferingProgramsTab" />
+      ],
       tableProps: {
         pagination: false,
         ...getProgramTableColumns(),
