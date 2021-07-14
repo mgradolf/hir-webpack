@@ -8,7 +8,9 @@ export const config = {
     savePaymentDueDatePolicy: "savePaymentDueDatePolicy",
     getPaymentDueDatePolicy: "getPaymentDueDatePolicy",
     addOrderItemsToPay: "addOrderItemsToPay",
-    setCustomPaymentAmount: "setCustomPaymentAmount"
+    setCustomPaymentAmount: "setCustomPaymentAmount",
+    isPaymentReversible: "isPaymentReversible",
+    reversePayment: "reversePayment"
   }
 }
 

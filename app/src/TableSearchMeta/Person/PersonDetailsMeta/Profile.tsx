@@ -237,7 +237,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
                 editFormMeta={PersonPhoneUpdateFormMeta}
                 editFormTitle="Update Phone"
                 editFormInitialValue={x}
-                editFormDefaultValue={{ PersonID: person.PersonID, TelephoneTypeID: x.TelephoneTypeID }}
+                editFormDefaultValue={{
+                  PersonID: person.PersonID,
+                  TelephoneTypeID: x.TelephoneTypeID,
+                  oca: person.oca
+                }}
                 refreshEventName={REFRESH_PAGE}
                 editApi={pushPersonPhone}
                 deleteApi={() =>
@@ -268,7 +272,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
         buttonLabel="Add Email"
         iconType="create"
         initialFormValue={{ IsConfidential: false, IsPreferred: false }}
-        defaultFormValue={{ PersonID: person.PersonID }}
+        defaultFormValue={{ PersonID: person.PersonID, oca: person.oca }}
         refreshEventName={REFRESH_PAGE}
       />
     ],
@@ -282,7 +286,11 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
                 editFormMeta={PersonEmailUpdateFormMeta}
                 editFormTitle="Update Email Address"
                 editFormInitialValue={x}
-                editFormDefaultValue={{ PersonID: person.PersonID, EmailAddressTypeID: x.EmailAddressTypeID }}
+                editFormDefaultValue={{
+                  PersonID: person.PersonID,
+                  EmailAddressTypeID: x.EmailAddressTypeID,
+                  oca: person.oca
+                }}
                 refreshEventName={REFRESH_PAGE}
                 editApi={pushPersonEmail}
                 deleteApi={() =>

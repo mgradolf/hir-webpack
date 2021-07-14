@@ -6,6 +6,7 @@ export const phoneConfig = {
   Module: "hir",
   Actions: {
     pushPersonPhone: "pushPersonPhone",
+    findPreferredTelephone: "findPreferredTelephone",
     deletePersonPhone: "deletePersonPhone"
   }
 }

@@ -7,6 +7,7 @@ export const config = {
   Actions: {
     findOrders: "findOrders",
     findOrderDetails: "findOrderDetails",
+    getPrintableInvoice: "getPrintableInvoice",
     findOrderLineWiseBalance: "findOrderLineWiseBalance",
     findCreditMemosOrderLines: "findCreditMemosOrderLines"
   }

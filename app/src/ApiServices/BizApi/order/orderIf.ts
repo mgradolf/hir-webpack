@@ -10,6 +10,12 @@ export function findOrderDetails(
 ): Promise<IApiResponse> {
   return OrderIf[config.Actions.findOrderDetails]([Params], Headers)
 }
+export function getPrintableInvoice(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OrderIf[config.Actions.getPrintableInvoice]([Params.OrderID], Headers)
+}
 export function findOrderLineWiseBalance(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }

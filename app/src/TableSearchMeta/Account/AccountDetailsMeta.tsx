@@ -55,7 +55,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         }}
         refreshEventName={REFRESH_PAGE}
       />,
-      <AccountMergeFormModalOpenButton accountData={{ AccountID: account.AccountID }} />,
+      <AccountMergeFormModalOpenButton accountData={account} />,
       <AccountRemoveLink AccountID={account.AccountID} />
     ],
     contents: [
@@ -221,7 +221,9 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
             initialFormValue={{
               AccountID: account.AccountID
             }}
-            buttonLabel="+ Add Package"
+            iconType="create"
+            buttonProps={{ type: "primary" }}
+            buttonLabel="Add Package"
             defaultFormValue={{
               AccountID: account.AccountID
             }}
@@ -238,14 +240,15 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       }
     })
 
-  meta.push({
-    tabTitle: "Questions",
-    tabType: "custom",
-    tabMeta: {
-      component: AccountQuestionTab,
-      props: {}
-    }
-  })
+  account.AccountTypeID !== 1000 &&
+    meta.push({
+      tabTitle: "Questions",
+      tabType: "custom",
+      tabMeta: {
+        component: AccountQuestionTab,
+        props: {}
+      }
+    })
 
   account.AccountTypeID !== 1000 &&
     meta.push({

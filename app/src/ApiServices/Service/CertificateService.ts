@@ -14,3 +14,10 @@ export function getStaticParams(
 ): Promise<IApiResponse> {
   return CertificateService[config.Actions.getStaticParams](Params, Headers)
 }
+
+export function previewCertificate(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CertificateService[config.Actions.previewCertificate](Params, Headers)
+}

@@ -52,11 +52,13 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
         label: "URL",
         value: offering.URL,
         render: (text: any) => {
-          let finalUrl
-          if (text.includes("http://") || text.includes("https://")) {
-            finalUrl = text
-          } else {
-            finalUrl = "http://" + text
+          let finalUrl = null
+          if (text !== null) {
+            if (text.includes("http://") || text.includes("https://")) {
+              finalUrl = text
+            } else {
+              finalUrl = "http://" + text
+            }
           }
           return (
             <a href={finalUrl} target={"_blank"} rel="noopener noreferrer">
@@ -115,7 +117,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <IconButton toolTip="Create Section" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
+          <IconButton toolTip="Add Section" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
         {showModal && <SectionFormModal OfferingID={props.OfferingID} closeModal={() => setShowModal(false)} />}
       </>
@@ -127,7 +129,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
     return (
       <>
         {setShowModal && (
-          <IconButton toolTip="Create Financial" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
+          <IconButton toolTip="Add Financial" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
         {showModal && (
           <CreateNewFinancial

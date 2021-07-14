@@ -47,6 +47,11 @@ import { AddSectionRoomButton } from "~/Component/Feature/Section/AddSectionRoom
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
+export const ENROLLMENT_DURATION_DEFAULT = {
+  EnrollmentSpecificDate: "Enrollment Specific Date",
+  FollowSectionDates: "Follow Section Dates"
+}
+
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
@@ -82,6 +87,16 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       { label: "Final Enrollment Date", value: section.FinalEnrollmentDate, render: renderDate },
       { label: "Billing Date", value: section.BillingDate, render: renderDate },
       { label: "Distance Learning", value: section.IsDistanceLearning, render: renderBoolean },
+      {
+        label: "Enrollment Duration Default",
+        value:
+          section.DefaultEnrollmentDuration === null
+            ? ENROLLMENT_DURATION_DEFAULT.FollowSectionDates
+            : section.DefaultEnrollmentDuration === "EnrollmentSpecificDate"
+            ? ENROLLMENT_DURATION_DEFAULT.EnrollmentSpecificDate
+            : ENROLLMENT_DURATION_DEFAULT.FollowSectionDates,
+        render: undefined
+      },
       { label: "Fiscal Period", value: section.FiscalPeriodCodeName, render: undefined },
       { label: "Other Section Type", value: section.SectionTypeName, render: undefined },
       {

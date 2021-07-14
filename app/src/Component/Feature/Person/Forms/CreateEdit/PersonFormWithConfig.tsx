@@ -145,6 +145,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"First Name"}
             ariaLabel={"Frist Name"}
             fieldName="FirstName"
+            maxLength="50"
             {...PersonformConfig.FirstName}
             rules={[{ required: true, message: "Please enter first name!" }]}
           />
@@ -155,6 +156,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Last Name"}
             ariaLabel={"Last Name"}
             fieldName="LastName"
+            maxLength="50"
             {...PersonformConfig.LastName}
             rules={[{ required: true, message: "Please enter last name!" }]}
           />
@@ -175,6 +177,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Email"}
             ariaLabel={"Email"}
             fieldName="EmailAddress"
+            maxLength="255"
             {...PersonformConfig.EmailAddress}
             rules={[{ required: true, message: "Please enter valid Email!", type: "email" }]}
           />
@@ -185,6 +188,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Telephone"}
             ariaLabel={"Telephone"}
             fieldName="TelephoneNumber"
+            maxLength="32"
             {...(telephoneIsRequired && {
               rules: [{ required: true, message: "Please enter Telephone Number!" }]
             })}
@@ -199,6 +203,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Address Line 1"}
             ariaLabel={"Address Line 1"}
             fieldName="AddressLine1"
+            maxLength="128"
             {...PersonformConfig.AddressLine1}
             {...(addressline1Required && { rules: [{ required: true, message: "Address Line 1 is required" }] })}
           />
@@ -209,6 +214,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Address Line 2"}
             ariaLabel={"Address Line 2"}
             fieldName="AddressLine2"
+            maxLength="128"
             {...PersonformConfig.AddressLine2}
           />
 
@@ -218,6 +224,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Address Line 3"}
             ariaLabel={"Address Line 3"}
             fieldName="AddressLine3"
+            maxLength="128"
             {...PersonformConfig.AddressLine3}
           />
 
@@ -227,6 +234,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"City"}
             ariaLabel={"City"}
             fieldName="Locality"
+            maxLength="64"
             {...PersonformConfig.Locality}
             {...(cityIsRequired && { rules: [{ required: true, message: "City is required" }] })}
           />
@@ -266,6 +274,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Postal Code"}
             ariaLabel={"Postal Code"}
             fieldName="PostalCode"
+            maxLength="32"
             {...PersonformConfig.PostalCode}
             {...(zipIsRequired && { rules: [{ required: true, message: "Postal code is required" }] })}
           />

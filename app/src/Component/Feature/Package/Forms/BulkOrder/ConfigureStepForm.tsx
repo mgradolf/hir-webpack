@@ -14,8 +14,8 @@ export default function ConfiguretStepForm(props: IConfigureStepFormProps) {
   const isEnableSeatAffiliate = props.formInstance.getFieldValue("IsEnableSeatAffiliate")
   const [showGenerateOrder, setShowGenerateOrder] = useState<boolean>(isEnableSeatAffiliate ? true : false)
 
-  const onChangeAffiliateSeat = (event: any) => {
-    if (event.target.value) {
+  const onChangeAffiliateSeat = (value: any) => {
+    if (value) {
       setShowGenerateOrder(true)
     } else {
       props.formInstance.setFieldsValue({ IsGenerateOrder: false })

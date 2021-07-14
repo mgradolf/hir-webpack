@@ -104,7 +104,7 @@ export const getInstructorMeta = (person: any, instructor: any): IDetailsTabMeta
     const [showModal, setShowModal] = useState(false)
     return (
       <>
-        <IconButton toolTip="Create Financial" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
+        <IconButton toolTip="Add Financial" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
 
         {showModal && (
           <CreateNewFinancial
