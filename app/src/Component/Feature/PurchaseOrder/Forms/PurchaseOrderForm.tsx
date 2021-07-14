@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Form, Select, Divider, Row, Col, message } from "antd"
 import { FormInstance } from "antd/lib/form"
-import "~/Sass/utils.scss"
-import { ADDED_SUCCESSFULLY } from "~/utils/Constants"
-import { saveAccountAffiliation } from "~/ApiServices/Service/AccountService"
+import { CREATE_SUCCESSFULLY, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
-import { eventBus } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { EditOutlined, PlusOutlined } from "@ant-design/icons"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 import { IPurchaseOrderFieldNames } from "~/Component/Feature/PurchaseOrder/Interfaces"
@@ -17,6 +15,9 @@ import { findAddresses, findPreferredTelephone, getRegions } from "~/ApiServices
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
+import { createOrUpdatePurchaseOrder } from "~/ApiServices/Service/POService"
+import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
+import "~/Sass/utils.scss"
 
 interface IPurchaseOrderFormProps {
   editMode: boolean
@@ -57,35 +58,43 @@ function PurchaseOrderForm(props: IPurchaseOrderFormProps) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    findPreferredTelephone({ PersonID: props.initialValue.PersonID }).then((result) => {
-      if (result.success && result.data) {
-        props.formInstance.setFieldsValue({ [fieldNames.Telephone]: result.data.TelephoneNumber })
-      }
-    })
+    if (props.initialValue.PersonID) {
+      findPreferredTelephone({ PersonID: props.initialValue.PersonID }).then((result) => {
+        if (result.success && result.data) {
+          props.formInstance.setFieldsValue({ [fieldNames.Telephone]: result.data.TelephoneNumber })
+        }
+      })
 
-    findAddresses({ PersonID: props.initialValue.PersonID }).then((result) => {
-      if (result.success && result.data) {
-        result.data = { ...result.data[0] }
-        props.formInstance.setFieldsValue({
-          [fieldNames.Address1]: result.data.AddressLine1,
-          [fieldNames.Address2]: result.data.AddressLine2,
-          [fieldNames.Address3]: result.data.AddressLine3,
-          [fieldNames.CountryCodeID]: result.data.CountryCodeID,
-          [fieldNames.RegionCodeID]: result.data.RegionCodeID,
-          [fieldNames.PostalCode]: result.data.PostalCode,
-          [fieldNames.City]: result.data.Locality
-        })
-      }
-    })
+      findAddresses({ PersonID: props.initialValue.PersonID }).then((result) => {
+        let countryCodeID = undefined
+        if (result.success && result.data) {
+          result.data = { ...result.data[0] }
+          countryCodeID = result.data.CountryCodeID
+          props.formInstance.setFieldsValue({
+            [fieldNames.Address1]: result.data.AddressLine1,
+            [fieldNames.Address2]: result.data.AddressLine2,
+            [fieldNames.Address3]: result.data.AddressLine3,
+            [fieldNames.CountryCodeID]: result.data.CountryCodeID,
+            [fieldNames.RegionCodeID]: result.data.RegionCodeID,
+            [fieldNames.PostalCode]: result.data.PostalCode,
+            [fieldNames.City]: result.data.Locality
+          })
+        }
 
-    findDefaultCountry().then((result) => {
-      if (result.success && result.data) {
-        setDefaultCountryCodeID(result.data.CountryID)
-        props.formInstance.setFieldsValue({
-          CountryCodeID: result.data.CountryID
-        })
-      }
-    })
+        if (countryCodeID !== undefined) {
+          setDefaultCountryCodeID(countryCodeID)
+        } else {
+          findDefaultCountry().then((result) => {
+            if (result.success && result.data) {
+              setDefaultCountryCodeID(result.data.CountryID)
+              props.formInstance.setFieldsValue({
+                CountryCodeID: result.data.CountryID
+              })
+            }
+          })
+        }
+      })
+    }
     // eslint-disable-next-line
   }, [])
 
@@ -93,27 +102,62 @@ function PurchaseOrderForm(props: IPurchaseOrderFormProps) {
     getCountries().then((x) => {
       if (x.success && Array.isArray(x.data)) {
         setCountries(x.data)
+        if (props.initialValue.Country !== undefined) {
+          x.data.map((val: any) => {
+            if (val.Name === props.initialValue.Country) {
+              setDefaultCountryCodeID(val.ID)
+              props.formInstance.setFieldsValue({
+                CountryCodeID: val.ID
+              })
+              return false
+            }
+            return false
+          })
+        }
       }
     })
     // eslint-disable-next-line
-  }, [defaultCountryCodeID])
+  }, [])
 
   useEffect(() => {
     if (defaultCountryCodeID) {
       setLoading(true)
       getRegions({ CountryCodeID: defaultCountryCodeID }).then((x) => {
-        if (x.success && Array.isArray(x.data)) setRegiondCodes(x.data)
+        if (x.success && Array.isArray(x.data)) {
+          setRegiondCodes(x.data)
+          if (props.initialValue.Region !== undefined) {
+            x.data.map((val: any) => {
+              if (val.Name === props.initialValue.Region) {
+                setDefaultCountryCodeID(val.ID)
+                props.formInstance.setFieldsValue({
+                  RegionCodeID: val.ID
+                })
+                return false
+              }
+              return false
+            })
+          }
+        }
         setLoading(false)
       })
     } else {
       setRegiondCodes([])
     }
+    // eslint-disable-next-line
   }, [defaultCountryCodeID])
 
   return (
     <>
       <Row>
         <Col xs={24} sm={24} md={12}>
+          <FormInput
+            formInstance={props.formInstance}
+            label="PurchaseOrderID"
+            fieldName={fieldNames.PurchaseOrderID}
+            hidden
+          />
+          <FormInput formInstance={props.formInstance} label="OrderID" fieldName={fieldNames.OrderID} hidden />
+
           <FormNumberInput
             {...layout}
             formInstance={props.formInstance}
@@ -122,7 +166,7 @@ function PurchaseOrderForm(props: IPurchaseOrderFormProps) {
             fieldName={fieldNames.PONumber}
             rules={[{ required: true, message: "Please enter PO Number!" }]}
           />
-          <FormInput
+          <FormInputNumber
             {...layout}
             formInstance={props.formInstance}
             label={"Amount"}
@@ -260,6 +304,7 @@ function PurchaseOrderForm(props: IPurchaseOrderFormProps) {
               loading={loading}
               aria-label="Country Code"
               onChange={(value: any) => {
+                console.log("value: ", value)
                 setDefaultCountryCodeID(value)
                 props.formInstance.setFieldsValue({ RegionCodeID: null })
               }}
@@ -286,22 +331,26 @@ export function PurchaseOrderFormOpenButton(props: {
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [initialValues] = useState<{ [key: string]: any }>(
-    { ...props.initialValues, ContactPerson: props.initialValues.BuyerName } || {}
+    {
+      ...props.initialValues,
+      PONumber: props.initialValues.PurchaseOrderDescriptor,
+      ContactPerson: props.initialValues.BuyerName ? props.initialValues.BuyerName : props.initialValues.ContactPerson
+    } || {}
   )
 
   const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
       const params = formInstance.getFieldsValue()
 
+      setApiCallInProgress(true)
       setErrorMessages([])
-      saveAccountAffiliation(params)
+      createOrUpdatePurchaseOrder(params)
         .then((response) => {
-          console.log("validation passed ", response)
           setApiCallInProgress(false)
           if (response && response.success) {
             formInstance.resetFields()
-            message.success(ADDED_SUCCESSFULLY)
-            eventBus.publish("REFRESH_CONTACT_TAB")
+            message.success(props.editMode ? UPDATE_SUCCESSFULLY : CREATE_SUCCESSFULLY)
+            eventBus.publish(REFRESH_PAGE)
             closeModal()
           } else {
             console.log("validation failed ", response.error)
