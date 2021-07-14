@@ -11,6 +11,7 @@ export default function AccountPage() {
         <AccountFormOpenButton
           // helpKey="createAccount"
           iconType="create"
+          buttonProps={{ type: "primary" }}
           helpKey="createAccountForm"
           initialValues={{ AllowToPayLater: "Not Allowed", DefaultWaitlistPriority: 5 }}
         />

@@ -219,10 +219,10 @@ export function AccountFormOpenButton(props: {
         initialValues={initialValues}
         apiCallInProgress={apiCallInProgress}
         loading={loading}
-        iconType="create"
+        iconType={props.iconType}
         errorMessages={errorMessages}
         buttonLabel={`${props.label ? props.label : "Create Account"}`}
-        buttonProps={{ type: "primary" }}
+        buttonProps={props.buttonProps}
       />
     </>
   )
