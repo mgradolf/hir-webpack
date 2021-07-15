@@ -15,25 +15,22 @@ export const SelectBuyer = (props: {
   const [PersonFormInstance] = Form.useForm()
   const [help, setHelp] = useState<React.ReactNode>(null)
 
-  const setPayerCriteria = () => {
-    if (props.buyer.PersonProfile) {
-      if (
-        !props.buyer.PersonProfile.Address ||
-        // !props.buyer.PersonProfile.EmailAddress ||
-        !props.buyer.PersonProfile.TelephoneNumber
-      ) {
+  const setBuyerCriteria = (PersonProfile: { [key: string]: any }) => {
+    if (PersonProfile) {
+      if (!(PersonProfile.Address && PersonProfile.EmailAddress && PersonProfile.TelephoneNumber)) {
         setHelp(
           <>
-            Selected Payer does not meet Payer Criteria{" "}
+            Selected Buyer does not meet Buyer Criteria
             <PersonFormOpenButton
-              label="Update Payer"
+              disableRole={true}
+              label="Update Buyer"
               buttonType="link"
               helpKey="createPerson"
-              initialValues={{ ...props.buyer.PersonProfile, Roles: [3] }}
+              initialValues={{ ...PersonProfile, Roles: [3] }}
               onSubmit={(response) => {
                 if (response.success) {
                   setHelp(null)
-                  findAndSetAccount(props.buyer.PersonProfile)
+                  findAndSetAccount(PersonProfile)
                 }
               }}
             />
@@ -47,13 +44,13 @@ export const SelectBuyer = (props: {
     }
   }
 
-  const setPayerAccounCriteria = (Person: { [key: string]: any }) => {
+  const setBuyerAccounCriteria = (Person: { [key: string]: any }) => {
     setHelp(
       <>
         Selected Purchaser does not have any account
         <AccountFormOpenButton
           helpKey="createAccount"
-          label="Update Payer Account"
+          label="Update Buyer Account"
           buttonProps={{ type: "link" }}
           onSubmitSuccess={(account) => {
             setHelp(null)
@@ -73,7 +70,7 @@ export const SelectBuyer = (props: {
     findAccount({ PersonID: Person.PersonID }).then((response) => {
       if (response.success && response.data === "") {
         props.cartModelFunctionality.assignPerson(Person)
-        setPayerAccounCriteria(Person)
+        setBuyerAccounCriteria(Person)
       } else {
         props.cartModelFunctionality.assignPerson({ ...Person, ...response.data })
         // console.log({ ...Person, ...response.data })
@@ -82,9 +79,11 @@ export const SelectBuyer = (props: {
   }
 
   const onSelectedItems = (Params: any[]) => {
-    setPayerCriteria()
-    if (!help && Params.length && Params[0] && Params[0].PersonID) {
-      findAndSetAccount(Params[0])
+    if (Params.length && Params[0] && Params[0].PersonID) {
+      setBuyerCriteria(Params[0])
+      if (!help) {
+        findAndSetAccount(Params[0])
+      }
     } else props.cartModelFunctionality.assignPerson()
   }
 
@@ -99,7 +98,7 @@ export const SelectBuyer = (props: {
         defaultValue={props.defaultPersonID}
         formInstance={PersonFormInstance}
         onSelectedItems={onSelectedItems}
-        rules={[{ required: true, message: "Please Select a Payer" }]}
+        rules={[{ required: true, message: "Please Select a Buyer" }]}
       />
     </Form>
   )

@@ -45,7 +45,7 @@ const fieldNames: IPersonFieldNames = {
   CountryCodeID: "CountryCodeID"
 }
 
-function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Roles?: number[] }) {
+function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Roles?: number[]; disableRole?: boolean }) {
   const [defaultCountryCodeID, setDefaultCountryCodeID] = useState()
   const [addressline1Required, setAddressline1Required] = useState(false)
   const [telephoneIsRequired, setTelephoneIsRequired] = useState(false)
@@ -113,6 +113,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
       <Row>
         <Col xs={24} sm={24} md={12}>
           <FormMultipleCheckbox
+            disabled={props.disableRole}
             label={"Roles"}
             formInstance={props.formInstance}
             options={rolesOption}
@@ -324,6 +325,7 @@ export function PersonFormOpenButton(props: {
   buttonType?: ButtonType
   helpKey?: string
   onSubmit?: (Params: IApiResponse) => void
+  disableRole?: boolean
 }) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -403,6 +405,7 @@ export function PersonFormOpenButton(props: {
         helpKey={props.helpKey}
         customForm={
           <PersonForm
+            disableRole={props.disableRole}
             Roles={props.initialValues && props.initialValues.Roles}
             editMode={false}
             formInstance={formInstance}

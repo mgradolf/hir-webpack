@@ -51,7 +51,6 @@ export default function CreateOrderPage() {
         <Row justify="center">
           <Col span={18}>
             <SelectBuyer buyer={buyer} cartModelFunctionality={cartModelFunctionality} />
-            {/* <SelectBuyer buyer={buyer} cartModelFunctionality={cartModelFunctionality} /> */}
           </Col>
         </Row>
         <Row justify="end" gutter={4}>
