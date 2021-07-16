@@ -47,6 +47,7 @@ const fieldNames: IPersonFieldNames = {
 
 function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Roles?: number[]; disableRole?: boolean }) {
   const [defaultCountryCodeID, setDefaultCountryCodeID] = useState()
+  const [emailIsRequired, setEmailIsRequired] = useState(false)
   const [addressline1Required, setAddressline1Required] = useState(false)
   const [telephoneIsRequired, setTelephoneIsRequired] = useState(false)
   const [cityIsRequired, setCityIsRequired] = useState(false)
@@ -64,12 +65,14 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
   useEffect(() => {
     if (props.Roles && props.Roles.includes(3)) {
       // 3 means Purchase is selected
+      setEmailIsRequired(true)
       setAddressline1Required(true)
       setTelephoneIsRequired(true)
       setCityIsRequired(true)
       setZipIsRequired(true)
       setStateIsRequired(true)
     } else {
+      setEmailIsRequired(false)
       setTelephoneIsRequired(false)
       setAddressline1Required(false)
       setCityIsRequired(false)
@@ -180,7 +183,9 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             fieldName="EmailAddress"
             maxLength="255"
             {...PersonformConfig.EmailAddress}
-            rules={[{ required: true, message: "Please enter valid Email!", type: "email" }]}
+            {...(emailIsRequired && {
+              rules: [{ required: true, message: "Please enter valid Email!", type: "email" }]
+            })}
           />
 
           <FormInput
@@ -286,7 +291,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             name="CountryCodeID"
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 14 }}
-            rules={[{ required: true, message: "Please select country!" }]}
+            // rules={[{ required: true, message: "Please select country!" }]}
             {...PersonformConfig.CountryCodeID}
           >
             <Select
@@ -326,12 +331,19 @@ export function PersonFormOpenButton(props: {
   helpKey?: string
   onSubmit?: (Params: IApiResponse) => void
   disableRole?: boolean
+  disableRedirect?: boolean
 }) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [redirectAfterCreate, setRedirectAfterCreate] = useState<string>()
+
+  const redirect = (response: IApiResponse, closeModal: () => void) => {
+    formInstance.resetFields()
+    closeModal()
+    if (!props.disableRedirect) setRedirectAfterCreate(`/person/${response.data.PersonID}`)
+  }
 
   const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
@@ -340,9 +352,7 @@ export function PersonFormOpenButton(props: {
         createPersonRecordInRoles(params).then((response) => {
           setApiCallInProgress(false)
           if (response && response.success) {
-            formInstance.resetFields()
-            closeModal()
-            setRedirectAfterCreate(`/person/${response.data.PersonID}`)
+            redirect(response, closeModal)
           } else {
             console.log("validation failed ", response.error)
             setErrorMessages(response.error)
@@ -381,11 +391,10 @@ export function PersonFormOpenButton(props: {
                 .then((response) => {
                   console.log("validation passed ", response)
                   setApiCallInProgress(false)
+                  props.onSubmit && props.onSubmit(response)
                   if (response && response.success) {
                     message.success(CREATE_SUCCESSFULLY)
-                    formInstance.resetFields()
-                    closeModal()
-                    setRedirectAfterCreate(`/person/${response.data.PersonID}`)
+                    redirect(response, closeModal)
                   } else {
                     console.log("validation failed ", response.error)
                     setErrorMessages(response.error)
