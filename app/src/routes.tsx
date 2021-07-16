@@ -74,6 +74,11 @@ export const AppRoutes: RouteProps[] = [
     path: "/section/:sectionID/registration/:studentID",
     component: React.lazy(() => import("~/Pages/Manage/Courses/Registration/Details"))
   },
+
+  {
+    path: "/section/:sectionID/seatgroup/:seatGroupID",
+    component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupDetails"))
+  },
   // {
   //   path: "/section/:sectionID/registration",
   //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Registration"))
@@ -236,6 +241,10 @@ export const AppRoutes: RouteProps[] = [
     path: "/account/:accountID",
     component: React.lazy(() => import("~/Pages/Manage/Constituents/Account/AccountDetails"))
   },
+  {
+    path: "/account/:accountID/seatgroup/:seatGroupID",
+    component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupDetails"))
+  },
 
   { path: "/waitlist", component: React.lazy(() => import("~/Pages/Manage/Courses/WaitlistEntry/WaitlistEntryPage")) },
   {
@@ -273,6 +282,11 @@ export const AppRoutes: RouteProps[] = [
     path: "/program/:programID",
     component: React.lazy(() => import("~/Pages/Manage/Program/Program/ProgramDetailsPage"))
   },
+  {
+    path: "/program/:programID/seatgroup/:seatGroupID",
+    component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupDetails"))
+  },
+
   {
     path: "/program/:programID/student/:studentID/application",
     component: React.lazy(() => import("~/Pages/Manage/Program/Application/ApplicationDetailsPage"))

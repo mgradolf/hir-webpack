@@ -9,11 +9,14 @@ interface IPackageUtilizationReportProps {
 
 export default function PackageUtilizationReport(props: IPackageUtilizationReportProps) {
   const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     ;(async function () {
+      setLoading(true)
       const result = await getPackageReport({ PackageID: props.PackageID })
       if (result.success && result.data) {
+        setLoading(false)
         setMessage(result.data.Message)
       }
     })()
@@ -21,21 +24,18 @@ export default function PackageUtilizationReport(props: IPackageUtilizationRepor
   }, [])
 
   return (
-    <>
-      {message && (
-        <Tooltip title="Download utilization report">
-          <Button
-            icon={<DownloadOutlined />}
-            style={{ marginRight: "5px" }}
-            shape="circle"
-            type="primary"
-            onClick={() => {
-              const newWin: any = window.open("url", `Utilization report`, "height=800,width=700")
-              newWin.document.write(message)
-            }}
-          />
-        </Tooltip>
-      )}
-    </>
+    <Tooltip title="Download utilization report">
+      <Button
+        loading={loading}
+        icon={<DownloadOutlined />}
+        style={{ marginRight: "5px" }}
+        shape="circle"
+        type="primary"
+        onClick={() => {
+          const newWin: any = window.open("url", `Utilization report`, "height=800,width=700")
+          newWin.document.write(message)
+        }}
+      />
+    </Tooltip>
   )
 }

@@ -155,7 +155,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
 
   const seatgroupMeta: IDetailsTableTabProp = {
     tableProps: {
-      ...getSeatgroupTableColumns(),
+      ...getSeatgroupTableColumns(false, undefined, undefined, program.ProgramID),
       searchParams: { ProgramID: program.ProgramID },
       refreshEventName: REFRESH_PROGRAM_SEATGROUP_PAGE
     }

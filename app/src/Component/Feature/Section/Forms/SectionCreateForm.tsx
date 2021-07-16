@@ -46,8 +46,8 @@ export function SectionCreateForm(props: ISectionCreateFormProps) {
     })
   }, [formInstance, props.OfferingID])
 
-  const onChangeSectionTypes = (e: any) => {
-    if (e.target.value) {
+  const onChangeSectionTypes = (value: any) => {
+    if (value) {
       setSectionTypesVisible(false)
       formInstance.resetFields()
       formInstance.setFieldsValue({ SectionTypes: true })

@@ -5,13 +5,34 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { findSeatGroups } from "~/ApiServices/Service/SeatGroupService"
 import SeatGroupMenu from "~/Component/Feature/Section/SeatGroup/SeatGroupMenu"
 
-export const getSeatgroupTableColumns = (isModal = false, isPackagePage?: boolean): ITableConfigProp => {
+export const getSeatgroupTableColumns = (
+  isModal = false,
+  AccountID?: number,
+  SectionID?: number,
+  ProgramID?: number
+): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Name",
       dataIndex: "Name",
       render: (text: any, record: any) =>
-        isModal ? { text } : <Link to={`/seatgroup/${record.SeatGroupID}`}>{text}</Link>
+        isModal ? (
+          { text }
+        ) : (
+          <Link
+            to={
+              SectionID
+                ? `/section/${SectionID}/seatgroup/${record.SeatGroupID}`
+                : AccountID
+                ? `/account/${AccountID}/seatgroup/${record.SeatGroupID}`
+                : ProgramID
+                ? `/program/${ProgramID}/seatgroup/${record.SeatGroupID}`
+                : `/seatgroup/${record.SeatGroupID}`
+            }
+          >
+            {text}
+          </Link>
+        )
     },
     { title: "Retail", dataIndex: "IsDefault", render: renderBoolean },
     { title: "Number Of Seats", dataIndex: "NumberOfSeats" },
@@ -26,7 +47,6 @@ export const getSeatgroupTableColumns = (isModal = false, isPackagePage?: boolea
       render: (text: any, record: any) =>
         isModal ? { text } : <Link to={`/offering/${record.OfferingID}`}>{text}</Link>
     },
-    { ...(isPackagePage && { title: "Invitation Code", dataIndex: "InvitationCode" }) },
     {
       title: "Action",
       key: "action",
