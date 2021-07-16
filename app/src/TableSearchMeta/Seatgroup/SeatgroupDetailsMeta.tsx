@@ -35,7 +35,7 @@ export const getSeatgroupDetailsMeta = (seatgroup: { [key: string]: any }): IDet
       { label: "Available", value: seatgroup.AvailableSeats, render: undefined },
       { label: "Estimated", value: seatgroup.EstimatedEnrollment, render: undefined },
       { label: "Price", value: seatgroup.Price, render: undefined },
-      { label: "Waitlist Enabled", value: seatgroup.WaitlistEnabled, render: undefined },
+      { label: "Waitlist Enabled", value: seatgroup.WaitListEnabled, render: renderBoolean },
       { label: "Due Date Policy", value: seatgroup.DueDatePolicy, render: undefined },
       { label: "Package Name", value: seatgroup.PackageName, render: undefined },
       { label: "Opportunity", value: seatgroup.Opportunity, render: undefined },

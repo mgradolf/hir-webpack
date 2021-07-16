@@ -220,7 +220,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const seatgroupMeta: IDetailsTableTabProp = {
     blocks: [<SeatgroupFormModalOpenButton SectionID={section.SectionID} />],
     tableProps: {
-      ...getSeatgroupTableColumns(),
+      ...getSeatgroupTableColumns(false, undefined, section.SectionID, undefined),
       searchParams: { SectionID: section.SectionID },
       refreshEventName: "REFRESH_SECTION_SEATGROUP_PAGE_1"
     }

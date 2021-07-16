@@ -109,7 +109,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       tabMeta: {
         blocks: [<HelpButton helpKey="accountSeatGroupsTab" />],
         tableProps: {
-          ...getSeatgroupTableColumns(),
+          ...getSeatgroupTableColumns(false, account.AccountID, undefined, undefined),
           searchParams: { AccountID: account.AccountID },
           refreshEventName: REFRESH_ACCOUNT_SEATGROUP_PAGE
         }

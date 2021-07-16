@@ -21,7 +21,7 @@ export const AccountFormMeta: IField[] = [
     label: "Account Name",
     inputType: TEXT,
     fieldName: "Name",
-    maxLength: 256,
+    maxLength: 255,
     rules: [{ required: true, message: "Please enter account name!" }]
   },
   {

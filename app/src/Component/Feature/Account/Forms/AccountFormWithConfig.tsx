@@ -94,7 +94,7 @@ function AccountForm(props: IAccountFormProps) {
           label={"Account Name"}
           ariaLabel={"Account Name"}
           fieldName="Name"
-          maxLength={256}
+          maxLength={255}
           {...AccountFormConfig.Name}
           rules={[{ required: true, message: "Please enter account name!" }]}
         />
