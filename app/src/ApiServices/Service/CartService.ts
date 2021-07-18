@@ -76,3 +76,10 @@ export function createMembershipRequest(
 ): Promise<IApiResponse> {
   return CartService[config.Actions.createMembershipRequest](Params, Headers)
 }
+
+export function getCheckoutInfo(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CartService[config.Actions.getCheckoutInfo](Params, Headers)
+}

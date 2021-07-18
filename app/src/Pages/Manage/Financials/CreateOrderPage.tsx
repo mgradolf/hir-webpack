@@ -235,7 +235,7 @@ export default function CreateOrderPage() {
                 if (!issueDoesNotExist) message.error("Please solve cart item issues first!")
                 else {
                   setOrderRequestInProgress(true)
-                  cartModelFunctionality.launchRegistrationRequest().then((response) => {
+                  cartModelFunctionality.launchRequest().then((response) => {
                     setOrderRequestInProgress(false)
                     if (response.success) {
                       setRedirectTo(`/request/${response.data.RequestID}`)

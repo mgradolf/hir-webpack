@@ -19,6 +19,7 @@ export interface ISeatGroup {
 
 export interface IRequest_Func {
   removeRegistrationRequest: (RequestID: number) => Promise<IApiResponse>
+  launchRequest: () => Promise<IApiResponse>
 }
 
 export interface IRegistrationRequest_Func {
@@ -39,6 +40,7 @@ export interface IRegistrationRequest_Func {
   addAnswerMap: (RequestID: number, answerMap: { [key: string]: any }) => void
   applyPromoCodes: (ItemList: IRegistrationRequest[], PromotionalCodes: string[]) => Promise<IApiResponse>
   addPromo: (SectionDiscountIDsToBeAdded: number[]) => Promise<IApiResponse>
+  getOverrides: () => { [key: string]: any }
 }
 
 export interface IProgramApplicationRequest_Func {
@@ -63,7 +65,4 @@ export interface IPackageRequest_Func {
 
 export interface IMembershipRequest_Func {
   createMembershipRequest: (MembershipDefinitionID: number, RecipientPersonID: number) => Promise<IApiResponse>
-}
-export interface ICartModel_ItemList_Func {
-  launchRegistrationRequest: (ItemList: IItemRequest[]) => Promise<IApiResponse>
 }

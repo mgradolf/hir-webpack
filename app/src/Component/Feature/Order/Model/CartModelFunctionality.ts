@@ -18,7 +18,7 @@ import {
   createProgramApplicationRequest,
   createProgramEnrollmentRequest,
   createRegistrationRequest,
-  launchRegistrationRequest,
+  getCheckoutInfo,
   validateProductRequest,
   validateProgramRequest,
   validateRegistrationRequest
@@ -38,6 +38,8 @@ import {
 import { eventBus } from "~/utils/EventBus"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
 import { getPromotionalForSeatGroup } from "~/ApiServices/BizApi/query/queryIf"
+import { launchRequest } from "~/ApiServices/Service/RequestService"
+import { message } from "antd"
 
 export class CartModelFunctionality
   implements
@@ -121,11 +123,9 @@ export class CartModelFunctionality
 
     eventBus.publish(this.EVENT_UPDATE_BUYER, this.buyer)
   }
-  launchRegistrationRequest(): Promise<IApiResponse> {
-    console.log("create order", this.itemList.length, this.buyer)
+  getOverrides(): { [key: string]: any } {
+    let Override: { [key: string]: any } = {}
     if (this.itemList.length && this.buyer && this.buyer.PersonProfile) {
-      let Override: { [key: string]: any } = {}
-
       const list: IRegistrationRequest[] = (this.itemList as IRegistrationRequest[]).filter(
         (x) => x.ItemType === "RegistrationRequest"
       )
@@ -141,18 +141,10 @@ export class CartModelFunctionality
           }
         }
       })
-
-      const orderPayload = {
-        ItemList: this.itemList,
-        Override,
-        PromotionalCodes: this.registrationPromos
-          .filter((x) => x.IsSelected)
-          .map((x) => x.DiscountServiceParams)
-          .filter(Boolean)
-      }
-      return launchRegistrationRequest(orderPayload)
-    } else return Promise.resolve({ code: 200, success: false, data: "", error: "" })
+    }
+    return Override
   }
+
   addRegistrationRequest(
     SeatGroups: ISeatGroup[],
     SeatGroupID: number,
@@ -290,12 +282,6 @@ export class CartModelFunctionality
       this.itemList as IRegistrationRequest[],
       this.registrationPromos.map((x) => x.DiscountServiceParams)
     )
-  }
-
-  removeRegistrationRequest(RequestID: number): Promise<IApiResponse> {
-    this.itemList = this.itemList.filter((x) => x.RequestID !== RequestID)
-    eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
-    return Promise.resolve({ code: 200, data: "", error: false, success: true })
   }
 
   addOptionalItem(RequestID: number, SeatGroupID: number, SectionFinancialIDs: number[], ProductIDs: number[]) {
@@ -500,6 +486,53 @@ export class CartModelFunctionality
         })
       }
       return response
+    })
+  }
+
+  removeRegistrationRequest(RequestID: number): Promise<IApiResponse> {
+    this.itemList = this.itemList.filter((x) => x.RequestID !== RequestID)
+    eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+    return Promise.resolve({ code: 200, data: "", error: false, success: true })
+  }
+
+  launchRequest(): Promise<IApiResponse> {
+    return getCheckoutInfo({
+      PurchaserPersonID: this.buyer.PersonID,
+      ItemList: this.itemList,
+      PromotionalCodes: this.registrationPromos.map((x) => x.ShortName)
+    }).then((allocationResponse) => {
+      if (allocationResponse.success) {
+        const orderSubmitPayload = {
+          ParentRequestID: null,
+          RequestData: {
+            ...this.buyer.PersonProfile,
+            ...allocationResponse.data,
+            ItemList: this.itemList,
+            ShowMembershipLink: true,
+            ShowRenewLink: false,
+            PurchaseOrderAmount: allocationResponse.data.TotalPaymentAmount,
+            PaymentType: "MiscellaneousPayment",
+            // MarketingCode: 7,
+            EmailInvoice: false,
+            EmailReceipt: true
+          },
+          RequestContext: {
+            SourceID: 3,
+            RequesterStaffUserName: "joeAdmin123"
+          },
+          RequestComponentName: "OrderOnly",
+          RelationshipStatus: 1,
+          OverrideData: this.getOverrides()
+        }
+
+        return launchRequest(orderSubmitPayload).then((orderResponse) => {
+          if (orderResponse.success) {
+            message.success("Order Request Created Successfully")
+          }
+          return orderResponse
+        })
+      }
+      return allocationResponse
     })
   }
 }

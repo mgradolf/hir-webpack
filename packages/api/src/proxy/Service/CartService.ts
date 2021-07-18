@@ -15,7 +15,8 @@ export const config = {
     createProgramEnrollmentRequest: "createProgramEnrollmentRequest",
     createProductRequest: "createProductRequest",
     validateProductRequest: "validateProductRequest",
-    createMembershipRequest: "createMembershipRequest"
+    createMembershipRequest: "createMembershipRequest",
+    getCheckoutInfo: "getCheckoutInfo"
   }
 }
 
