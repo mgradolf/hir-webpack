@@ -105,7 +105,7 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
                 <IconButton
                   iconType="remove"
                   toolTip="Remove Item"
-                  onClickRemove={() => props.cartModelFunctionality.removeRegistrationRequest(record.RequestID)}
+                  onClickRemove={() => props.cartModelFunctionality.removeCartItemRequest(record.RequestID)}
                 />
               ) : (
                 ""

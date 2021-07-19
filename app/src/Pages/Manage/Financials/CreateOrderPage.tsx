@@ -1,6 +1,5 @@
-import { Button, Col, Dropdown, Menu, message, Row } from "antd"
 import React, { useEffect, useState } from "react"
-import { Redirect } from "react-router-dom"
+import { Button, Col, Dropdown, Menu, Row } from "antd"
 import { CartTable } from "~/Component/Feature/Order/CartTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
@@ -15,6 +14,9 @@ import { AddSectionModal } from "~/Component/Feature/Order/Shop/AddSectionModal"
 import { eventBus } from "~/utils/EventBus"
 import { DownOutlined } from "@ant-design/icons"
 import { PromoTable } from "~/Component/Feature/Order/PromoTable"
+import { getEntityById } from "~/ApiServices/Service/EntityService"
+import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
+import { SubmitOrderButton } from "~/Component/Feature/Order/SubmitOrderButton"
 
 export const UPDATE_CART = "UPDATE_CART"
 export const UPDATE_BUYER = "UPDATE_BUYER"
@@ -26,7 +28,18 @@ export default function CreateOrderPage() {
   const [cartModelFunctionality] = useState(new CartModelFunctionality(UPDATE_CART, UPDATE_BUYER, UPDATE_PROMO))
   const [orderRequestInProgress, setOrderRequestInProgress] = useState(false)
   const [promoCodes, setPromoCodes] = useState<IRegistrationPromo[]>([])
-  const [redirectTo, setRedirectTo] = useState("")
+
+  useEffect(() => {
+    const queryParams = querystringToObject()
+    if (queryParams && queryParams.BuyerID) {
+      getEntityById("Person", queryParams.BuyerID).then((response) => {
+        if (response.success) {
+          cartModelFunctionality.assignPerson(response.data)
+        }
+      })
+    }
+    // eslint-disable-next-line
+  }, [])
 
   useEffect(() => {
     setItemList(fakeCartData)
@@ -223,29 +236,12 @@ export default function CreateOrderPage() {
             />
           </Col>
           <Col>
-            {redirectTo && <Redirect to={redirectTo} />}
-            <Button
-              loading={orderRequestInProgress}
-              type="primary"
-              onClick={() => {
-                let issueDoesNotExist = true
-                ItemList.forEach((x) => {
-                  issueDoesNotExist = issueDoesNotExist && cartModelFunctionality.findIssue(x)
-                })
-                if (!issueDoesNotExist) message.error("Please solve cart item issues first!")
-                else {
-                  setOrderRequestInProgress(true)
-                  cartModelFunctionality.launchRequest().then((response) => {
-                    setOrderRequestInProgress(false)
-                    if (response.success) {
-                      setRedirectTo(`/request/${response.data.RequestID}`)
-                    }
-                  })
-                }
-              }}
-            >
-              Submit Order
-            </Button>
+            <SubmitOrderButton
+              orderRequestInProgress={orderRequestInProgress}
+              setOrderRequestInProgress={setOrderRequestInProgress}
+              cartModelFunctionality={cartModelFunctionality}
+              ItemList={ItemList}
+            />
           </Col>
         </Row>
       </div>

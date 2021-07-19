@@ -18,7 +18,7 @@ export interface ISeatGroup {
 }
 
 export interface IRequest_Func {
-  removeRegistrationRequest: (RequestID: number) => Promise<IApiResponse>
+  removeCartItemRequest: (RequestID?: number) => Promise<IApiResponse>
   launchRequest: () => Promise<IApiResponse>
 }
 
@@ -30,6 +30,7 @@ export interface IRegistrationRequest_Func {
     StatusDate?: string
   ) => Promise<IApiResponse>
 
+  getPromotionalForSeatGroups: () => Promise<IApiResponse>
   addOptionalItem: (
     RequestID: number,
     SeatGroupID: number,

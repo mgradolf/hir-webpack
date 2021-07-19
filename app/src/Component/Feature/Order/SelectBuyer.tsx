@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Form, Row } from "antd"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdit/PersonFormWithConfig"
@@ -9,14 +9,14 @@ import { IBuyer } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { Link } from "react-router-dom"
 import { getOrCreateAccountForPurchaser } from "~/ApiServices/Service/AccountService"
 
-export const SelectBuyer = (props: {
-  buyer: IBuyer
-  cartModelFunctionality: CartModelFunctionality
-  defaultPersonID?: number
-}) => {
+export const SelectBuyer = (props: { buyer: IBuyer; cartModelFunctionality: CartModelFunctionality }) => {
   const [PersonFormInstance] = Form.useForm()
   const [help, setHelp] = useState<React.ReactNode>(null)
-  const [defaultPersonIDLocalState, setDefaultPersonIDLocalState] = useState(props.defaultPersonID)
+  const [defaultPersonIDLocalState, setDefaultPersonIDLocalState] = useState<number>()
+
+  useEffect(() => {
+    if (props.buyer && props.buyer.PersonID) setDefaultPersonIDLocalState(props.buyer.PersonID)
+  }, [props.buyer])
 
   const setBuyerCriteria = (PersonProfile: { [key: string]: any }): boolean => {
     let buyerCriteriaFulfilled = true

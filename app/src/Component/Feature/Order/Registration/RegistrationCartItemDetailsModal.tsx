@@ -112,7 +112,7 @@ export const RegistrationCartItemDetailsModal = (props: {
                   onChangeCallback={(SeatGroupID) => {
                     if (SeatGroupID) {
                       props.cartModelFunctionality.addRegistrationRequest(props.item.SeatGroups, SeatGroupID)
-                      props.cartModelFunctionality.removeRegistrationRequest(props.item.RequestID)
+                      props.cartModelFunctionality.removeCartItemRequest(props.item.RequestID)
                     }
                   }}
                 />

@@ -39,7 +39,6 @@ import { eventBus } from "~/utils/EventBus"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
 import { getPromotionalForSeatGroup } from "~/ApiServices/BizApi/query/queryIf"
 import { launchRequest } from "~/ApiServices/Service/RequestService"
-import { message } from "antd"
 
 export class CartModelFunctionality
   implements
@@ -225,24 +224,29 @@ export class CartModelFunctionality
           eventBus.publish(this.EVENT_UPDATE_CART, __itemList)
         })
 
-        getPromotionalForSeatGroup({
-          SeatGroupID: this.itemList
-            .filter((x) => x.ItemType === "RegistrationRequest")
-            .map((x) => (x as IRegistrationRequest).SeatGroupID)
-        }).then((response) => {
-          if (response.success && Array.isArray(response.data) && response.data.length) {
-            response.data = response.data.map((promo: IRegistrationPromo) => {
-              if (this.registrationPromos.find((x) => x.SectionDiscountID === promo.SectionDiscountID)) {
-                promo.IsSelected = true
-              }
-              return promo
-            })
-            this.registrationPromos = response.data
-            eventBus.publish(this.EVENT_UPDATE_PROMO, this.registrationPromos)
-          }
-        })
+        this.getPromotionalForSeatGroups()
       }
       return x
+    })
+  }
+
+  getPromotionalForSeatGroups() {
+    return getPromotionalForSeatGroup({
+      SeatGroupID: this.itemList
+        .filter((x) => x.ItemType === "RegistrationRequest")
+        .map((x) => (x as IRegistrationRequest).SeatGroupID)
+    }).then((response) => {
+      if (response.success && Array.isArray(response.data) && response.data.length) {
+        response.data = response.data.map((promo: IRegistrationPromo) => {
+          if (this.registrationPromos.find((x) => x.SectionDiscountID === promo.SectionDiscountID)) {
+            promo.IsSelected = true
+          }
+          return promo
+        })
+        this.registrationPromos = response.data
+      } else this.registrationPromos = []
+      eventBus.publish(this.EVENT_UPDATE_PROMO, this.registrationPromos)
+      return response
     })
   }
 
@@ -489,8 +493,9 @@ export class CartModelFunctionality
     })
   }
 
-  removeRegistrationRequest(RequestID: number): Promise<IApiResponse> {
-    this.itemList = this.itemList.filter((x) => x.RequestID !== RequestID)
+  removeCartItemRequest(RequestID?: number): Promise<IApiResponse> {
+    this.itemList = RequestID ? this.itemList.filter((x) => x.RequestID !== RequestID) : []
+    this.getPromotionalForSeatGroups()
     eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
     return Promise.resolve({ code: 200, data: "", error: false, success: true })
   }
@@ -525,12 +530,7 @@ export class CartModelFunctionality
           OverrideData: this.getOverrides()
         }
 
-        return launchRequest(orderSubmitPayload).then((orderResponse) => {
-          if (orderResponse.success) {
-            message.success("Order Request Created Successfully")
-          }
-          return orderResponse
-        })
+        return launchRequest(orderSubmitPayload)
       }
       return allocationResponse
     })
