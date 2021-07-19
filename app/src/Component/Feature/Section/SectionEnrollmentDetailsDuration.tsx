@@ -89,8 +89,10 @@ function DefineDurationTime(props: IDefineDurationTime) {
   useEffect(() => {
     function setDurationValues() {
       const rule = props.formInstance.getFieldValue(props.fieldNames.DefaultEnrollmentDuration)
+      console.log("Rules: ", rule)
       if (rule) {
         const durationValues = getDurationFromRule(rule)
+        console.log("Value: ", durationValues)
         Object.keys(durationValues).forEach((field) => {
           props.formInstance.setFieldsValue({ [field]: durationValues[field] })
         })
