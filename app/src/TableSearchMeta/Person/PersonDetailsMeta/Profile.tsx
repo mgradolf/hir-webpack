@@ -40,6 +40,7 @@ import { DegreeFormModalOpenButton } from "~/Component/Feature/Person/Forms/Pers
 import { InlineForm } from "~/Component/Common/Form/InlineForm"
 import { PersonMergeFormModalOpenButton } from "~/Component/Feature/Person/Forms/PersonMergeFormModal"
 import { PersonRemoveLink } from "~/Component/Feature/Person/PersonRemoveLink"
+import { Link } from "react-router-dom"
 
 export const getProfileMeta = (person: any, account: any, profileQuestions: any): IDetailsTabMeta[] => {
   const profileQuestion = (profileQuestionData: { [key: string]: any }): CardContainer => {
@@ -133,7 +134,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
       {
         label: "Account Name",
         value: account?.AccountName,
-        render: undefined
+        render: () => <Link to={`/account/${account.AccountID}`}>{account?.AccountName}</Link>
       }
     ]
   }

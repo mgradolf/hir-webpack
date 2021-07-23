@@ -12,6 +12,8 @@ export interface IPersonFieldNames {
   PostalCode: any
   RegionCodeID: any
   CountryCodeID: any
+  AccountTypeID: any
+  AccountID: any
 }
 
 export interface IPersonBasicFieldNames {

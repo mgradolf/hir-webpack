@@ -10,13 +10,16 @@ import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
 import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
-import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID, CREATE_SUCCESSFULLY } from "~/utils/Constants"
 import { showConfirm } from "~/Component/Common/Modal/Confirmation"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 import { ButtonType } from "antd/lib/button"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { getCountries } from "~/ApiServices/Service/RefLookupService"
+import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupService"
 import { Redirect } from "react-router"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
 
 const layout = {
   labelCol: { span: 8 },
@@ -42,7 +45,9 @@ const fieldNames: IPersonFieldNames = {
   Locality: "Locality",
   PostalCode: "PostalCode",
   RegionCodeID: "RegionCodeID",
-  CountryCodeID: "CountryCodeID"
+  CountryCodeID: "CountryCodeID",
+  AccountTypeID: "AccountTypeID",
+  AccountID: "AccountID"
 }
 
 function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Roles?: number[]; disableRole?: boolean }) {
@@ -53,6 +58,8 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
   const [cityIsRequired, setCityIsRequired] = useState(false)
   const [zipIsRequired, setZipIsRequired] = useState(false)
   const [stateIsRequired, setStateIsRequired] = useState(false)
+  const [accountTypeIsRequired, setAccountTypeIsRequired] = useState(false)
+  const [affiliateAccountIsRequired, setAffiliateAccountIsRequired] = useState(false)
   const PersonformConfig: IPersonFieldNames = CustomFormConfigHook(
     fieldNames,
     "PersonFormWithConfig"
@@ -62,9 +69,10 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
   const [regiondCodes, setRegiondCodes] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (props.Roles && props.Roles.includes(3)) {
+  const checkRoles = (items?: number[]) => {
+    if ((props.Roles && props.Roles.includes(3)) || (items && items.includes(3))) {
       // 3 means Purchase is selected
+      setAccountTypeIsRequired(true)
       setEmailIsRequired(true)
       setAddressline1Required(true)
       setTelephoneIsRequired(true)
@@ -72,6 +80,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
       setZipIsRequired(true)
       setStateIsRequired(true)
     } else {
+      setAccountTypeIsRequired(false)
       setEmailIsRequired(false)
       setTelephoneIsRequired(false)
       setAddressline1Required(false)
@@ -79,6 +88,10 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
       setZipIsRequired(false)
       setStateIsRequired(false)
     }
+  }
+
+  useEffect(() => {
+    checkRoles()
     findDefaultCountry().then((result) => {
       if (result.success && result.data) {
         setDefaultCountryCodeID(result.data.CountryID)
@@ -88,7 +101,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
       }
     })
     // eslint-disable-next-line
-  }, [])
+  }, [props.Roles])
 
   useEffect(() => {
     getCountries().then((x) => {
@@ -120,22 +133,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             label={"Roles"}
             formInstance={props.formInstance}
             options={rolesOption}
-            onChangeCallback={(items: number[]) => {
-              if (items.includes(3)) {
-                // 3 means Purchase is selected, so address line 1 is required now
-                setAddressline1Required(true)
-                setTelephoneIsRequired(true)
-                setCityIsRequired(true)
-                setZipIsRequired(true)
-                setStateIsRequired(true)
-              } else {
-                setTelephoneIsRequired(false)
-                setAddressline1Required(false)
-                setCityIsRequired(false)
-                setZipIsRequired(false)
-                setStateIsRequired(false)
-              }
-            }}
+            onChangeCallback={(items: number[]) => checkRoles(items)}
             fieldName="Roles"
             {...PersonformConfig.Roles}
           />
@@ -163,6 +161,41 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             maxLength="50"
             {...PersonformConfig.LastName}
             rules={[{ required: true, message: "Please enter last name!" }]}
+          />
+
+          <FormMultipleRadio
+            {...layout}
+            formInstance={props.formInstance}
+            label="Account Type"
+            ariaLabel="Account Type"
+            fieldName="AccountTypeID"
+            displayKey="Name"
+            valueKey="ID"
+            refLookupService={getAccountTypes}
+            disabled={!accountTypeIsRequired}
+            {...PersonformConfig.AccountTypeID}
+            onChangeCallback={(value: number) => {
+              if (value === AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID) setAffiliateAccountIsRequired(true)
+              else {
+                setAffiliateAccountIsRequired(false)
+                props.formInstance.setFieldsValue({ [PersonformConfig.AccountID]: undefined })
+              }
+            }}
+            rules={[{ required: accountTypeIsRequired, message: "Please select Account Type!" }]}
+          />
+
+          <FormDropDown
+            {...layout}
+            formInstance={props.formInstance}
+            label="Affiliated Account"
+            ariaLabel="Affiliated Account"
+            fieldName="AccountID"
+            displayKey="AccountDescriptor"
+            valueKey="AccountID"
+            refLookupService={() => findAccountForLookUp({ AccountTypeID: AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID })}
+            disabled={!(accountTypeIsRequired && affiliateAccountIsRequired)}
+            {...PersonformConfig.AccountID}
+            rules={[{ required: affiliateAccountIsRequired, message: "Please select Affiliated Account!" }]}
           />
 
           <FormDatePicker
