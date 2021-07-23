@@ -4,7 +4,7 @@ import { DROPDOWN, IField, DATE_PICKERS, TEXT, CUSTOM_FIELD } from "~/Component/
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
-import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
+// import { FormFieldSelector } from "~/Component/Common/Form/FormFieldSelectors/FormFieldSelector"
 import { ProductLookup } from "~/Component/Common/Form/FormLookupFields/ProductLookup"
 import { ProgramLookup } from "~/Component/Common/Form/FormLookupFields/ProgramLookup"
 
@@ -18,38 +18,32 @@ export const RequestSearchMeta: IField[] = [
     valueKey: "ID"
   },
   {
-    label: "Account & Person Selector",
-    fieldName: "",
+    label: "Account",
+    fieldName: "AccountID",
+    valueKey: "AccountID",
     inputType: CUSTOM_FIELD,
-    customFilterComponent: FormFieldSelector,
-    extraProps: {
-      selectorKeys: [
-        {
-          label: "Account",
-          fieldName: "AccountID",
-          valueKey: "AccountID",
-          component: AccountLookup
-        },
-        {
-          label: "Purchaser",
-          fieldName: "PurchaserPersonID",
-          valueKey: "PersonID",
-          component: PersonLookup
-        },
-        {
-          label: "Recipient",
-          fieldName: "RecipientPersonID",
-          valueKey: "PersonID",
-          component: PersonLookup
-        },
-        {
-          label: "Any",
-          fieldName: "PersonID",
-          valueKey: "PersonID",
-          component: PersonLookup
-        }
-      ]
-    }
+    customFilterComponent: AccountLookup
+  },
+  {
+    label: "Purchaser",
+    fieldName: "PurchaserPersonID",
+    valueKey: "PersonID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
+  },
+  {
+    label: "Recipient",
+    fieldName: "RecipientPersonID",
+    valueKey: "PersonID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
+  },
+  {
+    label: "Any",
+    fieldName: "PersonID",
+    valueKey: "PersonID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: PersonLookup
   },
   {
     label: "Section",

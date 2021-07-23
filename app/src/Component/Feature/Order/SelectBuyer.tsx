@@ -15,7 +15,13 @@ export const SelectBuyer = (props: { buyer: IBuyer; cartModelFunctionality: Cart
   const [defaultPersonIDLocalState, setDefaultPersonIDLocalState] = useState<number>()
 
   useEffect(() => {
-    if (props.buyer && props.buyer.PersonID) setDefaultPersonIDLocalState(props.buyer.PersonID)
+    if (props.buyer && props.buyer.PersonID) {
+      setDefaultPersonIDLocalState(props.buyer.PersonID)
+      PersonFormInstance.setFieldsValue({ PersonID: props.buyer.PersonID })
+    } else {
+      PersonFormInstance.setFieldsValue({ PersonID: undefined })
+    }
+    // eslint-disable-next-line
   }, [props.buyer])
 
   const setBuyerCriteria = (PersonProfile: { [key: string]: any }): boolean => {
