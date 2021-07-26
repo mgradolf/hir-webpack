@@ -134,7 +134,12 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
       {
         label: "Account Name",
         value: account?.AccountName,
-        render: () => <Link to={`/account/${account.AccountID}`}>{account?.AccountName}</Link>
+        render: () =>
+          account && account.AccountID ? (
+            <Link to={`/account/${account.AccountID}`}>{account?.AccountName}</Link>
+          ) : (
+            <></>
+          )
       }
     ]
   }

@@ -19,7 +19,7 @@ import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupSe
 import { Redirect } from "react-router"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
-import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
+import { findAccount, findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
 
 const layout = {
   labelCol: { span: 8 },
@@ -50,7 +50,13 @@ const fieldNames: IPersonFieldNames = {
   AccountID: "AccountID"
 }
 
-function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Roles?: number[]; disableRole?: boolean }) {
+function PersonForm(props: {
+  editMode: boolean
+  formInstance: FormInstance
+  Roles?: number[]
+  disableRole?: boolean
+  PersonID?: number
+}) {
   const [defaultCountryCodeID, setDefaultCountryCodeID] = useState()
   const [emailIsRequired, setEmailIsRequired] = useState(false)
   const [addressline1Required, setAddressline1Required] = useState(false)
@@ -60,6 +66,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
   const [stateIsRequired, setStateIsRequired] = useState(false)
   const [accountTypeIsRequired, setAccountTypeIsRequired] = useState(false)
   const [affiliateAccountIsRequired, setAffiliateAccountIsRequired] = useState(false)
+  const [personAccountDoesNotExist, setPersonAccountDoesNotExist] = useState(true)
   const PersonformConfig: IPersonFieldNames = CustomFormConfigHook(
     fieldNames,
     "PersonFormWithConfig"
@@ -92,6 +99,13 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
 
   useEffect(() => {
     checkRoles()
+    if (props.PersonID) {
+      findAccount({ PersonID: props.PersonID }).then((response) => {
+        if (response.success && response.data && response.data.AccountID) {
+          setPersonAccountDoesNotExist(false)
+        }
+      })
+    }
     findDefaultCountry().then((result) => {
       if (result.success && result.data) {
         setDefaultCountryCodeID(result.data.CountryID)
@@ -163,40 +177,45 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             rules={[{ required: true, message: "Please enter last name!" }]}
           />
 
-          <FormMultipleRadio
-            {...layout}
-            formInstance={props.formInstance}
-            label="Account Type"
-            ariaLabel="Account Type"
-            fieldName="AccountTypeID"
-            displayKey="Name"
-            valueKey="ID"
-            refLookupService={getAccountTypes}
-            disabled={!accountTypeIsRequired}
-            {...PersonformConfig.AccountTypeID}
-            onChangeCallback={(value: number) => {
-              if (value === AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID) setAffiliateAccountIsRequired(true)
-              else {
-                setAffiliateAccountIsRequired(false)
-                props.formInstance.setFieldsValue({ [PersonformConfig.AccountID]: undefined })
-              }
-            }}
-            rules={[{ required: accountTypeIsRequired, message: "Please select Account Type!" }]}
-          />
-
-          <FormDropDown
-            {...layout}
-            formInstance={props.formInstance}
-            label="Affiliated Account"
-            ariaLabel="Affiliated Account"
-            fieldName="AccountID"
-            displayKey="AccountDescriptor"
-            valueKey="AccountID"
-            refLookupService={() => findAccountForLookUp({ AccountTypeID: AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID })}
-            disabled={!(accountTypeIsRequired && affiliateAccountIsRequired)}
-            {...PersonformConfig.AccountID}
-            rules={[{ required: affiliateAccountIsRequired, message: "Please select Affiliated Account!" }]}
-          />
+          {personAccountDoesNotExist && (
+            <>
+              <FormMultipleRadio
+                {...layout}
+                formInstance={props.formInstance}
+                label="Account Type"
+                ariaLabel="Account Type"
+                fieldName="AccountTypeID"
+                displayKey="Name"
+                valueKey="ID"
+                refLookupService={getAccountTypes}
+                disabled={!accountTypeIsRequired}
+                {...PersonformConfig.AccountTypeID}
+                onChangeCallback={(value: number) => {
+                  if (value === AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID) setAffiliateAccountIsRequired(true)
+                  else {
+                    setAffiliateAccountIsRequired(false)
+                    props.formInstance.setFieldsValue({ [PersonformConfig.AccountID]: undefined })
+                  }
+                }}
+                rules={[{ required: accountTypeIsRequired, message: "Please select Account Type!" }]}
+              />
+              <FormDropDown
+                {...layout}
+                formInstance={props.formInstance}
+                label="Affiliated Account"
+                ariaLabel="Affiliated Account"
+                fieldName="AccountID"
+                displayKey="AccountDescriptor"
+                valueKey="AccountID"
+                refLookupService={() =>
+                  findAccountForLookUp({ AccountTypeID: AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID })
+                }
+                disabled={!(accountTypeIsRequired && affiliateAccountIsRequired)}
+                {...PersonformConfig.AccountID}
+                rules={[{ required: affiliateAccountIsRequired, message: "Please select Affiliated Account!" }]}
+              />{" "}
+            </>
+          )}
 
           <FormDatePicker
             label={"Date Of Birth"}
@@ -451,6 +470,7 @@ export function PersonFormOpenButton(props: {
             Roles={props.initialValues && props.initialValues.Roles}
             editMode={false}
             formInstance={formInstance}
+            PersonID={props.initialValues && props.initialValues.PersonID ? props.initialValues.PersonID : undefined}
           />
         }
         formInstance={formInstance}
