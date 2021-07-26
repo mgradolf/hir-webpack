@@ -20,6 +20,7 @@ import { OrderEmailFormOpenButton } from "~/Component/Feature/Order/Forms/OrderE
 import { OrderReceiptLink } from "~/Component/Feature/Order/OrderReceiptLink"
 import { OrderPaymentDueDateFormOpenButton } from "~/Component/Feature/Order/Forms/PaymentDueDateForm"
 import { PurchaseOrderFormOpenButton } from "~/Component/Feature/PurchaseOrder/Forms/PurchaseOrderForm"
+import { OrderTransactionLink } from "~/Component/Feature/Order/OrderTransactionLink"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -27,7 +28,8 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
     cardActions: [
       <OrderPaymentDueDateFormOpenButton initialValues={order} />,
       <OrderEmailFormOpenButton initialValues={order} />,
-      <OrderReceiptLink OrderID={order.OrderID} />
+      <OrderReceiptLink OrderID={order.OrderID} />,
+      <OrderTransactionLink OrderID={order.OrderID} />
     ],
     contents: [
       { label: "Order Created On", value: renderDate(order.OrderDate) },

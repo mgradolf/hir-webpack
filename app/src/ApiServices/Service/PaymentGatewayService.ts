@@ -7,3 +7,10 @@ export function findPaymentGatewayActivities(
 ): Promise<IApiResponse> {
   return PaymentGatewayService[config.Actions.findPaymentGatewayActivities](Params, Headers)
 }
+
+export function getPaymentGatewayAccount(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentGatewayService[config.Actions.getPaymentGatewayAccount](Params, Headers)
+}

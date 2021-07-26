@@ -15,6 +15,7 @@ import { getEntityById } from "~/ApiServices/Service/EntityService"
 import { ProgramOfferingLookup } from "~/Component/Common/Form/FormLookupFields/ProgramOfferingLookup"
 import { saveProgramWithEvent } from "~/ApiServices/BizApi/program/programIF"
 import { Redirect } from "react-router"
+import { getProgramDetails } from "~/ApiServices/Service/ProgramService"
 
 interface IProgramFormProps {
   editMode: boolean
@@ -36,6 +37,7 @@ interface IProgramFieldNames {
   ProgramStatusCodeID: any
   PaymentGatewayAccountID: any
   DefaultPaymentGatewayAccountID: any
+  DefaultPaymentGatewayAccountName: any
 }
 
 const fieldNames: IProgramFieldNames = {
@@ -46,7 +48,8 @@ const fieldNames: IProgramFieldNames = {
   AdminUserID: "AdminUserID",
   ProgramStatusCodeID: "ProgramStatusCodeID",
   PaymentGatewayAccountID: "PaymentGatewayAccountID",
-  DefaultPaymentGatewayAccountID: "DefaultPaymentGatewayAccountID"
+  DefaultPaymentGatewayAccountID: "DefaultPaymentGatewayAccountID",
+  DefaultPaymentGatewayAccountName: "DefaultPaymentGatewayAccountName"
 }
 
 function ProgramForm(props: IProgramFormProps) {
@@ -82,15 +85,14 @@ function ProgramForm(props: IProgramFormProps) {
             }
           }}
         />
-
         <FormInput
           formInstance={props.formInstance}
           label={"Program Code"}
           ariaLabel={"Program Code"}
           fieldName={fieldNames.ProgramCode}
           {...ProgramFormConfig[fieldNames.ProgramCode]}
+          disabled={props.editMode}
         />
-
         <FormInput
           formInstance={props.formInstance}
           label={"Program Name"}
@@ -98,7 +100,6 @@ function ProgramForm(props: IProgramFormProps) {
           fieldName={fieldNames.Name}
           {...ProgramFormConfig[fieldNames.Name]}
         />
-
         <FormTextArea
           {...layout}
           formInstance={props.formInstance}
@@ -107,7 +108,6 @@ function ProgramForm(props: IProgramFormProps) {
           fieldName={fieldNames.Description}
           {...ProgramFormConfig[fieldNames.Description]}
         />
-
         <FormDropDown
           {...layout}
           formInstance={props.formInstance}
@@ -120,7 +120,6 @@ function ProgramForm(props: IProgramFormProps) {
           rules={[{ required: true, message: "Please select contact person!" }]}
           {...ProgramFormConfig[fieldNames.AdminUserID]}
         />
-
         <FormDropDown
           {...layout}
           formInstance={props.formInstance}
@@ -132,7 +131,6 @@ function ProgramForm(props: IProgramFormProps) {
           fieldName={fieldNames.ProgramStatusCodeID}
           {...ProgramFormConfig[fieldNames.ProgramStatusCodeID]}
         />
-
         <FormDropDown
           {...layout}
           formInstance={props.formInstance}
@@ -144,18 +142,21 @@ function ProgramForm(props: IProgramFormProps) {
           fieldName={fieldNames.PaymentGatewayAccountID}
           {...ProgramFormConfig[fieldNames.PaymentGatewayAccountID]}
         />
-
-        <FormDropDown
-          {...layout}
+        <FormInput
+          hidden
+          formInstance={props.formInstance}
+          label={"Default Gateway ID"}
+          ariaLabel={"Default Gateway ID"}
+          fieldName={fieldNames.DefaultPaymentGatewayAccountID}
+          {...ProgramFormConfig[fieldNames.DefaultPaymentGatewayAccountID]}
+        />
+        <FormInput
+          disabled={true}
           formInstance={props.formInstance}
           label={"Default Gateway"}
           ariaLabel={"Default Gateway"}
-          refLookupService={getPaymentGatewayAccounts}
-          displayKey="Name"
-          valueKey="ID"
-          disabled={true}
-          fieldName={fieldNames.DefaultPaymentGatewayAccountID}
-          {...ProgramFormConfig[fieldNames.DefaultPaymentGatewayAccountID]}
+          fieldName={fieldNames.DefaultPaymentGatewayAccountName}
+          {...ProgramFormConfig[fieldNames.DefaultPaymentGatewayAccountName]}
         />
       </Col>
     </Row>
@@ -177,11 +178,11 @@ export function ProgramFormOpenButton(props: {
 
   useEffect(() => {
     if (props.ProgramID) {
-      getEntityById("Program", props.ProgramID).then((x) => {
+      getProgramDetails({ ProgramID: props.ProgramID }).then((x) => {
         if (x.success) {
-          console.log(x.data)
           setInitialValues({ ...x.data, ProgramOfferingID: x.data.OfferingID })
         }
+        return x
       })
     }
     if (props.ProgramOfferingID) {
@@ -227,7 +228,7 @@ export function ProgramFormOpenButton(props: {
       {redirectTo && <Redirect to={redirectTo} />}
       <CustomFormModalOpenButton
         formTitle={props.editMode ? "Edit Program" : "Add New Program"}
-        customForm={<ProgramForm editMode={true} initialValue={initialValues} formInstance={formInstance} />}
+        customForm={<ProgramForm editMode={props.editMode} initialValue={initialValues} formInstance={formInstance} />}
         formInstance={formInstance}
         onFormSubmission={onFormSubmission}
         initialValues={initialValues}

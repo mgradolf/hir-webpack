@@ -10,7 +10,8 @@ export const config = {
     addOrUpdateAdmissionRequirement: "addOrUpdateAdmissionRequirement",
     saveOrUpdateAdmissionRequirementGroups: "saveOrUpdateAdmissionRequirementGroups",
     addOrUpdateOfferingRequirement: "addOrUpdateOfferingRequirement",
-    saveOrUpdateProgramFinancial: "saveOrUpdateProgramFinancial"
+    saveOrUpdateProgramFinancial: "saveOrUpdateProgramFinancial",
+    getProgramDetails: "getProgramDetails"
   }
 }
 
