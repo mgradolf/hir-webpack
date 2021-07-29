@@ -7,11 +7,12 @@ import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { Redirect } from "react-router"
 import "~/Sass/utils.scss"
+import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
 
 interface ISectionCreateFormProps {
   handleCancel: () => void
   setApiCallInProgress: (flag: boolean) => void
-  OfferingID: number
+  OfferingID?: number
 }
 
 interface ISectionCreateFieldNames {
@@ -67,7 +68,11 @@ export function SectionCreateForm(props: ISectionCreateFormProps) {
         if (response.success) {
           formInstance.resetFields()
           message.success(CREATE_SUCCESSFULLY)
-          setRedirectAfterCreate(`/section/${response.data.SectionID}`)
+          setRedirectAfterCreate(
+            props.OfferingID
+              ? `/offering/${props.OfferingID}/section/${response.data.SectionID}`
+              : `/section/${response.data.SectionID}`
+          )
           props.handleCancel()
         }
         props.setApiCallInProgress(false)
@@ -104,14 +109,25 @@ export function SectionCreateForm(props: ISectionCreateFormProps) {
             overflowY: "scroll"
           }}
         >
-          <FormInput
-            label={"OfferingID"}
-            ariaLabel={"OfferingID"}
-            formInstance={formInstance}
-            fieldName={SectionFieldName.OfferingID}
-            hidden
-          />
-
+          {props.OfferingID && (
+            <FormInput
+              label={"OfferingID"}
+              ariaLabel={"OfferingID"}
+              formInstance={formInstance}
+              fieldName={SectionFieldName.OfferingID}
+              hidden
+            />
+          )}
+          {props.OfferingID === undefined && (
+            <OfferingLookupButton
+              labelColSpan={8}
+              wrapperColSpan={14}
+              label="Offering"
+              formInstance={formInstance}
+              fieldName={SectionFieldName.OfferingID}
+              rules={[{ required: true, message: "Please select an offering!" }]}
+            />
+          )}
           <FormMultipleRadio
             labelColSpan={8}
             wrapperColSpan={14}

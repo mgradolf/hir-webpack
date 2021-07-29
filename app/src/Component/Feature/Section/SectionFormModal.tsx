@@ -3,7 +3,7 @@ import Modal from "~/Component/Common/Modal/index2"
 import { SectionCreateForm } from "~/Component/Feature/Section/Forms/SectionCreateForm"
 
 interface ICreateNewSectionProps {
-  OfferingID: number
+  OfferingID?: number
   closeModal: () => void
 }
 
@@ -18,7 +18,7 @@ export function SectionFormModal(props: ICreateNewSectionProps) {
       children={
         <>
           <SectionCreateForm
-            OfferingID={Number(props.OfferingID)}
+            OfferingID={props.OfferingID}
             handleCancel={() => props.closeModal && props.closeModal()}
             setApiCallInProgress={setApiCallInProgress}
           />
