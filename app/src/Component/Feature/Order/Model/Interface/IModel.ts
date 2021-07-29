@@ -1,8 +1,8 @@
 import { ISeatGroup } from "~/Component/Feature/Order/Model/Interface/IFunc"
 
 export interface IPersonProfile {
-  PersonID: number
   AccountID?: number
+  PersonID: number
   PersonDescriptor: string
   Ethnicity: any
   FirstName: string
@@ -117,7 +117,7 @@ export interface IRegistrationPromo {
   DiscountProgramID: number
   AmountType: string
   SectionID: number
-  IsPromotedForMarketing: true
+  IsPromotedForMarketing: boolean
   IsSelected: boolean
 }
 
@@ -262,4 +262,30 @@ export interface IItemRequest {
   NetPrice: number
   GrossPrice: number
   Discount: number
+}
+
+export interface IAllocationItem {
+  FinancialID: number
+  ItemCode: string
+  Description: string
+  RequestID: number
+  Amount: number
+  DueAmount: number
+  ItemName: string
+  Quantity: number
+  DueNow: number
+  PaymentGatewayAccountID: number
+  Balance: number
+}
+export interface IAllocation {
+  TotalQuantity: number
+  Allocation: IAllocationItem[]
+  SourceID: number
+  TotalPrice: number
+  NetTotalPrice: number
+  ShowRenewLink: boolean
+  TotalDueAmount: number
+  ShowMembershipLink: boolean
+  TotalDiscount: number
+  TotalPaymentAmount: number
 }

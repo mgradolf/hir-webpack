@@ -114,7 +114,7 @@ export const Step4PaymentMethods = (props: {
             if (methodToGetPaymentRequestObject)
               methodToGetPaymentRequestObject
                 .then((requestObject) => {
-                  console.log(requestObject)
+                  console.log(JSON.stringify(requestObject))
                   if (requestObject)
                     return props.selectedPayment && props.selectedPayment.PaymentTypeID === 7
                       ? launchRequestWithExternalPayment(requestObject)

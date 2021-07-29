@@ -8,9 +8,10 @@ import { CheckCircleTwoTone } from "@ant-design/icons"
 
 export const SubmitOrderButton = (props: {
   orderRequestInProgress: boolean
+  disabled: boolean
   setOrderRequestInProgress: (flag: boolean) => void
   cartModelFunctionality: CartModelFunctionality
-  ItemList: IItemRequest[]
+  itemList: IItemRequest[]
 }) => {
   const [showModal, setShowModal] = useState(false)
   const [newRequestID, setNewRequestID] = useState<number>()
@@ -47,11 +48,12 @@ export const SubmitOrderButton = (props: {
         </Modal>
       )}
       <Button
+        disabled={props.disabled}
         loading={props.orderRequestInProgress}
         type="primary"
         onClick={() => {
           let issueDoesNotExist = true
-          props.ItemList.forEach((x) => {
+          props.itemList.forEach((x) => {
             issueDoesNotExist = issueDoesNotExist && props.cartModelFunctionality.findIssue(x)
           })
           if (!issueDoesNotExist) message.error("Please solve cart item issues first!")

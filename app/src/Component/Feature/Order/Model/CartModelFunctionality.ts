@@ -24,6 +24,7 @@ import {
   validateRegistrationRequest
 } from "~/ApiServices/Service/CartService"
 import {
+  IAllocation,
   IBuyer,
   IItemRequest,
   IMembershipRequest,
@@ -36,7 +37,6 @@ import {
   IRegistrationRequest
 } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { eventBus } from "~/utils/EventBus"
-import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
 import { getPromotionalForSeatGroup } from "~/ApiServices/BizApi/query/queryIf"
 import { launchRequest } from "~/ApiServices/Service/RequestService"
 
@@ -51,8 +51,9 @@ export class CartModelFunctionality
     IPackageRequest_Func,
     IMembershipRequest_Func {
   buyer: IBuyer = {}
-  // itemList: IItemRequest[] = []
-  itemList: IItemRequest[] = fakeCartData
+  itemList: IItemRequest[] = []
+  // itemList: IItemRequest[] = fakeCartData
+  allocations?: IAllocation
   registrationPromos: IRegistrationPromo[] = []
 
   EVENT_UPDATE_CART: string
@@ -174,7 +175,7 @@ export class CartModelFunctionality
           ScheduleConflictCheck: true,
           AnswerQuestion: true
         }
-        eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+        this.updateCartByEvent()
         validateRegistrationRequest({
           SeatGroupID: tempRegistrationRequest.SeatGroupID,
           RecipientPersonID: tempRegistrationRequest.RecipientPersonID,
@@ -217,11 +218,11 @@ export class CartModelFunctionality
           }
           tempRegistrationRequest.varificationInProgress = false
           tempRegistrationRequest.SeatGroups = SeatGroups
-          const __itemList = this.itemList.map((x) => {
+          this.itemList = this.itemList.map((x) => {
             if (x.RequestID === tempRegistrationRequest.RequestID) x = tempRegistrationRequest
             return x
           })
-          eventBus.publish(this.EVENT_UPDATE_CART, __itemList)
+          this.updateCartByEvent()
         })
 
         this.getPromotionalForSeatGroups()
@@ -268,7 +269,7 @@ export class CartModelFunctionality
           }
           return x
         })
-        eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+        this.updateCartByEvent()
       }
       return response
     })
@@ -302,7 +303,7 @@ export class CartModelFunctionality
             }
             return x
           })
-          eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+          this.updateCartByEvent()
         }
         return response
       })
@@ -315,7 +316,7 @@ export class CartModelFunctionality
       if (x.RequestID === RequestID) x.AnswerMap = answerMap
       return x
     })
-    eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+    this.updateCartByEvent()
   }
 
   createProgramApplicationRequest(ProgramID: number, RecipientPersonID?: number) {
@@ -327,7 +328,7 @@ export class CartModelFunctionality
         tempApplicationRequest.Discount = tempApplicationRequest.Discount ? tempApplicationRequest.Discount : 0
         tempApplicationRequest.NetPrice = tempApplicationRequest.GrossPrice - tempApplicationRequest.Discount
         this.itemList = [...this.itemList, tempApplicationRequest]
-        eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+        this.updateCartByEvent()
         validateProgramRequest({
           ProgramID,
           RecipientPersonID,
@@ -347,7 +348,7 @@ export class CartModelFunctionality
             }
             return x
           })
-          eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+          this.updateCartByEvent()
         })
       }
       return response
@@ -369,7 +370,7 @@ export class CartModelFunctionality
           tempProgramEnrollmentRequest.GrossPrice - tempProgramEnrollmentRequest.Discount
 
         this.itemList = [...this.itemList, tempProgramEnrollmentRequest]
-        eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+        this.updateCartByEvent()
         validateProgramRequest({
           ProgramID,
           RecipientPersonID,
@@ -389,7 +390,7 @@ export class CartModelFunctionality
             }
             return x
           })
-          eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+          this.updateCartByEvent()
         })
       }
       return response
@@ -405,7 +406,7 @@ export class CartModelFunctionality
       tempProductRequest.Discount = tempProductRequest.Discount ? tempProductRequest.Discount : 0
       tempProductRequest.NetPrice = tempProductRequest.GrossPrice - tempProductRequest.Discount
       this.itemList = [...this.itemList, tempProductRequest]
-      eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+      this.updateCartByEvent()
       validateProductRequest({ ProductID: ProductID, RecipientPersonID: this.buyer.PersonID, Quantity }).then(
         (validateProductResponse) => {
           tempProductRequest.varificationInProgress = false
@@ -415,7 +416,7 @@ export class CartModelFunctionality
             }
             return x
           })
-          eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+          this.updateCartByEvent()
         }
       )
       return response
@@ -435,7 +436,7 @@ export class CartModelFunctionality
       tempPackageRequest.Discount = tempPackageRequest.Discount ? tempPackageRequest.Discount : 0
       tempPackageRequest.NetPrice = tempPackageRequest.GrossPrice - tempPackageRequest.Discount
       this.itemList = [...this.itemList, tempPackageRequest]
-      eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+      this.updateCartByEvent()
       validateProductRequest({
         ProductID: ProductID,
         PackageID,
@@ -449,7 +450,7 @@ export class CartModelFunctionality
           }
           return x
         })
-        eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+        this.updateCartByEvent()
       })
       return response
     })
@@ -464,7 +465,7 @@ export class CartModelFunctionality
         tempMembershipRequest.Discount = tempMembershipRequest.Discount ? tempMembershipRequest.Discount : 0
         tempMembershipRequest.NetPrice = tempMembershipRequest.GrossPrice - tempMembershipRequest.Discount
         this.itemList = [...this.itemList, tempMembershipRequest]
-        eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+        this.updateCartByEvent()
         validateProductRequest({
           MembershipDefinitionID,
           RecipientPersonID
@@ -486,7 +487,7 @@ export class CartModelFunctionality
             }
             return x
           })
-          eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+          this.updateCartByEvent()
         })
       }
       return response
@@ -496,16 +497,29 @@ export class CartModelFunctionality
   removeCartItemRequest(RequestID?: number): Promise<IApiResponse> {
     this.itemList = RequestID ? this.itemList.filter((x) => x.RequestID !== RequestID) : []
     this.getPromotionalForSeatGroups()
-    eventBus.publish(this.EVENT_UPDATE_CART, this.itemList)
+    this.updateCartByEvent()
     return Promise.resolve({ code: 200, data: "", error: false, success: true })
   }
 
-  launchRequest(): Promise<IApiResponse> {
+  getAllocations() {
     return getCheckoutInfo({
       PurchaserPersonID: this.buyer.PersonID,
       ItemList: this.itemList,
       PromotionalCodes: this.registrationPromos.map((x) => x.ShortName)
     }).then((allocationResponse) => {
+      this.allocations = allocationResponse.data
+      return allocationResponse
+    })
+  }
+
+  updateCartByEvent() {
+    this.getAllocations().then((response) => {
+      eventBus.publish(this.EVENT_UPDATE_CART, { itemList: this.itemList, allocations: response.data })
+    })
+  }
+
+  launchRequest(): Promise<IApiResponse> {
+    return this.getAllocations().then((allocationResponse) => {
       if (allocationResponse.success) {
         const orderSubmitPayload = {
           ParentRequestID: null,

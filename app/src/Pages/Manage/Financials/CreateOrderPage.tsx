@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { Button, Col, Dropdown, Menu, Row } from "antd"
+import { Button, Checkbox, Col, Dropdown, Menu, Row } from "antd"
 import { CartTable } from "~/Component/Feature/Order/CartTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
-import { IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { SelectBuyer } from "~/Component/Feature/Order/SelectBuyer"
 import { AddEnrollmentModal } from "~/Component/Feature/Order/Shop/AddEnrollmentModal"
 import { AddMembershipModal } from "~/Component/Feature/Order/Shop/AddMembershipModal"
@@ -17,6 +17,7 @@ import { PromoTable } from "~/Component/Feature/Order/PromoTable"
 import { getEntityById } from "~/ApiServices/Service/EntityService"
 import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { SubmitOrderButton } from "~/Component/Feature/Order/SubmitOrderButton"
+import { PaymentMethods } from "~/Component/Feature/Order/Payment/PaymentMethods"
 
 export const UPDATE_CART = "UPDATE_CART"
 export const UPDATE_BUYER = "UPDATE_BUYER"
@@ -24,10 +25,12 @@ export const UPDATE_PROMO = "UPDATE_PROMO"
 
 export default function CreateOrderPage() {
   const [buyer, setBuyer] = useState<IBuyer>({})
-  const [ItemList, setItemList] = useState<IItemRequest[]>([])
+  const [itemList, setItemList] = useState<IItemRequest[]>([])
+  const [allocations, setAllocations] = useState<IAllocation>()
+  const [promoCodes, setPromoCodes] = useState<IRegistrationPromo[]>([])
   const [cartModelFunctionality] = useState(new CartModelFunctionality(UPDATE_CART, UPDATE_BUYER, UPDATE_PROMO))
   const [orderRequestInProgress, setOrderRequestInProgress] = useState(false)
-  const [promoCodes, setPromoCodes] = useState<IRegistrationPromo[]>([])
+  const [launchWithPayment, setLaunchWithPayment] = useState(false)
 
   useEffect(() => {
     const queryParams = querystringToObject()
@@ -43,8 +46,9 @@ export default function CreateOrderPage() {
 
   useEffect(() => {
     setItemList(fakeCartData)
-    eventBus.subscribe(UPDATE_CART, (ItemList: IItemRequest[]) => {
-      setItemList(ItemList)
+    eventBus.subscribe(UPDATE_CART, (params: { itemList: IItemRequest[]; allocations: IAllocation }) => {
+      setItemList(params.itemList)
+      setAllocations(params.allocations)
     })
     eventBus.subscribe(UPDATE_BUYER, (buyer: IBuyer) => {
       setBuyer(buyer)
@@ -75,7 +79,7 @@ export default function CreateOrderPage() {
                     <AddSectionModal
                       sectionAddType="buy"
                       buyer={buyer}
-                      itemList={ItemList}
+                      itemList={itemList}
                       cartModelFunctionality={cartModelFunctionality}
                     />
                   </Menu.Item>
@@ -84,7 +88,7 @@ export default function CreateOrderPage() {
                       <AddSectionModal
                         sectionAddType="me"
                         buyer={buyer}
-                        itemList={ItemList}
+                        itemList={itemList}
                         cartModelFunctionality={cartModelFunctionality}
                       />
                     </Menu.Item>
@@ -94,7 +98,7 @@ export default function CreateOrderPage() {
                       <AddSectionModal
                         sectionAddType="others"
                         buyer={buyer}
-                        itemList={ItemList}
+                        itemList={itemList}
                         cartModelFunctionality={cartModelFunctionality}
                       />
                     </Menu.Item>
@@ -116,7 +120,7 @@ export default function CreateOrderPage() {
                     <AddProgramApplicationModal
                       sectionAddType="buy"
                       buyer={buyer}
-                      itemList={ItemList}
+                      itemList={itemList}
                       cartModelFunctionality={cartModelFunctionality}
                     />
                   </Menu.Item>
@@ -125,7 +129,7 @@ export default function CreateOrderPage() {
                       <AddProgramApplicationModal
                         sectionAddType="me"
                         buyer={buyer}
-                        itemList={ItemList}
+                        itemList={itemList}
                         cartModelFunctionality={cartModelFunctionality}
                       />
                     </Menu.Item>
@@ -135,7 +139,7 @@ export default function CreateOrderPage() {
                       <AddProgramApplicationModal
                         sectionAddType="others"
                         buyer={buyer}
-                        itemList={ItemList}
+                        itemList={itemList}
                         cartModelFunctionality={cartModelFunctionality}
                       />
                     </Menu.Item>
@@ -156,7 +160,7 @@ export default function CreateOrderPage() {
                     <AddEnrollmentModal
                       sectionAddType="buy"
                       buyer={buyer}
-                      itemList={ItemList}
+                      itemList={itemList}
                       cartModelFunctionality={cartModelFunctionality}
                     />
                   </Menu.Item>
@@ -165,7 +169,7 @@ export default function CreateOrderPage() {
                       <AddEnrollmentModal
                         sectionAddType="me"
                         buyer={buyer}
-                        itemList={ItemList}
+                        itemList={itemList}
                         cartModelFunctionality={cartModelFunctionality}
                       />
                     </Menu.Item>
@@ -175,7 +179,7 @@ export default function CreateOrderPage() {
                       <AddEnrollmentModal
                         sectionAddType="others"
                         buyer={buyer}
-                        itemList={ItemList}
+                        itemList={itemList}
                         cartModelFunctionality={cartModelFunctionality}
                       />
                     </Menu.Item>
@@ -195,21 +199,21 @@ export default function CreateOrderPage() {
                   <Menu.Item>
                     <AddProductModal
                       buyer={buyer}
-                      itemList={ItemList}
+                      itemList={itemList}
                       cartModelFunctionality={cartModelFunctionality}
                     />
                   </Menu.Item>
                   <Menu.Item>
                     <AddPackageModal
                       buyer={buyer}
-                      itemList={ItemList}
+                      itemList={itemList}
                       cartModelFunctionality={cartModelFunctionality}
                     />
                   </Menu.Item>
                   <Menu.Item>
                     <AddMembershipModal
                       buyer={buyer}
-                      itemList={ItemList}
+                      itemList={itemList}
                       cartModelFunctionality={cartModelFunctionality}
                     />
                   </Menu.Item>
@@ -224,7 +228,7 @@ export default function CreateOrderPage() {
         </Row>
         <Row>
           <Col span={24}>
-            <CartTable itemList={ItemList} cartModelFunctionality={cartModelFunctionality} />
+            <CartTable itemList={itemList} cartModelFunctionality={cartModelFunctionality} />
           </Col>
         </Row>
         <Row justify="end" gutter={4}>
@@ -235,12 +239,36 @@ export default function CreateOrderPage() {
               disable={orderRequestInProgress}
             />
           </Col>
+          {launchWithPayment && (
+            <Col span={24}>
+              <PaymentMethods
+                requestComponentName="OrderWithPayment"
+                buyer={buyer}
+                itemList={itemList}
+                allocations={allocations}
+                promoCodes={promoCodes}
+              />
+            </Col>
+          )}
+          <Col>
+            <Checkbox
+              disabled={!(itemList.length && buyer.AccountID)}
+              style={{ padding: "5px 0px 0px 0px" }}
+              checked={launchWithPayment}
+              onChange={(e) => {
+                setLaunchWithPayment(!!e.target.checked)
+              }}
+            >
+              With Payment
+            </Checkbox>
+          </Col>
           <Col>
             <SubmitOrderButton
+              disabled={!(itemList.length && buyer.AccountID)}
               orderRequestInProgress={orderRequestInProgress}
               setOrderRequestInProgress={setOrderRequestInProgress}
               cartModelFunctionality={cartModelFunctionality}
-              ItemList={ItemList}
+              itemList={itemList}
             />
           </Col>
         </Row>

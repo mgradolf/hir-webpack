@@ -2,8 +2,8 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { IItemRequest, IPersonProfile, IRegistrationRequest } from "~/Component/Feature/Order/Model/Interface/IModel"
 
 export interface IBuyer_Func {
-  assignPerson: (PersonID: IPersonProfile) => void
-  findIssue: (item: IItemRequest) => boolean
+  assignPerson: (Person: IPersonProfile) => void
+  findIssue?: (item: IItemRequest) => boolean
 }
 
 export interface ISeatGroup {
@@ -20,6 +20,8 @@ export interface ISeatGroup {
 export interface IRequest_Func {
   removeCartItemRequest: (RequestID?: number) => Promise<IApiResponse>
   launchRequest: () => Promise<IApiResponse>
+  getAllocations: () => Promise<IApiResponse>
+  updateCartByEvent: () => void
 }
 
 export interface IRegistrationRequest_Func {
