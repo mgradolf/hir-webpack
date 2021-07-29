@@ -13,6 +13,9 @@ export function FormDateTimePicker(props: IGeneratedField) {
       const t1 = moment(props.defaultValue)
       setValue(t1)
       props.formInstance.setFieldsValue({ [props.fieldName]: t1.format(DATE_TIME_FORMAT) })
+      props.formInstance.setFieldsValue({ [`__${props.fieldName}`]: t1 })
+      console.log(t1)
+      console.log(t1.format(DATE_TIME_FORMAT))
     }
     // eslint-disable-next-line
   }, [props.defaultValue])
@@ -26,7 +29,7 @@ export function FormDateTimePicker(props: IGeneratedField) {
       <Form.Item className="hidden" name={props.fieldName}>
         <Input />
       </Form.Item>
-      <SearchFieldWrapper {...props} fieldName="">
+      <SearchFieldWrapper {...props} fieldName={`__${props.fieldName}`}>
         <DatePicker
           allowClear
           showTime

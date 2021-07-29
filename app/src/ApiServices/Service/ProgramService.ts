@@ -42,3 +42,10 @@ export function saveOrUpdateProgramFinancial(
 ): Promise<IApiResponse> {
   return ProgramService[config.Actions.saveOrUpdateProgramFinancial](Params, Headers)
 }
+
+export function getProgramDetails(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return ProgramService[config.Actions.getProgramDetails](Params, Headers)
+}

@@ -42,7 +42,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
   const basicInfo: CardContainer = {
     title: "Basic Info",
     cardActions: [
-      <OfferingEditLink component={SecondStepForm} initialValues={offering} />,
+      <OfferingEditLink component={SecondStepForm} OfferingID={offering.OfferingID} />,
       <OfferingRemoveLink OfferingId={offering.OfferingID} HasSection={offering.HasSection} />
     ],
     contents: [
@@ -76,7 +76,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
 
   const characteristicsInfo: CardContainer = {
     title: "Core Characteristics",
-    cardActions: [<OfferingEditLink component={ThirdStepForm} initialValues={offering} />],
+    cardActions: [<OfferingEditLink component={ThirdStepForm} OfferingID={offering.OfferingID} />],
     contents: [
       {
         label: "Status",

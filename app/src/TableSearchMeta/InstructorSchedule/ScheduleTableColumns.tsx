@@ -4,7 +4,7 @@ import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTa
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import InstructorScheduleMenu from "~/Component/Feature/Instructor/InstructorScheduleMenu"
 
-export const getInstructorScheduleTableColumns = (PersonID?: number): ITableConfigProp => {
+export const getInstructorScheduleTableColumns = (PersonID?: number, RoomID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Start Date/Time",
@@ -37,7 +37,7 @@ export const getInstructorScheduleTableColumns = (PersonID?: number): ITableConf
 
   return {
     columns,
-    searchFunc: () => findEntitySchedule({ PersonID }),
+    searchFunc: () => findEntitySchedule({ PersonID, RoomID }),
     tableName: "ScheduleTableColumns"
   }
 }

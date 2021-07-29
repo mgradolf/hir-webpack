@@ -7,7 +7,8 @@ import {
   CopyOutlined,
   MailOutlined,
   UndoOutlined,
-  InfoCircleOutlined
+  InfoCircleOutlined,
+  RightCircleOutlined
 } from "@ant-design/icons"
 import { Button, Tooltip } from "antd"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
@@ -15,7 +16,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Redirect } from "react-router"
 import { ButtonType } from "antd/lib/button"
 
-export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email" | "undo" | "info"
+export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email" | "undo" | "info" | "right"
 
 export const IconButton = (props: {
   onClick?: () => void
@@ -69,7 +70,8 @@ export const IconButton = (props: {
       copy: <CopyOutlined />,
       email: <MailOutlined />,
       undo: <UndoOutlined />,
-      info: <InfoCircleOutlined />
+      info: <InfoCircleOutlined />,
+      right: <RightCircleOutlined />
     }
     _button = (
       <Button

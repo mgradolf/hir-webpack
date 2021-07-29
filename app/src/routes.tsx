@@ -13,6 +13,10 @@ export const AppRoutes: RouteProps[] = [
     )
   },
   { path: "/offering/:offeringID", component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/Details")) },
+  {
+    path: "/offering/:offeringID/section/:sectionID",
+    component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Details"))
+  },
   // {
   //   path: "/offering/:offeringID/financial",
   //   component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/Financial/FinancialPage"))
