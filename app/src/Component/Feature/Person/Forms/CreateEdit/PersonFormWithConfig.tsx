@@ -125,6 +125,13 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
                 setZipIsRequired(true)
                 setStateIsRequired(true)
               } else {
+                props.formInstance.setFields([
+                  { name: fieldNames.TelephoneNumber, errors: [] },
+                  { name: fieldNames.AddressLine1, errors: [] },
+                  { name: fieldNames.Locality, errors: [] },
+                  { name: fieldNames.RegionCodeID, errors: [] },
+                  { name: fieldNames.PostalCode, errors: [] }
+                ])
                 setTelephoneIsRequired(false)
                 setAddressline1Required(false)
                 setCityIsRequired(false)

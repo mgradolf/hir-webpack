@@ -32,7 +32,6 @@ import { DATE_PICKER, NUMBER } from "~/Component/Common/Form/common"
 import { Typography } from "antd"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
-  console.log("Program: ", program)
   const info: CardContainer = {
     cardActions: [
       <ProgramFormOpenButton iconType="edit" editMode={true} ProgramID={program.ProgramID} />,

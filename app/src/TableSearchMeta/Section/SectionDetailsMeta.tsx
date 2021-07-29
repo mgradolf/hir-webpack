@@ -58,7 +58,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const sectionInfo: CardContainer = {
     title: "Basic Info",
     cardActions: [
-      <SectionEditLink tooltip="Update Basic Info" initialValues={section} component={BasicInfoForm} />,
+      <SectionEditLink tooltip="Update Basic Info" SectionID={section.SectionID} component={BasicInfoForm} />,
       <SectionRemoveButton Section={section} />
     ],
     contents: [
@@ -123,7 +123,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const enrollmentInfo: CardContainer = {
     title: "Enrollment",
     cardActions: [
-      <SectionEditLink tooltip="Update Entollment" initialValues={section} component={SectionEnrollmentForm} />
+      <SectionEditLink tooltip="Update Entollment" SectionID={section.SectionID} component={SectionEnrollmentForm} />
     ],
     contents: [
       { label: "Current Enrollment", value: section.TotalEnrolledSeats, render: undefined },
@@ -172,7 +172,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     cardActions: [
       <SectionEditLink
         tooltip={`Update Refund & Inquiry`}
-        initialValues={section}
+        SectionID={section.SectionID}
         component={SectionRefundEnquiryForm}
       />
     ],

@@ -22,28 +22,30 @@ const layout = {
 export default function AllocationStepForm(props: IAllocationStepFormProps) {
   const SectionID = props.formInstance.getFieldValue("SectionID")
   const onSelectSection = (items: any) => {
-    getSectionStatistics({ SectionID: items[0].SectionID }).then((x: any) => {
-      if (x.success) {
-        props.formInstance.setFieldsValue({
-          CurrentAllocation: x.data.TotalSeats,
-          AvailableSeat: x.data.TotalAvailableSeats,
-          HasFinancial: x.data.HasFinancials
-        })
-        if (!x.data.HasFinancials) {
-          if (props.setErrorMessages !== undefined) {
-            props.setErrorMessages([
-              { message: "No financial setup for this section, You will not be able to generate package order!" }
-            ])
-          }
-        } else {
-          if (props.setErrorMessages !== undefined) {
-            props.setErrorMessages([])
+    if (items !== undefined) {
+      getSectionStatistics({ SectionID: items[0].SectionID }).then((x: any) => {
+        if (x.success) {
+          props.formInstance.setFieldsValue({
+            CurrentAllocation: x.data.TotalSeats,
+            AvailableSeat: x.data.TotalAvailableSeats,
+            HasFinancial: x.data.HasFinancials
+          })
+          if (!x.data.HasFinancials) {
+            if (props.setErrorMessages !== undefined) {
+              props.setErrorMessages([
+                { message: "No financial setup for this section, You will not be able to generate package order!" }
+              ])
+            }
+          } else {
+            if (props.setErrorMessages !== undefined) {
+              props.setErrorMessages([])
+            }
           }
         }
-      }
-    })
-    props.formInstance.setFieldsValue({ SectionNumber: items[0].SectionNumber })
-    props.formInstance.setFieldsValue({ MaxAllowed: items[0].MaxEnrollment })
+      })
+      props.formInstance.setFieldsValue({ SectionNumber: items[0].SectionNumber })
+      props.formInstance.setFieldsValue({ MaxAllowed: items[0].MaxEnrollment })
+    }
   }
 
   return (

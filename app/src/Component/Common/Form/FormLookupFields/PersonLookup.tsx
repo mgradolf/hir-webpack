@@ -8,8 +8,9 @@ export function PersonLookup(props: IGeneratedField) {
   return (
     <LookupOpenButton
       lookupModalTitle="Select Person"
-      displayKey="SortName"
-      searchFieldName="SortName"
+      displayKey="PersonDescriptor"
+      searchFieldName="FormattedName"
+      placeholder="Search By Full Name"
       meta={PersonSearchMeta as IField[]}
       help={props.help}
       metaName="PersonSearchMeta"

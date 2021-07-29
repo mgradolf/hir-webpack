@@ -1,7 +1,7 @@
 import React from "react"
 import { Button, Tooltip } from "antd"
 import { deleteOfferingFromGroup } from "~/ApiServices/BizApi/course/requisiteIf"
-import { eventBus, REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 import { DeleteOutlined } from "@ant-design/icons"
 
@@ -25,7 +25,7 @@ export function RequisiteOfferingRemoveLink(props: IRequisiteOfferingRemoveLinkP
               RequisiteGroupId: props.requisiteGroupId
             }).then((x) => {
               if (x && x.success) {
-                eventBus.publish(REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP)
+                eventBus.publish("REFRESH_OFFERING_REQUISITE_TABLE")
               }
               return x
             })

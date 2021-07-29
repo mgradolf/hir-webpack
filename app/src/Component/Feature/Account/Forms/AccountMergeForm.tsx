@@ -105,8 +105,10 @@ export default function AccountMergeForm(props: IAccountMergeFormProps) {
   }
 
   const onSelectedDuplicateAccount = (accounts: any) => {
-    setErrorMessages([])
-    setDuplicateAccount(accounts[0])
+    if (accounts !== undefined) {
+      setErrorMessages([])
+      setDuplicateAccount(accounts[0])
+    }
   }
 
   return (
