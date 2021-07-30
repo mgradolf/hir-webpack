@@ -85,7 +85,7 @@ export function CertificateFormModal(props: ICertificateFormProps) {
   }
 
   return (
-    <>
+     <>
       {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
       <CustomFormModalOpenButton
         formTitle={props.editMode ? "Edit Issue Certificate" : "Issue Certificate"}

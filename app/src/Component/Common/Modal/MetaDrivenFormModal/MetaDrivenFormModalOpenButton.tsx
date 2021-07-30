@@ -19,6 +19,7 @@ interface IMetaDrivenFormModalOpenButton {
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
   refreshEventName?: string
+  helpkey?: string
 }
 export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenButton) => {
   const [showModal, setShowModal] = useState(false)
@@ -46,6 +47,7 @@ export const MetaDrivenFormModalOpenButton = (props: IMetaDrivenFormModalOpenBut
           defaultFormValue={props.defaultFormValue}
           refreshEventAfterFormSubmission={props.refreshEventName}
           closeModal={() => setShowModal(false)}
+          helpkey={props.helpkey}
         />
       )}
     </>

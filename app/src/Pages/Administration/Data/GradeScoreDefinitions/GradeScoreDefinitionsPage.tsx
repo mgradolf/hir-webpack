@@ -8,6 +8,7 @@ export default function CertificatesPage() {
     <SearchPage
       title="Grade Score Definitions"
       meta={GradeScoreDefinitionSearchMeta}
+      helpKey="administrationDataGradeScoreDefinitionSearch"
       metaName="GradeScoreDefinitionSearchMeta"
       hideSearchField={false}
       tableProps={{

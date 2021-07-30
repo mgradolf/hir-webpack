@@ -33,6 +33,7 @@ import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import { processFormMetaWithUserMetaConfig } from "~/Component/Common/Form/FormMetaShadowingProcessor"
 import { eventBus } from "~/utils/EventBus"
 import { generateUUID } from "~/utils/UUID"
+import { HelpButton } from "./Buttons/HelpButton"
 
 export function MetaDrivenForm({
   showClearbutton = true,
@@ -43,6 +44,7 @@ export function MetaDrivenForm({
   meta: IField[]
   metaName?: string
   title?: React.ReactNode
+  helpkey?: string
   loading?: boolean
   isModal?: boolean
   onApplyChanges: (newValues: { [key: string]: any }, appliedFilterCount: number) => void
@@ -192,7 +194,14 @@ export function MetaDrivenForm({
 
   return (
     <Card
-      title={props.title}
+      title={
+        <Row justify="space-between">
+          <Col>{props.title}</Col>
+          <Col>
+            <HelpButton helpKey={props.helpkey} />
+          </Col>
+        </Row>
+      }
       loading={props.loading}
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>

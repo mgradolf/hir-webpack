@@ -138,7 +138,6 @@
   "courseSearchWaitlistEntries": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/courses/waitlist-entries/",
   "courseAddWaitlistEntries": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/courses/waitlist-entries/add-waitlist-entry/",
   "courseWaitlistEntriesSummaryTab": "",
-
   "programsSearchOffering": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/programs/offering/manage-offering/",
   "programsCreateProgramOffering": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/programs/offering/create-program-offering/",
   "programsEditProgramOffering": "http://wordpress-ha-by-bitnami.bitnamiapp.com/docs/higher-reach/programs/offering/edit-program-offering/",

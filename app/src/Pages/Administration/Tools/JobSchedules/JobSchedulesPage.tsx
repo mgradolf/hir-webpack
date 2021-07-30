@@ -6,6 +6,7 @@ export default function JobSchedulesPage() {
   return (
     <SearchPage
       title="Job Schedules"
+      helpKey="administrationToolsJobSchedule"
       defaultFormValue={{}}
       tableProps={{
         ...getJobScheduleTableColumns()

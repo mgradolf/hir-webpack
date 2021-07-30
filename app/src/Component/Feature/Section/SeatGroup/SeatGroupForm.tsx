@@ -10,6 +10,7 @@ import { Redirect } from "react-router"
 import { CREATE_SUCCESSFULLY, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
@@ -84,6 +85,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   }
 
   return (
+
     <>
       {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
       <Card

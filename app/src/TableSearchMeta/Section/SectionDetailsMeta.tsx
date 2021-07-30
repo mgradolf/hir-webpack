@@ -218,7 +218,10 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const seatgroupMeta: IDetailsTableTabProp = {
-    blocks: [<SeatgroupFormModalOpenButton SectionID={section.SectionID} />],
+    blocks: [
+      <SeatgroupFormModalOpenButton SectionID={section.SectionID} />,
+      <HelpButton helpKey="sectionSeatGroupsTab" />
+    ],
     tableProps: {
       ...getSeatgroupTableColumns(false, undefined, section.SectionID, undefined),
       searchParams: { SectionID: section.SectionID },
@@ -259,7 +262,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const registrationMeta: IDetailsTableTabProp = {
-    blocks: [<HelpButton helpKey="sectionRegistrationsTab" />],
+    blocks: [<HelpButton helpKey="sectionRegistrationsRostersTab" />],
     tableProps: {
       ...getRegistrationTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -286,7 +289,10 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const waitlistEntriesMeta: IDetailsTableTabProp = {
-    blocks: [<WaitlistEntryFormOpenButton SectionID={section.SectionID} />],
+    blocks: [
+      <WaitlistEntryFormOpenButton SectionID={section.SectionID} />,
+      <HelpButton helpKey="sectionRegistrationsWaitlistTab" />
+    ],
     tableProps: {
       ...getWaitlistEntriesTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -300,6 +306,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const enrollmentMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRegistrationsHistoryTab" />],
     tableProps: {
       ...getEnrollmentTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -308,6 +315,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const academicActivityMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRegistrationsAcademicTab" />],
     tableProps: {
       ...getAcademicActivityLogTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -316,6 +324,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const enrollmentActivityMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRegistrationsEnrollmentTab" />],
     tableProps: {
       ...getEnrollmentActivityLogTableColumns(),
       searchParams: { SectionIDs: [section.SectionID] },

@@ -1,3 +1,5 @@
+import React from "react"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 
@@ -23,6 +25,7 @@ export const getGradeScoreDefinitionDetailsMeta = (activity: { [key: string]: an
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="administrationDataGradeScoreDefinitionSummaryTab" />],
       summary: [summary]
     }
   })
