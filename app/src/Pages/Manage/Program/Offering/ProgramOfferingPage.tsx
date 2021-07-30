@@ -17,9 +17,9 @@ export default function () {
         blocks={[
           <MetaDrivenFormModalOpenButton
             buttonLabel="Create Program Offering"
-            helpkey="programsCreateProgramOffering"
             iconType="create"
             formTitle="Create Program Offering"
+            helpkey="programsCreateProgramOffering"
             formMeta={ProgramOfferingFormMeta}
             formSubmitApi={(Params: { [key: string]: any }) =>
               createOrUpdateProgramOffering(Params).then((x) => {

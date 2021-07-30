@@ -39,7 +39,6 @@ export default function SearchListWithVisibleSearchForm(props: ISearchListWithVi
                   {props.blocks && props.blocks.map((x, i) => <Col key={i}>{x}</Col>)}
                   <Col>
                     <HelpButton helpKey={props.helpKey} />
-                    Hello World
                   </Col>
                 </Row>
               </Col>

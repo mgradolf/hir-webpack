@@ -9,10 +9,9 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 
 export const MetaDrivenFormModal = (props: {
-  title: string
+  title: React.ReactNode
   meta: IField[]
   metaName?: string
-  helpkey?: string
   isHorizontal?: boolean
   initialFormValue?: { [key: string]: any }
   defaultFormValue?: { [key: string]: any }
@@ -56,7 +55,6 @@ export const MetaDrivenFormModal = (props: {
         meta={props.meta}
         metaName={props.metaName}
         title={props.title}
-        helpkey={props.helpkey}
         loading={loading}
         isHorizontal={props.isHorizontal}
         isModal={true}
