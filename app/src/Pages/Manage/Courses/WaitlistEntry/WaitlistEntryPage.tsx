@@ -13,11 +13,7 @@ export default function WaitlistEntryPage() {
         meta={WaitlistEntriesSearchMeta}
         metaName="WaitlistEntriesSearchMeta"
         hideSearchField={false}
-        blocks={[
-          <>
-            <WaitlistEntryFormOpenButton />
-          </>
-        ]}
+        blocks={[<WaitlistEntryFormOpenButton editMode={false} />]}
         tableProps={{
           ...getWaitlistEntriesTableColumns(false)
         }}

@@ -1,16 +1,15 @@
 import { Button, Card, DatePicker, Form, Input } from "antd"
 import React, { useEffect, useState } from "react"
 import { DATE_FORMAT } from "~/utils/Constants"
-import Modal from "~/Component/Common/Modal"
+import Modal from "~/Component/Common/Modal/index2"
 import { bulkDropRegistration, bulkDeleteRegistration } from "~/ApiServices/Service/RegistrationService"
 import { getSectionById } from "~/ApiServices/Service/EntityService"
 import moment from "moment"
 
 interface INoShowDeleteModal {
   SectionID: number
-  showModal: boolean
-  setShowModal: (flag: boolean) => void
   selectedRows: any[]
+  closeModal: () => void
 }
 export default function NoShowDeleteModal(props: INoShowDeleteModal) {
   const [EffectiveDate, setEffectiveDate] = useState("")
@@ -30,8 +29,8 @@ export default function NoShowDeleteModal(props: INoShowDeleteModal) {
       EffectiveDate,
       RegistrationInfos: props.selectedRows
     }).then((x) => {
-      if (x.success) props.setShowModal(false)
       setApiCallInProgress(false)
+      if (x.success) props.closeModal()
     })
   }
   const onDelete = () => {
@@ -41,14 +40,13 @@ export default function NoShowDeleteModal(props: INoShowDeleteModal) {
       EffectiveDate,
       RegistrationInfos: props.selectedRows
     }).then((x) => {
-      if (x.success) props.setShowModal(false)
       setApiCallInProgress(false)
+      if (x.success) props.closeModal()
     })
   }
   return (
     <Modal
       apiCallInProgress={apiCallInProgress}
-      showModal={props.showModal}
       width="500px"
       children={
         <Card
@@ -60,7 +58,7 @@ export default function NoShowDeleteModal(props: INoShowDeleteModal) {
             <Button danger type="primary" onClick={onDelete} disabled={EffectiveDate === ""}>
               Delete
             </Button>,
-            <Button type="primary" onClick={() => props.setShowModal(false)}>
+            <Button type="primary" onClick={() => props.closeModal()}>
               Cancel
             </Button>
           ]}

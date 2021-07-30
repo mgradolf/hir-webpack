@@ -4,7 +4,7 @@ import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/Deta
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
 import { SectionEditLink } from "~/Component/Feature/Section/SectionEditLink"
 import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
 import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
@@ -62,6 +62,10 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       <SectionRemoveButton Section={section} />
     ],
     contents: [
+      {
+        label: "Offering",
+        value: renderLink(`/offering/${section.OfferingID}`, section.OfferingCode)
+      },
       {
         label: "Status",
         value: (
@@ -286,7 +290,13 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const waitlistEntriesMeta: IDetailsTableTabProp = {
-    blocks: [<WaitlistEntryFormOpenButton SectionID={section.SectionID} />],
+    blocks: [
+      section.TotalAvailableSeats === 0 ? (
+        <WaitlistEntryFormOpenButton SectionID={section.SectionID} editMode={false} />
+      ) : (
+        <></>
+      )
+    ],
     tableProps: {
       ...getWaitlistEntriesTableColumns(),
       searchParams: { SectionID: section.SectionID },

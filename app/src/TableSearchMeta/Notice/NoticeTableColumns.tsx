@@ -6,22 +6,22 @@ import NoticeEditLink from "~/Component/Feature/Section/Notice/NoticeEditLink"
 
 export const getNoticeTableColumns = (SectionID: number): ITableConfigProp => {
   const columns: TableColumnType = [
+    // {
+    //   dataIndex: "SectionNoticeID",
+    //   render: (text: any, record: any) => (
+    //     <Link to={`/notice/${text}`}>
+    //       <ReadOutlined />
+    //     </Link>
+    //   )
+    // },
     {
       title: "Section Notification Type",
       dataIndex: "SectionNoticeType"
     },
     {
-      title: "From Email Address",
-      dataIndex: "FromEmailAddress"
-    },
-    {
-      title: "To Email Address",
-      dataIndex: "ToEmailAddress"
-    },
-    {
       title: "Subject",
       dataIndex: "Subject",
-      width: 400
+      width: "50%"
     },
     {
       title: "Active",

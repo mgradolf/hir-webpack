@@ -32,12 +32,6 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
 
   return (
     <div className="site-layout-content">
-      <NoShowDeleteModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        selectedRows={selectedRows}
-        SectionID={props.SectionID}
-      />
       <MetaDrivenForm
         meta={[
           {
@@ -52,6 +46,7 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
           newValues.SectionID = props.SectionID
           setSearchParams(newValues)
         }}
+        stopProducingQueryParams={true}
       />
       <Button
         style={{ float: "right", zIndex: 10 }}
@@ -61,6 +56,13 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
       >
         Drop/Delete
       </Button>
+      {showModal && (
+        <NoShowDeleteModal
+          selectedRows={selectedRows}
+          SectionID={props.SectionID}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
       <ResponsiveTable
         {...getSectionNoShowTableColumns()}
         refreshEventName={REFRESH_SECTION_NO_SHOW_PAGE}
