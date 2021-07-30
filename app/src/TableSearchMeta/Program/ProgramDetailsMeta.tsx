@@ -29,6 +29,7 @@ import { getProgramFinancialTableColumns } from "~/TableSearchMeta/ProgramFinanc
 import { ProgramFinancialFormOpenButton } from "~/Component/Feature/ProgramFinancial/ProgramFinancialFormOpenButton"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { DATE_PICKER, NUMBER } from "~/Component/Common/Form/common"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -81,7 +82,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
           { label: "Application Start Date", inputType: DATE_PICKER, fieldName: "ApplicationStartDate" },
           { label: "Application End Date", inputType: DATE_PICKER, fieldName: "ApplicationEndDate" }
         ]}
-        formTitle="Edit Program Enrollment"
+        formTitle="Edit Program Application"
         initialFormValue={{
           ApplicationStartDate: program.ApplicationStartDate,
           ApplicationEndDate: program.ApplicationEndDate
@@ -89,6 +90,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         defaultFormValue={{ ProgramID: program.ProgramID }}
         formSubmitApi={saveProgramWithEvent}
         refreshEventName={REFRESH_PAGE}
+        helpkey="programSummaryEditProgramApplicationForm"
         buttonLabel={`Edit`}
         iconType="edit"
       />
@@ -120,6 +122,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         refreshEventName={REFRESH_PAGE}
         buttonLabel={`Edit`}
         iconType="edit"
+        helpkey="programSummaryEditProgramEnrollmentForm"
       />
     ],
     contents: [
@@ -130,6 +133,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   }
 
   const catalogMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="programCatalogsTab" />],
     tableProps: {
       ...getProgramCatalogTableColumns(program.ProgramID),
       searchParams: { ProgramID: program.ProgramID },
@@ -138,6 +142,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   }
 
   const applicationMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="programApplicationsTab" />],
     tableProps: {
       ...getProgramApplicationTableColumns(),
       searchParams: { programID: program.ProgramID },
@@ -146,6 +151,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   }
 
   const enrollmentMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="programEnrollmentsTab" />],
     tableProps: {
       ...getProgramEnrollmentTableColumns(),
       searchParams: { programID: program.ProgramID },
@@ -154,6 +160,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   }
 
   const seatgroupMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="programSeatGroupsTab" />],
     tableProps: {
       ...getSeatgroupTableColumns(),
       searchParams: { ProgramID: program.ProgramID },
@@ -167,6 +174,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   }
 
   const summaryMeta: IDetailsSummary = {
+    actions: [<HelpButton helpKey="programSummaryTab" />],
     summary: [info, application, enrollment]
   }
 
@@ -229,7 +237,8 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
             <ProgramOfferingRequirementsGroupFormOpenButton
               editMode={false}
               OfferingGroup={{ ProgramID: program.ProgramID }}
-            />
+            />,
+            <HelpButton helpKey="programOfferingRequirementsTab" />
           ],
           tableProps: {
             ...getProgramOfferingRequirementsTableColumns(),
@@ -243,7 +252,8 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         tabType: "table",
         tabMeta: {
           blocks: [
-            <ProgramFinancialFormOpenButton editMode={false} ProgramFinancial={{ ProgramID: program.ProgramID }} />
+            <ProgramFinancialFormOpenButton editMode={false} ProgramFinancial={{ ProgramID: program.ProgramID }} />,
+            <HelpButton helpKey="programProgramFinancialTab" />
           ],
           tableProps: {
             ...getProgramFinancialTableColumns(),

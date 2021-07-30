@@ -9,6 +9,7 @@ export default function SitePage() {
       title="Sites"
       meta={SiteSearchMeta}
       metaName="SiteSearchMeta"
+      helpKey="administrationDataSitesSearch"
       hideSearchField={false}
       tableProps={{
         ...getSiteTableColumns()

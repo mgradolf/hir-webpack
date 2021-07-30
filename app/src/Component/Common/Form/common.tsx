@@ -36,6 +36,7 @@ export interface IField {
   hidden?: boolean
   placeholder?: string
   disabled?: boolean
+  helpkey?: string
 
   fieldName: string
   defaultValue?: any

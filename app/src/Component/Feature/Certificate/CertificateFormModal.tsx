@@ -89,6 +89,7 @@ export function CertificateFormModal(props: ICertificateFormProps) {
           setApiCallInProgress={setApiCallInProgress}
         />
       }
+      helpKey="courseCertificatesIssueCertificateForm"
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}
       initialValues={props.initialValues}

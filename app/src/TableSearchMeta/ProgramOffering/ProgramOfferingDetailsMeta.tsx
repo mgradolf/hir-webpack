@@ -32,6 +32,7 @@ export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): 
         defaultFormValue={{ ProgramOfferingID: program.OfferingID }}
         isHorizontal={true}
         refreshEventName={REFRESH_PAGE}
+        helpkey="programsEditProgramOffering"
       />,
       <IconButton
         toolTip="Delete Program Offering"

@@ -7,6 +7,7 @@ export default function () {
   return (
     <SearchPage
       title="Organization"
+      helpKey="administrationDataOrganizationSearch"
       meta={OrganizationSearchMeta}
       metaName="OrganizationSearchMeta"
       hideSearchField={false}

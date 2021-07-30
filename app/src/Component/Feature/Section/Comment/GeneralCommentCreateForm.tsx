@@ -11,6 +11,7 @@ import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IGeneralCommentCreateForm {
   SectionID?: number
@@ -62,7 +63,14 @@ export default function GeneralCommentCreateForm(props: IGeneralCommentCreateFor
 
   return (
     <Card
-      title="Create General Comment"
+      title={
+        <Row justify="space-between">
+          <Col>Create General Comment</Col>
+          <Col>
+            <HelpButton helpKey="sectionCommentsCreateGeneralCommentForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

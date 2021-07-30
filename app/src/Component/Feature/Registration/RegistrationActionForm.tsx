@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Redirect } from "react-router-dom"
-import { Form, Input, Select, Switch, DatePicker, Table, Spin, Button, Card } from "antd"
+import { Form, Input, Select, Switch, DatePicker, Table, Spin, Button, Card, Row, Col } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
@@ -20,6 +20,7 @@ import {
 import { IRegistrationActionFieldNames } from "~/Component/Feature/Registration/Interfaces"
 import "~/Sass/utils.scss"
 import moment from "moment"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IRegistrationFormProps {
   initialFormValue: { [key: string]: any }
@@ -188,7 +189,17 @@ export default function RegistrationActionForm(props: IRegistrationFormProps) {
   actions.push(<Button onClick={onFormSubmission}>Update</Button>)
 
   return (
-    <Card title={"Registration Drop/Withdraw/Delete"} actions={actions}>
+    <Card
+      title={
+        <Row justify="space-between">
+          <Col>Registration Drop/Withdraw/Delete</Col>
+          <Col>
+            <HelpButton helpKey="registrationSummaryDropWithdrawDeleteForm" />
+          </Col>
+        </Row>
+      }
+      actions={actions}
+    >
       <Spin size="large" spinning={loading}>
         <Form form={form} initialValues={props.initialFormValue}>
           <OldFormError errorMessages={errorMessages} />

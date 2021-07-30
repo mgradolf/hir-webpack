@@ -8,6 +8,7 @@ import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleRespon
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
@@ -75,7 +76,16 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
 
   return (
     <Card
-      title={props.seatgroupId ? `Edit seat group` : "Create new seat group"}
+      title={
+        <Row justify="space-between">
+          <Col>{props.seatgroupId ? `Edit seat group` : `Create new seat group`}</Col>
+          <Col>
+            <HelpButton
+              helpKey={props.seatgroupId ? `sectionSeatGroupsEditSeatGroup` : `sectionSeatGroupsCreateNewSeatGroup`}
+            />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

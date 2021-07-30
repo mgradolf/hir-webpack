@@ -17,6 +17,7 @@ export default function () {
         blocks={[
           <MetaDrivenFormModalOpenButton
             buttonLabel="Create Program Offering"
+            helpkey="programsCreateProgramOffering"
             iconType="create"
             formTitle="Create Program Offering"
             formMeta={ProgramOfferingFormMeta}

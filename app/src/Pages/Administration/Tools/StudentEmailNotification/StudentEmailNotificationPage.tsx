@@ -6,6 +6,7 @@ export default function StudentEmailNotificationPage() {
   return (
     <SearchPage
       title="Student Email Notification"
+      helpKey="administrationToolsStudentEmailNotification"
       defaultFormValue={{}}
       tableProps={{
         ...getStudentEmailTableColumns()

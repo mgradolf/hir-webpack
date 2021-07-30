@@ -8,6 +8,7 @@ export default function ProgramEnrollment() {
     <SearchPage
       title="Manage Program Enrollments"
       meta={ProgramEnrollmentSearchMeta}
+      helpKey="searchProgramEnrollment"
       metaName="ProgramEnrollmentSearchMeta"
       hideSearchField={false}
       defaultFormValue={{}}

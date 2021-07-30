@@ -1,3 +1,5 @@
+import React from "react"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean, renderEmail } from "~/Component/Common/ResponsiveTable"
@@ -22,6 +24,7 @@ export const getStudentEmailDetailsMeta = (activity: { [key: string]: any }): ID
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="toolsStudentEmailNotificationSummaryTab" />],
       summary: [summary]
     }
   })

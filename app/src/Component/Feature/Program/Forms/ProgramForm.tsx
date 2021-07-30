@@ -226,6 +226,7 @@ export function ProgramFormOpenButton(props: {
     <>
       {redirectTo && <Redirect to={redirectTo} />}
       <CustomFormModalOpenButton
+        helpKey={props.editMode ? "programSummaryEditProgramForm" : "programOfferingProgramsAddNewProgram"}
         formTitle={props.editMode ? "Edit Program" : "Add New Program"}
         customForm={<ProgramForm editMode={true} initialValue={initialValues} formInstance={formInstance} />}
         formInstance={formInstance}

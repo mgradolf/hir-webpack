@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Form, Button, Input, Select, DatePicker, Spin, Card } from "antd"
+import { Form, Button, Input, Select, DatePicker, Spin, Card, Col, Row } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { CEU_HOURS, CREDIT_HOURS, DATE_TIME_FORMAT, REQUEST_DATE_TIME_FORMAT } from "~/utils/Constants"
@@ -13,6 +13,7 @@ import { IRegistrationGradeFieldNames } from "~/Component/Feature/Registration/I
 import "~/Sass/utils.scss"
 import moment from "moment"
 import { eventBus, REFRESH_REGISTRATION_DETAIL_PAGE } from "~/utils/EventBus"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IRegistrationGradeFormProps {
   initialFormValue: { [key: string]: any }
@@ -161,7 +162,17 @@ export default function RegistrationGradeForm(props: IRegistrationGradeFormProps
   actions.push(<Button onClick={onFormSubmission}>Update</Button>)
 
   return (
-    <Card title={"Update Grades"} actions={actions}>
+    <Card
+      title={
+        <Row justify="space-between">
+          <Col>Update Grades</Col>
+          <Col>
+            <HelpButton helpKey="registrationSummaryUpdateGradesForm" />
+          </Col>
+        </Row>
+      }
+      actions={actions}
+    >
       <Spin size="large" spinning={loading}>
         <Form
           form={form}
