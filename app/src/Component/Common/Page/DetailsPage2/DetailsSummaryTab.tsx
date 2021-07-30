@@ -7,15 +7,19 @@ const DetailsCardContainer = (props: { card: CardContainer }) => {
     <Card title={props.card.title} extra={props.card.cardActions ? props.card.cardActions : []}>
       <table className="dorakata-table">
         <tbody>
-          {Array.isArray(props.card.contents)
-            ? props.card.contents.map((y: CardContents, j: number) => (
-                <tr key={j} className={y.cssClass}>
-                  <td>{y.label}</td>
-                  <td style={{ width: "30px" }}></td>
-                  <td>{y.jsx ? y.jsx : y.render ? y.render(y.value) : y.value}</td>
-                </tr>
-              ))
-            : []}
+          {Array.isArray(props.card.contents) && props.card.contents.length > 0 ? (
+            props.card.contents.map((y: CardContents, j: number) => (
+              <tr key={j} className={y.cssClass}>
+                <td>{y.label}</td>
+                <td style={{ width: "30px" }}></td>
+                <td>{y.jsx ? y.jsx : y.render ? y.render(y.value) : y.value}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td style={{ color: "red" }}>No data available!</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </Card>
@@ -23,7 +27,6 @@ const DetailsCardContainer = (props: { card: CardContainer }) => {
 }
 
 export const DetailsSummary = (props: IDetailsSummary) => {
-  console.log("this is action ", props.actions)
   return (
     <>
       {Array.isArray(props.actions) && (

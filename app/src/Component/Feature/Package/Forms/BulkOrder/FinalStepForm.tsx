@@ -72,6 +72,14 @@ export default function FinalStepForm(props: IFinalStepFormProps) {
             ariaLabel={"Section"}
             fieldName={"SectionNumber"}
           />
+          <FormInput
+            disabled
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Invitation Code"}
+            ariaLabel={"Invitation Code"}
+            fieldName={"InvitationCode"}
+          />
           {isGenerateOrder && (
             <FormDropDown
               disabled
@@ -107,13 +115,13 @@ export default function FinalStepForm(props: IFinalStepFormProps) {
             ariaLabel={"Requested Seat"}
             fieldName={"NumberOfSeats"}
           />
-          <FormInput
+          <FormNumberInput
             disabled
             {...layout}
             formInstance={props.formInstance}
-            label={"Invitation Code"}
-            ariaLabel={"Invitation Code"}
-            fieldName={"InvitationCode"}
+            label={"Credit Unit"}
+            ariaLabel={"Credit Unit"}
+            fieldName={"AllowedCredit"}
           />
           {isGenerateOrder && (
             <FormNumberInput

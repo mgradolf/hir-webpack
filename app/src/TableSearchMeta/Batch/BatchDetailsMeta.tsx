@@ -1,3 +1,5 @@
+import React from "react"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
@@ -24,6 +26,7 @@ export const getBatchDetailsMeta = (batch: { [key: string]: any }): IDetailsMeta
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="toolsBatchSearchBatchSummaryTab" />],
       summary: [summary]
     }
   })

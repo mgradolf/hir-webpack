@@ -7,6 +7,7 @@ export default function () {
   return (
     <SearchPage
       title="Manage Batch"
+      helpKey="toolsBatchSearch"
       meta={BatchSearchMeta}
       metaName="BatchSearchMeta"
       hideSearchField={false}

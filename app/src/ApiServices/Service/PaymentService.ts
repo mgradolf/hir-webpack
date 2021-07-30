@@ -28,3 +28,17 @@ export function setCustomPaymentAmount(
 ): Promise<IApiResponse> {
   return PaymentService[config.Actions.setCustomPaymentAmount](Params, Headers)
 }
+
+export function isPaymentReversible(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentService[config.Actions.isPaymentReversible](Params, Headers)
+}
+
+export function reversePayment(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PaymentService[config.Actions.reversePayment](Params, Headers)
+}

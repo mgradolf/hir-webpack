@@ -10,6 +10,7 @@ import { IScheduleInstructorFieldNames } from "~/Component/Feature/Section/Inter
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IScheduleInstructorFormProps {
   sectionId: number
@@ -69,7 +70,14 @@ export default function ScheduleInstructorForm(props: IScheduleInstructorFormPro
 
   return (
     <Card
-      title="Update Instructor"
+      title={
+        <Row justify="space-between">
+          <Col>Update Instructor</Col>
+          <Col>
+            <HelpButton helpKey="sectionScheduleUpdateInstructorForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

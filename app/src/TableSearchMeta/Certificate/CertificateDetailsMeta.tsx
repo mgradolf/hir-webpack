@@ -2,6 +2,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 
 export const getCertificateDetailsMeta = (certificate: { [key: string]: any }): CardContainer[] => {
+  console.log("Certificate: ", certificate)
   const certificateInfo: CardContainer = {
     title: certificate.CertificateName,
     contents: [
@@ -17,7 +18,8 @@ export const getCertificateDetailsMeta = (certificate: { [key: string]: any }): 
       { label: "Issuing Department", value: certificate.IssuingDepartment, render: undefined },
       { label: "Issuing School", value: certificate.IssuingSchool, render: undefined },
       { label: "Section Number", value: certificate.SectionNumber, render: undefined },
-      { label: "Completion Date", value: certificate.CompletionDate, render: renderDate }
+      { label: "Completion Date", value: certificate.CompletionDate, render: renderDate },
+      { label: "Comment", value: certificate.CommentText, render: undefined }
     ]
   }
   return [certificateInfo]

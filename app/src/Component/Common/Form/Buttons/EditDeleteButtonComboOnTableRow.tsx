@@ -56,12 +56,12 @@ export const EditDeleteButtonComboOnTableRow = (props: {
           defaultFormValue={props.editFormDefaultValue}
           formSubmitApi={props.editApi}
           refreshEventName={props.refreshEventName}
-          buttonLabel={`Edit ${props.valueToBeEdited}`}
+          buttonLabel={"Edit"}
           iconType="edit"
         />
         <Tooltip title="Delete">
           <Button
-            type="ghost"
+            type="primary"
             style={{ marginLeft: "5px" }}
             danger
             shape="circle"

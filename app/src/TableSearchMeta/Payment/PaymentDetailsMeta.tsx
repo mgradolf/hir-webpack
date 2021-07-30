@@ -8,11 +8,19 @@ import { getTransactionFinancialDepositeTrackingTableColumns } from "~/TableSear
 import { getPaymentAllocationsTableColumns } from "~/TableSearchMeta/OrderItem/PaymentAllocationsTableColumns"
 import { getPaymentActivityTableColumns } from "~/TableSearchMeta/PaymentActivity/PaymentActivityTableColumns"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { PaymentReverseFormOpenButton } from "~/Component/Feature/Payment/Forms/PaymentReverseForm"
+import { PaymentEmailFormOpenButton } from "~/Component/Feature/Payment/Forms/PaymentEmailForm"
+import { PaymentReceiptLink } from "~/Component/Feature/Payment/PaymentReceiptLink"
 
 export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
 
   const paymentInfo: CardContainer = {
+    cardActions: [
+      <PaymentReverseFormOpenButton initialValues={payment} />,
+      <PaymentEmailFormOpenButton initialValues={payment} />,
+      <PaymentReceiptLink PaymentID={payment.PaymentID} />
+    ],
     contents: [
       { label: "Payment Date", value: payment.CreateDate, render: renderDate },
       { label: "Payment Amount", value: payment.TotalPaymentAmount },

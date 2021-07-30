@@ -1,4 +1,4 @@
-import { Button, Col, Form, Row } from "antd"
+import { Button, Col, Form, Row, Tooltip } from "antd"
 import React, { useEffect, useState } from "react"
 import { EditOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
@@ -59,43 +59,49 @@ export const InlineForm = (props: IInlineForm) => {
         </Col>
         {!showForm && (
           <Col flex="20px">
-            <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => setShowForm(true)} />
+            <Tooltip title="Edit">
+              <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => setShowForm(true)} />
+            </Tooltip>
           </Col>
         )}
         {showForm && (
           <Col flex="20px">
-            <Button
-              ghost
-              type="primary"
-              shape="circle"
-              loading={apiCallInProgress}
-              icon={<CheckOutlined />}
-              onClick={() => {
-                setApiCallInProgress(true)
-                props.updateFunc(formInstance.getFieldsValue()).then((x) => {
-                  if (x.success) {
-                    eventBus.publish(props.refreshEventName)
-                    setShowForm(false)
-                  }
-                  setApiCallInProgress(false)
-                })
-              }}
-            />
+            <Tooltip title="Update">
+              <Button
+                ghost
+                type="primary"
+                shape="circle"
+                loading={apiCallInProgress}
+                icon={<CheckOutlined />}
+                onClick={() => {
+                  setApiCallInProgress(true)
+                  props.updateFunc(formInstance.getFieldsValue()).then((x) => {
+                    if (x.success) {
+                      eventBus.publish(props.refreshEventName)
+                      setShowForm(false)
+                    }
+                    setApiCallInProgress(false)
+                  })
+                }}
+              />
+            </Tooltip>
           </Col>
         )}
 
         {showForm && (
           <Col flex="20px">
-            <Button
-              danger
-              type="default"
-              shape="circle"
-              icon={<CloseOutlined />}
-              onClick={() => {
-                formInstance.resetFields()
-                setShowForm(false)
-              }}
-            />
+            <Tooltip title="Close">
+              <Button
+                danger
+                type="default"
+                shape="circle"
+                icon={<CloseOutlined />}
+                onClick={() => {
+                  formInstance.resetFields()
+                  setShowForm(false)
+                }}
+              />
+            </Tooltip>
           </Col>
         )}
       </Row>

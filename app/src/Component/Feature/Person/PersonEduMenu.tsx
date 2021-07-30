@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
 import { eventBus } from "~/utils/EventBus"
 import { removePersonEducationHistory } from "~/ApiServices/Service/PersonService"
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons"
@@ -16,34 +16,38 @@ export default function PersonEduMenu(props: IPersonEduMenu) {
 
   return (
     <>
-      <Button
-        type="primary"
-        icon={<EditOutlined />}
-        shape="circle"
-        style={{ marginRight: "5px" }}
-        onClick={() => {
-          setShowUpdateModal(true)
-        }}
-      />
+      <Tooltip title="Edit">
+        <Button
+          type="primary"
+          icon={<EditOutlined />}
+          shape="circle"
+          style={{ marginRight: "5px" }}
+          onClick={() => {
+            setShowUpdateModal(true)
+          }}
+        />
+      </Tooltip>
       {showUpdateModal && (
         <PersonDegreeFormModal initialData={props.initialData} closeModal={() => setShowUpdateModal(false)} />
       )}
-      <Button
-        danger
-        type="primary"
-        icon={<DeleteOutlined />}
-        shape="circle"
-        onClick={() =>
-          showDeleteConfirm(() => {
-            return removePersonEducationHistory({ EducationHistID: props.initialData.EducationHistID }).then((x) => {
-              if (x.success) {
-                eventBus.publish("REFRESH_EDUCATION_HISTORY_TAB")
-              }
-              return x
+      <Tooltip title="Remove">
+        <Button
+          danger
+          type="primary"
+          icon={<DeleteOutlined />}
+          shape="circle"
+          onClick={() =>
+            showDeleteConfirm(() => {
+              return removePersonEducationHistory({ EducationHistID: props.initialData.EducationHistID }).then((x) => {
+                if (x.success) {
+                  eventBus.publish("REFRESH_EDUCATION_HISTORY_TAB")
+                }
+                return x
+              })
             })
-          })
-        }
-      />
+          }
+        />
+      </Tooltip>
     </>
   )
 }

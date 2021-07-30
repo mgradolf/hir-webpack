@@ -12,6 +12,7 @@ import { addOrUpdateAdmissionRequirement } from "~/ApiServices/Service/ProgramSe
 import { ADDED_SUCCESSFULLY } from "~/utils/Constants"
 import { QuestionsLookup } from "~/Component/Common/Form/FormLookupFields/QuestionsLookup"
 import { getPreference } from "~/ApiServices/BizApi/registration/preferencesIF"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IAdmissionReqFormProps {
   ProgramAdmReqGroupID?: number
@@ -108,7 +109,14 @@ export function AdmissionReqForm(props: IAdmissionReqFormProps) {
 
   return (
     <Card
-      title="Admission Requirement Setup"
+      title={
+        <Row justify="space-between">
+          <Col>Admission Requirement Setup</Col>
+          <Col>
+            <HelpButton helpKey="programAddAdmissionRequirementForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

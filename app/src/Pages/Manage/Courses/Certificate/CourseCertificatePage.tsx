@@ -12,9 +12,11 @@ export default function Certificate() {
       meta={CourseCertificateSearchMeta}
       metaName="CourseCertificateSearchMeta"
       hideSearchField={false}
+      helpKey="coursesSearchCertificates"
       tableProps={{
         ...getCertificateTableColumns(true)
       }}
+      defaultFormValue={{ IsProgramCertificate: false }}
     ></SearchPage>
   )
 }

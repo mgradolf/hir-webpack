@@ -16,6 +16,7 @@ export default function () {
       tableProps={{
         ...getCertificateTableColumns(false)
       }}
+      defaultFormValue={{ IsProgramCertificate: true }}
     ></SearchPage>
   )
 }

@@ -25,6 +25,7 @@ import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/Cu
 import { eventBus } from "~/utils/EventBus"
 import { EditOutlined, PlusOutlined } from "@ant-design/icons"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
+import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 
 interface IAccountContactFormProps {
   editMode: boolean
@@ -55,6 +56,7 @@ const fieldNames: IAccountContactFieldNames = {
 
 function AccountContactForm(props: IAccountContactFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
+  const [showPersonLookup, setShowPersonLookup] = useState(true)
   const [roleTypeID, setRoleTypeID] = useState(Number)
   const [questionItems, setQuestionItems] = useState<Array<any>>([])
   const questionAnswers: { [key: string]: any } = {}
@@ -103,14 +105,59 @@ function AccountContactForm(props: IAccountContactFormProps) {
     setRoleTypeID(value)
   }
 
+  const onSelectPerson = (persons: any) => {
+    props.formInstance.setFieldsValue({ ...persons[0] })
+  }
+
   return (
     <>
       <Row>
         <Col xs={24} sm={24} md={12}>
+          <FormMultipleRadio
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Choose"}
+            ariaLabel={"Choose"}
+            fieldName="IsNewOrExistContact"
+            onChangeCallback={(value) => {
+              if (value) {
+                setShowPersonLookup(true)
+              } else {
+                setShowPersonLookup(false)
+              }
+            }}
+            options={[
+              { label: "New Person", value: true },
+              { label: "Lookup Existing Person", value: false }
+            ]}
+            {...AccountContactFormConfig.IsContactShared}
+          />
+        </Col>
+        <Col xs={24} sm={24} md={12}>
+          <PersonLookup
+            onSelectedItems={onSelectPerson}
+            fieldName="PersonID"
+            label="Person"
+            formInstance={props.formInstance}
+            disabled={showPersonLookup}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Divider orientation="left">Details</Divider>
+        <Col xs={24} sm={24} md={12}>
           <FormInput
             hidden
             formInstance={props.formInstance}
-            defaultValue={props.initialValue.AccountID}
+            label={"Person ID"}
+            ariaLabel={"Person ID"}
+            fieldName="PersonID"
+            {...AccountContactFormConfig.PersonID}
+          />
+
+          <FormInput
+            hidden
+            formInstance={props.formInstance}
             label={"Account ID"}
             ariaLabel={"Account ID"}
             fieldName="AccountID"
@@ -120,7 +167,6 @@ function AccountContactForm(props: IAccountContactFormProps) {
           <FormInput
             hidden
             formInstance={props.formInstance}
-            defaultValue={props.initialValue.AccountAffiliationID}
             label={"Account Affilation ID"}
             ariaLabel={"Account Affilation ID"}
             fieldName="AccountAffiliationID"
@@ -290,7 +336,9 @@ export function AccountContactFormOpenButton(props: {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
+  const [initialValues] = useState<{ [key: string]: any }>(
+    { ...props.initialValues, IsNewOrExistContact: true, StatusID: ACCOUNT_AFFILIATION_STATUS_ACTIVE } || {}
+  )
 
   const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
@@ -335,7 +383,7 @@ export function AccountContactFormOpenButton(props: {
       iconType={props.iconType}
       loading={loading}
       errorMessages={errorMessages}
-      buttonLabel={""}
+      buttonLabel={props.editMode ? "Edit" : "Add Contact"}
       buttonProps={{ type: "primary", icon: props.editMode ? <EditOutlined /> : <PlusOutlined />, shape: "circle" }}
     />
   )

@@ -28,13 +28,14 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
   const [initialValues] = useState<{ [key: string]: any }>(props.initialFormValue || {})
   const [current, setCurrent] = React.useState(0)
 
+  const hasFinancial = formInstance.getFieldValue("HasFinancial")
   const isEnableSeatAffiliate = formInstance.getFieldValue("IsEnableSeatAffiliate")
   const isEnableSeatStudent = formInstance.getFieldValue("IsEnableSeatStudent")
   const isGenerateOrder = formInstance.getFieldValue("IsGenerateOrder")
 
   const steps = [
     <ConfiguretStepForm formInstance={formInstance} initialValue={initialValues} />,
-    <AllocationStepForm formInstance={formInstance} initialValue={initialValues} />,
+    <AllocationStepForm formInstance={formInstance} initialValue={initialValues} setErrorMessages={setErrorMessages} />,
     <PricingStepForm formInstance={formInstance} initialValue={initialValues} />,
     <BillingStepForm formInstance={formInstance} initialValue={initialValues} />,
     <FinalStepForm formInstance={formInstance} initialValue={initialValues} />
@@ -43,9 +44,9 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
   const next = () => {
     formInstance.validateFields().then((x) => {
       if (current === 1) {
-        if (!isEnableSeatAffiliate && !isEnableSeatStudent && !isGenerateOrder) {
+        if (!showPricing() && !isGenerateOrder) {
           setCurrent(current + 3)
-        } else if (!isEnableSeatAffiliate && !isEnableSeatStudent) {
+        } else if (!showPricing()) {
           setCurrent(current + 2)
         } else {
           setCurrent(current + 1)
@@ -62,17 +63,23 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
     })
   }
 
+  const showPricing = () => {
+    if (!hasFinancial) return false
+    if (!isEnableSeatAffiliate && !isEnableSeatStudent) return false
+    return true
+  }
+
   const prev = () => {
     if (current === 4) {
       if (isGenerateOrder) {
         setCurrent(current - 1)
-      } else if (isEnableSeatAffiliate || isEnableSeatStudent) {
+      } else if (showPricing()) {
         setCurrent(current - 2)
       } else {
         setCurrent(current - 3)
       }
     } else if (current === 3) {
-      if (isEnableSeatAffiliate || isEnableSeatStudent) {
+      if (showPricing()) {
         setCurrent(current - 1)
       } else {
         setCurrent(current - 2)
@@ -130,7 +137,7 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
           )}
           {current === steps.length - 1 && (
             <Col>
-              <Button type="primary" onClick={onFormSubmission}>
+              <Button disabled={!hasFinancial} type="primary" onClick={onFormSubmission}>
                 Submit
               </Button>
             </Col>

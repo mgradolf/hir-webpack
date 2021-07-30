@@ -21,11 +21,13 @@ export const AccountFormMeta: IField[] = [
     label: "Account Name",
     inputType: TEXT,
     fieldName: "Name",
+    maxLength: 255,
     rules: [{ required: true, message: "Please enter account name!" }]
   },
   {
     label: "Payment Term",
     inputType: TEXT,
+    maxLength: 128,
     fieldName: "PaymentTerm"
   },
   {
@@ -59,6 +61,7 @@ export const AccountFormMeta: IField[] = [
   {
     label: "Tax ID",
     inputType: TEXT,
-    fieldName: "FEID"
+    fieldName: "FEID",
+    maxLength: 10
   }
 ]

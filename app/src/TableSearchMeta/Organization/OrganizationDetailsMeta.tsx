@@ -7,6 +7,7 @@ import { getTagsTabPageDetailsMeta } from "~/TableSearchMeta/Tags/TagsTabPageDet
 import { QuestionTaggingSearchMeta } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingSearchMeta"
 import { getQuestionTaggingTableColumns } from "~/TableSearchMeta/QuestionTagging/QuestionTaggingTableColumn"
 import { getOrganizationCalendarTableColumns } from "~/TableSearchMeta/Organization/OrganizationCalendarTableColumns"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getOrganizationDetailsMeta = (organization: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
@@ -47,6 +48,7 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="administrationDataOrganizationSummaryTab" />],
       summary: [Organization, WebConfig]
     }
   })
@@ -78,6 +80,7 @@ export const getOrganizationDetailsMeta = (organization: { [key: string]: any })
     tabTitle: "Calender",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="administrationDataOrganizationCalenderTab" />],
       tableProps: {
         pagination: false,
         ...getOrganizationCalendarTableColumns(true),

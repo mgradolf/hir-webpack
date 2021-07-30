@@ -15,9 +15,37 @@ export function getApplicableProgramCertificate(
   return CertificateIf[config.Actions.getApplicableProgramCertificate]([Params.ProgramID], Headers)
 }
 
+export function getCertificateTemplateFileNames(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CertificateIf[config.Actions.getCertificateTemplateFileNames]([], Headers)
+}
+
+export function getStaticParameters(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CertificateIf[config.Actions.getStaticParameters]([Params.TemplateName], Headers)
+}
+
 export function searchCertificate(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
   return CertificateIf[config.Actions.searchCertificate]([Params], Headers)
+}
+
+export function canDeleteCertificate(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CertificateIf[config.Actions.canDeleteCertificate]([Params.CertificateID], Headers)
+}
+
+export function deleteCertificate(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return CertificateIf[config.Actions.deleteCertificate]([Params.CertificateID], Headers)
 }

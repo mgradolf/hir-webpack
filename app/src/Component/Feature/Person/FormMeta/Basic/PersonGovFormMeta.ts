@@ -4,11 +4,13 @@ export const PersonGovFormMeta: IField[] = [
   {
     label: "ERP",
     inputType: TEXT,
-    fieldName: "ERPID"
+    fieldName: "ERPID",
+    maxLength: 50
   },
   {
     label: "SSN",
     inputType: TEXT,
-    fieldName: "GovID"
+    fieldName: "GovID",
+    maxLength: 20
   }
 ]

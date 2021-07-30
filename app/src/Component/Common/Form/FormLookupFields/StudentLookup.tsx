@@ -9,7 +9,8 @@ export function StudentLookup(props: IGeneratedField) {
     <LookupOpenButton
       lookupModalTitle="Select Student"
       displayKey="FormattedName"
-      searchFieldName="FirstName"
+      placeholder="Search By Full Name"
+      searchFieldName="FormattedName"
       meta={StudentSearchMeta as IField[]}
       metaName="StudentSearchMeta"
       {...props}

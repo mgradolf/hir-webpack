@@ -84,6 +84,14 @@ export function getSectionStatusCode(): Promise<IApiResponse> {
 export function getGLAccountTypes(): Promise<IApiResponse> {
   return RefLookupService[config.Actions.getList]({
     LookUpName: "GLAccount"
+  }).then((response) => {
+    if (response.success) {
+      response.data.map((x: any) => {
+        x.Name = x.Name + ` (${x.Description})`
+        return x
+      })
+    }
+    return response
   })
 }
 export function getAccountTypes(): Promise<IApiResponse> {

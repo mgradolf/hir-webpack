@@ -10,17 +10,20 @@ export const ProgramOfferingFormMeta: IField[] = [
     label: "Program Offering Code",
     fieldName: "ProgramOfferingCode",
     inputType: TEXT,
+    maxLength: 16,
     rules: [{ required: true, message: "Program Offering Code is required" }]
   },
   {
     label: "Program Offering Name",
     fieldName: "Name",
     inputType: TEXT,
+    maxLength: 128,
     rules: [{ required: true, message: "Program Offering Name is required" }]
   },
   {
     label: "Description",
     fieldName: "Description",
+    maxLength: 3000,
     inputType: TEXTAREA
   },
   {

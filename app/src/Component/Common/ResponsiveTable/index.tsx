@@ -11,6 +11,7 @@ export {
   renderDate,
   renderDateTime,
   renderTime,
+  renderAmount,
   renderBoolean,
   renderWeek,
   sortByBoolean,

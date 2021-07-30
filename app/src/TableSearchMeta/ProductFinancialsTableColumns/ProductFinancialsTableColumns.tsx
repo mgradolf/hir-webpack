@@ -1,5 +1,5 @@
 import React from "react"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
 import { getProductFinancials } from "~/ApiServices/Service/ProductService"
 import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
@@ -17,22 +17,24 @@ export const getProductFinancialsTableColumns = (isModal = false): ITableConfigP
       title: "Action",
       key: "action",
       render: (text: any, record: any) => (
-        <Button
-          danger
-          type="primary"
-          icon={<DeleteOutlined />}
-          shape="circle"
-          onClick={() =>
-            showDeleteConfirm(() => {
-              return removePackageFinancial({ ProductFinancialID: record.ProductFinancialID }).then((x) => {
-                if (x.success) {
-                  eventBus.publish(REFRESH_PACKAGE_FINANCIAL_PAGE)
-                }
-                return x
+        <Tooltip title="Remove">
+          <Button
+            danger
+            type="primary"
+            icon={<DeleteOutlined />}
+            shape="circle"
+            onClick={() =>
+              showDeleteConfirm(() => {
+                return removePackageFinancial({ ProductFinancialID: record.ProductFinancialID }).then((x) => {
+                  if (x.success) {
+                    eventBus.publish(REFRESH_PACKAGE_FINANCIAL_PAGE)
+                  }
+                  return x
+                })
               })
-            })
-          }
-        />
+            }
+          />
+        </Tooltip>
       )
     }
   ]

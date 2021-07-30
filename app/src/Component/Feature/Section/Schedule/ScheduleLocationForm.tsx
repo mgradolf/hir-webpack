@@ -15,6 +15,7 @@ import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import { OldFormRoomLookup } from "~/Component/Common/OldForm/OldFormLookups/OldFormRoomLookup"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 const { Option } = Select
 
@@ -123,7 +124,14 @@ export default function ScheduleLocationForm(props: IScheduleCreateFormProps) {
 
   return (
     <Card
-      title="Update Location"
+      title={
+        <Row justify="space-between">
+          <Col>Update Location</Col>
+          <Col>
+            <HelpButton helpKey="sectionScheduleUpdateLocationForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

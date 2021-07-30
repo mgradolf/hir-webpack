@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import {
-  createUpdateStudentHold,
   pushStudent,
   removeStudent,
   searchOnlineClasses,
@@ -26,12 +25,12 @@ import {
 import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { COMMENT_TYPES, DELETE_SUCCESSFULLY } from "~/utils/Constants"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { StudentHoldFormMeta } from "~/Component/Feature/Student/FormMeta/StudentHoldFormMeta"
 import { StudentFormMeta } from "~/Component/Feature/Student/FormMeta/StudentFormMeta"
 import { getStudentHoldTableColumns } from "~/TableSearchMeta/StudentHold/StudentHoldTableColumns"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import Notification from "~/utils/notification"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { StudentHoldFormModal } from "~/Component/Feature/Student/StudentHoldFormModal"
 
 const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -80,16 +79,7 @@ const HoldFormModalOpenButton = (props: { StudentID: number }) => {
         <IconButton toolTip="Apply Hold" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
       )}
       {showModal && (
-        <MetaDrivenFormModal
-          meta={StudentHoldFormMeta}
-          metaName="StudentHoldFormMeta"
-          title={"Apply Hold"}
-          initialFormValue={{ StudentID: props.StudentID }}
-          defaultFormValue={{ StudentID: props.StudentID, HoldBy: "JoeAdmin" }}
-          formSubmitApi={createUpdateStudentHold}
-          refreshEventAfterFormSubmission={"REFRESH_HOLD_TAB"}
-          closeModal={() => setShowModal(false)}
-        />
+        <StudentHoldFormModal initialData={{ StudentID: props.StudentID }} closeModal={() => setShowModal(false)} />
       )}
     </>
   )

@@ -1,11 +1,12 @@
 import React, { useState } from "react"
-import { Card, Button } from "antd"
+import { Card, Button, Row, Col } from "antd"
 import Modal from "~/Component/Common/Modal/index2"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { ResponsiveTable, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import zIndex from "~/utils/zIndex"
 import { IField } from "~/Component/Common/Form/common"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface ILookupModal {
   title: string
@@ -20,6 +21,7 @@ interface ILookupModal {
   defaultFormValue?: { [key: string]: any }
   initialFormValue?: { [key: string]: any }
   zIndex?: boolean
+  helpKey?: string
 }
 
 export function LookupModal(props: ILookupModal) {
@@ -36,7 +38,14 @@ export function LookupModal(props: ILookupModal) {
   return (
     <Modal width="1000px" zIndex={props.zIndex ? zIndex.defaultModal + 1 : undefined}>
       <Card
-        title={props.title}
+        title={
+          <Row justify="space-between">
+            <Col>{props.title}</Col>
+            <Col>
+              <HelpButton helpKey={props.helpKey} />
+            </Col>
+          </Row>
+        }
         actions={[
           <Button type="ghost" onClick={() => props.closeModal()}>
             Cancel

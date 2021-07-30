@@ -1,6 +1,5 @@
 import React, { useState } from "react"
-import { Button, Dropdown, Menu, Row } from "antd"
-import Notification from "~/utils/notification"
+import { Button, Dropdown, Menu, message, Row } from "antd"
 import { INVITE_TO_SETUP_WEB_LOGIN, INVITE_TO_RESET_PASSWORD, UNLOCK_WEB_LOGIN } from "~/utils/Constants"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { PersonLoginFormMeta } from "~/Component/Feature/Person/FormMeta/PersonLoginFormMeta"
@@ -9,7 +8,7 @@ import {
   unlockPersonLogin,
   updateLoginInfo
 } from "~/ApiServices/BizApi/NTSWebLogin/NTSWebLoginIF"
-import { REFRESH_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { setupWebLogin } from "~/ApiServices/Service/PersonService"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
@@ -29,8 +28,8 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       PersonID: PersonID
     })
     if (response.success) {
-      Notification(INVITE_TO_SETUP_WEB_LOGIN)
-      console.log("Successfully invite to setup login done!")
+      message.success(INVITE_TO_SETUP_WEB_LOGIN)
+      eventBus.publish(REFRESH_PAGE)
     }
     setLoading(false)
   }
@@ -41,8 +40,8 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       PersonID: PersonID
     })
     if (response.success) {
-      Notification(INVITE_TO_RESET_PASSWORD)
-      console.log("Successfully invite to reset password done!")
+      message.success(INVITE_TO_RESET_PASSWORD)
+      eventBus.publish(REFRESH_PAGE)
     }
     setLoading(false)
   }
@@ -53,8 +52,8 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
       PersonID: PersonID
     })
     if (response.success) {
-      Notification(UNLOCK_WEB_LOGIN)
-      console.log("Successfully unlock person login done!")
+      message.success(UNLOCK_WEB_LOGIN)
+      eventBus.publish(REFRESH_PAGE)
     }
     setLoading(false)
   }
@@ -103,7 +102,6 @@ export function PersonLoginAction(props: IPersonLoginActionProp) {
         <MetaDrivenFormModal
           meta={PersonLoginFormMeta}
           metaName="PersonLoginFormMeta"
-          isHorizontal={true}
           title={"Update Person Login Info"}
           initialFormValue={props.initialData}
           defaultFormValue={{ PersonID: props.initialData.PersonID }}

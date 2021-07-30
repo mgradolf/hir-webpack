@@ -18,6 +18,7 @@ const renderEmail = (text: any): JSX.Element => (text !== null ? <a href={`mailt
 const renderDate = (text: any) => (text !== null ? moment(text).format(DATE_FORMAT) : "")
 const renderDateTime = (text: any) => (text !== null ? moment(text).format(DATE_TIME_FORMAT) : "")
 const renderTime = (text: any) => (text !== null ? moment(text).format(TIME_FORMAT) : "")
+const renderAmount = (text: any) => (text !== null ? (text = `$ ${text}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "")
 const renderBoolean = (text: any) => {
   if (typeof text === "boolean") {
     return text ? "Yes" : "No"
@@ -50,6 +51,7 @@ export {
   renderDateTime,
   renderTime,
   renderBoolean,
+  renderAmount,
   renderWeek,
   sortByBoolean,
   sortByString,

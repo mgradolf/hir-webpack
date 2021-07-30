@@ -17,10 +17,21 @@ import { getActivityOrderSearchTableColumns } from "~/TableSearchMeta/ActivityOr
 import { REFRESH_ORDER_ACTIVITY_PAGE, REFRESH_ORDER_CREDIT_ACTIVITY_PAGE } from "~/utils/EventBus"
 import { getActivityOrderCreditSearchTableColumns } from "~/TableSearchMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { OrderEmailFormOpenButton } from "~/Component/Feature/Order/Forms/OrderEmailForm"
+import { OrderReceiptLink } from "~/Component/Feature/Order/OrderReceiptLink"
+import { OrderPaymentDueDateFormOpenButton } from "~/Component/Feature/Order/Forms/PaymentDueDateForm"
+import { PurchaseOrderFormOpenButton } from "~/Component/Feature/PurchaseOrder/Forms/PurchaseOrderForm"
+import { OrderTransactionLink } from "~/Component/Feature/Order/OrderTransactionLink"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
     title: `Order Info`,
+    cardActions: [
+      <OrderPaymentDueDateFormOpenButton initialValues={order} />,
+      <OrderEmailFormOpenButton initialValues={order} />,
+      <OrderReceiptLink OrderID={order.OrderID} />,
+      <OrderTransactionLink OrderID={order.OrderID} />
+    ],
     contents: [
       { label: "Order Created On", value: renderDate(order.OrderDate) },
       { label: "Status", value: order.OrderStatus },
@@ -157,7 +168,10 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderPurchasedCodeMeta: IDetailsTableTabProp = {
-    blocks: [<HelpButton helpKey="financialsOrderPurchaseOrdersTab" />],
+    blocks: [
+      <PurchaseOrderFormOpenButton editMode={false} initialValues={order} iconType="create" />,
+      <HelpButton helpKey="financialsOrderPurchaseOrdersTab" />
+    ],
     tableProps: {
       ...getOrderPurchasedTableColumns(false),
       searchParams: { OrderID: order.OrderID },

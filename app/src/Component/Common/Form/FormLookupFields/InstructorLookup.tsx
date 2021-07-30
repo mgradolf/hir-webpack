@@ -9,9 +9,9 @@ export function InstructorLookupButton(props: IGeneratedField) {
     <LookupOpenButton
       lookupModalTitle="Select Instructor"
       valueKey="FacultyID"
-      displayKey="FirstName"
-      searchFieldName="FirstName"
-      placeholder="Search By Instructor First Name"
+      displayKey="FormattedName"
+      searchFieldName="FormattedName"
+      placeholder="Search By Full Name"
       meta={InstructorSearchMeta as IField[]}
       metaName="InstructorSearchMeta"
       {...props}

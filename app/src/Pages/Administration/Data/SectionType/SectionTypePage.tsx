@@ -10,6 +10,7 @@ export default function SectionTypePage() {
       meta={SectionTypeSearchMeta}
       metaName="SectionTypeSearchMeta"
       hideSearchField={false}
+      helpKey="administrationDataSearchSectionTypes"
       tableProps={{
         ...getSectionTypeTableColumns()
       }}

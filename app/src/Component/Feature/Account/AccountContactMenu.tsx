@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, message } from "antd"
+import { Button, message, Tooltip } from "antd"
 import { eventBus } from "~/utils/EventBus"
 import { deleteAccountAffiliation } from "~/ApiServices/Service/AccountService"
 import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
@@ -14,28 +14,30 @@ interface IAccountContactMenu {
 export function AccountContactMenu(props: IAccountContactMenu) {
   return (
     <>
-      <AccountContactFormOpenButton editMode={true} initialValues={props.initialData} />
-      <Button
-        danger
-        disabled={props.initialData.PrimaryAccountAffiliation}
-        style={{ marginLeft: "5px" }}
-        type="primary"
-        icon={<DeleteOutlined />}
-        shape="circle"
-        onClick={() =>
-          showDeleteConfirm(() => {
-            return deleteAccountAffiliation({
-              AccountAffiliationID: props.initialData.AccountAffiliationID
-            }).then((x) => {
-              if (x.success) {
-                message.success(DELETE_SUCCESSFULLY)
-                eventBus.publish("REFRESH_CONTACT_TAB")
-              }
-              return x
+      <AccountContactFormOpenButton editMode={true} iconType="edit" initialValues={props.initialData} />
+      <Tooltip title="Remove">
+        <Button
+          danger
+          disabled={props.initialData.PrimaryAccountAffiliation}
+          style={{ marginLeft: "5px" }}
+          type="primary"
+          icon={<DeleteOutlined />}
+          shape="circle"
+          onClick={() =>
+            showDeleteConfirm(() => {
+              return deleteAccountAffiliation({
+                AccountAffiliationID: props.initialData.AccountAffiliationID
+              }).then((x) => {
+                if (x.success) {
+                  message.success(DELETE_SUCCESSFULLY)
+                  eventBus.publish("REFRESH_CONTACT_TAB")
+                }
+                return x
+              })
             })
-          })
-        }
-      />
+          }
+        />
+      </Tooltip>
     </>
   )
 }
