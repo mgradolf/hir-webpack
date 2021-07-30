@@ -18,7 +18,7 @@ export function FormNumberInput(props: IGeneratedField) {
         aria-label={props.ariaLabel}
         type="number"
         min={1}
-        maxLength={6}
+        maxLength={props.maxLength ? props.maxLength : 6}
         onInput={maxLengthAndNegativeCheck}
         disabled={props.disabled}
       />

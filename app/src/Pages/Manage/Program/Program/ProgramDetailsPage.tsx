@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Redirect, RouteComponentProps } from "react-router-dom"
-import { copyProgramWithEvent, searchPrograms } from "~/ApiServices/BizApi/program/programIF"
+import { copyProgramWithEvent } from "~/ApiServices/BizApi/program/programIF"
+import { getProgramDetails } from "~/ApiServices/Service/ProgramService"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { showConfirm } from "~/Component/Common/Modal/Confirmation"
 import { DetailsPage } from "~/Component/Common/Page/DetailsPage2/DetailsPage"
@@ -14,14 +15,7 @@ export default function (props: RouteComponentProps<{ programID?: string }>) {
   return (
     <DetailsPage
       getMeta={getProgramDetailsMeta}
-      getDetails={() =>
-        searchPrograms({ programID }).then((x) => {
-          if (x.success) {
-            x.data = x.data[0]
-          }
-          return x
-        })
-      }
+      getDetails={() => getProgramDetails({ ProgramID: programID })}
       actions={[
         <>
           {redirectTo && <Redirect to={redirectTo} />}

@@ -46,7 +46,9 @@ export interface IRegistrationGradeFieldNames {
 
 export interface ICertificateFieldNames {
   SectionID: any
+  SectionNumber: any
   StudentID: any
+  StudentName: any
   ProgramID: any
   CertificateID: any
   IssueDate: any

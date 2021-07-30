@@ -111,3 +111,10 @@ export function getPurchaseOrders(
 ): Promise<IApiResponse> {
   return OrderService[config.Actions.getPurchaseOrders](Params, Headers)
 }
+
+export function saveOrderPaymentDueDate(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return OrderService[config.Actions.saveOrderPaymentDueDate](Params, Headers)
+}

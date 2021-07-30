@@ -6,9 +6,11 @@ import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionL
 import { getSectionStatistics } from "~/ApiServices/Service/SectionService"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import "~/Sass/utils.scss"
+import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 
 interface IAllocationStepFormProps {
   formInstance: FormInstance
+  setErrorMessages?: (flag: Array<ISimplifiedApiErrorMessage>) => void
   initialValue: { [key: string]: any }
 }
 
@@ -20,16 +22,30 @@ const layout = {
 export default function AllocationStepForm(props: IAllocationStepFormProps) {
   const SectionID = props.formInstance.getFieldValue("SectionID")
   const onSelectSection = (items: any) => {
-    getSectionStatistics({ SectionID: items[0].SectionID }).then((x: any) => {
-      if (x.success) {
-        props.formInstance.setFieldsValue({
-          CurrentAllocation: x.data.TotalSeats,
-          AvailableSeat: x.data.TotalAvailableSeats
-        })
-      }
-    })
-    props.formInstance.setFieldsValue({ SectionNumber: items[0].SectionNumber })
-    props.formInstance.setFieldsValue({ MaxAllowed: items[0].MaxEnrollment })
+    if (items !== undefined) {
+      getSectionStatistics({ SectionID: items[0].SectionID }).then((x: any) => {
+        if (x.success) {
+          props.formInstance.setFieldsValue({
+            CurrentAllocation: x.data.TotalSeats,
+            AvailableSeat: x.data.TotalAvailableSeats,
+            HasFinancial: x.data.HasFinancials
+          })
+          if (!x.data.HasFinancials) {
+            if (props.setErrorMessages !== undefined) {
+              props.setErrorMessages([
+                { message: "No financial setup for this section, You will not be able to generate package order!" }
+              ])
+            }
+          } else {
+            if (props.setErrorMessages !== undefined) {
+              props.setErrorMessages([])
+            }
+          }
+        }
+      })
+      props.formInstance.setFieldsValue({ SectionNumber: items[0].SectionNumber })
+      props.formInstance.setFieldsValue({ MaxAllowed: items[0].MaxEnrollment })
+    }
   }
 
   return (
@@ -64,12 +80,13 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
             fieldName={"NumberOfSeats"}
             rules={[{ required: true, message: "Please enter requested seats!" }]}
           />
-          <FormInput
+          <FormNumberInput
             {...layout}
             formInstance={props.formInstance}
-            label={"Invitation Code"}
-            ariaLabel={"Invitation Code"}
-            fieldName={"InvitationCode"}
+            label={"Credit Unit"}
+            ariaLabel={"Credit Unit"}
+            fieldName={"AllowedCredit"}
+            rules={[{ required: true, message: "Please enter credit unit!" }]}
           />
         </Col>
         <Col xs={24} sm={24} md={12}>
@@ -88,6 +105,14 @@ export default function AllocationStepForm(props: IAllocationStepFormProps) {
             label={"Available Seat"}
             ariaLabel={"Available Seat"}
             fieldName="AvailableSeat"
+          />
+          <FormInput
+            {...layout}
+            formInstance={props.formInstance}
+            label={"Invitation Code"}
+            ariaLabel={"Invitation Code"}
+            fieldName={"InvitationCode"}
+            maxLength={50}
           />
         </Col>
       </Row>

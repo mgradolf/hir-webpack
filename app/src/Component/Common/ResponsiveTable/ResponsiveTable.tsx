@@ -88,7 +88,7 @@ export function ResponsiveTable(props: IDataTableProps) {
           return !(mobileView && responsiveColumnIndices?.includes(i + 1))
         })
         .map((x, i) => {
-          if (x.title === "" || !x.title) return x
+          if (x.title === "" || !x.title || x.title === "Action" || x.title === "Published") return x
           x.sorter = (a: any, b: any) => {
             if (typeof a.dataIndex === "boolean") {
               return sortByBoolean(a, b)

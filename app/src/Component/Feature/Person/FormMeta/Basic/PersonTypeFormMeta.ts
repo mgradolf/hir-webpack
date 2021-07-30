@@ -38,7 +38,7 @@ export const PersonTypeFormMeta: IField[] = [
     valueKey: "ID"
   },
   {
-    label: "Region",
+    label: "Religion",
     inputType: DROPDOWN,
     fieldName: "ReligionTypeID",
     refLookupService: getReligionType,

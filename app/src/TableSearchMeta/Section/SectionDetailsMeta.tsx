@@ -47,13 +47,18 @@ import { AddSectionRoomButton } from "~/Component/Feature/Section/AddSectionRoom
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
+export const ENROLLMENT_DURATION_DEFAULT = {
+  EnrollmentSpecificDate: "Enrollment Specific Date",
+  FollowSectionDates: "Follow Section Dates"
+}
+
 export const REFRESH_SECTION_BUDGET_PAGE = "REFRESH_SECTION_BUDGET_PAGE"
 
 export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetailsMeta => {
   const sectionInfo: CardContainer = {
     title: "Basic Info",
     cardActions: [
-      <SectionEditLink tooltip="Update Basic Info" initialValues={section} component={BasicInfoForm} />,
+      <SectionEditLink tooltip="Update Basic Info" SectionID={section.SectionID} component={BasicInfoForm} />,
       <SectionRemoveButton Section={section} />
     ],
     contents: [
@@ -82,6 +87,16 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       { label: "Final Enrollment Date", value: section.FinalEnrollmentDate, render: renderDate },
       { label: "Billing Date", value: section.BillingDate, render: renderDate },
       { label: "Distance Learning", value: section.IsDistanceLearning, render: renderBoolean },
+      {
+        label: "Enrollment Duration Default",
+        value:
+          section.DefaultEnrollmentDuration === null
+            ? ENROLLMENT_DURATION_DEFAULT.FollowSectionDates
+            : section.DefaultEnrollmentDuration === "EnrollmentSpecificDate"
+            ? ENROLLMENT_DURATION_DEFAULT.EnrollmentSpecificDate
+            : ENROLLMENT_DURATION_DEFAULT.FollowSectionDates,
+        render: undefined
+      },
       { label: "Fiscal Period", value: section.FiscalPeriodCodeName, render: undefined },
       { label: "Other Section Type", value: section.SectionTypeName, render: undefined },
       {
@@ -108,7 +123,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const enrollmentInfo: CardContainer = {
     title: "Enrollment",
     cardActions: [
-      <SectionEditLink tooltip="Update Entollment" initialValues={section} component={SectionEnrollmentForm} />
+      <SectionEditLink tooltip="Update Entollment" SectionID={section.SectionID} component={SectionEnrollmentForm} />
     ],
     contents: [
       { label: "Current Enrollment", value: section.TotalEnrolledSeats, render: undefined },
@@ -157,7 +172,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     cardActions: [
       <SectionEditLink
         tooltip={`Update Refund & Inquiry`}
-        initialValues={section}
+        SectionID={section.SectionID}
         component={SectionRefundEnquiryForm}
       />
     ],
@@ -205,7 +220,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const seatgroupMeta: IDetailsTableTabProp = {
     blocks: [<SeatgroupFormModalOpenButton SectionID={section.SectionID} />],
     tableProps: {
-      ...getSeatgroupTableColumns(),
+      ...getSeatgroupTableColumns(false, undefined, section.SectionID, undefined),
       searchParams: { SectionID: section.SectionID },
       refreshEventName: "REFRESH_SECTION_SEATGROUP_PAGE_1"
     }

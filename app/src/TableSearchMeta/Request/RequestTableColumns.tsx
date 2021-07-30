@@ -49,13 +49,18 @@ export const getRequestTableColumns = (isModal = false): ITableConfigProp => {
     columns,
     responsiveColumnIndices,
     expandableColumnIndices,
-    searchFunc: (Params: { [key: string]: any }) =>
-      getLiteRequests(Params).then((x: any) => {
+    searchFunc: (Params: { [key: string]: any }) => {
+      if (Params["SectionID"] !== undefined) {
+        Params["ProductID"] = Params["SectionID"]
+        Params["ProductType"] = "SectionID"
+      }
+      return getLiteRequests(Params).then((x: any) => {
         if (x.success) {
           x.data = x?.data?.Requests
         }
 
         return x
       })
+    }
   }
 }

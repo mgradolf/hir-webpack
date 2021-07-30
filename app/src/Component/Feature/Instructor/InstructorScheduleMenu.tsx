@@ -1,9 +1,10 @@
 import React, { useState } from "react"
-import { Button, Menu, message } from "antd"
+import { Button, message, Tooltip } from "antd"
 import { eventBus } from "~/utils/EventBus"
 import InstructorScheduleFormModal from "~/Component/Feature/Instructor/Forms/InstructorScheduleFormModal"
 import { removeInstructorSchedule } from "~/ApiServices/Service/InstructorService"
 import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 
 interface IInstructorScheduleMenu {
   initialData: { [key: string]: any }
@@ -13,23 +14,27 @@ export default function InstructorScheduleMenu(props: IInstructorScheduleMenu) {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   return (
-    <Menu>
-      <Menu.Item key="0">
+    <>
+      <Tooltip title="Edit">
         <Button
-          type="link"
+          type="primary"
+          icon={<EditOutlined />}
+          shape="circle"
           onClick={() => {
             setShowUpdateModal(true)
           }}
-        >
-          Edit
-        </Button>
-        {showUpdateModal && (
-          <InstructorScheduleFormModal initialData={props.initialData} closeModal={() => setShowUpdateModal(false)} />
-        )}
-      </Menu.Item>
-      <Menu.Item key="1">
+        />
+      </Tooltip>
+      {showUpdateModal && (
+        <InstructorScheduleFormModal initialData={props.initialData} closeModal={() => setShowUpdateModal(false)} />
+      )}
+      <Tooltip title="Remove">
         <Button
-          type="link"
+          danger
+          type="primary"
+          icon={<DeleteOutlined />}
+          shape="circle"
+          style={{ marginLeft: "5px" }}
           onClick={async () => {
             const response = await removeInstructorSchedule({
               ScheduleID: props.initialData.ScheduleID
@@ -39,10 +44,8 @@ export default function InstructorScheduleMenu(props: IInstructorScheduleMenu) {
               eventBus.publish("REFRESH_FACULTY_SCHEDULE_TAB")
             }
           }}
-        >
-          Remove
-        </Button>
-      </Menu.Item>
-    </Menu>
+        />
+      </Tooltip>
+    </>
   )
 }

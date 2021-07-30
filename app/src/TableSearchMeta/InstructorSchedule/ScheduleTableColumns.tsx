@@ -1,12 +1,10 @@
 import React from "react"
-import { Button, Dropdown } from "antd"
 import { findEntitySchedule } from "~/ApiServices/Service/EntityService"
 import { renderDateTime, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
-import { DownOutlined } from "@ant-design/icons"
 import InstructorScheduleMenu from "~/Component/Feature/Instructor/InstructorScheduleMenu"
 
-export const getInstructorScheduleTableColumns = (PersonID?: number): ITableConfigProp => {
+export const getInstructorScheduleTableColumns = (PersonID?: number, RoomID?: number): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Start Date/Time",
@@ -33,19 +31,13 @@ export const getInstructorScheduleTableColumns = (PersonID?: number): ITableConf
     {
       title: "Action",
       key: "action",
-      render: (record: any) => (
-        <Dropdown overlay={<InstructorScheduleMenu initialData={{ ...record, PersonID }} />} trigger={["click"]}>
-          <Button type="primary" onClick={(e) => e.preventDefault()}>
-            Go To <DownOutlined />
-          </Button>
-        </Dropdown>
-      )
+      render: (record: any) => <InstructorScheduleMenu initialData={{ ...record, PersonID }} />
     }
   ]
 
   return {
     columns,
-    searchFunc: () => findEntitySchedule({ PersonID }),
+    searchFunc: () => findEntitySchedule({ PersonID, RoomID }),
     tableName: "ScheduleTableColumns"
   }
 }

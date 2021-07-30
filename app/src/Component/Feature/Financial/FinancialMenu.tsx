@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
 import FinancialRemoveLink from "~/Component/Feature/Financial/FinancialRemoveLink"
 import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
 import { EditOutlined } from "@ant-design/icons"
@@ -15,14 +15,16 @@ export default function FinancialMenu(props: IFinancialMenu) {
 
   return (
     <>
-      <Button
-        type="primary"
-        icon={<EditOutlined />}
-        shape="circle"
-        onClick={() => {
-          setShowUpdateModal(true)
-        }}
-      />
+      <Tooltip title="Edit">
+        <Button
+          type="primary"
+          icon={<EditOutlined />}
+          shape="circle"
+          onClick={() => {
+            setShowUpdateModal(true)
+          }}
+        />
+      </Tooltip>
       {showUpdateModal && (
         <CreateNewFinancial
           applyToID={props.applyToID}

@@ -1,9 +1,9 @@
-import { Button } from "antd"
+import { Button, message } from "antd"
 import React, { useState } from "react"
 import { removeSectionById } from "~/ApiServices/Service/EntityService"
-import apiErroreEventBus from "@packages/api/lib/utils/GlobalHttpErrorEventBus"
 import { Redirect } from "react-router-dom"
 import { DeleteOutlined } from "@ant-design/icons"
+import { DELETE_SUCCESSFULLY } from "~/utils/Constants"
 
 export function SectionRemoveButton(props: { Section: { [key: string]: any }; OfferingID?: number }) {
   const [removeApiCallInProgress, setRemoveApiCallInProgress] = useState(false)
@@ -25,7 +25,7 @@ export function SectionRemoveButton(props: { Section: { [key: string]: any }; Of
           removeSectionById(props.Section.SectionID)
             .then((x) => {
               if (x.success) {
-                apiErroreEventBus.publish([{ message: `Section ${props.Section.SectionNumber} removed` }])
+                message.success(DELETE_SUCCESSFULLY)
                 if (props.OfferingID) {
                   setRedirectAfterRemove(`/offering/${props.OfferingID}/section`)
                 } else {

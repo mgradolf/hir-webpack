@@ -5,12 +5,14 @@ export const PackageFormMeta: IField[] = [
     label: "Name",
     inputType: TEXT,
     fieldName: "Name",
+    maxLength: 128,
     rules: [{ required: true, message: "Please enter package name!" }]
   },
   {
     label: "Description",
     inputType: TEXTAREA,
     fieldName: "Description",
+    maxLength: 4000,
     rules: [{ required: true, message: "Please enter description!" }]
   },
   {
@@ -28,6 +30,7 @@ export const PackageFormMeta: IField[] = [
   {
     label: "PO Number",
     inputType: NUMBER,
+    maxLength: 20,
     fieldName: "PONumber"
   },
   {
