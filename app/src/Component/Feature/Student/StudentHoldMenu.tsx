@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
-import { StudentHoldFormMeta } from "~/Component/Feature/Student/FormMeta/StudentHoldFormMeta"
-import { createUpdateStudentHold, releaseStudentHold } from "~/ApiServices/Service/StudentService"
+import { releaseStudentHold } from "~/ApiServices/Service/StudentService"
 import { StudentReleaseFormMeta } from "~/Component/Feature/Student/FormMeta/StudentReleaseFormMeta"
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons"
+import { StudentHoldFormModal } from "~/Component/Feature/Student/StudentHoldFormModal"
 import moment from "moment"
 
 interface IStudentHoldMenu {
@@ -21,42 +21,36 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
 
   return (
     <>
-      <Button
-        type="primary"
-        icon={<EditOutlined />}
-        shape="circle"
-        disabled={props.initialData.ReleaseReasonID || now > releaseDate}
-        style={{ marginRight: "5px" }}
-        onClick={() => {
-          setShowUpdateModal(true)
-        }}
-      />
-      {showUpdateModal && (
-        <MetaDrivenFormModal
-          meta={StudentHoldFormMeta}
-          metaName="StudentHoldFormMeta"
-          title={"Edit Hold"}
-          initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
-          defaultFormValue={{
-            StudentHoldID: props.initialData.StudentHoldID,
-            HoldBy: props.initialData.HoldBy,
-            StudentID: props.studentID
+      <Tooltip title="Edit">
+        <Button
+          type="primary"
+          icon={<EditOutlined />}
+          shape="circle"
+          disabled={props.initialData.ReleaseReasonID || now > releaseDate}
+          style={{ marginRight: "5px" }}
+          onClick={() => {
+            setShowUpdateModal(true)
           }}
-          formSubmitApi={createUpdateStudentHold}
-          refreshEventAfterFormSubmission={"REFRESH_HOLD_TAB"}
+        />
+      </Tooltip>
+      {showUpdateModal && (
+        <StudentHoldFormModal
+          initialData={{ ...props.initialData, StudentID: props.studentID }}
           closeModal={() => setShowUpdateModal(false)}
         />
       )}
-      <Button
-        type="primary"
-        danger
-        disabled={props.initialData.ReleaseReasonID || now > releaseDate}
-        icon={<DeleteOutlined />}
-        shape="circle"
-        onClick={() => {
-          setShowReleaseModal(true)
-        }}
-      />
+      <Tooltip title="Remove">
+        <Button
+          type="primary"
+          danger
+          disabled={props.initialData.ReleaseReasonID || now > releaseDate}
+          icon={<DeleteOutlined />}
+          shape="circle"
+          onClick={() => {
+            setShowReleaseModal(true)
+          }}
+        />
+      </Tooltip>
       {showReleaseModal && (
         <MetaDrivenFormModal
           meta={StudentReleaseFormMeta}

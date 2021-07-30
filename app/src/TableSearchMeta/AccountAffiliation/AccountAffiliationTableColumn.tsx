@@ -14,7 +14,7 @@ import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { eventBus } from "~/utils/EventBus"
 import { AccountContactMenu } from "~/Component/Feature/Account/AccountContactMenu"
 
-export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigProp => {
+export const getAccountAffiliationTableColumn = (isModal = false, isIndividualContact?: boolean): ITableConfigProp => {
   const primaryContactAction = (IsPublished: boolean, AccountID: number, AccountAffiliationID: number) => {
     if (IsPublished) {
       setPrimaryAccountAffiliation({ AccountID, AccountAffiliationID }).then((x) => {
@@ -53,6 +53,7 @@ export const getAccountAffiliationTableColumn = (isModal = false): ITableConfigP
       dataIndex: "PrimaryAccountAffiliation",
       render: (text: any, record: any) => (
         <Switch
+          disabled={isIndividualContact}
           checked={!!text}
           onChange={(e) => primaryContactAction(e, record.AccountID, record.AccountAffiliationID)}
         />

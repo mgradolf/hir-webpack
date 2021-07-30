@@ -79,6 +79,13 @@ export function pushPersonPhone(
   return PersonPhoneService[phoneConfig.Actions.pushPersonPhone](Params, Headers)
 }
 
+export function findPreferredTelephone(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return PersonPhoneService[phoneConfig.Actions.findPreferredTelephone](Params, Headers)
+}
+
 export function deletePersonPhone(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
@@ -91,6 +98,10 @@ export function pushPersonAddress(
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
   return PersonAddressService[addressConfig.Actions.pushPersonAddress](Params, Headers)
+}
+
+export function findAddresses(Params: { [key: string]: any }, Headers?: { [key: string]: any }): Promise<IApiResponse> {
+  return PersonAddressService[addressConfig.Actions.findAddresses](Params, Headers)
 }
 
 export function deletePersonAddress(

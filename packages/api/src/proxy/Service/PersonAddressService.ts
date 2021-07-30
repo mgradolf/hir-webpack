@@ -7,6 +7,7 @@ export const addressConfig = {
   Actions: {
     pushPersonAddress: "pushPersonAddress",
     deletePersonAddress: "deletePersonAddress",
+    findAddresses: "findAddresses",
     findCountry: "findCountry"
   }
 }

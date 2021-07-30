@@ -166,6 +166,7 @@ export const PROGRAM_APP_REQ_RESUBMIT = 3
 export const PROGRAM_APP_REQ_ACCPETED = 4
 export const PROGRAM_APP_REQ_REJECTED = 1000
 
+export const FINANCIAL_HOLT_TYPE_ID = 1
 export const FINANCIAL_BASIS_PER_ENROLLMENT_TYPE_ID = 1
 
 export const FINANCIAL_OFFERING_TYPE_ID = 1
@@ -217,10 +218,10 @@ export const CEU_HOURS = "CEUHours"
 
 export const REGISTRATION_EMAIL_CONFIRMATION_SUCCESS = "Successfully send email!"
 export const REGISTRATION_QUESTION_NOT_FOUND = "Registration questions not found!"
-export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate save successfully!"
+export const ISSUE_CERTIFICATE_SAVE_SUCCESS = "Certificate issue successfully!"
 
-export const INVITE_TO_SETUP_WEB_LOGIN = "Invite to setup web login done!"
-export const INVITE_TO_RESET_PASSWORD = "Invite to reset password done!"
+export const INVITE_TO_SETUP_WEB_LOGIN = "An invitation to setup a web login has been sent."
+export const INVITE_TO_RESET_PASSWORD = "An invitation to reset password has been sent."
 export const UNLOCK_WEB_LOGIN = "Unlock person login done!"
 
 export const MERGE_SUCCESSFULLY = "Successfully merged!"
@@ -234,6 +235,9 @@ export const UPLOAD_SUCCESSFULLY = "Successfully uploaded!"
 export const ADDED_SUCCESSFULLY = "Successfully added!"
 export const DEPOSIT_SUCCESSFULLY = "Deposit Successfully!"
 export const REFUND_SUCCESSFULLY = "Refund Successfully!"
+export const RECEIVE_SUCCESSFULLY = "Received Successfully!"
+export const REVERSE_PAYMENT_SUCCESSFULLY = "Payment has been successfully reversed!"
+export const EMAIL_SENT_SUCCESSFULLY = "Email Sent Successfully!"
 export const TRANSFER_SUCCESSFULLY = "Transfer Successfully!"
 export const FORGET_ME_REQUEST_SUCCESSFULLY = "Forget Me Requested Successfully!"
 export const CANCEL_FORGET_ME_REQUEST_SUCCESSFULLY = "Cancel Forget Me Requested Successfully!"
@@ -276,3 +280,9 @@ export const ALL_REQUIRED_POLICY_TYPE = 1
 export const DEPOSIT_TRANSACTION_TYPE_ID = 1
 export const REFUND_TRANSACTION_TYPE_ID = 2
 export const TRANSFER_TRANSACTION_TYPE_ID = 3
+
+export const REGISTRATION_ENROLLMENT_STATUS_COMPLETED = "Completed"
+
+export const CERTIFICATE_CATEGORY_DEFAULT = 1000
+
+export const ENTITY_TYPE_OFFERING = 4

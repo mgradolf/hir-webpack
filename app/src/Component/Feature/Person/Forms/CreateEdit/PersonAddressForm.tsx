@@ -194,13 +194,20 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
               <Input aria-label={"City"} />
             </Form.Item>
             <Form.Item label={"State/Province"} {...layout} name={props.fieldNames.RegionCodeID}>
-              <Select loading={regionLoading} aria-label={"State / Province"}>
-                {regions.map((x, i) => {
-                  return (
-                    <Select.Option key={1000 + i} value={x.RegionCodeID}>
-                      {x.Description}
-                    </Select.Option>
+              <Select
+                showSearch
+                filterOption={(inputValue, options) => {
+                  return !!(
+                    options &&
+                    typeof options.children === "string" &&
+                    options.children.toLowerCase().startsWith(inputValue.toLowerCase())
                   )
+                }}
+                loading={regionLoading}
+                aria-label={"State / Province"}
+              >
+                {regions.map((x, i) => {
+                  return <Select.Option key={`${x.ID}_${i}`} value={x.ID} children={x.Description} />
                 })}
               </Select>
             </Form.Item>
@@ -218,13 +225,21 @@ export default function PersonAddressForm(props: IPersonAddressFormProps) {
               name={props.fieldNames.CountryCodeID}
               rules={[{ required: true, message: "Please select country!" }]}
             >
-              <Select loading={countryLoading} aria-label={"Country"} onChange={onChangeCountry}>
-                {countryList.map((x, i) => {
-                  return (
-                    <Select.Option key={1000 + i} value={x.CountryID}>
-                      {x.Description}
-                    </Select.Option>
+              <Select
+                showSearch
+                filterOption={(inputValue, options) => {
+                  return !!(
+                    options &&
+                    typeof options.children === "string" &&
+                    options.children.toLowerCase().startsWith(inputValue.toLowerCase())
                   )
+                }}
+                loading={countryLoading}
+                aria-label={"Country"}
+                onChange={onChangeCountry}
+              >
+                {countryList.map((x, i) => {
+                  return <Select.Option key={`${x.CountryID}_${i}`} value={x.CountryID} children={x.Description} />
                 })}
               </Select>
             </Form.Item>

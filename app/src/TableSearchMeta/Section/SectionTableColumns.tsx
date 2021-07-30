@@ -9,7 +9,16 @@ export const getSectionTableColumns = (isModal = false, OfferingID?: number): IT
     {
       title: "Section Number",
       dataIndex: "SectionNumber",
-      render: (text: any, record: any) => (isModal ? text : <Link to={`/section/${record.SectionID}`}>{text}</Link>),
+      render: (text: any, record: any) =>
+        isModal ? (
+          text
+        ) : (
+          <Link
+            to={OfferingID ? `/offering/${OfferingID}/section/${record.SectionID}` : `/section/${record.SectionID}`}
+          >
+            {text}
+          </Link>
+        ),
       sorter: (a: any, b: any) => a.SectionNumber.length - b.SectionNumber.length
     },
     {

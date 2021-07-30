@@ -6,9 +6,9 @@ import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/Detai
 import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
 import { FINANCIAL_MARKETING_PROGRAM_TYPE_ID, FINANCIAL_TYPE_MARKETING_PROGRAM } from "~/utils/Constants"
 import { getFinancialTableColumns } from "~/TableSearchMeta/Financial/FinancialTableColumns"
-import { Button } from "antd"
 import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
 import { REFRESH_MAREKTING_PROGRAM_OFFERINGS_TAB } from "~/utils/EventBus"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 export const getMarketingProgramDetailsMeta = (MarketingProgram: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -29,9 +29,7 @@ export const getMarketingProgramDetailsMeta = (MarketingProgram: { [key: string]
     return (
       <>
         {setShowModal && (
-          <Button type="primary" style={{ float: "right" }} onClick={() => setShowModal && setShowModal(true)}>
-            + Create Financial
-          </Button>
+          <IconButton iconType="create" toolTip={"Add Financial"} onClick={() => setShowModal && setShowModal(true)} />
         )}
         {showModal && (
           <CreateNewFinancial

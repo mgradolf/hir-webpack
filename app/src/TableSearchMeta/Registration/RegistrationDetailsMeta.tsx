@@ -1,4 +1,3 @@
-import { Button } from "antd"
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { CertificateFormModal } from "~/Component/Feature/Certificate/CertificateFormModal"
@@ -6,7 +5,6 @@ import { CardContainer, CardContents, IDetailsSummary } from "~/Component/Common
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { renderDate } from "~/Component/Common/ResponsiveTable"
 import RegistrationDetailsMenu from "~/Component/Feature/Registration/RegistrationDetailsMenu"
 import RegistrationGradeFormModal from "~/Component/Feature/Registration/RegistrationGradeFormModal"
 import {
@@ -24,6 +22,7 @@ import { getRegistrationCommentTableColumns } from "~/TableSearchMeta/Registrati
 import CommentCreateModalOpenButton from "~/Component/Feature/Comment/CommentAddLink"
 import { COMMENT_TYPES } from "~/utils/Constants"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 export const getRegistrationDetailsMeta = (registration: { [key: string]: any }): IDetailsMeta => {
   const getQuestionResponses = () => {
@@ -53,9 +52,6 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
       },
       { label: "Student ID", value: registration.StudentSerialNumber },
       { label: "Enrollment Status", value: registration.EnrollmentStatus },
-      { label: "Registration Date", value: registration.RegistrationDate, render: renderDate },
-      { label: "Withdrawal Date", value: registration.WithdrawalDate, render: renderDate },
-      { label: "Graded Date", value: registration.GradedDate, render: renderDate },
       { label: "Grade Scale", value: registration.GradeScaleType },
       { label: "Expected Attendance", value: registration.AttendanceExpected },
       ...getQuestionResponses()
@@ -68,9 +64,12 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     return (
       <>
         {setShowModal && (
-          <Button type="primary" disabled={disableActions} onClick={() => setShowModal && setShowModal(true)}>
-            Edit
-          </Button>
+          <IconButton
+            disabled={disableActions}
+            iconType="edit"
+            toolTip="Update grade"
+            onClick={() => setShowModal && setShowModal(true)}
+          />
         )}
         {showModal && (
           <RegistrationGradeFormModal initialFormValue={registration} closeModal={() => setShowModal(false)} />
@@ -117,7 +116,7 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
     tableProps: {
       pagination: false,
       ...getAcademicActivityLogTableColumns(),
-      searchParams: { SectionIDs: [registration.SectionID], StudentIDs: [registration.StudentID] },
+      searchParams: { SectionID: registration.SectionID, StudentIDs: [registration.StudentID] },
       refreshEventName: REFRESH_REGISTRATION_ACADEMIC_ACTIVITY_PAGE
     }
   }
@@ -133,7 +132,7 @@ export const getRegistrationDetailsMeta = (registration: { [key: string]: any })
 
   const certificateMeta: IDetailsTableTabProp = {
     blocks: [
-      <CertificateFormModal editMode={true} isProgram={false} initialValues={{ ...registration, IsProgram: false }} />
+      <CertificateFormModal editMode={false} isProgram={false} initialValues={{ ...registration, IsProgram: false }} />
     ],
     tableProps: {
       pagination: false,

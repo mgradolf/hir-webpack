@@ -20,7 +20,7 @@ export const getRoomDetailsMeta = (room: { [key: string]: any }): IDetailsMeta =
         value: room.SiteName,
         render: (text: any) => renderLink(`/site/${room.SiteID}`, room.SiteName)
       },
-      { label: "Floor", value: room.roomFloor },
+      { label: "Floor", value: room.BuildingFloor },
       { label: "Capacity", value: room.Capacity },
       { label: "Accessible", value: room.IsHandicapAccess, render: renderBoolean },
       { label: "Active", value: room.IsActive, render: renderBoolean }
@@ -40,7 +40,7 @@ export const getRoomDetailsMeta = (room: { [key: string]: any }): IDetailsMeta =
     tabType: "table",
     tabMeta: {
       tableProps: {
-        ...getInstructorScheduleTableColumns(),
+        ...getInstructorScheduleTableColumns(undefined, room.RoomID),
         searchParams: { RoomID: room.RoomID },
         refreshEventName: "REFRESH_SCHEDULE_TAB"
       }

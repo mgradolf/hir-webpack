@@ -30,6 +30,7 @@ import { ProgramFinancialFormOpenButton } from "~/Component/Feature/ProgramFinan
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { DATE_PICKER, NUMBER } from "~/Component/Common/Form/common"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { Typography } from "antd"
 
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
@@ -45,8 +46,13 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
     title: "Program Details",
     contents: [
       { label: "Name", value: program.Name },
-      { label: "Description", value: program.Description },
-      // { label: "Status", value: program.ProgramStatusName },
+      {
+        label: "Description",
+        value: program.Description,
+        render: (text: any) => (
+          <Typography.Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "more" }}>{text}</Typography.Paragraph>
+        )
+      },
       {
         label: "Status",
         value: (
@@ -67,9 +73,11 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
       },
       { label: "Start Date", value: program.ProgramStartDate, render: renderDate },
       { label: "End Date", value: program.ProgramEndDate, render: renderDate },
+      { label: "Department", value: program.DepartmentName },
       { label: "Inquiry Recipient", value: program.SubmitInquiryToUserID },
       { label: "Certificate/License", value: program.CertificateName },
-      { label: "No Specific Timeframe", value: "" },
+      { label: "Selected Gateway", value: program.PaymentGatewayAccountName },
+      { label: "Default Gateway", value: program.DefaultPaymentGatewayAccountName },
       { label: "Number of Months from the first Offering taken", value: program.CompletionMonth }
     ]
   }
@@ -162,7 +170,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
   const seatgroupMeta: IDetailsTableTabProp = {
     blocks: [<HelpButton helpKey="programSeatGroupsTab" />],
     tableProps: {
-      ...getSeatgroupTableColumns(),
+      ...getSeatgroupTableColumns(false, undefined, undefined, program.ProgramID),
       searchParams: { ProgramID: program.ProgramID },
       refreshEventName: REFRESH_PROGRAM_SEATGROUP_PAGE
     }

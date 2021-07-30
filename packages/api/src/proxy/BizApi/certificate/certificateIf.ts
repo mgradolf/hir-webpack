@@ -7,7 +7,11 @@ export const config = {
   Actions: {
     getApplicableSectionCertificate: "getApplicableSectionCertificate",
     getApplicableProgramCertificate: "getApplicableProgramCertificate",
-    searchCertificate: "searchCertificate"
+    getCertificateTemplateFileNames: "getCertificateTemplateFileNames",
+    getStaticParameters: "getStaticParameters",
+    searchCertificate: "searchCertificate",
+    canDeleteCertificate: "canDeleteCertificate",
+    deleteCertificate: "deleteCertificate"
   }
 }
 

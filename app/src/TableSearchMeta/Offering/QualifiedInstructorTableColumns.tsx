@@ -1,5 +1,5 @@
 import React from "react"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
 import { Link } from "react-router-dom"
 import { searchInstructorOfferings, removeInstructorFromOffering } from "~/ApiServices/Service/InstructorService"
 import { renderEmail, TableColumnType } from "~/Component/Common/ResponsiveTable"
@@ -28,31 +28,33 @@ export const getQualifiedInstructorTableColumns = (): ITableConfigProp => {
     },
     { title: "Email", dataIndex: "EmailAddress", render: renderEmail },
     { title: "Status", dataIndex: "OfferingStatus" },
-    { title: "Department", dataIndex: "OrganizationName" },
+    { title: "Department", dataIndex: "DepartmentName" },
     {
       title: "Action",
       key: "action",
       render: (text: any, record: any) => (
-        <Button
-          danger
-          type="primary"
-          icon={<DeleteOutlined />}
-          shape="circle"
-          onClick={() =>
-            showDeleteConfirm(() => {
-              return removeInstructorFromOffering({
-                OfferingID: record.OfferingID,
-                FacultyID: record.FacultyID
-              }).then((x) => {
-                if (x && x.success) {
-                  eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
-                  eventBus.publish(REFRESH_FACULTY_OFFERINGS_TAB)
-                }
-                return x
+        <Tooltip title="Remove">
+          <Button
+            danger
+            type="primary"
+            icon={<DeleteOutlined />}
+            shape="circle"
+            onClick={() =>
+              showDeleteConfirm(() => {
+                return removeInstructorFromOffering({
+                  OfferingID: record.OfferingID,
+                  FacultyID: record.FacultyID
+                }).then((x) => {
+                  if (x && x.success) {
+                    eventBus.publish(REFRESH_OFFERING_QUALIFIED_INSTRUCTOR_PAGE)
+                    eventBus.publish(REFRESH_FACULTY_OFFERINGS_TAB)
+                  }
+                  return x
+                })
               })
-            })
-          }
-        />
+            }
+          />
+        </Tooltip>
       )
     }
   ]

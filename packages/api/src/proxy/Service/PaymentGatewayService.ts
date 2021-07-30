@@ -5,6 +5,7 @@ export const config = {
   Service: "PaymentGatewayService",
   Module: "hir",
   Actions: {
+    getPaymentGatewayAccount: "getPaymentGatewayAccount",
     findPaymentGatewayActivities: "findPaymentGatewayActivities"
   }
 }

@@ -7,7 +7,7 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { updateRequisiteOfferingGroup, createRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus, REFRESH_OFFERING_REQUISITE_GROUP_PAGE } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
@@ -56,7 +56,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
 
     if (response && response.success) {
       props.formInstance.resetFields()
-      eventBus.publish(REFRESH_OFFERING_REQUISITE_GROUP_PAGE)
+      eventBus.publish(REFRESH_PAGE)
       props.handleCancel()
     } else {
       setErrorMessages(response.error)
@@ -113,6 +113,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           labelColSpan={6}
           wrapperColSpan={12}
           label={"Group Name"}
+          maxLength={50}
           fieldName={fieldNames.Name}
           formInstance={props.formInstance}
           rules={[{ required: true, message: "Please input group name!" }]}
@@ -141,6 +142,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
           labelColSpan={6}
           wrapperColSpan={12}
           label={"Policy Value"}
+          maxLength={50}
           fieldName={fieldNames.PolicyValue}
           formInstance={props.formInstance}
           rules={[{ required: requiredPolicyValue, message: "Please input policy value!" }]}
@@ -162,6 +164,7 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
         <FormTextArea
           labelColSpan={6}
           wrapperColSpan={12}
+          maxLength={128}
           label={"Quick Admit Narrative"}
           fieldName={fieldNames.CatalogNarrative}
           formInstance={props.formInstance}

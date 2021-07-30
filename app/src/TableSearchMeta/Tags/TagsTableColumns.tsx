@@ -32,6 +32,14 @@ export const getTagsTableColumns = (isModal = false, eventName: string): ITableC
 export const getParentTagsTableColumns = (isModal = false): ITableConfigProp => {
   const columns: TableColumnType = [
     {
+      title: "Entity Type",
+      dataIndex: "EntityType"
+    },
+    {
+      title: "Entity Name",
+      dataIndex: "EntityName"
+    },
+    {
       title: "Tag Type",
       dataIndex: "TagType"
     },

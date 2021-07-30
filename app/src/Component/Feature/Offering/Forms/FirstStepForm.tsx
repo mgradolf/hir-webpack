@@ -35,8 +35,8 @@ export default function FirstStepForm(props: IFirstStepFormProps) {
     })()
   }, [offeringTypesVisible])
 
-  const onChangeOfferingTypes = (event: any) => {
-    if (!event.target.value) {
+  const onChangeOfferingTypes = (value: any) => {
+    if (!value) {
       setOfferingTypesVisible(true)
     } else {
       setOfferingTypesVisible(false)

@@ -14,7 +14,7 @@ import {
   REFRESH_SECTION_INSTRUCTOR_COMMENT_PAGE,
   REFRESH_STUDENT_COMMENT_PAGE
 } from "~/utils/EventBus"
-import { Button } from "antd"
+import { Button, Tooltip } from "antd"
 import { showDeleteConfirm } from "~/Component/Common/Modal/Confirmation"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { DeleteOutlined } from "@ant-design/icons"
@@ -59,6 +59,14 @@ export function CommentRemoveLink(props: ICommentRemoveLinkProp) {
     return response
   }
   return (
-    <Button danger type="primary" icon={<DeleteOutlined />} shape="circle" onClick={() => showDeleteConfirm(remove)} />
+    <Tooltip title="Remove">
+      <Button
+        danger
+        type="primary"
+        icon={<DeleteOutlined />}
+        shape="circle"
+        onClick={() => showDeleteConfirm(remove)}
+      />
+    </Tooltip>
   )
 }

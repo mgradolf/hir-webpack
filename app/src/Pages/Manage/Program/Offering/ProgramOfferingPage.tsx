@@ -29,7 +29,6 @@ export default function () {
             }
             initialFormValue={{}}
             defaultFormValue={{}}
-            isHorizontal={true}
             refreshEventName={REFRESH_PAGE}
           />
         ]}

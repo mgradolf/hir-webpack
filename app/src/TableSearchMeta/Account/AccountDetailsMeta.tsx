@@ -27,6 +27,7 @@ import { AccountMergeFormModalOpenButton } from "~/Component/Feature/Account/For
 import { AccountEmailSetupForm } from "~/Component/Feature/Account/Forms/AccountEmailSetupForm"
 import { AccountRemoveLink } from "~/Component/Feature/Account/AccountRemoveLink"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
+import { ACC_INDIVIDUAL } from "~/utils/Constants"
 
 export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
@@ -37,6 +38,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         formTitle="Update Account"
         formMeta={AccountFormMeta.map((x: IField) => {
           if (x.fieldName === "AccountTypeID") return { ...x, disabled: true }
+          if (account.AccountTypeID === ACC_INDIVIDUAL && x.fieldName === "PersonID") return { ...x, disabled: true }
           return x
         })}
         formSubmitApi={pushAccount}
@@ -53,7 +55,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         }}
         refreshEventName={REFRESH_PAGE}
       />,
-      <AccountMergeFormModalOpenButton accountData={{ AccountID: account.AccountID }} />,
+      <AccountMergeFormModalOpenButton accountData={account} />,
       <AccountRemoveLink AccountID={account.AccountID} />
     ],
     contents: [
@@ -94,7 +96,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       ],
       tableProps: {
         pagination: false,
-        ...getAccountAffiliationTableColumn(),
+        ...getAccountAffiliationTableColumn(false, account.AccountTypeID === ACC_INDIVIDUAL),
         searchParams: { AccountID: account.AccountID },
         refreshEventName: "REFRESH_CONTACT_TAB"
       }
@@ -107,7 +109,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       tabMeta: {
         blocks: [<HelpButton helpKey="accountSeatGroupsTab" />],
         tableProps: {
-          ...getSeatgroupTableColumns(),
+          ...getSeatgroupTableColumns(false, account.AccountID, undefined, undefined),
           searchParams: { AccountID: account.AccountID },
           refreshEventName: REFRESH_ACCOUNT_SEATGROUP_PAGE
         }
@@ -219,7 +221,9 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
             initialFormValue={{
               AccountID: account.AccountID
             }}
-            buttonLabel="+ Add Package"
+            iconType="create"
+            buttonProps={{ type: "primary" }}
+            buttonLabel="Add Package"
             defaultFormValue={{
               AccountID: account.AccountID
             }}
@@ -236,14 +240,15 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
       }
     })
 
-  meta.push({
-    tabTitle: "Questions",
-    tabType: "custom",
-    tabMeta: {
-      component: AccountQuestionTab,
-      props: {}
-    }
-  })
+  account.AccountTypeID !== 1000 &&
+    meta.push({
+      tabTitle: "Questions",
+      tabType: "custom",
+      tabMeta: {
+        component: AccountQuestionTab,
+        props: {}
+      }
+    })
 
   account.AccountTypeID !== 1000 &&
     meta.push({

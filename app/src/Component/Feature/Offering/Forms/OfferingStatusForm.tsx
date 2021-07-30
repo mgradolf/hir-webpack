@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Button, Col, Form, message, Row, Select } from "antd"
+import { Button, Col, Form, message, Row, Select, Tooltip } from "antd"
 import { getOfferingStatusTypes } from "~/ApiServices/Service/RefLookupService"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { EditOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons"
@@ -96,52 +96,58 @@ export function OfferingStatusForm(props: IOfferingStatusFormProps) {
         </Col>
         {!showForm && (
           <Col flex="20px">
-            <Button
-              disabled={disableStatus}
-              type="primary"
-              shape="circle"
-              icon={<EditOutlined />}
-              onClick={() => setShowForm(true)}
-            />
+            <Tooltip title="Edit">
+              <Button
+                disabled={disableStatus}
+                type="primary"
+                shape="circle"
+                icon={<EditOutlined />}
+                onClick={() => setShowForm(true)}
+              />
+            </Tooltip>
           </Col>
         )}
         {showForm && (
           <Col flex="20px">
-            <Button
-              ghost
-              type="primary"
-              shape="circle"
-              loading={apiCallInProgress}
-              icon={<CheckOutlined />}
-              onClick={() => {
-                setApiCallInProgress(true)
-                updateOffering({ OfferingID: props.initialValue.OfferingID, ...formInstance.getFieldsValue() }).then(
-                  (x) => {
-                    if (x.success) {
-                      message.success(UPDATE_SUCCESSFULLY)
-                      setShowForm(false)
-                      eventBus.publish(REFRESH_PAGE)
+            <Tooltip title="Update">
+              <Button
+                ghost
+                type="primary"
+                shape="circle"
+                loading={apiCallInProgress}
+                icon={<CheckOutlined />}
+                onClick={() => {
+                  setApiCallInProgress(true)
+                  updateOffering({ OfferingID: props.initialValue.OfferingID, ...formInstance.getFieldsValue() }).then(
+                    (x) => {
+                      if (x.success) {
+                        message.success(UPDATE_SUCCESSFULLY)
+                        setShowForm(false)
+                        eventBus.publish(REFRESH_PAGE)
+                      }
+                      setApiCallInProgress(false)
                     }
-                    setApiCallInProgress(false)
-                  }
-                )
-              }}
-            />
+                  )
+                }}
+              />
+            </Tooltip>
           </Col>
         )}
 
         {showForm && (
           <Col flex="20px">
-            <Button
-              danger
-              type="default"
-              shape="circle"
-              icon={<CloseOutlined />}
-              onClick={() => {
-                formInstance.resetFields()
-                setShowForm(false)
-              }}
-            />
+            <Tooltip title="Remove">
+              <Button
+                danger
+                type="default"
+                shape="circle"
+                icon={<CloseOutlined />}
+                onClick={() => {
+                  formInstance.resetFields()
+                  setShowForm(false)
+                }}
+              />
+            </Tooltip>
           </Col>
         )}
       </Row>

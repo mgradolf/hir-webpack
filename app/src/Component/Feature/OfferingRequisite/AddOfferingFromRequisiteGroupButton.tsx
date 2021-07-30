@@ -1,12 +1,11 @@
 import React, { useState } from "react"
 import { AddOfferingFromRequisiteGroupModal } from "~/Component/Feature/OfferingRequisite/AddOfferingFromRequisiteGroupModal"
 import { addOfferingIntoRequisiteGroup } from "~/ApiServices/BizApi/course/requisiteIf"
-import { eventBus, REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP } from "~/utils/EventBus"
+import { eventBus } from "~/utils/EventBus"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface IOfferingRequisiteButtonProp {
   requisiteGroupID: number | undefined
-  hasRequisiteGroup: boolean
 }
 
 export function AddOfferingFromRequisiteGroupButton(props: IOfferingRequisiteButtonProp) {
@@ -15,22 +14,26 @@ export function AddOfferingFromRequisiteGroupButton(props: IOfferingRequisiteBut
     setOpenModal(true)
   }
   const onClose = (selectedItems?: any[]) => {
-    const selectedOfferingIds = selectedItems?.map((offering) => offering.OfferingID)
-    addOfferingIntoRequisiteGroup({
-      SelectedOfferingIds: selectedOfferingIds,
-      RequisiteGroupID: props.requisiteGroupID
-    }).then((x) => {
-      if (x.success) {
-        eventBus.publish(REFRESH_ADD_OFFERING_FROM_REQUISITE_GROUP)
-      }
+    if (selectedItems !== undefined) {
+      const selectedOfferingIds = selectedItems?.map((offering) => offering.OfferingID)
+      addOfferingIntoRequisiteGroup({
+        SelectedOfferingIds: selectedOfferingIds,
+        RequisiteGroupID: props.requisiteGroupID
+      }).then((x) => {
+        if (x.success) {
+          eventBus.publish("REFRESH_OFFERING_REQUISITE_TABLE")
+        }
+        setOpenModal(false)
+      })
+    } else {
       setOpenModal(false)
-    })
+    }
   }
 
   return (
     <>
       {openModal && <AddOfferingFromRequisiteGroupModal {...props} onClose={onClose} />}
-      {props.hasRequisiteGroup && (
+      {props.requisiteGroupID && (
         <IconButton toolTip="Add Offering To Requisite Group" iconType="create" onClick={onClick} />
       )}
     </>

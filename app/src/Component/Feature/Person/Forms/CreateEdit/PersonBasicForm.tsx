@@ -114,7 +114,7 @@ export default function PersonBasicForm(props: IPersonFormProps) {
               name={props.fieldNames.FirstName}
               rules={[{ required: true, message: "Please enter first name!" }]}
             >
-              <Input aria-label={"First Name"} />
+              <Input maxLength={50} aria-label={"First Name"} />
             </Form.Item>
             <Form.Item
               label={"Last Name"}
@@ -122,7 +122,7 @@ export default function PersonBasicForm(props: IPersonFormProps) {
               name={props.fieldNames.LastName}
               rules={[{ required: true, message: "Please enter last name!" }]}
             >
-              <Input aria-label={"Last Name"} />
+              <Input maxLength={50} aria-label={"Last Name"} />
             </Form.Item>
             <Form.Item label={"Suffix"} {...layout} name={props.fieldNames.Suffix}>
               <Select aria-label={"Suffix"}>
@@ -138,13 +138,13 @@ export default function PersonBasicForm(props: IPersonFormProps) {
           </Col>
           <Col xs={24} sm={24} md={12}>
             <Form.Item label={"Middle Name"} {...layout} name={props.fieldNames.MiddleName}>
-              <Input aria-label={"Middle Name"} />
+              <Input maxLength={50} aria-label={"Middle Name"} />
             </Form.Item>
             <Form.Item label={"Maiden Name"} {...layout} name={props.fieldNames.MaidenName}>
-              <Input aria-label={"Maiden Name"} />
+              <Input maxLength={50} aria-label={"Maiden Name"} />
             </Form.Item>
             <Form.Item label={"Other Name"} {...layout} name={props.fieldNames.OtherName}>
-              <Input aria-label={"Other Name"} />
+              <Input maxLength={50} aria-label={"Other Name"} />
             </Form.Item>
             <Form.Item label={"Personal Information is Private"} {...layout} name={props.fieldNames.IsConfidential}>
               <Radio.Group aria-label={"Person information is private"}>
