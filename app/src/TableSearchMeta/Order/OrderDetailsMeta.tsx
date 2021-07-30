@@ -16,6 +16,7 @@ import { getPaymentTableColumns } from "~/TableSearchMeta/Payment/PaymentTableCo
 import { getActivityOrderSearchTableColumns } from "~/TableSearchMeta/ActivityOrder/ActivityOrderSearchTableColumns"
 import { REFRESH_ORDER_ACTIVITY_PAGE, REFRESH_ORDER_CREDIT_ACTIVITY_PAGE } from "~/utils/EventBus"
 import { getActivityOrderCreditSearchTableColumns } from "~/TableSearchMeta/ActivityOrderCredit/ActivityOrderCreditSearchTableColumns"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -81,10 +82,12 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const summaryMeta: IDetailsSummary = {
+    actions: [<HelpButton helpKey="financialsOrderSummaryTab" />],
     summary: [summary, billingIngo]
   }
 
   const orderItemsMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderItemsTab" />],
     tableProps: {
       ...getOrderItemTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -94,6 +97,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderLinesMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderChargesTab" />],
     tableProps: {
       ...getOrderLinesTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -103,6 +107,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderCreditsMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderCreditsTab" />],
     tableProps: {
       ...getOrderCreditsTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -112,6 +117,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderPaymentsMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderPaymentsTab" />],
     tableProps: {
       ...getPaymentTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -121,6 +127,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderReturnsMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderReturnsTab" />],
     tableProps: {
       ...getOrderReturnTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -130,6 +137,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderRegistrationsMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderRegistrationsTab" />],
     tableProps: {
       ...getRegistrationTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -139,6 +147,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderMarketingCodeMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderMarketingResponseTab" />],
     tableProps: {
       ...getMarketingCodeResponseTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -148,6 +157,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   }
 
   const orderPurchasedCodeMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="financialsOrderPurchaseOrdersTab" />],
     tableProps: {
       ...getOrderPurchasedTableColumns(false),
       searchParams: { OrderID: order.OrderID },
@@ -177,6 +187,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
             tabTitle: "Orders",
             tabType: "table",
             tabMeta: {
+              blocks: [<HelpButton helpKey="financialsOrderLogsOrdersTab" />],
               tableProps: {
                 pagination: false,
                 ...getActivityOrderSearchTableColumns(),
@@ -189,6 +200,7 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
             tabTitle: "Credits",
             tabType: "table",
             tabMeta: {
+              blocks: [<HelpButton helpKey="financialsOrderLogsCreditsTab" />],
               tableProps: {
                 pagination: false,
                 ...getActivityOrderCreditSearchTableColumns(),

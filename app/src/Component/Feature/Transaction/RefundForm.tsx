@@ -221,6 +221,7 @@ export function RefundFormModalOpenButton() {
       onFormSubmission={onFormSubmission}
       initialValues={initialValues}
       apiCallInProgress={apiCallInProgress}
+      helpKey="financialsTransactionsCreateRefund"
       loading={loading}
       errorMessages={errorMessages}
       buttonLabel={"Refund"}
