@@ -14,6 +14,7 @@ interface IViewReturnItemsModal {
   OrderID: number
   OrderItemID: number
   setShowViewReturnItemsModal: (flag: boolean) => void
+  helpkey?: string
 }
 
 interface ICreditMemoData {
@@ -42,7 +43,7 @@ export default function ViewReturnItemsModal(props: IViewReturnItemsModal) {
             <Row justify="space-between">
               <Col>View Return Items</Col>
               <Col>
-                <HelpButton helpKey="accountFinancialsOrdersItemsViewReturnItemsForm" />
+                <HelpButton helpKey={props.helpkey} />
               </Col>
             </Row>
           }

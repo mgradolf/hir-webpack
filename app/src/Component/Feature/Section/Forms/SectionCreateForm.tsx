@@ -8,6 +8,7 @@ import { FormInput } from "~/Component/Common/Form/FormInput"
 import { Redirect } from "react-router"
 import "~/Sass/utils.scss"
 import { OfferingLookupButton } from "~/Component/Common/Form/FormLookupFields/OfferingLookup"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface ISectionCreateFormProps {
   handleCancel: () => void
@@ -84,7 +85,14 @@ export function SectionCreateForm(props: ISectionCreateFormProps) {
     <>
       {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
       <Card
-        title="Create new Section"
+        title={
+          <Row justify="space-between">
+            <Col>Create new Section</Col>
+            <Col>
+              <HelpButton helpKey="offeringSectionsTabCreateSectionForm" />
+            </Col>
+          </Row>
+        }
         actions={[
           <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
             <Col>

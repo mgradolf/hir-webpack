@@ -142,6 +142,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle={`Update Grades & Credits`}
+        helpkey="sectionSummaryTabUpdateGrades&CreditsForm"
         formMeta={SectionGradesCreditsFormMeta}
         formSubmitApi={updateSection}
         initialFormValue={{

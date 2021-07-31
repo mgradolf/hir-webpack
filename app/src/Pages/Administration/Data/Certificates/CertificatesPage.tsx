@@ -20,6 +20,7 @@ export default function CertificatesPage() {
         />
       ]}
       title="Certificates"
+      helpKey="administrationDataCertificateSearch"
       meta={CertificateDefinitionSearchMeta}
       metaName="CertificateDefinitionSearchMeta"
       hideSearchField={false}

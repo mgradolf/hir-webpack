@@ -216,6 +216,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
           <HelpButton helpKey="accountPackgesTab" />,
           <MetaDrivenFormModalOpenButton
             formTitle="Create Package"
+            helpkey="accountsAddPackageForm"
             formMeta={PackageFormMeta}
             formSubmitApi={savePackage}
             initialFormValue={{

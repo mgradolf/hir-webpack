@@ -33,6 +33,7 @@ export default function OrderItems(props: RouteComponentProps<{ sectionID?: stri
           setShowViewReturnItemsModal={setShowViewReturnItemModal}
           OrderItemID={selectedOrderItem.OrderItemID}
           OrderID={selectedOrderItem.OrderID}
+          helpkey="accountFinancialsOrdersItemsViewReturnItemsForm"
         />
         // <ViewReturnItemsModal setShowViewReturnItemsModal={setShowViewReturnItemModal} OrderItemID={20896} />
       )}

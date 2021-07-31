@@ -1,11 +1,12 @@
 import React, { useState } from "react"
-import { Button, Tooltip } from "antd"
+import { Button, Col, Row, Tooltip } from "antd"
 import { MetaDrivenFormModal } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModal"
 import { releaseStudentHold } from "~/ApiServices/Service/StudentService"
 import { StudentReleaseFormMeta } from "~/Component/Feature/Student/FormMeta/StudentReleaseFormMeta"
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons"
 import { StudentHoldFormModal } from "~/Component/Feature/Student/StudentHoldFormModal"
 import moment from "moment"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IStudentHoldMenu {
   initialData: { [key: string]: any }
@@ -55,7 +56,14 @@ export function StudentHoldMenu(props: IStudentHoldMenu) {
         <MetaDrivenFormModal
           meta={StudentReleaseFormMeta}
           metaName="StudentReleaseFormMeta"
-          title={"Release Hold"}
+          title={
+            <Row justify="space-between">
+              <Col>Release Hold</Col>
+              <Col>
+                <HelpButton helpKey="studentReleaseHoldForm" />
+              </Col>
+            </Row>
+          }
           initialFormValue={{ ...props.initialData, StudentID: props.studentID }}
           defaultFormValue={{ StudentHoldID: props.initialData.StudentHoldID, StudentID: props.studentID }}
           formSubmitApi={releaseStudentHold}

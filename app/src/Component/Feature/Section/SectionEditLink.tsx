@@ -83,6 +83,7 @@ export function SectionEditLink(props: ISectionEditLinkProp) {
       {Object.keys(initialValues).length > 0 && (
         <CustomFormModalOpenButton
           formTitle={"Update Section"}
+          helpKey="sectionSummaryTabUpdateBasicInfoForm"
           customForm={<props.component initialValue={initialValues} formInstance={formInstance} />}
           formInstance={formInstance}
           onFormSubmission={onFormSubmission}
