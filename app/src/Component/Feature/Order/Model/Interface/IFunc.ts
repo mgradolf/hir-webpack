@@ -22,6 +22,7 @@ export interface IRequest_Func {
   launchRequest: () => Promise<IApiResponse>
   getAllocations: () => Promise<IApiResponse>
   updateCartByEvent: () => void
+  setPaymentDueDate: (dateString: string) => void
 }
 
 export interface IRegistrationRequest_Func {
@@ -32,7 +33,7 @@ export interface IRegistrationRequest_Func {
     StatusDate?: string
   ) => Promise<IApiResponse>
 
-  getPromotionalForSeatGroups: () => Promise<IApiResponse>
+  getPromotionalForSeatGroups: () => void
   addOptionalItem: (
     RequestID: number,
     SeatGroupID: number,

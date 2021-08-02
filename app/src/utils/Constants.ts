@@ -144,6 +144,13 @@ export const DISCOUNT_AMOUNT = {
   DISCOUNT_PERCENTAGE_AMOUNT_TYPE_ID: "%"
 }
 
+export const PAYMENT_TYPE = {
+  CashAccountPayment: "CashAccountPayment",
+  ExternalGatewayPayment: "ExternalGatewayPayment",
+  MiscellaneousPayment: "MiscellaneousPayment",
+  BankAccountPayment: "BankAccountPayment"
+}
+
 // ProgramEnrollStatusCode
 export const PROGRAM_ENROLLMENT_ENROLLED = 1
 export const PROGRAM_ENROLLMENT_COMPLETED = 2

@@ -1,6 +1,7 @@
 import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { PAYMENT_TYPE } from "~/utils/Constants"
 
 export const getExternalPaymentRequestObject = async (props: {
   requestComponentName: string
@@ -26,7 +27,7 @@ export const getExternalPaymentRequestObject = async (props: {
         SuccessPath: "admin_success",
         FailurePath: "admin_failed",
         PaymentTypeName: "External Payment",
-        PaymentType: "ExternalGatewayPayment",
+        PaymentType: PAYMENT_TYPE.ExternalGatewayPayment,
         SourceID: 3,
         EmailReceipt: true
       },

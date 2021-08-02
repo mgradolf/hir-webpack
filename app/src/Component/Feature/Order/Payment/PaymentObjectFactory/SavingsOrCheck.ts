@@ -1,6 +1,7 @@
 import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { PAYMENT_TYPE } from "~/utils/Constants"
 
 export const getSavingsOrCheckPaymentRequestObject = async (props: {
   requestComponentName: string
@@ -31,7 +32,7 @@ export const getSavingsOrCheckPaymentRequestObject = async (props: {
         CheckNumber: props.PaymentFormInstance.getFieldValue("CheckNumber"),
         BankAccountNumber: props.PaymentFormInstance.getFieldValue("BankAccountNumber"),
         PaymentTypeName: "Checking",
-        PaymentType: "BankAccountPayment",
+        PaymentType: PAYMENT_TYPE.BankAccountPayment,
         SourceID: 3,
         EmailReceipt: false
       },

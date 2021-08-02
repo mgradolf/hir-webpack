@@ -14,6 +14,7 @@ import { ProgramEnrollmentCartItemDetailsModal } from "~/Component/Feature/Order
 import { Link } from "react-router-dom"
 import { MembershipCartItemDetailsModal } from "~/Component/Feature/Order/Membership/MembershipCartItemDetailsModal"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
+import { Col, Row } from "antd"
 
 export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctionality: CartModelFunctionality }) => {
   const [dataSource, setDataSource] = useState<any[]>([])
@@ -32,97 +33,99 @@ export const CartTable = (props: { itemList: IItemRequest[]; cartModelFunctional
     } else setDataSource([])
   }, [props.itemList])
   return (
-    <>
-      <ResponsiveTable
-        rowKey="RequestID"
-        hidePagination={true}
-        disableSorting={true}
-        columns={[
-          {
-            title: "Name",
-            dataIndex: "ItemName",
-            render: (text, record) => {
-              switch (record.ItemType) {
-                case "RegistrationRequest":
-                  return (
-                    <RegistrationCartItemDetailsModal
-                      cartModelFunctionality={props.cartModelFunctionality}
-                      itemList={props.itemList}
-                      item={record as IRegistrationRequest}
-                    />
-                  )
-                case "ProgramApplicationRequest":
-                  return (
-                    <ProgramApplicationCartItemDetailsModal
-                      cartModelFunctionality={props.cartModelFunctionality}
-                      itemList={props.itemList}
-                      item={record as IProgramApplicationRequest}
-                    />
-                  )
-                case "ProgramEnrollmentRequest":
-                  return (
-                    <ProgramEnrollmentCartItemDetailsModal
-                      cartModelFunctionality={props.cartModelFunctionality}
-                      itemList={props.itemList}
-                      item={record as IProgramEnrollmentRequest}
-                    />
-                  )
-                case "ProductRequest":
-                  return (
-                    <Link to={`/product/${record.ProductID}`} target="_blank">
-                      {record.ItemName}
-                    </Link>
-                  )
-                case "MembershipRequest":
-                  return (
-                    <MembershipCartItemDetailsModal
-                      cartModelFunctionality={props.cartModelFunctionality}
-                      itemList={props.itemList}
-                      item={record as IMembershipRequest}
-                    />
-                  )
+    <Row>
+      <Col span={24}>
+        <ResponsiveTable
+          rowKey="RequestID"
+          hidePagination={true}
+          disableSorting={true}
+          columns={[
+            {
+              title: "Name",
+              dataIndex: "ItemName",
+              render: (text, record) => {
+                switch (record.ItemType) {
+                  case "RegistrationRequest":
+                    return (
+                      <RegistrationCartItemDetailsModal
+                        cartModelFunctionality={props.cartModelFunctionality}
+                        itemList={props.itemList}
+                        item={record as IRegistrationRequest}
+                      />
+                    )
+                  case "ProgramApplicationRequest":
+                    return (
+                      <ProgramApplicationCartItemDetailsModal
+                        cartModelFunctionality={props.cartModelFunctionality}
+                        itemList={props.itemList}
+                        item={record as IProgramApplicationRequest}
+                      />
+                    )
+                  case "ProgramEnrollmentRequest":
+                    return (
+                      <ProgramEnrollmentCartItemDetailsModal
+                        cartModelFunctionality={props.cartModelFunctionality}
+                        itemList={props.itemList}
+                        item={record as IProgramEnrollmentRequest}
+                      />
+                    )
+                  case "ProductRequest":
+                    return (
+                      <Link to={`/product/${record.ProductID}`} target="_blank">
+                        {record.ItemName}
+                      </Link>
+                    )
+                  case "MembershipRequest":
+                    return (
+                      <MembershipCartItemDetailsModal
+                        cartModelFunctionality={props.cartModelFunctionality}
+                        itemList={props.itemList}
+                        item={record as IMembershipRequest}
+                      />
+                    )
+                }
+                return text
               }
-              return text
+            },
+            { title: "Qty", dataIndex: "ItemQuantity" },
+            {
+              title: "Gross Price",
+              dataIndex: "GrossPrice"
+            },
+            {
+              title: "Credit/Discount",
+              dataIndex: "Discount"
+            },
+            {
+              title: "Net Price",
+              dataIndex: "NetPrice"
+            },
+            {
+              title: "Action",
+              render: (text, record) =>
+                (record as IItemRequest).ItemType ? (
+                  <IconButton
+                    iconType="remove"
+                    toolTip="Remove Item"
+                    onClickRemove={() => props.cartModelFunctionality.removeCartItemRequest(record.RequestID)}
+                  />
+                ) : (
+                  ""
+                )
             }
-          },
-          { title: "Qty", dataIndex: "ItemQuantity" },
-          {
-            title: "Gross Price",
-            dataIndex: "GrossPrice"
-          },
-          {
-            title: "Credit/Discount",
-            dataIndex: "Discount"
-          },
-          {
-            title: "Net Price",
-            dataIndex: "NetPrice"
-          },
-          {
-            title: "Action",
-            render: (text, record) =>
-              (record as IItemRequest).ItemType ? (
-                <IconButton
-                  iconType="remove"
-                  toolTip="Remove Item"
-                  onClickRemove={() => props.cartModelFunctionality.removeCartItemRequest(record.RequestID)}
-                />
-              ) : (
-                ""
-              )
-          }
-        ]}
-        expandable={{
-          expandedRowKeys: props.itemList
-            .filter((x: any) => x.ItemType === "RegistrationRequest" && x.ItemList && x.ItemList.length)
-            .map((x) => x.RequestID),
-          childrenColumnName: "ItemList",
-          indentSize: 50,
-          rowExpandable: (record) =>
-            record.ItemType === "RegistrationRequest" && record.ItemList && record.ItemList.length
-        }}
-        dataSource={dataSource}
-      />
-    </>
+          ]}
+          expandable={{
+            expandedRowKeys: props.itemList
+              .filter((x: any) => x.ItemType === "RegistrationRequest" && x.ItemList && x.ItemList.length)
+              .map((x) => x.RequestID),
+            childrenColumnName: "ItemList",
+            indentSize: 50,
+            rowExpandable: (record) =>
+              record.ItemType === "RegistrationRequest" && record.ItemList && record.ItemList.length
+          }}
+          dataSource={dataSource}
+        />
+      </Col>
+    </Row>
   )
 }

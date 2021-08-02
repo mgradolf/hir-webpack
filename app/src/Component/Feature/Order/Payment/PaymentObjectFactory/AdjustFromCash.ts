@@ -1,6 +1,7 @@
 import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { PAYMENT_TYPE } from "~/utils/Constants"
 
 export const getAdjustFromCashPaymentRequestObject = async (props: {
   requestComponentName: string
@@ -42,7 +43,7 @@ export const getAdjustFromCashPaymentRequestObject = async (props: {
         RemainingAmount: props.depositItems[0].RemainingAmount,
         DepositIDList: props.depositItems?.map((x) => ({ DepositID: x.TransactionID })),
         PaymentTypeName: "Adjust From Cash Account",
-        PaymentType: "CashAccountPayment",
+        PaymentType: PAYMENT_TYPE.CashAccountPayment,
         SourceID: 3,
         EmailReceipt: false
       },

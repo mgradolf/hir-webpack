@@ -1,6 +1,7 @@
 import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
+import { PAYMENT_TYPE } from "~/utils/Constants"
 
 export const getGiftOrCashPaymentRequestObject = async (props: {
   requestComponentName: string
@@ -25,7 +26,7 @@ export const getGiftOrCashPaymentRequestObject = async (props: {
         PaymentNotes: props.PaymentFormInstance.getFieldValue("PaymentNotes"),
         TransactionNumber: "1",
         PaymentTypeName: "Cash",
-        PaymentType: "MiscellaneousPayment",
+        PaymentType: PAYMENT_TYPE.MiscellaneousPayment,
         SourceID: 3,
         EmailReceipt: false
       },

@@ -55,6 +55,7 @@ export class CartModelFunctionality
   // itemList: IItemRequest[] = fakeCartData
   allocations?: IAllocation
   registrationPromos: IRegistrationPromo[] = []
+  paymentDueDate?: string
 
   EVENT_UPDATE_CART: string
   EVENT_UPDATE_BUYER: string
@@ -232,7 +233,11 @@ export class CartModelFunctionality
   }
 
   getPromotionalForSeatGroups() {
-    return getPromotionalForSeatGroup({
+    if (!this.itemList.length) {
+      this.registrationPromos = []
+      return
+    }
+    getPromotionalForSeatGroup({
       SeatGroupID: this.itemList
         .filter((x) => x.ItemType === "RegistrationRequest")
         .map((x) => (x as IRegistrationRequest).SeatGroupID)
@@ -513,9 +518,17 @@ export class CartModelFunctionality
   }
 
   updateCartByEvent() {
-    this.getAllocations().then((response) => {
-      eventBus.publish(this.EVENT_UPDATE_CART, { itemList: this.itemList, allocations: response.data })
-    })
+    if (this.itemList.length) {
+      this.getAllocations().then((response) => {
+        eventBus.publish(this.EVENT_UPDATE_CART, { itemList: this.itemList, allocations: response.data })
+      })
+    } else {
+      eventBus.publish(this.EVENT_UPDATE_CART, { itemList: [], allocations: [] })
+    }
+  }
+
+  setPaymentDueDate(dateString: string) {
+    this.paymentDueDate = dateString
   }
 
   launchRequest(): Promise<IApiResponse> {

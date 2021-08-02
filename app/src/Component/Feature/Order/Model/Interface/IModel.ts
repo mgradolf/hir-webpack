@@ -277,6 +277,7 @@ export interface IAllocationItem {
   PaymentGatewayAccountID: number
   Balance: number
 }
+
 export interface IAllocation {
   TotalQuantity: number
   Allocation: IAllocationItem[]

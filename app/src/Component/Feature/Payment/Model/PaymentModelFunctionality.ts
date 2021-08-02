@@ -7,7 +7,7 @@ import {
   IPersonProfile,
   TypePaymentAmountType,
   TypePaymentTypeID
-} from "./Interfaces"
+} from "~/Component/Feature/Payment/Model/Interfaces"
 
 const PaymentTypes: IPaymentTypes = {
   AdjustFromCashAccount: 13,
