@@ -27,8 +27,8 @@ export const getOrderDetailsMeta = (order: { [key: string]: any }): IDetailsMeta
   const summary: CardContainer = {
     title: `Order Info`,
     cardActions: [
-      <OrderPaymentDueDateFormOpenButton initialValues={order} />,
-      <OrderEmailFormOpenButton initialValues={order} />,
+      <OrderPaymentDueDateFormOpenButton helpKey="financialsOrderSummarySetPaymentDueDateForm" initialValues={order} />,
+      <OrderEmailFormOpenButton helpKey="financialsOrderSummaryNewEmailMessageForm" initialValues={order} />,
       <OrderReceiptLink OrderID={order.OrderID} />,
       <OrderTransactionLink OrderID={order.OrderID} />
     ],

@@ -17,8 +17,8 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
 
   const paymentInfo: CardContainer = {
     cardActions: [
-      <PaymentReverseFormOpenButton initialValues={payment} />,
-      <PaymentEmailFormOpenButton initialValues={payment} />,
+      <PaymentReverseFormOpenButton initialValues={payment} helpKey="financialsPaymentsReversePaymentForm" />,
+      <PaymentEmailFormOpenButton initialValues={payment} helpKey="financialsPaymentsEmailPaymentReceiptForm" />,
       <PaymentReceiptLink PaymentID={payment.PaymentID} />
     ],
     contents: [
