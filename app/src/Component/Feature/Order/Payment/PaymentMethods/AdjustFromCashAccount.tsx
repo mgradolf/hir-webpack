@@ -12,7 +12,13 @@ export const AdjustFromCashAccount = (props: {
   setDepositItems: (item: any[]) => void
 }) => {
   return (
-    <Form form={props.formInstance}>
+    <Form
+      form={props.formInstance}
+      style={{
+        maxHeight: "66vh",
+        overflowY: "scroll"
+      }}
+    >
       <FormInput wrapperColSpan={18} formInstance={props.formInstance} fieldName="" label="Payment Amount" disabled />
       <FormInput wrapperColSpan={18} formInstance={props.formInstance} fieldName="" label="Total Balance" disabled />
       <Typography.Title level={4}>Deposits</Typography.Title>

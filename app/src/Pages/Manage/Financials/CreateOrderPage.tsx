@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Button, Col, Radio, Row } from "antd"
+import { Col, Row } from "antd"
 import { CartTable } from "~/Component/Feature/Order/CartTable"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
 import { fakeCartData } from "~/Component/Feature/Order/Model/fakeCartData"
@@ -12,17 +12,20 @@ import { querystringToObject } from "~/utils/QueryStringToObjectConverter"
 import { SubmitOrderButton } from "~/Component/Feature/Order/SubmitOrderButton"
 import { PaymentMethods } from "~/Component/Feature/Order/Payment/PaymentMethods"
 import { Shop } from "~/Component/Feature/Order/Shop/Shop"
+import { SelectedPaymentMethodSummary } from "~/Component/Feature/Order/SelectedPaymentMethodSummary"
 
 export const UPDATE_CART = "UPDATE_CART"
 export const UPDATE_BUYER = "UPDATE_BUYER"
 export const UPDATE_PROMO = "UPDATE_PROMO"
 
-const PAYMENT_OPTIONS = {
-  NoPayment: "NoPayment",
-  WithPayment: "WithPayment",
-  PO: "PO"
+export const NO_PAYMENT = {
+  BasePaymentTypeID: 100000000002222200002222,
+  PaymentAcceptedName: "No Payment",
+  BasePaymentType: "No Payment",
+  PaymentTypeID: 100000000002222200002222
 }
 
+//
 export default function CreateOrderPage() {
   const [buyer, setBuyer] = useState<IBuyer>({})
   const [itemList, setItemList] = useState<IItemRequest[]>([])
@@ -30,12 +33,9 @@ export default function CreateOrderPage() {
   const [promoCodes, setPromoCodes] = useState<IRegistrationPromo[]>([])
   const [cartModelFunctionality] = useState(new CartModelFunctionality(UPDATE_CART, UPDATE_BUYER, UPDATE_PROMO))
   const [orderRequestInProgress, setOrderRequestInProgress] = useState(false)
-  const [selectedPaymentOption, setSelectedPaymentOption] = useState(PAYMENT_OPTIONS.NoPayment)
-  const [showPaymentOptions, setShowPaymentOptions] = useState(false)
-
-  useEffect(() => {
-    if (!showPaymentOptions) setSelectedPaymentOption(PAYMENT_OPTIONS.NoPayment)
-  }, [showPaymentOptions])
+  const [selectedPayment, setSelectedPayment] = useState<{ [key: string]: any }>(NO_PAYMENT)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [showPaymentMethods, setShowPaymentMethods] = useState(true)
 
   useEffect(() => {
     const queryParams = querystringToObject()
@@ -75,76 +75,52 @@ export default function CreateOrderPage() {
             <SelectBuyer buyer={buyer} cartModelFunctionality={cartModelFunctionality} />
           </Col>
         </Row>
-        {showPaymentOptions ? (
-          <>
-            <PaymentMethods
-              cartModelFunctionality={cartModelFunctionality}
-              requestComponentName="OrderWithPayment"
-              buyer={buyer}
-              itemList={itemList}
-              allocations={allocations}
-              promoCodes={promoCodes}
-              setShowPaymentOptions={setShowPaymentOptions}
-            />
-          </>
-        ) : (
-          <>
-            <Shop buyer={buyer} cartModelFunctionality={cartModelFunctionality} itemList={itemList} />
-            <CartTable itemList={itemList} cartModelFunctionality={cartModelFunctionality} />
-            {/* </>
-        )}
-        {!showPaymentOptions && (
-          <> */}
-            <Col span={3}>
-              <PromoTable
-                promos={promoCodes}
-                cartModelFunctionality={cartModelFunctionality}
-                disable={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
-              />
-            </Col>
 
-            <Row justify="end" gutter={4} style={{ marginBottom: "10px" }}>
-              <Col>
-                <Radio.Group
-                  disabled={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
-                  style={{ padding: "5px 0px 0px 0px" }}
-                  defaultValue={PAYMENT_OPTIONS.NoPayment}
-                  options={[
-                    { label: "Pay Later", value: PAYMENT_OPTIONS.NoPayment },
-                    { label: "With Payment", value: PAYMENT_OPTIONS.WithPayment },
-                    { label: "PO", value: PAYMENT_OPTIONS.PO }
-                  ]}
-                  onChange={(e) => {
-                    setSelectedPaymentOption(e.target.value)
-                  }}
-                />
-              </Col>
-            </Row>
-            <Row justify="end">
-              <Col>
-                {selectedPaymentOption === PAYMENT_OPTIONS.NoPayment && (
-                  <SubmitOrderButton
-                    disabled={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
-                    orderRequestInProgress={orderRequestInProgress}
-                    setOrderRequestInProgress={setOrderRequestInProgress}
-                    cartModelFunctionality={cartModelFunctionality}
-                    itemList={itemList}
-                  />
-                )}
-                {selectedPaymentOption === PAYMENT_OPTIONS.WithPayment && (
-                  <Button
-                    disabled={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
-                    type="primary"
-                    onClick={() => setShowPaymentOptions(true)}
-                  >
-                    Show Payment Options
-                  </Button>
-                )}
-                {selectedPaymentOption === PAYMENT_OPTIONS.PO && <Button type="primary">Create PO</Button>}
-              </Col>
-            </Row>
-          </>
-        )}
+        <Shop buyer={buyer} cartModelFunctionality={cartModelFunctionality} itemList={itemList} />
+        <CartTable itemList={itemList} cartModelFunctionality={cartModelFunctionality} />
+
+        <Col span={3}>
+          <PromoTable
+            promos={promoCodes}
+            cartModelFunctionality={cartModelFunctionality}
+            disable={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
+          />
+        </Col>
+
+        <Row justify="end">
+          <Col>
+            {showPaymentMethods && (
+              <PaymentMethods
+                cartModelFunctionality={cartModelFunctionality}
+                requestComponentName="OrderWithPayment"
+                buyer={buyer}
+                itemList={itemList}
+                allocations={allocations}
+                promoCodes={promoCodes}
+                showPaymentModal={showPaymentModal}
+                setShowPaymentModal={setShowPaymentModal}
+                selectedPayment={selectedPayment}
+                setSelectedPayment={setSelectedPayment}
+              />
+            )}
+            {selectedPayment && allocations && !showPaymentMethods && (
+              <SelectedPaymentMethodSummary
+                PaymentAmount={allocations?.TotalPaymentAmount}
+                PaymentMethodName={selectedPayment.PaymentAcceptedName}
+                setShowPaymentMethods={setShowPaymentMethods}
+              />
+            )}
+            <SubmitOrderButton
+              disabled={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
+              orderRequestInProgress={orderRequestInProgress}
+              setOrderRequestInProgress={setOrderRequestInProgress}
+              cartModelFunctionality={cartModelFunctionality}
+              itemList={itemList}
+              setShowPaymentModal={setShowPaymentModal}
+              selectedPayment={selectedPayment}
+            />
+          </Col>
+        </Row>
       </div>
     </div>
   )

@@ -113,9 +113,35 @@ interface IChecking extends IRequestData {
   EmailReceipt: any
 }
 
+interface IPO extends IRequestData {
+  ShowMembershipLink: boolean
+  ShowRenewLink: boolean
+  PurchaseOrderAmount: number
+  PaymentTypeID: number
+  PONumber: string
+  PaymentDueDate: string
+  Description: string
+  ContactPerson: string
+  Telephone: string
+  Address1: string
+  Address2?: string
+  Address3?: string
+  City: string
+  RegionCodeID: number
+  RegionName: string
+  CountryCodeID: number
+  Note: string
+  CreatedBy: string
+  PaymentTypeName: string
+  PaymentType: string
+  MarketingCode: number
+  EmailInvoice: boolean
+  EmailReceipt: boolean
+}
+
 export interface IRequestObject {
   ExpirationDate?: any
-  RequestData: IExternalPayment | IAdjustFromCashAccount | ICash | ISaving | IChecking
+  RequestData: IExternalPayment | IAdjustFromCashAccount | ICash | ISaving | IChecking | IPO
   RequestContext: IRequestContext
   RequestComponentName: any
   PaymentGatewayAccountID?: any

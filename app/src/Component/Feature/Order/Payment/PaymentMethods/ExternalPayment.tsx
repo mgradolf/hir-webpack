@@ -7,7 +7,13 @@ import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 
 export const ExternalPayment = (props: { formInstance: FormInstance }) => {
   return (
-    <Form form={props.formInstance}>
+    <Form
+      form={props.formInstance}
+      style={{
+        maxHeight: "66vh",
+        overflowY: "scroll"
+      }}
+    >
       <FormInput
         wrapperColSpan={18}
         formInstance={props.formInstance}

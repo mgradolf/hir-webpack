@@ -6,7 +6,13 @@ import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 
 export const SavingsOrChecks = (props: { formInstance: FormInstance }) => {
   return (
-    <Form form={props.formInstance}>
+    <Form
+      form={props.formInstance}
+      style={{
+        maxHeight: "66vh",
+        overflowY: "scroll"
+      }}
+    >
       <FormInput
         formInstance={props.formInstance}
         label="Check Number"
