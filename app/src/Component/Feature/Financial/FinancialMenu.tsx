@@ -8,9 +8,10 @@ interface IFinancialMenu {
   applyToID: number
   financialId: number
   financialType: string
+  helpkey?: string
 }
 
-export default function FinancialMenu(props: IFinancialMenu) {
+export function FinancialMenu(props: IFinancialMenu) {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   return (
@@ -27,6 +28,7 @@ export default function FinancialMenu(props: IFinancialMenu) {
       </Tooltip>
       {showUpdateModal && (
         <CreateNewFinancial
+          helpkey={props.helpkey}
           applyToID={props.applyToID}
           financialType={props.financialType}
           financialID={props.financialId}

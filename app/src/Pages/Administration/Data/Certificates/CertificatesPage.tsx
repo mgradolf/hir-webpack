@@ -17,6 +17,7 @@ export default function CertificatesPage() {
             CertificateCategoryTypeID: CERTIFICATE_CATEGORY_DEFAULT
           }}
           editMode={false}
+          helpkey="administrationDataCertificateCreateCertificateForm"
         />
       ]}
       title="Certificates"

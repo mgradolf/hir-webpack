@@ -52,7 +52,7 @@ export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): 
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
-      blocks: [<HelpButton helpKey="programsProgramOfferingSummaryTab" />],
+      actions: [<HelpButton helpKey="programsProgramOfferingSummaryTab" />],
       summary: [info]
     }
   })
@@ -62,7 +62,12 @@ export const getProgramOfferingDetailsMeta = (program: { [key: string]: any }): 
     tabType: "table",
     tabMeta: {
       blocks: [
-        <ProgramFormOpenButton iconType="create" editMode={false} ProgramOfferingID={program.OfferingID} />,
+        <ProgramFormOpenButton
+          helpKey="programOfferingProgramsAddNewProgram"
+          iconType="create"
+          editMode={false}
+          ProgramOfferingID={program.OfferingID}
+        />,
         <HelpButton helpKey="programOfferingProgramsTab" />
       ],
       tableProps: {

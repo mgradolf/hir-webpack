@@ -12,6 +12,7 @@ import "~/Sass/utils.scss"
 interface ICertificateDefinitionFormProps {
   editMode?: boolean
   initialValues: { [key: string]: any }
+  helpkey?: string
 }
 
 export function CertificateDefinitionFormModal(props: ICertificateDefinitionFormProps) {
@@ -57,6 +58,7 @@ export function CertificateDefinitionFormModal(props: ICertificateDefinitionForm
       {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
       <CustomFormModalOpenButton
         formTitle={props.editMode ? "Update Certificate" : "Create Certificate"}
+        helpKey={props.helpkey}
         customForm={
           <CertificateDefinitionForm
             initialValue={props.initialValues}

@@ -102,7 +102,7 @@ export const Step2SelectOrderItems = (props: {
       {showModal && (
         <LookupModal
           title="Select Order Items to Pay"
-          helpKey="financialsCreatePaymentAddOrderItems"
+          helpKey="financialsCreatePaymentAddOrderItemsForm"
           meta={OrderItemsSearchMetaForPayment}
           metaName=""
           closeModal={(items?: any[]) => {

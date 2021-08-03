@@ -24,10 +24,12 @@ import { FormInputNumber } from "~/Component/Common/Form/FormInputNumber"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface ICreateFormProps {
   applyToID: number
   financialType: string
+  helpkey?: string
   financialID?: number
   initialFormValue: { [key: string]: any }
   handleCancel: () => void
@@ -96,7 +98,16 @@ export default function FinancialForm(props: ICreateFormProps) {
   return (
     <Card
       title={
-        props.financialID ? `Edit ${props.financialType} Financial` : `Create New ${props.financialType} Financial`
+        <Row justify="space-between">
+          <Col>
+            {props.financialID
+              ? `Edit ${props.financialType} Financial`
+              : `Create New ${props.financialType} Financial`}
+          </Col>
+          <Col>
+            <HelpButton helpKey={props.helpkey} />
+          </Col>
+        </Row>
       }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>

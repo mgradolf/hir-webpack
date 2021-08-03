@@ -6,6 +6,7 @@ interface ISeatGroupEditLinkProp {
   additionalData: { [key: string]: any }
   GhostType?: boolean | false
   style?: React.CSSProperties
+  helpKey?: string
 }
 
 export default function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
@@ -29,6 +30,7 @@ export default function SeatGroupEditLink(props: ISeatGroupEditLinkProp) {
 
       {showUpdateModal && (
         <UpdateSeatGroup
+          helpKey={props.helpKey}
           sectionId={sectionID}
           isDefault={isDefault}
           seatgroupId={seatGroupID}

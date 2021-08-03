@@ -14,6 +14,7 @@ interface ISectionCreateFormProps {
   handleCancel: () => void
   setApiCallInProgress: (flag: boolean) => void
   OfferingID?: number
+  helpKey?: string
 }
 
 interface ISectionCreateFieldNames {
@@ -89,7 +90,7 @@ export function SectionCreateForm(props: ISectionCreateFormProps) {
           <Row justify="space-between">
             <Col>Create new Section</Col>
             <Col>
-              <HelpButton helpKey="offeringSectionsTabCreateSectionForm" />
+              <HelpButton helpKey={props.helpKey} />
             </Col>
           </Row>
         }

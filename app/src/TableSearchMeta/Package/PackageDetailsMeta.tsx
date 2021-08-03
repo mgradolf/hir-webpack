@@ -20,6 +20,7 @@ import { addPackageFinancial, addSection, savePackage } from "~/ApiServices/Serv
 import { PackageFinancialFormMeta } from "~/Component/Feature/Package/FormMeta/PackageFinancialFormMeta"
 import { PackageSeatGroupFormMeta } from "~/Component/Feature/Package/FormMeta/PackageSeatGroupFormMeta"
 import { getPackageSeatGroupTableColumns } from "~/TableSearchMeta/PackageSeatGroup/PackageSeatGroupTableColumns"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -27,6 +28,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle="Update Package"
+        helpkey="accountPackagesSummaryUpdatePackageForm"
         formMeta={PackageFormMeta}
         formSubmitApi={savePackage}
         initialFormValue={{
@@ -73,6 +75,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
   }
 
   const summaryMeta: IDetailsSummary = {
+    actions: [<HelpButton helpKey="accountPackagesSummaryTab" />],
     summary: [summary, billing, unit]
   }
 
@@ -80,6 +83,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
     blocks: [
       <MetaDrivenFormModalOpenButton
         formTitle="Financial Setup"
+        helpkey="accountPackagesFinancialSetupForm"
         formMeta={PackageFinancialFormMeta}
         formSubmitApi={addPackageFinancial}
         initialFormValue={{
@@ -91,7 +95,8 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
           PackageID: Package.PackageID
         }}
         refreshEventName={REFRESH_PACKAGE_FINANCIAL_PAGE}
-      />
+      />,
+      <HelpButton helpKey="accountPackagesFinancialTab" />
     ],
     tableProps: {
       pagination: false,
@@ -102,6 +107,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
   }
 
   const orderItemsMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="accountPackagesOrdersTab" />],
     tableProps: {
       ...getOrderItemTableColumns(false),
       searchParams: { ProductID: Package.ProductID },
@@ -113,6 +119,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
     blocks: [
       <MetaDrivenFormModalOpenButton
         formTitle="Add Section"
+        helpkey="accountPackagesSeatGroupAddSectionForm"
         formMeta={PackageSeatGroupFormMeta}
         formSubmitApi={addSection}
         initialFormValue={{
@@ -122,7 +129,8 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
         buttonLabel="Add SeatGroup"
         defaultFormValue={{ PackageID: Package.PackageID }}
         refreshEventName={REFRESH_PACKAGE_SEATGROUP_PAGE}
-      />
+      />,
+      <HelpButton helpKey="accountPackagesSeatGroupTab" />
     ],
     tableProps: {
       pagination: false,
@@ -133,6 +141,7 @@ export const getPackageDetailsMeta = (Package: { [key: string]: any }): IDetails
   }
 
   const registrationMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="accountPackagesRegistrationsTab" />],
     tableProps: {
       ...getRegistrationTableColumns(),
       searchParams: { PackageID: Package.PackageID },

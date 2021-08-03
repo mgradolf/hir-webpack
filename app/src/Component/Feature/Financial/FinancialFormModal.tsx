@@ -15,6 +15,7 @@ interface ICreateNewFinancialProps {
   financialID?: number
   financialType: string
   applyToID: number
+  helpkey?: string
   closeModal?: () => void
 }
 
@@ -39,7 +40,8 @@ export default function CreateNewFinancial({
   financialID,
   closeModal,
   applyToID,
-  financialType
+  financialType,
+  helpkey
 }: ICreateNewFinancialProps) {
   const initialParam: { [key: string]: any } = {
     ItemUnitAmount: 0,
@@ -92,6 +94,7 @@ export default function CreateNewFinancial({
       children={
         <>
           <FinancialForm
+            helpkey={helpkey}
             applyToID={applyToID}
             financialType={financialType}
             financialID={financialID}

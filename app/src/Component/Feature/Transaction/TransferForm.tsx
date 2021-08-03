@@ -267,7 +267,7 @@ export function TransferFormModalOpenButton() {
       apiCallInProgress={apiCallInProgress}
       loading={loading}
       errorMessages={errorMessages}
-      helpKey="financialsTransactionsCreateTransfer"
+      helpKey="financialsTransactionsCreateTransferForm"
       buttonLabel={"Transfer"}
       buttonProps={{ type: "link" }}
     />

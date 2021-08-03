@@ -3,10 +3,11 @@ import { Row, Col, Typography, Select } from "antd"
 import { getRequisiteOfferingGroup } from "~/ApiServices/Service/OfferingService"
 import { AddOfferingFromRequisiteGroupButton } from "~/Component/Feature/OfferingRequisite/AddOfferingFromRequisiteGroupButton"
 import { getOfferingPrerequisiteTableColumns } from "~/TableSearchMeta/OfferingRequisite/PrerequisiteTableColumns"
-import PrerequisiteGroupModalOpenButton from "~/Component/Feature/OfferingRequisite/PrerequisiteGroupModalOpenButton"
+import { PrerequisiteGroupModalOpenButton } from "~/Component/Feature/OfferingRequisite/PrerequisiteGroupModalOpenButton"
 import RequisiteGroupEditLink from "~/Component/Feature/OfferingRequisite/RequisiteEditLink"
 import { RequisiteRemoveLink } from "~/Component/Feature/OfferingRequisite/RequisiteRemoveLink"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IRequisitePageProp {
   offeringID: number
@@ -65,7 +66,7 @@ export default function RequisitePage(props: IRequisitePageProp) {
               })}
             </Select>
           )}
-
+          <HelpButton style={{ marginRight: "5px" }} helpKey="offeringRequisitesTab" />
           <PrerequisiteGroupModalOpenButton OfferingID={props.offeringID} />
           {policyTypeList.length > 0 && (
             <RequisiteGroupEditLink offeringId={props.offeringID} requisiteGroupId={requisiteGroupID} />

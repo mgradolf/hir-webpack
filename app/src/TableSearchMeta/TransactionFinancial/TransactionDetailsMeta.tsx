@@ -46,7 +46,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
-      actions: [<HelpButton helpKey="financialsTransactionsSummary" />],
+      actions: [<HelpButton helpKey="financialsTransactionsSummaryTab" />],
       summary: [summary]
     }
   })
