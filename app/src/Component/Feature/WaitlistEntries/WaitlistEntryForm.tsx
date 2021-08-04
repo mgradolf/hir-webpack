@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { Form, Input } from "antd"
+import { Form, Input, message } from "antd"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { getSeatGroups } from "~/ApiServices/Service/SeatGroupService"
-import { DEFAULT_HIR_ADMIN_SOURCE_ID } from "~/utils/Constants"
-import { eventBus, REFRESH_SECTION_WAITLIST_ENTRIES_PAGE } from "~/utils/EventBus"
+import { CREATE_SUCCESSFULLY, DEFAULT_HIR_ADMIN_SOURCE_ID, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { saveWaitListEntry } from "~/ApiServices/Service/WaitlistEntryService"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { getSourceModule } from "~/ApiServices/Service/RefLookupService"
@@ -18,6 +18,9 @@ import { AccountFormMeta } from "~/Component/Feature/Account/FormMeta/AccountFor
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
+import { Redirect } from "react-router"
+import { WaitlistEntryUpdateForm } from "~/Component/Feature/WaitlistEntries/WaitlistEntryUpdateForm"
+import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistIF"
 
 interface IFormFields {
   SeatGroupID: string
@@ -64,7 +67,6 @@ function WaitlistEntryForm(props: {
     if (purchaser) {
       getAccountByPurchaserID({ PersonID: purchaser.PersonID }).then((x) => {
         if (x.success) {
-          console.log("setting account ", x.data)
           setAccount(x.data)
           props.formInstance.setFieldsValue({ [fieldNames.AccountID]: x.data.AccountID })
         }
@@ -73,43 +75,30 @@ function WaitlistEntryForm(props: {
       setAccount(undefined)
     }
   }, [purchaser, props.formInstance])
-  // useEffect(() => {
-  //   if (props.WaitListEntry) {
-  //     formInstance.setFieldsValue({ [fieldNames.SeatGroupID]: props.WaitListEntry.SeatGroupID })
-  //     setPersonNameToDisplay(props.WaitListEntry.AccountName)
-  //     formInstance.setFieldsValue({ [fieldNames.SourceID]: props.WaitListEntry.SourceID })
-  //     formInstance.setFieldsValue({ [fieldNames.AdministratedByUID]: props.WaitListEntry.AdministratedByUID })
-  //     formInstance.setFieldsValue({
-  //       [fieldNames.ConfirmationEmailToRequester]: props.WaitListEntry.ConfirmationEmailToRequester
-  //     })
-  //     formInstance.setFieldsValue({
-  //       [fieldNames.InvitationEmailToRequester]: props.WaitListEntry.InvitationEmailToRequester
-  //     })
-  //     formInstance.setFieldsValue({ [fieldNames.RequestExpirationTime]: props.WaitListEntry.RequestExpirationTime })
-  //     formInstance.setFieldsValue({ [fieldNames.IsActive]: props.WaitListEntry.IsActive })
-  //     formInstance.setFieldsValue({ [fieldNames.Priority]: props.WaitListEntry.Priority })
-  //   } else {
-  //     formInstance.setFieldsValue({ [fieldNames.SourceID]: DEFAULT_HIR_ADMIN_SOURCE_ID })
-  //   }
-  // }, [formInstance, props.WaitListEntry])
 
   return (
     <>
-      <SectionLookup
-        formInstance={props.formInstance}
-        label="Section"
-        fieldName="SectionID"
-        defaultValue={SectionID}
-        onSelectedItems={(Sections: any[]) => {
-          if (Sections.length > 0) {
-            setSectionID(Sections[0].SectionID)
-          } else {
-            setSectionID(undefined)
-          }
-        }}
-        rules={[{ required: true, message: "Section is required" }]}
-      />
-
+      {SectionID && (
+        <>
+          <FormInput label="SectionID" fieldName="SectionID" formInstance={props.formInstance} hidden />
+          <FormInput label="Section" fieldName="SectionNumber" formInstance={props.formInstance} disabled />
+        </>
+      )}
+      {!SectionID && (
+        <SectionLookup
+          formInstance={props.formInstance}
+          label="Section"
+          fieldName="SectionID"
+          onSelectedItems={(Sections: any[]) => {
+            if (Sections.length > 0) {
+              setSectionID(Sections[0].SectionID)
+            } else {
+              setSectionID(undefined)
+            }
+          }}
+          rules={[{ required: true, message: "Section is required" }]}
+        />
+      )}
       {SectionID && (
         <FormDropDown
           label="Seat Group"
@@ -118,17 +107,15 @@ function WaitlistEntryForm(props: {
           refLookupService={() => getSeatGroups({ SectionID })}
           displayKey="Name"
           valueKey="SeatGroupID"
-          disabled={!!props.initialValue}
           rules={[{ required: true, message: "Seat Group is required" }]}
         />
       )}
       <FormMultipleRadio
         label="Managed By"
         formInstance={props.formInstance}
-        fieldName=""
+        fieldName="ManagedBy"
         onChangeCallback={(Params: any) => {
-          console.log(Params)
-          if (Params && Params.target && Params.target.value === "admin") setShowAdministrators(true)
+          if (Params === "admin") setShowAdministrators(true)
           else setShowAdministrators(false)
         }}
         options={[
@@ -136,30 +123,16 @@ function WaitlistEntryForm(props: {
           { label: "By Admin", value: "admin" }
         ]}
       />
-      {/* <Form.Item labelCol={{ span: 6 }}>
-        <Radio.Group
-          disabled={!!props.initialValue}
-          onChange={(value) => {
-            if (value.target.value === "admin") setShowAdministrators(true)
-            else setShowAdministrators(false)
-          }}
-        >
-          <Radio value="self">Self Service</Radio>
-          <Radio value="admin">By Admin</Radio>
-        </Radio.Group>
-      </Form.Item> */}
       {showAdministrators && (
         <FormDropDown
           label="Select Admin"
           formInstance={props.formInstance}
-          disabled={!!props.initialValue}
           fieldName={fieldNames.AdministratedByUID}
           refLookupService={() => getAllUsers({})}
           displayKey="FormattedName"
           valueKey="UserID"
         />
       )}
-
       <PersonLookup
         label="Purchaser"
         formInstance={props.formInstance}
@@ -174,25 +147,7 @@ function WaitlistEntryForm(props: {
           }
         }}
         rules={[{ required: true, message: "Purchaser is required" }]}
-
-        // onCloseModal={(persons?: Array<{ [key: string]: string }>) => {
-        //   if (persons && persons.length > 0) {
-        //     const person = persons[0]
-        //     console.log(person)
-        //     getAccountByPurchaserID({ PersonID: person.PersonID }).then((x) => {
-        //       if (x.success) {
-        //         formInstance.setFieldsValue({ [fieldNames.RequesterPersonID]: person.PersonID })
-        //         formInstance.setFieldsValue({ [fieldNames.RecipientPersonID]: person.PersonID })
-        //         formInstance.setFieldsValue({ [fieldNames.AccountID]: x.data.AccountID })
-        //         setPersonNameToDisplay(person.PersonDescriptor)
-        //       } else {
-        //         setErrorMessages([{ message: "Selected Purchaser doesn't have an account, please select another one" }])
-        //       }
-        //     })
-        //   }
-        // }}
       />
-
       {account && (
         <>
           <FormInput
@@ -227,6 +182,7 @@ function WaitlistEntryForm(props: {
           displayKey="PersonName"
           valueKey="PersonID"
           refLookupService={() => getAccountAffiliation({ AccountID: account.AccountID })}
+          rules={[{ required: true, message: "Student is required" }]}
         />
       )}
       <FormMultipleRadio
@@ -240,7 +196,7 @@ function WaitlistEntryForm(props: {
       />
       <FormMultipleRadio
         label="Send Registration Invitation"
-        fieldName={fieldNames.InvitationEmailToRecipient}
+        fieldName={fieldNames.InvitationEmailToRequester}
         formInstance={props.formInstance}
         options={[
           { label: "Yes", value: true },
@@ -251,27 +207,18 @@ function WaitlistEntryForm(props: {
         label="Select Priority"
         fieldName={fieldNames.Priority}
         formInstance={props.formInstance}
-        refLookupService={() =>
-          Promise.resolve({
-            success: true,
-            data: [
-              { id: 1 },
-              { id: 2 },
-              { id: 3 },
-              { id: 4 },
-              { id: 5 },
-              { id: 6 },
-              { id: 7 },
-              { id: 8 },
-              { id: 9 },
-              { id: 10 }
-            ],
-            error: undefined,
-            code: 200
-          })
-        }
-        displayKey="id"
-        valueKey="id"
+        options={[
+          { label: "1", value: 1 },
+          { label: "2", value: 2 },
+          { label: "3", value: 3 },
+          { label: "4", value: 4 },
+          { label: "5", value: 5 },
+          { label: "6", value: 6 },
+          { label: "7", value: 7 },
+          { label: "8", value: 8 },
+          { label: "9", value: 9 },
+          { label: "10", value: 10 }
+        ]}
       />
 
       <FormDatePicker
@@ -279,17 +226,6 @@ function WaitlistEntryForm(props: {
         fieldName={fieldNames.RequestExpirationTime}
         formInstance={props.formInstance}
       />
-      {/* <Form.Item className="hidden" name={fieldNames.RequestExpirationTime}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Expiration" labelCol={{ span: 6 }}>
-        <DatePicker
-          format={DATE_FORMAT}
-          onChange={(value, dateString) => {
-            props.formInstance.setFieldsValue({ [fieldNames.RequestExpirationTime]: dateString })
-          }}
-        ></DatePicker>
-      </Form.Item> */}
       <FormMultipleRadio
         label="Is Active"
         fieldName={fieldNames.IsActive}
@@ -313,16 +249,42 @@ function WaitlistEntryForm(props: {
   )
 }
 
-export function WaitlistEntryFormOpenButton(props: { SectionID?: number; initialValues?: { [key: string]: any } }) {
-  const [editMode] = useState(props.initialValues && Object.keys(props.initialValues).length > 0)
+export function WaitlistEntryFormOpenButton(props: {
+  SectionID?: number
+  SectionNumber?: string
+  initialValues?: { [key: string]: any }
+  editMode: boolean
+}) {
   const [loading] = useState(false)
   const [formInstance] = Form.useForm()
+  const [redirectAfterCreate, setRedirectAfterCreate] = useState<string>()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [initialValues] = useState<{ [key: string]: any }>(props.initialValues || {})
+  const [initialValues, setInitialValue] = useState<{ [key: string]: any }>(
+    props.initialValues || {
+      Priority: 5,
+      IsActive: true,
+      ManagedBy: "self",
+      ConfirmationEmailToRequester: true,
+      InvitationEmailToRequester: true
+    }
+  )
 
   useEffect(() => {
+    if (props.SectionID) {
+      initialValues["SectionID"] = props.SectionID
+      initialValues["SectionNumber"] = props.SectionNumber
+    }
+    if (props.initialValues && props.initialValues.WaitListEntryID !== undefined) {
+      findWaitListEntries({ WaitListEntryID: props.initialValues.WaitListEntryID }).then((response) => {
+        setInitialValue({
+          ...response.data[0],
+          ManagedBy: response.data[0].AdministratedByUID !== null ? "admin" : "self"
+        })
+      })
+    }
     setErrorMessages([])
+    // eslint-disable-next-line
   }, [])
 
   const onFormSubmission = async (closeModal: () => void) => {
@@ -338,8 +300,18 @@ export function WaitlistEntryFormOpenButton(props: { SectionID?: number; initial
         saveWaitListEntry(Params).then((x) => {
           setApiCallInProgress(false)
           if (x.success) {
-            eventBus.publish(REFRESH_SECTION_WAITLIST_ENTRIES_PAGE)
-            closeModal()
+            if (props.SectionID) {
+              eventBus.publish("REFRESH_SECTION_WAITLIST_ENTRIES_PAGE_1")
+              closeModal()
+            } else if (props.editMode) {
+              message.success(UPDATE_SUCCESSFULLY)
+              eventBus.publish(REFRESH_PAGE)
+              closeModal()
+            } else {
+              message.success(CREATE_SUCCESSFULLY)
+              closeModal()
+              setRedirectAfterCreate(`/waitlist/${x.data.WaitListEntryID}`)
+            }
           } else setErrorMessages(x.error)
         })
       })
@@ -350,21 +322,31 @@ export function WaitlistEntryFormOpenButton(props: { SectionID?: number; initial
   }
 
   return (
-    <CustomFormModalOpenButton
-      formTitle={editMode ? "Edit Waitlist Entry" : "Add Waitlist Entry"}
-      helpKey="courseAddWaitlistEntries"
-      customForm={
-        <WaitlistEntryForm SectionID={props.SectionID} initialValue={props.initialValues} formInstance={formInstance} />
-      }
-      formInstance={formInstance}
-      onFormSubmission={onFormSubmission}
-      initialValues={initialValues}
-      apiCallInProgress={apiCallInProgress}
-      loading={loading}
-      errorMessages={errorMessages}
-      iconType={editMode ? "edit" : "create"}
-      buttonLabel={editMode ? "Edit Waitlist Entry" : "Add Waitlist Entry"}
-      buttonProps={{ type: editMode ? "link" : "primary" }}
-    />
+    <>
+      {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
+      <CustomFormModalOpenButton
+        formTitle={props.editMode ? "Edit Waitlist Entry" : "Add Waitlist Entry"}
+        customForm={
+          props.editMode ? (
+            <WaitlistEntryUpdateForm initialValue={initialValues} formInstance={formInstance} />
+          ) : (
+            <WaitlistEntryForm
+              SectionID={props.SectionID}
+              initialValue={props.initialValues}
+              formInstance={formInstance}
+            />
+          )
+        }
+        formInstance={formInstance}
+        onFormSubmission={onFormSubmission}
+        initialValues={initialValues}
+        apiCallInProgress={apiCallInProgress}
+        loading={loading}
+        errorMessages={errorMessages}
+        iconType={props.editMode ? "edit" : "create"}
+        buttonLabel={props.editMode ? "Edit Waitlist Entry" : "Add Waitlist Entry"}
+        buttonProps={{ type: "primary" }}
+      />
+    </>
   )
 }

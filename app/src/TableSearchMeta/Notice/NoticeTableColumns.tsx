@@ -1,36 +1,49 @@
 import React from "react"
-import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
-import { getSectionNotifications } from "~/ApiServices/Service/SectionService"
-import NoticeEditLink from "~/Component/Feature/Section/Notice/NoticeEditLink"
+import { getSectionNotifications, saveSectionNotification } from "~/ApiServices/Service/SectionService"
+import { Link } from "react-router-dom"
+import { ReadOutlined } from "@ant-design/icons"
+import { message, Switch } from "antd"
+import { UPDATE_SUCCESSFULLY } from "~/utils/Constants"
+import { eventBus } from "~/utils/EventBus"
 
 export const getNoticeTableColumns = (SectionID: number): ITableConfigProp => {
+  const noticeActivate = (event: any, sectionID: any, sectionNoticeTypeID: any) => {
+    saveSectionNotification({ SectionID: sectionID, SectionNoticeTypeID: sectionNoticeTypeID, IsActive: event }).then(
+      (response) => {
+        if (response.success) {
+          message.success(UPDATE_SUCCESSFULLY)
+          eventBus.publish("REFRESH_SECTION_NOTIFICATION_PAGE_1")
+        }
+      }
+    )
+  }
+
   const columns: TableColumnType = [
+    {
+      dataIndex: "SectionNoticeTypeID",
+      render: (text: any, record: any) => (
+        <Link to={`/section/${SectionID}/notice/${text}`}>
+          <ReadOutlined />
+        </Link>
+      )
+    },
     {
       title: "Section Notification Type",
       dataIndex: "SectionNoticeType"
     },
     {
-      title: "From Email Address",
-      dataIndex: "FromEmailAddress"
-    },
-    {
-      title: "To Email Address",
-      dataIndex: "ToEmailAddress"
-    },
-    {
       title: "Subject",
       dataIndex: "Subject",
-      width: 400
+      width: "50%"
     },
     {
       title: "Active",
       dataIndex: "IsActive",
-      render: renderBoolean
-    },
-    {
-      title: "Action",
-      render: (record: any) => <NoticeEditLink sectionId={SectionID} sectionNoticeTypeId={record.SectionNoticeTypeID} />
+      render: (text: any, record: any) => (
+        <Switch checked={!!text} onChange={(e) => noticeActivate(e, record.SectionID, record.SectionNoticeTypeID)} />
+      )
     }
   ]
 
