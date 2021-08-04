@@ -119,7 +119,13 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
         {setShowModal && (
           <IconButton toolTip="Add Section" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
-        {showModal && <SectionFormModal OfferingID={props.OfferingID} closeModal={() => setShowModal(false)} />}
+        {showModal && (
+          <SectionFormModal
+            helpKey="offeringSectionsTabCreateSectionForm"
+            OfferingID={props.OfferingID}
+            closeModal={() => setShowModal(false)}
+          />
+        )}
       </>
     )
   }
@@ -133,6 +139,7 @@ export const getOfferingDetailsMeta = (offering: { [key: string]: any }): IDetai
         )}
         {showModal && (
           <CreateNewFinancial
+            helpkey="offeringCreateOfferingFinancialsForm"
             applyToID={props.OfferingID}
             financialType={FINANCIAL_TYPE_OFFERING}
             closeModal={() => setShowModal(false)}

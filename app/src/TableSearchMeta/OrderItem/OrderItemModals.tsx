@@ -16,6 +16,7 @@ export const ViewReturnItemModalOpenButton = (props: { OrderItemID: number; Orde
           setShowViewReturnItemsModal={setShowViewReturnItemModal}
           OrderItemID={props.OrderItemID}
           OrderID={props.OrderID}
+          helpkey="sectionBudgetOrderItemsViewReturnItemsForm"
         />
       )}
     </>

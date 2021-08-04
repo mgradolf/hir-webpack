@@ -8,7 +8,9 @@ export default function ProgramProgramPage() {
   return (
     <SearchPage
       title="Manage Programs"
-      blocks={[<ProgramFormOpenButton iconType="create" editMode={false} />]}
+      blocks={[
+        <ProgramFormOpenButton helpKey="programSearchProgramsAddNewProgram" iconType="create" editMode={false} />
+      ]}
       meta={ProgramSearchMeta}
       helpKey="programSearchPrograms"
       metaName="ProgramSearchMeta"

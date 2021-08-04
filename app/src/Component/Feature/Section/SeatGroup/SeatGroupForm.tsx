@@ -10,6 +10,7 @@ import { Redirect } from "react-router"
 import { CREATE_SUCCESSFULLY, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface ISeatGroupCreateFormProps {
   sectionId: number
@@ -22,6 +23,7 @@ interface ISeatGroupCreateFormProps {
   setApiCallInProgress: (flag: boolean) => void
   formInstance: any
   fieldNames: { [key: string]: any }
+  helpKey?: string
 }
 
 const layout = {
@@ -29,7 +31,7 @@ const layout = {
   wrapperCol: { span: 14 }
 }
 
-export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
+export function SeatGroupForm(props: ISeatGroupCreateFormProps) {
   const [dueDatePolicy, setDueDatePolicy] = useState<Array<any>>([])
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [redirectAfterCreate, setRedirectAfterCreate] = useState<string>()
@@ -87,7 +89,14 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
     <>
       {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
       <Card
-        title={props.seatgroupId ? `Edit seat group` : "Create new seat group"}
+        title={
+          <Row justify="space-between">
+            <Col>{props.seatgroupId ? `Edit seat group` : "Create new seat group"}</Col>
+            <Col>
+              <HelpButton helpKey={props.helpKey} />
+            </Col>
+          </Row>
+        }
         actions={[
           <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
             <Col>

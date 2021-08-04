@@ -168,6 +168,7 @@ export function ProgramFormOpenButton(props: {
   iconType?: iconType
   ProgramID?: number
   ProgramOfferingID?: number
+  helpKey?: string
 }) {
   const [loading] = useState(false)
   const [formInstance] = Form.useForm()
@@ -227,7 +228,7 @@ export function ProgramFormOpenButton(props: {
     <>
       {redirectTo && <Redirect to={redirectTo} />}
       <CustomFormModalOpenButton
-        helpKey={props.editMode ? "programSummaryEditProgramForm" : "programOfferingProgramsAddNewProgram"}
+        helpKey={props.helpKey}
         formTitle={props.editMode ? "Edit Program" : "Add New Program"}
         customForm={<ProgramForm editMode={props.editMode} initialValue={initialValues} formInstance={formInstance} />}
         formInstance={formInstance}

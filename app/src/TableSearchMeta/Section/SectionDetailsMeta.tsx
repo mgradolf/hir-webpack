@@ -58,7 +58,12 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const sectionInfo: CardContainer = {
     title: "Basic Info",
     cardActions: [
-      <SectionEditLink tooltip="Update Basic Info" SectionID={section.SectionID} component={BasicInfoForm} />,
+      <SectionEditLink
+        helpKey="sectionSummaryTabUpdateBasicInfoForm"
+        tooltip="Update Basic Info"
+        SectionID={section.SectionID}
+        component={BasicInfoForm}
+      />,
       <SectionRemoveButton Section={section} />
     ],
     contents: [
@@ -123,7 +128,12 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const enrollmentInfo: CardContainer = {
     title: "Enrollment",
     cardActions: [
-      <SectionEditLink tooltip="Update Entollment" SectionID={section.SectionID} component={SectionEnrollmentForm} />
+      <SectionEditLink
+        tooltip="Update Entollment"
+        helpKey="sectionSummaryTabUpdateEnrollmentForm"
+        SectionID={section.SectionID}
+        component={SectionEnrollmentForm}
+      />
     ],
     contents: [
       { label: "Current Enrollment", value: section.TotalEnrolledSeats, render: undefined },
@@ -142,6 +152,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle={`Update Grades & Credits`}
+        helpkey="sectionSummaryTabUpdateGrades&CreditsForm"
         formMeta={SectionGradesCreditsFormMeta}
         formSubmitApi={updateSection}
         initialFormValue={{
@@ -171,6 +182,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     title: "Section Refund and Inquiry",
     cardActions: [
       <SectionEditLink
+        helpKey="sectionSummaryTabUpdateRefund&InquiryForm"
         tooltip={`Update Refund & Inquiry`}
         SectionID={section.SectionID}
         component={SectionRefundEnquiryForm}

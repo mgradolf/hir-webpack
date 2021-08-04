@@ -6,7 +6,7 @@ interface IPrerequisiteGroupModalOpenButtonProp {
   OfferingID: number
 }
 
-export default function PrerequisiteGroupModalOpenButton(props: IPrerequisiteGroupModalOpenButtonProp) {
+export function PrerequisiteGroupModalOpenButton(props: IPrerequisiteGroupModalOpenButtonProp) {
   const [showModal, setShowModal] = useState(false)
   return (
     <>

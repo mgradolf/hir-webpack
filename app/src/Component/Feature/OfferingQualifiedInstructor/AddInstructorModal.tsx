@@ -6,9 +6,10 @@ import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 interface IInstructorProps {
   CanTeachOfferingID?: number
   onClose: (items?: any[]) => void
+  helpkey?: string
 }
 
-export function AddInstructorModal({ onClose, CanTeachOfferingID }: IInstructorProps) {
+export function AddInstructorModal({ onClose, CanTeachOfferingID, helpkey }: IInstructorProps) {
   return (
     <LookupModal
       meta={InstructorSearchMeta}
@@ -18,6 +19,7 @@ export function AddInstructorModal({ onClose, CanTeachOfferingID }: IInstructorP
       title="Add Instructor"
       isArray={true}
       closeModal={onClose}
+      helpKey={helpkey}
     />
   )
 }

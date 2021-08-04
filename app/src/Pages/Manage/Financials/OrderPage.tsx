@@ -11,6 +11,7 @@ export default function OrderLogPage() {
       metaName="OrderSearchMeta"
       hideSearchField={false}
       tableProps={getOrderTableColumns()}
+      helpKey="financialsOrderSearchOrder"
     />
   )
 }

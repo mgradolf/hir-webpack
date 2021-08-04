@@ -12,6 +12,7 @@ import { createOffering } from "~/ApiServices/Service/OfferingService"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
 import { Redirect } from "react-router"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IOfferingCreateFormProps {
   formInstance: FormInstance
@@ -69,7 +70,14 @@ export default function OfferingCreateForm(props: IOfferingCreateFormProps) {
     <>
       {redirectAfterCreate && <Redirect to={redirectAfterCreate} />}
       <Card
-        title={"Create New Offering"}
+        title={
+          <Row justify="space-between">
+            <Col>Create New Offering</Col>
+            <Col>
+              <HelpButton helpKey="createOfferingForm" />
+            </Col>
+          </Row>
+        }
         actions={[
           <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
             <Col>

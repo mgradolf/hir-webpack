@@ -10,6 +10,7 @@ export default function TransactionPage() {
       title="Manage Transactions"
       meta={TransactionSearchMeta}
       metaName="TransactionSearchMeta"
+      helpKey="financialsSearchTransaction"
       hideSearchField={false}
       blocks={[
         <>

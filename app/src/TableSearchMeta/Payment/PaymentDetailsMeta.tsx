@@ -7,6 +7,7 @@ import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/Regi
 import { getTransactionFinancialDepositeTrackingTableColumns } from "~/TableSearchMeta/TransactionFinancial/TransactionFinancialDepositeTrackingTableColumns"
 import { getPaymentAllocationsTableColumns } from "~/TableSearchMeta/OrderItem/PaymentAllocationsTableColumns"
 import { getPaymentActivityTableColumns } from "~/TableSearchMeta/PaymentActivity/PaymentActivityTableColumns"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { PaymentReverseFormOpenButton } from "~/Component/Feature/Payment/Forms/PaymentReverseForm"
 import { PaymentEmailFormOpenButton } from "~/Component/Feature/Payment/Forms/PaymentEmailForm"
 import { PaymentReceiptLink } from "~/Component/Feature/Payment/PaymentReceiptLink"
@@ -16,8 +17,8 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
 
   const paymentInfo: CardContainer = {
     cardActions: [
-      <PaymentReverseFormOpenButton initialValues={payment} />,
-      <PaymentEmailFormOpenButton initialValues={payment} />,
+      <PaymentReverseFormOpenButton initialValues={payment} helpKey="financialsPaymentsReversePaymentForm" />,
+      <PaymentEmailFormOpenButton initialValues={payment} helpKey="financialsPaymentsEmailPaymentReceiptForm" />,
       <PaymentReceiptLink PaymentID={payment.PaymentID} />
     ],
     contents: [
@@ -44,6 +45,7 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="financialsPaymentsSummaryTab" />],
       summary: [paymentInfo]
     }
   })
@@ -52,6 +54,7 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
     tabTitle: "Registrations",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="financialsPaymentsRegistrationsTab" />],
       tableProps: {
         ...getRegistrationTableColumns(false),
         searchParams: { PaymentID: payment.PaymentID },
@@ -64,6 +67,7 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
     tabTitle: "Deposit Tracking",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="financialsPaymentsDepositTrackingTab" />],
       tableProps: {
         ...getTransactionFinancialDepositeTrackingTableColumns(),
         searchParams: { IsDepositeView: true, DepositID: payment.DepositID },
@@ -77,6 +81,7 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
     tabTitle: "Allocations",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="financialsPaymentsAllocationsTab" />],
       tableProps: {
         ...getPaymentAllocationsTableColumns(false),
         searchParams: { PaymentID: payment.PaymentID },
@@ -89,6 +94,7 @@ export const getPaymentDetailsMeta = (payment: { [key: string]: any }): IDetails
     tabTitle: "Log",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="financialsPaymentsLogsTab" />],
       tableProps: {
         ...getPaymentActivityTableColumns(),
         searchParams: { PaymentID: payment.PaymentID },

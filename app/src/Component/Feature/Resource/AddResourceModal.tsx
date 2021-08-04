@@ -5,9 +5,10 @@ import { ResourceSearchMeta } from "~/TableSearchMeta/Resource/ResourceSearchMet
 
 interface IInstructorProps {
   onClose: (items?: any[]) => void
+  helpkey?: string
 }
 
-export default function AddResourceModal({ onClose }: IInstructorProps) {
+export default function AddResourceModal({ onClose, helpkey }: IInstructorProps) {
   return (
     <LookupModal
       meta={ResourceSearchMeta}
@@ -16,6 +17,7 @@ export default function AddResourceModal({ onClose }: IInstructorProps) {
       title="Add Resource"
       isArray={true}
       closeModal={onClose}
+      helpKey={helpkey}
     />
   )
 }

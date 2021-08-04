@@ -361,7 +361,7 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
     tabTitle: "Education History",
     tabType: "table",
     tabMeta: {
-      blocks: [<DegreeFormModalOpenButton initialData={person} />],
+      blocks: [<DegreeFormModalOpenButton initialData={person} />, <HelpButton helpKey="personEducationHistoryTab" />],
       tableProps: {
         pagination: false,
         ...getPersonEduTableColumns(),

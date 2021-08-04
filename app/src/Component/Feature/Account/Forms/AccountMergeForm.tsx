@@ -6,6 +6,7 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { MERGE_SUCCESSFULLY } from "~/utils/Constants"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
 import "~/Sass/global/index.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IAccountMergeFormProps {
   initialFormValue: { [key: string]: any }
@@ -113,7 +114,14 @@ export default function AccountMergeForm(props: IAccountMergeFormProps) {
 
   return (
     <Card
-      title={`Account Merge`}
+      title={
+        <Row justify="space-between">
+          <Col>Account Merge</Col>
+          <Col>
+            <HelpButton helpKey="mergeAccountForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

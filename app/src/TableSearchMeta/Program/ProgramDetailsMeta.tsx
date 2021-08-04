@@ -35,7 +35,12 @@ import { Typography } from "antd"
 export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetailsMeta => {
   const info: CardContainer = {
     cardActions: [
-      <ProgramFormOpenButton iconType="edit" editMode={true} ProgramID={program.ProgramID} />,
+      <ProgramFormOpenButton
+        helpKey="programSummaryEditProgramForm"
+        iconType="edit"
+        editMode={true}
+        ProgramID={program.ProgramID}
+      />,
       <IconButton
         toolTip="Delete Program"
         iconType="remove"

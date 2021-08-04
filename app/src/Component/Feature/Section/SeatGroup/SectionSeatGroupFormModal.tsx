@@ -1,7 +1,7 @@
 import * as React from "react"
 import Modal from "~/Component/Common/Modal/index2"
 import { useEffect, useState } from "react"
-import SeatGroupForm from "~/Component/Feature/Section/SeatGroup/SeatGroupForm"
+import { SeatGroupForm } from "~/Component/Feature/Section/SeatGroup/SeatGroupForm"
 import { getSeatGroupById } from "~/ApiServices/Service/EntityService"
 import { Form } from "antd"
 import { ISectionSeatGroupFieldNames } from "~/Component/Feature/Section/Interfaces"
@@ -11,6 +11,7 @@ interface ICreateNewSeatGroupProps {
   sectionId: number
   programId?: number
   programCode?: string
+  helpKey?: string
   isDefault?: boolean
   closeModal?: () => void
 }
@@ -33,7 +34,8 @@ export default function CreateOrUpdateSeatGroup({
   sectionId,
   programId,
   programCode,
-  isDefault
+  isDefault,
+  helpKey
 }: ICreateNewSeatGroupProps) {
   const [formInstance] = Form.useForm()
   const [sectionSeatGroupLoading, setSectionSeatGroupLoading] = useState(false)
@@ -71,6 +73,7 @@ export default function CreateOrUpdateSeatGroup({
       children={
         <>
           <SeatGroupForm
+            helpKey={helpKey}
             sectionId={sectionId}
             seatgroupId={seatgroupId}
             programId={programId}
