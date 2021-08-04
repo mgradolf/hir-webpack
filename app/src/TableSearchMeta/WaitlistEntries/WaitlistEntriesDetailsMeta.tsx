@@ -4,6 +4,7 @@ import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageIn
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean, renderDate, renderEmail } from "~/Component/Common/ResponsiveTable"
 import { WaitlistEntryFormOpenButton } from "~/Component/Feature/WaitlistEntries/WaitlistEntryForm"
+import { WaitlistEntryRemoveLink } from "~/Component/Feature/WaitlistEntries/WaitlistEntryRemoveLink"
 
 export const getWaitlistEntriesDetailsMeta = (waitlistEntry: { [key: string]: any }): IDetailsMeta => {
   const tabMeta: IDetailsTabMeta[] = []
@@ -19,7 +20,8 @@ export const getWaitlistEntriesDetailsMeta = (waitlistEntry: { [key: string]: an
           AccountDescriptor: waitlistEntry.AccountName,
           RecipientPersonID: waitlistEntry.StudentID
         }}
-      />
+      />,
+      <WaitlistEntryRemoveLink WaitListEntryID={waitlistEntry.WaitListEntryID} />
     ],
     contents: [
       {
