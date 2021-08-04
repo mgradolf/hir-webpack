@@ -1,4 +1,3 @@
-import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { PAYMENT_TYPE } from "~/utils/Constants"
@@ -6,7 +5,7 @@ import { PAYMENT_TYPE } from "~/utils/Constants"
 export const getExternalPaymentRequestObject = async (props: {
   requestComponentName: string
   PaymentTypeID: number
-  PaymentFormInstance: FormInstance
+  paymentFormValue: { [key: string]: any }
   buyer: IBuyer
   itemList: IItemRequest[]
   allocations?: IAllocation
@@ -15,10 +14,10 @@ export const getExternalPaymentRequestObject = async (props: {
   let requestObject: IRequestObject
   if (props.buyer?.PersonProfile && props.allocations?.Allocation) {
     requestObject = {
-      ExpirationDate: props.PaymentFormInstance.getFieldValue("ExpirationDate"),
+      ExpirationDate: props.paymentFormValue.ExpirationDate,
       RequestData: {
         ...props.buyer.PersonProfile,
-        PaymentNotes: props.PaymentFormInstance.getFieldValue("PaymentNotes"),
+        PaymentNotes: props.paymentFormValue.PaymentNotes,
         ItemList: props.itemList,
         Allocation: props.allocations?.Allocation,
         PurchaseOrderAmount: props.allocations.NetTotalPrice,

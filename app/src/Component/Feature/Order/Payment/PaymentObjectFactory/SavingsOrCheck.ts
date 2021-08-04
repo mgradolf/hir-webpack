@@ -1,4 +1,3 @@
-import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { PAYMENT_TYPE } from "~/utils/Constants"
@@ -6,7 +5,7 @@ import { PAYMENT_TYPE } from "~/utils/Constants"
 export const getSavingsOrCheckPaymentRequestObject = async (props: {
   requestComponentName: string
   PaymentTypeID: number
-  PaymentFormInstance: FormInstance
+  paymentFormValue: { [key: string]: any }
   buyer: IBuyer
   itemList: IItemRequest[]
   allocations?: IAllocation
@@ -16,7 +15,7 @@ export const getSavingsOrCheckPaymentRequestObject = async (props: {
 
   if (props.buyer?.PersonProfile && props.allocations?.Allocation) {
     requestObject = {
-      ExpirationDate: props.PaymentFormInstance.getFieldValue("ExpirationDate"),
+      ExpirationDate: props.paymentFormValue.ExpirationDate,
       RequestData: {
         ...props.buyer.PersonProfile,
         Allocation: props.allocations?.Allocation,
@@ -26,11 +25,11 @@ export const getSavingsOrCheckPaymentRequestObject = async (props: {
         TotalPaymentAmount: props.allocations.TotalPaymentAmount,
         PaymentTypeID: props.PaymentTypeID,
         BankName: "DBBL",
-        PaymentNotes: props.PaymentFormInstance.getFieldValue("PaymentNotes"),
-        BankAccountName: props.PaymentFormInstance.getFieldValue("BankAccountName"),
-        BankRoutingNumber: props.PaymentFormInstance.getFieldValue("BankRoutingNumber"),
-        CheckNumber: props.PaymentFormInstance.getFieldValue("CheckNumber"),
-        BankAccountNumber: props.PaymentFormInstance.getFieldValue("BankAccountNumber"),
+        PaymentNotes: props.paymentFormValue.PaymentNotes,
+        BankAccountName: props.paymentFormValue.BankAccountName,
+        BankRoutingNumber: props.paymentFormValue.BankRoutingNumber,
+        CheckNumber: props.paymentFormValue.CheckNumber,
+        BankAccountNumber: props.paymentFormValue.BankAccountNumber,
         PaymentTypeName: "Checking",
         PaymentType: PAYMENT_TYPE.BankAccountPayment,
         SourceID: 3,

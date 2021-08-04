@@ -1,4 +1,3 @@
-import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { PAYMENT_TYPE } from "~/utils/Constants"
@@ -6,7 +5,7 @@ import { PAYMENT_TYPE } from "~/utils/Constants"
 export const getAdjustFromCashPaymentRequestObject = async (props: {
   requestComponentName: string
   PaymentTypeID: number
-  PaymentFormInstance: FormInstance
+  paymentFormValue: { [key: string]: any }
   depositItems?: any[]
   buyer: IBuyer
   itemList: IItemRequest[]
@@ -24,7 +23,7 @@ export const getAdjustFromCashPaymentRequestObject = async (props: {
     props.allocations?.Allocation
   ) {
     requestObject = {
-      ExpirationDate: props.PaymentFormInstance.getFieldValue("ExpirationDate"),
+      ExpirationDate: props.paymentFormValue.ExpirationDate,
       RequestData: {
         ...props.buyer.PersonProfile,
         ItemList: props.itemList,
@@ -32,8 +31,8 @@ export const getAdjustFromCashPaymentRequestObject = async (props: {
         PurchaseOrderAmount: props.allocations.NetTotalPrice,
         TotalPaymentAmount: props.allocations.TotalPaymentAmount,
         PaymentTypeID: props.PaymentTypeID,
-        PaymentNotes: props.PaymentFormInstance.getFieldValue("PaymentNotes"),
-        Description: props.PaymentFormInstance.getFieldValue("Description"),
+        PaymentNotes: props.paymentFormValue.PaymentNotes,
+        Description: props.paymentFormValue.Description,
         Amount: props.allocations.NetTotalPrice,
         DepositID: props.depositItems[0].TransactionID,
         TransactionNO: props.depositItems[0].TransactionNO,

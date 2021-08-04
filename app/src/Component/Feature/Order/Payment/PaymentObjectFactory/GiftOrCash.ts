@@ -1,4 +1,3 @@
-import { FormInstance } from "antd/lib/form"
 import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
 import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { PAYMENT_TYPE } from "~/utils/Constants"
@@ -6,7 +5,7 @@ import { PAYMENT_TYPE } from "~/utils/Constants"
 export const getGiftOrCashPaymentRequestObject = async (props: {
   requestComponentName: string
   PaymentTypeID: number
-  PaymentFormInstance: FormInstance
+  paymentFormValue: { [key: string]: any }
   buyer: IBuyer
   itemList: IItemRequest[]
   allocations?: IAllocation
@@ -15,7 +14,7 @@ export const getGiftOrCashPaymentRequestObject = async (props: {
   let requestObject: IRequestObject
   if (props.buyer?.PersonProfile && props.allocations?.Allocation) {
     requestObject = {
-      ExpirationDate: props.PaymentFormInstance.getFieldValue("ExpirationDate"),
+      ExpirationDate: props.paymentFormValue.ExpirationDate,
       RequestData: {
         ...props.buyer.PersonProfile,
         Allocation: props.allocations?.Allocation,
@@ -23,7 +22,7 @@ export const getGiftOrCashPaymentRequestObject = async (props: {
         PurchaseOrderAmount: props.allocations.NetTotalPrice,
         TotalPaymentAmount: props.allocations.TotalPaymentAmount,
         PaymentTypeID: props.PaymentTypeID,
-        PaymentNotes: props.PaymentFormInstance.getFieldValue("PaymentNotes"),
+        PaymentNotes: props.paymentFormValue.PaymentNotes,
         TransactionNumber: "1",
         PaymentTypeName: "Cash",
         PaymentType: PAYMENT_TYPE.MiscellaneousPayment,

@@ -520,6 +520,7 @@ export class CartModelFunctionality
   updateCartByEvent() {
     if (this.itemList.length) {
       this.getAllocations().then((response) => {
+        this.allocations = response.data
         eventBus.publish(this.EVENT_UPDATE_CART, { itemList: this.itemList, allocations: response.data })
       })
     } else {

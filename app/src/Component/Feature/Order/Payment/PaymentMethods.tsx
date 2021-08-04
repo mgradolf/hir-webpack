@@ -1,24 +1,17 @@
-import { Button, Card, message, Row } from "antd"
+import React, { useEffect, useState } from "react"
+import { Button, Card, Dropdown, Menu } from "antd"
 import Form, { FormInstance } from "antd/lib/form"
-import React, { useState } from "react"
+import Modal from "~/Component/Common/Modal/index2"
 import { getPaymentTypes } from "~/ApiServices/BizApi/payment/paymentIF"
-import { launchRequest, launchRequestWithExternalPayment } from "~/ApiServices/Service/RequestService"
-import { getExternalPaymentRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/ExternalPayment"
 import { AdjustFromCashAccount } from "~/Component/Feature/Order/Payment/PaymentMethods/AdjustFromCashAccount"
 import { ExternalPayment } from "~/Component/Feature/Order/Payment/PaymentMethods/ExternalPayment"
 import { GiftOrCash } from "~/Component/Feature/Order/Payment/PaymentMethods/GiftOrCash"
 import { SavingsOrChecks } from "~/Component/Feature/Order/Payment/PaymentMethods/SavingsOrChecks"
-import { getAdjustFromCashPaymentRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/AdjustFromCash"
-import { getGiftOrCashPaymentRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/GiftOrCash"
-import { getSavingsOrCheckPaymentRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/SavingsOrCheck"
-import { IRequestObject } from "~/Component/Feature/Order/Payment/PaymentObjectFactory/Interfaces"
-import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
-import { OrderSubmittedConfirmationModal } from "~/Component/Feature/Order/OrderSubmittedConfirmationModal"
 import { CartModelFunctionality } from "~/Component/Feature/Order/Model/CartModelFunctionality"
-import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
-import Modal from "~/Component/Common/Modal/index2"
+import { IAllocation, IBuyer, IItemRequest, IRegistrationPromo } from "~/Component/Feature/Order/Model/Interface/IModel"
 import { NO_PAYMENT } from "~/Pages/Manage/Financials/CreateOrderPage"
 import { PO } from "./PaymentMethods/PO"
+import { DownOutlined, UserOutlined } from "@ant-design/icons"
 
 export const PaymentMethods = (props: {
   requestComponentName: string
@@ -27,150 +20,82 @@ export const PaymentMethods = (props: {
   allocations?: IAllocation
   promoCodes: IRegistrationPromo[]
   cartModelFunctionality: CartModelFunctionality
-  showPaymentModal: boolean
-  setShowPaymentModal: (flag: false) => void
   selectedPayment: { [key: string]: any }
   setSelectedPayment: (params: { [key: string]: any }) => void
+  depositItems: any[]
+  setDepositItems: (param: any[]) => void
+  setPaymentFormValue: (param: { [key: string]: any }) => void
+  setShowPaymentMethods: (flag: boolean) => void
 }) => {
-  const [PaymentFormInstance] = Form.useForm()
   const [paymentMethods, setPaymentMethods] = useState([])
-  const [depositItems, setDepositItems] = useState<any[]>([])
-  const [showOrderSubmittedConfirmationModal, setShowOrderSubmittedConfirmationModal] = useState(false)
-  const [newRequestID, setNewRequestID] = useState<number>()
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [PaymentFormInstance] = Form.useForm()
 
-  const submitOrderWithPayment = () => {
-    const handleResponse = (requestObject: IRequestObject | undefined) => {
-      console.log(JSON.stringify(requestObject))
-      if (requestObject)
-        return (props.selectedPayment && props.selectedPayment.PaymentTypeID === 7
-          ? launchRequestWithExternalPayment(requestObject)
-          : launchRequest(requestObject)
-        ).then((response) => {
-          if (response && response.success) {
-            setNewRequestID(response.data.RequestID)
-            props.cartModelFunctionality.removeCartItemRequest()
-            props.setShowPaymentModal(false)
-            setShowOrderSubmittedConfirmationModal(true)
-
-            if (response.data.CurrentUrl) {
-              window.open(response.data.CurrentUrl)
-            }
-          } else {
-            message.error("Something went wrong! Order with Payment is not successful")
-          }
-        })
-    }
-    if (props.selectedPayment && props.allocations) {
-      // eslint-disable-next-line
-      let methodToGetPaymentRequestObject
-      switch (props.selectedPayment.PaymentTypeID) {
-        case 13:
-          console.log("depositItems ", depositItems)
-          if (!depositItems) message.warning("Select Deposit")
-          else
-            methodToGetPaymentRequestObject = getAdjustFromCashPaymentRequestObject({
-              ...props,
-              PaymentFormInstance,
-              PaymentTypeID: props.selectedPayment.PaymentTypeID,
-              depositItems: depositItems
-            }).then(handleResponse)
-          break
-        case 11:
-          methodToGetPaymentRequestObject = getGiftOrCashPaymentRequestObject({
-            ...props,
-            PaymentFormInstance,
-            PaymentTypeID: props.selectedPayment.PaymentTypeID
-          }).then(handleResponse)
-          break
-        case 4:
-          methodToGetPaymentRequestObject = getGiftOrCashPaymentRequestObject({
-            ...props,
-            PaymentFormInstance,
-            PaymentTypeID: props.selectedPayment.PaymentTypeID
-          }).then(handleResponse)
-          break
-        case 1:
-          methodToGetPaymentRequestObject = getSavingsOrCheckPaymentRequestObject({
-            ...props,
-            PaymentFormInstance,
-            PaymentTypeID: props.selectedPayment.PaymentTypeID
-          }).then(handleResponse)
-          break
-        case 0:
-          methodToGetPaymentRequestObject = getSavingsOrCheckPaymentRequestObject({
-            ...props,
-            PaymentFormInstance,
-            PaymentTypeID: props.selectedPayment.PaymentTypeID
-          }).then(handleResponse)
-          break
-        case 7:
-          methodToGetPaymentRequestObject = getExternalPaymentRequestObject({
-            ...props,
-            PaymentFormInstance,
-            PaymentTypeID: props.selectedPayment.PaymentTypeID
-          }).then(handleResponse)
-          break
+  useEffect(() => {
+    getPaymentTypes({}).then((x) => {
+      if (x.success) {
+        x.data = [NO_PAYMENT, ...x.data]
+        setPaymentMethods(x.data)
       }
-    }
-  }
-
+    })
+  }, [])
   return (
     <>
-      <Form form={PaymentFormInstance}>
-        <FormDropDown
-          wrapperColSpan={18}
-          label="Payment Method"
-          fieldName="PaymentMethodID"
-          formInstance={PaymentFormInstance}
-          defaultValue={100000000002222200002222}
-          refLookupService={() =>
-            getPaymentTypes({}).then((x) => {
-              if (x.success) {
-                x.data = [NO_PAYMENT, ...x.data]
-                setPaymentMethods(x.data)
-              }
-              return x
-            })
-          }
-          displayKey="PaymentAcceptedName"
-          valueKey="PaymentTypeID"
-          onChangeCallback={(selectedID?) => {
-            if (selectedID !== undefined) {
-              const __selectedPayment: { [key: string]: any } =
-                paymentMethods.find((x) => x["PaymentTypeID"] === selectedID) || {}
-              props.setSelectedPayment(__selectedPayment)
-            } else props.setSelectedPayment({})
-          }}
-        />
-        {props.showPaymentModal && props.selectedPayment && (
-          <Modal width="1000px">
-            <Card
-              title={props.selectedPayment.PaymentAcceptedName}
-              actions={[
-                <Button onClick={() => props.setShowPaymentModal(false)}>Cancel</Button>,
-                <Button type="primary" onClick={submitOrderWithPayment} style={{ marginBottom: "10px" }}>
-                  {`Submit Order With ${props.selectedPayment.PaymentAcceptedName}`}
-                </Button>
-              ]}
+      {paymentMethods.length && (
+        <Dropdown
+          disabled={!props.itemList.length}
+          overlay={
+            <Menu
+              onClick={(e) => {
+                const paymentMethod = paymentMethods.find((x: any) => x.PaymentTypeID === Number(e.key))
+                props.setSelectedPayment(paymentMethod || {})
+                props.setShowPaymentMethods(false)
+              }}
             >
+              {paymentMethods.map((x: any) => (
+                <Menu.Item key={x.PaymentTypeID} icon={<UserOutlined />}>
+                  {x.PaymentAcceptedName}
+                </Menu.Item>
+              ))}
+            </Menu>
+          }
+        >
+          <Button>
+            Select Payment Methods <DownOutlined />
+          </Button>
+        </Dropdown>
+      )}
+
+      {showPaymentModal && (
+        <Modal width="1000px">
+          <Card
+            title={props.selectedPayment.PaymentAcceptedName}
+            actions={[
+              <Button onClick={() => setShowPaymentModal(false)}>Cancel</Button>,
+              <Button
+                type="primary"
+                onClick={() => {
+                  props.setPaymentFormValue(PaymentFormInstance.getFieldsValue())
+                  setShowPaymentModal(false)
+                  props.setShowPaymentMethods(false)
+                }}
+                style={{ marginBottom: "10px" }}
+              >
+                Submit
+              </Button>
+            ]}
+          >
+            <Form form={PaymentFormInstance}>
               <PaymentMethodsModalContent
                 buyer={props.buyer}
                 selectedPayment={props.selectedPayment}
-                setDepositItems={setDepositItems}
+                setDepositItems={props.setDepositItems}
                 PaymentFormInstance={PaymentFormInstance}
               />
-            </Card>
-          </Modal>
-        )}
-      </Form>
-      <Row justify="end" gutter={4}>
-        {showOrderSubmittedConfirmationModal && newRequestID && (
-          <OrderSubmittedConfirmationModal
-            setShowModal={setShowOrderSubmittedConfirmationModal}
-            newRequestID={newRequestID}
-          />
-        )}
-      </Row>
+            </Form>
+          </Card>
+        </Modal>
+      )}
     </>
   )
 }

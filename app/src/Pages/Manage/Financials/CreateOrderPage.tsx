@@ -34,9 +34,11 @@ export default function CreateOrderPage() {
   const [cartModelFunctionality] = useState(new CartModelFunctionality(UPDATE_CART, UPDATE_BUYER, UPDATE_PROMO))
   const [orderRequestInProgress, setOrderRequestInProgress] = useState(false)
   const [selectedPayment, setSelectedPayment] = useState<{ [key: string]: any }>(NO_PAYMENT)
-  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  // const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [showPaymentMethods, setShowPaymentMethods] = useState(true)
+  const [depositItems, setDepositItems] = useState<any[]>([])
 
+  const [paymentFormValue, setPaymentFormValue] = useState<{ [key: string]: any }>({})
   useEffect(() => {
     const queryParams = querystringToObject()
     if (queryParams && queryParams.BuyerID) {
@@ -54,6 +56,11 @@ export default function CreateOrderPage() {
     eventBus.subscribe(UPDATE_CART, (params: { itemList: IItemRequest[]; allocations: IAllocation }) => {
       setItemList(params.itemList)
       setAllocations(params.allocations)
+
+      if (!params.itemList.length) {
+        setShowPaymentMethods(true)
+        setSelectedPayment({})
+      }
     })
     eventBus.subscribe(UPDATE_BUYER, (buyer: IBuyer) => {
       setBuyer(buyer)
@@ -87,39 +94,48 @@ export default function CreateOrderPage() {
           />
         </Col>
 
-        <Row justify="end">
-          <Col>
-            {showPaymentMethods && (
-              <PaymentMethods
-                cartModelFunctionality={cartModelFunctionality}
-                requestComponentName="OrderWithPayment"
-                buyer={buyer}
-                itemList={itemList}
-                allocations={allocations}
-                promoCodes={promoCodes}
-                showPaymentModal={showPaymentModal}
-                setShowPaymentModal={setShowPaymentModal}
-                selectedPayment={selectedPayment}
-                setSelectedPayment={setSelectedPayment}
-              />
-            )}
-            {selectedPayment && allocations && !showPaymentMethods && (
-              <SelectedPaymentMethodSummary
-                PaymentAmount={allocations?.TotalPaymentAmount}
-                PaymentMethodName={selectedPayment.PaymentAcceptedName}
-                setShowPaymentMethods={setShowPaymentMethods}
-              />
-            )}
-            <SubmitOrderButton
-              disabled={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
-              orderRequestInProgress={orderRequestInProgress}
-              setOrderRequestInProgress={setOrderRequestInProgress}
+        <Row justify="end" style={{ marginTop: "5px" }}>
+          {showPaymentMethods && (
+            <PaymentMethods
               cartModelFunctionality={cartModelFunctionality}
+              requestComponentName="OrderWithPayment"
+              buyer={buyer}
               itemList={itemList}
-              setShowPaymentModal={setShowPaymentModal}
+              allocations={allocations}
+              promoCodes={promoCodes}
               selectedPayment={selectedPayment}
+              setSelectedPayment={setSelectedPayment}
+              depositItems={depositItems}
+              setDepositItems={setDepositItems}
+              setPaymentFormValue={setPaymentFormValue}
+              setShowPaymentMethods={setShowPaymentMethods}
             />
-          </Col>
+          )}
+        </Row>
+        <Row justify="space-between" style={{ marginTop: "5px" }}>
+          {selectedPayment.PaymentTypeID && allocations && !showPaymentMethods && (
+            <SelectedPaymentMethodSummary
+              PaymentAmount={allocations?.TotalPaymentAmount}
+              PaymentMethodName={selectedPayment.PaymentAcceptedName}
+              setShowPaymentMethods={setShowPaymentMethods}
+            />
+          )}
+        </Row>
+        <Row justify="end" style={{ marginTop: "5px" }}>
+          <SubmitOrderButton
+            disabled={orderRequestInProgress || !(itemList.length && buyer.AccountID)}
+            orderRequestInProgress={orderRequestInProgress}
+            setOrderRequestInProgress={setOrderRequestInProgress}
+            cartModelFunctionality={cartModelFunctionality}
+            itemList={itemList}
+            selectedPayment={selectedPayment}
+            buyer={buyer}
+            promoCodes={promoCodes}
+            setSelectedPayment={setSelectedPayment}
+            paymentFormValue={paymentFormValue}
+            depositItems={depositItems}
+            allocations={allocations}
+          />
         </Row>
       </div>
     </div>
