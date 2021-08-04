@@ -292,7 +292,11 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const waitlistEntriesMeta: IDetailsTableTabProp = {
     blocks: [
       section.TotalAvailableSeats === 0 ? (
-        <WaitlistEntryFormOpenButton SectionID={section.SectionID} editMode={false} />
+        <WaitlistEntryFormOpenButton
+          SectionNumber={section.SectionNumber}
+          SectionID={section.SectionID}
+          editMode={false}
+        />
       ) : (
         <></>
       )

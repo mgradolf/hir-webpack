@@ -78,19 +78,27 @@ function WaitlistEntryForm(props: {
 
   return (
     <>
-      <SectionLookup
-        formInstance={props.formInstance}
-        label="Section"
-        fieldName="SectionID"
-        onSelectedItems={(Sections: any[]) => {
-          if (Sections.length > 0) {
-            setSectionID(Sections[0].SectionID)
-          } else {
-            setSectionID(undefined)
-          }
-        }}
-        rules={[{ required: true, message: "Section is required" }]}
-      />
+      {SectionID && (
+        <>
+          <FormInput label="SectionID" fieldName="SectionID" formInstance={props.formInstance} hidden />
+          <FormInput label="Section" fieldName="SectionNumber" formInstance={props.formInstance} disabled />
+        </>
+      )}
+      {!SectionID && (
+        <SectionLookup
+          formInstance={props.formInstance}
+          label="Section"
+          fieldName="SectionID"
+          onSelectedItems={(Sections: any[]) => {
+            if (Sections.length > 0) {
+              setSectionID(Sections[0].SectionID)
+            } else {
+              setSectionID(undefined)
+            }
+          }}
+          rules={[{ required: true, message: "Section is required" }]}
+        />
+      )}
       {SectionID && (
         <FormDropDown
           label="Seat Group"
@@ -243,6 +251,7 @@ function WaitlistEntryForm(props: {
 
 export function WaitlistEntryFormOpenButton(props: {
   SectionID?: number
+  SectionNumber?: string
   initialValues?: { [key: string]: any }
   editMode: boolean
 }) {
@@ -262,6 +271,10 @@ export function WaitlistEntryFormOpenButton(props: {
   )
 
   useEffect(() => {
+    if (props.SectionID) {
+      initialValues["SectionID"] = props.SectionID
+      initialValues["SectionNumber"] = props.SectionNumber
+    }
     if (props.initialValues && props.initialValues.WaitListEntryID !== undefined) {
       findWaitListEntries({ WaitListEntryID: props.initialValues.WaitListEntryID }).then((response) => {
         setInitialValue({
