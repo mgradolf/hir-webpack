@@ -13,7 +13,7 @@ export default function Section() {
         {setShowModal && (
           <IconButton toolTip="Create Section" iconType="create" onClick={() => setShowModal && setShowModal(true)} />
         )}
-        {showModal && <SectionFormModal closeModal={() => setShowModal(false)} />}
+        {showModal && <SectionFormModal helpKey="createSection" closeModal={() => setShowModal(false)} />}
       </>
     )
   }

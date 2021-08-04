@@ -14,6 +14,7 @@ import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IOfferingApprovalFormProps {
   offeringID: number
@@ -68,7 +69,14 @@ export default function ApprovalForm(props: IOfferingApprovalFormProps) {
 
   return (
     <Card
-      title="Offering Approval"
+      title={
+        <Row justify="space-between">
+          <Col>Offering Approval</Col>
+          <Col>
+            <HelpButton helpKey="offeringApprovalsManageApprovalForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

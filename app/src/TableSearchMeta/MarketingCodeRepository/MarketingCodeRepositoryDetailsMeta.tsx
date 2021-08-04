@@ -38,7 +38,7 @@ export const getMarketingCodeRepositoryDetailsMeta = (MarketingCode: { [key: str
     tabTitle: "Tags",
     tabType: "summary",
     // tabMeta: [],
-    multipleTabMetas: getTagsTabPageDetailsMeta({}, "MarketingCode", MarketingCode.MarketingCodeID).tabs
+    multipleTabMetas: getTagsTabPageDetailsMeta("MarketingCode", MarketingCode.MarketingCodeID).tabs
   })
 
   return {

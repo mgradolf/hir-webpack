@@ -4,7 +4,7 @@ import { IDetailsCustomTabProp } from "~/Component/Common/Page/DetailsPage2/Deta
 import { IDetailsMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 
 import { IDetailsTableTabProp } from "~/Component/Common/Page/DetailsPage2/DetailsTableTab"
-import { renderBoolean, renderDate } from "~/Component/Common/ResponsiveTable"
+import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
 import { SectionEditLink } from "~/Component/Feature/Section/SectionEditLink"
 import SectionSchedulePage from "~/Pages/Manage/Courses/Section/Schedule/SchedulePage"
 import { getRegistrationTableColumns } from "~/TableSearchMeta/Registration/RegistrationTableColumns"
@@ -58,10 +58,19 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const sectionInfo: CardContainer = {
     title: "Basic Info",
     cardActions: [
-      <SectionEditLink tooltip="Update Basic Info" SectionID={section.SectionID} component={BasicInfoForm} />,
+      <SectionEditLink
+        helpKey="sectionSummaryTabUpdateBasicInfoForm"
+        tooltip="Update Basic Info"
+        SectionID={section.SectionID}
+        component={BasicInfoForm}
+      />,
       <SectionRemoveButton Section={section} />
     ],
     contents: [
+      {
+        label: "Offering",
+        value: renderLink(`/offering/${section.OfferingID}`, section.OfferingCode)
+      },
       {
         label: "Status",
         value: (
@@ -123,7 +132,12 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const enrollmentInfo: CardContainer = {
     title: "Enrollment",
     cardActions: [
-      <SectionEditLink tooltip="Update Entollment" SectionID={section.SectionID} component={SectionEnrollmentForm} />
+      <SectionEditLink
+        tooltip="Update Entollment"
+        helpKey="sectionSummaryTabUpdateEnrollmentForm"
+        SectionID={section.SectionID}
+        component={SectionEnrollmentForm}
+      />
     ],
     contents: [
       { label: "Current Enrollment", value: section.TotalEnrolledSeats, render: undefined },
@@ -142,6 +156,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     cardActions: [
       <MetaDrivenFormModalOpenButton
         formTitle={`Update Grades & Credits`}
+        helpkey="sectionSummaryTabUpdateGrades&CreditsForm"
         formMeta={SectionGradesCreditsFormMeta}
         formSubmitApi={updateSection}
         initialFormValue={{
@@ -171,6 +186,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
     title: "Section Refund and Inquiry",
     cardActions: [
       <SectionEditLink
+        helpKey="sectionSummaryTabUpdateRefund&InquiryForm"
         tooltip={`Update Refund & Inquiry`}
         SectionID={section.SectionID}
         component={SectionRefundEnquiryForm}
@@ -218,7 +234,10 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const seatgroupMeta: IDetailsTableTabProp = {
-    blocks: [<SeatgroupFormModalOpenButton SectionID={section.SectionID} />],
+    blocks: [
+      <SeatgroupFormModalOpenButton SectionID={section.SectionID} />,
+      <HelpButton helpKey="sectionSeatGroupsTab" />
+    ],
     tableProps: {
       ...getSeatgroupTableColumns(false, undefined, section.SectionID, undefined),
       searchParams: { SectionID: section.SectionID },
@@ -259,7 +278,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const registrationMeta: IDetailsTableTabProp = {
-    blocks: [<HelpButton helpKey="sectionRegistrationsTab" />],
+    blocks: [<HelpButton helpKey="sectionRegistrationsRostersTab" />],
     tableProps: {
       ...getRegistrationTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -270,7 +289,11 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const orderItemMeta: IDetailsTableTabProp = {
     blocks: [<HelpButton helpKey="sectionBudgetOrderItems" />],
     tableProps: {
-      ...getOrderItemTableColumns(false, section.SectionID),
+      ...getOrderItemTableColumns(false, {
+        helpKeyViewReturnItemsModal: "sectionBudgetOrderItemsViewReturnItemsForm",
+        helpKeyIssueCreditModal: "sectionBudgetOrderItemsIssueCreditForm",
+        helpKeyApplyDiscountModal: "sectionBudgetOrderItemsApplyDiscountsForm"
+      }),
       searchParams: { SectionID: section.SectionID },
       refreshEventName: "REFRESH_SECTION_ORDER_PAGE_1"
     }
@@ -286,7 +309,18 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const waitlistEntriesMeta: IDetailsTableTabProp = {
-    blocks: [<WaitlistEntryFormOpenButton SectionID={section.SectionID} />],
+    blocks: [
+      section.TotalAvailableSeats === 0 ? (
+        <WaitlistEntryFormOpenButton
+          SectionNumber={section.SectionNumber}
+          SectionID={section.SectionID}
+          editMode={false}
+        />
+      ) : (
+        <></>
+      ),
+      <HelpButton helpKey="sectionRegistrationsWaitlistTab" />
+    ],
     tableProps: {
       ...getWaitlistEntriesTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -300,6 +334,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const enrollmentMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRegistrationsHistoryTab" />],
     tableProps: {
       ...getEnrollmentTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -308,6 +343,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const academicActivityMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRegistrationsAcademicTab" />],
     tableProps: {
       ...getAcademicActivityLogTableColumns(),
       searchParams: { SectionID: section.SectionID },
@@ -316,6 +352,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   }
 
   const enrollmentActivityMeta: IDetailsTableTabProp = {
+    blocks: [<HelpButton helpKey="sectionRegistrationsEnrollmentTab" />],
     tableProps: {
       ...getEnrollmentActivityLogTableColumns(),
       searchParams: { SectionIDs: [section.SectionID] },
@@ -377,7 +414,10 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
         tabTitle: "Tags",
         tabType: "summary",
         // tabMeta: [],
-        multipleTabMetas: getTagsTabPageDetailsMeta({}, "Section", section.SectionID).tabs
+        multipleTabMetas: getTagsTabPageDetailsMeta("Section", section.SectionID, {
+          helpKeyTags: "sectionTagsTab",
+          helpKeyParentTags: "sectionParentTagsTab"
+        }).tabs
       },
       {
         tabTitle: "Tagged Questions",

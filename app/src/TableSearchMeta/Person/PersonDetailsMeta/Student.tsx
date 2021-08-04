@@ -31,6 +31,7 @@ import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 import Notification from "~/utils/notification"
 import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { StudentHoldFormModal } from "~/Component/Feature/Student/StudentHoldFormModal"
+import { Col, Row } from "antd"
 
 const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any } }) => {
   const [showModal, setShowModal] = useState(false)
@@ -42,7 +43,14 @@ const StudentFormModalOpenButton = (props: { studentData: { [key: string]: any }
         <MetaDrivenFormModal
           meta={StudentFormMeta}
           metaName="StudentFormMeta"
-          title={"Update Student"}
+          title={
+            <Row justify="space-between">
+              <Col>Update Student</Col>
+              <Col>
+                <HelpButton helpKey="updateStudentForm" />
+              </Col>
+            </Row>
+          }
           initialFormValue={props.studentData}
           defaultFormValue={{
             PersonID: props.studentData.PersonID,

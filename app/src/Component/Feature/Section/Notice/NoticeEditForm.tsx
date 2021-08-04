@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Form, Card, Button, Input, Select, Divider, message, Row, Col } from "antd"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { eventBus } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
 import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { saveSectionNotification } from "~/ApiServices/Service/SectionService"
@@ -9,6 +9,7 @@ import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface INoticeEditFormProps {
   sectionId: number
@@ -65,6 +66,7 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
 
     if (response && response.success) {
       message.success(UPDATE_SUCCESSFULLY)
+      eventBus.publish(REFRESH_PAGE)
       eventBus.publish("REFRESH_SECTION_NOTIFICATION_PAGE_1")
       props.handleCancel()
     } else {
@@ -76,7 +78,14 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
 
   return (
     <Card
-      title={`Edit Email Notification`}
+      title={
+        <Row justify="space-between">
+          <Col>Edit Email Notification</Col>
+          <Col>
+            <HelpButton helpKey="sectionEditNotificationsTab" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { findSeatGroups } from "~/ApiServices/Service/SeatGroupService"
-import SeatGroupMenu from "~/Component/Feature/Section/SeatGroup/SeatGroupMenu"
+import { SeatGroupMenu } from "~/Component/Feature/Section/SeatGroup/SeatGroupMenu"
 
 export const getSeatgroupTableColumns = (
   isModal = false,
@@ -11,6 +11,11 @@ export const getSeatgroupTableColumns = (
   SectionID?: number,
   ProgramID?: number
 ): ITableConfigProp => {
+  const helpKey: string | undefined = AccountID
+    ? "accountEditSeatGroupsForm"
+    : ProgramID
+    ? "programEditSeatGroupsTab"
+    : undefined
   const columns: TableColumnType = [
     {
       title: "Name",
@@ -50,7 +55,7 @@ export const getSeatgroupTableColumns = (
     {
       title: "Action",
       key: "action",
-      render: (record: any) => <SeatGroupMenu additionalData={record} />
+      render: (record: any) => <SeatGroupMenu helpKey={helpKey} additionalData={record} />
     }
   ]
 

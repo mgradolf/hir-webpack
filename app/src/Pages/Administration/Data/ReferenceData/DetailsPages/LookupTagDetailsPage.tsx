@@ -10,7 +10,7 @@ export default function LookupTagDetailsPage(props: RouteComponentProps<{ LookUp
   return (
     <DetailsPage
       getMeta={(data, type, id) => {
-        const __ = getTagsTabPageDetailsMeta(data, type, id)
+        const __ = getTagsTabPageDetailsMeta(LookUpName, ID)
         return {
           pageTitle: __.pageTitle,
           tabs: [__.tabs[0]]

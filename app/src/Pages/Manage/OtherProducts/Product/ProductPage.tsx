@@ -13,7 +13,7 @@ export default function PersonTable() {
       tableProps={{
         ...getProductTableColumns()
       }}
-      helpKey={""}
+      helpKey="otherProductsManageProducts"
     ></SearchPage>
   )
 }

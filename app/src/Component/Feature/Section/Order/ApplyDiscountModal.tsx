@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, Form, Input, Radio } from "antd"
+import { Button, Card, Col, Form, Input, Radio, Row } from "antd"
 import { getAvailableDiscountByOrderItemID, grantDiscountProgram } from "~/ApiServices/Service/OrderService"
 import TextArea from "antd/lib/input/TextArea"
 import { ISimplifiedApiErrorMessage } from "@packages/api/lib/utils/HandleResponse/ProcessedApiError"
@@ -8,11 +8,13 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Feature/Section/Order/OrderDetailForModal"
 import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IApplyDiscountModal {
   OrderID: number
   OrderItemID: number
   setShowViewReturnItemsModal: (flag: boolean) => void
+  helpKey?: string
 }
 
 interface ICreditMemoData {
@@ -38,7 +40,14 @@ export default function ApplyDiscountModal(props: IApplyDiscountModal) {
       apiCallInProgress={apiCallInProgress}
       children={
         <Card
-          title="Apply Discount"
+          title={
+            <Row justify="space-between">
+              <Col>Apply Discount</Col>
+              <Col>
+                <HelpButton helpKey={props.helpKey} />
+              </Col>
+            </Row>
+          }
           actions={[
             <Button
               onClick={() => {

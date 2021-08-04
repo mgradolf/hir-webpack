@@ -15,6 +15,7 @@ import {
 import { REFRESH_SECTION_BUDGET_PAGE } from "~/TableSearchMeta/Section/SectionDetailsMeta"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IBudgetEditFormProps {
   financialType: string
@@ -25,6 +26,7 @@ interface IBudgetEditFormProps {
   setApiCallInProgress: (flag: boolean) => void
   formInstance: any
   fieldNames: { [key: string]: any }
+  helpKey?: string
 }
 
 const layout = {
@@ -99,7 +101,14 @@ export default function BudgetEditForm(props: IBudgetEditFormProps) {
 
   return (
     <Card
-      title={`Edit ${props.financialType} Financial`}
+      title={
+        <Row justify="space-between">
+          <Col>{`Edit ${props.financialType} Financial`}</Col>
+          <Col>
+            <HelpButton helpKey={props.helpKey} />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

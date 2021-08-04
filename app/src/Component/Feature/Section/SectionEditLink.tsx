@@ -11,6 +11,7 @@ interface ISectionEditLinkProp {
   SectionID: number
   component: React.FunctionComponent<any>
   tooltip: string
+  helpKey?: string
 }
 
 export function SectionEditLink(props: ISectionEditLinkProp) {
@@ -83,6 +84,7 @@ export function SectionEditLink(props: ISectionEditLinkProp) {
       {Object.keys(initialValues).length > 0 && (
         <CustomFormModalOpenButton
           formTitle={"Update Section"}
+          helpKey={props.helpKey}
           customForm={<props.component initialValue={initialValues} formInstance={formInstance} />}
           formInstance={formInstance}
           onFormSubmission={onFormSubmission}

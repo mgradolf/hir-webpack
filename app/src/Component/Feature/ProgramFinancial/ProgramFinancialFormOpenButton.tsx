@@ -144,6 +144,7 @@ export const ProgramFinancialFormOpenButton = (props: {
       buttonLabel="Add Offering Group To Program"
       iconType={props.editMode ? "edit" : "create"}
       errorMessages={errorMessages}
+      helpKey="programProgramFinancialAddFinancialForm"
     />
   )
 }

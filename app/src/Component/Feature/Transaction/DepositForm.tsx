@@ -152,6 +152,7 @@ export function DepositFormModalOpenButton() {
       onFormSubmission={onFormSubmission}
       initialValues={initialValues}
       apiCallInProgress={apiCallInProgress}
+      helpKey="financialsTransactionsCreateDepositForm"
       loading={loading}
       errorMessages={errorMessages}
       buttonLabel={"Deposit"}

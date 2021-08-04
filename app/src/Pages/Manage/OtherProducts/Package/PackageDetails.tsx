@@ -20,7 +20,10 @@ export default function PackageDetailsPage(props: RouteComponentProps<{ packageI
       entityType="Package"
       entityID={PackageID}
       actions={[
-        <PackageEmailFormOpenButton initialValues={{ PackageID: PackageID }} />,
+        <PackageEmailFormOpenButton
+          helpKey="accountPackagesNewEmailMessageForm"
+          initialValues={{ PackageID: PackageID }}
+        />,
         <PackageUtilizationReport PackageID={PackageID} />
       ]}
     />

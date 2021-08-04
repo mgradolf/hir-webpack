@@ -6,6 +6,7 @@ import ScheduleUpdateMenu from "~/Component/Feature/Section/Schedule/ScheduleUpd
 import ScheduleRemoveMenu from "~/Component/Feature/Section/Schedule/ScheduleRemoveMenu"
 import { getSectionScheduleTableColumns } from "~/TableSearchMeta/SectionSchedule/ScheduleTableColumns"
 import { REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 const { Title } = Typography
 
@@ -33,6 +34,7 @@ export default function SectionSchedulePage(props: { sectionID: number; title?: 
           </Col>
         )}
         <Col className={`gutter-row text-right`} xs={24} sm={24} md={props.title ? 12 : 24}>
+          <HelpButton helpKey="sectionScheduleTab" style={{ marginRight: "5px" }} />
           <ScheduleCreateButton sectionId={props.sectionID} />
           <ScheduleUpdateMenu sectionId={props.sectionID} scheduleIds={schedueIDs} style={{ marginLeft: "5px" }} />
           <ScheduleRemoveMenu

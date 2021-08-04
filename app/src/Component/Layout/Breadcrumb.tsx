@@ -33,7 +33,8 @@ const blockedPages: string[] = [
   "Student email notification",
   "System schedule",
   "Membership",
-  "TranscriptTypeCreditSetup"
+  "TranscriptTypeCreditSetup",
+  "Notice"
 ]
 
 const names: { [key: string]: string } = {

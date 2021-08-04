@@ -12,6 +12,7 @@ import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormDateTimePicker } from "~/Component/Common/Form/FormDateTimePicker"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IRegistrationUpdateFormProps {
   initialFormValue: { [key: string]: any }
@@ -117,7 +118,14 @@ export default function RegistrationUpdateForm(props: IRegistrationUpdateFormPro
 
   return (
     <Card
-      title={`Update Registration`}
+      title={
+        <Row justify="space-between">
+          <Col>Update Registration</Col>
+          <Col>
+            <HelpButton helpKey="registrationSummaryUpdateRegistrationForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

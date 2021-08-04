@@ -17,6 +17,7 @@ import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { CREATE_SUCCESSFULLY, UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import "~/Sass/global/index.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IPersonDegreeFormProps {
   formInstance: FormInstance
@@ -104,7 +105,14 @@ export function PersonDegreeForm(props: IPersonDegreeFormProps) {
 
   return (
     <Card
-      title={isEdit ? "Update Degree" : "Add Degree"}
+      title={
+        <Row justify="space-between">
+          <Col>{isEdit ? "Update Degree" : "Add Degree"}</Col>
+          <Col>
+            <HelpButton helpKey="personAddDegree" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

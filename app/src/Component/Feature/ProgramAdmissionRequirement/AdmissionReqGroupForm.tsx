@@ -11,6 +11,7 @@ import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { FormNumberInput } from "~/Component/Common/Form/FormNumberInput"
 import { saveOrUpdateAdmissionRequirementGroups } from "~/ApiServices/Service/ProgramService"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IAdmissionReqGroupFormProps {
   ProgramAdmReqGroupID?: number
@@ -76,7 +77,14 @@ export default function AdmissionReqGroupForm(props: IAdmissionReqGroupFormProps
 
   return (
     <Card
-      title="Admission Requirement Group Setup"
+      title={
+        <Row justify="space-between">
+          <Col>Admission Requirement Group Setup</Col>
+          <Col>
+            <HelpButton helpKey="programAddAdmissionRequirementGroupForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

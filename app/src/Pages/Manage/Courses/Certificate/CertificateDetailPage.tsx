@@ -4,6 +4,7 @@ import { searchCertificate } from "~/ApiServices/Service/RegistrationService"
 import { StandardDetailsPage } from "~/Component/Common/Page/DetailsPage/StandardDetailsPage"
 import { getCertificateDetailsMeta } from "~/TableSearchMeta/Certificate/CertificateDetailsMeta"
 import { getToken } from "@packages/api/lib/utils/TokenStore"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export default function (props: RouteComponentProps<{ studentCertificateID?: string }>) {
   const [certificateDetails, setCertificateDetails] = useState<{ [key: string]: any }>({})
@@ -35,6 +36,7 @@ export default function (props: RouteComponentProps<{ studentCertificateID?: str
   return (
     <>
       <StandardDetailsPage
+        cardActions={[<HelpButton helpKey="courseCertificateDetailsTab" />]}
         getDetailsMeta={getCertificateDetailsMeta}
         getDetailsFunc={() => {
           return searchCertificate(Param).then((x) => {

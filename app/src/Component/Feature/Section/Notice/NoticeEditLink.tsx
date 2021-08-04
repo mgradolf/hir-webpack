@@ -20,6 +20,7 @@ export default function NoticeEditLink(props: INoticeEditLinkProp) {
         onClick={() => {
           setShowModal(true)
         }}
+        disabled={props.sectionId === undefined}
       />
       {showModal && (
         <NoticeUpdate

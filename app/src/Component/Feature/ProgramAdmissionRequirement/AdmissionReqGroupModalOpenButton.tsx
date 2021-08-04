@@ -6,7 +6,7 @@ interface IAdmissionReqGroupModalOpenButtonProp {
   ProgramID: number
 }
 
-export default function AdmissionReqGroupModalOpenButton(props: IAdmissionReqGroupModalOpenButtonProp) {
+export function AdmissionReqGroupModalOpenButton(props: IAdmissionReqGroupModalOpenButtonProp) {
   const [showModal, setShowModal] = useState(false)
   return (
     <>

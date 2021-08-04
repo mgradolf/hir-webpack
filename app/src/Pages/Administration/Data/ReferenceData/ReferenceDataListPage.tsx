@@ -7,6 +7,7 @@ export default function ReferenceDataListPage() {
   return (
     <SearchPage
       title="Reference Data"
+      helpKey="administrationDataSearchReferenceData"
       meta={SearchMeta}
       metaName="ReferenceGenericSearchMeta"
       initialFormValue={{}}

@@ -5,9 +5,10 @@ import { MarketingProgramSearchMeta } from "~/TableSearchMeta/MarketingProgram/M
 
 interface IInstructorProps {
   onClose: (items?: any[]) => void
+  helpkey?: string
 }
 
-export default function AddMarketingProgramModal({ onClose }: IInstructorProps) {
+export default function AddMarketingProgramModal({ onClose, helpkey }: IInstructorProps) {
   return (
     <LookupModal
       meta={MarketingProgramSearchMeta}
@@ -16,6 +17,7 @@ export default function AddMarketingProgramModal({ onClose }: IInstructorProps) 
       title="Add Marketing Program"
       isArray={true}
       closeModal={onClose}
+      helpKey={helpkey}
     />
   )
 }

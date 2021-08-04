@@ -19,6 +19,7 @@ export default function () {
             buttonLabel="Create Program Offering"
             iconType="create"
             formTitle="Create Program Offering"
+            helpkey="programsCreateProgramOffering"
             formMeta={ProgramOfferingFormMeta}
             formSubmitApi={(Params: { [key: string]: any }) =>
               createOrUpdateProgramOffering(Params).then((x) => {
@@ -38,7 +39,7 @@ export default function () {
         tableProps={{
           ...getProgramOfferingTableColumns()
         }}
-        helpKey={""}
+        helpKey="programsSearchOffering"
       />
     </>
   )

@@ -22,6 +22,7 @@ import {
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import moment from "moment"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IDiscountEditFormProps {
   sectionId: number
@@ -132,7 +133,14 @@ export default function DiscountEditForm(props: IDiscountEditFormProps) {
 
   return (
     <Card
-      title={`Edit Discount Program`}
+      title={
+        <Row justify="space-between">
+          <Col>Edit Discount Program</Col>
+          <Col>
+            <HelpButton helpKey="sectionBudgetEditDiscountProgramForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

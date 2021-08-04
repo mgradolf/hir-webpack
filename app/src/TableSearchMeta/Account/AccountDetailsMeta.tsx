@@ -162,7 +162,11 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         tabMeta: {
           blocks: [<HelpButton helpKey="accountFinancialsOrdersItemsTab" />],
           tableProps: {
-            ...getOrderItemTableColumns(false),
+            ...getOrderItemTableColumns(false, {
+              helpKeyViewReturnItemsModal: "accountFinancialsOrdersItemsViewReturnItemsForm",
+              helpKeyIssueCreditModal: "accountFinancialsOrdersItemsViewReturnItemsIssueCreditForm",
+              helpKeyApplyDiscountModal: "accountFinancialsOrdersItemsApplyDiscountsForm"
+            }),
             searchParams: { OrganizationID: account.AccountID },
             refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
           }
@@ -216,6 +220,7 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
           <HelpButton helpKey="accountPackgesTab" />,
           <MetaDrivenFormModalOpenButton
             formTitle="Create Package"
+            helpkey="accountsAddPackageForm"
             formMeta={PackageFormMeta}
             formSubmitApi={savePackage}
             initialFormValue={{

@@ -14,6 +14,7 @@ import {
 import ProgramApplicationStatusFormModal from "~/Component/Feature/ProgramApplication/ProgramApplicationStatusFormModal"
 import ProgramApplicationTabDetailsPage from "~/Pages/Program/ProgramApplicationDetailsPage"
 import ProgramApplicationNoteFormModal from "~/Component/Feature/ProgramApplication/ProgramApplicationNoteFormModal"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getProgramApplicationDetailsMeta = (programApplication: { [key: string]: any }): IDetailsMeta => {
   const AcceptFormModalOpenButton = (props: { ProgramAppID: number; CurrentStatusID: number }) => {
@@ -158,6 +159,7 @@ export const getProgramApplicationDetailsMeta = (programApplication: { [key: str
   }
 
   const summaryMeta: IDetailsSummary = {
+    actions: [<HelpButton helpKey="programApplicationSummaryTab" />],
     summary: [info]
   }
 

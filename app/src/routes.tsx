@@ -17,63 +17,14 @@ export const AppRoutes: RouteProps[] = [
     path: "/offering/:offeringID/section/:sectionID",
     component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Details"))
   },
-  // {
-  //   path: "/offering/:offeringID/financial",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/Financial/FinancialPage"))
-  // },
-  // {
-  //   path: "/offering/:offeringID/catalog",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/Catalog"))
-  // },
-  // {
-  //   path: "/offering/:offeringID/approval",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/Approval"))
-  // },
-  // {
-  //   path: "/offering/:offeringID/requisite",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/Requisite"))
-  // },
-  // {
-  //   path: "/offering/:offeringID/instructor",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/QualifiedInstructor/QualifiedInstructorPage"))
-  // },
-  // { path: "/offering/:offeringID/tag", component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/TagPage")) },
-  // {
-  //   path: "/offering/:offeringID/section",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Offering/Section"))
-  // },
-  // {
-  //   path: "/offering/:offeringID/section/:sectionID",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Details"))
-  // },
 
   { path: "/section", component: React.lazy(() => import("~/Pages/Manage/Courses/Section")) },
   { path: "/section/:sectionID", component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Details")) },
-  // {
-  //   path: "/section/:sectionID/catalog",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Catalog"))
-  // },
-  // {
-  //   path: "/section/:sectionID/seatgroup",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupPage"))
-  // },
-  // {
-  //   path: "/section/:sectionID/schedule",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Schedule"))
-  // },
-  // {
-  //   path: "/section/:sectionID/budget",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Budget/BudgetPage"))
-  // },
-  // {
-  //   path: "/section/:sectionID/discount",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Discount/DiscountPage"))
-  // },
-  // {
-  //   path: "/section/:sectionID/notification",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Notice/NoticePage"))
-  // },
-  // { path: "/section/:sectionID/tag", component: React.lazy(() => import("~/Pages/Manage/Courses/Section/TagPage")) },
+  {
+    path: "/section/:sectionID/notice/:noticeID",
+    component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Notice/NoticeDetailsPage"))
+  },
+
   {
     path: "/section/:sectionID/registration/:studentID",
     component: React.lazy(() => import("~/Pages/Manage/Courses/Registration/Details"))
@@ -83,67 +34,6 @@ export const AppRoutes: RouteProps[] = [
     path: "/section/:sectionID/seatgroup/:seatGroupID",
     component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupDetails"))
   },
-  // {
-  //   path: "/section/:sectionID/registration",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Registration"))
-  // },
-  // {
-  //   path: "/section/:sectionID/order/payments/:paymentID",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Financial/PaymentDetails"))
-  // },
-  // {
-  //   path: "/section/:sectionID/order/payments",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Financial/Payments"))
-  // },
-  // {
-  //   path: "/section/:sectionID/order/items",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Financial/OrderItems"))
-  // },
-  // {
-  //   path: "/section/:sectionID/order/:orderID",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Financial/OrderDetails"))
-  // },
-  // {
-  //   path: "/section/:sectionID/order",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Financial/Orders"))
-  // },
-  // {
-  //   path: "/section/:sectionID/product",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Product/ProductPage"))
-  // },
-  // {
-  //   path: "/section/:sectionID/waitlist",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/WaitlistEntries"))
-  // },
-  // {
-  //   path: "/section/:sectionID/waitlist/:waitListEntryID",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/WaitlistEntry/WaitlistEntryDetailsPage"))
-  // },
-  // {
-  //   path: "/section/:sectionID/academic-log",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SectionAcademicLog"))
-  // },
-  // {
-  //   path: "/section/:sectionID/enrollment-log",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SectionEnrollmentLog"))
-  // },
-  // {
-  //   path: "/section/:sectionID/order-log",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SectionOrderLog"))
-  // },
-  // {
-  //   path: "/section/:sectionID/comment",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/Comment"))
-  // },
-  // { path: "/section/:sectionID/no-show", component: React.lazy(() => import("~/Pages/Manage/Courses/Section/NoShow")) },
-  // {
-  //   path: "/section/:sectionID/request",
-  //   component: React.lazy(() => import("~/Pages/Manage/Courses/Section/RequestPage"))
-  // },
-  // {
-  //   path: "/section/:secitonID/request/:requestID",
-  //   component: React.lazy(() => import("~/Pages/Manage/Request/RequestDetailsPage"))
-  // },
 
   { path: "/order/items", component: React.lazy(() => import("~/Pages/Manage/Financials/OrderItemPage")) },
   { path: "/order/credits", component: React.lazy(() => import("~/Pages/Manage/Financials/OrderCreditsPage")) },

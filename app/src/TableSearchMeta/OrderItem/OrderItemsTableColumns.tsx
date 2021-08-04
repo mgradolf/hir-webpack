@@ -2,7 +2,7 @@ import React from "react"
 import { Dropdown, Menu, Space, Button } from "antd"
 import { Link } from "react-router-dom"
 import { getOrderItems } from "~/ApiServices/Service/OrderService"
-import { renderDate, renderDetailsLink, TableColumnType } from "~/Component/Common/ResponsiveTable"
+import { renderDate, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import {
   ApplyDiscountModalOpenButton,
@@ -11,12 +11,18 @@ import {
 } from "~/TableSearchMeta/OrderItem/OrderItemModals"
 import { DownOutlined } from "@ant-design/icons"
 
-export const getOrderItemTableColumns = (isModal = false, SectionID?: number): ITableConfigProp => {
+export const getOrderItemTableColumns = (
+  isModal = false,
+  helpKeys?: {
+    helpKeyViewReturnItemsModal?: string
+    helpKeyIssueCreditModal?: string
+    helpKeyApplyDiscountModal?: string
+  }
+): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       dataIndex: "OrderID",
-      render: (text: any, record: any) =>
-        isModal ? { text } : renderDetailsLink(SectionID ? `/section/${SectionID}/order/${text}` : `/order/${text}`)
+      render: (text: any, record: any) => (isModal ? { text } : `/order/${text}`)
     },
     {
       title: "Order Date",
@@ -26,14 +32,7 @@ export const getOrderItemTableColumns = (isModal = false, SectionID?: number): I
     {
       title: "Order ID",
       dataIndex: "OrderID",
-      render: (text: any, record: any) =>
-        isModal ? (
-          text
-        ) : SectionID ? (
-          <Link to={`/section/${SectionID}/order/${record.OrderID}`}>{text}</Link>
-        ) : (
-          <Link to={`/order/${record.OrderID}`}>{text}</Link>
-        )
+      render: (text: any, record: any) => (isModal ? text : <Link to={`/order/${record.OrderID}`}>{text}</Link>)
     },
     {
       title: "Purchaser",
@@ -73,13 +72,25 @@ export const getOrderItemTableColumns = (isModal = false, SectionID?: number): I
             overlay={
               <Menu>
                 <Menu.Item key="0">
-                  <ViewReturnItemModalOpenButton OrderID={record.OrderID} OrderItemID={record.OrderItemID} />
+                  <ViewReturnItemModalOpenButton
+                    helpKey={helpKeys && helpKeys.helpKeyViewReturnItemsModal}
+                    OrderID={record.OrderID}
+                    OrderItemID={record.OrderItemID}
+                  />
                 </Menu.Item>
                 <Menu.Item key="1">
-                  <IssueCreditModalOpenButton OrderID={record.OrderID} OrderItemID={record.OrderItemID} />
+                  <IssueCreditModalOpenButton
+                    helpKey={helpKeys && helpKeys.helpKeyIssueCreditModal}
+                    OrderID={record.OrderID}
+                    OrderItemID={record.OrderItemID}
+                  />
                 </Menu.Item>
                 <Menu.Item key="2">
-                  <ApplyDiscountModalOpenButton OrderID={record.OrderID} OrderItemID={record.OrderItemID} />
+                  <ApplyDiscountModalOpenButton
+                    helpKey={helpKeys && helpKeys.helpKeyApplyDiscountModal}
+                    OrderID={record.OrderID}
+                    OrderItemID={record.OrderItemID}
+                  />
                 </Menu.Item>
               </Menu>
             }

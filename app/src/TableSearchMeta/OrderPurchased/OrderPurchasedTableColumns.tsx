@@ -44,7 +44,10 @@ export const getOrderPurchasedTableColumns = (isModal = false, SectionID?: numbe
       render: (record: any) => (
         <>
           <PurchaseOrderFormOpenButton editMode={true} iconType="edit" initialValues={record} />
-          <PurchaseOrderReceiveFormOpenButton initialValues={record} />
+          <PurchaseOrderReceiveFormOpenButton
+            helpKey="financialsOrderPurchaseOrdersReceivePurchaseOrderForm"
+            initialValues={record}
+          />
           <PurchaseOrderRemoveLink PurchaseOrderID={record.PurchaseOrderID} />
         </>
       )

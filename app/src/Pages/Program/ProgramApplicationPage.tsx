@@ -13,6 +13,7 @@ export default function ProgramApplication() {
       hideSearchField={false}
       defaultFormValue={{}}
       tableProps={getProgramApplicationTableColumns()}
+      helpKey="searchProgramApplications"
     ></SearchPage>
   )
 }
