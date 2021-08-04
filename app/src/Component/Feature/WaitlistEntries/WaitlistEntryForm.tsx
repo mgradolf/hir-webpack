@@ -19,6 +19,8 @@ import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { Redirect } from "react-router"
+import { WaitlistEntryUpdateForm } from "~/Component/Feature/WaitlistEntries/WaitlistEntryUpdateForm"
+import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistIF"
 
 interface IFormFields {
   SeatGroupID: string
@@ -52,7 +54,6 @@ const fieldNames: IFormFields = {
 
 function WaitlistEntryForm(props: {
   SectionID?: number
-  editMode: boolean
   initialValue?: { [key: string]: any }
   formInstance: FormInstance
 }) {
@@ -81,7 +82,6 @@ function WaitlistEntryForm(props: {
         formInstance={props.formInstance}
         label="Section"
         fieldName="SectionID"
-        defaultValue={SectionID}
         onSelectedItems={(Sections: any[]) => {
           if (Sections.length > 0) {
             setSectionID(Sections[0].SectionID)
@@ -89,10 +89,8 @@ function WaitlistEntryForm(props: {
             setSectionID(undefined)
           }
         }}
-        disabled={props.editMode}
         rules={[{ required: true, message: "Section is required" }]}
       />
-
       {SectionID && (
         <FormDropDown
           label="Seat Group"
@@ -101,7 +99,6 @@ function WaitlistEntryForm(props: {
           refLookupService={() => getSeatGroups({ SectionID })}
           displayKey="Name"
           valueKey="SeatGroupID"
-          disabled={props.editMode}
           rules={[{ required: true, message: "Seat Group is required" }]}
         />
       )}
@@ -117,20 +114,17 @@ function WaitlistEntryForm(props: {
           { label: "Self Service", value: "self" },
           { label: "By Admin", value: "admin" }
         ]}
-        disabled={props.editMode}
       />
       {showAdministrators && (
         <FormDropDown
           label="Select Admin"
           formInstance={props.formInstance}
-          disabled={props.editMode}
           fieldName={fieldNames.AdministratedByUID}
           refLookupService={() => getAllUsers({})}
           displayKey="FormattedName"
           valueKey="UserID"
         />
       )}
-
       <PersonLookup
         label="Purchaser"
         formInstance={props.formInstance}
@@ -144,10 +138,8 @@ function WaitlistEntryForm(props: {
             setAccount(undefined)
           }
         }}
-        disabled={props.editMode}
         rules={[{ required: true, message: "Purchaser is required" }]}
       />
-
       {account && (
         <>
           <FormInput
@@ -156,7 +148,6 @@ function WaitlistEntryForm(props: {
             defaultValue={account.AccountDescriptor}
             formInstance={props.formInstance}
             readOnly={true}
-            disabled={props.editMode}
           />
           <Form.Item className="hidden" name={fieldNames.AccountID}>
             <Input />
@@ -184,11 +175,9 @@ function WaitlistEntryForm(props: {
           valueKey="PersonID"
           refLookupService={() => getAccountAffiliation({ AccountID: account.AccountID })}
           rules={[{ required: true, message: "Student is required" }]}
-          disabled={props.editMode}
         />
       )}
       <FormMultipleRadio
-        hidden={props.editMode}
         label="Send Waitlist Confirmation"
         fieldName={fieldNames.ConfirmationEmailToRequester}
         formInstance={props.formInstance}
@@ -262,18 +251,27 @@ export function WaitlistEntryFormOpenButton(props: {
   const [redirectAfterCreate, setRedirectAfterCreate] = useState<string>()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
-  const [initialValues] = useState<{ [key: string]: any }>(
+  const [initialValues, setInitialValue] = useState<{ [key: string]: any }>(
     props.initialValues || {
       Priority: 5,
       IsActive: true,
       ManagedBy: "self",
       ConfirmationEmailToRequester: true,
-      InvitationEmailToRecipient: true
+      InvitationEmailToRequester: true
     }
   )
 
   useEffect(() => {
+    if (props.initialValues && props.initialValues.WaitListEntryID !== undefined) {
+      findWaitListEntries({ WaitListEntryID: props.initialValues.WaitListEntryID }).then((response) => {
+        setInitialValue({
+          ...response.data[0],
+          ManagedBy: response.data[0].AdministratedByUID !== null ? "admin" : "self"
+        })
+      })
+    }
     setErrorMessages([])
+    // eslint-disable-next-line
   }, [])
 
   const onFormSubmission = async (closeModal: () => void) => {
@@ -316,12 +314,15 @@ export function WaitlistEntryFormOpenButton(props: {
       <CustomFormModalOpenButton
         formTitle={props.editMode ? "Edit Waitlist Entry" : "Add Waitlist Entry"}
         customForm={
-          <WaitlistEntryForm
-            editMode={props.editMode}
-            SectionID={props.SectionID}
-            initialValue={props.initialValues}
-            formInstance={formInstance}
-          />
+          props.editMode ? (
+            <WaitlistEntryUpdateForm initialValue={initialValues} formInstance={formInstance} />
+          ) : (
+            <WaitlistEntryForm
+              SectionID={props.SectionID}
+              initialValue={props.initialValues}
+              formInstance={formInstance}
+            />
+          )
         }
         formInstance={formInstance}
         onFormSubmission={onFormSubmission}
