@@ -228,7 +228,7 @@ export const getProgramDetailsMeta = (program: { [key: string]: any }): IDetails
         tabTitle: "Tags",
         tabType: "summary",
         // // tabMeta: [],
-        multipleTabMetas: getTagsTabPageDetailsMeta({}, "Program", program.ProgramID).tabs
+        multipleTabMetas: getTagsTabPageDetailsMeta("Program", program.ProgramID).tabs
       },
       {
         tabTitle: "Notifications",

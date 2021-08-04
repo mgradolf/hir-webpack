@@ -3,8 +3,9 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { getParentTagsTableColumns, getTagsTableColumns } from "~/TableSearchMeta/Tags/TagsTableColumns"
 import { getParentTags } from "~/ApiServices/Service/TagService"
 import { TagAddButton } from "~/TableSearchMeta/Tags/TagAddButton"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
-export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, EntityID?: number): IDetailsMeta => {
+export const getTagsTabPageDetailsMeta = (EntityType: string, EntityID: number, helpKey?: string): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   meta.push({
     tabTitle: `${EntityType} Tags`,
@@ -15,7 +16,8 @@ export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, Entity
           {EntityType && EntityID && (
             <TagAddButton EntityType={EntityType} EntityID={EntityID} eventName="REFRESH_CATALOGS_TAB" />
           )}
-        </>
+        </>,
+        <>{helpKey && <HelpButton helpKey={helpKey} />}</>
       ],
       tableProps: {
         ...getTagsTableColumns(false, "REFRESH_CATALOGS_TAB"),
