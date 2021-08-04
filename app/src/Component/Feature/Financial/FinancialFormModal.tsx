@@ -40,8 +40,7 @@ export default function CreateNewFinancial({
   financialID,
   closeModal,
   applyToID,
-  financialType,
-  helpkey
+  financialType
 }: ICreateNewFinancialProps) {
   const initialParam: { [key: string]: any } = {
     ItemUnitAmount: 0,
@@ -62,6 +61,15 @@ export default function CreateNewFinancial({
   const [offeringFinancialLoading, setofferingFinancialLoading] = useState(false)
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>(initialParam)
+
+  const [helpKey, setHelpKey] = useState("")
+
+  useEffect(() => {
+    if (financialType === "Offering") setHelpKey("sectionBudgetEditOfferingFinancialsForm")
+    else if (financialType === "Instructor") setHelpKey("sectionBudgetEditInstructorFinancialsForm")
+    else if (financialType === "MarketinghProgram") setHelpKey("sectionBudgetEditMarketinghProgramFinancialsForm")
+    else if (financialType === "Resource") setHelpKey("sectionBudgetEditResourceFinancialsForm")
+  }, [financialType])
 
   const handleCancel = () => {
     if (closeModal) {
@@ -94,7 +102,7 @@ export default function CreateNewFinancial({
       children={
         <>
           <FinancialForm
-            helpkey={helpkey}
+            helpkey={helpKey}
             applyToID={applyToID}
             financialType={financialType}
             financialID={financialID}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Typography, Form, Input, Select, Row, Col } from "antd"
 import { setCustomPaymentAmount } from "~/ApiServices/Service/PaymentService"
-import { AllocatedItemsTableForPayment } from "./AllocatedItemsTableColumnsForPayment"
+import { AllocatedItemsTableForPayment } from "~/Component/Feature/Payment/Step2SelectOrderItems/AllocatedItemsTableColumnsForPayment"
 
 export const AllocationItemsView = (props: {
   totalBalance: number

@@ -56,7 +56,6 @@ export const getOfferingFinancialTableColumns = (ApplyToID: number, FinancialTyp
       key: "action",
       render: (record: any) => (
         <FinancialMenu
-          helpkey="offeringEditOfferingFinancialsForm"
           applyToID={record.ApplyToID}
           financialId={record.FinancialID}
           financialType={

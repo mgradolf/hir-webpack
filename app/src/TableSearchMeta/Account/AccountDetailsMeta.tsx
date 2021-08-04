@@ -162,7 +162,11 @@ export const getAccountDetailsMeta = (account: { [key: string]: any }): IDetails
         tabMeta: {
           blocks: [<HelpButton helpKey="accountFinancialsOrdersItemsTab" />],
           tableProps: {
-            ...getOrderItemTableColumns(false),
+            ...getOrderItemTableColumns(false, {
+              helpKeyViewReturnItemsModal: "accountFinancialsOrdersItemsViewReturnItemsForm",
+              helpKeyIssueCreditModal: "accountFinancialsOrdersItemsViewReturnItemsIssueCreditForm",
+              helpKeyApplyDiscountModal: "accountFinancialsOrdersItemsApplyDiscountsForm"
+            }),
             searchParams: { OrganizationID: account.AccountID },
             refreshEventName: "REFRESH_ORDER_ITEMS_TAB"
           }

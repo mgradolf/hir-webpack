@@ -8,7 +8,6 @@ interface IFinancialMenu {
   applyToID: number
   financialId: number
   financialType: string
-  helpkey?: string
 }
 
 export function FinancialMenu(props: IFinancialMenu) {
@@ -28,7 +27,6 @@ export function FinancialMenu(props: IFinancialMenu) {
       </Tooltip>
       {showUpdateModal && (
         <CreateNewFinancial
-          helpkey={props.helpkey}
           applyToID={props.applyToID}
           financialType={props.financialType}
           financialID={props.financialId}

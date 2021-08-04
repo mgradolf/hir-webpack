@@ -11,6 +11,11 @@ export const getSeatgroupTableColumns = (
   SectionID?: number,
   ProgramID?: number
 ): ITableConfigProp => {
+  const helpKey: string | undefined = AccountID
+    ? "accountEditSeatGroupsForm"
+    : ProgramID
+    ? "programEditSeatGroupsTab"
+    : undefined
   const columns: TableColumnType = [
     {
       title: "Name",
@@ -50,7 +55,7 @@ export const getSeatgroupTableColumns = (
     {
       title: "Action",
       key: "action",
-      render: (record: any) => <SeatGroupMenu helpKey="accountEditSeatGroupsForm" additionalData={record} />
+      render: (record: any) => <SeatGroupMenu helpKey={helpKey} additionalData={record} />
     }
   ]
 

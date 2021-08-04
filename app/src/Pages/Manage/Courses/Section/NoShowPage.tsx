@@ -43,7 +43,6 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
           {
             label: "Order ID",
             inputType: NUMBER,
-
             fieldName: "OrderID",
             ariaLabel: "OrderID"
           }

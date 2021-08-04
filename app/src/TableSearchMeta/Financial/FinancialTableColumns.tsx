@@ -76,7 +76,6 @@ export const getFinancialTableColumns = (ApplyToID: number, FinancialTypeID: num
       key: "action",
       render: (record: any) => (
         <FinancialMenu
-          helpkey="otherProductsResourcesFianancialsEditFinancialsForm"
           applyToID={record.ApplyToID}
           financialType={financialTypeName}
           financialId={record.FinancialID}

@@ -285,7 +285,11 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
   const orderItemMeta: IDetailsTableTabProp = {
     blocks: [<HelpButton helpKey="sectionBudgetOrderItems" />],
     tableProps: {
-      ...getOrderItemTableColumns(false, section.SectionID),
+      ...getOrderItemTableColumns(false, {
+        helpKeyViewReturnItemsModal: "sectionBudgetOrderItemsViewReturnItemsForm",
+        helpKeyIssueCreditModal: "sectionBudgetOrderItemsIssueCreditForm",
+        helpKeyApplyDiscountModal: "sectionBudgetOrderItemsApplyDiscountsForm"
+      }),
       searchParams: { SectionID: section.SectionID },
       refreshEventName: "REFRESH_SECTION_ORDER_PAGE_1"
     }
