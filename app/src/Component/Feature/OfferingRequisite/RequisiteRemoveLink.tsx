@@ -18,6 +18,7 @@ export function RequisiteRemoveLink(props: IRequisiteRemoveLinkProp) {
         type="primary"
         icon={<DeleteOutlined />}
         shape="circle"
+        disabled={props.requisiteGroupId === undefined}
         onClick={() =>
           showDeleteConfirm(() => {
             return removeOfferingRequisiteGroup({

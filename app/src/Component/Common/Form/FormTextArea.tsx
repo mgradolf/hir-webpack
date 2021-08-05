@@ -5,7 +5,7 @@ import { Input } from "antd"
 export function FormTextArea(props: IGeneratedField) {
   return (
     <SearchFieldWrapper {...props}>
-      <Input.TextArea aria-label={props.ariaLabel} disabled={props.disabled} />
+      <Input.TextArea aria-label={props.ariaLabel} maxLength={props.maxLength} disabled={props.disabled} />
     </SearchFieldWrapper>
   )
 }

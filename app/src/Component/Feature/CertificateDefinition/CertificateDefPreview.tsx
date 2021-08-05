@@ -1,8 +1,7 @@
 import React from "react"
-import { Button } from "antd"
-import { FilePdfOutlined } from "@ant-design/icons"
 import { RESPONSE_TYPE } from "@packages/api/lib/utils/Interfaces"
 import { previewCertificate } from "~/ApiServices/Service/CertificateService"
+import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 
 interface ICertificateDefPreviewProp {
   CertificateID: number
@@ -26,5 +25,5 @@ export function CertificateDefPreview(props: ICertificateDefPreviewProp) {
     })
   }
 
-  return <Button type="primary" shape="circle" icon={<FilePdfOutlined />} onClick={preview} />
+  return <IconButton iconType="info" toolTip="Preview Ceritficate" onClick={preview} />
 }

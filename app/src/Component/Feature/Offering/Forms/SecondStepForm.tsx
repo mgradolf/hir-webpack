@@ -35,6 +35,7 @@ export default function SecondStepForm(props: ISecondStepFormProps) {
           />
 
           <FormInput
+            maxLength={128}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"Offering Name"}
@@ -50,6 +51,7 @@ export default function SecondStepForm(props: ISecondStepFormProps) {
           />
 
           <FormTextArea
+            maxLength={3000}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"Description"}
@@ -59,6 +61,7 @@ export default function SecondStepForm(props: ISecondStepFormProps) {
           />
 
           <FormInput
+            maxLength={1028}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"URL"}

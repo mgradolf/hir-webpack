@@ -15,6 +15,7 @@ export default function RequisiteGroupEditLink(props: IRequisiteGroupEditLinkPro
         toolTip="Edit Selected Pre Requisite Group"
         iconType="edit"
         onClick={() => setShowModal && setShowModal(true)}
+        disabled={props.requisiteGroupId === undefined}
       />
 
       {showModal && (

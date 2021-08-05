@@ -67,6 +67,7 @@ export function BasicInfoForm(props: IBasicInfoFormProps) {
       <Row>
         <Col xs={24} sm={24} md={12}>
           <FormInput
+            maxLength={50}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"Section Number"}
@@ -82,6 +83,7 @@ export function BasicInfoForm(props: IBasicInfoFormProps) {
           />
 
           <FormInput
+            maxLength={1024}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"URL"}
@@ -92,6 +94,7 @@ export function BasicInfoForm(props: IBasicInfoFormProps) {
         </Col>
         <Col xs={24} sm={24} md={12}>
           <FormTextArea
+            maxLength={2000}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"Description"}

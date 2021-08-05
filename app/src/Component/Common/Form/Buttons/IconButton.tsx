@@ -16,7 +16,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { Redirect } from "react-router"
 import { ButtonType } from "antd/lib/button"
 
-export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email" | "undo" | "info" | "right"
+export type iconType = "create" | "edit" | "remove" | "close" | "copy" | "email" | "undo" | "info" | "right" | "danger"
 
 export const IconButton = (props: {
   onClick?: () => void
@@ -71,7 +71,8 @@ export const IconButton = (props: {
       email: <MailOutlined />,
       undo: <UndoOutlined />,
       info: <InfoCircleOutlined />,
-      right: <RightCircleOutlined />
+      right: <RightCircleOutlined />,
+      danger: <DeleteOutlined />
     }
     _button = (
       <Button
@@ -79,6 +80,7 @@ export const IconButton = (props: {
         aria-label={props.toolTip}
         icon={icons[props.iconType]}
         shape="circle"
+        danger={props.iconType === "danger"}
         onClick={props.onClick}
         type={props.buttonType || "primary"}
         loading={props.loading}

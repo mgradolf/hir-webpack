@@ -14,3 +14,13 @@ export function getCompletedProgram(
 ): Promise<IApiResponse> {
   return StudentCertificateIf[config.Actions.getCompletedProgram]([Params.StudentID], Headers)
 }
+
+export function voidCertificateWithEvent(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return StudentCertificateIf[config.Actions.voidCertificateWithEvent](
+    [Params.StudentCertificateID, Params.Comment],
+    Headers
+  )
+}

@@ -122,7 +122,7 @@ export default function SeatGroupForm(props: ISeatGroupCreateFormProps) {
           </Form.Item>
 
           <Form.Item label="Name" {...layout} name={props.fieldNames.Name}>
-            <Input />
+            <Input maxLength={50} />
           </Form.Item>
 
           <Form.Item label="# of Seats" {...layout} name={props.fieldNames.NumberOfSeats}>

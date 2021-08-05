@@ -6,7 +6,8 @@ export const config: Iconfig = {
   Module: "hir",
   Actions: {
     getCompletedSection: "getCompletedSection",
-    getCompletedProgram: "getCompletedProgram"
+    getCompletedProgram: "getCompletedProgram",
+    voidCertificateWithEvent: "voidCertificateWithEvent"
   }
 }
 

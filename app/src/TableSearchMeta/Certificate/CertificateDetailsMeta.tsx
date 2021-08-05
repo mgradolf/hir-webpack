@@ -1,12 +1,20 @@
+import React from "react"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { renderBoolean, renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
+import { CertificateVoidFormOpenButton } from "~/Component/Feature/Certificate/CertificateVoidForm"
 
 export const getCertificateDetailsMeta = (certificate: { [key: string]: any }): CardContainer[] => {
   const certificateInfo: CardContainer = {
     title: certificate.CertificateName,
+    cardActions: [
+      <CertificateVoidFormOpenButton
+        IsVoid={certificate.IsVoid}
+        StudentCertificateID={certificate.StudentCertificateID}
+      />
+    ],
     contents: [
       { label: "Certificate Number", value: certificate.CertificateNumber, render: undefined },
-      { label: "Valid", value: certificate.PublishOnWeb, render: renderBoolean },
+      { label: "Valid", value: !certificate.IsVoid, render: renderBoolean },
       { label: "Issue Date", value: certificate.IssueDate, render: renderDate },
       { label: "Expiration Date", value: certificate.ExpirationDate, render: renderDate },
       { label: "Student ID", value: certificate.StudentSerialNum, render: undefined },
