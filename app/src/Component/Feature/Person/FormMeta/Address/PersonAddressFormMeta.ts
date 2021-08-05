@@ -13,33 +13,6 @@ export const PersonAddressFormMeta: IField[] = [
     rules: [{ required: true, message: "Please select email address type!" }]
   },
   {
-    label: "AddressLine 1",
-    inputType: TEXT,
-    fieldName: "AddressLine1"
-  },
-  {
-    label: "AddressLine 2",
-    inputType: TEXT,
-    fieldName: "AddressLine2"
-  },
-  {
-    label: "AddressLine 3",
-    inputType: TEXT,
-    fieldName: "AddressLine3"
-  },
-  {
-    label: "Postal Code",
-    inputType: TEXT,
-    fieldName: "PostalCode"
-  },
-  {
-    label: "State/Province",
-    fieldName: "RegionCodeName",
-    fieldName2: "CountryCodeName",
-    inputType: CUSTOM_FIELD,
-    customFilterComponent: SearchRegion
-  },
-  {
     label: "Is Preferred",
     fieldName: "IsPreferred",
     inputType: DROPDOWN,
@@ -47,5 +20,36 @@ export const PersonAddressFormMeta: IField[] = [
       { label: "Yes", value: true },
       { label: "No", value: false }
     ]
+  },
+  {
+    label: "AddressLine 1",
+    inputType: TEXT,
+    fieldName: "AddressLine1"
+  },
+  {
+    label: "City",
+    inputType: TEXT,
+    fieldName: "Locality"
+  },
+  {
+    label: "AddressLine 2",
+    inputType: TEXT,
+    fieldName: "AddressLine2"
+  },
+  {
+    label: "Postal Code",
+    inputType: TEXT,
+    fieldName: "PostalCode"
+  },
+  {
+    label: "AddressLine 3",
+    inputType: TEXT,
+    fieldName: "AddressLine3"
+  },
+  {
+    label: "State/Province",
+    fieldName: "CountryCodeID",
+    inputType: CUSTOM_FIELD,
+    customFilterComponent: SearchRegion
   }
 ]

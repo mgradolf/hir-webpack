@@ -195,7 +195,12 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
                 editFormMeta={PersonAddressFormMeta}
                 editFormTitle="Update Address"
                 editFormInitialValue={x}
-                editFormDefaultValue={{ PersonID: person.PersonID, PersonAddressID: x.PersonAddressID }}
+                editFormDefaultValue={{
+                  PersonID: person.PersonID,
+                  IsPreferred: x.SortPosition === 1,
+                  PersonAddressID: x.PersonAddressID,
+                  oca: x.oca
+                }}
                 refreshEventName={REFRESH_PAGE}
                 editApi={pushPersonAddress}
                 deleteApi={() =>
@@ -240,19 +245,21 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
                 editFormDefaultValue={{
                   PersonID: person.PersonID,
                   TelephoneTypeID: x.TelephoneTypeID,
-                  oca: person.oca
+                  IsPreferred: x.SortPosition === 1,
+                  oca: x.oca
                 }}
                 refreshEventName={REFRESH_PAGE}
                 editApi={pushPersonPhone}
                 deleteApi={() =>
-                  deletePersonPhone({ PersonID: person.PersonID, TelephoneNumber: x.TelephoneNumber }).then(
-                    (response) => {
-                      if (response.success) {
-                        eventBus.publish(REFRESH_PAGE)
-                      }
-                      return response
+                  deletePersonPhone({
+                    PersonID: person.PersonID,
+                    TelephoneNumber: x.TelephoneNumber
+                  }).then((response) => {
+                    if (response.success) {
+                      eventBus.publish(REFRESH_PAGE)
                     }
-                  )
+                    return response
+                  })
                 }
               />
             )
@@ -289,7 +296,8 @@ export const getProfileMeta = (person: any, account: any, profileQuestions: any)
                 editFormDefaultValue={{
                   PersonID: person.PersonID,
                   EmailAddressTypeID: x.EmailAddressTypeID,
-                  oca: person.oca
+                  IsPreferred: x.SortPosition === 1,
+                  oca: x.oca
                 }}
                 refreshEventName={REFRESH_PAGE}
                 editApi={pushPersonEmail}

@@ -37,6 +37,18 @@ export function SearchRegion(props: IGeneratedField) {
   return (
     <Row>
       <Col span={24}>
+        <SearchFieldWrapper {...props} fieldName="RegionCodeID" label="Region">
+          <Select allowClear={true} loading={loading} aria-label="Region Code">
+            {regiondCodes &&
+              regiondCodes.map(({ ID, Description }, i) => (
+                <Select.Option value={ID} key={`${ID}_${i}`}>
+                  {Description}
+                </Select.Option>
+              ))}
+          </Select>
+        </SearchFieldWrapper>
+      </Col>
+      <Col span={24}>
         <SearchFieldWrapper {...props} fieldName="CountryCodeID" label="Country">
           <Select
             allowClear={true}
@@ -47,18 +59,6 @@ export function SearchRegion(props: IGeneratedField) {
             {countries &&
               countries.map(({ Description, ID }, i) => (
                 <Select.Option value={ID} key={`${ID}_${i}`}>
-                  {Description}
-                </Select.Option>
-              ))}
-          </Select>
-        </SearchFieldWrapper>
-      </Col>
-      <Col span={24}>
-        <SearchFieldWrapper {...props} label="Region">
-          <Select allowClear={true} loading={loading} aria-label="Region Code">
-            {regiondCodes &&
-              regiondCodes.map(({ CountryCodeID, Description }, i) => (
-                <Select.Option value={CountryCodeID} key={`${CountryCodeID}_${i}`}>
                   {Description}
                 </Select.Option>
               ))}
