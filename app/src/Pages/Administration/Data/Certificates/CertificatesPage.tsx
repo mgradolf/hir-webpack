@@ -17,9 +17,11 @@ export default function CertificatesPage() {
             CertificateCategoryTypeID: CERTIFICATE_CATEGORY_DEFAULT
           }}
           editMode={false}
+          helpkey="administrationDataCertificateCreateCertificateForm"
         />
       ]}
       title="Certificates"
+      helpKey="administrationDataCertificateSearch"
       meta={CertificateDefinitionSearchMeta}
       metaName="CertificateDefinitionSearchMeta"
       hideSearchField={false}

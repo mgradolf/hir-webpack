@@ -4,14 +4,15 @@ import SeatGroupEditLink from "~/Component/Feature/Section/SeatGroup/SeatGroupEd
 
 interface ISeatGroupMenu {
   additionalData: { [key: string]: any }
+  helpKey?: string
 }
 
-export default function SeatGroupMenu(props: ISeatGroupMenu) {
+export function SeatGroupMenu(props: ISeatGroupMenu) {
   const seatGroupID = props.additionalData.SeatGroupID
 
   return (
     <>
-      <SeatGroupEditLink additionalData={props.additionalData} />
+      <SeatGroupEditLink helpKey={props.helpKey} additionalData={props.additionalData} />
       <SeatGroupRemoveLink seatgroupId={seatGroupID} />
     </>
   )

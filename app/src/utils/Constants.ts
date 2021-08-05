@@ -144,6 +144,13 @@ export const DISCOUNT_AMOUNT = {
   DISCOUNT_PERCENTAGE_AMOUNT_TYPE_ID: "%"
 }
 
+export const PAYMENT_TYPE = {
+  CashAccountPayment: "CashAccountPayment",
+  ExternalGatewayPayment: "ExternalGatewayPayment",
+  MiscellaneousPayment: "MiscellaneousPayment",
+  BankAccountPayment: "BankAccountPayment"
+}
+
 // ProgramEnrollStatusCode
 export const PROGRAM_ENROLLMENT_ENROLLED = 1
 export const PROGRAM_ENROLLMENT_COMPLETED = 2
@@ -285,5 +292,6 @@ export const TRANSFER_TRANSACTION_TYPE_ID = 3
 export const REGISTRATION_ENROLLMENT_STATUS_COMPLETED = "Completed"
 
 export const CERTIFICATE_CATEGORY_DEFAULT = 1000
+export const AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID = 1
 
 export const ENTITY_TYPE_OFFERING = 4

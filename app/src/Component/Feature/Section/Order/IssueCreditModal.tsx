@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Modal from "~/Component/Common/Modal/index2"
-import { Button, Card, DatePicker, Form, Input } from "antd"
+import { Button, Card, Col, DatePicker, Form, Input, Row } from "antd"
 import { applyIssueCredit } from "~/ApiServices/Service/OrderService"
 import { findOrderLineWiseBalance } from "~/ApiServices/BizApi/order/orderIf"
 import { DATE_FORMAT } from "~/utils/Constants"
@@ -10,11 +10,13 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import OrderDetailForModal from "~/Component/Feature/Section/Order/OrderDetailForModal"
 import { OldDropDown } from "~/Component/Common/OldForm/OldDropDown"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IIssueCreditModal {
   OrderID: number
   OrderItemID: number
   setShowViewReturnItemsModal: (flag: boolean) => void
+  helpKey?: string
 }
 
 const fieldNames = {
@@ -33,7 +35,14 @@ export default function IssueCreditModal(props: IIssueCreditModal) {
       apiCallInProgress={apiCallInProgress}
       children={
         <Card
-          title="Issue Credit"
+          title={
+            <Row justify="space-between">
+              <Col>Issue Credit</Col>
+              <Col>
+                <HelpButton helpKey={props.helpKey} />
+              </Col>
+            </Row>
+          }
           actions={[
             <Button
               onClick={() => {

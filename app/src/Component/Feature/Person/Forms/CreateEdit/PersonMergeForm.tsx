@@ -8,6 +8,7 @@ import { OldFormError } from "~/Component/Common/OldForm/OldFormError"
 import { MERGE_SUCCESSFULLY } from "~/utils/Constants"
 import Notification from "~/utils/notification"
 import "~/Sass/global/index.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IPersonMergeFormProps {
   initialFormValue: { [key: string]: any }
@@ -116,7 +117,14 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
 
   return (
     <Card
-      title={`Person Merge`}
+      title={
+        <Row justify="space-between">
+          <Col>Person Merge</Col>
+          <Col>
+            <HelpButton helpKey="personMergeForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

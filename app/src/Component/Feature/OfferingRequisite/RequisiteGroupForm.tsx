@@ -13,6 +13,7 @@ import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { ALL_REQUIRED_POLICY_TYPE } from "~/utils/Constants"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IOfferingRequisiteGroupFormProps {
   requisiteGroupID?: number
@@ -74,7 +75,14 @@ export default function RequisiteGroupForm(props: IOfferingRequisiteGroupFormPro
 
   return (
     <Card
-      title="Prerequisite Group Setup"
+      title={
+        <Row justify="space-between">
+          <Col>Prerequisite Group Setup</Col>
+          <Col>
+            <HelpButton helpKey="offeringRequisitesAddPreRequisiteGroupForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

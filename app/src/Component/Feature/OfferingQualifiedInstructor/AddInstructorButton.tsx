@@ -29,7 +29,9 @@ export function AddInstructorButton(props: ICreateActionButtonProp) {
   }
   return (
     <>
-      {openModal && <AddInstructorModal {...props} onClose={onClose} />}
+      {openModal && (
+        <AddInstructorModal helpkey="offeringQualifiedInstructorsAddInstructorForm" {...props} onClose={onClose} />
+      )}
       <IconButton toolTip="Add Instructor" iconType="create" onClick={onClick} />
     </>
   )

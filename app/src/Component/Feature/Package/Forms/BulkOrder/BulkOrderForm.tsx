@@ -13,6 +13,7 @@ import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { submitBulkOrder } from "~/ApiServices/Service/PackageService"
 import { eventBus } from "~/utils/EventBus"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IBulkOrderFormProps {
   formInstance: FormInstance
@@ -115,7 +116,14 @@ export default function BulkOrderForm(props: IBulkOrderFormProps) {
 
   return (
     <Card
-      title={"Bulk Order"}
+      title={
+        <Row justify="space-between">
+          <Col>Bulk Order</Col>
+          <Col>
+            <HelpButton helpKey="accountsBulkOrderForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

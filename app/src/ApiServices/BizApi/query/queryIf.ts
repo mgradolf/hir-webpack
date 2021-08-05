@@ -319,3 +319,68 @@ export function findDueDatesByItemsSummary(
     Headers
   )
 }
+
+export function findSectionsLite(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "jxntm.section.findSectionsLite",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}
+
+export function findProductBySeatGroupID(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "jxntm.product.findBySeatGroupID",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}
+
+export function findOptionalItemBySeatGroupID(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeDomainList](
+    [
+      "jxntm.seatGroup.optionalItem.findBySeatGroupID",
+      Params,
+      Headers ? Headers.StartPosition : MIN_START_POSITION_SIZE,
+      Headers ? Headers.PageSize : MAX_PAGE_SIZE
+    ],
+    Headers
+  )
+}
+
+export function getPromotionalForSeatGroup(
+  Params: { [key: string]: any },
+  Headers?: { [key: string]: any }
+): Promise<IApiResponse> {
+  return QueryIf[config.Actions.executeRowMapNamedQuery](
+    ["financial.discount.PromotionalForSeatGroup", Params, null],
+    Headers
+  ).then((x) => {
+    if (x.success && Array.isArray(x.data)) {
+      x.data = x.data.map((p) => {
+        const parser = new DOMParser()
+        const xmlDoc = parser.parseFromString(p.DiscountServiceParams as string, "text/xml")
+        p.DiscountServiceParams = xmlDoc.getElementsByTagName("value")[0].childNodes[0].nodeValue
+        return p
+      })
+    }
+    return x
+  })
+}

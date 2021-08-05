@@ -16,6 +16,7 @@ export default function AddDiscountModal(props: ICreateNewDiscountProps) {
       {...getDiscountProgramsTableColumns()}
       title="Add Discount Programs"
       closeModal={props.onClose}
+      helpKey="sectionBudgetAddDiscountPrograms"
     />
   )
 }

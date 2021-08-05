@@ -9,6 +9,7 @@ import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface INoticeEditFormProps {
   sectionId: number
@@ -77,7 +78,14 @@ export default function NoticeEditForm(props: INoticeEditFormProps) {
 
   return (
     <Card
-      title={`Edit Email Notification`}
+      title={
+        <Row justify="space-between">
+          <Col>Edit Email Notification</Col>
+          <Col>
+            <HelpButton helpKey="sectionEditNotificationsTab" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

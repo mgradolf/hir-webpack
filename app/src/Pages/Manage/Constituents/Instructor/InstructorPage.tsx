@@ -19,6 +19,7 @@ export default function InstructorPage() {
       meta={InstructorSearchMeta}
       metaName="InstructorSearchMeta"
       hideSearchField={false}
+      helpKey="searchInstructors"
       tableProps={{
         ...getInstructorTableColumns()
       }}

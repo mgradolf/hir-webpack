@@ -2,6 +2,7 @@ import { Col, Row, Switch, Typography } from "antd"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { findCatalog, updateBulkContent } from "~/ApiServices/BizApi/catalog/catalogIf"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { renderDate, ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { eventBus, REFRESH_SECTION_CATALOG_PAGE } from "~/utils/EventBus"
 
@@ -86,6 +87,9 @@ export default function SectionCatalogPage(props: { sectionID: number; title?: s
             <Typography.Title level={3}>{props.title}</Typography.Title>
           </Col>
         )}
+        <Col className={`gutter-row text-right`} xs={24} sm={24} md={props.title ? 12 : 24}>
+          <HelpButton helpKey="sectionCatalogsTab" style={{ marginRight: "5px" }} />
+        </Col>
       </Row>
 
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className={"padding-top-10"}>

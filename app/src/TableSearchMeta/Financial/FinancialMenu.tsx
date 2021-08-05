@@ -92,6 +92,7 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
           </Button>
           {showInstructor && (
             <AddInstructorModal
+              helpkey="sectionBudgetAddInstructor"
               CanTeachOfferingID={props.dataLoaded.OfferingID}
               onClose={onCloseInstructorFinancials}
             />
@@ -101,13 +102,18 @@ export default function FinancialMenu(props: IFinancialMenuProp) {
           <Button type="link" onClick={() => setShowResource(true)}>
             Resource
           </Button>
-          {showResource && <AddResourceModal onClose={onCloseResourceFinancials} />}
+          {showResource && <AddResourceModal helpkey="sectionBudgetAddResource" onClose={onCloseResourceFinancials} />}
         </Menu.Item>
         <Menu.Item>
           <Button type="link" onClick={() => setShowMarketingProgram(true)}>
             Marketing Program
           </Button>
-          {showMarketingProgram && <AddMarketingProgramModal onClose={onCloseMarketingProgramFinancials} />}
+          {showMarketingProgram && (
+            <AddMarketingProgramModal
+              helpkey="sectionBudgetAddMarketingProgram"
+              onClose={onCloseMarketingProgramFinancials}
+            />
+          )}
         </Menu.Item>
       </Menu>
     )

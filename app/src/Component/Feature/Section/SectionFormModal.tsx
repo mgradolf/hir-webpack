@@ -5,6 +5,7 @@ import { SectionCreateForm } from "~/Component/Feature/Section/Forms/SectionCrea
 interface ICreateNewSectionProps {
   OfferingID?: number
   closeModal: () => void
+  helpKey?: string
 }
 
 export function SectionFormModal(props: ICreateNewSectionProps) {
@@ -18,6 +19,7 @@ export function SectionFormModal(props: ICreateNewSectionProps) {
       children={
         <>
           <SectionCreateForm
+            helpKey={props.helpKey}
             OfferingID={props.OfferingID}
             handleCancel={() => props.closeModal && props.closeModal()}
             setApiCallInProgress={setApiCallInProgress}

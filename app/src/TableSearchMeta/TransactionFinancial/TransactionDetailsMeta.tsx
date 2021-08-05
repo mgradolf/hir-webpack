@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderDate } from "~/Component/Common/ResponsiveTable"
@@ -45,6 +46,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="financialsTransactionsSummaryTab" />],
       summary: [summary]
     }
   })
@@ -52,6 +54,7 @@ export const getTransactionDetailsMeta = (transaction: { [key: string]: any }): 
     tabTitle: "Deposit Tracking",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="financialsTransactionsDepositTracking" />],
       tableProps: {
         ...getTransactionFinancialDepositeTrackingTableColumns(),
         searchParams: {

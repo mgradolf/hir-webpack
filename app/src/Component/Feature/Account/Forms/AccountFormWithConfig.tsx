@@ -11,6 +11,8 @@ import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { pushAccount } from "~/ApiServices/Service/AccountService"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { BaseButtonProps } from "antd/lib/button/button"
+import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 import { Redirect } from "react-router"
 
 interface IAccountFormProps {
@@ -174,6 +176,9 @@ export function AccountFormOpenButton(props: {
   helpKey?: string
   initialValues?: { [key: string]: any }
   label?: string
+  iconType?: iconType
+  buttonProps?: BaseButtonProps
+  onSubmitSuccess?: (account: any) => void
 }) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
@@ -191,6 +196,8 @@ export function AccountFormOpenButton(props: {
           setApiCallInProgress(false)
           if (response && response.success) {
             message.success(CREATE_SUCCESSFULLY)
+            formInstance.resetFields()
+            props.onSubmitSuccess && props.onSubmitSuccess(response.data)
             setRedirectAfterCreate(`/account/${response.data.AccountID}`)
             closeModal()
           } else {
@@ -212,10 +219,10 @@ export function AccountFormOpenButton(props: {
         initialValues={initialValues}
         apiCallInProgress={apiCallInProgress}
         loading={loading}
-        iconType="create"
+        iconType={props.iconType}
         errorMessages={errorMessages}
         buttonLabel={`${props.label ? props.label : "Create Account"}`}
-        buttonProps={{ type: "primary" }}
+        buttonProps={props.buttonProps}
       />
     </>
   )

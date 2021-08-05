@@ -6,6 +6,7 @@ export default function ResourcePage() {
   return (
     <SearchPage
       title="Manage Resources"
+      helpKey="otherProductsManageResources"
       defaultFormValue={{}}
       tableProps={{
         ...getResourceTableColumns()

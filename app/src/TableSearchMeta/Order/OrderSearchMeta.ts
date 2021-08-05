@@ -2,7 +2,7 @@ import { getOPCStatusCode, getSourceModule } from "~/ApiServices/Service/RefLook
 import { CUSTOM_FIELD, DATE_PICKERS, DROPDOWN, IField, NUMBER, TEXT } from "~/Component/Common/Form/common"
 import TotalAmountRange from "~/Component/Feature/Section/Order/TotalAmountRange"
 import { AccountLookup } from "~/Component/Common/Form/FormLookupFields/AccountLookup"
-import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
+// import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { StudentLookup } from "~/Component/Common/Form/FormLookupFields/StudentLookup"
 import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionLookup"
 
@@ -10,9 +10,9 @@ export const OrderSearchMeta: IField[] = [
   {
     label: "Purchaser",
     fieldName: "BuyerName",
-    valueKey: "FormattedName",
-    inputType: CUSTOM_FIELD,
-    customFilterComponent: PersonLookup
+    // valueKey: "FormattedName",
+    inputType: TEXT
+    // customFilterComponent: PersonLookup
   },
   {
     label: "Student",
@@ -24,9 +24,9 @@ export const OrderSearchMeta: IField[] = [
   {
     label: "Billed To Name",
     fieldName: "BilledPersonName",
-    valueKey: "FormattedName",
-    inputType: CUSTOM_FIELD,
-    customFilterComponent: PersonLookup
+    // valueKey: "FormattedName",
+    inputType: TEXT
+    // customFilterComponent: PersonLookup
   },
   {
     label: "Order ID",

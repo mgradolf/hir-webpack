@@ -11,6 +11,7 @@ interface IBudgetEditProps {
   seatGroups: Array<any>
   sectionId: number
   closeModal?: () => void
+  helpKey?: string
 }
 
 const fieldNames: IBudgetFieldNames = {
@@ -27,7 +28,7 @@ const fieldNames: IBudgetFieldNames = {
   FinancialType: "FinancialType"
 }
 
-export function BudgetEditFormModal({ financialId, closeModal, seatGroups, sectionId }: IBudgetEditProps) {
+export function BudgetEditFormModal({ financialId, closeModal, seatGroups, sectionId, helpKey }: IBudgetEditProps) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [initialFormValue] = useState<{ [key: string]: any }>({})
@@ -72,6 +73,7 @@ export function BudgetEditFormModal({ financialId, closeModal, seatGroups, secti
             initialFormValue={initialFormValue}
             fieldNames={fieldNames}
             formInstance={formInstance}
+            helpKey={helpKey}
           />
         </>
       }

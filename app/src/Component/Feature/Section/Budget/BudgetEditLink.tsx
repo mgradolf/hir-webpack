@@ -7,6 +7,7 @@ interface IBudgetEditLinkProp {
   sectionId: number
   financialId: number
   seatGroups: Array<any>
+  helpKey?: string
 }
 
 export function BudgetEditLink(props: IBudgetEditLinkProp) {
@@ -29,6 +30,7 @@ export function BudgetEditLink(props: IBudgetEditLinkProp) {
           financialId={props.financialId}
           seatGroups={props.seatGroups}
           closeModal={() => setShowModal(false)}
+          helpKey={props.helpKey}
         />
       )}
     </>

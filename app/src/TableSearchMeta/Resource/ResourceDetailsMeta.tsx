@@ -8,6 +8,7 @@ import { getFinancialTableColumns } from "~/TableSearchMeta/Financial/FinancialT
 import CreateNewFinancial from "~/Component/Feature/Financial/FinancialFormModal"
 import { REFRESH_RESOURCE_OFFERINGS_TAB } from "~/utils/EventBus"
 import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export const getResourceDetailsMeta = (Resource: { [key: string]: any }): IDetailsMeta => {
   const summary: CardContainer = {
@@ -19,6 +20,7 @@ export const getResourceDetailsMeta = (Resource: { [key: string]: any }): IDetai
   }
 
   const summaryMeta: IDetailsSummary = {
+    actions: [<HelpButton helpKey="otherProductsResourcesSummaryTab" />],
     summary: [summary]
   }
 
@@ -35,6 +37,7 @@ export const getResourceDetailsMeta = (Resource: { [key: string]: any }): IDetai
         )}
         {showModal && (
           <CreateNewFinancial
+            helpkey="otherProductsResourcesFianancialsAddFinancialsForm"
             applyToID={props.ResourceID}
             financialType={FINANCIAL_TYPE_RESOURCE}
             closeModal={() => setShowModal(false)}
@@ -45,7 +48,10 @@ export const getResourceDetailsMeta = (Resource: { [key: string]: any }): IDetai
   }
 
   const resourceFinancialMeta: IDetailsTableTabProp = {
-    blocks: [<FinancialFormModalOpenButton ResourceID={Resource.ResourceID} />],
+    blocks: [
+      <FinancialFormModalOpenButton ResourceID={Resource.ResourceID} />,
+      <HelpButton helpKey="otherProductsResourcesFianancialsTab" />
+    ],
     tableProps: {
       pagination: false,
       ...getFinancialTableColumns(Resource.ResourceID, FINANCIAL_RESOURCE_TYPE_ID),

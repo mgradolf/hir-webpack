@@ -40,4 +40,6 @@ export interface IDataTableProps extends TableProps<{ [key: string]: any }> {
   isModal?: boolean
   refreshEventName?: string
   rowKey?: string
+  hidePagination?: boolean
+  disableSorting?: boolean
 }

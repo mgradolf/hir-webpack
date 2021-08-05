@@ -20,7 +20,7 @@ export function findOrderLineWiseBalance(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return OrderIf[config.Actions.findOrderLineWiseBalance]([Params.OrderID], Headers)
+  return OrderIf[config.Actions.findOrderLineWiseBalance]([Params], Headers)
 }
 export function findCreditMemosOrderLines(
   Params: { [key: string]: any },

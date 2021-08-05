@@ -331,6 +331,7 @@ export function AccountContactFormOpenButton(props: {
   editMode: boolean
   iconType?: iconType
   initialValues: { [key: string]: any }
+  zIndex?: number
 }) {
   const [loading] = useState(false)
   const [formInstance] = Form.useForm()
@@ -382,6 +383,7 @@ export function AccountContactFormOpenButton(props: {
       apiCallInProgress={apiCallInProgress}
       iconType={props.iconType}
       loading={loading}
+      zIndex={props.zIndex}
       errorMessages={errorMessages}
       buttonLabel={props.editMode ? "Edit" : "Add Contact"}
       buttonProps={{ type: "primary", icon: props.editMode ? <EditOutlined /> : <PlusOutlined />, shape: "circle" }}

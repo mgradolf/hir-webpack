@@ -7,6 +7,7 @@ import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { getCommentCategories } from "~/ApiServices/Service/RefLookupService"
 import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IInstructorCommentCreateForm {
   SectionID?: number
@@ -39,7 +40,14 @@ export default function InstructorCommentCreateForm(props: IInstructorCommentCre
 
   return (
     <Card
-      title="Create Instructor Comment"
+      title={
+        <Row justify="space-between">
+          <Col>Create Instructor Comment</Col>
+          <Col>
+            <HelpButton helpKey="sectionCommentsCreateInstructorCommentForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

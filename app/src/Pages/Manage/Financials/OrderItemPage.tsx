@@ -9,6 +9,7 @@ export default function AccountPage() {
       title="Manage Order Items"
       meta={OrderItemsFiltersMeta}
       metaName="OrderItemsFiltersMeta"
+      helpKey="financialsOrderItemsSearchOrderItems"
       hideSearchField={false}
       tableProps={{
         ...getOrderItemTableColumns()

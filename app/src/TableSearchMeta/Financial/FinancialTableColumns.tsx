@@ -2,7 +2,7 @@ import React from "react"
 import { renderBoolean, TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { searchFinancials } from "~/ApiServices/Service/FinancialService"
-import FinancialMenu from "~/Component/Feature/Financial/FinancialMenu"
+import { FinancialMenu } from "~/Component/Feature/Financial/FinancialMenu"
 import {
   FINANCIAL_FACULTY_TYPE_ID,
   FINANCIAL_OFFERING_TYPE_ID,

@@ -3,8 +3,13 @@ import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPa
 import { getParentTagsTableColumns, getTagsTableColumns } from "~/TableSearchMeta/Tags/TagsTableColumns"
 import { getParentTags } from "~/ApiServices/Service/TagService"
 import { TagAddButton } from "~/TableSearchMeta/Tags/TagAddButton"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
-export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, EntityID?: number): IDetailsMeta => {
+export const getTagsTabPageDetailsMeta = (
+  EntityType: string,
+  EntityID: number,
+  helpKeys?: { helpKeyTags?: string; helpKeyParentTags?: string }
+): IDetailsMeta => {
   const meta: IDetailsTabMeta[] = []
   meta.push({
     tabTitle: `${EntityType} Tags`,
@@ -15,7 +20,8 @@ export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, Entity
           {EntityType && EntityID && (
             <TagAddButton EntityType={EntityType} EntityID={EntityID} eventName="REFRESH_CATALOGS_TAB" />
           )}
-        </>
+        </>,
+        <>{helpKeys && helpKeys.helpKeyTags && <HelpButton helpKey={helpKeys.helpKeyTags} />}</>
       ],
       tableProps: {
         ...getTagsTableColumns(false, "REFRESH_CATALOGS_TAB"),
@@ -28,6 +34,7 @@ export const getTagsTabPageDetailsMeta = (data: any, EntityType?: string, Entity
     tabTitle: "Parent Tags",
     tabType: "table",
     tabMeta: {
+      blocks: [<>{helpKeys && helpKeys.helpKeyParentTags && <HelpButton helpKey={helpKeys.helpKeyParentTags} />}</>],
       tableProps: {
         ...getParentTagsTableColumns(false),
         searchFunc: getParentTags,
