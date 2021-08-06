@@ -364,6 +364,11 @@ export function PurchaseOrderFormOpenButton(props: {
   return (
     <CustomFormModalOpenButton
       formTitle={props.editMode ? "Update Purchase Order" : "Add Purchase Order"}
+      helpKey={
+        props.editMode
+          ? `financialsOrderPurchaseOrdersUpdatePurchaseOrderForm`
+          : `financialsOrderPurchaseOrdersAddPurchaseOrderForm`
+      }
       customForm={<PurchaseOrderForm editMode={true} initialValue={props.initialValues} formInstance={formInstance} />}
       formInstance={formInstance}
       onFormSubmission={onFormSubmission}

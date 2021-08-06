@@ -3,10 +3,11 @@ import React, { useState } from "react"
 import { ResponsiveTable } from "~/Component/Common/ResponsiveTable"
 import { MetaDrivenForm } from "~/Component/Common/Form/MetaDrivenForm"
 import { NUMBER } from "~/Component/Common/Form/common"
-import { Button } from "antd"
+import { Button, Row } from "antd"
 import NoShowDeleteModal from "~/Component/Feature/Section/NoShowDeleteModal"
 import { getSectionNoShowTableColumns } from "~/TableSearchMeta/SectionNoShow/NoShowTableColumns"
 import { REFRESH_SECTION_NO_SHOW_PAGE } from "~/utils/EventBus"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 export default function SectionNoShowPage(props: { SectionID: number }) {
   const [searchParams, setSearchParams] = useState({ SectionID: props.SectionID })
@@ -33,11 +34,15 @@ export default function SectionNoShowPage(props: { SectionID: number }) {
   return (
     <div className="site-layout-content">
       <MetaDrivenForm
+        title={
+          <Row justify="end">
+            <HelpButton helpKey="sectionRegistrationsNoShowTab" />
+          </Row>
+        }
         meta={[
           {
             label: "Order ID",
             inputType: NUMBER,
-
             fieldName: "OrderID",
             ariaLabel: "OrderID"
           }

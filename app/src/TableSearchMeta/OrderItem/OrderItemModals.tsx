@@ -4,7 +4,7 @@ import ApplyDiscountModal from "~/Component/Feature/Section/Order/ApplyDiscountM
 import IssueCreditModal from "~/Component/Feature/Section/Order/IssueCreditModal"
 import ViewReturnItemsModal from "~/Component/Feature/Section/Order/ViewReturnItemsModal"
 
-export const ViewReturnItemModalOpenButton = (props: { OrderItemID: number; OrderID: number }) => {
+export const ViewReturnItemModalOpenButton = (props: { OrderItemID: number; OrderID: number; helpKey?: string }) => {
   const [showViewReturnItemModal, setShowViewReturnItemModal] = useState(false)
   return (
     <>
@@ -16,12 +16,13 @@ export const ViewReturnItemModalOpenButton = (props: { OrderItemID: number; Orde
           setShowViewReturnItemsModal={setShowViewReturnItemModal}
           OrderItemID={props.OrderItemID}
           OrderID={props.OrderID}
+          helpKey={props.helpKey}
         />
       )}
     </>
   )
 }
-export const IssueCreditModalOpenButton = (props: { OrderItemID: number; OrderID: number }) => {
+export const IssueCreditModalOpenButton = (props: { OrderItemID: number; OrderID: number; helpKey?: string }) => {
   const [showIssueCreditModal, setShowIssueCreditModal] = useState(false)
   return (
     <>
@@ -33,12 +34,13 @@ export const IssueCreditModalOpenButton = (props: { OrderItemID: number; OrderID
           setShowViewReturnItemsModal={setShowIssueCreditModal}
           OrderItemID={props.OrderItemID}
           OrderID={props.OrderID}
+          helpKey={props.helpKey}
         />
       )}
     </>
   )
 }
-export const ApplyDiscountModalOpenButton = (props: { OrderItemID: number; OrderID: number }) => {
+export const ApplyDiscountModalOpenButton = (props: { OrderItemID: number; OrderID: number; helpKey?: string }) => {
   const [showApplyDiscountModal, setShowApplyDiscountModal] = useState(false)
   return (
     <>
@@ -50,6 +52,7 @@ export const ApplyDiscountModalOpenButton = (props: { OrderItemID: number; Order
           setShowViewReturnItemsModal={setShowApplyDiscountModal}
           OrderItemID={props.OrderItemID}
           OrderID={props.OrderID}
+          helpKey={props.helpKey}
         />
       )}
     </>

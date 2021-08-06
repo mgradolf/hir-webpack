@@ -4,7 +4,7 @@ import { TableColumnType } from "~/Component/Common/ResponsiveTable"
 import { ITableConfigProp } from "~/TableSearchMeta/ITableConfigProp"
 import { getSectionFinancials } from "~/ApiServices/Service/SectionService"
 
-export const getSectionFinancialTableColumns = (): ITableConfigProp => {
+export const getSectionFinancialTableColumns = (helpKey?: string): ITableConfigProp => {
   const columns: TableColumnType = [
     {
       title: "Type",
@@ -48,6 +48,7 @@ export const getSectionFinancialTableColumns = (): ITableConfigProp => {
           financialId={record.FinancialID}
           seatGroups={record.SeatGroups}
           sectionFinancialId={record.SectionFinancialID}
+          helpKey={helpKey}
         />
       )
     }

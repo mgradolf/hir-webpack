@@ -9,6 +9,7 @@ import { IconButton } from "~/Component/Common/Form/Buttons/IconButton"
 interface IPersonAccountFormModalProps {
   initialData: { [key: string]: any }
   closeModal?: () => void
+  zIndex?: number
 }
 
 const fieldNames: IPersonAccountFieldNames = {
@@ -32,7 +33,7 @@ export function PersonAccountFormModal(props: IPersonAccountFormModalProps) {
   })
 
   return (
-    <Modal width="1000px" apiCallInProgress={apiCallInProgress}>
+    <Modal width="1000px" apiCallInProgress={apiCallInProgress} zIndex={props.zIndex}>
       <PersonAccountForm
         fieldNames={fieldNames}
         initialFormValue={initialFormValue}
@@ -44,12 +45,18 @@ export function PersonAccountFormModal(props: IPersonAccountFormModalProps) {
   )
 }
 
-export const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]: any } }) => {
+export const AccountRelationFormModalOpenButton = (props: { personData: { [key: string]: any }; zIndex?: number }) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
       {setShowModal && <IconButton toolTip="Add Relation" iconType="create" onClick={() => setShowModal(true)} />}
-      {showModal && <PersonAccountFormModal initialData={props.personData} closeModal={() => setShowModal(false)} />}
+      {showModal && (
+        <PersonAccountFormModal
+          initialData={props.personData}
+          closeModal={() => setShowModal(false)}
+          zIndex={props.zIndex}
+        />
+      )}
     </>
   )
 }

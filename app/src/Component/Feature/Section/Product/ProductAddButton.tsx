@@ -39,6 +39,7 @@ export function ProductAddButton(props: ICreateActionButtonProp) {
       {showModal && (
         <LookupModal
           title="Select Product"
+          helpKey="sectionBudgetAddProducts"
           isArray={true}
           closeModal={closeModal}
           {...getProductTableColumns()}

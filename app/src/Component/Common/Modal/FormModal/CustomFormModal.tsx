@@ -18,11 +18,12 @@ export interface ICustomFormModal {
   errorMessages: Array<ISimplifiedApiErrorMessage>
   extraButtons?: JSX.Element[]
   helpKey?: string
+  zIndex?: number
 }
 
 export function CustomFormModal(props: ICustomFormModal) {
   return (
-    <Modal width="1000px" loading={props.loading} apiCallInProgress={props.apiCallInProgress}>
+    <Modal zIndex={props.zIndex} width="1000px" loading={props.loading} apiCallInProgress={props.apiCallInProgress}>
       <Card
         title={
           <Row justify="space-between">

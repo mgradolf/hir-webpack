@@ -1,3 +1,5 @@
+import React from "react"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -32,6 +34,7 @@ export const getSectionTypeDetailsMeta = (record: { [key: string]: any }): IDeta
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="administrationDataSectionTypesSummaryTab" />],
       summary: [summary]
     }
   })
@@ -40,6 +43,7 @@ export const getSectionTypeDetailsMeta = (record: { [key: string]: any }): IDeta
     tabTitle: "Email Notifications",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="administrationDataSectionTypesEmailNotificationTab" />],
       tableProps: {
         ...getStudentEmailTableColumns(),
         searchParams: { SectionID: record.SectionID },

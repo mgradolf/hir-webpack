@@ -1,5 +1,6 @@
 import React from "react"
 import { searchCertificateParams } from "~/ApiServices/BizApi/query/queryIf"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 import { CardContainer } from "~/Component/Common/Page/DetailsPage/DetailsPageInterfaces"
 import { IDetailsMeta, IDetailsTabMeta } from "~/Component/Common/Page/DetailsPage2/Common"
 import { renderBoolean } from "~/Component/Common/ResponsiveTable"
@@ -12,7 +13,11 @@ export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]
   const summary: CardContainer = {
     title: certificate.Name,
     cardActions: [
-      <CertificateDefinitionFormModal initialValues={certificate} editMode={true} />,
+      <CertificateDefinitionFormModal
+        helpkey="administrationDataCertificateSummaryUpdateCertificateForm"
+        initialValues={certificate}
+        editMode={true}
+      />,
       <CertificateDefPreview CertificateID={certificate.CertificateID} />,
       <CertificateDefRemoveLink CertificateID={certificate.CertificateID} />
     ],
@@ -32,6 +37,7 @@ export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]
     tabTitle: "Summary",
     tabType: "summary",
     tabMeta: {
+      actions: [<HelpButton helpKey="administrationDataCertificateSummaryTab" />],
       summary: [summary]
     }
   })
@@ -39,6 +45,7 @@ export const getCertificateDefinitionDetailsMeta = (certificate: { [key: string]
     tabTitle: "Static parameter/value",
     tabType: "table",
     tabMeta: {
+      blocks: [<HelpButton helpKey="administrationDataCertificateStaticParameter/ValueTab" />],
       tableProps: {
         columns: [
           { title: "Parameter Name", dataIndex: "Name" },

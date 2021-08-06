@@ -10,6 +10,7 @@ import { processTableMetaWithUserMetaConfig } from "~/Component/Common/Responsiv
 import { ExpandableRowRender } from "~/Component/Common/ResponsiveTable/ExpandableRowRender"
 import { DownloadButton } from "~/Component/Common/ResponsiveTable/DownloadButton"
 
+const DEFAULT_PAGE_SIZE = 20
 export function ResponsiveTable(props: IDataTableProps) {
   const {
     columns,
@@ -44,7 +45,7 @@ export function ResponsiveTable(props: IDataTableProps) {
       searchFunc(searchParams).then((x) => {
         if (x.success && Array.isArray(x.data)) {
           const data = x.data.map((y: any, i: number) => {
-            y.rowKey = i
+            if (!otherTableProps.rowKey) y.rowKey = i
             return y
           })
           setTableProps(columnsConfigByUser, data)
@@ -62,13 +63,16 @@ export function ResponsiveTable(props: IDataTableProps) {
   }, [otherTableProps.dataSource, searchParams])
 
   useEffect(() => {
-    const eventName = isModal ? REFRESH_MODAl : props.refreshEventName ? props.refreshEventName : REFRESH_PAGE
-    eventBus.subscribe(eventName, loadDataFromSearchFunc)
-    eventBus.publish(eventName)
-    return () => {
-      eventBus.unsubscribe(eventName)
+    if (props.searchFunc) {
+      const eventName = isModal ? REFRESH_MODAl : props.refreshEventName ? props.refreshEventName : REFRESH_PAGE
+      eventBus.subscribe(eventName, loadDataFromSearchFunc)
+      eventBus.publish(eventName)
+      return () => {
+        eventBus.unsubscribe(eventName)
+      }
+    } else {
+      loadDataFromSearchFunc()
     }
-
     // eslint-disable-next-line
   }, [])
 
@@ -88,7 +92,14 @@ export function ResponsiveTable(props: IDataTableProps) {
           return !(mobileView && responsiveColumnIndices?.includes(i + 1))
         })
         .map((x, i) => {
-          if (x.title === "" || !x.title || x.title === "Action" || x.title === "Published") return x
+          if (
+            x.title === "" ||
+            !x.title ||
+            x.title === "Action" ||
+            x.title === "Published" ||
+            otherTableProps.disableSorting
+          )
+            return x
           x.sorter = (a: any, b: any) => {
             if (typeof a.dataIndex === "boolean") {
               return sortByBoolean(a, b)
@@ -107,7 +118,9 @@ export function ResponsiveTable(props: IDataTableProps) {
 
     _conditionalProps.dataSource = otherTableProps.dataSource ? otherTableProps.dataSource : data
     if (Array.isArray(_conditionalProps.dataSource)) {
-      setPaginatedData(_conditionalProps.dataSource?.filter((x, i) => i < 20))
+      !otherTableProps.hidePagination &&
+        setPaginatedData(_conditionalProps.dataSource?.filter((x, i) => i < DEFAULT_PAGE_SIZE))
+      otherTableProps.hidePagination && setPaginatedData(_conditionalProps.dataSource)
     }
 
     if (otherTableProps.expandableRowRender) {
@@ -137,7 +150,7 @@ export function ResponsiveTable(props: IDataTableProps) {
     setConditionalProps(_conditionalProps)
   }
 
-  const paginationChange = (page: number, pageSize = 20) => {
+  const paginationChange = (page: number, pageSize = DEFAULT_PAGE_SIZE) => {
     console.log("pagination ", page, pageSize)
     if (conditionalProps && Array.isArray(conditionalProps.dataSource)) {
       const __dataSource = conditionalProps.dataSource.slice(
@@ -150,7 +163,7 @@ export function ResponsiveTable(props: IDataTableProps) {
 
   return (
     <Row style={{ backgroundColor: "#fafafa", ...props.style }}>
-      {conditionalProps && conditionalProps.dataSource && (
+      {conditionalProps && conditionalProps.dataSource && !otherTableProps.hidePagination && (
         <Col
           span={12}
           style={{
@@ -164,7 +177,7 @@ export function ResponsiveTable(props: IDataTableProps) {
           <Pagination
             simple
             onChange={paginationChange}
-            defaultPageSize={20}
+            defaultPageSize={DEFAULT_PAGE_SIZE}
             total={conditionalProps.dataSource.length}
             pageSizeOptions={["5", "10", "15", "20", "25", "30", "50"]}
           />

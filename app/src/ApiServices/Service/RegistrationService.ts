@@ -99,11 +99,11 @@ export function bulkDeleteRegistration(
   return RegistrationService[config.Actions.bulkDeleteRegistration](Params, Headers)
 }
 
-export function validateRegistration(
+export function validateRegistrationRequest(
   Params: { [key: string]: any },
   Headers?: { [key: string]: any }
 ): Promise<IApiResponse> {
-  return RegistrationService[config.Actions.validateRegistration](Params, Headers)
+  return RegistrationService[config.Actions.validateRegistrationRequest](Params, Headers)
 }
 
 export function checkCertificate(

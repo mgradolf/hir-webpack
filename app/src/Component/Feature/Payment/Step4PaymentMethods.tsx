@@ -11,7 +11,7 @@ import { GiftOrCash } from "~/Component/Feature/Payment/Step4PaymentMethods/Gift
 import { SavingsOrChecks } from "~/Component/Feature/Payment/Step4PaymentMethods/SavingsOrChecks"
 import { getAdjustFromCashPaymentRequestObject } from "~/Component/Feature/Payment/PaymentObjectFactory/AdjustFromCash"
 import { getGiftOrCashPaymentRequestObject } from "~/Component/Feature/Payment/PaymentObjectFactory/GiftOrCash"
-import { getSavingsOrCheckPaymentRequestObject } from "./PaymentObjectFactory/SavingsOrCheck"
+import { getSavingsOrCheckPaymentRequestObject } from "~/Component/Feature/Payment/PaymentObjectFactory/SavingsOrCheck"
 import { Redirect } from "react-router-dom"
 
 export const Step4PaymentMethods = (props: {
@@ -114,7 +114,7 @@ export const Step4PaymentMethods = (props: {
             if (methodToGetPaymentRequestObject)
               methodToGetPaymentRequestObject
                 .then((requestObject) => {
-                  console.log(requestObject)
+                  console.log(JSON.stringify(requestObject))
                   if (requestObject)
                     return props.selectedPayment && props.selectedPayment.PaymentTypeID === 7
                       ? launchRequestWithExternalPayment(requestObject)

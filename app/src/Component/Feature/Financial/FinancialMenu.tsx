@@ -10,7 +10,7 @@ interface IFinancialMenu {
   financialType: string
 }
 
-export default function FinancialMenu(props: IFinancialMenu) {
+export function FinancialMenu(props: IFinancialMenu) {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   return (

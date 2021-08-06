@@ -15,6 +15,7 @@ export default function PackageSeatGroupMenu(props: IPackageSeatGroupMenu) {
   return (
     <>
       <MetaDrivenFormModalOpenButton
+        helpkey="accountPackagesSeatGroupUpdateSectionForm"
         formTitle="Update Section"
         formMeta={PackageSeatGroupFormMeta}
         formSubmitApi={updateSection}

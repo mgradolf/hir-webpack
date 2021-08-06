@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { CSSProperties, useEffect, useState } from "react"
 import { getHelpConfig } from "~/Help/getHelpConfig"
 import { QuestionOutlined } from "@ant-design/icons"
 import { Button, Tooltip } from "antd"
 
-export function HelpButton(props: { helpKey?: string; skipIcon?: boolean }) {
+export function HelpButton(props: { helpKey?: string; skipIcon?: boolean; style?: CSSProperties }) {
   const [helpUrl, setHelpUrl] = useState<string>()
 
   useEffect(() => {
@@ -19,11 +19,17 @@ export function HelpButton(props: { helpKey?: string; skipIcon?: boolean }) {
       {helpUrl && (
         <Tooltip title="Help">
           {props.skipIcon ? (
-            <Button type="link" shape="circle" onClick={() => window.open(helpUrl)}>
+            <Button style={props.style} type="link" shape="circle" onClick={() => window.open(helpUrl)}>
               Help
             </Button>
           ) : (
-            <Button icon={<QuestionOutlined />} type="primary" shape="circle" onClick={() => window.open(helpUrl)} />
+            <Button
+              style={props.style}
+              icon={<QuestionOutlined />}
+              type="primary"
+              shape="circle"
+              onClick={() => window.open(helpUrl)}
+            />
           )}
         </Tooltip>
       )}

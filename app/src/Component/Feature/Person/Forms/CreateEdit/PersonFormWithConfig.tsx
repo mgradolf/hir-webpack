@@ -10,13 +10,16 @@ import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { findDefaultCountry } from "~/ApiServices/BizApi/person/addressBookIF"
 import { CustomFormConfigHook } from "~/Component/Common/Form/FormMetaShadowingProcessor"
-import { CREATE_SUCCESSFULLY } from "~/utils/Constants"
+import { AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID, CREATE_SUCCESSFULLY } from "~/utils/Constants"
 import { showConfirm } from "~/Component/Common/Modal/Confirmation"
 import { iconType } from "~/Component/Common/Form/Buttons/IconButton"
 import { ButtonType } from "antd/lib/button"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { getCountries } from "~/ApiServices/Service/RefLookupService"
+import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupService"
 import { Redirect } from "react-router"
+import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
+import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
+import { findAccount, findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
 
 const layout = {
   labelCol: { span: 8 },
@@ -42,16 +45,28 @@ const fieldNames: IPersonFieldNames = {
   Locality: "Locality",
   PostalCode: "PostalCode",
   RegionCodeID: "RegionCodeID",
-  CountryCodeID: "CountryCodeID"
+  CountryCodeID: "CountryCodeID",
+  AccountTypeID: "AccountTypeID",
+  AccountID: "AccountID"
 }
 
-function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Roles?: number[] }) {
+function PersonForm(props: {
+  editMode: boolean
+  formInstance: FormInstance
+  Roles?: number[]
+  disableRole?: boolean
+  PersonID?: number
+}) {
   const [defaultCountryCodeID, setDefaultCountryCodeID] = useState()
+  const [emailIsRequired, setEmailIsRequired] = useState(false)
   const [addressline1Required, setAddressline1Required] = useState(false)
   const [telephoneIsRequired, setTelephoneIsRequired] = useState(false)
   const [cityIsRequired, setCityIsRequired] = useState(false)
   const [zipIsRequired, setZipIsRequired] = useState(false)
   const [stateIsRequired, setStateIsRequired] = useState(false)
+  const [accountTypeIsRequired, setAccountTypeIsRequired] = useState(false)
+  const [affiliateAccountIsRequired, setAffiliateAccountIsRequired] = useState(false)
+  const [personAccountDoesNotExist, setPersonAccountDoesNotExist] = useState(true)
   const PersonformConfig: IPersonFieldNames = CustomFormConfigHook(
     fieldNames,
     "PersonFormWithConfig"
@@ -61,20 +76,42 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
   const [regiondCodes, setRegiondCodes] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (props.Roles && props.Roles.includes(3)) {
+  const checkRoles = (items?: number[]) => {
+    if ((props.Roles && props.Roles.includes(3)) || (items && items.includes(3))) {
       // 3 means Purchase is selected
+      setAccountTypeIsRequired(true)
+      setEmailIsRequired(true)
       setAddressline1Required(true)
       setTelephoneIsRequired(true)
       setCityIsRequired(true)
       setZipIsRequired(true)
       setStateIsRequired(true)
     } else {
+      props.formInstance.setFields([
+        { name: fieldNames.TelephoneNumber, errors: [] },
+        { name: fieldNames.AddressLine1, errors: [] },
+        { name: fieldNames.Locality, errors: [] },
+        { name: fieldNames.RegionCodeID, errors: [] },
+        { name: fieldNames.PostalCode, errors: [] }
+      ])
+      setAccountTypeIsRequired(false)
+      setEmailIsRequired(false)
       setTelephoneIsRequired(false)
       setAddressline1Required(false)
       setCityIsRequired(false)
       setZipIsRequired(false)
       setStateIsRequired(false)
+    }
+  }
+
+  useEffect(() => {
+    checkRoles()
+    if (props.PersonID) {
+      findAccount({ PersonID: props.PersonID }).then((response) => {
+        if (response.success && response.data && response.data.AccountID) {
+          setPersonAccountDoesNotExist(false)
+        }
+      })
     }
     findDefaultCountry().then((result) => {
       if (result.success && result.data) {
@@ -85,7 +122,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
       }
     })
     // eslint-disable-next-line
-  }, [])
+  }, [props.Roles])
 
   useEffect(() => {
     getCountries().then((x) => {
@@ -113,32 +150,11 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
       <Row>
         <Col xs={24} sm={24} md={12}>
           <FormMultipleCheckbox
+            disabled={props.disableRole}
             label={"Roles"}
             formInstance={props.formInstance}
             options={rolesOption}
-            onChangeCallback={(items: number[]) => {
-              if (items.includes(3)) {
-                // 3 means Purchase is selected, so address line 1 is required now
-                setAddressline1Required(true)
-                setTelephoneIsRequired(true)
-                setCityIsRequired(true)
-                setZipIsRequired(true)
-                setStateIsRequired(true)
-              } else {
-                props.formInstance.setFields([
-                  { name: fieldNames.TelephoneNumber, errors: [] },
-                  { name: fieldNames.AddressLine1, errors: [] },
-                  { name: fieldNames.Locality, errors: [] },
-                  { name: fieldNames.RegionCodeID, errors: [] },
-                  { name: fieldNames.PostalCode, errors: [] }
-                ])
-                setTelephoneIsRequired(false)
-                setAddressline1Required(false)
-                setCityIsRequired(false)
-                setZipIsRequired(false)
-                setStateIsRequired(false)
-              }
-            }}
+            onChangeCallback={(items: number[]) => checkRoles(items)}
             fieldName="Roles"
             {...PersonformConfig.Roles}
           />
@@ -168,6 +184,46 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             rules={[{ required: true, message: "Please enter last name!" }]}
           />
 
+          {personAccountDoesNotExist && (
+            <>
+              <FormMultipleRadio
+                {...layout}
+                formInstance={props.formInstance}
+                label="Account Type"
+                ariaLabel="Account Type"
+                fieldName="AccountTypeID"
+                displayKey="Name"
+                valueKey="ID"
+                refLookupService={getAccountTypes}
+                disabled={!accountTypeIsRequired}
+                {...PersonformConfig.AccountTypeID}
+                onChangeCallback={(value: number) => {
+                  if (value === AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID) setAffiliateAccountIsRequired(true)
+                  else {
+                    setAffiliateAccountIsRequired(false)
+                    props.formInstance.setFieldsValue({ [PersonformConfig.AccountID]: undefined })
+                  }
+                }}
+                rules={[{ required: accountTypeIsRequired, message: "Please select Account Type!" }]}
+              />
+              <FormDropDown
+                {...layout}
+                formInstance={props.formInstance}
+                label="Affiliated Account"
+                ariaLabel="Affiliated Account"
+                fieldName="AccountID"
+                displayKey="AccountDescriptor"
+                valueKey="AccountID"
+                refLookupService={() =>
+                  findAccountForLookUp({ AccountTypeID: AFFILIATED_ORGANIZATION_ACCOUNT_TYPE_ID })
+                }
+                disabled={!(accountTypeIsRequired && affiliateAccountIsRequired)}
+                {...PersonformConfig.AccountID}
+                rules={[{ required: affiliateAccountIsRequired, message: "Please select Affiliated Account!" }]}
+              />{" "}
+            </>
+          )}
+
           <FormDatePicker
             label={"Date Of Birth"}
             formInstance={props.formInstance}
@@ -181,12 +237,14 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
           <FormInput
             {...layout}
             formInstance={props.formInstance}
-            label={"Email Address"}
-            ariaLabel={"Email Address"}
+            label={"Email"}
+            ariaLabel={"Email"}
             fieldName="EmailAddress"
             maxLength="255"
             {...PersonformConfig.EmailAddress}
-            rules={[{ required: true, message: "Please enter valid email address!", type: "email" }]}
+            {...(emailIsRequired && {
+              rules: [{ required: true, message: "Please enter valid Email!", type: "email" }]
+            })}
           />
 
           <FormInput
@@ -292,7 +350,7 @@ function PersonForm(props: { editMode: boolean; formInstance: FormInstance; Role
             name="CountryCodeID"
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 14 }}
-            rules={[{ required: true, message: "Please select country!" }]}
+            // rules={[{ required: true, message: "Please select country!" }]}
             {...PersonformConfig.CountryCodeID}
           >
             <Select
@@ -331,12 +389,20 @@ export function PersonFormOpenButton(props: {
   buttonType?: ButtonType
   helpKey?: string
   onSubmit?: (Params: IApiResponse) => void
+  disableRole?: boolean
+  disableRedirect?: boolean
 }) {
   const [formInstance] = Form.useForm()
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<Array<ISimplifiedApiErrorMessage>>([])
   const [redirectAfterCreate, setRedirectAfterCreate] = useState<string>()
+
+  const redirect = (response: IApiResponse, closeModal: () => void) => {
+    formInstance.resetFields()
+    closeModal()
+    if (!props.disableRedirect) setRedirectAfterCreate(`/person/${response.data.PersonID}`)
+  }
 
   const onFormSubmission = async (closeModal: () => void) => {
     formInstance.validateFields().then((x) => {
@@ -345,9 +411,7 @@ export function PersonFormOpenButton(props: {
         createPersonRecordInRoles(params).then((response) => {
           setApiCallInProgress(false)
           if (response && response.success) {
-            formInstance.resetFields()
-            closeModal()
-            setRedirectAfterCreate(`/person/${response.data.PersonID}`)
+            redirect(response, closeModal)
           } else {
             console.log("validation failed ", response.error)
             setErrorMessages(response.error)
@@ -386,11 +450,10 @@ export function PersonFormOpenButton(props: {
                 .then((response) => {
                   console.log("validation passed ", response)
                   setApiCallInProgress(false)
+                  props.onSubmit && props.onSubmit(response)
                   if (response && response.success) {
                     message.success(CREATE_SUCCESSFULLY)
-                    formInstance.resetFields()
-                    closeModal()
-                    setRedirectAfterCreate(`/person/${response.data.PersonID}`)
+                    redirect(response, closeModal)
                   } else {
                     console.log("validation failed ", response.error)
                     setErrorMessages(response.error)
@@ -410,9 +473,11 @@ export function PersonFormOpenButton(props: {
         helpKey={props.helpKey}
         customForm={
           <PersonForm
+            disableRole={props.disableRole}
             Roles={props.initialValues && props.initialValues.Roles}
             editMode={false}
             formInstance={formInstance}
+            PersonID={props.initialValues && props.initialValues.PersonID ? props.initialValues.PersonID : undefined}
           />
         }
         formInstance={formInstance}

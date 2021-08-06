@@ -3,7 +3,7 @@ import { Typography, Form, Input, Select, Row, Col } from "antd"
 import { addOrderItemsToPay } from "~/ApiServices/Service/PaymentService"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 import { generatePaymentAllocation } from "~/ApiServices/BizApi/payment/paymentIF"
-import { OrderItemsTableForPayment } from "./OrderItemsTableColumnsForPayment"
+import { OrderItemsTableForPayment } from "~/Component/Feature/Payment/Step2SelectOrderItems/OrderItemsTableColumnsForPayment"
 import { FormInstance } from "antd/lib/form"
 
 export const OrderItemsView = (props: {

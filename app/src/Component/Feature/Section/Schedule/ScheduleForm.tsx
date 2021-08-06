@@ -10,6 +10,7 @@ import { DATE_FORMAT, TIME_FORMAT } from "~/utils/Constants"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import moment from "moment"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IScheduleCreateFormProps {
   sectionId: number
@@ -103,7 +104,18 @@ export default function ScheduleForm(props: IScheduleCreateFormProps) {
 
   return (
     <Card
-      title={props.scheduleIds ? `Update meeting` : "Create new meeting"}
+      title={
+        <Row justify="space-between">
+          <Col>{props.scheduleIds ? `Update meeting` : "Create new meeting"}</Col>
+          <Col>
+            {props.scheduleIds ? (
+              <HelpButton helpKey="sectionScheduleUpdateMeetingForm" />
+            ) : (
+              <HelpButton helpKey="sectionScheduleCreateNewMeetingForm" />
+            )}
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

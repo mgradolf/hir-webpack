@@ -14,6 +14,7 @@ import { FormTextArea } from "~/Component/Common/Form/FormTextArea"
 import { createUpdateStudentHold } from "~/ApiServices/Service/StudentService"
 import "~/Sass/global/index.scss"
 import { FINANCIAL_HOLT_TYPE_ID } from "~/utils/Constants"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IStudentHoldFormProps {
   formInstance: FormInstance
@@ -57,7 +58,14 @@ export default function StudentHoldForm(props: IStudentHoldFormProps) {
 
   return (
     <Card
-      title={isEdit ? "Update Hold" : "Apply Hold"}
+      title={
+        <Row justify="space-between">
+          <Col>{isEdit ? "Update Hold" : "Apply Hold"}</Col>
+          <Col>
+            <HelpButton helpKey={isEdit ? "studentEditHoldForm" : "studentApplyHoldForm"} />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>

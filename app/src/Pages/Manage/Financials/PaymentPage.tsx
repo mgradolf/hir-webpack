@@ -25,6 +25,7 @@ export default function Payments() {
         metaName="PaymentSearchMeta"
         hideSearchField={false}
         tableProps={getPaymentTableColumns(false)}
+        helpKey="financialsPaymentsSearchPayments"
       />
     </>
   )

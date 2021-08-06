@@ -5,11 +5,11 @@ import { addOrderItemsToPay } from "~/ApiServices/Service/PaymentService"
 import { LookupModal } from "~/Component/Common/Modal/LookupModal/LookupModal"
 import { renderDate, renderLink } from "~/Component/Common/ResponsiveTable"
 import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
-import { OrderItemsSearchMetaForPayment } from "./OrderItemsSearchMetaForPayment"
+import { OrderItemsSearchMetaForPayment } from "~/Component/Feature/Payment/Step2SelectOrderItems/OrderItemsSearchMetaForPayment"
 import { FormInstance } from "antd/lib/form"
 import { searchPersons } from "~/ApiServices/BizApi/person/personIF"
-import { OrderItemsView } from "./OrderItemsView"
-import { AllocationItemsView } from "./AllocationItemsView"
+import { OrderItemsView } from "~/Component/Feature/Payment/Step2SelectOrderItems/OrderItemsView"
+import { AllocationItemsView } from "~/Component/Feature/Payment/Step2SelectOrderItems/AllocationItemsView"
 
 export const Step2SelectOrderItems = (props: {
   PersonID?: number
@@ -102,6 +102,7 @@ export const Step2SelectOrderItems = (props: {
       {showModal && (
         <LookupModal
           title="Select Order Items to Pay"
+          helpKey="financialsCreatePaymentAddOrderItemsForm"
           meta={OrderItemsSearchMetaForPayment}
           metaName=""
           closeModal={(items?: any[]) => {

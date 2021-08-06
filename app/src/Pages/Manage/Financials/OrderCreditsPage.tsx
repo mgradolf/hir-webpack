@@ -9,6 +9,7 @@ export default function OrderCreditsPage() {
       title="Manage Credits"
       meta={OrderCreditsSearchMeta}
       metaName="OrderCreditsSearchMeta"
+      helpKey="financialsCreditsSearchCredits"
       hideSearchField={false}
       tableProps={getOrderCreditsTableColumns()}
     />

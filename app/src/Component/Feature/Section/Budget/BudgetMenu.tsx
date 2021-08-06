@@ -7,12 +7,18 @@ interface IBudgetMenu {
   financialId: number
   seatGroups: Array<any>
   sectionFinancialId: number
+  helpKey?: string
 }
 
 export default function FinancialMenu(props: IBudgetMenu) {
   return (
     <>
-      <BudgetEditLink sectionId={props.sectionId} seatGroups={props.seatGroups} financialId={props.financialId} />
+      <BudgetEditLink
+        sectionId={props.sectionId}
+        seatGroups={props.seatGroups}
+        financialId={props.financialId}
+        helpKey={props.helpKey}
+      />
       <BudgetRemoveLink sectionFinancialId={props.sectionFinancialId} />
     </>
   )

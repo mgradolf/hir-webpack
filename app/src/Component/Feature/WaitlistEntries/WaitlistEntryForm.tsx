@@ -11,7 +11,6 @@ import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionL
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
 import { FormInstance } from "antd/lib/form"
-import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { getAccountAffiliation, getAccountByPurchaserID, pushAccount } from "~/ApiServices/Service/AccountService"
 import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
 import { AccountFormMeta } from "~/Component/Feature/Account/FormMeta/AccountFormMeta"
@@ -21,6 +20,7 @@ import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
 import { Redirect } from "react-router"
 import { WaitlistEntryUpdateForm } from "~/Component/Feature/WaitlistEntries/WaitlistEntryUpdateForm"
 import { findWaitListEntries } from "~/ApiServices/BizApi/registration/waitlistIF"
+import { PurchaserLookup } from "~/Component/Common/Form/FormLookupFields/PurchaserLookup"
 
 interface IFormFields {
   SeatGroupID: string
@@ -133,14 +133,14 @@ function WaitlistEntryForm(props: {
           valueKey="UserID"
         />
       )}
-      <PersonLookup
+      <PurchaserLookup
         label="Purchaser"
         formInstance={props.formInstance}
-        fieldName="RequesterPersonID"
-        onSelectedItems={(persons) => {
-          if (Array.isArray(persons) && persons.length > 0) {
-            console.log("persons ", persons)
-            setPurchaser(persons[0])
+        fieldName="PersonID"
+        onSelectedItems={(person) => {
+          if (person && Object.keys(person).length > 0) {
+            console.log("Purchaser ", person)
+            setPurchaser(person)
           } else {
             setPurchaser(undefined)
             setAccount(undefined)

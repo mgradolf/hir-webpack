@@ -9,6 +9,7 @@ import { FormInstance } from "antd/lib/form"
 import { IScheduleNoteFieldNames } from "~/Component/Feature/Section/Interfaces"
 import { eventBus, REFRESH_SECTION_SCHEDULE_PAGE } from "~/utils/EventBus"
 import "~/Sass/utils.scss"
+import { HelpButton } from "~/Component/Common/Form/Buttons/HelpButton"
 
 interface IScheduleNoteFormProps {
   scheduleIds: any
@@ -63,7 +64,14 @@ export default function ScheduleNoteForm(props: IScheduleNoteFormProps) {
 
   return (
     <Card
-      title="Add Notes"
+      title={
+        <Row justify="space-between">
+          <Col>Add Notes</Col>
+          <Col>
+            <HelpButton helpKey="sectionScheduleAddNoteForm" />
+          </Col>
+        </Row>
+      }
       actions={[
         <Row justify="end" gutter={[8, 8]} style={{ marginRight: "10px" }}>
           <Col>
