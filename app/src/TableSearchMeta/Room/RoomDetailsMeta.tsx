@@ -11,9 +11,9 @@ export const getRoomDetailsMeta = (room: { [key: string]: any }): IDetailsMeta =
       { label: "Room Type", value: room.RoomUseType },
       { label: "Mail Stop", value: room.MailStop },
       {
-        label: "room",
-        value: room.roomName,
-        render: (text: any) => renderLink(`/room/${room.roomID}`, room.roomName)
+        label: "Room",
+        value: room.Name,
+        render: (text: any) => renderLink(`/room/${room.RoomID}`, room.Name)
       },
       {
         label: "Site",
