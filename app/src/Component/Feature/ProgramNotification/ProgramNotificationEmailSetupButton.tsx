@@ -10,8 +10,9 @@ import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { getAllUsers } from "~/ApiServices/Service/HRUserService"
 import { saveOrUpdateEmailNotification } from "~/ApiServices/Service/ProgramService"
 import { FormCheckbox } from "~/Component/Common/Form/FormCheckbox"
-import { eventBus } from "~/utils/EventBus"
+import { eventBus, REFRESH_PAGE } from "~/utils/EventBus"
 import { ProgramNotificationEmailRecipeintSection } from "~/Component/Feature/ProgramNotification/ProgramNotificationEmailRecipeintSection"
+import { IApiResponse } from "@packages/api/lib/utils/Interfaces"
 
 interface IFieldNames {
   ProgramEmailNoticeID: any
@@ -49,6 +50,20 @@ const ProgramEmailNotificationForm = (props: {
   const [fromUserSelected, setFromUserSelected] = useState(true)
   return (
     <>
+      <FormInput label="ProgramID" formInstance={props.formInstance} fieldName={FieldNames.ProgramID} hidden />
+      <FormInput
+        label="ProgramEmailEventID"
+        formInstance={props.formInstance}
+        fieldName={FieldNames.ProgramEmailEventID}
+        hidden
+      />
+      <FormInput
+        label="ProgramEmailNoticeID"
+        formInstance={props.formInstance}
+        fieldName={FieldNames.ProgramEmailNoticeID}
+        hidden
+      />
+
       <FormInput formInstance={props.formInstance} label="Subject" fieldName={FieldNames.Subject} />
 
       <FormTextArea formInstance={props.formInstance} label="Message" fieldName={FieldNames.Message} />
@@ -72,7 +87,7 @@ const ProgramEmailNotificationForm = (props: {
         label="From User"
         formInstance={props.formInstance}
         refLookupService={() => getAllUsers({})}
-        displayKey="UserID"
+        displayKey="FormattedName"
         valueKey="UserID"
         fieldName={FieldNames.FromUserID}
         disabled={!fromUserSelected}
@@ -108,26 +123,27 @@ export const ProgramNotificationEmailSetupButton = (props: { EmailNotification: 
   const [apiCallInProgress, setApiCallInProgress] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errorMessages, setErrorMessages] = useState<ISimplifiedApiErrorMessage[]>([])
+
   const onFormSubmission = async (closeModal: () => void) => {
+    await formInstance.validateFields()
+    const params = formInstance.getFieldsValue()
+
+    type serviceMethodType = (params: { [key: string]: any }) => Promise<IApiResponse>
+    const serviceMethoToCall: serviceMethodType = saveOrUpdateEmailNotification
+
     setApiCallInProgress(true)
-    formInstance
-      .validateFields()
-      .then((fields: any) =>
-        saveOrUpdateEmailNotification({
-          ...fields,
-          ...props.EmailNotification
-        })
-      )
-      .then((x) => {
-        if (x.success) {
-          eventBus.publish("REFRESH_NOTIFICATION_PROGRAM")
-          closeModal()
-        } else setErrorMessages(x.error)
-        setApiCallInProgress(false)
-      })
-      .catch(() => {
-        setApiCallInProgress(false)
-      })
+    setErrorMessages([])
+    const response = await serviceMethoToCall(params)
+    setApiCallInProgress(false)
+
+    if (response && response.success) {
+      eventBus.publish(REFRESH_PAGE)
+      closeModal()
+    } else {
+      setErrorMessages(response.error)
+      console.log(response.error)
+      console.log(errorMessages)
+    }
   }
   return (
     <CustomFormModalOpenButton
@@ -147,6 +163,7 @@ export const ProgramNotificationEmailSetupButton = (props: { EmailNotification: 
       buttonLabel="Setup Email Notification"
       iconType="edit"
       errorMessages={errorMessages}
+      disabled={props.EmailNotification.ProgramEmailNoticeID === null}
     />
   )
 }

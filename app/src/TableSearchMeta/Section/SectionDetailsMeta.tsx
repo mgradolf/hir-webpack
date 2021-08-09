@@ -178,7 +178,7 @@ export const getSectionDetailsMeta = (section: { [key: string]: any }): IDetails
       { label: "Load Hours", value: section.LoadHours, render: undefined },
       { label: "CEUs", value: section.CEUHours, render: undefined },
       { label: "Expected Attendance", value: section.AttendanceExpected, render: undefined },
-      { label: "Attendance Unit", value: section.AttendanceUnit, render: undefined }
+      { label: "Attendance Unit", value: section.AttendanceUnitName, render: undefined }
     ]
   }
 

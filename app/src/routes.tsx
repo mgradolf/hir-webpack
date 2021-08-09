@@ -181,6 +181,10 @@ export const AppRoutes: RouteProps[] = [
     component: React.lazy(() => import("~/Pages/Manage/Program/Program/ProgramDetailsPage"))
   },
   {
+    path: "/program/:programID/notice/:noticeID",
+    component: React.lazy(() => import("~/Pages/Manage/Program/Notice/NoticeDetailsPage"))
+  },
+  {
     path: "/program/:programID/seatgroup/:seatGroupID",
     component: React.lazy(() => import("~/Pages/Manage/Courses/Section/SeatGroup/SeatgroupDetails"))
   },

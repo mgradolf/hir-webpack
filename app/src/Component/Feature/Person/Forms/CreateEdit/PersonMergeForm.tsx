@@ -107,7 +107,7 @@ export default function PersonMergeForm(props: IPersonMergeFormProps) {
   }
 
   const onSelectedDuplicatePerson = (persons: any) => {
-    if (persons[0] !== undefined) {
+    if (persons !== undefined && persons[0] !== undefined) {
       setErrorMessages([])
       setDuplicatePerson(persons[0])
     } else {
