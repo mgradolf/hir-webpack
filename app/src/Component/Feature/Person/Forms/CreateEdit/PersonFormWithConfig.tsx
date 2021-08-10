@@ -19,7 +19,8 @@ import { getAccountTypes, getCountries } from "~/ApiServices/Service/RefLookupSe
 import { Redirect } from "react-router"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
-import { findAccount, findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
+import { findAccountForLookUp } from "~/ApiServices/BizApi/account/accountIF"
+import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 
 const layout = {
   labelCol: { span: 8 },
@@ -107,7 +108,7 @@ function PersonForm(props: {
   useEffect(() => {
     checkRoles()
     if (props.PersonID) {
-      findAccount({ PersonID: props.PersonID }).then((response) => {
+      getAccountByPurchaserID({ PersonID: props.PersonID }).then((response) => {
         if (response.success && response.data && response.data.AccountID) {
           setPersonAccountDoesNotExist(false)
         }

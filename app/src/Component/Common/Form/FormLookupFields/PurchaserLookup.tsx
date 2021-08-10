@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import { Col, Row } from "antd"
 import { PersonLookup } from "~/Component/Common/Form/FormLookupFields/PersonLookup"
 import { PersonFormOpenButton } from "~/Component/Feature/Person/Forms/CreateEdit/PersonFormWithConfig"
-import { findAccount } from "~/ApiServices/BizApi/account/accountIF"
 import { IGeneratedField } from "~/Component/Common/Form/common"
+import { getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 
 export const PurchaserLookup = (props: IGeneratedField) => {
   // const [PersonFormInstance] = Form.useForm()
@@ -55,7 +55,7 @@ export const PurchaserLookup = (props: IGeneratedField) => {
   }
 
   const findAndSetAccount = (Person: any) => {
-    findAccount({ PersonID: Person.PersonID }).then((response) => {
+    getAccountByPurchaserID({ PersonID: Person.PersonID }).then((response) => {
       if (response.success && response.data === "") {
         setBuyerCriteria(Person, false)
       } else {

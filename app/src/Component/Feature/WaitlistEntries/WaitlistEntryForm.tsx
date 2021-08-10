@@ -11,9 +11,7 @@ import { SectionLookup } from "~/Component/Common/Form/FormLookupFields/SectionL
 import { FormDropDown } from "~/Component/Common/Form/FormDropDown"
 import { CustomFormModalOpenButton } from "~/Component/Common/Modal/FormModal/CustomFormModalOpenButton"
 import { FormInstance } from "antd/lib/form"
-import { getAccountAffiliation, getAccountByPurchaserID, pushAccount } from "~/ApiServices/Service/AccountService"
-import { MetaDrivenFormModalOpenButton } from "~/Component/Common/Modal/MetaDrivenFormModal/MetaDrivenFormModalOpenButton"
-import { AccountFormMeta } from "~/Component/Feature/Account/FormMeta/AccountFormMeta"
+import { getAccountAffiliation, getAccountByPurchaserID } from "~/ApiServices/Service/AccountService"
 import { FormMultipleRadio } from "~/Component/Common/Form/FormMultipleRadio"
 import { FormInput } from "~/Component/Common/Form/FormInput"
 import { FormDatePicker } from "~/Component/Common/Form/FormDatePicker"
@@ -74,23 +72,25 @@ function WaitlistEntryForm(props: {
     } else {
       setAccount(undefined)
     }
-  }, [purchaser, props.formInstance])
+    // eslint-disable-next-line
+  }, [purchaser])
 
   return (
     <>
-      {SectionID && (
+      {props.SectionID && (
         <>
           <FormInput label="SectionID" fieldName="SectionID" formInstance={props.formInstance} hidden />
           <FormInput label="Section" fieldName="SectionNumber" formInstance={props.formInstance} disabled />
         </>
       )}
-      {!SectionID && (
+      {props.SectionID === undefined && (
         <SectionLookup
           formInstance={props.formInstance}
           label="Section"
           fieldName="SectionID"
           onSelectedItems={(Sections: any[]) => {
             if (Sections.length > 0) {
+              props.formInstance.setFieldsValue({ SectionNumber: Sections[0].SectionNumber })
               setSectionID(Sections[0].SectionID)
             } else {
               setSectionID(undefined)
@@ -136,7 +136,7 @@ function WaitlistEntryForm(props: {
       <PurchaserLookup
         label="Purchaser"
         formInstance={props.formInstance}
-        fieldName="PersonID"
+        fieldName={fieldNames.RequesterPersonID}
         onSelectedItems={(person) => {
           if (person && Object.keys(person).length > 0) {
             console.log("Purchaser ", person)
@@ -152,7 +152,7 @@ function WaitlistEntryForm(props: {
         <>
           <FormInput
             label="Account"
-            fieldName="sdfd"
+            fieldName=""
             defaultValue={account.AccountDescriptor}
             formInstance={props.formInstance}
             readOnly={true}
@@ -161,18 +161,6 @@ function WaitlistEntryForm(props: {
             <Input />
           </Form.Item>
         </>
-      )}
-      {purchaser && !account && (
-        <MetaDrivenFormModalOpenButton
-          buttonLabel="+ Create Account"
-          formTitle="Create Account"
-          formMeta={AccountFormMeta}
-          formMetaName="AccountFormMeta"
-          formSubmitApi={pushAccount}
-          initialFormValue={{ AllowToPayLater: "Not Allowed", DefaultWaitlistPriority: 5 }}
-          defaultFormValue={{ AllowToPayLater: "Not Allowed", DefaultWaitlistPriority: 5 }}
-          refreshEventName="REFRESH_PAGE"
-        />
       )}
       {account && (
         <FormDropDown
@@ -301,13 +289,16 @@ export function WaitlistEntryFormOpenButton(props: {
           setApiCallInProgress(false)
           if (x.success) {
             if (props.SectionID) {
+              formInstance.resetFields()
               eventBus.publish("REFRESH_SECTION_WAITLIST_ENTRIES_PAGE_1")
               closeModal()
             } else if (props.editMode) {
+              formInstance.resetFields()
               message.success(UPDATE_SUCCESSFULLY)
               eventBus.publish(REFRESH_PAGE)
               closeModal()
             } else {
+              formInstance.resetFields()
               message.success(CREATE_SUCCESSFULLY)
               closeModal()
               setRedirectAfterCreate(`/waitlist/${x.data.WaitListEntryID}`)
