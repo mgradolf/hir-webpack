@@ -35,7 +35,7 @@ export default function SecondStepForm(props: ISecondStepFormProps) {
           />
 
           <FormInput
-            maxLength={128}
+            maxLength={50}
             labelColSpan={8}
             wrapperColSpan={14}
             label={"Offering Name"}

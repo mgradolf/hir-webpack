@@ -9,15 +9,13 @@ import { UPDATE_SUCCESSFULLY } from "~/utils/Constants"
 import { eventBus } from "~/utils/EventBus"
 
 export const getNoticeTableColumns = (SectionID: number): ITableConfigProp => {
-  const noticeActivate = (event: any, sectionID: any, sectionNoticeTypeID: any) => {
-    saveSectionNotification({ SectionID: sectionID, SectionNoticeTypeID: sectionNoticeTypeID, IsActive: event }).then(
-      (response) => {
-        if (response.success) {
-          message.success(UPDATE_SUCCESSFULLY)
-          eventBus.publish("REFRESH_SECTION_NOTIFICATION_PAGE_1")
-        }
+  const noticeActivate = (event: any, sectionID: any, record: any) => {
+    saveSectionNotification({ ...record, SectionID: sectionID, IsActive: event }).then((response) => {
+      if (response.success) {
+        message.success(UPDATE_SUCCESSFULLY)
+        eventBus.publish("REFRESH_SECTION_NOTIFICATION_PAGE_1")
       }
-    )
+    })
   }
 
   const columns: TableColumnType = [
@@ -42,7 +40,7 @@ export const getNoticeTableColumns = (SectionID: number): ITableConfigProp => {
       title: "Active",
       dataIndex: "IsActive",
       render: (text: any, record: any) => (
-        <Switch checked={!!text} onChange={(e) => noticeActivate(e, record.SectionID, record.SectionNoticeTypeID)} />
+        <Switch checked={!!text} onChange={(e) => noticeActivate(e, SectionID, record)} />
       )
     }
   ]

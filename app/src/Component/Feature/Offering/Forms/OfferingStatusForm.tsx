@@ -122,8 +122,8 @@ export function OfferingStatusForm(props: IOfferingStatusFormProps) {
                     (x) => {
                       if (x.success) {
                         message.success(UPDATE_SUCCESSFULLY)
-                        setShowForm(false)
                         eventBus.publish(REFRESH_PAGE)
+                        setShowForm(false)
                       }
                       setApiCallInProgress(false)
                     }
